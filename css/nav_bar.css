@@ -1,0 +1,146 @@
+/*
+ * header section
+ */
+#hdrContainer { /* container for title header and nav bar */
+padding:2px;
+	color: white;
+	background-color:#6495ED; /*slateblue*/;
+/*	background:#E1E7EA; */
+/*	width:85em; */
+/*	font-size:90%; */
+}
+
+#hdrEnd { /* container that establishes end of header and beginning of content */
+	display:block;
+	height:0px; 
+	clear:left;
+}
+
+.phContainer { /* container for title header */
+	height:75px;
+	width:100%;
+	text-align: center; 
+	vertical-align: 10%;
+}
+.phLeftDetail { /* header left image field */
+	float:left
+}
+.phRightDetail { /* header right image field */
+	float:right;
+}
+.phTitle { /* header title text container */
+	top: 10px;
+	color: #333333;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size:180%;
+	position:relative;
+}
+.phVersion { /* header version text container */
+	float:right;
+}
+.phVersion a:link, .phVersion a:visited
+{
+	color: Black;
+	font-weight:bold;
+	text-decoration: none;
+	margin: 0;
+}
+.phEntityID {
+	font-family: Helvetica, Arial, sans-serif;
+	position:relative; 
+	top:20%;
+}
+
+
+/* 
+ * drop down menu bar 
+ */
+div#menu  { /* container for nav bar */
+	padding-top:5px;
+	height:2em;
+	color: white;
+	background-color:#6495ED; /*slateblue*/;
+/*	background:#E1E7EA; */
+}
+
+#menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-weight:600;
+}
+
+#menu li { /* all list items */
+  float: left;
+  position: relative;
+  z-index:100;
+}
+
+#menu li li a {
+  width: 14em;
+  display:block;
+  padding:3px 1px 3px 4px;
+  font-weight:500;
+  border-top:1px solid #a0a0a0;
+}
+#menu li span {
+  display:block;
+  color:white;
+}
+
+#menu li.mnusep { /* seperators in drop-down menus */
+	width: 14em;
+	padding:4px 1px 4px 4px;
+	border-top:1px solid #a0a0a0;
+	color: white;
+	background-color:#6495ED; /* slateblue #6495ED */;
+}
+
+#menu li ul { /* second-level lists */
+	display: none;
+	position: absolute;
+	top: 1.1em;
+	left:0;
+	width: 14.5em;
+	border:thin solid gray;
+	background:#E1E7EA;
+}
+
+#menu li>ul { /* to override top and left in browsers other than IE, which will position to the top right of the containing li, rather than bottom left */
+  top: auto;
+  left: auto;
+}
+/*
+#menu li:hover ul, #menu li.over ul { 
+  display: block;
+}
+*/
+#menu span {
+	margin:0 10px 0 10px;
+}
+
+#nav a:link, #nav a:visited, #nav ul, #nav li
+{
+	color: Black;
+	text-decoration: none;
+	margin: 0;
+}
+#nav a:hover {
+	color:yellow;
+	background:#6495ED;
+}
+#nav span a:link, #nav span a:visited, #nav span ul, #nav span li
+{
+	color: White;
+	text-decoration: none;
+	margin: 0;
+}
+#nav span a:hover {
+	color:Yellow;
+}
+
+
+.QueryParamLabel {
+	margin-top:5px;
+}

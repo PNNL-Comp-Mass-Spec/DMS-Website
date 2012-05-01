@@ -1,0 +1,77 @@
+/* 
+ * general formatting for config db "quick start" type pages
+ */ 
+ .fly_aspect {
+ 	width:25em;
+ }
+.fly_aspect_active_area {
+	width:24em;
+}
+.fly_aspect_menu_comment {
+	width:24em;
+	color:blue;
+	font-size:90%;
+	font-style:italic;
+}
+.fly_box {
+	display:none;
+}
+ .qs_aspect {
+ 	width:46em;
+ }
+.qs_aspect_active_area {
+	width:45em;
+}
+.qs_aspect_comment {
+	width:18em;
+}
+.qs_menu {
+	border-style:solid;
+	border-width:2px;
+	border-color:gray;
+	padding:6px;
+	margin-bottom:12px;
+	background-color:#F0F8FF;
+	color:blue;
+	min-height:9em;
+	position:relative;
+}
+.qs_menu_hdr {
+	font-weight:bold;
+	font-size:125%;
+	margin-bottom:0.5em;
+}
+.qs_menu_active_area {
+	color:black;
+	padding:6px 8px 6px 8px; 
+}
+.qs_menu_active_area div {
+}
+.qs_menu_active_area ul {
+  padding: 0;
+  margin: 4px;
+  list-style: none;
+}
+.qs_menu_active_area li {
+	padding-top:.4em;
+	padding-bottom:.4em;
+}
+.qs_menu_comment {
+	color:blue;
+	float:right;
+	padding:8px;
+	position:absolute;
+	top:0;
+	right:0;
+}
+.qs_menu_comment span {
+	font-size:90%;
+	font-style:italic;
+}
+.qs_more {
+	display:none;
+}
+.qs_layout td {
+	vertical-align:top;
+	padding-right:8px;
+}

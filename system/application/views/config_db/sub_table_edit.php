@@ -1,0 +1,3 @@
+
+<?= $edit_table ?>
+<?= $post ?>

@@ -1,0 +1,95 @@
+/* expandable list with alternate switch symbol */
+
+body.menu_panel {
+    background-color: #E1E7EA;
+}
+
+table.connHdr {
+	width:95%;
+	border:1px solid gray;
+	margin:5px 0px 5px 0px;
+	background:#F3F7F8;
+	padding:2px;
+	font-size:80%;
+}
+
+.searchpnl {
+	width:95%;
+	border:1px solid gray;
+	font-size:80%;
+	margin:5px 0 0 0;
+	padding:2px 2px 2px 2px; 
+}
+
+div.searchpnl select {
+	font-size:90%;
+}
+
+div.searchpnl span {
+	margin:0 0 0 0;
+	padding:2px 2px 2px 2px; 
+	width:100%;
+}
+
+.submenu {
+    margin-left: 17px;
+}
+
+ul.mnupnl {
+    margin: 0;
+    padding: 0;
+}
+
+ul.mnupnl ul {
+    display: none;
+    margin: 0;
+    padding-left: 15px;
+}
+
+ul.mnupnl li {
+    list-style-type: none;
+    font-weight: normal;
+    position: relative;
+		padding-bottom: .15em;
+}
+
+ul.mnupnl a {
+    display: block;
+    margin-left: 15px;
+    padding: 2px;
+    text-decoration: none;
+    width: 100%;
+}
+
+html>body ul.mnupnl a { width: auto; } /* hidden from Win/IE */
+
+ul.mnupnl a:hover {
+}
+
+ul.mnupnl a.switch {
+    background: transparent url(/images/arrows.gif) no-repeat top left;
+    border: none;
+    position: absolute;
+    top: 0.2ex;
+    width: 10px;
+    height: 10px;
+    line-height: 0px; /* Win/IE needs this for some reason */
+    margin: 0;
+    padding: 0;
+    text-indent: -500px;
+/*    left: 6px; */
+}
+
+ul.mnupnl a.switch:hover {
+    background-color: transparent;
+    border: none;
+}
+
+ul.mnupnl a.on { background-position: bottom left; }
+ul.mnupnl a.off { background-position: top left; }
+
+/* Box-model hacks for Win/IE 5.5 \*/
+* html ul.mnupnl { width: 202px; w\idth: 177px; }
+* html ul.mnupnl a { margin-left: 0px; ma\rgin-left: 17px; }
+* html ul.mnupnl a.switch { left: -11px; lef\t: 6px; }
+/* end hacks */

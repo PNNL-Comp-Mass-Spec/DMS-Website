@@ -1,0 +1,76 @@
+
+<div style='padding:6px;'>
+<div style='position:relative; height:1em;'>
+	<div style='position:absolute; top:0; left:0em;'>
+	<span style='font-weight:bold;'><a href="javascript:showHideMenuDiagram();"><span id='diag_ctl_label'>Show Section Menus</span></a></span>
+	</div>
+	<div style='position:absolute; top:0; left:14em;'>
+	<span style='font-weight:bold;'><a href='http://prismwiki.pnl.gov/wiki/Data_Management_System'>Overview...</a></span>
+	</div>
+	<div style='position:absolute; top:0; left:24em;'>
+	<span style='font-weight:bold;'><a href='http://prismwiki.pnl.gov/wiki/DMS_Getting_Started'>Getting Started...</a></span>
+	</div>
+	<div style='position:absolute; top:0; left:36em;'>
+	<span style='font-weight:bold;'><a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide'>DMS Quick Start...</a></span>
+	</div>
+	<div style='position:absolute; top:0; left:48em;'>
+	<span style='font-weight:bold;'><a href='<?= site_url()?>gen/stats'>Statistics...</a></span>
+	</div>
+	<div style='position:absolute; top:0; left:58em;'>
+	<span style='font-weight:bold;'><a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>Proteomics queue...</a></span>
+	</div>
+</div>
+</div>
+
+<MAP NAME="visImageMap">
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Biomaterial')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Cell Culture/Biomaterial" TITLE="Cell Culture/Biomaterial" HREF="<?= site_url() ?>cell_culture/report" COORDS="243,242,409,242,409,170,243,170,243,242">
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Data Analysis')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Data Analysis Job" TITLE="Data Analysis Job" HREF="<?= site_url() ?>analysis_job/report" COORDS="243,600,409,600,409,528,243,528,243,600" >
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Datasets')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Dataset  (LCMS Run)" TITLE="Dataset  (LCMS Run)" HREF="<?= site_url() ?>dataset/report" COORDS="243,480,409,480,409,409,243,409,243,480" >
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Experiments')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Experiment (Prepared Sample)" TITLE="Experiment (Prepared Sample)" HREF="<?= site_url() ?>experiment/report" COORDS="243,361,409,361,409,289,243,289,243,361" >
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Analysis Request')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Anaysis Job Request" TITLE="Anaysis Job Request" HREF="<?= site_url() ?>analysis_job_request/report" COORDS="1,600,168,600,168,528,1,528,1,600" >
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Requested Run')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Requested Run" TITLE="Requested Run" HREF="<?= site_url() ?>requested_run/report" COORDS="1,480,168,480,168,409,1,409,1,480" >
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Material Storage')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Material Storage (Freezers)" TITLE="Material Storage (Freezers)" HREF="<?= site_url() ?>material_container/report/-/-/-" COORDS="1,242,168,242,168,170,1,170,1,242" >
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Sample Prep')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Sample  Prep  Request" TITLE="Sample  Prep  Request" HREF="<?= site_url() ?>sample_prep_request/report" COORDS="1,361,168,361,168,289,1,289,1,361" >
+  <AREA shape="POLYGON" onmouseover="showFlyMenuOnDelay('Campaign')" onmouseout="cancelShowFlyMenuOnDelay()" ALT="Campaign" TITLE="Campaign" HREF="<?= site_url() ?>campaign/report" COORDS="243,88,409,88,409,16,243,16,243,88" >
+</MAP>
+
+<div id='diagram_section' style='position:relative;margin-left:15px;'>
+<div style='height:15px;'></div>
+<div>
+<img src='<?= base_url()."images/dms_hierarchy_5.gif" ?>' border='0' USEMAP="#visImageMap">
+</div>
+
+<div id='fly_section' style='position:absolute;top:2em;left:700px;width:25em;'>
+<?= make_fly_section_layout($qs_section_defs); ?>
+<div id='splash_message' class='fly_box'>
+<h2>DMS Hierarchy </h2>
+<p>DMS uses these entities to keep track of the proteomics process</p>
+<p>An understanding of what each one represents, and how it fits in, is essential for proper use of DMS</p>
+<p>There are some useful links for each entity in the sections below.  Once you know your way around DMS, using either the side menu panel or the drop-down menu bar may be more convenient.</p>
+<p>If you haven't a clue where to start, try <a href='http://prismwiki.pnl.gov/wiki/Data_Management_System'>Overview...</a></p>
+<p>If want to dig into the basics, try <a href='http://prismwiki.pnl.gov/wiki/DMS_Getting_Started'>Getting Started...</a></p>
+<p>If you want to learn more about the features that DMS provides, try <a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide'>DMS Quick start...</a></p>
+</div> <!-- end 'splash_message' -->
+</div> <!-- end 'fly_section' -->
+</div> <!-- end 'diagram_section' -->
+
+<div style='height:10px;'></div>
+<div id='menu_sections' style='display:none;'>
+<?= make_qs_layout($qs_section_defs); ?>
+</div> <!-- end 'menu_sections' -->
+
+<div style='height:2em;'></div>
+<div id='disclaimer_message' style="width:55em;">
+<p>
+The DMS is part of PRISM, the Proteomics Research Information Storage and Management System.
+DMS acquires data from mass spectrometers, collects laboratory information, and tracks and controls the intermediate data processing.
+</p>
+<p>
+You may use the <a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>proteomics queue </a>
+to request assistance (login with your PNNL username and password).
+In case of an extremely urgent need for assistance, you may contact Ron Moore (371-6339) or Danny Orton (371-6578).
+</p>
+<p>
+PRISM was created by Pacific Northwest National Laboratory for the U.S. Department of Energy under Contract Number DE-AC06-76RLO1830 and is operated under Contract Number DE-AC05-76RL01830.
+</p>
+</div> <!-- end 'disclaimer_message' -->

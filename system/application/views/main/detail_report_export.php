@@ -1,0 +1,8 @@
+
+<div class="LRepExport" >
+Download in other formats:
+|<span><a href='<?= site_url(). $tag ?>/export_detail/<?= $id ?>/excel' >Excel</a></span>
+|<span><a href='<?= site_url(). $tag ?>/export_detail/<?= $id ?>/tsv' >Tab-Delimited Text</a></span>
+|<span><a href='<?= site_url(). $tag ?>/export_spreadsheet/<?= $id ?>/data' >Spreadsheet Template</a></span>
+|
+</div>

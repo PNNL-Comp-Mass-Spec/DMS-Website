@@ -1,0 +1,7 @@
+syntax: glob
+.svn/
+logs/*
+*.zip
+license.txt
+.project
+.buildpath

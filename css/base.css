@@ -1,0 +1,349 @@
+/* 
+ * general formatting for body 
+ */
+body {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 12px;
+    margin: 0px;
+    padding-left: 10px;
+    padding-right: 5px;
+    background-color: #FAFAFA;
+/*    background-image: url(Images/FLECKa.jpg) */
+}
+
+/* 
+ * Some generally used colors 
+ */
+.bad_clr { 
+	color: red;
+} 
+.warning_clr {
+	color: #FF8C00;
+}
+.enabled_clr {
+	color: green;
+}
+.clr_30 {
+	background-color:#E5FFE5;
+}
+.clr_60 {
+	background-color:#FFFF75;
+}
+.clr_90 {
+	background-color:#FF9933;
+	color: Black ;
+	font-weight: bold;
+}
+.clr_120 {
+	background-color:red;
+	color: SeaShell ;
+	font-weight: bold;
+}
+/*
+ * page titles
+ */
+h2.page_title {
+	font-size:22px;
+}
+
+/*
+ * buttons
+ */
+.lst_cmd_btn {
+	min-width:12em;
+}
+.entry_btn {
+	min-width:12em;
+}
+.search_btn {
+}
+/* 
+ * styling for entry page main table 
+ */
+table.EPag {
+	margin-top: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 1px 1px;
+	border-style: solid solid solid solid;
+	border-color: gray gray gray gray;
+	border-collapse: separate;
+	background-color: #bfbfbf;
+}
+table.EPag th {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: hidden hidden hidden hidden;
+	border-color: gray gray gray gray;
+	background-color: #E1E7EA;
+}
+table.EPag td {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: hidden hidden hidden hidden;
+	background-color: #EFEFEF;
+}
+table.EPag h2 {
+	display: inline;
+}
+table.EPag td a:link, table.EPag td a:visited, table.EPag td a:active {
+	color: #003399;
+}
+table.EPag td a:hover {
+	color:red;
+}
+table.EPag span.ePhelper {
+	padding: 0px 0px 0px 4px;
+	font-size: 90%;
+	display: inline;
+}
+
+.EPag_message {
+	width:80%;
+	border: thin double black; 
+	padding: 4px 4px 4px 4px;
+}
+.EPag_error {
+	width:80%;
+	border: medium double red; 
+	padding: 4px 4px 4px 4px;
+}
+.EPagCmds {
+	padding: 4px 4px 4px 4px;
+}
+.EPagCmds a {
+	padding: 0px 4px 0px 6px;
+}
+
+/* 
+ * styling for alternating color bands
+ */
+.ReportOddRow {
+    background-color: #EFEFEF;
+}
+.ReportEvenRow {
+    background-color: white;
+}
+
+/* 
+ * styling for detail report page main table
+ */
+table.DRep {
+	margin-top: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 1px 1px;
+	border-style: solid solid solid solid;
+	border-color: gray gray gray gray;
+	border-collapse: separate;
+	background-color: #bfbfbf;
+	clear:left;
+}
+table.DRep th {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: hidden hidden hidden hidden;
+	border-color: gray gray gray gray;
+	background-color: #E1E7EA;
+}
+table.DRep td {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: hidden hidden hidden hidden;
+}
+table.DRep h2 {
+	display: inline;
+}
+
+table.DRep span {
+	padding: 1px 1px 1px 8px;
+}
+
+.DrepAuxInfo {
+	padding: 5px 0px 2px 2px;
+}
+.DrepAuxInfo span {
+	padding: 0px 5px 0px 5px;
+}
+.DrepCmds {
+	padding: 4px 4px 4px 4px;
+}
+.DrepCmds a {
+	padding: 0px 4px 0px 6px;
+}
+
+/* 
+ * styling for list report page main table 
+ */
+table.LRep {
+	margin: 0px;
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 1px 1px;
+	border-style: solid solid solid solid;
+	border-color: gray gray gray gray;
+	border-collapse: separate;
+	background-color: #bfbfbf;
+}
+table.LRep th {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: hidden hidden hidden hidden;
+	border-color: gray gray gray gray;
+	text-align: left;
+	white-space: nowrap;
+	background-color: #E1E7EA;
+}
+table.LRep td {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: hidden hidden hidden hidden;
+}
+table.LRep h2 {
+	display: inline;
+}
+table.LRep td.rht{
+	text-align: right;
+}
+
+/* 
+ * styling for list report paging controls 
+ */
+.LRepPager {
+	padding:0 4em 0 0;
+	/* font-size: 0.8em; */
+}
+
+/* 
+ * styling for list report filter forms
+ */
+.LRepFilter {
+	padding: 4px;
+	background-color: #BFDBFF;	
+}
+.LRepFilter span {
+	padding:0px 5px 0px 5px;
+}
+.primary_filter_field {
+	color:#DC143C;
+}
+
+/* 
+ * styling for list report document export controls
+ */
+.LRepExport {
+	padding: 5px 2px 5px 10px;
+	font-size: 0.9em;
+}
+.LRepExport span {
+	padding: 0px 5px 0px 5px;
+}
+
+/* 
+ * styling for list report filter forms
+ */
+.LRepChooser {
+	padding: 10px 0px 10px 0px;	
+}
+.LRepChooser span {
+	padding: 1px 5px 1px 5px;
+	font-weight:bold;
+	font-size:110%;
+}
+.LRepProgress {
+	font-weight:bold;
+	letter-spacing: 0.25em;
+	color:#00008B;
+}
+
+/* 
+ * styling for list report commands 
+ */
+.LRCmds div {
+	padding: 6px 6px 6px 6px;
+	font-weight:500;
+}
+
+/* 
+ * formatting for alternating color bands in reports
+ */
+.ReportCategoryRow {
+	background-color: #F0F0F0;
+	font-weight: bold;
+/*	font-size: larger; */
+}
+
+.ReportSubcategoryRow {
+	background-color: white;
+	font-weight: bold;
+}
+
+
+.ReportOddRow {
+    background-color: #EFEFEF;
+}
+
+.ReportEvenRow {
+    background-color: white;
+}
+
+.paging_controls {
+	background-color:white;
+	border:1px solid gray; 
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.local_title {
+	font-size:22px;
+	font-weight:bold;
+	padding:3px 0 3px 0;
+}
+.FTab {
+	border:2px solid #BBBBBB;
+	background:#EFEFEF;
+	padding-right:5px;
+}
+.filter_caption {
+	text-align:center;
+	padding-bottom:5px;
+}
+.filter_label {
+	font-weight:500;
+}
+.filter_clear {
+	font-size:0.9em;
+	vertical-align:top;
+}
+.filter_col {
+		border:2px solid #BBBBBB;
+}
+/* 
+ * containers for command buttons on report and entry pages
+ */
+.RepCmds, .EntryCmds{
+}
+.RepCmds ul, .EntryCmds ul  {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.RepCmds li, .EntryCmds li  {
+	padding: 5px 5px 5px 5px;
+}
+.RepCmdsResponse {
+	padding:0px 5px 5px 5px;
+	font-weight: bold;
+}
+
+/* 
+ * styling for aux info entry page 
+ */
+.aux_info_label {
+	padding:5px 0px 2px 0px;
+	font-weight: bold;
+}
+
+/*
+ * styling for list report filter box
+ */
+#filter_box {
+	background-color: #BFDBFF;
+	border:1px solid gray;
+}

@@ -1,0 +1,44 @@
+/* 
+ * general formatting for config db pages
+ */
+.cfg_tab {
+	font-size:11px;
+	font-family:verdana, arial, helvetica, sans-serif;
+	background-color:#B0B0B0;	
+	margin-top:10px;
+	border-spacing:1px;
+}
+
+.cfg_tab td {
+	background-color:#FDF8E9;
+	padding:5px;
+	vertical-align:top;
+}
+.cfg_tab th {
+	text-align:left;
+	color:white;	
+	padding:5px;
+	background-color:#3366FF;	
+}
+
+.cfg_tab th span {
+	font-size:130%
+}
+
+.cfg_tab th div {
+	width:25em;
+}
+
+.cfg_tab input {
+	font-size:11px;
+	font-family:verdana, arial, helvetica, sans-serif;
+}
+
+.cfg_hdr {
+	font-size:140%;
+}
+.cfg_id_link {
+	color: Black;
+	text-decoration: none;
+}
+
