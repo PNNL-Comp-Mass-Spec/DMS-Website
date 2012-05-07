@@ -4,7 +4,7 @@
 #hdrContainer { /* container for title header and nav bar */
 padding:2px;
 	color: white;
-	background-color:#6495ED; /*slateblue*/;
+	background-color:#6495ED; /*slateblue*/
 /*	background:#E1E7EA; */
 /*	width:85em; */
 /*	font-size:90%; */
@@ -60,7 +60,7 @@ div#menu  { /* container for nav bar */
 	padding-top:5px;
 	height:2em;
 	color: white;
-	background-color:#6495ED; /*slateblue*/;
+	background-color:#6495ED; /*slateblue*/
 /*	background:#E1E7EA; */
 }
 
@@ -94,7 +94,7 @@ div#menu  { /* container for nav bar */
 	padding:4px 1px 4px 4px;
 	border-top:1px solid #a0a0a0;
 	color: white;
-	background-color:#6495ED; /* slateblue #6495ED */;
+	background-color:#6495ED; /* slateblue #6495ED */
 }
 
 #menu li ul { /* second-level lists */

@@ -88,8 +88,3 @@ ul.mnupnl a.switch:hover {
 ul.mnupnl a.on { background-position: bottom left; }
 ul.mnupnl a.off { background-position: top left; }
 
-/* Box-model hacks for Win/IE 5.5 \*/
-* html ul.mnupnl { width: 202px; w\idth: 177px; }
-* html ul.mnupnl a { margin-left: 0px; ma\rgin-left: 17px; }
-* html ul.mnupnl a.switch { left: -11px; lef\t: 6px; }
-/* end hacks */
