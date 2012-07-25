@@ -57,6 +57,7 @@ class run_tracking extends Base_controller {
 		
 		if($instrument) {
 			$result = $this->get_run_info_3($instrument, $year, $month);
+			$this->maxNormalInterval = $this->get_long_interval_threshold();
 			$intervals = $this->collect_long_intervals_by_day($result);
 			$runs = $this->collect_run_duration_by_day($result);
 			$calendarData = $this->build_calendar_data($runs, $intervals);
@@ -83,7 +84,10 @@ class run_tracking extends Base_controller {
 		
 		// link to usage report report
 		$data['report_link'] = site_url() . "usage_reporting/param/$instrument/$year/$month/details";
-				
+
+		// link to ERS report report
+		$data['ers_link'] = site_url() . "instrument_usage_report/report/$year/$month/$instrument";
+		
 		$this->load->vars($data);
 		$this->load->view('usage_tracking/cal2');
 	}
@@ -117,6 +121,16 @@ EOD;
 		return $result;
 	}
 
+	// --------------------------------------------------------------------
+	private
+	function get_long_interval_threshold()
+	{
+		$this->load->database();
+		$query = $this->db->query('SELECT dbo.GetLongIntervalThreshold() AS Threshold');
+		$row = $query->row();
+		return $row->Threshold;
+	}
+	
 	// --------------------------------------------------------------------
 	private
 	function get_instrument_list()

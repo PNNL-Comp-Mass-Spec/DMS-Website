@@ -44,7 +44,7 @@ class pipeline_jobs extends Base_controller {
 	
 		// use parameter set XML to build supplemental form
 		if(!empty($params)) {
-			echo $this->build_param_entry_form($params);
+			echo $this->build_param_entry_form($params, $default_key);
 		} else {
 			$lnk = "<a href='javascript:void(0)' onclick='load_param_form()' >here</a>";
 			if(!$default_key) {
@@ -152,6 +152,7 @@ class pipeline_jobs extends Base_controller {
 				$a['section'] = $param->getAttribute('Section');
 				$a['Reqd'] = $param->getAttribute('Reqd');
 				$a['step'] = $param->getAttribute('Step');
+				$a['user'] = $param->getAttribute('User');
 				$key = $a['section'].'|'.$a['name'];
 				$result[$key] = $a;
 			}
@@ -164,28 +165,35 @@ class pipeline_jobs extends Base_controller {
 	// for supplemental form to edit them
 	// TODO: move this to some other module (libraries/entry_form?)
 	private
-	function build_param_entry_form($params)
+	function build_param_entry_form($params, $script)
 	{
 		$str = "";
 		$section_header = "";
 		$header_style = "font-weight:bold;";
 		if(!empty($params)) {
+
+			$show_class = 'show_input';
+			$hide_class = 'hide_input';
+			$vis_controls = $this->build_visibility_controls($show_class, $hide_class);
+			
 			$str .= "<table class='EPag'>\n";
-	
+			
+			$str .= "<tr><td colspan='4' style='height:2em; padding-left: 1em; vertical-align: middle;'>$vis_controls</td></tr>";
+			
 			$str .= "<tr>";
 			$str .= "<th>Parameter Name</th>";
 			$str .= "<th>Req'd</th>";
 			$str .= "<th>Parameter Value</th>";
 			$str .= "<th>Step Lock</th>";
 			$str .= "</tr>\n";
-	
+						
 			foreach($params as $param) {
 				$value = $param['value'];
 				$name = $param['name'];
 				$section = $param['section'];
 				$type = $param['type'];
 				$size = $param['size'];
-				$step =$param['step'];
+				$step =($param['step'])?"Yes (" . $param['step'] . ")":"";
 				$sectionName = ($step)?"$section.$name.$step":"$section.$name";
 				
 				if($section_header != $section) {
@@ -194,10 +202,13 @@ class pipeline_jobs extends Base_controller {
 				$section_header = $section;
 
 				$json = '{ "name":"'.$name.'", "value":"'.$value.'", "section":"'.$section.'"}';
-				$class = '';
+				$class = ($param['user'] == "Yes")?"class='$show_class'":"class='$hide_class'";
+				$highlight = (($param['user'] == "Yes"))?" style='color:blue;'":"";
+				$help_link = $this->build_wiki_help_link($script, $param['name']);
+
 				// place row fields in table cells in table row
 				$str .= "<tr $class>";
-				$str .= "<td>".$param['name']."</td>";
+				$str .= "<td>${help_link}<span $highlight> " . $param['name'] . "</span></td>";
 				$str .= "<td>".$param['Reqd']."</td>";
 				switch($type) {
 					case 'text':
@@ -211,6 +222,32 @@ class pipeline_jobs extends Base_controller {
 		$str .= "</table>\n";	
 		return $str;
 	}
-	
+
+	// --------------------------------------------------------------------
+	// build controls for collapsing and expanding parameter form
+	private
+	function build_visibility_controls($show_class, $hide_class)
+	{
+		$str = "";
+		$str .= "<a href=\"javascript:set_param_row_visibility('$hide_class', 'none')\">Collapse</a> to essentials &nbsp; &nbsp;";
+		$str .= "<a href=\"javascript:set_param_row_visibility('$hide_class', 'table-row')\">Expand</a> to show all";
+		return $str;
+	}
+
+	// -----------------------------------
+	// 
+	private
+	function build_wiki_help_link($script, $label)
+	{
+		$s = "";
+		$file_tag = $this->my_tag;
+		$nsLabel = str_replace(" ", "_", $label);
+		$CI =& get_instance();
+		$pwiki = $CI->config->item('pwiki');
+		$wiki_helpLink_prefix = $CI->config->item('wikiHelpLinkPrefix');
+		$href = "${pwiki}${wiki_helpLink_prefix}${file_tag}_${script}#${nsLabel}";
+		$s .= "<a class=help_link target = '_blank' title='Click to bring up PRISM Wiki help page' href='".$href."'><img src='" . base_url(). "/images/help.png' border='0' ></a>";
+		return $s;
+	}	
 }
 ?>

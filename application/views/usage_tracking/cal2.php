@@ -83,6 +83,7 @@ function goToPage(id) {
 <span class='repLink' ><a href='<?= $tracking_link ?>'>Tracking Report</a></span>
 <span class='repLink' ><a href='<?= $log_link ?>'>Operations Logs</a></span>
 <span class='repLink' ><a href='<?= $report_link ?>'>Usage Report</a></span>
+<span class='repLink' ><a href='<?= $ers_link ?>'>ERS Report</a></span>
 </div>
 
 </div>

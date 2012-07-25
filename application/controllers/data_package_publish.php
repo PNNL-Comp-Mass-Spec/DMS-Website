@@ -14,7 +14,26 @@ class data_package_publish extends Base_controller {
 
 		$this->load->model('M_data_package_publish', 'model', TRUE);		
 	}
+	
+	// --------------------------------------------------------------------
+	// receive manifest of files (via POST) and send to download server
+	function submit()
+	{
+		$manifest = $this->input->post('manifest');
+		send_manifest_to_download_server($manifest);
+	}
 
+	// --------------------------------------------------------------------
+	// send file download manifest to download server web service
+	private function send_manifest_to_download_server($manifest)
+	{
+		// FUTURE: change code to actually send to web service
+		// for now, just dump the manifest to output as plain text 
+		header("Content-type: text/plain");
+		return $manifest;
+	}
+
+/*
 	// --------------------------------------------------------------------
 	// send manifest of files (and email addresses for notification) to download server
 	function download($data_package_ID)
@@ -48,17 +67,7 @@ class data_package_publish extends Base_controller {
 		echo $response;
 	}
 	
-	
-	// --------------------------------------------------------------------
-	// send file download manifest to download server web service
-	private function send_manifest_to_download_server($manifest)
-	{
-		// FUTURE: change code to actually send to web service
-		// for now, just dump the manifest to output as plain text 
-		header("Content-type: text/plain");
-		return $manifest;
-	}
-
+*/	
 	// --------------------------------------------------------------------
 	// convert an array of rows (as arrays) into XML text
 	// where each row becomes an XML element with the fields as attributes
@@ -108,6 +117,7 @@ class data_package_publish extends Base_controller {
 		header("Content-type: text/plain");
 		return $description;
 	}
-	
+
+
 }
 ?>

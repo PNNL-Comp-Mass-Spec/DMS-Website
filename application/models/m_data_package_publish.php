@@ -1,10 +1,10 @@
-<?php		class M_data_package_publish extends CI_Model {
+<?php		class M_data_package_publish extends Model {
 	
 	// --------------------------------------------------------------------
 	function __construct() 
 	{
 		//Call the Model constructor
-		parent::__construct();
+		parent :: Model();
 	}
 	
 	// --------------------------------------------------------------------

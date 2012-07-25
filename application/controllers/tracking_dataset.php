@@ -1,16 +1,17 @@
 <?php
 require("base_controller.php");
 
-class dataset_instrument_runtime extends Base_controller {
-	
+class tracking_dataset extends Base_controller {
 	// --------------------------------------------------------------------
 	function __construct()
 	{
 		// Call the parent constructor
 		parent::__construct();
 
-		$this->my_tag = "dataset_instrument_runtime";
-		$this->my_title = "Dataset Instrument Runtime";
+		$this->my_tag = "tracking_dataset";
+		$this->my_title = "Tracking Dataset";
 	}
 }
+
+
 ?>

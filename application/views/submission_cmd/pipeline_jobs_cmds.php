@@ -51,6 +51,7 @@ function load_param_form() {
 		parameters: p,
 		onSuccess: function(transport) {
 			$(container).update(transport.responseText);
+			set_param_row_visibility("hide_input", "none");
 		}
 	});	
 }
@@ -74,6 +75,11 @@ function load_script_diagram() {
 	}
 }
 
+function set_param_row_visibility(class_name, visibility) {
+	var tag = '.' + class_name;
+	$$(tag).each(function(obj){ obj.style.display = visibility; } );
+}
+
 //try and set up the supplemental form when the page loads
 Event.observe(window, 'load', function() { 
 	load_param_form();
@@ -82,14 +88,13 @@ Event.observe(window, 'load', function() {
 );	
 </script>
 
-
 <form name="frmParams" id="param_form" action="#">
 <div id='param_container'>
 <!-- supplemental form fields load here via AJAX -->
 </div>
 </form>
 
-<a href="javascript:load_script_diagram()">Script...</a>
+<div style='padding:4px;'><a href="javascript:load_script_diagram()">Script...</a></div>
 <div id="script_diagram_container">
 </div>
 
