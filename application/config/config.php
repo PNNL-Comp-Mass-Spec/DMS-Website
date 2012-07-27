@@ -46,7 +46,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']	= 'PATH_INFO';
 
 /*
 |--------------------------------------------------------------------------
@@ -369,16 +369,16 @@ $config['proxy_ips'] = '';
 $config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
 $config['wikiHelpLinkPrefix'] = 'DMS_Help_for_';
 
-$config['version_color_code'] = 'black';
-$config['version_label'] = 'Production';
+$config['version_color_code'] = 'blue';
+$config['version_label'] = 'Testing';
 
 $config['inhibit_sproc_call'] = FALSE;
 $config['sproc_call_log_enabled'] = FALSE;
 
-$config['modify_config_db_enabled'] = FALSE;
+$config['modify_config_db_enabled'] = TRUE;
 
 
-$config['file_attachment_archive_root_path'] = "/archive/dmsarch/dms_attachments/";
+$config['file_attachment_archive_root_path'] = "/archive/dmsarch/dms_attachments/dmsarch_testing/";
 
 
 /* End of file config.php */
