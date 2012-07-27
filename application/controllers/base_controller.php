@@ -145,8 +145,7 @@ class Base_controller extends CI_Controller {
 
 	// --------------------------------------------------------------------
 	function show($id)
-	{
-echo $id;		
+	{	
 		if(!$this->cu->check_access('show')) return;
 		$this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
 		$this->detail_report->detail_report($id);
