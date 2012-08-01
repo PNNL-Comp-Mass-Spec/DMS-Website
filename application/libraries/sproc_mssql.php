@@ -24,7 +24,7 @@ class Sproc_mssql {
 			$nm = '@'.$arg['name'];  // sproc arg name needs prefix
 			$tp = constant($this->tpconv[$arg['type']]); // convert type name to constant
 			$dr = $arg['dir']=='output'; // convert direction to boolean
-			$sz = $arg['size'];
+			$sz = ($arg['size'])?$arg['size']:-1;
 			$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
 //			echo "arg:'{$nm}', var:'{$fn}', type:'{$tp}',  dir:'{$dr}',  size:'{$sz}', (value)'{$par->$fn}' <br>";
 			$ok = mssql_bind($stmt, $nm, $par->$fn, $tp, $dr, false, $sz);
