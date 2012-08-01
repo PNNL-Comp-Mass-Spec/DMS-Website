@@ -226,10 +226,10 @@ class cell_presentation {
 				$url = $ref;
 				$link_url = $url;
 				if($target) {
-					$url_parts = split('/', $ref);
+					$url_parts = explode('/', $ref);
 					$last_seg = count($url_parts) - 1;
 					$url_parts[$last_seg] = $target;
-					$link_url = join("/", $url_parts);
+					$link_url = implode("/", $url_parts);
 				}
 				$width = "250";
 				if(array_key_exists('Options', $colSpec) && array_key_exists('width', $colSpec['Options']) ) {

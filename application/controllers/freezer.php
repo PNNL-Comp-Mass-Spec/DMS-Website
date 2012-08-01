@@ -47,7 +47,7 @@ class Freezer extends CI_Controller {
 		if($str) {
 			// split blob of input text into an array of lines
 			$str = str_replace(chr(13), '', $str); // clean out lf
-			$lines = split(chr(10), $str); // break on cr
+			$lines = explode(chr(10), $str); // break on cr
 
 			$freezer = ''; $shelf = ''; $rack = ''; $row = 0;
 			foreach($lines as $line) {
@@ -65,7 +65,7 @@ class Freezer extends CI_Controller {
 					// information
 					if($row==0) {
 						// freezer, shelf, rack
-						list($freezer, $shelf, $rack) = split(',', $a[0]);
+						list($freezer, $shelf, $rack) = explode(',', $a[0]);
 						$freezer = trim(preg_replace('/Freezer\s+/i', '', $freezer));
 						$shelf = trim(preg_replace('/Shelf\s+/i', '', $shelf));
 						$rack = trim(preg_replace('/Rack\s+/i', '', $rack));

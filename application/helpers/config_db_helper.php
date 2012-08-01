@@ -451,7 +451,7 @@ echo "</th></tr>\n";
 					if($c == 'tables') {
 						$title = $v;
 						$url = 'javascript:void(0)';
-						$x = count(split(',', $v));
+						$x = count(explode(',', $v));
 						$link = "<a href='$url' title='$title'>$x</a> &nbsp;";
 						$v = '';
 					}
