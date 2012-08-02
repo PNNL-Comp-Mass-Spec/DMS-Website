@@ -8,7 +8,7 @@ class Data extends CI_Controller {
 	// --------------------------------------------------------------------
 	function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 	}
 
 	// --------------------------------------------------------------------
