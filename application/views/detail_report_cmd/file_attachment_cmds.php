@@ -22,6 +22,24 @@ function showAttachments() {
 			$('file_attachments_section').show();
 		}});
 }
+function doOperation(faid, mode) {
+	if(mode = 'delete') {
+		if(!confirm('Are you sure you want to delete this attached file? This operation cannot be undone.')) return;
+	}
+	var url =  "<?= site_url() ?>file_attachment/perform_operation";
+	var p = {};
+	p.id = faid;
+	p.mode = mode;
+	new Ajax.Request(url, {
+		parameters: p,
+		onSuccess: function(transport) {
+			if(transport.responseText != '') {
+				alert(transport.responseText);
+			} else {
+				showAttachments();
+			}
+		}});
+}
 function do_upload() {
 	$("result_display").update(globalAJAX.progress_message);
 	$("upload_form").submit();

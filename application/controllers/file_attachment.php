@@ -133,6 +133,39 @@ class file_attachment extends Base_controller {
 		}
 		return $response;
 	}
+
+	// --------------------------------------------------------------------
+	// perform operation on given attached file
+	// AJAX
+	function perform_operation()
+	{
+		$mode = $this->input->post("mode");
+		$id = $this->input->post("id");
+
+		$this->load->helper(array('user','url'));
+		$response = "OK";
+		try {
+			// init sproc model
+			$ok = $this->cu->load_mod('s_model', 'sproc_model', 'operations_sproc', $this->my_tag);
+			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			
+			$calling_params = new stdClass();
+			
+			$calling_params->ID = $id;
+			$calling_params->mode = $mode;
+			$calling_params->callingUser = get_user();
+			$calling_params->message = '';
+			
+			$ok = $this->sproc_model->execute_sproc($calling_params);
+			if(!$ok) throw new exception($this->sproc_model->get_error_text());
+	
+			$ret = $this->sproc_model->get_parameters()->retval;
+			$response = $this->sproc_model->get_parameters()->message;			
+		} catch (Exception $e) {
+			$response = $e->getMessage();			
+		}
+		return $response;
+	}
 	
 	// --------------------------------------------------------------------
 	// AJAX
@@ -141,20 +174,22 @@ class file_attachment extends Base_controller {
 		$id = $this->input->post("entity_id");
 
 		$this->load->database();		
-		$this->db->select("File_Name AS [Name], Description");
+		$this->db->select("File_Name AS [Name], Description, ID as FID");
 		$this->db->from("T_File_Attachment");
 		$this->db->where("Entity_Type", $type);
 		$this->db->where("Entity_ID", $id);
+		$this->db->where("Active >", 0);
 		$query = $this->db->get();		
 		if(!$query) return "Error querying database";
 		$entries = array();
 	    foreach($query->result() as $row){
 	      $path = "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
-	      $entries[] = array(anchor($path,$row->Name),$row->Description);
+			$action = "<a href='javascript:void(0)' onclick=doOperation('{$row->FID}','delete')>delete</a>";
+	      $entries[] = array(anchor($path,$row->Name), $row->Description, $action);
 	    }
 		$count = $query->num_rows();
 		$this->load->library('table');
-    	$this->table->set_heading("Name","Description");
+    	$this->table->set_heading("Name","Description", "Action");
     
 	    $tmpl = array(
 	      'table_open'      => "<table class=\"DRep\" id=\"file_attachments\" style=\"width:100%;\">",
