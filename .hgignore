@@ -5,3 +5,6 @@ logs/*
 license.txt
 .project
 .buildpath
+application/config/*Server_Files*/*
+application/model_config/Prismweb*DBs/*
+application/model_config/Sql_DMS2*/*
