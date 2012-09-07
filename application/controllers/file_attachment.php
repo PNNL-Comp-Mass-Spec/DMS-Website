@@ -2,7 +2,7 @@
 require("base_controller.php");
 
 class file_attachment extends Base_controller {
-		
+	
 	// --------------------------------------------------------------------
 	function __construct()
 	{
@@ -222,9 +222,9 @@ class file_attachment extends Base_controller {
 			//get mimetype info
 			$mime = mime_content_type($full_path);
 			
-			if (ereg('Opera(/| )([0-9].[0-9]{1,2})', $_SERVER['HTTP_USER_AGENT']))
+			if(preg_match('/Opera ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT']))
 			$UserBrowser = "Opera";
-			elseif (ereg('MSIE ([0-9].[0-9]{1,2})', $_SERVER['HTTP_USER_AGENT']))
+			elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT']))
 			$UserBrowser = "IE";
 			else
 			$UserBrowser = '';

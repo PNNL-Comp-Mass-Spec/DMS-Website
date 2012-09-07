@@ -24,7 +24,7 @@ class helper_inst_source extends Base_controller {
 		$this->load->helper(array('url', 'string'));
 
 		// get source content file from gigasax website
-		$file = fopen ("http://gigasax/DMS_Inst_Source/".$inst."_source.txt", "r");
+		$file = fopen ("http://gigasax.pnl.gov/DMS_Inst_Source/".$inst."_source.txt", "r");
 		if (!$file) {
 		    echo "<p>Unable to open source file.\n";
 		    exit;

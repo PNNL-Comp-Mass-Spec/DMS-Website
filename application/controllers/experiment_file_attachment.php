@@ -49,6 +49,7 @@ class experiment_file_attachment extends Base_controller {
 		$this->db->from("T_File_Attachment");
 		$this->db->where("Entity_Type", $type);
 		$this->db->where("Entity_ID", $id);
+		$this->db->where("Active >", "0");
 		$query = $this->db->get();		
 		if(!$query) return "Error querying database";
 		$entries = array();

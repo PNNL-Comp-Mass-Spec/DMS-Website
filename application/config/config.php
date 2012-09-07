@@ -378,7 +378,7 @@ $config['sproc_call_log_enabled'] = FALSE;
 $config['modify_config_db_enabled'] = FALSE;
 
 
-$config['file_attachment_archive_root_path'] = "/mnt/dmsarch-ro/dms_attachments/";
+$config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
 
 
 /* End of file config.php */
