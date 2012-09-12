@@ -35,7 +35,7 @@ class instrument_usage_report extends Base_controller {
 		$result = $this->get_usage_data($instrument, $year, $month);
 		$this->export_to_tab_delimited_text($result);
 	}
-	
+
 	// --------------------------------------------------------------------
 	private
 	function get_usage_data($instrument, $year, $month)
@@ -48,6 +48,41 @@ FROM  T_EMSL_Instrument_Usage_Report
 WHERE [Year] = $year AND [Month] = $month
 ORDER BY [Instrument], [Year], [Month], [Start]
 EOD;
+		$query = $this->db->query($sql);
+		$result = $query->result_array();
+		return $result;
+	}
+
+	// --------------------------------------------------------------------
+	function rollup()
+	{
+		$year = $this->uri->segment(3, date(''));
+		$month = $this->uri->segment(4, date(''));
+		$instrument = $this->uri->segment(5, '');
+		
+		// Validate the month
+		if(is_numeric($month)) {
+			if((int)$month < 1) {
+				$month = '1';
+			} else {
+				$month = (int)$month;
+			}
+		} else {
+			$month = '1';
+		}
+		
+		$result = $this->get_rollup_data($instrument, $year, $month);
+		$this->export_to_tab_delimited_text($result);
+
+	}
+		
+	// --------------------------------------------------------------------
+	private
+	function get_rollup_data($instrument, $year, $month)
+	{
+		$this->load->database();
+		
+		$sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageRollup($year, $month)";
 		$query = $this->db->query($sql);
 		$result = $query->result_array();
 		return $result;
