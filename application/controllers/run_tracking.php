@@ -135,10 +135,11 @@ EOD;
 	private
 	function get_instrument_list()
 	{
-		$this->load->model('dms_chooser', 'choosers');
-		$result = $this->choosers->get_choices('instrumentRunUsagePicklist');	
-		array_shift($result);	
-		return array_values($result);
+		$this->load->database();
+		$sql = " SELECT * FROM V_Instrument_Tracked ORDER BY Reporting";
+		$query = $this->db->query($sql);
+		$result = $query->result_array();
+		return $result;		 
 	}
 
 		// FUTURE: Move to helper or library
@@ -146,19 +147,29 @@ EOD;
 	private
 	function make_instrument_selector($instruments, $instrument, $year, $month)
 	{
-		$options = array();
+		$emslLabel = 'EMSL';
+		$dmsLabel = 'DMS';
+		$options = array($emslLabel => array(), $dmsLabel => array() );
 		if($instruments) {
 			foreach($instruments as $item) {
-				//$inst = $item['Instrument'];
-				$inst = $item;
+				$inst = $item['Name'];
+				//$inst = $item;
 				$link = site_url() . $this->my_tag . "/cal/$inst/$year/$month";
-				$options[$link] = $inst;
+				$rpt = $item['Reporting'];
+				if($rpt[0] == 'E') {
+					$options[$emslLabel][$link] =  "$inst ($rpt)";
+//					$options[$link] = "$inst ($rpt)";				
+				} else {
+					$options[$dmsLabel][$link] =  "$inst ($rpt)";			
+				}
 			}
 		}
 		$selected = site_url() . $this->my_tag . "/cal/$instrument/$year/$month";
 		$id = 'instrument_sel';
 		$js = "id='$id' onChange='goToPage(\"$id\");'";
 
+		ksort($options[$emslLabel]);
+		ksort($options[$dmsLabel]);
 		return form_dropdown($id, $options, $selected, $js);
 	}
 	

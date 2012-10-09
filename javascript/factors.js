@@ -96,7 +96,7 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 		if(idx > -1) {
 			parsed_data.data.each(function(row){
 				var id = row[0];
-				var value = row[idx];
+				var value = row[idx] || '';
 				var obj = {};
 				obj.id = id;
 				obj.factor = factor;
