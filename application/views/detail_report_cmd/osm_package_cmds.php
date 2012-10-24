@@ -20,7 +20,11 @@
 
 <? $chimg = base_url()."images/chooser.png"; ?>
 
-<div style='width:70em;margin:5px 0 0 0;padding:0px 5px 5px 5px;border:2px solid #AAA;' >
+<div style='padding:5px 0px 5px 5px;'>
+<a href="#" onclick="Effect.toggle('item_section', 'appear', { duration: 0.5 }); return false;">Add Items...</a>
+</div>
+
+<div id='item_section' style='display:none; width:70em;margin:5px 0 0 0;padding:0px 5px 5px 5px;border:2px solid #AAA;' >
 
 <div class='block_header'>
 <h2 style="text-align:center;">Add Items to OSM Package</h2>
