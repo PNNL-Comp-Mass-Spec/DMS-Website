@@ -11,6 +11,21 @@ class osm_package extends Base_controller {
 		$this->my_tag = "osm_package";
 		$this->my_title = "OSM Package";
 	}
+	
+	// --------------------------------------------------------------------
+	// (someday) use q_model
+	function suggested_items($id, $mode) {
+		$this->load->helper(array('url', 'string'));
+
+		$this->load->database();
+
+		$sql = "SELECT dbo.GetOSMItemChooserList($id, '$mode')";
+		$query = $this->db->query($sql);
+		if(!$query) return "Error querying database";
+ 		if ($query->num_rows() == 0) return "No rows found";
+		$result = $query->row();
+		echo $result->computed;
+	}	
 }
 
 
