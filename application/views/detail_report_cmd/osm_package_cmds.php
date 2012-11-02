@@ -47,6 +47,8 @@
 			<option value="HPLC_Runs">HPLC Runs</option>
 			<option value="Experiments">Experiments</option>
 			<option value="Experiment_Groups">Experiment Groups</option>
+			<option value="Requested_Runs">Requested Runs</option>
+			<option value="Datasets">Datasets</option>
 			<option value="Campaigns">Campaigns</option>
 			<option value="Biomaterial">Biomaterial</option>
 			</select>
@@ -62,7 +64,8 @@
 		<div class='chsr'>choose Experiments... <a href="javascript:callChooserSetType('Experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>choose HPLC Runs... <a href="javascript:callChooserSetType('HPLC_Runs', 'helper_prep_lc_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>choose Biomaterial... <a href="javascript:callChooserSetType('Biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'><a href="javascript:callSuggestionSetType('Campaigns', 'campaign_from_exp_group_parent')">Campaigns</a> (from exp. groups parent)...</div>
+		<div class='chsr'>choose Requested Runs.. <a href="javascript:callChooserSetType('Requested_Runs', 'helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>choose Datasets.. <a href="javascript:callChooserSetType('Datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'><a href="javascript:callSuggestionSetType('Campaigns', 'campaign_from_exp_group_members')">Campaigns</a> (from exp. groups members)...</div>
 		</td>
 		</tr>
