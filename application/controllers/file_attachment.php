@@ -23,8 +23,8 @@ class file_attachment extends Base_controller {
 		$timestamp = microtime(TRUE);
 		$config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->input->post("entity_id")."/{$timestamp}/";
 		$config['allowed_types'] = 'doc|docx|gif|jpg|pdf|png|pps|ppsx|ppt|pptx|tif|tiff|txt|vdx|vsd|xl|xls|xlsx|xlt|xml';
-		$config['max_width']  = '2048';
-		$config['max_height']  = '2048';
+		$config['max_width']  = '3000';
+		$config['max_height']  = '3000';
 		$config['overwrite'] = TRUE;
 		$config['remove_spaces'] = TRUE;
 		$config['encrypt_name'] = TRUE;
