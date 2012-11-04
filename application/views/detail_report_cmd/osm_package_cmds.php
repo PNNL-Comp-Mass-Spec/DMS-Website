@@ -1,9 +1,7 @@
 <div style='padding:5px 0px 5px 5px;'>
 <a href='<?= site_url() . "osm_package_files/report/".$id ?>''>Included package files...</a>
 </div>
-
-<?= $this->load->view("detail_report_cmd/file_attachment_cmds"); ?>
-
+<div style="height:1em;"></div>
 
 <style type="text/css">
 .block_header {
@@ -81,6 +79,7 @@
 	</form>
 	
 </div>
+<div style="height:1em;"></div>
 
 <script type="text/javascript">
 	

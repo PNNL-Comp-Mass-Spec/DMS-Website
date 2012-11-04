@@ -40,7 +40,15 @@ class Detail_report {
 		$data['tag'] = $this->tag;
 		$data['id'] = $id;
 		$data['commands'] = $CI->gen_model->get_detail_report_commands();
-		$data['detail_report_cmds'] = $CI->gen_model->get_detail_report_cmds();
+		$dcmdp = $CI->gen_model->get_detail_report_cmds();
+		$dcmds = array();
+		foreach(explode(",", $dcmdp) as $dcmd) {
+			$c = trim($dcmd);
+			if($c) {
+				$dcmds[] = $c;
+			}
+		}
+		$data['detail_report_cmds'] = $dcmds;
 		$data['aux_info_target'] = $CI->gen_model-> get_detail_report_aux_info_target();
 		
 		$CI->load->helper(array('detail_report', 'menu'));
