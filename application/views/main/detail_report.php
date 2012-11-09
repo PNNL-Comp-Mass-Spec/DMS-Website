@@ -81,9 +81,11 @@ Event.observe(window, 'load', function() {
 <div style="height:1em;" ></div>
 <?php endif; ?>
 
-<?php if($detail_report_cmds):?>
+<?php if(count($detail_report_cmds) > 0):?>
 <div id='command_box_container'>
-<?= $this->load->view("detail_report_cmd/$detail_report_cmds"); ?>
+<?php foreach($detail_report_cmds as $cmd): ?>	
+<?= $this->load->view("detail_report_cmd/$cmd"); ?>
+<?php endforeach ?>
 </div>
 <?php endif; ?>
 

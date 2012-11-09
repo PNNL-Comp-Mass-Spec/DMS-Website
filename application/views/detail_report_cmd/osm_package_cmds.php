@@ -1,9 +1,7 @@
 <div style='padding:5px 0px 5px 5px;'>
 <a href='<?= site_url() . "osm_package_files/report/".$id ?>''>Included package files...</a>
 </div>
-
-<?= $this->load->view("detail_report_cmd/file_attachment_cmds"); ?>
-
+<div style="height:1em;"></div>
 
 <style type="text/css">
 .block_header {
@@ -45,27 +43,29 @@
 			<option value="Sample_Prep_Requests">Sample Prep Requests</option>
 			<option value="Material_Containers">Material Containers</option>
 			<option value="HPLC_Runs">HPLC Runs</option>
-			<option value="Experiments">Experiments</option>
 			<option value="Experiment_Groups">Experiment Groups</option>
+			<option value="Experiments">Experiments</option>
 			<option value="Requested_Runs">Requested Runs</option>
 			<option value="Datasets">Datasets</option>
 			<option value="Campaigns">Campaigns</option>
 			<option value="Biomaterial">Biomaterial</option>
 			</select>
 		</td>
+		<td>Choose Items:</td>
 		</tr>
 		<tr>
 		<td><textarea id='entry_item_list' name='itemList' cols='70' rows='13' onChange='convertList("entry_item_list", ",")'></textarea></td>
 		<td>
-		<div class='chsr'>choose Sample Prep Requests.. <a href="javascript:callChooserSetType('Sample_Prep_Requests', 'helper_sample_prep_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose Material Containers.... <a href="javascript:callChooserSetType('Material_Containers', 'helper_material_container_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose Sample Submissions... <a href="javascript:callChooserSetType('Sample_Submissions', 'helper_sample_submissions_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose Experiment Groups... <a href="javascript:callChooserSetType('Experiment_Groups', 'helper_experiment_group_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose Experiments... <a href="javascript:callChooserSetType('Experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose HPLC Runs... <a href="javascript:callChooserSetType('HPLC_Runs', 'helper_prep_lc_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose Biomaterial... <a href="javascript:callChooserSetType('Biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose Requested Runs.. <a href="javascript:callChooserSetType('Requested_Runs', 'helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose Datasets.. <a href="javascript:callChooserSetType('Datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Sample Submissions... <a href="javascript:callChooserSetType('Sample_Submissions', 'helper_sample_submissions_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Sample Prep Requests.. <a href="javascript:callChooserSetType('Sample_Prep_Requests', 'helper_sample_prep_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Material Containers.... <a href="javascript:callChooserSetType('Material_Containers', 'helper_material_container_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>HPLC Runs... <a href="javascript:callChooserSetType('HPLC_Runs', 'helper_prep_lc_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Experiment Groups... <a href="javascript:callChooserSetType('Experiment_Groups', 'helper_experiment_group_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Experiments... <a href="javascript:callChooserSetType('Experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Requested Runs... <a href="javascript:callChooserSetType('Requested_Runs', 'helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Datasets... <a href="javascript:callChooserSetType('Datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Biomaterial... <a href="javascript:callChooserSetType('Biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'><a href="javascript:callSuggestionSetType('Datasets', 'datasets_from_completed_requested_runs')">Datasets</a> (from requested runs)...</div>
 		<div class='chsr'><a href="javascript:callSuggestionSetType('Campaigns', 'campaign_from_exp_group_members')">Campaigns</a> (from exp. groups members)...</div>
 		</td>
 		</tr>
@@ -73,12 +73,13 @@
 		<tr><td><textarea id='entry_comment' name='comment' cols='70' rows='2'></textarea></td></tr>
 	</table>
 		<div style='margin-top:4px;'>
-		<input class='lst_cmd_btn' type='button' value='Add items to package' onclick='updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
-		<input class='lst_cmd_btn' type='button' value='Delete items from package' onclick='updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
+		<input class='lst_cmd_btn' type='button' value='Add items to package' onclick='updateOSMPackageItems("<?= $id ?>", "entry_form", "add")' />
+		<input class='lst_cmd_btn' type='button' value='Delete items from package' onclick='updateOSMPackageItems("<?= $id ?>", "entry_form", "delete")' />
 		</div>
 	</form>
 	
 </div>
+<div style="height:1em;"></div>
 
 <script type="text/javascript">
 	
@@ -89,6 +90,7 @@ function callChooserSetType(item_type, chooserPage, delimiter, xref){
 }
 
 function callSuggestionSetType(item_type, mode) {
+	$('entry_item_list').value = '';
 	var url = globalAJAX.site_url + "osm_package/suggested_items/<?= $id ?>/" + mode;
 	var p = {};
 	new Ajax.Request(url, {
@@ -100,7 +102,7 @@ function callSuggestionSetType(item_type, mode) {
 		}});	
 }
 
-function updateDataPackageItems(id, form_id, mode) {
+function updateOSMPackageItems(id, form_id, mode) {
 	if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
 	var url = globalAJAX.site_url + "osm_package/operation/";
 	var message_container = $('entry_update_status');
