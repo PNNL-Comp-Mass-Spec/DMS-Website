@@ -559,7 +559,13 @@ class Upload extends Base_controller {
 			$pf = $this->supported_entities[$entity]['config_source'];
 			$lnk = anchor("upload/template/".$pf, "Blank Template");
 			$lr = anchor("$pf/report", "List Report");
-			$this->table->add_row(ucwords(strtolower($entity)), $lnk, $lr);
+			
+			if(strtolower($entity) == 'cell culture')
+				$entityDescription = 'Biomaterial (cell culture)';
+			else
+				$entityDescription = ucwords(strtolower($entity));
+
+			$this->table->add_row($entityDescription, $lnk, $lr);
 		}
 		echo "<div style='$style'>";
 		echo $this->table->generate();
