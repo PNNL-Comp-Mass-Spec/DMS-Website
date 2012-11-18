@@ -438,6 +438,11 @@ function setFieldValueFromSelection(fieldName, chooserName, mode) {
 	}
 }
 
+function setFieldValue(fieldName, value) {
+	if($(fieldName)) {
+			$(fieldName).value = value;
+	}
+}
 //------------------------------------------
 // entry field formatting
 //------------------------------------------
