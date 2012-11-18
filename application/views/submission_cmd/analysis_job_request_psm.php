@@ -46,28 +46,24 @@ function callOperation(url) {
 	var url =  "<?= site_url() ?>" + url;
 	var p = {};
 	p.datasets = $('datasets').value;
-
-//	$(globalAJAX.response_container_name).update(globalAJAX.progress_message);
+	//	FUTURE:progress indicator
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
 			var result = transport.responseText;
 			$('supplemental_material').update(result);
-
 			$('sub_cmd_buttons').show();
-			$('toolName').value = $('suggested_ToolName').value;
-			$('jobTypeName').value = $('suggested_JobTypeName').value;
-			
-			if( $('suggested_DynMetOxEnabled').value == '1') {
-				$('ModificationDynMetOx').checked = 'checked';
-			}
-			if( $('suggested_StatCysAlkEnabled').value == '1') {
-				$('ModificationStatCysAlk').checked = 'checked';
-			}
-			if( $('suggested_DynSTYPhosEnabled').value == '1') {
-				$('ModificationDynSTYPhos').checked = 'checked';
-			}
+			setFieldValues();
 		}});
+}
+
+function setFieldValues() {
+	$('toolName').value = $('suggested_ToolName').value;
+	$('jobTypeName').value = $('suggested_JobTypeName').value;
+	
+	$('ModificationDynMetOx').checked = ($('suggested_DynMetOxEnabled').value == '1');
+	$('ModificationStatCysAlk').checked = ($('suggested_StatCysAlkEnabled').value == '1');
+	$('ModificationDynSTYPhos').checked = ( $('suggested_DynSTYPhosEnabled').value == '1');
 }
 
 </script>

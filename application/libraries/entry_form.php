@@ -336,7 +336,7 @@ class Entry_form {
 			
 		case 'checkbox':
 			$lbl = $f_spec['label'];
-			$checked = ($data['value'])?"checked='checked'":"";		
+			$checked = ($data['value'])?"checked=true":"";		
 			$s .= "<input type='checkbox' name='$f_name' id='$f_name' value='Yes' $checked />$lbl Enabled<br/>";
 			break;			
 		}	
