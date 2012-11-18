@@ -1,13 +1,13 @@
 
 <div class="EPagCmds" >
 <button name='get_defaults_btn' onclick='getJobDefaults()'>Get Job Defaults</button>
+	<a href='<?= site_url() ?>analysis_job_request/create'>Skip To Job Request Page</a>
 </div>
 
 <div class="EPagCmds" id='supplemental_material'></div>
 
 <div class="EPagCmds" style="clear:both;display:none;" id="sub_cmd_buttons">
 	<button name='create_request_btn' onclick='submitMainEntryForm()'>Create Job Request</button>
-	<button name='skiprequest_btn' onclick=''>Skip To Job Request Page</button>
 	<a id='move_next_link' href=''>Go to newly created request...</a>
 </div>
 
