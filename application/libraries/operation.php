@@ -122,6 +122,14 @@ class Operation {
 		}
 		return $response;
 	}
+
+	// --------------------------------------------------------------------
+	// get params that sproc was called with, including changes passed back from sproc
+	function get_params()
+	{
+		$CI = &get_instance();
+		return $CI->sproc_model->get_parameters();
+	}
 	
 }
 ?>

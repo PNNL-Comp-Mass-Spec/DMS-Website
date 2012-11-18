@@ -278,6 +278,18 @@ class Base_controller extends CI_Controller {
 	
 	// --------------------------------------------------------------------
 	// invokes the stored procedure given by $sproc_ref and returns simple JSON response.
+	// AJAX
+	function call($sproc_name = 'operations_sproc')
+	{
+		$this->cu->load_lib('operation', 'na', $this->my_tag);
+		$response = $this->operation->internal_operation($sproc_name);
+		$response->parms = $this->operation->get_params();
+		echo json_encode($response);
+	}
+		
+	
+	// --------------------------------------------------------------------
+	// invokes the stored procedure given by $sproc_ref and returns simple JSON response.
 	// (someday) allow name of stored procedure to be passed as part of POST
 	// AJAX
 	function exec($sproc_name = 'operations_sproc')
