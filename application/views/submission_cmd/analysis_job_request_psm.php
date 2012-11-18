@@ -53,14 +53,20 @@ function callOperation(url) {
 		onSuccess: function(transport) {
 			var result = transport.responseText;
 			$('supplemental_material').update(result);
+
 			$('sub_cmd_buttons').show();
 			$('toolName').value = $('suggested_ToolName').value;
 			$('jobTypeName').value = $('suggested_JobTypeName').value;
-			$('modifications').value = $('suggested_mods').value;
-//			var response = transport.responseText.evalJSON();
-//			$(globalAJAX.response_container_name).update(response.message);
-//			$(globalAJAX.cntrl_container_name).show();
-//			if(response.result == 0) automatically refresh rows
+			
+			if( $('suggested_DynMetOxEnabled').value == '1') {
+				$('ModificationDynMetOx').checked = 'checked';
+			}
+			if( $('suggested_StatCysAlkEnabled').value == '1') {
+				$('ModificationStatCysAlk').checked = 'checked';
+			}
+			if( $('suggested_DynSTYPhosEnabled').value == '1') {
+				$('ModificationDynSTYPhos').checked = 'checked';
+			}
 		}});
 }
 

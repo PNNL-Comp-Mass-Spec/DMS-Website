@@ -333,6 +333,11 @@ class Entry_form {
 			$data['size']      = $f_spec['size'];
 			$s .= form_upload($data);
 			break;
+			
+		case 'checkbox':
+			$checked = ($data['value'])?"checked='checked'":"";		
+			$s .= "<input type='checkbox' name='$f_name' id='$f_name' value='Yes' $checked />Enabled<br/>";
+			break;			
 		}	
 		return $s;
 	}

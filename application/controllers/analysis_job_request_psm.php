@@ -93,18 +93,22 @@ class analysis_job_request_psm extends Base_controller {
 		$JobTypeName = $dvs['JobTypeName'];
 		$jobTypefld = "<input type='hidden' name='suggested_JobTypeName' id='suggested_JobTypeName' size='100' value='$JobTypeName' />";
 		
-		$mods = array();
-		if($dvs['DynMetOxEnabled'] == '1') $mods[] = 'DynMetOxEnabled';
-		if($dvs['StatCysAlkEnabled'] == '1') $mods[] = 'StatCysAlkEnabled';
-		if($dvs['DynSTYPhosEnabled'] == '1') $mods[] = 'DynSTYPhosEnabled';
-		$Modifications = implode(',', $mods);
-		$Modificationsfld = "<input type='hidden' name='suggested_mods' id='suggested_mods' size='100' value='$Modifications' />";
+		$z = $dvs['DynMetOxEnabled'];
+		$DynMetOxEnabledFld = "<input type='hidden' name='suggested_DynMetOxEnabled' id='suggested_DynMetOxEnabled' value='$z' />";
+		
+		$z = $dvs['StatCysAlkEnabled'];
+		$StatCysAlkEnabledFld = "<input type='hidden' name='suggested_StatCysAlkEnabled' id='suggested_StatCysAlkEnabled' value='$z' />";
+		
+		$z = $dvs['DynSTYPhosEnabled'];
+		$DynSTYPhosEnabledFld = "<input type='hidden' name='suggested_DynSTYPhosEnabled' id='suggested_DynSTYPhosEnabled' value='$z' />";
 		
 		$s = '';		
 		$s .= "<form id='suggested_values'>";
-		$s .= $jobTypefld."\n";
-		$s .= $toolfld."\n";
-		$s .= $Modificationsfld."\n";
+		$s .= $jobTypefld ."\n";
+		$s .= $toolfld ."\n";
+		$s .= $DynMetOxEnabledFld ."\n";
+		$s .= $StatCysAlkEnabledFld ."\n";
+		$s .= $DynSTYPhosEnabledFld ."\n";
 		$s .= "</form>\n";
 		
 		return $s;
