@@ -73,7 +73,6 @@ class analysis_job_request_psm extends Base_controller {
 		return $s;
 	}	
 
-
 	// --------------------------------------------------------------------
 	private
 	function make_supplemental_param_form($default_values)
@@ -86,72 +85,16 @@ class analysis_job_request_psm extends Base_controller {
 				$dvs[$kv[0]] = $kv[1];
 			}
 		};
-		
-		$ToolName = $dvs['ToolName'];
-		$toolfld = "<input type='hidden' name='suggested_ToolName' id='suggested_ToolName' size='100' value='$ToolName' />";
-
-		$JobTypeName = $dvs['JobTypeName'];
-		$jobTypefld = "<input type='hidden' name='suggested_JobTypeName' id='suggested_JobTypeName' size='100' value='$JobTypeName' />";
-		
-		$z = $dvs['DynMetOxEnabled'];
-		$DynMetOxEnabledFld = "<input type='hidden' name='suggested_DynMetOxEnabled' id='suggested_DynMetOxEnabled' value='$z' />";
-		
-		$z = $dvs['StatCysAlkEnabled'];
-		$StatCysAlkEnabledFld = "<input type='hidden' name='suggested_StatCysAlkEnabled' id='suggested_StatCysAlkEnabled' value='$z' />";
-		
-		$z = $dvs['DynSTYPhosEnabled'];
-		$DynSTYPhosEnabledFld = "<input type='hidden' name='suggested_DynSTYPhosEnabled' id='suggested_DynSTYPhosEnabled' value='$z' />";
 		
 		$s = '';		
 		$s .= "<form id='suggested_values'>";
-		$s .= $jobTypefld ."\n";
-		$s .= $toolfld ."\n";
-		$s .= $DynMetOxEnabledFld ."\n";
-		$s .= $StatCysAlkEnabledFld ."\n";
-		$s .= $DynSTYPhosEnabledFld ."\n";
+		foreach($dvs as $name => $val) {
+			$s .= "<input type='hidden' name='suggested_${name}' id='suggested_${name}' value='$val' />";
+		}
 		$s .= "</form>\n";
-		
-		return $s;
-	}
-
-/*
-	// --------------------------------------------------------------------
-	private
-	function make_supplemental_param_form($default_values)
-	{
-		$dv_list = explode('|', $default_values);
-		$dvs = array();
-		foreach($dv_list as $dv) {
-			$kv = explode(":", $dv);
-			if(count($kv) == 2) {
-				$dvs[$kv[0]] = $kv[1];
-			}
-		};
-		
-		$ToolName = $dvs['ToolName'];
-		$toolfld = "<input type='text' name='ToolName' id='ToolName' size='100' value='$ToolName' />";
-
-		$JobTypeName = $dvs['JobTypeName'];
-		$jobTypefld = "<input type='text' name='JobTypeName' id='JobTypeName' size='100' value='$JobTypeName' />";
-		
-		$mods = array();
-		if($dvs['DynMetOxEnabled'] == '1') $mods[] = 'DynMetOxEnabled';
-		if($dvs['StatCysAlkEnabled'] == '1') $mods[] = 'StatCysAlkEnabled';
-		if($dvs['DynSTYPhosEnabled'] == '1') $mods[] = 'DynSTYPhosEnabled';
-		$Modifications = implode(',', $mods);
-		$Modificationsfld = "<input type='text' name='xx' id='xx' size='100' value='$Modifications' />";
-		
-		$s = '';		
-		$s .= "<table class='EPag'>";
-		$s .= "<tr><th>Parameter</th><th>Value</th></tr>\n";
-		$s .= "<tr><td>Job Type </td><td>$jobTypefld </td></tr>\n";
-		$s .= "<tr><td>Search Tool</td><td>$toolfld </td></tr>\n";
-		$s .= "<tr><td>Modifications to Consider</td><td>$Modificationsfld </td></tr>\n";
-		$s .= "</table>\n";
-		
-		return $s;
-	}
-*/
 	
+		return $s;
+	}
+
 }
 ?>
