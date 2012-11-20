@@ -17,6 +17,7 @@
 Event.observe(window, 'load', function() { 
 	$('cmd_buttons').hide();
 	$('move_next_link').hide();
+	hideSection('section_block_3');
 	hideSection('section_block_4');
 	hideSection('section_block_5');
 });
@@ -55,17 +56,18 @@ function callOperation(url) {
 			$('supplemental_material').update(result);
 			$('sub_cmd_buttons').show();
 			setFieldValues();
+			showSection('section_block_3');
 			showSection('section_block_4');
 			showSection('section_block_5');
-			hideSection('section_block_1');
-			hideSection('section_block_2');
-			hideSection('section_block_3');
 		}});
 }
 
 function setFieldValues() {
 	$('toolName').value = $('suggested_ToolName').value;
 	$('jobTypeName').value = $('suggested_JobTypeName').value;
+	$('organismName').value = $('suggested_OrganismName').value;
+	$('protCollNameList').value = $('suggested_ProteinCollectionList').value;
+	$('protCollOptionsList').value = $('suggested_ProteinOptionsList').value;
 	
 	$('ModificationDynMetOx').checked = ($('suggested_DynMetOxEnabled').value == '1');
 	$('ModificationStatCysAlk').checked = ($('suggested_StatCysAlkEnabled').value == '1');
