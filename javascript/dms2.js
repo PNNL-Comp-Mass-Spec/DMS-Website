@@ -223,6 +223,19 @@ function showHideTableRows(block_name, url, show_img, hide_img) {
 		$(img_element_id).src = url + show_img;		
     }
 }
+function showTableRows(block_name, url, hide_img) {
+	var className = '.' + block_name;
+	var img_element_id = block_name + "_cntl";
+	$$(className).each(function(s){s.style.display=''});
+	$(img_element_id).src = url + hide_img;
+}
+function hideTableRows(block_name, url, show_img) {
+	var className = '.' + block_name;
+	var img_element_id = block_name + "_cntl";
+	$$(className).each(function(s){s.style.display='none'});
+	$(img_element_id).src = url + show_img;			
+}
+
 //------------------------------------------
 //These functions are used by entry page that invokes 
 //list report chooser

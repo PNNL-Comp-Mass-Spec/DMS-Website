@@ -1,6 +1,5 @@
 
 <div class="EPagCmds" >
-<button name='get_defaults_btn' onclick='getJobDefaults()'>Get Job Defaults</button>
 	<a href='<?= site_url() ?>analysis_job_request/create'>Skip To Job Request Page</a>
 </div>
 
@@ -18,6 +17,8 @@
 Event.observe(window, 'load', function() { 
 	$('cmd_buttons').hide();
 	$('move_next_link').hide();
+	hideSection('section_block_4');
+	hideSection('section_block_5');
 });
 
 function submitMainEntryForm() {
@@ -54,6 +55,11 @@ function callOperation(url) {
 			$('supplemental_material').update(result);
 			$('sub_cmd_buttons').show();
 			setFieldValues();
+			showSection('section_block_4');
+			showSection('section_block_5');
+			hideSection('section_block_1');
+			hideSection('section_block_2');
+			hideSection('section_block_3');
 		}});
 }
 
@@ -65,5 +71,17 @@ function setFieldValues() {
 	$('ModificationStatCysAlk').checked = ($('suggested_StatCysAlkEnabled').value == '1');
 	$('ModificationDynSTYPhos').checked = ( $('suggested_DynSTYPhosEnabled').value == '1');
 }
+
+function showSection(block_name) {
+	var url = '<?= base_url() ?>images/';
+	var hide_img = 'z_hide_col.gif';
+	showTableRows(block_name, url, hide_img);
+}
+function hideSection(block_name) {
+	var url = '<?= base_url() ?>images/';
+	var show_img = 'z_show_col.gif';
+	hideTableRows(block_name, url, show_img);
+}
+
 
 </script>

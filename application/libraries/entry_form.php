@@ -338,8 +338,18 @@ class Entry_form {
 			$lbl = $f_spec['label'];
 			$checked = ($data['value'])?"checked=true":"";		
 			$s .= "<input type='checkbox' name='$f_name' id='$f_name' value='Yes' $checked />$lbl Enabled<br/>";
-			break;			
-		}	
+			break;
+
+		case 'action':
+			$px = explode(':', $f_spec['default']);
+			$fnx = $px[0];
+			$lbx = $px[1];
+			$dsx = $px[2];
+			$s .= "<a href='javascript:void(0)' onclick='$fnx' >$lbx</a> $dsx";
+//			$s .= "<button name='${f_name}_btn' onclick='$fnx'>$lbx</button>";
+			break;
+		}
+
 		return $s;
 	}
 	
