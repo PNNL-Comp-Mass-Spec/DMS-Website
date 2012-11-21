@@ -29,20 +29,17 @@ class analysis_job_request_psm extends Base_controller {
 	{
 		$results = $this->get_defaults_from_db();
 			$metadata_tab = $this->make_metadata_table($results->parms->metadata);
-			$supplemental_form = $this->make_supplemental_param_form($results->parms->defaults);
-			$message = $this->make_message($results->message, $results->result);
+			$supplemental_form = $this->make_supplemental_param_form($results->parms->defaults, $results->result);
+			$message = $this->make_message($results->message);
 			echo $metadata_tab . $supplemental_form . $message;
 	}
 	
 	// --------------------------------------------------------------------
 	private
-	function make_message($message, $result)
+	function make_message($message)
 	{
 		$s = '';		
 		$s .= "<div>$message</div>";
-		if($result) {
-			$s .= "<div>$result</div>";
-		}
 		return $s;
 	}
 	
@@ -75,7 +72,7 @@ class analysis_job_request_psm extends Base_controller {
 
 	// --------------------------------------------------------------------
 	private
-	function make_supplemental_param_form($default_values)
+	function make_supplemental_param_form($default_values, $result)
 	{
 		$dv_list = explode('|', $default_values);
 		$dvs = array();
@@ -85,9 +82,12 @@ class analysis_job_request_psm extends Base_controller {
 				$dvs[$kv[0]] = $kv[1];
 			}
 		};
+
+		$code = ($result == 0)?'success':'failure';
 		
 		$s = '';		
 		$s .= "<form id='suggested_values'>";
+		$s .= "<input type='hidden' name='return_code' id='return_code' value='$code' />";
 		foreach($dvs as $name => $val) {
 			$s .= "<input type='hidden' name='suggested_${name}' id='suggested_${name}' value='$val' />";
 		}

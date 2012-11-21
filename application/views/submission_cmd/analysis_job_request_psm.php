@@ -56,13 +56,12 @@ function callOperation(url) {
 			$('supplemental_material').update(result);
 			$('sub_cmd_buttons').show();
 			setFieldValues();
-			showSection('section_block_3');
-			showSection('section_block_4');
-			showSection('section_block_5');
 		}});
 }
 
 function setFieldValues() {
+	if($('return_code').value != 'success') return;
+	
 	$('toolName').value = $('suggested_ToolName').value;
 	$('jobTypeName').value = $('suggested_JobTypeName').value;
 	$('organismName').value = $('suggested_OrganismName').value;
@@ -72,6 +71,10 @@ function setFieldValues() {
 	$('ModificationDynMetOx').checked = ($('suggested_DynMetOxEnabled').value == '1');
 	$('ModificationStatCysAlk').checked = ($('suggested_StatCysAlkEnabled').value == '1');
 	$('ModificationDynSTYPhos').checked = ( $('suggested_DynSTYPhosEnabled').value == '1');
+
+	showSection('section_block_3');
+	showSection('section_block_4');
+	showSection('section_block_5');
 }
 
 function showSection(block_name) {
