@@ -1,8 +1,4 @@
 
-<div class="EPagCmds" >
-	<a href='<?= site_url() ?>analysis_job_request/create'>Skip To Job Request Page</a>
-</div>
-
 <div class="EPagCmds" id='supplemental_material'></div>
 
 <div class="EPagCmds" style="clear:both;display:none;" id="sub_cmd_buttons">
@@ -10,7 +6,9 @@
 	<a id='move_next_link' href=''>Go to newly created request...</a>
 </div>
 
-
+<div class="EPagCmds" >
+	<a href='<?= site_url() ?>analysis_job_request/create'>Skip to generic job request page</a>
+</div>
 
 <script type="text/javascript">
 
