@@ -378,11 +378,21 @@ function getCkbxList(checkBoxName) {
 
 // set checked state of all checkboxes with given name from given list
 function setCkbxFromList(checkBoxName, selList) {
-	var rows = document.getElementsByName(checkBoxName, selList); 
+	var rows = document.getElementsByName(checkBoxName, selList);
+	// split list into separate trimmed elements
+	var selections = selList.split(/[,;]/);
+    for(var k = 0; k < selections.length; k++) {
+    	selections[k] = trim(selections[k]);
+    }
+    // traverse checkbox elements, setting checkbox 
+    // if it's value matches an element in list
 	for (var i = 0; i < rows.length; i++) {
-		if ( selList.indexOf(rows[i].value) != -1  ) {
-		   rows[i].checked = true;
-		}
+        for(var k = 0; k < selections.length; k++) {
+            if(selections[k] === rows[i].value) {
+ 			   rows[i].checked = true;
+ 			   break;
+            }
+        }
 	}
 }
 // set checked state of chooser's checkboxes from
