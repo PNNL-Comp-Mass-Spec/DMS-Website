@@ -1,8 +1,10 @@
 
+<div id='supplemental_message'></div>
 <div class="EPagCmds" id='supplemental_material'></div>
 
 <div class="EPagCmds" style="clear:both;display:none;" id="sub_cmd_buttons">
-	<button name='create_request_btn' onclick='submitMainEntryForm()'>Create Job Request</button>
+	<button name='create_request_btn' onclick='createRequest()'>Create Job Request</button>
+	<button name='create_preview_btn' onclick='previewRequest()'>Preview Job Request</button>
 	<a id='move_next_link' href=''>Go to newly created request...</a>
 </div>
 
@@ -20,11 +22,23 @@ Event.observe(window, 'load', function() {
 	hideSection('section_block_5');
 });
 
-function submitMainEntryForm() {
+function createRequest() {
+	submitMainEntryForm('add', { run:function() {showPageLinks();} });
+}
+function previewRequest() {
+	submitMainEntryForm('preview', { run:function() {
+		var m = $$('.EPag_message')[0];
+
+//		var e = $$('.EPag_error')[0];
+		$('supplemental_message').update((m)?m.innerHTML:'');
+	}});	
+}
+
+function submitMainEntryForm(mode, followOnAction) {
 	$('requestID').value = '0';
 	$('move_next_link').hide();
 	var url = "<?= site_url() . $tag ?>/submit_entry_form";
-	submitToFamily(url, 'add', { run:function() {showPageLinks();} } );
+	submitToFamily(url, mode, followOnAction);
 }
 
 function showPageLinks() {
