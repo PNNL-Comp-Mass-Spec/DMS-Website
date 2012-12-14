@@ -4,9 +4,10 @@
 
 Repackage JS and then switch libraries? Or vice versa?
 
+Package DMS JS into library modules
 Get rid of aux info
 Reduce/eliminate in-line JS
-Remomve references to modalbox.js?
+Remove references to modalbox.js?
 
 
 http://andykdocs.de/andykdocs/document/Migrating-from-the-Prototype-JavaScript-Framework-to-jQuery
