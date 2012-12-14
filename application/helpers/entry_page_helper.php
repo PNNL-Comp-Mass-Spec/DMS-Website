@@ -115,21 +115,22 @@
 	}
 
 	// --------------------------------------------------------------------
-	function entry_outcome_message($message, $option = 'success')
+	function entry_outcome_message($message, $option = 'success', $id='')
 	{
 		$str = '';
+		$id = ($id)?" id='$id'":'';
 		switch($option) {
 			case 'success':
-				$str =  "<div class='EPag_message' >" . $message . "</div>";
+				$str =  "<div class='EPag_message' $id>" . $message . "</div>";
 				break;
 			case 'failure':
-				$str =  "<div class='EPag_error' >" . $message . "</div>";
+				$str =  "<div class='EPag_error' $id>" . $message . "</div>";
 				break;
 			case 'error':
-				$str =  "<div class='bad_clr' >" . $message . "</div>";
+				$str =  "<div class='bad_clr' $id>" . $message . "</div>";
 				break;
 			default:
-				$str =  "<div>" . $message . "</div>";
+				$str =  "<div${id}>" . $message . "</div>";
 				break;
 		}
 		return $str;

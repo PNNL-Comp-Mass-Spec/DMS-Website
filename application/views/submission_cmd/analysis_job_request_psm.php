@@ -1,5 +1,4 @@
 
-<div id='supplemental_message'></div>
 <div class="EPagCmds" id='supplemental_material'></div>
 
 <div class="EPagCmds" style="clear:both;display:none;" id="sub_cmd_buttons">
@@ -27,10 +26,9 @@ function createRequest() {
 }
 function previewRequest() {
 	submitMainEntryForm('preview', { run:function() {
-		var m = $$('.EPag_message')[0];
-
-//		var e = $$('.EPag_error')[0];
-		$('supplemental_message').update((m)?m.innerHTML:'');
+		var mm = $('main_outcome_msg');
+		var sm = $('supplement_outcome_msg');
+		if(mm && sm) { sm.update(mm.innerHTML)}
 	}});	
 }
 

@@ -116,13 +116,13 @@ class Entry {
 			// everything worked - compose tidings of joy
 			$ps_links = $this->get_post_submission_link($input_params);
 			$message = 'Operation was successful. ';
-			$outcome = entry_outcome_message($message . $msg);
-			$supplement = entry_outcome_message($message . $ps_links, 'normal');
+			$outcome = $this->outcome_msg($message . $msg, 'normal');
+			$supplement = $this->supplement_msg($message . $ps_links, 'normal');
 		} catch (Exception $e) {
 			// something broke - compose expressions of regret
 			$message = $e->getMessage();
-			$outcome = entry_outcome_message($message, 'failure');
-			$supplement = entry_outcome_message($message, 'error');
+			$outcome = $this->outcome_msg($message, 'failure');
+			$supplement = $this->supplement_msg($message, 'error');
 		}
 
 		// get entry form object and use to to build and return HTML for form
@@ -133,6 +133,17 @@ class Entry {
 		echo $supplement;
 	}
 
+	// --------------------------------------------------------------------
+	private
+	function outcome_msg($message, $option)
+	{
+		return entry_outcome_message($message, $option, 'main_outcome_msg');
+	}
+	private
+	function supplement_msg($message, $option)
+	{
+		return entry_outcome_message($message, $option, 'supplement_outcome_msg');
+	}
 	// --------------------------------------------------------------------
 	// get entry form builder object and use it to make HTML
 	protected
