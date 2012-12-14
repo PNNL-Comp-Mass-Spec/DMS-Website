@@ -62,13 +62,13 @@ Mode:
 </div>
 
 <div>
-<input class="lst_cmd_btn" type="button" value="Test exec" onClick='performExec("bogus/exec/test", $("modes").value)'/>
+<input class="lst_cmd_btn" type="button" value="Test exec" onClick='performExec("bogus/exec/test", $('#modes').value)'/>
 </div>
 <div>
-<input class="lst_cmd_btn" type="button" value="Test command" onClick='performCall("bogus/command", $("modes").value)'/>
+<input class="lst_cmd_btn" type="button" value="Test command" onClick='performCall("bogus/command", $('#modes').value)'/>
 </div>
 <div>
-<input class="lst_cmd_btn" type="button" value="Test operation" onClick='performOperation("bogus/operation", $("modes").value)'/>
+<input class="lst_cmd_btn" type="button" value="Test operation" onClick='performOperation("bogus/operation", $('#modes').value)'/>
 </div>
 
 </form>

@@ -20,17 +20,17 @@ function performOperation(mode){
 	submitOperation(url, p);
 }
 function getDatasetInfo(mode) {
-	var id = $('pf_data_package_id').value;
-	var tool = $('tool_name').value;
+	var id = $('#pf_data_package_id').value;
+	var tool = $('#tool_name').value;
 	if(id == '') {alert('data_package_id filter not set'); return;}
 
 	var url =  '<?= site_url() ?>data_package/ag/' + id + '/' + tool + '/' + mode;
 	var p = {};
-	$('dataset_dump_field').update('');
+	$('#dataset_dump_field').update('');
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$('dataset_dump_field').value = transport.responseText;
+			$('#dataset_dump_field').value = transport.responseText;
 		}});
 }
 </script>
@@ -96,8 +96,8 @@ function notYet() {
 	alert('This function is not implemented yet');
 }
 function logg(s, clear) {
-	if(typeof clear != "undefined")$('zed').value = '';
-	$('zed').value += s + "\n";
+	if(typeof clear != "undefined")$('#zed').value = '';
+	$('#zed').value += s + "\n";
 }
 function test() {
 	var iList = getSelectedItemList();

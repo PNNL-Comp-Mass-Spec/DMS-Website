@@ -20,7 +20,7 @@ function updateEntryPage(url, mode) {
 function submitToFamily(url, mode, follow_on_action) {
 	if(!confirm("Are you sure that you want to perform this action?")) return;
 	var container = 'form_container';
-	$('entry_cmd_mode').value = mode;
+	$('#entry_cmd_mode').value = mode;
 	p = Form.serialize('entry_form', true);
 	new Ajax.Request(url, {
 		parameters: p,
@@ -35,8 +35,8 @@ function submitToFamily(url, mode, follow_on_action) {
 }
 // POST the entry form to another page
 function submitEntryPage(url, mode) {
-	$('entry_cmd_mode').value = mode;
-	var f = $('entry_form');
+	$('#entry_cmd_mode').value = mode;
+	var f = $('#entry_form');
 	f.action = url;
 	f.method="post";
 	f.submit();

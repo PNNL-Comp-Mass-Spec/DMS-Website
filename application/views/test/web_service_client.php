@@ -72,11 +72,11 @@ function convert_sorting_string_to_post_params(sorting_string, p) {
 // just a mule to call the money function...
 function call_get_data() {
 	// Collect underpants
-	var output_format = $F('output_format_ctl');
-	var config_source = $F('config_source_ctl');
-	var config_name = $F('config_name_ctl');
-	var filter_string = $F('secondary_filter_ctl');
-	var sorting_string = $F('sorting_ctl');
+	var output_format = $('#output_format_ctl').val();
+	var config_source = $('#config_source_ctl').val();
+	var config_name = $('#config_name_ctl').val();
+	var filter_string = $('#secondary_filter_ctl').val();
+	var sorting_string = $('#sorting_ctl').val();
 	// ??
 	// Profit!
 	get_data(output_format, config_source, config_name, filter_string, sorting_string);

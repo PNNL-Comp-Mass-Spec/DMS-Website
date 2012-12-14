@@ -32,9 +32,9 @@ function updateContainer(url, container, follow_on_action) {
 function updateMyFilter($mode) {
 	updateContainer('/report_filter/' + $mode, 'search_filter_container', filter_observers_action); 
 	if($mode == 'minimal') { 
-		$('show_more_filter').show();$('show_less_filter').hide(); 
+		$('#show_more_filter').show();$('#show_less_filter').hide(); 
 	} else { 
-		$('show_more_filter').hide();$('show_less_filter').show(); 
+		$('#show_more_filter').hide();$('#show_less_filter').show(); 
 	}
 }
 // use to terminate a calling chain
@@ -51,21 +51,21 @@ var filter_observers_action = {
 // copy the contents of the upper paging display to the lower one
 var paging_cleanup_action = {
 	run:function() {
-		$('paging_container_lower').update($('paging_container_upper').innerHTML);
+		$('#paging_container_lower').update($('#paging_container_upper').innerHTML);
 	}
 }
 
 // update the paging display sections, or hide them if no data rows
 var paging_update_action = {
 	run:function() {
-		if($('data_message')) {
-			$('paging_container_upper').hide();
-			$('paging_container_lower').hide();
+		if($('#data_message')) {
+			$('#paging_container_upper').hide();
+			$('#paging_container_lower').hide();
 		} else {
-			$('paging_container_upper').show();
-			$('paging_container_lower').show();
-			$('paging_container_upper').update(globalAJAX.progress_message);
-			$('paging_container_lower').update(globalAJAX.progress_message);
+			$('#paging_container_upper').show();
+			$('#paging_container_lower').show();
+			$('#paging_container_upper').update(globalAJAX.progress_message);
+			$('#paging_container_lower').update(globalAJAX.progress_message);
 			updateContainer('/report_paging', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -74,14 +74,14 @@ var paging_update_action = {
 var data_post_load_action = {
 	run:function(){
 		paging_update_action.run();
-		if(!$('data_message') && globalAJAX.is_ms_helper) { intializeChooserCkbx('ckbx') }
+		if(!$('#data_message') && globalAJAX.is_ms_helper) { intializeChooserCkbx('ckbx') }
 	}
 }
 // go get some data rows
 var data_update_action = {
 	run:function(){
-		$('paging_container_upper').update(globalAJAX.progress_message);
-		$('paging_container_lower').update(globalAJAX.progress_message);
+		$('#paging_container_upper').update(globalAJAX.progress_message);
+		$('#paging_container_lower').update(globalAJAX.progress_message);
 		updateContainer('/report_data', 'data_container', data_post_load_action); 	
 	}
 }
@@ -91,7 +91,7 @@ function updateShowSQL() {
 // update the SQL display box if it is visible
 var sql_display_action = {
 	run:function() {
-		if($('notification').visible()) {
+		if($('#notification').visible()) {
 			updateAlert(globalAJAX.my_tag + '/report_sql', 'filter_form');
 		}
 	}
@@ -99,16 +99,16 @@ var sql_display_action = {
 // start the data update chain for the page
 function updateMyData(loading) {
 	if(loading == 'no_load') {
-		$('data_container').update('Data will be displayed after you click the "Search" button.');
+		$('#data_container').update('Data will be displayed after you click the "Search" button.');
 	} else {
-		if(loading && loading == 'reset') $("qf_first_row").value = 1;
+		if(loading && loading == 'reset') $('#qf_first_row').value = 1;
 		data_update_action.run(); 	
 		sql_display_action.run();
 	}	
 }
 // after the page loads, set things in motion to populate it
 Event.observe(window, 'load', function() { 
-		$('data_container').update('Data is loading...' + globalAJAX.progress_message);
+		$('#data_container').update('Data is loading...' + globalAJAX.progress_message);
 		updateMyFilter('minimal');
 		updateMyData('<?= $loading ?>');
 	 	window['reloadListReportData'] = function() { updateMyData('autoload');}

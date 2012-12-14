@@ -37,7 +37,7 @@ function callOSMChooser(){
 }
 
 function goToPage() {
-	var url = "<?= site_url() ?>osm_package_items/report/" + codeMap['<?= $this->my_tag ?>'] + "/" + $('packageID').value;
+	var url = "<?= site_url() ?>osm_package_items/report/" + codeMap['<?= $this->my_tag ?>'] + "/" + $('#packageID').value;
 	window.location.href = url;
 }
 
@@ -57,11 +57,11 @@ var codeMap = {
 function updateOSMPackageItems(form_id, mode) {
 	if ( !confirm("Are you sure that you want to " + mode + " this entity to the OSM package?") ) return;
 	var url = globalAJAX.site_url + "osm_package/operation/";
-	var message_container = $('entry_update_status');
+	var message_container = $('#entry_update_status');
 	var id = '<?= $id ?>';
-	$('entry_cmd_mode').value = mode;
-	$('itemTypeSelector').value = codeMap['<?= $this->my_tag ?>'];
-	$('entry_item_list').value = id;
+	$('#entry_cmd_mode').value = mode;
+	$('#itemTypeSelector').value = codeMap['<?= $this->my_tag ?>'];
+	$('#entry_item_list').value = id;
 	var p = $(form_id).serialize(true);
 	message_container.update(globalAJAX.progress_message);
 	new Ajax.Request(url, {

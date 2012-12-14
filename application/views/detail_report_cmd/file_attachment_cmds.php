@@ -1,13 +1,13 @@
 <script type='text/javascript'>
 function report_upload_results(msg) {
-	$("result_display").update(msg);
+	$('#result_display').update(msg);
 	showAttachments();
 }
 
 Event.observe(window, 'load', function() { 
 //	showAttachments();
-	$("entity_type").value = "<?= $tag ?>";
-	$("entity_id").value = "<?= $id ?>";
+	$('#entity_type').value = "<?= $tag ?>";
+	$('#entity_id').value = "<?= $id ?>";
 	}
 )
 function showAttachments() {
@@ -18,8 +18,8 @@ function showAttachments() {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$("attachments_list").update(transport.responseText);
-			$('file_attachments_section').show();
+			$('#attachments_list').update(transport.responseText);
+			$('#file_attachments_section').show();
 		}});
 }
 function doOperation(faid, mode) {
@@ -41,8 +41,8 @@ function doOperation(faid, mode) {
 		}});
 }
 function do_upload() {
-	$("result_display").update(globalAJAX.progress_message);
-	$("upload_form").submit();
+	$('#result_display').update(globalAJAX.progress_message);
+	$('#upload_form').submit();
 }
 </script>
 <div id='attachments_control_section' style='padding:5px 0px 5px 5px;'>

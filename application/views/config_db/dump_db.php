@@ -15,10 +15,10 @@ div.block_content {
 <script type="text/javascript">
 	
 function search() {
-	var file_filter = $('file_filter').value;
-	var table_filter = $('table_filter').value;
+	var file_filter = $('#file_filter').value;
+	var table_filter = $('#table_filter').value;
 	var url = '<?= site_url() ?>/config_db/search/'+ file_filter + '/' + table_filter;
-	if($('text_only').checked) {
+	if($('#text_only').checked) {
 		url += '/text';
 	}
 	location = url;

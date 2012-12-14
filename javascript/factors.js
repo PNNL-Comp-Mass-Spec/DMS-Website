@@ -18,14 +18,14 @@ function getFactorXMLFromList(flist) {
 }
 function getListReportColumnList() {
 	var col_list = [];
-	$$('.col_header').each(function(obj){
+	$('.col_header').each(function(obj){
 		col_list.push(trim(obj.innerHTML));
 	});
 	return col_list;
 }
 function getFactorFieldList(factor_cols) {
 	var idlist = [];
-	$$('.lr_ckbx').each(function(obj){
+	$('.lr_ckbx').each(function(obj){
 		idlist.push(obj.value);
 	});
 	var flist = [];
@@ -109,8 +109,8 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 }
 
 function applyFactorToDatabase() {
-	var factor = $('apply_factor_name').value;
-	var value = $('apply_factor_value').value;
+	var factor = $('#apply_factor_name').value;
+	var value = $('#apply_factor_value').value;
 	var ilist = getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);
 	if (flist.length == 0) {
@@ -120,7 +120,7 @@ function applyFactorToDatabase() {
 	updateDatabaseFromList(flist);
 }
 function removeFactorFromDatabase(){
-	var factor = $('remove_factor_name').value;
+	var factor = $('#remove_factor_name').value;
 	var value = '';
 	var ilist = getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);

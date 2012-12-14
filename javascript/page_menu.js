@@ -1,6 +1,6 @@
 
 function showHideAllMenuBlocks(mode, label) {
-	$$('div.qs_more').each(function(s){
+	$('div.qs_more').each(function(s){
 			s.style.display=mode;
 			var id = s.id + '_ctl';
 			$(id).innerHTML = label;
@@ -25,16 +25,16 @@ function showHideMenuBlock(name) {
 	ctl.innerHTML = label;
 }
 function showHideMenuDiagram() {
-	var ds = $('diagram_section');
-	var ms = $('menu_sections');
+	var ds = $('#diagram_section');
+	var ms = $('#menu_sections');
 	if(ds.style.display == "none") {
 		ds.style.display = "block"
 		ms.style.display = "none"
-		$('diag_ctl_label').innerHTML = 'Show Section Menus';
+		$('#diag_ctl_label').innerHTML = 'Show Section Menus';
 	} else {
 		ds.style.display = "none"
 		ms.style.display = "block"
-		$('diag_ctl_label').innerHTML = 'Show Diagram Menus';
+		$('#diag_ctl_label').innerHTML = 'Show Diagram Menus';
 	}
 }
 Event.observe(window, 'load', function(){showHideAllMenuBlocks('none', 'More...')});
@@ -44,7 +44,7 @@ function showFlyMenu(section_name) {
 	$(section_name).style.display = "block";
 }
 function hideFlyMenus() {
-	$$('div.fly_box').each(function(s){
+	$('div.fly_box').each(function(s){
 			s.style.display='none';
 		});
 }

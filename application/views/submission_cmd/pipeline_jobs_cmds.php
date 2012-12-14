@@ -25,8 +25,8 @@ function submissionSequence(url, mode, post_submission_action) {
 //and build properly formatted XML and replace the
 //contents of the jobParams field on main form with it
 function copy_param_form_to_xml_param_field() {
-	$('jobParam').value = '';
-	$('param_form').getElements().each(
+	$('#jobParam').value = '';
+	$('#param_form').getElements().each(
 		function(obj) {
 			var nm = obj.name.split('.');
 			var s = '<Param ';
@@ -37,14 +37,14 @@ function copy_param_form_to_xml_param_field() {
 				s += 'Step="' + nm[2] + '" ';
 			}
 			s += '/>';
-			$('jobParam').value += s;
+			$('#jobParam').value += s;
 		}
 	);
 }
 
 // get supplemental form fields via an AJAX call
 function load_param_form() {
-	var url = '<?= site_url().$tag ?>/parameter_form/' + $('job').value + '/' + $('scriptName').value;
+	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#job').value + '/' + $('#scriptName').value;
 	var container = 'param_container';
 	p = {};
 	new Ajax.Request(url, {
@@ -56,12 +56,12 @@ function load_param_form() {
 	});	
 }
 function choose_script(script) {
-	$('scriptName').value = script;
+	$('#scriptName').value = script;
 	load_param_form();
 }
 
 function load_script_diagram() {
-	var scriptName = $('scriptName').value;
+	var scriptName = $('#scriptName').value;
 	if(scriptName) {
 		var url = '<?= site_url() ?>pipeline_script/dot/' + scriptName
 		var container = 'script_diagram_container';
@@ -77,7 +77,7 @@ function load_script_diagram() {
 
 function set_param_row_visibility(class_name, visibility) {
 	var tag = '.' + class_name;
-	$$(tag).each(function(obj){ obj.style.display = visibility; } );
+	$(tag).each(function(obj){ obj.style.display = visibility; } );
 }
 
 //try and set up the supplemental form when the page loads

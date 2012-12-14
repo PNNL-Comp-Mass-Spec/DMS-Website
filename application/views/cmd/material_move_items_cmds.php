@@ -18,7 +18,7 @@ function performOperation(mode, itemType, val) {
 	p.itemType = itemType;
 	p.itemList = list;
 	p.newValue = (val)?$F(val):'';
-	p.comment = $F('comment_fld');
+	p.comment = $('#comment_fld').val();
 	submitOperation(url, p);
 }
 </script>

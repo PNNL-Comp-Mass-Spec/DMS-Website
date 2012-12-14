@@ -45,7 +45,7 @@ function do_sql() {
 		return;
 	var container_name = "edit_container";
 	url =  "<?= site_url()?>config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
-//	var p = $('sql_text').serialize(true);
+//	var p = $('#sql_text').serialize(true);
 	var p = Form.serialize('sql_text', true);
 	new Ajax.Request(url, {
 		parameters: p,
@@ -71,24 +71,24 @@ function get_sql(mode){
 // move any existing destination id to to source id
 // and set destination id to the input id
 function set_id(id) {
-	$('source_id').innerHTML = $('dest_id').innerHTML;
-	$('dest_id').innerHTML = id;
+	$('#source_id').innerHTML = $('#dest_id').innerHTML;
+	$('#dest_id').innerHTML = id;
 
-	$('range_start_id').innerHTML = $('range_stop_id').innerHTML;
-	$('range_stop_id').innerHTML = $('range_dest_id').innerHTML;
-	$('range_dest_id').innerHTML = id;
+	$('#range_start_id').innerHTML = $('#range_stop_id').innerHTML;
+	$('#range_stop_id').innerHTML = $('#range_dest_id').innerHTML;
+	$('#range_dest_id').innerHTML = id;
 }
 
 // get suggested SQL for moving item(s)
 function get_sql_from_range_move(mode){
 	if(mode == 'range') {
-		var r1_id = $('range_start_id').innerHTML;
-		var r2_id = $('range_stop_id').innerHTML;
-		var d_id = $('range_dest_id').innerHTML;
+		var r1_id = $('#range_start_id').innerHTML;
+		var r2_id = $('#range_stop_id').innerHTML;
+		var d_id = $('#range_dest_id').innerHTML;
 	} else {
-		var r1_id = $('source_id').innerHTML;
-		var r2_id = $('source_id').innerHTML;
-		var d_id = $('dest_id').innerHTML;
+		var r1_id = $('#source_id').innerHTML;
+		var r2_id = $('#source_id').innerHTML;
+		var d_id = $('#dest_id').innerHTML;
 	}
 	if(!r1_id || !r2_id || !d_id) return;
 
@@ -149,7 +149,7 @@ function get_sql_for_resequence(){
 <a href="javascript:void(0)" onclick="get_sql_from_range_move('item')" title='Get SQL to move items'> <span id='source_id'></span>-><span id='dest_id'></span> </a> &nbsp;  &nbsp; 
 <a href="javascript:void(0)" onclick="get_sql_from_range_move('range')" title='Get SQL to move range of items'> <span id='range_start_id'></span>-<span id='range_stop_id'></span>-><span id='range_dest_id'></span> </a> &nbsp;  &nbsp; 
 <a href="javascript:void(0)" onclick="get_sql_for_resequence()" title='Get SQL to resequence id col in table'>Resequence</a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="$('sql_text_fld').value = ''" title='Clear SQL field'>Clear</a> &nbsp;  &nbsp; 
+<a href="javascript:void(0)" onclick="$('#sql_text_fld').value = ''" title='Clear SQL field'>Clear</a> &nbsp;  &nbsp; 
 </td></tr>
 
 </table>

@@ -26,7 +26,7 @@ function ops(submit_url) {
 }
 
 function show_hide_all(mode) {
-	$$('div.block_content').each(function(s){
+	$('div.block_content').each(function(s){
 			s.style.display=mode;
 		});
 }

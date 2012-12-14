@@ -13,7 +13,7 @@ function download_to_graph() {
 	if (colName == null || colName == "") {
 		return;
 	}
-	$("progress_display").update(globalAJAX.progress_message);
+	$('#progress_display').update(globalAJAX.progress_message);
 
 	var url = globalAJAX.site_url + globalAJAX.my_tag + '/export/json'
 	var p = Form.serialize("filter_form", true);
@@ -21,7 +21,7 @@ function download_to_graph() {
 		parameters: p,
 		onSuccess: function(transport) {
 			var rows = transport.responseText.evalJSON();
-			$("progress_display").update("");
+			$('#progress_display').update("");
 			draw_graph(rows, colName);
 		}
 	});
@@ -37,8 +37,8 @@ function draw_graph(rows, colName) {
 	var graphFormatting = set_graph_format();
 
 	// make plotting container visible and draw graph in it
-	$('graph_container').show();
-    var f = Flotr.draw($('graph_container'), dataSeriesSet, graphFormatting);
+	$('#graph_container').show();
+    var f = Flotr.draw($('#graph_container'), dataSeriesSet, graphFormatting);
 }
 
 // build data series set from given column data from rows

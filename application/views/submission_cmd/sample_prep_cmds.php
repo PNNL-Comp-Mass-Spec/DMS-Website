@@ -13,22 +13,22 @@ function showPopup(item) {
 	var pos = $(item).cumulativeOffset();
 	var left = pos[0];
 	var top = pos[1];
-	$('notification').show();
+	$('#notification').show();
 	new Effect.Move('notification', { x: left, y: top, mode: 'absolute', duration:0 });
 }
 function doSubmit(change) {
 	doCancel();
 	if(change) {
-		$('State').setValue('Closed (containers and material)');
+		$('#State').setValue('Closed (containers and material)');
 	}
 	submitToFamily(gSubmission.url, gSubmission.mode);
 }
 function doCancel() {
-	$('notification').hide();
+	$('#notification').hide();
 }
 function checkMaterial() {
-	var state = $('State').getValue();
-	var biomaterial = $('CellCultureList').getValue();
+	var state = $('#State').getValue();
+	var biomaterial = $('#CellCultureList').getValue();
 	if((state != 'Closed') || (biomaterial == '(none)' || biomaterial == '') ) {
 		doSubmit();
 	} else {
@@ -38,15 +38,15 @@ function checkMaterial() {
 function performCall(mode) {
 	var url =  "<?= site_url() ?>sample_prep_biomaterial_location/check_biomaterial";
 	var p = {};
-	p.ID = $('ID').getValue();
+	p.ID = $('#ID').getValue();
 	p.command = mode;
 
-	$('notification_message').update(globalAJAX.progress_message);
+	$('#notification_message').update(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
 			showPopup('cmd_buttons');
-			$('notification_message').update(transport.responseText);
+			$('#notification_message').update(transport.responseText);
 		}});
 }
 </script>

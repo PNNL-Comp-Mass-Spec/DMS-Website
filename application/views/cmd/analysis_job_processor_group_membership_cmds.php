@@ -2,7 +2,7 @@
 function performOperation(mode, p1, p2) {
 	var list = null;
 	if (mode == 'add_processors') {
-		list = $F('add_list_fld');
+		list = $('#add_list_fld').val();
 		if (list == '') {
 			alert('You must supply processors to add.');
 			return;
@@ -24,7 +24,7 @@ function performOperation(mode, p1, p2) {
 	var p = {};
 	p.command = mode;
 	p.newValue = (p2!='')?$F(p2):'';
-	p.processorGroupID = $F('pf_groupid');
+	p.processorGroupID = $('#pf_groupid').val();
 	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 	p.processorNameList = list;
 	submitOperation(url, p);

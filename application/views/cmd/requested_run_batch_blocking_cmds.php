@@ -33,7 +33,7 @@ function createBlocksFromBlockingFactor(col_name) {
 	randomizeWithinBlocks();
 }
 function createBlocksViaRandomAssignment() {
-	var blkSize = $('block_size').value;
+	var blkSize = $('#block_size').value;
 	if(blkSize < 2 || blkSize > 15) {
 		alert('Block size must be within range 1-15');
 		return;
@@ -91,7 +91,7 @@ function setBlockForSelectedItems() {
 		alert('No items are selected');
 		return;
 	}
-	var block = $('block_input_setting').value;
+	var block = $('#block_input_setting').value;
 	if(block != parseInt(block)) { 
 		alert('Block must be a number'); 
 		return; 
@@ -111,7 +111,7 @@ function performBatchOperation(mode) {
 	var url =  globalAJAX.site_url + "requested_run_batch_blocking/exec/batch/";
 	var p = {};
 	p.command = mode;
-	p.batchID = $('BatchID').value;
+	p.batchID = $('#BatchID').value;
 	if(p.batchID == '') {
 		alert("No batch ID");
 		return;
@@ -159,7 +159,7 @@ Randomize run order within blocks
 <input type='input' size='2' id='block_input_setting' value='1' />
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='createBlocksFromBlockingFactor($("blocking_factor_name").value)' id="btn_assign_bf" title="Assign requests to blocks"  /> 
+<input class='lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='createBlocksFromBlockingFactor($('#blocking_factor_name').value)' id="btn_assign_bf" title="Assign requests to blocks"  /> 
 Assign requests to blocks according to factor <input id='blocking_factor_name' value='' size='18'></input>
 </div>
 <div>

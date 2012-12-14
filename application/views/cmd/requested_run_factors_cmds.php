@@ -20,7 +20,7 @@ function setItemTypeField() {
 		$s = 'Experiment_Name';
 	}
 	if($s) {
-		$('itemType').value = $s;
+		$('#itemType').value = $s;
 	}
 }
 function updateDatabaseFromList(flist, id_type) {

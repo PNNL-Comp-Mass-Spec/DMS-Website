@@ -29,7 +29,7 @@ function submitOperation(url, p, show_resp) {
 
 <span id="clear_message" style='display:none'>
 |<span style='padding:0 4px 0 4px;'><a href='javascript:reloadListReportData()'>Refresh the rows</a></span>
-|<span style='padding:0 4px 0 4px;'><a href='javascript:void(0)' onclick='javascript:$("update_message").update("");$("clear_message").hide();'>Clear message</a></span>
+|<span style='padding:0 4px 0 4px;'><a href='javascript:void(0)' onclick='javascript:$('#update_message').update("");$('#clear_message').hide();'>Clear message</a></span>
 |</span>
 
 </div>

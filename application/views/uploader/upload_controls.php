@@ -4,9 +4,9 @@
 //of master controls
 function get_master_control_settings() {
 	var p = {};
-	p.mode = $('cmds').getInputs('radio', 'createupdate').find(function(radio){return radio.checked;}).value;
-	p.incTrackinfo = $('incTrackinfo').checked;
-	p.incAuxinfo = $('incAuxinfo').checked;
+	p.mode = $('#cmds').getInputs('radio', 'createupdate').find(function(radio){return radio.checked;}).value;
+	p.incTrackinfo = $('#incTrackinfo').checked;
+	p.incAuxinfo = $('#incAuxinfo').checked;
 	return p;
 }
 //update entity in database and call update_next_entity_in_list
@@ -38,7 +38,7 @@ function update_next_entity_in_list() {
 	if(x && globalAJAX.update_in_progress) {
 		var obj = x.evalJSON();
 		if(obj) {
-			$('process_progress').update(globalAJAX.entityList.length);
+			$('#process_progress').update(globalAJAX.entityList.length);
 			update_entity(obj.entity, obj.container);
 		}
 	} else {
@@ -49,11 +49,11 @@ function update_next_entity_in_list() {
 function updateSelectedEntities() {
 	globalAJAX.update_in_progress = true;
 
-	var file_name = $('uploaded_file_name').value;
+	var file_name = $('#uploaded_file_name').value;
 	if(file_name == '') { alert('File name is blank'); return; }
 	globalAJAX.file_name = file_name;
 
-	var type = $('entity_type').innerHTML;
+	var type = $('#entity_type').innerHTML;
 	if(type == '') { alert('Entity type could not be determined'); return; }
 	globalAJAX.entity_type = type;
 
@@ -67,19 +67,19 @@ function updateSelectedEntities() {
 	globalAJAX.update_url = globalAJAX.site_url + "upload/" + action;
 
 	globalAJAX.entityList = getSelectedItemList();
-	$('start_update_btn').disable();
-	$('cancel_update_btn').enable();
+	$('#start_update_btn').disable();
+	$('#cancel_update_btn').enable();
 	update_next_entity_in_list();
 }
 // stop the processing
 function cancelUpdate() {
 	globalAJAX.update_in_progress = false;
-	$('process_progress').update('');
-	$('start_update_btn').enable();
-	$('cancel_update_btn').disable();
+	$('#process_progress').update('');
+	$('#start_update_btn').enable();
+	$('#cancel_update_btn').disable();
 }
 function markUnprocessedEntities() {
-	$$('.lr_ckbx').each(function(sel){
+	$('.lr_ckbx').each(function(sel){
 		var obj = sel.value.evalJSON();
 		if(obj && $(obj.container).empty()) {
 			sel.checked = true;
@@ -123,7 +123,7 @@ function markUnprocessedEntities() {
 <div class='cx'><a onclick='setCkbxState("ckbx", 1)' title="Check all checkboxes" href='javascript:void(0)' >Select All</a> &nbsp;  </div>
 <div class='cx'><a onclick='setCkbxState("ckbx", 0)' title="Clear all checkboxes" href='javascript:void(0)' >Unselect All</a> &nbsp; </div>
 <div class='cx'><a onclick='markUnprocessedEntities()' title="Select entities with blank results" href='javascript:void(0)' >Select Blank Results</a> &nbsp;  </div>
-<div class='cx'><a onclick='$$(".entity_results_container").each(function(obj){obj.update("")});' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
+<div class='cx'><a onclick='$(".entity_results_container").each(function(obj){obj.update("")});' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
 </div>
 
 </form>

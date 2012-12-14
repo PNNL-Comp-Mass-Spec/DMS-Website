@@ -34,8 +34,8 @@ function draw_graph(rows) {
 	var graphFormatting = set_graph_format();
 
 	// make plotting container visible and draw graph in it
-	$('graph_container').show();
-    var f = Flotr.draw($('graph_container'), dataSeriesSet, graphFormatting);
+	$('#graph_container').show();
+    var f = Flotr.draw($('#graph_container'), dataSeriesSet, graphFormatting);
 }
 
 // build data series set from given column data from rows

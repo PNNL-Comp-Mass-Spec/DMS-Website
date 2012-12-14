@@ -51,9 +51,9 @@ function reloadReport(operation) {
 	var p = {};
 	p.factorList = '';
 	p.operation = operation;
-	p.year = $F('pf_year');
-	p.month = $F('pf_month');
-	p.instrument = $F('pf_instrument');
+	p.year = $('#pf_year').val();
+	p.month = $('#pf_month').val();
+	p.instrument = $('#pf_instrument').val();
 	submitOperation(url, p);
 }
 function refresh_report() {

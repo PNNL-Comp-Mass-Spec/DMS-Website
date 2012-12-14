@@ -12,7 +12,7 @@ function getEditFieldsObjList() {
 	// where each object references the fields for 
 	// one block
 	var rlist = [];
-	$$('.Cart').each(function(cartField) {
+	$('.Cart').each(function(cartField) {
 		var obj = {};
 		obj.nm = cartField.name;
 		var x = obj.nm.split('.');
@@ -58,7 +58,7 @@ function setCartName() {
 		alert('No items are selected');
 		return;
 	}
-	var cart = $('cart_name_input').value;
+	var cart = $('#cart_name_input').value;
 	if(cart == '') {
 		alert('Cart name cannot be blank');
 		return;
@@ -73,7 +73,7 @@ function setCartCol() {
 		alert('No items are selected');
 		return;
 	}
-	var col = $('col_input_setting').value;
+	var col = $('#col_input_setting').value;
 	if(col < 1 || col > 8) {
 		alert('Column out of range');
 		return;

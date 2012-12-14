@@ -21,8 +21,8 @@ function updateAlert(url, form) {
 		parameters: p,
 		onSuccess: function(transport) {
 //			alert(transport.responseText);
-			$('notification_message').update(transport.responseText);
-			$('notification').show();
+			$('#notification_message').update(transport.responseText);
+			$('#notification').show();
 		}
 	});
 }
@@ -64,33 +64,33 @@ function loadSqlComparisonSelector(container_name, url, col_sel) {
 }
 //clear the specified list report search filter
 function clearSearchFilter(filter) {
-	$$( '.' + filter).each(function(obj) {obj.value = ''} );
+	$( '.' + filter).each(function(obj) {obj.value = ''} );
 	is_filter_active();
 }
 //clear the list report search filters
 function clearSearchFilters() {
-	$$(".filter_input_field").each(function(obj) {obj.value = ''} );
-//	$$(".primary_filter_field").each(function(obj) {obj.value = ''} );
-//	$$(".secondary_filter_input").each(function(obj) {obj.value = ''} );
-//	$$(".sorting_filter_input").each(function(obj) {obj.value = ''} );
+	$(".filter_input_field").each(function(obj) {obj.value = ''} );
+//	$(".primary_filter_field").each(function(obj) {obj.value = ''} );
+//	$(".secondary_filter_input").each(function(obj) {obj.value = ''} );
+//	$(".sorting_filter_input").each(function(obj) {obj.value = ''} );
 	is_filter_active();
 }
 //------------------------------------------
 function setColSort(colName) {
-	var curCol = $('qf_sort_col_0').value;
-	var curDir = $('qf_sort_dir_0').value;
-	$$(".sorting_filter_input").each(function(obj) {obj.value = ''} );
+	var curCol = $('#qf_sort_col_0').value;
+	var curDir = $('#qf_sort_dir_0').value;
+	$(".sorting_filter_input").each(function(obj) {obj.value = ''} );
 	var dir = 'ASC';
 	if(colName == curCol) {dir = (curDir == 'ASC')?'DESC':'ASC'; };
-	$('qf_sort_col_0').value = colName;
-	$('qf_sort_dir_0').value = dir;
+	$('#qf_sort_col_0').value = colName;
+	$('#qf_sort_dir_0').value = dir;
 	reloadListReportData('autoload');
 }
 //------------------------------------------
 // paging
 //set the current starting row for the list report
 function setListReportCurRow(row) {
-	$("qf_first_row").value = row;
+	$('#qf_first_row').value = row;
  reloadListReportData();
 }
 function setPageSize(curPageSize, totalRows, max) {
@@ -124,32 +124,32 @@ function setPageSizeParameter(newPageSize) {
 		alert("Sorry, '" + newPageSize + "' is not a number");
 	} else {
 		var n = Number(newPageSize);
-		$("qf_rows_per_page").value = newPageSize;
-		$("qf_first_row").value = 1;
+		$('#qf_rows_per_page').value = newPageSize;
+		$('#qf_first_row').value = 1;
 	    reloadListReportData();
 	}
 }
 //------------------------------------------
 // search filter change monitoring
 function set_filter_field_observers() {
-	var pFields = $$(".primary_filter_field");
+	var pFields = $(".primary_filter_field");
 	pFields.each(function(f) { Event.observe(f, 'keyup', filter_key.bindAsEventListener()); });
 	pFields.each(function(f) { Event.observe(f, 'keyup', is_filter_active); });
-	var sFields = $$(".secondary_filter_input");
+	var sFields = $(".secondary_filter_input");
 	sFields.each(function(f) { Event.observe(f, 'keyup', filter_key.bindAsEventListener()); });
 	sFields.each(function(f) { Event.observe(f, 'keyup', is_filter_active); });
 }
 function is_filter_active() {
 	var filterFlag = 0;
 	var sortFlag = 0;
-	var ff = $('filter_form');
+	var ff = $('#filter_form');
 	ff.getElementsBySelector(".primary_filter_field").each(function(obj) {if(obj.value != '') filterFlag++;} );
 	ff.getElementsBySelector(".secondary_filter_input").each(function(obj) {if(obj.value != '') filterFlag++;} );
 	ff.getElementsBySelector(".sorting_filter_input").each(function(obj) {if(obj.value != '') sortFlag++;} );	
 
-//	$$(".primary_filter_field").each(function(obj) {if(obj.value != '') filterFlag++;} );
-//	$$(".secondary_filter_input").each(function(obj) {if(obj.value != '') filterFlag++;} );
-//	$$(".sorting_filter_input").each(function(obj) {if(obj.value != '') sortFlag++;} );	
+//	$(".primary_filter_field").each(function(obj) {if(obj.value != '') filterFlag++;} );
+//	$(".secondary_filter_input").each(function(obj) {if(obj.value != '') filterFlag++;} );
+//	$(".sorting_filter_input").each(function(obj) {if(obj.value != '') sortFlag++;} );	
 	set_filter_active_indicator(filterFlag, sortFlag);
 }
 function filter_key(e) {
@@ -158,7 +158,7 @@ function filter_key(e) {
 	if (e.keyCode) code = e.keyCode;
 	else if (e.which) code = e.which;
 	if(code == 13) {
-		$("qf_first_row").value = 1;
+		$('#qf_first_row').value = 1;
 	    reloadListReportData();
 		return false;
 	}
@@ -166,21 +166,21 @@ function filter_key(e) {
 }
 function set_filter_active_indicator(activeSearchFilters, activeSorts) {
 	if(!activeSearchFilters) {
-		$('filters_active').update('');
+		$('#filters_active').update('');
 	} else 
 	if(activeSearchFilters ==1 ){
-		$('filters_active').update('There is ' + activeSearchFilters +  ' filter set');
+		$('#filters_active').update('There is ' + activeSearchFilters +  ' filter set');
 	} else {
-		$('filters_active').update('There are ' + activeSearchFilters +  ' filters set');
+		$('#filters_active').update('There are ' + activeSearchFilters +  ' filters set');
 	}
 /*
 	if(!activeSorts) {
-		$('sorting_active').update('');
+		$('#sorting_active').update('');
 	} else 
 	if(activeSorts ==1 ){
-		$('sorting_active').update('There is ' + activeSorts +  ' sorting field active');
+		$('#sorting_active').update('There is ' + activeSorts +  ' sorting field active');
 	} else {
-		$('sorting_active').update('There are ' + activeSorts +  ' sorting fields active');
+		$('#sorting_active').update('There are ' + activeSorts +  ' sorting fields active');
 	}
 */
 }
@@ -191,7 +191,7 @@ function set_filter_active_indicator(activeSearchFilters, activeSorts) {
 
 // style associated entry field for each enable checkbox
 function adjustEnabledFields() {
-	$$('._ckbx_enable').each(
+	$('._ckbx_enable').each(
 		function(chkbx) {
 			var fieldName = chkbx.name.replace('_ckbx_enable', '');
 			enableDisableField(chkbx, fieldName);
@@ -216,23 +216,23 @@ function showHideTableRows(block_name, url, show_img, hide_img) {
 	var styleVal = '';
 	var index = cur_src.indexOf('hide');
 	if(index < 0) {
-		$$(className).each(function(s){s.style.display=''});
+		$(className).each(function(s){s.style.display=''});
 		$(img_element_id).src = url + hide_img;
 	} else {
-		$$(className).each(function(s){s.style.display='none'});
+		$(className).each(function(s){s.style.display='none'});
 		$(img_element_id).src = url + show_img;		
     }
 }
 function showTableRows(block_name, url, hide_img) {
 	var className = '.' + block_name;
 	var img_element_id = block_name + "_cntl";
-	$$(className).each(function(s){s.style.display=''});
+	$(className).each(function(s){s.style.display=''});
 	$(img_element_id).src = url + hide_img;
 }
 function hideTableRows(block_name, url, show_img) {
 	var className = '.' + block_name;
 	var img_element_id = block_name + "_cntl";
-	$$(className).each(function(s){s.style.display='none'});
+	$(className).each(function(s){s.style.display='none'});
 	$(img_element_id).src = url + show_img;			
 }
 
@@ -343,7 +343,7 @@ function callDatepicker(fieldName) {
 
 function getSelectedItemList() {
 	var checkedIDlist = [];
-	$$('.lr_ckbx').each(function(obj){
+	$('.lr_ckbx').each(function(obj){
 		if(obj.checked) {
 			checkedIDlist.push(obj.value);
 		}

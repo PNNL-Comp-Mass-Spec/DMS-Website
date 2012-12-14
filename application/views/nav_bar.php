@@ -12,7 +12,7 @@ function hide_exposed_menus(e) {
 	var el = Event.element(e);
 	var pe = Event.findElement(e, 'div');
 	if(el.tagName.toLowerCase() != 'a' || pe.id != 'menu') gOpenMenuID = '';
-	var menu_list = $$('.ddm');
+	var menu_list = $('.ddm');
 	menu_list.each(function(x){if(x.id != gOpenMenuID) x.style.display = 'none'});	
 }
 // set listener for clicks

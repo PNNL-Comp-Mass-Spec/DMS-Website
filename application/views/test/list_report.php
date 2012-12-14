@@ -32,19 +32,19 @@ Event.observe(window, 'load', function() {
 )
 
 function clearFilters() {
-	$$(".primary_filter_field").each(function(obj) {obj.value = ''} );
-	$$(".secondary_filter_input").each(function(obj) {obj.value = ''} );
-	$$(".sorting_filter_input").each(function(obj) {obj.value = ''} );	
+	$(".primary_filter_field").each(function(obj) {obj.value = ''} );
+	$(".secondary_filter_input").each(function(obj) {obj.value = ''} );
+	$(".sorting_filter_input").each(function(obj) {obj.value = ''} );	
 }
 
 function setColSort(colName) {
-	var curCol = $('qf_sort_col_0').value;
-	var curDir = $('qf_sort_dir_0').value;
-	$$(".sorting_filter_input").each(function(obj) {obj.value = ''} );
+	var curCol = $('#qf_sort_col_0').value;
+	var curDir = $('#qf_sort_dir_0').value;
+	$(".sorting_filter_input").each(function(obj) {obj.value = ''} );
 	var dir = 'ASC';
 	if(colName == curCol) {dir = (curDir == 'ASC')?'DESC':'ASC'; };
-	$('qf_sort_col_0').value = colName;
-	$('qf_sort_dir_0').value = dir;
+	$('#qf_sort_col_0').value = colName;
+	$('#qf_sort_dir_0').value = dir;
 	// call updateMyData();
 }
 </script>

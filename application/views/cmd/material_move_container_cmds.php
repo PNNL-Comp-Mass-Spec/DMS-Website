@@ -13,7 +13,7 @@ function performOperation(mode, val) {
 	p.command = mode;
 	p.containerList = list;
 	p.newValue = (val)?$F(val):'';
-	p.comment = $F('comment_fld');
+	p.comment = $('#comment_fld').val();
 	submitOperation(url, p);
 }
 </script>

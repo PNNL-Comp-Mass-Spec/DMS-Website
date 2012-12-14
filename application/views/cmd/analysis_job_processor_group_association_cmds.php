@@ -2,7 +2,7 @@
 function performOperation(mode) {
 	var list = null;
 	if (mode == 'add') {
-		list = $F('add_list_fld');
+		list = $('#add_list_fld').val();
 		if (list == '') {
 			alert('You must supply jobs to add.');
 			return;
@@ -21,7 +21,7 @@ function performOperation(mode) {
 	var p = {};
 	p.command = mode;
 	p.newValue = '';
-	p.processorGroupID = $F('pf_groupid');
+	p.processorGroupID = $('#pf_groupid').val();
 	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 	p.JobList = list;
 	submitOperation(url, p);

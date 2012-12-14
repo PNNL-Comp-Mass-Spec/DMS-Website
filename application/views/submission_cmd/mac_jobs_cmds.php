@@ -23,15 +23,15 @@ function submissionSequence(url, mode, post_submission_action) {
 //and build properly formatted XML and replace the
 //contents of the jobParams field on main form with it
 function copy_param_form_to_xml_param_field() {
-	$('jobParam').value = '';
-	$('param_form').getElements().each(
+	$('#jobParam').value = '';
+	$('#param_form').getElements().each(
 		function(obj) {
 			if(obj.name.indexOf('_chooser') === -1) {
 				var s = '<Param ';
 				s += 'Name="' + obj.name + '" ';
 				s += 'Value="' + obj.value + '" ';
 				s += '/>';
-				$('jobParam').value += s;
+				$('#jobParam').value += s;
 			}
 		}
 	);
@@ -39,7 +39,7 @@ function copy_param_form_to_xml_param_field() {
 
 // get supplemental form fields via an AJAX call
 function load_param_form() {
-	var url = '<?= site_url().$tag ?>/parameter_form/' + $('scriptName').value;
+	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#scriptName').value;
 	var container = 'param_container';
 	p = {};
 	new Ajax.Request(url, {
@@ -51,13 +51,13 @@ function load_param_form() {
 	});	
 }
 function choose_template(template_name) {
-	$('scriptName').value = template_name;
+	$('#scriptName').value = template_name;
 	load_param_form();
 }
 
 function set_param_row_visibility(class_name, visibility) {
 	var tag = '.' + class_name;
-	$$(tag).each(function(obj){ obj.style.display = visibility; } );
+	$(tag).each(function(obj){ obj.style.display = visibility; } );
 }
 
 //try and set up the supplemental form when the page loads

@@ -12,9 +12,9 @@ function performOperation(mode) {
 	var p = {};
 	p.command = mode;
 	p.datasetIDList = list;
-	p.rating = $F('rating_fld');
-	p.comment = $F('comment_fld');
-	p.recycleRequest = $F('recycle_fld');
+	p.rating = $('#rating_fld').val();
+	p.comment = $('#comment_fld').val();
+	p.recycleRequest = $('#recycle_fld').val();
 	submitOperation(url, p);
 }
 </script>

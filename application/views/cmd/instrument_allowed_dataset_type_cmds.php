@@ -1,8 +1,8 @@
 <script type="text/javascript">
 function localRowAction(url, value, obj) {
-	$("instrument_group_fld").setValue(obj["Instrument Group"]);
-	$("dataset_type_fld").setValue(obj["Dataset Type"]);
-	$("usage_fld").setValue(obj["Usage for This Group"]);
+	$('#instrument_group_fld').setValue(obj["Instrument Group"]);
+	$('#dataset_type_fld').setValue(obj["Dataset Type"]);
+	$('#usage_fld').setValue(obj["Usage for This Group"]);
 }
 
 function performOperation(mode) {
@@ -11,9 +11,9 @@ function performOperation(mode) {
 	url =  "<?= $ops_url ?>";
 	var p = {};
 	p.command = mode;
-	p.InstrumentGroup = $F("instrument_group_fld");
-	p.DatasetType = $F("dataset_type_fld");
-	p.Comment = $F("usage_fld");
+	p.InstrumentGroup = $('#instrument_group_fld').val();
+	p.DatasetType = $('#dataset_type_fld').val();
+	p.Comment = $('#usage_fld').val();
 	submitOperation(url, p);
 }
 </script>

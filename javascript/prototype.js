@@ -3395,7 +3395,7 @@ Object.extend(Selector, {
   },
 
   matchElements: function(elements, expression) {
-    var matches = $$(expression), h = Selector.handlers;
+    var matches = $(expression), h = Selector.handlers;
     h.mark(matches);
     for (var i = 0, results = [], element; element = elements[i]; i++)
       if (element._countedByPrototype) results.push(element);
@@ -3440,7 +3440,7 @@ if (Prototype.Browser.IE) {
   });
 }
 
-function $$() {
+function $() {
   return Selector.findChildElements(document, $A(arguments));
 }
 var Form = {
@@ -4122,7 +4122,7 @@ Object.extend(document, {
 
   } else {
     document.write("<script id=__onDOMContentLoaded defer src=//:><\/script>");
-    $("__onDOMContentLoaded").onreadystatechange = function() {
+    $('#__onDOMContentLoaded').onreadystatechange = function() {
       if (this.readyState == "complete") {
         this.onreadystatechange = null;
         fireContentLoadedEvent();

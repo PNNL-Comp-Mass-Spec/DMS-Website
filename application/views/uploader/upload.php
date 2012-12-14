@@ -18,11 +18,11 @@ Event.observe(window, 'load', function() {
 // into iframe and which is run immediately
 function report_upload_results(file_name, error) {
 	if(error != '') {
-		$('uploaded_file_name').value = '';
-//		$('upload_error').update($error);
+		$('#uploaded_file_name').value = '';
+//		$('#upload_error').update($error);
 	} else {
-		$('uploaded_file_name').value = file_name;
-//		$('upload_error').update('Upload was successful');
+		$('#uploaded_file_name').value = file_name;
+//		$('#upload_error').update('Upload was successful');
 		extract();
 		clearSpreadsheetDisplay();
 	}
@@ -30,7 +30,7 @@ function report_upload_results(file_name, error) {
 function updateContainer(action, container, id) { 
 	var url = globalAJAX.site_url + 'upload/' + action;
 	var p = {};
-	p.file_name = $('uploaded_file_name').value;
+	p.file_name = $('#uploaded_file_name').value;
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
 	$(container).update(globalAJAX.progress_message);
@@ -43,17 +43,17 @@ function updateContainer(action, container, id) {
 }
 // extract data from uploaded spreadsheet and display on page
 function extract() {
-	$('master_control_container').show();
+	$('#master_control_container').show();
 	updateContainer('extract_data', 'ss_entity_list_container', '');
 //	showSpreadsheetContents();
 }
 function showSpreadsheetContents() {
-	$("ss_table_display_area").show();
+	$('#ss_table_display_area').show();
 	updateContainer('extract_table', 'ss_table_container', '');	
 }
 function clearSpreadsheetDisplay() {
-	$("ss_table_display_area").hide();
-	$("ss_table_container").update("")
+	$('#ss_table_display_area').hide();
+	$('#ss_table_container').update("")
 }
 </script>
 

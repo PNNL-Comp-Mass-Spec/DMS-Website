@@ -11,7 +11,7 @@ function getBlockingFieldsObjList(col_name) {
 		col_name = 'Blocking_Factor';
 	}
 	var rlist = [];
-	$$('.Block').each(function(bk) {
+	$('.Block').each(function(bk) {
 		var obj = {};
 		obj.bk = bk;
 		obj.ro = $('Run_Order_' + bk.name);
@@ -49,7 +49,7 @@ function getUniqueListOfBlocks() {
 	// run through request list and get
 	// unique list of block numbers
 	bklist = [];
-	$$('.Block').each(function(bk) {
+	$('.Block').each(function(bk) {
 		var blk = bk.value;
 		if(!bklist.include(blk)) {
 			bklist.push(blk);
@@ -61,7 +61,7 @@ function getUniqueListOfBlockingFactors(col_name) {
 	// run through request list and get
 	// unique list of blocking factors
 	bflist = [];
-	$$('.' + col_name).each(function(bk) {
+	$('.' + col_name).each(function(bk) {
 		var blk = bk.value;
 		if(!bflist.include(blk)) {
 			bflist.push(blk);
@@ -114,7 +114,7 @@ function createBlocksFromBlockingFactor(col_name) {
 	randomizeWithinBlocks();
 }
 function createBlocksViaRandomAssignment() {
-	var blkSize = $('block_size').value;
+	var blkSize = $('#block_size').value;
 	if(blkSize < 2 || blkSize > 15) {
 		alert('Block size must be within range 1-15');
 		return;
