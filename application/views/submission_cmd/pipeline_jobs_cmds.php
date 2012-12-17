@@ -81,7 +81,7 @@ function set_param_row_visibility(class_name, visibility) {
 }
 
 //try and set up the supplemental form when the page loads
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	load_param_form();
 	load_script_diagram();
 	}

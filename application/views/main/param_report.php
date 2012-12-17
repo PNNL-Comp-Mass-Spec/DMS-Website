@@ -74,7 +74,7 @@ function updateMyData(loading) {
 	data_update_action.run();
 }
 //after the page loads, set things in motion to populate it
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	 	window['reloadListReportData'] = function() { updateMyData('autoload');}
 		$('#data_container').update('Data will be displayed after you click the "Search" button.');
 	}

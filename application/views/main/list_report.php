@@ -107,7 +107,7 @@ function updateMyData(loading) {
 	}	
 }
 // after the page loads, set things in motion to populate it
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 		$('#data_container').update('Data is loading...' + globalAJAX.progress_message);
 		updateMyFilter('minimal');
 		updateMyData('<?= $loading ?>');

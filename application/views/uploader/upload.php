@@ -10,7 +10,7 @@ globalAJAX = {};
 globalAJAX.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 globalAJAX.site_url = '<?= site_url() ?>';
 
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	new Ajax.Updater('ss_entity_list_container', globalAJAX.site_url+'upload/directory', {})
 });
 

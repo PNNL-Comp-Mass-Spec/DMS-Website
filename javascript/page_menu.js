@@ -37,7 +37,7 @@ function showHideMenuDiagram() {
 		$('#diag_ctl_label').innerHTML = 'Show Diagram Menus';
 	}
 }
-Event.observe(window, 'load', function(){showHideAllMenuBlocks('none', 'More...')});
+$(document).ready(function (){showHideAllMenuBlocks('none', 'More...')});
 
 function showFlyMenu(section_name) {
 	hideFlyMenus();
@@ -57,4 +57,4 @@ function showFlyMenuOnDelay(category) {
 function cancelShowFlyMenuOnDelay() {
 	clearTimeout(tx);
 }
-Event.observe(window, 'load', function(){showFlyMenu('splash_message')});
+$(document).ready(function (){showFlyMenu('splash_message')});

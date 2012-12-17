@@ -50,7 +50,7 @@ function updateAuxIntoControls() {
 function updateShowSQL() {
 	updateAlert('<?= $this->my_tag ?>/detail_sql/<?= $id ?>', 'OFS'); 
 }
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	updateMyData();
 <?php if($aux_info_target):?>
 	updateAuxIntoControls();

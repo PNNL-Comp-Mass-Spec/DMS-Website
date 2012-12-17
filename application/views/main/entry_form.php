@@ -41,7 +41,7 @@ function submitEntryPage(url, mode) {
 	f.method="post";
 	f.submit();
 }
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	adjustEnabledFields();
 	}
 );

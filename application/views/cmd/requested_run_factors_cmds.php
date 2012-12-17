@@ -2,7 +2,7 @@
 <script type="text/javascript" src="<?= base_url().'javascript/factors.js' ?>"></script>
 
 <script type="text/javascript">
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	gChooser.callBack = setItemTypeField;
 });
 function setItemTypeField() {

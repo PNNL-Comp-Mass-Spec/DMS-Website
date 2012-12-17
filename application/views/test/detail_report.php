@@ -21,7 +21,7 @@ function updateContainer(url, container) {
 function updateMyData() {
 	updateContainer('<?= $q_data_row_ajax ?>', 'data_container'); 	
 }
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	updateMyData();
 	}
 )

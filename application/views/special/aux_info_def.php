@@ -58,7 +58,7 @@ function getChildren(parent) {
 	}
 }
 //after the page loads, set things in motion to populate it
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 		getChildren('top');
 	}
 );

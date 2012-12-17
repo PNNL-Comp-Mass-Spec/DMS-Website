@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
 
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	$('#cmd_buttons').hide();
 	$('#move_next_link').hide();
 	hideSection('section_block_3');

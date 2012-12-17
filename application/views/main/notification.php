@@ -22,7 +22,7 @@
 </style>
 
 <script type='text/javascript'>
- Event.observe(window, 'load', function() { 
+ $(document).ready(function () { 
 		new Draggable("notification", {handle: 'notification_header' })
 	 }
  );

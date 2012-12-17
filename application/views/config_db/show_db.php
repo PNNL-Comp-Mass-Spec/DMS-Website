@@ -45,7 +45,7 @@ function make_controller() {
 	window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
 }
 
-Event.observe(window, 'load', function(){show_hide_all('none')});
+$(document).ready(function (){show_hide_all('none')});
 </script>
 
 </head>

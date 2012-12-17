@@ -4,7 +4,7 @@ function report_upload_results(msg) {
 	showAttachments();
 }
 
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 //	showAttachments();
 	$('#entity_type').value = "<?= $tag ?>";
 	$('#entity_id').value = "<?= $id ?>";

@@ -25,7 +25,7 @@ function updateMyData() {
 	updateContainer('<?= $q_data_rows_ajax ?>', 'data_container'); 	
 	updateContainer('<?= $q_data_rows_ajax_pages ?>', 'paging_container'); 	
 }
-Event.observe(window, 'load', function() { 
+$(document).ready(function () { 
 	updateMyFilter();
 	updateMyData();
 	}
