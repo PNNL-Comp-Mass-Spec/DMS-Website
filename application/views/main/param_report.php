@@ -19,7 +19,7 @@ function updateContainer(action, container, follow_on_action) {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).html(transport.responseText);
+			$('#' + container).html(transport.responseText);
 			if(follow_on_action.run) {
 				follow_on_action.run();
 			}

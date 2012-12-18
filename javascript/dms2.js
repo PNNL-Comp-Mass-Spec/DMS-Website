@@ -318,7 +318,7 @@ function callDatepicker(fieldName) {
 		var dv = "<div id='"+ chName + "'></div>";
 		$(fieldName).ancestors().first().insert(dv);
 		var ch = $(chName);
-		ch.addClassName('googleblue');
+		ch.addClass('googleblue');
 	    ch.absolutize();
 		new scal(chName, 
 				 function(dt){
@@ -488,9 +488,10 @@ function formatXMLText(fieldName)
 // document export - repurpose entry form
 // to old fashioned submit instead of AJAX
 function export_to_doc(url, form) {
-	var oldUrl = $(form).action;
-	$(form).action = url;
-    $(form).submit();
-	$(form).action = oldUrl;
+	var frm = $('#' + form)[0];
+	var oldUrl = frm.action;
+	frm.action = url;
+    frm.submit();
+	frm.action = oldUrl;
 }
 //------------------------------------------

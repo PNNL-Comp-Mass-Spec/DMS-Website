@@ -24,7 +24,7 @@ function submitToFamily(url, mode, follow_on_action) {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).html(transport.responseText);
+			$('#' + container).html(transport.responseText);
 			setTimeout("adjustEnabledFields()", 350);
 			if(follow_on_action && follow_on_action.run) {
 				follow_on_action.run(mode);

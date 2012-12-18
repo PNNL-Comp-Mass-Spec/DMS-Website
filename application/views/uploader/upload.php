@@ -33,11 +33,11 @@ function updateContainer(action, container, id) {
 	p.file_name = $('#uploaded_file_name').val();
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
-	$(container).html(globalAJAX.progress_message);
+	$('#' + container).html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).html(transport.responseText);
+			$('#' + container).html(transport.responseText);
 		}
 	});
 }

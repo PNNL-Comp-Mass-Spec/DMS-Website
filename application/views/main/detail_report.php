@@ -37,7 +37,7 @@ function updateContainer(url, container) {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).html(transport.responseText);
+			$('#' + container).html(transport.responseText);
 		}
 	});
 }
