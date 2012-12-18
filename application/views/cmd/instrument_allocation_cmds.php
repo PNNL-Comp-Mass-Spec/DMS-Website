@@ -73,7 +73,7 @@ function updateDatabaseFromList(flist, fiscal_year) {
 }
 function load_delimited_text() {
 	var parsed_data = parseDelimitedText('delimited_text_input');
-	var fiscal_year = $('#fiscal_year').value;
+	var fiscal_year = $('#fiscal_year'val();
 	if(fiscal_year == '') {
 		alert('You must set the fiscal year for the changes');
 		return;

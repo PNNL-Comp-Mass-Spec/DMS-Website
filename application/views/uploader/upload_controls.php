@@ -4,7 +4,7 @@
 //of master controls
 function get_master_control_settings() {
 	var p = {};
-	p.mode = $('#cmds').getInputs('radio', 'createupdate').find(function(radio){return radio.checked;}).value;
+	p.mode = $('#cmds').getInputs('radio', 'createupdate').find(function(radio){return radio.checked;}val();
 	p.incTrackinfo = $('#incTrackinfo').checked;
 	p.incAuxinfo = $('#incAuxinfo').checked;
 	return p;
@@ -49,7 +49,7 @@ function update_next_entity_in_list() {
 function updateSelectedEntities() {
 	globalAJAX.update_in_progress = true;
 
-	var file_name = $('#uploaded_file_name').value;
+	var file_name = $('#uploaded_file_name'val();
 	if(file_name == '') { alert('File name is blank'); return; }
 	globalAJAX.file_name = file_name;
 

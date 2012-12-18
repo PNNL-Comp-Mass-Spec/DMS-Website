@@ -32,7 +32,7 @@ function getFactorFieldList(factor_cols) {
 	factor_cols.each(function(idx, col){
 		idlist.each(function(idx, id){
 			var fldID = col.replace(' ', '_') + '_' + id;
-			var val = $(fldID).value;
+			var val = $(fldIDval();
 			var obj = {};
 			obj.id = id;
 			obj.factor = col;
@@ -109,8 +109,8 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 }
 
 function applyFactorToDatabase() {
-	var factor = $('#apply_factor_name').value;
-	var value = $('#apply_factor_value').value;
+	var factor = $('#apply_factor_name'val();
+	var value = $('#apply_factor_value'val();
 	var ilist = getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);
 	if (flist.length == 0) {
@@ -120,7 +120,7 @@ function applyFactorToDatabase() {
 	updateDatabaseFromList(flist);
 }
 function removeFactorFromDatabase(){
-	var factor = $('#remove_factor_name').value;
+	var factor = $('#remove_factor_name'val();
 	var value = '';
 	var ilist = getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);

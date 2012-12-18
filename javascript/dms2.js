@@ -75,8 +75,8 @@ function clearSearchFilters() {
 }
 //------------------------------------------
 function setColSort(colName) {
-	var curCol = $('#qf_sort_col_0').value;
-	var curDir = $('#qf_sort_dir_0').value;
+	var curCol = $('#qf_sort_col_0'val();
+	var curDir = $('#qf_sort_dir_0'val();
 	$(".sorting_filter_input").each(function(idx, obj) {obj.value = ''} );
 	var dir = 'ASC';
 	if(colName == curCol) {dir = (curDir == 'ASC')?'DESC':'ASC'; };
@@ -298,7 +298,7 @@ function updateFieldValueFromChooser(value, action) {
 }
 function getFieldValueForChooser() {
 	// todo: make sure gChooser.field is defined
-	var value = $(gChooser.field).value;
+	var value = $(gChooser.fieldval();
 	if(gChooser.delimiter != ',') {
 		value = value.replace(/gChooser.delimiter/g, ',');
 	}
@@ -449,7 +449,7 @@ function setFieldValueFromSelection(fieldName, chooserName, mode) {
 		}
 		var delim = ';';
 		if(mode == 'append_comma') delim = ',';		
-		var v = $(fieldName).value;
+		var v = $(fieldNameval();
 		if(v != '') v = v + delim;
 		$(fieldName).value = v + $F(chooserName);			
 	}

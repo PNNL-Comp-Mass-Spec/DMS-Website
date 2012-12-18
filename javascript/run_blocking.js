@@ -114,7 +114,7 @@ function createBlocksFromBlockingFactor(col_name) {
 	randomizeWithinBlocks();
 }
 function createBlocksViaRandomAssignment() {
-	var blkSize = $('#block_size').value;
+	var blkSize = $('#block_size'val();
 	if(blkSize < 2 || blkSize > 15) {
 		alert('Block size must be within range 1-15');
 		return;

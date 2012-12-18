@@ -16,7 +16,7 @@ function getEditFieldsObjList() {
 		var obj = {};
 		obj.req = cartField.name;
 		obj.cart = cartField.value;
-		obj.col = $('Col_' + obj.req).value;
+		obj.col = $('Col_' + obj.reqval();
 		rlist.push(obj);
 	});
 	return rlist;
@@ -39,7 +39,7 @@ function setCartName() {
 		alert('No items are selected');
 		return;
 	}
-	var cart = $('#cart_name_input').value;
+	var cart = $('#cart_name_input'val();
 	if(cart == '') {
 		alert('Cart name cannot be blank');
 		return;
@@ -54,7 +54,7 @@ function setCartCol() {
 		alert('No items are selected');
 		return;
 	}
-	var col = $('#col_input_setting').value;
+	var col = $('#col_input_setting'val();
 	if(col < 1 || col > 8) {
 		alert('Column out of range');
 		return;
