@@ -20,8 +20,8 @@ function performOperation(mode){
 	submitOperation(url, p);
 }
 function getDatasetInfo(mode) {
-	var id = $('#pf_data_package_id'val();
-	var tool = $('#tool_name'val();
+	var id = $('#pf_data_package_id').val();
+	var tool = $('#tool_name').val();
 	if(id == '') {alert('data_package_id filter not set'); return;}
 
 	var url =  '<?= site_url() ?>data_package/ag/' + id + '/' + tool + '/' + mode;

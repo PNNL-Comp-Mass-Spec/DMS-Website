@@ -15,8 +15,8 @@ div.block_content {
 <script type="text/javascript">
 	
 function search() {
-	var file_filter = $('#file_filter'val();
-	var table_filter = $('#table_filter'val();
+	var file_filter = $('#file_filter').val();
+	var table_filter = $('#table_filter').val();
 	var url = '<?= site_url() ?>/config_db/search/'+ file_filter + '/' + table_filter;
 	if($('#text_only').checked) {
 		url += '/text';

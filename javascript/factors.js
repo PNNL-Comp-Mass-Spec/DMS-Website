@@ -109,8 +109,8 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 }
 
 function applyFactorToDatabase() {
-	var factor = $('#apply_factor_name'val();
-	var value = $('#apply_factor_value'val();
+	var factor = $('#apply_factor_name').val();
+	var value = $('#apply_factor_value').val();
 	var ilist = getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);
 	if (flist.length == 0) {
@@ -120,7 +120,7 @@ function applyFactorToDatabase() {
 	updateDatabaseFromList(flist);
 }
 function removeFactorFromDatabase(){
-	var factor = $('#remove_factor_name'val();
+	var factor = $('#remove_factor_name').val();
 	var value = '';
 	var ilist = getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);

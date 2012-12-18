@@ -40,7 +40,7 @@ function submitMainEntryForm(mode, followOnAction) {
 }
 
 function showPageLinks() {
-	var id = $('#requestID'val();
+	var id = $('#requestID').val();
 	if(id != '0') {
 		var url = "<?= site_url() ?>analysis_job_request/show/" + id;
 		$('#move_next_link').href = url;
@@ -57,7 +57,7 @@ function getJobDefaults() {
 function callOperation(url) {
 	var url =  "<?= site_url() ?>" + url;
 	var p = {};
-	p.datasets = $('#datasets'val();
+	p.datasets = $('#datasets').val();
 	//	FUTURE:progress indicator
 	new Ajax.Request(url, {
 		parameters: p,
@@ -72,11 +72,11 @@ function callOperation(url) {
 function setFieldValues() {
 	if($('#return_code').val() != 'success') return;
 	
-	$('#toolName').val($('#suggested_ToolName'val());
-	$('#jobTypeName').val($('#suggested_JobTypeName'val());
-	$('#organismName').val($('#suggested_OrganismName'val());
-	$('#protCollNameList').val($('#suggested_ProteinCollectionList'val());
-	$('#protCollOptionsList').val($('#suggested_ProteinOptionsList'val());
+	$('#toolName').val($('#suggested_ToolName').val());
+	$('#jobTypeName').val($('#suggested_JobTypeName').val());
+	$('#organismName').val($('#suggested_OrganismName').val());
+	$('#protCollNameList').val($('#suggested_ProteinCollectionList').val());
+	$('#protCollOptionsList').val($('#suggested_ProteinOptionsList').val());
 	
 	$('#ModificationDynMetOx').checked = ($('#suggested_DynMetOxEnabled').val( '1'));
 	$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').val( '1'));

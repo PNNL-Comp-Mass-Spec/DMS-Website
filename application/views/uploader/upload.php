@@ -30,7 +30,7 @@ function report_upload_results(file_name, error) {
 function updateContainer(action, container, id) { 
 	var url = globalAJAX.site_url + 'upload/' + action;
 	var p = {};
-	p.file_name = $('#uploaded_file_name'val();
+	p.file_name = $('#uploaded_file_name').val();
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
 	$(container).html(globalAJAX.progress_message);

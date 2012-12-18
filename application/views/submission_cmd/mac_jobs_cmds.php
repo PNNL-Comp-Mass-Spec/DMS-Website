@@ -39,7 +39,7 @@ function copy_param_form_to_xml_param_field() {
 
 // get supplemental form fields via an AJAX call
 function load_param_form() {
-	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#scriptName'val();
+	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#scriptName').val();
 	var container = 'param_container';
 	p = {};
 	new Ajax.Request(url, {

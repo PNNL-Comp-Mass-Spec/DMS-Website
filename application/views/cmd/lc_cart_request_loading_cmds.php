@@ -39,7 +39,7 @@ function setCartName() {
 		alert('No items are selected');
 		return;
 	}
-	var cart = $('#cart_name_input'val();
+	var cart = $('#cart_name_input').val();
 	if(cart == '') {
 		alert('Cart name cannot be blank');
 		return;
@@ -54,7 +54,7 @@ function setCartCol() {
 		alert('No items are selected');
 		return;
 	}
-	var col = $('#col_input_setting'val();
+	var col = $('#col_input_setting').val();
 	if(col < 1 || col > 8) {
 		alert('Column out of range');
 		return;

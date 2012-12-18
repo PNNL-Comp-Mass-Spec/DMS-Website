@@ -44,7 +44,7 @@ function copy_param_form_to_xml_param_field() {
 
 // get supplemental form fields via an AJAX call
 function load_param_form() {
-	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#job').val() + '/' + $('#scriptName'val();
+	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#job').val() + '/' + $('#scriptName').val();
 	var container = 'param_container';
 	p = {};
 	new Ajax.Request(url, {
@@ -61,7 +61,7 @@ function choose_script(script) {
 }
 
 function load_script_diagram() {
-	var scriptName = $('#scriptName'val();
+	var scriptName = $('#scriptName').val();
 	if(scriptName) {
 		var url = '<?= site_url() ?>pipeline_script/dot/' + scriptName
 		var container = 'script_diagram_container';

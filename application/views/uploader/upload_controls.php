@@ -49,7 +49,7 @@ function update_next_entity_in_list() {
 function updateSelectedEntities() {
 	globalAJAX.update_in_progress = true;
 
-	var file_name = $('#uploaded_file_name'val();
+	var file_name = $('#uploaded_file_name').val();
 	if(file_name == '') { alert('File name is blank'); return; }
 	globalAJAX.file_name = file_name;
 

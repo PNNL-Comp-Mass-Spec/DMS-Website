@@ -33,7 +33,7 @@ function createBlocksFromBlockingFactor(col_name) {
 	randomizeWithinBlocks();
 }
 function createBlocksViaRandomAssignment() {
-	var blkSize = $('#block_size'val();
+	var blkSize = $('#block_size').val();
 	if(blkSize < 2 || blkSize > 15) {
 		alert('Block size must be within range 1-15');
 		return;
@@ -91,7 +91,7 @@ function setBlockForSelectedItems() {
 		alert('No items are selected');
 		return;
 	}
-	var block = $('#block_input_setting'val();
+	var block = $('#block_input_setting').val();
 	if(block != parseInt(block)) { 
 		alert('Block must be a number'); 
 		return; 
@@ -111,7 +111,7 @@ function performBatchOperation(mode) {
 	var url =  globalAJAX.site_url + "requested_run_batch_blocking/exec/batch/";
 	var p = {};
 	p.command = mode;
-	p.batchID = $('#BatchID'val();
+	p.batchID = $('#BatchID').val();
 	if(p.batchID == '') {
 		alert("No batch ID");
 		return;
