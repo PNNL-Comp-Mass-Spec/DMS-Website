@@ -8,8 +8,8 @@ function showHideAllMenuBlocks(mode, label) {
 		});
 }
 function showHideMenuBlock(name) {
-	var block = $(name);
-	var ctl_name = name + '_ctl';
+	var block = $('#' + name);
+	var ctl_name = '#' + name + '_ctl';
 	var ctl = $(ctl_name);
 	var dsp = 'none';
 	var label = '';
