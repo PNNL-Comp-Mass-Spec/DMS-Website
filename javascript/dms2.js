@@ -25,7 +25,7 @@ function updateAlert(url, form) {
 	);
 }
 function clearSelector(name) {
-	selObj = $(name);
+	selObj = $('#' + name);
 	for (i=0; i<selObj.options.length; i++) {
 		selObj.options[i].selected = false;
 	}
@@ -53,7 +53,7 @@ function setListReportDefaults(url) {
 //------------------------------------------
 //loads a SQL comparison selector (via AJAX)
 function loadSqlComparisonSelector(container_name, url, col_sel) {
-	$(container_name).html(globalAJAX.progress_message);
+	$('#' + container_name).html(globalAJAX.progress_message);
 	url += $F(col_sel)
 	new Ajax.Updater(container_name, url);
 }
@@ -195,36 +195,36 @@ function adjustEnabledFields() {
 function enableDisableField(chkbx, fieldName)
 {
 	if(chkbx.checked) {
-		$(fieldName).style.color="Black";
+		$('#' + fieldName).style.color="Black";
 	} else {
-		$(fieldName).style.color="Silver";
+		$('#' + fieldName).style.color="Silver";
 	}
 }
 function showHideTableRows(block_name, url, show_img, hide_img) {
 	var className = '.' + block_name;
 	var img_element_id = block_name + "_cntl";
-	var cur_src = $(img_element_id).src;
+	var cur_src = $('#' + img_element_id).src;
 	var styleVal = '';
 	var index = cur_src.indexOf('hide');
 	if(index < 0) {
 		$(className).each(function(idx, s){s.style.display=''});
-		$(img_element_id).src = url + hide_img;
+		$('#' + img_element_id).src = url + hide_img;
 	} else {
 		$(className).each(function(idx, s){s.style.display='none'});
-		$(img_element_id).src = url + show_img;		
+		$('#' + img_element_id).src = url + show_img;		
     }
 }
 function showTableRows(block_name, url, hide_img) {
 	var className = '.' + block_name;
 	var img_element_id = block_name + "_cntl";
 	$(className).each(function(idx, s){s.style.display=''});
-	$(img_element_id).src = url + hide_img;
+	$('#' + img_element_id).src = url + hide_img;
 }
 function hideTableRows(block_name, url, show_img) {
 	var className = '.' + block_name;
 	var img_element_id = block_name + "_cntl";
 	$(className).each(function(idx, s){s.style.display='none'});
-	$(img_element_id).src = url + show_img;			
+	$('#' + img_element_id).src = url + show_img;			
 }
 
 //------------------------------------------
@@ -304,22 +304,22 @@ function getFieldValueForChooser() {
 //for scal datepicker
 function callDatepicker(fieldName) {
 	var chName = fieldName + '_chooser';
-	var ch = $(chName);
+	var ch = $('#' + chName);
 	if(ch) {
-		if(ch.visible()) {
+		if(ch.is(':visible')) {
 			ch.hide();
 		} else {
 			ch.show();
 		}
 	} else {
 		var dv = "<div id='"+ chName + "'></div>";
-		$(fieldName).ancestors().first().insert(dv);
-		var ch = $(chName);
+		$('#' + fieldName).ancestors().first().insert(dv);
+		var ch = $('#' + chName);
 		ch.addClass('googleblue');
 	    ch.absolutize();
 		new scal(chName, 
 				 function(dt){
-					$(fieldName).val(dt.format('mm/dd/yyyy'));
+					$('#' + fieldName).val(dt.format('mm/dd/yyyy'));
 				 	ch.hide();
 				 }, 
 				 {updateformat: 'mm/dd/yyyy'}
@@ -455,8 +455,8 @@ function setFieldValueFromSelection(fieldName, chooserName, mode) {
 }
 
 function setFieldValue(fieldName, value) {
-	if($(fieldName)) {
-			$(fieldName).val(value);
+	if($('#' + fieldName)) {
+			$('#' + fieldName).val(value);
 	}
 }
 //------------------------------------------
@@ -465,7 +465,7 @@ function setFieldValue(fieldName, value) {
 
 function convertList(fieldName, repStr)
 {
-	var fld = $(fieldName);
+	var fld = $('#' + fieldName);
     var findStr = "(\r\n|[\r\n]|\t)";
     var re = new RegExp(new RegExp(findStr, "g")); 
 	repStr += ' ';
@@ -473,7 +473,7 @@ function convertList(fieldName, repStr)
 }
 function formatXMLText(fieldName)
 {
-	var fld = $(fieldName);
+	var fld = $('#' + fieldName);
     var findStr = "><";
     var repStr = ">\n<";
     var re = new RegExp(new RegExp(findStr, "g")); 

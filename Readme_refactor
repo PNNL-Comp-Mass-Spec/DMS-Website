@@ -25,3 +25,28 @@ For all base pages:
 globalAJAX.site_url = '<?= site_url() ?>';
 
 get rid of <?= site_url() ?> in cmd page JS
+
+
+-------------------------------------------
+
+	p = $('#' + form).serialize();
+
+
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
+		}
+	);
+
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
+			if(follow_on_action && follow_on_action.run) {
+				follow_on_action.run();
+			}
+		}
+	);
+
+
+	$.post(url, p, function (data) {
+		    $('#' + container_name).html(data);
+		}
+	);

@@ -32,7 +32,7 @@ function getFactorFieldList(factor_cols) {
 	factor_cols.each(function(idx, col){
 		idlist.each(function(idx, id){
 			var fldID = col.replace(' ', '_') + '_' + id;
-			var val = $(fldID).val();
+			var val = $('#' + fldID).val();
 			var obj = {};
 			obj.id = id;
 			obj.factor = col;
@@ -65,7 +65,7 @@ function parse_lines(line) {
 }
 function parseDelimitedText(text_fld) {
 	parsed_data = {};
-	var lines = $(text_fld).val().split('\n');
+	var lines = $('#' + text_fld).val().split('\n');
 	var header = [];
 	var data = [];
 	lines.each(function(idx, line, lineNumber){
