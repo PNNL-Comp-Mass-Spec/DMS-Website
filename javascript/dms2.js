@@ -56,7 +56,7 @@ function setListReportDefaults(url) {
 //------------------------------------------
 //loads a SQL comparison selector (via AJAX)
 function loadSqlComparisonSelector(container_name, url, col_sel) {
-	$(container_name).update(globalAJAX.progress_message);
+	$(container_name).html(globalAJAX.progress_message);
 	url += $F(col_sel)
 	new Ajax.Updater(container_name, url);
 }
@@ -130,33 +130,39 @@ function setPageSizeParameter(newPageSize) {
 //------------------------------------------
 // search filter change monitoring
 function set_filter_field_observers() {
-	var pFields = $(".primary_filter_field");
-	pFields.each(function(idx, f) { Event.observe(f, 'keyup', filter_key.bindAsEventListener()); });
-	pFields.each(function(idx, f) { Event.observe(f, 'keyup', is_filter_active); });
+	var pFields = $('#filter_form').find(".primary_filter_field");
+	pFields.each(function(idx, f) { 
+			$(this).keyup(filter_key); 
+			$(this).keyup(is_filter_active); 
+		});
 	var sFields = $(".secondary_filter_input");
-	sFields.each(function(idx, f) { Event.observe(f, 'keyup', filter_key.bindAsEventListener()); });
-	sFields.each(function(idx, f) { Event.observe(f, 'keyup', is_filter_active); });
+	sFields.each(function(idx, f) { 
+			$(this).keyup(filter_key); 
+			$(this).keyup(is_filter_active); 
+		});
 }
 function is_filter_active() {
 	var filterFlag = 0;
 	var sortFlag = 0;
 	var ff = $('#filter_form');
-	ff.getElementsBySelector(".primary_filter_field").each(function(idx, obj) {if(obj.value != '') filterFlag++;} );
-	ff.getElementsBySelector(".secondary_filter_input").each(function(idx, obj) {if(obj.value != '') filterFlag++;} );
-	ff.getElementsBySelector(".sorting_filter_input").each(function(idx, obj) {if(obj.value != '') sortFlag++;} );	
-
-//	$(".primary_filter_field").each(function(idx, obj) {if(obj.value != '') filterFlag++;} );
-//	$(".secondary_filter_input").each(function(idx, obj) {if(obj.value != '') filterFlag++;} );
-//	$(".sorting_filter_input").each(function(idx, obj) {if(obj.value != '') sortFlag++;} );	
+	ff.find(".primary_filter_field").each(function(idx, obj) {
+			if(obj.value != '') filterFlag++;
+		} );
+	ff.find(".secondary_filter_input").each(function(idx, obj) {
+			if(obj.value != '') filterFlag++;
+		} );
+	ff.find(".sorting_filter_input").each(function(idx, obj) {
+			if(obj.value != '') sortFlag++;
+		} );	
 	set_filter_active_indicator(filterFlag, sortFlag);
 }
 function filter_key(e) {
 	var code;
-	if (!e) var e = window.event;
+//	if (!e) var e = window.event;
 	if (e.keyCode) code = e.keyCode;
 	else if (e.which) code = e.which;
 	if(code == 13) {
-		$('#qf_first_row').value = 1;
+		$('#qf_first_row').val(1);
 	    reloadListReportData();
 		return false;
 	}
@@ -164,23 +170,13 @@ function filter_key(e) {
 }
 function set_filter_active_indicator(activeSearchFilters, activeSorts) {
 	if(!activeSearchFilters) {
-		$('#filters_active').update('');
+		$('#filters_active').html('');
 	} else 
 	if(activeSearchFilters ==1 ){
-		$('#filters_active').update('There is ' + activeSearchFilters +  ' filter set');
+		$('#filters_active').html('There is ' + activeSearchFilters +  ' filter set');
 	} else {
-		$('#filters_active').update('There are ' + activeSearchFilters +  ' filters set');
+		$('#filters_active').html('There are ' + activeSearchFilters +  ' filters set');
 	}
-/*
-	if(!activeSorts) {
-		$('#sorting_active').update('');
-	} else 
-	if(activeSorts ==1 ){
-		$('#sorting_active').update('There is ' + activeSorts +  ' sorting field active');
-	} else {
-		$('#sorting_active').update('There are ' + activeSorts +  ' sorting fields active');
-	}
-*/
 }
 
 //------------------------------------------
