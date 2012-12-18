@@ -4,7 +4,6 @@
 <title><?= $title; ?></title>
 
 <? $this->load->view('resource_links/base2') ?>
-<? $this->load->view('resource_links/scal') ?>
 
 <script type='text/javascript'>
 globalAJAX = {};
@@ -108,7 +107,7 @@ function updateMyData(loading) {
 }
 // after the page loads, set things in motion to populate it
 $(document).ready(function () { 
-		$('#data_container').update('Data is loading...' + globalAJAX.progress_message);
+		$('#data_container').html('Data is loading...' + globalAJAX.progress_message);
 		updateMyFilter('minimal');
 		updateMyData('<?= $loading ?>');
 	 	window['reloadListReportData'] = function() { updateMyData('autoload');}

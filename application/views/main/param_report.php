@@ -4,7 +4,6 @@
 <title><?= $title; ?></title>
 
 <? $this->load->view('resource_links/base2') ?>
-<? $this->load->view('resource_links/scal') ?>
 
 <script type='text/javascript'>
 

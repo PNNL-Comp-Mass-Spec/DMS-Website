@@ -1,9 +1,10 @@
 
 function showHideAllMenuBlocks(mode, label) {
-	$('div.qs_more').each(function(s){
-			s.style.display=mode;
-			var id = s.id + '_ctl';
-			$(id).innerHTML = label;
+	var blks = $('div.qs_more');
+	blks.each(function(idx, s){
+			$(this).css('display', mode);
+			var id = '#' + s.id + '_ctl';
+			$(id).html(label);
 		});
 }
 function showHideMenuBlock(name) {
@@ -12,28 +13,28 @@ function showHideMenuBlock(name) {
 	var ctl = $(ctl_name);
 	var dsp = 'none';
 	var label = '';
-	if(block.style.display == 'none') {
+	if(block.css('display') == 'none') {
 		dsp = 'block';
 		label = 'Less...';
 	} else
-	if(block.style.display == 'block') {
+	if(block.css('display') == 'block') {
 		dsp= 'none';
 		label = 'More...';
 	}
 	showHideAllMenuBlocks('none', 'More...');
-	block.style.display = dsp;
+	block.css('display', dsp);
 	ctl.innerHTML = label;
 }
 function showHideMenuDiagram() {
 	var ds = $('#diagram_section');
 	var ms = $('#menu_sections');
-	if(ds.style.display == "none") {
-		ds.style.display = "block"
-		ms.style.display = "none"
+	if(ds.css('display') == "none") {
+		ds.css('display', "block");
+		ms.css('display', "none");
 		$('#diag_ctl_label').innerHTML = 'Show Section Menus';
 	} else {
-		ds.style.display = "none"
-		ms.style.display = "block"
+		ds.css('display', "none");
+		ms.css('display', "block");
 		$('#diag_ctl_label').innerHTML = 'Show Diagram Menus';
 	}
 }
@@ -41,11 +42,12 @@ $(document).ready(function (){showHideAllMenuBlocks('none', 'More...')});
 
 function showFlyMenu(section_name) {
 	hideFlyMenus();
-	$(section_name).style.display = "block";
+	section_name = section_name.replace(' ', '\\ ');
+	$('#'+section_name).css('display', "block");
 }
 function hideFlyMenus() {
-	$('div.fly_box').each(function(s){
-			s.style.display='none';
+	$('div.fly_box').each(function(idx, s){
+			$(this).css('display', 'none');
 		});
 }
 // show section popup, allowing for activation delay with cancel
