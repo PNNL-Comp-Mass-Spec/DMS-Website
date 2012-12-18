@@ -21,7 +21,7 @@ function download_to_graph() {
 //build data series from rows, set graph format, and draw graph
 function draw_graph(rows) {
 	// set caption
-	var caption = "Dataset Acquisition/Interval Time For " + $('#instrumentName').value + " From " + $('#startDate').value + " To " + $('#endDate').value
+	var caption = "Dataset Acquisition/Interval Time For " + $('#instrumentName').val() + " From " + $('#startDate').val() + " To " + $('#endDate').val()
 	$('#caption_container').html(caption);
 	
 	// build data series set from rows

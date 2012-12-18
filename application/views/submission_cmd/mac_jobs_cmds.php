@@ -31,7 +31,7 @@ function copy_param_form_to_xml_param_field() {
 				s += 'Name="' + obj.name + '" ';
 				s += 'Value="' + obj.value + '" ';
 				s += '/>';
-				$('#jobParam').value += s;
+				$('#jobParam').val() += s;
 			}
 		}
 	);

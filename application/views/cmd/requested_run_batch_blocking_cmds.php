@@ -159,7 +159,7 @@ Randomize run order within blocks
 <input type='input' size='2' id='block_input_setting' value='1' />
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='createBlocksFromBlockingFactor($('#blocking_factor_name').value)' id="btn_assign_bf" title="Assign requests to blocks"  /> 
+<input class='lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='createBlocksFromBlockingFactor($('#blocking_factor_name').val())' id="btn_assign_bf" title="Assign requests to blocks"  /> 
 Assign requests to blocks according to factor <input id='blocking_factor_name' value='' size='18'></input>
 </div>
 <div>

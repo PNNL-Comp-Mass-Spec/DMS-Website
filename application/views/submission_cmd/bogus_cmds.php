@@ -59,7 +59,7 @@ Proin et urna leo. Mauris at elit et quam hendrerit suscipit faucibus ac nulla. 
 <p>
 Quisque volutpat neque in velit tempor pharetra. Praesent ante turpis, consequat et tempus nec, faucibus sed arcu. Morbi tempor purus eget arcu sagittis quis placerat velit scelerisque. Nam sit amet lectus in risus posuere rhoncus et et orci. Quisque dignissim blandit varius. Vivamus arcu lacus, luctus et condimentum in, ultricies ut augue. Mauris feugiat dui eu neque varius porttitor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam ut turpis et enim euismod accumsan. Fusce diam arcu, volutpat vitae varius eget, vehicula a magna. Nullam eget nulla quam, posuere gravida magna. Mauris et tincidunt tortor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus
 </p>
-And even more cool stuff here, like <a  href='javascript:void(0)' onclick='$('#Comment').value += " booga!";'>Add "booga!" to comment</a>
+And even more cool stuff here, like <a  href='javascript:void(0)' onclick='$('#Comment').val() += " booga!";'>Add "booga!" to comment</a>
 <br/><br/>
 <a  href='javascript:void(0)' onclick='doSubmit();'>Submit</a> &nbsp;
 <a  href='javascript:void(0)' onclick='doCancel();'>Cancel</a>

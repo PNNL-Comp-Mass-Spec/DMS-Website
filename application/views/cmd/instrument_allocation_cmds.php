@@ -19,7 +19,7 @@ function parse_lines(line) {
 }
 function parseDelimitedText(text_fld) {
 	parsed_data = {};
-	var lines = $(text_fld).value.split('\n');
+	var lines = $(text_fld).val().split('\n');
 	var header = [];
 	var data = [];
 	lines.each(function(idx, line, lineNumber){
@@ -85,20 +85,20 @@ function load_delimited_text() {
 function move_allocated_hours() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
 	var xml = '';
-	xml = '<c fiscal_year="' + $('#move_fy').value + '" />';
+	xml = '<c fiscal_year="' + $('#move_fy').val() + '" />';
 	xml += '<r ';
 	xml += 'o="i" ';
-	xml += 'p="' + $('#move_to').value + '" ';
-	xml += 'a="' + $('#move_hours').value + '" ';
-	xml += 'g="' + $('#move_group').value + '" ';
-	xml += 'x="' + $('#move_comment').value + '" ';	
+	xml += 'p="' + $('#move_to').val() + '" ';
+	xml += 'a="' + $('#move_hours').val() + '" ';
+	xml += 'g="' + $('#move_group').val() + '" ';
+	xml += 'x="' + $('#move_comment').val() + '" ';	
 	xml += ' />';
 	xml += '<r ';
 	xml += 'o="d" ';
-	xml += 'p="' + $('#move_from').value + '" ';
-	xml += 'a="' + $('#move_hours').value + '" ';
-	xml += 'g="' + $('#move_group').value + '" ';
-	xml += 'x="' + $('#move_comment').value + '" ';	
+	xml += 'p="' + $('#move_from').val() + '" ';
+	xml += 'a="' + $('#move_hours').val() + '" ';
+	xml += 'g="' + $('#move_group').val() + '" ';
+	xml += 'x="' + $('#move_comment').val() + '" ';	
 	xml += ' />';
 	var url =  "<?= $ops_url ?>";
 	var p = {};
@@ -108,12 +108,12 @@ function move_allocated_hours() {
 function set_allocated_hours() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
 	var xml = '';
-	xml = '<c fiscal_year="' + $('#set_fy').value + '" />';
+	xml = '<c fiscal_year="' + $('#set_fy').val() + '" />';
 	xml += '<r ';
-	xml += 'p="' + $('#set_to').value + '" ';
-	xml += 'a="' + $('#set_hours').value + '" ';
-	xml += 'g="' + $('#set_group').value + '" ';
-	xml += 'x="' + $('#set_comment').value + '" ';	
+	xml += 'p="' + $('#set_to').val() + '" ';
+	xml += 'a="' + $('#set_hours').val() + '" ';
+	xml += 'g="' + $('#set_group').val() + '" ';
+	xml += 'x="' + $('#set_comment').val() + '" ';	
 	xml += ' />';	
 	var url =  "<?= $ops_url ?>";
 	var p = {};

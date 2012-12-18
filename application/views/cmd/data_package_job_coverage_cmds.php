@@ -97,7 +97,7 @@ function notYet() {
 }
 function logg(s, clear) {
 	if(typeof clear != "undefined")$('#zed').val('');
-	$('#zed').value += s + "\n";
+	$('#zed').val() += s + "\n";
 }
 function test() {
 	var iList = getSelectedItemList();

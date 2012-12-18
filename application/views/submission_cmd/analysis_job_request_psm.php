@@ -70,7 +70,7 @@ function callOperation(url) {
 }
 
 function setFieldValues() {
-	if($('#return_code').value != 'success') return;
+	if($('#return_code').val() != 'success') return;
 	
 	$('#toolName').val($('#suggested_ToolName'val());
 	$('#jobTypeName').val($('#suggested_JobTypeName'val());

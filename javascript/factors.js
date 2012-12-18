@@ -65,7 +65,7 @@ function parse_lines(line) {
 }
 function parseDelimitedText(text_fld) {
 	parsed_data = {};
-	var lines = $(text_fld).value.split('\n');
+	var lines = $(text_fld).val().split('\n');
 	var header = [];
 	var data = [];
 	lines.each(function(idx, line, lineNumber){

@@ -37,14 +37,14 @@ function copy_param_form_to_xml_param_field() {
 				s += 'Step="' + nm[2] + '" ';
 			}
 			s += '/>';
-			$('#jobParam').value += s;
+			$('#jobParam').val() += s;
 		}
 	);
 }
 
 // get supplemental form fields via an AJAX call
 function load_param_form() {
-	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#job').value + '/' + $('#scriptName'val();
+	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#job').val() + '/' + $('#scriptName'val();
 	var container = 'param_container';
 	p = {};
 	new Ajax.Request(url, {
