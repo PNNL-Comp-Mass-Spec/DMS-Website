@@ -21,25 +21,22 @@ function performCommand(url, id, mode) {
 	p.command = mode;
 	var opts = {};
 	opts.parameters = p;
-	var container_name = globalAJAX.response_container;
-	$(container_name).html(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(container_name).html(transport.responseText);
+	var container = globalAJAX.response_container;
+	$(container).html(globalAJAX.progress_message);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 			updateMyData();	
 		}
-	});
+	);
 }
 function updateContainer(url, container) { 
 	url = globalAJAX.site_url + url;
 	p = {};
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 		}
-	});
+	);
+
 }
 function updateMyData() {
 	updateContainer('<?= $this->my_tag ?>/show_data/<?= $id ?>', 'data_container'); 

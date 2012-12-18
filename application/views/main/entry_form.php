@@ -18,19 +18,17 @@ function updateEntryPage(url, mode) {
 //POST the entry form to the entry page via AJAX
 function submitToFamily(url, mode, follow_on_action) {
 	if(!confirm("Are you sure that you want to perform this action?")) return;
-	var container = 'form_container';
+	var container = $('#form_container');
 	$('#entry_cmd_mode').val(mode);
-	p = Form.serialize('entry_form', true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	p = $('#entry_form').serialize();
+	$.post(url, p, function (data) {
+		    container.html(data);
 			setTimeout("adjustEnabledFields()", 350);
 			if(follow_on_action && follow_on_action.run) {
 				follow_on_action.run(mode);
-			}			
+			}
 		}
-	});	
+	);
 }
 // POST the entry form to another page
 function submitEntryPage(url, mode) {

@@ -14,17 +14,16 @@ globalAJAX.my_tag = '<?= $this->my_tag ?>';
 //go get some content from the server and put it into the designated container element
 //and initiate the designaged follow-on action, if such exists
 function updateContainer(action, container, follow_on_action) {
-	url = globalAJAX.site_url + globalAJAX.my_tag + '/' + action;
-	p = Form.serialize('entry_form', true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
-			if(follow_on_action.run) {
+	var url = globalAJAX.site_url + globalAJAX.my_tag + '/' + action;
+	var p = $('#entry_form').serialize();
+	
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
+			if(follow_on_action && follow_on_action.run) {
 				follow_on_action.run();
 			}
 		}
-	});
+	);
 }
 //use to terminate a calling chain
 var no_action = {

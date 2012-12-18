@@ -19,3 +19,9 @@ $( --> $(
 
 \$F\(['"]([a-z0-9_-]+)['"]\) --> \$F('#$1')
 \$F\(['"]([#a-z0-9_-]+)['"]\) --> \$('$1').val()
+
+------------------------------------------
+For all base pages:
+globalAJAX.site_url = '<?= site_url() ?>';
+
+get rid of <?= site_url() ?> in cmd page JS

@@ -44,14 +44,11 @@ function reloadListReportData() {
 }
 // for clearing cached page parameters
 function setListReportDefaults(url) { 
-//	p = Form.serialize(gFilterAJAX.form_name, true);
 	p = {};
-	new Ajax.Request(url, {
-				parameters: p,
-				onSuccess: function(transport) {
-					alert(transport.responseText);
-					}
-				} );
+	$.post(url, p, function (data) {
+		    alert(data);
+		}
+	);
 }
 //------------------------------------------
 //loads a SQL comparison selector (via AJAX)
@@ -442,7 +439,7 @@ if(top != self) {
 //------------------------------------------
 
 function setFieldValueFromSelection(fieldName, chooserName, mode) {
-	if($(fieldName)) {
+	if($('#' + fieldName).val() != null) {
 		if(mode == 'replace' || mode == '') {
 			$(fieldName).val($F(chooserName));
 			return;

@@ -21,22 +21,19 @@ function ops(index, action) {
 	if ( !confirm("Are you sure that you want to modify the config db?") )
 		return;
 	var container_name = "edit_container";
-	url =  "<?= site_url()?>config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
+	var url =  "<?= site_url()?>config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
 
 	var form_name = 'edit_form';
 	var fields = $(form_name).serialize(true);
 
 	var p = extractRow(fields, index);
 	p.mode = action;
-//var s = Object.toJSON(p);
-//alert(s);
-//return;
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(container_name).html(transport.responseText);
+
+	$.post(url, p, function (data) {
+		    $('#' + container_name).html(data);
 		}
-	});
+	);
+
 }
 
 // submit sql from entry field and refresh edit table
@@ -44,29 +41,24 @@ function do_sql() {
 	if ( !confirm("Are you sure that you want to modify the config db?") )
 		return;
 	var container_name = "edit_container";
-	url =  "<?= site_url()?>config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
-//	var p = $('#sql_text').serialize(true);
-	var p = Form.serialize('sql_text', true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(container_name).html(transport.responseText);
+	var url =  "<?= site_url()?>config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
+	var p = $('#sql_text').serialize();
+	$.post(url, p, function (data) {
+		    $('#' + container_name).html(data);
 		}
-	});
+	);
 }
 // get suggested sql for enhancing table
 function get_sql(mode){
 	var field_name = "sql_text_fld";
-	url = "<?= site_url()?>config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
+	var url = "<?= site_url()?>config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
 	var p = {};
 	p.mode = mode;
 	$(field_name).val('');
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport){
-			$(field_name).val(transport.responseText);
+	$.post(url, p, function (data) {
+			$(field_name).val(data);
 		}
-	});
+	);
 }
 // move any existing destination id to to source id
 // and set destination id to the input id
@@ -92,29 +84,25 @@ function get_sql_from_range_move(mode){
 	}
 	if(!r1_id || !r2_id || !d_id) return;
 
-	url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
+	var url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
 	var field_name = "sql_text_fld";
 	var p = {};
 	$(field_name).val('');
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport){
-			$(field_name).val(transport.responseText);
+	$.post(url, p, function (data) {
+			$(field_name).val(data);
 		}
-	});
+	);
 }
 // get suggested SQL for resequencing id column in table
 function get_sql_for_resequence(){
-	url = "<?= site_url()?>config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
+	var url = "<?= site_url()?>config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
 	var field_name = "sql_text_fld";
 	var p = {};
 	$(field_name).val('');
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport){
-			$(field_name).val(transport.responseText);
+	$.post(url, p, function (data) {
+			$(field_name).val(data);
 		}
-	});
+	);
 }
 </script>
 

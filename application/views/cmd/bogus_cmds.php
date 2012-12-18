@@ -6,7 +6,6 @@ function performExec(url, mode) {
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-
 	$(globalAJAX.response_container_name).html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
