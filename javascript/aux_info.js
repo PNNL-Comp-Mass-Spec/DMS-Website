@@ -23,8 +23,8 @@ function updateAuxInfo(url, show_url) {
 	var cat_sub = $('#Category_Subcategory').val().split('|');
 	var category = cat_sub[0]; 
 	var subcategory = cat_sub[1];
-	$('#category_field').value = category;
-	$('#subcategory_field').value = subcategory;
+	$('#category_field').val(category);
+	$('#subcategory_field').val(ubcategory);
 	p = Form.serialize(form_name, true);
 	$(response_container).html(gAuxInfoAJAX.progress_message);
 	new Ajax.Request(url, {
@@ -51,8 +51,8 @@ function copyAuxInfo(url, show_url){
 		return;
 	}
 	var cs = (cat_sub)?cat_sub.split('|'):['',''];
-	$('#ci_category').value = cs[0];
-	$('#ci_subcategory').value = cs[1];
+	$('#ci_category').val(cs[0]);
+	$('#ci_subcategory').val(cs[1]);
 	p = Form.serialize(form_name, true);
 	$(response_container).html(gAuxInfoAJAX.progress_message);
 	new Ajax.Request(url, {

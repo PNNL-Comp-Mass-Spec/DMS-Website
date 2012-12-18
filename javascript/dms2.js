@@ -80,15 +80,15 @@ function setColSort(colName) {
 	$(".sorting_filter_input").each(function(idx, obj) {obj.value = ''} );
 	var dir = 'ASC';
 	if(colName == curCol) {dir = (curDir == 'ASC')?'DESC':'ASC'; };
-	$('#qf_sort_col_0').value = colName;
-	$('#qf_sort_dir_0').value = dir;
+	$('#qf_sort_col_0').val(colName);
+	$('#qf_sort_dir_0').val(dir);
 	reloadListReportData('autoload');
 }
 //------------------------------------------
 // paging
 //set the current starting row for the list report
 function setListReportCurRow(row) {
-	$('#qf_first_row').value = row;
+	$('#qf_first_row').val(row);
  reloadListReportData();
 }
 function setPageSize(curPageSize, totalRows, max) {
@@ -122,8 +122,8 @@ function setPageSizeParameter(newPageSize) {
 		alert("Sorry, '" + newPageSize + "' is not a number");
 	} else {
 		var n = Number(newPageSize);
-		$('#qf_rows_per_page').value = newPageSize;
-		$('#qf_first_row').value = 1;
+		$('#qf_rows_per_page').val(newPageSize);
+		$('#qf_first_row').val(1);
 	    reloadListReportData();
 	}
 }
@@ -322,7 +322,7 @@ function callDatepicker(fieldName) {
 	    ch.absolutize();
 		new scal(chName, 
 				 function(dt){
-					$(fieldName).value = dt.format('mm/dd/yyyy');
+					$(fieldName).val(dt.format('mm/dd/yyyy'));
 				 	ch.hide();
 				 }, 
 				 {updateformat: 'mm/dd/yyyy'}
@@ -444,20 +444,20 @@ if(top != self) {
 function setFieldValueFromSelection(fieldName, chooserName, mode) {
 	if($(fieldName)) {
 		if(mode == 'replace' || mode == '') {
-			$(fieldName).value = $F(chooserName);
+			$(fieldName).val($F(chooserName));
 			return;
 		}
 		var delim = ';';
 		if(mode == 'append_comma') delim = ',';		
 		var v = $(fieldNameval();
 		if(v != '') v = v + delim;
-		$(fieldName).value = v + $F(chooserName);			
+		$(fieldName).val(v + $F(chooserName));			
 	}
 }
 
 function setFieldValue(fieldName, value) {
 	if($(fieldName)) {
-			$(fieldName).value = value;
+			$(fieldName).val(value);
 	}
 }
 //------------------------------------------

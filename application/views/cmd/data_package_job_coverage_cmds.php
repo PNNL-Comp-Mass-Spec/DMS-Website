@@ -30,7 +30,7 @@ function getDatasetInfo(mode) {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$('#dataset_dump_field').value = transport.responseText;
+			$('#dataset_dump_field').val(transport.responseText);
 		}});
 }
 </script>
@@ -96,7 +96,7 @@ function notYet() {
 	alert('This function is not implemented yet');
 }
 function logg(s, clear) {
-	if(typeof clear != "undefined")$('#zed').value = '';
+	if(typeof clear != "undefined")$('#zed').val('');
 	$('#zed').value += s + "\n";
 }
 function test() {

@@ -59,9 +59,9 @@ function updateOSMPackageItems(form_id, mode) {
 	var url = globalAJAX.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
 	var id = '<?= $id ?>';
-	$('#entry_cmd_mode').value = mode;
-	$('#itemTypeSelector').value = codeMap['<?= $this->my_tag ?>'];
-	$('#entry_item_list').value = id;
+	$('#entry_cmd_mode').val(mode);
+	$('#itemTypeSelector').val(codeMap['<?= $this->my_tag ?>']);
+	$('#entry_item_list').val(id);
 	var p = $(form_id).serialize(true);
 	message_container.update(globalAJAX.progress_message);
 	new Ajax.Request(url, {

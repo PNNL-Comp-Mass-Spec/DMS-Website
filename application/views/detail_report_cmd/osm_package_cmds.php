@@ -84,21 +84,21 @@
 <script type="text/javascript">
 	
 function callChooserSetType(item_type, chooserPage, delimiter, xref){
-	$('#itemTypeSelector').value = item_type;
+	$('#itemTypeSelector').val(item_type);
 	var page = "<?= site_url() ?>" + chooserPage;
 	callChooser('entry_item_list', page, delimiter, xref)
 }
 
 function callSuggestionSetType(item_type, mode) {
-	$('#entry_item_list').value = '';
+	$('#entry_item_list').val('');
 	var url = globalAJAX.site_url + "osm_package/suggested_items/<?= $id ?>/" + mode;
 	var p = {};
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
 			var rt = transport.responseText;
-			$('#itemTypeSelector').value = item_type;
-			$('#entry_item_list').value = rt;
+			$('#itemTypeSelector').val(item_type);
+			$('#entry_item_list').val(rt);
 		}});	
 }
 
@@ -106,7 +106,7 @@ function updateOSMPackageItems(id, form_id, mode) {
 	if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
 	var url = globalAJAX.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
-	$('#entry_cmd_mode').value = mode;
+	$('#entry_cmd_mode').val(mode);
 	var p = $(form_id).serialize(true);
 	message_container.update(globalAJAX.progress_message);
 	new Ajax.Request(url, {

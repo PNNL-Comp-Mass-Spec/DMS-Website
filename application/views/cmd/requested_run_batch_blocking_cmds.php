@@ -101,7 +101,7 @@ function setBlockForSelectedItems() {
 		return;
 	}
 	iList.each(function(idx, req) {
-		$('Block_' + req).value = block;
+		$('Block_' + req).val(block);
 	});
 }
 </script>

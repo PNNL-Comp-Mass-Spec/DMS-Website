@@ -23,7 +23,7 @@ function submissionSequence(url, mode, post_submission_action) {
 //and build properly formatted XML and replace the
 //contents of the jobParams field on main form with it
 function copy_param_form_to_xml_param_field() {
-	$('#jobParam').value = '';
+	$('#jobParam').val('');
 	$('#param_form').getElements().each(
 		function(obj) {
 			if(obj.name.indexOf('_chooser') === -1) {
@@ -51,7 +51,7 @@ function load_param_form() {
 	});	
 }
 function choose_template(template_name) {
-	$('#scriptName').value = template_name;
+	$('#scriptName').val(template_name);
 	load_param_form();
 }
 

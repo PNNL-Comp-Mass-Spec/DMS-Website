@@ -60,11 +60,11 @@ function get_sql(mode){
 	url = "<?= site_url()?>config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
 	var p = {};
 	p.mode = mode;
-	$(field_name).value = '';
+	$(field_name).val('');
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport){
-			$(field_name).value = transport.responseText;
+			$(field_name).val(transport.responseText);
 		}
 	});
 }
@@ -95,11 +95,11 @@ function get_sql_from_range_move(mode){
 	url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
 	var field_name = "sql_text_fld";
 	var p = {};
-	$(field_name).value = '';
+	$(field_name).val('');
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport){
-			$(field_name).value = transport.responseText;
+			$(field_name).val(transport.responseText);
 		}
 	});
 }
@@ -108,11 +108,11 @@ function get_sql_for_resequence(){
 	url = "<?= site_url()?>config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
 	var field_name = "sql_text_fld";
 	var p = {};
-	$(field_name).value = '';
+	$(field_name).val('');
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport){
-			$(field_name).value = transport.responseText;
+			$(field_name).val(transport.responseText);
 		}
 	});
 }
@@ -149,7 +149,7 @@ function get_sql_for_resequence(){
 <a href="javascript:void(0)" onclick="get_sql_from_range_move('item')" title='Get SQL to move items'> <span id='source_id'></span>-><span id='dest_id'></span> </a> &nbsp;  &nbsp; 
 <a href="javascript:void(0)" onclick="get_sql_from_range_move('range')" title='Get SQL to move range of items'> <span id='range_start_id'></span>-<span id='range_stop_id'></span>-><span id='range_dest_id'></span> </a> &nbsp;  &nbsp; 
 <a href="javascript:void(0)" onclick="get_sql_for_resequence()" title='Get SQL to resequence id col in table'>Resequence</a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="$('#sql_text_fld').value = ''" title='Clear SQL field'>Clear</a> &nbsp;  &nbsp; 
+<a href="javascript:void(0)" onclick="$('#sql_text_fld').val(''" title='Clear SQL field'>Clear</a> &nbsp;  &nbsp); 
 </td></tr>
 
 </table>

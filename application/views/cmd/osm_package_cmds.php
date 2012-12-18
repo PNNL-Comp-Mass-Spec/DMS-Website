@@ -14,8 +14,8 @@ function performOperation(mode) {
 		return;
 
 	var url =  "<?= site_url().'osm_package_items/operation/' ?>";
-	$('#paramListXML').value = list;
-	$('#entry_cmd_mode').value = mode;
+	$('#paramListXML').val(list);
+	$('#entry_cmd_mode').val(mode);
 	var p = $('#operation_form').serialize(true);
 	submitOperation(url, p);
 }

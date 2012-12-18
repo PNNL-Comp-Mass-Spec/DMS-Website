@@ -24,14 +24,14 @@ function get_data(output_format, config_source, config_name, filter_string, sort
 	var url = globalAJAX.site_url + 'data/lz/' + output_format + '/' + config_source + '/' + config_name;
 
 	var container_name = 'wall';
-	$(container_name).value = 'working...';
+	$(container_name).val('working...');
 	p = {};
 	convert_filter_string_to_post_params(filter_string, p);
 	convert_sorting_string_to_post_params(sorting_string, p);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container_name).value = transport.responseText;
+			$(container_name).val(transport.responseText);
 		}
 	});	
 }

@@ -18,10 +18,10 @@ $(document).ready(function () {
 // into iframe and which is run immediately
 function report_upload_results(file_name, error) {
 	if(error != '') {
-		$('#uploaded_file_name').value = '';
+		$('#uploaded_file_name').val('');
 //		$('#upload_error').html($error);
 	} else {
-		$('#uploaded_file_name').value = file_name;
+		$('#uploaded_file_name').val(file_name);
 //		$('#upload_error').html('Upload was successful');
 		extract();
 		clearSpreadsheetDisplay();

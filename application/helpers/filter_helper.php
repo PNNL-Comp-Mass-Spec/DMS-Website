@@ -233,7 +233,7 @@
 			$class = 'class="sorting_filter_input filter_input_field "';
 			$cid = "id=\"qf_sort_col_$i\" ";
 			$did = "id=\"qf_sort_dir_$i\" ";
-			$action = " onchange='\$(\"qf_sort_dir_$i\").value = \"ASC\"' "; // set default value on dir when changing column
+			$action = " onchange='\$(\"qf_sort_dir_$i\").val(\"ASC\"' "); // set default value on dir when changing column
 			$c = form_dropdown('qf_sort_col[]', $col_sel, $sort['qf_sort_col'], $class . $cid . $action);
 			$d = form_dropdown('qf_sort_dir[]', $dir_sel, $sort['qf_sort_dir'], $did);
 			$str .= $row_s . $cell_s . $c .$cell_f . $cell_s . $d . $cell_f . $row_f;

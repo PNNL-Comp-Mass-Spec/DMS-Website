@@ -33,7 +33,7 @@ function previewRequest() {
 }
 
 function submitMainEntryForm(mode, followOnAction) {
-	$('#requestID').value = '0';
+	$('#requestID').val('0');
 	$('#move_next_link').hide();
 	var url = "<?= site_url() . $tag ?>/submit_entry_form";
 	submitToFamily(url, mode, followOnAction);
@@ -72,15 +72,15 @@ function callOperation(url) {
 function setFieldValues() {
 	if($('#return_code').value != 'success') return;
 	
-	$('#toolName').value = $('#suggested_ToolName'val();
-	$('#jobTypeName').value = $('#suggested_JobTypeName'val();
-	$('#organismName').value = $('#suggested_OrganismName'val();
-	$('#protCollNameList').value = $('#suggested_ProteinCollectionList'val();
-	$('#protCollOptionsList').value = $('#suggested_ProteinOptionsList'val();
+	$('#toolName').val($('#suggested_ToolName'val());
+	$('#jobTypeName').val($('#suggested_JobTypeName'val());
+	$('#organismName').val($('#suggested_OrganismName'val());
+	$('#protCollNameList').val($('#suggested_ProteinCollectionList'val());
+	$('#protCollOptionsList').val($('#suggested_ProteinOptionsList'val());
 	
-	$('#ModificationDynMetOx').checked = ($('#suggested_DynMetOxEnabled').value == '1');
-	$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').value == '1');
-	$('#ModificationDynSTYPhos').checked = ( $('#suggested_DynSTYPhosEnabled').value == '1');
+	$('#ModificationDynMetOx').checked = ($('#suggested_DynMetOxEnabled').val( '1'));
+	$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').val( '1'));
+	$('#ModificationDynSTYPhos').checked = ( $('#suggested_DynSTYPhosEnabled').val( '1'));
 
 	showSection('section_block_3');
 	showSection('section_block_4');

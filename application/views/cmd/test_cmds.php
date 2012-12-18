@@ -15,7 +15,7 @@ function notYet() {
 	alert('This function is not implemented yet');
 }
 function logg(s, clear) {
-	if(typeof clear != "undefined")$('#zed').value = '';
+	if(typeof clear != "undefined")$('#zed').val('');
 	$('#zed').value += s + "\n";
 }
 </script>

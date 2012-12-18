@@ -64,7 +64,7 @@ function setCartName() {
 		return;
 	}
 	iList.each(function(idx, req) {
-		$('Cart_' + req).value = cart;
+		$('Cart_' + req).val(cart);
 	});
 }
 function setCartCol() {
@@ -79,7 +79,7 @@ function setCartCol() {
 		return;
 	}
 	iList.each(function(idx, req) {
-		$('Col_' + req).value = col;
+		$('Col_' + req).val(col);
 	});
 
 }

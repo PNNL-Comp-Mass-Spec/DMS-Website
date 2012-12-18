@@ -68,7 +68,7 @@ var data_update_action = {
 }
 //start the data update chain for the page
 function updateMyData(loading) {
-	if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').value = 1;
+	if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').val(1);
 	$('#paging_container_upper').html(globalAJAX.progress_message);
 	data_update_action.run();
 }

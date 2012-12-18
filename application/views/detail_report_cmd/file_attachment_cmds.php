@@ -6,8 +6,8 @@ function report_upload_results(msg) {
 
 $(document).ready(function () { 
 //	showAttachments();
-	$('#entity_type').value = "<?= $tag ?>";
-	$('#entity_id').value = "<?= $id ?>";
+	$('#entity_type').val("<?= $tag ?>");
+	$('#entity_id').val("<?= $id ?>");
 	}
 )
 function showAttachments() {

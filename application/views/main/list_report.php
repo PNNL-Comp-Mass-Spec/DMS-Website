@@ -98,7 +98,7 @@ function updateMyData(loading) {
 	if(loading == 'no_load') {
 		$('#data_container').html('Data will be displayed after you click the "Search" button.');
 	} else {
-		if(loading && loading == 'reset') $('#qf_first_row').value = 1;
+		if(loading && loading == 'reset') $('#qf_first_row').val(1);
 		data_update_action.run(); 	
 		sql_display_action.run();
 	}	

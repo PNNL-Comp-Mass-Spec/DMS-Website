@@ -43,8 +43,8 @@ function setColSort(colName) {
 	$(".sorting_filter_input").each(function(idx, obj) {obj.value = ''} );
 	var dir = 'ASC';
 	if(colName == curCol) {dir = (curDir == 'ASC')?'DESC':'ASC'; };
-	$('#qf_sort_col_0').value = colName;
-	$('#qf_sort_dir_0').value = dir;
+	$('#qf_sort_col_0').val(colName);
+	$('#qf_sort_dir_0').val(dir);
 	// call updateMyData();
 }
 </script>
