@@ -29,7 +29,7 @@
 <div id='item_entry_form_container' ></div>
 
 <input class="lst_cmd_btn" type="button" value='Update' onclick="updateAuxInfo('<?= $ais->update_info_url ?>', '<?= $ais->show_url ?>')" />
-<a href='javascript:void(0)' title='Clear entry fields' onclick='$(".aiif").each(function(s){s.value=""})'>Clear</a>
+<a href='javascript:void(0)' title='Clear entry fields' onclick='$(".aiif").each(function(idx, s){s.value=""})'>Clear</a>
 <div id='update_response' ></div>
 
 </form>

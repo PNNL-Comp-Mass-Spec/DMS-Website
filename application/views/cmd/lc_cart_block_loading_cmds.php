@@ -2,7 +2,7 @@
 <script type="text/javascript">
 function make_xml_list_from_edit_fileds(rlist) {
 	var s = '';
-	rlist.each(function(obj) {
+	rlist.each(function(idx, obj) {
 		s += '<r bt="' + obj.batchID + '" bk="' + obj.block + '" ct="' + obj.cart + '" co="' + obj.col + '"/>';
 	});
 	return s;
@@ -12,7 +12,7 @@ function getEditFieldsObjList() {
 	// where each object references the fields for 
 	// one block
 	var rlist = [];
-	$('.Cart').each(function(cartField) {
+	$('.Cart').each(function(idx, cartField) {
 		var obj = {};
 		obj.nm = cartField.name;
 		var x = obj.nm.split('.');
@@ -26,7 +26,7 @@ function getEditFieldsObjList() {
 }
 function validateFields(rlist) {
 	var mes = '';
-	rlist.each(function(obj){
+	rlist.each(function(idx, obj){
 		if(obj.cart == '(mixed)' || obj.col == 'mixed') {
 			mes = '"(mixed)" is not a legal value';
 		}
@@ -63,7 +63,7 @@ function setCartName() {
 		alert('Cart name cannot be blank');
 		return;
 	}
-	iList.each(function(req) {
+	iList.each(function(idx, req) {
 		$('Cart_' + req).value = cart;
 	});
 }
@@ -78,7 +78,7 @@ function setCartCol() {
 		alert('Column out of range');
 		return;
 	}
-	iList.each(function(req) {
+	iList.each(function(idx, req) {
 		$('Col_' + req).value = col;
 	});
 

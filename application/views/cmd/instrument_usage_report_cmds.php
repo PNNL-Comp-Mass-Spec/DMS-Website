@@ -8,7 +8,7 @@ function parseUploadText(text_fld) {
 	var lines = $(text_fld).value.split('\n');
 	var header = [];
 	var data = [];
-	lines.each(function(line, lineNumber){
+	lines.each(function(idx, line, lineNumber){
 		line = trim(line);
 		if(line) {	
 			var fields = parse_lines(line)

@@ -11,7 +11,7 @@ function getFactorCols() {
 function verifyColName(col_name) {
 	var colx = '';
 	var cols = getFactorCols();
-	cols.each(function(col) {
+	cols.each(function(idx, col) {
 		if(col.toLowerCase() == col_name.toLowerCase()) {
 			colx = col;
 		}
@@ -26,7 +26,7 @@ function createBlocksFromBlockingFactor(col_name) {
 	}
 	var rlist = getBlockingFieldsObjList(col);
 	var bflist = getUniqueListOfBlockingFactors(col);
-	bflist.each(function(bf){
+	bflist.each(function(idx, bf){
 		var tlist = getBlockingFieldObjsInBlockingFactor(rlist, bf);
 		assignBlockingFactorToBlocks(tlist);
 	});
@@ -47,7 +47,7 @@ function createBlocksViaRandomAssignment() {
 		return obj.rnd;
 	});
 	var numBlocks = Math.ceil(slist.length / blkSize);
-	slist.each(function(obj, index) {
+	slist.each(function(idx, obj, index) {
 		obj.bk.value = (index % numBlocks) + 1;
 	});
 	randomizeWithinBlocks();
@@ -100,7 +100,7 @@ function setBlockForSelectedItems() {
 		alert('Block out of range');
 		return;
 	}
-	iList.each(function(req) {
+	iList.each(function(idx, req) {
 		$('Block_' + req).value = block;
 	});
 }

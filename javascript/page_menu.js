@@ -1,7 +1,7 @@
 
 function showHideAllMenuBlocks(mode, label) {
 	var blks = $('div.qs_more');
-	blks.each(function(idx, s){
+	blks.each(function(idx, idx, s){
 			$(this).css('display', mode);
 			var id = '#' + s.id + '_ctl';
 			$(id).html(label);
@@ -46,7 +46,7 @@ function showFlyMenu(section_name) {
 	$('#'+section_name).css('display', "block");
 }
 function hideFlyMenus() {
-	$('div.fly_box').each(function(idx, s){
+	$('div.fly_box').each(function(idx, idx, s){
 			$(this).css('display', 'none');
 		});
 }

@@ -79,7 +79,7 @@ function cancelUpdate() {
 	$('#cancel_update_btn').disable();
 }
 function markUnprocessedEntities() {
-	$('.lr_ckbx').each(function(sel){
+	$('.lr_ckbx').each(function(idx, sel){
 		var obj = sel.value.evalJSON();
 		if(obj && $(obj.container).empty()) {
 			sel.checked = true;
@@ -123,7 +123,7 @@ function markUnprocessedEntities() {
 <div class='cx'><a onclick='setCkbxState("ckbx", 1)' title="Check all checkboxes" href='javascript:void(0)' >Select All</a> &nbsp;  </div>
 <div class='cx'><a onclick='setCkbxState("ckbx", 0)' title="Clear all checkboxes" href='javascript:void(0)' >Unselect All</a> &nbsp; </div>
 <div class='cx'><a onclick='markUnprocessedEntities()' title="Select entities with blank results" href='javascript:void(0)' >Select Blank Results</a> &nbsp;  </div>
-<div class='cx'><a onclick='$(".entity_results_container").each(function(obj){obj.update("")});' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
+<div class='cx'><a onclick='$(".entity_results_container").each(function(idx, obj){obj.update("")});' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
 </div>
 
 </form>

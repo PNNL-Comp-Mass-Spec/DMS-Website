@@ -16,7 +16,7 @@ function updateDatabaseFromList(xml, command) {
 }
 function make_xml_list(rlist) {
 	var s = '';
-	rlist.each(function(item) {
+	rlist.each(function(idx, item) {
 		s += '<r i="' + item + '" />';
 	});
 	return s;

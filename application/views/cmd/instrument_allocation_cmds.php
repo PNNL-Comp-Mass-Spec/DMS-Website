@@ -2,7 +2,7 @@
 function getXMLFromObjList(flist) {
 	var xml = '';
 	if (typeof(flist) != "undefined") {
-		flist.each(function(obj){
+		flist.each(function(idx, obj){
 			xml += '<r p="' + obj.id + '" g="' + obj.factor + '" a="' + obj.value + '" />';
 		});
 	}
@@ -11,7 +11,7 @@ function getXMLFromObjList(flist) {
 function parse_lines(line) {
 	flds = [];
 	var fields = line.split('\t');
-	fields.each(function(fld, fidx){
+	fields.each(function(idx, fld, fidx){
 		var f = fld.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		flds.push(f);
 	});
@@ -22,7 +22,7 @@ function parseDelimitedText(text_fld) {
 	var lines = $(text_fld).value.split('\n');
 	var header = [];
 	var data = [];
-	lines.each(function(line, lineNumber){
+	lines.each(function(idx, line, lineNumber){
 		line = trim(line);
 		if(line) {	
 			var fields = parse_lines(line)
@@ -41,10 +41,10 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 	// make array of id/factor/value objects,
 	// one for each row of each column
 	var flist = [];
-	col_list.each(function(factor){
+	col_list.each(function(idx, factor){
 		var idx = parsed_data.header.indexOf(factor);
 		if(idx > -1) {
-			parsed_data.data.each(function(row){
+			parsed_data.data.each(function(idx, row){
 				var id = row[0];
 				var value = row[idx];
 				if((typeof(value) != "undefined") && (value != '')) {

@@ -1,5 +1,5 @@
 function setRandom(rlist) {
-	rlist.each(function(obj){
+	rlist.each(function(idx, obj){
 		obj.rnd = Math.random();
 	});
 }
@@ -11,7 +11,7 @@ function getBlockingFieldsObjList(col_name) {
 		col_name = 'Blocking_Factor';
 	}
 	var rlist = [];
-	$('.Block').each(function(bk) {
+	$('.Block').each(function(idx, bk) {
 		var obj = {};
 		obj.bk = bk;
 		obj.ro = $('Run_Order_' + bk.name);
@@ -29,7 +29,7 @@ function randomizeRunOrder(rlist){
 	});
 	// change value in run order field to match
 	// sequence of random sorted array
-	slist.each(function(obj, index){
+	slist.each(function(idx, obj, index){
 		obj.ro.value = index + 1;
 	});
 }
@@ -41,7 +41,7 @@ function assignBlockingFactorToBlocks(rlist){
 	});
 	// change value in run order field to match
 	// sequence of random sorted array
-	slist.each(function(obj, index){
+	slist.each(function(idx, obj, index){
 		obj.bk.value = index + 1;
 	});
 }
@@ -49,7 +49,7 @@ function getUniqueListOfBlocks() {
 	// run through request list and get
 	// unique list of block numbers
 	bklist = [];
-	$('.Block').each(function(bk) {
+	$('.Block').each(function(idx, bk) {
 		var blk = bk.value;
 		if(!bklist.include(blk)) {
 			bklist.push(blk);
@@ -61,7 +61,7 @@ function getUniqueListOfBlockingFactors(col_name) {
 	// run through request list and get
 	// unique list of blocking factors
 	bflist = [];
-	$('.' + col_name).each(function(bk) {
+	$('.' + col_name).each(function(idx, bk) {
 		var blk = bk.value;
 		if(!bflist.include(blk)) {
 			bflist.push(blk);
@@ -71,7 +71,7 @@ function getUniqueListOfBlockingFactors(col_name) {
 }
 function getBlockingFieldObjsInBlock(rlist, blk) {
 	var tmplist = [];
-	rlist.each(function(obj){
+	rlist.each(function(idx, obj){
 		if(obj.bk.value == blk) {
 			tmplist.push(obj);
 		}
@@ -80,7 +80,7 @@ function getBlockingFieldObjsInBlock(rlist, blk) {
 }
 function getBlockingFieldObjsInBlockingFactor(rlist, bf) {
 	var tmplist = [];
-	rlist.each(function(obj){
+	rlist.each(function(idx, obj){
 		if(obj.bf.value == bf) {
 			tmplist.push(obj);
 		}
@@ -91,14 +91,14 @@ function getBlockingFieldObjsInBlockingFactor(rlist, bf) {
 function randomizeWithinBlocks() {
 	var rlist = getBlockingFieldsObjList();
 	var bklist = getUniqueListOfBlocks();
-	bklist.each(function(bkn){
+	bklist.each(function(idx, bkn){
 		var tlist = getBlockingFieldObjsInBlock(rlist, bkn);
 		randomizeRunOrder(tlist);
 	});
 }
 function randomizeBatch() {
 	var rlist = getBlockingFieldsObjList();
-	rlist.each(function(obj){
+	rlist.each(function(idx, obj){
 		obj.bk.value = 0;
 		obj.bf.value = 'na';
 	});
@@ -107,7 +107,7 @@ function randomizeBatch() {
 function createBlocksFromBlockingFactor(col_name) {
 	var rlist = getBlockingFieldsObjList();
 	var bflist = getUniqueListOfBlockingFactors(col_name);
-	bflist.each(function(bf){
+	bflist.each(function(idx, bf){
 		var tlist = getBlockingFieldObjsInBlockingFactor(rlist, bf);
 		assignBlockingFactorToBlocks(tlist);
 	});
@@ -128,7 +128,7 @@ function createBlocksViaRandomAssignment() {
 		return obj.rnd;
 	});
 	var numBlocks = Math.ceil(slist.length / blkSize);
-	slist.each(function(obj, index) {
+	slist.each(function(idx, obj, index) {
 		obj.bk.value = (index % numBlocks) + 1;
 		obj.bf.value = 'na';
 	});

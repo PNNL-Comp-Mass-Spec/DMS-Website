@@ -32,15 +32,15 @@ $(document).ready(function () {
 )
 
 function clearFilters() {
-	$(".primary_filter_field").each(function(obj) {obj.value = ''} );
-	$(".secondary_filter_input").each(function(obj) {obj.value = ''} );
-	$(".sorting_filter_input").each(function(obj) {obj.value = ''} );	
+	$(".primary_filter_field").each(function(idx, obj) {obj.value = ''} );
+	$(".secondary_filter_input").each(function(idx, obj) {obj.value = ''} );
+	$(".sorting_filter_input").each(function(idx, obj) {obj.value = ''} );	
 }
 
 function setColSort(colName) {
 	var curCol = $('#qf_sort_col_0').value;
 	var curDir = $('#qf_sort_dir_0').value;
-	$(".sorting_filter_input").each(function(obj) {obj.value = ''} );
+	$(".sorting_filter_input").each(function(idx, obj) {obj.value = ''} );
 	var dir = 'ASC';
 	if(colName == curCol) {dir = (curDir == 'ASC')?'DESC':'ASC'; };
 	$('#qf_sort_col_0').value = colName;

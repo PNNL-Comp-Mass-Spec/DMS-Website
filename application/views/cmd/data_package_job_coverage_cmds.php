@@ -7,7 +7,7 @@ function performOperation(mode){
 		return;
 	}
 	var list = '';
-	iList.each(function(obj) {
+	iList.each(function(idx, obj) {
 		list += obj;
 	});
 	if ( !confirm("Are you sure that you want to update the database?") )

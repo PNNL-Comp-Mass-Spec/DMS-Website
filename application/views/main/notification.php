@@ -23,7 +23,7 @@
 
 <script type='text/javascript'>
  $(document).ready(function () { 
-		new Draggable("notification", {handle: 'notification_header' })
+		// REFACTOR new Draggable("notification", {handle: 'notification_header' })
 	 }
  );
 </script>

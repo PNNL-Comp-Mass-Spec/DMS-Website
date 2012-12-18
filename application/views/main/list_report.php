@@ -13,19 +13,17 @@ globalAJAX.my_tag = '<?= $this->my_tag ?>';
 globalAJAX.is_ms_helper = '<?= $is_ms_helper ?>';
 
 // go get some content from the server and put it into the designated container element
-// and initiate the designaged follow-on action, if such exists
+// and initiate the designated follow-on action, if such exists
 function updateContainer(url, container, follow_on_action) { 
-	url = globalAJAX.site_url + globalAJAX.my_tag + url;
-	p = Form.serialize('filter_form', true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(container).update(transport.responseText);
+	var url = globalAJAX.site_url + globalAJAX.my_tag + url;
+	var p = $('#filter_form').serialize();
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 			if(follow_on_action.run) {
 				follow_on_action.run();
 			}
 		}
-	});
+	);
 }
 // load the filter panel according to the given layout mode
 function updateMyFilter($mode) {
@@ -50,7 +48,7 @@ var filter_observers_action = {
 // copy the contents of the upper paging display to the lower one
 var paging_cleanup_action = {
 	run:function() {
-		$('#paging_container_lower').update($('#paging_container_upper').innerHTML);
+		$('#paging_container_lower').html($('#paging_container_upper').innerHTML);
 	}
 }
 
@@ -63,8 +61,8 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-			$('#paging_container_upper').update(globalAJAX.progress_message);
-			$('#paging_container_lower').update(globalAJAX.progress_message);
+			$('#paging_container_upper').html(globalAJAX.progress_message);
+			$('#paging_container_lower').html(globalAJAX.progress_message);
 			updateContainer('/report_paging', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -79,8 +77,8 @@ var data_post_load_action = {
 // go get some data rows
 var data_update_action = {
 	run:function(){
-		$('#paging_container_upper').update(globalAJAX.progress_message);
-		$('#paging_container_lower').update(globalAJAX.progress_message);
+		$('#paging_container_upper').html(globalAJAX.progress_message);
+		$('#paging_container_lower').html(globalAJAX.progress_message);
 		updateContainer('/report_data', 'data_container', data_post_load_action); 	
 	}
 }
@@ -90,7 +88,7 @@ function updateShowSQL() {
 // update the SQL display box if it is visible
 var sql_display_action = {
 	run:function() {
-		if($('#notification').visible()) {
+		if($('#notification').show()) {
 			updateAlert(globalAJAX.my_tag + '/report_sql', 'filter_form');
 		}
 	}
@@ -98,7 +96,7 @@ var sql_display_action = {
 // start the data update chain for the page
 function updateMyData(loading) {
 	if(loading == 'no_load') {
-		$('#data_container').update('Data will be displayed after you click the "Search" button.');
+		$('#data_container').html('Data will be displayed after you click the "Search" button.');
 	} else {
 		if(loading && loading == 'reset') $('#qf_first_row').value = 1;
 		data_update_action.run(); 	

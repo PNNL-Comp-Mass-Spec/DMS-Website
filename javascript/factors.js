@@ -1,7 +1,7 @@
 function getBlockingXMLFromList(flist) {
 	var xml = '';
 	if(typeof(flist) != "undefined") {
-		flist.each(function(obj){
+		flist.each(function(idx, obj){
 			xml += '<r i="' + obj.id + '" t="' + obj.factor + '" v="' + obj.value + '" />';
 		});
 	}
@@ -10,7 +10,7 @@ function getBlockingXMLFromList(flist) {
 function getFactorXMLFromList(flist) {
 	var xml = '';
 	if (typeof(flist) != "undefined") {
-		flist.each(function(obj){
+		flist.each(function(idx, obj){
 			xml += '<r i="' + obj.id + '" f="' + obj.factor + '" v="' + obj.value + '" />';
 		});
 	}
@@ -18,19 +18,19 @@ function getFactorXMLFromList(flist) {
 }
 function getListReportColumnList() {
 	var col_list = [];
-	$('.col_header').each(function(obj){
+	$('.col_header').each(function(idx, obj){
 		col_list.push(trim(obj.innerHTML));
 	});
 	return col_list;
 }
 function getFactorFieldList(factor_cols) {
 	var idlist = [];
-	$('.lr_ckbx').each(function(obj){
+	$('.lr_ckbx').each(function(idx, obj){
 		idlist.push(obj.value);
 	});
 	var flist = [];
-	factor_cols.each(function(col){
-		idlist.each(function(id){
+	factor_cols.each(function(idx, col){
+		idlist.each(function(idx, id){
 			var fldID = col.replace(' ', '_') + '_' + id;
 			var val = $(fldID).value;
 			var obj = {};
@@ -44,7 +44,7 @@ function getFactorFieldList(factor_cols) {
 }
 function makeObjectList(ilist, factor, value) {
 	var flist = [];
-	ilist.each(function(id){
+	ilist.each(function(idx, id){
 		var obj = {};
 		obj.id = id;
 		obj.factor = factor;
@@ -57,7 +57,7 @@ function makeObjectList(ilist, factor, value) {
 function parse_lines(line) {
 	flds = [];
 	var fields = line.split('\t');
-	fields.each(function(fld, fidx){
+	fields.each(function(idx, fld, fidx){
 		var f = fld.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		flds.push(f);
 	});
@@ -68,7 +68,7 @@ function parseDelimitedText(text_fld) {
 	var lines = $(text_fld).value.split('\n');
 	var header = [];
 	var data = [];
-	lines.each(function(line, lineNumber){
+	lines.each(function(idx, line, lineNumber){
 		line = trim(line);
 		if(line) {	
 			var fields = parse_lines(line)
@@ -91,10 +91,10 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 	// make array of id/factor/value objects,
 	// one for each row of each column
 	var flist = [];
-	col_list.each(function(factor){
+	col_list.each(function(idx, factor){
 		var idx = parsed_data.header.indexOf(factor);
 		if(idx > -1) {
-			parsed_data.data.each(function(row){
+			parsed_data.data.each(function(idx, row){
 				var id = row[0];
 				var value = row[idx] || '';
 				var obj = {};
