@@ -88,7 +88,7 @@ function updateShowSQL() {
 // update the SQL display box if it is visible
 var sql_display_action = {
 	run:function() {
-		if($('#notification').show()) {
+		if($('#notification').is(':visible')) {
 			updateAlert(globalAJAX.my_tag + '/report_sql', 'filter_form');
 		}
 	}

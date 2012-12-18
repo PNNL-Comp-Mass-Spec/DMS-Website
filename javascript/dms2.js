@@ -298,7 +298,7 @@ function updateFieldValueFromChooser(value, action) {
 }
 function getFieldValueForChooser() {
 	// todo: make sure gChooser.field is defined
-	var value = $(gChooser.fieldval();
+	var value = $(gChooser.field).val();
 	if(gChooser.delimiter != ',') {
 		value = value.replace(/gChooser.delimiter/g, ',');
 	}
@@ -449,7 +449,7 @@ function setFieldValueFromSelection(fieldName, chooserName, mode) {
 		}
 		var delim = ';';
 		if(mode == 'append_comma') delim = ',';		
-		var v = $(fieldNameval();
+		var v = $(fieldName).val();
 		if(v != '') v = v + delim;
 		$(fieldName).val(v + $F(chooserName));			
 	}

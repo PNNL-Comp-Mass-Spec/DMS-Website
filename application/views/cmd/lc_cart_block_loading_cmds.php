@@ -19,7 +19,7 @@ function getEditFieldsObjList() {
 		obj.batchID = x[0];
 		obj.block = x[1];
 		obj.cart = cartField.value;
-		obj.col = $('Col_' + obj.nmval();
+		obj.col = $('Col_' + obj.nm).val();
 		rlist.push(obj);
 	});
 	return rlist;

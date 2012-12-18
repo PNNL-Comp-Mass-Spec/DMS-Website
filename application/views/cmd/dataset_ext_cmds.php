@@ -2,7 +2,7 @@
 <script type="text/javascript">
 function transferData(perspective, dslist) {
 
-	var commalist = $(dslistval();
+	var commalist = $(dslist).val();
 	var list = getCkbxList('ckbx' );
 	if(list=='' && commalist=='') {
 		alert('You must select at least 1 dataset or enter 1 dataset id.'); 

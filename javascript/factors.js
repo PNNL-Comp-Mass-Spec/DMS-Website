@@ -32,7 +32,7 @@ function getFactorFieldList(factor_cols) {
 	factor_cols.each(function(idx, col){
 		idlist.each(function(idx, id){
 			var fldID = col.replace(' ', '_') + '_' + id;
-			var val = $(fldIDval();
+			var val = $(fldID).val();
 			var obj = {};
 			obj.id = id;
 			obj.factor = col;

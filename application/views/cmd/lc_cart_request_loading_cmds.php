@@ -16,7 +16,7 @@ function getEditFieldsObjList() {
 		var obj = {};
 		obj.req = cartField.name;
 		obj.cart = cartField.value;
-		obj.col = $('Col_' + obj.reqval();
+		obj.col = $('Col_' + obj.req).val();
 		rlist.push(obj);
 	});
 	return rlist;
