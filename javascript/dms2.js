@@ -439,16 +439,18 @@ if(top != self) {
 //------------------------------------------
 
 function setFieldValueFromSelection(fieldName, chooserName, mode) {
-	if($('#' + fieldName).val() != null) {
+	var fld = $('#' + fieldName);
+	var chv = $('#' + chooserName).val();
+	if(fld.val() != null) {
 		if(mode == 'replace' || mode == '') {
-			$(fieldName).val($F(chooserName));
+			fld.val(chv);
 			return;
 		}
 		var delim = ';';
 		if(mode == 'append_comma') delim = ',';		
-		var v = $(fieldName).val();
+		var v = fld.val();
 		if(v != '') v = v + delim;
-		$(fieldName).val(v + $F(chooserName));			
+		fld.val(v + chv);			
 	}
 }
 

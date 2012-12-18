@@ -41,7 +41,7 @@ var filter_update_action = {
 var paging_cleanup_action = {
 	run:function() {
 		filter_update_action.run();
-		$('#paging_container_lower').html($('#paging_container_upper').innerHTML);
+		$('#paging_container_lower').html($('#paging_container_upper').html());
 	}
 }
 //update the paging display sections, or hide them if no data rows

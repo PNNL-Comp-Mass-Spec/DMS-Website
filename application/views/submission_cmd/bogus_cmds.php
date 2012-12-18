@@ -34,10 +34,10 @@ function doCancel() {
 }
 function doFirstThing() {
 	showPopup('cmd_buttons');
-	$('#notification_message').html($('#first_thing').innerHTML);
+	$('#notification_message').html($('#first_thing').html());
 }
 function doSecondThing() {
-	$('#notification_message').html($('#second_thing').innerHTML);
+	$('#notification_message').html($('#second_thing').html());
 	$('#notification').show();
 }
 </script>

@@ -28,7 +28,7 @@ function previewRequest() {
 	submitMainEntryForm('preview', { run:function() {
 		var mm = $('#main_outcome_msg');
 		var sm = $('#supplement_outcome_msg');
-		if(mm && sm) { sm.update(mm.innerHTML)}
+		if(mm && sm) { sm.update(mm.html())}
 	}});	
 }
 

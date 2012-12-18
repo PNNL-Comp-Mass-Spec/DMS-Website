@@ -19,7 +19,7 @@ function getFactorXMLFromList(flist) {
 function getListReportColumnList() {
 	var col_list = [];
 	$('.col_header').each(function(idx, obj){
-		col_list.push(trim(obj.innerHTML));
+		col_list.push(trim(obj.html()));
 	});
 	return col_list;
 }
