@@ -48,14 +48,14 @@ var filter_observers_action = {
 // copy the contents of the upper paging display to the lower one
 var paging_cleanup_action = {
 	run:function() {
-		$('#paging_container_lower').html($('#paging_container_upper').innerHTML);
+		$('#paging_container_lower').html($('#paging_container_upper').html());
 	}
 }
 
 // update the paging display sections, or hide them if no data rows
 var paging_update_action = {
 	run:function() {
-		if($('#data_message')) {
+		if($('#data_message').val() != null) {
 			$('#paging_container_upper').hide();
 			$('#paging_container_lower').hide();
 		} else {

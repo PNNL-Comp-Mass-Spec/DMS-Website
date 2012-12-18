@@ -11,6 +11,7 @@ Remove references to modalbox.js?
 
 
 http://andykdocs.de/andykdocs/document/Migrating-from-the-Prototype-JavaScript-Framework-to-jQuery
+http://webcache.googleusercontent.com/search?q=cache:http://andykdocs.de/andykdocs/document/Migrating-from-the-Prototype-JavaScript-Framework-to-jQuery
 
 \$\(['"]([a-z0-9_-]+)['"]\) --> \$\('#$1'\)
 

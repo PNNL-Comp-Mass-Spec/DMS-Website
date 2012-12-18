@@ -2,7 +2,7 @@
 
 // check size of export document in rows
 function download_to_doc(format) {
-	var row_count = $('#total_rowcount').innerHTML;
+	var row_count = $('#total_rowcount').html();
 	if(row_count > 4000) {
 		if (!confirm('Are you sure you want to export ' + row_count + ' rows?') ) return;
 	}

@@ -23,7 +23,7 @@ function showHideMenuBlock(name) {
 	}
 	showHideAllMenuBlocks('none', 'More...');
 	block.css('display', dsp);
-	ctl.innerHTML = label;
+	ctl.html(label);
 }
 function showHideMenuDiagram() {
 	var ds = $('#diagram_section');
@@ -31,11 +31,11 @@ function showHideMenuDiagram() {
 	if(ds.css('display') == "none") {
 		ds.css('display', "block");
 		ms.css('display', "none");
-		$('#diag_ctl_label').innerHTML = 'Show Section Menus';
+		$('#diag_ctl_label').html('Show Section Menus');
 	} else {
 		ds.css('display', "none");
 		ms.css('display', "block");
-		$('#diag_ctl_label').innerHTML = 'Show Diagram Menus';
+		$('#diag_ctl_label').html('Show Diagram Menus');
 	}
 }
 $(document).ready(function (){showHideAllMenuBlocks('none', 'More...')});

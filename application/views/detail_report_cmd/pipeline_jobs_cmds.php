@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 function load_script_diagram() {
-	var scriptName = $('#lnk_ID').innerHTML;
+	var scriptName = $('#lnk_ID').html();
 	if(scriptName) {
 		var url = '<?= site_url() ?>pipeline_script/dot/' + scriptName
 		var container = 'script_diagram_container';

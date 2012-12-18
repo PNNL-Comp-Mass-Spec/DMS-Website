@@ -53,7 +53,7 @@ function updateSelectedEntities() {
 	if(file_name == '') { alert('File name is blank'); return; }
 	globalAJAX.file_name = file_name;
 
-	var type = $('#entity_type').innerHTML;
+	var type = $('#entity_type').html();
 	if(type == '') { alert('Entity type could not be determined'); return; }
 	globalAJAX.entity_type = type;
 

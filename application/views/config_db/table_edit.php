@@ -71,24 +71,24 @@ function get_sql(mode){
 // move any existing destination id to to source id
 // and set destination id to the input id
 function set_id(id) {
-	$('#source_id').innerHTML = $('#dest_id').innerHTML;
-	$('#dest_id').innerHTML = id;
+	$('#source_id').html($('#dest_id').html());
+	$('#dest_id').html(id);
 
-	$('#range_start_id').innerHTML = $('#range_stop_id').innerHTML;
-	$('#range_stop_id').innerHTML = $('#range_dest_id').innerHTML;
-	$('#range_dest_id').innerHTML = id;
+	$('#range_start_id').html($('#range_stop_id').html());
+	$('#range_stop_id').html($('#range_dest_id').html());
+	$('#range_dest_id').html(id);
 }
 
 // get suggested SQL for moving item(s)
 function get_sql_from_range_move(mode){
 	if(mode == 'range') {
-		var r1_id = $('#range_start_id').innerHTML;
-		var r2_id = $('#range_stop_id').innerHTML;
-		var d_id = $('#range_dest_id').innerHTML;
+		var r1_id = $('#range_start_id').html();
+		var r2_id = $('#range_stop_id').html();
+		var d_id = $('#range_dest_id').html();
 	} else {
-		var r1_id = $('#source_id').innerHTML;
-		var r2_id = $('#source_id').innerHTML;
-		var d_id = $('#dest_id').innerHTML;
+		var r1_id = $('#source_id').html();
+		var r2_id = $('#source_id').html();
+		var d_id = $('#dest_id').html();
 	}
 	if(!r1_id || !r2_id || !d_id) return;
 
