@@ -22,11 +22,11 @@ function performCommand(url, id, mode) {
 	var opts = {};
 	opts.parameters = p;
 	var container_name = globalAJAX.response_container;
-	$(container_name).update(globalAJAX.progress_message);
+	$(container_name).html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container_name).update(transport.responseText);
+			$(container_name).html(transport.responseText);
 			updateMyData();	
 		}
 	});
@@ -37,7 +37,7 @@ function updateContainer(url, container) {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).update(transport.responseText);
+			$(container).html(transport.responseText);
 		}
 	});
 }

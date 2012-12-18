@@ -34,7 +34,7 @@ function ops(index, action) {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container_name).update(transport.responseText);
+			$(container_name).html(transport.responseText);
 		}
 	});
 }
@@ -50,7 +50,7 @@ function do_sql() {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container_name).update(transport.responseText);
+			$(container_name).html(transport.responseText);
 		}
 	});
 }

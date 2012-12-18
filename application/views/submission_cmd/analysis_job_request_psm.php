@@ -63,7 +63,7 @@ function callOperation(url) {
 		parameters: p,
 		onSuccess: function(transport) {
 			var result = transport.responseText;
-			$('#supplemental_material').update(result);
+			$('#supplemental_material').html(result);
 			$('#sub_cmd_buttons').show();
 			setFieldValues();
 		}});

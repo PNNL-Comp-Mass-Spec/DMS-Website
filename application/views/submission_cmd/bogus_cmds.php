@@ -29,15 +29,15 @@ function doSubmit() {
 	submitToFamily(gSubmission.url, gSubmission.mode, post_submission_action);
 }
 function doCancel() {
-//	$('#notification_message').update('');
+//	$('#notification_message').html('');
 	$('#notification').hide();
 }
 function doFirstThing() {
 	showPopup('cmd_buttons');
-	$('#notification_message').update($('#first_thing').innerHTML);
+	$('#notification_message').html($('#first_thing').innerHTML);
 }
 function doSecondThing() {
-	$('#notification_message').update($('#second_thing').innerHTML);
+	$('#notification_message').html($('#second_thing').innerHTML);
 	$('#notification').show();
 }
 </script>

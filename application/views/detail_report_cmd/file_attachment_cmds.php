@@ -1,6 +1,6 @@
 <script type='text/javascript'>
 function report_upload_results(msg) {
-	$('#result_display').update(msg);
+	$('#result_display').html(msg);
 	showAttachments();
 }
 
@@ -18,7 +18,7 @@ function showAttachments() {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$('#attachments_list').update(transport.responseText);
+			$('#attachments_list').html(transport.responseText);
 			$('#file_attachments_section').show();
 		}});
 }
@@ -41,7 +41,7 @@ function doOperation(faid, mode) {
 		}});
 }
 function do_upload() {
-	$('#result_display').update(globalAJAX.progress_message);
+	$('#result_display').html(globalAJAX.progress_message);
 	$('#upload_form').submit();
 }
 </script>

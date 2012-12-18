@@ -13,7 +13,7 @@ function download_to_graph() {
 	if (colName == null || colName == "") {
 		return;
 	}
-	$('#progress_display').update(globalAJAX.progress_message);
+	$('#progress_display').html(globalAJAX.progress_message);
 
 	var url = globalAJAX.site_url + globalAJAX.my_tag + '/export/json'
 	var p = Form.serialize("filter_form", true);
@@ -21,7 +21,7 @@ function download_to_graph() {
 		parameters: p,
 		onSuccess: function(transport) {
 			var rows = transport.responseText.evalJSON();
-			$('#progress_display').update("");
+			$('#progress_display').html("");
 			draw_graph(rows, colName);
 		}
 	});

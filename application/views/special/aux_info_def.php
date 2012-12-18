@@ -34,19 +34,19 @@ function addNewMember(type, parent_id) {
 function updateContainer(type, id, follow_on_action) { 
 	var url = globalAJAX.site_url + globalAJAX.my_tag + '/test/' + type + '/' + id;
 	var container = type + '_container';
-	$(container).update(globalAJAX.progress_message);
+	$(container).html(globalAJAX.progress_message);
 	var p = {};
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).update(transport.responseText);
+			$(container).html(transport.responseText);
 		}
 	});
 }
 function clearChildren(parent) {
 	var child = parent;
 	while(child = globalAJAX.hierarchy[child]) {
-		$(child + '_container').update('');
+		$(child + '_container').html('');
 	}
 }
 function getChildren(parent) {

@@ -19,10 +19,10 @@ $(document).ready(function () {
 function report_upload_results(file_name, error) {
 	if(error != '') {
 		$('#uploaded_file_name').value = '';
-//		$('#upload_error').update($error);
+//		$('#upload_error').html($error);
 	} else {
 		$('#uploaded_file_name').value = file_name;
-//		$('#upload_error').update('Upload was successful');
+//		$('#upload_error').html('Upload was successful');
 		extract();
 		clearSpreadsheetDisplay();
 	}
@@ -33,11 +33,11 @@ function updateContainer(action, container, id) {
 	p.file_name = $('#uploaded_file_name').value;
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
-	$(container).update(globalAJAX.progress_message);
+	$(container).html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).update(transport.responseText);
+			$(container).html(transport.responseText);
 		}
 	});
 }
@@ -53,7 +53,7 @@ function showSpreadsheetContents() {
 }
 function clearSpreadsheetDisplay() {
 	$('#ss_table_display_area').hide();
-	$('#ss_table_container').update("")
+	$('#ss_table_container').html("")
 }
 </script>
 

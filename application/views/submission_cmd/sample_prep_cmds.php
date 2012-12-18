@@ -41,12 +41,12 @@ function performCall(mode) {
 	p.ID = $('#ID').getValue();
 	p.command = mode;
 
-	$('#notification_message').update(globalAJAX.progress_message);
+	$('#notification_message').html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
 			showPopup('cmd_buttons');
-			$('#notification_message').update(transport.responseText);
+			$('#notification_message').html(transport.responseText);
 		}});
 }
 </script>

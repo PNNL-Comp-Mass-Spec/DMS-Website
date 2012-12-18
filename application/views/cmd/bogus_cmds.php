@@ -7,12 +7,12 @@ function performExec(url, mode) {
 	p.ID = 5;
 	p.command = mode;
 
-	$(globalAJAX.response_container_name).update(globalAJAX.progress_message);
+	$(globalAJAX.response_container_name).html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
 			var response = transport.responseText.evalJSON();
-			$(globalAJAX.response_container_name).update(response.message);
+			$(globalAJAX.response_container_name).html(response.message);
 			$(globalAJAX.cntrl_container_name).show();
 //			if(response.result == 0) automatically refresh rows
 		}});
@@ -25,11 +25,11 @@ function performCall(url, mode) {
 	p.ID = 5;
 	p.command = mode;
 
-	$(globalAJAX.response_container_name).update(globalAJAX.progress_message);
+	$(globalAJAX.response_container_name).html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(globalAJAX.response_container_name).update(transport.responseText);
+			$(globalAJAX.response_container_name).html(transport.responseText);
 			$(globalAJAX.cntrl_container_name).show();
 		}});
 }

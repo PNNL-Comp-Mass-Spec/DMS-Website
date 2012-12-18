@@ -19,7 +19,7 @@ function updateContainer(action, container, follow_on_action) {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).update(transport.responseText);
+			$(container).html(transport.responseText);
 			if(follow_on_action.run) {
 				follow_on_action.run();
 			}
@@ -42,7 +42,7 @@ var filter_update_action = {
 var paging_cleanup_action = {
 	run:function() {
 		filter_update_action.run();
-		$('#paging_container_lower').update($('#paging_container_upper').innerHTML);
+		$('#paging_container_lower').html($('#paging_container_upper').innerHTML);
 	}
 }
 //update the paging display sections, or hide them if no data rows
@@ -54,8 +54,8 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-			$('#paging_container_upper').update(globalAJAX.progress_message);
-			$('#paging_container_lower').update(globalAJAX.progress_message);
+			$('#paging_container_upper').html(globalAJAX.progress_message);
+			$('#paging_container_lower').html(globalAJAX.progress_message);
 			updateContainer('/param_paging', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -69,13 +69,13 @@ var data_update_action = {
 //start the data update chain for the page
 function updateMyData(loading) {
 	if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').value = 1;
-	$('#paging_container_upper').update(globalAJAX.progress_message);
+	$('#paging_container_upper').html(globalAJAX.progress_message);
 	data_update_action.run();
 }
 //after the page loads, set things in motion to populate it
 $(document).ready(function () { 
 	 	window['reloadListReportData'] = function() { updateMyData('autoload');}
-		$('#data_container').update('Data will be displayed after you click the "Search" button.');
+		$('#data_container').html('Data will be displayed after you click the "Search" button.');
 	}
 );
 

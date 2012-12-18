@@ -22,7 +22,7 @@ function download_to_graph() {
 function draw_graph(rows) {
 	// set caption
 	var caption = "Dataset Acquisition/Interval Time For " + $('#instrumentName').value + " From " + $('#startDate').value + " To " + $('#endDate').value
-	$('#caption_container').update(caption);
+	$('#caption_container').html(caption);
 	
 	// build data series set from rows
 	var dataSeriesSet = make_data_series_from_column(rows, "Duration") ;

@@ -50,7 +50,7 @@ function load_param_form() {
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).update(transport.responseText);
+			$(container).html(transport.responseText);
 			set_param_row_visibility("hide_input", "none");
 		}
 	});	
@@ -69,7 +69,7 @@ function load_script_diagram() {
 		new Ajax.Request(url, {
 			parameters: p,
 			onSuccess: function(transport) {
-				$(container).update(transport.responseText);
+				$(container).html(transport.responseText);
 			}
 		});	
 	}

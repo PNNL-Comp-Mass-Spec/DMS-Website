@@ -19,11 +19,11 @@ function update_entity(id, container) {
 	p.file_name   = file_name;
 	p.id          = id;
 	if(!p.file_name) {alert('No file name'); return; }
-	$(container).update(globalAJAX.progress_message);
+	$(container).html(globalAJAX.progress_message);
 	new Ajax.Request(url, {
 		parameters: p,
 		onSuccess: function(transport) {
-			$(container).update(transport.responseText);
+			$(container).html(transport.responseText);
 			// call update_next_entity_in_list in case we are processing multiple selections
 			// making the call via timeout starts new thread allowing the AJAX thread to terminate
 			// so that recursion doesn't pork up the thread pool and the call stack
@@ -38,7 +38,7 @@ function update_next_entity_in_list() {
 	if(x && globalAJAX.update_in_progress) {
 		var obj = x.evalJSON();
 		if(obj) {
-			$('#process_progress').update(globalAJAX.entityList.length);
+			$('#process_progress').html(globalAJAX.entityList.length);
 			update_entity(obj.entity, obj.container);
 		}
 	} else {
@@ -74,7 +74,7 @@ function updateSelectedEntities() {
 // stop the processing
 function cancelUpdate() {
 	globalAJAX.update_in_progress = false;
-	$('#process_progress').update('');
+	$('#process_progress').html('');
 	$('#start_update_btn').enable();
 	$('#cancel_update_btn').disable();
 }
