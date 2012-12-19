@@ -46,13 +46,13 @@ function do_sql() {
 }
 // get suggested sql for enhancing table
 function get_sql(mode){
-	var field_name = "sql_text_fld";
+	var field = $('#sql_text_fld');
 	var url = "<?= site_url()?>config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
 	var p = {};
 	p.mode = mode;
-	$(field_name).val('');
+	field.val('');
 	$.post(url, p, function (data) {
-			$(field_name).val(data);
+			field.val(data);
 		}
 	);
 }
@@ -81,22 +81,22 @@ function get_sql_from_range_move(mode){
 	if(!r1_id || !r2_id || !d_id) return;
 
 	var url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
-	var field_name = "sql_text_fld";
+	var field = $('#sql_text_fld');
 	var p = {};
-	$(field_name).val('');
+	field_name.val('');
 	$.post(url, p, function (data) {
-			$(field_name).val(data);
+			field.val(data);
 		}
 	);
 }
 // get suggested SQL for resequencing id column in table
 function get_sql_for_resequence(){
 	var url = "<?= site_url()?>config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
-	var field_name = "sql_text_fld";
+	var field = $('#sql_text_fld');
 	var p = {};
-	$(field_name).val('');
+	field.val('');
 	$.post(url, p, function (data) {
-			$(field_name).val(data);
+			field.val(data);
 		}
 	);
 }

@@ -26,13 +26,16 @@ function show_hide_all(mode) {
 		});
 }
 function show_hide_block(name) {
-	var block = $(name);
+	$('#' + name).toggle();
+/*	REFACTOR: make sure new code works, and then remove comment
+	var block = $('#' + name);
 	if(block.style.display == 'none') {
 		block.style.display = 'block';
 	} else
 	if(block.style.display == 'block') {
 		block.style.display = 'none';
 	}
+*/
 }
 function make_controller() {
  	var reply = prompt("Base title for page family", '');

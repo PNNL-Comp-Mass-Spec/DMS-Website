@@ -6,7 +6,7 @@ function performExec(url, mode) {
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	$(globalAJAX.response_container_name).html(globalAJAX.progress_message);
+	$('#' + globalAJAX.response_container_name).html(globalAJAX.progress_message);
 	$.post(url, p, function (data) {
 			var response = data.evalJSON();
 			$('#' + globalAJAX.response_container_name).html(response.message);
