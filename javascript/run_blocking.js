@@ -15,7 +15,7 @@ function getBlockingFieldsObjList(col_name) {
 		var obj = {};
 		obj.bk = bk;
 		obj.ro = $('Run_Order_' + bk.name);
-		obj.bf = $(col_name + '_' + bk.name)
+		obj.bf = $('#' + col_name + '_' + bk.name)
 		rlist.push(obj);
 	});
 	setRandom(rlist);

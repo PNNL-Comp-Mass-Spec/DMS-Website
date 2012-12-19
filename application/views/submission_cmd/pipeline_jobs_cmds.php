@@ -72,8 +72,9 @@ function load_script_diagram() {
 }
 
 function set_param_row_visibility(class_name, visibility) {
-	var tag = '.' + class_name;
-	$(tag).each(function(idx, obj){ obj.style.display = visibility; } );
+	$('.' + class_name).each(function(idx, obj) { 
+		obj.style.display = visibility; 
+	} );
 }
 
 //try and set up the supplemental form when the page loads

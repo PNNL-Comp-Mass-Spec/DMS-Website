@@ -21,7 +21,7 @@ function showAttachments() {
 		}
 	);
 	$.post(url, p, function (data) {
-			$('#attachments_list').html(transport.responseText);
+			$('#attachments_list').html(data);
 			$('#file_attachments_section').show();
 		}
 	);

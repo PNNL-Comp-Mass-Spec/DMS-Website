@@ -16,7 +16,7 @@ function performOperation(mode) {
 	var url =  "<?= site_url().'data_package_items/operation/' ?>";
 	$('#paramListXML').val(list);
 	$('#entry_cmd_mode').val(mode);
-	var p = $('#operation_form').serialize(true);
+	var p = $('#operation_form').serialize();
 	submitOperation(url, p);
 }
 

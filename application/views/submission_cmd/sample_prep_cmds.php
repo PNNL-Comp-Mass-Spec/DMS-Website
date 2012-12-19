@@ -10,7 +10,7 @@ function submissionSequence(url, mode) {
 	checkMaterial();
 }
 function showPopup(item) {
-	var pos = $(item).cumulativeOffset();
+	var pos = $('#' + item).offset(); 
 	var left = pos[0];
 	var top = pos[1];
 	$('#notification').show();

@@ -44,7 +44,7 @@ function updateContainer(type, id, follow_on_action) {
 function clearChildren(parent) {
 	var child = parent;
 	while(child = globalAJAX.hierarchy[child]) {
-		$(child + '_container').html('');
+		$('#' + child + '_container').html('');
 	}
 }
 function getChildren(parent) {

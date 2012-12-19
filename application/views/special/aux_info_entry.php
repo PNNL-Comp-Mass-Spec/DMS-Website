@@ -6,7 +6,10 @@
 
 <script type="text/javascript" src="<?= base_url().'javascript/aux_info.js' ?>"></script>
 <?= $ais->make_aux_info_global_AJAX_definitions() ?>
-<script type='text/javascript'>$(document).ready(function () { showAuxInfo("aux_info_container", '<?= $ais->show_url ?>') })</script>
+
+<script type='text/javascript'>
+$(document).ready(function () { showAuxInfo("aux_info_container", '<?= $ais->show_url ?>') }
+)</script>
 
 </head>
 <body>

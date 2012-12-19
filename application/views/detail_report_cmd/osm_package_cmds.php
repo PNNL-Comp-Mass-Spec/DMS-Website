@@ -105,7 +105,7 @@ function updateOSMPackageItems(id, form_id, mode) {
 	var url = globalAJAX.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
 	$('#entry_cmd_mode').val(mode);
-	var p = $(form_id).serialize(true);
+	var p = $('#' + form_id).serialize();
 	message_container.html(globalAJAX.progress_message);
 	$.post(url, p, function (data) {
 			if(data.indexOf('html failed') > -1) {

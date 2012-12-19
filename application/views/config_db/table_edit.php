@@ -20,17 +20,13 @@ function extractRow(theObject, index) {
 function ops(index, action) {
 	if ( !confirm("Are you sure that you want to modify the config db?") )
 		return;
-	var container_name = "edit_container";
+	var container = $('#edit_container');
 	var url =  "<?= site_url()?>config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
-
-	var form_name = 'edit_form';
-	var fields = $(form_name).serialize(true);
-
+	var fields = $('#edit_form').serialize();
 	var p = extractRow(fields, index);
 	p.mode = action;
-
 	$.post(url, p, function (data) {
-		    $('#' + container_name).html(data);
+		    container.html(data);
 		}
 	);
 

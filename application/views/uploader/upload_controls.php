@@ -80,7 +80,7 @@ function cancelUpdate() {
 function markUnprocessedEntities() {
 	$('.lr_ckbx').each(function(idx, sel){
 		var obj = sel.value.evalJSON();
-		if(obj && $(obj.container).empty()) {
+		if(obj && $(obj.container).empty()) { // REFACTOR: Fix
 			sel.checked = true;
 		} else {
 			sel.checked = false;	

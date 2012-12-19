@@ -62,7 +62,7 @@ function updateOSMPackageItems(form_id, mode) {
 	$('#entry_cmd_mode').val(mode);
 	$('#itemTypeSelector').val(codeMap['<?= $this->my_tag ?>']);
 	$('#entry_item_list').val(id);
-	var p = $(form_id).serialize(true);
+	var p = $('#' + form_id).serialize();
 	message_container.html(globalAJAX.progress_message);
 	$.post(url, p, function (data) {
 			if(data.indexOf('html failed') > -1) {

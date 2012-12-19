@@ -89,7 +89,7 @@ Month:<input id="month_fld"" />
             enableColumnReorder: false
 	};
 
-	$(function () {
+	$(document).ready(function () { 
 	    grid = new Slick.Grid("#myGrid", dataRows, columns, options);
 	    setDefaults();
 	    refreshGrid();

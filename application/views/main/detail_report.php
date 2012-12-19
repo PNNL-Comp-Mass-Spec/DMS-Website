@@ -21,10 +21,10 @@ function performCommand(url, id, mode) {
 	p.command = mode;
 	var opts = {};
 	opts.parameters = p;
-	var container = globalAJAX.response_container;
-	$(container).html(globalAJAX.progress_message);
+	var container = $('#' + globalAJAX.response_container);
+	container.html(globalAJAX.progress_message);
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    container.html(data);
 			updateMyData();	
 		}
 	);
