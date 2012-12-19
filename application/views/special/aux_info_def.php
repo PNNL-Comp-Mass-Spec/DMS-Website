@@ -36,12 +36,10 @@ function updateContainer(type, id, follow_on_action) {
 	var container = type + '_container';
 	$('#' + container).html(globalAJAX.progress_message);
 	var p = {};
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 		}
-	});
+	);
 }
 function clearChildren(parent) {
 	var child = parent;

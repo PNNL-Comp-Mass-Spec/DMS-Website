@@ -14,11 +14,12 @@ globalAJAX.is_ms_helper = '<?= $is_ms_helper ?>';
 
 // go get some content from the server and put it into the designated container element
 // and initiate the designated follow-on action, if such exists
-function updateContainer(url, container, follow_on_action) { 
-	var url = globalAJAX.site_url + globalAJAX.my_tag + url;
+function updateContainer(url, containerId, follow_on_action) { 
+	var container = $('#' + containerId);
+	url = globalAJAX.site_url + globalAJAX.my_tag + url;
 	var p = $('#filter_form').serialize();
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    container.html(data);
 			if(follow_on_action.run) {
 				follow_on_action.run();
 			}

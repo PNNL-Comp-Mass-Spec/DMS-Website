@@ -42,13 +42,11 @@ function load_param_form() {
 	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#scriptName').val();
 	var container = 'param_container';
 	p = {};
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 			set_param_row_visibility("hide_input", "none");
 		}
-	});	
+	);
 }
 function choose_template(template_name) {
 	$('#scriptName').val(template_name);

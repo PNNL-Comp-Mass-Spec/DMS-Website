@@ -55,7 +55,7 @@ function getJobDefaults() {
 
 // 
 function callOperation(url) {
-	var url =  "<?= site_url() ?>" + url;
+	url =  "<?= site_url() ?>" + url;
 	var p = {};
 	p.datasets = $('#datasets').val();
 	//	FUTURE:progress indicator

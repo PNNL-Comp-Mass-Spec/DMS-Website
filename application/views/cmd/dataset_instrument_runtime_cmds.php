@@ -9,13 +9,11 @@
 function download_to_graph() {
 	var url = globalAJAX.site_url + globalAJAX.my_tag + '/export_param/json'
 	var p = Form.serialize("entry_form", true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			var rows = transport.responseText.evalJSON();
+	$.post(url, p, function (data) {
+			var rows = data.evalJSON();
 			draw_graph(rows);
 		}
-	});
+	);
 }
 
 //build data series from rows, set graph format, and draw graph

@@ -8,13 +8,11 @@
 <script type='text/javascript'>
 
 function updateContainer(url, container) { 
-	p = Form.serialize('filter_form', true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	var p = Form.serialize('filter_form', true);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 		}
-	});
+	);
 }
 
 function updateMyFilter() {

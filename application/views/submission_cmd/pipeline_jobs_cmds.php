@@ -47,13 +47,11 @@ function load_param_form() {
 	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#job').val() + '/' + $('#scriptName').val();
 	var container = 'param_container';
 	p = {};
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 			set_param_row_visibility("hide_input", "none");
 		}
-	});	
+	);
 }
 function choose_script(script) {
 	$('#scriptName').val(cript);
@@ -66,12 +64,10 @@ function load_script_diagram() {
 		var url = '<?= site_url() ?>pipeline_script/dot/' + scriptName
 		var container = 'script_diagram_container';
 		p = {};
-		new Ajax.Request(url, {
-			parameters: p,
-			onSuccess: function(transport) {
-				$('#' + container).html(transport.responseText);
+		$.post(url, p, function (data) {
+			    $('#' + container).html(data);
 			}
-		});	
+		);
 	}
 }
 

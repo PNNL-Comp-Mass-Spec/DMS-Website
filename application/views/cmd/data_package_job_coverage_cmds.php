@@ -27,11 +27,11 @@ function getDatasetInfo(mode) {
 	var url =  '<?= site_url() ?>data_package/ag/' + id + '/' + tool + '/' + mode;
 	var p = {};
 	$('#dataset_dump_field').html('');
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#dataset_dump_field').val(transport.responseText);
-		}});
+	$.post(url, p, function (data) {
+			$('#dataset_dump_field').val(data);
+		}
+	);
+
 }
 </script>
 

@@ -54,8 +54,8 @@ function setListReportDefaults(url) {
 //loads a SQL comparison selector (via AJAX)
 function loadSqlComparisonSelector(container_name, url, col_sel) {
 	$('#' + container_name).html(globalAJAX.progress_message);
-	var url += $('#' + col_sel).val();
-	$('#' + container_name.load(url);
+	url += $('#' + col_sel).val();
+	$('#' + container_name).load(url);
 }
 //clear the specified list report search filter
 function clearSearchFilter(filter) {
@@ -65,9 +65,6 @@ function clearSearchFilter(filter) {
 //clear the list report search filters
 function clearSearchFilters() {
 	$(".filter_input_field").each(function(idx, obj) {obj.value = ''} );
-//	$(".primary_filter_field").each(function(idx, obj) {obj.value = ''} );
-//	$(".secondary_filter_input").each(function(idx, obj) {obj.value = ''} );
-//	$(".sorting_filter_input").each(function(idx, obj) {obj.value = ''} );
 	is_filter_active();
 }
 //------------------------------------------

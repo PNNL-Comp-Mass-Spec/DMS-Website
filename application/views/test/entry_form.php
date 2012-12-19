@@ -9,12 +9,10 @@
 
 function updateContainer(url, container) { 
 	p = Form.serialize('entry_form', true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 		}
-	});
+	);
 }
 
 </script>
