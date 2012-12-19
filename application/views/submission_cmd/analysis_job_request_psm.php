@@ -59,14 +59,12 @@ function callOperation(url) {
 	var p = {};
 	p.datasets = $('#datasets').val();
 	//	FUTURE:progress indicator
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			var result = transport.responseText;
-			$('#supplemental_material').html(result);
+	$.post(url, p, function (data) {
+			$('#supplemental_material').html(data);
 			$('#sub_cmd_buttons').show();
 			setFieldValues();
-		}});
+		}
+	);
 }
 
 function setFieldValues() {

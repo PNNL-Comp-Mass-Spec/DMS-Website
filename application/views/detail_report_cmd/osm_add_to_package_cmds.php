@@ -63,18 +63,16 @@ function updateOSMPackageItems(form_id, mode) {
 	$('#itemTypeSelector').val(codeMap['<?= $this->my_tag ?>']);
 	$('#entry_item_list').val(id);
 	var p = $(form_id).serialize(true);
-	message_container.update(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			var rt = transport.responseText;
-			if(rt.indexOf('Update failed') > -1) {
-				message_container.update(transport.responseText);
+	message_container.html(globalAJAX.progress_message);
+	$.post(url, p, function (data) {
+			if(data.indexOf('html failed') > -1) {
+				message_container.html(data);
 			} else {
-				message_container.update('Operation was successful');
+				message_container.html('Operation was successful');
 				updateMyData();
 			}
-		}});
+		}
+	);
 }
 
 </script>

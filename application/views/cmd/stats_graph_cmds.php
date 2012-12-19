@@ -17,14 +17,11 @@ function download_to_graph() {
 
 	var url = globalAJAX.site_url + globalAJAX.my_tag + '/export/json'
 	var p = Form.serialize("filter_form", true);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			var rows = transport.responseText.evalJSON();
-			$('#progress_display').html("");
-			draw_graph(rows, colName);
-		}
-	});
+	$.post(url, p, function (data) {
+		var rows = data.evalJSON();
+		$('#progress_display').html("");
+		draw_graph(rows, colName);
+	}
 }
 
 // build data series from rows, set graph format, and draw graph

@@ -18,7 +18,6 @@ function updateAlert(url, form) {
 	url = globalAJAX.site_url + url;
 	p = $('#' + form).serialize();
 	$.post(url, p, function(data) {
-//			alert(transport.responseText);
 			$('#notification_message').html(data);
 			$('#notification').show();
 		}

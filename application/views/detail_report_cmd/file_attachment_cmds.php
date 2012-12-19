@@ -15,12 +15,16 @@ function showAttachments() {
 	var p = {};
 	p.entity_type = "<?= $tag ?>";
 	p.entity_id = "<?= $id ?>";
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
+	$.post(url, p, function (data) {
+			$('#attachments_list').html(data);
+			$('#file_attachments_section').show();
+		}
+	);
+	$.post(url, p, function (data) {
 			$('#attachments_list').html(transport.responseText);
 			$('#file_attachments_section').show();
-		}});
+		}
+	);
 }
 function doOperation(faid, mode) {
 	if(mode = 'delete') {
@@ -30,15 +34,14 @@ function doOperation(faid, mode) {
 	var p = {};
 	p.id = faid;
 	p.mode = mode;
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			if(transport.responseText != '') {
-				alert(transport.responseText);
+	$.post(url, p, function (data) {
+			if(data != '') {
+				alert(data);
 			} else {
 				showAttachments();
 			}
-		}});
+		}
+	);
 }
 function do_upload() {
 	$('#result_display').html(globalAJAX.progress_message);

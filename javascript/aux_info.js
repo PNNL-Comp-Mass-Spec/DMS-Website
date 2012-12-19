@@ -10,7 +10,10 @@ function loadItemEntryForm(url){
 	p.subcategory = subcategory;
 	p.id = $('#TargetID').val();
 	$(response_container).html(gAuxInfoAJAX.progress_message);
-	new Ajax.Updater(response_container, url, {parameters:p});	
+	$.post(url, p, function (data) {
+		    $('#' + response_container).html(data);
+		}
+	);
 	$('#copy_info_container').style.visibility='visible';
 	$('#edit_container').style.visibility='visible';
 	$('#splash_container').style.visibility='hidden';
@@ -27,13 +30,11 @@ function updateAuxInfo(url, show_url) {
 	$('#subcategory_field').val(ubcategory);
 	p = Form.serialize(form_name, true);
 	$(response_container).html(gAuxInfoAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(response_container).html(transport.responseText);
+	$.post(url, p, function (data) {
+			$('#' + response_container).html(data);
 			showAuxInfo(display_container, show_url);
 		}
-	});
+	);
 }
 //------------------------------------------
 function copyAuxInfo(url, show_url){
@@ -55,20 +56,25 @@ function copyAuxInfo(url, show_url){
 	$('#ci_subcategory').val(cs[1]);
 	p = Form.serialize(form_name, true);
 	$(response_container).html(gAuxInfoAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(response_container).html(transport.responseText);
+	$.post(url, p, function (data) {
+			$('#' + response_container).html(data);
 			showAuxInfo(display_container, show_url);
 		}
-	});
+	);
+
 }
 //------------------------------------------
 function loadAllowedValueChooser(chooser_container_id, url){
-	new Ajax.Updater(chooser_container_id, url);	
+	$.post(url, {}, function (data) {
+		    $('#' + chooser_container_id).html(data);
+		}
+	);
 }
 //------------------------------------------
 function showAuxInfo(display_container, url) {
 	$(display_container).html("Loading...");
-	new Ajax.Updater(display_container, url);	
+	$.post(url, {}, function (data) {
+		    $('#' + display_container).html(data);
+		}
+	);
 }

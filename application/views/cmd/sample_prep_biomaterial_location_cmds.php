@@ -20,15 +20,13 @@ function performCommand(url, id, mode) {
 	p.command = mode;
 	var opts = {};
 	opts.parameters = p;
-	var container_name = globalAJAX.response_container;
-	$(container_name).html(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(container_name).html(transport.responseText);
-			 updateMyData('autoload');	
+	var container = $('#' + globalAJAX.response_container);
+	container.html(globalAJAX.progress_message);
+	$.post(url, p, function (data) {
+		container.html(data);
+		updateMyData('autoload');	
 		}
-	});
+	);
 }
 </script>
 

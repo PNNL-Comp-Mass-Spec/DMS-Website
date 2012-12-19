@@ -50,3 +50,10 @@ get rid of <?= site_url() ?> in cmd page JS
 		    $('#' + container_name).html(data);
 		}
 	);
+
+		$.post(url, p, function (data) {
+			var rows = data.evalJSON();
+			draw_graph(rows);
+		}
+	);
+	
