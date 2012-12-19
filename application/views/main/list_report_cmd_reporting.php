@@ -3,23 +3,22 @@ globalAJAX.response_container_name =  "update_message";
 globalAJAX.cntrl_container_name =  "clear_message";
 
 function submitOperation(url, p, show_resp) {
-	var container_name = globalAJAX.response_container_name;
-	$(container_name).html(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			var rt = transport.responseText;
-			if(rt.indexOf('Update failed') > -1) {
-				$(container_name).html(transport.responseText);
-				$(globalAJAX.cntrl_container_name).show();
+	var ctl = $('#' + globalAJAX.cntrl_container_name);
+	var container = $('#' + globalAJAX.response_container_name);
+	container.html(globalAJAX.progress_message);
+	$.post(url, p, function (data) {
+			if(data.indexOf('Update failed') > -1) {
+				container.html(data);
+				ctl.show();
 			} else {
 				var msg = 'Operation was successful';
-				if(show_resp) msg = rt;
-				$(container_name).html(msg);
-				$(globalAJAX.cntrl_container_name).hide();
+				if(show_resp) msg = data;
+				container.html(msg);
+				ctl.hide();
 				reloadListReportData();
 			}
-		}});
+		}
+	);
 }
 </script>
 

@@ -11,7 +11,7 @@ globalAJAX.progress_message = '<span class="LRepProgress"><img src="<?= base_url
 globalAJAX.site_url = '<?= site_url() ?>';
 
 $(document).ready(function () { 
-	new Ajax.Updater('ss_entity_list_container', globalAJAX.site_url+'upload/directory', {})
+	$('#ss_entity_list_container').load(globalAJAX.site_url+'upload/directory');
 });
 
 // called by javascript that is returned by upload operation 
@@ -33,13 +33,12 @@ function updateContainer(action, container, id) {
 	p.file_name = $('#uploaded_file_name').val();
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
+
 	$('#' + container).html(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+	$.post(url, p, function (data) {
+		    $('#' + container).html(data);
 		}
-	});
+	);
 }
 // extract data from uploaded spreadsheet and display on page
 function extract() {
@@ -85,7 +84,7 @@ Uploaded file:
 <table>
 <tr>
 <td style='vertical-align:top;' ><div style='height:10px;'></div><div id='master_control_container' style='display:none;border:2px solid #AAA;'><? $this->load->view('uploader/upload_controls') ?></div></td>
-<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="new Ajax.Updater('ss_entity_list_container', globalAJAX.site_url+'upload/directory', {})">Help</a></div></td>
+<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(globalAJAX.site_url+'upload/directory')">Help</a></div></td>
 </tr>
 </table>
 

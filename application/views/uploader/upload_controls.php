@@ -20,16 +20,15 @@ function update_entity(id, container) {
 	p.id          = id;
 	if(!p.file_name) {alert('No file name'); return; }
 	$('#' + container).html(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$('#' + container).html(transport.responseText);
+
+	$.post(url, p, function (data) {
+			$('#' + container).html(data);
 			// call update_next_entity_in_list in case we are processing multiple selections
 			// making the call via timeout starts new thread allowing the AJAX thread to terminate
 			// so that recursion doesn't pork up the thread pool and the call stack
 			setTimeout("update_next_entity_in_list()", 200);
 		}
-	});
+	);
 }
 //pull the specifications for the next entity to be updated
 //out of the master list and call update_entity for it to update the db

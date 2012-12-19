@@ -7,14 +7,12 @@ function performExec(url, mode) {
 	p.ID = 5;
 	p.command = mode;
 	$(globalAJAX.response_container_name).html(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			var response = transport.responseText.evalJSON();
-			$(globalAJAX.response_container_name).html(response.message);
-			$(globalAJAX.cntrl_container_name).show();
-//			if(response.result == 0) automatically refresh rows
-		}});
+	$.post(url, p, function (data) {
+			var response = data.evalJSON();
+			$('#' + globalAJAX.response_container_name).html(response.message);
+			$('#' + globalAJAX.cntrl_container_name).show();
+		}
+	);
 }
 
 // gets only text back from the AJAX call
@@ -23,14 +21,12 @@ function performCall(url, mode) {
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-
-	$(globalAJAX.response_container_name).html(globalAJAX.progress_message);
-	new Ajax.Request(url, {
-		parameters: p,
-		onSuccess: function(transport) {
-			$(globalAJAX.response_container_name).html(transport.responseText);
-			$(globalAJAX.cntrl_container_name).show();
-		}});
+	$('#' + globalAJAX.response_container_name).html(globalAJAX.progress_message);
+	$.post(url, p, function (data) {
+			$('#' + globalAJAX.response_container_name).html(data);
+			$('#' + globalAJAX.cntrl_container_name).show();
+		}
+	);
 }
 function performOperation(url, mode, show_msg) {
 	var url =  "<?= site_url() ?>" + url;

@@ -54,8 +54,8 @@ function setListReportDefaults(url) {
 //loads a SQL comparison selector (via AJAX)
 function loadSqlComparisonSelector(container_name, url, col_sel) {
 	$('#' + container_name).html(globalAJAX.progress_message);
-	url += $F(col_sel)
-	new Ajax.Updater(container_name, url);
+	var url += $('#' + col_sel).val();
+	$('#' + container_name.load(url);
 }
 //clear the specified list report search filter
 function clearSearchFilter(filter) {
@@ -245,14 +245,15 @@ function closeChooserWindowPage() {
 //when that page calls back with user's choice
 function callChooser(fieldName, chooserPage, delimiter, xref) {
 	// resolve cross-reference to other field, if one exists
-	var xv = (xref != '')?$F(xref):'';
+	var xv = (xref != '')?$('#' + xref).val():'';
 	if(xref != '' && xv == ''){ 
 		alert (xref + ' must be selected first.');
 		return;
 	}
 	// check if chooserPage URL needs separator
 	var sep = '/';
-	if( chooserPage.endsWith('/') || chooserPage.endsWith('~') ) {
+//	REFACTOR - make sure this works
+	if( chooserPage.match(/\/$/) || chooserPage.match(/~$/) ) {
 		sep = '';
 	}
 	// if there is a cross-reference, pass it on end of URL
@@ -271,7 +272,7 @@ function callChooser(fieldName, chooserPage, delimiter, xref) {
 //page to update the value in the field that it is serving
 function updateFieldValueFromChooser(value, action) {
 	// todo: make sure gChooser.field is defined
-	fld = $(gChooser.field);
+	fld = $('#' + gChooser.field)[0];
 	// lists are always transmitted as comma-delimited
 	// and field may need a different delimiter
 	if(gChooser.delimiter != ',') {
@@ -295,7 +296,7 @@ function updateFieldValueFromChooser(value, action) {
 }
 function getFieldValueForChooser() {
 	// todo: make sure gChooser.field is defined
-	var value = $(gChooser.field).val();
+	var value = $('#' + gChooser.field).val();
 	if(gChooser.delimiter != ',') {
 		value = value.replace(/gChooser.delimiter/g, ',');
 	}

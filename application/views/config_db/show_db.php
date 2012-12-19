@@ -14,15 +14,10 @@ div.block_content {
 
 <script type="text/javascript">
 function ops(submit_url) {
-	if ( !confirm("Are you sure that you want to modify the config db?") )
-		return;
-
+	if ( !confirm("Are you sure that you want to modify the config db?") ) return;
 	var container_name = "display_container";
-	url =  "<?= site_url()?>" + "config_db/" + submit_url;
-	var p = {};
-	var opts = {};
-	opts.parameters = p;
-	new Ajax.Updater(container_name, url, opts);
+	var url =  "<?= site_url()?>" + "config_db/" + submit_url;
+	$('#' + container_name).load(url);
 }
 
 function show_hide_all(mode) {
