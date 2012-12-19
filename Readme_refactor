@@ -28,7 +28,10 @@ get rid of <?= site_url() ?> in cmd page JS
 
 
 -------------------------------------------
+$('#' + globalAJAX.response_container_name) -> VF(globalAJAX.response_container_name)
 
+\$\('#'.*\+.s*(.*)\)  -> VF($1)
+-------------------------------------------
 	p = $('#' + form).serialize();
 
 

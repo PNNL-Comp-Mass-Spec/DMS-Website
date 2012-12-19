@@ -24,10 +24,9 @@ function updateAlert(url, form) {
 	);
 }
 function clearSelector(name) {
-	selObj = $('#' + name);
-	for (i=0; i<selObj.options.length; i++) {
-		selObj.options[i].selected = false;
-	}
+	$('#' + name + ' option').each(function(idx, opt) {
+		opt.selected = false;
+	});
 }
 //------------------------------------------
 //These functions are used by list reports
