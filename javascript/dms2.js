@@ -400,8 +400,8 @@ function intializeChooserCkbx(checkBoxName) {
 //search functions
 //------------------------------------------
 function dms_search(selFldName, valFldName) {
-	var srchVal = $F(valFldName);
-	var url = $F(selFldName);
+	var srchVal = $('#' + valFldName).val();
+	var url = $('#' + selFldName).val();
 	if(url == '') return;
 	if(srchVal != '') {
 		url += srchVal;

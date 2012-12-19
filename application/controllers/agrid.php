@@ -1,6 +1,6 @@
 <?php
 
-class Agrid extends Controller {
+class Agrid extends CI_Controller {
 
 	// --------------------------------------------------------------------
 	function __construct()
