@@ -22,14 +22,26 @@ function ops(index, action) {
 		return;
 	var container = $('#edit_container');
 	var url =  "<?= site_url()?>config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
-	var fields = $('#edit_form').serialize();
-	var p = extractRow(fields, index);
+	var fields = $('#edit_form').serializeArray();
+	var flds = reformatFormArray(fields);
+	var p = extractRow(flds, index);
 	p.mode = action;
 	$.post(url, p, function (data) {
 		    container.html(data);
 		}
 	);
+}
 
+function reformatFormArray(fldObjArray) {
+	var obj = {};
+	$.each(fldObjArray, function(idx, fldObj) {
+		var nm = fldObj.name;
+		if(!obj[nm]) {
+			obj[nm] = [];
+		}
+		obj[nm].push(fldObj.value);
+	});
+	return obj;
 }
 
 // submit sql from entry field and refresh edit table
