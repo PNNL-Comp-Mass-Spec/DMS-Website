@@ -141,10 +141,10 @@ $(document).ready(function () {
 <span id='show_less_filter'><a href='javascript:void(0)' onclick="updateMyFilter('minimal')" >Minimize Filters</a></span> &nbsp; &nbsp;
 <span id='show_more_filter'><a href='javascript:void(0)' onclick="updateMyFilter('maximal')" >Expand Filters</a></span>  &nbsp; &nbsp;
 
-<a href="javascript:void(0)" onclick="GRONK('primary_filter_container', 0.1)">Primary</a> &nbsp;
-<a href="javascript:void(0)" onclick="GRONK('secondary_filter_container', 0.1)">Secondary</a> &nbsp;
-<a href="javascript:void(0)" onclick="GRONK('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
-<a href="javascript:void(0)" onclick="GRONK('column_filter_container', 0.1)">Column</a> &nbsp;
+<a href="javascript:void(0)" onclick="sectionToggle('primary_filter_container', 0.1)">Primary</a> &nbsp;
+<a href="javascript:void(0)" onclick="sectionToggle('secondary_filter_container', 0.1)">Secondary</a> &nbsp;
+<a href="javascript:void(0)" onclick="sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
+<a href="javascript:void(0)" onclick="sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
 
 <span style="padding:0 20px 0 30px;font-weight:bold;" id='filters_active'></span>
 <span style="padding:0 20px 0 30px;font-weight:bold;" id='sorting_active'></span>

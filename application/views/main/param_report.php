@@ -106,8 +106,8 @@ $(document).ready(function () {
 <input type="button" onclick="updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
 
 <span id='search_controls_container' style='display:none;'>
-<a href="javascript:void(0)" onclick="GRONK('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
-<a href="javascript:void(0)" onclick="GRONK('column_filter_container', 0.1)">Column</a> &nbsp;
+<a href="javascript:void(0)" onclick="sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
+<a href="javascript:void(0)" onclick="sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
 </span>
 </form>
 

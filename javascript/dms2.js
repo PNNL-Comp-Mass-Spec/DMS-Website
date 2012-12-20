@@ -28,7 +28,7 @@ function clearSelector(name) {
 		opt.selected = false;
 	});
 }
-function GRONK(containerId, duration) {
+function sectionToggle(containerId, duration) {
 	var speed = duration * 1000;
 	$('#' + containerId).toggle(speed);
 	return false;

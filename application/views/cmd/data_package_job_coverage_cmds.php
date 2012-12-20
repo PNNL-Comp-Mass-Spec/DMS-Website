@@ -42,7 +42,7 @@ function getDatasetInfo(mode) {
 <form name="DBG" action="">
 
 <hr>
-<a href="#" onclick="GRONK('membership_section', 0.5)">Membership commands...</a>
+<a href="#" onclick="sectionToggle('membership_section', 0.5)">Membership commands...</a>
 <div id="membership_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Add Jobs" onClick='performOperation("add")' id="btn_a" title=""  /> 
@@ -59,7 +59,7 @@ Test
 
 
 <hr>
-<a href="#" onclick="GRONK('dump_section', 0.5)">Dataset coverage...</a>
+<a href="#" onclick="sectionToggle('dump_section', 0.5)">Dataset coverage...</a>
 <div id="dump_section" style="display:none;">
 <div>
 Tool to search for
@@ -84,7 +84,7 @@ Get list of data package datasets with <span style="font-weight:bold;">no jobs i
 <hr>
 <!-- begin debug 
 
-<a href="#" onclick="GRONK('debug_section', 0.5)">Debug...</a>
+<a href="#" onclick="sectionToggle('debug_section', 0.5)">Debug...</a>
 <div id="debug_section" style="display:none;">
 <input class='lst_cmd_btn' type="button" value="Test" onClick='test()' title=""  />
 <p>Debug output:</p>

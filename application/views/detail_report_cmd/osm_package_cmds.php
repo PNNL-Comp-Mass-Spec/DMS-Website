@@ -23,7 +23,7 @@
 <? $chimg = base_url()."images/chooser.png"; ?>
 
 <div style='padding:5px 0px 5px 5px;'>
-<a href="#" onclick="GRONK('item_section', 0.5)">Add Items...</a>
+<a href="#" onclick="sectionToggle('item_section', 0.5)">Add Items...</a>
 </div>
 
 <div id='item_section' style='display:none; width:75em;margin:5px 0 0 0;padding:0px 5px 5px 5px;border:2px solid #AAA;' >
