@@ -7,10 +7,10 @@
 
 <script type='text/javascript'>
 
-function updateContainer(url, container) { 
-	var p = Form.serialize('filter_form', true);
+function updateContainer(url, containerId) { 
+	var p = $('#filter_form').serialize();
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    $('#' + containerId).html(data);
 		}
 	);
 }

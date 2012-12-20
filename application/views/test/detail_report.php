@@ -7,10 +7,10 @@
 
 <script type='text/javascript'>
 
-function updateContainer(url, container) { 
+function updateContainer(url, containerId) { 
 	p = {};
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    $('#' + containerId).html(data);
 		}
 	);
 }

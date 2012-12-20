@@ -46,13 +46,11 @@ function reformatFormArray(fldObjArray) {
 
 // submit sql from entry field and refresh edit table
 function do_sql() {
-	if ( !confirm("Are you sure that you want to modify the config db?") )
-		return;
-	var container_name = "edit_container";
+	if ( !confirm("Are you sure that you want to modify the config db?") ) return;
 	var url =  "<?= site_url()?>config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
 	var p = $('#sql_text').serialize();
 	$.post(url, p, function (data) {
-		    $('#' + container_name).html(data);
+		    $('#edit_container').html(data);
 		}
 	);
 }

@@ -27,16 +27,16 @@ function report_upload_results(file_name, error) {
 		clearSpreadsheetDisplay();
 	}
 }
-function updateContainer(action, container, id) { 
+function updateContainer(action, containerId, id) { 
 	var url = globalAJAX.site_url + 'upload/' + action;
 	var p = {};
 	p.file_name = $('#uploaded_file_name').val();
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
-
-	$('#' + container).html(globalAJAX.progress_message);
+	var container = $('#' + containerId);
+	container.html(globalAJAX.progress_message);
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    container.html(data);
 		}
 	);
 }

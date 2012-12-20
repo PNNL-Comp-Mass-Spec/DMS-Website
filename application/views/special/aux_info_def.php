@@ -33,11 +33,11 @@ function addNewMember(type, parent_id) {
 }
 function updateContainer(type, id, follow_on_action) { 
 	var url = globalAJAX.site_url + globalAJAX.my_tag + '/test/' + type + '/' + id;
-	var container = type + '_container';
-	$('#' + container).html(globalAJAX.progress_message);
+	var container = $('#' + type + '_container');
+	container.html(globalAJAX.progress_message);
 	var p = {};
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    container.html(data);
 		}
 	);
 }

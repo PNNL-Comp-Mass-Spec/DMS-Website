@@ -40,10 +40,9 @@ function copy_param_form_to_xml_param_field() {
 // get supplemental form fields via an AJAX call
 function load_param_form() {
 	var url = '<?= site_url().$tag ?>/parameter_form/' + $('#scriptName').val();
-	var container = 'param_container';
 	p = {};
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    $('#param_container').html(data);
 			set_param_row_visibility("hide_input", "none");
 		}
 	);

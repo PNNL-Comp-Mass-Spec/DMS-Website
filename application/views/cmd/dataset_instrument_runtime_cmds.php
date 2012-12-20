@@ -8,7 +8,7 @@
 // and convert JSON return to JavaScript array of row objects
 function download_to_graph() {
 	var url = globalAJAX.site_url + globalAJAX.my_tag + '/export_param/json'
-	var p = Form.serialize("entry_form", true);
+	var p = $('#entry_form').serialize();
 	$.post(url, p, function (data) {
 			var rows = data.evalJSON();
 			draw_graph(rows);

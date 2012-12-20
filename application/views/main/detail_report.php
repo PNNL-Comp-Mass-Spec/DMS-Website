@@ -29,11 +29,11 @@ function performCommand(url, id, mode) {
 		}
 	);
 }
-function updateContainer(url, container) { 
+function updateContainer(url, containerId) { 
 	url = globalAJAX.site_url + url;
 	p = {};
 	$.post(url, p, function (data) {
-		    $('#' + container).html(data);
+		    $('#' + containerId).html(data);
 		}
 	);
 

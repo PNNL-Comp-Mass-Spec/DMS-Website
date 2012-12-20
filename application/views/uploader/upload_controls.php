@@ -11,7 +11,7 @@ function get_master_control_settings() {
 }
 //update entity in database and call update_next_entity_in_list
 //upon completion (in case a list of entities is being processed)
-function update_entity(id, container) {
+function update_entity(id, containerId) {
 	var file_name = globalAJAX.file_name;
 	var url       = globalAJAX.update_url;
 	var p         = globalAJAX.processing_params;
@@ -19,10 +19,11 @@ function update_entity(id, container) {
 	p.file_name   = file_name;
 	p.id          = id;
 	if(!p.file_name) {alert('No file name'); return; }
-	$('#' + container).html(globalAJAX.progress_message);
+	var container = $('#' + containerId);
+	container.html(globalAJAX.progress_message);
 
 	$.post(url, p, function (data) {
-			$('#' + container).html(data);
+			container.html(data);
 			// call update_next_entity_in_list in case we are processing multiple selections
 			// making the call via timeout starts new thread allowing the AJAX thread to terminate
 			// so that recursion doesn't pork up the thread pool and the call stack
