@@ -15,7 +15,7 @@ function revealOsmPackageCreateSection() {
 	var iframe = document.getElementById('embedded_page');
 	var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 	$('#hdrContainer').hide();
-	Effect.toggle('package_entry_section', 'appear', { duration: 0.5 }); 
+	sectionToggle('package_entry_section',  0.5 ); 
 	return false;
 }
 

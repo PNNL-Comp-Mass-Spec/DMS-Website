@@ -33,7 +33,7 @@ function performOperation(mode) {
 <?php $this->load->view("main/list_report_cmd_reporting"); ?>
 
 <form name="DBG" action="">
-<a title="Show or hide the controls to disassociate jobs from group" href="#" onclick="Effect.toggle('removeJobsSection', 'appear', { duration: 0.5 }); return false;");>Remove jobs from association</a>
+<a title="Show or hide the controls to disassociate jobs from group" href="#" onclick="sectionToggle('removeJobsSection', 0.5)");>Remove jobs from association</a>
 <div id="removeJobsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected jobs from group</div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("remove")' />
@@ -41,7 +41,7 @@ function performOperation(mode) {
 
 <div></div>
 
-<a title="Show or hide the controls to associate new jobs with group" href="#" onclick="Effect.toggle('addNewJobsSection', 'appear', { duration: 0.5 }); return false;">Add New Jobs</a>
+<a title="Show or hide the controls to associate new jobs with group" href="#" onclick="sectionToggle('addNewJobsSection', 0.5)">Add New Jobs</a>
 <div id="addNewJobsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>
 Jobs to be associated with this group:
