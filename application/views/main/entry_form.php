@@ -6,6 +6,7 @@
 <? $this->load->view('resource_links/base2') ?>
 
 <script type='text/javascript'>
+globalAJAX.site_url = '<?= site_url() ?>';
 
 // POST the entry form to the entry page or alternate submission logic
 function updateEntryPage(url, mode) {

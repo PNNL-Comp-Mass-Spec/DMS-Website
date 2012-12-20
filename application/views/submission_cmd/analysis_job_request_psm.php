@@ -42,7 +42,7 @@ function submitMainEntryForm(mode, followOnAction) {
 function showPageLinks() {
 	var id = $('#requestID').val();
 	if(id != '0') {
-		var url = "<?= site_url() ?>analysis_job_request/show/" + id;
+		var url = globalAJAX.site_url + "analysis_job_request/show/" + id;
 		$('#move_next_link').href = url;
 		$('#move_next_link').show();
 	}
@@ -55,7 +55,7 @@ function getJobDefaults() {
 
 // 
 function callOperation(url) {
-	url =  "<?= site_url() ?>" + url;
+	url =  globalAJAX.site_url + url;
 	var p = {};
 	p.datasets = $('#datasets').val();
 	//	FUTURE:progress indicator
