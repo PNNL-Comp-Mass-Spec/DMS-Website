@@ -2,14 +2,29 @@
 -- DMS website migration
 -----------------------------------------------
 
-Repackage JS and then switch libraries? Or vice versa?
+get datepicker working
+
+override built-in alert with JQ UI dialog
+
+set up JQ global AJAX error call
 
 Package DMS JS into library modules
 Get rid of aux info
 Reduce/eliminate in-line JS
-Remove references to modalbox.js?
+
+------------------------------------------
+standard interface for page family pages 
+
+------------------------------------------
+
+------------------------------------------
+For all base pages:
+globalAJAX.site_url = '<?= site_url() ?>';
+
+get rid of <?= site_url() ?> in cmd page JS
 
 
+-----------------------
 http://andykdocs.de/andykdocs/document/Migrating-from-the-Prototype-JavaScript-Framework-to-jQuery
 http://webcache.googleusercontent.com/search?q=cache:http://andykdocs.de/andykdocs/document/Migrating-from-the-Prototype-JavaScript-Framework-to-jQuery
 
@@ -19,12 +34,6 @@ $( --> $(
 
 \$F\(['"]([a-z0-9_-]+)['"]\) --> \$F('#$1')
 \$F\(['"]([#a-z0-9_-]+)['"]\) --> \$('$1').val()
-
-------------------------------------------
-For all base pages:
-globalAJAX.site_url = '<?= site_url() ?>';
-
-get rid of <?= site_url() ?> in cmd page JS
 
 
 -------------------------------------------
