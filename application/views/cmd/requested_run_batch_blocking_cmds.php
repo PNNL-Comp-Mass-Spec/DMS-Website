@@ -132,7 +132,7 @@ function performBatchOperation(mode) {
 <p>Note: Editing and randomizing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
 
 <hr>
-<a href="#" onclick="Effect.toggle('factor_section', 'appear', { duration: 0.5 }); return false;">Factor commands...</a>
+<a href="#" onclick="GRONK('factor_section', 0.5)">Factor commands...</a>
 <div id="factor_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='applyFactorToDatabase()' title=""  /> 
@@ -148,7 +148,7 @@ from selected items.
 </div>
 
 <hr>
-<a href="#" onclick="Effect.toggle('blocking_section', 'appear', { duration: 0.5 }); return false;">Blocking commands...</a>
+<a href="#" onclick="GRONK('blocking_section', 0.5)">Blocking commands...</a>
 <div id="blocking_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Randomize Run Order" onClick='randomizeWithinBlocks()' id="btn_test" title=""  /> 
@@ -169,7 +169,7 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 </div>
 
 <hr>
-<a href="#" onclick="Effect.toggle('batch_section', 'appear', { duration: 0.5 }); return false;">Batch commands...</a>
+<a href="#" onclick="GRONK('batch_section', 0.5)">Batch commands...</a>
 <div id="batch_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Actual Run Order" onClick='performBatchOperation("actual_run_order")' title=""  /> Automatically generate 'Actual_Run_Order' factors for all completed requests in the batch.
@@ -177,7 +177,7 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 </div>
 
 <hr>
-<a href="#" onclick="Effect.toggle('upload_section', 'appear', { duration: 0.5 }); return false;">Upload commands...</a>
+<a href="#" onclick="GRONK('upload_section', 0.5)">Upload commands...</a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list

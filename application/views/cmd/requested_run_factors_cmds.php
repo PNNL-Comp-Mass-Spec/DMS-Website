@@ -62,7 +62,7 @@ function load_delimited_text() {
 <p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
 
 <hr>
-<a href="#" onclick="Effect.toggle('factor_section', 'appear', { duration: 0.5 }); return false;">Factor commands...</a>
+<a href="#" onclick="GRONK('factor_section', 0.5)">Factor commands...</a>
 <div id="factor_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='applyFactorToDatabase()' title=""  /> 
@@ -78,7 +78,7 @@ from selected items.
 </div>
 
 <hr>
-<a href="#" onclick="Effect.toggle('upload_section', 'appear', { duration: 0.5 }); return false;">Upload commands...</a>
+<a href="#" onclick="GRONK('upload_section', 0.5)">Upload commands...</a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list

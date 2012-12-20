@@ -1,5 +1,5 @@
 <div style='padding:5px 0px 5px 5px;'>
-<a href="#" onclick="Effect.toggle('item_section', 'appear', { duration: 0.5 }); return false;">Add to OSM Package...</a>
+<a href="#" onclick="GRONK('item_section', 0.5)">Add to OSM Package...</a>
 </div>
 
 <div id='item_section' style='display:none; width:100em;margin:5px 0 0 0;' >

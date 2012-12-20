@@ -37,7 +37,7 @@ function performOperation(mode, p1, p2) {
 
 <form name="DBG" action="">
 
-<a title="Show or hide the controls to set processor membership enabled" href="#" onclick="Effect.toggle('setMembershipSection', 'appear', { duration: 0.5 }); return false;">Set Membership Enabled</a>
+<a title="Show or hide the controls to set processor membership enabled" href="#" onclick="GRONK('setMembershipSection', 0.5)">Set Membership Enabled</a>
 <div id="setMembershipSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Set membership enabled state of selected processors</div>
 <div>
@@ -59,7 +59,7 @@ For other groups to be:
 
 <div></div>
 
-<a title="Show or hide the controls to remove processors from group" href="#" onclick="Effect.toggle('removeProcessorsSection', 'appear', { duration: 0.5 }); return false;">Remove Processors</a>
+<a title="Show or hide the controls to remove processors from group" href="#" onclick="GRONK('removeProcessorsSection', 0.5)">Remove Processors</a>
 <div id="removeProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected processors from group</div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("remove_processors", "", "")' />
@@ -67,7 +67,7 @@ For other groups to be:
 
 <div></div>
 
-<a title="Show or hide the controls to add new processors to group" href="#" onclick="Effect.toggle('addProcessorsSection', 'appear', { duration: 0.5 }); return false;">Add Processors</a>
+<a title="Show or hide the controls to add new processors to group" href="#" onclick="GRONK('addProcessorsSection', 0.5)">Add Processors</a>
 <div id="addProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>
 Processors to be added to this group:

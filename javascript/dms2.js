@@ -28,6 +28,11 @@ function clearSelector(name) {
 		opt.selected = false;
 	});
 }
+function GRONK(containerId, duration) {
+	var speed = duration * 1000;
+	$('#' + containerId).toggle(speed);
+	return false;
+}
 //------------------------------------------
 //These functions are used by list reports
 //------------------------------------------
