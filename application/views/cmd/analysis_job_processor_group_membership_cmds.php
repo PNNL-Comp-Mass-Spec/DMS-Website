@@ -8,7 +8,7 @@ function performOperation(mode, p1, p2) {
 			return;
 		}
 	} else {
-		list = getCkbxList('ckbx');
+		list = gamma.getCkbxList('ckbx');
 		if (list == '') {
 			alert('You must select items.');
 			return;
@@ -37,7 +37,7 @@ function performOperation(mode, p1, p2) {
 
 <form name="DBG" action="">
 
-<a title="Show or hide the controls to set processor membership enabled" href="#" onclick="sectionToggle('setMembershipSection', 0.5)">Set Membership Enabled</a>
+<a title="Show or hide the controls to set processor membership enabled" href="#" onclick="gamma.sectionToggle('setMembershipSection', 0.5)">Set Membership Enabled</a>
 <div id="setMembershipSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Set membership enabled state of selected processors</div>
 <div>
@@ -59,7 +59,7 @@ For other groups to be:
 
 <div></div>
 
-<a title="Show or hide the controls to remove processors from group" href="#" onclick="sectionToggle('removeProcessorsSection', 0.5)">Remove Processors</a>
+<a title="Show or hide the controls to remove processors from group" href="#" onclick="gamma.sectionToggle('removeProcessorsSection', 0.5)">Remove Processors</a>
 <div id="removeProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected processors from group</div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("remove_processors", "", "")' />
@@ -67,13 +67,13 @@ For other groups to be:
 
 <div></div>
 
-<a title="Show or hide the controls to add new processors to group" href="#" onclick="sectionToggle('addProcessorsSection', 0.5)">Add Processors</a>
+<a title="Show or hide the controls to add new processors to group" href="#" onclick="gamma.sectionToggle('addProcessorsSection', 0.5)">Add Processors</a>
 <div id="addProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>
 Processors to be added to this group:
 </div>
 <div>
-<textarea name="addList" id='add_list_fld' onChange='convertList("add_list_fld", ",")' rows=6 cols=80 ></textarea>
+<textarea name="addList" id='add_list_fld' onChange='gamma.convertList("add_list_fld", ",")' rows=6 cols=80 ></textarea>
 </div>
 <div>
 <span>(You can add to the list above by picking processors from :<?= $this->choosers->get_chooser('add_list_fld', 'assignedProcessorPickList', 'append_comma')?>)</span>

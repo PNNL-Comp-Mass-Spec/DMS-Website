@@ -6,7 +6,7 @@
 <? $this->load->view('resource_links/base2') ?>
 
 <script type='text/javascript'>
-globalAJAX.site_url = '<?= site_url() ?>';
+gamma.global.site_url = '<?= site_url() ?>';
 
 // POST the entry form to the entry page or alternate submission logic
 function updateEntryPage(url, mode) {
@@ -24,7 +24,7 @@ function submitToFamily(url, mode, follow_on_action) {
 	p = $('#entry_form').serialize();
 	$.post(url, p, function (data) {
 		    container.html(data);
-			setTimeout("adjustEnabledFields()", 350);
+			setTimeout("gamma.adjustEnabledFields()", 350);
 			if(follow_on_action && follow_on_action.run) {
 				follow_on_action.run(mode);
 			}
@@ -40,7 +40,7 @@ function submitEntryPage(url, mode) {
 	f.submit();
 }
 $(document).ready(function () { 
-	adjustEnabledFields();
+	gamma.adjustEnabledFields();
 	}
 );
 

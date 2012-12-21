@@ -86,7 +86,7 @@ function load_delimited_text() {
 	updateDatabaseFromList(flist, blist);
 }
 function setBlockForSelectedItems() {
-	var iList = getSelectedItemList();
+	var iList = gamma.getSelectedItemList();
 	if (iList.size() == 0) {
 		alert('No items are selected');
 		return;
@@ -108,7 +108,7 @@ function setBlockForSelectedItems() {
 
 <script type="text/javascript">
 function performBatchOperation(mode) {
-	var url =  globalAJAX.site_url + "requested_run_batch_blocking/exec/batch/";
+	var url =  gamma.global.site_url + "requested_run_batch_blocking/exec/batch/";
 	var p = {};
 	p.command = mode;
 	p.batchID = $('#BatchID').val();
@@ -132,7 +132,7 @@ function performBatchOperation(mode) {
 <p>Note: Editing and randomizing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
 
 <hr>
-<a href="#" onclick="sectionToggle('factor_section', 0.5)">Factor commands...</a>
+<a href="#" onclick="gamma.sectionToggle('factor_section', 0.5)">Factor commands...</a>
 <div id="factor_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='applyFactorToDatabase()' title=""  /> 
@@ -148,7 +148,7 @@ from selected items.
 </div>
 
 <hr>
-<a href="#" onclick="sectionToggle('blocking_section', 0.5)">Blocking commands...</a>
+<a href="#" onclick="gamma.sectionToggle('blocking_section', 0.5)">Blocking commands...</a>
 <div id="blocking_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Randomize Run Order" onClick='randomizeWithinBlocks()' id="btn_test" title=""  /> 
@@ -169,7 +169,7 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 </div>
 
 <hr>
-<a href="#" onclick="sectionToggle('batch_section', 0.5)">Batch commands...</a>
+<a href="#" onclick="gamma.sectionToggle('batch_section', 0.5)">Batch commands...</a>
 <div id="batch_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Actual Run Order" onClick='performBatchOperation("actual_run_order")' title=""  /> Automatically generate 'Actual_Run_Order' factors for all completed requests in the batch.
@@ -177,7 +177,7 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 </div>
 
 <hr>
-<a href="#" onclick="sectionToggle('upload_section', 0.5)">Upload commands...</a>
+<a href="#" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list

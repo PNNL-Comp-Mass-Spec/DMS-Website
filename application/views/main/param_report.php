@@ -7,14 +7,14 @@
 
 <script type='text/javascript'>
 
-globalAJAX.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
-globalAJAX.site_url = '<?= site_url() ?>';
-globalAJAX.my_tag = '<?= $this->my_tag ?>';
+gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
+gamma.global.site_url = '<?= site_url() ?>';
+gamma.global.my_tag = '<?= $this->my_tag ?>';
 
 //go get some content from the server and put it into the designated container element
 //and initiate the designaged follow-on action, if such exists
 function updateContainer(action, containerId, follow_on_action) {
-	var url = globalAJAX.site_url + globalAJAX.my_tag + '/' + action;
+	var url = gamma.global.site_url + gamma.global.my_tag + '/' + action;
 	var p = $('#entry_form').serialize();
 	$.post(url, p, function (data) {
 		    $('#' + containerId).html(data);
@@ -52,8 +52,8 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-			$('#paging_container_upper').html(globalAJAX.progress_message);
-			$('#paging_container_lower').html(globalAJAX.progress_message);
+			$('#paging_container_upper').html(gamma.global.progress_message);
+			$('#paging_container_lower').html(gamma.global.progress_message);
 			updateContainer('/param_paging', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -67,12 +67,12 @@ var data_update_action = {
 //start the data update chain for the page
 function updateMyData(loading) {
 	if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').val(1);
-	$('#paging_container_upper').html(globalAJAX.progress_message);
+	$('#paging_container_upper').html(gamma.global.progress_message);
 	data_update_action.run();
 }
 //after the page loads, set things in motion to populate it
 $(document).ready(function () { 
-	 	window['reloadListReportData'] = function() { updateMyData('autoload');}
+	 	gamma.reloadListReportData = function() { updateMyData('autoload');}
 		$('#data_container').html('Data will be displayed after you click the "Search" button.');
 	}
 );
@@ -106,8 +106,8 @@ $(document).ready(function () {
 <input type="button" onclick="updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
 
 <span id='search_controls_container' style='display:none;'>
-<a href="javascript:void(0)" onclick="sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
-<a href="javascript:void(0)" onclick="sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
 </span>
 </form>
 

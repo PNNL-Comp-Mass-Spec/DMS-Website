@@ -40,7 +40,7 @@ function performCall(mode) {
 	var p = {};
 	p.ID = $('#ID').getValue();
 	p.command = mode;
-	$('#notification_message').html(globalAJAX.progress_message);
+	$('#notification_message').html(gamma.global.progress_message);
 	$.post(url, p, function (data) {
 			showPopup('cmd_buttons');
 			$('#notification_message').html(data);

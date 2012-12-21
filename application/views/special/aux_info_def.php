@@ -13,11 +13,11 @@
 </style>
 
 <script type='text/javascript'>
-globalAJAX = {};
-globalAJAX.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
-globalAJAX.site_url = '<?= site_url() ?>';
-globalAJAX.my_tag = '<?= $this->my_tag ?>';
-globalAJAX.hierarchy = {
+gamma.global = {};
+gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
+gamma.global.site_url = '<?= site_url() ?>';
+gamma.global.my_tag = '<?= $this->my_tag ?>';
+gamma.global.hierarchy = {
 		"top":"aux_info_targets", 
 		"aux_info_targets":"aux_info_categories", 
 		"aux_info_categories":"aux_info_subcategories", 
@@ -32,9 +32,9 @@ function addNewMember(type, parent_id) {
 	alert('add new member to ' + type + ' that belongs to parent ' + parent_id);
 }
 function updateContainer(type, id, follow_on_action) { 
-	var url = globalAJAX.site_url + globalAJAX.my_tag + '/test/' + type + '/' + id;
+	var url = gamma.global.site_url + gamma.global.my_tag + '/test/' + type + '/' + id;
 	var container = $('#' + type + '_container');
-	container.html(globalAJAX.progress_message);
+	container.html(gamma.global.progress_message);
 	var p = {};
 	$.post(url, p, function (data) {
 		    container.html(data);
@@ -43,13 +43,13 @@ function updateContainer(type, id, follow_on_action) {
 }
 function clearChildren(parent) {
 	var child = parent;
-	while(child = globalAJAX.hierarchy[child]) {
+	while(child = gamma.global.hierarchy[child]) {
 		$('#' + child + '_container').html('');
 	}
 }
 function getChildren(parent) {
 	id = (parent && parent != 'top')?$F(parent):'';
-	child = globalAJAX.hierarchy[parent];
+	child = gamma.global.hierarchy[parent];
 	if(child) {
 		clearChildren(child);
 		updateContainer(child, id);

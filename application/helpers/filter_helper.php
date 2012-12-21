@@ -150,7 +150,7 @@
 		$str = '';
 		
 		$hid = "<span class='filter_clear'>"."<a href='javascript:void(0)' onclick='$(\"primary_filter_container\").hide()' >hide</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='clearSearchFilter(\"primary_filter_field\")' >clear</a>" . "</span>";
+		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='gamma.clearSearchFilter(\"primary_filter_field\")' >clear</a>" . "</span>";
 		$lab = "<span class='filter_label' >Primary Filter</span>";
 		$str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
 
@@ -183,7 +183,7 @@
 		$str = '';
 		
 		$hid = "<span class='filter_clear'>"."<a href='javascript:void(0)' onclick='$(\"secondary_filter_container\").hide()' >hide</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='clearSearchFilter(\"secondary_filter_input\")' >clear</a>" . "</span>";
+		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='gamma.clearSearchFilter(\"secondary_filter_input\")' >clear</a>" . "</span>";
 		$lab = "<span class='filter_label' >Secondary Filter</span>";
 		$str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
 
@@ -215,7 +215,7 @@
 		$str = '';
 		
 		$hid = "<span class='filter_clear'>"."<a href='javascript:void(0)' onclick='$(\"sorting_filter_container\").hide()' >hide</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='clearSearchFilter(\"sorting_filter_input\")' >clear</a>" . "</span>";
+		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='gamma.clearSearchFilter(\"sorting_filter_input\")' >clear</a>" . "</span>";
 		$lab = "<span class='filter_label' >Sorting</span>";
 		$str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
 		
@@ -270,7 +270,7 @@
 			}
 		}
 		$hid = "<span class='filter_clear'>"."<a href='javascript:void(0)' onclick='$(\"column_filter_container\").hide()' >hide</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='clearSelector(\"cf_column_selection_ctl\")' >clear</a>" . "</span>";
+		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='gamma.clearSelector(\"cf_column_selection_ctl\")' >clear</a>" . "</span>";
 		$lab = "<span class='filter_label' >Column Filter</span>";
 		$caption = "$lab $clr $hid";
 		

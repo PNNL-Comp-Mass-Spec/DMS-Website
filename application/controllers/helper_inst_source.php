@@ -58,7 +58,7 @@ class helper_inst_source extends Base_controller {
 			
 			// make name into link, as appropriate (file or dir and no links for x_ marked)
 			if (($type == 'File' || $type == 'Dir') &&  !preg_match("/^x_/i", $valueClean)) {
-				$lnk = "<a href='javascript:opener.updateFieldValueFromChooser(\"$valueClean\", \"replace\")' >$value</a>";
+				$lnk = "<a href='javascript:opener.gamma.updateFieldValueFromChooser(\"$valueClean\", \"replace\")' >$value</a>";
 			} else {
 				$lnk = $value;
 			}

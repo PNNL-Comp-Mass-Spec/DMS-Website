@@ -1,5 +1,5 @@
 <div style='padding:5px 0px 5px 5px;'>
-<a href="#" onclick="sectionToggle('item_section', 0.5)">Add to OSM Package...</a>
+<a href="#" onclick="gamma.sectionToggle('item_section', 0.5)">Add to OSM Package...</a>
 </div>
 
 <div id='item_section' style='display:none; width:100em;margin:5px 0 0 0;' >
@@ -33,7 +33,7 @@
 
 function callOSMChooser(){
 	var page = "<?= site_url() ?>helper_osm_package/report";
-	callChooser('packageID', page,  ',', '')
+	gamma.callChooser('packageID', page,  ',', '')
 }
 
 function goToPage() {
@@ -56,14 +56,14 @@ var codeMap = {
 
 function updateOSMPackageItems(form_id, mode) {
 	if ( !confirm("Are you sure that you want to " + mode + " this entity to the OSM package?") ) return;
-	var url = globalAJAX.site_url + "osm_package/operation/";
+	var url = gamma.global.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
 	var id = '<?= $id ?>';
 	$('#entry_cmd_mode').val(mode);
 	$('#itemTypeSelector').val(codeMap['<?= $this->my_tag ?>']);
 	$('#entry_item_list').val(id);
 	var p = $('#' + form_id).serialize();
-	message_container.html(globalAJAX.progress_message);
+	message_container.html(gamma.global.progress_message);
 	$.post(url, p, function (data) {
 			if(data.indexOf('html failed') > -1) {
 				message_container.html(data);

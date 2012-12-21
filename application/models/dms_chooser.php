@@ -94,7 +94,7 @@ class Dms_chooser extends CI_Model {
 	{
 		$str = "";
 		$chooser_element_name = $target_field_name . "_chooser" . $seq;
-		$js = "id=\"$chooser_element_name\" onChange='setFieldValueFromSelection(\"$target_field_name\", \"$chooser_element_name\", \"$mode\")'";
+		$js = "id=\"$chooser_element_name\" onChange='gamma.setFieldValueFromSelection(\"$target_field_name\", \"$chooser_element_name\", \"$mode\")'";
 		if(!array_key_exists($chooser_name, $this->choices)) {
 			$str .=  "The chooser name '$chooser_name' could not be found";
 			return $str;
@@ -131,10 +131,10 @@ class Dms_chooser extends CI_Model {
 				$CI =& get_instance();
 				$CI->load->helper(array('string'));
 				$target_url = reduce_double_slashes(site_url().$target);
-				$str .= "$label <a href=\"javascript:callChooser('$f_name', '$target_url', '$delim', '$xref')\"><img src='".base_url()."images/chooser.png' border='0'></a>";
+				$str .= "$label <a href=\"javascript:gamma.callChooser('$f_name', '$target_url', '$delim', '$xref')\"><img src='".base_url()."images/chooser.png' border='0'></a>";
 				break;	
 			case "picker.prevDate":
-				$str .= "$label <a href=\"javascript:callDatepicker('$f_name')\"><img src='".base_url()."images/date.png' border='0'></a>";
+				$str .= "$label <a href=\"javascript:gamma.callDatepicker('$f_name')\"><img src='".base_url()."images/date.png' border='0'></a>";
 				break;	
 			case "picker.list":
 				$str .= "$label ".$this->get_list_chooser($f_name, $pln, 'replace', $seq);
@@ -151,7 +151,7 @@ class Dms_chooser extends CI_Model {
 		$str .= "<table>";
 		foreach($options as $k => $v) {
 			if($k) {
-				$lnk = "<a href='javascript:setFieldValue(\"$target_field_name\", \"$k\")' >$k</a>";
+				$lnk = "<a href='javascript:gamma.setFieldValue(\"$target_field_name\", \"$k\")' >$k</a>";
 				$str .= "<tr><td>$lnk</td><td>$v</td></tr>";
 			}
 		}

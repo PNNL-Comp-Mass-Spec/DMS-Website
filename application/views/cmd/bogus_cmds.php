@@ -6,11 +6,11 @@ function performExec(url, mode) {
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	$('#' + globalAJAX.response_container_name).html(globalAJAX.progress_message);
+	$('#' + gamma.global.response_container_name).html(gamma.global.progress_message);
 	$.post(url, p, function (data) {
 			var response = data.evalJSON();
-			$('#' + globalAJAX.response_container_name).html(response.message);
-			$('#' + globalAJAX.cntrl_container_name).show();
+			$('#' + gamma.global.response_container_name).html(response.message);
+			$('#' + gamma.global.cntrl_container_name).show();
 		}
 	);
 }
@@ -21,10 +21,10 @@ function performCall(url, mode) {
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	$('#' + globalAJAX.response_container_name).html(globalAJAX.progress_message);
+	$('#' + gamma.global.response_container_name).html(gamma.global.progress_message);
 	$.post(url, p, function (data) {
-			$('#' + globalAJAX.response_container_name).html(data);
-			$('#' + globalAJAX.cntrl_container_name).show();
+			$('#' + gamma.global.response_container_name).html(data);
+			$('#' + gamma.global.cntrl_container_name).show();
 		}
 	);
 }

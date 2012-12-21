@@ -9,9 +9,9 @@
 
 <script type='text/javascript'>
 
-globalAJAX.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
-globalAJAX.site_url = '<?= site_url() ?>';
-globalAJAX.response_container = 'update_message';
+gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
+gamma.global.site_url = '<?= site_url() ?>';
+gamma.global.response_container = 'update_message';
 
 //perform detail report command (via AJAX)
 function performCommand(url, id, mode) {
@@ -21,8 +21,8 @@ function performCommand(url, id, mode) {
 	p.command = mode;
 	var opts = {};
 	opts.parameters = p;
-	var container = $('#' + globalAJAX.response_container);
-	container.html(globalAJAX.progress_message);
+	var container = $('#' + gamma.global.response_container);
+	container.html(gamma.global.progress_message);
 	$.post(url, p, function (data) {
 		    container.html(data);
 			updateMyData();	
@@ -30,7 +30,7 @@ function performCommand(url, id, mode) {
 	);
 }
 function updateContainer(url, containerId) { 
-	url = globalAJAX.site_url + url;
+	url = gamma.global.site_url + url;
 	p = {};
 	$.post(url, p, function (data) {
 		    $('#' + containerId).html(data);
@@ -45,7 +45,7 @@ function updateAuxIntoControls() {
 	updateContainer('<?= $this->my_tag ?>/detail_report_aux_info_controls/<?= $id ?>', 'aux_info_controls_container'); 
 }
 function updateShowSQL() {
-	updateAlert('<?= $this->my_tag ?>/detail_sql/<?= $id ?>', 'OFS'); 
+	gamma.updateAlert('<?= $this->my_tag ?>/detail_sql/<?= $id ?>', 'OFS'); 
 }
 $(document).ready(function () { 
 	updateMyData();

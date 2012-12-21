@@ -293,10 +293,9 @@
 			switch($page_type) {
 				case 'List_Reports':
 				case 'Param_Pages':
-					$menu_context['clear_settings_link'] = "javascript:setListReportDefaults(\"".site_url().$CI->my_tag."/defaults/$page_type\")";
+					$menu_context['clear_settings_link'] = "javascript:gamma.setListReportDefaults(\"".site_url().$CI->my_tag."/defaults/$page_type\")";
 					break;
 			}		
-//			$menu_context['page_info_link'] = "$CI->my_tag/info";
 			$config_db = (isset($CI->my_config_db))?$CI->my_config_db:$CI->my_tag;
 			$menu_context['config_db_link'] = "config_db/show_db/".$config_db.".db";
 		}
@@ -304,7 +303,6 @@
 			case 'Entry_Pages'  :
 				break;
 			case 'List_Reports':
-//				$menu_context['sql_link'] = "javascript:updateAlert(\"".$CI->my_tag."/report_sql\", \"filter_form\")";
 				$menu_context['sql_link'] = "javascript:updateShowSQL()";
 				break;
 			case 'Detail_Reports' :
@@ -315,7 +313,7 @@
 		}		
 		$version = $CI->config->item('version_label');
 		$color_code = $CI->config->item('version_color_code');
-		$menu_context['side_panel_toggle'] = "<span style='margin:0;'><a title='Show/Hide side menu' href='javascript:toggle_frames();'><img src='".base_url()."/images/layout.png' style='border-style:none'></a></span>";
+		$menu_context['side_panel_toggle'] = "<span style='margin:0;'><a title='Show/Hide side menu' href='javascript:gamma.toggle_frames();'><img src='".base_url()."/images/layout.png' style='border-style:none'></a></span>";
 		$menu_context['server_info'] = "<span style='font-size:9px;color:".$color_code."'>".get_user()." &nbsp; &nbsp; ".$version."</span>";	
 		$menu_context['home_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to home page' href='".site_url()."gen/welcome'><img src='".base_url()."/images/house.png' style='border-style:none'></a></span>";
 		$menu_context['admin_page_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to admin menu page' href='".site_url()."gen/admin'><img src='".base_url()."/images/cog.png' style='border-style:none'></a></span>";

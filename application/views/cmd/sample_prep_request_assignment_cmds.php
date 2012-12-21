@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 function performOperation(mode, value) {
-	var list = getCkbxList('ckbx');
+	var list = gamma.getCkbxList('ckbx');
 	if(list=='') {
 		alert('You must select requests.'); 
 		return;
@@ -9,7 +9,7 @@ function performOperation(mode, value) {
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	url =  globalAJAX.site_url + "sample_prep_request_assignment/operation";
+	url =  gamma.global.site_url + "sample_prep_request_assignment/operation";
 	var p = {};
 	p.command = mode;
 	p.newValue = (value!='')?$F(value):'';

@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 function performOperation(mode, itemType, val) {
-	var list = getCkbxList('ckbx');
+	var list = gamma.getCkbxList('ckbx');
 	if(list=='') {
 		alert('You must select items.'); 
 		return;

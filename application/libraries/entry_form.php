@@ -204,7 +204,7 @@ class Entry_form {
 		$s = "";
 		$block_label = "section_block_$section_count";
 		$marker = "<img id='".$block_label."_cntl"."' src='" . base_url(). "/images/z_hide_col.gif' border='0' >";
-		$s .= "<a href='javascript:void(0)' onclick='showHideTableRows(\"$block_label\", \"".base_url()."/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
+		$s .= "<a href='javascript:void(0)' onclick='gamma.showHideTableRows(\"$block_label\", \"".base_url()."/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
 		$s .= "&nbsp; <strong>".$section_label."</strong>";
 		return $s;
 	}
@@ -216,7 +216,7 @@ class Entry_form {
 		$str = '';
 		if(array_key_exists($fld, $this->field_enable)) {
 			$ckbx_id = $fld . '_ckbx_enable';
-			$click = "onClick='enableDisableField(this, \"$fld\")'";
+			$click = "onClick='gamma.enableDisableField(this, \"$fld\")'";
 			switch($this->field_enable[$fld]) {
 				case 'enabled':
 					$str = "<input type='checkbox' class='_ckbx_enable' name='$ckbx_id' $click checked='yes' >";
@@ -310,10 +310,10 @@ class Entry_form {
 			$data['cols'] = $f_spec['cols'];
 			if(isset($f_spec['auto_format'])) {
 				if($f_spec['auto_format'] == 'xml') {
-					$data['onBlur'] = "formatXMLText('".$data['id']."')";					
+					$data['onBlur'] = "gamma.formatXMLText('".$data['id']."')";					
 				}
 			} else {
-				$data['onChange'] = "convertList('".$data['id']."', '".$delim."')";
+				$data['onChange'] = "gamma.convertList('".$data['id']."', '".$delim."')";
 			}
 			$s .= form_textarea($data);
 			break;

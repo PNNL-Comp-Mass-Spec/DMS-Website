@@ -50,7 +50,7 @@ function _make_search_selector($srchSel, $srchVal)
 	);	
 	
 	$str = '';
-	$str .= "<select id='".$srchSel."' name='".$srchSel."' onchange='dms_search(\"$srchSel\", \"$srchVal\")' >\n";
+	$str .= "<select id='".$srchSel."' name='".$srchSel."' onchange='gamma.dms_search(\"$srchSel\", \"$srchVal\")' >\n";
 	$str .= "<option value=''>Search for...</option>\n";
 	$cur_target = '';
 	foreach($options as $option) {
@@ -84,7 +84,7 @@ function _make_search_input($srchSel, $srchVal)
 function _make_search_command($srchSel, $srchVal)
 {
 	$str = '';
-	$str .= "<a title='Perform selected search' href='javascript:dms_search(\"$srchSel\", \"$srchVal\")'>Go</a>\n";
+	$str .= "<a title='Perform selected search' href='javascript:gamma.dms_search(\"$srchSel\", \"$srchVal\")'>Go</a>\n";
 	return $str;
 }
 
@@ -99,7 +99,7 @@ function enter_$srchSel(e) {
 	if (e.keyCode) code = e.keyCode;
 	else if (e.which) code = e.which;
 	if(code == 13) {
-		dms_search("$srchSel", "$srchVal"); 
+		gamma.dms_search("$srchSel", "$srchVal"); 
 		return false;
 	}
    return true;

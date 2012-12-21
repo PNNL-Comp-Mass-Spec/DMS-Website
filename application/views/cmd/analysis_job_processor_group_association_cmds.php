@@ -8,7 +8,7 @@ function performOperation(mode) {
 			return;
 		}
 	} else {
-		list = getCkbxList('ckbx');
+		list = gamma.getCkbxList('ckbx');
 		if (list == '') {
 			alert('You must select items.');
 			return;
@@ -33,7 +33,7 @@ function performOperation(mode) {
 <?php $this->load->view("main/list_report_cmd_reporting"); ?>
 
 <form name="DBG" action="">
-<a title="Show or hide the controls to disassociate jobs from group" href="#" onclick="sectionToggle('removeJobsSection', 0.5)");>Remove jobs from association</a>
+<a title="Show or hide the controls to disassociate jobs from group" href="#" onclick="gamma.sectionToggle('removeJobsSection', 0.5)");>Remove jobs from association</a>
 <div id="removeJobsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected jobs from group</div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("remove")' />
@@ -41,13 +41,13 @@ function performOperation(mode) {
 
 <div></div>
 
-<a title="Show or hide the controls to associate new jobs with group" href="#" onclick="sectionToggle('addNewJobsSection', 0.5)">Add New Jobs</a>
+<a title="Show or hide the controls to associate new jobs with group" href="#" onclick="gamma.sectionToggle('addNewJobsSection', 0.5)">Add New Jobs</a>
 <div id="addNewJobsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>
 Jobs to be associated with this group:
 </div>
 <div>
-<textarea name="addList" id="add_list_fld" rows=6 cols=80 onChange='convertList("add_list_fld", ",")' ></textarea>
+<textarea name="addList" id="add_list_fld" rows=6 cols=80 onChange='gamma.convertList("add_list_fld", ",")' ></textarea>
 </div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("add")' />
 </div>

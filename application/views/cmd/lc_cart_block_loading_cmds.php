@@ -53,7 +53,7 @@ function saveChangesToDababase() {
 </script>
 <script type="text/javascript">
 function setCartName() {
-	var iList = getSelectedItemList();
+	var iList = gamma.getSelectedItemList();
 	if (iList.size() == 0) {
 		alert('No items are selected');
 		return;
@@ -68,7 +68,7 @@ function setCartName() {
 	});
 }
 function setCartCol() {
-	var iList = getSelectedItemList();
+	var iList = gamma.getSelectedItemList();
 	if (iList.size() == 0) {
 		alert('No items are selected');
 		return;

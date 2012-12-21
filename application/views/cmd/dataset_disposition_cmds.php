@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function performOperation(mode) {
-	var list = getCkbxList('ckbx');
+	var list = gamma.getCkbxList('ckbx');
 	if(list=='') {
 		alert('You must select requests.'); 
 		return;
@@ -47,7 +47,7 @@ function performOperation(mode) {
 <div><textarea name='comment' id='comment_fld' rows='4' cols='45' ></textarea></div>
 
 <span style='position:relative;left:10px;''>
-<select name='cannedComments' id='commend_selector' onChange='setFieldValueFromSelection("comment_fld", "commend_selector", "append")'>
+<select name='cannedComments' id='commend_selector' onChange='gamma.setFieldValueFromSelection("comment_fld", "commend_selector", "append")'>
   <option></option>
   <Option>Air bubble in vial</Option>
   <Option>Calibration bad</Option>

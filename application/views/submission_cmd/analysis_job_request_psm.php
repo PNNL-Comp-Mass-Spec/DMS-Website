@@ -42,7 +42,7 @@ function submitMainEntryForm(mode, followOnAction) {
 function showPageLinks() {
 	var id = $('#requestID').val();
 	if(id != '0') {
-		var url = globalAJAX.site_url + "analysis_job_request/show/" + id;
+		var url = gamma.global.site_url + "analysis_job_request/show/" + id;
 		$('#move_next_link').href = url;
 		$('#move_next_link').show();
 	}
@@ -55,7 +55,7 @@ function getJobDefaults() {
 
 // 
 function callOperation(url) {
-	url =  globalAJAX.site_url + url;
+	url =  gamma.global.site_url + url;
 	var p = {};
 	p.datasets = $('#datasets').val();
 	//	FUTURE:progress indicator
@@ -88,12 +88,12 @@ function setFieldValues() {
 function showSection(block_name) {
 	var url = '<?= base_url() ?>images/';
 	var hide_img = 'z_hide_col.gif';
-	showTableRows(block_name, url, hide_img);
+	gamma.showTableRows(block_name, url, hide_img);
 }
 function hideSection(block_name) {
 	var url = '<?= base_url() ?>images/';
 	var show_img = 'z_show_col.gif';
-	hideTableRows(block_name, url, show_img);
+	gamma.hideTableRows(block_name, url, show_img);
 }
 
 

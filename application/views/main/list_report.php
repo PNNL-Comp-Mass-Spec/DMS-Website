@@ -6,17 +6,17 @@
 <? $this->load->view('resource_links/base2') ?>
 
 <script type='text/javascript'>
-globalAJAX = {};
-globalAJAX.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
-globalAJAX.site_url = '<?= site_url() ?>';
-globalAJAX.my_tag = '<?= $this->my_tag ?>';
-globalAJAX.is_ms_helper = '<?= $is_ms_helper ?>';
+gamma.global = {};
+gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
+gamma.global.site_url = '<?= site_url() ?>';
+gamma.global.my_tag = '<?= $this->my_tag ?>';
+gamma.global.is_ms_helper = '<?= $is_ms_helper ?>';
 
 // go get some content from the server and put it into the designated container element
 // and initiate the designated follow-on action, if such exists
 function updateContainer(url, containerId, follow_on_action) { 
 	var container = $('#' + containerId);
-	url = globalAJAX.site_url + globalAJAX.my_tag + url;
+	url = gamma.global.site_url + gamma.global.my_tag + url;
 	var p = $('#filter_form').serialize();
 	$.post(url, p, function (data) {
 		    container.html(data);
@@ -42,8 +42,8 @@ var no_action = {
 // and initialize filter status display
 var filter_observers_action = {
 	run:function() {
-		set_filter_field_observers();
-		is_filter_active();
+		gamma.set_filter_field_observers();
+		gamma.is_filter_active();
 	}
 }
 // copy the contents of the upper paging display to the lower one
@@ -62,8 +62,8 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-			$('#paging_container_upper').html(globalAJAX.progress_message);
-			$('#paging_container_lower').html(globalAJAX.progress_message);
+			$('#paging_container_upper').html(gamma.global.progress_message);
+			$('#paging_container_lower').html(gamma.global.progress_message);
 			updateContainer('/report_paging', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -72,25 +72,25 @@ var paging_update_action = {
 var data_post_load_action = {
 	run:function(){
 		paging_update_action.run();
-		if(!$('#data_message') && globalAJAX.is_ms_helper) { intializeChooserCkbx('ckbx') }
+		if(!$('#data_message') && gamma.global.is_ms_helper) { gamma.intializeChooserCkbx('ckbx') }
 	}
 }
 // go get some data rows
 var data_update_action = {
 	run:function(){
-		$('#paging_container_upper').html(globalAJAX.progress_message);
-		$('#paging_container_lower').html(globalAJAX.progress_message);
+		$('#paging_container_upper').html(gamma.global.progress_message);
+		$('#paging_container_lower').html(gamma.global.progress_message);
 		updateContainer('/report_data', 'data_container', data_post_load_action); 	
 	}
 }
 function updateShowSQL() {
-	updateAlert('<?= $this->my_tag ?>/report_sql', 'filter_form'); 
+	gamma.updateAlert('<?= $this->my_tag ?>/report_sql', 'filter_form'); 
 }
 // update the SQL display box if it is visible
 var sql_display_action = {
 	run:function() {
 		if($('#notification').is(':visible')) {
-			updateAlert(globalAJAX.my_tag + '/report_sql', 'filter_form');
+			gamma.updateAlert(gamma.global.my_tag + '/report_sql', 'filter_form');
 		}
 	}
 }
@@ -106,10 +106,10 @@ function updateMyData(loading) {
 }
 // after the page loads, set things in motion to populate it
 $(document).ready(function () { 
-		$('#data_container').html('Data is loading...' + globalAJAX.progress_message);
+		$('#data_container').html('Data is loading...' + gamma.global.progress_message);
 		updateMyFilter('minimal');
 		updateMyData('<?= $loading ?>');
-	 	window['reloadListReportData'] = function() { updateMyData('autoload');}
+	 	gamma.reloadListReportData = function() { updateMyData('autoload');}
 	}
 );
 </script>
@@ -137,14 +137,14 @@ $(document).ready(function () {
 <td >
 <div id='search_controls_container'>
 <input type="button" onclick="updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
-<a href='javascript:void(0)' onclick="clearSearchFilters()" >Clear Filters</a> &nbsp; &nbsp;
+<a href='javascript:void(0)' onclick="gamma.clearSearchFilters()" >Clear Filters</a> &nbsp; &nbsp;
 <span id='show_less_filter'><a href='javascript:void(0)' onclick="updateMyFilter('minimal')" >Minimize Filters</a></span> &nbsp; &nbsp;
 <span id='show_more_filter'><a href='javascript:void(0)' onclick="updateMyFilter('maximal')" >Expand Filters</a></span>  &nbsp; &nbsp;
 
-<a href="javascript:void(0)" onclick="sectionToggle('primary_filter_container', 0.1)">Primary</a> &nbsp;
-<a href="javascript:void(0)" onclick="sectionToggle('secondary_filter_container', 0.1)">Secondary</a> &nbsp;
-<a href="javascript:void(0)" onclick="sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
-<a href="javascript:void(0)" onclick="sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1)">Primary</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1)">Secondary</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
 
 <span style="padding:0 20px 0 30px;font-weight:bold;" id='filters_active'></span>
 <span style="padding:0 20px 0 30px;font-weight:bold;" id='sorting_active'></span>

@@ -19,7 +19,7 @@ function getFactorXMLFromList(flist) {
 function getListReportColumnList() {
 	var col_list = [];
 	$('.col_header').each(function(idx, obj){
-		col_list.push(trim(obj.html()));
+		col_list.push(gamma.trim(obj.html()));
 	});
 	return col_list;
 }
@@ -69,7 +69,7 @@ function parseDelimitedText(text_fld) {
 	var header = [];
 	var data = [];
 	lines.each(function(idx, line, lineNumber){
-		line = trim(line);
+		line = gamma.trim(line);
 		if(line) {	
 			var fields = parse_lines(line)
 			if(lineNumber == 0) {
@@ -111,7 +111,7 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 function applyFactorToDatabase() {
 	var factor = $('#apply_factor_name').val();
 	var value = $('#apply_factor_value').val();
-	var ilist = getSelectedItemList();
+	var ilist = gamma.getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);
 	if (flist.length == 0) {
 		alert('No items selected on which to apply this action');
@@ -122,7 +122,7 @@ function applyFactorToDatabase() {
 function removeFactorFromDatabase(){
 	var factor = $('#remove_factor_name').val();
 	var value = '';
-	var ilist = getSelectedItemList();
+	var ilist = gamma.getSelectedItemList();
 	var flist = makeObjectList(ilist, factor, value);
 	if (flist.length == 0) {
 		alert('No items selected on which to apply this action');

@@ -4,7 +4,7 @@
  */
 class List_report_pager {
 
-	private $cur_row_function	= 'setListReportCurRow'; // Javascript function that sets current row
+	private $cur_row_function	= 'gamma.setListReportCurRow'; // Javascript function that sets current row
 	private $total_rows  		= ''; // Total number of items (database results)
 	private $per_page	 		= 10; // Max number of items you want shown per page
 	private $num_links			=  3; // Number of "digit" links to show before/after the currently viewed page
@@ -82,8 +82,8 @@ class List_report_pager {
 		$end_row = $start_row + $this->per_page - 1;
 		if($end_row > $this->total_rows) $end_row = $this->total_rows;
 		//
-		$page_sizer = '<a href="javascript:setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">Set Rows</a>';
-		$show_all = '<a href="javascript:setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">Max Rows</a>';
+		$page_sizer = '<a href="javascript:gamma.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">Set Rows</a>';
+		$show_all = '<a href="javascript:gamma.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">Max Rows</a>';
 		$show_all = ($this->per_page < $this->total_rows)?$show_all:'';
 		//
 		return "&nbsp; Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> &nbsp;" . $page_sizer. " &nbsp; " .$show_all;

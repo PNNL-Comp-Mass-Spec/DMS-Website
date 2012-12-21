@@ -44,12 +44,12 @@ function doOperation(faid, mode) {
 	);
 }
 function do_upload() {
-	$('#result_display').html(globalAJAX.progress_message);
+	$('#result_display').html(gamma.global.progress_message);
 	$('#upload_form').submit();
 }
 </script>
 <div id='attachments_control_section' style='padding:5px 0px 5px 5px;'>
-<a title="Show or hide the file attachments section" href="#" onclick="sectionToggle('file_attachments_section', 0.5 );showAttachments()");>File Attachments...</a>
+<a title="Show or hide the file attachments section" href="#" onclick="gamma.sectionToggle('file_attachments_section', 0.5 );showAttachments()");>File Attachments...</a>
 </div>
 
 <div id='file_attachments_section' style='display:none;'> 

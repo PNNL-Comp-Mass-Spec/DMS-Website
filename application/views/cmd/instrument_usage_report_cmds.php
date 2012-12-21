@@ -9,7 +9,7 @@ function parseUploadText(text_fld) {
 	var header = [];
 	var data = [];
 	lines.each(function(idx, line, lineNumber){
-		line = trim(line);
+		line = gamma.trim(line);
 		if(line) {	
 			var fields = parse_lines(line)
 			if(lineNumber == 0) {
@@ -73,7 +73,7 @@ function reload_report() {
 <form name="DBG" action="">
 
 <hr>
-<a href="#" onclick="sectionToggle('reload_section', 0.5)">Reload commands...</a>
+<a href="#" onclick="gamma.sectionToggle('reload_section', 0.5)">Reload commands...</a>
 <div id="reload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Refresh" onClick='refresh_report()' title="Refresh EMSL usage report from DMS usage tracking"  /> Refresh EMSL instrument report from DMS
@@ -84,7 +84,7 @@ function reload_report() {
 </div>
 
 <hr>
-<a href="#" onclick="sectionToggle('upload_section', 0.5)">Upload commands...</a>
+<a href="#" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list

@@ -3,7 +3,7 @@
 function transferData(perspective, dslist) {
 
 	var commalist = $('#' + dslist).val();
-	var list = getCkbxList('ckbx' );
+	var list = gamma.getCkbxList('ckbx' );
 	if(list=='' && commalist=='') {
 		alert('You must select at least 1 dataset or enter 1 dataset id.'); 
 		return;
@@ -43,7 +43,7 @@ Enter Dataset List:
 </div>
 
 <div>
-<textarea name="Dataset_list" cols="70" rows="4" id="Dataset_list" maxlength="80" size="20" onChange="convertList('Dataset_list', ',')" ></textarea>
+<textarea name="Dataset_list" cols="70" rows="4" id="Dataset_list" maxlength="80" size="20" onChange="gamma.convertList('Dataset_list', ',')" ></textarea>
 </div>
 
 <a href='javascript:transferData("dataset", "Dataset_list")'><img src='<?= base_url() ?>images/btn.png' border='0' ></a> Transfer Selected Datasets
