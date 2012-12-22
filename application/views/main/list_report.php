@@ -6,11 +6,14 @@
 <? $this->load->view('resource_links/base2') ?>
 
 <script type='text/javascript'>
-gamma.global = {};
+
 gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 gamma.global.site_url = '<?= site_url() ?>';
 gamma.global.my_tag = '<?= $this->my_tag ?>';
 gamma.global.is_ms_helper = '<?= $is_ms_helper ?>';
+gamma.global.response_container_name =  "update_message";
+gamma.global.cntrl_container_name =  "clear_message";
+gamma.global.ops_url = '<?= $ops_url ?>';
 
 // go get some content from the server and put it into the designated container element
 // and initiate the designated follow-on action, if such exists
@@ -179,7 +182,10 @@ if($has_checkboxes) $this->load->view("main/list_report_checkboxes");
 ?>
 
 <?php // any list report commands?
-if($list_report_cmds != "") $this->load->view("cmd/$list_report_cmds");
+if($list_report_cmds != "") {
+	$this->load->view("main/list_report_cmd_reporting");
+	$this->load->view("cmd/$list_report_cmds");
+}
 ?>
 
 <?php // export command panel

@@ -4,7 +4,7 @@
 
 <script type="text/javascript" >
 function getFactorCols() {
-	var cols = getListReportColumnList();
+	var cols = theta.getListReportColumnList();
 	var factor_cols = cols.without('Sel', 'BatchID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order');
 	return factor_cols;
 }
@@ -57,32 +57,32 @@ function createBlocksViaRandomAssignment() {
 <script type="text/javascript">
 function updateDatabaseFromList(flist, blist) {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var factorXML = getFactorXMLFromList(flist);
-	var blockingXML = getBlockingXMLFromList(blist);
+	var factorXML = delta.getFactorXMLFromList(flist);
+	var blockingXML = theta.getBlockingXMLFromList(blist);
 	
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.factorList = factorXML;
 	p.blockingList = blockingXML;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 function saveChangesToDababase() {
 	var factor_cols = getFactorCols();
-	var flist = getFactorFieldList(factor_cols);
+	var flist = theta.getFactorFieldList(factor_cols);
 	var blocking_cols = ['Block',  'Run Order'];
-	var blist = getFactorFieldList(blocking_cols);
+	var blist = theta.getFactorFieldList(blocking_cols);
 	updateDatabaseFromList(flist, blist);
 }
 function load_delimited_text() {
-	var parsed_data = parseDelimitedText('delimited_text_input');
+	var parsed_data = delta.getFactorXMLFromList('delimited_text_input', true);
 	if(parsed_data.header[0] != 'Request') {
 		alert('Header line does not begin with "Request"');
 		// (someday) more extensive validation
 		return;
 	}
 	var col_list = parsed_data.header.without('Request', 'Block', 'Run Order');
-	var flist = getFieldListFromParsedData(parsed_data, col_list);
-	var blist = getFieldListFromParsedData(parsed_data, ['Block', 'Run Order']);
+	var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
+	var blist = theta.getFieldListFromParsedData(parsed_data, ['Block', 'Run Order']);
 	updateDatabaseFromList(flist, blist);
 }
 function setBlockForSelectedItems() {
@@ -116,12 +116,12 @@ function performBatchOperation(mode) {
 		alert("No batch ID");
 		return;
 	}
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 
@@ -135,13 +135,13 @@ function performBatchOperation(mode) {
 <a href="#" onclick="gamma.sectionToggle('factor_section', 0.5)">Factor commands...</a>
 <div id="factor_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='applyFactorToDatabase()' title=""  /> 
+<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase()' title=""  /> 
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='removeFactorFromDatabase()' title=""  /> 
+<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase()' title=""  /> 
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>

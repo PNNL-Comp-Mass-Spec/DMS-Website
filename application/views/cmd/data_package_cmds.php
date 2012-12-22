@@ -17,14 +17,14 @@ function performOperation(mode) {
 	$('#paramListXML').val(list);
 	$('#entry_cmd_mode').val(mode);
 	var p = $('#operation_form').serialize();
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 
 </script>
 
 
 <div class='LRCmds'>
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" id="operation_form" action="">
 

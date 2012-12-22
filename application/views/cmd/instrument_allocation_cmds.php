@@ -8,35 +8,6 @@ function getXMLFromObjList(flist) {
 	}
 	return xml;
 }
-function parse_lines(line) {
-	flds = [];
-	var fields = line.split('\t');
-	fields.each(function(idx, fld, fidx){
-		var f = fld.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-		flds.push(f);
-	});
-	return flds;
-}
-function parseDelimitedText(text_fld) {
-	parsed_data = {};
-	var lines = $('#' + text_fld).val().split('\n');
-	var header = [];
-	var data = [];
-	lines.each(function(idx, line, lineNumber){
-		line = gamma.trim(line);
-		if(line) {	
-			var fields = parse_lines(line)
-			if(lineNumber == 0) {
-				header = fields;
-			} else {
-				data.push(fields); // check length of fields?
-			}
-		}
-	});
-	parsed_data.header = header;
-	parsed_data.data = data;
-	return parsed_data;
-}
 function getFieldListFromParsedData(parsed_data, col_list) {
 	// make array of id/factor/value objects,
 	// one for each row of each column
@@ -66,13 +37,13 @@ function updateDatabaseFromList(flist, fiscal_year) {
 	if(fiscal_year) {
 		allocationXML = '<c fiscal_year="' + fiscal_year + '" />' + allocationXML;
 	}
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.parameterList = allocationXML;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 function load_delimited_text() {
-	var parsed_data = parseDelimitedText('delimited_text_input');
+	var parsed_data = delta.getFactorXMLFromList('delimited_text_input', false);
 	var fiscal_year = $('#fiscal_year').val();
 	if(fiscal_year == '') {
 		alert('You must set the fiscal year for the changes');
@@ -100,10 +71,10 @@ function move_allocated_hours() {
 	xml += 'g="' + $('#move_group').val() + '" ';
 	xml += 'x="' + $('#move_comment').val() + '" ';	
 	xml += ' />';
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.parameterList = xml;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 function set_allocated_hours() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -115,16 +86,16 @@ function set_allocated_hours() {
 	xml += 'g="' + $('#set_group').val() + '" ';
 	xml += 'x="' + $('#set_comment').val() + '" ';	
 	xml += ' />';	
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.parameterList = xml;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

@@ -218,31 +218,6 @@ function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $i
 		return $str;
 }
 
-
-// -----------------------------------
-// create HTML declaring a global variable as a javascript object
-// that contains information necessary to make AJAX calls
-function make_detail_global_AJAX_definitions($page, $response_container, $data_container)
-{
-	$throb = base_url()."images/throbber.gif";
-	$url = site_url();
-	$data_url = site_url(). $page . "/show_data/";
-	$str = '';	
-	$str .= <<<EOD
-<script type="text/javascript">
-	var gDetailAJAX = {
-		base_url:'$url',
-		data_url:'$data_url',
-		response_container:'$response_container',
-		data_container:'$data_container',
-		progress_message:'<span class="LRepProgress">Loading...<img src="$throb" /></span>'
-		};
-</script>
-
-EOD;
-	return $str;
-}
-
 // -----------------------------------
 // create HTML to display detail report commands section
 //

@@ -17,20 +17,20 @@ function performOperation(mode) {
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.command = mode;
 	p.newValue = '';
 	p.processorGroupID = $('#pf_groupid').val();
 	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 	p.JobList = list;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 <a title="Show or hide the controls to disassociate jobs from group" href="#" onclick="gamma.sectionToggle('removeJobsSection', 0.5)");>Remove jobs from association</a>

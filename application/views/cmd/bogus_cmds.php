@@ -33,13 +33,13 @@ function performOperation(url, mode, show_msg) {
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	submitOperation(url, p, show_msg);
+	delta.submitOperation(url, p, show_msg);
 }
 </script>
 
 
 <div class='LRCmds'>
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" id="operation_form" action="">
 

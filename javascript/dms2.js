@@ -178,6 +178,7 @@ var gamma = {
 			$('#filters_active').html('There are ' + activeSearchFilters +  ' filters set');
 		}
 	},
+	
 	//------------------------------------------
 	//These functions are used by entry page 
 	//------------------------------------------
@@ -487,4 +488,64 @@ var gamma = {
 	    frm.submit();
 		frm.action = oldUrl;
 	}
+};
+
+//------------------------------------------
+// list report commands
+//------------------------------------------
+var delta = {
+	
+	//------------------------------------------
+	// submit list report supplemental command
+	submitOperation: function(url, p, show_resp) {
+		var ctl = $('#' + gamma.global.cntrl_container_name);
+		var container = $('#' + gamma.global.response_container_name);
+		container.html(gamma.global.progress_message);
+		$.post(url, p, function (data) {
+				if(data.indexOf('Update failed') > -1) {
+					container.html(data);
+					ctl.show();
+				} else {
+					var msg = 'Operation was successful';
+					if(show_resp) msg = data;
+					container.html(msg);
+					ctl.hide();
+					gamma.reloadListReportData();
+				}
+			}
+		);
+	},
+	parse_lines: function(line) { //gamma
+		flds = [];
+		var fields = line.split('\t');
+		fields.each(function(idx, fld, fidx){
+			var f = fld.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+			flds.push(f);
+		});
+		return flds;
+	},
+	parseDelimitedText: function(text_fld, removeArtifact) { //gamma
+		parsed_data = {};
+		var lines = $('#' + text_fld).val().split('\n');
+		var header = [];
+		var data = [];
+		lines.each(function(idx, line, lineNumber){
+			line = gamma.trim(line);
+			if(line) {	
+				var fields = delta.parse_lines(line)
+				if(lineNumber == 0) {
+					header = fields;
+				} else {
+					data.push(fields); // check length of fields?
+				}
+			}
+		});
+		// get rid of goofy parsing artifact last row
+		if(removeArtifact && (data[data.length - 1]).length < header.length) {
+			data.pop();
+		}
+		parsed_data.header = header;
+		parsed_data.data = data;
+		return parsed_data;
+	},
 };

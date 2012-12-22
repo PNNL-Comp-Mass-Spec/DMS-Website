@@ -17,7 +17,7 @@ function performOperation(mode){
 	var p = {};
 	p.command = mode;
 	p.paramListXML = list;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 function getDatasetInfo(mode) {
 	var id = $('#pf_data_package_id').val();
@@ -37,7 +37,7 @@ function getDatasetInfo(mode) {
 
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

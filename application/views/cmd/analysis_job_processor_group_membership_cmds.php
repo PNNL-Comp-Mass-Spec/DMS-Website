@@ -20,20 +20,20 @@ function performOperation(mode, p1, p2) {
 		
 	if(mode=='set_membership_enabled') mode = $F(p1);
 
-	url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.command = mode;
 	p.newValue = (p2!='')?$F(p2):'';
 	p.processorGroupID = $('#pf_groupid').val();
 	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 	p.processorNameList = list;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

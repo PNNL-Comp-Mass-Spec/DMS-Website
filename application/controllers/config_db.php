@@ -780,22 +780,7 @@ class config_db extends CI_Controller {
 		$s .= "</form>\n";
 		return $s;
 	}
-/*
-	// --------------------------------------------------------------------
-	// set up event binding for tooltips
-	private
-	function _get_edit_table_form_tooltips($table_name, $data_obj) {
-		$s = "";
-		$s .= "<script> \n";
-		foreach ($data_obj->col_names as $c) {
-		    $tip_id = "ttp_$c";
-		    $url = site_url()."config_db/show_tip/$table_name/$c";
-		    $s .= " TooltipManager.addAjax(\"$tip_id\", {url: \"$url\", options: {method: 'post'}});\n";
-		}
-		$s .= "</script>\n";
-		return $s;
-	}
-*/
+
 	// --------------------------------------------------------------------
 	private
 	function _get_edit_table_entry_field($config_db, $table_name, $col_name, $col_width, $max_width)
@@ -814,16 +799,6 @@ class config_db extends CI_Controller {
 						$sx .= "<option>$sel</option>";
 					}
 					break;
-/*
-				case "chooser_list":
-					// needs to include helper list reports
-					// should be sensitive to picker type
-					$this->load->model('dms_chooser', 'choosers');
-					foreach($this->choosers->get_chooser_names() as $sel) {
-						$sx .= "<option>$sel</option>";
-					}
-					break;
-*/
 				case "dms_view_cols":
 					$db_group = 'default';
 					$gen_parms = $this->_get_general_params($config_db, $db_group);

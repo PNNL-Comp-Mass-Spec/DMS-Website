@@ -11,8 +11,8 @@ function updateDatabaseFromList(xml, command) {
 	var p = {};
 	p.requestList = xml;
 	p.command = command;
-	var url =  "<?= $ops_url ?>";
-	submitOperation(url, p);
+	var url =  gamma.global.ops_url;
+	delta.submitOperation(url, p);
 }
 function make_xml_list(rlist) {
 	var s = '';
@@ -34,7 +34,7 @@ function setRequestStatus(status) {
 </script>
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

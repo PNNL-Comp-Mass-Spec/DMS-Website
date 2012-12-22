@@ -25,11 +25,11 @@ function saveChangesToDababase() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
 	var rlist = getEditFieldsObjList();
 	var xml = make_xml(rlist);
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.command = 'update';
 	p.cartAssignmentList = xml;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 <script type="text/javascript">
@@ -66,7 +66,7 @@ function setCartCol() {
 </script>
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

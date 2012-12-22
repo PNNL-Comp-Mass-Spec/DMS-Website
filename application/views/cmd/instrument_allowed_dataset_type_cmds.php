@@ -14,12 +14,12 @@ function performOperation(mode) {
 	p.InstrumentGroup = $('#instrument_group_fld').val();
 	p.DatasetType = $('#dataset_type_fld').val();
 	p.Comment = $('#usage_fld').val();
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 <div class='LRCmds'>
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

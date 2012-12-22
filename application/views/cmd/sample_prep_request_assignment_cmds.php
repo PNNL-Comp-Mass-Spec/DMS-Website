@@ -16,12 +16,12 @@ function performOperation(mode, value) {
 	p.reqIDList = list;
 	var opts = {};
 	opts.parameters = p;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

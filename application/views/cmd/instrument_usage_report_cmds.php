@@ -11,7 +11,7 @@ function parseUploadText(text_fld) {
 	lines.each(function(idx, line, lineNumber){
 		line = gamma.trim(line);
 		if(line) {	
-			var fields = parse_lines(line)
+			var fields = delta.parse_lines(line)
 			if(lineNumber == 0) {
 				header = fields;
 			} else {
@@ -29,32 +29,32 @@ function parseUploadText(text_fld) {
 }
 function updateDatabaseFromList(flist, id_type) {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var factorXML = getFactorXMLFromList(flist);
+	var factorXML = delta.getFactorXMLFromList(flist);
 	if(id_type) {
 		factorXML = '<id type="' + id_type + '" />' + factorXML;
 	}
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.factorList = factorXML;
 	p.operation = 'update';
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 function load_delimited_text() {
 	var parsed_data = parseUploadText('delimited_text_input');
 	var id_type = parsed_data.header[0];
 	var col_list = parsed_data.header.without(id_type);
-	var flist = getFieldListFromParsedData(parsed_data, col_list);
+	var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
 	updateDatabaseFromList(flist, id_type);
 }
 function reloadReport(operation) {
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.factorList = '';
 	p.operation = operation;
 	p.year = $('#pf_year').val();
 	p.month = $('#pf_month').val();
 	p.instrument = $('#pf_instrument').val();
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 function refresh_report() {
 	if ( !confirm("Are you sure that you want to refresh the exiting report") ) return;
@@ -68,7 +68,7 @@ function reload_report() {
 
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 

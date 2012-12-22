@@ -25,33 +25,33 @@ function setItemTypeField() {
 }
 function updateDatabaseFromList(flist, id_type) {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var factorXML = getFactorXMLFromList(flist);
+	var factorXML = delta.getFactorXMLFromList(flist);
 	if(id_type) {
 		factorXML = '<id type="' + id_type + '" />' + factorXML;
 	}
-	var url =  "<?= $ops_url ?>";
+	var url =  gamma.global.ops_url;
 	var p = {};
 	p.factorList = factorXML;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 function saveChangesToDababase() {
-	var cols = getListReportColumnList();
+	var cols = theta.getListReportColumnList();
 	var col_list = cols.without('Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset');
-	var flist = getFactorFieldList(col_list);
+	var flist = theta.getFactorFieldList(col_list);
 	updateDatabaseFromList(flist, 'Request');
 }
 function load_delimited_text() {
-	var parsed_data = parseDelimitedText('delimited_text_input');
+	var parsed_data = delta.getFactorXMLFromList('delimited_text_input', true);
 	var id_type = parsed_data.header[0];
 	var col_list = parsed_data.header.without(id_type, 'Block', 'Run Order');
-	var flist = getFieldListFromParsedData(parsed_data, col_list);
+	var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
 	updateDatabaseFromList(flist, id_type);
 }
 </script>
 
 
 <div class="LRCmds">
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" action="">
 
@@ -65,13 +65,13 @@ function load_delimited_text() {
 <a href="#" onclick="gamma.sectionToggle('factor_section', 0.5)">Factor commands...</a>
 <div id="factor_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='applyFactorToDatabase()' title=""  /> 
+<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase()' title=""  /> 
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='removeFactorFromDatabase()' title=""  /> 
+<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase()' title=""  /> 
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>

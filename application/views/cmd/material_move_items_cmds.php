@@ -19,13 +19,13 @@ function performOperation(mode, itemType, val) {
 	p.itemList = list;
 	p.newValue = (val)?$F(val):'';
 	p.comment = $('#comment_fld').val();
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 
 <div class='LRCmds'>
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <form name="DBG" id="cmds" >
 

@@ -13,12 +13,12 @@ function transferData(perspective) {
 	var p = {};
 	p.perspective = perspective;
 	p.iDList = list;
-	submitOperation(url, p);
+	delta.submitOperation(url, p);
 }
 </script>
 
 <div class='LRCmds'>
-<?php $this->load->view("main/list_report_cmd_reporting"); ?>
+
 
 <h3>Commands</h3>
 
