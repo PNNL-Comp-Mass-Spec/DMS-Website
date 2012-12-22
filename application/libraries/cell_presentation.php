@@ -285,7 +285,7 @@ class cell_presentation {
 				// make header label
 				$str .= "<th>";
 				$str .= $marker;
-				$str .= "<a href='javascript:void(0)' onclick='gamma.setColSort(\"$col_name\", true)'  class='col_header'>$col_name</a>";
+				$str .= "<a href='javascript:void(0)' onclick='gamma.setColSort(\"$col_name\")'  class='col_header'>$col_name</a>";
 				$str .= $this->get_cell_padding($col_name);
 				$str .= "</th>";
 			}
