@@ -36,7 +36,7 @@ function checkMaterial() {
 	}
 }
 function performCall(mode) {
-	var url =  "<?= site_url() ?>sample_prep_biomaterial_location/check_biomaterial";
+	var url =  gamma.global.site_url + "sample_prep_biomaterial_location/check_biomaterial";
 	var p = {};
 	p.ID = $('#ID').getValue();
 	p.command = mode;

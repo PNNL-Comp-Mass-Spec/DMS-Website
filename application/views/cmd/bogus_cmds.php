@@ -2,7 +2,7 @@
 
 // gets JSON back from AJAX call - separate return code and message
 function performExec(url, mode) {
-	var url =  "<?= site_url() ?>" + url;
+	var url =  gamma.global.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
@@ -17,7 +17,7 @@ function performExec(url, mode) {
 
 // gets only text back from the AJAX call
 function performCall(url, mode) {
-	var url =  "<?= site_url() ?>" + url;
+	var url =  gamma.global.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
@@ -29,7 +29,7 @@ function performCall(url, mode) {
 	);
 }
 function performOperation(url, mode, show_msg) {
-	var url =  "<?= site_url() ?>" + url;
+	var url =  gamma.global.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;

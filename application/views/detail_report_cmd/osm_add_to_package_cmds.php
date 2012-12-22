@@ -37,7 +37,7 @@ function callOSMChooser(){
 }
 
 function goToPage() {
-	var url = "<?= site_url() ?>osm_package_items/report/" + codeMap['<?= $this->my_tag ?>'] + "/" + $('#packageID').val();
+	var url = gamma.global.site_url + "osm_package_items/report/" + codeMap[gamma.global.my_tag] + "/" + $('#packageID').val();
 	window.location.href = url;
 }
 

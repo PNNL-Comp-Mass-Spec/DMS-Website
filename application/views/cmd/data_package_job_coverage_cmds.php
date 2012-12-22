@@ -13,7 +13,7 @@ function performOperation(mode){
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	var url =  "<?= site_url() ?>data_package_items/exec/";
+	var url =  gamma.global.site_url + "data_package_items/exec/";
 	var p = {};
 	p.command = mode;
 	p.paramListXML = list;
@@ -24,7 +24,7 @@ function getDatasetInfo(mode) {
 	var tool = $('#tool_name').val();
 	if(id == '') {alert('data_package_id filter not set'); return;}
 
-	var url =  '<?= site_url() ?>data_package/ag/' + id + '/' + tool + '/' + mode;
+	var url =  gamma.global.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
 	var p = {};
 	$('#dataset_dump_field').html('');
 	$.post(url, p, function (data) {

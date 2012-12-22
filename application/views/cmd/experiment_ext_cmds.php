@@ -9,7 +9,7 @@ function transferData(perspective) {
 	if ( !confirm("Are you sure that you want to transfer the selected data?") )
 		return;
 
-	url =  '<?= site_url() ?>/data_transfer/' + perspective;
+	var url =  gamma.global.site_url + 'data_transfer/' + perspective;
 	var p = {};
 	p.perspective = perspective;
 	p.iDList = list;

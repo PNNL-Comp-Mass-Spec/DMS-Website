@@ -35,7 +35,7 @@ function previewRequest() {
 function submitMainEntryForm(mode, followOnAction) {
 	$('#requestID').val('0');
 	$('#move_next_link').hide();
-	var url = "<?= site_url() . $tag ?>/submit_entry_form";
+	var url = gamma.global.site_url + gamma.global.my_tag + "/submit_entry_form";
 	submitToFamily(url, mode, followOnAction);
 }
 

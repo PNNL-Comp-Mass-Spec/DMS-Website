@@ -85,7 +85,7 @@
 	
 function callChooserSetType(item_type, chooserPage, delimiter, xref){
 	$('#itemTypeSelector').val(item_type);
-	var page = "<?= site_url() ?>" + chooserPage;
+	var page = gamma.global.site_url + chooserPage;
 	gamma.callChooser('entry_item_list', page, delimiter, xref)
 }
 
