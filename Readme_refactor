@@ -15,6 +15,11 @@ Get rid of aux info
 Reduce/eliminate in-line JS
 
 ------------------------------------------
+    $(document).ajaxError(function (e, xhr, settings, exception) {
+        alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
+    });
+------------------------------------------
+
 
 body#Isolation_Edit #NitTableContainer .r0 {
     background: #FFF !important;

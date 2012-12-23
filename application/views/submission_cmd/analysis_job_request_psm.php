@@ -16,9 +16,9 @@
 $(document).ready(function () { 
 	$('#cmd_buttons').hide();
 	$('#move_next_link').hide();
-	hideSection('section_block_3');
-	hideSection('section_block_4');
-	hideSection('section_block_5');
+	gamma.hideSection('section_block_3');
+	gamma.hideSection('section_block_4');
+	gamma.hideSection('section_block_5');
 });
 
 function createRequest() {
@@ -36,7 +36,7 @@ function submitMainEntryForm(mode, followOnAction) {
 	$('#requestID').val('0');
 	$('#move_next_link').hide();
 	var url = gamma.global.site_url + gamma.global.my_tag + "/submit_entry_form";
-	submitToFamily(url, mode, followOnAction);
+	gamma.submitEntryFormToPage(url, mode, followOnAction);
 }
 
 function showPageLinks() {
@@ -80,21 +80,9 @@ function setFieldValues() {
 	$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').val( '1'));
 	$('#ModificationDynSTYPhos').checked = ( $('#suggested_DynSTYPhosEnabled').val( '1'));
 
-	showSection('section_block_3');
-	showSection('section_block_4');
-	showSection('section_block_5');
+	gamma.showSection('section_block_3');
+	gamma.showSection('section_block_4');
+	gamma.showSection('section_block_5');
 }
-
-function showSection(block_name) {
-	var url = '<?= base_url() ?>images/';
-	var hide_img = 'z_hide_col.gif';
-	gamma.showTableRows(block_name, url, hide_img);
-}
-function hideSection(block_name) {
-	var url = '<?= base_url() ?>images/';
-	var show_img = 'z_show_col.gif';
-	gamma.hideTableRows(block_name, url, show_img);
-}
-
 
 </script>

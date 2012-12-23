@@ -14,14 +14,14 @@ function showPopup(item) {
 	var left = pos[0];
 	var top = pos[1];
 	$('#notification').show();
-	new Effect.Move('notification', { x: left, y: top, mode: 'absolute', duration:0 });
+	new Effect.Move('notification', { x: left, y: top, mode: 'absolute', duration:0 }); // REFACTOR: Fix
 }
 function doSubmit(change) {
 	doCancel();
 	if(change) {
 		$('#State').setValue('Closed (containers and material)');
 	}
-	submitToFamily(gSubmission.url, gSubmission.mode);
+	gamma.submitEntryFormToPage(gSubmission.url, gSubmission.mode);
 }
 function doCancel() {
 	$('#notification').hide();

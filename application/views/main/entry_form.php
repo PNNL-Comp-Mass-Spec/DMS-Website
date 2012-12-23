@@ -6,44 +6,12 @@
 <? $this->load->view('resource_links/base2') ?>
 
 <script type='text/javascript'>
-gamma.global.site_url = '<?= site_url() ?>';
-
-// POST the entry form to the entry page or alternate submission logic
-function updateEntryPage(url, mode) {
-	if(window.submissionSequence) {
-		submissionSequence(url, mode);
-	} else {
-		submitToFamily(url, mode);
-	}
-}
-//POST the entry form to the entry page via AJAX
-function submitToFamily(url, mode, follow_on_action) {
-	if(!confirm("Are you sure that you want to perform this action?")) return;
-	var container = $('#form_container');
-	$('#entry_cmd_mode').val(mode);
-	p = $('#entry_form').serialize();
-	$.post(url, p, function (data) {
-		    container.html(data);
-			setTimeout("gamma.adjustEnabledFields()", 350);
-			if(follow_on_action && follow_on_action.run) {
-				follow_on_action.run(mode);
-			}
-		}
-	);
-}
-// POST the entry form to another page
-function submitEntryPage(url, mode) {
-	$('#entry_cmd_mode').val(mode);
-	var f = $('#entry_form');
-	f.action = url;
-	f.method="post";
-	f.submit();
-}
 $(document).ready(function () { 
+	gamma.global.site_url = '<?= site_url() ?>';
+	gamma.global.my_tag = '<?= $this->my_tag ?>';
 	gamma.adjustEnabledFields();
 	}
 );
-
 </script>
 
 </head>

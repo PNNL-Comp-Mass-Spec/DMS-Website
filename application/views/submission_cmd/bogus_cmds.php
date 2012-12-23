@@ -22,11 +22,11 @@ function showPopup(item) {
 	var left = pos[0];
 	var top = pos[1];
 	$('#notification').show();
-	new Effect.Move('notification', { x: left, y: top, mode: 'absolute', duration:0 });
+	new Effect.Move('notification', { x: left, y: top, mode: 'absolute', duration:0 }); // REFACTOR: Fix
 }
 function doSubmit() {
 	$('#notification').hide();
-	submitToFamily(gSubmission.url, gSubmission.mode, post_submission_action);
+	gamma.submitEntryFormToPage(gSubmission.url, gSubmission.mode, post_submission_action);
 }
 function doCancel() {
 //	$('#notification_message').html('');

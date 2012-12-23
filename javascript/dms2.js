@@ -1,3 +1,10 @@
+//------------------------------------------
+// set up generic way to handle AJAX errors
+//------------------------------------------
+$(document).ajaxError(function (e, xhr, settings, exception) {
+    alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
+});	
+	
 var gamma = {
 	
 	//------------------------------------------
@@ -33,10 +40,10 @@ var gamma = {
 		$('#' + containerId).toggle(speed);
 		return false;
 	},
+		
 	//------------------------------------------
 	//These functions are used by list reports
 	//------------------------------------------
-	
 	//this function acts as a hook that other functions call to 
 	//reload the row data container for the list report.
 	//it needs to be overridden with the actual loading
@@ -229,6 +236,16 @@ var gamma = {
 		$(className).each(function(idx, s){s.style.display='none'});
 		$('#' + img_element_id).src = url + show_img;			
 	},
+	showSection: function (block_name) {
+		var url = '<?= base_url() ?>images/';
+		var hide_img = 'z_hide_col.gif';
+		gamma.showTableRows(block_name, url, hide_img);
+	},
+	hideSection: function (block_name) {
+		var url = '<?= base_url() ?>images/';
+		var show_img = 'z_show_col.gif';
+		gamma.hideTableRows(block_name, url, show_img);
+	},
 	//------------------------------------------
 	//These functions are used by entry page that invokes 
 	//list report chooser
@@ -364,6 +381,40 @@ var gamma = {
 	  }
 	  return list;
 	},
+	//------------------------------------------
+	// used for entry page submission
+	//------------------------------------------
+	// POST the entry form to the entry page or alternate submission logic
+	updateEntryPage: function(url, mode) {
+		if(window.submissionSequence) {
+			submissionSequence(url, mode);
+		} else {
+			gamma.submitEntryFormToPage(url, mode);
+		}
+	},
+	//POST the entry form to the entry page via AJAX
+	submitEntryFormToPage: function(url, mode, follow_on_action) {
+		if(!confirm("Are you sure that you want to perform this action?")) return;
+		var container = $('#form_container');
+		$('#entry_cmd_mode').val(mode);
+		p = $('#entry_form').serialize();
+		$.post(url, p, function (data) {
+			    container.html(data);
+				setTimeout("gamma.adjustEnabledFields()", 350);
+				if(follow_on_action && follow_on_action.run) {
+					follow_on_action.run(mode);
+				}
+			}
+		);
+	},
+	// POST the entry form to another page
+	submitEntryFormToOtherPage: function(url, mode) {
+		$('#entry_cmd_mode').val(mode);
+		var f = $('#entry_form');
+		f.action = url;
+		f.method="post";
+		f.submit();
+	},	
 	//------------------------------------------
 	// used by helper list reports with checkboxes
 	//------------------------------------------

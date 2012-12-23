@@ -385,13 +385,13 @@ class Entry_form {
 		// default command button
 		$mode = $this->get_mode_from_page_type($page_type);
 		$url = site_url(). $this->file_tag . "/submit_entry_form";
-		$attributes['onclick'] = "updateEntryPage('$url', '$mode')";
+		$attributes['onclick'] = "gamma.updateEntryPage('$url', '$mode')";
 		$attributes['content'] = ($page_type == 'create')?'Create':'Update';;
 		//
 		// is there an override for the default command button?
 		foreach($entry_commands as $command => $spec) {
 			if($spec['type'] == 'override' and $spec['target'] == $mode) {
-				$attributes['onclick'] = "updateEntryPage('$url', '$command')";
+				$attributes['onclick'] = "gamma.updateEntryPage('$url', '$command')";
 				$attributes['content'] = $spec['label'];
 				$attributes['title'] = $spec['tooltip'];
 				break;
@@ -405,7 +405,7 @@ class Entry_form {
 				case "cmd":
 					$attributes = array();
 					$attributes['content'] = $spec['label'];
-					$attributes['onclick'] = "updateEntryPage('$url', '$command')";
+					$attributes['onclick'] = "gamma.updateEntryPage('$url', '$command')";
 					$attributes['title'] = $spec['tooltip'];
 					$str .= form_button($attributes) . "<br>\n";
 					break;
@@ -413,7 +413,7 @@ class Entry_form {
 					$target_url = site_url().$spec['target'];
 					$attributes = array();
 					$attributes['content'] = $spec['label'];
-					$attributes['onclick'] = "submitEntryPage('$target_url', '$command')";
+					$attributes['onclick'] = "gamma.submitEntryFormToOtherPage('$target_url', '$command')";
 					$attributes['title'] = $spec['tooltip'];
 					$str .= form_button($attributes) . "<br>\n";
 					break;

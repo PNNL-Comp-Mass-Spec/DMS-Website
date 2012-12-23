@@ -3,13 +3,6 @@
 <head>
 <title>Test</title>
 
-<style type="text/css">
-	.labelling {
-		padding:5px 0 3px 0;
-		font-weight:bold;
-	}
-</style>
-
 <? $this->load->view('resource_links/base2') ?>
 
 <script type='text/javascript'>

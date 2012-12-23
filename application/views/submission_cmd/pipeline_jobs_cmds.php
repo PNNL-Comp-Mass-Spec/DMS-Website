@@ -18,7 +18,7 @@ function submissionSequence(url, mode, post_submission_action) {
 	gSubmission.mode = mode;
 	copy_param_form_to_xml_param_field();
 	// TODO: pre-submission check for blank XML parameters field.
-	submitToFamily(gSubmission.url, gSubmission.mode);
+	gamma.submitEntryFormToPage(gSubmission.url, gSubmission.mode);
 }
 
 //loop through all the fields in the parameter form
