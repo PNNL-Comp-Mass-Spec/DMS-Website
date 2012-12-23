@@ -8,6 +8,7 @@
 <script type='text/javascript'>
 $(document).ready(function () { 
 	gamma.global.site_url = '<?= site_url() ?>';
+	gamma.global.base_url = '<?= base_url() ?>';
 	gamma.global.my_tag = '<?= $this->my_tag ?>';
 	gamma.adjustEnabledFields();
 	}

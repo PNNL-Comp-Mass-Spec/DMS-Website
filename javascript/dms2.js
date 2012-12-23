@@ -213,36 +213,37 @@ var gamma = {
 	showHideTableRows: function(block_name, url, show_img, hide_img) {
 		var className = '.' + block_name;
 		var img_element_id = block_name + "_cntl";
-		var cur_src = $('#' + img_element_id).src;
+		var ctl = $('#' + img_element_id).first()[0];
+		var cur_src = ctl.src;
 		var styleVal = '';
 		var index = cur_src.indexOf('hide');
 		if(index < 0) {
 			$(className).each(function(idx, s){s.style.display=''});
-			$('#' + img_element_id).src = url + hide_img;
+			$('#' + img_element_id)[0].src = url + hide_img;
 		} else {
 			$(className).each(function(idx, s){s.style.display='none'});
-			$('#' + img_element_id).src = url + show_img;		
+			$('#' + img_element_id)[0].src = url + show_img;		
 	    }
 	},
 	showTableRows: function(block_name, url, hide_img) {
 		var className = '.' + block_name;
 		var img_element_id = block_name + "_cntl";
 		$(className).each(function(idx, s){s.style.display=''});
-		$('#' + img_element_id).src = url + hide_img;
+		$('#' + img_element_id)[0].src = url + hide_img;
 	},
 	hideTableRows: function(block_name, url, show_img) {
 		var className = '.' + block_name;
 		var img_element_id = block_name + "_cntl";
 		$(className).each(function(idx, s){s.style.display='none'});
-		$('#' + img_element_id).src = url + show_img;			
+		$('#' + img_element_id)[0].src = url + show_img;			
 	},
 	showSection: function (block_name) {
-		var url = '<?= base_url() ?>images/';
+		var url = gamma.global.base_url + 'images/';
 		var hide_img = 'z_hide_col.gif';
 		gamma.showTableRows(block_name, url, hide_img);
 	},
 	hideSection: function (block_name) {
-		var url = '<?= base_url() ?>images/';
+		var url = gamma.global.base_url + 'images/';
 		var show_img = 'z_show_col.gif';
 		gamma.hideTableRows(block_name, url, show_img);
 	},
