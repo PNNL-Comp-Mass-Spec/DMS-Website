@@ -12,62 +12,8 @@ function goToPage(id) {
 }
 </script>
 
-<style type="text/css">
-.eventList {
-	margin: 1em 0;
-	padding: 0;
-}
-	
-.eventList li {
-	border: 1px solid #555;
-	border-bottom: none;
-	color: #FFF;
-	margin: 0; 
-	padding: 0 0 0 0;
-	list-style: none;
-}
-.repLink {
-	padding: 8px;
-}
-.repBox {
-	padding: 4px;
-}
-</style>
-
-<style type="text/css">
-
-.runTable {
-	margin-top: 10px;
-	border-width: 1px 1px 1px 1px;
-	border-spacing: 1px 1px;
-	border-style: solid solid solid solid;
-	border-color: gray gray gray gray;
-	border-collapse: separate;
-	background-color: #bfbfbf;
-}
-.runTable th {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
-	border-style: hidden hidden hidden hidden;
-	border-color: gray gray gray gray;
-	background-color: #E1E7EA;
-}
-.runTable td {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
-	border-style: hidden hidden hidden hidden;
-	background-color: #EFEFEF;
-	width: 160px;
-	height: 40px;
-}
-.weekDays {
-	font-weight: bold;
-}
-
-</style>
-
 </head>
-<body>
+<body id='usage_tracking_calendar'>
 <div style="height:500px;">
 <? $this->load->view('nav_bar') ?>
 

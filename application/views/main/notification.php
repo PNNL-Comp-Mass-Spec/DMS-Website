@@ -1,25 +1,3 @@
-<style type="text/css">
-
-.notification {
-	position: absolute;
-	top: 180px;
-	left: 100px;
-	height: auto;
-	background: #FAFAF0;
-	border: solid 3px gray;
-	overflow: hidden;
-	zIndex: 900;
-}
-.notification_header {
-	border-bottom:2px solid gray;
-}
-.notification_header div {
-	padding:5px;
-}
-.notification_message {
-	padding:10px 10px 10px 5px;
-}
-</style>
 
 <script type='text/javascript'>
  $(document).ready(function () { 

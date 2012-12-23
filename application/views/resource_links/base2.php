@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/base.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?= base_url().'css/custom.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/nav_bar.css' ?>" />
 
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/jquery-ui-1.8.21.custom.css' ?>" />

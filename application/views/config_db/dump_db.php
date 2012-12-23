@@ -6,12 +6,6 @@
 <? $this->load->view('resource_links/base2') ?>
 <? $this->load->view('resource_links/cfg') ?>
 
-<style type="text/css">
-div.block_content {
-	display:block;
-}
-</style>
-
 <script type="text/javascript">
 	
 function search() {

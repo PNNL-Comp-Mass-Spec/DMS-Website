@@ -3,23 +3,6 @@
 </div>
 <div style="height:1em;"></div>
 
-<style type="text/css">
-.block_header {
-	min-width:50em;
-	padding-top:10px;
-	padding-bottom:10px;
-}
-.block_title {
-	font-size:125%;
-	font-weight:bold;
-	padding-right:10px;
-	width:18em;
-}
-.chsr {
-	padding-bottom:5px;
-}
-</style>
-
 <? $chimg = base_url()."images/chooser.png"; ?>
 
 <div style='padding:5px 0px 5px 5px;'>

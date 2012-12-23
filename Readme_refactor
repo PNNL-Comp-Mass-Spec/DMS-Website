@@ -15,6 +15,17 @@ Get rid of aux info
 Reduce/eliminate in-line JS
 
 ------------------------------------------
+
+body#Isolation_Edit #NitTableContainer .r0 {
+    background: #FFF !important;
+    border-left-color: #FFF !important;
+    border-bottom-color: #FFF !important;
+    padding-left: 0 !important;
+}
+
+<body id="bodyId">
+
+------------------------------------------
 standard interface for page family pages 
 
 ------------------------------------------

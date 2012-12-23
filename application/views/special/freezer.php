@@ -5,37 +5,8 @@
 
 <? $this->load->view('resource_links/base2') ?>
 
-<style type="text/css">
-table.GridCell {
-	border:2px solid #6495ED;
-	background-color:#E1E7EA;
-}
-table.GridCell tr {
-	background-color:#E1E7EA;
-}
-table.GridCell th {
-	background-color:#E1E7EA;
-}
-table.GridCell td {
-	background-color:#EFEFEF;
-}
-#comp_pos_link_container {
-	padding: 5px 5px 5px 5px;
-}
-.block_spacer {
-	width:300px;
-}
-tr.block_content {
-	display:none;
-}
-tr.block_header {
-	min-width:50em;
-	text-align:center;
-}
-</style>
-
 </head>
-<body>
+<body id='freezer_page'>
 <div style="height:500px;">
 
 <? $this->load->view('nav_bar') ?>
