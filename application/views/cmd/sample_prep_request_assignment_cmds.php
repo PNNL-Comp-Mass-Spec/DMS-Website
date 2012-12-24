@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 function performOperation(mode, value) {
-	var list = gamma.getCkbxList('ckbx');
+	var list = kappa.getCkbxList('ckbx');
 	if(list=='') {
 		alert('You must select requests.'); 
 		return;

@@ -27,7 +27,7 @@
 		</tr>
 		<tr><td>Item List</td></tr>
 		<tr>
-		<td><textarea id='entry_item_list' name='itemList' cols='70' rows='6' onChange='gamma.convertList("entry_item_list", ",")'></textarea></td>
+		<td><textarea id='entry_item_list' name='itemList' cols='70' rows='6' onChange='epsilon.convertList("entry_item_list", ",")'></textarea></td>
 		<td>
 		<div class='chsr'>choose biomaterial... <a href="javascript:callChooserSetType('biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>choose experiments... <a href="javascript:callChooserSetType('experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
@@ -50,7 +50,7 @@
 function callChooserSetType(item_type, chooserPage, delimiter, xref){
 	$('#itemTypeSelector').val(item_type);
 	var page = gamma.global.site_url + chooserPage;
-	gamma.callChooser('entry_item_list', page, delimiter, xref)
+	epsilon.callChooser('entry_item_list', page, delimiter, xref)
 }
 
 function updateDataPackageItems(id, form_id, mode) {

@@ -33,7 +33,7 @@
 
 function callOSMChooser(){
 	var page = "<?= site_url() ?>helper_osm_package/report";
-	gamma.callChooser('packageID', page,  ',', '')
+	epsilon.callChooser('packageID', page,  ',', '')
 }
 
 function goToPage() {

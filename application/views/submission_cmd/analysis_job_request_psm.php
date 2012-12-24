@@ -16,9 +16,9 @@
 $(document).ready(function () { 
 	$('#cmd_buttons').hide();
 	$('#move_next_link').hide();
-	gamma.hideSection('section_block_3');
-	gamma.hideSection('section_block_4');
-	gamma.hideSection('section_block_5');
+	epsilon.hideSection('section_block_3');
+	epsilon.hideSection('section_block_4');
+	epsilon.hideSection('section_block_5');
 });
 
 function createRequest() {
@@ -36,7 +36,7 @@ function submitMainEntryForm(mode, followOnAction) {
 	$('#requestID').val('0');
 	$('#move_next_link').hide();
 	var url = gamma.global.site_url + gamma.global.my_tag + "/submit_entry_form";
-	gamma.submitEntryFormToPage(url, mode, followOnAction);
+	epsilon.submitEntryFormToPage(url, mode, followOnAction);
 }
 
 function showPageLinks() {
@@ -80,9 +80,9 @@ function setFieldValues() {
 	$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').val( '1'));
 	$('#ModificationDynSTYPhos').checked = ( $('#suggested_DynSTYPhosEnabled').val( '1'));
 
-	gamma.showSection('section_block_3');
-	gamma.showSection('section_block_4');
-	gamma.showSection('section_block_5');
+	epsilon.showSection('section_block_3');
+	epsilon.showSection('section_block_4');
+	epsilon.showSection('section_block_5');
 }
 
 </script>

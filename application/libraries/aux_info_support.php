@@ -105,7 +105,7 @@ class Aux_info_support {
 		//
 		$js = "";
 		$js .= "id='$chooser_id' ";
-		$js .= " onChange='gamma.setFieldValueFromSelection(\"$item_value_field\", \"$chooser_id\", \"$mode\")'";
+		$js .= " onChange='epsilon.setFieldValueFromSelection(\"$item_value_field\", \"$chooser_id\", \"$mode\")'";
 		return form_dropdown("$chooser_id", $options, '', $js);		
 	}
 

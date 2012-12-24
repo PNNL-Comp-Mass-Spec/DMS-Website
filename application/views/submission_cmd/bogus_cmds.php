@@ -26,7 +26,7 @@ function showPopup(item) {
 }
 function doSubmit() {
 	$('#notification').hide();
-	gamma.submitEntryFormToPage(gSubmission.url, gSubmission.mode, post_submission_action);
+	epsilon.submitEntryFormToPage(gSubmission.url, gSubmission.mode, post_submission_action);
 }
 function doCancel() {
 //	$('#notification_message').html('');

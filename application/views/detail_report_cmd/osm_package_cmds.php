@@ -37,7 +37,7 @@
 		<td>Choose Items:</td>
 		</tr>
 		<tr>
-		<td><textarea id='entry_item_list' name='itemList' cols='70' rows='13' onChange='gamma.convertList("entry_item_list", ",")'></textarea></td>
+		<td><textarea id='entry_item_list' name='itemList' cols='70' rows='13' onChange='epsilon.convertList("entry_item_list", ",")'></textarea></td>
 		<td>
 		<div class='chsr'>Sample Submissions... <a href="javascript:callChooserSetType('Sample_Submissions', 'helper_sample_submissions_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>Sample Prep Requests.. <a href="javascript:callChooserSetType('Sample_Prep_Requests', 'helper_sample_prep_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
@@ -69,7 +69,7 @@
 function callChooserSetType(item_type, chooserPage, delimiter, xref){
 	$('#itemTypeSelector').val(item_type);
 	var page = gamma.global.site_url + chooserPage;
-	gamma.callChooser('entry_item_list', page, delimiter, xref)
+	epsilon.callChooser('entry_item_list', page, delimiter, xref)
 }
 
 function callSuggestionSetType(item_type, mode) {

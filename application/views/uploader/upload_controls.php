@@ -66,7 +66,7 @@ function updateSelectedEntities() {
 	}
 	gamma.global.update_url = gamma.global.site_url + "upload/" + action;
 
-	gamma.global.entityList = gamma.getSelectedItemList();
+	gamma.global.entityList = kappa.getSelectedItemList();
 	$('#start_update_btn').disable();
 	$('#cancel_update_btn').enable();
 	update_next_entity_in_list();
@@ -120,8 +120,8 @@ function markUnprocessedEntities() {
 </div>
 
 <div>
-<div class='cx'><a onclick='gamma.setCkbxState("ckbx", 1)' title="Check all checkboxes" href='javascript:void(0)' >Select All</a> &nbsp;  </div>
-<div class='cx'><a onclick='gamma.setCkbxState("ckbx", 0)' title="Clear all checkboxes" href='javascript:void(0)' >Unselect All</a> &nbsp; </div>
+<div class='cx'><a onclick='kappa.setCkbxState("ckbx", 1)' title="Check all checkboxes" href='javascript:void(0)' >Select All</a> &nbsp;  </div>
+<div class='cx'><a onclick='kappa.setCkbxState("ckbx", 0)' title="Clear all checkboxes" href='javascript:void(0)' >Unselect All</a> &nbsp; </div>
 <div class='cx'><a onclick='markUnprocessedEntities()' title="Select entities with blank results" href='javascript:void(0)' >Select Blank Results</a> &nbsp;  </div>
 <div class='cx'><a onclick='$(".entity_results_container").each(function(idx, obj){$(this).html("")});' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
 </div>

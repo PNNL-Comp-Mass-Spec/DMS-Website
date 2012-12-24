@@ -8,7 +8,7 @@ function performOperation(mode) {
 			return;
 		}
 	} else {
-		list = gamma.getCkbxList('ckbx');
+		list = kappa.getCkbxList('ckbx');
 		if (list == '') {
 			alert('You must select items.');
 			return;
@@ -47,7 +47,7 @@ function performOperation(mode) {
 Jobs to be associated with this group:
 </div>
 <div>
-<textarea name="addList" id="add_list_fld" rows=6 cols=80 onChange='gamma.convertList("add_list_fld", ",")' ></textarea>
+<textarea name="addList" id="add_list_fld" rows=6 cols=80 onChange='epsilon.convertList("add_list_fld", ",")' ></textarea>
 </div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("add")' />
 </div>

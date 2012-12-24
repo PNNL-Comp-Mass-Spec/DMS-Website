@@ -140,7 +140,7 @@ class cell_presentation {
 				break;
 
 			case "update_opener":
-				$str .= "<td>" . "<a href='javascript:opener.gamma.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
+				$str .= "<td>" . "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
 				break;
 			case "color_label":
 				if(array_key_exists($ref, $colSpec["cond"])) {
@@ -285,7 +285,7 @@ class cell_presentation {
 				// make header label
 				$str .= "<th>";
 				$str .= $marker;
-				$str .= "<a href='javascript:void(0)' onclick='gamma.setColSort(\"$col_name\")'  class='col_header'>$col_name</a>";
+				$str .= "<a href='javascript:void(0)' onclick='kappa.setColSort(\"$col_name\")'  class='col_header'>$col_name</a>";
 				$str .= $this->get_cell_padding($col_name);
 				$str .= "</th>";
 			}

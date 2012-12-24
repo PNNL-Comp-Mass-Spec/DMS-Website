@@ -21,7 +21,7 @@ function doSubmit(change) {
 	if(change) {
 		$('#State').setValue('Closed (containers and material)');
 	}
-	gamma.submitEntryFormToPage(gSubmission.url, gSubmission.mode);
+	epsilon.submitEntryFormToPage(gSubmission.url, gSubmission.mode);
 }
 function doCancel() {
 	$('#notification').hide();

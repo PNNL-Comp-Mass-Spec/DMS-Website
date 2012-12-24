@@ -22,7 +22,7 @@ var no_action = {
 var filter_update_action = {
 	run:function(){
 		if(!$('#sorting_filter_table')) {
-			gamma.updateContainer('param_filter', 'entry_form', 'search_filter_container', no_action);
+			kappa.updateContainer('param_filter', 'entry_form', 'search_filter_container', no_action);
 			$('#search_controls_container').show();
 		}
 	}
@@ -45,14 +45,14 @@ var paging_update_action = {
 			$('#paging_container_lower').show();
 			$('#paging_container_upper').html(gamma.global.progress_message);
 			$('#paging_container_lower').html(gamma.global.progress_message);
-			gamma.updateContainer('param_paging', 'entry_form', 'paging_container_upper', paging_cleanup_action);
+			kappa.updateContainer('param_paging', 'entry_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
 }
 //go get some data rows
 var data_update_action = {
 	run:function(){
-		gamma.updateContainer('param_data', 'entry_form', 'data_container', paging_update_action);
+		kappa.updateContainer('param_data', 'entry_form', 'data_container', paging_update_action);
 	}
 }
 //start the data update chain for the page
@@ -63,7 +63,7 @@ function updateMyData(loading) {
 }
 //after the page loads, set things in motion to populate it
 $(document).ready(function () { 
-	 	gamma.reloadListReportData = function() { updateMyData('autoload');}
+	 	kappa.reloadListReportData = function() { updateMyData('autoload');}
 		$('#data_container').html('Data will be displayed after you click the "Search" button.');
 	}
 );

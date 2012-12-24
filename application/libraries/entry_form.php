@@ -204,7 +204,7 @@ class Entry_form {
 		$s = "";
 		$block_label = "section_block_$section_count";
 		$marker = "<img id='".$block_label."_cntl"."' src='" . base_url(). "/images/z_hide_col.gif' border='0' >";
-		$s .= "<a href='javascript:void(0)' onclick='gamma.showHideTableRows(\"$block_label\", \"".base_url()."/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
+		$s .= "<a href='javascript:void(0)' onclick='epsilon.showHideTableRows(\"$block_label\", \"".base_url()."/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
 		$s .= "&nbsp; <strong>".$section_label."</strong>";
 		return $s;
 	}
@@ -216,7 +216,7 @@ class Entry_form {
 		$str = '';
 		if(array_key_exists($fld, $this->field_enable)) {
 			$ckbx_id = $fld . '_ckbx_enable';
-			$click = "onClick='gamma.enableDisableField(this, \"$fld\")'";
+			$click = "onClick='epsilon.enableDisableField(this, \"$fld\")'";
 			switch($this->field_enable[$fld]) {
 				case 'enabled':
 					$str = "<input type='checkbox' class='_ckbx_enable' name='$ckbx_id' $click checked='yes' >";
@@ -310,10 +310,10 @@ class Entry_form {
 			$data['cols'] = $f_spec['cols'];
 			if(isset($f_spec['auto_format'])) {
 				if($f_spec['auto_format'] == 'xml') {
-					$data['onBlur'] = "gamma.formatXMLText('".$data['id']."')";					
+					$data['onBlur'] = "epsilon.formatXMLText('".$data['id']."')";					
 				}
 			} else {
-				$data['onChange'] = "gamma.convertList('".$data['id']."', '".$delim."')";
+				$data['onChange'] = "epsilon.convertList('".$data['id']."', '".$delim."')";
 			}
 			$s .= form_textarea($data);
 			break;
@@ -385,13 +385,13 @@ class Entry_form {
 		// default command button
 		$mode = $this->get_mode_from_page_type($page_type);
 		$url = site_url(). $this->file_tag . "/submit_entry_form";
-		$attributes['onclick'] = "gamma.updateEntryPage('$url', '$mode')";
+		$attributes['onclick'] = "epsilon.updateEntryPage('$url', '$mode')";
 		$attributes['content'] = ($page_type == 'create')?'Create':'Update';;
 		//
 		// is there an override for the default command button?
 		foreach($entry_commands as $command => $spec) {
 			if($spec['type'] == 'override' and $spec['target'] == $mode) {
-				$attributes['onclick'] = "gamma.updateEntryPage('$url', '$command')";
+				$attributes['onclick'] = "epsilon.updateEntryPage('$url', '$command')";
 				$attributes['content'] = $spec['label'];
 				$attributes['title'] = $spec['tooltip'];
 				break;
@@ -405,7 +405,7 @@ class Entry_form {
 				case "cmd":
 					$attributes = array();
 					$attributes['content'] = $spec['label'];
-					$attributes['onclick'] = "gamma.updateEntryPage('$url', '$command')";
+					$attributes['onclick'] = "epsilon.updateEntryPage('$url', '$command')";
 					$attributes['title'] = $spec['tooltip'];
 					$str .= form_button($attributes) . "<br>\n";
 					break;
@@ -413,7 +413,7 @@ class Entry_form {
 					$target_url = site_url().$spec['target'];
 					$attributes = array();
 					$attributes['content'] = $spec['label'];
-					$attributes['onclick'] = "gamma.submitEntryFormToOtherPage('$target_url', '$command')";
+					$attributes['onclick'] = "epsilon.submitEntryFormToOtherPage('$target_url', '$command')";
 					$attributes['title'] = $spec['tooltip'];
 					$str .= form_button($attributes) . "<br>\n";
 					break;

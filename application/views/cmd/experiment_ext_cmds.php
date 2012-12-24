@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
 function transferData(perspective) {
-	var list = gamma.getCkbxList('ckbx' );
+	var list = kappa.getCkbxList('ckbx' );
 	if(list=='') {
 		alert('You must select at least 1 experiment.'); 
 		return;

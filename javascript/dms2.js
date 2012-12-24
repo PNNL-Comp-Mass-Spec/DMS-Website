@@ -97,7 +97,7 @@ var gamma = {
 	//function defined on the page, which will be set up
 	//with page-specific features
 	reloadListReportData: function() {
-		alert('"gamma.reloadListReportData" not overridden');
+		alert('"kappa.reloadListReportData" not overridden');
 	},
 	// for clearing cached page parameters
 	setListReportDefaults: function(url) { 
@@ -132,12 +132,12 @@ var gamma = {
 	//clear the specified list report search filter
 	clearSearchFilter: function(filter) {
 		$( '.' + filter).each(function(idx, obj) {obj.value = ''} );
-		this.is_filter_active();
+		kappa.is_filter_active();
 	},
 	//clear the list report search filters
 	clearSearchFilters: function() {
 		$(".filter_input_field").each(function(idx, obj) {obj.value = ''} );
-		this.is_filter_active();
+		kappa.is_filter_active();
 	},
 	//------------------------------------------
 	setColSort: function(colName, noUpdate) {
@@ -149,7 +149,7 @@ var gamma = {
 		$('#qf_sort_col_0').val(colName);
 		$('#qf_sort_dir_0').val(dir);
 		if(!noUpdate) {
-			this.reloadListReportData('autoload');
+			kappa.reloadListReportData('autoload');
 		}
 	},
 	//------------------------------------------
@@ -157,12 +157,12 @@ var gamma = {
 	//set the current starting row for the list report
 	setListReportCurRow: function(row) {
 		$('#qf_first_row').val(row);
-	 this.reloadListReportData();
+	 	kappa.reloadListReportData();
 	},
 	setPageSize: function(curPageSize, totalRows, max) {
-		var reply = this.getPageSizeFromUser(curPageSize, totalRows, max);
+		var reply = kappa.getPageSizeFromUser(curPageSize, totalRows, max);
 		if(reply == null) return;
-		this.setPageSizeParameter(reply);
+		kappa.setPageSizeParameter(reply);
 	},
 	getPageSizeFromUser: function(curPageSize, totalRows, max) {
 		var reply = null;
@@ -192,7 +192,7 @@ var gamma = {
 			var n = Number(newPageSize);
 			$('#qf_rows_per_page').val(newPageSize);
 			$('#qf_first_row').val(1);
-		    this.reloadListReportData();
+		    kappa.reloadListReportData();
 		}
 	},
 	//------------------------------------------
@@ -223,7 +223,7 @@ var gamma = {
 		ff.find(".sorting_filter_input").each(function(idx, obj) {
 				if(obj.value != '') sortFlag++;
 			} );	
-		gamma.set_filter_active_indicator(filterFlag, sortFlag);
+		kappa.set_filter_active_indicator(filterFlag, sortFlag);
 	},
 	filter_key: function(e) {
 		var code;
@@ -232,7 +232,7 @@ var gamma = {
 		else if (e.which) code = e.which;
 		if(code == 13) {
 			$('#qf_first_row').val(1);
-		    gamma.reloadListReportData();
+		    kappa.reloadListReportData();
 			return false;
 		}
 	   return true;
@@ -282,6 +282,40 @@ var gamma = {
 	  }
 	  return list;
 	},	
+	//------------------------------------------
+	// used by helper list reports with checkboxes
+	//------------------------------------------
+	
+	// set checked state of all checkboxes with given name from given list
+	setCkbxFromList: function(checkBoxName, selList) {
+		var rows = document.getElementsByName(checkBoxName, selList);
+		// split list into separate trimmed elements
+		var selections = selList.split(/[,;]/);
+	    for(var k = 0; k < selections.length; k++) {
+	    	selections[k] = gamma.trim(selections[k]);
+	    }
+	    // traverse checkbox elements, setting checkbox 
+	    // if it's value matches an element in list
+		for (var i = 0; i < rows.length; i++) {
+	        for(var k = 0; k < selections.length; k++) {
+	            if(selections[k] === rows[i].value) {
+	 			   rows[i].checked = true;
+	 			   break;
+	            }
+	        }
+		}
+	},
+	// set checked state of chooser's checkboxes from
+	// the current value of the field it is choosing for
+	intializeChooserCkbx: function(checkBoxName) {
+		if(window.opener) {
+			var list = window.opener.epsilon.getFieldValueForChooser();
+			kappa.setCkbxFromList(checkBoxName, list);
+		}
+	}
+};
+
+var epsilon = {
 	//------------------------------------------
 	//These functions are used by entry page 
 	//------------------------------------------
@@ -336,12 +370,12 @@ var gamma = {
 	showSection: function (block_name) {
 		var url = gamma.global.base_url + 'images/';
 		var hide_img = 'z_hide_col.gif';
-		gamma.showTableRows(block_name, url, hide_img);
+		epsilon.showTableRows(block_name, url, hide_img);
 	},
 	hideSection: function (block_name) {
 		var url = gamma.global.base_url + 'images/';
 		var show_img = 'z_show_col.gif';
-		gamma.hideTableRows(block_name, url, show_img);
+		epsilon.hideTableRows(block_name, url, show_img);
 	},
 	//------------------------------------------
 	//These functions are used by entry page that invokes 
@@ -375,7 +409,7 @@ var gamma = {
 		// if there is a cross-reference, pass it on end of URL
 		if(xv != '') chooserPage += sep + xv;
 		// make sure that there are no other chooser pages open
-		this.closeChooserWindowPage();
+		epsilon.closeChooserWindowPage();
 		// remember which field gets the update 
 		// for when the chooser page calls back (updateFieldValueFromChooser)
 		gChooser.field = fieldName;
@@ -405,7 +439,7 @@ var gamma = {
 			fld.value = value;
 		}
 		// we are done with chooser page - make it go away
-		this.closeChooserWindowPage();
+		epsilon.closeChooserWindowPage();
 		if(gChooser.callBack) {
 			gChooser.callBack();
 		}
@@ -451,7 +485,7 @@ var gamma = {
 		if(window.submissionSequence) {
 			submissionSequence(url, mode);
 		} else {
-			gamma.submitEntryFormToPage(url, mode);
+			epsilon.submitEntryFormToPage(url, mode);
 		}
 	},
 	//POST the entry form to the entry page via AJAX
@@ -462,7 +496,7 @@ var gamma = {
 		p = $('#entry_form').serialize();
 		$.post(url, p, function (data) {
 			    container.html(data);
-				setTimeout("gamma.adjustEnabledFields()", 350);
+				setTimeout("epsilon.adjustEnabledFields()", 350);
 				if(follow_on_action && follow_on_action.run) {
 					follow_on_action.run(mode);
 				}
@@ -477,37 +511,7 @@ var gamma = {
 		f.method="post";
 		f.submit();
 	},	
-	//------------------------------------------
-	// used by helper list reports with checkboxes
-	//------------------------------------------
-	
-	// set checked state of all checkboxes with given name from given list
-	setCkbxFromList: function(checkBoxName, selList) {
-		var rows = document.getElementsByName(checkBoxName, selList);
-		// split list into separate trimmed elements
-		var selections = selList.split(/[,;]/);
-	    for(var k = 0; k < selections.length; k++) {
-	    	selections[k] = this.trim(selections[k]);
-	    }
-	    // traverse checkbox elements, setting checkbox 
-	    // if it's value matches an element in list
-		for (var i = 0; i < rows.length; i++) {
-	        for(var k = 0; k < selections.length; k++) {
-	            if(selections[k] === rows[i].value) {
-	 			   rows[i].checked = true;
-	 			   break;
-	            }
-	        }
-		}
-	},
-	// set checked state of chooser's checkboxes from
-	// the current value of the field it is choosing for
-	intializeChooserCkbx: function(checkBoxName) {
-		if(window.opener) {
-			var list = window.opener.gamma.getFieldValueForChooser();
-			this.setCkbxFromList(checkBoxName, list);
-		}
-	},
+
 	//------------------------------------------
 	// called by a drop-down selection type chooser
 	// to update its target field
@@ -574,7 +578,7 @@ var delta = {
 					if(show_resp) msg = data;
 					container.html(msg);
 					ctl.hide();
-					gamma.reloadListReportData();
+					kappa.reloadListReportData();
 				}
 			}
 		);
