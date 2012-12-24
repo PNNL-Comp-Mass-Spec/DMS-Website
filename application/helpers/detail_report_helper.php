@@ -239,7 +239,7 @@ function make_detail_report_commands($commands, $tag, $id)
 				break;
 			case 'cmd_op':
 				$url =  site_url().$target . "/command";
-				$str .= "<a href='javascript:performCommand(\"$url\", \"$id\", \"$cmd\")' title='$tooltip'>$label</a>|\n";
+				$str .= "<a href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\")' title='$tooltip'>$label</a>|\n";
 				break;
 
 		}

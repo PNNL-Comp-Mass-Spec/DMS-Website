@@ -14,8 +14,6 @@ function performOperation(mode, value) {
 	p.command = mode;
 	p.newValue = (value!='')?$F(value):'';
 	p.reqIDList = list;
-	var opts = {};
-	opts.parameters = p;
 	theta.submitOperation(url, p);
 }
 </script>

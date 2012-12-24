@@ -15,14 +15,11 @@ gamma.pageContext.cntrl_container_name =  'clear_message';
 gamma.pageContext.ops_url = '<?= $ops_url ?>';
 
 
-//use to terminate a calling chain
-var no_action = {
-}
 // update the column and sorting filters
 var filter_update_action = {
 	run:function(){
 		if(!$('#sorting_filter_table')) {
-			kappa.updateContainer('param_filter', 'entry_form', 'search_filter_container', no_action);
+			kappa.updateContainer('param_filter', 'entry_form', 'search_filter_container', gamma.no_action);
 			$('#search_controls_container').show();
 		}
 	}

@@ -11,44 +11,18 @@
 
 gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 gamma.pageContext.site_url = '<?= site_url() ?>';
+gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.response_container = 'update_message';
+gamma.pageContext.Id = '<?= $id ?>';
 
-//perform detail report command (via AJAX)
-function performCommand(url, id, mode) {
-	if( !confirm("Are you sure that you want to update the database?") ) return;
-	var p = {};
-	p.ID = id;
-	p.command = mode;
-	var opts = {};
-	opts.parameters = p;
-	var container = $('#' + gamma.pageContext.response_container);
-	container.html(gamma.pageContext.progress_message);
-	$.post(url, p, function (data) {
-		    container.html(data);
-			updateMyData();	
-		}
-	);
-}
-function updateContainer(url, containerId) { 
-	url = gamma.pageContext.site_url + url;
-	p = {};
-	$.post(url, p, function (data) {
-		    $('#' + containerId).html(data);
-		}
-	);
-
-}
-function updateMyData() {
-	updateContainer('<?= $this->my_tag ?>/show_data/<?= $id ?>', 'data_container'); 
-}
 function updateAuxIntoControls() {
-	updateContainer('<?= $this->my_tag ?>/detail_report_aux_info_controls/<?= $id ?>', 'aux_info_controls_container'); 
+	delta.updateContainer(gamma.pageContext.my_tag + '/detail_report_aux_info_controls/' + gamma.pageContext.Id, 'aux_info_controls_container'); 
 }
 function updateShowSQL() {
-	gamma.updateAlert('<?= $this->my_tag ?>/detail_sql/<?= $id ?>', 'OFS'); 
+	gamma.updateAlert(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS'); 
 }
 $(document).ready(function () { 
-	updateMyData();
+	delta.updateMyData();
 <?php if($aux_info_target):?>
 	updateAuxIntoControls();
 <?php endif; ?>

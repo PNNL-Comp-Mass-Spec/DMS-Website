@@ -69,7 +69,7 @@ function updateOSMPackageItems(form_id, mode) {
 				message_container.html(data);
 			} else {
 				message_container.html('Operation was successful');
-				updateMyData();
+				delta.updateMyData();
 			}
 		}
 	);

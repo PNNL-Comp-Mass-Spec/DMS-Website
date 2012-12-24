@@ -13,6 +13,10 @@ var gamma = {
 	
 	//------------------------------------------
 	// context values for current page
+	// 
+	// many library functions reference this object
+	// and depend on proper values being defined 
+	// by specific family page before they are called
 	//------------------------------------------
 	pageContext: {
 		'progress_message':'Loading...',
@@ -87,12 +91,15 @@ var gamma = {
 		frm.action = url;
 	    frm.submit();
 		frm.action = oldUrl;
+	},
+	// use to terminate a calling chain
+	no_action: {
 	}
 };
 		
-	//------------------------------------------
-	//These functions are used by list reports
-	//------------------------------------------
+//------------------------------------------
+//These functions are used by list reports
+//------------------------------------------
 var kappa = {	
 	//this function acts as a hook that other functions call to 
 	//reload the row data container for the list report.
@@ -378,11 +385,43 @@ var theta = {
 	},
 };
 
+//------------------------------------------
+//These functions are used by detail report page 
+//------------------------------------------
+var delta = {
+	//perform detail report command (via AJAX)
+	performCommand: function(url, id, mode) {
+		if( !confirm("Are you sure that you want to update the database?") ) return;
+		var p = {};
+		p.ID = id;
+		p.command = mode;
+		var container = $('#' + gamma.pageContext.response_container);
+		container.html(gamma.pageContext.progress_message);
+		$.post(url, p, function (data) {
+			    container.html(data);
+				delta.updateMyData();	
+			}
+		);
+	},
+	updateContainer: function(url, containerId) {
+		var container = $('#' + containerId);
+		url = gamma.pageContext.site_url + url;
+		var p = {};
+		$.post(url, p, function (data) {
+			    container.html(data);
+			}
+		);
+	},
+	updateMyData: function() {
+		delta.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container'); 
+	}
 
+};
+
+//------------------------------------------
+//These functions are used by entry page 
+//------------------------------------------
 var epsilon = {
-	//------------------------------------------
-	//These functions are used by entry page 
-	//------------------------------------------
 	
 	// style associated entry field for each enable checkbox
 	adjustEnabledFields: function() {

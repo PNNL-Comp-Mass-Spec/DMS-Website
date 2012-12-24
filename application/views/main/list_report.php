@@ -24,9 +24,7 @@ function updateMyFilter($mode) {
 		$('#show_more_filter').hide();$('#show_less_filter').show(); 
 	}
 }
-// use to terminate a calling chain
-var no_action = {
-}
+
 // bind observers to the filter fields to monitor filter status
 // and initialize filter status display
 var filter_observers_action = {
@@ -73,7 +71,7 @@ var data_update_action = {
 	}
 }
 function updateShowSQL() {
-	gamma.updateAlert('<?= $this->my_tag ?>/report_sql', 'filter_form'); 
+	gamma.updateAlert(gamma.pageContext.my_tag + '/report_sql', 'filter_form'); 
 }
 // update the SQL display box if it is visible
 var sql_display_action = {

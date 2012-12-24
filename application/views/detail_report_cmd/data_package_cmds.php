@@ -2,7 +2,7 @@
 <? $chimg = base_url()."images/chooser.png"; ?>
 
 <div class="LRepChooser" >
-|<span><a href='javascript:void(0)' onclick='updateMyData()'>Reload details</a></span>
+|<span><a href='javascript:void(0)' onclick='delta.updateMyData()'>Reload details</a></span>
 |<span><a href="<?= site_url() ?>data_package_job_coverage/report/<?= $id ?>">Job Coverage</a></span>
 |<span><a href="<?= site_url() ?>data_package_dataset_job_coverage/param/<?= $id ?>">Dataset Coverage</a></span>|
 <span id='detail_reload_status'></span>
@@ -65,7 +65,7 @@ function updateDataPackageItems(id, form_id, mode) {
 				message_container.html(data);
 			} else {
 				message_container.html('Operation was successful');
-				updateMyData();
+				delta.updateMyData();
 			}
 		}
 	);
