@@ -86,11 +86,13 @@ var gamma = {
 		frm.action = url;
 	    frm.submit();
 		frm.action = oldUrl;
-	},
+	}
+};
 		
 	//------------------------------------------
 	//These functions are used by list reports
 	//------------------------------------------
+var kappa = {	
 	//this function acts as a hook that other functions call to 
 	//reload the row data container for the list report.
 	//it needs to be overridden with the actual loading
