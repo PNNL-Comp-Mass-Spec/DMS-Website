@@ -49,8 +49,8 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-			$('#paging_container_upper').html(gamma.pageContext.progress_message);
-			$('#paging_container_lower').html(gamma.pageContext.progress_message);
+//			$('#paging_container_upper').html(gamma.pageContext.progress_message);
+//			$('#paging_container_lower').html(gamma.pageContext.progress_message);
 			kappa.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -65,8 +65,8 @@ var data_post_load_action = {
 // go get some data rows
 var data_update_action = {
 	run:function(){
-		$('#paging_container_upper').html(gamma.pageContext.progress_message);
-		$('#paging_container_lower').html(gamma.pageContext.progress_message);
+//		$('#paging_container_upper').html(gamma.pageContext.progress_message);
+//		$('#paging_container_lower').html(gamma.pageContext.progress_message);
 		kappa.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
 	}
 }
@@ -93,7 +93,7 @@ function updateMyData(loading) {
 }
 // after the page loads, set things in motion to populate it
 $(document).ready(function () { 
-		$('#data_container').html('Data is loading...' + gamma.pageContext.progress_message);
+//		$('#data_container').html('Data is loading...' + gamma.pageContext.progress_message);
 		updateMyFilter('minimal');
 		updateMyData('<?= $loading ?>');
 	 	kappa.reloadListReportData = function() { updateMyData('autoload');}

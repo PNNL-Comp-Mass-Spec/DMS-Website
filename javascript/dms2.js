@@ -122,9 +122,11 @@ var kappa = {
 	// and initiate the designated follow-on action, if such exists
 	updateContainer: function (action, formId, containerId, follow_on_action) { 
 		var container = $('#' + containerId);
+		var spin = new Spinner({}).spin(container[0]);
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/' + action;
 		var p = $('#' + formId).serialize();
 		$.post(url, p, function (data) {
+				spin.stop();
 			    container.html(data);
 				if(follow_on_action && follow_on_action.run) {
 					follow_on_action.run();
@@ -396,8 +398,9 @@ var delta = {
 		p.ID = id;
 		p.command = mode;
 		var container = $('#' + gamma.pageContext.response_container);
-		container.html(gamma.pageContext.progress_message);
+		var spin = new Spinner({}).spin(container[0]);
 		$.post(url, p, function (data) {
+				spin.stop();
 			    container.html(data);
 				delta.updateMyData();	
 			}
@@ -407,7 +410,9 @@ var delta = {
 		var container = $('#' + containerId);
 		url = gamma.pageContext.site_url + url;
 		var p = {};
+		var spin = new Spinner({}).spin(container[0]);
 		$.post(url, p, function (data) {
+				spin.stop();
 			    container.html(data);
 			}
 		);

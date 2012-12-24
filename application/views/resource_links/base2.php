@@ -10,6 +10,7 @@
 <script type="text/javascript" src="<?= base_url().'javascript/jquery.unobtrusive-ajax.min.js' ?>"></script>
 
 <script type="text/javascript" src="<?= base_url().'javascript/dms2.js' ?>"></script>
+<script type="text/javascript" src="<?= base_url().'javascript/spin.min.js' ?>"></script>
 
 <script type="text/javascript">var gChooser = {};</script>
 
