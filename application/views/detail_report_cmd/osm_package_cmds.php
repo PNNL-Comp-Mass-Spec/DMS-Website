@@ -68,13 +68,13 @@
 	
 function callChooserSetType(item_type, chooserPage, delimiter, xref){
 	$('#itemTypeSelector').val(item_type);
-	var page = gamma.global.site_url + chooserPage;
+	var page = gamma.pageContext.site_url + chooserPage;
 	epsilon.callChooser('entry_item_list', page, delimiter, xref)
 }
 
 function callSuggestionSetType(item_type, mode) {
 	$('#entry_item_list').val('');
-	var url = gamma.global.site_url + "osm_package/suggested_items/<?= $id ?>/" + mode;
+	var url = gamma.pageContext.site_url + "osm_package/suggested_items/<?= $id ?>/" + mode;
 	var p = {};
 	$.post(url, p, function (data) {
 			$('#itemTypeSelector').val(item_type);
@@ -85,11 +85,11 @@ function callSuggestionSetType(item_type, mode) {
 
 function updateOSMPackageItems(id, form_id, mode) {
 	if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
-	var url = gamma.global.site_url + "osm_package/operation/";
+	var url = gamma.pageContext.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
 	$('#entry_cmd_mode').val(mode);
 	var p = $('#' + form_id).serialize();
-	message_container.html(gamma.global.progress_message);
+	message_container.html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
 			if(data.indexOf('html failed') > -1) {
 				message_container.html(data);

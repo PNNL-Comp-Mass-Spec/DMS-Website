@@ -7,7 +7,7 @@
 // using all the current search filters
 // and convert JSON return to JavaScript array of row objects
 function download_to_graph() {
-	var url = gamma.global.site_url + gamma.global.my_tag + '/export_param/json'
+	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export_param/json'
 	var p = $('#entry_form').serialize();
 	$.post(url, p, function (data) {
 			var rows = data.evalJSON();

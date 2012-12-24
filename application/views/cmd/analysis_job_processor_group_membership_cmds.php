@@ -20,14 +20,14 @@ function performOperation(mode, p1, p2) {
 		
 	if(mode=='set_membership_enabled') mode = $F(p1);
 
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.command = mode;
 	p.newValue = (p2!='')?$F(p2):'';
 	p.processorGroupID = $('#pf_groupid').val();
 	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 	p.processorNameList = list;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 

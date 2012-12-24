@@ -44,7 +44,7 @@ function copy_param_form_to_xml_param_field() {
 
 // get supplemental form fields via an AJAX call
 function load_param_form() {
-	var url = gamma.global.site_url + gamma.global.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#scriptName').val();
+	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#scriptName').val();
 	p = {};
 	$.post(url, p, function (data) {
 		    $('#param_container').html(data);
@@ -60,7 +60,7 @@ function choose_script(script) {
 function load_script_diagram() {
 	var scriptName = $('#scriptName').val();
 	if(scriptName) {
-		var url = gamma.global.site_url + 'pipeline_script/dot/' + scriptName
+		var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
 		var container = 'script_diagram_container';
 		p = {};
 		$.post(url, p, function (data) {

@@ -8,14 +8,14 @@ function performOperation(mode) {
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.command = mode;
 	p.datasetIDList = list;
 	p.rating = $('#rating_fld').val();
 	p.comment = $('#comment_fld').val();
 	p.recycleRequest = $('#recycle_fld').val();
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 

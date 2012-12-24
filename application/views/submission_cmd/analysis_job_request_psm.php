@@ -35,14 +35,14 @@ function previewRequest() {
 function submitMainEntryForm(mode, followOnAction) {
 	$('#requestID').val('0');
 	$('#move_next_link').hide();
-	var url = gamma.global.site_url + gamma.global.my_tag + "/submit_entry_form";
+	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + "/submit_entry_form";
 	epsilon.submitEntryFormToPage(url, mode, followOnAction);
 }
 
 function showPageLinks() {
 	var id = $('#requestID').val();
 	if(id != '0') {
-		var url = gamma.global.site_url + "analysis_job_request/show/" + id;
+		var url = gamma.pageContext.site_url + "analysis_job_request/show/" + id;
 		$('#move_next_link').href = url;
 		$('#move_next_link').show();
 	}
@@ -55,7 +55,7 @@ function getJobDefaults() {
 
 // 
 function callOperation(url) {
-	url =  gamma.global.site_url + url;
+	url =  gamma.pageContext.site_url + url;
 	var p = {};
 	p.datasets = $('#datasets').val();
 	//	FUTURE:progress indicator

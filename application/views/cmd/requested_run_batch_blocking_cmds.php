@@ -57,14 +57,14 @@ function createBlocksViaRandomAssignment() {
 <script type="text/javascript">
 function updateDatabaseFromList(flist, blist) {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var factorXML = delta.getFactorXMLFromList(flist);
+	var factorXML = theta.getFactorXMLFromList(flist);
 	var blockingXML = theta.getBlockingXMLFromList(blist);
 	
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.factorList = factorXML;
 	p.blockingList = blockingXML;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 function saveChangesToDababase() {
 	var factor_cols = getFactorCols();
@@ -74,7 +74,7 @@ function saveChangesToDababase() {
 	updateDatabaseFromList(flist, blist);
 }
 function load_delimited_text() {
-	var parsed_data = delta.getFactorXMLFromList('delimited_text_input', true);
+	var parsed_data = theta.getFactorXMLFromList('delimited_text_input', true);
 	if(parsed_data.header[0] != 'Request') {
 		alert('Header line does not begin with "Request"');
 		// (someday) more extensive validation
@@ -108,7 +108,7 @@ function setBlockForSelectedItems() {
 
 <script type="text/javascript">
 function performBatchOperation(mode) {
-	var url =  gamma.global.site_url + "requested_run_batch_blocking/exec/batch/";
+	var url =  gamma.pageContext.site_url + "requested_run_batch_blocking/exec/batch/";
 	var p = {};
 	p.command = mode;
 	p.batchID = $('#BatchID').val();
@@ -116,7 +116,7 @@ function performBatchOperation(mode) {
 		alert("No batch ID");
 		return;
 	}
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 

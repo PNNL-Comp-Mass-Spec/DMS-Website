@@ -9,9 +9,9 @@
 
 <script type='text/javascript'>
 
-gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
-gamma.global.site_url = '<?= site_url() ?>';
-gamma.global.response_container = 'update_message';
+gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
+gamma.pageContext.site_url = '<?= site_url() ?>';
+gamma.pageContext.response_container = 'update_message';
 
 //perform detail report command (via AJAX)
 function performCommand(url, id, mode) {
@@ -21,8 +21,8 @@ function performCommand(url, id, mode) {
 	p.command = mode;
 	var opts = {};
 	opts.parameters = p;
-	var container = $('#' + gamma.global.response_container);
-	container.html(gamma.global.progress_message);
+	var container = $('#' + gamma.pageContext.response_container);
+	container.html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
 		    container.html(data);
 			updateMyData();	
@@ -30,7 +30,7 @@ function performCommand(url, id, mode) {
 	);
 }
 function updateContainer(url, containerId) { 
-	url = gamma.global.site_url + url;
+	url = gamma.pageContext.site_url + url;
 	p = {};
 	$.post(url, p, function (data) {
 		    $('#' + containerId).html(data);

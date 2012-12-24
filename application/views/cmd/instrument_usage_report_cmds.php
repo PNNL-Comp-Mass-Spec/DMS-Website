@@ -11,7 +11,7 @@ function parseUploadText(text_fld) {
 	lines.each(function(idx, line, lineNumber){
 		line = gamma.trim(line);
 		if(line) {	
-			var fields = delta.parse_lines(line)
+			var fields = theta.parse_lines(line)
 			if(lineNumber == 0) {
 				header = fields;
 			} else {
@@ -29,15 +29,15 @@ function parseUploadText(text_fld) {
 }
 function updateDatabaseFromList(flist, id_type) {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var factorXML = delta.getFactorXMLFromList(flist);
+	var factorXML = theta.getFactorXMLFromList(flist);
 	if(id_type) {
 		factorXML = '<id type="' + id_type + '" />' + factorXML;
 	}
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.factorList = factorXML;
 	p.operation = 'update';
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 function load_delimited_text() {
 	var parsed_data = parseUploadText('delimited_text_input');
@@ -47,14 +47,14 @@ function load_delimited_text() {
 	updateDatabaseFromList(flist, id_type);
 }
 function reloadReport(operation) {
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.factorList = '';
 	p.operation = operation;
 	p.year = $('#pf_year').val();
 	p.month = $('#pf_month').val();
 	p.instrument = $('#pf_instrument').val();
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 function refresh_report() {
 	if ( !confirm("Are you sure that you want to refresh the exiting report") ) return;

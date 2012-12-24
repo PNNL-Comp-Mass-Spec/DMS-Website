@@ -39,7 +39,7 @@ function copy_param_form_to_xml_param_field() {
 
 // get supplemental form fields via an AJAX call
 function load_param_form() {
-	var url = gamma.global.site_url + gamma.global.my_tag + '/parameter_form/' + $('#scriptName').val();
+	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#scriptName').val();
 	p = {};
 	$.post(url, p, function (data) {
 		    $('#param_container').html(data);

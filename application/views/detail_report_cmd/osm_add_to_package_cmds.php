@@ -37,7 +37,7 @@ function callOSMChooser(){
 }
 
 function goToPage() {
-	var url = gamma.global.site_url + "osm_package_items/report/" + codeMap[gamma.global.my_tag] + "/" + $('#packageID').val();
+	var url = gamma.pageContext.site_url + "osm_package_items/report/" + codeMap[gamma.pageContext.my_tag] + "/" + $('#packageID').val();
 	window.location.href = url;
 }
 
@@ -56,14 +56,14 @@ var codeMap = {
 
 function updateOSMPackageItems(form_id, mode) {
 	if ( !confirm("Are you sure that you want to " + mode + " this entity to the OSM package?") ) return;
-	var url = gamma.global.site_url + "osm_package/operation/";
+	var url = gamma.pageContext.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
 	var id = '<?= $id ?>';
 	$('#entry_cmd_mode').val(mode);
 	$('#itemTypeSelector').val(codeMap['<?= $this->my_tag ?>']);
 	$('#entry_item_list').val(id);
 	var p = $('#' + form_id).serialize();
-	message_container.html(gamma.global.progress_message);
+	message_container.html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
 			if(data.indexOf('html failed') > -1) {
 				message_container.html(data);

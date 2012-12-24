@@ -11,7 +11,7 @@ $(document).ready(function () {
 	}
 )
 function showAttachments() {
-	var url =  gamma.global.site_url + "file_attachment/show_attachments";
+	var url =  gamma.pageContext.site_url + "file_attachment/show_attachments";
 	var p = {};
 	p.entity_type = "<?= $tag ?>";
 	p.entity_id = "<?= $id ?>";
@@ -30,7 +30,7 @@ function doOperation(faid, mode) {
 	if(mode = 'delete') {
 		if(!confirm('Are you sure you want to delete this attached file? This operation cannot be undone.')) return;
 	}
-	var url =  gamma.global.site_url + "file_attachment/perform_operation";
+	var url =  gamma.pageContext.site_url + "file_attachment/perform_operation";
 	var p = {};
 	p.id = faid;
 	p.mode = mode;
@@ -44,7 +44,7 @@ function doOperation(faid, mode) {
 	);
 }
 function do_upload() {
-	$('#result_display').html(gamma.global.progress_message);
+	$('#result_display').html(gamma.pageContext.progress_message);
 	$('#upload_form').submit();
 }
 </script>

@@ -6,12 +6,12 @@
 <? $this->load->view('resource_links/base2') ?>
 
 <script type='text/javascript'>
-gamma.global = {};
-gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
-gamma.global.site_url = '<?= site_url() ?>';
+gamma.pageContext = {};
+gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
+gamma.pageContext.site_url = '<?= site_url() ?>';
 
 $(document).ready(function () { 
-	$('#ss_entity_list_container').load(gamma.global.site_url+'upload/directory');
+	$('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory');
 });
 
 // called by javascript that is returned by upload operation 
@@ -28,13 +28,13 @@ function report_upload_results(file_name, error) {
 	}
 }
 function updateContainer(action, containerId, id) { 
-	var url = gamma.global.site_url + 'upload/' + action;
+	var url = gamma.pageContext.site_url + 'upload/' + action;
 	var p = {};
 	p.file_name = $('#uploaded_file_name').val();
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
 	var container = $('#' + containerId);
-	container.html(gamma.global.progress_message);
+	container.html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
 		    container.html(data);
 		}
@@ -66,7 +66,7 @@ function clearSpreadsheetDisplay() {
 <div class='local_title'><?= $title; ?></div>
 
 <div style='padding:5px 0 0 0;' >
-<form action = gamma.global.site_url + "upload/load" method="post" enctype="multipart/form-data" target="upload_target" >
+<form action = gamma.pageContext.site_url + "upload/load" method="post" enctype="multipart/form-data" target="upload_target" >
 File to upload: 
 <input name="myfile" id="myfile" type="file" size="120"/>
 <input type="submit" name="submitBtn" value="Upload" title="Upload local file to DMS" />
@@ -84,7 +84,7 @@ Uploaded file:
 <table>
 <tr>
 <td style='vertical-align:top;' ><div style='height:10px;'></div><div id='master_control_container' style='display:none;border:2px solid #AAA;'><? $this->load->view('uploader/upload_controls') ?></div></td>
-<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(gamma.global.site_url+'upload/directory')">Help</a></div></td>
+<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory')">Help</a></div></td>
 </tr>
 </table>
 

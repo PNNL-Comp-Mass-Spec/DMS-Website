@@ -44,11 +44,11 @@ function saveChangesToDababase() {
 	}
 	var xml = make_xml_list_from_edit_fileds(rlist);
 
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.command = 'update';
 	p.cartAssignmentList = xml;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 <script type="text/javascript">

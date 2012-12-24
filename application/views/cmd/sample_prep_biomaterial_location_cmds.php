@@ -20,8 +20,8 @@ function performCommand(url, id, mode) {
 	p.command = mode;
 	var opts = {};
 	opts.parameters = p;
-	var container = $('#' + gamma.global.response_container);
-	container.html(gamma.global.progress_message);
+	var container = $('#' + gamma.pageContext.response_container);
+	container.html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
 		container.html(data);
 		updateMyData('autoload');	

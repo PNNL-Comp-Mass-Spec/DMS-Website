@@ -11,8 +11,8 @@ function updateDatabaseFromList(xml, command) {
 	var p = {};
 	p.requestList = xml;
 	p.command = command;
-	var url =  gamma.global.ops_url;
-	delta.submitOperation(url, p);
+	var url =  gamma.pageContext.ops_url;
+	theta.submitOperation(url, p);
 }
 function make_xml_list(rlist) {
 	var s = '';

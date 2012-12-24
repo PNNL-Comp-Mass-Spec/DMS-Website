@@ -7,14 +7,14 @@
 
 <script type='text/javascript'>
 
-gamma.global = {};
-gamma.global.site_url = '<?= site_url() ?>';
+gamma.pageContext = {};
+gamma.pageContext.site_url = '<?= site_url() ?>';
 
 // AJAX call to get data from predefined query in DMS (specified by config_source and config_name)
 // applying secondary filter as defined in filter_string
 // and deliver in format specified by output_format
 function get_data(output_format, config_source, config_name, filter_string, sorting_string) {
-	var url = gamma.global.site_url + 'data/lz/' + output_format + '/' + config_source + '/' + config_name;
+	var url = gamma.pageContext.site_url + 'data/lz/' + output_format + '/' + config_source + '/' + config_name;
 
 	var container = $('#wall');
 	container.val('working...');

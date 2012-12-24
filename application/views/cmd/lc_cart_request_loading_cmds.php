@@ -25,11 +25,11 @@ function saveChangesToDababase() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
 	var rlist = getEditFieldsObjList();
 	var xml = make_xml(rlist);
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.command = 'update';
 	p.cartAssignmentList = xml;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 <script type="text/javascript">

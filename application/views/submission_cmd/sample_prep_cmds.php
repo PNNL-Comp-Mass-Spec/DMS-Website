@@ -36,11 +36,11 @@ function checkMaterial() {
 	}
 }
 function performCall(mode) {
-	var url =  gamma.global.site_url + "sample_prep_biomaterial_location/check_biomaterial";
+	var url =  gamma.pageContext.site_url + "sample_prep_biomaterial_location/check_biomaterial";
 	var p = {};
 	p.ID = $('#ID').getValue();
 	p.command = mode;
-	$('#notification_message').html(gamma.global.progress_message);
+	$('#notification_message').html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
 			showPopup('cmd_buttons');
 			$('#notification_message').html(data);

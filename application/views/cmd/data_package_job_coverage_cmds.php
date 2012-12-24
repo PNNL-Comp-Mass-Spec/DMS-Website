@@ -13,18 +13,18 @@ function performOperation(mode){
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	var url =  gamma.global.site_url + "data_package_items/exec/";
+	var url =  gamma.pageContext.site_url + "data_package_items/exec/";
 	var p = {};
 	p.command = mode;
 	p.paramListXML = list;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 function getDatasetInfo(mode) {
 	var id = $('#pf_data_package_id').val();
 	var tool = $('#tool_name').val();
 	if(id == '') {alert('data_package_id filter not set'); return;}
 
-	var url =  gamma.global.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
+	var url =  gamma.pageContext.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
 	var p = {};
 	$('#dataset_dump_field').html('');
 	$.post(url, p, function (data) {

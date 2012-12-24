@@ -25,14 +25,14 @@ function setItemTypeField() {
 }
 function updateDatabaseFromList(flist, id_type) {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var factorXML = delta.getFactorXMLFromList(flist);
+	var factorXML = theta.getFactorXMLFromList(flist);
 	if(id_type) {
 		factorXML = '<id type="' + id_type + '" />' + factorXML;
 	}
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.factorList = factorXML;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 function saveChangesToDababase() {
 	var cols = theta.getListReportColumnList();
@@ -41,7 +41,7 @@ function saveChangesToDababase() {
 	updateDatabaseFromList(flist, 'Request');
 }
 function load_delimited_text() {
-	var parsed_data = delta.getFactorXMLFromList('delimited_text_input', true);
+	var parsed_data = theta.getFactorXMLFromList('delimited_text_input', true);
 	var id_type = parsed_data.header[0];
 	var col_list = parsed_data.header.without(id_type, 'Block', 'Run Order');
 	var flist = theta.getFieldListFromParsedData(parsed_data, col_list);

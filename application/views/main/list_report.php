@@ -7,13 +7,13 @@
 
 <script type='text/javascript'>
 
-gamma.global.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
-gamma.global.site_url = '<?= site_url() ?>';
-gamma.global.my_tag = '<?= $this->my_tag ?>';
-gamma.global.is_ms_helper = '<?= $is_ms_helper ?>';
-gamma.global.response_container_name =  "update_message";
-gamma.global.cntrl_container_name =  "clear_message";
-gamma.global.ops_url = '<?= $ops_url ?>';
+gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
+gamma.pageContext.site_url = '<?= site_url() ?>';
+gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
+gamma.pageContext.response_container_name =  "update_message";
+gamma.pageContext.cntrl_container_name =  "clear_message";
+gamma.pageContext.ops_url = '<?= $ops_url ?>';
 
 // load the filter panel according to the given layout mode
 function updateMyFilter($mode) {
@@ -51,8 +51,8 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-			$('#paging_container_upper').html(gamma.global.progress_message);
-			$('#paging_container_lower').html(gamma.global.progress_message);
+			$('#paging_container_upper').html(gamma.pageContext.progress_message);
+			$('#paging_container_lower').html(gamma.pageContext.progress_message);
 			kappa.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -61,14 +61,14 @@ var paging_update_action = {
 var data_post_load_action = {
 	run:function(){
 		paging_update_action.run();
-		if(!$('#data_message') && gamma.global.is_ms_helper) { kappa.intializeChooserCkbx('ckbx') }
+		if(!$('#data_message') && gamma.pageContext.is_ms_helper) { kappa.intializeChooserCkbx('ckbx') }
 	}
 }
 // go get some data rows
 var data_update_action = {
 	run:function(){
-		$('#paging_container_upper').html(gamma.global.progress_message);
-		$('#paging_container_lower').html(gamma.global.progress_message);
+		$('#paging_container_upper').html(gamma.pageContext.progress_message);
+		$('#paging_container_lower').html(gamma.pageContext.progress_message);
 		kappa.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
 	}
 }
@@ -79,7 +79,7 @@ function updateShowSQL() {
 var sql_display_action = {
 	run:function() {
 		if($('#notification').is(':visible')) {
-			gamma.updateAlert(gamma.global.my_tag + '/report_sql', 'filter_form');
+			gamma.updateAlert(gamma.pageContext.my_tag + '/report_sql', 'filter_form');
 		}
 	}
 }
@@ -95,7 +95,7 @@ function updateMyData(loading) {
 }
 // after the page loads, set things in motion to populate it
 $(document).ready(function () { 
-		$('#data_container').html('Data is loading...' + gamma.global.progress_message);
+		$('#data_container').html('Data is loading...' + gamma.pageContext.progress_message);
 		updateMyFilter('minimal');
 		updateMyData('<?= $loading ?>');
 	 	kappa.reloadListReportData = function() { updateMyData('autoload');}

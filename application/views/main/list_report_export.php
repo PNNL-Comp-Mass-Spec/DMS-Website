@@ -6,7 +6,7 @@ function download_to_doc(format) {
 	if(row_count > 4000) {
 		if (!confirm('Are you sure you want to export ' + row_count + ' rows?') ) return;
 	}
-	var url = gamma.global.site_url + gamma.global.my_tag + '/export/' + format
+	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/' + format
 	gamma.export_to_doc(url, "filter_form");
 }
 </script>

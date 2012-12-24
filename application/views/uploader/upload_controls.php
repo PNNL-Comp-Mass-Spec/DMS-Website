@@ -12,15 +12,15 @@ function get_master_control_settings() {
 //update entity in database and call update_next_entity_in_list
 //upon completion (in case a list of entities is being processed)
 function update_entity(id, containerId) {
-	var file_name = gamma.global.file_name;
-	var url       = gamma.global.update_url;
-	var p         = gamma.global.processing_params;
-	p.entity_type = gamma.global.entity_type;
+	var file_name = gamma.pageContext.file_name;
+	var url       = gamma.pageContext.update_url;
+	var p         = gamma.pageContext.processing_params;
+	p.entity_type = gamma.pageContext.entity_type;
 	p.file_name   = file_name;
 	p.id          = id;
 	if(!p.file_name) {alert('No file name'); return; }
 	var container = $('#' + containerId);
-	container.html(gamma.global.progress_message);
+	container.html(gamma.pageContext.progress_message);
 
 	$.post(url, p, function (data) {
 			container.html(data);
@@ -34,11 +34,11 @@ function update_entity(id, containerId) {
 //pull the specifications for the next entity to be updated
 //out of the master list and call update_entity for it to update the db
 function update_next_entity_in_list() {
-	var x = gamma.global.entityList.shift();
-	if(x && gamma.global.update_in_progress) {
+	var x = gamma.pageContext.entityList.shift();
+	if(x && gamma.pageContext.update_in_progress) {
 		var obj = x.evalJSON();
 		if(obj) {
-			$('#process_progress').html(gamma.global.entityList.length);
+			$('#process_progress').html(gamma.pageContext.entityList.length);
 			update_entity(obj.entity, obj.container);
 		}
 	} else {
@@ -47,33 +47,33 @@ function update_next_entity_in_list() {
 }
 //start the ball rolling on processing the selected entities
 function updateSelectedEntities() {
-	gamma.global.update_in_progress = true;
+	gamma.pageContext.update_in_progress = true;
 
 	var file_name = $('#uploaded_file_name').val();
 	if(file_name == '') { alert('File name is blank'); return; }
-	gamma.global.file_name = file_name;
+	gamma.pageContext.file_name = file_name;
 
 	var type = $('#entity_type').html();
 	if(type == '') { alert('Entity type could not be determined'); return; }
-	gamma.global.entity_type = type;
+	gamma.pageContext.entity_type = type;
 
 	var p = get_master_control_settings();
-	gamma.global.processing_params = p;
+	gamma.pageContext.processing_params = p;
 
 	var action = 'update';
 	if(p.mode == 'check_exists') {
 		action = 'exists';
 	}
-	gamma.global.update_url = gamma.global.site_url + "upload/" + action;
+	gamma.pageContext.update_url = gamma.pageContext.site_url + "upload/" + action;
 
-	gamma.global.entityList = kappa.getSelectedItemList();
+	gamma.pageContext.entityList = kappa.getSelectedItemList();
 	$('#start_update_btn').disable();
 	$('#cancel_update_btn').enable();
 	update_next_entity_in_list();
 }
 // stop the processing
 function cancelUpdate() {
-	gamma.global.update_in_progress = false;
+	gamma.pageContext.update_in_progress = false;
 	$('#process_progress').html('');
 	$('#start_update_btn').enable();
 	$('#cancel_update_btn').disable();

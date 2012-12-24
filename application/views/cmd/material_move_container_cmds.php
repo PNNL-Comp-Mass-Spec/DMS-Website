@@ -14,7 +14,7 @@ function performOperation(mode, val) {
 	p.containerList = list;
 	p.newValue = (val)?$F(val):'';
 	p.comment = $('#comment_fld').val();
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 

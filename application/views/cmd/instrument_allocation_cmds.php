@@ -37,13 +37,13 @@ function updateDatabaseFromList(flist, fiscal_year) {
 	if(fiscal_year) {
 		allocationXML = '<c fiscal_year="' + fiscal_year + '" />' + allocationXML;
 	}
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.parameterList = allocationXML;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 function load_delimited_text() {
-	var parsed_data = delta.getFactorXMLFromList('delimited_text_input', false);
+	var parsed_data = theta.getFactorXMLFromList('delimited_text_input', false);
 	var fiscal_year = $('#fiscal_year').val();
 	if(fiscal_year == '') {
 		alert('You must set the fiscal year for the changes');
@@ -71,10 +71,10 @@ function move_allocated_hours() {
 	xml += 'g="' + $('#move_group').val() + '" ';
 	xml += 'x="' + $('#move_comment').val() + '" ';	
 	xml += ' />';
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.parameterList = xml;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 function set_allocated_hours() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -86,10 +86,10 @@ function set_allocated_hours() {
 	xml += 'g="' + $('#set_group').val() + '" ';
 	xml += 'x="' + $('#set_comment').val() + '" ';	
 	xml += ' />';	
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.parameterList = xml;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 

@@ -5,15 +5,16 @@ $(document).ajaxError(function (e, xhr, settings, exception) {
     alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
 });	
 	
+//------------------------------------------
+// global and general-purpose functions and objects
+//------------------------------------------
+
 var gamma = {
 	
 	//------------------------------------------
-	// These functions are generic
+	// context values for current page
 	//------------------------------------------
-	
-	// these are global values whose defaults 
-	// can be overridden by individual pages
-	global: {
+	pageContext: {
 		'progress_message':'Loading...',
 		'site_url':''
 	},
@@ -22,7 +23,7 @@ var gamma = {
 		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	},
 	updateAlert: function(url, form) { 
-		url = gamma.global.site_url + url;
+		url = gamma.pageContext.site_url + url;
 		p = $('#' + form).serialize();
 		$.post(url, p, function(data) {
 				$('#notification_message').html(data);
@@ -114,7 +115,7 @@ var kappa = {
 	// and initiate the designated follow-on action, if such exists
 	updateContainer: function (action, formId, containerId, follow_on_action) { 
 		var container = $('#' + containerId);
-		var url = gamma.global.site_url + gamma.global.my_tag + '/' + action;
+		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/' + action;
 		var p = $('#' + formId).serialize();
 		$.post(url, p, function (data) {
 			    container.html(data);
@@ -127,7 +128,7 @@ var kappa = {
 	//------------------------------------------
 	//loads a SQL comparison selector (via AJAX)
 	loadSqlComparisonSelector: function(container_name, url, col_sel) {
-		$('#' + container_name).html(gamma.global.progress_message);
+		$('#' + container_name).html(gamma.pageContext.progress_message);
 		url += $('#' + col_sel).val();
 		$('#' + container_name).load(url);
 	},
@@ -317,6 +318,67 @@ var kappa = {
 	}
 };
 
+//------------------------------------------
+// list report commands
+//------------------------------------------
+var theta = {
+	
+	//------------------------------------------
+	// submit list report supplemental command
+	submitOperation: function(url, p, show_resp) {
+		var ctl = $('#' + gamma.pageContext.cntrl_container_name);
+		var container = $('#' + gamma.pageContext.response_container_name);
+		container.html(gamma.pageContext.progress_message);
+		$.post(url, p, function (data) {
+				if(data.indexOf('Update failed') > -1) {
+					container.html(data);
+					ctl.show();
+				} else {
+					var msg = 'Operation was successful';
+					if(show_resp) msg = data;
+					container.html(msg);
+					ctl.hide();
+					kappa.reloadListReportData();
+				}
+			}
+		);
+	},
+	parse_lines: function(line) { //gamma
+		flds = [];
+		var fields = line.split('\t');
+		fields.each(function(idx, fld, fidx){
+			var f = fld.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+			flds.push(f);
+		});
+		return flds;
+	},
+	parseDelimitedText: function(text_fld, removeArtifact) { //gamma
+		parsed_data = {};
+		var lines = $('#' + text_fld).val().split('\n');
+		var header = [];
+		var data = [];
+		lines.each(function(idx, line, lineNumber){
+			line = gamma.trim(line);
+			if(line) {	
+				var fields = theta.parse_lines(line)
+				if(lineNumber == 0) {
+					header = fields;
+				} else {
+					data.push(fields); // check length of fields?
+				}
+			}
+		});
+		// get rid of goofy parsing artifact last row
+		if(removeArtifact && (data[data.length - 1]).length < header.length) {
+			data.pop();
+		}
+		parsed_data.header = header;
+		parsed_data.data = data;
+		return parsed_data;
+	},
+};
+
+
 var epsilon = {
 	//------------------------------------------
 	//These functions are used by entry page 
@@ -370,12 +432,12 @@ var epsilon = {
 		$('#' + img_element_id)[0].src = url + show_img;			
 	},
 	showSection: function (block_name) {
-		var url = gamma.global.base_url + 'images/';
+		var url = gamma.pageContext.base_url + 'images/';
 		var hide_img = 'z_hide_col.gif';
 		epsilon.showTableRows(block_name, url, hide_img);
 	},
 	hideSection: function (block_name) {
-		var url = gamma.global.base_url + 'images/';
+		var url = gamma.pageContext.base_url + 'images/';
 		var show_img = 'z_show_col.gif';
 		epsilon.hideTableRows(block_name, url, show_img);
 	},
@@ -558,64 +620,4 @@ var epsilon = {
 	    fld.value = fld.value.replace(re, repStr);
 	}
 	
-};
-
-//------------------------------------------
-// list report commands
-//------------------------------------------
-var delta = {
-	
-	//------------------------------------------
-	// submit list report supplemental command
-	submitOperation: function(url, p, show_resp) {
-		var ctl = $('#' + gamma.global.cntrl_container_name);
-		var container = $('#' + gamma.global.response_container_name);
-		container.html(gamma.global.progress_message);
-		$.post(url, p, function (data) {
-				if(data.indexOf('Update failed') > -1) {
-					container.html(data);
-					ctl.show();
-				} else {
-					var msg = 'Operation was successful';
-					if(show_resp) msg = data;
-					container.html(msg);
-					ctl.hide();
-					kappa.reloadListReportData();
-				}
-			}
-		);
-	},
-	parse_lines: function(line) { //gamma
-		flds = [];
-		var fields = line.split('\t');
-		fields.each(function(idx, fld, fidx){
-			var f = fld.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-			flds.push(f);
-		});
-		return flds;
-	},
-	parseDelimitedText: function(text_fld, removeArtifact) { //gamma
-		parsed_data = {};
-		var lines = $('#' + text_fld).val().split('\n');
-		var header = [];
-		var data = [];
-		lines.each(function(idx, line, lineNumber){
-			line = gamma.trim(line);
-			if(line) {	
-				var fields = delta.parse_lines(line)
-				if(lineNumber == 0) {
-					header = fields;
-				} else {
-					data.push(fields); // check length of fields?
-				}
-			}
-		});
-		// get rid of goofy parsing artifact last row
-		if(removeArtifact && (data[data.length - 1]).length < header.length) {
-			data.pop();
-		}
-		parsed_data.header = header;
-		parsed_data.data = data;
-		return parsed_data;
-	},
 };

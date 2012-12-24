@@ -2,38 +2,38 @@
 
 // gets JSON back from AJAX call - separate return code and message
 function performExec(url, mode) {
-	var url =  gamma.global.site_url + url;
+	var url =  gamma.pageContext.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	$('#' + gamma.global.response_container_name).html(gamma.global.progress_message);
+	$('#' + gamma.pageContext.response_container_name).html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
 			var response = data.evalJSON();
-			$('#' + gamma.global.response_container_name).html(response.message);
-			$('#' + gamma.global.cntrl_container_name).show();
+			$('#' + gamma.pageContext.response_container_name).html(response.message);
+			$('#' + gamma.pageContext.cntrl_container_name).show();
 		}
 	);
 }
 
 // gets only text back from the AJAX call
 function performCall(url, mode) {
-	var url =  gamma.global.site_url + url;
+	var url =  gamma.pageContext.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	$('#' + gamma.global.response_container_name).html(gamma.global.progress_message);
+	$('#' + gamma.pageContext.response_container_name).html(gamma.pageContext.progress_message);
 	$.post(url, p, function (data) {
-			$('#' + gamma.global.response_container_name).html(data);
-			$('#' + gamma.global.cntrl_container_name).show();
+			$('#' + gamma.pageContext.response_container_name).html(data);
+			$('#' + gamma.pageContext.cntrl_container_name).show();
 		}
 	);
 }
 function performOperation(url, mode, show_msg) {
-	var url =  gamma.global.site_url + url;
+	var url =  gamma.pageContext.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	delta.submitOperation(url, p, show_msg);
+	theta.submitOperation(url, p, show_msg);
 }
 </script>
 

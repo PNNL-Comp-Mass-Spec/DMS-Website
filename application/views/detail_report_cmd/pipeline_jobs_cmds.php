@@ -3,7 +3,7 @@
 function load_script_diagram() {
 	var scriptName = $('#lnk_ID').html();
 	if(scriptName) {
-		var url = gamma.global.site_url + 'pipeline_script/dot/' + scriptName
+		var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
 		p = {};
 		$.post(url, p, function (data) {
 			    $('#script_diagram_container').html(data);

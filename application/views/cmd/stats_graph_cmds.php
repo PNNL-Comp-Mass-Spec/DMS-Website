@@ -13,9 +13,9 @@ function download_to_graph() {
 	if (colName == null || colName == "") {
 		return;
 	}
-	$('#progress_display').html(gamma.global.progress_message);
+	$('#progress_display').html(gamma.pageContext.progress_message);
 
-	var url = gamma.global.site_url + gamma.global.my_tag + '/export/json'
+	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/json'
 	var p = $('#filter_form').serialize();
 	$.post(url, p, function (data) {
 		var rows = data.evalJSON();

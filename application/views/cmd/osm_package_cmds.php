@@ -13,11 +13,11 @@ function performOperation(mode) {
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	var url =  gamma.global.site_url + 'osm_package_items/operation/';
+	var url =  gamma.pageContext.site_url + 'osm_package_items/operation/';
 	$('#paramListXML').val(list);
 	$('#entry_cmd_mode').val(mode);
 	var p = $('#operation_form').serialize();
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 
 </script>

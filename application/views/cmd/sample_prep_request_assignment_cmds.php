@@ -9,14 +9,14 @@ function performOperation(mode, value) {
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	url =  gamma.global.site_url + "sample_prep_request_assignment/operation";
+	url =  gamma.pageContext.site_url + "sample_prep_request_assignment/operation";
 	var p = {};
 	p.command = mode;
 	p.newValue = (value!='')?$F(value):'';
 	p.reqIDList = list;
 	var opts = {};
 	opts.parameters = p;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 

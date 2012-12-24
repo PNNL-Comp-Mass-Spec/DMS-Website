@@ -17,14 +17,14 @@ function performOperation(mode) {
 	if ( !confirm("Are you sure that you want to update the database?") )
 		return;
 
-	var url =  gamma.global.ops_url;
+	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.command = mode;
 	p.newValue = '';
 	p.processorGroupID = $('#pf_groupid').val();
 	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 	p.JobList = list;
-	delta.submitOperation(url, p);
+	theta.submitOperation(url, p);
 }
 </script>
 
