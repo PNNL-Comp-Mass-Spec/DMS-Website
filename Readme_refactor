@@ -8,6 +8,8 @@ get datepicker working
 
 override built-in alert with JQ UI dialog
 
+spin.js
+
 set up JQ global AJAX error call
 
 Package DMS JS into library modules

@@ -40,6 +40,53 @@ var gamma = {
 		$('#' + containerId).toggle(speed);
 		return false;
 	},
+	//------------------------------------------
+	//search functions
+	//------------------------------------------
+	dms_search: function(selFldName, valFldName) {
+		var srchVal = $('#' + valFldName).val();
+		var url = $('#' + selFldName).val();
+		if(url == '') return;
+		if(srchVal != '') {
+			url += srchVal;
+			if(typeof top.display_side != 'undefined') {
+				top.display_side.location = url;
+			} else {
+				location = url;
+			}
+		}
+	},
+	//------------------------------------------
+	// nav_bar functions
+	//------------------------------------------
+	// these functions hide and show the side menu
+	kill_frames: function() {
+		if(top != self) {
+		  top.location = location;
+		}
+	},
+	open_frames: function() {
+		document.OFS.page.value = location;
+		document.OFS.submit();
+	},
+	toggle_frames: function() {
+		if(top != self) {
+		  top.location = location;
+		} else {
+		  document.OFS.page.value = location;
+		  document.OFS.submit();
+		}
+	},	
+	//------------------------------------------
+	// document export - repurpose entry form
+	// to old fashioned submit instead of AJAX
+	export_to_doc: function(url, form) {
+		var frm = $('#' + form)[0];
+		var oldUrl = frm.action;
+		frm.action = url;
+	    frm.submit();
+		frm.action = oldUrl;
+	},
 		
 	//------------------------------------------
 	//These functions are used by list reports
@@ -57,6 +104,21 @@ var gamma = {
 		p = {};
 		$.post(url, p, function (data) {
 			    alert(data);
+			}
+		);
+	},
+	// go get some content from the server using given form and action
+	// and put it into the designated container element
+	// and initiate the designated follow-on action, if such exists
+	updateContainer: function (action, formId, containerId, follow_on_action) { 
+		var container = $('#' + containerId);
+		var url = gamma.global.site_url + gamma.global.my_tag + '/' + action;
+		var p = $('#' + formId).serialize();
+		$.post(url, p, function (data) {
+			    container.html(data);
+				if(follow_on_action && follow_on_action.run) {
+					follow_on_action.run();
+				}
 			}
 		);
 	},
@@ -185,7 +247,41 @@ var gamma = {
 			$('#filters_active').html('There are ' + activeSearchFilters +  ' filters set');
 		}
 	},
+	//------------------------------------------
+	//These functions are used by multiple-choice 
+	//chooser list report to manage its checkboxes
+	//------------------------------------------
 	
+	getSelectedItemList: function() {
+		var checkedIDlist = [];
+		$('.lr_ckbx').each(function(idx, obj){
+			if(obj.checked) {
+				checkedIDlist.push(obj.value);
+			}
+		});
+		return checkedIDlist;
+	},
+	//set checked state of all checkboxes with given name
+	setCkbxState: function(checkBoxName, state) {
+		var rows = document.getElementsByName(checkBoxName);
+		for (var i = 0; i < rows.length; i++) {
+			rows[i].checked  = state;
+		}
+	},
+	//make list of values of checked checkboxes with given name
+	getCkbxList: function(checkBoxName) {
+	  var list = '';
+	  var rows = document.getElementsByName(checkBoxName);
+	  for (var i = 0; i < rows.length; i++) {
+	    if ( rows[i].checked ) {
+	      if (list != '') {
+	        list  += ', ';
+	      }
+	      list  += rows[i].value;
+	    }
+	  }
+	  return list;
+	},	
 	//------------------------------------------
 	//These functions are used by entry page 
 	//------------------------------------------
@@ -348,41 +444,6 @@ var gamma = {
 		}
 	},
 	//------------------------------------------
-	//These functions are used by multiple-choice 
-	//chooser list report to manage its checkboxes
-	//------------------------------------------
-	
-	getSelectedItemList: function() {
-		var checkedIDlist = [];
-		$('.lr_ckbx').each(function(idx, obj){
-			if(obj.checked) {
-				checkedIDlist.push(obj.value);
-			}
-		});
-		return checkedIDlist;
-	},
-	//set checked state of all checkboxes with given name
-	setCkbxState: function(checkBoxName, state) {
-		var rows = document.getElementsByName(checkBoxName);
-		for (var i = 0; i < rows.length; i++) {
-			rows[i].checked  = state;
-		}
-	},
-	//make list of values of checked checkboxes with given name
-	getCkbxList: function(checkBoxName) {
-	  var list = '';
-	  var rows = document.getElementsByName(checkBoxName);
-	  for (var i = 0; i < rows.length; i++) {
-	    if ( rows[i].checked ) {
-	      if (list != '') {
-	        list  += ', ';
-	      }
-	      list  += rows[i].value;
-	    }
-	  }
-	  return list;
-	},
-	//------------------------------------------
 	// used for entry page submission
 	//------------------------------------------
 	// POST the entry form to the entry page or alternate submission logic
@@ -448,43 +509,6 @@ var gamma = {
 		}
 	},
 	//------------------------------------------
-	//search functions
-	//------------------------------------------
-	dms_search: function(selFldName, valFldName) {
-		var srchVal = $('#' + valFldName).val();
-		var url = $('#' + selFldName).val();
-		if(url == '') return;
-		if(srchVal != '') {
-			url += srchVal;
-			if(typeof top.display_side != 'undefined') {
-				top.display_side.location = url;
-			} else {
-				location = url;
-			}
-		}
-	},
-	//------------------------------------------
-	// nav_bar functions
-	//------------------------------------------
-	// these functions hide and show the side menu
-	kill_frames: function() {
-		if(top != self) {
-		  top.location = location;
-		}
-	},
-	open_frames: function() {
-		document.OFS.page.value = location;
-		document.OFS.submit();
-	},
-	toggle_frames: function() {
-		if(top != self) {
-		  top.location = location;
-		} else {
-		  document.OFS.page.value = location;
-		  document.OFS.submit();
-		}
-	},
-	//------------------------------------------
 	// called by a drop-down selection type chooser
 	// to update its target field
 	//------------------------------------------
@@ -526,20 +550,8 @@ var gamma = {
 	    var repStr = ">\n<";
 	    var re = new RegExp(new RegExp(findStr, "g")); 
 	    fld.value = fld.value.replace(re, repStr);
-	},
-	//------------------------------------------
-	//------------------------------------------
-	
-	//------------------------------------------
-	// document export - repurpose entry form
-	// to old fashioned submit instead of AJAX
-	export_to_doc: function(url, form) {
-		var frm = $('#' + form)[0];
-		var oldUrl = frm.action;
-		frm.action = url;
-	    frm.submit();
-		frm.action = oldUrl;
 	}
+	
 };
 
 //------------------------------------------

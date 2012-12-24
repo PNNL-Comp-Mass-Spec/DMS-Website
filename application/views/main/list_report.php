@@ -15,23 +15,9 @@ gamma.global.response_container_name =  "update_message";
 gamma.global.cntrl_container_name =  "clear_message";
 gamma.global.ops_url = '<?= $ops_url ?>';
 
-// go get some content from the server and put it into the designated container element
-// and initiate the designated follow-on action, if such exists
-function updateContainer(url, containerId, follow_on_action) { 
-	var container = $('#' + containerId);
-	url = gamma.global.site_url + gamma.global.my_tag + url;
-	var p = $('#filter_form').serialize();
-	$.post(url, p, function (data) {
-		    container.html(data);
-			if(follow_on_action.run) {
-				follow_on_action.run();
-			}
-		}
-	);
-}
 // load the filter panel according to the given layout mode
 function updateMyFilter($mode) {
-	updateContainer('/report_filter/' + $mode, 'search_filter_container', filter_observers_action); 
+	gamma.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', filter_observers_action); 
 	if($mode == 'minimal') { 
 		$('#show_more_filter').show();$('#show_less_filter').hide(); 
 	} else { 
@@ -67,7 +53,7 @@ var paging_update_action = {
 			$('#paging_container_lower').show();
 			$('#paging_container_upper').html(gamma.global.progress_message);
 			$('#paging_container_lower').html(gamma.global.progress_message);
-			updateContainer('/report_paging', 'paging_container_upper', paging_cleanup_action);
+			gamma.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
 }
@@ -83,7 +69,7 @@ var data_update_action = {
 	run:function(){
 		$('#paging_container_upper').html(gamma.global.progress_message);
 		$('#paging_container_lower').html(gamma.global.progress_message);
-		updateContainer('/report_data', 'data_container', data_post_load_action); 	
+		gamma.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
 	}
 }
 function updateShowSQL() {

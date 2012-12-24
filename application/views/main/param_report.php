@@ -15,19 +15,6 @@ gamma.global.cntrl_container_name =  'clear_message';
 gamma.global.ops_url = '<?= $ops_url ?>';
 
 
-//go get some content from the server and put it into the designated container element
-//and initiate the designated follow-on action, if such exists
-function updateContainer(action, containerId, follow_on_action) {
-	var url = gamma.global.site_url + gamma.global.my_tag + '/' + action;
-	var p = $('#entry_form').serialize();
-	$.post(url, p, function (data) {
-		    $('#' + containerId).html(data);
-			if(follow_on_action && follow_on_action.run) {
-				follow_on_action.run();
-			}
-		}
-	);
-}
 //use to terminate a calling chain
 var no_action = {
 }
@@ -35,7 +22,7 @@ var no_action = {
 var filter_update_action = {
 	run:function(){
 		if(!$('#sorting_filter_table')) {
-			updateContainer('param_filter', 'search_filter_container', no_action);
+			gamma.updateContainer('param_filter', 'entry_form', 'search_filter_container', no_action);
 			$('#search_controls_container').show();
 		}
 	}
@@ -58,14 +45,14 @@ var paging_update_action = {
 			$('#paging_container_lower').show();
 			$('#paging_container_upper').html(gamma.global.progress_message);
 			$('#paging_container_lower').html(gamma.global.progress_message);
-			updateContainer('/param_paging', 'paging_container_upper', paging_cleanup_action);
+			gamma.updateContainer('param_paging', 'entry_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
 }
 //go get some data rows
 var data_update_action = {
 	run:function(){
-		updateContainer('param_data', 'data_container', paging_update_action);
+		gamma.updateContainer('param_data', 'entry_form', 'data_container', paging_update_action);
 	}
 }
 //start the data update chain for the page
