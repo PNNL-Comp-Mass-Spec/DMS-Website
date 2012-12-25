@@ -49,15 +49,16 @@ function showPageLinks() {
 }
 
 function getJobDefaults() {
-	var url = '<?= $tag ?>/get_defaults';
+	var url = gamma.pageContext.my_tag + '/get_defaults';
 	callOperation(url);
 }
 
 // 
 function callOperation(url) {
 	url =  gamma.pageContext.site_url + url;
-	var p = {};
-	p.datasets = $('#datasets').val();
+	var p = {
+		datasets: $('#datasets').val()
+	};
 	//	FUTURE:progress indicator
 	$.post(url, p, function (data) {
 			$('#supplemental_material').html(data);

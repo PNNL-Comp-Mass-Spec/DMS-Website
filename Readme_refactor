@@ -8,9 +8,11 @@ get datepicker working
 
 override built-in alert with JQ UI dialog
 
-spin.js
+look for and fix "// REFACTOR:"
 
-set up JQ global AJAX error call
+x-spin.js
+
+x-set up JQ global AJAX error call
 
 Package DMS JS into library modules
 Get rid of aux info
@@ -88,4 +90,73 @@ $('#' + globalAJAX.response_container_name) -> VF(globalAJAX.response_container_
 			draw_graph(rows);
 		}
 	);
-	
+-------------------------------------------
+       var mainGrid = {
+            options: { // these are MiraGrid wrapper options, NOT SlickGrid options
+                fillDownCols: fillDownCols,
+                dateSortCols: dateSortCols
+            },
+            reloadParams: { // page-specific parameters to load grid from server
+                url: "/Isolation/JtNitList",
+                // returns JS object containing POST parameters 
+                postParms: function () {
+                    return { sampleID: $('#sample_id').html() };
+                },
+                // will be called before AJAX call to reload grid data
+                beforeAction: function () {
+                    spinner = new Spinner({}).spin(document.getElementById('NitTableContainer'));
+                },
+                // will be called when AJAX call completes (success or failure)
+                afterAction: function () {
+                    getSampleLexans();
+                	spinner.stop();
+                    enableBtn('#saveBtn', 'disable');
+                    enableBtn('#clearSelectionBtn', 'enable');
+                    setNitGenerationRange(mainGrid);
+                }
+            },
+            saveParams: { // page-specific parameters to save changes in grid to server
+                url: "/Isolation/UpdateNits",
+                // function to wrap additional POST params around grid data
+                postParms: function (data) {
+                    return { "SampleId": $('#sample_id').html(), Data: data };
+                },
+                // will be called before AJAX call to save grid data
+                beforeAction: function () {
+                    $('#saveIndicator').html('save in progress...');
+                    spinner = new Spinner({}).spin(document.getElementById('NitTableContainer'));
+                },
+                // will be called when AJAX call completes (success or failure)
+                afterAction: function () {
+                    spinner.stop();
+                    $('#saveIndicator').html('');
+                }
+            },
+            changeParams: { // page-specific parameters for changes to grid data
+                // actions to take following any change in grid data
+                pageAction: function () {
+                    enableBtn('#saveBtn', 'enable');
+                }
+            }
+        };
+
+        $(document).ready(function () {
+            $('.helperText').qtip({
+                content: "@MiraResources.HelperText.IsolationText",
+                show: 'mouseover',
+                hide: 'mouseout'
+            });
+
+
+
+            $(document).ajaxError(function (e, xhr, settings, exception) {
+                alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
+            });
+
+            $.extend(mainGrid, MiraGrid);
+            mainGrid.init("#NitTableContainer", columns);
+
+            enableBtn('#saveBtn', 'disable');
+            enableBtn('#clearSelectionBtn', 'disable');
+        	$('#nitGenerationControls').css('visibility', 'hidden');
+        });	

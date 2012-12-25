@@ -92,6 +92,28 @@ var gamma = {
 	    frm.submit();
 		frm.action = oldUrl;
 	},
+	//------------------------------------------
+	// misc functions
+	//------------------------------------------
+	
+	// convert array of objects representing form values
+	// where each object has property 'name' and 'value'
+	//
+	// return single object with each field represented 
+	// as a property having value of associated field.
+	//
+	// fields with shared name have array of values
+	reformatFormArray: function(fldObjArray) {
+		var obj = {};
+		$.each(fldObjArray, function(idx, fldObj) {
+			var nm = fldObj.name;
+			if(!obj[nm]) {
+				obj[nm] = [];
+			}
+			obj[nm].push(fldObj.value);
+		});
+		return obj;
+	},
 	// use to terminate a calling chain
 	no_action: {
 	}
@@ -588,8 +610,10 @@ var epsilon = {
 	//------------------------------------------
 	// used for entry page submission
 	//------------------------------------------
-	// POST the entry form to the entry page or alternate submission logic
-	updateEntryPage: function(url, mode) {
+	
+	// called by the built-in entry page family submission controls
+	// submit the entry form to the entry page or alternate submission logic
+	submitStandardEntryPage: function(url, mode) {
 		if(window.submissionSequence) {
 			submissionSequence(url, mode);
 		} else {
@@ -620,6 +644,38 @@ var epsilon = {
 		f.submit();
 	},	
 
+	//------------------------------------------
+	// supplemental parameter entry forms
+	//------------------------------------------
+
+	//loop through all the fields in the given parameter form
+	//and build properly formatted XML and replace the
+	//contents of the given field with it
+	copy_param_form_to_xml_param_field :function(formId, fieldId, hasSection) {
+		var xml = '';
+		var targetForm = $('#' + formId);
+		var targetField = $('#' + fieldId)
+		var fields = targetForm.serializeArray();
+		$.each(fields, function(idx, field) {
+			if(field.name.indexOf('_chooser') === -1) {
+				var section = '';
+				var name = field.name;
+				var value = field.value;
+				if(hasSection) {
+					var nm = field.name.split('.');
+					section = nm[0];
+					name = nm[1];
+				}
+				var s = '<Param ';
+				s += (section)?'Section="' + section + '" ':'';
+				s += 'Name="' + name + '" ';
+				s += 'Value="' + value + '" ';
+				s += '/>';
+				xml += s;
+			}		
+		});
+		targetField.val(xml);
+	},
 	//------------------------------------------
 	// called by a drop-down selection type chooser
 	// to update its target field

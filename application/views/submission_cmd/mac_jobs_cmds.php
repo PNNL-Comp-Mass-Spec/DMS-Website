@@ -14,27 +14,9 @@ var gSubmission = {};
 function submissionSequence(url, mode, post_submission_action) {
 	gSubmission.url = url;
 	gSubmission.mode = mode;
-	copy_param_form_to_xml_param_field();
+	epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
 	// TODO: pre-submission check for blank XML parameters field.
 	epsilon.submitEntryFormToPage(gSubmission.url, gSubmission.mode);
-}
-
-//loop through all the fields in the parameter form
-//and build properly formatted XML and replace the
-//contents of the jobParams field on main form with it
-function copy_param_form_to_xml_param_field() {
-	$('#jobParam').val('');
-	$('#param_form').getElements().each(
-		function(obj) {
-			if(obj.name.indexOf('_chooser') === -1) {
-				var s = '<Param ';
-				s += 'Name="' + obj.name + '" ';
-				s += 'Value="' + obj.value + '" ';
-				s += '/>';
-				$('#jobParam').val() += s;
-			}
-		}
-	);
 }
 
 // get supplemental form fields via an AJAX call
@@ -53,7 +35,7 @@ function choose_template(template_name) {
 }
 
 function set_param_row_visibility(class_name, visibility) {
-	$('.' + class_name;).each(function(idx, obj){ 
+	$('.' + class_name).each(function(idx, obj){ 
 		obj.style.display = visibility; 
 	});
 }
