@@ -9,6 +9,7 @@ function load_script_diagram() {
 			    $('#script_diagram_container').html(data);
 			}
 		);
+
 	}
 }
 </script>

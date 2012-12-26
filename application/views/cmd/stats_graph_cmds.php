@@ -13,16 +13,11 @@ function download_to_graph() {
 	if (colName == null || colName == "") {
 		return;
 	}
-	var progress_display = $('#progress_display')
-	progress_display.spin('small');
-
 	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/json'
 	var p = $('#filter_form').serialize();
-	$.post(url, p, function (data) {
-		var rows = data.evalJSON();
-		progress_display.spin(false);
+	gamma.getData(url, p, 'progress_display', function(rows) {
 		draw_graph(rows, colName);
-	}
+	};
 }
 
 // build data series from rows, set graph format, and draw graph

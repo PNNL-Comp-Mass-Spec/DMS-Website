@@ -4,10 +4,7 @@
 function load_param_form() {
 	var script = $('#scriptName').val();
 	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + script;
-	epsilon.load_suplemental_form(url, {}, 'param_container', function() {
-		set_param_row_visibility("hide_input", "none");
-		if(script) $('#cmd_buttons').show();
-	});
+	epsilon.load_suplemental_form(url, {}, 'param_container', function() { revealControls(script); });
 }
 function choose_template(template_name) {
 	$('#scriptName').val(template_name);
@@ -18,6 +15,11 @@ function set_param_row_visibility(class_name, visibility) {
 	$('.' + class_name).each(function(idx, obj){ 
 		obj.style.display = visibility; 
 	});
+}
+
+function revealControls(script) {
+	set_param_row_visibility("hide_input", "none");
+	if(script) $('#cmd_buttons').show();
 }
 
 $(document).ready(function () { 

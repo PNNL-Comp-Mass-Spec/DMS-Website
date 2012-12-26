@@ -23,15 +23,9 @@ function getDatasetInfo(mode) {
 	var id = $('#pf_data_package_id').val();
 	var tool = $('#tool_name').val();
 	if(id == '') {alert('data_package_id filter not set'); return;}
-
 	var url =  gamma.pageContext.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
-	var p = {};
 	$('#dataset_dump_field').html('');
-	$.post(url, p, function (data) {
-			$('#dataset_dump_field').val(data);
-		}
-	);
-
+	gamma.loadContainer(url, {}, 'dataset_dump_field');
 }
 </script>
 

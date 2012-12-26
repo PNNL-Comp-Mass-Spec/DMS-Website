@@ -15,17 +15,11 @@ function localRowAction(url, value, obj) {
 //perform detail report command (via AJAX)
 function performCommand(url, id, mode) {
 	if( !confirm("Are you sure that you want to update the database?") ) return;
-	var p = {};
-	p.ID = id;
-	p.command = mode;
-	var container = $('#' + gamma.pageContext.response_container);
-	container.spin('small');
-	$.post(url, p, function (data) {
-		container.spin(false);
-		container.html(data);
+	var p = { ID:id, command:mode };
+	gamma.loadContainer(url, p, gamma.pageContext.response_container, function() {
 		updateMyData('autoload');
-		}
-	);
+	});
+
 }
 </script>
 

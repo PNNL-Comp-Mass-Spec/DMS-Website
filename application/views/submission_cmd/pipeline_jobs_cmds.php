@@ -18,12 +18,8 @@ function load_script_diagram() {
 	var scriptName = $('#scriptName').val();
 	if(scriptName) {
 		var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
-		var container = 'script_diagram_container';
-		p = {};
-		$.post(url, p, function (data) {
-			    $('#script_diagram_container').html(data);
-			}
-		);
+		var p = { datasets: $('#datasets').val() };
+		gamma.loadContainer(url, p, 'script_diagram_container');
 	}
 }
 

@@ -142,6 +142,48 @@ var gamma = {
 		frm.action = oldUrl;
 	},
 	//------------------------------------------
+	// general AJAX post the fills given container
+	// with returned text and allows pre and post
+	// callbacks to be defined
+	//------------------------------------------
+	loadContainer: function (url, p, containerId, afterAction, beforeAction) { 
+		var container = $('#' + containerId);
+		var abort = false;
+		if(beforeAction) { 
+			abort = beforeAction();
+		}
+		if(abort) return;
+		container.spin('small');
+		$.post(url, p, function (data) {
+				container.spin(false);
+				container.html(data);
+				if(afterAction) {
+					afterAction();
+				}
+		});
+	},	
+	//------------------------------------------
+	// general AJAX post that gets data object from
+	// returned JSON and allows pre and post
+	// callbacks to be defined
+	//------------------------------------------
+	getData: function (url, p, containerId, afterAction, beforeAction) { 
+		var container = (containerId)?$('#' + containerId):null;
+		var abort = false;
+		if(beforeAction) { 
+			abort = beforeAction();
+		}
+		if(abort) return;
+		if(container) container.spin('small');
+		$.post(url, p, function (json) {
+				if(container) container.spin(false);
+				var data = json.evalJSON();
+				if(afterAction) {
+					afterAction(data);
+				}
+		});
+	},
+	//------------------------------------------
 	// misc functions
 	//------------------------------------------
 	
@@ -209,24 +251,8 @@ var kappa = {
 	//loads a SQL comparison selector (via AJAX)
 	loadSqlComparisonSelector: function(containerId, url, col_sel) {
 		url += $('#' + col_sel).val();
-		this.loadContainer(url, {}, containerId);
+		gamma.loadContainer(url, {}, containerId);
 	},
-	loadContainer: function (url, p, containerId, afterAction, beforeAction) { 
-		var container = $('#' + containerId);
-		var abort = false;
-		if(beforeAction) { 
-			abort = beforeAction();
-		}
-		if(abort) return;
-		container.spin('small');
-		$.post(url, p, function (data) {
-				container.spin(false);
-				container.html(data);
-				if(afterAction) {
-					afterAction();
-				}
-		});
-	},	
 	//clear the specified list report search filter
 	clearSearchFilter: function(filter) {
 		$( '.' + filter).each(function(idx, obj) {obj.value = ''} );

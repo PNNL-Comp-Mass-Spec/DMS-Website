@@ -56,12 +56,8 @@ function getJobDefaults() {
 // 
 function callOperation(url) {
 	url =  gamma.pageContext.site_url + url;
-	var p = {
-		datasets: $('#datasets').val()
-	};
-	//	FUTURE:progress indicator
-	$.post(url, p, function (data) {
-			$('#supplemental_material').html(data);
+	var p = { datasets: $('#datasets').val() };
+	gamma.loadContainer(url, p, 'supplemental_material', function (data) {
 			$('#sub_cmd_buttons').show();
 			setFieldValues();
 		}
