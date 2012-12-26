@@ -1,8 +1,10 @@
-utilities to hide standard command buttons, or move to another container
+see about eliminating direct .post from list report cmd files in favor of kappa.loadContainer
 
 figure out how to do logic on sample_prep_cmds.php
 
 centralize 'callOperation' (analysis_job_request_psm.php)
+
+Have config db way to suppress standard entry buttons.
 
 TEST:
  - uploader
