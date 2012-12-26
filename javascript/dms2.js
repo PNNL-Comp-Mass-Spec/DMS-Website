@@ -4,6 +4,55 @@
 $(document).ajaxError(function (e, xhr, settings, exception) {
     alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
 });	
+
+//------------------------------------------
+// JQuery plug-in for spinner
+//------------------------------------------
+/*
+You can create a spinner using any of the variants below:
+ 
+$("#el").spin(); // Produces default Spinner using the text color of #el.
+$("#el").spin("small"); // Produces a 'small' Spinner using the text color of #el.
+$("#el").spin("large", "white"); // Produces a 'large' Spinner in white (or any valid CSS color).
+$("#el").spin({ ... }); // Produces a Spinner using your custom settings.
+ 
+$("#el").spin(false); // Kills the spinner.
+*/
+(function($) {
+	$.fn.spin = function(opts, color) {
+		var presets = {
+			"tiny": { lines: 8, length: 2, width: 2, radius: 3 },
+			"small": { lines: 8, length: 4, width: 3, radius: 5 },
+			"large": { lines: 10, length: 8, width: 4, radius: 8 }
+		};
+		if (Spinner) {
+			return this.each(function() {
+				var $this = $(this),
+					data = $this.data();
+				
+				if (data.spinner) {
+					data.spinner.stop();
+					delete data.spinner;
+				}
+				if (opts !== false) {
+					if (typeof opts === "string") {
+						if (opts in presets) {
+							opts = presets[opts];
+						} else {
+							opts = {};
+						}
+						if (color) {
+							opts.color = color;
+						}
+					}
+					data.spinner = new Spinner($.extend({color: $this.css('color')}, opts)).spin(this);
+				}
+			});
+		} else {
+			throw "Spinner class not available.";
+		}
+	};
+})(jQuery);
 	
 //------------------------------------------
 // global and general-purpose functions and objects
@@ -144,11 +193,11 @@ var kappa = {
 	// and initiate the designated follow-on action, if such exists
 	updateContainer: function (action, formId, containerId, follow_on_action) { 
 		var container = $('#' + containerId);
-		var spin = new Spinner({}).spin(container[0]);
+		container.spin('small');
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/' + action;
 		var p = $('#' + formId).serialize();
 		$.post(url, p, function (data) {
-				spin.stop();
+				container.spin(false);
 			    container.html(data);
 				if(follow_on_action && follow_on_action.run) {
 					follow_on_action.run();
@@ -420,9 +469,9 @@ var delta = {
 		p.ID = id;
 		p.command = mode;
 		var container = $('#' + gamma.pageContext.response_container);
-		var spin = new Spinner({}).spin(container[0]);
+		container.spin('small');
 		$.post(url, p, function (data) {
-				spin.stop();
+				container.spin(false);
 			    container.html(data);
 				delta.updateMyData();	
 			}
@@ -432,9 +481,9 @@ var delta = {
 		var container = $('#' + containerId);
 		url = gamma.pageContext.site_url + url;
 		var p = {};
-		var spin = new Spinner({}).spin(container[0]);
+		container.spin('small');
 		$.post(url, p, function (data) {
-				spin.stop();
+				container.spin(false);
 			    container.html(data);
 			}
 		);
@@ -611,43 +660,82 @@ var epsilon = {
 	// used for entry page submission
 	//------------------------------------------
 	
+	// object to contain entry page context values
+	// (must be initialized prior to library functions being called)
+	pageContext: {
+		containerId: null,
+		modeFieldId: null,
+		entryFormId: null		
+	},
+	// contains any actions to be performed prior to and after 
+	// AJAX submission 
+	actions: {
+		before: null,
+		after:null
+	},
 	// called by the built-in entry page family submission controls
 	// submit the entry form to the entry page or alternate submission logic
 	submitStandardEntryPage: function(url, mode) {
-		if(window.submissionSequence) {
-			submissionSequence(url, mode);
-		} else {
-			epsilon.submitEntryFormToPage(url, mode);
-		}
+		epsilon.submitEntryFormToPage(url, mode, this.actions.after, this.actions.before);
 	},
 	//POST the entry form to the entry page via AJAX
-	submitEntryFormToPage: function(url, mode, follow_on_action) {
+	// perform beforeAction (if defined) prior to submission - abort if it returns true
+	// perform afterAction (if defined) after receiving results of submission
+	submitEntryFormToPage: function(url, mode, afterAction, beforeAction) {
+		var container = $('#' + this.pageContext.containerId);
+		var modeField = $('#' + this.pageContext.modeFieldId);
+		var entryForm = $('#' + this.pageContext.entryFormId);
+		modeField.val(mode);
+		p = entryForm.serialize();
+		var abort = false;
+		if(beforeAction) { 
+			abort = beforeAction();
+		}
+		if(abort) return;
 		if(!confirm("Are you sure that you want to perform this action?")) return;
-		var container = $('#form_container');
-		$('#entry_cmd_mode').val(mode);
-		p = $('#entry_form').serialize();
+		container.spin('small');
 		$.post(url, p, function (data) {
+				container.spin(false);
 			    container.html(data);
 				setTimeout("epsilon.adjustEnabledFields()", 350);
-				if(follow_on_action && follow_on_action.run) {
-					follow_on_action.run(mode);
+				if(afterAction) {
+					afterAction();
 				}
 			}
 		);
 	},
 	// POST the entry form to another page
 	submitEntryFormToOtherPage: function(url, mode) {
-		$('#entry_cmd_mode').val(mode);
-		var f = $('#entry_form');
-		f.action = url;
-		f.method="post";
-		f.submit();
+		var modeField = $('#' + epsilon.pageContext.modeFieldId);
+		var entryForm = $('#' + epsilon.pageContext.entryFormId);
+		modeField.val(mode);
+		entryForm.action = url;
+		entryForm.method="post";
+		entryForm.submit();
 	},	
 
 	//------------------------------------------
 	// supplemental parameter entry forms
 	//------------------------------------------
-
+	
+	// get supplemental form fields via an AJAX call
+	load_suplemental_form: function(url, p, containerId, afterAction, beforeAction) {
+		var container = $('#' + containerId);
+		var abort = false;
+		if(beforeAction) { 
+			abort = beforeAction();
+		}
+		if(abort) return;
+		container.spin('small');
+		$.post(url, p, function (data) {
+				container.spin(false);
+			    container.html(data);
+				if(afterAction) {
+					afterAction();
+				}
+			}
+		);
+	},
 	//loop through all the fields in the given parameter form
 	//and build properly formatted XML and replace the
 	//contents of the given field with it

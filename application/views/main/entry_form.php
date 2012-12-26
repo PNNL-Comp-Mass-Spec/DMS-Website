@@ -10,6 +10,9 @@ $(document).ready(function () {
 	gamma.pageContext.site_url = '<?= site_url() ?>';
 	gamma.pageContext.base_url = '<?= base_url() ?>';
 	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+	epsilon.pageContext.containerId = 'form_container';
+	epsilon.pageContext.modeFieldId = 'entry_cmd_mode';
+	epsilon.pageContext.entryFormId = 'entry_form';
 	epsilon.adjustEnabledFields();
 	}
 );

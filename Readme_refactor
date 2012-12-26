@@ -1,3 +1,14 @@
+utilities to hide standard command buttons, or move to another container
+
+figure out how to do logic on sample_prep_cmds.php
+
+centralize 'callOperation' (analysis_job_request_psm.php)
+
+TEST:
+ - uploader
+ - factors
+ - config db pages
+
 -----------------------------------------------
 -- DMS website migration
 -----------------------------------------------
@@ -10,20 +21,10 @@ override built-in alert with JQ UI dialog
 
 look for and fix "// REFACTOR:"
 
-x-spin.js
-
-x-set up JQ global AJAX error call
-
-Package DMS JS into library modules
 Get rid of aux info
 Reduce/eliminate in-line JS
 
-------------------------------------------
-    $(document).ajaxError(function (e, xhr, settings, exception) {
-        alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
-    });
-------------------------------------------
-
+--in-page css ---------------------------------------------
 
 body#Isolation_Edit #NitTableContainer .r0 {
     background: #FFF !important;
@@ -56,6 +57,7 @@ $( --> $(
 
 \$F\(['"]([a-z0-9_-]+)['"]\) --> \$F('#$1')
 \$F\(['"]([#a-z0-9_-]+)['"]\) --> \$('$1').val()
+
 
 
 -------------------------------------------
@@ -160,3 +162,11 @@ $('#' + globalAJAX.response_container_name) -> VF(globalAJAX.response_container_
             enableBtn('#clearSelectionBtn', 'disable');
         	$('#nitGenerationControls').css('visibility', 'hidden');
         });	
+        
+        
+ ------------------------------------------
+    $(document).ajaxError(function (e, xhr, settings, exception) {
+        alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
+    });
+------------------------------------------
+        

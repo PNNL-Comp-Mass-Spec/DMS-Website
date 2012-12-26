@@ -22,14 +22,14 @@ $(document).ready(function () {
 });
 
 function createRequest() {
-	submitMainEntryForm('add', { run:function() {showPageLinks();} });
+	submitMainEntryForm('add', showPageLinks);
 }
 function previewRequest() {
-	submitMainEntryForm('preview', { run:function() {
+	submitMainEntryForm('preview', function() {
 		var mm = $('#main_outcome_msg');
 		var sm = $('#supplement_outcome_msg');
 		if(mm && sm) { sm.html(mm.html())}
-	}});	
+	});	
 }
 
 function submitMainEntryForm(mode, followOnAction) {
