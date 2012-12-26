@@ -20,9 +20,9 @@ function update_entity(id, containerId) {
 	p.id          = id;
 	if(!p.file_name) {alert('No file name'); return; }
 	var container = $('#' + containerId);
-	container.html(gamma.pageContext.progress_message);
-
+	container.spin('small');
 	$.post(url, p, function (data) {
+			container.spin(false);
 			container.html(data);
 			// call update_next_entity_in_list in case we are processing multiple selections
 			// making the call via timeout starts new thread allowing the AJAX thread to terminate

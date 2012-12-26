@@ -9,7 +9,6 @@
 
 <script type='text/javascript'>
 
-gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.response_container = 'update_message';

@@ -7,7 +7,6 @@
 
 <script type='text/javascript'>
 
-gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
@@ -49,8 +48,6 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-//			$('#paging_container_upper').html(gamma.pageContext.progress_message);
-//			$('#paging_container_lower').html(gamma.pageContext.progress_message);
 			kappa.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -65,8 +62,6 @@ var data_post_load_action = {
 // go get some data rows
 var data_update_action = {
 	run:function(){
-//		$('#paging_container_upper').html(gamma.pageContext.progress_message);
-//		$('#paging_container_lower').html(gamma.pageContext.progress_message);
 		kappa.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
 	}
 }

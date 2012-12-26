@@ -19,8 +19,9 @@ function performCommand(url, id, mode) {
 	p.ID = id;
 	p.command = mode;
 	var container = $('#' + gamma.pageContext.response_container);
-	container.html(gamma.pageContext.progress_message);
+	container.spin('small');
 	$.post(url, p, function (data) {
+		container.spin(false);
 		container.html(data);
 		updateMyData('autoload');
 		}

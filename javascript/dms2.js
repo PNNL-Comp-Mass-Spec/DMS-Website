@@ -207,11 +207,26 @@ var kappa = {
 	},
 	//------------------------------------------
 	//loads a SQL comparison selector (via AJAX)
-	loadSqlComparisonSelector: function(container_name, url, col_sel) {
-		$('#' + container_name).html(gamma.pageContext.progress_message);
+	loadSqlComparisonSelector: function(containerId, url, col_sel) {
 		url += $('#' + col_sel).val();
-		$('#' + container_name).load(url);
+		this.loadContainer(url, {}, containerId);
 	},
+	loadContainer: function (url, p, containerId, afterAction, beforeAction) { 
+		var container = $('#' + containerId);
+		var abort = false;
+		if(beforeAction) { 
+			abort = beforeAction();
+		}
+		if(abort) return;
+		container.spin('small');
+		$.post(url, p, function (data) {
+				container.spin(false);
+				container.html(data);
+				if(afterAction) {
+					afterAction();
+				}
+		});
+	},	
 	//clear the specified list report search filter
 	clearSearchFilter: function(filter) {
 		$( '.' + filter).each(function(idx, obj) {obj.value = ''} );
@@ -408,8 +423,9 @@ var theta = {
 	submitOperation: function(url, p, show_resp) {
 		var ctl = $('#' + gamma.pageContext.cntrl_container_name);
 		var container = $('#' + gamma.pageContext.response_container_name);
-		container.html(gamma.pageContext.progress_message);
+		container.spin('small');
 		$.post(url, p, function (data) {
+				container.spin(false);
 				if(data.indexOf('Update failed') > -1) {
 					container.html(data);
 					ctl.show();

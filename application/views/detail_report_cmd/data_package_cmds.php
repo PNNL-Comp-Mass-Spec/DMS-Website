@@ -59,8 +59,9 @@ function updateDataPackageItems(id, form_id, mode) {
 	var message_container = $('#entry_update_status');
 	$('#entry_cmd_mode').val(mode);
 	var p = $('#' + form_id).serialize();
-	message_container.html(gamma.pageContext.progress_message);
+	message_container.spin('small');
 	$.post(url, p, function (data) {
+			message_container.spin(false);
 			if(data.indexOf('html failed') > -1) {
 				message_container.html(data);
 			} else {

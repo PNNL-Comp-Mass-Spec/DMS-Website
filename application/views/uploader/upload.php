@@ -7,11 +7,10 @@
 
 <script type='text/javascript'>
 gamma.pageContext = {};
-gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 gamma.pageContext.site_url = '<?= site_url() ?>';
 
 $(document).ready(function () { 
-	$('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory');
+	$('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // kappa.loadContainer(url, {}, ss_entity_list_container)
 });
 
 // called by javascript that is returned by upload operation 
@@ -34,8 +33,9 @@ function updateContainer(action, containerId, id) {
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
 	var container = $('#' + containerId);
-	container.html(gamma.pageContext.progress_message);
+	container.spin('small');
 	$.post(url, p, function (data) {
+			container.spin(false);
 		    container.html(data);
 		}
 	);

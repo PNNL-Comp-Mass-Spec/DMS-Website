@@ -1,5 +1,6 @@
 <script type='text/javascript'>
 function report_upload_results(msg) {
+	$('#result_display').spin(false);
 	$('#result_display').html(msg);
 	showAttachments();
 }
@@ -44,7 +45,7 @@ function doOperation(faid, mode) {
 	);
 }
 function do_upload() {
-	$('#result_display').html(gamma.pageContext.progress_message);
+	$('#result_display').spin('small');
 	$('#upload_form').submit();
 }
 </script>

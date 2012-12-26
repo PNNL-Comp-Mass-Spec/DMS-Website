@@ -7,7 +7,6 @@
 
 <script type='text/javascript'>
 
-gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.response_container_name =  'update_message';
@@ -40,8 +39,6 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-//			$('#paging_container_upper').html(gamma.pageContext.progress_message);
-//			$('#paging_container_lower').html(gamma.pageContext.progress_message);
 			kappa.updateContainer('param_paging', 'entry_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
@@ -55,7 +52,6 @@ var data_update_action = {
 //start the data update chain for the page
 function updateMyData(loading) {
 	if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').val(1);
-//	$('#paging_container_upper').html(gamma.pageContext.progress_message);
 	data_update_action.run();
 }
 //after the page loads, set things in motion to populate it

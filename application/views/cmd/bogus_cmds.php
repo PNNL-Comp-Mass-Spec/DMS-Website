@@ -2,14 +2,16 @@
 
 // gets JSON back from AJAX call - separate return code and message
 function performExec(url, mode) {
+	var container = $('#' + gamma.pageContext.response_container_name);
 	var url =  gamma.pageContext.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	$('#' + gamma.pageContext.response_container_name).html(gamma.pageContext.progress_message);
+	container.spin('small');
 	$.post(url, p, function (data) {
+			container.spin(false);
 			var response = data.evalJSON();
-			$('#' + gamma.pageContext.response_container_name).html(response.message);
+			container.html(response.message);
 			$('#' + gamma.pageContext.cntrl_container_name).show();
 		}
 	);
@@ -17,13 +19,15 @@ function performExec(url, mode) {
 
 // gets only text back from the AJAX call
 function performCall(url, mode) {
+	var container = $('#' + gamma.pageContext.response_container_name);
 	var url =  gamma.pageContext.site_url + url;
 	var p = {};
 	p.ID = 5;
 	p.command = mode;
-	$('#' + gamma.pageContext.response_container_name).html(gamma.pageContext.progress_message);
+	container.spin('small');
 	$.post(url, p, function (data) {
-			$('#' + gamma.pageContext.response_container_name).html(data);
+			container.spin(false);
+			container.html(data);
 			$('#' + gamma.pageContext.cntrl_container_name).show();
 		}
 	);

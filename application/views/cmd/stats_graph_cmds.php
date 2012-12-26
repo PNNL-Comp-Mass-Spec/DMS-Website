@@ -13,13 +13,14 @@ function download_to_graph() {
 	if (colName == null || colName == "") {
 		return;
 	}
-	$('#progress_display').html(gamma.pageContext.progress_message);
+	var progress_display = $('#progress_display')
+	progress_display.spin('small');
 
 	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/json'
 	var p = $('#filter_form').serialize();
 	$.post(url, p, function (data) {
 		var rows = data.evalJSON();
-		$('#progress_display').html("");
+		progress_display.spin(false);
 		draw_graph(rows, colName);
 	}
 }

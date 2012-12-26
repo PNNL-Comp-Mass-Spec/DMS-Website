@@ -14,7 +14,6 @@
 
 <script type='text/javascript'>
 gamma.pageContext = {};
-gamma.pageContext.progress_message = '<span class="LRepProgress"><img src="<?= base_url() ?>images/throbber.gif" /></span>';
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.hierarchy = {
@@ -34,9 +33,10 @@ function addNewMember(type, parent_id) {
 function updateContainer(type, id, follow_on_action) { 
 	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/test/' + type + '/' + id;
 	var container = $('#' + type + '_container');
-	container.html(gamma.pageContext.progress_message);
+	container.spin('small');
 	var p = {};
 	$.post(url, p, function (data) {
+			container.spin(false);
 		    container.html(data);
 		}
 	);

@@ -8,6 +8,7 @@ TEST:
  - uploader
  - factors
  - config db pages
+ - file attachment
 
 -----------------------------------------------
 -- DMS website migration
