@@ -15,7 +15,7 @@ function download_to_graph() {
 	}
 	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/json'
 	var p = $('#filter_form').serialize();
-	gamma.getData(url, p, 'progress_display', function(rows) {
+	gamma.getObjectFromJSON(url, p, 'progress_display', function(rows) {
 		draw_graph(rows, colName);
 	};
 }

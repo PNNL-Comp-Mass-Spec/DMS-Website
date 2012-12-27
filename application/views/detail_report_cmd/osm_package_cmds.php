@@ -75,12 +75,10 @@ function callChooserSetType(item_type, chooserPage, delimiter, xref){
 function callSuggestionSetType(item_type, mode) {
 	$('#entry_item_list').val('');
 	var url = gamma.pageContext.site_url + "osm_package/suggested_items/<?= $id ?>/" + mode;
-	var p = {};
-	$.post(url, p, function (data) {
+	gamma.doOperation(url, false, 'item_section', function(data) {
 			$('#itemTypeSelector').val(item_type);
 			$('#entry_item_list').val(data);
-		}
-	);
+	});
 }
 
 function updateOSMPackageItems(id, form_id, mode) {
@@ -88,18 +86,9 @@ function updateOSMPackageItems(id, form_id, mode) {
 	var url = gamma.pageContext.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
 	$('#entry_cmd_mode').val(mode);
-	var p = $('#' + form_id).serialize();
-	message_container.spin('small');
-	$.post(url, p, function (data) {
-			message_container.spin(false);
-			if(data.indexOf('html failed') > -1) {
-				message_container.html(data);
-			} else {
-				message_container.html('Operation was successful');
-				delta.updateMyData();
-			}
-		}
-	);
+	gamma.doOperation(url, form_id, 'message_container', function(data, container) {
+		delta.processResults(data, container);
+	});
 }
 
 </script>

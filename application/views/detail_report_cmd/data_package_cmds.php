@@ -58,19 +58,9 @@ function updateDataPackageItems(id, form_id, mode) {
 	var url = gamma.pageContext.site_url + "data_package/operation/";
 	var message_container = $('#entry_update_status');
 	$('#entry_cmd_mode').val(mode);
-	var p = $('#' + form_id).serialize();
-	message_container.spin('small');
-	$.post(url, p, function (data) {
-			message_container.spin(false);
-			if(data.indexOf('html failed') > -1) {
-				message_container.html(data);
-			} else {
-				message_container.html('Operation was successful');
-				delta.updateMyData();
-			}
-		}
-	);
-
+	gamma.doOperation(url, form_id, 'message_container', function(data, container) {
+		delta.processResults(data, container);
+	});
 }
 
 </script>

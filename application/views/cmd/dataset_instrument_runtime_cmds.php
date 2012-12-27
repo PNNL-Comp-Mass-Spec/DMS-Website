@@ -9,11 +9,9 @@
 function download_to_graph() {
 	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export_param/json'
 	var p = $('#entry_form').serialize();
-	$.post(url, p, function (data) {
-			var rows = data.evalJSON();
+	gamma.getObjectFromJSON(url, p, 'graph_container', function(rows) {
 			draw_graph(rows);
-		}
-	);
+	}); 
 }
 
 //build data series from rows, set graph format, and draw graph

@@ -62,18 +62,9 @@ function updateOSMPackageItems(form_id, mode) {
 	$('#entry_cmd_mode').val(mode);
 	$('#itemTypeSelector').val(codeMap['<?= $this->my_tag ?>']);
 	$('#entry_item_list').val(id);
-	var p = $('#' + form_id).serialize();
-	message_container.spin('small');
-	$.post(url, p, function (data) {
-			message_container.spin(false);
-			if(data.indexOf('html failed') > -1) {
-				message_container.html(data);
-			} else {
-				message_container.html('Operation was successful');
-				delta.updateMyData();
-			}
-		}
-	);
+	gamma.doOperation(url, form_id, 'message_container', function(data, container) {
+		delta.processResults(data, container);
+	});
 }
 
 </script>

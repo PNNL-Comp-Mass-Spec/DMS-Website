@@ -6,26 +6,19 @@ function report_upload_results(msg) {
 }
 
 $(document).ready(function () { 
-//	showAttachments();
-	$('#entity_type').val("<?= $tag ?>");
-	$('#entity_id').val("<?= $id ?>");
+	$('#entity_type').val(gamma.pageContext.my_tag);
+	$('#entity_id').val(gamma.pageContext.Id);
 	}
 )
 function showAttachments() {
 	var url =  gamma.pageContext.site_url + "file_attachment/show_attachments";
 	var p = {};
-	p.entity_type = "<?= $tag ?>";
-	p.entity_id = "<?= $id ?>";
-	$.post(url, p, function (data) {
-			$('#attachments_list').html(data);
+	p.entity_type = gamma.pageContext.my_tag;
+	p.entity_id = gamma.pageContext.Id;
+	gamma.doOperation(url, p, 'attachments_list', function(data, container) {
+			container.html(data);
 			$('#file_attachments_section').show();
-		}
-	);
-	$.post(url, p, function (data) {
-			$('#attachments_list').html(data);
-			$('#file_attachments_section').show();
-		}
-	);
+	});
 }
 function doOperation(faid, mode) {
 	if(mode = 'delete') {
@@ -35,14 +28,13 @@ function doOperation(faid, mode) {
 	var p = {};
 	p.id = faid;
 	p.mode = mode;
-	$.post(url, p, function (data) {
+	gamma.doOperation(url, p, 'result_display', function (data) {
 			if(data != '') {
 				alert(data);
 			} else {
 				showAttachments();
 			}
-		}
-	);
+	});
 }
 function do_upload() {
 	$('#result_display').spin('small');

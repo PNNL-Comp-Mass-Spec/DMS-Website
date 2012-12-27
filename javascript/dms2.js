@@ -163,11 +163,11 @@ var gamma = {
 		});
 	},	
 	//------------------------------------------
-	// general AJAX post that gets data object from
-	// returned JSON and allows pre and post
-	// callbacks to be defined
+	// general AJAX post that gets a data object 
+	// from JSON returned by server and allows 
+	// pre and post callbacks to be defined
 	//------------------------------------------
-	getData: function (url, p, containerId, afterAction, beforeAction) { 
+	getObjectFromJSON: function (url, p, containerId, afterAction, beforeAction) { 
 		var container = (containerId)?$('#' + containerId):null;
 		var abort = false;
 		if(beforeAction) { 
@@ -181,6 +181,33 @@ var gamma = {
 				if(afterAction) {
 					afterAction(data);
 				}
+		});
+	},
+	//------------------------------------------
+	// general AJAX post that calls server operation
+	// and returns server response via callback
+	//------------------------------------------
+	doOperation: function (url, p, containerId, afterAction, beforeAction) {
+		// make calling parameters from p
+		// p can be form Id, raw object, or falsey
+		var px = {};
+		if(p) {
+			if (typeof p === "string") {
+				px = $('#' + p).serialize();
+			} else {
+				px = p;
+			}
+		}
+		var container = $('#' + containerId);
+		var abort = false;
+		if(beforeAction) { 
+			abort = beforeAction();
+		}
+		if(abort) return;
+		container.spin('small');
+		$.post(url, px, function (data) {
+				container.spin(false);
+				afterAction(data, container);
 		});
 	},
 	//------------------------------------------
@@ -532,6 +559,14 @@ var delta = {
 	},
 	updateMyData: function() {
 		delta.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container'); 
+	},
+	processResults: function(data, container) {
+		if(data.indexOf('html failed') > -1) {
+			container.html(data);
+		} else {
+			container.html('Operation was successful');
+			delta.updateMyData();
+		}
 	}
 
 };
