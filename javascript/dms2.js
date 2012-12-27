@@ -708,30 +708,13 @@ var epsilon = {
 		}
 		return value;
 	},
-	//for scal datepicker
+	//for datepicker
 	callDatepicker: function(fieldName) {
-		var chName = fieldName + '_chooser';
-		var ch = $('#' + chName);
-		if(ch) {
-			if(ch.is(':visible')) {
-				ch.hide();
-			} else {
-				ch.show();
-			}
-		} else {
-			var dv = "<div id='"+ chName + "'></div>";
-			$('#' + fieldName).ancestors().first().insert(dv);
-			var ch = $('#' + chName);
-			ch.addClass('googleblue');
-		    ch.absolutize();
-			new scal(chName, 
-					 function(dt){
-						$('#' + fieldName).val(dt.format('mm/dd/yyyy'));
-					 	ch.hide();
-					 }, 
-					 {updateformat: 'mm/dd/yyyy'}
-				);
+		var fld = $('#' + fieldName);
+		if(!fld.data().datepicker) {
+					fld.datepicker();
 		}
+		fld.focus();
 	},
 	//------------------------------------------
 	// used for entry page submission
