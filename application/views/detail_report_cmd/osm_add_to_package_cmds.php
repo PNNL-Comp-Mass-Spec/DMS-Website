@@ -32,7 +32,7 @@
 <script type="text/javascript">
 
 function callOSMChooser(){
-	var page = "<?= site_url() ?>helper_osm_package/report";
+	var page = gamma.pageContext.site_url + "helper_osm_package/report";
 	epsilon.callChooser('packageID', page,  ',', '')
 }
 
@@ -58,9 +58,9 @@ function updateOSMPackageItems(form_id, mode) {
 	if ( !confirm("Are you sure that you want to " + mode + " this entity to the OSM package?") ) return;
 	var url = gamma.pageContext.site_url + "osm_package/operation/";
 	var message_container = $('#entry_update_status');
-	var id = '<?= $id ?>';
+	var id = gamma.pageContext.Id;
 	$('#entry_cmd_mode').val(mode);
-	$('#itemTypeSelector').val(codeMap['<?= $this->my_tag ?>']);
+	$('#itemTypeSelector').val(codeMap[gamma.pageContext.my_tag]);
 	$('#entry_item_list').val(id);
 	gamma.doOperation(url, form_id, 'message_container', function(data, container) {
 		delta.processResults(data, container);

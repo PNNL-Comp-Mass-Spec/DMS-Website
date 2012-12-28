@@ -11,7 +11,7 @@
 
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
-gamma.pageContext.response_container = 'update_message';
+gamma.pageContext.responseContainerId = 'update_message';
 gamma.pageContext.Id = '<?= $id ?>';
 
 function updateAuxIntoControls() {

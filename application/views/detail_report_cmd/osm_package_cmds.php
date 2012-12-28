@@ -74,7 +74,7 @@ function callChooserSetType(item_type, chooserPage, delimiter, xref){
 
 function callSuggestionSetType(item_type, mode) {
 	$('#entry_item_list').val('');
-	var url = gamma.pageContext.site_url + "osm_package/suggested_items/<?= $id ?>/" + mode;
+	var url = gamma.pageContext.site_url + "osm_package/suggested_items/" + gamma.pageContext.Id + "/" + mode;
 	gamma.doOperation(url, false, 'item_section', function(data) {
 			$('#itemTypeSelector').val(item_type);
 			$('#entry_item_list').val(data);

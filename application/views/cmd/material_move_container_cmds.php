@@ -8,7 +8,7 @@ function performOperation(mode, val) {
 	}
 	if (!confirm("Are you sure that you want to update the database?")) return;
 	
-	url =  "<?= $ops_url ?>";
+	url = gamma.pageContext.ops_url;
 	var p = {};
 	p.command = mode;
 	p.containerList = list;

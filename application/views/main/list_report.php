@@ -10,8 +10,8 @@
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
-gamma.pageContext.response_container_name =  "update_message";
-gamma.pageContext.cntrl_container_name =  "clear_message";
+gamma.pageContext.responseContainerId =  "update_message";
+gamma.pageContext.cntrlContainerId =  "clear_message";
 gamma.pageContext.ops_url = '<?= $ops_url ?>';
 
 // load the filter panel according to the given layout mode

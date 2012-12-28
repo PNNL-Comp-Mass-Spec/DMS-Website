@@ -474,8 +474,8 @@ var theta = {
 	//------------------------------------------
 	// submit list report supplemental command
 	submitOperation: function(url, p, show_resp) {
-		var ctl = $('#' + gamma.pageContext.cntrl_container_name);
-		var container = $('#' + gamma.pageContext.response_container_name);
+		var ctl = $('#' + gamma.pageContext.cntrlContainerId);
+		var container = $('#' + gamma.pageContext.responseContainerId);
 		container.spin('small');
 		$.post(url, p, function (data) {
 				container.spin(false);
@@ -537,7 +537,7 @@ var delta = {
 		var p = {};
 		p.ID = id;
 		p.command = mode;
-		var container = $('#' + gamma.pageContext.response_container);
+		var container = $('#' + gamma.pageContext.responseContainerId);
 		container.spin('small');
 		$.post(url, p, function (data) {
 				container.spin(false);

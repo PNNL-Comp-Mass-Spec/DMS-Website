@@ -8,7 +8,7 @@ function localRowAction(url, value, obj) {
 function performOperation(mode) {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
 
-	url =  "<?= $ops_url ?>";
+	url = gamma.pageContext.ops_url;
 	var p = {};
 	p.command = mode;
 	p.InstrumentGroup = $('#instrument_group_fld').val();
