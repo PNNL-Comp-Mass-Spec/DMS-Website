@@ -32,13 +32,7 @@ function updateContainer(action, containerId, id) {
 	p.file_name = $('#uploaded_file_name').val();
 	p.id = id;
 	if(!p.file_name) {alert('No file name'); return; }
-	var container = $('#' + containerId);
-	container.spin('small');
-	$.post(url, p, function (data) {
-			container.spin(false);
-		    container.html(data);
-		}
-	);
+	gamma.loadContainer(url, p, containerId);
 }
 // extract data from uploaded spreadsheet and display on page
 function extract() {

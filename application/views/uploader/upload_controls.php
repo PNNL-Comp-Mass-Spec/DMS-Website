@@ -19,17 +19,12 @@ function update_entity(id, containerId) {
 	p.file_name   = file_name;
 	p.id          = id;
 	if(!p.file_name) {alert('No file name'); return; }
-	var container = $('#' + containerId);
-	container.spin('small');
-	$.post(url, p, function (data) {
-			container.spin(false);
-			container.html(data);
+	gamma.loadContainer(url, p, containerId, function(){
 			// call update_next_entity_in_list in case we are processing multiple selections
 			// making the call via timeout starts new thread allowing the AJAX thread to terminate
 			// so that recursion doesn't pork up the thread pool and the call stack
 			setTimeout("update_next_entity_in_list()", 200);
-		}
-	);
+	}); 
 }
 //pull the specifications for the next entity to be updated
 //out of the master list and call update_entity for it to update the db

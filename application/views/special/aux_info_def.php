@@ -32,14 +32,8 @@ function addNewMember(type, parent_id) {
 }
 function updateContainer(type, id, follow_on_action) { 
 	var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/test/' + type + '/' + id;
-	var container = $('#' + type + '_container');
-	container.spin('small');
-	var p = {};
-	$.post(url, p, function (data) {
-			container.spin(false);
-		    container.html(data);
-		}
-	);
+	var containerId = type + '_container';
+	gamma.loadContainer(url, {}, containerId);
 }
 function clearChildren(parent) {
 	var child = parent;

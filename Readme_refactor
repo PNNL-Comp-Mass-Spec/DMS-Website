@@ -12,6 +12,8 @@ TEST:
  - config db pages
  - file attachment
  - IE and FF
+------------------------------------------
+gamma.loadContainer(url, p, containerId, afterAction, beforeAction); 
 
 -----------------------------------------------
 -- DMS website migration
