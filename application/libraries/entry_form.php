@@ -384,6 +384,7 @@ class Entry_form {
 
 		// default command button
 		$mode = $this->get_mode_from_page_type($page_type);
+		$attributes['id'] = 'primary_cmd';
 		$url = site_url(). $this->file_tag . "/submit_entry_form";
 		$attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$mode')";
 		$attributes['content'] = ($page_type == 'create')?'Create':'Update';;
@@ -404,6 +405,7 @@ class Entry_form {
 			switch($spec['type']){
 				case "cmd":
 					$attributes = array();
+					$attributes['id'] = 'cmd_' . strtolower(str_replace(' ', '_', $command));
 					$attributes['content'] = $spec['label'];
 					$attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$command')";
 					$attributes['title'] = $spec['tooltip'];
