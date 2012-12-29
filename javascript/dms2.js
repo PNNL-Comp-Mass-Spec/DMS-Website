@@ -133,7 +133,7 @@ var gamma = {
 				}
 			);
 		};
-	}(),		
+	}(),
 	clearSelector: function(name) {
 		$('#' + name + ' option').each(function(idx, opt) {
 			opt.selected = false;
@@ -798,11 +798,11 @@ var epsilon = {
 		var entryForm = $('#' + this.pageContext.entryFormId);
 		modeField.val(mode);
 		p = entryForm.serialize();
-		var abort = false;
+		var proceed = true;
 		if(beforeAction) { 
-			abort = beforeAction();
+			proceed = beforeAction();
 		}
-		if(abort) return;
+		if(!proceed) return;
 		if(!confirm("Are you sure that you want to perform this action?")) return;
 		container.spin('small');
 		$.post(url, p, function (data) {

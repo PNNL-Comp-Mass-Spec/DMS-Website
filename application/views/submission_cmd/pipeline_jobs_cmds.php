@@ -35,6 +35,7 @@ $(document).ready(function () {
 	}
 	load_param_form();
 	load_script_diagram();
+	return true;
 });	
 </script>
 

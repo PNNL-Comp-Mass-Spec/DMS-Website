@@ -1,5 +1,35 @@
+<div id='message_contents' style='display:none'>
+<p>You have selected the 'Closed' state and there is biomaterial associated with this prep request.</p>
+<p>Would you like to change the state setting to special 'Closed (containers and material)' setting instead?</p>
+<p>This will retire the material and containers that are associated only with this prep request, and the request will be left in the 'Closed' state</p>
+</div>
+
 
 <script type="text/javascript">
+
+epsilon.actions.before = function() {
+	var proceed = false;
+
+    $( "#message_contents" ).dialog({
+        //resizable: false,
+        height:140,
+        modal: true,
+        buttons: {
+           "Change And Continue Update": function() {
+                $( this ).dialog( "close" );
+            },
+            "Don't Change And Continue Update": function() {
+                $( this ).dialog( "close" );
+            },
+            Cancel: function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+
+	return proceed;	
+}
+
 var gSubmission = {};
 function submissionSequence(url, mode) {
 	gSubmission.url = url;

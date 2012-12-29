@@ -31,6 +31,7 @@ $(document).ready(function () {
 	// as xml copied to main form field
 	epsilon.actions.before = function() {
 		epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
+		return true;
 	}
 	
 	load_param_form();
