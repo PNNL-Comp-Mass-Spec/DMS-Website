@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/custom.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/nav_bar.css' ?>" />
 
-<link rel="stylesheet" type="text/css" href="<?= base_url().'css/jquery-ui-1.8.21.custom.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?= base_url().'css/themes/smoothness/jquery-ui-1.8.21.custom.css' ?>" />
 
 <script type="text/javascript" src="<?= base_url().'javascript/jquery-1.7.2.min.js' ?>"></script>
 <script type="text/javascript" src="<?= base_url().'javascript/jquery-ui-1.8.21.custom.min.js' ?>"></script>
