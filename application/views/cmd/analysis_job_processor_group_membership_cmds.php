@@ -8,7 +8,7 @@ function performOperation(mode, p1, p2) {
 			return;
 		}
 	} else {
-		list = kappa.getCkbxList('ckbx');
+		list = lambda.getCkbxList('ckbx');
 		if (list == '') {
 			alert('You must select items.');
 			return;

@@ -252,14 +252,14 @@ var gamma = {
 //------------------------------------------
 //These functions are used by list reports
 //------------------------------------------
-var kappa = {	
+var lambda = {	
 	//this function acts as a hook that other functions call to 
 	//reload the row data container for the list report.
 	//it needs to be overridden with the actual loading
 	//function defined on the page, which will be set up
 	//with page-specific features
 	reloadListReportData: function() {
-		alert('"kappa.reloadListReportData" not overridden');
+		alert('"lambda.reloadListReportData" not overridden');
 	},
 	// for clearing cached page parameters
 	setListReportDefaults: function(url) { 
@@ -295,12 +295,12 @@ var kappa = {
 	//clear the specified list report search filter
 	clearSearchFilter: function(filter) {
 		$( '.' + filter).each(function(idx, obj) {obj.value = ''} );
-		kappa.is_filter_active();
+		lambda.is_filter_active();
 	},
 	//clear the list report search filters
 	clearSearchFilters: function() {
 		$(".filter_input_field").each(function(idx, obj) {obj.value = ''} );
-		kappa.is_filter_active();
+		lambda.is_filter_active();
 	},
 	//------------------------------------------
 	setColSort: function(colName, noUpdate) {
@@ -312,7 +312,7 @@ var kappa = {
 		$('#qf_sort_col_0').val(colName);
 		$('#qf_sort_dir_0').val(dir);
 		if(!noUpdate) {
-			kappa.reloadListReportData('autoload');
+			lambda.reloadListReportData('autoload');
 		}
 	},
 	//------------------------------------------
@@ -320,12 +320,12 @@ var kappa = {
 	//set the current starting row for the list report
 	setListReportCurRow: function(row) {
 		$('#qf_first_row').val(row);
-	 	kappa.reloadListReportData();
+	 	lambda.reloadListReportData();
 	},
 	setPageSize: function(curPageSize, totalRows, max) {
-		var reply = kappa.getPageSizeFromUser(curPageSize, totalRows, max);
+		var reply = lambda.getPageSizeFromUser(curPageSize, totalRows, max);
 		if(reply == null) return;
-		kappa.setPageSizeParameter(reply);
+		lambda.setPageSizeParameter(reply);
 	},
 	getPageSizeFromUser: function(curPageSize, totalRows, max) {
 		var reply = null;
@@ -355,7 +355,7 @@ var kappa = {
 			var n = Number(newPageSize);
 			$('#qf_rows_per_page').val(newPageSize);
 			$('#qf_first_row').val(1);
-		    kappa.reloadListReportData();
+		    lambda.reloadListReportData();
 		}
 	},
 	//------------------------------------------
@@ -386,7 +386,7 @@ var kappa = {
 		ff.find(".sorting_filter_input").each(function(idx, obj) {
 				if(obj.value != '') sortFlag++;
 			} );	
-		kappa.set_filter_active_indicator(filterFlag, sortFlag);
+		lambda.set_filter_active_indicator(filterFlag, sortFlag);
 	},
 	filter_key: function(e) {
 		var code;
@@ -395,7 +395,7 @@ var kappa = {
 		else if (e.which) code = e.which;
 		if(code == 13) {
 			$('#qf_first_row').val(1);
-		    kappa.reloadListReportData();
+		    lambda.reloadListReportData();
 			return false;
 		}
 	   return true;
@@ -473,7 +473,7 @@ var kappa = {
 	intializeChooserCkbx: function(checkBoxName) {
 		if(window.opener) {
 			var list = window.opener.epsilon.getFieldValueForChooser();
-			kappa.setCkbxFromList(checkBoxName, list);
+			lambda.setCkbxFromList(checkBoxName, list);
 		}
 	}
 };
@@ -499,7 +499,7 @@ var theta = {
 					if(show_resp) msg = data;
 					container.html(msg);
 					ctl.hide();
-					kappa.reloadListReportData();
+					lambda.reloadListReportData();
 				}
 			}
 		);

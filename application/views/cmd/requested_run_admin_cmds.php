@@ -22,12 +22,12 @@ function make_xml_list(rlist) {
 	return s;
 }
 function deleteRequests() {
-	var iList = kappa.getSelectedItemList();
+	var iList = lambda.getSelectedItemList();
 	var xml = make_xml_list(iList);
 	updateDatabaseFromList(xml, 'delete');
 }
 function setRequestStatus(status) {
-	var iList = kappa.getSelectedItemList();
+	var iList = lambda.getSelectedItemList();
 	var xml = make_xml_list(iList);
 	updateDatabaseFromList(xml, status);
 }

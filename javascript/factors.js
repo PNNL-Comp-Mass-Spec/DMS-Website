@@ -77,7 +77,7 @@ var theta = {
 	applyFactorToDatabase: function() {
 		var factor = $('#apply_factor_name').val();
 		var value = $('#apply_factor_value').val();
-		var ilist = kappa.getSelectedItemList();
+		var ilist = lambda.getSelectedItemList();
 		var flist = this.makeObjectList(ilist, factor, value);
 		if (flist.length == 0) {
 			alert('No items selected on which to apply this action');
@@ -88,7 +88,7 @@ var theta = {
 	removeFactorFromDatabase: function(){
 		var factor = $('#remove_factor_name').val();
 		var value = '';
-		var ilist = kappa.getSelectedItemList();
+		var ilist = lambda.getSelectedItemList();
 		var flist = this.makeObjectList(ilist, factor, value);
 		if (flist.length == 0) {
 			alert('No items selected on which to apply this action');

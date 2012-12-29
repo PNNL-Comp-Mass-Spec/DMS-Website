@@ -293,7 +293,7 @@
 			switch($page_type) {
 				case 'List_Reports':
 				case 'Param_Pages':
-					$menu_context['clear_settings_link'] = "javascript:kappa.setListReportDefaults(\"".site_url().$CI->my_tag."/defaults/$page_type\")";
+					$menu_context['clear_settings_link'] = "javascript:lambda.setListReportDefaults(\"".site_url().$CI->my_tag."/defaults/$page_type\")";
 					break;
 			}		
 			$config_db = (isset($CI->my_config_db))?$CI->my_config_db:$CI->my_tag;

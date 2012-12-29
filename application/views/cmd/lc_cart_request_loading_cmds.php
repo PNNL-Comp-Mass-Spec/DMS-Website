@@ -34,7 +34,7 @@ function saveChangesToDababase() {
 </script>
 <script type="text/javascript">
 function setCartName() {
-	var iList = kappa.getSelectedItemList();
+	var iList = lambda.getSelectedItemList();
 	if (iList.size() == 0) {
 		alert('No items are selected');
 		return;
@@ -49,7 +49,7 @@ function setCartName() {
 	});
 }
 function setCartCol() {
-	var iList = kappa.getSelectedItemList();
+	var iList = lambda.getSelectedItemList();
 	if (iList.size() == 0) {
 		alert('No items are selected');
 		return;

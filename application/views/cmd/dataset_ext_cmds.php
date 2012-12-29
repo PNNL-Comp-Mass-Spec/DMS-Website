@@ -3,7 +3,7 @@
 function transferData(perspective, dslist) {
 
 	var commalist = $('#' + dslist).val();
-	var list = kappa.getCkbxList('ckbx' );
+	var list = lambda.getCkbxList('ckbx' );
 	if(list=='' && commalist=='') {
 		alert('You must select at least 1 dataset or enter 1 dataset id.'); 
 		return;

@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
 function performOperation(mode){
-	var iList = kappa.getSelectedItemList();
+	var iList = lambda.getSelectedItemList();
 	if (iList.size() == 0) {
 		alert('No items are selected');
 		return;
@@ -94,7 +94,7 @@ function logg(s, clear) {
 	$('#zed').val() += s + "\n";
 }
 function test() {
-	var iList = kappa.getSelectedItemList();
+	var iList = lambda.getSelectedItemList();
 	logg(iList);
 }
 </script>

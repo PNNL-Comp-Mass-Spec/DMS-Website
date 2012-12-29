@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function performOperation(mode) {
-	var list = kappa.getCkbxList('ckbx');
+	var list = lambda.getCkbxList('ckbx');
 	if(list=='') {
 		alert('You must select requests.'); 
 		return;

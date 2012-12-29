@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
 function transferData(perspective) {
-	var list = kappa.getCkbxList('ckbx' );
+	var list = lambda.getCkbxList('ckbx' );
 	if(list=='') {
 		alert('You must select at least 1 analysis job.'); 
 		return;

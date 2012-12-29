@@ -16,7 +16,7 @@ gamma.pageContext.ops_url = '<?= $ops_url ?>';
 
 // load the filter panel according to the given layout mode
 function updateMyFilter($mode) {
-	kappa.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', filter_observers_action); 
+	lambda.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', filter_observers_action); 
 	if($mode == 'minimal') { 
 		$('#show_more_filter').show();$('#show_less_filter').hide(); 
 	} else { 
@@ -28,8 +28,8 @@ function updateMyFilter($mode) {
 // and initialize filter status display
 var filter_observers_action = {
 	run:function() {
-		kappa.set_filter_field_observers();
-		kappa.is_filter_active();
+		lambda.set_filter_field_observers();
+		lambda.is_filter_active();
 	}
 }
 // copy the contents of the upper paging display to the lower one
@@ -48,7 +48,7 @@ var paging_update_action = {
 		} else {
 			$('#paging_container_upper').show();
 			$('#paging_container_lower').show();
-			kappa.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
+			lambda.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
 		} 	
 	}
 }
@@ -56,13 +56,13 @@ var paging_update_action = {
 var data_post_load_action = {
 	run:function(){
 		paging_update_action.run();
-		if(!$('#data_message') && gamma.pageContext.is_ms_helper) { kappa.intializeChooserCkbx('ckbx') }
+		if(!$('#data_message') && gamma.pageContext.is_ms_helper) { lambda.intializeChooserCkbx('ckbx') }
 	}
 }
 // go get some data rows
 var data_update_action = {
 	run:function(){
-		kappa.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
+		lambda.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
 	}
 }
 function updateShowSQL(ignoreIfClosed) {
@@ -83,7 +83,7 @@ $(document).ready(function () {
 //		$('#data_container').html('Data is loading...' + gamma.pageContext.progress_message);
 		updateMyFilter('minimal');
 		updateMyData('<?= $loading ?>');
-	 	kappa.reloadListReportData = function() { updateMyData('autoload');}
+	 	lambda.reloadListReportData = function() { updateMyData('autoload');}
 	}
 );
 </script>
@@ -111,7 +111,7 @@ $(document).ready(function () {
 <td >
 <div id='search_controls_container'>
 <input type="button" onclick="updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
-<a href='javascript:void(0)' onclick="kappa.clearSearchFilters()" >Clear Filters</a> &nbsp; &nbsp;
+<a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" >Clear Filters</a> &nbsp; &nbsp;
 <span id='show_less_filter'><a href='javascript:void(0)' onclick="updateMyFilter('minimal')" >Minimize Filters</a></span> &nbsp; &nbsp;
 <span id='show_more_filter'><a href='javascript:void(0)' onclick="updateMyFilter('maximal')" >Expand Filters</a></span>  &nbsp; &nbsp;
 

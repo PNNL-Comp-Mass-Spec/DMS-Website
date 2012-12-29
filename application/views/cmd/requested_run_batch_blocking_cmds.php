@@ -86,7 +86,7 @@ function load_delimited_text() {
 	updateDatabaseFromList(flist, blist);
 }
 function setBlockForSelectedItems() {
-	var iList = kappa.getSelectedItemList();
+	var iList = lambda.getSelectedItemList();
 	if (iList.size() == 0) {
 		alert('No items are selected');
 		return;
