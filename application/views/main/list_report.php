@@ -66,7 +66,7 @@ var data_update_action = {
 	}
 }
 function updateShowSQL(ignoreIfClosed) {
-	gamma.updateAlert(gamma.pageContext.my_tag + '/report_sql', 'filter_form', ignoreIfClosed); 
+	gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_sql', 'filter_form', ignoreIfClosed); 
 }
 // start the data update chain for the page
 function updateMyData(loading) {

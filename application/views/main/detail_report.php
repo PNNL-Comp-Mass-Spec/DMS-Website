@@ -18,7 +18,7 @@ function updateAuxIntoControls() {
 	delta.updateContainer(gamma.pageContext.my_tag + '/detail_report_aux_info_controls/' + gamma.pageContext.Id, 'aux_info_controls_container'); 
 }
 function updateShowSQL() {
-	gamma.updateAlert(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS'); 
+	gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS'); 
 }
 $(document).ready(function () { 
 	delta.updateMyData();

@@ -117,7 +117,7 @@ var gamma = {
 	// in floating modeless dialog (created dynamically)
 	// (if ignoreIfClosed is false or undefined, always open 
 	//  or update dialog, otherwise, only update if already open)
-	updateAlert: function() {
+	updateMessageBox: function() {
 		var dlg;
 		return function(url, form, ignoreIfClosed) {
 			var isClosed = (dlg) ? !dlg.dialog('isOpen') : true;
