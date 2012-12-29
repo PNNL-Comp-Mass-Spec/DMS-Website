@@ -65,16 +65,8 @@ var data_update_action = {
 		kappa.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
 	}
 }
-function updateShowSQL() {
-	gamma.updateAlert(gamma.pageContext.my_tag + '/report_sql', 'filter_form'); 
-}
-// update the SQL display box if it is visible
-var sql_display_action = {
-	run:function() {
-		if($('#notification').is(':visible')) {
-			gamma.updateAlert(gamma.pageContext.my_tag + '/report_sql', 'filter_form');
-		}
-	}
+function updateShowSQL(ignoreIfClosed) {
+	gamma.updateAlert(gamma.pageContext.my_tag + '/report_sql', 'filter_form', ignoreIfClosed); 
 }
 // start the data update chain for the page
 function updateMyData(loading) {
@@ -83,7 +75,7 @@ function updateMyData(loading) {
 	} else {
 		if(loading && loading == 'reset') $('#qf_first_row').val(1);
 		data_update_action.run(); 	
-		sql_display_action.run();
+		updateShowSQL(true);
 	}	
 }
 // after the page loads, set things in motion to populate it
@@ -173,8 +165,6 @@ $this->load->view("main/list_report_export");
 
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
-<?php // notification
-$this->load->view("main/notification");
-?>
+
 </body>
 </html>

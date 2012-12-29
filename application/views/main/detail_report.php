@@ -71,8 +71,6 @@ $this->load->view("main/detail_report_export");
 
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
-<?php // notification
-$this->load->view("main/notification");
-?>
+
 </body>
 </html>

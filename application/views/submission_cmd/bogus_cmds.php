@@ -1,8 +1,4 @@
 
-<?php // notification
-$this->load->view("main/notification");
-?>
-
 <script type="text/javascript">
 //example of post-submission action
 var post_submission_action = {

@@ -75,15 +75,27 @@ var gamma = {
 	trim: function(str) {
 		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	},
-	updateAlert: function(url, form) { 
-		url = gamma.pageContext.site_url + url;
-		p = $('#' + form).serialize();
-		$.post(url, p, function(data) {
-				$('#notification_message').html(data);
-				$('#notification').show();
+	// display results returned by AJAX query of server
+	// in floating modeless dialog (created dynamically)
+	// (if ignoreIfClosed is false or undefined, always open 
+	//  or update dialog, otherwise, only update if already open)
+	updateAlert: function() {
+		var dlg;
+		return function(url, form, ignoreIfClosed) {
+			var isClosed = (dlg) ? !dlg.dialog('isOpen') : true;
+			if(ignoreIfClosed && isClosed) return;
+			if(!dlg) {
+				dlg = $('<div></div>').dialog({title: 'SQL', autoOpen: false});	
 			}
-		);
-	},
+			url = gamma.pageContext.site_url + url;
+			var p = $('#' + form).serialize();
+			$.post(url, p, function(data) {
+					dlg.html(data);
+					dlg.dialog('open');
+				}
+			);
+		};
+	}(),		
 	clearSelector: function(name) {
 		$('#' + name + ' option').each(function(idx, opt) {
 			opt.selected = false;

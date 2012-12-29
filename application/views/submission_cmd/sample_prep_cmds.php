@@ -1,6 +1,3 @@
-<?php // notification
-$this->load->view("main/notification");
-?>
 
 <script type="text/javascript">
 var gSubmission = {};
