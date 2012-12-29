@@ -8,8 +8,8 @@ class Preferences extends CI_Controller {
 	function __construct()
 	{
         // Call the parent constructor
-        parent::Controller();
- 
+ 		parent::__construct();
+
 		session_start();
 
 		$this->load->helper(array('url', 'string', 'dms_search', 'cookie', 'user'));

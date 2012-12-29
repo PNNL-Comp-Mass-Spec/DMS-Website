@@ -5,6 +5,44 @@ $(document).ajaxError(function (e, xhr, settings, exception) {
     alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
 });	
 
+// set listener for nav-bar related clicks
+$(document).ready(function () {
+	$(document.body).click(navBar.hide_exposed_menus);
+});
+
+var navBar = {
+	// id of menu that is exposed
+	openMenuId: '',
+	expose_menu: function(menu_id) {
+		navBar.openMenuId = menu_id;
+		var m = $('#' + menu_id);
+		m.css('display', 'block');
+	},
+	hide_exposed_menus: function(e) {
+		if(e) {
+			var el = e.target;
+			var pe = $(el).closest('div')[0];
+			var notA = el.tagName.toLowerCase() != 'a';
+			var notM = pe.id != 'menu';
+			if(notA || notM) {
+				navBar.openMenuId = '';
+			}
+		} else {
+			navBar.openMenuId = '';
+		}
+		var menu_list = $('.ddm');
+		menu_list.each( function(idx, x) {
+				if(x.id != navBar.openMenuId) x.style.display = 'none';
+			});	
+	},
+	invoke: function(action, arg) {
+		if(action) {
+			action(arg);
+		}
+		navBar.hide_exposed_menus();
+	}
+};
+
 //------------------------------------------
 // JQuery plug-in for spinner
 //------------------------------------------
@@ -123,7 +161,7 @@ var gamma = {
 		}
 	},
 	//------------------------------------------
-	// nav_bar functions
+	// side menu functions
 	//------------------------------------------
 	// these functions hide and show the side menu
 	kill_frames: function() {
@@ -248,7 +286,7 @@ var gamma = {
 	no_action: {
 	}
 };
-		
+
 //------------------------------------------
 //These functions are used by list reports
 //------------------------------------------
@@ -262,7 +300,8 @@ var lambda = {
 		alert('"lambda.reloadListReportData" not overridden');
 	},
 	// for clearing cached page parameters
-	setListReportDefaults: function(url) { 
+	setListReportDefaults: function(pageType) { 
+		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/defaults/' + pageType;
 		p = {};
 		$.post(url, p, function (data) {
 			    alert(data);

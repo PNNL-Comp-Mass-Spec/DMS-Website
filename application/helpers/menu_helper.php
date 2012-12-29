@@ -185,7 +185,7 @@
 	function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '')
 	{
 		if($mnu_name != '') {
-			echo "<li><span><a onClick='expose_menu(\"ddm_$index\")' href='javascript:void(0);'>$mnu_label</a></span>\n";
+			echo "<li><span><a onClick='navBar.expose_menu(\"ddm_$index\")' href='javascript:void(0);'>$mnu_label</a></span>\n";
 			echo "<ul id='ddm_$index' class='ddm'>\n";
 		}
 		foreach($menu_items as $entry) {
@@ -293,7 +293,7 @@
 			switch($page_type) {
 				case 'List_Reports':
 				case 'Param_Pages':
-					$menu_context['clear_settings_link'] = "javascript:lambda.setListReportDefaults(\"".site_url().$CI->my_tag."/defaults/$page_type\")";
+					$menu_context['clear_settings_link'] = "javascript:navBar.invoke(lambda.setListReportDefaults, \"$page_type\")";
 					break;
 			}		
 			$config_db = (isset($CI->my_config_db))?$CI->my_config_db:$CI->my_tag;
@@ -303,10 +303,10 @@
 			case 'Entry_Pages'  :
 				break;
 			case 'List_Reports':
-				$menu_context['sql_link'] = "javascript:updateShowSQL()";
+				$menu_context['sql_link'] = "javascript:navBar.invoke(updateShowSQL)";
 				break;
 			case 'Detail_Reports' :
-				$menu_context['sql_link'] = "javascript:updateShowSQL()";
+				$menu_context['sql_link'] = "javascript:navBar.invoke(updateShowSQL)";
 				break;
 			case 'Param_Pages':
 				break;
