@@ -14,6 +14,8 @@ $(document).ready(function () {
 	epsilon.pageContext.modeFieldId = 'entry_cmd_mode';
 	epsilon.pageContext.entryFormId = 'entry_form';
 	epsilon.adjustEnabledFields();
+	
+	$('.sel_chooser').chosen();
 	}
 );
 </script>

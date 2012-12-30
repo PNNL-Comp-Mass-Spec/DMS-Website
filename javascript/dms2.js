@@ -76,6 +76,7 @@ $("#el").spin(false); // Kills the spinner.
 					if (typeof opts === "string") {
 						if (opts in presets) {
 							opts = presets[opts];
+							opts.color = 'blue';
 						} else {
 							opts = {};
 						}

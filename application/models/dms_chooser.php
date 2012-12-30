@@ -94,7 +94,8 @@ class Dms_chooser extends CI_Model {
 	{
 		$str = "";
 		$chooser_element_name = $target_field_name . "_chooser" . $seq;
-		$js = "id=\"$chooser_element_name\" onChange='epsilon.setFieldValueFromSelection(\"$target_field_name\", \"$chooser_element_name\", \"$mode\")'";
+		$js = "id=\"$chooser_element_name\" class=\"sel_chooser\" ";
+		$js .= " onChange='epsilon.setFieldValueFromSelection(\"$target_field_name\", \"$chooser_element_name\", \"$mode\")'";
 		if(!array_key_exists($chooser_name, $this->choices)) {
 			$str .=  "The chooser name '$chooser_name' could not be found";
 			return $str;

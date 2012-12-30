@@ -27,3 +27,5 @@ Fix or eliminate flotr graphing
 Have config db way to suppress standard entry buttons.
 
 autocomplete fields/choosers
+
+arrange caching for chooser lists
