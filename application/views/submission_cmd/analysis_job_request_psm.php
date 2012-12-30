@@ -14,7 +14,6 @@
 <script type="text/javascript">
 
 $(document).ready(function () { 
-	$('#cmd_buttons').hide();
 	$('#move_next_link').hide();
 	epsilon.hideSection('section_block_3');
 	epsilon.hideSection('section_block_4');

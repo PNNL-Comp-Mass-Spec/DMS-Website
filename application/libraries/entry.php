@@ -59,13 +59,25 @@ class Entry {
 		$data['tag'] = $this->tag;
 		$data['title'] = $CI->gen_model->get_page_label($this->title, $page_type);
 		$data['form'] = $CI->entry_form->build_display();
-		$data['entry_cmds'] = $CI->entry_form->make_entry_commands($form_def->entry_commands, $page_type);
+		$data['entry_cmds'] = $this->handle_cmd_btns($CI, $form_def->entry_commands, $page_type);
 		$data['entry_submission_cmds'] = $CI->gen_model->get_param('entry_submission_cmds');
 
 		$CI->load->helper(array('menu'));
 		$data['nav_bar_menu_items']= set_up_nav_bar('Entry_Pages');
 		$CI->load->vars($data);	
 		$CI->load->view('main/entry_form');		
+	}
+
+	// --------------------------------------------------------------------
+	protected
+	function handle_cmd_btns($me, $commands, $page_type)
+	{
+		$btns = '';
+		$suppress_btns = $me->gen_model->get_param('cmd_buttons');
+		if(!$suppress_btns) {
+			$btns = $me->entry_form->make_entry_commands($commands, $page_type);
+		}		
+		return $btns;
 	}
 
 	// --------------------------------------------------------------------

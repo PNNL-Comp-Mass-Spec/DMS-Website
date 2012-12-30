@@ -24,8 +24,36 @@ Get rid of aux info
 
 Fix or eliminate flotr graphing
 
-Have config db way to suppress standard entry buttons.
-
 autocomplete fields/choosers
 
 arrange caching for chooser lists
+
+------------------------------------------
+changes
+------------------------------------------
+
+http://prismwebdev2.pnl.gov/dmsref/gen/welcome
+
+Replaced prototype.js and scriptaculous with JQuery and JQueryUI
+Cleaned up JS:
+	Split code in dms2.js into separate objects (acts as namespaces)
+		gamma - general purpose methods
+		lambda - list report methods 	
+		theta - specialized list report methods (factors)
+		delta - detail report methods
+		epsilon - entry page methods
+		navBar - methods used by drop-down menu bar
+	Replaced "GlobalAJAX" with gamma.pageContext object and made usage consistent across modules
+	Pulled out common functions from cmd views into central library
+	Most all AJAX submissions go through central library 
+		Apply common behavior, such as busy indicator
+		Link to page-based code via callbacks where possible
+Used spin.js instead of animated GIF for "busy" indicator
+Can suppress creation of standard entry page command buttons via general_params table in config db
+	(INSERT INTO general_params ("name", "value") VALUES ('cmd_buttons', 'suppress');
+	Useful when "Easy" pages want to supersede them
+Using chosen.js for drop-down choosers on entry pages
+	Has built-in field for restricting list by typing in filter values
+Replaced scal date picker with one that is built into JQueryUI
+
+
