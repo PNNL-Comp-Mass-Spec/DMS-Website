@@ -25,7 +25,7 @@ epsilon.actions.before = function() {
 		        modal: true,
 		        buttons: {
 		           "Change And Continue Update": function() {
-						$('#State').setValue('Closed (containers and material)');
+						$('#State').val('Closed (containers and material)');
 		                $( this ).dialog( "close" );
 		                proceed = true;
 		           		$('#primary_cmd').click(); // retrigger the submit 
