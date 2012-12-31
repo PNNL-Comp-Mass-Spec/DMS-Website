@@ -4,9 +4,9 @@
 //of master controls
 function get_master_control_settings() {
 	var p = {};
-	p.mode = $('#cmds').getInputs('radio', 'createupdate').find(function(radio){return radio.checked;}val();
-	p.incTrackinfo = $('#incTrackinfo').checked;
-	p.incAuxinfo = $('#incAuxinfo').checked;
+	p.mode = $('#cmds :checked').filter(':radio').first().val();
+	p.incTrackinfo = $('#incTrackinfo').is(':checked');
+	p.incAuxinfo = $('#incAuxinfo').is(':checked');
 	return p;
 }
 //update entity in database and call update_next_entity_in_list
@@ -31,7 +31,7 @@ function update_entity(id, containerId) {
 function update_next_entity_in_list() {
 	var x = gamma.pageContext.entityList.shift();
 	if(x && gamma.pageContext.update_in_progress) {
-		var obj = x.evalJSON();
+		var obj = $.parseJSON(x);
 		if(obj) {
 			$('#process_progress').html(gamma.pageContext.entityList.length);
 			update_entity(obj.entity, obj.container);
@@ -62,16 +62,16 @@ function updateSelectedEntities() {
 	gamma.pageContext.update_url = gamma.pageContext.site_url + "upload/" + action;
 
 	gamma.pageContext.entityList = lambda.getSelectedItemList();
-	$('#start_update_btn').disable();
-	$('#cancel_update_btn').enable();
+	$('#start_update_btn').attr("disabled", true);
+	$('#cancel_update_btn').attr("disabled", false);
 	update_next_entity_in_list();
 }
 // stop the processing
 function cancelUpdate() {
 	gamma.pageContext.update_in_progress = false;
 	$('#process_progress').html('');
-	$('#start_update_btn').enable();
-	$('#cancel_update_btn').disable();
+	$('#start_update_btn').attr("disabled", false);
+	$('#cancel_update_btn').attr("disabled", true);
 }
 function markUnprocessedEntities() {
 	$('.lr_ckbx').each(function(idx, sel){
