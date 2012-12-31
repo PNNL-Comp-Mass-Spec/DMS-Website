@@ -15,7 +15,7 @@ $(document).ready(function () {
 	epsilon.pageContext.entryFormId = 'entry_form';
 	epsilon.adjustEnabledFields();
 	
-	$('.sel_chooser').chosen();
+	$('.sel_chooser').chosen({search_contains: true});
 	}
 );
 </script>
