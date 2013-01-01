@@ -9,21 +9,21 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.css' ?>" />
 
 
-<script type="text/javascript" src="<?= base_url().'javascript/jquery-1.7.2.min.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'javascript/jquery-ui-1.8.21.custom.min.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'javascript/jquery.event.drag-2.0.min.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'javascript/jquery.unobtrusive-ajax.min.js' ?>"></script>
+<script  src="<?= base_url().'javascript/jquery-1.7.2.min.js' ?>"></script>
+<script  src="<?= base_url().'javascript/jquery-ui-1.8.21.custom.min.js' ?>"></script>
+<script  src="<?= base_url().'javascript/jquery.event.drag-2.0.min.js' ?>"></script>
+<script  src="<?= base_url().'javascript/jquery.unobtrusive-ajax.min.js' ?>"></script>
 
 
-<script type="text/javascript" src="<?= base_url().'SlickGrid/slick.core.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/plugins/slick.cellrangedecorator.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/plugins/slick.cellrangeselector.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/plugins/slick.cellselectionmodel.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/plugins/slick.autotooltips.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/slick.formatters.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/slick.editors.js' ?>"></script>
-<script type="text/javascript" src="<?= base_url().'SlickGrid/slick.grid.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/slick.core.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/plugins/slick.cellrangedecorator.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/plugins/slick.cellrangeselector.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/plugins/slick.cellselectionmodel.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/plugins/slick.autotooltips.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/slick.formatters.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/slick.editors.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/slick.grid.js' ?>"></script>
 
 <style>
 	

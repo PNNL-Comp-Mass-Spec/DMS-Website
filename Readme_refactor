@@ -28,6 +28,14 @@ autocomplete fields/choosers
 
 arrange caching for chooser lists
 
+client side charting: switch to flot from flotr
+
+HTML 5 doctype and dropping "text=..." from script tags?
+
+Normalise enable/disable:
+	$("#submit-button").attr("disabled", true);
+	$("#submit-button").removeAttr("disabled");
+
 ------------------------------------------
 changes
 ------------------------------------------

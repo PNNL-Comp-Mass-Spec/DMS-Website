@@ -1,5 +1,5 @@
 <!--[if IE]><script language="javascript" type="text/javascript" src="<?= base_url().'charting/lib/excanvas.js' ?>"></script><![endif]-->
-<script type="text/javascript" src="<?= base_url().'charting/flotr-0.2.0-alpha.js' ?>"></script>
+<script src="<?= base_url().'charting/flotr-0.2.0-alpha.js' ?>"></script>
 
 
 <script type='text/javascript'>

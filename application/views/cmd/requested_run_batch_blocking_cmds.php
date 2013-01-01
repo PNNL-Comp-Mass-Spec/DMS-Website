@@ -1,6 +1,6 @@
 <hr />
-<script type="text/javascript" src="<?= base_url()?>javascript/factors.js"></script>
-<script type="text/javascript" src="<?= base_url()?>javascript/run_blocking.js"></script>
+<script src="<?= base_url()?>javascript/factors.js"></script>
+<script src="<?= base_url()?>javascript/run_blocking.js"></script>
 
 <script type="text/javascript" >
 function getFactorCols() {

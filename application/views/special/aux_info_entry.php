@@ -4,7 +4,7 @@
 <title><?= $title; ?></title>
 <? $this->load->view('resource_links/base2') ?>
 
-<script type="text/javascript" src="<?= base_url().'javascript/aux_info.js' ?>"></script>
+<script src="<?= base_url().'javascript/aux_info.js' ?>"></script>
 <?= $ais->make_aux_info_global_AJAX_definitions() ?>
 
 <script type='text/javascript'>

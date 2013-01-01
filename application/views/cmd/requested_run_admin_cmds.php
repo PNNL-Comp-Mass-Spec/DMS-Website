@@ -1,5 +1,5 @@
 
-<script type="text/javascript" src="<?= base_url().'javascript/factors.js' ?>"></script>
+<script src="<?= base_url().'javascript/factors.js' ?>"></script>
 
 <script type="text/javascript">
 function updateDatabaseFromList(xml, command) {

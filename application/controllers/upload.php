@@ -73,7 +73,7 @@ class Upload extends Base_controller {
 		}
 		// output is headed for an iframe 
 		// this script will automatically run when put into it and will inform elements on main page that operation has completed
-		echo "<script language='javascript' type='text/javascript'>parent.report_upload_results('$file_name', '$error')</script>";
+		echo "<script type='text/javascript'>parent.report_upload_results('$file_name', '$error')</script>";
 	}
 
 	// --------------------------------------------------------------------
