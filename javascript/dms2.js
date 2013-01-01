@@ -182,9 +182,6 @@ var gamma = {
 	//search functions
 	//------------------------------------------
 	dms_search: function(url, srchVal) {
-//	dms_search: function(selFldName, valFldName) {
-//		var srchVal = $('#' + valFldName).val();
-//		var url = $('#' + selFldName).val();
 		if(url == '') return;
 		if(srchVal != '') {
 			url += srchVal;
