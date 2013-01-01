@@ -4,7 +4,7 @@
 <? $index = 0; ?>
 <? nav_bar_layout($nav_bar_menu_items, $index) ?>
 </ul>
-<span class="phVersion" ><?= make_search_form() ?></span>
+<span class="phVersion global_search_panel" ><?= make_search_form() ?></span>
 </div>
 </div>
 

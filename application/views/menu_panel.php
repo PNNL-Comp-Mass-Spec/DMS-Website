@@ -10,7 +10,7 @@
 </head>
 
 <body class="menu_panel" onload="initExpandableLists()">
-<div  class="searchpnl" >
+<div  class="searchpnl global_search_panel" >
 <?= make_search_form_vertical("global_search") ?>
 </div>
 <div>
