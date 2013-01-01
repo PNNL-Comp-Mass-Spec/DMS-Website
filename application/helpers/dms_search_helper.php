@@ -2,33 +2,27 @@
 /// -----------------------------------
 // create HTML to display search form for DMS
 //
-function make_search_form($name = 'dms_search')
+function make_search_form()
 {
-	$srchSel = $name."_sel";
-	$srchVal = $name."_val";
-
 	$str = '';
-	$str .= _make_search_selector($srchSel, $srchVal);
-	$str .= _make_search_input($srchSel, $srchVal);
-	$str .= _make_search_command($srchSel, $srchVal);
+	$str .= _make_search_selector();
+	$str .= _make_search_input();
+	$str .= _make_search_command();
 	return $str;
 }
 
 // --------------------------------------------------------------------
-function make_search_form_vertical($name = 'dms_search')
+function make_search_form_vertical()
 {
-	$srchSel = $name."_sel";
-	$srchVal = $name."_val";
-
 	$str = '';
-	$str .= "<span>" . _make_search_selector($srchSel, $srchVal) . "</span>\n";
-	$str .= "<span>" . _make_search_input($srchSel, $srchVal) . "</span>\n";
-	$str .= "<span>" ._make_search_command($srchSel, $srchVal) . "</span>\n";
+	$str .= "<span>" . _make_search_selector() . "</span>\n";
+	$str .= "<span>" . _make_search_input() . "</span>\n";
+	$str .= "<span>" ._make_search_command() . "</span>\n";
 	return $str;
 }
 
 // --------------------------------------------------------------------
-function _make_search_selector($srchSel, $srchVal)
+function _make_search_selector()
 {
 	$options = array(
 	array('target' => 'Analysis Job', 'search_key' => 'By Job', 'link' => 'analysis_job/report/' ),
@@ -48,7 +42,7 @@ function _make_search_selector($srchSel, $srchVal)
 	);	
 	
 	$str = '';
-	$str .= "<select id='".$srchSel."' name='".$srchSel."' >\n";
+	$str .= "<select>\n";
 	$str .= "<option value=''>Search for...</option>\n";
 	$cur_target = '';
 	foreach($options as $option) {
@@ -71,15 +65,15 @@ function _make_search_selector($srchSel, $srchVal)
 }
 
 // --------------------------------------------------------------------
-function _make_search_input($srchSel, $srchVal)
+function _make_search_input()
 {
 	$str = '';
-	$str .= "<input type='text' id='".$srchVal."' size='18' maxlength='80' value=''  >\n";
+	$str .= "<input type='text' size='18' maxlength='80' value=''  >\n";
 	return $str;
 }
 
 // --------------------------------------------------------------------
-function _make_search_command($srchSel, $srchVal)
+function _make_search_command()
 {
 	$str = '';
 	$str .= "<a title='Perform selected search' href='javascript:void(0))'>Go</a>\n";

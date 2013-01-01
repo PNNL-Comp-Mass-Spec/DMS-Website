@@ -11,7 +11,7 @@
 
 <body class="menu_panel" onload="initExpandableLists()">
 <div  class="searchpnl global_search_panel" >
-<?= make_search_form_vertical("global_search") ?>
+<?= make_search_form_vertical() ?>
 </div>
 <div>
     <a target="display_side" href="<?= site_url()?>gen/welcome"><b>HOME</b></a>
