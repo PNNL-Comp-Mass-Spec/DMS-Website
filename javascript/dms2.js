@@ -5,6 +5,16 @@ $(document).ajaxError(function (e, xhr, settings, exception) {
     alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
 });	
 
+//------------------------------------------
+// navBar (main drop-down menu)
+//------------------------------------------
+
+// set event handlers for global search panel
+$(document).ready(function () {
+	var panel = $('.global_search_panel');
+	gamma.setSearchEventHandlers(panel);
+});
+
 // set listener for nav-bar related clicks
 $(document).ready(function () {
 	$(document.body).click(navBar.hide_exposed_menus);
@@ -100,6 +110,29 @@ $("#el").spin(false); // Kills the spinner.
 var gamma = {
 	
 	//------------------------------------------
+	// event handlers for global search panel
+	//------------------------------------------
+	setSearchEventHandlers: function(panel) {
+		var sel = panel.find('select');
+		var val = panel.find('input');
+		var go = panel.find('a');
+		
+		val.keypress(function(e) {
+			if(e.keyCode == 13) {
+				gamma.dms_search(sel.val(), val.val()); 
+				return false;
+			}
+		   return true;
+		});
+		sel.change(function(e) {
+			gamma.dms_search(sel.val(), val.val()); 
+		});
+		go.click(function(e) {
+			gamma.dms_search(sel.val(), val.val()); 
+		});
+	},
+	
+	//------------------------------------------
 	// context values for current page
 	// 
 	// many library functions reference this object
@@ -148,9 +181,10 @@ var gamma = {
 	//------------------------------------------
 	//search functions
 	//------------------------------------------
-	dms_search: function(selFldName, valFldName) {
-		var srchVal = $('#' + valFldName).val();
-		var url = $('#' + selFldName).val();
+	dms_search: function(url, srchVal) {
+//	dms_search: function(selFldName, valFldName) {
+//		var srchVal = $('#' + valFldName).val();
+//		var url = $('#' + selFldName).val();
 		if(url == '') return;
 		if(srchVal != '') {
 			url += srchVal;

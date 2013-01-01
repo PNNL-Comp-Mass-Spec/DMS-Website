@@ -1,12 +1,6 @@
-/*
- * Expandable list implementation.
- * by David Lindquist <first name><at><last name><dot><net>
- * See:
- * http://www.gazingus.org/html/DOM-Scripted_Lists_Revisited.html
- * Modifies lists so that sublists can be hidden and shown by means of
- * a switch. The switch is a node inserted into the DOM tree as the
- * first child of the list item containing the sublist.
- */
+// Modifies lists so that sublists can be hidden and shown by means of
+// a switch. The switch is a node inserted into the DOM tree as the
+// first child of the list item containing the sublist.
 
 // The script will only be applied to lists containing this class name,
 // e.g.: <ul class="foo expandable">...</ul>.
@@ -25,7 +19,12 @@ var CLOSED_PREFIX = "Expand list: ";
 // The beginning of the title text for the switch when the sublist is expanded.
 var OPENED_PREFIX = "Collapse list: ";
 
-/******************************************************************************/
+// set event handlers for global search panel
+$(document).ready(function () {
+	var panel = $('.global_search_panel');
+	gamma.setSearchEventHandlers(panel);
+});
+
 
 // Returns a copy of a string with leading and trailing whitespace removed.
 String.prototype.trim = function() {
