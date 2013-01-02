@@ -15,9 +15,7 @@
 
 $(document).ready(function () { 
 	$('#move_next_link').hide();
-	epsilon.hideSection('section_block_3');
-	epsilon.hideSection('section_block_4');
-	epsilon.hideSection('section_block_5');
+	epsilon.showHideSections('hide', '3,4,5');
 });
 
 function createRequest() {
@@ -76,9 +74,8 @@ function setFieldValues() {
 	$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').val( '1'));
 	$('#ModificationDynSTYPhos').checked = ( $('#suggested_DynSTYPhosEnabled').val( '1'));
 
-	epsilon.showSection('section_block_3');
-	epsilon.showSection('section_block_4');
-	epsilon.showSection('section_block_5');
+	epsilon.showHideSections('show', '3,4,5');
 }
 
 </script>
+
