@@ -3,20 +3,20 @@
 
 <script type="text/javascript">
 $(document).ready(function () { 
-	gChooser.callBack = setItemTypeField;
+	gamma.currentChooser.callBack = setItemTypeField;
 });
 function setItemTypeField() {
 	var $s = '';
-	if(gChooser.page.indexOf('helper_requested_run_batch') > -1) {
+	if(gamma.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
 		$s = 'Batch_ID';
 	}
-	if(gChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
+	if(gamma.currentChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
 		$s = 'Requested_Run_ID';
 	}
-	if(gChooser.page.indexOf('helper_dataset_ckbx') > -1) {
+	if(gamma.currentChooser.page.indexOf('helper_dataset_ckbx') > -1) {
 		$s = 'Dataset_Name';
 	}
-	if(gChooser.page.indexOf('helper_experiment_ckbx') > -1) {
+	if(gamma.currentChooser.page.indexOf('helper_experiment_ckbx') > -1) {
 		$s = 'Experiment_Name';
 	}
 	if($s) {

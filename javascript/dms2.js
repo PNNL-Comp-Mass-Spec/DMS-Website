@@ -1,5 +1,5 @@
 //------------------------------------------
-// set up generic way to handle AJAX errors
+// set up generic hook to catch $.post AJAX errors
 //------------------------------------------
 $(document).ajaxError(function (e, xhr, settings, exception) {
     alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
@@ -57,13 +57,10 @@ var navBar = {
 // JQuery plug-in for spinner
 //------------------------------------------
 /*
-You can create a spinner using any of the variants below:
- 
 $("#el").spin(); // Produces default Spinner using the text color of #el.
 $("#el").spin("small"); // Produces a 'small' Spinner using the text color of #el.
 $("#el").spin("large", "white"); // Produces a 'large' Spinner in white (or any valid CSS color).
 $("#el").spin({ ... }); // Produces a Spinner using your custom settings.
- 
 $("#el").spin(false); // Kills the spinner.
 */
 (function($) {
@@ -293,7 +290,7 @@ var gamma = {
 		});
 	},
 	//------------------------------------------
-	// misc functions
+	// misc functions and objects
 	//------------------------------------------
 	
 	// convert array of objects representing form values
@@ -316,6 +313,15 @@ var gamma = {
 	},
 	// use to terminate a calling chain
 	no_action: {
+	},
+	// object that chooser code uses to 
+	// remember key parameters for off-page chooser
+	currentChooser: {
+		// callBack
+		// delimiter
+		// field
+		// page
+		// window
 	}
 };
 
@@ -716,17 +722,38 @@ var epsilon = {
 		var show_img = 'z_show_col.gif';
 		epsilon.hideTableRows(block_name, url, show_img);
 	},
+	showHideSections: function(action, list) {
+		var blks = [];
+		if(!list || list === 'all') {
+			$('.section_block_header_all').each(function() {
+				var hb = this.id;
+				var sb = hb.replace('section_block_header_', '');
+				blks.push(sb);
+			});
+		} else {
+			blks = list.split(',');
+		}
+		$.each(blks, function(idx, blk) {
+			sb = 'section_block_' + gamma.trim(blk);
+			if(action === 'show') {
+				epsilon.showSection(sb);
+			}
+			if(action === 'hide') {
+				epsilon.hideSection(sb);
+			}
+		});
+	},
 	//------------------------------------------
 	//These functions are used by entry page that invokes 
 	//list report chooser
-	//Note: a global variable "gChooser" that references an
+	//Note: a global variable "gamma.currentChooser" that references an
 	//empty object must be defined by the entry page 
 	//that usese these functions
 	//------------------------------------------
 	
 	closeChooserWindowPage: function() {
-		if (gChooser.window && !gChooser.window.closed) {
-			gChooser.window.close();
+		if (gamma.currentChooser.window && !gamma.currentChooser.window.closed) {
+			gamma.currentChooser.window.close();
 		}
 	},
 	//this function opens an exernal chooser page and remembers
@@ -751,26 +778,26 @@ var epsilon = {
 		epsilon.closeChooserWindowPage();
 		// remember which field gets the update 
 		// for when the chooser page calls back (updateFieldValueFromChooser)
-		gChooser.field = fieldName;
-		gChooser.delimiter = delimiter;
-		gChooser.page = chooserPage;
+		gamma.currentChooser.field = fieldName;
+		gamma.currentChooser.delimiter = delimiter;
+		gamma.currentChooser.page = chooserPage;
 		// open the chooser page in another window
-		gChooser.window = window.open(chooserPage, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
+		gamma.currentChooser.window = window.open(chooserPage, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
 	},
 	//this function is called by an external chooser
 	//page to update the value in the field that it is serving
 	updateFieldValueFromChooser: function(value, action) {
-		// todo: make sure gChooser.field is defined
-		fld = $('#' + gChooser.field)[0];
+		// todo: make sure gamma.currentChooser.field is defined
+		fld = $('#' + gamma.currentChooser.field)[0];
 		// lists are always transmitted as comma-delimited
 		// and field may need a different delimiter
-		if(gChooser.delimiter != ',') {
-			value = value.replace(/,/g, gChooser.delimiter);
+		if(gamma.currentChooser.delimiter != ',') {
+			value = value.replace(/,/g, gamma.currentChooser.delimiter);
 		}
 		// replace or append new value, as appropriate
 		if(action == "append") {
-			if (gChooser.delimiter != "" && fld.value != "") {
-				fld.value += gChooser.delimiter + " " + value;		
+			if (gamma.currentChooser.delimiter != "" && fld.value != "") {
+				fld.value += gamma.currentChooser.delimiter + " " + value;		
 			} else {
 				fld.value += value;		
 			}
@@ -779,15 +806,15 @@ var epsilon = {
 		}
 		// we are done with chooser page - make it go away
 		epsilon.closeChooserWindowPage();
-		if(gChooser.callBack) {
-			gChooser.callBack();
+		if(gamma.currentChooser.callBack) {
+			gamma.currentChooser.callBack();
 		}
 	},
 	getFieldValueForChooser: function() {
-		// todo: make sure gChooser.field is defined
-		var value = $('#' + gChooser.field).val();
-		if(gChooser.delimiter != ',') {
-			value = value.replace(/gChooser.delimiter/g, ',');
+		// todo: make sure gamma.currentChooser.field is defined
+		var value = $('#' + gamma.currentChooser.field).val();
+		if(gamma.currentChooser.delimiter != ',') {
+			value = value.replace(/gamma.currentChooser.delimiter/g, ',');
 		}
 		return value;
 	},
