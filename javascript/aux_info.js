@@ -14,9 +14,9 @@ function loadItemEntryForm(url){
 		    response_container.html(data);
 		}
 	);
-	$('#copy_info_container').style.visibility='visible';
-	$('#edit_container').style.visibility='visible';
-	$('#splash_container').style.visibility='hidden';
+	$('#copy_info_container').css('visibility', 'visible');
+	$('#edit_container').css('visibility', 'visible');
+	$('#splash_container').css('visibility', 'hidden');
 }
 //------------------------------------------
 function updateAuxInfo(url, show_url) {
@@ -25,7 +25,7 @@ function updateAuxInfo(url, show_url) {
 	var category = cat_sub[0]; 
 	var subcategory = cat_sub[1];
 	$('#category_field').val(category);
-	$('#subcategory_field').val(ubcategory);
+	$('#subcategory_field').val(subcategory);
 	p = $('#item_entry_form').serialize();
 	response_container.html(gAuxInfoAJAX.progress_message);
 	$.post(url, p, function (data) {
