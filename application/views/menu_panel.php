@@ -29,6 +29,7 @@
 <script type='text/javascript'>
 
 $(document).ready(function() {
+    $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
 
 	// set up tree menu
     $("#tree").dynatree({

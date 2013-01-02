@@ -67,4 +67,15 @@ Using chosen.js for drop-down choosers on entry pages
 	Has built-in field for restricting list by typing in filter values
 Replaced scal date picker with one that is built into JQueryUI
 
+-------------------------------------------
 
+function gunk(text) {
+  $("#tree").dynatree("getRoot").visit(function(node){
+//    if(!node.data.isFolder) {
+    	if(node.data.title.indexOf(text) !== -1) {
+    		node.makeVisible();
+    		node.select(true);
+    	}
+ //   }
+  });
+}
