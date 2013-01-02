@@ -143,7 +143,7 @@ class Entry_form {
 		// package form display elements into final container
 		$str = '';
 		if(!empty($visible_fields)) {
-			$str .= $this->display_table($visible_fields, empty($this->field_enable));
+			$str .= $this->display_table($visible_fields, empty($this->field_enable), $block_number);
 		}
 		$str .= implode("\n", $hidden_fields);
 		return $str;
@@ -157,7 +157,7 @@ class Entry_form {
 	// --------------------------------------------------------------------
 	// put content of visible fields into HTML table
 	private
-	function display_table($visible_fields, $has_enable_col)
+	function display_table($visible_fields, $has_enable_col, $sections)
 	{
 		$str = "";
 		$str .= "<table class='EPag'>\n";
@@ -168,7 +168,14 @@ class Entry_form {
 			$str .= "<th>".$head."</th>";
 		}
 		$str .= "</tr>\n";
-		
+
+/* FUTURE: enable this via general_params setting
+		if($sections > 0) {
+			$str .= "<tr>";
+			$str .= "<td colspan=2>" . $this->make_master_section_controls() . "</td>";
+			$str .= "</tr>\n";
+		}
+*/		
 		// place all visible fields into table cells in table rows
 		foreach($visible_fields as $row) {
 			// remove the section number from the row fields (we don't display it)
@@ -176,8 +183,8 @@ class Entry_form {
 			// if row is a section header, apply header formatting to field and table row
 			$col_span = '';
 			if($section_number == -1){
-				$col_span = "colspan='2'";
 				$blk = array_pop($row); // retrieve and remove block number for section head
+				$col_span = "colspan='2' class='section_block_header_all' id='section_block_header_$blk' ";
 				$row[0] = $this->make_section_header($blk, $row[0]);
 			}
 			// define classes for section rows with section numbers greater than 0
@@ -196,6 +203,17 @@ class Entry_form {
 		return $str;
 	}
 	
+	// -----------------------------------
+	private
+	function make_master_section_controls(){
+		$s = '';
+		$himg = "<img src='" . base_url(). "/images/z_show_col.gif' border='0' >";
+		$simg = "<img src='" . base_url(). "/images/z_hide_col.gif' border='0' >";
+		$s .= "<a href='javascript:void(0)' onclick='epsilon.showHideSections(\"hide\", \"all\")'>$simg</a> Collapse All Sections ";
+		$s .= '&nbsp;';
+		$s .= "<a href='javascript:void(0)' onclick='epsilon.showHideSections(\"show\", \"all\")'>$himg</a> Expand All Sections ";
+		return $s;
+	}
 
 	// -----------------------------------
 	private
