@@ -154,7 +154,7 @@
 	function side_menu_layout($menu_items, $mnu_name, $mnu_label)
 	{
 		if($mnu_name != '') {
-			echo "<li><span class='submenu'>$mnu_label</span>\n";
+			echo "<li class='folder'>$mnu_label\n";
 			echo "<ul>\n";
 		}
 		foreach($menu_items as $entry) {
@@ -169,9 +169,9 @@
 						$url = site_url().$name;
 						echo "<li><a target='display_side' href='$url'>$label</a></li>\n";
 						break;
-					case 'separator':
-						echo "<hr width='40%' align='left'>\n";
-						break;
+//					case 'separator':
+//						echo "<hr width='40%' align='left'>\n";
+//						break;
 				}
 			}
 		}
