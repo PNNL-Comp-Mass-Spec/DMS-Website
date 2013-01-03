@@ -27,7 +27,7 @@ function transferData(perspective, dslist) {
 	var p = {};
 	p.perspective = perspective;
 	p.iDList = commalist + list;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

@@ -64,7 +64,7 @@ function updateDatabaseFromList(flist, blist) {
 	var p = {};
 	p.factorList = factorXML;
 	p.blockingList = blockingXML;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 function saveChangesToDababase() {
 	var factor_cols = getFactorCols();
@@ -74,7 +74,7 @@ function saveChangesToDababase() {
 	updateDatabaseFromList(flist, blist);
 }
 function load_delimited_text() {
-	var parsed_data = theta.getFactorXMLFromList('delimited_text_input', true);
+	var parsed_data = gamma.parseDelimitedText('delimited_text_input');
 	if(parsed_data.header[0] != 'Request') {
 		alert('Header line does not begin with "Request"');
 		// (someday) more extensive validation
@@ -116,7 +116,7 @@ function performBatchOperation(mode) {
 		alert("No batch ID");
 		return;
 	}
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

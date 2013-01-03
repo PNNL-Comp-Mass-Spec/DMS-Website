@@ -13,7 +13,7 @@ function transferData(perspective) {
 	var p = {};
 	p.perspective = perspective;
 	p.iDList = list;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

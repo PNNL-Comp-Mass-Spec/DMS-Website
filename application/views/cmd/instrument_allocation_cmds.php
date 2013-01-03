@@ -40,10 +40,10 @@ function updateDatabaseFromList(flist, fiscal_year) {
 	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.parameterList = allocationXML;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 function load_delimited_text() {
-	var parsed_data = theta.getFactorXMLFromList('delimited_text_input', false);
+	var parsed_data = gamma.parseDelimitedText('delimited_text_input');
 	var fiscal_year = $('#fiscal_year').val();
 	if(fiscal_year == '') {
 		alert('You must set the fiscal year for the changes');
@@ -74,7 +74,7 @@ function move_allocated_hours() {
 	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.parameterList = xml;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 function set_allocated_hours() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -89,7 +89,7 @@ function set_allocated_hours() {
 	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.parameterList = xml;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

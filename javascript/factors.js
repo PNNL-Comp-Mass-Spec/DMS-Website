@@ -1,26 +1,16 @@
 var theta = {
 	getBlockingXMLFromList: function(flist) {
-		var xml = '';
-		if(typeof(flist) != "undefined") {
-			flist.each(function(idx, obj){
-				xml += '<r i="' + obj.id + '" t="' + obj.factor + '" v="' + obj.value + '" />';
-			});
-		}
-		return xml;
+		var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
+		return gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
 	},
 	getFactorXMLFromList: function(flist) {
-		var xml = '';
-		if (typeof(flist) != "undefined") {
-			flist.each(function(idx, obj){
-				xml += '<r i="' + obj.id + '" f="' + obj.factor + '" v="' + obj.value + '" />';
-			});
-		}
-		return xml;
+		var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
+		return gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
 	},
 	getListReportColumnList: function() {
 		var col_list = [];
-		$('.col_header').each(function(idx, obj){
-			col_list.push(gamma.trim(obj.html()));
+		$('.col_header').each(function(){
+			col_list.push(gamma.trim($(this).html()));
 		});
 		return col_list;
 	},
@@ -30,8 +20,8 @@ var theta = {
 			idlist.push(obj.value);
 		});
 		var flist = [];
-		factor_cols.each(function(idx, col){
-			idlist.each(function(idx, id){
+		$.each(factor_cols, function(idx, col){
+			$.each(idlist, function(idx, id){
 				var fldID = col.replace(' ', '_') + '_' + id;
 				var val = $('#' + fldID).val();
 				var obj = {};
@@ -45,7 +35,7 @@ var theta = {
 	},
 	makeObjectList: function(ilist, factor, value) { //private
 		var flist = [];
-		ilist.each(function(idx, id){
+		$.each(ilist, function(idx, id){
 			var obj = {};
 			obj.id = id;
 			obj.factor = factor;
@@ -58,10 +48,10 @@ var theta = {
 		// make array of id/factor/value objects,
 		// one for each row of each column
 		var flist = [];
-		col_list.each(function(idx, factor){
+		$.each(col_list, function(idx, factor){
 			var idx = parsed_data.header.indexOf(factor);
 			if(idx > -1) {
-				parsed_data.data.each(function(idx, row){
+				$.each(parsed_data.data, function(ignore, row){
 					var id = row[0];
 					var value = row[idx] || '';
 					var obj = {};

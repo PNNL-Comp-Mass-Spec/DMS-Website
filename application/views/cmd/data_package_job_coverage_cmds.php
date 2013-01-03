@@ -17,7 +17,7 @@ function performOperation(mode){
 	var p = {};
 	p.command = mode;
 	p.paramListXML = list;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 function getDatasetInfo(mode) {
 	var id = $('#pf_data_package_id').val();

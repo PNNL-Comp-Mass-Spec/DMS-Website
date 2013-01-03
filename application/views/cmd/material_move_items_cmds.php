@@ -19,7 +19,7 @@ function performOperation(mode, itemType, val) {
 	p.itemList = list;
 	p.newValue = (val)?$F(val):'';
 	p.comment = $('#comment_fld').val();
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

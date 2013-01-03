@@ -17,7 +17,7 @@ function performOperation(mode) {
 	$('#paramListXML').val(list);
 	$('#entry_cmd_mode').val(mode);
 	var p = $('#operation_form').serialize();
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 
 </script>

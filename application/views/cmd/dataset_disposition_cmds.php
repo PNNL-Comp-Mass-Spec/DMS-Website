@@ -15,7 +15,7 @@ function performOperation(mode) {
 	p.rating = $('#rating_fld').val();
 	p.comment = $('#comment_fld').val();
 	p.recycleRequest = $('#recycle_fld').val();
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

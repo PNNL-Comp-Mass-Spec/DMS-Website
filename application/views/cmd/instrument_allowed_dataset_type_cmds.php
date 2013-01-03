@@ -14,7 +14,7 @@ function performOperation(mode) {
 	p.InstrumentGroup = $('#instrument_group_fld').val();
 	p.DatasetType = $('#dataset_type_fld').val();
 	p.Comment = $('#usage_fld').val();
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

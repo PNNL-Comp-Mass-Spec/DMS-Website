@@ -29,7 +29,7 @@ function saveChangesToDababase() {
 	var p = {};
 	p.command = 'update';
 	p.cartAssignmentList = xml;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 <script type="text/javascript">

@@ -24,7 +24,7 @@ function performOperation(mode) {
 	p.processorGroupID = $('#pf_groupid').val();
 	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 	p.JobList = list;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 </script>
 

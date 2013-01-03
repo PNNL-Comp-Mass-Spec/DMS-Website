@@ -12,7 +12,7 @@ function updateDatabaseFromList(xml, command) {
 	p.requestList = xml;
 	p.command = command;
 	var url =  gamma.pageContext.ops_url;
-	theta.submitOperation(url, p);
+	lambda.submitOperation(url, p);
 }
 function make_xml_list(rlist) {
 	var s = '';

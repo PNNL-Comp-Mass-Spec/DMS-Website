@@ -140,9 +140,71 @@ var gamma = {
 		'progress_message':'Loading...',
 		'site_url':''
 	},
+	//------------------------------------------
+	// parsing stuff
+	//------------------------------------------
 	//Returns a copy of a string with leading and trailing whitespace removed.
 	trim: function(str) {
 		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	},
+	// parse tab-delimited line into array of trimmed values
+	parse_lines: function(line) { 
+		flds = [];
+		var fields = line.split('\t');
+		$.each(fields, function(idx, fld){
+			flds.push(gamma.trim(fld));
+		});
+		return flds;
+	},
+	parseDelimitedText: function(text_fld, removeArtifact) {
+		parsed_data = {};
+		var lines = $('#' + text_fld).val().split('\n');
+		var header = [];
+		var data = [];
+		$.each(lines, function(lineNumber, line){
+			line = gamma.trim(line);
+			if(line) {	
+				var fields = gamma.parse_lines(line)
+				if(lineNumber == 0) {
+					header = fields;
+				} else {
+					data.push(fields); // check length of fields?
+				}
+			}
+		});
+		// get rid of goofy parsing artifact last row
+		if(removeArtifact && (data[data.length - 1]).length < header.length) {
+			data.pop();
+		}
+		parsed_data.header = header;
+		parsed_data.data = data;
+		return parsed_data;
+	},
+	// return text containing list of XML elements
+	// with given element name and attributes extracted from objects
+	// according to mapping array 
+	getXmlElementsFromObjectArray: function(objArray, elementName, mapping) {
+		var xml = '';
+		if (typeof(objArray) != "undefined") {
+			$.each(objArray, function(x, obj){
+				xml += '<' + elementName;
+				$.each(mapping, function(z, map) {
+					xml += " " + map.a + "='" + obj[map.p] + "'";
+				});
+				xml += ' />';
+			});
+		}
+		return xml;
+	},
+	// return new array consisting of items in target that are not in remove
+	removeItems: function(target, remove) {
+		var output = [];
+		$.each(target, function(idx, item){
+			if(remove.indexOf(item) === -1) {
+				output.push(item);
+			}
+		});
+		return output;
 	},
 	// display results returned by AJAX query of server
 	// in floating modeless dialog (created dynamically)
@@ -364,6 +426,27 @@ var lambda = {
 		);
 	},
 	//------------------------------------------
+	// submit list report supplemental command
+	submitOperation: function(url, p, show_resp) {
+		var ctl = $('#' + gamma.pageContext.cntrlContainerId);
+		var container = $('#' + gamma.pageContext.responseContainerId);
+		container.spin('small');
+		$.post(url, p, function (data) {
+				container.spin(false);
+				if(data.indexOf('Update failed') > -1) {
+					container.html(data);
+					ctl.show();
+				} else {
+					var msg = 'Operation was successful';
+					if(show_resp) msg = data;
+					container.html(msg);
+					ctl.hide();
+					lambda.reloadListReportData();
+				}
+			}
+		);
+	},
+	//------------------------------------------
 	//loads a SQL comparison selector (via AJAX)
 	loadSqlComparisonSelector: function(containerId, url, col_sel) {
 		url += $('#' + col_sel).val();
@@ -553,67 +636,6 @@ var lambda = {
 			lambda.setCkbxFromList(checkBoxName, list);
 		}
 	}
-};
-
-//------------------------------------------
-// list report commands
-//------------------------------------------
-var theta = {
-	
-	//------------------------------------------
-	// submit list report supplemental command
-	submitOperation: function(url, p, show_resp) {
-		var ctl = $('#' + gamma.pageContext.cntrlContainerId);
-		var container = $('#' + gamma.pageContext.responseContainerId);
-		container.spin('small');
-		$.post(url, p, function (data) {
-				container.spin(false);
-				if(data.indexOf('Update failed') > -1) {
-					container.html(data);
-					ctl.show();
-				} else {
-					var msg = 'Operation was successful';
-					if(show_resp) msg = data;
-					container.html(msg);
-					ctl.hide();
-					lambda.reloadListReportData();
-				}
-			}
-		);
-	},
-	parse_lines: function(line) { //gamma
-		flds = [];
-		var fields = line.split('\t');
-		fields.each(function(idx, fld, fidx){
-			var f = fld.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-			flds.push(f);
-		});
-		return flds;
-	},
-	parseDelimitedText: function(text_fld, removeArtifact) { //gamma
-		parsed_data = {};
-		var lines = $('#' + text_fld).val().split('\n');
-		var header = [];
-		var data = [];
-		lines.each(function(idx, line, lineNumber){
-			line = gamma.trim(line);
-			if(line) {	
-				var fields = theta.parse_lines(line)
-				if(lineNumber == 0) {
-					header = fields;
-				} else {
-					data.push(fields); // check length of fields?
-				}
-			}
-		});
-		// get rid of goofy parsing artifact last row
-		if(removeArtifact && (data[data.length - 1]).length < header.length) {
-			data.pop();
-		}
-		parsed_data.header = header;
-		parsed_data.data = data;
-		return parsed_data;
-	},
 };
 
 //------------------------------------------
@@ -968,14 +990,14 @@ var epsilon = {
 	    var findStr = "(\r\n|[\r\n]|\t)";
 	    var re = new RegExp(new RegExp(findStr, "g")); 
 		repStr += ' ';
-	    fld.value = fld.value.replace(re, repStr);
+	    fld.val(fld.val().replace(re, repStr));
 	},
 	formatXMLText: function(fieldName) {
 		var fld = $('#' + fieldName);
 	    var findStr = "><";
 	    var repStr = ">\n<";
 	    var re = new RegExp(new RegExp(findStr, "g")); 
-	    fld.value = fld.value.replace(re, repStr);
+	    fld.val(fld.val().replace(re, repStr));
 	}
 	
 };
