@@ -78,6 +78,8 @@ input.editor-text {
 
 	
 <script>
+gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
+
 /*
  * autosize columns
  * detect changes to columns
@@ -121,7 +123,33 @@ input.editor-text {
 				tooltip: "Fill empty cells below last non-empty cell", 
 				cssClass: "fillDownBtn"
 			}
-		]
+		],
+		saveChanges: function (dataRows, idField, action) {
+			// extract list of change objects from dataRows
+			var flist = [];
+			$.each(dataRows, function(idx, row) {
+				if(row.mod_axe) {
+					var id = row[idField];
+					$.each(row.mod_axe, function(k, v) {
+						flist.push( {id:id, factor:k, value:v});
+					});
+				}
+			});
+			// get XML version of changes from list of change objects
+			var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
+			var factorXML = gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
+			factorXML = '<id type="Dataset_Name" />' + factorXML;
+
+			if ( !confirm("Are you sure that you want to update the database?") ) return;
+
+			// update the database
+			var url =  gamma.pageContext.ops_url;
+			var p = { factorList: factorXML };
+			gamma.doOperation(url, p, 'ctl_panel', function(data) {
+				if(data.indexOf('was successful') !== -1) data = '';
+				if(action) action(data);
+			});
+		}		
 	}
 
 	var mainGrid = {
@@ -243,7 +271,9 @@ input.editor-text {
 		    this.grid.render();
 		},
 		saveChanges: function () {
-			var x = this.grid.getData();
+			var idField = 'Dataset';
+			var dataRows = this.grid.getData();
+			gridUtil.saveChanges(dataRows, idField);
 		}
 	} // mainGrid
 
@@ -261,7 +291,15 @@ input.editor-text {
 			mainGrid.addColumn(name);
 		});
 		$('#save_btn').click(function() {
-			mainGrid.saveChanges();
+			var idField = 'Dataset';
+			var dataRows = mainGrid.grid.getData();
+			gridUtil.saveChanges(dataRows, idField, function(data) {
+				if(data) {
+					alert(data);
+				} else {
+					$('#reload_btn').click();
+				}
+			});
 		});
 		
 	    mainGrid.buildGrid();
