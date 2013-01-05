@@ -81,15 +81,48 @@ input.editor-text {
 /*
  * autosize columns
  * detect changes to columns
- * allow fixed set of initial columns and add missing columns from data
- * list of columns that are not editable
  * mark changed cells/rows
  * get suitable list of changes for sending to sproc
  * add a 'delete column' feature
+ * automatically remove columns not present in data array
  * 
  * adapt MIRA MiraGrid to DMSGrid
  * sorting
  */
+	var gridUtil = {
+		markChange: function(dataRow, field) {
+			if(!dataRow.mod_axe) dataRow.mod_axe = {};
+			dataRow.mod_axe[field] = dataRow[field];		
+		},
+		fillDown: function (e, args) {
+			var column = args.column;
+			var grid = args.grid;
+			var dataRows = grid.getData();
+			Slick.GlobalEditorLock.commitCurrentEdit();	
+			var lastValueSeen = "";
+			var rowsAffected = [];
+			for (var i = 0; i < dataRows.length; i++) {
+				var row = dataRows[i];
+				var field = column.field;
+				if (row[field]) {
+					lastValueSeen = row[field];
+				} else {
+					row[field] = lastValueSeen;
+					rowsAffected.push(i);
+					gridUtil.markChange(row, field);
+				}
+			}
+			grid.invalidateRows(rowsAffected);
+			grid.render();
+		},
+		fillDownButton: [
+			{ 
+				command: "fill-down", 
+				tooltip: "Fill empty cells below last non-empty cell", 
+				cssClass: "fillDownBtn"
+			}
+		]
+	}
 
 	var mainGrid = {
 		attachment:'myTable',
@@ -107,30 +140,6 @@ input.editor-text {
 		        explicitInitialization: true
 		},
 		setDefaults: function () {
-		},
-		fillDownButton: [{ command: "fill-down", tooltip: "Fill empty cells below last non-empty cell", cssClass: "fillDownBtn"}],
-		fillDown: function (e, args) {
-			var column = args.column;
-			var grid = args.grid;
-			var dataRows = grid.getData();
-//			var action = grid.wrapper.options.cellChangeAction;
-			Slick.GlobalEditorLock.commitCurrentEdit();	
-			var lastValueSeen = "";
-			var rowsAffected = [];
-			for (var i = 0; i < dataRows.length; i++) {
-				var row = dataRows[i];
-				var field = column.id;
-				if (row[field]) {
-					lastValueSeen = row[field];
-				} else {
-					row[field] = lastValueSeen;
-					rowsAffected.push(i);
-				}
-			}
-//			if (action) action(rowsAffected, column);
-//			grid.wrapper.markEditedRows(rowsAffected, grid);
-			grid.invalidateRows(rowsAffected);
-			grid.render();
 		},
 		refreshGrid: function () {
 			var caller = this;
@@ -152,7 +161,8 @@ input.editor-text {
 		},
 		cellChanged: function (e, args) {
 			$('#save_ctls').show();
-            console.log(args); 
+			var field = args.grid.getColumns()[args.cell].field;
+			gridUtil.markChange(args.item, field);
 		},
 		initGrid: function(elementName) {
 		    this.container.appendTo($("#" + elementName));
@@ -167,7 +177,7 @@ input.editor-text {
 		    this.grid.init();
 			this.grid.onCellChange.subscribe(this.cellChanged);
 			var headerButtonsPlugin = new Slick.Plugins.HeaderButtons();
-			headerButtonsPlugin.onCommand.subscribe(this.fillDown);
+			headerButtonsPlugin.onCommand.subscribe(gridUtil.fillDown);
 			this.grid.registerPlugin(headerButtonsPlugin);
 
 		    return false;
@@ -184,7 +194,8 @@ input.editor-text {
 			});
 			return colSpecs;
 		},
-		// add new editable columns that aren't already defined
+		// add new editable columns for given column names
+		// that don't already have column defined
 		adjustColumns: function(colNames) {
 			var caller = this;
 			var currentColumns = this.grid.getColumns();
@@ -205,14 +216,13 @@ input.editor-text {
 				alert('Column name cannot be blank');
 				return;
 			}
-			var columns = this.grid.getColumns();
-			// future: check that name is not already in use
-			var colSpec = this.makeColumnSpec(colName, true);
-			columns.push(colSpec);
-			this.grid.setColumns(columns);
+			this.adjustColumns([colName]);
+			this.setEmptyColumnInData(colName);
+		},
+		setEmptyColumnInData: function (colName) {
 			$.each(this.grid.getData(), function(idx, dataRow) {
 				dataRow[colName] = '';
-			});
+			});			
 		},
 		makeColumnSpec: function(colName, editable) {
 			colSpec = {
@@ -222,7 +232,7 @@ input.editor-text {
 			};
 			if(editable) {
 				colSpec.editor = Slick.Editors.Text;
-				colSpec.header = { buttons: this.fillDownButton };
+				colSpec.header = { buttons: gridUtil.fillDownButton };
 			}
 			return colSpec;
 		},
@@ -231,6 +241,9 @@ input.editor-text {
 		    this.grid.setData(obj.rows);
 		    this.grid.updateRowCount();
 		    this.grid.render();
+		},
+		saveChanges: function () {
+			var x = this.grid.getData();
 		}
 	} // mainGrid
 
