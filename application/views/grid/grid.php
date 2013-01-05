@@ -3,7 +3,7 @@
 <head>
 <title><?= $title; ?></title>
 
-<link rel="stylesheet" type="text/css" href="<?= base_url().'css/jquery-ui-1.8.21.custom.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?= base_url().'css/themes/smoothness/jquery-ui-1.8.21.custom.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/slick.grid.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/examples/slick-default-theme.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.css' ?>" />

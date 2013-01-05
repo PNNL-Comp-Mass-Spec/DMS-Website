@@ -160,3 +160,10 @@ body#freezer_page tr.block_header {
 	min-width:50em;
 	text-align:center;
 }
+/*
+ * 
+ */
+.fillDownBtn {
+    background-image: url(../images/expanded.gif);
+}
+
