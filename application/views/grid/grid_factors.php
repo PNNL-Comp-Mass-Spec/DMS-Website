@@ -8,46 +8,74 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/slick.grid.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/examples/slick-default-theme.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/plugins/slick.headermenu.css' ?>" />
 
 <script  src="<?= base_url().'SlickGrid/slick.core.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/slick.grid.js' ?>"></script>
 <script  src="<?= base_url().'SlickGrid/plugins/slick.cellrangedecorator.js' ?>"></script>
 <script  src="<?= base_url().'SlickGrid/plugins/slick.cellrangeselector.js' ?>"></script>
 <script  src="<?= base_url().'SlickGrid/plugins/slick.cellselectionmodel.js' ?>"></script>
 <script  src="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.js' ?>"></script>
+<script  src="<?= base_url().'SlickGrid/plugins/slick.headermenu.js' ?>"></script>
 <script  src="<?= base_url().'SlickGrid/plugins/slick.autotooltips.js' ?>"></script>
 <script  src="<?= base_url().'SlickGrid/slick.formatters.js' ?>"></script>
 <script  src="<?= base_url().'SlickGrid/slick.editors.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/slick.grid.js' ?>"></script>
 
 <style>
-	
-.GridContainer {
-    width: 1100px;
-	min-height: 500px;
-	font-size: 8pt;
-	border-color:grey;
-	border-width:thin;
-	border-style:solid;
-}
+    .slick-header-menu {
+      border: 1px solid #718BB7;
+      background: #f0f0f0;
+      padding: 2px;
+      -moz-box-shadow: 2px 2px 2px silver;
+      -webkit-box-shadow: 2px 2px 2px silver;
+      min-width: 100px;
+      z-index: 20;
+    }
+    .slick-header-menuitem {
+      padding: 2px 4px;
+      border: 1px solid transparent;
+      border-radius: 3px;
+    }
+    .slick-header-menuitem:hover {
+      border-color: silver;
+      background: white;
+    }
+    .slick-header-menuitem-disabled {
+      border-color: transparent !important;
+      background: inherit !important;
+    }
+	.slick-header-menubutton {
+	  display: inline-block;
+	}    
+</style>
 
-
-input.editor-text {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    margin: 0;
-    background: transparent;
-    outline: 0;
-    padding: 0;
-}
-
-.ctls {
-	margin-right: 10px;
-}
-
-#ctl_panel {
-	margin-bottom: 5px;
-}
+<style>
+	.GridContainer {
+	    width: 1100px;
+		min-height: 500px;
+		font-size: 8pt;
+		border-color:grey;
+		border-width:thin;
+		border-style:solid;
+	}
+	input.editor-text {
+	    width: 100%;
+	    height: 100%;
+	    border: 0;
+	    margin: 0;
+	    background: transparent;
+	    outline: 0;
+	    padding: 0;
+	}
+	.ctls {
+		margin-right: 10px;
+	}
+	#ctl_panel {
+		margin-bottom: 5px;
+	}
+	.nonEditable {
+		color:gray;
+	}
 </style>
 
 </head>
@@ -82,23 +110,18 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 
 /*
  * autosize columns
- * detect changes to columns
- * mark changed cells/rows
- * get suitable list of changes for sending to sproc
- * add a 'delete column' feature
+ * add a 'delete column' and/or 'clear column' feature
  * automatically remove columns not present in data array
  * 
  * adapt MIRA MiraGrid to DMSGrid
  * sorting
  */
 	var gridUtil = {
-		markChange: function(dataRow, field) {
+		markChange: function(dataRow, field, clear) {
 			if(!dataRow.mod_axe) dataRow.mod_axe = {};
 			dataRow.mod_axe[field] = dataRow[field];		
 		},
-		fillDown: function (e, args) {
-			var column = args.column;
-			var grid = args.grid;
+		fillDown: function (column, grid, clear) {
 			var dataRows = grid.getData();
 			Slick.GlobalEditorLock.commitCurrentEdit();	
 			var lastValueSeen = "";
@@ -107,23 +130,25 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 				var row = dataRows[i];
 				var field = column.field;
 				if (row[field]) {
-					lastValueSeen = row[field];
+					if(clear) {
+						row[field] = '';
+						rowsAffected.push(i);
+						gridUtil.markChange(row, field);
+					} else {
+						lastValueSeen = row[field];
+					}
 				} else {
-					row[field] = lastValueSeen;
-					rowsAffected.push(i);
-					gridUtil.markChange(row, field);
+					if(!clear) {
+						row[field] = lastValueSeen;
+						rowsAffected.push(i);
+						gridUtil.markChange(row, field);
+					}
 				}
 			}
 			grid.invalidateRows(rowsAffected);
 			grid.render();
+			$('#save_ctls').show();
 		},
-		fillDownButton: [
-			{ 
-				command: "fill-down", 
-				tooltip: "Fill empty cells below last non-empty cell", 
-				cssClass: "fillDownBtn"
-			}
-		],
 		saveChanges: function (dataRows, idField, action) {
 			// extract list of change objects from dataRows
 			var flist = [];
@@ -151,6 +176,29 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 			});
 		}		
 	}
+	
+	var gridHeaderUtil = {
+		headerButtons: [
+			{ command: "fill-down", cssClass: "fillDownBtn", tooltip: "Fill empty cells below last non-empty cell" }
+		],
+		menuItems: [
+			{ title: "Sort Ascending", command: "sort-asc",  disabled: true },
+			{ title: "Sort Descending", command: "sort-desc", disabled: true },
+			{ title: "Fill Down", command: "filldown", tooltip: "Fill empty cells in this column with preceding non-empty values" },
+			{ title: "Clear all", command: "clear", tooltip: "Clear all values in this column" }
+		],
+		menuCmdHandler: function (e, args) {
+			if(args.command == 'filldown') {
+				gridUtil.fillDown(args.column, args.grid);
+			} else
+			if(args.command == 'clear') {
+				gridUtil.fillDown(args.column, args.grid, true);				
+			}
+		},
+		buttonCmdHandler: function (e, args) {
+			
+		}
+	}
 
 	var mainGrid = {
 		attachment:'myTable',
@@ -163,6 +211,7 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 		        enableAddRow: false,
 		        enableCellNavigation: true,
 		        asyncEditorLoading: false,
+		        autoHeight: true,
 		        autoEdit: true,
 		        enableColumnReorder: false,
 		        explicitInitialization: true
@@ -204,11 +253,14 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 		    this.container.appendTo($('#' + this.attachment));
 		    this.grid.init();
 			this.grid.onCellChange.subscribe(this.cellChanged);
+/*
 			var headerButtonsPlugin = new Slick.Plugins.HeaderButtons();
-			headerButtonsPlugin.onCommand.subscribe(gridUtil.fillDown);
+			headerButtonsPlugin.onCommand.subscribe(gridHeaderUtil.buttonCmdHandler);
 			this.grid.registerPlugin(headerButtonsPlugin);
-
-		    return false;
+*/
+			var headerMenuPlugin = new Slick.Plugins.HeaderMenu({});
+			headerMenuPlugin.onCommand.subscribe(gridHeaderUtil.menuCmdHandler);
+			this.grid.registerPlugin(headerMenuPlugin);
 		},
 		buildColumns: function(colNames, editable) {
 			var caller = this;
@@ -260,7 +312,10 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 			};
 			if(editable) {
 				colSpec.editor = Slick.Editors.Text;
-				colSpec.header = { buttons: gridUtil.fillDownButton };
+//				colSpec.header = { buttons: gridHeaderUtil.headerButtons };
+				colSpec.header = { menu: { items: gridHeaderUtil.menuItems } };
+			} else {
+				colSpec.cssClass = 'nonEditable';
 			}
 			return colSpec;
 		},
@@ -269,11 +324,6 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 		    this.grid.setData(obj.rows);
 		    this.grid.updateRowCount();
 		    this.grid.render();
-		},
-		saveChanges: function () {
-			var idField = 'Dataset';
-			var dataRows = this.grid.getData();
-			gridUtil.saveChanges(dataRows, idField);
 		}
 	} // mainGrid
 
