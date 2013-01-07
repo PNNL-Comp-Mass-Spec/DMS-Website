@@ -70,7 +70,8 @@
 	.ctls {
 		margin-right: 10px;
 	}
-	#ctl_panel {
+	.ctl_panel {
+		margin-top:5px;
 		margin-bottom: 5px;
 	}
 	.nonEditable {
@@ -88,12 +89,14 @@
 <textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
 </div>
 
-<div id='ctl_panel'>
+<div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
 	<a id='reload_btn' href='javascript:void(0)' >Show</a> Factors For Datasets
 </span>
-<span id='col_ctls' class='ctls'>
+<spanclass='ctls'>
 	<a id='add_column_btn' href='javascript:void(0)' >Add</a> New Factor
+</span>
+<spanclass='ctls'>
 	<input id='add_column_name' type='text' size="20"></input>
 </span>
 
@@ -104,17 +107,34 @@
 
 <div id="myTable" ></div>
 
+<div class='ctl_panel'>
+<a id='delimited_text_panel_btn' href='javascript:void(0)' >Delimited Text</a>
+</div>
+<div id='delimited_text_panel' class='ctl_panel'>
+<div class='ctl_panel'>
+<span class='ctls'>
+	<a id='import_grid_btn' href='javascript:void(0)' >Import</a> grid contents from delimited text
+</span>
+<span class='ctls'>
+	<a id='export_grid_btn' href='javascript:void(0)' >Export</a> grid contents to delimited text
+</span>
+</div>
+
+<div>
+<textarea id="delimited_text" name="delimited_text" cols="100" rows="5" ></textarea>
+</div>
+</div>
 	
 <script>
 gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 
 /*
- * autosize columns
- * add a 'delete column' and/or 'clear column' feature
- * automatically remove columns not present in data array
+ * load delimited text to grid
+ * export grid to delimited data
+ *
+ * automatically/mark-manual remove columns not present in data array
  * 
  * adapt MIRA MiraGrid to DMSGrid
- * sorting
  */
 	var gridUtil = {
 		markChange: function(dataRow, field, clear) {
@@ -174,16 +194,69 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 				if(data.indexOf('was successful') !== -1) data = '';
 				if(action) action(data);
 			});
+		},
+		sortByColumn: function (column, grid, sortAsc) {
+			var field = column.field;
+			grid.getData().sort(function (a, b) {
+				var af = a[field] || '';
+				var bf = b[field] || '';
+				if (column.datesort) {
+					af = (af) ? Date.parse(af) : 0;
+					bf = (bf) ? Date.parse(bf) : 0;
+				}
+				var result = af > bf ? 1 : af < bf ? -1 : 0;
+				return sortAsc ? result : -result;
+			});
+			grid.invalidate();
+			grid.render();
+		},
+		// set width property of given column specs according to 
+		// size of data in given data rows, and return updated column specs
+		sizeColumnsToData: function (currentColumns, dataRows) {
+			var textWidthPixels = 8;
+			var maxChars, dataChars, val;
+			var minChars = 10;
+			$.each(currentColumns, function(idx, colSpec) {
+				maxChars = minChars;
+				if(colSpec.field.length > maxChars) maxChars = colSpec.field.length 
+				$.each(dataRows, function(i, dataRow) {
+					val = dataRow[colSpec.field];
+					if(val) {
+						dataChars = val.length;
+						if(dataChars > maxChars) maxChars = dataChars;
+					}
+				});
+				colSpec.width = maxChars * textWidthPixels;
+			});			
+			return currentColumns;
+		},
+		// convert simple data to format suitable for grid
+		convertToGridData: function (rawCols, rawData) {
+			var gridData = {
+				columns: rawCols,
+				rows: []
+			};
+			var rowObj;
+			$.each(rawData, function(idx, row) {
+				rowObj = {};
+				$.each(row, function(i, fld) {
+					rowObj[gridData.columns[i]] = fld;
+				});
+				gridData.rows.push(rowObj);
+			});
+			return gridData;
 		}		
-	}
+	} // gridUtil
 	
 	var gridHeaderUtil = {
 		headerButtons: [
 			{ command: "fill-down", cssClass: "fillDownBtn", tooltip: "Fill empty cells below last non-empty cell" }
 		],
-		menuItems: [
-			{ title: "Sort Ascending", command: "sort-asc",  disabled: true },
-			{ title: "Sort Descending", command: "sort-desc", disabled: true },
+		baseMenuItems: [
+			{ title: "Sort Ascending", command: "sort-asc" },
+			{ title: "Sort Descending", command: "sort-desc" }
+		],
+		editMenuItems: [
 			{ title: "Fill Down", command: "filldown", tooltip: "Fill empty cells in this column with preceding non-empty values" },
 			{ title: "Clear all", command: "clear", tooltip: "Clear all values in this column" }
 		],
@@ -193,12 +266,18 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 			} else
 			if(args.command == 'clear') {
 				gridUtil.fillDown(args.column, args.grid, true);				
+			} else
+			if(args.command == 'sort-asc') {
+				gridUtil.sortByColumn(args.column, args.grid, true);
+			} else
+			if(args.command == 'sort-desc') {
+				gridUtil.sortByColumn(args.column, args.grid, false);
 			}
 		},
 		buttonCmdHandler: function (e, args) {
-			
+			// in case we add any header buttons
 		}
-	}
+	} // gridHeaderUtil
 
 	var mainGrid = {
 		attachment:'myTable',
@@ -276,9 +355,9 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 		},
 		// add new editable columns for given column names
 		// that don't already have column defined
-		adjustColumns: function(colNames) {
+		adjustColumns: function(colNames, reset) {
 			var caller = this;
-			var currentColumns = this.grid.getColumns();
+			var currentColumns = (reset) ? this.buildColumns(this.staticColumns, false) : this.grid.getColumns();
 			var curNames = $.map(currentColumns, function(col) {
 				return col.field;
 			});
@@ -289,6 +368,11 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 					currentColumns.push(caller.makeColumnSpec(colName, true));
 				}
 			});	
+			this.grid.setColumns(currentColumns);
+		},
+		sizeColumnsToData: function (dataRows) {
+			var currentColumns = this.grid.getColumns();
+			currentColumns = gridUtil.sizeColumnsToData(currentColumns, dataRows);
 			this.grid.setColumns(currentColumns);
 		},
 		addColumn: function(colName) {
@@ -310,21 +394,49 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 				name:colName,
 				field:colName
 			};
+			var menuItems = $.merge([], gridHeaderUtil.baseMenuItems);
 			if(editable) {
 				colSpec.editor = Slick.Editors.Text;
 //				colSpec.header = { buttons: gridHeaderUtil.headerButtons };
-				colSpec.header = { menu: { items: gridHeaderUtil.menuItems } };
+				menuItems = $.merge(menuItems, gridHeaderUtil.editMenuItems)
 			} else {
 				colSpec.cssClass = 'nonEditable';
 			}
+			colSpec.header = { menu: { items: menuItems } };
 			return colSpec;
 		},
-		setDataRows: function (obj) {
-			this.adjustColumns(obj.columns);
+		setDataRows: function (obj, reset) {
+			this.adjustColumns(obj.columns, reset);
+			this.sizeColumnsToData(obj.rows);
 		    this.grid.setData(obj.rows);
 		    this.grid.updateRowCount();
 		    this.grid.render();
+		},
+		exportDelimitedData: function() {
+			var currentColumns = this.grid.getColumns();
+			var dataRows = this.grid.getData();
+			var s = '';
+			// header row
+			var cols, fields;
+			cols = $.map(currentColumns, function(colSpec) {
+				return colSpec.field;
+			});
+			s += cols.join("\t") + "\n";		
+			// data rows
+			$.each(dataRows, function(rowNum, dataRow) {
+				fields = $.map(currentColumns, function(colSpec) {
+					return dataRow[colSpec.field];
+				});
+				s += fields.join("\t") + "\n";
+			});
+			$('#delimited_text').val(s);
+		},
+		importDelimitedData: function() {
+			var parsed_data = gamma.parseDelimitedText('delimited_text');
+			var gridData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
+			mainGrid.setDataRows(gridData);
 		}
+
 	} // mainGrid
 
 	$(document).ready(function () { 
@@ -350,6 +462,17 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 					$('#reload_btn').click();
 				}
 			});
+		});
+		
+		$('#delimited_text_panel').hide();
+		$('#delimited_text_panel_btn').click(function() {
+			$('#delimited_text_panel').toggle();		
+		});
+		$('#import_grid_btn').click(function() {
+			mainGrid.importDelimitedData();
+		});
+		$('#export_grid_btn').click(function() {
+			mainGrid.exportDelimitedData();
 		});
 		
 	    mainGrid.buildGrid();
