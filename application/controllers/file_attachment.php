@@ -71,7 +71,7 @@ class file_attachment extends Base_controller {
 		}
 		// output is headed for an iframe 
 		// this script will automatically run when put into it and will inform elements on main page that operation has completed
-		echo "<script type='text/javascript'>parent.report_upload_results('$error')</script>";
+		echo "<script type='text/javascript'>parent.fileAttachment.report_upload_results('$error')</script>";
 	}
 
 	// --------------------------------------------------------------------
@@ -184,7 +184,7 @@ class file_attachment extends Base_controller {
 		$entries = array();
 	    foreach($query->result() as $row){
 	      $path = "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
-			$action = "<a href='javascript:void(0)' onclick=doOperation('{$row->FID}','delete')>delete</a>";
+			$action = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete')>delete</a>";
 	      $entries[] = array(anchor($path,$row->Name), $row->Description, $action);
 	    }
 		$count = $query->num_rows();

@@ -3,22 +3,8 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2') ?>
+<? $this->load->view('resource_links/base2css') ?>
 <? $this->load->view('resource_links/cfg') ?>
-
-<script type="text/javascript">
-	
-function search() {
-	var file_filter = $('#file_filter').val();
-	var table_filter = $('#table_filter').val();
-	var url = '<?= site_url() ?>/config_db/search/'+ file_filter + '/' + table_filter;
-	if($('#text_only').checked) {
-		url += '/text';
-	}
-	location = url;
-}
-
-</script>
 
 </head>
 <body>
@@ -69,5 +55,21 @@ Not implmented yet.
 <div id='end_of_content' style="height:1em;" ></div>
 
 </div>
+
+<? $this->load->view('resource_links/base2js') ?>
+
+<script type="text/javascript">
+	
+function search() {
+	var file_filter = $('#file_filter').val();
+	var table_filter = $('#table_filter').val();
+	var url = '<?= site_url() ?>/config_db/search/'+ file_filter + '/' + table_filter;
+	if($('#text_only').checked) {
+		url += '/text';
+	}
+	location = url;
+}
+
+</script>
 </body>
 </html>

@@ -166,7 +166,7 @@ EOD;
 		}
 		$selected = site_url() . $this->my_tag . "/cal/$instrument/$year/$month";
 		$id = 'instrument_sel';
-		$js = "id='$id' onChange='goToPage(\"$id\");'";
+		$js = "id='$id' onChange='gamma.goToSelectedPage(\"$id\");'";
 
 		ksort($options[$emslLabel]);
 		ksort($options[$dmsLabel]);

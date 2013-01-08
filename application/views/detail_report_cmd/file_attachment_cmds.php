@@ -1,48 +1,6 @@
-<script type='text/javascript'>
-function report_upload_results(msg) {
-	$('#result_display').spin(false);
-	$('#result_display').html(msg);
-	showAttachments();
-}
 
-$(document).ready(function () { 
-	$('#entity_type').val(gamma.pageContext.my_tag);
-	$('#entity_id').val(gamma.pageContext.Id);
-	}
-)
-function showAttachments() {
-	var url =  gamma.pageContext.site_url + "file_attachment/show_attachments";
-	var p = {};
-	p.entity_type = gamma.pageContext.my_tag;
-	p.entity_id = gamma.pageContext.Id;
-	gamma.doOperation(url, p, 'attachments_list', function(data, container) {
-			container.html(data);
-			$('#file_attachments_section').show();
-	});
-}
-function doOperation(faid, mode) {
-	if(mode = 'delete') {
-		if(!confirm('Are you sure you want to delete this attached file? This operation cannot be undone.')) return;
-	}
-	var url =  gamma.pageContext.site_url + "file_attachment/perform_operation";
-	var p = {};
-	p.id = faid;
-	p.mode = mode;
-	gamma.doOperation(url, p, 'result_display', function (data) {
-			if(data != '') {
-				alert(data);
-			} else {
-				showAttachments();
-			}
-	});
-}
-function do_upload() {
-	$('#result_display').spin('small');
-	$('#upload_form').submit();
-}
-</script>
 <div id='attachments_control_section' style='padding:5px 0px 5px 5px;'>
-<a title="Show or hide the file attachments section" href="#" onclick="gamma.sectionToggle('file_attachments_section', 0.5 );showAttachments()");>File Attachments...</a>
+<a title="Show or hide the file attachments section" href="#" onclick="gamma.sectionToggle('file_attachments_section', 0.5 );fileAttachment.showAttachments()");>File Attachments...</a>
 </div>
 
 <div id='file_attachments_section' style='display:none;'> 
@@ -68,7 +26,7 @@ function do_upload() {
 <td><input type="text" name="description" id="description" size="80" ></input></td>
 </tr>
 <tr>
-<td><input type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="do_upload()" /></td>
+<td><input type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="fileAttachment.do_upload()" /></td>
 </tr>
 </table>
 </form>
@@ -78,3 +36,10 @@ function do_upload() {
 <div style="height:1em;"></div>
 
 <iframe id="upload_target" name="upload_target" src="#" style="display:none;"></iframe>
+
+<script type='text/javascript'>
+$(document).ready(function () { 
+	$('#entity_type').val(gamma.pageContext.my_tag);
+	$('#entity_id').val(gamma.pageContext.Id);
+});
+</script>

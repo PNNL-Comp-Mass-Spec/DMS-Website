@@ -135,10 +135,24 @@ var gamma = {
 	// many library functions reference this object
 	// and depend on proper values being defined 
 	// by specific family page before they are called
+	// - Id 
+	// - base_url 
+	// - cntrlContainerId 
+	// - data_url 
+	// - entityList 
+	// - entity_type 
+	// - file_name 
+	// - hierarchy 
+	// - is_ms_helper 
+	// - my_tag 
+	// - ops_url 
+	// - processing_params 
+	// - responseContainerId 
+	// - site_url 
+	// - update_in_progress 
+	// - update_url 
 	//------------------------------------------
 	pageContext: {
-		'progress_message':'Loading...',
-		'site_url':''
 	},
 	//------------------------------------------
 	// parsing stuff
@@ -384,7 +398,13 @@ var gamma = {
 		// field
 		// page
 		// window
+	},
+	// go to new web page given by url currently selected in the given selection element
+	goToSelectedPage: function(id) {
+		var node = document.getElementById(id);
+		window.location.href = node.options[node.selectedIndex].value;
 	}
+	
 };
 
 //------------------------------------------
@@ -605,6 +625,21 @@ var lambda = {
 	  }
 	  return list;
 	},	
+	transferSelectedListData: function(perspective) {
+		var list = lambda.getCkbxList('ckbx' );
+		if(list=='') {
+			alert('You must select at least 1 item.'); 
+			return;
+		}
+		if ( !confirm("Are you sure that you want to transfer the selected data?") )
+			return;
+	
+		var url =  gamma.pageContext.site_url + "/data_transfer/" + perspective;
+		var p = {};
+		p.perspective = perspective;
+		p.iDList = list;
+		lambda.submitOperation(url, p);
+	},
 	//------------------------------------------
 	// used by helper list reports with checkboxes
 	//------------------------------------------

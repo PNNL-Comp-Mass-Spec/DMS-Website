@@ -2,7 +2,8 @@
 <html>
 <head>
 <title><?= $title; ?></title>
-<? $this->load->view('resource_links/base2') ?>
+<? $this->load->view('resource_links/base2css') ?>
+<? $this->load->view('resource_links/base2js') ?>
 
 <script src="<?= base_url().'javascript/aux_info.js' ?>"></script>
 <?= $ais->make_aux_info_global_AJAX_definitions() ?>

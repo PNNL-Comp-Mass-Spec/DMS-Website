@@ -3,7 +3,87 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2') ?>
+<? $this->load->view('resource_links/base2css') ?>
+
+</head>
+
+<body>
+<div style="height:500px;">
+
+<? $this->load->view('nav_bar') ?>
+
+<div class='local_title'><?= $title; ?></div>
+
+<table id='filter_table' class='FTab'>
+<tr>
+<td>
+<form name="frmReport" id="filter_form" action="#" method="post">
+<div id='search_filter_container'>
+(search filter)
+</div>
+</form>
+</td>
+</tr>
+<tr>
+<td >
+<div id='search_controls_container'>
+<input type="button" onclick="updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
+<a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" >Clear Filters</a> &nbsp; &nbsp;
+<span id='show_less_filter'><a href='javascript:void(0)' onclick="updateMyFilter('minimal')" >Minimize Filters</a></span> &nbsp; &nbsp;
+<span id='show_more_filter'><a href='javascript:void(0)' onclick="updateMyFilter('maximal')" >Expand Filters</a></span>  &nbsp; &nbsp;
+
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1)">Primary</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1)">Secondary</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
+
+<span style="padding:0 20px 0 30px;font-weight:bold;" id='filters_active'></span>
+<span style="padding:0 20px 0 30px;font-weight:bold;" id='sorting_active'></span>
+
+</div>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td>
+<div id='paging_container_upper' class='paging_controls'  style='display:none'></div>
+</td>
+</tr>
+<tr>
+<td style="padding:0;" >
+<div id='data_container'>
+Loading...
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div id='paging_container_lower' class='paging_controls' style='display:none'></div>
+</td>
+</tr>
+</table>
+
+<?php // any checkbox selectors?
+if($has_checkboxes) $this->load->view("main/list_report_checkboxes");
+?>
+
+<?php // any list report commands?
+if($list_report_cmds != "") {
+	$this->load->view("main/list_report_cmd_reporting");
+	$this->load->view("cmd/$list_report_cmds");
+}
+?>
+
+<?php // export command panel
+$this->load->view("main/list_report_export");
+?>
+
+<div id='end_of_content' style="height:1em;" ></div>
+</div>
+
+<? $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
 
@@ -88,83 +168,6 @@ $(document).ready(function () {
 );
 </script>
 
-</head>
-
-<body>
-<div style="height:500px;">
-
-<? $this->load->view('nav_bar') ?>
-
-<div class='local_title'><?= $title; ?></div>
-
-<table id='filter_table' class='FTab'>
-<tr>
-<td>
-<form name="frmReport" id="filter_form" action="#" method="post">
-<div id='search_filter_container'>
-(search filter)
-</div>
-</form>
-</td>
-</tr>
-<tr>
-<td >
-<div id='search_controls_container'>
-<input type="button" onclick="updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
-<a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" >Clear Filters</a> &nbsp; &nbsp;
-<span id='show_less_filter'><a href='javascript:void(0)' onclick="updateMyFilter('minimal')" >Minimize Filters</a></span> &nbsp; &nbsp;
-<span id='show_more_filter'><a href='javascript:void(0)' onclick="updateMyFilter('maximal')" >Expand Filters</a></span>  &nbsp; &nbsp;
-
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1)">Primary</a> &nbsp;
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1)">Secondary</a> &nbsp;
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
-
-<span style="padding:0 20px 0 30px;font-weight:bold;" id='filters_active'></span>
-<span style="padding:0 20px 0 30px;font-weight:bold;" id='sorting_active'></span>
-
-</div>
-</td>
-</tr>
-</table>
-
-<table>
-<tr>
-<td>
-<div id='paging_container_upper' class='paging_controls'  style='display:none'></div>
-</td>
-</tr>
-<tr>
-<td style="padding:0;" >
-<div id='data_container'>
-Loading...
-</div>
-</td>
-</tr>
-<tr>
-<td>
-<div id='paging_container_lower' class='paging_controls' style='display:none'></div>
-</td>
-</tr>
-</table>
-
-<?php // any checkbox selectors?
-if($has_checkboxes) $this->load->view("main/list_report_checkboxes");
-?>
-
-<?php // any list report commands?
-if($list_report_cmds != "") {
-	$this->load->view("main/list_report_cmd_reporting");
-	$this->load->view("cmd/$list_report_cmds");
-}
-?>
-
-<?php // export command panel
-$this->load->view("main/list_report_export");
-?>
-
-<div id='end_of_content' style="height:1em;" ></div>
-</div>
 
 </body>
 </html>

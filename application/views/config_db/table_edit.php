@@ -3,7 +3,8 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2') ?>
+<? $this->load->view('resource_links/base2css') ?>
+<? $this->load->view('resource_links/base2js') ?>
 <? $this->load->view('resource_links/cfg') ?>
 
 <script type="text/javascript">
