@@ -3,23 +3,9 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2') ?>
+<? $this->load->view('resource_links/base2css') ?>
+<? $this->load->view('resource_links/slickgrid2css') ?>
 
-<link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/slick.grid.css' ?>" />
-<link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/examples/slick-default-theme.css' ?>" />
-<link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.css' ?>" />
-<link rel="stylesheet" type="text/css" href="<?= base_url().'SlickGrid/plugins/slick.headermenu.css' ?>" />
-
-<script  src="<?= base_url().'SlickGrid/slick.core.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/slick.grid.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/plugins/slick.cellrangedecorator.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/plugins/slick.cellrangeselector.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/plugins/slick.cellselectionmodel.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/plugins/slick.headerbuttons.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/plugins/slick.headermenu.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/plugins/slick.autotooltips.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/slick.formatters.js' ?>"></script>
-<script  src="<?= base_url().'SlickGrid/slick.editors.js' ?>"></script>
 
 <style>
     .slick-header-menu {
@@ -124,10 +110,18 @@
 <textarea id="delimited_text" name="delimited_text" cols="100" rows="5" ></textarea>
 </div>
 </div>
-	
+
+<? $this->load->view('resource_links/base2js') ?>
+<? $this->load->view('resource_links/slickgrid2js') ?>
+
 <script>
 	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 	gamma.pageContext.data_url = '<?= site_url() ?>agrid/factor_data';
+
+/*
+ * factor css and common JS to separate files
+ * use "factorGrid" as namespace?
+ */
 
 	var gridUtil = {
 		markChange: function(dataRow, field, clear) {
@@ -304,8 +298,8 @@
 
 	var mainGrid = {
 		attachment:'myTable',
-		hideColumns: ['Sel', 'BatchID'],
-		staticColumns: ['Experiment','Dataset','Name','Status','Request'],
+		hideColumns: ['Sel', 'BatchID', 'Experiment'],
+		staticColumns: ['Dataset', 'Name', 'Status', 'Request'],
 		container: null,
 		grid: null,
 		options: {
