@@ -44,7 +44,24 @@ HTML 5 doctype and dropping "text=..." from script tags?
 factors
 ------------------------------------------
 
-use slickgrid or jtable?
+Ability to delete a factor
+Ability to rename a factor
+Ability to select a range of cells and clear them
+Accepting list of dataset IDs as an alternative to dataset names (automatically recognize)
+Choosers for getting dataset lists (from a data package might be a useful one)
+The usual DMS web page framing (the top-level drop-down menu bar and so forth)
+x-Ability to clear all values in a column (effectively deletes that factor, if subsequently saved)
+x-Ability to sort rows
+x-Accepting tab-delimited text pasted into an upload field (like the current factors web page does)
+x-Some automatic sizing of column widths
+
+Ability to rename a factor:
+- For each row in data array: 
+    add property to row object for new column and copy value from original property
+    mark change object for new property and original property (to blank)
+    delete original property
+- change id,name,field of original column spec and reset colum array
+- refresh the grid
 
 allow adding factors from hard metadata
 

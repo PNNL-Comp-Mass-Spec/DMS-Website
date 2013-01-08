@@ -51,7 +51,7 @@
 
 <style>
 	.GridContainer {
-	    width: 1100px;
+	    width: 99%;
 		min-height: 500px;
 		font-size: 8pt;
 		border-color:grey;
@@ -126,16 +126,9 @@
 </div>
 	
 <script>
-gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
+	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
+	gamma.pageContext.data_url = '<?= site_url() ?>agrid/factor_data';
 
-/*
- * load delimited text to grid
- * export grid to delimited data
- *
- * automatically/mark-manual remove columns not present in data array
- * 
- * adapt MIRA MiraGrid to DMSGrid
- */
 	var gridUtil = {
 		markChange: function(dataRow, field, clear) {
 			if(!dataRow.mod_axe) dataRow.mod_axe = {};
@@ -195,6 +188,23 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 				if(action) action(data);
 			});
 		},
+		refreshGrid: function (url, itemList, caller) {
+			var cntr = $('#' + caller.attachment);
+			cntr.spin('small');
+		    $.post(
+		        url,
+		        { itemList:itemList, itemType:'Dataset_Name'},
+		        function (response) {
+		        	cntr.spin(false);
+		        	obj = $.parseJSON(response);
+		            if (obj.Result == "error") {
+		                alert(obj.message);
+		            } else {
+		                caller.setDataRows(obj, true);
+		            }
+		        }
+		    );
+		},
 		sortByColumn: function (column, grid, sortAsc) {
 			var field = column.field;
 			grid.getData().sort(function (a, b) {
@@ -245,13 +255,29 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 				gridData.rows.push(rowObj);
 			});
 			return gridData;
-		}		
+		},
+		convertToDelimitedText: function(currentColumns, dataRows) {
+			var s = '';
+			// header row
+			var cols, fields;
+			cols = $.map(currentColumns, function(colSpec) {
+				return colSpec.field;
+			});
+			s += cols.join("\t") + "\n";		
+			// data rows
+			$.each(dataRows, function(rowNum, dataRow) {
+				fields = $.map(currentColumns, function(colSpec) {
+					return dataRow[colSpec.field];
+				});
+				s += fields.join("\t") + "\n";
+			});
+			return s;
+		}
 	} // gridUtil
 	
 	var gridHeaderUtil = {
-		headerButtons: [
-			{ command: "fill-down", cssClass: "fillDownBtn", tooltip: "Fill empty cells below last non-empty cell" }
-		],
+		headerButtons: null, // in case we someday have any header buttons
+		buttonCmdHandler: null, // in case we someday have any header buttons
 		baseMenuItems: [
 			{ title: "Sort Ascending", command: "sort-asc" },
 			{ title: "Sort Descending", command: "sort-desc" }
@@ -273,9 +299,6 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 			if(args.command == 'sort-desc') {
 				gridUtil.sortByColumn(args.column, args.grid, false);
 			}
-		},
-		buttonCmdHandler: function (e, args) {
-			// in case we add any header buttons
 		}
 	} // gridHeaderUtil
 
@@ -298,22 +321,8 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 		setDefaults: function () {
 		},
 		refreshGrid: function () {
-			var caller = this;
-			var cntr = $('#' + caller.attachment);
-			cntr.spin('small');
-		    $.post(
-		        "<?= site_url() ?>agrid/factor_data",
-		        { itemList:$('#itemList').val(),  itemType:'Dataset_Name'},
-		        function (response) {
-		        	cntr.spin(false);
-		        	obj = $.parseJSON(response);
-		            if (obj.Result == "error") {
-		                alert(obj.message);
-		            } else {
-		                caller.setDataRows(obj);
-		            }
-		        }
-		    );
+			var itemList = $('#itemList').val();
+			gridUtil.refreshGrid(gamma.pageContext.data_url, itemList, this);
 		},
 		cellChanged: function (e, args) {
 			$('#save_ctls').show();
@@ -325,18 +334,12 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 		    grid.init();
 		},
 		buildGrid: function () {
-			if(this.grid) return true;
 			var colDefs = this.buildColumns(this.staticColumns, false);
 			this.container = $("<div id='myGrid' class='GridContainer'></div>");			
 		    this.grid = new Slick.Grid(this.container, [], colDefs, this.options);
 		    this.container.appendTo($('#' + this.attachment));
 		    this.grid.init();
 			this.grid.onCellChange.subscribe(this.cellChanged);
-/*
-			var headerButtonsPlugin = new Slick.Plugins.HeaderButtons();
-			headerButtonsPlugin.onCommand.subscribe(gridHeaderUtil.buttonCmdHandler);
-			this.grid.registerPlugin(headerButtonsPlugin);
-*/
 			var headerMenuPlugin = new Slick.Plugins.HeaderMenu({});
 			headerMenuPlugin.onCommand.subscribe(gridHeaderUtil.menuCmdHandler);
 			this.grid.registerPlugin(headerMenuPlugin);
@@ -397,7 +400,6 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 			var menuItems = $.merge([], gridHeaderUtil.baseMenuItems);
 			if(editable) {
 				colSpec.editor = Slick.Editors.Text;
-//				colSpec.header = { buttons: gridHeaderUtil.headerButtons };
 				menuItems = $.merge(menuItems, gridHeaderUtil.editMenuItems)
 			} else {
 				colSpec.cssClass = 'nonEditable';
@@ -413,28 +415,16 @@ gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 		    this.grid.render();
 		},
 		exportDelimitedData: function() {
-			var currentColumns = this.grid.getColumns();
-			var dataRows = this.grid.getData();
-			var s = '';
-			// header row
-			var cols, fields;
-			cols = $.map(currentColumns, function(colSpec) {
-				return colSpec.field;
-			});
-			s += cols.join("\t") + "\n";		
-			// data rows
-			$.each(dataRows, function(rowNum, dataRow) {
-				fields = $.map(currentColumns, function(colSpec) {
-					return dataRow[colSpec.field];
-				});
-				s += fields.join("\t") + "\n";
-			});
+			var s = gridUtil.convertToDelimitedText(this.grid.getColumns(), this.grid.getData());
 			$('#delimited_text').val(s);
 		},
 		importDelimitedData: function() {
 			var parsed_data = gamma.parseDelimitedText('delimited_text');
 			var gridData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
 			mainGrid.setDataRows(gridData);
+		},
+		clearGrid: function () {
+			this.setDataRows({columns:[],rows:[]}, true);			
 		}
 
 	} // mainGrid
