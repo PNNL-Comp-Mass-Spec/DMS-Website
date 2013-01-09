@@ -8,19 +8,9 @@ function load_param_form() {
 		set_param_row_visibility("hide_input", "none");
 	});
 }
-
 function choose_script(script) {
 	$('#scriptName').val(script);
 	load_param_form();
-}
-
-function load_script_diagram() {
-	var scriptName = $('#scriptName').val();
-	if(scriptName) {
-		var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
-		var p = { datasets: $('#datasets').val() };
-		gamma.loadContainer(url, p, 'script_diagram_container');
-	}
 }
 
 function set_param_row_visibility(class_name, visibility) {
@@ -34,7 +24,7 @@ $(document).ready(function () {
 		epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
 	}
 	load_param_form();
-	load_script_diagram();
+	gamma.load_script_diagram_cmd();
 	return true;
 });	
 </script>
@@ -45,7 +35,7 @@ $(document).ready(function () {
 </div>
 </form>
 
-<div style='padding:4px;'><a href="javascript:load_script_diagram()">Script...</a></div>
+<div style='padding:4px;'><a href="javascript:gamma.load_script_diagram_cmd()">Script...</a></div>
 <div id="script_diagram_container">
 </div>
 

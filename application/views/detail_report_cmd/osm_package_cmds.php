@@ -39,56 +39,30 @@
 		<tr>
 		<td><textarea id='entry_item_list' name='itemList' cols='70' rows='13' onChange='epsilon.convertList("entry_item_list", ",")'></textarea></td>
 		<td>
-		<div class='chsr'>Sample Submissions... <a href="javascript:callChooserSetType('Sample_Submissions', 'helper_sample_submissions_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>Sample Prep Requests.. <a href="javascript:callChooserSetType('Sample_Prep_Requests', 'helper_sample_prep_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>Material Containers.... <a href="javascript:callChooserSetType('Material_Containers', 'helper_material_container_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>HPLC Runs... <a href="javascript:callChooserSetType('HPLC_Runs', 'helper_prep_lc_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>Experiment Groups... <a href="javascript:callChooserSetType('Experiment_Groups', 'helper_experiment_group_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>Experiments... <a href="javascript:callChooserSetType('Experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>Requested Runs... <a href="javascript:callChooserSetType('Requested_Runs', 'helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>Datasets... <a href="javascript:callChooserSetType('Datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>Biomaterial... <a href="javascript:callChooserSetType('Biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'><a href="javascript:callSuggestionSetType('Datasets', 'datasets_from_completed_requested_runs')">Datasets</a> (from requested runs)...</div>
-		<div class='chsr'><a href="javascript:callSuggestionSetType('Campaigns', 'campaign_from_exp_group_members')">Campaigns</a> (from exp. groups members)...</div>
+		<div class='chsr'>Sample Submissions... <a href="javascript:packages.callChooserSetType('Sample_Submissions', 'helper_sample_submissions_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Sample Prep Requests.. <a href="javascript:packages.callChooserSetType('Sample_Prep_Requests', 'helper_sample_prep_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Material Containers.... <a href="javascript:packages.callChooserSetType('Material_Containers', 'helper_material_container_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>HPLC Runs... <a href="javascript:packages.callChooserSetType('HPLC_Runs', 'helper_prep_lc_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Experiment Groups... <a href="javascript:packages.callChooserSetType('Experiment_Groups', 'helper_experiment_group_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Experiments... <a href="javascript:packages.callChooserSetType('Experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Requested Runs... <a href="javascript:packages.callChooserSetType('Requested_Runs', 'helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Datasets... <a href="javascript:packages.callChooserSetType('Datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Biomaterial... <a href="javascript:packages.callChooserSetType('Biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'><a href="javascript:packages.callSuggestionSetType('Datasets', 'datasets_from_completed_requested_runs')">Datasets</a> (from requested runs)...</div>
+		<div class='chsr'><a href="javascript:packages.callSuggestionSetType('Campaigns', 'campaign_from_exp_group_members')">Campaigns</a> (from exp. groups members)...</div>
 		</td>
 		</tr>
 		<tr><td>Comment</td></tr>
 		<tr><td><textarea id='entry_comment' name='comment' cols='70' rows='2'></textarea></td></tr>
 	</table>
 		<div style='margin-top:4px;'>
-		<input class='lst_cmd_btn' type='button' value='Add items to package' onclick='updateOSMPackageItems("<?= $id ?>", "entry_form", "add")' />
-		<input class='lst_cmd_btn' type='button' value='Delete items from package' onclick='updateOSMPackageItems("<?= $id ?>", "entry_form", "delete")' />
+		<input class='lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateOSMPackageItems_1("<?= $id ?>", "entry_form", "add")' />
+		<input class='lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateOSMPackageItems_1("<?= $id ?>", "entry_form", "delete")' />
 		</div>
 	</form>
 	
 </div>
 <div style="height:1em;"></div>
 
-<script type="text/javascript">
-	
-function callChooserSetType(item_type, chooserPage, delimiter, xref){
-	$('#itemTypeSelector').val(item_type);
-	var page = gamma.pageContext.site_url + chooserPage;
-	epsilon.callChooser('entry_item_list', page, delimiter, xref)
-}
+<script src="<?= base_url().'javascript/packages.js' ?>"></script>
 
-function callSuggestionSetType(item_type, mode) {
-	$('#entry_item_list').val('');
-	var url = gamma.pageContext.site_url + "osm_package/suggested_items/" + gamma.pageContext.Id + "/" + mode;
-	gamma.doOperation(url, false, 'item_section', function(data) {
-			$('#itemTypeSelector').val(item_type);
-			$('#entry_item_list').val(data);
-	});
-}
-
-function updateOSMPackageItems(id, form_id, mode) {
-	if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
-	var url = gamma.pageContext.site_url + "osm_package/operation/";
-	var message_container = $('#entry_update_status');
-	$('#entry_cmd_mode').val(mode);
-	gamma.doOperation(url, form_id, 'message_container', function(data, container) {
-		delta.processResults(data, container);
-	});
-}
-
-</script>

@@ -29,38 +29,21 @@
 		<tr>
 		<td><textarea id='entry_item_list' name='itemList' cols='70' rows='6' onChange='epsilon.convertList("entry_item_list", ",")'></textarea></td>
 		<td>
-		<div class='chsr'>choose biomaterial... <a href="javascript:callChooserSetType('biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose experiments... <a href="javascript:callChooserSetType('experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose datasets... <a href="javascript:callChooserSetType('datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
-		<div class='chsr'>choose analysis jobs... <a href="javascript:callChooserSetType('analysis_jobs', 'helper_analysis_job_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>choose biomaterial... <a href="javascript:packages.callChooserSetType('biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>choose experiments... <a href="javascript:packages.callChooserSetType('experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>choose datasets... <a href="javascript:packages.callChooserSetType('datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>choose analysis jobs... <a href="javascript:packages.callChooserSetType('analysis_jobs', 'helper_analysis_job_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		</td>
 		</tr>
 		<tr><td>Comment</td></tr>
 		<tr><td><textarea id='entry_comment' name='comment' cols='70' rows='2'></textarea></td></tr>
 	</table>
 		<div style='margin-top:4px;'>
-		<input class='lst_cmd_btn' type='button' value='Add items to package' onclick='updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
-		<input class='lst_cmd_btn' type='button' value='Delete items from package' onclick='updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
+		<input class='lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
+		<input class='lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
 		</div>
 	</form>
 	<div id='entry_update_status'></div>
 
-<script type="text/javascript">
-	
-function callChooserSetType(item_type, chooserPage, delimiter, xref){
-	$('#itemTypeSelector').val(item_type);
-	var page = gamma.pageContext.site_url + chooserPage;
-	epsilon.callChooser('entry_item_list', page, delimiter, xref)
-}
+<script src="<?= base_url().'javascript/packages.js' ?>"></script>
 
-function updateDataPackageItems(id, form_id, mode) {
-	if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
-	var url = gamma.pageContext.site_url + "data_package/operation/";
-	var message_container = $('#entry_update_status');
-	$('#entry_cmd_mode').val(mode);
-	gamma.doOperation(url, form_id, 'message_container', function(data, container) {
-		delta.processResults(data, container);
-	});
-}
-
-</script>

@@ -403,8 +403,22 @@ var gamma = {
 	goToSelectedPage: function(id) {
 		var node = document.getElementById(id);
 		window.location.href = node.options[node.selectedIndex].value;
-	}
-	
+	},
+	load_script_diagram_cmd: function() {
+		var scriptName = $('#scriptName').val();
+		if(scriptName) {
+			var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
+			var p = { datasets: $('#datasets').val() };
+			gamma.loadContainer(url, p, 'script_diagram_container');
+		}
+	},
+	load_script_diagram: function () {
+		var scriptName = $('#lnk_ID').html();
+		if(scriptName) {
+			var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
+			gamma.loadContainer(url, {}, 'script_diagram_container'); 
+		}
+	}	
 };
 
 //------------------------------------------

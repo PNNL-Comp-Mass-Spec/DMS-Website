@@ -1,6 +1,6 @@
 
 <div style='padding:5px 0px 5px 5px;'>
-<a href="#" onclick="revealOsmPackageCreateSection()">Create OSM Package...</a>
+<a href="#" onclick="packages.revealOsmPackageCreateSection()">Create OSM Package...</a>
 </div>
 <div id='package_entry_section' style='display:none'>
 <iframe src="<?= site_url() ?>/osm_package/create" height='700px' width='80%' id='embedded_page'>
@@ -9,15 +9,4 @@
 
 <div style='height: 1em;'></div>
 
-<script type="text/javascript">
-
-function revealOsmPackageCreateSection() {
-	var iframe = document.getElementById('embedded_page');
-	var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-	$('#hdrContainer').hide();
-	gamma.sectionToggle('package_entry_section',  0.5 ); 
-	return false;
-}
-
-</script>
-
+<script src="<?= base_url().'javascript/packages.js' ?>"></script>

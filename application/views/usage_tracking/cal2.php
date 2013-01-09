@@ -4,14 +4,6 @@
 <title><?= $title; ?></title>
 
 <? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/base2js') ?>
-
-<script type="text/javascript">
-function goToPage(id) {
-	var node = document.getElementById(id);
-	window.location.href = node.options[node.selectedIndex].value;
-}
-</script>
 
 </head>
 <body id='usage_tracking_calendar'>
@@ -34,5 +26,8 @@ function goToPage(id) {
 </div>
 
 </div>
+
+<? $this->load->view('resource_links/base2js') ?>
+
 </body>
 </html>
