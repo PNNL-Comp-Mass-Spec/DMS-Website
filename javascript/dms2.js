@@ -684,8 +684,20 @@ var lambda = {
 			var list = window.opener.epsilon.getFieldValueForChooser();
 			lambda.setCkbxFromList(checkBoxName, list);
 		}
-	}
-};
+	},
+	//------------------------------------------
+	// misc
+	//------------------------------------------
+	download_to_doc: function(format) {
+		var row_count = $('#total_rowcount').html();
+		if(row_count > 4000) {
+			if (!confirm('Are you sure you want to export ' + row_count + ' rows?') ) return;
+		}
+		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/' + format
+		gamma.export_to_doc(url, "filter_form");
+	}	
+	
+}; // lambda
 
 //------------------------------------------
 //These functions are used by detail report page 

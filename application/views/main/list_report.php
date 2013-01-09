@@ -76,9 +76,11 @@ if($list_report_cmds != "") {
 }
 ?>
 
-<?php // export command panel
-$this->load->view("main/list_report_export");
-?>
+<div class="LRepExport">
+Download in other formats:
+|<span><a href='javascript:lambda.download_to_doc("excel")'>Excel</a></span>
+|<span><a href='javascript:lambda.download_to_doc("tsv")'>Tab-Delimited Text</a></span>|
+</div>
 
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
@@ -86,88 +88,86 @@ $this->load->view("main/list_report_export");
 <? $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
-
-gamma.pageContext.site_url = '<?= site_url() ?>';
-gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
-gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
-gamma.pageContext.responseContainerId =  "update_message";
-gamma.pageContext.cntrlContainerId =  "clear_message";
-gamma.pageContext.ops_url = '<?= $ops_url ?>';
-
-// load the filter panel according to the given layout mode
-function updateMyFilter($mode) {
-	lambda.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', filter_observers_action); 
-	if($mode == 'minimal') { 
-		$('#show_more_filter').show();$('#show_less_filter').hide(); 
-	} else { 
-		$('#show_more_filter').hide();$('#show_less_filter').show(); 
+	gamma.pageContext.site_url = '<?= site_url() ?>';
+	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+	gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
+	gamma.pageContext.responseContainerId =  "update_message";
+	gamma.pageContext.cntrlContainerId =  "clear_message";
+	gamma.pageContext.ops_url = '<?= $ops_url ?>';
+	
+	// load the filter panel according to the given layout mode
+	function updateMyFilter($mode) {
+		lambda.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', filter_observers_action); 
+		if($mode == 'minimal') { 
+			$('#show_more_filter').show();$('#show_less_filter').hide(); 
+		} else { 
+			$('#show_more_filter').hide();$('#show_less_filter').show(); 
+		}
 	}
-}
-
-// bind observers to the filter fields to monitor filter status
-// and initialize filter status display
-var filter_observers_action = {
-	run:function() {
-		lambda.set_filter_field_observers();
-		lambda.is_filter_active();
+	
+	// bind observers to the filter fields to monitor filter status
+	// and initialize filter status display
+	var filter_observers_action = {
+		run:function() {
+			lambda.set_filter_field_observers();
+			lambda.is_filter_active();
+		}
 	}
-}
-// copy the contents of the upper paging display to the lower one
-var paging_cleanup_action = {
-	run:function() {
-		$('#paging_container_lower').html($('#paging_container_upper').html());
+	// copy the contents of the upper paging display to the lower one
+	var paging_cleanup_action = {
+		run:function() {
+			$('#paging_container_lower').html($('#paging_container_upper').html());
+		}
 	}
-}
-
-// update the paging display sections, or hide them if no data rows
-var paging_update_action = {
-	run:function() {
-		if($('#data_message').val() != null) {
-			$('#paging_container_upper').hide();
-			$('#paging_container_lower').hide();
+	
+	// update the paging display sections, or hide them if no data rows
+	var paging_update_action = {
+		run:function() {
+			if($('#data_message').val() != null) {
+				$('#paging_container_upper').hide();
+				$('#paging_container_lower').hide();
+			} else {
+				$('#paging_container_upper').show();
+				$('#paging_container_lower').show();
+				lambda.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
+			} 	
+		}
+	}
+	// call paging action and also initialize checkbox state if this page is a helper
+	var data_post_load_action = {
+		run:function(){
+			paging_update_action.run();
+			if(!$('#data_message') && gamma.pageContext.is_ms_helper) { lambda.intializeChooserCkbx('ckbx') }
+		}
+	}
+	// go get some data rows
+	var data_update_action = {
+		run:function(){
+			lambda.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
+		}
+	}
+	function updateShowSQL(ignoreIfClosed) {
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_sql', 'filter_form', ignoreIfClosed); 
+	}
+	// start the data update chain for the page
+	function updateMyData(loading) {
+		if(loading == 'no_load') {
+			$('#data_container').html('Data will be displayed after you click the "Search" button.');
 		} else {
-			$('#paging_container_upper').show();
-			$('#paging_container_lower').show();
-			lambda.updateContainer('report_paging', 'filter_form', 'paging_container_upper', paging_cleanup_action);
-		} 	
+			if(loading && loading == 'reset') $('#qf_first_row').val(1);
+			data_update_action.run(); 	
+			updateShowSQL(true);
+		}	
 	}
-}
-// call paging action and also initialize checkbox state if this page is a helper
-var data_post_load_action = {
-	run:function(){
-		paging_update_action.run();
-		if(!$('#data_message') && gamma.pageContext.is_ms_helper) { lambda.intializeChooserCkbx('ckbx') }
-	}
-}
-// go get some data rows
-var data_update_action = {
-	run:function(){
-		lambda.updateContainer('report_data', 'filter_form', 'data_container', data_post_load_action); 	
-	}
-}
-function updateShowSQL(ignoreIfClosed) {
-	gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_sql', 'filter_form', ignoreIfClosed); 
-}
-// start the data update chain for the page
-function updateMyData(loading) {
-	if(loading == 'no_load') {
-		$('#data_container').html('Data will be displayed after you click the "Search" button.');
-	} else {
-		if(loading && loading == 'reset') $('#qf_first_row').val(1);
-		data_update_action.run(); 	
-		updateShowSQL(true);
-	}	
-}
-// after the page loads, set things in motion to populate it
-$(document).ready(function () { 
-//		$('#data_container').html('Data is loading...' + gamma.pageContext.progress_message);
-		updateMyFilter('minimal');
-		updateMyData('<?= $loading ?>');
-	 	lambda.reloadListReportData = function() { updateMyData('autoload');}
-	}
-);
+	// after the page loads, set things in motion to populate it
+	$(document).ready(function () { 
+	//		$('#data_container').html('Data is loading...' + gamma.pageContext.progress_message);
+			updateMyFilter('minimal');
+			updateMyData('<?= $loading ?>');
+		 	lambda.reloadListReportData = function() { updateMyData('autoload');}
+		}
+	);
 </script>
-
 
 </body>
 </html>

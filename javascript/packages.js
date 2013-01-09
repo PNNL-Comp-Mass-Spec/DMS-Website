@@ -68,5 +68,25 @@ var packages = {
 		gamma.doOperation(url, form_id, 'message_container', function(data, container) {
 			delta.processResults(data, container);
 		});
-	}
+	},
+	performOperation: function (mode) {
+		var list = '';
+		var rows = document.getElementsByName('ckbx');
+		for (var i = 0; i < rows.length; i++) {
+			if ( rows[i].checked )
+				list  += rows[i].value;
+		}
+		if(list=='') {
+			alert('You must select items'); 
+			return;
+		}
+		if ( !confirm("Are you sure that you want to update the database?") )
+			return;
+	
+		var url =  gamma.pageContext.site_url + 'data_package_items/operation/';
+		$('#paramListXML').val(list);
+		$('#entry_cmd_mode').val(mode);
+		var p = $('#operation_form').serialize();
+		lambda.submitOperation(url, p);
+	}	
 }

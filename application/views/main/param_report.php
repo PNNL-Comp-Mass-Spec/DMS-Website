@@ -4,65 +4,6 @@
 <title><?= $title; ?></title>
 
 <? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/base2js') ?>
-
-<script type='text/javascript'>
-
-gamma.pageContext.site_url = '<?= site_url() ?>';
-gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
-gamma.pageContext.responseContainerId =  'update_message';
-gamma.pageContext.cntrlContainerId =  'clear_message';
-gamma.pageContext.ops_url = '<?= $ops_url ?>';
-
-
-// update the column and sorting filters
-var filter_update_action = {
-	run:function(){
-		if(!$('#sorting_filter_table')) {
-			lambda.updateContainer('param_filter', 'entry_form', 'search_filter_container', gamma.no_action);
-			$('#search_controls_container').show();
-		}
-	}
-}
-//copy the contents of the upper paging display to the lower one
-var paging_cleanup_action = {
-	run:function() {
-		filter_update_action.run();
-		$('#paging_container_lower').html($('#paging_container_upper').html());
-	}
-}
-//update the paging display sections, or hide them if no data rows
-var paging_update_action = {
-	run:function() {
-		if($('#data_message')) {
-			$('#paging_container_upper').hide();
-			$('#paging_container_lower').hide();
-		} else {
-			$('#paging_container_upper').show();
-			$('#paging_container_lower').show();
-			lambda.updateContainer('param_paging', 'entry_form', 'paging_container_upper', paging_cleanup_action);
-		} 	
-	}
-}
-//go get some data rows
-var data_update_action = {
-	run:function(){
-		lambda.updateContainer('param_data', 'entry_form', 'data_container', paging_update_action);
-	}
-}
-//start the data update chain for the page
-function updateMyData(loading) {
-	if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').val(1);
-	data_update_action.run();
-}
-//after the page loads, set things in motion to populate it
-$(document).ready(function () { 
-	 	lambda.reloadListReportData = function() { updateMyData('autoload');}
-		$('#data_container').html('Data will be displayed after you click the "Search" button.');
-	}
-);
-
-</script>
 
 </head>
 
@@ -135,5 +76,65 @@ $this->load->view("main/param_report_export");
 
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
+
+<? $this->load->view('resource_links/base2js') ?>
+
+<script type='text/javascript'>
+	gamma.pageContext.site_url = '<?= site_url() ?>';
+	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+	gamma.pageContext.responseContainerId =  'update_message';
+	gamma.pageContext.cntrlContainerId =  'clear_message';
+	gamma.pageContext.ops_url = '<?= $ops_url ?>';
+	
+	
+	// update the column and sorting filters
+	var filter_update_action = {
+		run:function(){
+			if(!$('#sorting_filter_table')) {
+				lambda.updateContainer('param_filter', 'entry_form', 'search_filter_container', gamma.no_action);
+				$('#search_controls_container').show();
+			}
+		}
+	}
+	//copy the contents of the upper paging display to the lower one
+	var paging_cleanup_action = {
+		run:function() {
+			filter_update_action.run();
+			$('#paging_container_lower').html($('#paging_container_upper').html());
+		}
+	}
+	//update the paging display sections, or hide them if no data rows
+	var paging_update_action = {
+		run:function() {
+			if($('#data_message')) {
+				$('#paging_container_upper').hide();
+				$('#paging_container_lower').hide();
+			} else {
+				$('#paging_container_upper').show();
+				$('#paging_container_lower').show();
+				lambda.updateContainer('param_paging', 'entry_form', 'paging_container_upper', paging_cleanup_action);
+			} 	
+		}
+	}
+	//go get some data rows
+	var data_update_action = {
+		run:function(){
+			lambda.updateContainer('param_data', 'entry_form', 'data_container', paging_update_action);
+		}
+	}
+	//start the data update chain for the page
+	function updateMyData(loading) {
+		if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').val(1);
+		data_update_action.run();
+	}
+	//after the page loads, set things in motion to populate it
+	$(document).ready(function () { 
+		 	lambda.reloadListReportData = function() { updateMyData('autoload');}
+			$('#data_container').html('Data will be displayed after you click the "Search" button.');
+		}
+	);
+
+</script>
+
 </body>
 </html>
