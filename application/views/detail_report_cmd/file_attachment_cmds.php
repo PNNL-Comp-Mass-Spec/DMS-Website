@@ -36,10 +36,3 @@
 <div style="height:1em;"></div>
 
 <iframe id="upload_target" name="upload_target" src="#" style="display:none;"></iframe>
-
-<script type='text/javascript'>
-$(document).ready(function () { 
-	$('#entity_type').val(gamma.pageContext.my_tag);
-	$('#entity_id').val(gamma.pageContext.Id);
-});
-</script>

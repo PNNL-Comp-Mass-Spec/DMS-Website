@@ -49,15 +49,18 @@ $this->load->view("main/detail_report_export");
 </div>
 
 <? $this->load->view('resource_links/base2js') ?>
-<script src="<?= base_url().'javascript/file_attachment.js' ?>"></script>
-<script src="<?= base_url().'javascript/aux_info.js' ?>"></script>
 
 <script type='text/javascript'>
-
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.responseContainerId = 'update_message';
 gamma.pageContext.Id = '<?= $id ?>';
+</script>
+
+<script src="<?= base_url().'javascript/file_attachment.js' ?>"></script>
+<script src="<?= base_url().'javascript/aux_info.js' ?>"></script>
+
+<script type='text/javascript'>
 
 function updateAuxIntoControls() {
 	delta.updateContainer(gamma.pageContext.my_tag + '/detail_report_aux_info_controls/' + gamma.pageContext.Id, 'aux_info_controls_container'); 
@@ -70,8 +73,8 @@ $(document).ready(function () {
 <?php if($aux_info_target):?>
 	updateAuxIntoControls();
 <?php endif; ?>
-	}
-)
+	fileAttachment.init();
+});
 </script>
 
 </body>

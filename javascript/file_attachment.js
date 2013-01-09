@@ -33,5 +33,11 @@ var fileAttachment = {
 	do_upload: function() {
 		$('#result_display').spin('small');
 		$('#upload_form').submit();
+	},
+	init: function() {
+		var et = $('#entity_type');
+		var ei = $('#entity_id');
+		if(et.length != 0) et.val(gamma.pageContext.my_tag);
+		if(ei.length != 0) ei.val(gamma.pageContext.Id);
 	}
 }
