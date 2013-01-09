@@ -53,6 +53,16 @@ class MY_Form_validation extends CI_Form_validation {
 		return $result;
 	}
 
+	function os_filename($str)
+	{
+		// Note that we do not allow periods to prevent folder names from containing periods and to prevent filenames from containing a period before the file extension
+		$result = ( ! preg_match("/^([ a-zA-Z0-9_!@#$%^&(){}\[\];,-])+$/", $str)) ? FALSE : TRUE;
+		if(!$result) {
+			$this->set_message('os_filename', "The %s field cannot contain any of these characters: \\ / : * ? . \" ' < > |");
+		}
+		return $result;
+	}
+
 	function work_package($str)
 	{
 		$parm = '[A-Za-z][A-Za-z0-9]{5}';
