@@ -1,10 +1,51 @@
+<div class="LRCmds">
+
+<form name="DBG" action="">
+
+<div>
+<input class='lst_cmd_btn' type="button" value="Update" onClick='saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
+</div>
+
+<p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
+
+<hr>
+<a href="#" onclick="gamma.sectionToggle('factor_section', 0.5)">Factor commands...</a>
+<div id="factor_section" style="display:none;">
+<div>
+<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase()' title=""  /> 
+Apply factor <input id='apply_factor_name' value='' size='18'></input>
+with value <input id='apply_factor_value' value='' size='18'></input>
+to selected items.
+</div>
+<div>
+<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase()' title=""  /> 
+Remove factor <input id='remove_factor_name' value='' size='18'></input>
+from selected items.
+</div>
+</div>
+
+<hr>
+<a href="#" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
+<div id="upload_section" style="display:none;">
+<div>
+<input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list
+</div>
+<div>
+<p>Delimited text input:</p>
+<textarea id='delimited_text_input' rows='12' cols='90'></textarea>
+</div>
+</div>
+<hr>
+
+</form>
+</div>
 
 <script src="<?= base_url().'javascript/factors.js' ?>"></script>
 
 <script type="text/javascript">
-$(document).ready(function () { 
-	gamma.currentChooser.callBack = setItemTypeField;
-});
+
+gamma.currentChooser.callBack = setItemTypeField;
+
 function setItemTypeField() {
 	var $s = '';
 	if(gamma.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
@@ -51,46 +92,3 @@ function load_delimited_text() {
 }
 </script>
 
-
-<div class="LRCmds">
-
-
-<form name="DBG" action="">
-
-<div>
-<input class='lst_cmd_btn' type="button" value="Update" onClick='saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
-</div>
-
-<p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
-
-<hr>
-<a href="#" onclick="gamma.sectionToggle('factor_section', 0.5)">Factor commands...</a>
-<div id="factor_section" style="display:none;">
-<div>
-<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase()' title=""  /> 
-Apply factor <input id='apply_factor_name' value='' size='18'></input>
-with value <input id='apply_factor_value' value='' size='18'></input>
-to selected items.
-</div>
-<div>
-<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase()' title=""  /> 
-Remove factor <input id='remove_factor_name' value='' size='18'></input>
-from selected items.
-</div>
-</div>
-
-<hr>
-<a href="#" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
-<div id="upload_section" style="display:none;">
-<div>
-<input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list
-</div>
-<div>
-<p>Delimited text input:</p>
-<textarea id='delimited_text_input' rows='12' cols='90'></textarea>
-</div>
-</div>
-<hr>
-
-</form>
-</div>

@@ -1,25 +1,4 @@
-<script type="text/javascript">
-function localRowAction(url, value, obj) {
-	$('#instrument_group_fld').setValue(obj["Instrument Group"]);
-	$('#dataset_type_fld').setValue(obj["Dataset Type"]);
-	$('#usage_fld').setValue(obj["Usage for This Group"]);
-}
-
-function performOperation(mode) {
-	if ( !confirm("Are you sure that you want to update the database?") ) return;
-
-	url = gamma.pageContext.ops_url;
-	var p = {};
-	p.command = mode;
-	p.InstrumentGroup = $('#instrument_group_fld').val();
-	p.DatasetType = $('#dataset_type_fld').val();
-	p.Comment = $('#usage_fld').val();
-	lambda.submitOperation(url, p);
-}
-</script>
-
 <div class='LRCmds'>
-
 
 <form name="DBG" action="">
 
@@ -42,10 +21,19 @@ function performOperation(mode) {
 </div>
 
 <div>
-<input class="lst_cmd_btn" type="button" value="Add" onClick='performOperation("add")' title='Add'/>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("update")' title='Update'/>
-<input class="lst_cmd_btn" type="button" value="Delete" onClick='performOperation("delete")' title='Delete'/>
+<input class="lst_cmd_btn" type="button" value="Add" onClick='lcmd.instrument_allowed_dataset_type.op("add")' title='Add'/>
+<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.instrument_allowed_dataset_type.op("update")' title='Update'/>
+<input class="lst_cmd_btn" type="button" value="Delete" onClick='lcmd.instrument_allowed_dataset_type.op("delete")' title='Delete'/>
 </div>
 
 </form>
 </div>
+
+<script type="text/javascript">
+function localRowAction(url, value, obj) {
+	$('#instrument_group_fld').setValue(obj["Instrument Group"]);
+	$('#dataset_type_fld').setValue(obj["Dataset Type"]);
+	$('#usage_fld').setValue(obj["Usage for This Group"]);
+}
+</script>
+

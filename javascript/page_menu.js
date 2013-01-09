@@ -38,7 +38,9 @@ function showHideMenuDiagram() {
 		$('#diag_ctl_label').html('Show Diagram Menus');
 	}
 }
-$(document).ready(function (){showHideAllMenuBlocks('none', 'More...')});
+$(document).ready(function () {
+	showHideAllMenuBlocks('none', 'More...');
+});
 
 function showFlyMenu(section_name) {
 	hideFlyMenus();

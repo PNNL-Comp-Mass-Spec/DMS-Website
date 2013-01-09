@@ -1,3 +1,10 @@
+<form name="frmParams" id="param_form" action="#">
+<div id='param_container'>
+<!-- supplemental form fields load here via AJAX -->
+</div>
+</form>
+<div id='relocated_buttons'></div>
+
 <script type="text/javascript">
 
 // get supplemental form fields via an AJAX call
@@ -22,7 +29,7 @@ function revealControls(script) {
 	if(script) $('#cmd_buttons').show();
 }
 
-$(document).ready(function () { 
+var cmdInit = function () { 
 	// relocate standard family command buttons
 	$('#relocated_buttons').append($('#cmd_buttons'));
 	$('#cmd_buttons').hide();
@@ -35,12 +42,5 @@ $(document).ready(function () {
 	}
 	
 	load_param_form();
-});	
+}
 </script>
-
-<form name="frmParams" id="param_form" action="#">
-<div id='param_container'>
-<!-- supplemental form fields load here via AJAX -->
-</div>
-</form>
-<div id='relocated_buttons'></div>

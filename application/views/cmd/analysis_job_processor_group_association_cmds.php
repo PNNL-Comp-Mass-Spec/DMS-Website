@@ -1,42 +1,10 @@
-<script type="text/javascript">
-function performOperation(mode) {
-	var list = null;
-	if (mode == 'add') {
-		list = $('#add_list_fld').val();
-		if (list == '') {
-			alert('You must supply jobs to add.');
-			return;
-		}
-	} else {
-		list = lambda.getCkbxList('ckbx');
-		if (list == '') {
-			alert('You must select items.');
-			return;
-		}
-	}
-	if ( !confirm("Are you sure that you want to update the database?") )
-		return;
-
-	var url =  gamma.pageContext.ops_url;
-	var p = {};
-	p.command = mode;
-	p.newValue = '';
-	p.processorGroupID = $('#pf_groupid').val();
-	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
-	p.JobList = list;
-	lambda.submitOperation(url, p);
-}
-</script>
-
-
 <div class="LRCmds">
-
 
 <form name="DBG" action="">
 <a title="Show or hide the controls to disassociate jobs from group" href="#" onclick="gamma.sectionToggle('removeJobsSection', 0.5)");>Remove jobs from association</a>
 <div id="removeJobsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected jobs from group</div>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("remove")' />
+<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_association.op("remove")' />
 </div>
 
 <div></div>
@@ -49,12 +17,10 @@ Jobs to be associated with this group:
 <div>
 <textarea name="addList" id="add_list_fld" rows=6 cols=80 onChange='epsilon.convertList("add_list_fld", ",")' ></textarea>
 </div>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("add")' />
+<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_association.op("add")' />
 </div>
 
 <div></div>
 
 </form>
 </div>
-
-

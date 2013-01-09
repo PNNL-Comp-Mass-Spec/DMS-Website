@@ -27,13 +27,13 @@ function set_param_row_visibility(class_name, visibility) {
 	});
 }
 
-$(document).ready(function () { 
+var cmdInit = function () { 
 	epsilon.actions.before = function() {
 		epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
 	}
 	load_param_form();
 	gamma.load_script_diagram_cmd();
 	return true;
-});	
+}
 </script>
 

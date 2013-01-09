@@ -87,6 +87,8 @@ Download in other formats:
 
 <? $this->load->view('resource_links/base2js') ?>
 
+<script src="<?= base_url().'javascript/lcmd.js' ?>"></script>
+
 <script type='text/javascript'>
 	gamma.pageContext.site_url = '<?= site_url() ?>';
 	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
@@ -165,8 +167,7 @@ Download in other formats:
 			updateMyFilter('minimal');
 			updateMyData('<?= $loading ?>');
 		 	lambda.reloadListReportData = function() { updateMyData('autoload');}
-		}
-	);
+		});
 </script>
 
 </body>

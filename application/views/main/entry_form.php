@@ -2,11 +2,7 @@
 <html>
 <head>
 <title><?= $title; ?></title>
-
 <? $this->load->view('resource_links/base2css') ?>
-
-
-
 </head>
 
 <body>
@@ -46,8 +42,9 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 
 	$(document).ready(function () { 
 		$('.sel_chooser').chosen({search_contains: true});
-		}
-	);
+	});
+	
+	if(cmdInit) cmdInit();
 </script>
 
 </body>

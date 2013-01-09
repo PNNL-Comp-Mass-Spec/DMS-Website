@@ -1,3 +1,8 @@
+|<span><a href='javascript:download_to_graph()'>Graph</a></span>|<span id="progress_display"></span>
+
+<div id="graph_container" style="width:1100px;height:800px;display:none"></div>
+
+
 <!--[if IE]><script language="javascript" type="text/javascript" src="<?= base_url().'charting/lib/excanvas.js' ?>"></script><![endif]-->
 <script src="<?= base_url().'charting/flotr-0.2.0-alpha.js' ?>"></script>
 
@@ -71,7 +76,3 @@ function set_graph_format() {
 }
 
 </script>
-
-|<span><a href='javascript:download_to_graph()'>Graph</a></span>|<span id="progress_display"></span>
-
-<div id="graph_container" style="width:1100px;height:800px;display:none"></div>

@@ -1,3 +1,22 @@
+<div class="LRCmds">
+
+<form name="DBG" action="">
+
+<div>
+<input class='lst_cmd_btn' type="button" value="Set Requests Active" onClick='setRequestStatus("Active")' title="Test"  /> Set selected requests to "Active" status
+</div>
+
+<div>
+<input class='lst_cmd_btn' type="button" value="Set Requests Inactive" onClick='setRequestStatus("Inactive")' title="Test"  /> Set selected requests to "Inactive" status
+</div>
+
+<hr>
+<div>
+<input class='lst_cmd_btn' type="button" value="Delete Requests" onClick='deleteRequests()' title="Test"  /> Delete selected requests
+</div>
+
+</form>
+</div>
 
 <script src="<?= base_url().'javascript/factors.js' ?>"></script>
 
@@ -33,23 +52,3 @@ function setRequestStatus(status) {
 }
 </script>
 
-<div class="LRCmds">
-
-
-<form name="DBG" action="">
-
-<div>
-<input class='lst_cmd_btn' type="button" value="Set Requests Active" onClick='setRequestStatus("Active")' title="Test"  /> Set selected requests to "Active" status
-</div>
-
-<div>
-<input class='lst_cmd_btn' type="button" value="Set Requests Inactive" onClick='setRequestStatus("Inactive")' title="Test"  /> Set selected requests to "Inactive" status
-</div>
-
-<hr>
-<div>
-<input class='lst_cmd_btn' type="button" value="Delete Requests" onClick='deleteRequests()' title="Test"  /> Delete selected requests
-</div>
-
-</form>
-</div>

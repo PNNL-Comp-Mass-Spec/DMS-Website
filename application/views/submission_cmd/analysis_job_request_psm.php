@@ -13,10 +13,10 @@
 
 <script type="text/javascript">
 
-$(document).ready(function () { 
+var cmdInit = function () { 
 	$('#move_next_link').hide();
 	epsilon.showHideSections('hide', '3,4,5');
-});
+};
 
 function createRequest() {
 	submitMainEntryForm('add', showPageLinks);

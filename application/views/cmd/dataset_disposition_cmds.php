@@ -1,27 +1,5 @@
-<script type="text/javascript">
-function performOperation(mode) {
-	var list = lambda.getCkbxList('ckbx');
-	if(list=='') {
-		alert('You must select requests.'); 
-		return;
-	}
-	if ( !confirm("Are you sure that you want to update the database?") )
-		return;
-
-	var url =  gamma.pageContext.ops_url;
-	var p = {};
-	p.command = mode;
-	p.datasetIDList = list;
-	p.rating = $('#rating_fld').val();
-	p.comment = $('#comment_fld').val();
-	p.recycleRequest = $('#recycle_fld').val();
-	lambda.submitOperation(url, p);
-}
-</script>
-
 <div class='LRCmds'>
-
-
+	
 <form name="DBG" action="">
 
 <div>
@@ -120,7 +98,7 @@ function performOperation(mode) {
 </div>
 
 <div>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("update")' title='Disposition the selected datasets.'/>
+<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.dataset_disposition.op("update")' title='Disposition the selected datasets.'/>
 </div>
 
 </form>

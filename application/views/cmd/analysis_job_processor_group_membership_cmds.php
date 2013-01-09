@@ -1,37 +1,3 @@
-<script type="text/javascript">
-function performOperation(mode, p1, p2) {
-	var list = null;
-	if (mode == 'add_processors') {
-		list = $('#add_list_fld').val();
-		if (list == '') {
-			alert('You must supply processors to add.');
-			return;
-		}
-	} else {
-		list = lambda.getCkbxList('ckbx');
-		if (list == '') {
-			alert('You must select items.');
-			return;
-		}
-	}
-
-	if ( !confirm("Are you sure that you want to update the database?") )
-		return;
-		
-	if(mode=='set_membership_enabled') mode = $F(p1);
-
-	var url =  gamma.pageContext.ops_url;
-	var p = {};
-	p.command = mode;
-	p.newValue = (p2!='')?$F(p2):'';
-	p.processorGroupID = $('#pf_groupid').val();
-	if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
-	p.processorNameList = list;
-	lambda.submitOperation(url, p);
-}
-</script>
-
-
 <div class="LRCmds">
 
 
@@ -54,7 +20,7 @@ For other groups to be:
 	<option value="N" >N</option>
 </select>
 </div>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("set_membership_enabled", "LocalGroupMbshpEnabled", "OtherGroupMbshpEnabled")' /> 
+<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("set_membership_enabled", "LocalGroupMbshpEnabled", "OtherGroupMbshpEnabled")' /> 
 </div>
 
 <div></div>
@@ -62,7 +28,7 @@ For other groups to be:
 <a title="Show or hide the controls to remove processors from group" href="#" onclick="gamma.sectionToggle('removeProcessorsSection', 0.5)">Remove Processors</a>
 <div id="removeProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected processors from group</div>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("remove_processors", "", "")' />
+<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("remove_processors", "", "")' />
 </div>
 
 <div></div>
@@ -78,12 +44,10 @@ Processors to be added to this group:
 <div>
 <span>(You can add to the list above by picking processors from :<?= $this->choosers->get_chooser('add_list_fld', 'assignedProcessorPickList', 'append_comma')?>)</span>
 </div>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='performOperation("add_processors", "", "")' />
+<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("add_processors", "", "")' />
 </div>
 
 <div></div>
 
 </form>
 </div>
-
-
