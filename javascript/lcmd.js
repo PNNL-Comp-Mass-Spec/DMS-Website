@@ -230,19 +230,6 @@ var lcmd = {
 		}
 	},
 	sample_prep_biomaterial_location: {
-		localRowAction: function (url, value, obj) {
-			var v = value.toLowerCase();
-			var s = 'U:' + url + ', ';
-			s += 'V:' + v;
-			if(v == 'retire_biomaterial') {
-				s += ' B:' +  obj["Biomaterial"];
-			} else 
-			if(v == 'retire_container') {
-				s += ' C:' +  obj["Container"];
-			}	
-			alert(s);
-		},
-		//perform detail report command (via AJAX)
 		performCommand: function (url, id, mode) {
 			if( !confirm("Are you sure that you want to update the database?") ) return;
 			var p = { ID:id, command:mode };

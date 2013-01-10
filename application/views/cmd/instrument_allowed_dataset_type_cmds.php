@@ -29,11 +29,3 @@
 </form>
 </div>
 
-<script type="text/javascript">
-function localRowAction(url, value, obj) {
-	$('#instrument_group_fld').setValue(obj["Instrument Group"]);
-	$('#dataset_type_fld').setValue(obj["Dataset Type"]);
-	$('#usage_fld').setValue(obj["Usage for This Group"]);
-}
-</script>
-

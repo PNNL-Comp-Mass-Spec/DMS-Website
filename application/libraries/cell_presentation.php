@@ -181,10 +181,14 @@ class cell_presentation {
 				break;
 			case "row_to_json":
 				$s = "";
+				$rowAction = 'localRowAction';
+				if(array_key_exists('Options', $colSpec)) {
+					$rowAction = $colSpec['Options']['rowAction'];
+				}
 				foreach(array_keys($row) as $k) {if($row[$k] == null) {$row[$k] = ''; }}
 				$s = json_encode($row);
 				$url = reduce_double_slashes(site_url()."$target");
-				$str .= "<td><a href='javascript:void(0)' onclick='localRowAction(\"$url\", \"$value\", $s)'>$value</a></td>";				
+				$str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$value\", $s)'>$value</a></td>";				
 				break;
 			case "masked_href-folder":
 				$lbl =  $colSpec["Options"]["Label"];
