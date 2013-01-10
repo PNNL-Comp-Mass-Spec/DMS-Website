@@ -228,14 +228,5 @@ var lcmd = {
 			p.iDList = commalist + list;
 			lambda.submitOperation(url, p);
 		}
-	},
-	sample_prep_biomaterial_location: {
-		performCommand: function (url, id, mode) {
-			if( !confirm("Are you sure that you want to update the database?") ) return;
-			var p = { ID:id, command:mode };
-			gamma.loadContainer(url, p, gamma.pageContext.responseContainerId, function() {
-				updateMyData('autoload');
-			});
-		}		
 	}
 } // lcmd

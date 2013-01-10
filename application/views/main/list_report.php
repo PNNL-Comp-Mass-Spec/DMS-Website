@@ -87,7 +87,9 @@ Download in other formats:
 
 <? $this->load->view('resource_links/base2js') ?>
 
+<? if($list_report_cmds != ""): ?>
 <script src="<?= base_url().'javascript/lcmd.js' ?>"></script>
+<? endif; ?>
 
 <script type='text/javascript'>
 	gamma.pageContext.site_url = '<?= site_url() ?>';
