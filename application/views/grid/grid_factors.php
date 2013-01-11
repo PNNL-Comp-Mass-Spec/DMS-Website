@@ -123,11 +123,6 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
 	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/factor_data';
 
-/*
- * factor css and common JS to separate files
- * use "factorGrid" as namespace?
- */
-
 	var gridUtil = {
 		markChange: function(dataRow, field, clear) {
 			if(!dataRow.mod_axe) dataRow.mod_axe = {};
@@ -161,7 +156,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			grid.render();
 			$('#save_ctls').show();
 		},
-		saveChanges: function (dataRows, idField, action) {
+		saveChanges: function (dataRows, idField, action, mapP2A) {
 			// extract list of change objects from dataRows
 			var flist = [];
 			$.each(dataRows, function(idx, row) {
@@ -173,8 +168,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 				}
 			});
 			// get XML version of changes from list of change objects
-			var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-			var factorXML = gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
+			var factorXML = gamma.getXmlElementsFromObjectArray(flist, 'r', mapP2A);
 			factorXML = '<id type="Dataset_Name" />' + factorXML;
 
 			if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -444,6 +438,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 		$('#save_btn').click(function() {
 			var idField = 'Dataset';
 			var dataRows = mainGrid.grid.getData();
+			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
 			gridUtil.saveChanges(dataRows, idField, function(data) {
 				if(data) {
 					alert(data);
