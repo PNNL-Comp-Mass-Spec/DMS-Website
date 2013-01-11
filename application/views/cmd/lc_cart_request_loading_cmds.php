@@ -26,7 +26,7 @@
 <script type="text/javascript">
 function make_xml(rlist) {
 	var s = '';
-	rlist.each(function(idx, obj) {
+	$.each(rlist, function(idx, obj) {
 		s += '<r rq="' + obj.req + '" ct="' + obj.cart + '" co="' + obj.col + '"/>';
 	});
 	return s;
@@ -40,7 +40,7 @@ function getEditFieldsObjList() {
 		var obj = {};
 		obj.req = cartField.name;
 		obj.cart = cartField.value;
-		obj.col = $('Col_' + obj.req).val();
+		obj.col = $('#Col_' + obj.req).val();
 		rlist.push(obj);
 	});
 	return rlist;
@@ -59,7 +59,7 @@ function saveChangesToDababase() {
 <script type="text/javascript">
 function setCartName() {
 	var iList = lambda.getSelectedItemList();
-	if (iList.size() == 0) {
+	if (iList.length == 0) {
 		alert('No items are selected');
 		return;
 	}
@@ -68,7 +68,7 @@ function setCartName() {
 		alert('Cart name cannot be blank');
 		return;
 	}
-	iList.each(function(idx, req) {
+	$.each(iList, function(idx, req) {
 		$('Cart_' + req).val(cart);
 	});
 }
@@ -83,7 +83,7 @@ function setCartCol() {
 		alert('Column out of range');
 		return;
 	}
-	iList.each(function(idx, req) {
+	$.each(iList, function(idx, req) {
 		$('Col_' + req).val(col);
 	});
 }

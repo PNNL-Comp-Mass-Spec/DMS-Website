@@ -50,7 +50,7 @@ for fiscal year <input id='set_fy' size='5' />
 function getXMLFromObjList(flist) {
 	var xml = '';
 	if (typeof(flist) != "undefined") {
-		flist.each(function(idx, obj){
+		$.each(flist, function(idx, obj){
 			xml += '<r p="' + obj.id + '" g="' + obj.factor + '" a="' + obj.value + '" />';
 		});
 	}
@@ -60,10 +60,10 @@ function getFieldListFromParsedData(parsed_data, col_list) {
 	// make array of id/factor/value objects,
 	// one for each row of each column
 	var flist = [];
-	col_list.each(function(idx, factor){
+	$.each(col_list, function(idx, factor){
 		var idx = parsed_data.header.indexOf(factor);
 		if(idx > -1) {
-			parsed_data.data.each(function(idx, row){
+			$.each(parsed_data.data, function(idx, row){
 				var id = row[0];
 				var value = row[idx];
 				if((typeof(value) != "undefined") && (value != '')) {

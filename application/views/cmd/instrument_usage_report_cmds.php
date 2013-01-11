@@ -38,7 +38,7 @@ function parseUploadText(text_fld) {
 	var lines = $('#' + text_fld).val().split('\n');
 	var header = [];
 	var data = [];
-	lines.each(function(idx, line, lineNumber){
+	$.each(lines, function(lineNumber, line){
 		line = gamma.trim(line);
 		if(line) {	
 			var fields = gamma.parse_lines(line)

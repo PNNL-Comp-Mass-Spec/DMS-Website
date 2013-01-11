@@ -65,7 +65,7 @@ var lcmd = {
 				return;
 			}
 			var list = '';
-			iList.each(function(idx, obj) {
+			$.each(iList, function(idx, obj) {
 				list += obj;
 			});
 			if ( !confirm("Are you sure that you want to update the database?") )
