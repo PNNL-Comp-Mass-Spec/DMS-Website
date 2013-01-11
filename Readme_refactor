@@ -3,14 +3,13 @@
 -----------------------------------------------
 
 ??
-	lc_cart_block_loading_cmds.php (2 matches)
 	lc_cart_request_loading_cmds.php (2 matches)
 
 updateDatabaseFromList(...) // factors.js
+	requested_run_batch_blocking_cmds.php (3 matches)
 	instrument_allocation_cmds.php (2 matches)
 	instrument_usage_report_cmds.php (2 matches)
 	requested_run_admin_cmds.php (3 matches)
-	requested_run_batch_blocking_cmds.php (3 matches)
 	requested_run_factors_cmds.php (3 matches)
 
 Flotr
@@ -18,8 +17,6 @@ Flotr
 	export_graph_cmds.php (2 matches)
 	stats_graph_cmds.php (2 matches)
 
-lc_cart_block_loading_cmds.php (2 matches)
-lc_cart_request_loading_cmds.php (2 matches)
 
 -----------------------------------------------
 -- DMS website migration
