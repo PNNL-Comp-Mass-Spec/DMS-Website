@@ -210,6 +210,18 @@ var gamma = {
 		}
 		return xml;
 	},
+	// return text containing list of XML elements
+	// with given element name, one element for each item in the array
+	// as attribute with given name
+	getXmlElementsFromArray: function(itemArray, elementName, attributeName) {
+		var xml = '';
+		$.each(itemArray, function(x, item){
+			xml += '<' + elementName;
+			xml += " " + attributeName + "='" + item + "'";
+			xml += ' />';
+		});
+		return xml;
+	},
 	// return new array consisting of items in target that are not in remove
 	removeItems: function(target, remove) {
 		var output = [];
