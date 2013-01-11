@@ -172,7 +172,7 @@ function setBlockForSelectedItems() {
 		return;
 	}
 	$.each(iList, function(idx, req) {
-		$('Block_' + req).val(block);
+		$('#Block_' + req).val(block);
 	});
 }
 </script>

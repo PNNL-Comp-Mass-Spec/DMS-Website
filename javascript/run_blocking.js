@@ -14,7 +14,7 @@ function getBlockingFieldsObjList(col_name) {
 	$('.Block').each(function(idx, bk) {
 		var obj = {};
 		obj.bk = bk;
-		obj.ro = $('Run_Order_' + bk.name);
+		obj.ro = $('#Run_Order_' + bk.name);
 		obj.bf = $('#' + col_name + '_' + bk.name)
 		rlist.push(obj);
 	});
