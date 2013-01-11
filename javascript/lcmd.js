@@ -60,7 +60,7 @@ var lcmd = {
 	data_package_job_coverage: {
 		op: function(mode){
 			var iList = lambda.getSelectedItemList();
-			if (iList.size() == 0) {
+			if (iList.length == 0) {
 				alert('No items are selected');
 				return;
 			}

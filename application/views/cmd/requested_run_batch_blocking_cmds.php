@@ -158,7 +158,7 @@ function load_delimited_text() {
 }
 function setBlockForSelectedItems() {
 	var iList = lambda.getSelectedItemList();
-	if (iList.size() == 0) {
+	if (iList.length == 0) {
 		alert('No items are selected');
 		return;
 	}
