@@ -6,10 +6,10 @@
 <a href="#" onclick="gamma.sectionToggle('reload_section', 0.5)">Reload commands...</a>
 <div id="reload_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Refresh" onClick='refresh_report()' title="Refresh EMSL usage report from DMS usage tracking"  /> Refresh EMSL instrument report from DMS
+<input class='lst_cmd_btn' type="button" value="Refresh" onClick='tracking.instrument_usage_report.refresh_report()' title="Refresh EMSL usage report from DMS usage tracking"  /> Refresh EMSL instrument report from DMS
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Reload" onClick='reload_report()' title="Reload EMSL usage report from DMS usage tracking"  /> Reload EMSL instrument report from DMS (wipe current contents)
+<input class='lst_cmd_btn' type="button" value="Reload" onClick='tracking.instrument_usage_report.reload_report()' title="Reload EMSL usage report from DMS usage tracking"  /> Reload EMSL instrument report from DMS (wipe current contents)
 </div>
 </div>
 
@@ -17,7 +17,7 @@
 <a href="#" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list
+<input class='lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_usage_report.load_delimited_text()' title="Test"  /> Update database from delimited list
 </div>
 <div>
 <p>Delimited text input:</p>
@@ -30,69 +30,6 @@
 </div>
 
 <script src="<?= base_url().'javascript/factors.js' ?>"></script>
+<script src="<?= base_url().'javascript/tracking.js' ?>"></script>
 
-<script type="text/javascript">
 
-function parseUploadText(text_fld) {
-	parsed_data = {};
-	var lines = $('#' + text_fld).val().split('\n');
-	var header = [];
-	var data = [];
-	$.each(lines, function(lineNumber, line){
-		line = gamma.trim(line);
-		if(line) {	
-			var fields = gamma.parse_lines(line)
-			if(lineNumber == 0) {
-				header = fields;
-			} else {
-				data.push(fields); // check length of fields?
-			}
-		}
-	});
-	// get rid of goofy parsing artifact last row
-	if(!(data[data.length - 1])[0]) {
-		data.pop();
-	}
-	parsed_data.header = header;
-	parsed_data.data = data;
-	return parsed_data;
-}
-function updateDatabaseFromList(flist, id_type) {
-	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-	var factorXML = gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
-	if(id_type) {
-		factorXML = '<id type="' + id_type + '" />' + factorXML;
-	}
-	var url =  gamma.pageContext.ops_url;
-	var p = {};
-	p.factorList = factorXML;
-	p.operation = 'update';
-	lambda.submitOperation(url, p);
-}
-function load_delimited_text() {
-	var parsed_data = parseUploadText('delimited_text_input');
-	var id_type = parsed_data.header[0];
-	var col_list = parsed_data.header.without(id_type);
-	var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
-	updateDatabaseFromList(flist, id_type);
-}
-function reloadReport(operation) {
-	var url =  gamma.pageContext.ops_url;
-	var p = {};
-	p.factorList = '';
-	p.operation = operation;
-	p.year = $('#pf_year').val();
-	p.month = $('#pf_month').val();
-	p.instrument = $('#pf_instrument').val();
-	lambda.submitOperation(url, p);
-}
-function refresh_report() {
-	if ( !confirm("Are you sure that you want to refresh the exiting report") ) return;
-	reloadReport('refresh');
-}
-function reload_report() {
-	if ( !confirm("Are you sure that you want to clear the existing report and reload?") ) return;
-	reloadReport('reload');
-}
-</script>
