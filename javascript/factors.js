@@ -64,7 +64,7 @@ var theta = {
 		});
 		return flist;
 	},
-	applyFactorToDatabase: function() {
+	applyFactorToDatabase: function(update) {
 		var factor = $('#apply_factor_name').val();
 		var value = $('#apply_factor_value').val();
 		var ilist = lambda.getSelectedItemList();
@@ -73,9 +73,9 @@ var theta = {
 			alert('No items selected on which to apply this action');
 			return;
 		}
-		updateDatabaseFromList(flist); // REFACTOR: work into callback
+		update(flist); // REFACTOR: work into callback
 	},
-	removeFactorFromDatabase: function(){
+	removeFactorFromDatabase: function(update){
 		var factor = $('#remove_factor_name').val();
 		var value = '';
 		var ilist = lambda.getSelectedItemList();
@@ -84,6 +84,74 @@ var theta = {
 			alert('No items selected on which to apply this action');
 			return;
 		}
-		updateDatabaseFromList(flist); // REFACTOR: work into callback
+		update(flist); // REFACTOR: work into callback
 	}
 };
+
+var tau = {
+	requested_run_factors: {
+		setItemTypeField: function() {
+			var $s = '';
+			if(gamma.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
+				$s = 'Batch_ID';
+			}
+			if(gamma.currentChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
+				$s = 'Requested_Run_ID';
+			}
+			if(gamma.currentChooser.page.indexOf('helper_dataset_ckbx') > -1) {
+				$s = 'Dataset_Name';
+			}
+			if(gamma.currentChooser.page.indexOf('helper_experiment_ckbx') > -1) {
+				$s = 'Experiment_Name';
+			}
+			if($s) {
+				$('#itemType').val($s);
+			}
+		},
+		updateDatabaseFromList: function(flist, id_type) {
+			if ( !confirm("Are you sure that you want to update the database?") ) return;
+			var factorXML = theta.getFactorXMLFromList(flist);
+			if(id_type) {
+				factorXML = '<id type="' + id_type + '" />' + factorXML;
+			}
+			var url =  gamma.pageContext.ops_url;
+			var p = {};
+			p.factorList = factorXML;
+			lambda.submitOperation(url, p);
+		},
+		saveChangesToDababase: function() {
+			var cols = theta.getListReportColumnList();
+		//	var col_list = cols.without('Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset');
+			var col_list = gamma.removeItems(cols, ['Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
+			var flist = theta.getFactorFieldList(col_list);
+			this.updateDatabaseFromList(flist, 'Request');
+		},
+		load_delimited_text: function() {
+			var parsed_data = gamma.parseDelimitedText('delimited_text_input');
+			var id_type = parsed_data.header[0];
+		//	var col_list = parsed_data.header.without(id_type, 'Block', 'Run Order');
+			var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order']);
+			var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
+			this.updateDatabaseFromList(flist, id_type);
+		}		
+	},
+	requested_run_admin: {
+		updateDatabaseFromList: function(xml, command) {
+			if (xml == '') {
+				alert('No requests were selected');
+				return;
+			}
+			if ( !confirm("Are you sure that you want to update the database?") ) return;
+			var p = {};
+			p.requestList = xml;
+			p.command = command;
+			var url =  gamma.pageContext.ops_url;
+			lambda.submitOperation(url, p);
+		},
+		setRequestStatus: function(status) {
+			var iList = lambda.getSelectedItemList();
+			var xml = gamma.getXmlElementsFromArray(iList, 'r', 'i');
+			updateDatabaseFromList(xml, status);
+		}
+	} // requested_run_admin
+}

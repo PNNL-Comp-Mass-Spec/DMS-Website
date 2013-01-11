@@ -24,13 +24,7 @@
 </div>
 
 <script type="text/javascript">
-function make_xml(rlist) {
-	var s = '';
-	$.each(rlist, function(idx, obj) {
-		s += '<r rq="' + obj.req + '" ct="' + obj.cart + '" co="' + obj.col + '"/>';
-	});
-	return s;
-}
+
 function getEditFieldsObjList() {
 	// go through editable fields and build array of objects
 	// where each object references the fields for 
@@ -48,15 +42,15 @@ function getEditFieldsObjList() {
 function saveChangesToDababase() {
 	if ( !confirm("Are you sure that you want to update the database?") ) return;
 	var rlist = getEditFieldsObjList();
-	var xml = make_xml(rlist);
+	var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}];
+	var xml = gamma.getXmlElementsFromObjectArray(rlist, 'r', mapP2A);
 	var url =  gamma.pageContext.ops_url;
 	var p = {};
 	p.command = 'update';
 	p.cartAssignmentList = xml;
 	lambda.submitOperation(url, p);
 }
-</script>
-<script type="text/javascript">
+
 function setCartName() {
 	var iList = lambda.getSelectedItemList();
 	if (iList.length == 0) {

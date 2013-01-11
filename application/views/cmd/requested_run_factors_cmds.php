@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <div>
-<input class='lst_cmd_btn' type="button" value="Update" onClick='saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
+<input class='lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
 </div>
 
 <p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
@@ -12,13 +12,13 @@
 <a href="#" onclick="gamma.sectionToggle('factor_section', 0.5)">Factor commands...</a>
 <div id="factor_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase()' title=""  /> 
+<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase()' title=""  /> 
+<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>
@@ -28,7 +28,7 @@ from selected items.
 <a href="#" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Update from list" onClick='load_delimited_text()' title="Test"  /> Update database from delimited list
+<input class='lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test"  /> Update database from delimited list
 </div>
 <div>
 <p>Delimited text input:</p>
@@ -43,52 +43,6 @@ from selected items.
 <script src="<?= base_url().'javascript/factors.js' ?>"></script>
 
 <script type="text/javascript">
-
-gamma.currentChooser.callBack = setItemTypeField;
-
-function setItemTypeField() {
-	var $s = '';
-	if(gamma.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
-		$s = 'Batch_ID';
-	}
-	if(gamma.currentChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
-		$s = 'Requested_Run_ID';
-	}
-	if(gamma.currentChooser.page.indexOf('helper_dataset_ckbx') > -1) {
-		$s = 'Dataset_Name';
-	}
-	if(gamma.currentChooser.page.indexOf('helper_experiment_ckbx') > -1) {
-		$s = 'Experiment_Name';
-	}
-	if($s) {
-		$('#itemType').val($s);
-	}
-}
-function updateDatabaseFromList(flist, id_type) {
-	if ( !confirm("Are you sure that you want to update the database?") ) return;
-	var factorXML = theta.getFactorXMLFromList(flist);
-	if(id_type) {
-		factorXML = '<id type="' + id_type + '" />' + factorXML;
-	}
-	var url =  gamma.pageContext.ops_url;
-	var p = {};
-	p.factorList = factorXML;
-	lambda.submitOperation(url, p);
-}
-function saveChangesToDababase() {
-	var cols = theta.getListReportColumnList();
-//	var col_list = cols.without('Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset');
-	var col_list = gamma.removeItems(cols, ['Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
-	var flist = theta.getFactorFieldList(col_list);
-	updateDatabaseFromList(flist, 'Request');
-}
-function load_delimited_text() {
-	var parsed_data = gamma.parseDelimitedText('delimited_text_input');
-	var id_type = parsed_data.header[0];
-//	var col_list = parsed_data.header.without(id_type, 'Block', 'Run Order');
-	var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order']);
-	var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
-	updateDatabaseFromList(flist, id_type);
-}
+gamma.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
 </script>
 
