@@ -1,8 +1,10 @@
 -----------------------------------------------
--- Punchlist
+-- Extract inline JS
 -----------------------------------------------
 
-Extract JS:
+??
+	lc_cart_block_loading_cmds.php (2 matches)
+	lc_cart_request_loading_cmds.php (2 matches)
 
 updateDatabaseFromList(...) // factors.js
 	instrument_allocation_cmds.php (2 matches)
@@ -15,7 +17,6 @@ Flotr
 	dataset_instrument_runtime_cmds.php (2 matches)
 	export_graph_cmds.php (2 matches)
 	stats_graph_cmds.php (2 matches)
-
 
 lc_cart_block_loading_cmds.php (2 matches)
 lc_cart_request_loading_cmds.php (2 matches)

@@ -6,6 +6,7 @@
 <? $this->load->view('resource_links/base2css') ?>
 <? $this->load->view('resource_links/slickgrid2css') ?>
 
+<? $chimg = base_url()."images/chooser.png"; ?>
 
 <style>
     .slick-header-menu {
@@ -68,11 +69,15 @@
 </head>
 
 <body>
-<div style='height:1em;'></div>
+<? $this->load->view('nav_bar') ?>
 
+<div style='height:1em;'></div>
 <div>Datasets</div>
 <div>
 <textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
+<span>
+Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+<span>
 </div>
 
 <div id='ctl_panel' class='ctl_panel'>
@@ -116,7 +121,7 @@
 
 <script>
 	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
-	gamma.pageContext.data_url = '<?= site_url() ?>agrid/factor_data';
+	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/factor_data';
 
 /*
  * factor css and common JS to separate files
