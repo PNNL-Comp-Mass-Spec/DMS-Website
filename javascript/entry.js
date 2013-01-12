@@ -1,0 +1,175 @@
+var entry = {
+
+	analysis_job_request_psm: {
+		createRequest: function() {
+			this.submitMainEntryForm('add', this.showPageLinks);
+		},
+		previewRequest: function() {
+			this.submitMainEntryForm('preview', function() {
+				var mm = $('#main_outcome_msg');
+				var sm = $('#supplement_outcome_msg');
+				if(mm && sm) { sm.html(mm.html())}
+			});	
+		},
+		submitMainEntryForm: function(mode, followOnAction) {
+			$('#requestID').val('0');
+			$('#move_next_link').hide();
+			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + "/submit_entry_form";
+			epsilon.submitEntryFormToPage(url, mode, followOnAction);
+		},
+		showPageLinks: function() {
+			var id = $('#requestID').val();
+			if(id != '0') {
+				var url = gamma.pageContext.site_url + "analysis_job_request/show/" + id;
+				$('#move_next_link').href = url;
+				$('#move_next_link').show();
+			}
+		},
+		getJobDefaults: function() {
+			var url = gamma.pageContext.my_tag + '/get_defaults';
+			this.callOperation(url);
+		},
+		callOperation: function(url) {
+			var caller = this;
+			url =  gamma.pageContext.site_url + url;
+			var p = { datasets: $('#datasets').val() };
+			gamma.loadContainer(url, p, 'supplemental_material', function (data) {
+					$('#sub_cmd_buttons').show();
+					caller.setFieldValues();
+				}
+			);
+		},
+		setFieldValues: function() {
+			if($('#return_code').val() != 'success') return;
+			
+			$('#toolName').val($('#suggested_ToolName').val());
+			$('#jobTypeName').val($('#suggested_JobTypeName').val());
+			$('#organismName').val($('#suggested_OrganismName').val());
+			$('#protCollNameList').val($('#suggested_ProteinCollectionList').val());
+			$('#protCollOptionsList').val($('#suggested_ProteinOptionsList').val());
+			
+			$('#ModificationDynMetOx').checked = ($('#suggested_DynMetOxEnabled').val( '1'));
+			$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').val( '1'));
+			$('#ModificationDynSTYPhos').checked = ( $('#suggested_DynSTYPhosEnabled').val( '1'));
+		
+			epsilon.showHideSections('show', '3,4,5');
+		},
+		cmdInit: function() { 
+			$('#move_next_link').hide();
+			epsilon.showHideSections('hide', '3,4,5');
+		}
+	}, // analysis_job_request_psm
+	mac_jobs: {
+		// get supplemental form fields via an AJAX call
+		load_param_form: function () {
+			var caller = this;
+			var script = $('#scriptName').val();
+			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + script;
+			epsilon.load_suplemental_form(url, {}, 'param_container', function() { caller.revealControls(script); });
+		},
+		choose_template: function (template_name) {
+			$('#scriptName').val(template_name);
+			this.load_param_form();
+		},
+		set_param_row_visibility: function (class_name, visibility) {
+			$('.' + class_name).each(function(idx, obj){ 
+				obj.style.display = visibility; 
+			});
+		},
+		revealControls: function (script) {
+			this.set_param_row_visibility("hide_input", "none");
+			if(script) $('#cmd_buttons').show();
+			$('.sel_chooser').chosen({search_contains: true});
+		},
+		cmdInit: function () { 
+			// relocate standard family command buttons
+			$('#relocated_buttons').append($('#cmd_buttons'));
+			$('#cmd_buttons').hide();
+			
+			// define action to capture contents of param form
+			// as xml copied to main form field
+			epsilon.actions.before = function() {
+				epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
+				return true;
+			}
+			entry.mac_jobs.load_param_form();
+		}
+	}, // mac_jobs	
+	pipeline_jobs: {
+		load_param_form: function () {
+			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#scriptName').val();
+			epsilon.load_suplemental_form(url, {}, 'param_container', function() {
+				entry.pipeline_jobs.set_param_row_visibility("hide_input", "none");
+			});
+		},
+		choose_script: function (script) {
+			$('#scriptName').val(script);
+			this.load_param_form();
+		},
+		set_param_row_visibility: function (class_name, visibility) {
+			$('.' + class_name).each(function(idx, obj) { 
+				obj.style.display = visibility; 
+			});
+		},
+		cmdInit: function () { 
+			epsilon.actions.before = function() {
+				epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
+			}
+			entry.pipeline_jobs.load_param_form();
+			gamma.load_script_diagram_cmd();
+			return true;
+		}
+	
+	}, // pipeline_jobs
+	sample_prep: {
+		approveSubmit: function() {
+			var proceed = false;
+			// this function will be called by standard submit sequence
+			// prior to actually submitting form to server
+			return function() {
+				// check whether or not we need to have user confirm submit
+				proceed = entry.sample_prep.checkMaterial(proceed);
+				if(!proceed) {
+					// present modal dialog with user choices
+					// and return false to cancel original submit
+					var text = $('#message_contents').html();
+				    $( "<div></div>" ).html(text).dialog({
+				        height:300,
+				        width: 650,
+				        modal: true,
+				        buttons: {
+				           "Change And Continue Update": function() {
+								$('#State').val('Closed (containers and material)');
+				                $( this ).dialog( "close" );
+				                proceed = true;
+				           		$('#primary_cmd').click(); // retrigger the submit 
+				            },
+				            "Don't Change And Continue Update": function() {
+				                $( this ).dialog( "close" );
+				                proceed = true;
+				            	$('#primary_cmd').click(); // retrigger the submit 
+				           },
+				            Cancel: function() {
+				            	proceed = false;
+				                $( this ).dialog( "close" );
+				            }
+				        }
+				    });
+				}
+				return proceed;	
+			}
+		}(),
+		checkMaterial: function (proceed) {
+			var state = $('#State').val();
+			var biomaterial = $('#CellCultureList').val();
+			if((state != 'Closed') || (biomaterial == '(none)' || biomaterial == '') ) {
+				proceed = true;
+			}
+			return proceed;
+		},
+		cmdInit: function () {
+			// set hook to trap standard page submit sequence
+			epsilon.actions.before = entry.sample_prep.approveSubmit;
+		}
+	} // sample_prep
+} // entry

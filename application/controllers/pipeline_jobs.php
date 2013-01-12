@@ -46,14 +46,14 @@ class pipeline_jobs extends Base_controller {
 		if(!empty($params)) {
 			echo $this->build_param_entry_form($params, $default_key);
 		} else {
-			$lnk = "<a href='javascript:void(0)' onclick='load_param_form()' >here</a>";
+			$lnk = "<a href='javascript:void(0)' onclick='entry.pipeline_jobs.load_param_form()' >here</a>";
 			if(!$default_key) {
 				$scripts = $this->get_scripts_with_param_definitions($this->my_tag);
 				echo "<div>Click one of the scripts below to show form for entering parameters:</div>";
 				echo "<ul>";
 				foreach($scripts as $dt) {
 					$script = $dt['Script'];
-					echo "<li><a href='javascript:void(0)' onclick='choose_script(\"$script\")'>$script</a></li>";
+					echo "<li><a href='javascript:void(0)' onclick='entry.pipeline_jobs.choose_script(\"$script\")'>$script</a></li>";
 				}
 				echo "</ul>";
 				echo "<div>You may also manually enter a script name and click $lnk to show the parameter form (if the script allows that)</div>";
@@ -229,8 +229,8 @@ class pipeline_jobs extends Base_controller {
 	function build_visibility_controls($show_class, $hide_class)
 	{
 		$str = "";
-		$str .= "<a href=\"javascript:set_param_row_visibility('$hide_class', 'none')\">Collapse</a> to essentials &nbsp; &nbsp;";
-		$str .= "<a href=\"javascript:set_param_row_visibility('$hide_class', 'table-row')\">Expand</a> to show all";
+		$str .= "<a href=\"javascript:entry.pipeline_jobs.set_param_row_visibility('$hide_class', 'none')\">Collapse</a> to essentials &nbsp; &nbsp;";
+		$str .= "<a href=\"javascript:entry.pipeline_jobs.set_param_row_visibility('$hide_class', 'table-row')\">Expand</a> to show all";
 		return $str;
 	}
 

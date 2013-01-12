@@ -2,8 +2,11 @@
 <h3><span id="caption_container"></span></h3>
 <div id="graph_container" style="width:1100px;height:800px;display:none"></div>
 
-<!--[if IE]><script language="javascript" type="text/javascript" src="<?= base_url().'charting/lib/excanvas.js' ?>"></script><![endif]-->
-<script src="<?= base_url().'charting/flotr-0.2.0-alpha.js' ?>"></script>
+
+<link rel="stylesheet" type="text/css" href="<?= base_url().'flot/examples/layout.css' ?>" />
+
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="<?= base_url().'flot/excanvas.min.js' ?>"></script><![endif]-->
+<script src="<?= base_url().'flot/jquery.flot.js' ?>"></script>
 
 <script type='text/javascript'>
 
@@ -32,7 +35,7 @@ function draw_graph(rows) {
 
 	// make plotting container visible and draw graph in it
 	$('#graph_container').show();
-    var f = Flotr.draw($('#graph_container'), dataSeriesSet, graphFormatting);
+    var f = Flot.draw($('#graph_container'), dataSeriesSet, graphFormatting);
 }
 
 // build data series set from given column data from rows

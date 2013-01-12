@@ -39,12 +39,19 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 	epsilon.pageContext.modeFieldId = 'entry_cmd_mode';
 	epsilon.pageContext.entryFormId = 'entry_form';
 	epsilon.adjustEnabledFields();
+</script>
 
+<? if($entry_submission_cmds != ""): ?>
+<script src="<?= base_url().'javascript/entry.js' ?>"></script>
+<script type='text/javascript'>gamma.pageContext.cmdInit = entry.<?= $this->my_tag ?>.cmdInit;</script>
+<? endif; ?>
+
+<script type='text/javascript'>
 	$(document).ready(function () { 
 		$('.sel_chooser').chosen({search_contains: true});
 	});
 	
-	if(cmdInit) cmdInit();
+	if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();
 </script>
 
 </body>
