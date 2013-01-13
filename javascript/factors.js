@@ -73,7 +73,7 @@ var theta = {
 			alert('No items selected on which to apply this action');
 			return;
 		}
-		update(flist); // REFACTOR: work into callback
+		update(flist);
 	},
 	removeFactorFromDatabase: function(update){
 		var factor = $('#remove_factor_name').val();
@@ -84,7 +84,7 @@ var theta = {
 			alert('No items selected on which to apply this action');
 			return;
 		}
-		update(flist); // REFACTOR: work into callback
+		update(flist);
 	}
 };
 

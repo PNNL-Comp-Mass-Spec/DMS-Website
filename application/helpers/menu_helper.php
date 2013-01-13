@@ -303,10 +303,10 @@
 			case 'Entry_Pages'  :
 				break;
 			case 'List_Reports':
-				$menu_context['sql_link'] = "javascript:navBar.invoke(updateShowSQL)";
+				$menu_context['sql_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowSQL)";
 				break;
 			case 'Detail_Reports' :
-				$menu_context['sql_link'] = "javascript:navBar.invoke(updateShowSQL)";
+				$menu_context['sql_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowSQL)";
 				break;
 			case 'Param_Pages':
 				break;

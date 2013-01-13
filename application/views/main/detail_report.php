@@ -56,6 +56,7 @@ $this->load->view("main/detail_report_export");
 	gamma.pageContext.responseContainerId = 'update_message';
 	gamma.pageContext.Id = '<?= $id ?>';
 	gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';
+	gamma.pageContext.updateShowSQL = updateShowSQL;
 </script>
 
 <script src="<?= base_url().'javascript/file_attachment.js' ?>"></script>

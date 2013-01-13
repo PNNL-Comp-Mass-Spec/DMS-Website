@@ -50,7 +50,9 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 	$(document).ready(function () { 
 		$('.sel_chooser').chosen({search_contains: true});
 	});
-	
+	epsilon.actions.after = function() {
+		$('.sel_chooser').chosen({search_contains: true});		
+	};
 	if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();
 </script>
 

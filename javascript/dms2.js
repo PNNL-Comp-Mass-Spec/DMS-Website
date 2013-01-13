@@ -863,7 +863,6 @@ var epsilon = {
 		}
 		// check if chooserPage URL needs separator
 		var sep = '/';
-	//	REFACTOR - make sure this works
 		if( chooserPage.match(/\/$/) || chooserPage.match(/~$/) ) {
 			sep = '';
 		}
