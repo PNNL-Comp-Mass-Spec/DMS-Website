@@ -62,7 +62,7 @@
 		margin-bottom: 5px;
 	}
 	.nonEditable {
-		color:gray;
+		color:blue;
 	}
 </style>
 
