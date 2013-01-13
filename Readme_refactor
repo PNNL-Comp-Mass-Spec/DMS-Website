@@ -1,8 +1,61 @@
+
+
+
 -----------------------------------------------
--- Extract inline JS
+-- grid
 -----------------------------------------------
 
-extract page family root page js into separate js files
+http://prismwebdev2.pnl.gov/dmsref/requested_run_batch_blocking/param
+
+http://prismwebdev2.pnl.gov/dmsref/lc_cart_request_loading/report
+
+http://prismwebdev2.pnl.gov/dmsref/lc_cart_loading/report
+
+http://prismwebdev2.pnl.gov/dmsref/factors/grid  [UpdateRequestedRunFactors]		
+
+----------
+copy list of items from grid to item list (on import)
+import needs to show Save button
+drop-down menu item to generate values for "Alias" factor
+helper to get datasets from data package
+
+----------
+
+----
+lc_cart_request_loading
+	list_report_data_table	V_LC_Cart_Request_Loading_List_Report
+	list_report_cmds	lc_cart_request_loading_cmds
+	operations_sproc	UpdateLCCartRequestAssignments
+	list_report_cmds_url	lc_cart_request_loading/operation
+	list_report_data_cols	Request as Sel, *
+----		
+requested_run_batch_blocking
+	list_report_sproc	GetFactorCrosstabByBatch
+	list_report_cmds	requested_run_batch_blocking_cmds
+	operations_sproc	UpdateRequestedRunBlockingAndFactors
+	list_report_cmds_url	requested_run_batch_blocking/operation
+	batch_sproc	MakeAutomaticRequestedRunFactors
+
+requested_run_batch_blocking
+	[UpdateRequestedRunBlockingAndFactors]
+		UpdateRequestedRunBatchParameters
+		UpdateRequestedRunFactors
+----
+class factors extends Base_controller {
+	function get_factor_data($itemList, $itemType)
+		$ok = $this->cu->load_mod('s_model', 'sproc_model', 'list_report_sproc', 'requested_run_factors');
+
+grid_factors.php
+	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
+	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/factor_data';
+
+requested_run_factors
+	list_report_sproc	GetRequestedRunFactorsForEdit
+	list_report_cmds	requested_run_factors_cmds
+	list_report_cmds_url	requested_run_factors/operation
+	operations_sproc	UpdateRequestedRunFactors
+
+
 
 -----------------------------------------------
 -- DMS website migration

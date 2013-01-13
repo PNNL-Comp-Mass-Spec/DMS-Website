@@ -72,22 +72,22 @@
 <? $this->load->view('nav_bar') ?>
 
 <div style='height:1em;'></div>
-<div>Datasets</div>
+<div>Requests</div>
 <div>
 <textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
 <span>
-Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
 <span>
 </div>
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' href='javascript:void(0)' >Show</a> Factors For Datasets
+	<a id='reload_btn' href='javascript:void(0)' >Show</a> info for requests
 </span>
-<spanclass='ctls'>
+<span class='ctls' style='display:none;'>
 	<a id='add_column_btn' href='javascript:void(0)' >Add</a> New Factor
 </span>
-<spanclass='ctls'>
+<span class='ctls' style='display:none;'>
 	<input id='add_column_name' type='text' size="20"></input>
 </span>
 
@@ -120,8 +120,8 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 <? $this->load->view('resource_links/slickgrid2js') ?>
 
 <script>
-	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
-	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/factor_data';
+	gamma.pageContext.ops_url = '<?= site_url() ?>xxx/operation';
+	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/grid_data';
 
 	var gridUtil = {
 		markChange: function(dataRow, field, clear) {
@@ -169,7 +169,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			});
 			// get XML version of changes from list of change objects
 			var factorXML = gamma.getXmlElementsFromObjectArray(flist, 'r', mapP2A);
-			factorXML = '<id type="Dataset_Name" />' + factorXML;
+			factorXML = '<id type="Request_ID" />' + factorXML;
 
 			if ( !confirm("Are you sure that you want to update the database?") ) return;
 
@@ -186,7 +186,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			cntr.spin('small');
 		    $.post(
 		        url,
-		        { itemList:itemList, itemType:'Dataset_Name'},
+		        { itemList:itemList },
 		        function (response) {
 		        	cntr.spin(false);
 		        	obj = $.parseJSON(response);
@@ -297,8 +297,8 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 
 	var mainGrid = {
 		attachment:'myTable',
-		hideColumns: ['Sel', 'BatchID', 'Experiment'],
-		staticColumns: ['Dataset', 'Name', 'Status', 'Request'],
+		hideColumns: [],
+		staticColumns: ['Request', 'Name', 'Status', 'BatchID', 'Instrument', 'Separation_Type', 'Experiment'],
 		container: null,
 		grid: null,
 		options: {
@@ -436,7 +436,8 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			mainGrid.addColumn(name);
 		});
 		$('#save_btn').click(function() {
-			var idField = 'Dataset';
+			alert("Not connected yet"); return;
+			var idField = 'Request';
 			var dataRows = mainGrid.grid.getData();
 			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
 			gridUtil.saveChanges(dataRows, idField, function(data) {
