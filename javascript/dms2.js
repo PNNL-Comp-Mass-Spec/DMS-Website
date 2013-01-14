@@ -342,9 +342,9 @@ var gamma = {
 		}
 		if(abort) return;
 		if(container) container.spin('small');
-		$.post(url, p, function (json) {
+		$.post(url, p, function (data) {
 				if(container) container.spin(false);
-				var data = json.evalJSON();
+//				var data = $.parseJSON(json);
 				if(afterAction) {
 					afterAction(data);
 				}

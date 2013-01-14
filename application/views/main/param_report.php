@@ -80,6 +80,7 @@ $this->load->view("main/param_report_export");
 <? $this->load->view('resource_links/base2js') ?>
 
 <? if($list_report_cmds != ""): ?>
+<script src="<?= base_url().'flot/jquery.flot.js' ?>"></script>
 <script src="<?= base_url().'javascript/lcmd.js' ?>"></script>
 <? endif; ?>
 
