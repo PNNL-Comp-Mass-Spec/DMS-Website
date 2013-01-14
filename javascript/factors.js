@@ -121,7 +121,6 @@ var tau = {
 		},
 		saveChangesToDababase: function() {
 			var cols = theta.getListReportColumnList();
-		//	var col_list = cols.without('Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset');
 			var col_list = gamma.removeItems(cols, ['Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
 			var flist = theta.getFactorFieldList(col_list);
 			this.updateDatabaseFromList(flist, 'Request');
@@ -129,7 +128,6 @@ var tau = {
 		load_delimited_text: function() {
 			var parsed_data = gamma.parseDelimitedText('delimited_text_input');
 			var id_type = parsed_data.header[0];
-		//	var col_list = parsed_data.header.without(id_type, 'Block', 'Run Order');
 			var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order']);
 			var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
 			this.updateDatabaseFromList(flist, id_type);

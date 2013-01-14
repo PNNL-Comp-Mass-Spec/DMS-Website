@@ -106,9 +106,9 @@ var lcmd = {
 	},
 	instrument_allowed_dataset_type: {
 		localRowAction: function (url, value, obj) {
-			$('#instrument_group_fld').setValue(obj["Instrument Group"]);
-			$('#dataset_type_fld').setValue(obj["Dataset Type"]);
-			$('#usage_fld').setValue(obj["Usage for This Group"]);
+			$('#instrument_group_fld').val(obj["Instrument Group"]);
+			$('#dataset_type_fld').val(obj["Dataset Type"]);
+			$('#usage_fld').val(obj["Usage for This Group"]);
 		},
 		op: function(mode) {
 			if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -287,9 +287,8 @@ var lcmd = {
 		}
 	},
 	dataset_instrument_runtime: {
-		// get data rows for list report via an AJAX call
-		// using all the current search filters
-		// and convert JSON return to JavaScript array of row objects
+		// get data rows via an AJAX call for list report 
+		// using all the current search filters, and build graph from it
 		download_to_graph: function() {
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export_param/json'
 			var p = $('#entry_form').serialize();
@@ -297,23 +296,14 @@ var lcmd = {
 					lcmd.dataset_instrument_runtime.draw_graph(rows);
 			}); 
 		},
-		//build data series from rows, set graph format, and draw graph
 		draw_graph: function(rows) {
-			// set caption
 			var caption = "Dataset Acquisition/Interval Time For " + $('#instrumentName').val() + " From " + $('#startDate').val() + " To " + $('#endDate').val()
-			$('#caption_container').html(caption);
-			
-			// build data series set from rows
-			var dataSeriesSet = lcmd.dataset_instrument_runtime.make_data_series_from_column(rows, "Duration") ;
-		
-			// set up graph formatting
-			var graphFormatting = lcmd.dataset_instrument_runtime.set_graph_format();
-		
-			// make plotting container visible and draw graph in it
+			$('#caption_container').html(caption);			
+			var dataSeriesSet = lcmd.dataset_instrument_runtime.make_data_series_from_column(rows, "Duration") ;		
+			var graphFormatting = lcmd.dataset_instrument_runtime.set_graph_format();	
 			$('#graph_container').show();
 		    var f = $.plot($('#graph_container'), dataSeriesSet, graphFormatting);
 		},
-		// build data series set from given column data from rows
 		make_data_series_from_column: function(rows, colName) {
 			var intervalSeries = [];
 			var acquistionSeries = [];
@@ -336,29 +326,17 @@ var lcmd = {
 				}
 			);
 			return [
-				{
-					label: "Acquisition Time",
-					color: '#0000ff',
-					data: acquistionSeries
-				},
-				{
-					label: "Interval Time",
-					color: '#ff0000',
-					data: intervalSeries
-				}
+				{ label: "Acquisition Time", color: '#0000ff', data: acquistionSeries },
+				{ label: "Interval Time", color: '#ff0000', data: intervalSeries }
 			];
 		},
-		// define graph format
 		set_graph_format: function() {
-			return {
-				yaxis: {
-					min: 0
-				},
-				bars: {
-					show:true, 
-					barWidth:0.5
-				}
-			};
+			return { yaxis: { min: 0 }, bars: { show:true, barWidth:0.5 } };
 		}
 	}			
 } // lcmd
+
+$(document).ready(function () { 
+	$('.sel_chooser').chosen({search_contains: true});
+});
+

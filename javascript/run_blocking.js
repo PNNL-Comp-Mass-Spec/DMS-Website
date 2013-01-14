@@ -135,7 +135,8 @@ var runBlocking = {
 	requested_run_batch_blocking: {
 		getFactorCols: function() {
 			var cols = theta.getListReportColumnList();
-			var factor_cols = cols.without('Sel', 'BatchID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order');
+			var factor_cols = gamma.removeItems(cols, ['Sel', 'BatchID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order']);
+
 			return factor_cols;
 		},
 		verifyColName: function(col_name) {
@@ -181,7 +182,7 @@ var runBlocking = {
 				// (someday) more extensive validation
 				return;
 			}
-			var col_list = parsed_data.header.without('Request', 'Block', 'Run Order');
+			var col_list = gamma.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order']);
 			var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
 			var blist = theta.getFieldListFromParsedData(parsed_data, ['Block', 'Run Order']);
 			this.updateDatabaseFromList(flist, blist);

@@ -40,7 +40,7 @@ var tracking = {
 		load_delimited_text: function() {
 			var parsed_data = this.parseUploadText('delimited_text_input');
 			var id_type = parsed_data.header[0];
-			var col_list = parsed_data.header.without(id_type);
+			var col_list = gamma.removeItems(parsed_data.header, [id_type]);
 			var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
 			this.updateDatabaseFromList(flist, id_type);
 		},
@@ -113,7 +113,7 @@ var tracking = {
 				alert('You must set the fiscal year for the changes');
 				return;
 			}
-			var col_list = parsed_data.header.without('Proposal_ID');
+			var col_list = gamma.removeItems(parsed_data.header, ['Proposal_ID']);
 			var flist = this.getFieldListFromParsedData(parsed_data, col_list);
 			this.updateDatabaseFromList(flist, fiscal_year);
 		},
