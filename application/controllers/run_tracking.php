@@ -14,17 +14,6 @@ class run_tracking extends Base_controller {
 		$this->my_tag = "run_tracking";
 		$this->my_title = "Run Tracking";
 	}
-
-	// --------------------------------------------------------------------
-	private
-	function setup_basic_dms_page()
-	{
-		$this->load->helper(array('form', 'user', 'dms_search', 'menu'));
-		$this->load->model('dms_statistics', 'model', TRUE);
-		$this->load->model('dms_menu', 'menu', TRUE);
-		$nav_bar_menu_items= get_nav_bar_menu_items('Statistics');
-		return $nav_bar_menu_items;
-	}
 	
 	// --------------------------------------------------------------------
 	function cal()
@@ -44,7 +33,7 @@ class run_tracking extends Base_controller {
 			$month = '1';
 		}
 		
-		$data['nav_bar_menu_items']= $this->setup_basic_dms_page();
+		$data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 		
 		$this->load->library('calendar', $this->calendar_prefs($instrument));
 		$prefs = $this->calendar_prefs($instrument);
@@ -147,6 +136,7 @@ EOD;
 	private
 	function make_instrument_selector($instruments, $instrument, $year, $month)
 	{
+		$this->load->helper(array('form'));
 		$emslLabel = 'EMSL';
 		$dmsLabel = 'DMS';
 		$options = array($emslLabel => array(), $dmsLabel => array() );

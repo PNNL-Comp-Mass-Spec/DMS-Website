@@ -114,7 +114,7 @@ class S_model extends CI_Model {
 				} else {
 					$this->bound_calling_parameters->$fn = '';
 				}
-			}
+			}  // $this->bound_calling_parameters = $this->get_calling_args($parmObj); ??
 			
 			// execute sproc
 			$this->sproc_handler->execute($this->sprocName, $my_db->conn_id, $this->sproc_args, $this->bound_calling_parameters);
@@ -161,7 +161,7 @@ class S_model extends CI_Model {
 		save_to_cache($this->total_rows_storage_name, count($this->result_array));
 	}	
 
-		// --------------------------------------------------------------------
+	// --------------------------------------------------------------------
 	private
 	function cache_column_info()
 	{
@@ -277,6 +277,24 @@ class S_model extends CI_Model {
 	function get_error_text()
 	{
 		return $this->error_text;
+	}
+
+	// --------------------------------------------------------------------
+	// get list of arguments for calling the stored procedure
+	// based on configuration db definition and initialized from given param object
+	function get_calling_args($parmObj)
+	{
+		$callingParams = new Bound_arguments();
+		foreach($this->sproc_args as $arg) {
+			$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
+			$b->fn = $fn; // ??
+			if(isset($parmObj->$fn)) {
+				$callingParams->$fn = $parmObj->$fn;
+			} else {
+				$callingParams->$fn = '';
+			}
+		}
+		return $callingParams;
 	}
 	
 	// --------------------------------------------------------------------

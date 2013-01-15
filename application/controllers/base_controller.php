@@ -341,6 +341,14 @@ class Base_controller extends CI_Controller {
 	// --------------------------------------------------------------------
 	// miscelleneous section
 	// --------------------------------------------------------------------
+	
+	// --------------------------------------------------------------------
+	function get_basic_nav_bar_items()
+	{
+		$this->load->helper(array('user', 'dms_search', 'menu'));
+		$this->load->model('dms_menu', 'menu', TRUE);
+		return get_nav_bar_menu_items('');
+	}
 
 	// --------------------------------------------------------------------
 	// http://dmsdev.pnl.gov/controller/data/<output format>/<query name>/<filter value>/.../<filter value>
