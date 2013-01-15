@@ -57,6 +57,9 @@ class Grid_data {
 	// --------------------------------------------------------------------
 	private 
 	function get_input_values($fields, $paramArray) {
+		if($paramArray === false) {
+			$paramArray = array();
+		}
 		$paramObj = new stdClass();
 		foreach($fields as $field) {
 			$paramObj->$field = (array_key_exists ($field, $paramArray)) ? $paramArray[$field] : '';

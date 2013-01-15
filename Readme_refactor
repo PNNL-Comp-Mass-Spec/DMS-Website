@@ -2,6 +2,8 @@
 -- DMS website refactor testing
 -----------------------------------------------
 
+fix filldown wiping out contents of "0" in column
+
 Frac_Upload.txt
 -----------------------------------------------
 -- instrument_allocation
