@@ -26,7 +26,7 @@ class requested_run_grid extends Base_controller {
 	function grid() 
 	{
 		$data = array();
-		$data['title'] = 'Edit Requested Run Assignments';
+		$data['title'] = $this->my_title;
 		$data['nav_bar_menu_items']= $this->setup_basic_dms_page();
 
 		$this->load->vars($data);	

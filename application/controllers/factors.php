@@ -25,7 +25,7 @@ class factors extends Base_controller {
 	function grid() 
 	{
 		$data = array();
-		$data['title'] = 'Edit Factors';
+		$data['title'] = $this->my_title;
 		$data['nav_bar_menu_items']= $this->setup_basic_dms_page();
 
 		$this->load->vars($data);	
@@ -34,18 +34,18 @@ class factors extends Base_controller {
 
 	// --------------------------------------------------------------------
 	// get data from sproc
-	function factor_data()
+	function grid_data()
 	{
 		$itemList = $this->input->post('itemList');
 		$itemType = $this->input->post('itemType');
 		
-		$response = $this->get_factor_data($itemList, $itemType);
+		$response = $this->get_grid_data($itemList, $itemType);
 		echo json_encode($response);
 	}
 	// --------------------------------------------------------------------
 	// get data from sproc
 	private
-	function get_factor_data($itemList, $itemType)
+	function get_grid_data($itemList, $itemType)
 	{
 		$this->load->helper(array('user','url'));
 		$response = new stdClass();

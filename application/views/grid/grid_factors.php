@@ -121,7 +121,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 
 <script>
 	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
-	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/factor_data';
+	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/grid_data';
 
 	var gridUtil = {
 		markChange: function(dataRow, field, clear) {
@@ -156,7 +156,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			grid.render();
 			$('#save_ctls').show();
 		},
-		saveChanges: function (dataRows, idField, action, mapP2A) {
+		saveChanges: function (dataRows, idField, mapP2A, action) {
 			// extract list of change objects from dataRows
 			var flist = [];
 			$.each(dataRows, function(idx, row) {
@@ -439,7 +439,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			var idField = 'Dataset';
 			var dataRows = mainGrid.grid.getData();
 			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-			gridUtil.saveChanges(dataRows, idField, function(data) {
+			gridUtil.saveChanges(dataRows, idField, mapP2A, function(data) {
 				if(data) {
 					alert(data);
 				} else {
