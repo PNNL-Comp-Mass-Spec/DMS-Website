@@ -1,0 +1,56 @@
+/*
+ * for SlickGrid data grid 
+ */
+.slick-header-menu {
+  border: 1px solid #718BB7;
+  background: #f0f0f0;
+  padding: 2px;
+  -moz-box-shadow: 2px 2px 2px silver;
+  -webkit-box-shadow: 2px 2px 2px silver;
+  min-width: 100px;
+  z-index: 20;
+}
+.slick-header-menuitem {
+  padding: 2px 4px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.slick-header-menuitem:hover {
+  border-color: silver;
+  background: white;
+}
+.slick-header-menuitem-disabled {
+  border-color: transparent !important;
+  background: inherit !important;
+}
+.slick-header-menubutton {
+  display: inline-block;
+}    
+
+.GridContainer {
+    width: 99%;
+	min-height: 500px;
+	font-size: 8pt;
+	border-color:gray;
+	border-width:thin;
+	border-style:solid;
+}
+input.editor-text {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    margin: 0;
+    background: transparent;
+    outline: 0;
+    padding: 0;
+}
+.ctls {
+	margin-right: 10px;
+}
+.ctl_panel {
+	margin-top:5px;
+	margin-bottom: 5px;
+}
+.nonEditable {
+	color:blue;
+}

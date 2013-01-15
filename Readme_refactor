@@ -3,6 +3,22 @@
 -----------------------------------------------
 
 Frac_Upload.txt
+-----------------------------------------------
+-- instrument_allocation
+-----------------------------------------------
+
+http://prismwebdev2.pnl.gov/dmsref/instrument_allocation/report
+
+list_report_data_table	V_Instrument_Allocation_List_Report
+base_table	T_Instrument_Allocation
+list_report_cmds	instrument_allocation_cmds
+operations_sproc	UpdateInstrumentUsageAllocationsXML
+list_report_cmds_url	instrument_allocation/operation
+detail_report_data_table	V_Instrument_Allocation_Detail_Report
+entry_page_data_table	V_Instrument_Allocation_Detail_Entry
+detail_report_data_id_col	FY_Proposal
+entry_page_data_id_col	FY_Proposal
+entry_sproc	UpdateInstrumentUsageAllocations
 
 -----------------------------------------------
 -- grid
