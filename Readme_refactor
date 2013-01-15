@@ -2,10 +2,7 @@
 -- DMS website refactor testing
 -----------------------------------------------
 
-http://prismwebdev2.pnl.gov/dmsref/instrument_allocation/report
-
-http://prismwebdev2.pnl.gov/dmsref/instrument_usage_report/report
-
+Frac_Upload.txt
 
 -----------------------------------------------
 -- grid
@@ -61,12 +58,20 @@ requested_run_factors
 	list_report_cmds_url	requested_run_factors/operation
 	operations_sproc	UpdateRequestedRunFactors
 
+[UpdateRequestedRunLCCartParams]
+	'clear_cart_assignments'
+	'fill_into_gaps' AND @reqRunIDList <> ''
+	'priority'
+	'specific_column'
+	'spread_among_columns'
 
 
 -----------------------------------------------
 -- DMS website migration
 -----------------------------------------------
-Frac_Upload.txt
+
+
+Remove Controller_utility ::message_box and associated components in favor of JQDialog??
 
 re-apply selective enhancements (chosen) to dynamically reloaded forms
 

@@ -342,7 +342,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			var colSpecs = [];
 			var colSpec;
 			$.each(colNames, function(idx, colName) {
-				if(caller.hideColumns.indexOf(colName) === -1) {
+				if(caller.hideColumns.length == 0 || caller.hideColumns.indexOf(colName) === -1) {
 					colSpec = caller.makeColumnSpec(colName, editable)
 					colSpecs.push(colSpec);
 				}
@@ -360,7 +360,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			$.merge(curNames, this.hideColumns);
 			var newColNames = [];
 			$.each(colNames, function(idx, colName) {
-				if(curNames.indexOf(colName) === -1) {
+				if(curNames.length == 0 || curNames.indexOf(colName) === -1) {
 					currentColumns.push(caller.makeColumnSpec(colName, true));
 				}
 			});	
