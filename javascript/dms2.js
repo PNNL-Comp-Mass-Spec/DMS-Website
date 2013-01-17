@@ -216,7 +216,7 @@ var gamma = {
 			$.each(objArray, function(x, obj){
 				xml += '<' + elementName;
 				$.each(mapping, function(z, map) {
-					if(obj[map.p]) {
+					if(typeof obj[map.p] != 'undefined'){
 						xml += ' ' + map.a + '="' + obj[map.p] + '"';
 					}
 				});

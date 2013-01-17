@@ -54,3 +54,11 @@ input.editor-text {
 .nonEditable {
 	color:blue;
 }
+
+#delimited_text_panel {
+	display:none;
+}
+
+#delimited_text {
+	width:99%;
+}

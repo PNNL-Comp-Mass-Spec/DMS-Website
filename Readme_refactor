@@ -50,7 +50,7 @@ helper to get datasets from data package
 
 http://prismwebdev2.pnl.gov/dmsref/chooser/get_choices/lcCartPickList
 ----
-save changes for columns Cart, Column, Block, Run_Order
+save changes for columns Cart, Column, Block, Run_Order (instrument group??, dataset type??)
 ----
 lc_cart_request_loading
 	list_report_data_table	V_LC_Cart_Request_Loading_List_Report
