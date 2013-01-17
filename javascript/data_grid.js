@@ -28,6 +28,7 @@ var gridUtil = {
 			}
 		}
 		grid.invalidateRows(rowsAffected);
+		gridUtil.setChangeHighlighting(grid);
 		grid.render();
 		$('#save_ctls').show();
 	},
@@ -43,6 +44,22 @@ var gridUtil = {
 			}
 		});
 		return changes;
+	},
+	setChangeHighlighting: function(grid) {
+		var styledCells = this.getChangeHighlighting(grid.getData(), 'changed');
+		grid.setCellCssStyles("highlight", styledCells);
+	},
+	getChangeHighlighting: function(dataRows, styleClass) {
+		var styledCells = {};
+		$.each(dataRows, function(idx, row) {
+			if(row.mod_axe) {
+				$.each(row.mod_axe, function(k, v) {
+					if (!styledCells[idx]) styledCells[idx] = {};
+					styledCells[idx][k] = styleClass;
+				});
+			}
+		});
+		return styledCells;		
 	},
 	saveChanges: function (dataRows, idField, mapP2A, type, action) {
 		var changes = this.getChanges(dataRows, idField);
@@ -88,6 +105,7 @@ var gridUtil = {
 			return sortAsc ? result : -result;
 		});
 		grid.invalidate();
+		gridUtil.setChangeHighlighting(grid);
 		grid.render();
 	},
 	// set width property of given column specs according to 
@@ -198,6 +216,7 @@ var mainGrid = {
 		$('#save_ctls').show();
 		var field = args.grid.getColumns()[args.cell].field;
 		gridUtil.markChange(args.item, field);
+		gridUtil.setChangeHighlighting(args.grid);
 	},
 	initGrid: function(elementName) {
 	    this.container.appendTo($("#" + elementName));
@@ -282,6 +301,7 @@ var mainGrid = {
 		this.sizeColumnsToData(obj.rows);
 	    this.grid.setData(obj.rows);
 	    this.grid.updateRowCount();
+		gridUtil.setChangeHighlighting(this.grid);
 	    this.grid.render();
 	},
 	exportDelimitedData: function() {

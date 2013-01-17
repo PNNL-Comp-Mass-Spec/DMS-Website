@@ -16,16 +16,16 @@
 
 <div style='height:1em;'></div>
 <form>
-  <fieldset>
+<fieldset>
     <legend>Instrument Allocated Usage</legend>
     <div>
-	<label for="itemList">Proposals (leave blank to get all)</label>
+	<label for="itemList">Proposals <span class='supplemental_text'>(leave blank to get all)</span></label>
 	</div>
 	<div>
 	<textarea name="itemList" cols="100" rows="2" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
 	</div>
 	<div>
-	<label for="fiscalYear">Fiscal Year (leave blank to get all)</label>
+	<label for="fiscalYear">Fiscal Year <span class='supplemental_text'>(required)</span></label>
 	</div>
 	<div>
 	<input name="fiscalYear" cols="100" rows="1" id="fiscalYear" onchange="epsilon.convertList('fiscalYear', ',')" ></input>

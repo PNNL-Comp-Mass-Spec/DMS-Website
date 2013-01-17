@@ -62,3 +62,10 @@ input.editor-text {
 #delimited_text {
 	width:99%;
 }
+.supplemental_text {
+	font-size: 80%;
+}
+.changed {
+  background: ivory;
+}
+
