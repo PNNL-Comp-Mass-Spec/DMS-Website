@@ -87,10 +87,14 @@ Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 			mainGrid.addColumn(name);
 		});
 		$('#save_btn').click(function() {
-			alert("Not connected yet"); return;
 			var idField = 'Request';
 			var dataRows = mainGrid.grid.getData();
+			var changes = gridUtil.getChanges(dataRows, 'Proposal_ID');
+			
 			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
+			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+			
+alert('This feature not enabled yet'); return;
 			gridUtil.saveChanges(dataRows, idField, mapP2A, 'Request_ID', function(data) {
 				if(data) {
 					alert(data);

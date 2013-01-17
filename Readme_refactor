@@ -3,6 +3,10 @@
 -----------------------------------------------
 
 fix filldown wiping out contents of "0" in column
+styling to initially hide delimited controls
+initial column build autosize to labels
+
+fixed row for totals on instrument allocation??
 
 Frac_Upload.txt
 -----------------------------------------------
@@ -40,28 +44,58 @@ import needs to show Save button
 drop-down menu item to generate values for "Alias" factor
 helper to get datasets from data package
 
-----------
+-----------------------------------------------------------------------
+--[http://prismwebdev2.pnl.gov/dmsref/requested_run_grid/grid]---------
+-----------------------------------------------------------------------
+
 http://prismwebdev2.pnl.gov/dmsref/chooser/get_choices/lcCartPickList
+----
+save changes for columns Cart, Column, Block, Run_Order
 ----
 lc_cart_request_loading
 	list_report_data_table	V_LC_Cart_Request_Loading_List_Report
 	list_report_cmds	lc_cart_request_loading_cmds
-	operations_sproc	UpdateLCCartRequestAssignments
+**	operations_sproc	UpdateLCCartRequestAssignments
 	list_report_cmds_url	lc_cart_request_loading/operation
 	list_report_data_cols	Request as Sel, *
-----		
+----
 requested_run_batch_blocking
 	list_report_sproc	GetFactorCrosstabByBatch
 	list_report_cmds	requested_run_batch_blocking_cmds
-	operations_sproc	UpdateRequestedRunBlockingAndFactors
+**	operations_sproc	UpdateRequestedRunBlockingAndFactors
 	list_report_cmds_url	requested_run_batch_blocking/operation
 	batch_sproc	MakeAutomaticRequestedRunFactors
+-----
 
-requested_run_batch_blocking
-	[UpdateRequestedRunBlockingAndFactors]
-		UpdateRequestedRunBatchParameters
-		UpdateRequestedRunFactors
-----
+UpdateLCCartRequestAssignments
+	xmlNode.value('@rq', 'nvarchar(256)') request,
+	xmlNode.value('@ct', 'nvarchar(256)') cart,
+	xmlNode.value('@co', 'nvarchar(256)') col
+	FROM @xml.nodes('//r') AS R(xmlNode)
+-----
+[UpdateRequestedRunBlockingAndFactors]
+	UpdateRequestedRunBatchParameters
+		xmlNode.value('@t', 'nvarchar(256)') Parameter,		-- will be 'BF', 'BK', or 'RO'
+		xmlNode.value('@i', 'nvarchar(256)') Request,		-- Request ID
+		xmlNode.value('@v', 'nvarchar(256)') Value
+		FROM @xml.nodes('//r') AS R(xmlNode)
+		---
+		'Blocking Factor' ('BF')
+		'Block' ('BK')
+		'Run Order' ('RO')		
+	UpdateRequestedRunFactors
+-----
+[UpdateRequestedRunLCCartParams]
+	'clear_cart_assignments'
+	'fill_into_gaps' AND @reqRunIDList <> ''
+	'priority'
+	'specific_column'
+	'spread_among_columns'
+	
+-----------------------------------------------------------------------
+--[http://prismwebdev2.pnl.gov/dmsref/factors/grid]---------
+-----------------------------------------------------------------------
+
 class factors extends Base_controller {
 	function get_factor_data($itemList, $itemType)
 		$ok = $this->cu->load_mod('s_model', 'sproc_model', 'list_report_sproc', 'requested_run_factors');
@@ -76,14 +110,21 @@ requested_run_factors
 	list_report_cmds_url	requested_run_factors/operation
 	operations_sproc	UpdateRequestedRunFactors
 
-[UpdateRequestedRunLCCartParams]
-	'clear_cart_assignments'
-	'fill_into_gaps' AND @reqRunIDList <> ''
-	'priority'
-	'specific_column'
-	'spread_among_columns'
+-----------------------------------------------------------------------
+--[http://prismwebdev2.pnl.gov/dmsref/instrument_allocation/grid]---------
+-----------------------------------------------------------------------
 
+instrument_allocation.db
+**	operations_sproc	UpdateInstrumentUsageAllocationsXML
+	
+UpdateInstrumentUsageAllocationsXML
+		<c fiscal_year="2012"/>
+		<r p="29591" g="FT" a="23.2" x="Comment1"/>
+		<r p="33200" g="FT" a="102.1" x="Comment2"/>
+		<r p="34696" g="FT" a="240" />
+		<r p="34708" g="FT" a="177.7" x="Comment3"/>
 
+<c fiscal_year="2012"/><r p="0" g="General" a="0" x="Oink" />
 -----------------------------------------------
 -- DMS website migration
 -----------------------------------------------

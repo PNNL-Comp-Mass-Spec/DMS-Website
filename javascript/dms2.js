@@ -216,7 +216,9 @@ var gamma = {
 			$.each(objArray, function(x, obj){
 				xml += '<' + elementName;
 				$.each(mapping, function(z, map) {
-					xml += " " + map.a + "='" + obj[map.p] + "'";
+					if(obj[map.p]) {
+						xml += ' ' + map.a + '="' + obj[map.p] + '"';
+					}
 				});
 				xml += ' />';
 			});
@@ -230,7 +232,7 @@ var gamma = {
 		var xml = '';
 		$.each(itemArray, function(x, item){
 			xml += '<' + elementName;
-			xml += " " + attributeName + "='" + item + "'";
+			xml += ' ' + attributeName + '="' + item + '"';
 			xml += ' />';
 		});
 		return xml;

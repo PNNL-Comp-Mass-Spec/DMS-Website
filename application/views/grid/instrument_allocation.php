@@ -22,20 +22,20 @@
 	<label for="itemList">Proposals (leave blank to get all)</label>
 	</div>
 	<div>
-	<textarea name="itemList" cols="100" rows="3" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
+	<textarea name="itemList" cols="100" rows="2" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
 	</div>
 	<div>
-	<label for="fiscalYears">Fiscal Years (leave blank to get all)</label>
+	<label for="fiscalYear">Fiscal Year (leave blank to get all)</label>
 	</div>
 	<div>
-	<textarea name="fiscalYears" cols="100" rows="1" id="fiscalYears" onchange="epsilon.convertList('fiscalYears', ',')" ></textarea>
+	<input name="fiscalYear" cols="100" rows="1" id="fiscalYear" onchange="epsilon.convertList('fiscalYear', ',')" ></input>
 	</div>  
 </fieldset>
 </form>
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' href='javascript:void(0)' >Show</a> Factors For Datasets
+	<a id='reload_btn' href='javascript:void(0)' >Show</a> allocations
 </span>
 
 <span id='save_ctls' class='ctls'>
@@ -69,7 +69,7 @@
 <script src="<?= base_url().'javascript/data_grid.js' ?>"></script>
 
 <script>
-	gamma.pageContext.ops_url = '<?= site_url() ?>xxx/operation';
+	gamma.pageContext.ops_url = '<?= site_url() ?>instrument_allocation/operation';
 	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/grid_data';
 
 	$(document).ready(function () { 
@@ -81,8 +81,8 @@
 
 		$('#reload_btn').click(function() {
 			var itemList = $('#itemList').val();
-			var fiscalYears = $('#fiscalYears').val();
-			mainGrid.refreshGrid({ itemList:itemList, fiscalYears:fiscalYears });
+			var fiscalYear = $('#fiscalYear').val();
+			mainGrid.refreshGrid({ itemList:itemList, fiscalYear:fiscalYear });
 			$('#col_ctls').show();
 			$('#save_ctls').hide();
 		});
@@ -91,11 +91,23 @@
 			mainGrid.addColumn(name);
 		});
 		$('#save_btn').click(function() {
-			alert('This feature not enabled yet'); return;
 			var idField = 'Dataset';
 			var dataRows = mainGrid.grid.getData();
-			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-			gridUtil.saveChanges(dataRows, idField, mapP2A, 'Dataset_Name', function(data) {
+			var changes = gridUtil.getChanges(dataRows, 'Proposal_ID');
+
+			$.each(changes, function(idx, obj) {
+				if(obj.factor == "General") {
+					obj.comment = obj.value;
+					obj.value = 0;
+				} 
+			});
+
+			var mapP2A = [{p:'id', a:'p'}, {p:'factor', a:'g'}, {p:'value', a:'a'}, {p:'comment', a:'x'}];
+			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+			var fy = $('#fiscalYear').val();
+			factorXML = '<c fiscal_year="' + fy + '"/>' + factorXML;
+			
+			gridUtil.saveChangesXML({ parameterList:factorXML }, function(data) {
 				if(data) {
 					alert(data);
 				} else {
@@ -117,6 +129,13 @@
 		$('#export_grid_btn').click(function() {
 			mainGrid.exportDelimitedData();
 		});
+		
+		var fy = $('#fiscalYear').val();
+		if(!fy) {
+			var d = new Date();
+			d.setMonth(d.getMonth() + 3);
+			$('#fiscalYear').val(d.getFullYear());
+		}
 		
 	    mainGrid.buildGrid();
 	});

@@ -31,26 +31,30 @@ var gridUtil = {
 		grid.render();
 		$('#save_ctls').show();
 	},
-	saveChanges: function (dataRows, idField, mapP2A, type, action) {
-		// extract list of change objects from dataRows
-		var flist = [];
+	// extract list of change objects from dataRows
+	getChanges: function(dataRows, idField) {
+		var changes = [];
 		$.each(dataRows, function(idx, row) {
 			if(row.mod_axe) {
 				var id = row[idField];
 				$.each(row.mod_axe, function(k, v) {
-					flist.push( {id:id, factor:k, value:v});
+					changes.push( {id:id, factor:k, value:v});
 				});
 			}
 		});
+		return changes;
+	},
+	saveChanges: function (dataRows, idField, mapP2A, type, action) {
+		var changes = this.getChanges(dataRows, idField);
 		// get XML version of changes from list of change objects
-		var factorXML = gamma.getXmlElementsFromObjectArray(flist, 'r', mapP2A);
+		var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 		factorXML = '<id type="' + type + '" />' + factorXML;
-
+		this.saveChangesXML({ factorList: factorXML }, action);
+	},
+	saveChangesXML: function(p, action) {
 		if ( !confirm("Are you sure that you want to update the database?") ) return;
-
-		// update the database
+		Slick.GlobalEditorLock.commitCurrentEdit();	
 		var url =  gamma.pageContext.ops_url;
-		var p = { factorList: factorXML };
 		gamma.doOperation(url, p, 'ctl_panel', function(data) {
 			if(data.indexOf('was successful') !== -1) data = '';
 			if(action) action(data);
