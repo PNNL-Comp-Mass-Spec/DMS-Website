@@ -4,26 +4,30 @@ var gridUtil = {
 		dataRow.mod_axe[field] = dataRow[field];		
 	},
 	fillDown: function (column, grid, clear) {
+		var row, field, val;
 		var dataRows = grid.getData();
 		Slick.GlobalEditorLock.commitCurrentEdit();	
 		var lastValueSeen = "";
 		var rowsAffected = [];
 		for (var i = 0; i < dataRows.length; i++) {
-			var row = dataRows[i];
-			var field = column.field;
-			if (row[field]) {
+			row = dataRows[i];
+			field = column.field;
+			val = row[field];
+			if (val == null || val === '') {
+				if(!clear) {
+					if(row[field] != lastValueSeen) {
+						row[field] = lastValueSeen;
+						rowsAffected.push(i);
+						gridUtil.markChange(row, field);
+					}
+				}
+			} else {
 				if(clear) {
 					row[field] = '';
 					rowsAffected.push(i);
 					gridUtil.markChange(row, field);
 				} else {
 					lastValueSeen = row[field];
-				}
-			} else {
-				if(!clear) {
-					row[field] = lastValueSeen;
-					rowsAffected.push(i);
-					gridUtil.markChange(row, field);
 				}
 			}
 		}
