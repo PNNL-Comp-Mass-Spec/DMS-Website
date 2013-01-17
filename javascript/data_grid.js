@@ -84,7 +84,7 @@ var gridUtil = {
 	        url, p, function (response) {
 	        	cntr.spin(false);
 	        	obj = $.parseJSON(response);
-	            if (obj.Result == "error") {
+	            if (obj.result == "error") {
 	                alert(obj.message);
 	            } else {
 	                caller.setDataRows(obj, true);
