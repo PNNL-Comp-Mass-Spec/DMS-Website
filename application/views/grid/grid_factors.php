@@ -51,34 +51,38 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 <script>
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
+	mainGrid.hiddenColumns = ['Sel', 'BatchID', 'Experiment'];
+	mainGrid.staticColumns = ['Dataset', 'Name', 'Status', 'Request'];
+
+	var myGrid = {
+		getLoadParameters: function() {
+			var itemList = $('#itemList').val();
+			return { itemList:itemList, itemType:'Dataset_Name' };
+		},
+		getSaveParameters: function() {
+			var dataRows = mainGrid.grid.getData();
+			var changes = gridUtil.getChanges(dataRows, 'Dataset');
+			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
+			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+			factorXML = '<id type="Dataset_Name" />' + factorXML;
+			return { factorList: factorXML };
+		}
+	}
 
 	$(document).ready(function () { 
-		mainGrid.hiddenColumns = ['Sel', 'BatchID', 'Experiment'];
-		mainGrid.staticColumns = ['Dataset', 'Name', 'Status', 'Request'];
-
 		$('#col_ctls').hide();
 		$('#save_ctls').hide();
 
 		$('#reload_btn').click(function() {
-			var itemList = $('#itemList').val();
-			mainGrid.refreshGrid({ itemList:itemList, itemType:'Dataset_Name' });
+			mainGrid.refreshGrid(myGrid.getLoadParameters());
 			$('#col_ctls').show();
 			$('#save_ctls').hide();
 		});
-		$('#add_column_btn').click(function() {
-			var name = $('#add_column_name').val();
-			mainGrid.addColumn(name);
-		});
 		$('#save_btn').click(function() {
-			var idField = 'Dataset';
-			var dataRows = mainGrid.grid.getData();
-			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-			gridUtil.saveChanges(dataRows, idField, mapP2A, 'Dataset_Name', function(data) {
-				if(data) {
-					alert(data);
-				} else {
-					$('#reload_btn').click();
-				}
+			var url = gamma.pageContext.save_changes_url;
+			var p = myGrid.getSaveParameters();
+			gridUtil.saveChanges(url, p, function(data) {
+				$('#reload_btn').click();
 			});
 		});
 		
@@ -94,6 +98,10 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 		});
 		$('#export_grid_btn').click(function() {
 			mainGrid.exportDelimitedData();
+		});
+		$('#add_column_btn').click(function() {
+			var name = $('#add_column_name').val();
+			mainGrid.addColumn(name);
 		});
 		
 	    mainGrid.buildGrid();

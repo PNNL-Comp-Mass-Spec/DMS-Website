@@ -51,40 +51,39 @@ Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 <script>
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
+	mainGrid.hiddenColumns = [];
+	mainGrid.staticColumns = ['Request', 'Name', 'Status', 'BatchID', 'Experiment'];
+	
+	var myGrid = {
+		getLoadParameters: function() {
+			var itemList = $('#itemList').val();
+			return { itemList:itemList };
+		},
+		getSaveParameters: function() {
+			var dataRows = mainGrid.grid.getData();
+			var changes = gridUtil.getChanges(dataRows, 'Request');
+			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
+			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+//			factorXML = '<id type="Request" />' + factorXML;
+			return { factorList: factorXML };
+		}
+	}
 
 	$(document).ready(function () { 
-		mainGrid.hiddenColumns = [];
-		mainGrid.staticColumns = ['Request', 'Name', 'Status', 'BatchID', 'Instrument', 'Separation_Type', 'Experiment'];
-
-
 		$('#col_ctls').hide();
 		$('#save_ctls').hide();
 
 		$('#reload_btn').click(function() {
-			var itemList = $('#itemList').val();
-			mainGrid.refreshGrid({ itemList:itemList });
+			mainGrid.refreshGrid(myGrid.getLoadParameters());
 			$('#col_ctls').show();
 			$('#save_ctls').hide();
 		});
-		$('#add_column_btn').click(function() {
-			var name = $('#add_column_name').val();
-			mainGrid.addColumn(name);
-		});
-		$('#save_btn').click(function() {
-			var idField = 'Request';
-			var dataRows = mainGrid.grid.getData();
-			var changes = gridUtil.getChanges(dataRows, 'Proposal_ID');
-			
-			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
-			
+		$('#save_btn').click(function() {	
+			var url = gamma.pageContext.save_changes_url;
+			var p = myGrid.getSaveParameters();
 alert('This feature not enabled yet'); return;
-			gridUtil.saveChanges(dataRows, idField, mapP2A, 'Request_ID', function(data) {
-				if(data) {
-					alert(data);
-				} else {
-					$('#reload_btn').click();
-				}
+			gridUtil.saveChanges(url, p, function(data) {
+				$('#reload_btn').click();
 			});
 		});
 		
@@ -100,6 +99,10 @@ alert('This feature not enabled yet'); return;
 		});
 		$('#export_grid_btn').click(function() {
 			mainGrid.exportDelimitedData();
+		});
+		$('#add_column_btn').click(function() {
+			var name = $('#add_column_name').val();
+			mainGrid.addColumn(name);
 		});
 		
 	    mainGrid.buildGrid();

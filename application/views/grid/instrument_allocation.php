@@ -55,23 +55,16 @@
 <script>
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
+	mainGrid.hiddenColumns = ['#FY_Proposal'];
+	mainGrid.staticColumns = ['Fiscal_Year', 'Proposal_ID', 'Title', 'Status', 'Last_Updated'];
 
-	$(document).ready(function () { 
-		mainGrid.hiddenColumns = ['#FY_Proposal'];
-		mainGrid.staticColumns = ['Fiscal_Year', 'Proposal_ID', 'Title', 'Status', 'Last_Updated'];
-
-		$('#col_ctls').hide();
-		$('#save_ctls').hide();
-
-		$('#reload_btn').click(function() {
+	var myGrid = {
+		getLoadParameters: function() {
 			var itemList = $('#itemList').val();
 			var fiscalYear = $('#fiscalYear').val();
-			mainGrid.refreshGrid({ itemList:itemList, fiscalYear:fiscalYear });
-			$('#col_ctls').show();
-			$('#save_ctls').hide();
-		});
-		$('#save_btn').click(function() {
-			var idField = 'Dataset';
+			return { itemList:itemList, fiscalYear:fiscalYear };
+		},
+		getSaveParameters: function() {
 			var dataRows = mainGrid.grid.getData();
 			var changes = gridUtil.getChanges(dataRows, 'Proposal_ID');
 			$.each(changes, function(idx, obj) {
@@ -84,13 +77,24 @@
 			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 			var fy = $('#fiscalYear').val();
 			factorXML = '<c fiscal_year="' + fy + '"/>' + factorXML;
-			
-			gridUtil.saveChangesXML({ parameterList:factorXML }, function(data) {
-				if(data) {
-					alert(data);
-				} else {
-					$('#reload_btn').click();
-				}
+			return { parameterList:factorXML };
+		}
+	}
+
+	$(document).ready(function () { 
+		$('#col_ctls').hide();
+		$('#save_ctls').hide();
+
+		$('#reload_btn').click(function() {
+			mainGrid.refreshGrid(myGrid.getLoadParameters());
+			$('#col_ctls').show();
+			$('#save_ctls').hide();
+		});
+		$('#save_btn').click(function() {			
+			var url = gamma.pageContext.save_changes_url;
+			var p = myGrid.getSaveParameters();
+			gridUtil.saveChanges(url, p, function(data) {
+				$('#reload_btn').click();
 			});
 		});
 		

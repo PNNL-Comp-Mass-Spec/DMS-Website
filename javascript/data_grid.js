@@ -65,20 +65,14 @@ var gridUtil = {
 		});
 		return styledCells;		
 	},
-	saveChanges: function (dataRows, idField, mapP2A, type, action) {
-		var changes = this.getChanges(dataRows, idField);
-		// get XML version of changes from list of change objects
-		var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
-		factorXML = '<id type="' + type + '" />' + factorXML;
-		this.saveChangesXML({ factorList: factorXML }, action);
-	},
-	saveChangesXML: function(p, action) {
+	saveChanges: function (url, p, action) {
 		if ( !confirm("Are you sure that you want to update the database?") ) return;
-		Slick.GlobalEditorLock.commitCurrentEdit();	
-		var url =  gamma.pageContext.save_changes_url;
 		gamma.doOperation(url, p, 'ctl_panel', function(data) {
-			if(data.indexOf('was successful') !== -1) data = '';
-			if(action) action(data);
+			if(data.indexOf('was successful') !== -1) {
+				if(action) action(data);
+			} else {
+				alert(data);
+			}
 		});
 	},
 	refreshGrid: function (url, p, caller) {
