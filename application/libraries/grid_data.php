@@ -21,8 +21,31 @@ class Grid_data {
 	}
 
 	// --------------------------------------------------------------------
+	function get_query_data($sql, $paramArray) {
+		$CI = &get_instance();
+		$response = new stdClass();
+		try {
+			$CI->load->database();
+			$result = $CI->db->query($sql);
+			if(!$result) throw new exception('??');
+			$columns = array();
+			foreach($result->field_data() as $field) {
+				$columns[] = $field->name;
+			}
+			$response->result = 'ok';
+			$response->message = '';
+			$response->columns = $columns;
+			$response->rows = $result->result_array();;
+		} catch (Exception $e) {
+			$response->result = 'error';
+			$response->message = $e->getMessage();			
+		}
+		echo json_encode($response);
+	}
+
+	// --------------------------------------------------------------------
 	// get data from sproc
-	function get_grid_data($paramArray, $config_name = '')
+	function get_sproc_data($paramArray, $config_name = '')
 	{
 		$CI = &get_instance();
 		

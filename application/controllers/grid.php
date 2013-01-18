@@ -32,7 +32,30 @@ class Grid extends Base_controller {
 	function grid_data_from_sproc($sproc_id, $config_db)
 	{
 		$this->cu->load_lib('grid_data', $sproc_id, $config_db);
-		$response = $this->grid_data->get_grid_data($this->input->post());
+		$response = $this->grid_data->get_sproc_data($this->input->post());
+		echo json_encode($response);
+	}
+
+	// --------------------------------------------------------------------
+	private
+	function grid_data_from_query($sql) {
+		$response = new stdClass();
+		try {
+			$this->load->database();
+			$result = $this->db->query($sql);
+			if(!$result) throw new exception('??');
+			$columns = array();
+			foreach($result->field_data() as $field) {
+				$columns[] = $field->name;
+			}
+			$response->result = 'ok';
+			$response->message = '';
+			$response->columns = $columns;
+			$response->rows = $result->result_array();;
+		} catch (Exception $e) {
+			$response->result = 'error';
+			$response->message = $e->getMessage();			
+		}
 		echo json_encode($response);
 	}
 
@@ -77,5 +100,21 @@ class Grid extends Base_controller {
 		$this->my_tag = "requested_run";
 		$this->grid_data_from_sproc('requested_run_data_sproc', 'grid');
 	}
+	
+	// --------------------------------------------------------------------
+	// --------------------------------------------------------------------
+	function user() {
+		$this->my_tag = "user";
+		$this->my_title = "Users";
+		$save_url = 'xxx/operation';
+		$this->grid_page('user', $save_url);
+	}
+	// --------------------------------------------------------------------
+	function user_data() {
+		$this->my_tag = "user";
+		$sql = "SELECT * FROM T_Users";
+		$this->grid_data_from_query($sql);
+	}
+		
 }
 ?>
