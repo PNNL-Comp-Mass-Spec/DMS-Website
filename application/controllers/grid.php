@@ -75,7 +75,7 @@ class Grid extends Base_controller {
 	// --------------------------------------------------------------------
 	function requested_run_data() {
 		$this->my_tag = "requested_run";
-		$this->grid_data_from_sproc('list_report_sproc', 'requested_run_grid');
+		$this->grid_data_from_sproc('requested_run_data_sproc', 'grid');
 	}
 }
 ?>
