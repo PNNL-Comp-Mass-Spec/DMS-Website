@@ -53,8 +53,8 @@
 <script src="<?= base_url().'javascript/data_grid.js' ?>"></script>
 
 <script>
-	gamma.pageContext.ops_url = '<?= site_url() ?>instrument_allocation/operation';
-	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/grid_data';
+	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
+	gamma.pageContext.data_url = '<?= $data_url ?>';
 
 	$(document).ready(function () { 
 		mainGrid.hideColumns = ['#FY_Proposal'];

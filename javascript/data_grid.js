@@ -75,7 +75,7 @@ var gridUtil = {
 	saveChangesXML: function(p, action) {
 		if ( !confirm("Are you sure that you want to update the database?") ) return;
 		Slick.GlobalEditorLock.commitCurrentEdit();	
-		var url =  gamma.pageContext.ops_url;
+		var url =  gamma.pageContext.save_changes_url;
 		gamma.doOperation(url, p, 'ctl_panel', function(data) {
 			if(data.indexOf('was successful') !== -1) data = '';
 			if(action) action(data);
