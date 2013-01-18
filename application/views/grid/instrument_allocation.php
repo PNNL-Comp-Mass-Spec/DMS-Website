@@ -57,7 +57,7 @@
 	gamma.pageContext.data_url = '<?= $data_url ?>';
 
 	$(document).ready(function () { 
-		mainGrid.hideColumns = ['#FY_Proposal'];
+		mainGrid.hiddenColumns = ['#FY_Proposal'];
 		mainGrid.staticColumns = ['Fiscal_Year', 'Proposal_ID', 'Title', 'Status', 'Last_Updated'];
 
 		$('#col_ctls').hide();
@@ -70,22 +70,16 @@
 			$('#col_ctls').show();
 			$('#save_ctls').hide();
 		});
-		$('#add_column_btn').click(function() {
-			var name = $('#add_column_name').val();
-			mainGrid.addColumn(name);
-		});
 		$('#save_btn').click(function() {
 			var idField = 'Dataset';
 			var dataRows = mainGrid.grid.getData();
 			var changes = gridUtil.getChanges(dataRows, 'Proposal_ID');
-
 			$.each(changes, function(idx, obj) {
 				if(obj.factor == "General") {
 					obj.comment = obj.value;
 					obj.value = 0;
 				} 
 			});
-
 			var mapP2A = [{p:'id', a:'p'}, {p:'factor', a:'g'}, {p:'value', a:'a'}, {p:'comment', a:'x'}];
 			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 			var fy = $('#fiscalYear').val();

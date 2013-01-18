@@ -196,7 +196,7 @@ var gridHeaderUtil = {
 
 var mainGrid = {
 	attachment:'myTable',
-	hideColumns: [],
+	hiddenColumns: [],
 	staticColumns: [],
 	container: null,
 	grid: null,
@@ -242,7 +242,7 @@ var mainGrid = {
 		var colSpecs = [];
 		var colSpec;
 		$.each(colNames, function(idx, colName) {
-			if(caller.hideColumns.length == 0 || caller.hideColumns.indexOf(colName) === -1) {
+			if(caller.hiddenColumns.length == 0 || caller.hiddenColumns.indexOf(colName) === -1) {
 				colSpec = caller.makeColumnSpec(colName, editable)
 				colSpecs.push(colSpec);
 			}
@@ -257,7 +257,7 @@ var mainGrid = {
 		var curNames = $.map(currentColumns, function(col) {
 			return col.field;
 		});
-		$.merge(curNames, this.hideColumns);
+		$.merge(curNames, this.hiddenColumns);
 		var newColNames = [];
 		$.each(colNames, function(idx, colName) {
 			if(curNames.length == 0 || curNames.indexOf(colName) === -1) {

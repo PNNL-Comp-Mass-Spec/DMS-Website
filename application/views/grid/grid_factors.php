@@ -53,7 +53,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 	gamma.pageContext.data_url = '<?= $data_url ?>';
 
 	$(document).ready(function () { 
-		mainGrid.hideColumns = ['Sel', 'BatchID', 'Experiment'];
+		mainGrid.hiddenColumns = ['Sel', 'BatchID', 'Experiment'];
 		mainGrid.staticColumns = ['Dataset', 'Name', 'Status', 'Request'];
 
 		$('#col_ctls').hide();

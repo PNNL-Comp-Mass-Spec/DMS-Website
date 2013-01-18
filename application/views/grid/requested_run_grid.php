@@ -53,7 +53,7 @@ Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 	gamma.pageContext.data_url = '<?= $data_url ?>';
 
 	$(document).ready(function () { 
-		mainGrid.hideColumns = [];
+		mainGrid.hiddenColumns = [];
 		mainGrid.staticColumns = ['Request', 'Name', 'Status', 'BatchID', 'Instrument', 'Separation_Type', 'Experiment'];
 
 
