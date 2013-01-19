@@ -3,32 +3,32 @@ var gridUtil = {
 		if(!dataRow.mod_axe) dataRow.mod_axe = {};
 		dataRow.mod_axe[field] = dataRow[field];		
 	},
-	fillDown: function (column, grid, clear) {
+	fillDown: function (column, grid) {
+		Slick.GlobalEditorLock.commitCurrentEdit();	
 		var row, field, val;
 		var dataRows = grid.getData();
-		Slick.GlobalEditorLock.commitCurrentEdit();	
+		var sel = {fromRow:0, toRow:dataRows.length - 1};
+		var colIndex = grid.getColumnIndex(column.name);
+		var ranges = grid.getSelectionModel().getSelectedRanges();
+		var range = ranges[0];
+		if(range && colIndex >= range.fromCell && colIndex <= range.toCell) {
+			sel = range;
+		} 
 		var lastValueSeen = "";
 		var rowsAffected = [];
-		for (var i = 0; i < dataRows.length; i++) {
+		for (var i = sel.fromRow; i <= sel.toRow; i++) {
+//		for (var i = 0; i < dataRows.length; i++) {
 			row = dataRows[i];
 			field = column.field;
 			val = row[field];
 			if (val == null || val === '') {
-				if(!clear) {
-					if(row[field] != lastValueSeen) {
-						row[field] = lastValueSeen;
-						rowsAffected.push(i);
-						gridUtil.markChange(row, field);
-					}
-				}
-			} else {
-				if(clear) {
-					row[field] = '';
+				if(row[field] != lastValueSeen) {
+					row[field] = lastValueSeen;
 					rowsAffected.push(i);
 					gridUtil.markChange(row, field);
-				} else {
-					lastValueSeen = row[field];
 				}
+			} else {
+				lastValueSeen = row[field];
 			}
 		}
 		grid.invalidateRows(rowsAffected);
@@ -36,20 +36,24 @@ var gridUtil = {
 		grid.render();
 		$('#save_ctls').show();
 	},
-	clearSelectedCells: function (column, grid) {
+	clearSelectedCells: function (column, grid, all) {
+		Slick.GlobalEditorLock.commitCurrentEdit();	
 		var dataRows = grid.getData();
-		if (!confirm('Are you sure you want to clear the selected cells?')) return;
-		var range = grid.getSelectionModel().getSelectedRanges();
-		var sel = range[0];
+		var sel = {fromRow:0, toRow:dataRows.length - 1};
+		var colIndex = grid.getColumnIndex(column.name);
+		var range = grid.getSelectionModel().getSelectedRanges()[0];
+		if(!all && range && colIndex >= range.fromCell && colIndex <= range.toCell) {
+			sel = range;
+			if (!confirm('Are you sure you want to clear the selected cells in this column?')) return;
+		} else {
+			if (!confirm('Are you sure you want to clear all the cells in this column?')) return;
+		}
 		var rowsAffected = [];
-//		for (var col = sel.fromCell; col <= sel.toCell; col++) {
-//			var colDef = grid.getColumns()[col];
-			for (var row = sel.fromRow; row <= sel.toRow; row++) {
-				dataRows[row][column.field] = '';
-				gridUtil.markChange(dataRows[row], column.field);
-				rowsAffected.push(row);
-			}
-//		}
+		for (var row = sel.fromRow; row <= sel.toRow; row++) {
+			dataRows[row][column.field] = '';
+			gridUtil.markChange(dataRows[row], column.field);
+			rowsAffected.push(row);
+		}
 		grid.invalidateRows(rowsAffected);
 		gridUtil.setChangeHighlighting(grid);
 		grid.render();
@@ -196,7 +200,7 @@ var gridHeaderUtil = {
 			gridUtil.fillDown(args.column, args.grid);
 		} else
 		if(args.command == 'clear-all') {
-			gridUtil.fillDown(args.column, args.grid, true);				
+			gridUtil.clearSelectedCells(args.column, args.grid, true);				
 		} else
 		if(args.command == 'clear-selected') {
 			gridUtil.clearSelectedCells(args.column, args.grid);				
@@ -218,11 +222,11 @@ var mainGrid = {
 	grid: null,
 	options: {
 	        editable: true,
-	        enableAddRow: false,
+	        enableAddRow: true,
 	        enableCellNavigation: true,
 	        asyncEditorLoading: false,
 	        autoHeight: true,
-	        autoEdit: true,
+	        autoEdit: false,
 	        enableColumnReorder: false,
 	        explicitInitialization: true
 	},
