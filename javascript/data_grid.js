@@ -36,6 +36,24 @@ var gridUtil = {
 		grid.render();
 		$('#save_ctls').show();
 	},
+	clearSelectedCells: function (column, grid) {
+		var dataRows = grid.getData();
+		if (!confirm('Are you sure you want to clear the selected cells?')) return;
+		var range = grid.getSelectionModel().getSelectedRanges();
+		var sel = range[0];
+		var rowsAffected = [];
+//		for (var col = sel.fromCell; col <= sel.toCell; col++) {
+//			var colDef = grid.getColumns()[col];
+			for (var row = sel.fromRow; row <= sel.toRow; row++) {
+				dataRows[row][column.field] = '';
+				gridUtil.markChange(dataRows[row], column.field);
+				rowsAffected.push(row);
+			}
+//		}
+		grid.invalidateRows(rowsAffected);
+		gridUtil.setChangeHighlighting(grid);
+		grid.render();
+	},
 	// extract list of change objects from dataRows
 	getChanges: function(dataRows, idField) {
 		var changes = [];
@@ -170,14 +188,18 @@ var gridHeaderUtil = {
 	],
 	editMenuItems: [
 		{ title: "Fill Down", command: "filldown", tooltip: "Fill empty cells in this column with preceding non-empty values" },
-		{ title: "Clear all", command: "clear", tooltip: "Clear all values in this column" }
+		{ title: "Clear selected", command: "clear-selected", tooltip: "Clear all values in selected cells" },
+		{ title: "Clear all", command: "clear-all", tooltip: "Clear all values in this column" }
 	],
 	menuCmdHandler: function (e, args) {
 		if(args.command == 'filldown') {
 			gridUtil.fillDown(args.column, args.grid);
 		} else
-		if(args.command == 'clear') {
+		if(args.command == 'clear-all') {
 			gridUtil.fillDown(args.column, args.grid, true);				
+		} else
+		if(args.command == 'clear-selected') {
+			gridUtil.clearSelectedCells(args.column, args.grid);				
 		} else
 		if(args.command == 'sort-asc') {
 			gridUtil.sortByColumn(args.column, args.grid, true);
@@ -230,6 +252,7 @@ var mainGrid = {
 		var headerMenuPlugin = new Slick.Plugins.HeaderMenu({});
 		headerMenuPlugin.onCommand.subscribe(gridHeaderUtil.menuCmdHandler);
 		this.grid.registerPlugin(headerMenuPlugin);
+		this.grid.setSelectionModel(new Slick.CellSelectionModel());
 	},
 	buildColumns: function(colNames, editable) {
 		var caller = this;

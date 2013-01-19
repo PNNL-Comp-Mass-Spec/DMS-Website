@@ -18,7 +18,7 @@
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' href='javascript:void(0)' >Show</a> info for requests
+	<a id='reload_btn' href='javascript:void(0)' >Show</a> info for users
 </span>
 
 <span id='save_ctls' class='ctls'>

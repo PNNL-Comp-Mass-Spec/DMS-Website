@@ -8,6 +8,11 @@ initial column build autosize to labels
 
 fixed row for totals on instrument allocation??
 
+entry pages with enable fields:
+	update_analysis_jobs
+	update_archive
+	update_datasets
+
 Frac_Upload.txt
 -----------------------------------------------
 -- instrument_allocation
