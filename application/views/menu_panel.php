@@ -23,21 +23,25 @@
 
 <div id='tree'>
 <ul>
-<? side_menu_layout($mnu, "", "") ?>
+
 </ul>
 </div>
 
 <script type='text/javascript'>
 
 $(document).ready(function() {
+	
     $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
 
 	// set up tree menu
     $("#tree").dynatree({
       minExpandLevel: 1,
+	  initAjax: {
+	  	url: '<?= site_url() ?>gen/side_menu_objects', data: {}
+      },      
       onActivate: function(node) {
         if( node.data.href ){
-          window.open(node.data.href, node.data.target);
+          window.open(node.data.href, 'display_side');
         }
       }
     });
@@ -57,7 +61,6 @@ $(document).ready(function() {
 
 	// set event handlers for global search panel
 	gamma.setSearchEventHandlers($('.global_search_panel'));
-
 });
 
 </script>

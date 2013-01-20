@@ -151,34 +151,31 @@
 	}
 
 	// --------------------------------------------------------------------
-	function side_menu_layout($menu_items, $mnu_name, $mnu_label)
+	function build_side_menu_object_tree($menu_items, $mnu_name, $mnu_label)
 	{
-		if($mnu_name != '') {
-			echo "<li class='folder'>$mnu_label\n";
-			echo "<ul>\n";
-		}
+		$items = array();
 		foreach($menu_items as $entry) {
 			if($entry['owner_menu'] == $mnu_name) {
 				$name = $entry['item_name'];
 				$label = $entry['item_label'];
 				switch($entry['item_type']) {
 					case 'submenu':
-						side_menu_layout($menu_items, $name, $label);
+						$obj = new stdClass();
+						$obj->title = $label;
+						$obj->isFolder = true;
+						$obj->children = build_side_menu_object_tree($menu_items, $name, $label);
+						$items[] = $obj;
 						break;
 					case 'link':
-						$url = site_url().$name;
-						echo "<li><a target='display_side' href='$url'>$label</a></li>\n";
+						$obj = new stdClass();
+						$obj->title = $label;
+						$obj->href = site_url().$name;
+						$items[] = $obj;
 						break;
-//					case 'separator':
-//						echo "<hr width='40%' align='left'>\n";
-//						break;
 				}
 			}
 		}
-		if($mnu_name != '') {
-			echo "</ul>\n";
-			echo "</li> <!-- end submenu '$mnu_label' -->\n";
-		}
+		return $items;
 	}
 
 	// --------------------------------------------------------------------

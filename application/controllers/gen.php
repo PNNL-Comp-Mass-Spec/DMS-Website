@@ -97,11 +97,18 @@ class Gen extends CI_Controller {
 	{
 		$this->load->helper(array('menu', 'dms_search'));
 		$this->load->model('dms_menu', 'menu', TRUE);
-
-		$data['mnu']= $this->menu->get_menu_def("dms_menu.db", "menu_def");
-		$this->load->view('menu_panel', $data);
+		$this->load->view('menu_panel');
 	}
+	// --------------------------------------------------------------------
+	function side_menu_objects()
+	{
+		$this->load->helper(array('menu', 'dms_search'));
+		$this->load->model('dms_menu', 'menu', TRUE);
 
+		$menu_def = $this->menu->get_menu_def("dms_menu.db", "menu_def");
+		$items = build_side_menu_object_tree($menu_def, '', '');
+		echo json_encode($items);
+	}
 	// --------------------------------------------------------------------
 	function show_session()
 	{
