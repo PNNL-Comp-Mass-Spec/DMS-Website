@@ -72,11 +72,14 @@ Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 	$(document).ready(function () { 
 		$('#col_ctls').hide();
 		$('#save_ctls').hide();
+		commonGridControls.init();
 
 		$('#reload_btn').click(function() {
+		    mainGrid.buildGrid();
 			mainGrid.refreshGrid(myGrid.getLoadParameters());
 			$('#col_ctls').show();
 			$('#save_ctls').hide();
+			commonGridControls.delimitedTextCtls(true);
 		});
 		$('#save_btn').click(function() {	
 			var url = gamma.pageContext.save_changes_url;
@@ -85,11 +88,6 @@ alert('This feature not enabled yet'); return;
 			gridUtil.saveChanges(url, p, function(data) {
 				$('#reload_btn').click();
 			});
-		});
-		
-		$('#delimited_text_panel').hide();
-		$('#delimited_text_panel_btn').click(function() {
-			$('#delimited_text_panel').toggle();		
 		});
 		$('#import_grid_btn').click(function() {
 			mainGrid.importDelimitedData();
@@ -105,7 +103,6 @@ alert('This feature not enabled yet'); return;
 			mainGrid.addColumn(name);
 		});
 		
-	    mainGrid.buildGrid();
 	});
 
 </script>

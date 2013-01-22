@@ -1,4 +1,4 @@
-<div class='ctl_panel'>
+<div id='delimited_text_ctl_panel' class='ctl_panel'>
 <a id='delimited_text_panel_btn' href='javascript:void(0)' >Delimited Text</a>
 </div>
 

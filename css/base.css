@@ -57,6 +57,43 @@ h2.page_title {
 }
 .search_btn {
 }
+
+/*
+ * 
+ */
+.button {
+  outline: 0;
+  margin: 5px;
+  padding: 5px;
+  text-decoration: none !important;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 12px;
+  background-color: #6495ED;
+  border: 1px solid #555657;
+  width: auto;
+  height: 12px;
+  line-height: 12px;
+}
+a.button {
+  color: #FFFFFF;
+}
+input.button {
+    padding: 2px;
+    height: auto;
+}
+.button:hover, button:hover {
+    cursor: pointer;
+}
+.button:active, button:active {
+    background-color: #7EC5E8;
+    cursor: pointer;
+}
+
 /* 
  * styling for entry page main table 
  */

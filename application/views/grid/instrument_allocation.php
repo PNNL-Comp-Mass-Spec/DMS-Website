@@ -35,11 +35,11 @@
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' href='javascript:void(0)' >Show</a> allocations
+	<a id='reload_btn' class='button' href='javascript:void(0)' >Show</a> allocations
 </span>
 
 <span id='save_ctls' class='ctls'>
-	<input id='save_btn' type='button' value='Save Changes' />
+	<a  id='save_btn' class='button' href='javascript:void(0)' >Save Changes</a>
 </span>
 </div>
 
@@ -84,11 +84,14 @@
 	$(document).ready(function () { 
 		$('#col_ctls').hide();
 		$('#save_ctls').hide();
+		commonGridControls.init();
 
 		$('#reload_btn').click(function() {
+		    mainGrid.buildGrid();
 			mainGrid.refreshGrid(myGrid.getLoadParameters());
 			$('#col_ctls').show();
 			$('#save_ctls').hide();
+			commonGridControls.delimitedTextCtls(true);
 		});
 		$('#save_btn').click(function() {			
 			var url = gamma.pageContext.save_changes_url;
@@ -98,10 +101,6 @@
 			});
 		});
 		
-		$('#delimited_text_panel').hide();
-		$('#delimited_text_panel_btn').click(function() {
-			$('#delimited_text_panel').toggle();		
-		});
 		$('#import_grid_btn').click(function() {
 			mainGrid.importDelimitedData();
 			var x = $.map(mainGrid.grid.getData(), function(row) {return row['Request']; });
@@ -119,7 +118,6 @@
 			$('#fiscalYear').val(d.getFullYear());
 		}
 		
-	    mainGrid.buildGrid();
 	});
 
 </script>

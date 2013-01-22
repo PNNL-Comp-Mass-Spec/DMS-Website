@@ -247,6 +247,7 @@ var mainGrid = {
 	    grid.init();
 	},
 	buildGrid: function () {
+		if(this.grid) return;
 		var colDefs = this.buildColumns(this.staticColumns, false);
 		this.container = $("<div id='myGrid' class='GridContainer'></div>");			
 	    this.grid = new Slick.Grid(this.container, [], colDefs, this.options);
@@ -343,3 +344,21 @@ var mainGrid = {
 	}
 
 } // mainGrid
+
+var commonGridControls = {
+	init: function() {
+		this.delimitedTextCtls(false);
+		
+		$('#delimited_text_panel').hide();
+		$('#delimited_text_panel_btn').click(function() {
+			$('#delimited_text_panel').toggle();		
+		});
+	},
+	delimitedTextCtls: function(show) {
+		if(show) {
+			$('#delimited_text_ctl_panel').show();		
+		} else {
+			$('#delimited_text_ctl_panel').hide();					
+		}
+	}
+} // commonGridControls
