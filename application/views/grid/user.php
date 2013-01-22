@@ -18,11 +18,11 @@
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' href='javascript:void(0)' >Show</a> info for users
+	<a id='reload_btn' class='button' href='javascript:void(0)' >Show</a> info for users
 </span>
 
 <span id='save_ctls' class='ctls'>
-	<input id='save_btn' type='button' value='Save Changes' />
+	<a  id='save_btn' class='button' href='javascript:void(0)' >Save Changes</a>
 </span>
 </div>
 

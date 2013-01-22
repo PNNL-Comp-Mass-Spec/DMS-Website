@@ -25,7 +25,7 @@ Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' href='javascript:void(0)' >Show</a> info for requests
+	<a id='reload_btn' class='button' href='javascript:void(0)' >Show</a> info for requests
 </span>
 <span class='ctls' style='display:none;'>
 	<a id='add_column_btn' href='javascript:void(0)' >Add</a> New Factor
@@ -35,7 +35,7 @@ Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 </span>
 
 <span id='save_ctls' class='ctls'>
-	<input id='save_btn' type='button' value='Save Changes' />
+	<a  id='save_btn' class='button' href='javascript:void(0)' >Save Changes</a>
 </span>
 </div>
 

@@ -25,9 +25,9 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' href='javascript:void(0)' >Show</a> Factors For Datasets
+	<a id='reload_btn' class='button' href='javascript:void(0)' >Show</a> Factors For Datasets
 </span>
-<spanclass='ctls'>
+<span class='ctls'>
 	<a id='add_column_btn' href='javascript:void(0)' >Add</a> New Factor
 </span>
 <spanclass='ctls'>
@@ -35,7 +35,7 @@ Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() 
 </span>
 
 <span id='save_ctls' class='ctls'>
-	<input id='save_btn' type='button' value='Save Changes' />
+	<a  id='save_btn' class='button' href='javascript:void(0)' >Save Changes</a>
 </span>
 </div>
 

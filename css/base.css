@@ -83,7 +83,7 @@ a.button {
   color: #FFFFFF;
 }
 input.button {
-    padding: 2px;
+    padding: 4px;
     height: auto;
 }
 .button:hover, button:hover {
