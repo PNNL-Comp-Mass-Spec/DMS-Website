@@ -38,52 +38,62 @@
 <script>
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
-	mainGrid.hiddenColumns = [];
-	mainGrid.staticColumns = ['ID'];
-	
-	var myGrid = {
+
+	var gridConfig = {
+		hiddenColumns: [],
+		staticColumns: ['ID'],
+
+		getLoadUrl: function() {
+			return gamma.pageContext.data_url;
+		},
 		getLoadParameters: function() {
 			return { };
 		},
+		afterLoadAction: function() {
+			$('#col_ctls').show();
+			$('#save_ctls').hide();
+			gridImportExport.delimitedTextCtls(true);			
+		},
+		getSaveUrl: function() {
+			return gamma.pageContext.save_changes_url;
+		},
 		getSaveParameters: function() {
-			var dataRows = mainGrid.grid.getData();
+			var dataRows = myGrid.grid.getData();
 			var changes = gridUtil.getChanges(dataRows, 'ID');
 			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
 			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 //			factorXML = '<id type="Request" />' + factorXML;
 			return { factorList: factorXML };
+		},
+		afterSaveAction: function() {
+			$('#reload_btn').click();			
+		},
+		handleDataChanged: function() {
+			$('#save_ctls').show();
 		}
 	}
+	
+	var myGrid = $.extend({}, mainGrid, gridConfig);
+	var myImportExport = $.extend({}, gridImportExport);
 
 	$(document).ready(function () { 
 		$('#col_ctls').hide();
 		$('#save_ctls').hide();
-		commonGridControls.init();
+		gridImportExport.init();
 
 		$('#reload_btn').click(function() {
-		    mainGrid.buildGrid();
-			mainGrid.refreshGrid(myGrid.getLoadParameters());
-			$('#col_ctls').show();
-			$('#save_ctls').hide();
-			commonGridControls.delimitedTextCtls(true);
+		    myGrid.buildGrid();
+			myGrid.loadGrid();
 		});
 		$('#save_btn').click(function() {	
-			var url = gamma.pageContext.save_changes_url;
-			var p = myGrid.getSaveParameters();
-alert('This feature not enabled yet'); return;
-			gridUtil.saveChanges(url, p, function(data) {
-				$('#reload_btn').click();
-			});
+			myGrid.saveGrid();
 		});
 		
 		$('#import_grid_btn').click(function() {
-			mainGrid.importDelimitedData();
-			var x = $.map(mainGrid.grid.getData(), function(row) {return row['Request']; });
-			$('#itemList').val(x.join(', '));
-			$('#save_ctls').show();
+			myImportExport.importDelimitedData(myGrid);
 		});
 		$('#export_grid_btn').click(function() {
-			mainGrid.exportDelimitedData();
+			myImportExport.exportDelimitedData(myGrid);
 		});
 		
 	});

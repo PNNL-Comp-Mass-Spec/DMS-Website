@@ -1,5 +1,5 @@
 <div id='delimited_text_ctl_panel' class='ctl_panel'>
-<a id='delimited_text_panel_btn' href='javascript:void(0)' >Delimited Text</a>
+<a id='delimited_text_panel_btn' href='javascript:void(0)' >Show/Hide</a> Import/Export Delimited Text
 </div>
 
 <div id='delimited_text_panel' class='ctl_panel'>

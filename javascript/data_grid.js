@@ -1,3 +1,6 @@
+/*
+ * utility functions shared by all grid instances
+ */
 var gridUtil = {
 	markChange: function(dataRow, field, clear) {
 		if(!dataRow.mod_axe) dataRow.mod_axe = {};
@@ -17,7 +20,6 @@ var gridUtil = {
 		var lastValueSeen = "";
 		var rowsAffected = [];
 		for (var i = sel.fromRow; i <= sel.toRow; i++) {
-//		for (var i = 0; i < dataRows.length; i++) {
 			row = dataRows[i];
 			field = column.field;
 			val = row[field];
@@ -34,7 +36,9 @@ var gridUtil = {
 		grid.invalidateRows(rowsAffected);
 		gridUtil.setChangeHighlighting(grid);
 		grid.render();
-		$('#save_ctls').show();
+	},
+	clearAllCells: function(column, grid) {
+		this.clearSelectedCells(column, grid, true);
 	},
 	clearSelectedCells: function (column, grid, all) {
 		Slick.GlobalEditorLock.commitCurrentEdit();	
@@ -50,9 +54,12 @@ var gridUtil = {
 		}
 		var rowsAffected = [];
 		for (var row = sel.fromRow; row <= sel.toRow; row++) {
-			dataRows[row][column.field] = '';
-			gridUtil.markChange(dataRows[row], column.field);
-			rowsAffected.push(row);
+			var val = dataRows[row][column.field];
+			if (!(val == null || val === '')) {
+				dataRows[row][column.field] = '';
+				gridUtil.markChange(dataRows[row], column.field);
+				rowsAffected.push(row);
+			}
 		}
 		grid.invalidateRows(rowsAffected);
 		gridUtil.setChangeHighlighting(grid);
@@ -71,6 +78,16 @@ var gridUtil = {
 		});
 		return changes;
 	},
+	hasChanged: function(dataRows) {
+		var changed = false;
+		$.each(dataRows, function(idx, row) {
+			if(row.mod_axe) {
+				changed = true;
+			}
+			return !changed;
+		});
+		return changed;
+	},
 	setChangeHighlighting: function(grid) {
 		var styledCells = this.getChangeHighlighting(grid.getData(), 'changed');
 		grid.setCellCssStyles("highlight", styledCells);
@@ -87,19 +104,21 @@ var gridUtil = {
 		});
 		return styledCells;		
 	},
-	saveChanges: function (url, p, action) {
+	saveChanges: function (url, p, caller) {
 		if ( !confirm("Are you sure that you want to update the database?") ) return;
+		if(caller.beforeSaveAction) caller.beforeSaveAction();
 		gamma.doOperation(url, p, 'ctl_panel', function(data) {
 			if(data.indexOf('was successful') !== -1) {
-				if(action) action(data);
+				if(caller.afterSaveAction) caller.afterSaveAction(data);
 			} else {
 				alert(data);
 			}
 		});
 	},
 	refreshGrid: function (url, p, caller) {
-		var cntr = $('#' + caller.attachment);
+		var cntr = $('#' + caller.externalContainerId);
 		cntr.spin('small');
+		if(caller.beforeLoadAction) caller.beforeLoadAction();
 	    $.post(
 	        url, p, function (response) {
 	        	cntr.spin(false);
@@ -108,6 +127,7 @@ var gridUtil = {
 	                alert(obj.message);
 	            } else {
 	                caller.setDataRows(obj, true);
+	                if(caller.afterLoadAction) caller.afterLoadAction();
 	            }
 	        }
 	    );
@@ -183,9 +203,11 @@ var gridUtil = {
 	}
 } // gridUtil
 
+/*
+ * general grid header behaviors that are meant 
+ * to extend a specific header object
+ */
 var gridHeaderUtil = {
-	headerButtons: null, // in case we someday have any header buttons
-	buttonCmdHandler: null, // in case we someday have any header buttons
 	baseMenuItems: [
 		{ title: "Sort Ascending", command: "sort-asc" },
 		{ title: "Sort Descending", command: "sort-desc" }
@@ -195,32 +217,60 @@ var gridHeaderUtil = {
 		{ title: "Clear selected", command: "clear-selected", tooltip: "Clear all values in selected cells" },
 		{ title: "Clear all", command: "clear-all", tooltip: "Clear all values in this column" }
 	],
-	menuCmdHandler: function (e, args) {
-		if(args.command == 'filldown') {
-			gridUtil.fillDown(args.column, args.grid);
-		} else
-		if(args.command == 'clear-all') {
-			gridUtil.clearSelectedCells(args.column, args.grid, true);				
-		} else
-		if(args.command == 'clear-selected') {
-			gridUtil.clearSelectedCells(args.column, args.grid);				
-		} else
-		if(args.command == 'sort-asc') {
-			gridUtil.sortByColumn(args.column, args.grid, true);
-		} else
-		if(args.command == 'sort-desc') {
-			gridUtil.sortByColumn(args.column, args.grid, false);
+	commands: {
+		'filldown': function (column, grid) {
+			gridUtil.fillDown(column, grid);
+			return true;
+		},
+		'clear-all': function (column, grid) {
+			gridUtil.clearAllCells(column, grid);				
+			return true;
+		},
+		'clear-selected': function (column, grid) {
+			gridUtil.clearSelectedCells(column, grid);				
+			return true;
+		},
+		'sort-asc': function (column, grid) {
+			gridUtil.sortByColumn(column, grid, true);
+			return false;
+		},
+		'sort-desc': function (column, grid) {
+			gridUtil.sortByColumn(column, grid, false);
+			return false;
+		}
+	},
+	getMenuCmdHandler: function(changeHandler) {
+		var ch = changeHandler;
+		var context = this;
+		return function(e, args) {
+			var cmdFunc = context.commands[args.command];
+			if(cmdFunc) {
+				var possibleChanges = cmdFunc(args.column, args.grid);
+				if(possibleChanges && ch && gridUtil.hasChanged(args.grid.getData())) ch();
+			}
 		}
 	}
 } // gridHeaderUtil
 
+/*
+ * grid behaviors that are meant to extend a specific instance of an object.
+ * certain properties and functions must or can be overridden by subsequent 
+ * extension by a configuration object
+ */
 var mainGrid = {
-	attachment:'myTable',
+	// the following properties MUST be overridden
+	getLoadParameters: null,
+	getSaveParameters: null,
+	//
+	// the following properties MAY be overridden
+	headerUtil: null,
+	externalContainerId:'myTable', // existing page tag that grid will occupy
+	internalContainerId: "myGrid", // name of page element that is generated by grid
+	handleDataChanged: null, // optional external method called when data is changed
 	hiddenColumns: [],
 	staticColumns: [],
-	container: null,
-	grid: null,
-	options: {
+	container: null, // generated page element that contains grid
+	options: { // SlickGrid options
 	        editable: true,
 	        enableAddRow: true,
 	        enableCellNavigation: true,
@@ -230,17 +280,38 @@ var mainGrid = {
 	        enableColumnReorder: false,
 	        explicitInitialization: true
 	},
-	setDefaults: function () {
+	getLoadUrl: function() {
+		return gamma.pageContext.data_url;
 	},
-	refreshGrid: function (p) {
-		var itemList = $('#itemList').val();
-		gridUtil.refreshGrid(gamma.pageContext.data_url, p,  this);
+	getSaveUrl: function() {
+		return gamma.pageContext.save_changes_url;
 	},
-	cellChanged: function (e, args) {
-		$('#save_ctls').show();
-		var field = args.grid.getColumns()[args.cell].field;
-		gridUtil.markChange(args.item, field);
-		gridUtil.setChangeHighlighting(args.grid);
+	beforeLoadAction: null,
+	afterLoadAction: null,
+	beforeSaveAction: null,
+	afterSaveAction: null,
+	//
+	// the following properties SHOULD NOT be overridden
+	grid: null,
+	pendingOp: false,
+	loadGrid: function () {
+		var url = this.getLoadUrl();
+		var p = this.getLoadParameters();
+		gridUtil.refreshGrid(url, p,  this);
+	},
+	saveGrid: function() {
+		var url = this.getSaveUrl();
+		var p = this.getSaveParameters();
+		gridUtil.saveChanges(url, p, this);
+	},
+	getCellChangeHandler: function() {
+		var context = this;
+		return function (e, args) {
+			var field = args.grid.getColumns()[args.cell].field;
+			gridUtil.markChange(args.item, field);
+			gridUtil.setChangeHighlighting(args.grid);
+			if(context.handleDataChanged) context.handleDataChanged();
+		}
 	},
 	initGrid: function(elementName) {
 	    this.container.appendTo($("#" + elementName));
@@ -248,14 +319,17 @@ var mainGrid = {
 	},
 	buildGrid: function () {
 		if(this.grid) return;
+		if(!this.headerUtil) {
+			this.headerUtil = $.extend({}, gridHeaderUtil);
+		}
 		var colDefs = this.buildColumns(this.staticColumns, false);
-		this.container = $("<div id='myGrid' class='GridContainer'></div>");			
+		this.container = $("<div id='" + this.internalContainerId + "' class='GridContainer'></div>");			
 	    this.grid = new Slick.Grid(this.container, [], colDefs, this.options);
-	    this.container.appendTo($('#' + this.attachment));
+	    this.container.appendTo($('#' + this.externalContainerId));
 	    this.grid.init();
-		this.grid.onCellChange.subscribe(this.cellChanged);
+		this.grid.onCellChange.subscribe(this.getCellChangeHandler());
 		var headerMenuPlugin = new Slick.Plugins.HeaderMenu({});
-		headerMenuPlugin.onCommand.subscribe(gridHeaderUtil.menuCmdHandler);
+		headerMenuPlugin.onCommand.subscribe(this.headerUtil.getMenuCmdHandler(this.handleDataChanged));
 		this.grid.registerPlugin(headerMenuPlugin);
 		this.grid.setSelectionModel(new Slick.CellSelectionModel());
 	},
@@ -312,10 +386,10 @@ var mainGrid = {
 			name:colName,
 			field:colName
 		};
-		var menuItems = $.merge([], gridHeaderUtil.baseMenuItems);
+		var menuItems = $.merge([], this.headerUtil.baseMenuItems);
 		if(editable) {
 			colSpec.editor = Slick.Editors.Text;
-			menuItems = $.merge(menuItems, gridHeaderUtil.editMenuItems)
+			menuItems = $.merge(menuItems, this.headerUtil.editMenuItems)
 		} else {
 			colSpec.cssClass = 'nonEditable';
 		}
@@ -330,24 +404,20 @@ var mainGrid = {
 		gridUtil.setChangeHighlighting(this.grid);
 	    this.grid.render();
 	},
-	exportDelimitedData: function() {
-		var s = gridUtil.convertToDelimitedText(this.grid.getColumns(), this.grid.getData());
-		$('#delimited_text').val(s);
-	},
-	importDelimitedData: function() {
-		var parsed_data = gamma.parseDelimitedText('delimited_text');
-		var gridData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
-		mainGrid.setDataRows(gridData);
-	},
 	clearGrid: function () {
 		this.setDataRows({columns:[],rows:[]}, true);			
 	}
 
 } // mainGrid
 
-var commonGridControls = {
+/*
+ * these behaviors are tied to the shared "delimited text import/export" panel
+ */
+var gridImportExport = {
+	postImportAction: null,
+	postExportAction: null,
 	init: function() {
-		this.delimitedTextCtls(false);
+		this.delimitedTextCtls(true);
 		
 		$('#delimited_text_panel').hide();
 		$('#delimited_text_panel_btn').click(function() {
@@ -360,5 +430,20 @@ var commonGridControls = {
 		} else {
 			$('#delimited_text_ctl_panel').hide();					
 		}
-	}
+	},
+	exportDelimitedData: function(wrapper) {
+		var s = gridUtil.convertToDelimitedText(wrapper.grid.getColumns(), wrapper.grid.getData());
+		$('#delimited_text').val(s);
+		if(this.postExportAction) this.postExportAction();
+	},
+	importDelimitedData: function(wrapper) {
+		var parsed_data = gamma.parseDelimitedText('delimited_text');
+		var gridData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
+		wrapper.setDataRows(gridData, true);
+		if(this.postImportAction) this.postImportAction();
+	}	
+} // gridImportExport
+
+var commonGridControls = {
 } // commonGridControls
+

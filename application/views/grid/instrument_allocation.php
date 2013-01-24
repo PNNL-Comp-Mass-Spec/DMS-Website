@@ -55,17 +55,28 @@
 <script>
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
-	mainGrid.hiddenColumns = ['#FY_Proposal'];
-	mainGrid.staticColumns = ['Fiscal_Year', 'Proposal_ID', 'Title', 'Status', 'Last_Updated'];
 
-	var myGrid = {
+	var gridConfig = {
+		hiddenColumns: ['#FY_Proposal'],
+		staticColumns: ['Fiscal_Year', 'Proposal_ID', 'Title', 'Status', 'Last_Updated'],
+		getLoadUrl: function() {
+			return gamma.pageContext.data_url;
+		},
 		getLoadParameters: function() {
 			var itemList = $('#itemList').val();
 			var fiscalYear = $('#fiscalYear').val();
 			return { itemList:itemList, fiscalYear:fiscalYear };
 		},
+		afterLoadAction: function() {
+			$('#col_ctls').show();
+			$('#save_ctls').hide();
+			gridImportExport.delimitedTextCtls(true);			
+		},
+		getSaveUrl: function() {
+			return gamma.pageContext.save_changes_url;
+		},
 		getSaveParameters: function() {
-			var dataRows = mainGrid.grid.getData();
+			var dataRows = this.grid.getData();
 			var changes = gridUtil.getChanges(dataRows, 'Proposal_ID');
 			$.each(changes, function(idx, obj) {
 				if(obj.factor == "General") {
@@ -78,37 +89,38 @@
 			var fy = $('#fiscalYear').val();
 			factorXML = '<c fiscal_year="' + fy + '"/>' + factorXML;
 			return { parameterList:factorXML };
+		},
+		afterSaveAction: function() {
+			$('#reload_btn').click();			
+		},
+		handleDataChanged: function() {
+			$('#save_ctls').show();
 		}
 	}
+	
+	var myGrid = $.extend({}, mainGrid, gridConfig);
+	var myImportExport = $.extend({}, gridImportExport);
 
 	$(document).ready(function () { 
+
 		$('#col_ctls').hide();
 		$('#save_ctls').hide();
-		commonGridControls.init();
+		myImportExport.init();
 
 		$('#reload_btn').click(function() {
-		    mainGrid.buildGrid();
-			mainGrid.refreshGrid(myGrid.getLoadParameters());
-			$('#col_ctls').show();
-			$('#save_ctls').hide();
-			commonGridControls.delimitedTextCtls(true);
+		    myGrid.buildGrid();
+			myGrid.loadGrid();
 		});
 		$('#save_btn').click(function() {			
-			var url = gamma.pageContext.save_changes_url;
-			var p = myGrid.getSaveParameters();
-			gridUtil.saveChanges(url, p, function(data) {
-				$('#reload_btn').click();
-			});
+			myGrid.saveGrid();
 		});
 		
 		$('#import_grid_btn').click(function() {
-			mainGrid.importDelimitedData();
-			var x = $.map(mainGrid.grid.getData(), function(row) {return row['Request']; });
-			$('#itemList').val(x.join(', '));
-			$('#save_ctls').show();
+		    myGrid.buildGrid();
+			myImportExport.importDelimitedData(myGrid);
 		});
 		$('#export_grid_btn').click(function() {
-			mainGrid.exportDelimitedData();
+			myImportExport.exportDelimitedData(myGrid);
 		});
 		
 		var fy = $('#fiscalYear').val();
