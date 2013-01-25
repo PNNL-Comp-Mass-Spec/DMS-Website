@@ -124,6 +124,24 @@ class Grid extends Base_controller {
 		}
 		$this->grid_data_from_query();
 	}
+	// --------------------------------------------------------------------
+	// --------------------------------------------------------------------
+	function instrument_usage() {
+		$this->my_tag = "instrument_usage";
+		$this->my_title = "Instrument Usage Report";
+		$save_url = 'instrument_usage_report/operation';
+		$this->grid_page('instrument_usage', $save_url);
+	}
+	// --------------------------------------------------------------------
+	function instrument_usage_data() {
+		$this->my_tag = "instrument_usage";
+		$this->load->database();
+		$this->db->from("V_Instrument_Usage_Report_List_Report");
+		$this->db->where("Instrument", "LTQ_Orb_3");
+		$this->db->where("Year", "2012");
+		$this->db->where("Month", "3");
+		$this->grid_data_from_query();
+	}
 		
 }
 ?>

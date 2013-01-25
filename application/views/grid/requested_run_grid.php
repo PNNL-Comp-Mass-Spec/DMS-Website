@@ -28,15 +28,7 @@
 </fieldset>
 </form>
 
-<div id='ctl_panel' class='ctl_panel'>
-<span class='ctls'>
-	<a id='reload_btn' title='Load data into editing grid'class='button' href='javascript:void(0)' >Show</a> 
-</span>
-
-<span id='save_ctls' class='ctls'>
-	<a  id='save_btn' class='button' href='javascript:void(0)' >Save Changes</a>
-</span>
-</div>
+<? $this->load->view('grid/grid_control_panel') ?>
 
 <div id="myTable" ></div>
 

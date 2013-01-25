@@ -5,10 +5,8 @@
 </span>
 
 <span class='ctls' id='add_col_ctl_panel'>
-<span class='ctls'>
-	<a id='add_column_btn' href='javascript:void(0)' >Add</a> New Factor
+	<a id='add_column_btn' href='javascript:void(0)' >Add</a> a new column named: 
 	<input id='add_column_name' type='text' size="20"></input>
-</span>
 </span>
 
 <span id='save_ctls' class='ctls'>
