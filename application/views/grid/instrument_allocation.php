@@ -35,7 +35,7 @@
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' class='button' href='javascript:void(0)' >Show</a> allocations
+	<a id='reload_btn' title='Load data into editing grid'class='button' href='javascript:void(0)' >Show</a> allocations
 </span>
 
 <span id='save_ctls' class='ctls'>
@@ -70,7 +70,6 @@
 		afterLoadAction: function() {
 			$('#col_ctls').show();
 			$('#save_ctls').hide();
-			gridImportExport.delimitedTextCtls(true);			
 		},
 		getSaveUrl: function() {
 			return gamma.pageContext.save_changes_url;
@@ -102,10 +101,7 @@
 	var myImportExport = $.extend({}, gridImportExport);
 
 	$(document).ready(function () { 
-
-		$('#col_ctls').hide();
-		$('#save_ctls').hide();
-		myImportExport.init();
+		myImportExport.init(myGrid);
 
 		$('#reload_btn').click(function() {
 		    myGrid.buildGrid();
@@ -114,22 +110,14 @@
 		$('#save_btn').click(function() {			
 			myGrid.saveGrid();
 		});
-		
-		$('#import_grid_btn').click(function() {
-		    myGrid.buildGrid();
-			myImportExport.importDelimitedData(myGrid);
-		});
-		$('#export_grid_btn').click(function() {
-			myImportExport.exportDelimitedData(myGrid);
-		});
-		
 		var fy = $('#fiscalYear').val();
 		if(!fy) {
 			var d = new Date();
 			d.setMonth(d.getMonth() + 3);
 			$('#fiscalYear').val(d.getFullYear());
 		}
-		
+		$('#ctl_panel').show();
+		$('#delimited_text_ctl_panel').show();
 	});
 
 </script>

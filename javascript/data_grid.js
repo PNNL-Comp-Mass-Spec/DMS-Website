@@ -418,34 +418,49 @@ var mainGrid = {
  * these behaviors are tied to the shared "delimited text import/export" panel
  */
 var gridImportExport = {
+	preImportAction: null,
 	postImportAction: null,
+	preExportAction: null,
 	postExportAction: null,
-	init: function() {
-		this.delimitedTextCtls(true);
-		
+	myMainGrid: null,
+	init: function(wrapper) {
+		var context = this;
+		this.myMainGrid = (wrapper) ? wrapper : this.myMainGrid;	
 		$('#delimited_text_panel').hide();
 		$('#delimited_text_panel_btn').click(function() {
 			$('#delimited_text_panel').toggle();		
+			$('#delimited_expd_ctl').toggleClass('ui-icon-circle-plus ui-icon-circle-minus');
+		});
+		$('#export_grid_btn').click(function() {
+			context.exportDelimitedData(context);
+		});
+		$('#import_grid_btn').click(function() {
+		    context.myMainGrid.buildGrid();
+			context.importDelimitedData(context);
+		});
+		$('#update_grid_btn').click(function() {
+			context.updateFromDelimitedData(context);
 		});
 	},
-	delimitedTextCtls: function(show) {
-		if(show) {
-			$('#delimited_text_ctl_panel').show();		
-		} else {
-			$('#delimited_text_ctl_panel').hide();					
-		}
-	},
-	exportDelimitedData: function(wrapper) {
-		var s = gridUtil.convertToDelimitedText(wrapper.grid.getColumns(), wrapper.grid.getData());
+	exportDelimitedData: function(context) {
+		if(!context.myMainGrid) return;
+		if(context.preExportAction) context.preExportAction();
+		var s = gridUtil.convertToDelimitedText(context.myMainGrid.grid.getColumns(), context.myMainGrid.grid.getData());
 		$('#delimited_text').val(s);
-		if(this.postExportAction) this.postExportAction();
+		if(context.postExportAction) context.postExportAction();
 	},
-	importDelimitedData: function(wrapper) {
+	importDelimitedData: function(context) {
+		if(!context.myMainGrid) return;
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
 		var gridData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
-		wrapper.setDataRows(gridData, true);
-		if(this.postImportAction) this.postImportAction();
-	}	
+		if(context.preImportAction) context.preImportAction();
+		context.myMainGrid.setDataRows(gridData, true);
+		if(context.postImportAction) context.postImportAction();
+	},
+	updateFromDelimitedData: function(context) {
+		if(!context.myMainGrid) return;
+		alert('This function not implmented yet');
+	}
 } // gridImportExport
 
 var commonGridControls = {

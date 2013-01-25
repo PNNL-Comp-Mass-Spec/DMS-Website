@@ -45,7 +45,7 @@ input.editor-text {
     padding: 0;
 }
 .ctls {
-	margin-right: 10px;
+	margin-right: 18px;
 }
 .ctl_panel {
 	margin-top:5px;
@@ -54,11 +54,9 @@ input.editor-text {
 .nonEditable {
 	color:blue;
 }
-
 #delimited_text_panel {
 	display:none;
 }
-
 #delimited_text {
 	width:99%;
 }
@@ -68,11 +66,27 @@ input.editor-text {
 .changed {
   background: #FFF0F0;
 }
-
 .ctl_legend {
-	border: 1px solid #6495ED;
-	padding: 4px;
-	background-color: #E1E7EA;
-	color: black;	
+	border: 1px solid gray;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-weight: bold;
+	color: black;
 }
-
+#delimited_text_panel {
+	padding-top:5px;
+}
+#col_ctls {
+	display:none;
+}
+#save_ctls {
+	display:none;
+}
+#ctl_panel {
+	display:none;
+}
+#delimited_text_ctl_panel {
+	display:none;
+}

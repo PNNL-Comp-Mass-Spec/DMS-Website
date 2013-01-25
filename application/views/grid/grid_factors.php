@@ -32,7 +32,7 @@
 <div id='ctl_panel' class='ctl_panel'>
 	
 <span class='ctls'>
-	<a id='reload_btn' class='button' href='javascript:void(0)' >Show</a> Factors For Datasets
+	<a id='reload_btn' title='Load data into editing grid'class='button' href='javascript:void(0)' >Show</a> Factors For Datasets
 </span>
 
 <span class='ctls' id='add_col_ctl_panel'>
@@ -77,7 +77,6 @@
 			$('#col_ctls').show();
 			$('#add_col_ctl_panel').show();
 			$('#save_ctls').hide();
-			gridImportExport.delimitedTextCtls(true);			
 		},
 		getSaveUrl: function() {
 			return gamma.pageContext.save_changes_url;
@@ -109,10 +108,7 @@
 	});
 
 	$(document).ready(function () { 
-		$('#col_ctls').hide();
-		$('#save_ctls').hide();
-		$('#add_col_ctl_panel').hide();
-		myImportExport.init();
+		myImportExport.init(myGrid);
 
 		$('#reload_btn').click(function() {
 		    myGrid.buildGrid();
@@ -121,17 +117,13 @@
 		$('#save_btn').click(function() {
 			myGrid.saveGrid();
 		});
-		$('#import_grid_btn').click(function() {
-		    myGrid.buildGrid();
-			myImportExport.importDelimitedData(myGrid);
-		});
-		$('#export_grid_btn').click(function() {
-			myImportExport.exportDelimitedData(myGrid);
-		});
 		$('#add_column_btn').click(function() {
 			var name = $('#add_column_name').val();
 			myGrid.addColumn(name);
 		});
+		$('#add_col_ctl_panel').hide();
+		$('#ctl_panel').show();
+		$('#delimited_text_ctl_panel').show();
 	});
 
 </script>
