@@ -46,11 +46,11 @@ var lcmd = {
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
-			if(mode=='set_membership_enabled') mode = $F(p1);
+			if(mode=='set_membership_enabled') mode = $('#' + p1).val();
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
-			p.newValue = (p2!='')?$F(p2):'';
+			p.newValue = (p2)?$('#' + p2).val():'';
 			p.processorGroupID = $('#pf_groupid').val();
 			if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
 			p.processorNameList = list;
@@ -133,7 +133,7 @@ var lcmd = {
 			var p = {};
 			p.command = mode;
 			p.containerList = list;
-			p.newValue = (val)?$F(val):'';
+			p.newValue = (val)?$('#' + val).val():'';
 			p.comment = $('#comment_fld').val();
 			lambda.submitOperation(url, p);
 		}
@@ -155,7 +155,7 @@ var lcmd = {
 			p.command = mode;
 			p.itemType = itemType;
 			p.itemList = list;
-			p.newValue = (val)?$F(val):'';
+			p.newValue = (val)?$('#' + val).val():'';
 			p.comment = $('#comment_fld').val();
 			lambda.submitOperation(url, p);
 		}
