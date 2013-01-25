@@ -17,7 +17,7 @@
 <div style='height:1em;'></div>
 <form>
 <fieldset>
-    <legend>Instrument Allocated Usage</legend>
+    <legend class='ctl_legend'>Instrument Allocated Usage</legend>
 	<div>
 	<label for="fiscalYear">Fiscal Year <span class='supplemental_text'>(required)</span></label>
 	</div>

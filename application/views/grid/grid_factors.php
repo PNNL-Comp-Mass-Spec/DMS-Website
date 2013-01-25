@@ -15,13 +15,19 @@
 <? $this->load->view('nav_bar') ?>
 
 <div style='height:1em;'></div>
-<div>Datasets</div>
-<div>
-<textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
-<span>
-Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
-<span>
-</div>
+<form>
+<fieldset>
+    <legend class='ctl_legend'>Dataset Factors</legend>
+    	<div>
+	<label for="itemList">Datasets</label>
+	</div>
+	<div>
+	<textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
+	Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	</div>
+</fieldset>
+</form>
+
 
 <div id='ctl_panel' class='ctl_panel'>
 	

@@ -38,11 +38,10 @@ class Grid extends Base_controller {
 
 	// --------------------------------------------------------------------
 	private
-	function grid_data_from_query($sql) {
+	function grid_data_from_query() {
 		$response = new stdClass();
 		try {
-			$this->load->database();
-			$result = $this->db->query($sql);
+			$result = $this->db->get();
 			if(!$result) throw new exception('??');
 			$columns = array();
 			foreach($result->field_data() as $field) {
@@ -112,8 +111,18 @@ class Grid extends Base_controller {
 	// --------------------------------------------------------------------
 	function user_data() {
 		$this->my_tag = "user";
-		$sql = "SELECT * FROM T_Users";
-		$this->grid_data_from_query($sql);
+		$this->load->database();
+		$this->db->select('ID, U_PRN AS PRN, U_Name AS Name, U_HID AS HID, U_Status AS Status, U_Access_Lists AS Access, U_email AS Email, U_domain AS Domain, U_netid AS NetID, U_comment AS Comment, CONVERT(VARCHAR(12), U_created, 101) AS Created');
+		$this->db->from("T_Users");
+		$userName = $this->input->post("userName");
+		if($userName) {
+			$this->db->like('U_Name', $userName); 			
+		}
+		$allUsers = $this->input->post("allUsers");
+		if($allUsers == 'false') {
+			$this->db->where('U_Status', 'Active'); 			
+		}
+		$this->grid_data_from_query();
 	}
 		
 }

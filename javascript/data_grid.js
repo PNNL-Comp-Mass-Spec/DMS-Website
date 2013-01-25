@@ -14,8 +14,8 @@ var gridUtil = {
 		var colIndex = grid.getColumnIndex(column.name);
 		var ranges = grid.getSelectionModel().getSelectedRanges();
 		var range = ranges[0];
-		if(range && colIndex >= range.fromCell && colIndex <= range.toCell) {
-			sel = range;
+		if(range && range.fromRow != range.toRow && colIndex >= range.fromCell && colIndex <= range.toCell) {
+				sel = range;
 		} 
 		var lastValueSeen = "";
 		var rowsAffected = [];
@@ -290,6 +290,7 @@ var mainGrid = {
 	afterLoadAction: null,
 	beforeSaveAction: null,
 	afterSaveAction: null,
+	columnMenuHook: null,
 	//
 	// the following properties SHOULD NOT be overridden
 	grid: null,
@@ -330,6 +331,9 @@ var mainGrid = {
 		this.grid.onCellChange.subscribe(this.getCellChangeHandler());
 		var headerMenuPlugin = new Slick.Plugins.HeaderMenu({});
 		headerMenuPlugin.onCommand.subscribe(this.headerUtil.getMenuCmdHandler(this.handleDataChanged));
+		if(this.columnMenuHook) {
+			headerMenuPlugin.onBeforeMenuShow.subscribe(this.columnMenuHook);			
+		}
 		this.grid.registerPlugin(headerMenuPlugin);
 		this.grid.setSelectionModel(new Slick.CellSelectionModel());
 	},

@@ -1,3 +1,25 @@
+
+// add menu item to a column (after myGrid is created)
+var ci = myGrid.grid.getColumnIndex('Factor2');
+var col = myGrid.grid.getColumns()[ci];
+col.header.menu.items.push({ command: "blarg", title: "Fargle" });
+//
+//add command handler for menu item
+myGrid.headerUtil.commands['blarg'] = function(column, grid) { alert('Fargle!') };
+
+
+    headerMenuPlugin.onBeforeMenuShow.subscribe(function(e, args) {
+      var menu = args.menu;
+
+      // We can add or modify the menu here, or cancel it by returning false.
+      var i = menu.items.length;
+      menu.items.push({
+        title: "Menu item " + i,
+        command: "item" + i
+      });
+    });
+
+
 -----------------------------------------------
 -- DMS website refactor testing
 -----------------------------------------------

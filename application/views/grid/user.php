@@ -15,6 +15,25 @@
 <? $this->load->view('nav_bar') ?>
 
 <div style='height:1em;'></div>
+<form>
+<fieldset>
+    <legend class='ctl_legend'>DMS Users</legend>
+	<span>
+	<label for="userName">Name contains:</label>
+	</span>
+	<span>
+	<input name="userName" size="40" id="userName" onchange="epsilon.convertList('userName', ',')" ></input>
+	</span>  
+    	<span>
+	<label for="allUsers">Include inactive users</label>
+	</span>
+	<span>
+	<input type="checkbox" name="allUsers" id="allUsers" />
+	</span>
+</fieldset>
+</form>
+
+<div style='height:1em;'></div>
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
@@ -47,7 +66,7 @@
 			return gamma.pageContext.data_url;
 		},
 		getLoadParameters: function() {
-			return { };
+			return { userName: $('#userName').val(), allUsers:$('#allUsers').is(':checked') };
 		},
 		afterLoadAction: function() {
 			$('#col_ctls').show();

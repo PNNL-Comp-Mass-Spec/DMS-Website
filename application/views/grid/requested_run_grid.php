@@ -15,23 +15,22 @@
 <? $this->load->view('nav_bar') ?>
 
 <div style='height:1em;'></div>
-<div>Requests</div>
-<div>
-<textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
-<span>
-Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
-<span>
-</div>
+<form>
+<fieldset>
+    <legend class='ctl_legend'>Requested Run Setup</legend>
+    	<div>
+	<label for="itemList">Requests</label>
+	</div>
+	<div>
+	<textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
+	Requests... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	</div>
+</fieldset>
+</form>
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
 	<a id='reload_btn' class='button' href='javascript:void(0)' >Show</a> info for requests
-</span>
-<span class='ctls' style='display:none;'>
-	<a id='add_column_btn' href='javascript:void(0)' >Add</a> New Factor
-</span>
-<span class='ctls' style='display:none;'>
-	<input id='add_column_name' type='text' size="20"></input>
 </span>
 
 <span id='save_ctls' class='ctls'>
