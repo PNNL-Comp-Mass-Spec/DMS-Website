@@ -464,5 +464,39 @@ var gridImportExport = {
 } // gridImportExport
 
 var commonGridControls = {
+	myMainGrid: null,
+	addColCtlEnabled: false,
+	init: function(wrapper) {
+		var context = this;
+		context.myMainGrid = (wrapper) ? wrapper : context.myMainGrid;	
+		$('#reload_btn').click(function() {
+		    context.myMainGrid.buildGrid();
+			context.myMainGrid.loadGrid();
+		});
+		$('#save_btn').click(function() {	
+			context.myMainGrid.saveGrid();
+		});
+		$('#add_column_btn').click(function() {
+			var name = $('#add_column_name').val();
+			context.myMainGrid.addColumn(name);
+		});
+	},
+	showControls: function(showOrHide) {
+		if(this.addColCtlEnabled) {
+			$('#add_col_ctl_panel').toggle(showOrHide);	
+		}
+		$('#ctl_panel').toggle(showOrHide);
+		$('#delimited_text_ctl_panel').toggle(showOrHide);		
+	},
+	enableSave: function(showOrHide) {
+		$('#save_ctls').toggle(showOrHide);		
+	},
+	enableAddColumn: function(enabled) {
+		this.addColCtlEnabled = enabled;
+		$('#add_col_ctl_panel').toggle(enabled);	
+	},
+	reload: function() {
+		$('#reload_btn').click();			
+	}
 } // commonGridControls
 

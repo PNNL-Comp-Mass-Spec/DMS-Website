@@ -17,7 +17,7 @@
 <div style='height:1em;'></div>
 <form>
 <fieldset>
-    <legend class='ctl_legend'>DMS Users</legend>
+    <legend class='ctl_legend'>DMS User Administration</legend>
 	<span>
 	<label for="userName">Name contains:</label>
 	</span>
@@ -37,7 +37,7 @@
 
 <div id='ctl_panel' class='ctl_panel'>
 <span class='ctls'>
-	<a id='reload_btn' title='Load data into editing grid'class='button' href='javascript:void(0)' >Show</a> info for users
+	<a id='reload_btn' title='Load data into editing grid'class='button' href='javascript:void(0)' >Show</a> 
 </span>
 
 <span id='save_ctls' class='ctls'>
@@ -58,22 +58,18 @@
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
 
+	var myCommonControls;
+	var myImportExport;
+	var myGrid;
 	var gridConfig = {
 		hiddenColumns: [],
 		staticColumns: ['ID'],
 
-		getLoadUrl: function() {
-			return gamma.pageContext.data_url;
-		},
 		getLoadParameters: function() {
 			return { userName: $('#userName').val(), allUsers:$('#allUsers').is(':checked') };
 		},
 		afterLoadAction: function() {
-			$('#col_ctls').show();
-			$('#save_ctls').hide();
-		},
-		getSaveUrl: function() {
-			return gamma.pageContext.save_changes_url;
+			myCommonControls.enableSave(false);
 		},
 		getSaveParameters: function() {
 			var dataRows = myGrid.grid.getData();
@@ -84,29 +80,29 @@
 			return { factorList: factorXML };
 		},
 		afterSaveAction: function() {
-			$('#reload_btn').click();			
+			myCommonControls.reload();			
 		},
 		handleDataChanged: function() {
-			$('#save_ctls').show();
+			myCommonControls.enableSave(true);
 		}
 	}
-	
-	var myGrid = $.extend({}, mainGrid, gridConfig);
-	var myImportExport = $.extend({}, gridImportExport);
+	var myUtil = {
+		postImportAction: function() {
+				myCommonControls.enableSave(true);
+		},
+		initEntryFields: function() {
+		}
+	}
 
 	$(document).ready(function () { 
+		myCommonControls = $.extend({}, commonGridControls);
+		myImportExport = $.extend({}, gridImportExport, { postImportAction: myUtil.postImportAction });
+		myGrid = $.extend({}, mainGrid, gridConfig);
 		myImportExport.init(myGrid);
+		myCommonControls.init(myGrid);
 
-		$('#reload_btn').click(function() {
-		    myGrid.buildGrid();
-			myGrid.loadGrid();
-		});
-		$('#save_btn').click(function() {	
-			myGrid.saveGrid();
-		});
-		
-		$('#ctl_panel').show();
-		$('#delimited_text_ctl_panel').show();
+		myUtil.initEntryFields();
+		myCommonControls.showControls(true);
 	});
 
 </script>

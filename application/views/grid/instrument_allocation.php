@@ -33,15 +33,7 @@
 </fieldset>
 </form>
 
-<div id='ctl_panel' class='ctl_panel'>
-<span class='ctls'>
-	<a id='reload_btn' title='Load data into editing grid'class='button' href='javascript:void(0)' >Show</a> allocations
-</span>
-
-<span id='save_ctls' class='ctls'>
-	<a  id='save_btn' class='button' href='javascript:void(0)' >Save Changes</a>
-</span>
-</div>
+<? $this->load->view('grid/grid_control_panel') ?>
 
 <div id="myTable" ></div>
 
@@ -56,23 +48,19 @@
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
 
+	var myCommonControls;
+	var myImportExport;
+	var myGrid;
 	var gridConfig = {
 		hiddenColumns: ['#FY_Proposal'],
 		staticColumns: ['Fiscal_Year', 'Proposal_ID', 'Title', 'Status', 'Last_Updated'],
-		getLoadUrl: function() {
-			return gamma.pageContext.data_url;
-		},
 		getLoadParameters: function() {
 			var itemList = $('#itemList').val();
 			var fiscalYear = $('#fiscalYear').val();
 			return { itemList:itemList, fiscalYear:fiscalYear };
 		},
 		afterLoadAction: function() {
-			$('#col_ctls').show();
-			$('#save_ctls').hide();
-		},
-		getSaveUrl: function() {
-			return gamma.pageContext.save_changes_url;
+			myCommonControls.enableSave(false);
 		},
 		getSaveParameters: function() {
 			var dataRows = this.grid.getData();
@@ -90,34 +78,35 @@
 			return { parameterList:factorXML };
 		},
 		afterSaveAction: function() {
-			$('#reload_btn').click();			
+			myCommonControls.reload();			
 		},
 		handleDataChanged: function() {
-			$('#save_ctls').show();
+			myCommonControls.enableSave(true);
 		}
 	}
-	
-	var myGrid = $.extend({}, mainGrid, gridConfig);
-	var myImportExport = $.extend({}, gridImportExport);
+	var myUtil = {
+		postImportAction: function() {
+			myCommonControls.enableSave(true);
+		},
+		initEntryFields: function() {
+			var fy = $('#fiscalYear').val();
+			if(!fy) {
+				var d = new Date();
+				d.setMonth(d.getMonth() + 3);
+				$('#fiscalYear').val(d.getFullYear());
+			}
+		}
+	}
 
 	$(document).ready(function () { 
+		myCommonControls = $.extend({}, commonGridControls);
+		myImportExport = $.extend({}, gridImportExport, { postImportAction: myUtil.postImportAction });
+		myGrid = $.extend({}, mainGrid, gridConfig);
 		myImportExport.init(myGrid);
+		myCommonControls.init(myGrid);
 
-		$('#reload_btn').click(function() {
-		    myGrid.buildGrid();
-			myGrid.loadGrid();
-		});
-		$('#save_btn').click(function() {			
-			myGrid.saveGrid();
-		});
-		var fy = $('#fiscalYear').val();
-		if(!fy) {
-			var d = new Date();
-			d.setMonth(d.getMonth() + 3);
-			$('#fiscalYear').val(d.getFullYear());
-		}
-		$('#ctl_panel').show();
-		$('#delimited_text_ctl_panel').show();
+		myUtil.initEntryFields();
+		myCommonControls.showControls(true);
 	});
 
 </script>

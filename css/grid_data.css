@@ -78,9 +78,6 @@ input.editor-text {
 #delimited_text_panel {
 	padding-top:5px;
 }
-#col_ctls {
-	display:none;
-}
 #save_ctls {
 	display:none;
 }
@@ -88,5 +85,8 @@ input.editor-text {
 	display:none;
 }
 #delimited_text_ctl_panel {
+	display:none;
+}
+#add_col_ctl_panel {
 	display:none;
 }
