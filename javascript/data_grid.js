@@ -2,7 +2,7 @@
  * utility functions shared by all grid instances
  */
 var gridUtil = {
-	markChange: function(dataRow, field, clear) {
+	markChange: function(dataRow, field) {
 		if(!dataRow.mod_axe) dataRow.mod_axe = {};
 		dataRow.mod_axe[field] = dataRow[field];		
 	},
@@ -61,6 +61,36 @@ var gridUtil = {
 				rowsAffected.push(row);
 			}
 		}
+		grid.invalidateRows(rowsAffected);
+		gridUtil.setChangeHighlighting(grid);
+		grid.render();
+	},
+	updateCurrentValues: function(grid, keyColumn, changeColumns, inputRows) {
+		var currentRows = grid.getData();	
+		var indexToCurrentRow = {};
+		$.each(currentRows, function(idx, row) {
+			var kV = row[keyColumn];
+			indexToCurrentRow[kV] = idx;
+		});
+		var currentRowIndex, inputValue, currentValue, inputKeyValue, currentRow;
+		var rowsAffected = [];
+		$.each(inputRows, function(idx, inputRow) {
+			inputKeyValue = inputRow[keyColumn];
+			currentRowIndex = indexToCurrentRow[inputKeyValue];
+			currentRow = currentRows[currentRowIndex];
+			$.each(changeColumns, function(i, colName) {
+				if(colName != keyColumn) {
+					inputValue = inputRow[colName] || '';
+					currentValue = currentRow[colName] || '';
+					if(inputValue != currentValue) {
+						// update and mark cell
+						currentRow[colName] = inputValue;
+						gridUtil.markChange(currentRow, colName);
+						rowsAffected.push(currentRowIndex);
+					}
+				}
+			});
+		});
 		grid.invalidateRows(rowsAffected);
 		gridUtil.setChangeHighlighting(grid);
 		grid.render();
@@ -195,7 +225,7 @@ var gridUtil = {
 		// data rows
 		$.each(dataRows, function(rowNum, dataRow) {
 			fields = $.map(currentColumns, function(colSpec) {
-				return dataRow[colSpec.field];
+				return dataRow[colSpec.field] || '';
 			});
 			s += fields.join("\t") + "\n";
 		});
@@ -452,14 +482,28 @@ var gridImportExport = {
 	importDelimitedData: function(context) {
 		if(!context.myMainGrid) return;
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
-		var gridData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
+		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
 		if(context.preImportAction) context.preImportAction();
-		context.myMainGrid.setDataRows(gridData, true);
+		context.myMainGrid.setDataRows(inputData, true);
 		if(context.postImportAction) context.postImportAction();
 	},
 	updateFromDelimitedData: function(context) {
 		if(!context.myMainGrid) return;
-		alert('This function not implmented yet');
+		var parsed_data = gamma.parseDelimitedText('delimited_text');
+		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
+//		if(context.preUpateAction) context.preUpateAction();
+		//
+		// assume first column is update key
+		var keyColumn = inputData.columns[0]; // future: key is object property
+		var changeColumns = $.map(inputData.columns, function(colName) {
+			return ($.inArray(colName, context.myMainGrid.staticColumns) === -1)? colName : null;
+		});
+		var grid = context.myMainGrid.grid;
+		var inputRows = inputData.rows;
+		gridUtil.updateCurrentValues(grid, keyColumn, changeColumns, inputRows);
+		
+//		context.myMainGrid.setDataRows(inputData, true);
+//		if(context.postUpdateAction) context.postUpdateAction();
 	}
 } // gridImportExport
 
