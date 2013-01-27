@@ -65,6 +65,8 @@ var gridUtil = {
 		gridUtil.setChangeHighlighting(grid);
 		grid.render();
 	},
+	// update current data rows in grid from input rows based on given keyColumn
+	// limited to given changeable columns
 	updateCurrentValues: function(grid, keyColumn, changeColumns, inputRows) {
 		var currentRows = grid.getData();	
 		var indexToCurrentRow = {};
@@ -406,8 +408,14 @@ var mainGrid = {
 			alert('Column name cannot be blank');
 			return;
 		}
-		this.adjustColumns([colName]);
-		this.setEmptyColumnInData(colName);
+		this.addColumns([colName]);
+	},
+	addColumns: function(columnNames) {
+		this.adjustColumns(columnNames);
+		var that = this;
+		$.each(columnNames, function(idx, colName) {
+			that.setEmptyColumnInData(colName);					
+		});
 	},
 	setEmptyColumnInData: function (colName) {
 		$.each(this.grid.getData(), function(idx, dataRow) {
@@ -452,6 +460,10 @@ var gridImportExport = {
 	postImportAction: null,
 	preExportAction: null,
 	postExportAction: null,
+	preUpdateAction: null,
+	postUpdateAction: null,
+	keyColumnForUpdate: null,
+	acceptNewColumnsOnUpdate: false,
 	myMainGrid: null,
 	init: function(wrapper) {
 		var context = this;
@@ -491,19 +503,26 @@ var gridImportExport = {
 		if(!context.myMainGrid) return;
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
 		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
-//		if(context.preUpateAction) context.preUpateAction();
-		//
-		// assume first column is update key
-		var keyColumn = inputData.columns[0]; // future: key is object property
+		
+		var keyColumn = context.keyColumnForUpdate || inputData.columns[0];
 		var changeColumns = $.map(inputData.columns, function(colName) {
 			return ($.inArray(colName, context.myMainGrid.staticColumns) === -1)? colName : null;
 		});
+		var curColumns = $.map(context.myMainGrid.grid.getColumns(), function(col) {
+			return col.field;
+		});
+		if(context.acceptNewColumnsOnUpdate) {
+			var newColumns = $.map(inputData.columns, function(colName) {
+				return ($.inArray(colName, curColumns) === -1)? colName : null;
+			});		
+			context.myMainGrid.addColumns(newColumns);
+		}
 		var grid = context.myMainGrid.grid;
 		var inputRows = inputData.rows;
+
+		if(context.preUpateAction) context.preUpateAction();
 		gridUtil.updateCurrentValues(grid, keyColumn, changeColumns, inputRows);
-		
-//		context.myMainGrid.setDataRows(inputData, true);
-//		if(context.postUpdateAction) context.postUpdateAction();
+		if(context.postUpdateAction) context.postUpdateAction();
 	}
 } // gridImportExport
 

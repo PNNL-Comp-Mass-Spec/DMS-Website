@@ -79,13 +79,20 @@
 				myCommonControls.enableAddColumn(true);
 				myCommonControls.enableSave(true);
 		},
+		postUpdateAction: function() {
+				myCommonControls.enableSave(true);			
+		},
 		initEntryFields: function() {
 		}
 	}
 
 	$(document).ready(function () { 
 		myCommonControls = $.extend({}, commonGridControls);
-		myImportExport = $.extend({}, gridImportExport, { postImportAction: myUtil.postImportAction });
+		myImportExport = $.extend({}, gridImportExport, { 
+			postImportAction: myUtil.postImportAction, 
+			postUpdateAction: myUtil.postUpdateAction,
+			acceptNewColumnsOnUpdate: true
+ 		});
 		myGrid = $.extend({}, mainGrid, gridConfig);
 		myImportExport.init(myGrid);
 		myCommonControls.init(myGrid);
