@@ -142,6 +142,7 @@ class Q_model extends CI_Model {
 			
 			// look for wildcard characters
 			$exact_match = (substr($p->val, 0, 1) == '~');
+			$not_match = (substr($p->val, 0, 1) == ':');
 			$regex_all = (strpos($p->val, '*') !== FALSE);
 			$regex_one = (strpos($p->val, '?') !== FALSE);
 			$sql_any   = (strpos($p->val, '%') !== FALSE);
@@ -150,6 +151,10 @@ class Q_model extends CI_Model {
 			if($exact_match) {
 				$p->val = str_replace('~', '', $p->val);
 				$p->cmp = "MatchesText";
+			} else
+			if($not_match) {
+				$p->val = str_replace(':', '', $p->val);
+				$p->cmp = "DoesNotContainText";
 			} else
 			if( $regex_all || $regex_one) {
 				$p->cmp = 'wildcards';
