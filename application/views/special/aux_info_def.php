@@ -26,7 +26,7 @@ gamma.pageContext.hierarchy = {
 		"aux_info_allowed_values":""
 };
 function renameMember(type) {
-	var id = $F(type);
+	var id = $('#' + type).val();
 }
 function addNewMember(type, parent_id) {
 	alert('add new member to ' + type + ' that belongs to parent ' + parent_id);
@@ -43,7 +43,7 @@ function clearChildren(parent) {
 	}
 }
 function getChildren(parent) {
-	id = (parent && parent != 'top')?$F(parent):'';
+	id = (parent && parent != 'top')?$('#' + parent).val():'';
 	child = gamma.pageContext.hierarchy[parent];
 	if(child) {
 		clearChildren(child);

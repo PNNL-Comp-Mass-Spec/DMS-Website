@@ -13,6 +13,11 @@ class Grid extends Base_controller {
 	}
 
 	// --------------------------------------------------------------------
+	function index() 
+	{
+		$this->load->view("grid/demo");				
+	}
+	// --------------------------------------------------------------------
 	private
 	function grid_page($view_name, $save_url = '', $data_url = '') 
 	{
