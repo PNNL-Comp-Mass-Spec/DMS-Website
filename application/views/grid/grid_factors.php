@@ -18,12 +18,18 @@
 <form>
 <fieldset>
     <legend class='ctl_legend'>Dataset Factors</legend>
-    	<div>
+    <div>
 	<label for="itemList">Datasets</label>
+	<span class='ctls'> &nbsp; </span>
+	<span class='ctls'>
+	from data package... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_data_package_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	</span>
+	<span class='ctls'>
+	from datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
+	</span>
 	</div>
 	<div>
 	<textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
-	Datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
 	</div>
 </fieldset>
 </form>

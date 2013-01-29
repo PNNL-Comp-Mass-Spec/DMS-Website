@@ -90,3 +90,6 @@ input.editor-text {
 #add_col_ctl_panel {
 	display:none;
 }
+label {
+	font-weight:bold;
+}
