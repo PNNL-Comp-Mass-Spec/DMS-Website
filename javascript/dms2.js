@@ -780,8 +780,8 @@ var epsilon = {
 		var that = this;
 		$('._ckbx_enable').each(
 			function(chkbx) {
-				var fieldName = chkbx.name.replace('_ckbx_enable', '');
-				that.enableDisableField(chkbx, fieldName);
+				var fieldName = this.name.replace('_ckbx_enable', '');
+				that.enableDisableField(this, fieldName);
 			}
 		);
 	},
@@ -790,9 +790,9 @@ var epsilon = {
 	enableDisableField: function(chkbx, fieldName)
 	{
 		if(chkbx.checked) {
-			$('#' + fieldName).style.color="Black";
+			$('#' + fieldName).css("color", "Black");
 		} else {
-			$('#' + fieldName).style.color="Silver";
+			$('#' + fieldName).css("color", "Silver");
 		}
 	},
 	showHideTableRows: function(block_name, url, show_img, hide_img) {

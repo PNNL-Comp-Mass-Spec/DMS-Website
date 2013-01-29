@@ -1,4 +1,9 @@
+get rid of http://dms2.pnl.gov/update_archive/create
+get rid of http://dms2.pnl.gov/update_datasets/create
 
+-----------------------------------------------
+custom grid menus
+-----------------------------------------------
 // add menu item to a column (after myGrid is created)
 var ci = myGrid.grid.getColumnIndex('Factor2');
 var col = myGrid.grid.getColumns()[ci];
