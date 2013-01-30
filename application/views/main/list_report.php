@@ -28,14 +28,14 @@
 <td >
 <div id='search_controls_container'>
 <input type="button" onclick="lstRep.updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
-<a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" >Clear Filters</a> &nbsp; &nbsp;
-<span id='show_less_filter'><a href='javascript:void(0)' onclick="lstRep.updateMyFilter('minimal')" >Minimize Filters</a></span> &nbsp; &nbsp;
-<span id='show_more_filter'><a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" >Expand Filters</a></span>  &nbsp; &nbsp;
+Clear Filters<a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" ><span class="expando_section ui-icon ui-icon-circle-close"></span></a> &nbsp; &nbsp;
+<span id='show_less_filter'>Minimize Filters<a href='javascript:void(0)' onclick="lstRep.updateMyFilter('minimal')" ><span class="expando_section ui-icon ui-icon-circle-minus"></span></a></span> &nbsp; &nbsp;
+<span id='show_more_filter'>Expand Filters<a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" ><span class="expando_section ui-icon ui-icon-circle-plus"></span></a></span>  &nbsp; &nbsp;
 
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1)">Primary</a> &nbsp;
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1)">Secondary</a> &nbsp;
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
+Primary <a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
+Secondary <a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
+Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
+Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
 
 <span style="padding:0 20px 0 30px;font-weight:bold;" id='filters_active'></span>
 <span style="padding:0 20px 0 30px;font-weight:bold;" id='sorting_active'></span>

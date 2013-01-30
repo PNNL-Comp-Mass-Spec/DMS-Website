@@ -9,7 +9,7 @@
 <p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
 
 <hr>
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('factor_section', 0.5)">Factor commands...</a>
+Factor commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('factor_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="factor_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
@@ -25,7 +25,7 @@ from selected items.
 </div>
 
 <hr>
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
+Upload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test"  /> Update database from delimited list

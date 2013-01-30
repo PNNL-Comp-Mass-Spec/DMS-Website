@@ -408,4 +408,8 @@ div.block_content {
 	padding-right:10px;
 	width:18em;
 }
+.expando_section {
+	vertical-align: middle;
+	display:inline-block !important;
+}
 

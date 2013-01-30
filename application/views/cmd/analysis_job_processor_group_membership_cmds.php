@@ -3,7 +3,7 @@
 
 <form name="DBG" action="">
 
-<a title="Show or hide the controls to set processor membership enabled" href="javascript:void(0)" onclick="gamma.sectionToggle('setMembershipSection', 0.5)">Set Membership Enabled</a>
+Set Membership Enabled <a title="Show or hide the controls to set processor membership enabled" href="javascript:void(0)" onclick="gamma.sectionToggle('setMembershipSection', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="setMembershipSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Set membership enabled state of selected processors</div>
 <div>
@@ -25,7 +25,7 @@ For other groups to be:
 
 <div></div>
 
-<a title="Show or hide the controls to remove processors from group" href="javascript:void(0)" onclick="gamma.sectionToggle('removeProcessorsSection', 0.5)">Remove Processors</a>
+Remove Processors <a title="Show or hide the controls to remove processors from group" href="javascript:void(0)" onclick="gamma.sectionToggle('removeProcessorsSection', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="removeProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected processors from group</div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("remove_processors", "", "")' />
@@ -33,7 +33,7 @@ For other groups to be:
 
 <div></div>
 
-<a title="Show or hide the controls to add new processors to group" href="javascript:void(0)" onclick="gamma.sectionToggle('addProcessorsSection', 0.5)">Add Processors</a>
+Add Processors <a title="Show or hide the controls to add new processors to group" href="javascript:void(0)" onclick="gamma.sectionToggle('addProcessorsSection', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="addProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>
 Processors to be added to this group:

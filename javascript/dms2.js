@@ -273,9 +273,12 @@ var gamma = {
 			opt.selected = false;
 		});
 	},
-	sectionToggle: function(containerId, duration) {
+	sectionToggle: function(containerId, duration, element) {
 		var speed = duration * 1000;
 		$('#' + containerId).toggle(speed);
+		if(element) {
+			$(element).find('.expando_section').toggleClass('ui-icon-circle-plus ui-icon-circle-minus');
+		}
 		return false;
 	},
 	//------------------------------------------

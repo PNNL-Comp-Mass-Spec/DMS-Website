@@ -32,8 +32,8 @@
 <input type="button" onclick="parRep.updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
 
 <span id='search_controls_container' style='display:none;'>
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1)">Sorting</a> &nbsp;
-<a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1)">Column</a> &nbsp;
+Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
+Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
 </span>
 </form>
 

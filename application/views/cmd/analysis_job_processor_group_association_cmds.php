@@ -1,7 +1,7 @@
 <div class="LRCmds">
 
 <form name="DBG" action="">
-<a title="Show or hide the controls to disassociate jobs from group" href="javascript:void(0)" onclick="gamma.sectionToggle('removeJobsSection', 0.5)");>Remove jobs from association</a>
+Remove jobs from association <a title="Show or hide the controls to disassociate jobs from group" href="javascript:void(0)" onclick="gamma.sectionToggle('removeJobsSection', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="removeJobsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected jobs from group</div>
 <input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_association.op("remove")' />
@@ -9,7 +9,7 @@
 
 <div></div>
 
-<a title="Show or hide the controls to associate new jobs with group" href="javascript:void(0)" onclick="gamma.sectionToggle('addNewJobsSection', 0.5)">Add New Jobs</a>
+Add New Jobs <a title="Show or hide the controls to associate new jobs with group" href="javascript:void(0)" onclick="gamma.sectionToggle('addNewJobsSection', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="addNewJobsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>
 Jobs to be associated with this group:

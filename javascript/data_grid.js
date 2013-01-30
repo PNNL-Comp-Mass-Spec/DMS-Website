@@ -468,11 +468,6 @@ var gridImportExport = {
 	init: function(wrapper) {
 		var context = this;
 		this.myMainGrid = (wrapper) ? wrapper : this.myMainGrid;	
-		$('#delimited_text_panel').hide();
-		$('#delimited_text_panel_btn').click(function() {
-			$('#delimited_text_panel').toggle();		
-			$('#delimited_expd_ctl').toggleClass('ui-icon-circle-plus ui-icon-circle-minus');
-		});
 		$('#export_grid_btn').click(function() {
 			context.exportDelimitedData(context);
 		});

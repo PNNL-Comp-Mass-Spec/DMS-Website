@@ -1,6 +1,6 @@
 
 <div id='attachments_control_section' style='padding:5px 0px 5px 5px;'>
-<a title="Show or hide the file attachments section" href="javascript:void(0)" onclick="gamma.sectionToggle('file_attachments_section', 0.5 );fileAttachment.showAttachments()");>File Attachments...</a>
+File Attachments <a title="Show or hide the file attachments section" href="javascript:void(0)" onclick="gamma.sectionToggle('file_attachments_section', 0.5, this );fileAttachment.showAttachments()");><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 </div>
 
 <div id='file_attachments_section' style='display:none;'> 
