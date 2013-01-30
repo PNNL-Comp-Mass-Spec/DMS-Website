@@ -766,8 +766,10 @@ var delta = {
 			container.html('Operation was successful');
 			delta.updateMyData();
 		}
+	},
+	updateShowSQL: function () {
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS'); 
 	}
-
 };
 
 //------------------------------------------

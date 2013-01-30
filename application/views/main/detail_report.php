@@ -56,7 +56,7 @@ $this->load->view("main/detail_report_export");
 	gamma.pageContext.responseContainerId = 'update_message';
 	gamma.pageContext.Id = '<?= $id ?>';
 	gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';
-	gamma.pageContext.updateShowSQL = updateShowSQL;
+	gamma.pageContext.updateShowSQL = delta.updateShowSQL;
 </script>
 
 <script src="<?= base_url().'javascript/file_attachment.js' ?>"></script>
@@ -65,9 +65,6 @@ $this->load->view("main/detail_report_export");
 <script type='text/javascript'>
 	function updateAuxIntoControls() {
 		delta.updateContainer(gamma.pageContext.my_tag + '/detail_report_aux_info_controls/' + gamma.pageContext.Id, 'aux_info_controls_container'); 
-	}
-	function updateShowSQL() {
-		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS'); 
 	}
 	$(document).ready(function () { 
 		delta.updateMyData();

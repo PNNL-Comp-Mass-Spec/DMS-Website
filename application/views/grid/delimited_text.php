@@ -1,5 +1,5 @@
 <div id='delimited_text_ctl_panel' class='ctl_panel'>
-Import/Export Delimited Text <a id="delimited_text_panel_btn" href="#" title="Click to hide or show delimited text control panel"><span id="delimited_expd_ctl" style="display:inline-block" class="ui-icon ui-icon-circle-plus"></span></a>
+Import/Export Delimited Text <a id="delimited_text_panel_btn" href="javascript:void(0)" title="Click to hide or show delimited text control panel"><span id="delimited_expd_ctl" style="display:inline-block" class="ui-icon ui-icon-circle-plus"></span></a>
 </div>
 
 <div id='delimited_text_panel' class='ctl_panel'>

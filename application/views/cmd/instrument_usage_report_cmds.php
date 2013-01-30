@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <hr>
-<a href="#" onclick="gamma.sectionToggle('reload_section', 0.5)">Reload commands...</a>
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('reload_section', 0.5)">Reload commands...</a>
 <div id="reload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Refresh" onClick='tracking.instrument_usage_report.refresh_report()' title="Refresh EMSL usage report from DMS usage tracking"  /> Refresh EMSL instrument report from DMS
@@ -14,7 +14,7 @@
 </div>
 
 <hr>
-<a href="#" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5)">Upload commands...</a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_usage_report.load_delimited_text()' title="Test"  /> Update database from delimited list

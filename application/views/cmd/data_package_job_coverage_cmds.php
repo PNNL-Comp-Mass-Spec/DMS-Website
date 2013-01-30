@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <hr>
-<a href="#" onclick="gamma.sectionToggle('membership_section', 0.5)">Membership commands...</a>
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('membership_section', 0.5)">Membership commands...</a>
 <div id="membership_section" style="display:none;">
 <div>
 <input class='lst_cmd_btn' type="button" value="Add Jobs" onClick='lcmd.data_package_job_coverage.op("add")' id="btn_a" title=""  /> 
@@ -20,7 +20,7 @@ Test
 
 
 <hr>
-<a href="#" onclick="gamma.sectionToggle('dump_section', 0.5)">Dataset coverage...</a>
+<a href="javascript:void(0)" onclick="gamma.sectionToggle('dump_section', 0.5)">Dataset coverage...</a>
 <div id="dump_section" style="display:none;">
 <div>
 Tool to search for
