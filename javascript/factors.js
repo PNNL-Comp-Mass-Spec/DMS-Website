@@ -149,7 +149,7 @@ var tau = {
 		setRequestStatus: function(status) {
 			var iList = lambda.getSelectedItemList();
 			var xml = gamma.getXmlElementsFromArray(iList, 'r', 'i');
-			updateDatabaseFromList(xml, status);
+			this.updateDatabaseFromList(xml, status);
 		}
 	} // requested_run_admin
 }
