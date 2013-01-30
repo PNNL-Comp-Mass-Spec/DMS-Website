@@ -7,9 +7,8 @@ var packages = {
 	updateDataPackageItems: function(id, form_id, mode) {
 		if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
 		var url = gamma.pageContext.site_url + "data_package/operation/";
-		var message_container = $('#entry_update_status');
 		$('#entry_cmd_mode').val(mode);
-		gamma.doOperation(url, form_id, 'message_container', function(data, container) {
+		gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
 			delta.processResults(data, container);
 		});
 	},
@@ -51,21 +50,19 @@ var packages = {
 	updateOSMPackageItems_1: function(id, form_id, mode) {
 		if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
 		var url = gamma.pageContext.site_url + "osm_package/operation/";
-		var message_container = $('#entry_update_status');
 		$('#entry_cmd_mode').val(mode);
-		gamma.doOperation(url, form_id, 'message_container', function(data, container) {
+		gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
 			delta.processResults(data, container);
 		});
 	},
 	updateOSMPackageItems_2: function(form_id, mode) {
 		if ( !confirm("Are you sure that you want to " + mode + " this entity to the OSM package?") ) return;
 		var url = gamma.pageContext.site_url + "osm_package/operation/";
-		var message_container = $('#entry_update_status');
 		var id = gamma.pageContext.Id;
 		$('#entry_cmd_mode').val(mode);
-		$('#itemTypeSelector').val(codeMap[gamma.pageContext.my_tag]);
+		$('#itemTypeSelector').val(this.codeMap[gamma.pageContext.my_tag]);
 		$('#entry_item_list').val(id);
-		gamma.doOperation(url, form_id, 'message_container', function(data, container) {
+		gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
 			delta.processResults(data, container);
 		});
 	},
