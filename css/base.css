@@ -245,7 +245,11 @@ table.LRep td.rht{
  */
 .LRepPager {
 	padding:0 4em 0 0;
-	/* font-size: 0.8em; */
+	font-size: 90% !important;
+}
+.LRepPagerIcon {
+	vertical-align: middle;
+	display:inline-block !important;
 }
 
 /* 
@@ -288,6 +292,9 @@ table.LRep td.rht{
 	font-weight:bold;
 	letter-spacing: 0.25em;
 	color:#00008B;
+}
+#search_controls_container {
+	padding-bottom:2px;
 }
 
 /* 

@@ -37,8 +37,7 @@ Secondary <a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_f
 Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
 Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
 
-<span style="padding:0 20px 0 30px;font-weight:bold;" id='filters_active'></span>
-<span style="padding:0 20px 0 30px;font-weight:bold;" id='sorting_active'></span>
+<span style="font-weight:bold;" id='filters_active'></span>
 
 </div>
 </td>

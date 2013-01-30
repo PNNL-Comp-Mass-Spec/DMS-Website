@@ -10,10 +10,10 @@ class List_report_pager {
 	private $num_links			=  3; // Number of "digit" links to show before/after the currently viewed page
 	private $cur_page	 		=  0; // The current page being viewed
 	private $num_pages			= 0;
-	private $first_link   		= 'First';
-	private $next_link			= 'Next';
-	private $prev_link			= 'Prev';
-	private $last_link			= 'Last';
+	private $first_link   		= '<span class="LRepPagerIcon ui-icon ui-icon-seek-first"></span>';
+	private $next_link			= '<span class="LRepPagerIcon ui-icon ui-icon-seek-next">';
+	private $prev_link			= '<span class="LRepPagerIcon ui-icon ui-icon-seek-prev"></span>';
+	private $last_link			= '<span class="LRepPagerIcon ui-icon ui-icon-seek-end"></span>';
 	private $full_tag_open		= '';
 	private $full_tag_close		= '';
 	private $first_tag_open		= '';
@@ -29,7 +29,12 @@ class List_report_pager {
 	private $num_tag_open		= '&nbsp;';
 	private $num_tag_close		= '';
 	
-
+/*
+<span style="display:inline-block" class="ui-icon ui-icon-seek-first"></span>
+<span style="display:inline-block" class="ui-icon ui-icon-seek-next"></span>
+<span style="display:inline-block" class="ui-icon ui-icon-seek-prev"></span>
+<span style="display:inline-block" class="ui-icon ui-icon-seek-end"></span>
+ */
 	// --------------------------------------------------------------------
 	function __construct($params = array())
 	{
