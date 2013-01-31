@@ -275,9 +275,20 @@ var gamma = {
 	},
 	sectionToggle: function(containerId, duration, element) {
 		var speed = duration * 1000;
-		$('#' + containerId).toggle(speed);
+		var container = $('#' + containerId);
+		var isVisible = container.is(':visible');
+		if(isVisible) {
+			container.hide(speed);
+		} else {
+			container.show(speed);
+		}
 		if(element) {
-			$(element).find('.expando_section').toggleClass('ui-icon-circle-plus ui-icon-circle-minus');
+			var icon = $(element).find('.expando_section');
+			if(!isVisible) {
+				icon.toggleClass('ui-icon-circle-plus', false).toggleClass('ui-icon-circle-minus', true);
+			} else {
+				icon.toggleClass('ui-icon-circle-plus', true).toggleClass('ui-icon-circle-minus', false);				
+			}
 		}
 		return false;
 	},

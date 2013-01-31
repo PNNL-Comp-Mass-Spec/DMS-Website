@@ -183,26 +183,27 @@ class file_attachment extends Base_controller {
 		if(!$query) return "Error querying database";
 		$entries = array();
 	    foreach($query->result() as $row){
-	      $path = "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
-			$action = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete')>delete</a>";
-	      $entries[] = array(anchor($path,$row->Name), $row->Description, $action);
+			$path = site_url() . "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
+			$downloadLink = "<a href='$path' ><span class='expando_section ui-icon ui-icon-circle-arrow-s' title='Download this file'></span></a> ";
+			$deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'><span class='expando_section ui-icon ui-icon-closethick'></span></a> ";
+			$entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
 	    }
 		$count = $query->num_rows();
-		$this->load->library('table');
-    	$this->table->set_heading("Name","Description", "Action");
-    
-	    $tmpl = array(
-	      'table_open'      => "<table class=\"DRep\" id=\"file_attachments\" style=\"width:100%;\">",
-	      'row_start'       => '<tr class="ReportEvenRow">',
-	      'row_alt_start'   => '<tr class="ReportOddRow">',
-	      'heading_row_start' => '<thead><tr>',
-	      'heading_row_end' => '</tr></thead>'
-	    );
-    
-    	$this->table->set_template($tmpl);
-
-		echo "<h2 style='text-align:center;'>Attachments ($count)</h2>";
-		echo $this->table->generate($entries); 
+		$label = ($count) ? "Attachments ($count)" : "No Attachments";
+		echo "<h3>$label</h2>";		
+		if($count) {
+			$this->load->library('table');
+	    	$this->table->set_heading("Action", "Name","Description");
+		    $tmpl = array(
+		      'table_open'      => "<table id=\"file_attachments\" style=\"width:100%;\">",
+		      'row_start'       => '<tr class="ReportEvenRow">',
+		      'row_alt_start'   => '<tr class="ReportOddRow">',
+		      'heading_row_start' => '<thead><tr style="text-align:left;">',
+		      'heading_row_end' => '</tr></thead>'
+		    );
+	    	$this->table->set_template($tmpl);
+			echo $this->table->generate($entries); 
+		} 
 	}
 
 	// --------------------------------------------------------------------

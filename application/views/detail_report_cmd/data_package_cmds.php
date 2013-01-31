@@ -1,19 +1,21 @@
 
 <? $chimg = base_url()."images/chooser.png"; ?>
 
-<div class="LRepChooser" >
-|<span><a href='javascript:void(0)' onclick='delta.updateMyData()'>Reload details</a></span>
-|<span><a href="<?= site_url() ?>data_package_job_coverage/report/<?= $id ?>">Job Coverage</a></span>
-|<span><a href="<?= site_url() ?>data_package_dataset_job_coverage/param/<?= $id ?>">Dataset Coverage</a></span>|
+<div class='LRcmd_panel'>
+<span class='LRcmd_cartouche' >Add Items to Data Package <a title="Show or hide the item management section" href="javascript:void(0)" onclick="gamma.sectionToggle('add_items_section', 0.25, this )"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a></span>
+<span class='LRcmd_cartouche' >Refresh <a href='javascript:void(0)' onclick='delta.updateMyData()'><span class="expando_section ui-icon ui-icon-refresh"></span></a></span>
+<span class='LRcmd_cartouche' >Go to job coverage page <a href="<?= site_url() ?>data_package_job_coverage/report/<?= $id ?>"><span class="expando_section ui-icon ui-icon-circle-arrow-e"></span></a></span>
+<span class='LRcmd_cartouche' >Go to dataset coverage page <a href="<?= site_url() ?>data_package_dataset_job_coverage/param/<?= $id ?>"><span class="expando_section ui-icon ui-icon-circle-arrow-e"></span></a></span>
 <span id='detail_reload_status'></span>
 </div>
 
-<div class='block_header'>
-<span class='block_title' >Add Items to Data Package</span>
-</div>
-	<form id='entry_form'>
-		<input type="hidden" name="command" value="" id="entry_cmd_mode"/>
-		<input type='hidden' name='packageID' value='<?= $id ?>' /> 
+
+
+<div id='add_items_section' class='LRcmd_section'>
+<hr>
+<form id='entry_form'>
+	<input type="hidden" name="command" value="" id="entry_cmd_mode"/>
+	<input type='hidden' name='packageID' value='<?= $id ?>' /> 
 	<table>
 		<tr>
 		<td>Select Item type:
@@ -38,12 +40,16 @@
 		<tr><td>Comment</td></tr>
 		<tr><td><textarea id='entry_comment' name='comment' cols='70' rows='2'></textarea></td></tr>
 	</table>
-		<div style='margin-top:4px;'>
-		<input class='button lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
-		<input class='button lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
-		</div>
-	</form>
-	<div id='entry_update_status'></div>
+
+	<div style='margin-top:4px;'>
+	<input class='button lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
+	<input class='button lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
+	</div>
+
+</form>
+
+<div id='entry_update_status'></div>
+</div>
 
 <script src="<?= base_url().'javascript/packages.js' ?>"></script>
 

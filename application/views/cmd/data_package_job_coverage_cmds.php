@@ -39,7 +39,9 @@ Get list of data package datasets with <span style="font-weight:bold;">no jobs i
 <p>Datasets:</p>
 <textarea id='dataset_dump_field' rows='12' cols='90'></textarea>
 </div>
-<a href="<?= site_url() ?>analysis_job_request/create" >Create DMS jobs...</a>
+Create DMS jobs <a href="<?= site_url() ?>analysis_job_request/create" ><span class="expando_section ui-icon ui-icon-circle-arrow-e"></a>
+<span class='LRcmd_cartouche' ></span>
+
 </div>
 
 <hr>

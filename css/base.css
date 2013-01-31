@@ -250,10 +250,6 @@ table.LRep td.rht{
 	padding:0 4em 0 0;
 	font-size: 90% !important;
 }
-.LRepPagerIcon {
-	vertical-align: middle;
-	display:inline-block !important;
-}
 .LRepPagerLink {
   text-decoration: none !important;	
 }
@@ -314,7 +310,18 @@ table.LRep td.rht{
 	padding: 6px 6px 6px 6px;
 	font-weight:500;
 }
-
+.LRcmd_section {
+	padding: 4px;
+	margin-top: 4px;
+	display:none;
+}
+.LRcmd_panel {
+	margin-top:15px;
+	margin-bottom:10px;
+}
+.LRcmd_cartouche {
+	margin-right:20px;
+}
 /* 
  * formatting for alternating color bands in reports
  */
@@ -350,9 +357,10 @@ table.LRep td.rht{
 	padding:3px 0 3px 0;
 }
 .FTab {
-	border:2px solid #BBBBBB;
+	border:1px solid #BBBBBB;
 	background:#EFEFEF;
 	padding-right:5px;
+	padding-left:4px;
 }
 .filter_caption {
 	text-align:center;
