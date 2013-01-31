@@ -26,7 +26,7 @@ File Attachments <a title="Show or hide the file attachments section" href="java
 <td><input type="text" name="description" id="description" size="80" ></input></td>
 </tr>
 <tr>
-<td><input type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="fileAttachment.do_upload()" /></td>
+<td><input class="button" type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="fileAttachment.do_upload()" /></td>
 </tr>
 </table>
 </form>
