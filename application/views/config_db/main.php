@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<div style="height:500px;">
+<div id="body_container" >
 
 <h2 class='page_title'><?= $heading; ?></h2>
 

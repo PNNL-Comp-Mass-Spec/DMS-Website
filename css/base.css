@@ -10,6 +10,9 @@ body {
     background-color: #FAFAFA;
 /*    background-image: url(Images/FLECKa.jpg) */
 }
+#body_container {
+	height:500px;
+}
 
 /* 
  * Some generally used colors 

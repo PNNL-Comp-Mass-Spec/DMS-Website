@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<div style="height:500px;">
+<div id="body_container" >
 <? $this->load->view('nav_bar') ?>
 
 <div style="padding:2px 0 2px 0;">

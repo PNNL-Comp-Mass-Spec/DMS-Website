@@ -34,7 +34,7 @@ $(document).ready(function (){show_hide_all('none')});
 
 </head>
 <body>
-<div style="height:500px;">
+<div id="body_container" >
 
 <h2 class='page_title'><?= $heading; ?></h2>
 <div style='min-height:2em;'> 

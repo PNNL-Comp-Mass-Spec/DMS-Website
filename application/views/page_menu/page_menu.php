@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<div style="height:500px;">
+<div id="body_container" >
 
 <? $this->load->view('nav_bar') ?>
 

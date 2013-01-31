@@ -7,7 +7,7 @@
 
 </head>
 <body id='usage_tracking_calendar'>
-<div style="height:500px;">
+<div id="body_container" >
 <? $this->load->view('nav_bar') ?>
 
 <h2 class='page_title'><?= $heading; ?></h2>
