@@ -6,7 +6,7 @@
 Upload allocations <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_allocation.load_delimited_text()' title="Test"  /> Update database from delimited list
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_allocation.load_delimited_text()' title="Test"  /> Update database from delimited list
 </div>
 <div>
 <div>
@@ -24,7 +24,7 @@ Move allocation <a href="javascript:void(0)" onclick="gamma.sectionToggle('move_
 Move <input id='move_hours' size='5' /> hours for instrument group <input id='move_group' size='5' /> 
 from proposal <input id='move_from' size='5' /> to proposal <input id='move_to' size='5' /> 
 for fiscal year <input id='move_fy' size='5' /> 
-<input type="button" value="Update" onClick='tracking.instrument_allocation.move_allocated_hours()' />
+<input class='button lst_cmd_btn" type="button" value="Update" onClick='tracking.instrument_allocation.move_allocated_hours()' />
 </div>
 <div>Comment</div>
 <div><textarea id='move_comment' rows='2' cols='80' ></textarea></div>
@@ -37,7 +37,7 @@ Set allocation <a href="javascript:void(0)" onclick="gamma.sectionToggle('set_cm
 Set <input id='set_hours' size='5' /> hours for instrument group <input id='set_group' size='5' /> 
 to proposal <input id='set_to' size='5' /> 
 for fiscal year <input id='set_fy' size='5' /> 
-<input type="button" value="Update" onClick='tracking.instrument_allocation.set_allocated_hours()' />
+<input class='button lst_cmd_btn" type="button" value="Update" onClick='tracking.instrument_allocation.set_allocated_hours()' />
 </div>
 <div>Comment</div>
 <div><textarea id='set_comment' rows='2' cols='80' ></textarea></div>

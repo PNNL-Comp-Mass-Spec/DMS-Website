@@ -32,7 +32,7 @@ $(document).ready(function () { showAuxInfo("aux_info_container", '<?= $ais->sho
 
 <div id='item_entry_form_container' ></div>
 
-<input class="lst_cmd_btn" type="button" value='Update' onclick="updateAuxInfo('<?= $ais->update_info_url ?>', '<?= $ais->show_url ?>')" />
+<input class="button lst_cmd_btn" type="button" value='Update' onclick="updateAuxInfo('<?= $ais->update_info_url ?>', '<?= $ais->show_url ?>')" />
 <a href='javascript:void(0)' title='Clear entry fields' onclick='$(".aiif").each(function(idx, s){s.value=""})'>Clear</a>
 <div id='update_response' ></div>
 
@@ -58,7 +58,7 @@ from
 <input type="text" name="CopySource" id='copy_source' size="40" maxlength="255" value="" />
 </td></tr>
 </table>
-<input class="lst_cmd_btn" type="button" value="Copy" onclick="copyAuxInfo('<?= $ais->copy_info_url ?>', '<?= $ais->show_url ?>')" />
+<input class="button lst_cmd_btn" type="button" value="Copy" onclick="copyAuxInfo('<?= $ais->copy_info_url ?>', '<?= $ais->show_url ?>')" />
 </form>
 </div>
 

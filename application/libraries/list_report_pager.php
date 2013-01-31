@@ -7,7 +7,7 @@ class List_report_pager {
 	private $cur_row_function	= 'lambda.setListReportCurRow'; // Javascript function that sets current row
 	private $total_rows  		= ''; // Total number of items (database results)
 	private $per_page	 		= 10; // Max number of items you want shown per page
-	private $num_links			=  3; // Number of "digit" links to show before/after the currently viewed page
+	private $num_links			=  5; // Number of "digit" links to show before/after the currently viewed page
 	private $cur_page	 		=  0; // The current page being viewed
 	private $num_pages			= 0;
 	private $first_link   		= '<span class="LRepPagerIcon ui-icon ui-icon-seek-first"></span>';
@@ -87,11 +87,12 @@ class List_report_pager {
 		$end_row = $start_row + $this->per_page - 1;
 		if($end_row > $this->total_rows) $end_row = $this->total_rows;
 		//
-		$page_sizer = '<a href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">Set Rows</a>';
-		$show_all = '<a href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">Max Rows</a>';
+		$page_sizer = 'Set Rows <a href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page"><span class="LRepPagerIcon ui-icon ui-icon-wrench"></a>';
+		$show_all = 'Max Rows <a href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page"><span class="LRepPagerIcon ui-icon ui-icon-wrench"></a>';
 		$show_all = ($this->per_page < $this->total_rows)?$show_all:'';
 		//
-		return "&nbsp; Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> &nbsp;" . $page_sizer. " &nbsp; " .$show_all;
+//		return "&nbsp; Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> &nbsp;" . $page_sizer. " &nbsp; " .$show_all;
+		return "<span class='LRepPagerCtl'>Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> </span> <span class='LRepPagerCtl'>" . $page_sizer. "</span> <span class='LRepPagerCtl'>" .$show_all . "</span>";
 	}
 	
 
@@ -152,7 +153,7 @@ class List_report_pager {
 				}
 				else {
 					$n = ($i == 0) ? '1' : $i;
-					$output .= $this->num_tag_open.'<a href="'.$this->page_link($n).'">'.$page.'</a>'.$this->num_tag_close;
+					$output .= $this->num_tag_open.'<a class="LRepPagerLink" href="'.$this->page_link($n).'">'.$page.'</a>'.$this->num_tag_close;
 				}
 			}
 		}

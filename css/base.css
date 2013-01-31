@@ -63,7 +63,7 @@ h2.page_title {
  */
 .button {
   outline: 0;
-  margin: 5px;
+ /* margin: 5px; */
   padding: 5px;
   text-decoration: none !important;
   cursor: pointer;
@@ -83,7 +83,7 @@ a.button {
   color: #FFFFFF;
 }
 input.button {
-    padding: 4px;
+    padding: 5px;
     height: auto;
 }
 .button:hover, button:hover {
@@ -250,6 +250,13 @@ table.LRep td.rht{
 .LRepPagerIcon {
 	vertical-align: middle;
 	display:inline-block !important;
+}
+.LRepPagerLink {
+  text-decoration: none !important;	
+}
+.LRepPagerCtl {
+	margin-left: 4px;
+	margin-right: 15px;
 }
 
 /* 

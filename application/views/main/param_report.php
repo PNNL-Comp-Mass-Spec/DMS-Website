@@ -29,7 +29,7 @@
 </td>
 </tr>
 </table>
-<input type="button" onclick="parRep.updateMyData('reset')" value="Search" id="search_button" class="search_btn" /> &nbsp; &nbsp; 
+<input class="button search_btn" type="button" onclick="parRep.updateMyData('reset')" value="Search" id="search_button" /> &nbsp; &nbsp; 
 
 <span id='search_controls_container' style='display:none;'>
 Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;

@@ -98,7 +98,7 @@
 </div>
 
 <div>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.dataset_disposition.op("update")' title='Disposition the selected datasets.'/>
+<input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.dataset_disposition.op("update")' title='Disposition the selected datasets.'/>
 </div>
 
 </form>

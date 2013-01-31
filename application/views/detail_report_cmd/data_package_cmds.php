@@ -39,8 +39,8 @@
 		<tr><td><textarea id='entry_comment' name='comment' cols='70' rows='2'></textarea></td></tr>
 	</table>
 		<div style='margin-top:4px;'>
-		<input class='lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
-		<input class='lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
+		<input class='button lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
+		<input class='button lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
 		</div>
 	</form>
 	<div id='entry_update_status'></div>

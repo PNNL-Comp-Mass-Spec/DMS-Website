@@ -11,8 +11,8 @@
 </div>
 
 <div>
-<input class="lst_cmd_btn" type="button" value="Delete From Package" onClick='packages.performOperation("delete")' title='Remove the selected items from their data package'/>
-<input class="lst_cmd_btn" type="button" value="Update Comment" onClick='packages.performOperation("comment")' title='Update the comment for the selected items'/>
+<input class="button lst_cmd_btn" type="button" value="Delete From Package" onClick='packages.performOperation("delete")' title='Remove the selected items from their data package'/>
+<input class="button lst_cmd_btn" type="button" value="Update Comment" onClick='packages.performOperation("comment")' title='Update the comment for the selected items'/>
 </div>
 
 </form>

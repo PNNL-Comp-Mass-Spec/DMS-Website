@@ -21,7 +21,7 @@ Add to OSM Package <a href="javascript:void(0)" onclick="gamma.sectionToggle('it
 	<div style='padding:0px 5px 5px 5px;' ><textarea name='comment' id='entry_comment' cols='70' rows='2'></textarea></div>
 	
 	<div style='padding:0px 5px 5px 5px;' >
-	<input class='lst_cmd_btn' type='button' value='Add' onclick='packages.updateOSMPackageItems_2("entry_form", "add")' />
+	<input class='button lst_cmd_btn' type='button' value='Add' onclick='packages.updateOSMPackageItems_2("entry_form", "add")' />
 	<a href="javascript:packages.goToPage()">Go to package item list report page...</a>
 	</div>
 </form>

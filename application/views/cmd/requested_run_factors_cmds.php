@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <div>
-<input class='lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
+<input class='button lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
 </div>
 
 <p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
@@ -12,13 +12,13 @@
 Factor commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('factor_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="factor_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>
@@ -28,7 +28,7 @@ from selected items.
 Upload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test"  /> Update database from delimited list
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test"  /> Update database from delimited list
 </div>
 <div>
 <p>Delimited text input:</p>

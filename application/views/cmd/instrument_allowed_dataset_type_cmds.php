@@ -21,9 +21,9 @@
 </div>
 
 <div>
-<input class="lst_cmd_btn" type="button" value="Add" onClick='lcmd.instrument_allowed_dataset_type.op("add")' title='Add'/>
-<input class="lst_cmd_btn" type="button" value="Update" onClick='lcmd.instrument_allowed_dataset_type.op("update")' title='Update'/>
-<input class="lst_cmd_btn" type="button" value="Delete" onClick='lcmd.instrument_allowed_dataset_type.op("delete")' title='Delete'/>
+<input class="button lst_cmd_btn" type="button" value="Add" onClick='lcmd.instrument_allowed_dataset_type.op("add")' title='Add'/>
+<input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.instrument_allowed_dataset_type.op("update")' title='Update'/>
+<input class="button lst_cmd_btn" type="button" value="Delete" onClick='lcmd.instrument_allowed_dataset_type.op("delete")' title='Delete'/>
 </div>
 
 </form>

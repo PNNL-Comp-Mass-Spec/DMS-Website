@@ -4,7 +4,7 @@
 <form name="DBG" action="">
 
 <div>
-<input class='lst_cmd_btn' type="button" value="Update" onClick='runBlocking.requested_run_batch_blocking.saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
+<input class='button lst_cmd_btn' type="button" value="Update" onClick='runBlocking.requested_run_batch_blocking.saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
 </div>
 
 <p>Note: Editing and randomizing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
@@ -13,13 +13,13 @@
 Factor commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('factor_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="factor_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>
@@ -29,19 +29,19 @@ from selected items.
 Blocking commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('blocking_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="blocking_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Randomize Run Order" onClick='randomizeWithinBlocks()' id="btn_test" title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='randomizeWithinBlocks()' id="btn_test" title=""  /> 
 Randomize run order within blocks
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Set Block" onClick='runBlocking.requested_run_batch_blocking.setBlockForSelectedItems()' id="btn_test" title="Set block"  /> Set block for selected requests to
+<input class='button lst_cmd_btn' type="button" value="Set Block" onClick='runBlocking.requested_run_batch_blocking.setBlockForSelectedItems()' id="btn_test" title="Set block"  /> Set block for selected requests to
 <input type='input' size='2' id='block_input_setting' value='1' />
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='runBlocking.requested_run_batch_blocking.createBlocksFromBlockingFactor($('#blocking_factor_name').val())' id="btn_assign_bf" title="Assign requests to blocks"  /> 
+<input class='button lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='runBlocking.requested_run_batch_blocking.createBlocksFromBlockingFactor($('#blocking_factor_name').val())' id="btn_assign_bf" title="Assign requests to blocks"  /> 
 Assign requests to blocks according to factor <input id='blocking_factor_name' value='' size='18'></input>
 </div>
 <div>
-<input class='lst_cmd_btn' type="button" value="Assign Blocks (Rnd)" onClick='runBlocking.createBlocksViaRandomAssignment()' id="btn_assign_rnd" title="Assign requests to blocks"  /> 
+<input class='button lst_cmd_btn' type="button" value="Assign Blocks (Rnd)" onClick='runBlocking.createBlocksViaRandomAssignment()' id="btn_assign_rnd" title="Assign requests to blocks"  /> 
 Assign requests to blocks randomly where block size is <input id='block_size' value='6' size='4'></input> (ignores Blocking Factor)
 </div>
 </div>
@@ -50,7 +50,7 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 Batch commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('batch_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="batch_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Actual Run Order" onClick='runBlocking.requested_run_batch_blocking.performBatchOperation("actual_run_order")' title=""  /> Automatically generate 'Actual_Run_Order' factors for all completed requests in the batch.
+<input class='button lst_cmd_btn' type="button" value="Actual Run Order" onClick='runBlocking.requested_run_batch_blocking.performBatchOperation("actual_run_order")' title=""  /> Automatically generate 'Actual_Run_Order' factors for all completed requests in the batch.
 </div>
 </div>
 
@@ -58,7 +58,7 @@ Batch commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('batch_
 Upload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='lst_cmd_btn' type="button" value="Update from list" onClick='runBlocking.requested_run_batch_blocking.load_delimited_text()' title="Test"  /> Update database from delimited list
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='runBlocking.requested_run_batch_blocking.load_delimited_text()' title="Test"  /> Update database from delimited list
 </div>
 <div>
 <p>Delimited text input:</p>

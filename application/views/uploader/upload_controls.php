@@ -21,8 +21,8 @@
 <div><input type=RADIO NAME="createupdate" VALUE="check_exists" CHECKED >Check Existence <span style='font-size:80%;'>(database is not changed)</span></div>
 
 <div style='text-align:center;padding-top:15px;' >
-<div><input id='start_update_btn' class="lst_cmd_btn" type="button" value="Start" onClick='upld.updateSelectedEntities()' title='Start processing selected entities' /></div>
-<div><input id='cancel_update_btn' class="lst_cmd_btn" type="button" value="Cancel" onClick='cancelUpdate()' title='Stop processing' /></div>
+<div><input id='start_update_btn' class="button lst_cmd_btn" type="button" value="Start" onClick='upld.updateSelectedEntities()' title='Start processing selected entities' /></div>
+<div><input id='cancel_update_btn' class="button lst_cmd_btn" type="button" value="Cancel" onClick='cancelUpdate()' title='Stop processing' /></div>
 <div id='process_progress' ></div>
 </div>
 
