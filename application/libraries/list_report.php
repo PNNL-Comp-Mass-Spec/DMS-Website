@@ -34,7 +34,7 @@ class List_report {
 	{
 		$CI = &get_instance();
 		session_start();
-		$CI->load->helper(array('form', 'menu'));
+		$CI->load->helper(array('form', 'menu', 'link_util'));
 		$CI->load->model('dms_chooser', 'choosers');
 				
 		$CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);

@@ -62,7 +62,7 @@ class Entry {
 		$data['entry_cmds'] = $this->handle_cmd_btns($CI, $form_def->entry_commands, $page_type);
 		$data['entry_submission_cmds'] = $CI->gen_model->get_param('entry_submission_cmds');
 
-		$CI->load->helper(array('menu'));
+		$CI->load->helper(array('menu', 'link_util'));
 		$data['nav_bar_menu_items']= set_up_nav_bar('Entry_Pages');
 		$CI->load->vars($data);	
 		$CI->load->view('main/entry_form');		

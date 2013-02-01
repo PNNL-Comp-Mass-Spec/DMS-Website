@@ -51,7 +51,7 @@ class Detail_report {
 		$data['detail_report_cmds'] = $dcmds;
 		$data['aux_info_target'] = $CI->gen_model-> get_detail_report_aux_info_target();
 		
-		$CI->load->helper(array('detail_report', 'menu'));
+		$CI->load->helper(array('detail_report', 'menu', 'link_util'));
 		$data['nav_bar_menu_items']= set_up_nav_bar('Detail_Reports');
 		$CI->load->vars($data);	
 		$CI->load->view('main/detail_report');

@@ -68,7 +68,7 @@ class Param_report {
 		$data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
 		$data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');		
 
-		$CI->load->helper(array('menu'));
+		$CI->load->helper(array('menu', 'link_util'));
 		$data['nav_bar_menu_items']= set_up_nav_bar('Param_Pages');
 		$CI->load->vars($data);	
 		$CI->load->view('main/param_report');

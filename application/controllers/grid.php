@@ -10,12 +10,13 @@ class Grid extends Base_controller {
 
 		$this->my_tag = "";
 		$this->my_title = "";
+		$this->load->helper("link_util");			
 	}
 
 	// --------------------------------------------------------------------
 	function index() 
 	{
-		$this->load->view("grid/demo");				
+		$this->load->view("grid/demo");	
 	}
 	// --------------------------------------------------------------------
 	private

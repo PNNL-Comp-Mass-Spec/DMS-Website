@@ -390,7 +390,7 @@ table.LRep td.rht{
 	padding: 5px 5px 5px 5px;
 }
 .RepCmdsResponse {
-	padding:0px 5px 5px 5px;
+	padding:5px 5px 5px 5px;
 	font-weight: bold;
 }
 
@@ -436,5 +436,8 @@ div.block_content {
 .expando_section {
 	vertical-align: middle;
 	display:inline-block !important;
+}
+.cmd_link_cartouche {
+	margin-right:20px;
 }
 
