@@ -189,11 +189,11 @@ class file_attachment extends Base_controller {
 			$entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
 	    }
 		$count = $query->num_rows();
-		$label = ($count) ? "Attachments ($count)" : "No Attachments";
-		echo "<h3>$label</h2>";		
+//		$label = ($count) ? "Attachments ($count)" : "No Attachments";
+//		echo "<h3>$label</h2>";		
 		if($count) {
 			$this->load->library('table');
-	    	$this->table->set_heading("Action", "Name","Description");
+	    	$this->table->set_heading("Action", "Name", "Description");
 		    $tmpl = array(
 		      'table_open'      => "<table id=\"file_attachments\" style=\"width:100%;\">",
 		      'row_start'       => '<tr class="ReportEvenRow">',
@@ -203,7 +203,9 @@ class file_attachment extends Base_controller {
 		    );
 	    	$this->table->set_template($tmpl);
 			echo $this->table->generate($entries); 
-		} 
+		} else {
+			echo "<h4>No attachments</h4>";
+		}
 	}
 
 	// --------------------------------------------------------------------

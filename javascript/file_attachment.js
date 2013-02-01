@@ -18,6 +18,7 @@ var fileAttachment = {
 		if(mode = 'delete') {
 			if(!confirm('Are you sure you want to delete this attached file? This operation cannot be undone.')) return;
 		}
+		var context = this;
 		var url =  gamma.pageContext.site_url + "file_attachment/perform_operation";
 		var p = {};
 		p.id = faid;
@@ -26,7 +27,7 @@ var fileAttachment = {
 				if(data != '') {
 					alert(data);
 				} else {
-					this.showAttachments();
+					context.showAttachments();
 				}
 		});
 	},

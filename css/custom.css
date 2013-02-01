@@ -166,4 +166,24 @@ body#freezer_page tr.block_header {
 .fillDownBtn {
     background-image: url(../images/expanded.gif);
 }
-
+/*
+ * File attachment panel
+ */
+#attachments_control_section {
+	padding:5px 0px 5px 5px;
+}
+#file_attachments_section {
+	display:none;
+}
+#file_attachments_box {
+	width:60em;
+	margin:5px 0 0 0;
+	padding:0px 5px 5px 5px;
+	border:1px solid #AAA;
+}
+#attachments_list {
+	padding:0px 5px 5px 5px;
+}
+#upload_target {
+	display:none;
+}

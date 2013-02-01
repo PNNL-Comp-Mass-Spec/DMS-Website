@@ -1,15 +1,13 @@
 
-<div id='attachments_control_section' style='padding:5px 0px 5px 5px;'>
+<div id='attachments_control_section'>
 File Attachments <a title="Show or hide the file attachments section" href="javascript:void(0)" onclick="gamma.sectionToggle('file_attachments_section', 0.5, this );fileAttachment.showAttachments()");><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
 </div>
 
-<div id='file_attachments_section' style='display:none;'> 
+<div id='file_attachments_section'> 
 
-<div style='width:60em;margin:5px 0 0 0;padding:0px 5px 5px 5px;border:2px solid #AAA;' >
+<div id='file_attachments_box'>
 
-<div id="attachments_list" style='padding:0px 5px 5px 5px;' ></div>
-
-<div id="result_display" style='padding:5px;' ></div>
+<div id="attachments_list" ></div>
 
 <form id="upload_form" action="<?= site_url() ?>file_attachment/upload" method="post" enctype="multipart/form-data" target="upload_target" >
 
@@ -26,7 +24,10 @@ File Attachments <a title="Show or hide the file attachments section" href="java
 <td><input type="text" name="description" id="description" size="80" ></input></td>
 </tr>
 <tr>
-<td><input class="button" type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="fileAttachment.do_upload()" /></td>
+<td colspan="2">
+	<input class="button" type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="fileAttachment.do_upload()" />
+	<span id="result_display" style='padding:5px;' ></span>
+	</td>
 </tr>
 </table>
 </form>
@@ -35,4 +36,4 @@ File Attachments <a title="Show or hide the file attachments section" href="java
 </div>
 <div style="height:1em;"></div>
 
-<iframe id="upload_target" name="upload_target" src="#" style="display:none;"></iframe>
+<iframe id="upload_target" name="upload_target" src="#" ></iframe>
