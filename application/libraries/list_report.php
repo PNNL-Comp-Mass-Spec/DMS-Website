@@ -108,7 +108,7 @@ class List_report {
 		session_start();
 
 		$CI->load->helper('form');
-		$CI->load->helper('filter');
+		$CI->load->helper(array('filter', 'link_util'));
 
 		$CI->cu->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
 		$cols = $CI->data_model->get_col_names();

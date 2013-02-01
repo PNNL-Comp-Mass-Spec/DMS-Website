@@ -251,7 +251,7 @@ class Param_report {
 		$col_filter = $CI->column_filter->get_current_filter_values();
 
 		$CI->load->helper('form');
-		$CI->load->helper('filter');
+		$CI->load->helper(array('filter', 'link_util'));
 		make_param_filter($cols, $current_paging_filter_values, $current_sorting_filter_values, $col_filter);
 	}
 

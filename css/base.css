@@ -259,6 +259,16 @@ table.LRep td.rht{
 }
 .LRepPagerCartouche {
 	margin-right:10px;
+	font-size: 90%;
+}
+#filters_active {
+	font-weight:bold;
+}
+#paging_container_upper {
+	display:none;
+}
+#paging_container_lower {
+	display:none;
 }
 
 /* 

@@ -33,11 +33,12 @@
 			case "cmd":
 				$s = "ui-icon-circle-triangle-e";
 				break;
+			case "close":
 			case "delete":
 				$s = "ui-icon-closethick";
 				break;
 			case "refresh":
-				$s = "ui-icon-refresh";
+				$s = "ui-icon-transferthick-e-w"; // ui-icon-refresh
 				break;
 			case "last":
 				$s = "ui-icon-seek-end";
@@ -53,6 +54,9 @@
 				break;
 			case "adjust":
 				$s = "ui-icon-wrench";
+				break;
+			default:
+				$s = '??';
 				break;
 		}
 		return $s;	

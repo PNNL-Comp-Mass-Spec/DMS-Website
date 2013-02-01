@@ -27,17 +27,32 @@
 <tr>
 <td >
 <div id='search_controls_container'>
-<input class="button search_btn" type="button" onclick="lstRep.updateMyData('reset')" value="Search" id="search_button" /> &nbsp; &nbsp; 
-Clear Filters <a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" ><?= cmd_link_icon('delete')?></a> &nbsp; &nbsp;
-<span id='show_less_filter'>Minimize Filters <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('minimal')" ><?= expansion_link('minus')?></a></span> &nbsp; &nbsp;
-<span id='show_more_filter'>Expand Filters <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" ><?= expansion_link('plus') ?></a></span>  &nbsp; &nbsp;
+	
+<span class="LRepPagerCartouche">
+<input class="button search_btn" type="button" onclick="lstRep.updateMyData('reset')" value="Search" id="search_button" />
+</span> 
+<span class="LRepPagerCartouche">
+Clear <a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" title="Clear any existing filter values"><?= cmd_link_icon('delete')?></a>
+</span>
+<span class="LRepPagerCartouche">
+<span id='show_less_filter'>Collapse All <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('minimal')" title="Show only the primary filter"><?= expansion_link('minus')?></a></span>
+<span id='show_more_filter'>Expand All <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" title="Show all filters"><?= expansion_link('plus') ?></a></span> 
+</span>
 
-Primary <a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1, this)"><?= expansion_link('minus')?></a> &nbsp;
-Secondary <a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1, this)"><?= expansion_link() ?></a> &nbsp;
-Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)"><?= expansion_link() ?></a> &nbsp;
-Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1, this)"><?= expansion_link() ?></a> &nbsp;
+<span class="LRepPagerCartouche">
+Primary <a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1, this)" title="Show or hide the primary filter"><?= expansion_link('minus')?></a>
+</span>
+<span class="LRepPagerCartouche">
+Secondary <a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1, this)"  title="Show or hide the secondary filter"><?= expansion_link() ?></a>
+</span>
+<span class="LRepPagerCartouche">
+Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)" title="Show or hide the sorting filter"><?= expansion_link() ?></a>
+</span>
+<span class="LRepPagerCartouche">
+Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1, this)" title="Show or hide the column filter"><?= expansion_link() ?></a>
+</span>
 
-<span style="font-weight:bold;" id='filters_active'></span>
+<span id='filters_active'></span>
 
 </div>
 </td>
@@ -47,7 +62,7 @@ Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_
 <table>
 <tr>
 <td>
-<div id='paging_container_upper' class='paging_controls'  style='display:none'></div>
+<div id='paging_container_upper' class='paging_controls' </div>
 </td>
 </tr>
 <tr>
@@ -59,7 +74,7 @@ Loading...
 </tr>
 <tr>
 <td>
-<div id='paging_container_lower' class='paging_controls' style='display:none'></div>
+<div id='paging_container_lower' class='paging_controls'></div>
 </td>
 </tr>
 </table>
