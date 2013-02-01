@@ -1,5 +1,5 @@
 <div style='padding:5px 0px 5px 5px;'>
-Add to OSM Package <a href="javascript:void(0)" onclick="gamma.sectionToggle('item_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
+Add to OSM Package <a href="javascript:void(0)" onclick="gamma.sectionToggle('item_section', 0.5, this)"><?= expansion_link() ?></a>
 </div>
 
 <div id='item_section' style='display:none; width:100em;margin:5px 0 0 0;' >

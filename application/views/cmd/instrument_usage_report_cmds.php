@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <hr>
-Reload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('reload_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
+Reload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('reload_section', 0.5, this)"><?= expansion_link() ?></a>
 <div id="reload_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Refresh" onClick='tracking.instrument_usage_report.refresh_report()' title="Refresh EMSL usage report from DMS usage tracking"  /> Refresh EMSL instrument report from DMS
@@ -14,7 +14,7 @@ Reload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('reloa
 </div>
 
 <hr>
-Upload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a>
+Upload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><?= expansion_link() ?></a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_usage_report.load_delimited_text()' title="Test"  /> Update database from delimited list

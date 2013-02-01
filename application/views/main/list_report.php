@@ -28,14 +28,14 @@
 <td >
 <div id='search_controls_container'>
 <input class="button search_btn" type="button" onclick="lstRep.updateMyData('reset')" value="Search" id="search_button" /> &nbsp; &nbsp; 
-Clear Filters <a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" ><span class="expando_section ui-icon ui-icon-closethick"></span></a> &nbsp; &nbsp;
-<span id='show_less_filter'>Minimize Filters <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('minimal')" ><span class="expando_section ui-icon ui-icon-circle-minus"></span></a></span> &nbsp; &nbsp;
-<span id='show_more_filter'>Expand Filters <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" ><span class="expando_section ui-icon ui-icon-circle-plus"></span></a></span>  &nbsp; &nbsp;
+Clear Filters <a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" ><?= cmd_link_icon('delete')?></a> &nbsp; &nbsp;
+<span id='show_less_filter'>Minimize Filters <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('minimal')" ><?= expansion_link('minus')?></a></span> &nbsp; &nbsp;
+<span id='show_more_filter'>Expand Filters <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" ><?= expansion_link('plus') ?></a></span>  &nbsp; &nbsp;
 
-Primary <a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-minus"></span></a> &nbsp;
-Secondary <a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
-Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
-Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1, this)"><span class="expando_section ui-icon ui-icon-circle-plus"></span></a> &nbsp;
+Primary <a href="javascript:void(0)" onclick="gamma.sectionToggle('primary_filter_container', 0.1, this)"><?= expansion_link('minus')?></a> &nbsp;
+Secondary <a href="javascript:void(0)" onclick="gamma.sectionToggle('secondary_filter_container', 0.1, this)"><?= expansion_link() ?></a> &nbsp;
+Sorting <a href="javascript:void(0)" onclick="gamma.sectionToggle('sorting_filter_container', 0.1, this)"><?= expansion_link() ?></a> &nbsp;
+Column <a href="javascript:void(0)" onclick="gamma.sectionToggle('column_filter_container', 0.1, this)"><?= expansion_link() ?></a> &nbsp;
 
 <span style="font-weight:bold;" id='filters_active'></span>
 

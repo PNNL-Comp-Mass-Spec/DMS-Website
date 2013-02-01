@@ -51,7 +51,7 @@
 			case "prev":
 				$s = "ui-icon-seek-prev";
 				break;
-			case "misc":
+			case "adjust":
 				$s = "ui-icon-wrench";
 				break;
 		}

@@ -257,6 +257,9 @@ table.LRep td.rht{
 	margin-left: 4px;
 	margin-right: 15px;
 }
+.LRepPagerCartouche {
+	margin-right:10px;
+}
 
 /* 
  * styling for list report filter forms

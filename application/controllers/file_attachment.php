@@ -172,7 +172,8 @@ class file_attachment extends Base_controller {
 	function show_attachments() {
 		$type = $this->input->post("entity_type");
 		$id = $this->input->post("entity_id");
-
+    	$this->load->helper(array('link_util'));
+		
 		$this->load->database();		
 		$this->db->select("File_Name AS [Name], Description, ID as FID");
 		$this->db->from("T_File_Attachment");
@@ -182,10 +183,12 @@ class file_attachment extends Base_controller {
 		$query = $this->db->get();		
 		if(!$query) return "Error querying database";
 		$entries = array();
+	    $icon_delete = expansion_link('delete');
+		$icon_download = expansion_link('down');
 	    foreach($query->result() as $row){
 			$path = site_url() . "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
-			$downloadLink = "<a href='$path' ><span class='expando_section ui-icon ui-icon-circle-arrow-s' title='Download this file'></span></a> ";
-			$deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'><span class='expando_section ui-icon ui-icon-closethick'></span></a> ";
+			$downloadLink = "<a href='$path' title='Download this file'>$icon_download</a> ";
+			$deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'>$icon_delete</span></a> ";
 			$entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
 	    }
 		$count = $query->num_rows();

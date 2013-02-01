@@ -203,6 +203,8 @@ class Param_report {
 		$CI = &get_instance();
 		session_start();
 		
+    	$CI->load->helper(array('link_util'));
+
 		// current paging settings
 		$CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
 		$current_paging_filter_values = $CI->paging_filter->get_current_filter_values();

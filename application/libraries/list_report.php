@@ -216,6 +216,7 @@ class List_report {
 		$CI = &get_instance();
 		session_start();
 
+    	$CI->load->helper(array('link_util'));
 		$this->set_up_list_query();
 
 		$current_filter_values = $CI->paging_filter->get_current_filter_values();

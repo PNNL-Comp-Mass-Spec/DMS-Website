@@ -10,10 +10,10 @@ class List_report_pager {
 	private $num_links			=  5; // Number of "digit" links to show before/after the currently viewed page
 	private $cur_page	 		=  0; // The current page being viewed
 	private $num_pages			= 0;
-	private $first_link   		= '<span class="expando_section ui-icon ui-icon-seek-first"></span>';
-	private $next_link			= '<span class="expando_section ui-icon ui-icon-seek-next">';
-	private $prev_link			= '<span class="expando_section ui-icon ui-icon-seek-prev"></span>';
-	private $last_link			= '<span class="expando_section ui-icon ui-icon-seek-end"></span>';
+	private $first_link   		= '';
+	private $next_link			= '';
+	private $prev_link			= '';
+	private $last_link			= '';
 	private $full_tag_open		= '';
 	private $full_tag_close		= '';
 	private $first_tag_open		= '';
@@ -41,6 +41,10 @@ class List_report_pager {
 		if (count($params) > 0) {
 			$this->initialize($params);		
 		}
+		$this->first_link = expansion_link('first'); 
+		$this->next_link = expansion_link('next'); 
+		$this->prev_link = expansion_link('prev'); 
+		$this->last_link = expansion_link('end'); 
 	}
 
 	// --------------------------------------------------------------------
@@ -87,8 +91,9 @@ class List_report_pager {
 		$end_row = $start_row + $this->per_page - 1;
 		if($end_row > $this->total_rows) $end_row = $this->total_rows;
 		//
-		$page_sizer = 'Set Rows <a href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page"><span class="expando_section ui-icon ui-icon-wrench"></a>';
-		$show_all = 'Max Rows <a href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page"><span class="expando_section ui-icon ui-icon-wrench"></a>';
+		$icon_adjust = cmd_link_icon('adjust');
+		$page_sizer = 'Set Rows <a href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">'.$icon_adjust.'</a>';
+		$show_all = 'Max Rows <a href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">'.$icon_adjust.'</a>';
 		$show_all = ($this->per_page < $this->total_rows)?$show_all:'';
 		//
 //		return "&nbsp; Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> &nbsp;" . $page_sizer. " &nbsp; " .$show_all;
