@@ -57,11 +57,11 @@
 	}
 	function collapse_filters_btn() 
 	{
-		return "<span id='show_less_filter'>Collapse All <a href='javascript:void(0)' onclick='lstRep.updateMyFilter(\"minimal\")' title='Show only the primary filter'>". expansion_link_icon('minus') . "</a></span>";
+		return "<span id='show_less_filter'>Minimize <a href='javascript:void(0)' onclick='lstRep.updateMyFilter(\"minimal\")' title='Show only the primary filter'>". expansion_link_icon('minus') . "</a></span>";
 	}
 	function expand_filters_btn() 
 	{
-		return "<span id='show_more_filter'>Expand All <a href='javascript:void(0)' onclick='lstRep.updateMyFilter(\"maximal\")' title='Show all filters'>" . expansion_link_icon('plus') . "</a></span>";
+		return "<span id='show_more_filter'>Expand <a href='javascript:void(0)' onclick='lstRep.updateMyFilter(\"maximal\")' title='Show all filters'>" . expansion_link_icon('plus') . "</a></span>";
 	}	
 	// --------------------------------------------------------------------
 	function general_visibility_control($label, $containerId, $tooltip = '')

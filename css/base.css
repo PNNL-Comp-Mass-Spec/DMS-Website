@@ -284,6 +284,9 @@ table.LRep td.rht{
 .primary_filter_field {
 	color:#DC143C;
 }
+.filter_container_box {
+	font-size: 10px;
+}
 
 /* 
  * styling for list report document export controls

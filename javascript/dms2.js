@@ -554,7 +554,7 @@ var lambda = {
 		$('.filter_container_box').each(function() {
 			var id = this.id;
 			var visible = $(this).is(':visible');
-			gamma.adjustFilterVisibilityControl(id, visible);
+			lambda.adjustFilterVisibilityControl(id, visible);
 		});
 	},
 	//------------------------------------------
