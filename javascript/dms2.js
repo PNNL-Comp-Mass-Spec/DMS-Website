@@ -284,13 +284,16 @@ var gamma = {
 		}
 		if(element) {
 			var icon = $(element).find('.expando_section');
-			if(!isVisible) {
-				icon.toggleClass('ui-icon-circle-plus', false).toggleClass('ui-icon-circle-minus', true);
-			} else {
-				icon.toggleClass('ui-icon-circle-plus', true).toggleClass('ui-icon-circle-minus', false);				
-			}
+			gamma.setToggleIcon(icon, !isVisible);
 		}
-		return false;
+		return !isVisible;
+	},
+	setToggleIcon: function(icon, visible) {
+		if(visible) {
+			icon.toggleClass('ui-icon-circle-plus', false).toggleClass('ui-icon-circle-minus', true);
+		} else {
+			icon.toggleClass('ui-icon-circle-plus', true).toggleClass('ui-icon-circle-minus', false);				
+		}		
 	},
 	//------------------------------------------
 	//search functions
@@ -538,16 +541,21 @@ var lambda = {
 		lambda.is_filter_active();
 	},
 	sectionToggle: function(containerId, duration, element) {
-		gamma.sectionToggle(containerId, duration, element);
-		this.adjustFilterVisibilityControls(containerId);
+		var visible = gamma.sectionToggle(containerId, duration, element);
+		this.adjustFilterVisibilityControl(containerId, visible);
 	},	
-	adjustFilterVisibilityControls: function(containerId) {
-		var a, f;
-		var vCtls = $('.expando_section');
+	adjustFilterVisibilityControl: function(containerId, visible) {
+		var vCtls = $('.' + containerId);
 		vCtls.each(function() {
-			a = $(this).closest('a');
-			f = (a.length > 0 && a[0].onclick) ? a[0].onclick.toString() : '';
-			console.log(containerId + '->' + f);
+			gamma.setToggleIcon($(this), visible);
+		});
+	},
+	adjustFilterVisibilityControls: function() {
+		var context = this;
+		$('.filter_container_box').each(function() {
+			var id = this.id;
+			var visible = $(this).is(':visible');
+			context.adjustFilterVisibilityControl(id, visible);
 		});
 	},
 	//------------------------------------------

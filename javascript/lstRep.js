@@ -14,6 +14,7 @@ var lstRep = {
 		run:function() {
 			lambda.set_filter_field_observers();
 			lambda.is_filter_active();
+			lambda.adjustFilterVisibilityControls();
 		}
 	},
 	// copy the contents of the upper paging display to the lower one

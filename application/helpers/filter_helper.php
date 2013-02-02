@@ -12,10 +12,10 @@
 		$style = 'display:none;float:left;padding:3px 3px 0 0;';
 
 		$g = "<div style='display:none' > $g </div>";
-		$p = "<div id='primary_filter_container' style='clear:both;' > $p </div>";
-		$s = "<div id='secondary_filter_container' style='$style' > $s </div>";
-		$r = "<div id='sorting_filter_container' style='$style' > $r </div>";
-		$c = "<div id='column_filter_container' style='$style' > $c </div>";
+		$p = "<div id='primary_filter_container' class='filter_container_box' class='filter_container_box' style='clear:both;' > $p </div>";
+		$s = "<div id='secondary_filter_container' class='filter_container_box' style='$style' > $s </div>";
+		$r = "<div id='sorting_filter_container' class='filter_container_box' style='$style' > $r </div>";
+		$c = "<div id='column_filter_container' class='filter_container_box' style='$style' > $c </div>";
 		
 		echo $g;
 		echo "<div style='height:3px;' ></div>";
@@ -40,10 +40,10 @@
 		$c = make_column_filter($cols, $col_filter, $col_filter_size);
 		
 		$g = "<div style='display:none' > $g </div>";
-		$p = "<div id='primary_filter_container'> $p </div>";
-		$s = "<div id='secondary_filter_container'> $s </div>";
-		$r = "<div id='sorting_filter_container'> $r </div>";
-		$c = "<div id='column_filter_container'> $c </div>";
+		$p = "<div id='primary_filter_container' class='filter_container_box' > $p </div>";
+		$s = "<div id='secondary_filter_container' class='filter_container_box' > $s </div>";
+		$r = "<div id='sorting_filter_container' class='filter_container_box' > $r </div>";
+		$c = "<div id='column_filter_container' class='filter_container_box' > $c </div>";
 
 		// set up table to hold fields
 		list($cell_s, $cell_vs, $cell_f) = array('<td style="vertical-align:top;">', '<td style="vertical-align:top;" rowspan="2">', "</td>\n");		
@@ -84,8 +84,8 @@
 		if(!empty($cols)) {
 			$r = make_sorting_filter($current_sorting_filter_values, $cols);
 			$c = make_column_filter($cols, $col_filter, 6);
-			$r = "<div id='sorting_filter_container' style='$style' > $r </div>";
-			$c = "<div id='column_filter_container' style='$style' > $c </div>";
+			$r = "<div id='sorting_filter_container' class='filter_container_box' style='$style' > $r </div>";
+			$c = "<div id='column_filter_container' class='filter_container_box' style='$style' > $c </div>";
 		}
 	
 		echo $g;
@@ -149,8 +149,9 @@
 
 		$str = '';
 		
-		$hid = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='lambda.sectionToggle(\"primary_filter_container\", 0.5, this)' >" . cmd_link_icon('minus') . "</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='lambda.clearSearchFilter(\"primary_filter_field\")' >" . cmd_link_icon('close') . "</a>" . "</span>";
+		$hid = "<span class='filter_clear'>" .  primary_filter_vis_control() . "</span>"; 
+		$clr = "<span class='filter_clear'>" . filter_clear_control('primary_filter_field') . "</span>";
+		
 		$lab = "<span class='filter_label' >Primary Filter</span>";
 		$str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
 
@@ -182,8 +183,9 @@
 
 		$str = '';
 		
-		$hid = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='lambda.sectionToggle(\"secondary_filter_container\", 0.5, this)' >" . cmd_link_icon('minus') . "</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='lambda.clearSearchFilter(\"secondary_filter_input\")' >" . cmd_link_icon('close') . "</a>" . "</span>";
+		$hid = "<span class='filter_clear'>" .  secondary_filter_vis_control() . "</span>"; 
+		$clr = "<span class='filter_clear'>" . filter_clear_control('secondary_filter_input') . "</span>";
+		
 		$lab = "<span class='filter_label' >Secondary Filter</span>";
 		$str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
 
@@ -214,8 +216,9 @@
 	{
 		$str = '';
 		
-		$hid = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='lambda.sectionToggle(\"sorting_filter_container\", 0.5, this)' >" . cmd_link_icon('minus') . "</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='lambda.clearSearchFilter(\"sorting_filter_input\")' >" . cmd_link_icon('close') . "</a>" . "</span>";
+		$hid = "<span class='filter_clear'>" .  sorting_filter_vis_control() . "</span>"; 
+		$clr = "<span class='filter_clear'>" . filter_clear_control('sorting_filter_input') . "</span>";
+		
 		$lab = "<span class='filter_label' >Sorting</span>";
 		$str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
 		
@@ -269,8 +272,8 @@
 				$options[$col] = $col;
 			}
 		}
-		$hid = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='lambda.sectionToggle(\"column_filter_container\", 0.5, this)' >" . cmd_link_icon('minus') . "</a>"."</span>";
-		$clr = "<span class='filter_clear'>" . "<a href='javascript:void(0)' onclick='gamma.clearSelector(\"cf_column_selection_ctl\")' >" . cmd_link_icon('close') . "</a>" . "</span>";
+		$hid = "<span class='filter_clear'>" .  column_filter_vis_control() . "</span>"; 
+		$clr = "<span class='filter_clear'>" . filter_clear_control('cf_column_selection_ctl') . "</span>";
 		$lab = "<span class='filter_label' >Column Filter</span>";
 		$caption = "$lab $clr $hid";
 		

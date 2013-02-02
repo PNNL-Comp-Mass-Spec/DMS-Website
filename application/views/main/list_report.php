@@ -27,6 +27,7 @@
 <tr>
 <td >
 <div id='search_controls_container'>
+
 	
 <span class="LRepPagerCartouche">
 <input class="button search_btn" type="button" onclick="lstRep.updateMyData('reset')" value="Search" id="search_button" />
@@ -39,19 +40,10 @@ Clear <a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" title="
 <span id='show_more_filter'>Expand All <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" title="Show all filters"><?= expansion_link_icon('plus') ?></a></span> 
 </span>
 
-<span class="LRepPagerCartouche">
-Primary <a href="javascript:void(0)" onclick="lambda.sectionToggle('primary_filter_container', 0.1, this)" title="Show or hide the primary filter"><?= expansion_link_icon('minus')?></a>
-</span>
-<span class="LRepPagerCartouche">
-Secondary <a href="javascript:void(0)" onclick="lambda.sectionToggle('secondary_filter_container', 0.1, this)"  title="Show or hide the secondary filter"><?= expansion_link_icon() ?></a>
-</span>
-<span class="LRepPagerCartouche">
-Sorting <a href="javascript:void(0)" onclick="lambda.sectionToggle('sorting_filter_container', 0.1, this)" title="Show or hide the sorting filter"><?= expansion_link_icon() ?></a>
-</span>
-<span class="LRepPagerCartouche">
-Column <a href="javascript:void(0)" onclick="lambda.sectionToggle('column_filter_container', 0.1, this)" title="Show or hide the column filter"><?= expansion_link_icon() ?></a>
-</span>
-<?= column_filter_vis_control("Column XX") ?>
+<span class="LRepPagerCartouche"><?= primary_filter_vis_control('Primary') ?></span>
+<span class="LRepPagerCartouche"><?= secondary_filter_vis_control('Secondary') ?></span>
+<span class="LRepPagerCartouche"><?= sorting_filter_vis_control('Sorting') ?></span>
+<span class="LRepPagerCartouche"><?= column_filter_vis_control('Column') ?></span>
 
 <span id='filters_active'></span>
 

@@ -10,7 +10,7 @@
 	// --------------------------------------------------------------------
 	function expansion_link_icon($usage = 'plus', $class = '') {
 		$icon = get_link_image($usage);
-		$s = "<span class='expando_section ui-icon $icon'></span>";
+		$s = "<span class='expando_section ui-icon $icon $class'></span>";
 		return $s;
 	}
 	
@@ -24,23 +24,29 @@
 		return $s;
 	}
 	// --------------------------------------------------------------------
-	function column_filter_vis_control($label, $icon_type = 'plus')
+	function column_filter_vis_control($label = '', $icon_type = 'plus')
 	{
 		return filter_section_visibility_control($label, 'column_filter_container', $icon_type, 'Show or hide the column filter');
 	}
-	function primary_filter_vis_control($label, $icon_type = 'plus') 
+	function primary_filter_vis_control($label = '', $icon_type = 'plus') 
 	{
 		return filter_section_visibility_control($label, 'primary_filter_container', $icon_type, 'Show or hide the primary filter');
 	}
-	function secondary_filter_vis_control($label, $icon_type = 'plus') 
+	function secondary_filter_vis_control($label = '', $icon_type = 'plus') 
 	{
 		return filter_section_visibility_control($label, 'secondary_filter_container', $icon_type, 'Show or hide the secondary filter');
 	}
- 	function sorting_filter_vis_control($label, $icon_type = 'plus') 
+ 	function sorting_filter_vis_control($label = '', $icon_type = 'plus') 
 	{
 		return filter_section_visibility_control($label, 'sorting_filter_container', $icon_type, 'Show or hide the sorting filter');		
 	}
  
+ 
+	// --------------------------------------------------------------------
+ 	function filter_clear_control($container) {
+ 		return "<a href='javascript:void(0)' onclick='gamma.clearSelector(\"" . $container . "\")' >" . cmd_link_icon('close') . "</a>";
+ 	}
+	
 	// --------------------------------------------------------------------
 	function get_link_image($usage) {
 		$s = "";
