@@ -285,7 +285,10 @@ table.LRep td.rht{
 	color:#DC143C;
 }
 .filter_container_box {
-	font-size: 10px;
+	font-size: 12px;
+}
+.filter_container_box select,input {
+	font-size: 12px;
 }
 
 /* 
