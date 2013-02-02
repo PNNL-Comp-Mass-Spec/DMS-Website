@@ -6,7 +6,7 @@
 <? $chimg = base_url()."images/chooser.png"; ?>
 
 <div style='padding:5px 0px 5px 5px;'>
-Add Items <a href="javascript:void(0)" onclick="gamma.toggleVisibility('item_section', 0.5, this)"><?= expansion_link_icon() ?></a>
+<?= general_visibility_control('Add Items', 'item_section', '') ?>
 </div>
 
 <div id='item_section' style='display:none; width:75em;margin:5px 0 0 0;padding:0px 5px 5px 5px;border:2px solid #AAA;' >

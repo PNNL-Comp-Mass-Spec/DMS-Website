@@ -63,7 +63,13 @@
 	{
 		return "<span id='show_more_filter'>Expand All <a href='javascript:void(0)' onclick='lstRep.updateMyFilter(\"maximal\")' title='Show all filters'>" . expansion_link_icon('plus') . "</a></span>";
 	}	
-
+	// --------------------------------------------------------------------
+	function general_visibility_control($label, $containerId, $tooltip = '')
+	{
+		$tt = 'Show or hide section';
+		if($tooltip) $tt .= ' for ' . $tooltip;
+		return "$label <a title='$tt' href='javascript:void(0)' onclick='gamma.toggleVisibility(\"$containerId\", 0.5, this)'>" . expansion_link_icon() . "</a>";
+	}
 	// --------------------------------------------------------------------
 	function get_link_image($usage) {
 		$s = "";

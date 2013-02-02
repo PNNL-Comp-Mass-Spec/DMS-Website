@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <hr>
-Membership commands <a href="javascript:void(0)" onclick="gamma.toggleVisibility('membership_section', 0.5, this)"><?= expansion_link_icon() ?></a>
+<?= general_visibility_control('Membership commands', 'membership_section', '') ?>
 <div id="membership_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Add Jobs" onClick='lcmd.data_package_job_coverage.op("add")' id="btn_a" title=""  /> 
@@ -20,7 +20,7 @@ Test
 
 
 <hr>
-Dataset coverage <a href="javascript:void(0)" onclick="gamma.toggleVisibility('dump_section', 0.5, this)"><?= expansion_link_icon() ?></a>
+<?= general_visibility_control('Dataset coverage', 'dump_section', '') ?>
 <div id="dump_section" style="display:none;">
 <div>
 Tool to search for

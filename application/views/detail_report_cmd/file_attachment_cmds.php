@@ -1,6 +1,6 @@
 
 <div id='attachments_control_section'>
-File Attachments <a title="Show or hide the file attachments section" href="javascript:void(0)" onclick="gamma.toggleVisibility('file_attachments_section', 0.5, this );fileAttachment.showAttachments()");><?= expansion_link_icon() ?></a>
+<?= general_visibility_control('File Attachments', 'file_attachments_section', '') ?>
 </div>
 
 <div id='file_attachments_section'> 

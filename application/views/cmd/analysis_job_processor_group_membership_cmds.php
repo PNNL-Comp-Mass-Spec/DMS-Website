@@ -3,7 +3,7 @@
 
 <form name="DBG" action="">
 
-Set Membership Enabled <a title="Show or hide the controls to set processor membership enabled" href="javascript:void(0)" onclick="gamma.toggleVisibility('setMembershipSection', 0.5, this)"><?= expansion_link_icon() ?></a>
+<?= general_visibility_control('Set Membership Enabled', 'setMembershipSection', 'setting processor membership enabled') ?>
 <div id="setMembershipSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Set membership enabled state of selected processors</div>
 <div>
@@ -25,7 +25,7 @@ For other groups to be:
 
 <div></div>
 
-Remove Processors <a title="Show or hide the controls to remove processors from group" href="javascript:void(0)" onclick="gamma.toggleVisibility('removeProcessorsSection', 0.5, this)"><?= expansion_link_icon() ?></a>
+<?= general_visibility_control('Remove Processors', 'removeProcessorsSection', 'removing processors from group') ?>
 <div id="removeProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>Remove selected processors from group</div>
 <input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("remove_processors", "", "")' />
@@ -33,7 +33,7 @@ Remove Processors <a title="Show or hide the controls to remove processors from 
 
 <div></div>
 
-Add Processors <a title="Show or hide the controls to add new processors to group" href="javascript:void(0)" onclick="gamma.toggleVisibility('addProcessorsSection', 0.5, this)"><?= expansion_link_icon() ?></a>
+<?= general_visibility_control('Add Processors', 'addProcessorsSection', 'adding new processors to group') ?>
 <div id="addProcessorsSection" style="display:none;padding:5px 0px 0px 0px;">
 <div>
 Processors to be added to this group:

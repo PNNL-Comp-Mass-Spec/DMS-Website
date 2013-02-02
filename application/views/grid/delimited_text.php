@@ -1,5 +1,5 @@
 <div id='delimited_text_ctl_panel' class='ctl_panel'>
-Import/Export Delimited Text <a href="javascript:void(0)" title="Click to hide or show delimited text control panel" onclick="gamma.toggleVisibility('delimited_text_panel', 0.5, this)"><?= expansion_link_icon() ?></span></a>
+<?= general_visibility_control('Import/Export Delimited Text', 'delimited_text_panel', 'delimited text import and export') ?>
 </div>
 
 <div id='delimited_text_panel' class='ctl_panel'>
