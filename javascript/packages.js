@@ -16,7 +16,7 @@ var packages = {
 		var iframe = document.getElementById('embedded_page');
 		var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 		$('#hdrContainer').hide();
-		gamma.sectionToggle('package_entry_section',  0.5 ); 
+		gamma.toggleVisibility('package_entry_section',  0.5 ); 
 		return false;
 	},
 	callSuggestionSetType: function(item_type, mode) {

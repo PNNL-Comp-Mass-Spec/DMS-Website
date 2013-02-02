@@ -273,7 +273,7 @@ var gamma = {
 			opt.selected = false;
 		});
 	},
-	sectionToggle: function(containerId, duration, element) {
+	toggleVisibility: function(containerId, duration, element) {
 		var speed = duration * 1000;
 		var container = $('#' + containerId);
 		var isVisible = container.is(':visible');
@@ -540,8 +540,8 @@ var lambda = {
 		$(".filter_input_field").each(function(idx, obj) {obj.value = ''} );
 		lambda.is_filter_active();
 	},
-	sectionToggle: function(containerId, duration, element) {
-		var visible = gamma.sectionToggle(containerId, duration, element);
+	toggleFilterVisibility: function(containerId, duration, element) {
+		var visible = gamma.toggleVisibility(containerId, duration, element);
 		this.adjustFilterVisibilityControl(containerId, visible);
 	},	
 	adjustFilterVisibilityControl: function(containerId, visible) {
@@ -551,11 +551,10 @@ var lambda = {
 		});
 	},
 	adjustFilterVisibilityControls: function() {
-		var context = this;
 		$('.filter_container_box').each(function() {
 			var id = this.id;
 			var visible = $(this).is(':visible');
-			context.adjustFilterVisibilityControl(id, visible);
+			gamma.adjustFilterVisibilityControl(id, visible);
 		});
 	},
 	//------------------------------------------

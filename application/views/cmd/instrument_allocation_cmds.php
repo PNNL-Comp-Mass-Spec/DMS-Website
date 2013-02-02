@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <hr>
-Upload allocations <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><?= expansion_link_icon() ?></a>
+Upload allocations <a href="javascript:void(0)" onclick="gamma.toggleVisibility('upload_section', 0.5, this)"><?= expansion_link_icon() ?></a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_allocation.load_delimited_text()' title="Test"  /> Update database from delimited list
@@ -18,7 +18,7 @@ Fiscal Year:<input id='fiscal_year' size='8' value='' ></input>
 </div>
 
 <hr>
-Move allocation <a href="javascript:void(0)" onclick="gamma.sectionToggle('move_cmd_section', 0.5, this)"><?= expansion_link_icon() ?></a>
+Move allocation <a href="javascript:void(0)" onclick="gamma.toggleVisibility('move_cmd_section', 0.5, this)"><?= expansion_link_icon() ?></a>
 <div id="move_cmd_section" style="display:none;">
 <div>
 Move <input id='move_hours' size='5' /> hours for instrument group <input id='move_group' size='5' /> 
@@ -31,7 +31,7 @@ for fiscal year <input id='move_fy' size='5' />
 </div>
 
 <hr>
-Set allocation <a href="javascript:void(0)" onclick="gamma.sectionToggle('set_cmd_section', 0.5, this)"><?= expansion_link_icon() ?></a>
+Set allocation <a href="javascript:void(0)" onclick="gamma.toggleVisibility('set_cmd_section', 0.5, this)"><?= expansion_link_icon() ?></a>
 <div id="set_cmd_section" style="display:none;">
 <div>
 Set <input id='set_hours' size='5' /> hours for instrument group <input id='set_group' size='5' /> 

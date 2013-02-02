@@ -32,8 +32,8 @@
 <input class="button search_btn" type="button" onclick="parRep.updateMyData('reset')" value="Search" id="search_button" /> &nbsp; &nbsp; 
 
 <span id='search_controls_container' style='display:none;'>
-Sorting <a href="javascript:void(0)" onclick="lambda.sectionToggle('sorting_filter_container', 0.1, this)"><?= expansion_link_icon() ?></a> &nbsp;
-Column <a href="javascript:void(0)" onclick="lambda.sectionToggle('column_filter_container', 0.1, this)"><?= expansion_link_icon() ?></a> &nbsp;
+Sorting <a href="javascript:void(0)" onclick="lambda.toggleFilterVisibility('sorting_filter_container', 0.1, this)"><?= expansion_link_icon() ?></a> &nbsp;
+Column <a href="javascript:void(0)" onclick="lambda.toggleFilterVisibility('column_filter_container', 0.1, this)"><?= expansion_link_icon() ?></a> &nbsp;
 </span>
 </form>
 

@@ -28,17 +28,9 @@
 <td >
 <div id='search_controls_container'>
 
-	
-<span class="LRepPagerCartouche">
-<input class="button search_btn" type="button" onclick="lstRep.updateMyData('reset')" value="Search" id="search_button" />
-</span> 
-<span class="LRepPagerCartouche">
-Clear <a href='javascript:void(0)' onclick="lambda.clearSearchFilters()" title="Clear any existing filter values"><?= cmd_link_icon('delete')?></a>
-</span>
-<span class="LRepPagerCartouche">
-<span id='show_less_filter'>Collapse All <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('minimal')" title="Show only the primary filter"><?= expansion_link_icon('minus')?></a></span>
-<span id='show_more_filter'>Expand All <a href='javascript:void(0)' onclick="lstRep.updateMyFilter('maximal')" title="Show all filters"><?= expansion_link_icon('plus') ?></a></span> 
-</span>
+<span class="LRepPagerCartouche"><?= search_btn() ?></span>
+<span class="LRepPagerCartouche"><?= clear_filters_btn() ?></span>
+<span class="LRepPagerCartouche"><?= collapse_filters_btn() ?><?= expand_filters_btn() ?></span>
 
 <span class="LRepPagerCartouche"><?= primary_filter_vis_control('Primary') ?></span>
 <span class="LRepPagerCartouche"><?= secondary_filter_vis_control('Secondary') ?></span>
