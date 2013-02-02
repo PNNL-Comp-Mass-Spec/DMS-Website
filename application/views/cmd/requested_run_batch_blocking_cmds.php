@@ -10,7 +10,7 @@
 <p>Note: Editing and randomizing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
 
 <hr>
-Factor commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('factor_section', 0.5, this)"><?= expansion_link() ?></a>
+Factor commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('factor_section', 0.5, this)"><?= expansion_link_icon() ?></a>
 <div id="factor_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
@@ -26,7 +26,7 @@ from selected items.
 </div>
 
 <hr>
-Blocking commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('blocking_section', 0.5, this)"><?= expansion_link() ?></a>
+Blocking commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('blocking_section', 0.5, this)"><?= expansion_link_icon() ?></a>
 <div id="blocking_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='randomizeWithinBlocks()' id="btn_test" title=""  /> 
@@ -47,7 +47,7 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 </div>
 
 <hr>
-Batch commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('batch_section', 0.5, this)"><?= expansion_link() ?></a>
+Batch commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('batch_section', 0.5, this)"><?= expansion_link_icon() ?></a>
 <div id="batch_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Actual Run Order" onClick='runBlocking.requested_run_batch_blocking.performBatchOperation("actual_run_order")' title=""  /> Automatically generate 'Actual_Run_Order' factors for all completed requests in the batch.
@@ -55,7 +55,7 @@ Batch commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('batch_
 </div>
 
 <hr>
-Upload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><?= expansion_link() ?></a>
+Upload commands <a href="javascript:void(0)" onclick="gamma.sectionToggle('upload_section', 0.5, this)"><?= expansion_link_icon() ?></a>
 <div id="upload_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Update from list" onClick='runBlocking.requested_run_batch_blocking.load_delimited_text()' title="Test"  /> Update database from delimited list

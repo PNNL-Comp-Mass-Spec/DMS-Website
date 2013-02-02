@@ -537,6 +537,19 @@ var lambda = {
 		$(".filter_input_field").each(function(idx, obj) {obj.value = ''} );
 		lambda.is_filter_active();
 	},
+	sectionToggle: function(containerId, duration, element) {
+		gamma.sectionToggle(containerId, duration, element);
+		this.adjustFilterVisibilityControls(containerId);
+	},	
+	adjustFilterVisibilityControls: function(containerId) {
+		var a, f;
+		var vCtls = $('.expando_section');
+		vCtls.each(function() {
+			a = $(this).closest('a');
+			f = (a.length > 0 && a[0].onclick) ? a[0].onclick.toString() : '';
+			console.log(containerId + '->' + f);
+		});
+	},
 	//------------------------------------------
 	setColSort: function(colName, noUpdate) {
 		var curCol = $('#qf_sort_col_0').val();

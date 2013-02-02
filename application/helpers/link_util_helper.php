@@ -8,12 +8,39 @@
 	}
 
 	// --------------------------------------------------------------------
-	function expansion_link($usage = 'plus') {
+	function expansion_link_icon($usage = 'plus', $class = '') {
 		$icon = get_link_image($usage);
 		$s = "<span class='expando_section ui-icon $icon'></span>";
 		return $s;
 	}
 	
+	// --------------------------------------------------------------------
+	function filter_section_visibility_control($label, $filter_container, $icon_type, $tool_tip)
+	{
+		if(!$icon_type) $icon_type = 'plus';
+		$marker_class = $filter_container;
+		$icon = expansion_link_icon($icon_type, $marker_class);
+		$s = "$label <a href='javascript:void(0)' onclick='lambda.sectionToggle(\"$filter_container\", 0.1, this)' title='$tool_tip'>$icon</a>";
+		return $s;
+	}
+	// --------------------------------------------------------------------
+	function column_filter_vis_control($label, $icon_type = 'plus')
+	{
+		return filter_section_visibility_control($label, 'column_filter_container', $icon_type, 'Show or hide the column filter');
+	}
+	function primary_filter_vis_control($label, $icon_type = 'plus') 
+	{
+		return filter_section_visibility_control($label, 'primary_filter_container', $icon_type, 'Show or hide the primary filter');
+	}
+	function secondary_filter_vis_control($label, $icon_type = 'plus') 
+	{
+		return filter_section_visibility_control($label, 'secondary_filter_container', $icon_type, 'Show or hide the secondary filter');
+	}
+ 	function sorting_filter_vis_control($label, $icon_type = 'plus') 
+	{
+		return filter_section_visibility_control($label, 'sorting_filter_container', $icon_type, 'Show or hide the sorting filter');		
+	}
+ 
 	// --------------------------------------------------------------------
 	function get_link_image($usage) {
 		$s = "";
