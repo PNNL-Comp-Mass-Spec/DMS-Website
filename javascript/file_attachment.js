@@ -11,7 +11,7 @@ var fileAttachment = {
 		p.entity_id = gamma.pageContext.Id;
 		gamma.doOperation(url, p, 'attachments_list', function(data, container) {
 				container.html(data);
-				$('#file_attachments_section').show();
+//				$('#file_attachments_section').show();
 		});
 	},
 	doOperation: function(faid, mode) {
@@ -40,5 +40,6 @@ var fileAttachment = {
 		var ei = $('#entity_id');
 		if(et.length != 0) et.val(gamma.pageContext.my_tag);
 		if(ei.length != 0) ei.val(gamma.pageContext.Id);
+		fileAttachment.showAttachments();
 	}
 }
