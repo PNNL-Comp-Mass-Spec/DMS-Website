@@ -101,7 +101,7 @@ input.button, button.button {
  */
 table.EPag {
 	margin-top: 10px;
-	border-width: 1px 1px 1px 1px;
+	border-width: 1px;
 	border-spacing: 1px 1px;
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
@@ -109,15 +109,15 @@ table.EPag {
 	background-color: #bfbfbf;
 }
 table.EPag th {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
+	border-width: 1px;
+	padding: 4px;
 	border-style: hidden hidden hidden hidden;
 	border-color: gray gray gray gray;
 	background-color: #E1E7EA;
 }
 table.EPag td {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
+	border-width: 1px;
+	padding: 4px;
 	border-style: hidden hidden hidden hidden;
 	background-color: #EFEFEF;
 }
@@ -139,20 +139,22 @@ table.EPag span.ePhelper {
 .EPag_message {
 	width:80%;
 	border: thin double black; 
-	padding: 4px 4px 4px 4px;
+	padding: 4px;
 }
 .EPag_error {
 	width:80%;
 	border: medium double red; 
-	padding: 4px 4px 4px 4px;
+	padding: 4px;
 }
 .EPagCmds {
-	padding: 4px 4px 4px 4px;
+	padding: 4px;
 }
 .EPagCmds a {
 	padding: 0px 4px 0px 6px;
 }
-
+.entry_cmd_button {
+	min-width: 8em;
+}
 /* 
  * styling for alternating color bands
  */
@@ -168,8 +170,8 @@ table.EPag span.ePhelper {
  */
 table.DRep {
 	margin-top: 10px;
-	border-width: 1px 1px 1px 1px;
-	border-spacing: 1px 1px;
+	border-width: 1px;
+	border-spacing: 1px;
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
 	border-collapse: separate;
@@ -177,15 +179,15 @@ table.DRep {
 	clear:left;
 }
 table.DRep th {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
+	border-width: 1px;
+	padding: 4px;
 	border-style: hidden hidden hidden hidden;
 	border-color: gray gray gray gray;
 	background-color: #E1E7EA;
 }
 table.DRep td {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
+	border-width: 1px;
+	padding: 6px;
 	border-style: hidden hidden hidden hidden;
 }
 table.DRep h2 {
@@ -204,7 +206,7 @@ table.DRep span {
 	padding: 0px 5px 0px 5px;
 }
 .DrepCmds {
-	padding: 4px 4px 4px 4px;
+	padding: 4px;
 }
 .DrepCmds a {
 	padding: 0px 4px 0px 6px;
@@ -212,6 +214,7 @@ table.DRep span {
 #btn_goto_edit_main, #btn_goto_copy_main,  #btn_goto_create_main {
 	width:4em;
 	margin-right:10px;
+	font-size:11px;
 }
 
 /* 
@@ -219,7 +222,7 @@ table.DRep span {
  */
 table.LRep {
 	margin: 0px;
-	border-width: 1px 1px 1px 1px;
+	border-width: 1px;
 	border-spacing: 1px 1px;
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
@@ -227,8 +230,8 @@ table.LRep {
 	background-color: #bfbfbf;
 }
 table.LRep th {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
+	border-width: 1px;
+	padding: 4px;
 	border-style: hidden hidden hidden hidden;
 	border-color: gray gray gray gray;
 	text-align: left;
@@ -236,8 +239,8 @@ table.LRep th {
 	background-color: #E1E7EA;
 }
 table.LRep td {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
+	border-width: 1px;
+	padding: 4px;
 	border-style: hidden hidden hidden hidden;
 }
 table.LRep h2 {
@@ -334,7 +337,7 @@ table.LRep td.rht{
  * styling for list report commands 
  */
 .LRCmds div {
-	padding: 6px 6px 6px 6px;
+	padding: 6px;
 	font-weight:500;
 }
 .LRcmd_section {
@@ -388,6 +391,7 @@ table.LRep td.rht{
 	background:#EFEFEF;
 	padding-right:5px;
 	padding-left:4px;
+	margin-left:2px;
 }
 .filter_caption {
 	text-align:center;
@@ -414,10 +418,10 @@ table.LRep td.rht{
 	margin: 0;
 }
 .RepCmds li, .EntryCmds li  {
-	padding: 5px 5px 5px 5px;
+	padding: 5px;
 }
 .RepCmdsResponse {
-	padding:5px 5px 5px 5px;
+	padding:5px;
 	font-weight: bold;
 }
 
