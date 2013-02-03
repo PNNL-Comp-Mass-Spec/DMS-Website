@@ -223,7 +223,7 @@ function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $i
 //
 function make_detail_report_commands($commands, $tag, $id)
 {
-	$str = "";
+	$cmds = array();
 	foreach($commands as $label => $spec) {
 		$target = $spec['Target'];
 		$cmd = $spec['Command'];
@@ -232,20 +232,23 @@ function make_detail_report_commands($commands, $tag, $id)
 			case 'copy_from':
 				$url =  site_url().$target . "/create/$tag/" . $id;
 				$icon = cmd_link_icon("go");
-				$str .= "$label<<a href='$url' title='$tooltip'>$icon/a>";
+				$cmds[] = "$label<a href='$url' title='$tooltip'>$icon</a>";
 				break;
 			case 'call':
 				$url =  site_url().$target . "/$cmd/" . $id;
 				$icon = cmd_link_icon("go");
-				$str .= "$label<a href='$url' title='$tooltip'>$icon</a>";
+				$cmds[] = "$label<a href='$url' title='$tooltip'>$icon</a>";
 				break;
 			case 'cmd_op':
 				$url =  site_url().$target . "/command";
 				$icon = cmd_link_icon();
-				$str .= "$label<a href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\")' title='$tooltip'>$icon</a>";
+				$cmds[] = "$label<a href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\")' title='$tooltip'>$icon</a>";
 				break;
 		}
-		$str = "<span class='cmd_link_cartouche'>$str</span>";
+	}
+	$str = "";
+	foreach($cmds as $cmd) {
+		$str .= "<span class='cmd_link_cartouche'>$cmd</span>\n";
 	}
 	return $str;
 }
