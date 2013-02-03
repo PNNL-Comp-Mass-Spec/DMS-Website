@@ -1,6 +1,8 @@
 get rid of http://dms2.pnl.gov/update_archive/create
 get rid of http://dms2.pnl.gov/update_datasets/create
 
+get rid of unused icons
+get sprite version of silk icons
 
 synchronize filter panel control icons with controlled panel visibility
 

@@ -405,7 +405,8 @@ class Entry_form {
 		$attributes['id'] = 'primary_cmd';
 		$url = site_url(). $this->file_tag . "/submit_entry_form";
 		$attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$mode')";
-		$attributes['content'] = ($page_type == 'create')?'Create':'Update';;
+		$attributes['content'] = ($page_type == 'create')?'Create':'Update';
+		$attributes['class'] = 'button';
 		//
 		// is there an override for the default command button?
 		foreach($entry_commands as $command => $spec) {
@@ -427,6 +428,7 @@ class Entry_form {
 					$attributes['content'] = $spec['label'];
 					$attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$command')";
 					$attributes['title'] = $spec['tooltip'];
+					$attributes['class'] = 'button';
 					$str .= form_button($attributes) . "<br>\n";
 					break;
 				case "retarget":
@@ -435,6 +437,7 @@ class Entry_form {
 					$attributes['content'] = $spec['label'];
 					$attributes['onclick'] = "epsilon.submitEntryFormToOtherPage('$target_url', '$command')";
 					$attributes['title'] = $spec['tooltip'];
+					$attributes['class'] = 'button';
 					$str .= form_button($attributes) . "<br>\n";
 					break;
 			}

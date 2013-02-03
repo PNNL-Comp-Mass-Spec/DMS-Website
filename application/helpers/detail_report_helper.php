@@ -171,9 +171,9 @@ function make_detail_report_edit_links($controller_name, $id)
 	$edit_url = site_url()."$controller_name/edit/$id";
 	$copy_url = site_url()."$controller_name/create/$id";
 	$new_url = site_url()."$controller_name/create";
-	$str .= "<span><a id='btn_goto_edit_main' title='Edit this record' href='$edit_url' >Edit</a></span>";
-	$str .= "<span><a id='btn_goto_copy_main' title='Copy this record' href='$copy_url' >Copy</a></span>";
-	$str .= "<span><a id='btn_goto_create_main' title='Make new record' href='$new_url' >New</a></span>";
+	$str .= "<span><a id='btn_goto_edit_main' class='button' title='Edit this record' href='$edit_url' >Edit</a></span>";
+	$str .= "<span><a id='btn_goto_copy_main' class='button' title='Copy this record' href='$copy_url' >Copy</a></span>";
+	$str .= "<span><a id='btn_goto_create_main' class='button' title='Make new record' href='$new_url' >New</a></span>";
 	return $str;
 }
 // -----------------------------------

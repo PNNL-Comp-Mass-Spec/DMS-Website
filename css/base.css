@@ -8,7 +8,6 @@ body {
     padding-left: 10px;
     padding-right: 5px;
     background-color: #FAFAFA;
-/*    background-image: url(Images/FLECKa.jpg) */
 }
 #body_container {
 	height:500px;
@@ -39,7 +38,7 @@ body {
 }
 .clr_120 {
 	background-color:red;
-	color: SeaShell ;
+	color: #FFF5EE;
 	font-weight: bold;
 }
 /*
@@ -85,7 +84,7 @@ h2.page_title {
 a.button {
   color: #FFFFFF;
 }
-input.button {
+input.button, button.button {
     padding: 5px;
     height: auto;
 }
@@ -191,6 +190,7 @@ table.DRep td {
 }
 table.DRep h2 {
 	display: inline;
+	margin-right: 20px;
 }
 
 table.DRep span {
@@ -208,6 +208,10 @@ table.DRep span {
 }
 .DrepCmds a {
 	padding: 0px 4px 0px 6px;
+}
+#btn_goto_edit_main, #btn_goto_copy_main,  #btn_goto_create_main {
+	width:4em;
+	margin-right:10px;
 }
 
 /* 
@@ -241,6 +245,9 @@ table.LRep h2 {
 }
 table.LRep td.rht{
 	text-align: right;
+}
+.col_header {
+	text-decoration:none;
 }
 
 /* 
