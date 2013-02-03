@@ -388,10 +388,10 @@ table.LRep td.rht{
 }
 .FTab {
 	border:1px solid #BBBBBB;
-	background:#EFEFEF;
-	padding-right:5px;
-	padding-left:4px;
-	margin-left:2px;
+	padding-right: 10px;
+	padding-left: 6px;
+	padding-bottom: 2px;
+	margin-left: 2px;
 }
 .filter_caption {
 	text-align:center;
