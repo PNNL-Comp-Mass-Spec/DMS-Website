@@ -80,6 +80,7 @@ h2.page_title {
   width: auto;
   height: 12px;
   line-height: 12px;
+  border-radius:8px;
 }
 a.button {
   color: #FFFFFF;
@@ -102,24 +103,27 @@ input.button, button.button {
 table.EPag {
 	margin-top: 10px;
 	border-width: 1px;
-	border-spacing: 1px 1px;
+	border-spacing: 2px 2px;
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
 	border-collapse: separate;
-	background-color: #bfbfbf;
+	border-radius: 8px;
+	padding: 10px;
 }
 table.EPag th {
 	border-width: 1px;
 	padding: 4px;
-	border-style: hidden hidden hidden hidden;
+	border-style: hidden;
 	border-color: gray gray gray gray;
 	background-color: #E1E7EA;
+	border-radius:9px;
 }
 table.EPag td {
 	border-width: 1px;
 	padding: 4px;
-	border-style: hidden hidden hidden hidden;
+	border-style: hidden;
 	background-color: #EFEFEF;
+	border-radius: 8px;
 }
 table.EPag h2 {
 	display: inline;
@@ -155,6 +159,10 @@ table.EPag span.ePhelper {
 .entry_cmd_button {
 	min-width: 8em;
 }
+.section_block_header_all {
+	background-color:#E1E7EA !important;
+}
+
 /* 
  * styling for alternating color bands
  */
@@ -175,20 +183,23 @@ table.DRep {
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
 	border-collapse: separate;
-	background-color: #bfbfbf;
 	clear:left;
+	border-radius: 8px;
+	padding: 10px;	
 }
 table.DRep th {
 	border-width: 1px;
 	padding: 4px;
-	border-style: hidden hidden hidden hidden;
+	border-style: hidden;
 	border-color: gray gray gray gray;
 	background-color: #E1E7EA;
+	border-radius:8px;
 }
 table.DRep td {
 	border-width: 1px;
 	padding: 6px;
-	border-style: hidden hidden hidden hidden;
+	border-style: hidden;
+	border-radius:8px;
 }
 table.DRep h2 {
 	display: inline;
@@ -227,21 +238,24 @@ table.LRep {
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
 	border-collapse: separate;
-	background-color: #bfbfbf;
+	border-radius: 8px;
+	padding: 10px;
 }
 table.LRep th {
 	border-width: 1px;
 	padding: 4px;
-	border-style: hidden hidden hidden hidden;
+	border-style: hidden;
 	border-color: gray gray gray gray;
 	text-align: left;
 	white-space: nowrap;
 	background-color: #E1E7EA;
+	border-radius:8px;
 }
 table.LRep td {
 	border-width: 1px;
 	padding: 4px;
-	border-style: hidden hidden hidden hidden;
+	border-style: hidden;
+	border-radius:8px;
 }
 table.LRep h2 {
 	display: inline;
@@ -264,7 +278,7 @@ table.LRep td.rht{
   text-decoration: none !important;	
 }
 .LRepPagerCtl {
-	margin-left: 4px;
+	margin-left: 6px;
 	margin-right: 15px;
 }
 .LRepPagerCartouche {
@@ -380,6 +394,7 @@ table.LRep td.rht{
 	border:1px solid gray; 
 	padding-top:5px;
 	padding-bottom:5px;
+	border-radius: 8px;
 }
 .local_title {
 	font-size:22px;
@@ -392,6 +407,7 @@ table.LRep td.rht{
 	padding-left: 6px;
 	padding-bottom: 2px;
 	margin-left: 2px;
+	border-radius: 8px;
 }
 .filter_caption {
 	text-align:center;
@@ -405,7 +421,6 @@ table.LRep td.rht{
 	vertical-align:top;
 }
 .filter_col {
-		border:2px solid #BBBBBB;
 }
 /* 
  * containers for command buttons on report and entry pages

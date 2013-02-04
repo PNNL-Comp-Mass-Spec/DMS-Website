@@ -176,14 +176,18 @@ body#freezer_page tr.block_header {
 	display:none;
 }
 #file_attachments_box {
-	width:60em;
+	width:70em;
 	margin:5px 0 0 0;
-	padding:0px 5px 5px 5px;
+	padding:5px;
 	border:1px solid #AAA;
+	border-radius: 8px;
 }
 #attachments_list {
 	padding:0px 5px 5px 5px;
 }
 #upload_target {
 	display:none;
+}
+table#file_attachments td,th {
+	border-radius: 8px;
 }

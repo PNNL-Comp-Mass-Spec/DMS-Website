@@ -364,7 +364,7 @@ class Entry_form {
 			$lbx = $px[1];
 			$dsx = $px[2];
 			$s .= "<a href='javascript:void(0)' onclick='$fnx' >$lbx</a> $dsx";
-//			$s .= "<button name='${f_name}_btn' onclick='$fnx'>$lbx</button>";
+//			$s .= "<button name='${f_name}_btn' onclick='$fnx' class='button'>$lbx</button>";
 			break;
 		}
 
