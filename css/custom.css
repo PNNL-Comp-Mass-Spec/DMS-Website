@@ -49,24 +49,24 @@ body#usage_tracking_calendar .repBox {
 }
 body#usage_tracking_calendar .runTable {
 	margin-top: 10px;
-	border-width: 1px 1px 1px 1px;
-	border-spacing: 1px 1px;
-	border-style: solid solid solid solid;
-	border-color: gray gray gray gray;
+	border-width: 1px;
+	border-spacing: 1px;
+	border-style: solid;
+	border-color: gray;
 	border-collapse: separate;
 	background-color: #bfbfbf;
 }
 body#usage_tracking_calendar .runTable th {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
-	border-style: hidden hidden hidden hidden;
-	border-color: gray gray gray gray;
+	border-width: 1px;
+	padding: 4px;
+	border-style: hidden;
+	border-color: gray;
 	background-color: #E1E7EA;
 }
 body#usage_tracking_calendar .runTable td {
-	border-width: 1px 1px 1px 1px;
-	padding: 4px 4px 4px 4px;
-	border-style: hidden hidden hidden hidden;
+	border-width: 1px;
+	padding: 4px;
+	border-style: hidden;
 	background-color: #EFEFEF;
 	width: 160px;
 	height: 40px;
@@ -148,7 +148,7 @@ body#freezer_page table.GridCell td {
 	background-color:#EFEFEF;
 }
 body#freezer_page #comp_pos_link_container {
-	padding: 5px 5px 5px 5px;
+	padding: 5px;
 }
 body#freezer_page .block_spacer {
 	width:300px;
@@ -180,7 +180,7 @@ body#freezer_page tr.block_header {
 	margin:5px 0 0 0;
 	padding:5px;
 	border:1px solid #AAA;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 #attachments_list {
 	padding:0px 5px 5px 5px;
@@ -189,5 +189,5 @@ body#freezer_page tr.block_header {
 	display:none;
 }
 table#file_attachments td,th {
-	border-radius: 8px;
+	border-radius: 6px;
 }

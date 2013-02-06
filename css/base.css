@@ -104,26 +104,26 @@ table.EPag {
 	margin-top: 10px;
 	border-width: 1px;
 	border-spacing: 2px 2px;
-	border-style: solid solid solid solid;
-	border-color: gray gray gray gray;
+	border-style: solid;
+	border-color: gray;
 	border-collapse: separate;
-	border-radius: 8px;
+	border-radius: 6px;
 	padding: 10px;
 }
 table.EPag th {
 	border-width: 1px;
 	padding: 4px;
 	border-style: hidden;
-	border-color: gray gray gray gray;
+	border-color: gray;
 	background-color: #E1E7EA;
-	border-radius:9px;
+	border-radius:8px;
 }
 table.EPag td {
 	border-width: 1px;
 	padding: 4px;
 	border-style: hidden;
 	background-color: #EFEFEF;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 table.EPag h2 {
 	display: inline;
@@ -180,18 +180,18 @@ table.DRep {
 	margin-top: 10px;
 	border-width: 1px;
 	border-spacing: 1px;
-	border-style: solid solid solid solid;
-	border-color: gray gray gray gray;
+	border-style: solid;
+	border-color: gray;
 	border-collapse: separate;
 	clear:left;
-	border-radius: 8px;
+	border-radius: 6px;
 	padding: 10px;	
 }
 table.DRep th {
 	border-width: 1px;
 	padding: 4px;
 	border-style: hidden;
-	border-color: gray gray gray gray;
+	border-color: gray;
 	background-color: #E1E7EA;
 	border-radius:8px;
 }
@@ -207,7 +207,7 @@ table.DRep h2 {
 }
 
 table.DRep span {
-	padding: 1px 1px 1px 8px;
+	padding: 1px 1px 8px;
 }
 
 .DrepAuxInfo {
@@ -234,18 +234,18 @@ table.DRep span {
 table.LRep {
 	margin: 0px;
 	border-width: 1px;
-	border-spacing: 1px 1px;
-	border-style: solid solid solid solid;
-	border-color: gray gray gray gray;
+	border-spacing: 1px;
+	border-style: solid;
+	border-color: gray;
 	border-collapse: separate;
-	border-radius: 8px;
+	border-radius: 6px;
 	padding: 10px;
 }
 table.LRep th {
 	border-width: 1px;
 	padding: 4px;
 	border-style: hidden;
-	border-color: gray gray gray gray;
+	border-color: gray;
 	text-align: left;
 	white-space: nowrap;
 	background-color: #E1E7EA;
@@ -394,7 +394,7 @@ table.LRep td.rht{
 	border:1px solid gray; 
 	padding-top:5px;
 	padding-bottom:5px;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 .local_title {
 	font-size:22px;
@@ -407,7 +407,7 @@ table.LRep td.rht{
 	padding-left: 6px;
 	padding-bottom: 2px;
 	margin-left: 2px;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 .filter_caption {
 	text-align:center;

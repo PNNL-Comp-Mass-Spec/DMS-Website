@@ -24,7 +24,25 @@ class Gen extends CI_Controller {
 		$this->load->vars($data);
 		$this->load->view('top_level_frames');
 	}
-
+	// --------------------------------------------------------------------
+	function config()
+	{
+		echo("<li>Environment:".ENVIRONMENT . "\n");
+//		$this->config->load('database', TRUE);
+		$this->load->database();
+		
+		$s = $this->color_code = $this->config->item('version_label');
+		echo("<li>version:$s\n");
+		
+		$s = $this->color_code = $this->config->item('file_attachment_archive_root_path');
+		echo("<li>file attachment path:$s\n");
+		
+		$s = $this->db->database;
+		echo("<li>database:$s\n");
+		
+		$s = $this->db->username;
+		echo("<li>user:$s\n");		
+	}
 	// --------------------------------------------------------------------
 	function _page_menu(
 				$title,
