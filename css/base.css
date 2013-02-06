@@ -80,7 +80,7 @@ h2.page_title {
   width: auto;
   height: 12px;
   line-height: 12px;
-  border-radius:8px;
+  border-radius:6px;
 }
 a.button {
   color: #FFFFFF;
@@ -102,13 +102,10 @@ input.button, button.button {
  */
 table.EPag {
 	margin-top: 10px;
-	border-width: 1px;
-	border-spacing: 2px 2px;
-	border-style: solid;
-	border-color: gray;
+	background-color: #BBBBBB;	
+	border-spacing: 1px;
 	border-collapse: separate;
-	border-radius: 6px;
-	padding: 10px;
+/** 	border-radius: 6px; **/
 }
 table.EPag th {
 	border-width: 1px;
@@ -116,20 +113,21 @@ table.EPag th {
 	border-style: hidden;
 	border-color: gray;
 	background-color: #E1E7EA;
-	border-radius:8px;
+/** 	border-radius:6px; **/
 }
 table.EPag td {
 	border-width: 1px;
 	padding: 4px;
 	border-style: hidden;
 	background-color: #EFEFEF;
-	border-radius: 6px;
+/** 	border-radius: 6px; **/
 }
 table.EPag h2 {
 	display: inline;
 }
 table.EPag td a:link, table.EPag td a:visited, table.EPag td a:active {
 	color: #003399;
+	margin-left: 2px;
 }
 table.EPag td a:hover {
 	color:red;
@@ -178,14 +176,11 @@ table.EPag span.ePhelper {
  */
 table.DRep {
 	margin-top: 10px;
-	border-width: 1px;
+	background-color: #BBBBBB;
 	border-spacing: 1px;
-	border-style: solid;
-	border-color: gray;
 	border-collapse: separate;
 	clear:left;
-	border-radius: 6px;
-	padding: 10px;	
+/** 	border-radius: 6px; **/
 }
 table.DRep th {
 	border-width: 1px;
@@ -193,13 +188,13 @@ table.DRep th {
 	border-style: hidden;
 	border-color: gray;
 	background-color: #E1E7EA;
-	border-radius:8px;
+/** 	border-radius:6px; **/
 }
 table.DRep td {
 	border-width: 1px;
 	padding: 6px;
 	border-style: hidden;
-	border-radius:8px;
+/** 	border-radius:6px; **/
 }
 table.DRep h2 {
 	display: inline;
@@ -232,14 +227,10 @@ table.DRep span {
  * styling for list report page main table 
  */
 table.LRep {
-	margin: 0px;
-	border-width: 1px;
 	border-spacing: 1px;
-	border-style: solid;
-	border-color: gray;
 	border-collapse: separate;
-	border-radius: 6px;
-	padding: 10px;
+	background-color: #BBBBBB;
+/** 	border-radius: 6px; **/
 }
 table.LRep th {
 	border-width: 1px;
@@ -249,13 +240,13 @@ table.LRep th {
 	text-align: left;
 	white-space: nowrap;
 	background-color: #E1E7EA;
-	border-radius:8px;
+/** 	border-radius:6px; **/
 }
 table.LRep td {
 	border-width: 1px;
 	padding: 4px;
 	border-style: hidden;
-	border-radius:8px;
+/** 	border-radius:6px; **/
 }
 table.LRep h2 {
 	display: inline;
@@ -486,4 +477,7 @@ div.block_content {
 .cmd_link_cartouche {
 	margin-right:20px;
 }
-
+.cmd_link_a {
+	text-decoration:none;
+	color:black;
+}

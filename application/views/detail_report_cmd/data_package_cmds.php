@@ -3,9 +3,9 @@
 
 <div class='LRcmd_panel'>
 <span class='LRcmd_cartouche' ><?= general_visibility_control('Add Items to Data Package', 'add_items_section', '') ?></span>
-<span class='LRcmd_cartouche' >Refresh <a href='javascript:void(0)' onclick='delta.updateMyData()'><?= cmd_link_icon('refresh') ?></a></span>
-<span class='LRcmd_cartouche' >Go to job coverage page <a href="<?= site_url() ?>data_package_job_coverage/report/<?= $id ?>"><?= cmd_link_icon('go') ?></a></span>
-<span class='LRcmd_cartouche' >Go to dataset coverage page <a href="<?= site_url() ?>data_package_dataset_job_coverage/param/<?= $id ?>"><?= cmd_link_icon('go') ?></a></span>
+<span class='LRcmd_cartouche' ><a href='javascript:void(0)' onclick='delta.updateMyData()'><?= label_link_icon('refresh', '', 'Refresh') ?></a></span>
+<span class='LRcmd_cartouche' ><a href="<?= site_url() ?>data_package_job_coverage/report/<?= $id ?>"><?= label_link_icon('go', '', 'Go to job coverage page') ?></a></span>
+<span class='LRcmd_cartouche' ><a href="<?= site_url() ?>data_package_dataset_job_coverage/param/<?= $id ?>"><?= label_link_icon('go', '', 'Go to dataset coverage page') ?></a></span>
 <span id='detail_reload_status'></span>
 </div>
 

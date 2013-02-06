@@ -180,7 +180,7 @@ body#freezer_page tr.block_header {
 	margin:5px 0 0 0;
 	padding:5px;
 	border:1px solid #AAA;
-	border-radius: 6px;
+/** 	border-radius: 6px; **/
 }
 #attachments_list {
 	padding:0px 5px 5px 5px;
@@ -189,5 +189,5 @@ body#freezer_page tr.block_header {
 	display:none;
 }
 table#file_attachments td,th {
-	border-radius: 6px;
+/** 	border-radius: 6px; **/
 }
