@@ -304,6 +304,7 @@ var mainGrid = {
 	container: null, // generated page element that contains grid
 	options: { // SlickGrid options
 	        editable: true,
+	        autoEdit:true,
 	        enableAddRow: true,
 	        enableCellNavigation: true,
 	        asyncEditorLoading: false,
