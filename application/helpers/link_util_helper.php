@@ -20,7 +20,14 @@
 		$s = "$label <span class='expando_section ui-icon $icon $class'></span>";
 		return $s;
 	}
-	
+	// --------------------------------------------------------------------
+	function detail_report_cmd_link($label, $js = '', $tooltip = '', $href = '' )
+	{
+		$click = ($js)? "onclick='$js' " : "" ;
+		$href = ($href) ? "href='" . site_url() . "$href' " : "href='javascript:void(0)'" ;
+		$title = ($tooltip) ? "title='$tooltip'" : "" ;
+		return "<a class='cmd_link_a'$href$click$title >" . label_link_icon('go', '', $label) . "</a>";
+	}	
 	// --------------------------------------------------------------------
 	function filter_section_visibility_control($label, $filter_container, $icon_type, $tool_tip)
 	{

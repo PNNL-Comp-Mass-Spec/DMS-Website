@@ -232,17 +232,17 @@ function make_detail_report_commands($commands, $tag, $id)
 			case 'copy_from':
 				$url =  site_url().$target . "/create/$tag/" . $id;
 				$icon = cmd_link_icon("go");
-				$cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label$icon</a>";
+				$cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label $icon</a>";
 				break;
 			case 'call':
 				$url =  site_url().$target . "/$cmd/" . $id;
 				$icon = cmd_link_icon("go");
-				$cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label$icon</a>";
+				$cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label $icon</a>";
 				break;
 			case 'cmd_op':
 				$url =  site_url().$target . "/command";
 				$icon = cmd_link_icon();
-				$cmds[] = "<a class='cmd_link_a' href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\")' title='$tooltip'>$label$icon</a>";
+				$cmds[] = "<a class='cmd_link_a' href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\")' title='$tooltip'>$label $icon</a>";
 				break;
 		}
 	}
