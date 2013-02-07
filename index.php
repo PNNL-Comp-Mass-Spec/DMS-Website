@@ -33,11 +33,13 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
+		case 'refactor':
 			error_reporting(E_ALL);
 		break;
 	
 		case 'testing':
 		case 'production':
+		case 'training':
 			error_reporting(0);
 		break;
 
