@@ -309,7 +309,6 @@ var mainGrid = {
 	        enableCellNavigation: true,
 	        asyncEditorLoading: false,
 	        autoHeight: true,
-	        autoEdit: false,
 	        enableColumnReorder: false,
 	        explicitInitialization: true
 	},
