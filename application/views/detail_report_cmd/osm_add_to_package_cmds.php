@@ -22,7 +22,7 @@
 	
 	<div style='padding:0px 5px 5px 5px;' >
 	<input class='button lst_cmd_btn' type='button' value='Add' onclick='packages.updateOSMPackageItems_2("entry_form", "add")' />
-	<a href="javascript:packages.goToPage()">Go to package item list report page...</a>
+	<span class='LRcmd_cartouche' ><?= detail_report_cmd_link("Go to package item list report page", "packages.goToPage()") ?></span>
 	</div>
 </form>
 </div>

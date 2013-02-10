@@ -1,5 +1,5 @@
 <div style='padding:5px 0px 5px 5px;'>
-<a href='<?= site_url() . "osm_package_files/report/".$id ?>''>Included package files...</a>
+<span class='LRcmd_cartouche' ><?= detail_report_cmd_link("Included package files", "", "", "osm_package_files/report/$id") ?></span>
 </div>
 <div style="height:1em;"></div>
 
