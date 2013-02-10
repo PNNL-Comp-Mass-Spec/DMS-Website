@@ -92,8 +92,8 @@ class List_report_pager {
 		if($end_row > $this->total_rows) $end_row = $this->total_rows;
 		//
 		$icon_adjust = cmd_link_icon('adjust');
-		$page_sizer = 'Set Rows <a href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">'.$icon_adjust.'</a>';
-		$show_all = 'Max Rows <a href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">'.$icon_adjust.'</a>';
+		$page_sizer = '<a class="cmd_link_a" href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">Set Rows '.$icon_adjust.'</a>';
+		$show_all = '<a class="cmd_link_a" href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">Max Rows '.$icon_adjust.'</a>';
 		$show_all = ($this->per_page < $this->total_rows)?$show_all:'';
 		//
 //		return "&nbsp; Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> &nbsp;" . $page_sizer. " &nbsp; " .$show_all;

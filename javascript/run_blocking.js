@@ -102,8 +102,8 @@ var runBlocking = {
 		var rlist = this.getBlockingFieldsObjList(col_name);
 		var bflist = this.getUniqueListOfBlockingFactors(col_name);
 		$.each(bflist, function(idx, bf){
-			var tlist = this.getBlockingFieldObjsInBlockingFactor(rlist, bf);
-			this.assignBlockingFactorToBlocks(tlist);
+			var tlist = runBlocking.getBlockingFieldObjsInBlockingFactor(rlist, bf);
+			runBlocking.assignBlockingFactorToBlocks(tlist);
 		});
 		this.randomizeWithinBlocks();
 	},

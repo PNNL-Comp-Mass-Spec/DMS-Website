@@ -43,6 +43,6 @@ var parRep = {
 	
 //after the page loads, set things in motion to populate it
 $(document).ready(function () { 
-	 	lambda.reloadListReportData = function() { updateMyData('autoload');}
+	 	lambda.reloadListReportData = function() { parRep.updateMyData('autoload');}
 		$('#data_container').html('Data will be displayed after you click the "Search" button.');
 });
