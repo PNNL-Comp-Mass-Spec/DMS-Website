@@ -12,8 +12,8 @@ var runBlocking = {
 		$('.Block').each(function(idx, bk) {
 			var obj = {};
 			obj.bk = bk;
-			obj.ro = $('#Run_Order_' + bk.name);
-			obj.bf = $('#' + col_name + '_' + bk.name)
+			obj.ro = $('#Run_Order_' + bk.name).get(0);
+			obj.bf = $('#' + col_name + '_' + bk.name).get(0);
 			rlist.push(obj);
 		});
 		this.setRandom(rlist);
@@ -22,25 +22,21 @@ var runBlocking = {
 	randomizeRunOrder: function(rlist){	
 		// get array of request objects that is
 		// sorted by random value
-		var slist = rlist.sortBy(function(obj){
-			return obj.rnd;
-		});
+		var slist = rlist.sort(function(a,b){return a.rnd > b.rnd ? 1 : a.rnd < b.rnd ? -1 : 0 });
 		// change value in run order field to match
 		// sequence of random sorted array
-		$.each(slist, function(idx, obj, index){
-			obj.ro.value = index + 1;
+		$.each(slist, function(idx, obj){
+			obj.ro.value = idx + 1;
 		});
 	},
 	assignBlockingFactorToBlocks: function(rlist){
 		// get array of request objects that is
 		// sorted by random value
-		var slist = rlist.sortBy(function(obj){
-			return obj.rnd;
-		});
+		var slist = rlist.sort(function(a,b){return a.rnd > b.rnd ? 1 : a.rnd < b.rnd ? -1 : 0 });
 		// change value in run order field to match
 		// sequence of random sorted array
-		$.each(slist, function(idx, obj, index){
-			obj.bk.value = index + 1;
+		$.each(slist, function(idx, obj){
+			obj.bk.value = idx + 1;
 		});
 	},
 	getUniqueListOfBlocks: function() {
@@ -49,7 +45,7 @@ var runBlocking = {
 		bklist = [];
 		$('.Block').each(function(idx, bk) {
 			var blk = bk.value;
-			if(!bklist.include(blk)) {
+			if(bklist.indexOf(blk) === -1) {
 				bklist.push(blk);
 			}
 		});
@@ -61,7 +57,7 @@ var runBlocking = {
 		bflist = [];
 		$('.' + col_name).each(function(idx, bk) {
 			var blk = bk.value;
-			if(!bflist.include(blk)) {
+			if(bflist.indexOf(blk) === -1) {
 				bflist.push(blk);
 			}
 		});
@@ -90,8 +86,8 @@ var runBlocking = {
 		var rlist = this.getBlockingFieldsObjList('Blocking_Factor');
 		var bklist = this.getUniqueListOfBlocks();
 		$.each(bklist, function(idx, bkn){
-			var tlist = this.getBlockingFieldObjsInBlock(rlist, bkn);
-			this.randomizeRunOrder(tlist);
+			var tlist = runBlocking.getBlockingFieldObjsInBlock(rlist, bkn);
+			runBlocking.randomizeRunOrder(tlist);
 		});
 	},
 	randomizeBatch: function() {
@@ -122,13 +118,11 @@ var runBlocking = {
 			alert('Batch is smaller than block size');
 			return
 		}
-		var slist = rlist.sortBy(function(obj){
-			return obj.rnd;
-		});
+		var slist = rlist.sort(function(a,b){return a.rnd > b.rnd ? 1 : a.rnd < b.rnd ? -1 : 0 });
 		var numBlocks = Math.ceil(slist.length / blkSize);
-		$.each(slist, function(idx, obj, index) {
-			obj.bk.value = (index % numBlocks) + 1;
-			obj.bf.value = 'na';
+		$.each(slist, function(idx, obj) {
+			obj.bk.value = (idx % numBlocks) + 1;
+			if(obj.bf) obj.bf.value = 'na';
 		});
 		this.randomizeWithinBlocks();
 	},
