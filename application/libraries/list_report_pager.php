@@ -28,13 +28,7 @@ class List_report_pager {
 	private $prev_tag_close		= '';
 	private $num_tag_open		= '&nbsp;';
 	private $num_tag_close		= '';
-	
-/*
-<span style="display:inline-block" class="ui-icon ui-icon-seek-first"></span>
-<span style="display:inline-block" class="ui-icon ui-icon-seek-next"></span>
-<span style="display:inline-block" class="ui-icon ui-icon-seek-prev"></span>
-<span style="display:inline-block" class="ui-icon ui-icon-seek-end"></span>
- */
+
 	// --------------------------------------------------------------------
 	function __construct($params = array())
 	{
