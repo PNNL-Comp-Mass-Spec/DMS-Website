@@ -338,5 +338,8 @@ var lcmd = {
 
 $(document).ready(function () { 
 	$('.sel_chooser').chosen({search_contains: true});
+	if(gamma.pageContext.my_tag == 'requested_run_factors') {
+		gamma.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
+	}
 });
 

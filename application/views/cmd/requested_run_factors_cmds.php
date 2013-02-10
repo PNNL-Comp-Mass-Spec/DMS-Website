@@ -41,8 +41,3 @@ from selected items.
 </div>
 
 <script src="<?= base_url().'javascript/factors.js' ?>"></script>
-
-<script type="text/javascript">
-gamma.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
-</script>
-
