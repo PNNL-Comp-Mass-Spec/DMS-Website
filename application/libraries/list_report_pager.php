@@ -38,7 +38,7 @@ class List_report_pager {
 		$this->first_link = expansion_link_icon('first'); 
 		$this->next_link = expansion_link_icon('next'); 
 		$this->prev_link = expansion_link_icon('prev'); 
-		$this->last_link = expansion_link_icon('end'); 
+		$this->last_link = expansion_link_icon('last'); 
 	}
 
 	// --------------------------------------------------------------------
