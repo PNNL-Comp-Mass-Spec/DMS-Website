@@ -44,9 +44,10 @@
 	position:relative;
 }
 .phVersion { /* header version text container */
-	position:absolute;
+	float:right;
+/*	position:absolute;
 	right:1em;
-	top:0.4em;
+	top:0.4em; */
 }
 .phVersion a:link, .phVersion a:visited
 {
