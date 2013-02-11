@@ -2,7 +2,6 @@
  * general formatting for body 
  */
 body {
-/*  font-family: 'Open Sans', verdana, arial, helvetica, sans-serif; */
     font-family: verdana, arial, helvetica, sans-serif;
     font-weight:400;
     font-size: 13px;
@@ -211,13 +210,12 @@ table.DRep th {
 	border-style: hidden;
 	border-color: gray;
 	background-color: #E1E7EA;
-/** 	border-radius:6px; **/
 }
 table.DRep td {
+	font-size: 12px;
 	border-width: 1px;
 	padding: 3px;
 	border-style: hidden;
-/** 	border-radius:6px; **/
 }
 table.DRep h2 {
 	display: inline;
@@ -269,8 +267,9 @@ table.LRep th {
 /** 	border-radius:6px; **/
 }
 table.LRep td {
+	font-size: 12px;
 	border-width: 1px;
-	padding: 2px 2px 2px 2px;
+	padding: 3px 2px 3px 2px;
 	border-style: hidden;
 /** 	border-radius:6px; **/
 }
@@ -329,7 +328,8 @@ table.LRep td.rht{
 	font-size: 12px;
 } 
 .filter_container_box select,input,textarea {
-	font-size: 12px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 13px;
 	padding: 2px;
 	border-radius: 3px;
 	border: 1px solid rgb(163,199,245);
@@ -509,4 +509,16 @@ div.block_content {
 .cmd_link_a {
 	text-decoration:none;
 	color:black;
+}
+.chzn-container {
+	min-width: 150px !important;
+}
+.chzn-search input {
+	min-width: 110px !important;
+}
+.chzn-drop {
+	min-width: 148px !important;
+}
+.sel_chooser {
+	min-width:105px;
 }

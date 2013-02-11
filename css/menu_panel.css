@@ -6,12 +6,12 @@ body.menu_panel {
 .searchpnl {
 	width:95%;
 	border:1px solid gray;
-	font-size:80%;
+	font-size:90%;
 	margin:5px 0 0 0;
 	padding:2px; 
 }
 div.searchpnl select {
-	font-size:90%;
+	font-size:100%;
 }
 div.searchpnl span {
 	margin:0 0 0 0;
@@ -21,7 +21,7 @@ div.searchpnl span {
 .ctlPanel {
 	padding-top: 2px;
 	padding-bottom: 6px;
-	font-size: 80%;
+	font-size: 90%;
 }
 .side_menu_ctl_pnl {
 	padding-left: 10px;
