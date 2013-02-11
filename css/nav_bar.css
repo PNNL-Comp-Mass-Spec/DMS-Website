@@ -159,7 +159,9 @@ div#menu  { /* container for nav bar */
 #nav span a:hover {
 	color:Yellow;
 }
-
+#nav a.mnuitem:hover {
+	background-color:#6495ed;
+}
 
 .QueryParamLabel {
 	margin-top:5px;

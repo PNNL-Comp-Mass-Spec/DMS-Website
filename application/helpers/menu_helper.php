@@ -211,7 +211,7 @@
 						}
 						$help = $entry['item_help'];
 						$title = ($help)?"title='$help'":'';
-						echo "<li><a $title href='$url' $click $target>$label</a></li>\n";
+						echo "<li><a class='mnuitem' $title href='$url' $click $target>$label</a></li>\n";
 						break;
 					case 'separator':
 						echo "<li class=mnusep >$label</li>\n";
