@@ -163,11 +163,13 @@ table.EPag span.ePhelper {
 	width:80%;
 	border: thin double black; 
 	padding: 4px;
+	border-radius:6px;
 }
 .EPag_error {
 	width:80%;
 	border: medium double red; 
 	padding: 4px;
+	border-radius:6px;
 }
 .EPagCmds {
 	padding: 4px;
@@ -475,6 +477,7 @@ table.LRep td.rht{
 	background-color: #BFDBFF;
 	border:1px solid gray;
 }
+
 /*
  * misc
  */

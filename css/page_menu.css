@@ -1,7 +1,7 @@
 /* 
  * general formatting for config db "quick start" type pages
  */ 
- .fly_aspect {
+.fly_aspect {
  	width:25em;
  }
 .fly_aspect_active_area {
@@ -15,8 +15,9 @@
 }
 .fly_box {
 	display:none;
+	max-width:300px;
 }
- .qs_aspect {
+.qs_aspect {
  	width:46em;
  }
 .qs_aspect_active_area {
@@ -74,4 +75,9 @@
 .qs_layout td {
 	vertical-align:top;
 	padding-right:8px;
+}
+.qs_WelcomeHeaders {
+  font-family:'Source Sans Pro', verdana, arial, helvetica, sans-serif;
+  font-size: 15px;
+  font-weight:bold;
 }

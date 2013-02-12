@@ -17,8 +17,8 @@
 
 <div class='ctlPanel'>
 <span class="side_menu_ctl_pnl"><a target="display_side" href="<?= site_url()?>gen/welcome" title="Go to the home page">Home</a></span>
-<span class="side_menu_ctl_pnl"><a href="javascript:void(0)" id="btnExpandAll" title="Open all menus">Expand all</a></span>
-<span class="side_menu_ctl_pnl"><a href="javascript:void(0)" id="btnCollapseAll" title="Close all menus">Collapse all</a></span>
+<span class="side_menu_ctl_pnl"><a href="javascript:void(0)" id="btnExpandAll" title="Open all menus">Expand&nbsp;all</a></span>
+<span class="side_menu_ctl_pnl"><a href="javascript:void(0)" id="btnCollapseAll" title="Close all menus">Collapse&nbsp;all</a></span>
 </div>
 
 <div id='tree'>
