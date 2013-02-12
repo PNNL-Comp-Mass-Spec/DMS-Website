@@ -2,7 +2,8 @@ var parRep = {
 	// update the column and sorting filters
 	filter_update_action: {
 		run:function(){
-			if(!$('#sorting_filter_table')) {
+			var sft = $('#sorting_filter_table');
+			if(sft.length == 0) {
 				lambda.updateContainer('param_filter', 'entry_form', 'search_filter_container', gamma.no_action);
 				$('#search_controls_container').show();
 			}
@@ -18,7 +19,8 @@ var parRep = {
 	//update the paging display sections, or hide them if no data rows
 	paging_update_action: {
 		run:function() {
-			if($('#data_message')) {
+			var dm = $('#data_message');
+			if(dm.length > 0) {
 				$('#paging_container_upper').hide();
 				$('#paging_container_lower').hide();
 			} else {
