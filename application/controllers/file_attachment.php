@@ -1,6 +1,14 @@
 <?php
 require("base_controller.php");
 
+// helper class
+class Check_result {
+	var $ok = true;
+	var $message = "";
+	var $path = '';
+}
+
+// main class
 class file_attachment extends Base_controller {
 	
 	// --------------------------------------------------------------------
@@ -13,14 +21,15 @@ class file_attachment extends Base_controller {
 		$this->my_title = "File Attachments";
 		$this->archive_root_path = $this->config->item('file_attachment_archive_root_path');
 	}
-
 	// --------------------------------------------------------------------
-	function check_remote_mount() 
+	private
+	function validate_remote_mount()
 	{
-		$message = 'OK';
+		$result = new Check_result();
 		try {
 			$mnt_path = $this->archive_root_path;
-//echo $mnt_path;
+			$result->path = $mnt_path;
+
 			$dir_ok = is_dir($mnt_path);
 			if(!$dir_ok) throw new Exception("'$mnt_path' is not a directory");
 			
@@ -32,30 +41,48 @@ class file_attachment extends Base_controller {
 			$local_ok = !file_exists($local_sentinal);
 			if(!$local_ok) throw new Exception("Local sentinal '$local_sentinal' was unexpectedly visible");
 			
-//var_dump(scandir($mnt_path));
 		} catch (Exception $e) {
-			$message = "Error:" . $e->getMessage();
+			$result->message = $e->getMessage();
+			$result->ok = false;
 		}
-		echo $message;	
+		if (ENVIRONMENT != 'production') $result->ok = true;
+		return $result;	
 	}
 
 	// --------------------------------------------------------------------
-	function get_file_path($entity_type,$entity_id,$filename){
-		$full_path = '';
-		$this->load->database();
-		$this->db->select("File_Name AS [filename], archive_folder_path as path");
-		$this->db->where("Entity_Type", $entity_type);
-		$this->db->where("Entity_ID", $entity_id);
-		$this->db->where("File_Name", $filename);
-		$query = $this->db->get("T_File_Attachment",1);
+	function check_remote_mount() 
+	{
+		var_dump($this->validate_remote_mount());
+	}
 
-		if($query && $query->num_rows()>0){
-			//build the full path
-			$full_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
-		} else {
-		
+	// --------------------------------------------------------------------
+	function check_file_path($entity_type, $entity_id, $filename) {
+		var_dump($this->get_valid_file_path($entity_type, $entity_id, $filename));
+	}
+
+	// --------------------------------------------------------------------
+	function get_valid_file_path($entity_type, $entity_id, $filename){
+		$result = new Check_result();
+		try {
+			$full_path = '';
+			$this->load->database();
+			$this->db->select("File_Name AS [filename], archive_folder_path as path");
+			$this->db->where("Entity_Type", $entity_type);
+			$this->db->where("Entity_ID", $entity_id);
+			$this->db->where("File_Name", $filename);
+			$query = $this->db->get("T_File_Attachment",1);
+	
+			if($query && $query->num_rows()>0) {
+				$full_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
+				$result->path = $full_path;
+			} else {
+				throw new Exception("Could not find entry for file in database");
+			}
+		} catch (Exception $e) {
+			$result->message = $e->getMessage();
+			$result->ok = false;
 		}
-		echo $full_path;
+		return $result;
 	}
 
 	// --------------------------------------------------------------------
@@ -64,54 +91,57 @@ class file_attachment extends Base_controller {
 	// and copy uploaded file to EMSL archive
 	function upload()
 	{
-		$timestamp = microtime(TRUE);
-		$config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->input->post("entity_id")."/{$timestamp}/";
-		$config['allowed_types'] = 'doc|docx|gif|jpg|pdf|png|pps|ppsx|ppt|pptx|tif|tiff|txt|vdx|vsd|xl|xls|xlsx|xlt|xml';
-		$config['max_width']  = '3000';
-		$config['max_height']  = '3000';
-		$config['overwrite'] = TRUE;
-		$config['remove_spaces'] = TRUE;
-		$config['encrypt_name'] = TRUE;
-		$config['max_size'] = 204800;
-		mkdir($config['upload_path'],0777,TRUE);
-		
-		$error = "";
-		$this->load->library('upload', $config);
-		if ( ! $this->upload->do_upload()) {
-			$error = $this->upload->display_errors();
-		} else {
-			$data = $this->upload->data();
-			$name = $data["file_name"];
-			$size = $data["file_size"];
-			$type = $this->input->post("entity_type");
-			$id = $this->input->post("entity_id");
-			$description = $this->input->post("description");
-			$entity_folder_path = $this->get_path($type, $id);
-			$archive_folder_path = $this->archive_root_path . $entity_folder_path;
-      
-//      echo $archive_folder_path;
-//      exit;
+		$error =  "Upload was successful";
+		try {
+			$remote = $this->validate_remote_mount();
+			if(!$remote->ok) throw new Exception($remote->message);
 
-			$dest_path = "{$archive_folder_path}/{$name}";
-			$src_path = "{$config['upload_path']}{$name}";
+			$timestamp = microtime(TRUE);
+			$config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->input->post("entity_id")."/{$timestamp}/";
+			$config['allowed_types'] = 'doc|docx|gif|jpg|pdf|png|pps|ppsx|ppt|pptx|tif|tiff|txt|vdx|vsd|xl|xls|xlsx|xlt|xml';
+			$config['max_width']  = '3000';
+			$config['max_height']  = '3000';
+			$config['overwrite'] = TRUE;
+			$config['remove_spaces'] = TRUE;
+			$config['encrypt_name'] = TRUE;
+			$config['max_size'] = 204800;
+			mkdir($config['upload_path'],0777,TRUE);
 			
-			if(!file_exists($archive_folder_path)){
-				mkdir($archive_folder_path,0777,true);
-			}
-			if(!rename($src_path,$dest_path)){
-				//error occurred during copy, handle accordingly
-			}else{
-				rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
-				chmodr($this->archive_root_path,0755);
-			}
-						
-			$msg = $this->make_attachment_tracking_entry($name, $type, $id, $description, $size, $entity_folder_path);
-			
-			if($msg) {
-				$error = msg;
+			$error = "";
+			$this->load->library('upload', $config);
+			if ( ! $this->upload->do_upload()) {
+				$error = $this->upload->display_errors();
 			} else {
-				$error =  "Upload was successful";
+				$data = $this->upload->data();
+				$name = $data["file_name"];
+				$size = $data["file_size"];
+				$type = $this->input->post("entity_type");
+				$id = $this->input->post("entity_id");
+				$description = $this->input->post("description");
+				$entity_folder_path = $this->get_path($type, $id);
+				$archive_folder_path = $this->archive_root_path . $entity_folder_path;
+	      
+	//      echo $archive_folder_path;
+	//      exit;
+	
+				$dest_path = "{$archive_folder_path}/{$name}";
+				$src_path = "{$config['upload_path']}{$name}";
+				
+				if(!file_exists($archive_folder_path)){
+					mkdir($archive_folder_path,0777,true);
+				}
+				if(!rename($src_path,$dest_path)){
+					//error occurred during copy, handle accordingly
+				}else{
+					rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
+					chmodr($this->archive_root_path,0755);
+				}
+							
+				$msg = $this->make_attachment_tracking_entry($name, $type, $id, $description, $size, $entity_folder_path);
+				if($msg) throw new Exception($msg);
 			}
+		} catch (Exception $e) {
+			$error = $e->getMessage();			
 		}
 		// output is headed for an iframe 
 		// this script will automatically run when put into it and will inform elements on main page that operation has completed
@@ -256,19 +286,17 @@ class file_attachment extends Base_controller {
 	}
 
 	// --------------------------------------------------------------------
-	function retrieve($entity_type,$entity_id,$filename){
-//		  $this->output->enable_profiler(true);
-	    $this->load->database();
-	    $this->db->select("File_Name AS [filename], archive_folder_path as path");
-	    $this->db->where("Entity_Type", $entity_type);
-	    $this->db->where("Entity_ID", $entity_id);
-	    $this->db->where("File_Name", $filename);
-	    $query = $this->db->get("T_File_Attachment",1);
-	    
-	    if($query && $query->num_rows()>0){
-			//build the full path
-			$full_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
-//      echo $full_path;
+	function retrieve($entity_type, $entity_id, $filename){
+		try {
+			$remote = $this->validate_remote_mount();
+			if(!$remote->ok) throw new Exception($remote->message);
+			
+	 		$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
+		    if(!$result->ok) throw new Exception($result->message);
+ 			$full_path = $result->path;
+			
+			if(!file_exists($full_path)) throw new Exception('File could not be found on server');
+			
 			//get mimetype info
 			$mime = mime_content_type($full_path);
 			
@@ -285,9 +313,11 @@ class file_attachment extends Base_controller {
 			header("Content-type: {$mime}");
 			header("Content-Disposition: attachment; filename=\"{$filename}\"");
 			header("X-Sendfile: {$full_path}");
-	    }
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
 	}
-	
 	
 	// --------------------------------------------------------------------
 	// make file in EMSL archive using given contents,
