@@ -13,7 +13,51 @@ class file_attachment extends Base_controller {
 		$this->my_title = "File Attachments";
 		$this->archive_root_path = $this->config->item('file_attachment_archive_root_path');
 	}
-	
+
+	// --------------------------------------------------------------------
+	function check_remote_mount() 
+	{
+		$message = 'OK';
+		try {
+			$mnt_path = $this->archive_root_path;
+//echo $mnt_path;
+			$dir_ok = is_dir($mnt_path);
+			if(!$dir_ok) throw new Exception("'$mnt_path' is not a directory");
+			
+			$remote_sentinal = $mnt_path . "sentinel-remote.txt";
+			$remote_ok = file_exists($remote_sentinal);
+			if(!$remote_ok) throw new Exception("Remote sentinal '$remote_sentinal' was unexpectedly not visible");
+			
+			$local_sentinal = $mnt_path . "sentinel-local.txt";
+			$local_ok = !file_exists($local_sentinal);
+			if(!$local_ok) throw new Exception("Local sentinal '$local_sentinal' was unexpectedly visible");
+			
+//var_dump(scandir($mnt_path));
+		} catch (Exception $e) {
+			$message = "Error:" . $e->getMessage();
+		}
+		echo $message;	
+	}
+
+	// --------------------------------------------------------------------
+	function get_file_path($entity_type,$entity_id,$filename){
+		$full_path = '';
+		$this->load->database();
+		$this->db->select("File_Name AS [filename], archive_folder_path as path");
+		$this->db->where("Entity_Type", $entity_type);
+		$this->db->where("Entity_ID", $entity_id);
+		$this->db->where("File_Name", $filename);
+		$query = $this->db->get("T_File_Attachment",1);
+
+		if($query && $query->num_rows()>0){
+			//build the full path
+			$full_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
+		} else {
+		
+		}
+		echo $full_path;
+	}
+
 	// --------------------------------------------------------------------
 	// copy uploaded file to receiving folder on web server,
 	// make file attachment tracking entry in DMS,
