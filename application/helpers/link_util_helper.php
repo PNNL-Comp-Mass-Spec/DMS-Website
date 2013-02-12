@@ -56,8 +56,8 @@
 	}
 
 	// --------------------------------------------------------------------
- 	function filter_clear_control($container) {
- 		return "<a class='cmd_link_a' href='javascript:void(0)' onclick='lambda.clearSearchFilter(\"" . $container . "\")' >" . cmd_link_icon('close') . "</a>";
+ 	function filter_clear_control($container, $clear_function = "lambda.clearSearchFilter") {
+ 		return "<a class='cmd_link_a' href='javascript:void(0)' onclick='$clear_function(\"" . $container . "\")' >" . cmd_link_icon('close') . "</a>";
  	}
 
 	// --------------------------------------------------------------------
