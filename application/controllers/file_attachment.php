@@ -405,6 +405,33 @@ class file_attachment extends Base_controller {
 		header("Content-type: text/plain");
 		echo $contents;
 	}
+
+	// --------------------------------------------------------------------
+	function check_access(){
+		try {
+			$full_path = '';
+			$this->load->database();
+			$this->db->select("File_Name AS [filename], Entity_Type as type, Entity_ID as id, archive_folder_path as path");
+			$this->db->where("Active > 0");
+			$query = $this->db->get("T_File_Attachment");
+			
+			$this->load->library('table');
+			$this->table->set_template(array ('heading_cell_start'  => '<th style="text-align:left;">'));
+			
+			$this->table->set_heading('File', 'Type', 'ID', 'Path');
+			foreach($query->result() as $row) {
+				$full_path = "{$this->archive_root_path}{$row->path}/{$row->filename}";
+				if(!file_exists($full_path)) {
+					$this->table->add_row($row->filename, $row->type, $row->id, $row->path);
+				}
+			}
+			echo $this->table->generate();
+			
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+
 }
 
 

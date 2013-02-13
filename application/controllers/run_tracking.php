@@ -259,7 +259,7 @@ EOD;
 	// --------------------------------------------------------------------
 	private
 	function build_calendar_data($runs, $intervals)
-	{
+	{	
 		// roll up number of runs and total duration for each day
 		$runTotals = array();
 		foreach($runs as $run) {
@@ -283,9 +283,8 @@ EOD;
 			$duration = $total["Duration"];
 			$calendarData[$day] = "<div>Runs:&nbsp;$nRuns</div><div>Duration:&nbsp;$duration</div>";
 		}
-		
 		// add long intervals to calendar display data
-		foreach($intervals as $interval) {
+		foreach($intervals as $interval) {			
 			$id = $interval['ID'];
 			$tip = "[$id] " . $interval['Comment'];
 			$link = site_url() . "run_interval/edit/" . $interval['ID'];
@@ -294,7 +293,6 @@ EOD;
 			$hour = $interval['Hour'];
 			$comState = $interval['ComState'];
 			$attbrs = "class='boink'";
-			$ckbx = form_checkbox('muli_select', $id, FALSE, $attbrs);
 			if(!array_key_exists($day, $calendarData)) {
 				$calendarData[$day] = '';
 			}

@@ -532,12 +532,16 @@ var lambda = {
 	},
 	//clear the specified list report search filter
 	clearSearchFilter: function(filter) {
-		$( '.' + filter).each(function(idx, obj) {obj.value = ''} );
+		$( '.' + filter).each(function(idx, obj) {
+			obj.value = ''
+		});
 		lambda.is_filter_active();
 	},
 	//clear the list report search filters
 	clearSearchFilters: function() {
-		$(".filter_input_field").each(function(idx, obj) {obj.value = ''} );
+		$(".filter_input_field").each(function(idx, obj) {
+			obj.value = ''
+		});
 		lambda.is_filter_active();
 	},
 	toggleFilterVisibility: function(containerId, duration, element) {
