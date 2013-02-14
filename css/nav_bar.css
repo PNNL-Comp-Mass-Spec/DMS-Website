@@ -99,7 +99,7 @@ div#menu  { /* container for nav bar */
   display:block;
   padding:1px 0px 2px 4px;
   font-size: 13px;
-  font-weight:500;
+  font-weight:600;
   border-top:1px solid #a0a0a0;
 }
 #menu li span {
@@ -167,7 +167,7 @@ div#menu  { /* container for nav bar */
 
 .QueryParamLabel {
 	margin-top:5px;
-}
+}
 
 .phVersion select {
 	font-size: 90%;
