@@ -59,7 +59,15 @@
  	function filter_clear_control($container, $clear_function = "lambda.clearSearchFilter") {
  		return "<a class='cmd_link_a' href='javascript:void(0)' onclick='$clear_function(\"" . $container . "\")' >" . cmd_link_icon('close') . "</a>";
  	}
-
+	// --------------------------------------------------------------------
+	function helper_selection_cmd_link($id, $label, $js = '', $type = '', $tooltip = '')
+	{
+		$id = "id='$id'";
+		$click = ($js)? "onclick='$js' " : "" ;
+		$href = "href='javascript:void(0)'" ;
+		$title = ($tooltip) ? "title='$tooltip'" : "" ;
+		return "<a class='cmd_link_a'$id $href$click$title >" . label_link_icon($type, '', $label) . "</a>";
+	}	
 	// --------------------------------------------------------------------
 	function search_btn()
 	{
@@ -124,6 +132,12 @@
 				break;
 			case "adjust":
 				$s = "ui-icon-wrench";
+				break;
+			case "SelAll":
+				$s = "ui-icon-plusthick";
+				break;
+			case "UnselAll":
+				$s = "ui-icon-minusthick";
 				break;
 			default:
 				$s = '??';

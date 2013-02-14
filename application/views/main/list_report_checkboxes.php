@@ -1,11 +1,12 @@
 
 <div class="LRepChooser">
-|<span><a id="btn_unselect_all" href='javascript:lambda.setCkbxState("ckbx", 0)' title="Clear all checkboxes" >Unselect all</a></span>
-|<span><a id="btn_select_all"href='javascript:lambda.setCkbxState("ckbx", 1)' title="Check all checkboxes" >Select all</a></span>
+	
+<span class="cmd_link_cartouche"><?= helper_selection_cmd_link('btn_unselect_all', 'Unselect all', 'lambda.setCkbxState("ckbx", 0)', 'UnselAll', 'Clear all checkboxes') ?></span>
+<span class="cmd_link_cartouche"><?= helper_selection_cmd_link('btn_select_all', 'Select all', 'lambda.setCkbxState("ckbx", 1)', 'SelAll', 'Check all checkboxes') ?></span>
 
 <?php if($is_ms_helper): ?>
-|<span><a id="btn_save_selection_replace" href='javascript:opener.epsilon.updateFieldValueFromChooser(lambda.getCkbxList("ckbx"), "replace")' title="Replace entry page field with selected items">Save Selection (Replace)</a></span>
-|<span><a id="btn_save_selection_append" href='javascript:opener.epsilon.updateFieldValueFromChooser(lambda.getCkbxList("ckbx"), "append")' title="Append selected items to entry page field">Save Selection (Append)</a></span>
-|
+<span class="cmd_link_cartouche"><?= helper_selection_cmd_link('btn_save_selection_replace', 'Save Selection (Replace)', 'opener.epsilon.updateFieldValueFromChooser(lambda.getCkbxList("ckbx"), "replace")', 'cmd', 'Replace entry page field with selected items') ?></span>
+<span class="cmd_link_cartouche"><?= helper_selection_cmd_link('btn_save_selection_append', 'Save Selection (Append)', 'opener.epsilon.updateFieldValueFromChooser(lambda.getCkbxList("ckbx"), "append")', 'cmd', 'Append selected items to entry page field') ?></span>
 <?php endif; ?>
+
 </div>
