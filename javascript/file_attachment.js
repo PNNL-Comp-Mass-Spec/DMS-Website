@@ -4,6 +4,9 @@ var fileAttachment = {
 		$('#result_display').html(msg);
 		this.showAttachments();
 	},
+	 report_download_results: function(msg) {
+		if(msg) alert(msg);
+	},
 	showAttachments: function() {
 		var url =  gamma.pageContext.site_url + "file_attachment/show_attachments";
 		var p = {};
@@ -34,6 +37,19 @@ var fileAttachment = {
 	do_upload: function() {
 		$('#result_display').spin('small');
 		$('#upload_form').submit();
+	},
+	doDownload: function(url) {
+		var cUrl = url.replace('/retrieve/', '/check_retrieve/');
+		gamma.getObjectFromJSON(cUrl, {}, '', function(json) {
+			var response = $.parseJSON(json);
+			if(response.ok) {
+				var ufrm = 	$('#download_form').get(0);
+				ufrm.action = url;
+				ufrm.submit();
+			} else {
+				alert("There was a problem accessing the file: " + response.message);
+			}
+		});
 	},
 	init: function() {
 		var et = $('#entity_type');
