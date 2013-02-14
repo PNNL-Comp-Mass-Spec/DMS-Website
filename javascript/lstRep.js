@@ -67,6 +67,6 @@ var lstRep = {
 // after the page loads, set things in motion to populate it
 $(document).ready(function () { 
 		lstRep.updateMyFilter('minimal');
-		lstRep.updateMyData('<?= $loading ?>');
+		lstRep.updateMyData(gamma.pageContext.initalDataLoad);
 	 	lambda.reloadListReportData = function() { lstRep.updateMyData('autoload');}
 });
