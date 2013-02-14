@@ -98,7 +98,7 @@ class file_attachment extends Base_controller {
 
 			$timestamp = microtime(TRUE);
 			$config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->input->post("entity_id")."/{$timestamp}/";
-			$config['allowed_types'] = 'doc|docx|gif|jpg|pdf|png|pps|ppsx|ppt|pptx|tif|tiff|txt|vdx|vsd|xl|xls|xlsx|xlt|xml';
+			$config['allowed_types'] = '*';
 			$config['max_width']  = '3000';
 			$config['max_height']  = '3000';
 			$config['overwrite'] = TRUE;
@@ -107,7 +107,6 @@ class file_attachment extends Base_controller {
 			$config['max_size'] = 204800;
 			mkdir($config['upload_path'],0777,TRUE);
 			
-			$error = "";
 			$this->load->library('upload', $config);
 			if ( ! $this->upload->do_upload()) {
 				$error = $this->upload->display_errors();
@@ -120,9 +119,6 @@ class file_attachment extends Base_controller {
 				$description = $this->input->post("description");
 				$entity_folder_path = $this->get_path($type, $id);
 				$archive_folder_path = $this->archive_root_path . $entity_folder_path;
-	      
-	//      echo $archive_folder_path;
-	//      exit;
 	
 				$dest_path = "{$archive_folder_path}/{$name}";
 				$src_path = "{$config['upload_path']}{$name}";
@@ -260,14 +256,12 @@ class file_attachment extends Base_controller {
 	    $icon_delete = expansion_link_icon('delete');
 		$icon_download = expansion_link_icon('down');
 	    foreach($query->result() as $row){
-			$path = site_url() . "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
-			$downloadLink = "<a href='$path' title='Download this file'>$icon_download</a> ";
+			$url = site_url() . "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
+			$downloadLink = "<a href='javascript:void(0)' onclick=fileAttachment.doDownload('$url') title='Download this file'>$icon_download</span></a> ";
 			$deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'>$icon_delete</span></a> ";
 			$entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
 	    }
 		$count = $query->num_rows();
-//		$label = ($count) ? "Attachments ($count)" : "No Attachments";
-//		echo "<h3>$label</h2>";		
 		if($count) {
 			$this->load->library('table');
 	    	$this->table->set_heading("Action", "Name", "Description");
@@ -283,6 +277,22 @@ class file_attachment extends Base_controller {
 		} else {
 			echo "<h4>No attachments</h4>";
 		}
+	}
+	
+	// --------------------------------------------------------------------
+	function check_retrieve($entity_type, $entity_id, $filename)
+	{
+		$result = $this->validate_remote_mount();
+		if($result->ok) {
+	 		$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);				
+		}
+		if($result->ok) {
+			if(!file_exists($result->path)) {
+				$result->ok = false;
+				$result->message = "File '$filename' could not be found on server";
+			}
+		}
+		echo json_encode($result);
 	}
 
 	// --------------------------------------------------------------------
@@ -315,7 +325,8 @@ class file_attachment extends Base_controller {
 			header("X-Sendfile: {$full_path}");
 
 		} catch (Exception $e) {
-			echo $e->getMessage();
+			$error = $e->getMessage();
+			echo $error;
 		}
 	}
 	

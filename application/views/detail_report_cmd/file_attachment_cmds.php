@@ -35,5 +35,5 @@
 </div>
 </div>
 <div style="height:1em;"></div>
-
+<form id="download_form" action="" method="post" target="upload_target"></form>
 <iframe id="upload_target" name="upload_target" src="#" ></iframe>
