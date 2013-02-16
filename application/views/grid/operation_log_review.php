@@ -50,20 +50,34 @@
 	var gridConfig = {
 		maxColumnChars: 50,
 		hiddenColumns: ['Year', 'Month', 'Day'],
-		staticColumns: ['Entered', 'EnteredBy', 'Type', 'ID', 'Log', 'Note', 'Request'],
+		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 'ID', 'Log', 'Request', {id:'Usage'}, {id:'Proposal'}, {id:'Note', editor:Slick.Editors.LongText}],
 		getLoadParameters: function() {
-			return {};
+			var p = {};
+			p.instrument = $('#instrument_fld').val();
+			p.year = $('#year_fld').val();
+			p.month = $('#month_fld').val();
+			// future: validate parameters, post message and return false if not valid
+			return p;
 		},
 		afterLoadAction: function() {
 			myCommonControls.enableSave(false);
 		},
 		getSaveParameters: function() {
+			var changes, mapP2A;
 			var dataRows = myGrid.grid.getData();
-			var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
-			var mapP2A = [{p:'Request', a:'i'}, {p:'Usage', a:'u'}, {p:'Proposal', a:'p'}];
-			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
-			factorXML = '<id type="Dataset_Name" />' + factorXML;
-			return { factorList: factorXML };
+			
+			changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
+			mapP2A = [{p:'Request', a:'request'}, {p:'Usage', a:'usage'}, {p:'Proposal', a:'proposal'}, {p:'Note', a:'note'}];
+			var runXml = gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);
+
+			changes = myUtil.getChangedRows(dataRows, myUtil.isInterval);
+			mapP2A = [{p:'ID', a:'id'}, {p:'Note', a:'note'}];
+			var intervalXml = gamma.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);
+			
+			var paramXml = runXml + intervalXml
+			$('#delimited_text').val(paramXml); // temp debug
+			//return { factorList: paramXml };
+			return false; // temporary to suppress AJAX
 		},
 		afterSaveAction: function() {
 			myCommonControls.reload();			
@@ -92,7 +106,10 @@
 		},
 		isDataset: function(row) {
 			return (typeof row.Type != 'undefined') && (row.Type === 'Dataset');
-		}	
+		},
+		isInterval: function(row) {
+			return (typeof row.Type != 'undefined') && (row.Type === 'Long Interval');
+		}
 	}
 
 	$(document).ready(function () { 

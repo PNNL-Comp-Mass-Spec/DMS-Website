@@ -332,11 +332,14 @@ var mainGrid = {
 	loadGrid: function () {
 		var url = this.getLoadUrl();
 		var p = this.getLoadParameters();
+		if(p === false) return;
 		gridUtil.refreshGrid(url, p,  this);
 	},
 	saveGrid: function() {
+		Slick.GlobalEditorLock.commitCurrentEdit();	
 		var url = this.getSaveUrl();
 		var p = this.getSaveParameters();
+		if(p === false) return;
 		gridUtil.saveChanges(url, p, this);
 	},
 	getCellChangeHandler: function() {
@@ -377,10 +380,9 @@ var mainGrid = {
 		var colSpecs = [];
 		var colSpec;
 		$.each(colNames, function(idx, colName) {
-			if(caller.hiddenColumns.length == 0 || caller.hiddenColumns.indexOf(colName) === -1) {
-				colSpec = caller.makeColumnSpec(colName, editable)
-				colSpecs.push(colSpec);
-			}
+			if(caller.hiddenColumns.length > 0 && !caller.hiddenColumns.indexOf(colName) === -1) return;
+			colSpec = caller.makeColumnSpec(colName, editable);
+			colSpecs.push(colSpec);
 		});
 		return colSpecs;
 	},
@@ -426,14 +428,21 @@ var mainGrid = {
 		});			
 	},
 	makeColumnSpec: function(colName, editable) {
-		colSpec = {
-			id:colName,
-			name:colName,
-			field:colName
-		};
+		var colSpec;
+		var colSpecType = typeof colName;
+		if(colSpecType === 'string') {
+			colSpec = { id:colName };
+			if(editable) colSpec.editor = Slick.Editors.Text;
+		} else 
+		if(colSpecType === 'object') {
+			colSpec = colName;
+			if(!colSpec.editor) colSpec.editor = Slick.Editors.Text;
+		}
+		if(!colSpec.name) colSpec.name = colSpec.id;
+		if(!colSpec.field) colSpec.field = colSpec.id;
+		
 		var menuItems = $.merge([], this.headerUtil.baseMenuItems);
-		if(editable) {
-			colSpec.editor = Slick.Editors.Text;
+		if(colSpec.editor) {
 			menuItems = $.merge(menuItems, this.headerUtil.editMenuItems)
 		} else {
 			colSpec.cssClass = 'nonEditable';
