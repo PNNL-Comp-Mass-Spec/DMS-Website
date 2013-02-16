@@ -182,7 +182,7 @@ var gridUtil = {
 	},
 	// set width property of given column specs according to 
 	// size of data in given data rows, and return updated column specs
-	sizeColumnsToData: function (currentColumns, dataRows) {
+	sizeColumnsToData: function (currentColumns, dataRows, maxColumnChars) {
 		var textWidthPixels = 8;
 		var maxChars, dataChars, val;
 		var minChars = 10;
@@ -196,6 +196,7 @@ var gridUtil = {
 					if(dataChars > maxChars) maxChars = dataChars;
 				}
 			});
+			maxChars = (maxColumnChars && maxColumnChars < maxChars) ? maxColumnChars : maxChars;
 			colSpec.width = maxChars * textWidthPixels;
 		});			
 		return currentColumns;
@@ -301,6 +302,7 @@ var mainGrid = {
 	handleDataChanged: null, // optional external method called when data is changed
 	hiddenColumns: [],
 	staticColumns: [],
+	maxColumnChars: null,
 	container: null, // generated page element that contains grid
 	options: { // SlickGrid options
 	        editable: true,
@@ -367,6 +369,7 @@ var mainGrid = {
 			headerMenuPlugin.onBeforeMenuShow.subscribe(this.columnMenuHook);			
 		}
 		this.grid.registerPlugin(headerMenuPlugin);
+		this.grid.registerPlugin(new Slick.AutoTooltips());
 		this.grid.setSelectionModel(new Slick.CellSelectionModel());
 	},
 	buildColumns: function(colNames, editable) {
@@ -400,7 +403,7 @@ var mainGrid = {
 	},
 	sizeColumnsToData: function (dataRows) {
 		var currentColumns = this.grid.getColumns();
-		currentColumns = gridUtil.sizeColumnsToData(currentColumns, dataRows);
+		currentColumns = gridUtil.sizeColumnsToData(currentColumns, dataRows, this.maxColumnChars);
 		this.grid.setColumns(currentColumns);
 	},
 	addColumn: function(colName) {

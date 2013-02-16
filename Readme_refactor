@@ -5,8 +5,6 @@ get rid of http://dms2.pnl.gov/update_datasets/create
 get rid of unused icons
 get sprite version of silk icons
 
-synchronize filter panel control icons with controlled panel visibility
-
 -----------------------------------------------
 custom grid menus
 -----------------------------------------------
@@ -31,22 +29,7 @@ myGrid.headerUtil.commands['blarg'] = function(column, grid) { alert('Fargle!') 
     });
 
 
------------------------------------------------
--- DMS website refactor testing
------------------------------------------------
 
-fix filldown wiping out contents of "0" in column
-styling to initially hide delimited controls
-initial column build autosize to labels
-
-fixed row for totals on instrument allocation??
-
-entry pages with enable fields:
-	update_analysis_jobs
-	update_archive
-	update_datasets
-
-Frac_Upload.txt
 -----------------------------------------------
 -- instrument_allocation
 -----------------------------------------------
@@ -63,24 +46,6 @@ entry_page_data_table	V_Instrument_Allocation_Detail_Entry
 detail_report_data_id_col	FY_Proposal
 entry_page_data_id_col	FY_Proposal
 entry_sproc	UpdateInstrumentUsageAllocations
-
------------------------------------------------
--- grid
------------------------------------------------
-
-http://prismwebdev2.pnl.gov/dmsref/requested_run_batch_blocking/param
-
-http://prismwebdev2.pnl.gov/dmsref/lc_cart_request_loading/report
-
-http://prismwebdev2.pnl.gov/dmsref/lc_cart_loading/report
-
-http://prismwebdev2.pnl.gov/dmsref/factors/grid  [UpdateRequestedRunFactors]		
-
-----------
-copy list of items from grid to item list (on import)
-import needs to show Save button
-drop-down menu item to generate values for "Alias" factor
-helper to get datasets from data package
 
 -----------------------------------------------------------------------
 --[http://prismwebdev2.pnl.gov/dmsref/requested_run_grid/grid]---------
