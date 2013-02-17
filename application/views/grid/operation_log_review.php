@@ -57,7 +57,6 @@
 			p.instrument = $('#instrument_fld_chooser').val();
 			p.year = $('#year_fld').val();
 			p.month = $('#month_fld').val();
-			// future: validate parameters, post message and return false if not valid
 			if(!p.instrument) {
 				alert("You must choose an instrument");
 				return false;
@@ -69,6 +68,11 @@
 		},
 		getSaveParameters: function() {
 			var dataRows = myGrid.grid.getData();
+			var invalidUsage = myUtil.findInvalidUsageProposal(dataRows);
+			if(invalidUsage) {
+				alert(invalidUsage);
+				return false;
+			}
 			var runXml = myUtil.getRequestChangeXml(dataRows);
 			var intervalXml = myUtil.getIntervalChangeXml(dataRows);
 			var paramXml = runXml + intervalXml
@@ -130,6 +134,17 @@
 				args.grid.invalidateRows([args.row]);
 				args.grid.render();		
 			}
+		},
+		findInvalidUsageProposal: function(dataRows) {
+			var message = '';
+			var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
+			$.each(changes, function(idx, row) {
+				if(row.Usage === 'USER' && !(row.Proposal) ){
+					message = "No proposal for USER for " + row.Note;
+					return false;
+				}
+			});
+			return message;	
 		}
 	}
 
