@@ -17,8 +17,9 @@
 <fieldset>
     <legend class='ctl_legend'><?= $title; ?></legend>
 
-	<label for="instrument_fld">Instrument</label>
-	<input name="instrument_fld" id='instrument_fld' size="30" />
+	<label for="instrument_fld_chooser">Instrument</label>
+	<?= $this->choosers->get_chooser('instrument_fld', 'usageTrackedInstruments')?>
+	
 
 	<label for="year_fld">Year</label>
 	<input name="year_fld" id='year_fld' size="6" />
@@ -53,7 +54,7 @@
 		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 'ID', 'Log', 'Request', {id:'Usage'}, {id:'Proposal'}, {id:'Note', editor:Slick.Editors.LongText}],
 		getLoadParameters: function() {
 			var p = {};
-			p.instrument = $('#instrument_fld').val();
+			p.instrument = $('#instrument_fld_chooser').val();
 			p.year = $('#year_fld').val();
 			p.month = $('#month_fld').val();
 			// future: validate parameters, post message and return false if not valid
@@ -123,7 +124,7 @@
 		myCommonControls.showControls(true);
 		
 		// temp
-		$('#instrument_fld').val('QExact01');
+		$('#instrument_fld_chooser').val('QExact01');
 		$('#month_fld').val('2');
 		$('#year_fld').val('2013');
 	});
