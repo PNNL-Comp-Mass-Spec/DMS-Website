@@ -348,7 +348,7 @@ var mainGrid = {
 			var field = args.grid.getColumns()[args.cell].field;
 			gridUtil.markChange(args.item, field);
 			gridUtil.setChangeHighlighting(args.grid);
-			if(context.handleDataChanged) context.handleDataChanged();
+			if(context.handleDataChanged) context.handleDataChanged(args);
 		}
 	},
 	initGrid: function(elementName) {

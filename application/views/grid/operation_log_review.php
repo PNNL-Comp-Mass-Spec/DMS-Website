@@ -79,8 +79,9 @@
 		afterSaveAction: function() {
 			myCommonControls.reload();			
 		},
-		handleDataChanged: function() {
+		handleDataChanged: function(args) {
 			myCommonControls.enableSave(true);
+			myUtil.adjustCapitalization(args);
 		}
 	}
 	var myUtil = {
@@ -120,6 +121,15 @@
 		},
 		isInterval: function(row) {
 			return (typeof row.Type != 'undefined') && (row.Type === 'Long Interval');
+		},
+		adjustCapitalization: function(args) {
+			var field = args.grid.getColumns()[args.cell].field;
+			var row = args.grid.getData()[args.row];
+			if(myUtil.isDataset(row) && field === 'Usage') {
+				row.Usage = row.Usage.toUpperCase();
+				args.grid.invalidateRows([args.row]);
+				args.grid.render();		
+			}
 		}
 	}
 
