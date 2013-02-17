@@ -58,23 +58,19 @@
 			p.year = $('#year_fld').val();
 			p.month = $('#month_fld').val();
 			// future: validate parameters, post message and return false if not valid
+			if(!p.instrument) {
+				alert("You must choose an instrument");
+				return false;
+			}
 			return p;
 		},
 		afterLoadAction: function() {
 			myCommonControls.enableSave(false);
 		},
 		getSaveParameters: function() {
-			var changes, mapP2A;
 			var dataRows = myGrid.grid.getData();
-			
-			changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
-			mapP2A = [{p:'Request', a:'request'}, {p:'Usage', a:'usage'}, {p:'Proposal', a:'proposal'}, {p:'Note', a:'note'}];
-			var runXml = gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);
-
-			changes = myUtil.getChangedRows(dataRows, myUtil.isInterval);
-			mapP2A = [{p:'ID', a:'id'}, {p:'Note', a:'note'}];
-			var intervalXml = gamma.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);
-			
+			var runXml = myUtil.getRequestChangeXml(dataRows);
+			var intervalXml = myUtil.getIntervalChangeXml(dataRows);
 			var paramXml = runXml + intervalXml
 			$('#delimited_text').val(paramXml); // temp debug
 			//return { factorList: paramXml };
@@ -94,6 +90,20 @@
 				myCommonControls.enableSave(true);			
 		},
 		initEntryFields: function() {
+			var d = new Date();
+			//$('#instrument_fld_chooser').val('Exact01');
+			$('#month_fld').val(d.getMonth() + 1);
+			$('#year_fld').val(d.getFullYear());
+		},
+		getRequestChangeXml: function(dataRows) {
+			var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
+			var mapP2A = [{p:'Request', a:'request'}, {p:'Usage', a:'usage'}, {p:'Proposal', a:'proposal'}, {p:'Note', a:'note'}];
+			return gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);			
+		},
+		getIntervalChangeXml: function(dataRows) {
+			var changes = myUtil.getChangedRows(dataRows, myUtil.isInterval);
+			var mapP2A = [{p:'ID', a:'id'}, {p:'Note', a:'note'}];
+			return gamma.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);			
 		},
 		/// move to gridUtil
 		getChangedRows: function(dataRows, filter) {
@@ -119,14 +129,10 @@
 		myGrid = $.extend({}, mainGrid, gridConfig);
 		myImportExport.init(myGrid);
 		myCommonControls.init(myGrid);
+		myCommonControls.showControls(true);
 
 		myUtil.initEntryFields();
-		myCommonControls.showControls(true);
-		
-		// temp
-		$('#instrument_fld_chooser').val('QExact01');
-		$('#month_fld').val('2');
-		$('#year_fld').val('2013');
+		$('.sel_chooser').chosen({search_contains: true});
 	});
 
 </script>
