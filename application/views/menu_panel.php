@@ -39,10 +39,11 @@ $(document).ready(function() {
 	  initAjax: {
 	  	url: '<?= site_url() ?>gen/side_menu_objects', data: {}
       },      
-      onActivate: function(node) {
+      onClick: function(node, event) {
         if( node.data.href ){
           window.open(node.data.href, 'display_side');
-        }
+          return false;
+		}      	
       }
     });
 
