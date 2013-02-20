@@ -82,7 +82,7 @@ function get_sql_from_range_move(mode){
 	var url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
 	var field = $('#sql_text_fld');
 	var p = {};
-	field_name.val('');
+	field.val('');
 	$.post(url, p, function (data) {
 			field.val(data);
 		}
