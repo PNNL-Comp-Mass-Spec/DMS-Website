@@ -1005,12 +1005,12 @@ var epsilon = {
 		var modeField = $('#' + this.pageContext.modeFieldId);
 		var entryForm = $('#' + this.pageContext.entryFormId);
 		modeField.val(mode);
-		p = entryForm.serialize();
 		var proceed = true;
 		if(beforeAction) { 
 			proceed = beforeAction();
 		}
 		if(!proceed) return;
+		p = entryForm.serialize();
 		if(!confirm("Are you sure that you want to perform this action?")) return;
 		container.spin('small');
 		$.post(url, p, function (data) {
