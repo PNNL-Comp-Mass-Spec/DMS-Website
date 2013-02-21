@@ -64,7 +64,7 @@ class cell_presentation {
 		$target = $colSpec["Target"];
 		
 		// resolve value to use for hotlink
-		$wa = $colSpec["WhichArg"];
+		$wa = $colSpec["WhichArg"];		
 		$ref = $value;
 		if($wa != "") {
 			switch($wa) {
@@ -181,14 +181,18 @@ class cell_presentation {
 				break;
 			case "row_to_json":
 				$s = "";
+				$fsp = "";
 				$rowAction = 'localRowAction';
 				if(array_key_exists('Options', $colSpec)) {
 					$rowAction = $colSpec['Options']['rowAction'];
+					if(array_key_exists('fields', $colSpec['Options'])) {
+						$fsp = ', "' . $colSpec['Options']['fields'] . '"';
+					}
 				}
 				foreach(array_keys($row) as $k) {if($row[$k] == null) {$row[$k] = ''; }}
 				$s = json_encode($row);
 				$url = reduce_double_slashes(site_url()."$target");
-				$str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$value\", $s)'>$value</a></td>";				
+				$str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";				
 				break;
 			case "masked_href-folder":
 				$lbl =  $colSpec["Options"]["Label"];
