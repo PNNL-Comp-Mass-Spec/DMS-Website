@@ -113,7 +113,7 @@ var entry = {
 		},
 		cmdInit: function () { 
 			epsilon.actions.before = function() {
-				epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
+				epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam', true);
 				return true;
 			}
 			entry.pipeline_jobs.load_param_form();
