@@ -142,12 +142,17 @@ class Grid extends Base_controller {
 	}
 	// --------------------------------------------------------------------
 	function instrument_usage_data() {
+		$instrument = $this->input->post("instrument");
+		$year = $this->input->post("year");
+		$month = $this->input->post("month");
+
 		$this->my_tag = "instrument_usage";
 		$this->load->database();
+		$this->db->select('Seq , [EMSL Inst ID] , Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , ID , Validation');
 		$this->db->from("V_Instrument_Usage_Report_List_Report");
-		$this->db->where("Instrument", "LTQ_Orb_3");
-		$this->db->where("Year", "2012");
-		$this->db->where("Month", "3");
+		if($instrument) $this->db->where("Instrument", $instrument);
+		if($year) $this->db->where("Year", $year);
+		if($month) $this->db->where("Month", $month);
 		$this->grid_data_from_query();
 	}
 	// --------------------------------------------------------------------
