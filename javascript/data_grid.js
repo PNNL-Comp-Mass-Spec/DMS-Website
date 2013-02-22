@@ -140,7 +140,15 @@ var gridUtil = {
 		if ( !confirm("Are you sure that you want to update the database?") ) return;
 		if(caller.beforeSaveAction) caller.beforeSaveAction();
 		gamma.doOperation(url, p, 'ctl_panel', function(data) {
-			if(data.indexOf('was successful') !== -1) {
+			if(data.charAt(0) === '{' ) {
+	        	var obj = $.parseJSON(data);
+	        	if(obj.result !== 0) {
+	        		alert(obj.message);
+	        	} else {
+					if(caller.afterSaveAction) caller.afterSaveAction(obj);	
+				}			
+			} else
+			if(data.charAt(0) === '{' || data.indexOf('was successful') !== -1) {
 				if(caller.afterSaveAction) caller.afterSaveAction(data);
 			} else {
 				alert(data);
@@ -325,6 +333,7 @@ var mainGrid = {
 	beforeSaveAction: null,
 	afterSaveAction: null,
 	columnMenuHook: null,
+	editPermissionFilter: null,
 	//
 	// the following properties SHOULD NOT be overridden
 	grid: null,
@@ -366,6 +375,7 @@ var mainGrid = {
 	    this.container.appendTo($('#' + this.externalContainerId));
 	    this.grid.init();
 		this.grid.onCellChange.subscribe(this.getCellChangeHandler());
+		if(this.editPermissionFilter) this.grid.onBeforeEditCell.subscribe(this.editPermissionFilter);
 		var headerMenuPlugin = new Slick.Plugins.HeaderMenu({});
 		headerMenuPlugin.onCommand.subscribe(this.headerUtil.getMenuCmdHandler(this.handleDataChanged));
 		if(this.columnMenuHook) {

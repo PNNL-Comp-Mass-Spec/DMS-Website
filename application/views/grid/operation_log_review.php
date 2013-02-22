@@ -22,10 +22,10 @@
 	
 
 	<label for="year_fld">Year</label>
-	<input name="year_fld" id='year_fld' size="6" />
+	<input name="year_fld" id='year_fld' size="6" class="spin_me" />
 
 	<label for="month_fld">Month</label>
-	<input name="month_fld" id='month_fld' size="6" />
+	<input name="month_fld" id='month_fld' size="6" class="spin_me" />
 
 </fieldset>
 </form>
@@ -48,6 +48,7 @@
 	var myCommonControls;
 	var myImportExport;
 	var myGrid;
+	// meant to be extended with mainGrid object
 	var gridConfig = {
 		maxColumnChars: 50,
 		hiddenColumns: ['Year', 'Month', 'Day'],
@@ -77,8 +78,7 @@
 			var intervalXml = myUtil.getIntervalChangeXml(dataRows);
 			var paramXml = runXml + intervalXml
 			$('#delimited_text').val(paramXml); // temp debug
-			//return { factorList: paramXml };
-			return false; // temporary to suppress AJAX
+			return { factorList: paramXml };
 		},
 		afterSaveAction: function() {
 			myCommonControls.reload();			
@@ -86,8 +86,12 @@
 		handleDataChanged: function(args) {
 			myCommonControls.enableSave(true);
 			myUtil.adjustCapitalization(args);
-		}
+		},
+		editPermissionFilter: function(e,args) {
+			return myUtil.isEditable(args.column.field, args.item.Type);
+		}		
 	}
+	// for the grunt work details
 	var myUtil = {
 		postImportAction: function() {
 		},
@@ -145,6 +149,11 @@
 				}
 			});
 			return message;	
+		},
+		isEditable: function(field, type) {
+			if((field == 'Usage' || field == 'Proposal') && type != 'Dataset') return false;
+			if(field == 'Note' && type != 'Long Interval') return false;
+			return true;			
 		}
 	}
 
@@ -158,6 +167,7 @@
 
 		myUtil.initEntryFields();
 		$('.sel_chooser').chosen({search_contains: true});
+		//$('.spin_me').spinner(); // needs jquery UI 1.9+
 	});
 
 </script>

@@ -155,7 +155,7 @@ class Grid extends Base_controller {
 	function operation_log_review() {
 		$this->my_tag = "operation_log_review";
 		$this->my_title = "Operation Log Review";
-		$save_url = 'xxx/yyy';
+		$save_url = 'run_op_logs/call/update_sproc';
 		$this->grid_page('operation_log_review', $save_url);
 	}
 	// --------------------------------------------------------------------
