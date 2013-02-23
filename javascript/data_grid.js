@@ -315,7 +315,7 @@ var mainGrid = {
 	options: { // SlickGrid options
 	        editable: true,
 	        autoEdit:true,
-	        enableAddRow: true,
+//	        enableAddRow: true,
 	        enableCellNavigation: true,
 	        asyncEditorLoading: false,
 	        autoHeight: true,
