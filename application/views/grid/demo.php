@@ -10,7 +10,8 @@
 <style>
 
 .my_link {
-	width:15em;
+	width:25em;
+	height:1.5em;
 }
 .item {
 	margin-bottom:10px;
@@ -18,6 +19,7 @@
 #main {
 	margin-top: 30px;
 	margin-right: 20px;
+	padding-left:30px;
 }
 h3 {
 	
@@ -30,11 +32,12 @@ h3 {
 
 <div id='main' >
 <h3>Editing Grid Demonstration Pages</h3>	
-<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/factors' >factors</a></div>
-<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/instrument_allocation' >instrument_allocation</a></div>
-<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/instrument_usage' >instrument_usage</a></div>
-<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/requested_run' >requested_run</a></div>
-<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/user' >user</a></div>
+<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/operation_log_review' >Instrument Usage Ops Updates</a></div>
+<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/factors' >Factors</a></div>
+<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/instrument_usage' >Instrument Usage EMSL Updates</a></div>
+<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/requested_run' >Requested Run</a></div>
+<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/user' >User</a></div>
+<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/instrument_allocation' >Instrument Allocation</a></div>
 </div>
 
 </body>
