@@ -278,8 +278,8 @@
 		$caption = "$lab $clr $hid";
 		
 		$str .= "<div class='filter_caption'>$caption</div>";
-		$str .= "<table class='FTab'><tr><td>";
 		$str .= "<div>";
+		$str .= "<table class='FTab'><tr><td>";
 		$str .= form_multiselect('cf_column_selection[]', $options, $col_filter, 'id="cf_column_selection_ctl" size="'.$col_filter_size.'" class="filter_col"');
 		$str .= form_hidden('cf_column_selection_marker', 'yes');
 		$str .= "</td></tr></table>";
