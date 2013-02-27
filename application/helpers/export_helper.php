@@ -11,8 +11,8 @@
 		
 		$cols = array_keys(current($result));
 		if(!empty($col_filter)) $cols = $col_filter;
-	
-		$headers = implode("\t", $cols);
+		
+		$headers = implode("\t", fix_ID_column($cols));
 	
 		// field data
 		foreach($result as $row) {
@@ -22,8 +22,7 @@
 				if ((!isset($value)) OR ($value == "")) {
 					 $value = "\t";
 				} else {
-					 $value = str_replace('"', '""', $value);
-					 $value = '"' . $value . '"' . "\t";
+					 $value = quote_if_contains_tab($value) . "\t";				
 				}
 				$line .= $value;
 			}
@@ -46,7 +45,7 @@
 		$cols = array_keys(current($result));
 		if(!empty($col_filter)) $cols = $col_filter;
 	
-		$headers = implode("\t", $cols);
+		$headers = implode("\t", fix_ID_column($cols));
 	
 		// field data
 		foreach($result as $row) {
@@ -57,7 +56,7 @@
 					 $value = "\t";
 				}
 				else {
-					 $value .= "\t";
+					 $value = quote_if_contains_tab($value) . "\t";
 				}		
 				$line .= $value;
 			}
@@ -81,7 +80,7 @@
 				if ((!isset($value)) OR ($value == "")) {
 					 $value = "\t";
 				} else {
-					 $value .= "\t";
+					 $value = quote_if_contains_tab($value) . "\t";
 				}	
 				$data .= trim($name ."\t" . $value)."\n";
 		}
@@ -98,7 +97,7 @@
 					if ((!isset($value)) OR ($value == "")) {
 						 $value = "\t";
 					} else {
-						 $value .= "\t";
+						 $value = quote_if_contains_tab($value) . "\t";
 					}	
 					$line .= $value;			
 				}
@@ -122,7 +121,7 @@
 				if ((!isset($value)) OR ($value == "")) {
 					 $value = "\t";
 				} else {
-					 $value .= "\t";
+					 $value = quote_if_contains_tab($value) . "\t";
 				}	
 				$data .= trim($name ."\t" . $value)."\n";
 		}
@@ -139,8 +138,7 @@
 					if ((!isset($value)) OR ($value == "")) {
 						 $value = "\t";
 					} else {
-						 $value = str_replace('"', '""', $value);
-						 $value = '"' . $value . '"' . "\t";
+						 $value = quote_if_contains_tab($value) . "\t";
 					}
 					$line .= $value;			
 				}
@@ -179,7 +177,7 @@
 		echo "<div style='height:1em;'></div>";
 		echo '<img src="'.base_url().$fo.'" ></img>';		
 	}
-
+	
 	// --------------------------------------------------------------------
 	// converts a job script from XML to a dot grapic file
 	function convert_script_to_dot($script) {
@@ -324,10 +322,44 @@
 		if ((!isset($rowValue)) OR ($rowValue == "")) {
 			 $rowValue = "\t";
 		} else {
-			 $rowValue = str_replace('"', '""', $rowValue);
-			 $rowValue = '"' . $rowValue . '"' . "\n";
+			 $rowValue = quote_if_contains_tab($rowValue) . "\t";
 		}
 		return $rowValue;
+	}
+
+	// --------------------------------------------------------------------
+	function fix_ID_column($cols) 
+	{	
+		// Make a copy of the $cols array
+		$colsCopy = $cols;
+		
+		if (strtoupper(substr($colsCopy[0], 0, 2)) == "ID") {
+			// The first column's name starts with ID
+			// Excel will interpret this as meaning the file is an SYLK file (http://support.microsoft.com/kb/323626)
+			// To avoid this, surround the column name with double quotes
+			$colsCopy[0] = '"' . $colsCopy[0] . '"';
+		}
+
+		return $colsCopy;
+	}
+
+	// --------------------------------------------------------------------
+	// Surround $value with double quotes if it contains a tab character
+	function quote_if_contains_tab($value)
+	{
+		// Look for a tab character in $value
+		$pos = strpos($value, "\t");
+		
+		// Note that you must use !== instead of !=
+		// See http://www.php.net/manual/en/function.strpos.php
+		if ($pos !== false) {
+			// Match found; surround with double quotes
+			// However, first replace double quotes with ""			
+			$value = str_replace('"', '""', $value);
+			$value = '"' . $value . '"';
+		}
+		
+		return $value;
 	}
 
 ?>
