@@ -283,7 +283,7 @@ class Base_controller extends CI_Controller {
 	{
 		$this->cu->load_lib('operation', 'na', $this->my_tag);
 		$response = $this->operation->internal_operation($sproc_name);
-		$response->parms = $this->operation->get_params();
+//		$response->parms = $this->operation->get_params();
 		echo json_encode($response);
 	}
 		
