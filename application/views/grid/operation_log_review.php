@@ -52,7 +52,7 @@
 	var gridConfig = {
 		maxColumnChars: 50,
 		hiddenColumns: ['Year', 'Month', 'Day'],
-		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 'ID', 'Log', 'Request', {id:'Usage'}, {id:'Proposal'}, {id:'Note', editor:Slick.Editors.LongText}],
+		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 'ID', 'Log', 'Request', {id:'Usage'}, {id:'Proposal'}, {id:'EMSL_User'}, {id:'Note', editor:Slick.Editors.LongText}],
 		getLoadParameters: function() {
 			var p = {};
 			p.instrument = $('#instrument_fld_chooser').val();
@@ -78,7 +78,7 @@
 			var intervalXml = myUtil.getIntervalChangeXml(dataRows);
 			var paramXml = runXml + intervalXml
 			$('#delimited_text').val(paramXml); // temp debug
-			return { factorList: paramXml };
+			return { changes: paramXml };
 		},
 		afterSaveAction: function() {
 			myCommonControls.reload();			
@@ -106,7 +106,7 @@
 		},
 		getRequestChangeXml: function(dataRows) {
 			var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
-			var mapP2A = [{p:'Request', a:'request'}, {p:'Usage', a:'usage'}, {p:'Proposal', a:'proposal'}, {p:'Note', a:'note'}];
+			var mapP2A = [{p:'Request', a:'request'}, {p:'Usage', a:'usage'}, {p:'Proposal', a:'proposal'}, {p:'EMSL_User', a:'user'}];
 			return gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);			
 		},
 		getIntervalChangeXml: function(dataRows) {
@@ -131,6 +131,7 @@
 			return (typeof row.Type != 'undefined') && (row.Type === 'Long Interval');
 		},
 		adjustCapitalization: function(args) {
+			if(!args) return;
 			var field = args.grid.getColumns()[args.cell].field;
 			var row = args.grid.getData()[args.row];
 			if(myUtil.isDataset(row) && field === 'Usage') {
@@ -153,6 +154,7 @@
 		isEditable: function(field, type) {
 			if((field == 'Usage' || field == 'Proposal') && type != 'Dataset') return false;
 			if(field == 'Note' && type != 'Long Interval') return false;
+			if(type == 'Operation' || type == 'Configuration') return false;
 			return true;			
 		}
 	}
