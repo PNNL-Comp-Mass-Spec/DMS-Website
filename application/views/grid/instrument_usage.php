@@ -73,9 +73,6 @@
 			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
 			var paramXml = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 			paramXml = '<id type="Seq" />' + paramXml;
-			
-			$('#delimited_text').val(paramXml); // temp debug
-/*
 			return { 
 				factorList: paramXml,
 				operation: 'update',
@@ -83,8 +80,6 @@
 				month: $('#month_fld').val(),
 				instrument: $('#instrument_fld_chooser').val()
 			}
-*/			
-			return false; // temporily suppress AJAX call
 		},
 		afterSaveAction: function() {
 			myCommonControls.reload();			

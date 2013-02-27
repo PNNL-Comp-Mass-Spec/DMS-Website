@@ -16,16 +16,42 @@
 <form>
 <fieldset>
     <legend class='ctl_legend'><?= $title; ?></legend>
-
-	<label for="instrument_fld_chooser">Instrument</label>
+<table>
+<tr>
+	<td><span>Instrument</span></td>
+	<td>
 	<?= $this->choosers->get_chooser('instrument_fld', 'usageTrackedInstruments')?>
-	
-
-	<label for="year_fld">Year</label>
+	</td>
+	<td><span>Year</span></td>
+	<td>
 	<input name="year_fld" id='year_fld' size="6" class="spin_me" />
-
-	<label for="month_fld">Month</label>
+	</td>
+	<td><span>Month</span></td>
+	<td>
 	<input name="month_fld" id='month_fld' size="6" class="spin_me" />
+	</td>
+	<td><span>Usage</span></td>
+	<td>
+		<select id='usage_selector' multiple data-placeholder='Select usage (optional)' >
+		<option>CAP_DEV</option>
+		<option>MAINTENANCE</option>
+		<option>BROKEN</option>
+		<option>USER</option>
+		<option>USER_UNKNOWN</option>
+		</select>		
+	</td>
+	<td><span>Type</span></td>
+	<td>
+		<select id='type_selector' multiple data-placeholder='Select type (optional)' >
+		<option>Dataset</option>
+		<option>Long Interval</option>
+		<option>Operation</option>
+		<option>Configuration</option>
+		<option></option>
+		</select>		
+	</td>
+</tr>
+</table>
 
 </fieldset>
 </form>
@@ -55,13 +81,20 @@
 		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 'ID', 'Log', 'Request', {id:'Usage'}, {id:'Proposal'}, {id:'EMSL_User'}, {id:'Note', editor:Slick.Editors.LongText}],
 		getLoadParameters: function() {
 			var p = {};
-			p.instrument = $('#instrument_fld_chooser').val();
+			var instruments = $('#instrument_fld_chooser').val();
+			if(instruments) {
+				p.instrument = $.map(instruments, function(item) { return "'" + item + "'"; }).join(', ');
+			}
+			var usage = $('#usage_selector').val();
+			if(usage) {
+				p.usage = $.map(usage, function(item) { return "'" + item + "'"; }).join(', ');
+			}
+			var type = $('#type_selector').val();
+			if(type) {
+				p.type = $.map(type, function(item) { return "'" + item + "'"; }).join(', ');
+			}
 			p.year = $('#year_fld').val();
 			p.month = $('#month_fld').val();
-			if(!p.instrument) {
-				alert("You must choose an instrument");
-				return false;
-			}
 			return p;
 		},
 		afterLoadAction: function() {
@@ -77,7 +110,6 @@
 			var runXml = myUtil.getRequestChangeXml(dataRows);
 			var intervalXml = myUtil.getIntervalChangeXml(dataRows);
 			var paramXml = runXml + intervalXml
-			$('#delimited_text').val(paramXml); // temp debug
 			return { changes: paramXml };
 		},
 		afterSaveAction: function() {
@@ -168,7 +200,18 @@
 		myCommonControls.showControls(true);
 
 		myUtil.initEntryFields();
-		$('.sel_chooser').chosen({search_contains: true});
+		$('fieldset span').css('font-weight', 'bold');
+		
+		$('#instrument_fld_chooser').prop('multiple', 'multiple').css('width', '300px');
+		$('#instrument_fld_chooser').attr('data-placeholder', 'Select instruments (optional)');
+		$("#instrument_fld_chooser option[value='']").remove();
+		$('#instrument_fld_chooser').chosen({search_contains: true});
+		
+		$('#usage_selector').css('width', '300px');
+		$('#usage_selector').chosen({search_contains: true});
+		
+		$('#type_selector').css('width', '300px');
+		$('#type_selector').chosen({search_contains: true});
 		//$('.spin_me').spinner(); // needs jquery UI 1.9+
 	});
 

@@ -166,14 +166,18 @@ class Grid extends Base_controller {
 	// --------------------------------------------------------------------
 	function operation_log_review_data() {
 		$instrument = $this->input->post("instrument");
+		$usage = $this->input->post("usage");
+		$type = $this->input->post("type");
 		$year = $this->input->post("year");
 		$month = $this->input->post("month");
 
 		$this->my_tag = "operation_log_review";
 		$this->load->database();
-		$this->db->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, ID, Log, Request, Usage, Proposal, Note");
+		$this->db->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
 		$this->db->from("V_Ops_Logs_List_Report");
-		if($instrument) $this->db->where("Instrument", $instrument);
+		if($instrument) $this->db->where("Instrument in ($instrument)");
+		if($usage) $this->db->where("Usage in ($usage)");
+		if($type) $this->db->where("Type in ($type)");
 		if($year) $this->db->where("Year", $year);
 		if($month) $this->db->where("Month", $month);
 		$this->grid_data_from_query();
