@@ -132,29 +132,6 @@ class Grid extends Base_controller {
 		}
 		$this->grid_data_from_query();
 	}
-	// --------------------------------------------------------------------
-	// --------------------------------------------------------------------
-	function instrument_usage() {
-		$this->my_tag = "instrument_usage";
-		$this->my_title = "Instrument Usage Report";
-		$save_url = 'instrument_usage_report/operation';
-		$this->grid_page('instrument_usage', $save_url);
-	}
-	// --------------------------------------------------------------------
-	function instrument_usage_data() {
-		$instrument = $this->input->post("instrument");
-		$year = $this->input->post("year");
-		$month = $this->input->post("month");
-
-		$this->my_tag = "instrument_usage";
-		$this->load->database();
-		$this->db->select('Seq , [EMSL Inst ID] , Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , ID , Validation');
-		$this->db->from("V_Instrument_Usage_Report_List_Report");
-		if($instrument) $this->db->where("Instrument", $instrument);
-		if($year) $this->db->where("Year", $year);
-		if($month) $this->db->where("Month", $month);
-		$this->grid_data_from_query();
-	}
 
 }
 ?>

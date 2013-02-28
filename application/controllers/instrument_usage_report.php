@@ -1,7 +1,7 @@
 <?php
-require("base_controller.php");
+require("grid.php");
 
-class instrument_usage_report extends Base_controller {
+class instrument_usage_report extends Grid {
 
 	// --------------------------------------------------------------------
 	function __construct()
@@ -12,6 +12,34 @@ class instrument_usage_report extends Base_controller {
 		$this->my_tag = "instrument_usage_report";
 		$this->my_title = "Instrument Usage";
 
+	}
+	// --------------------------------------------------------------------
+	// --------------------------------------------------------------------
+	function grid() {
+//		$this->my_tag = "instrument_usage";
+//		$this->my_title = "Instrument Usage Report";
+		$save_url = 'instrument_usage_report/operation';
+		$data_url = 'instrument_usage_report/grid_data';
+		$this->grid_page('instrument_usage', $save_url, $data_url);
+	}
+	// --------------------------------------------------------------------
+	function grid_data() {
+		$instrument = $this->input->post("instrument");
+		$usage = $this->input->post("usage");
+		$proposal = $this->input->post("proposal");
+		$year = $this->input->post("year");
+		$month = $this->input->post("month");
+
+		$this->my_tag = "instrument_usage";
+		$this->load->database();
+		$this->db->select('Seq , [EMSL Inst ID] , Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , ID , Validation');
+		$this->db->from("V_Instrument_Usage_Report_List_Report");
+		if($instrument) $this->db->where("Instrument in ($instrument)");
+		if($usage) $this->db->where("Usage in ($usage)");
+		if($proposal) $this->db->where("Proposal", $proposal);
+		if($year) $this->db->where("Year", $year);
+		if($month) $this->db->where("Month", $month);
+		$this->grid_data_from_query();
 	}
 	
 	// --------------------------------------------------------------------

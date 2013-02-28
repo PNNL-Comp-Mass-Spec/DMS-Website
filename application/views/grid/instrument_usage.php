@@ -16,16 +16,35 @@
 <form>
 <fieldset>
     <legend class='ctl_legend'><?= $title; ?></legend>
-
-	<label for="instrument_fld_chooser">Instrument</label>
+<table>
+<tr>
+	<td><span>Instrument</span></td>
+	<td>
 	<?= $this->choosers->get_chooser('instrument_fld', 'usageTrackedInstruments')?>
-	
-
-	<label for="year_fld">Year</label>
+	</td>
+	<td><span>Year</span></td>
+	<td>
 	<input name="year_fld" id='year_fld' size="6" class="spin_me" />
-
-	<label for="month_fld">Month</label>
+	</td>
+	<td><span>Month</span></td>
+	<td>
 	<input name="month_fld" id='month_fld' size="6" class="spin_me" />
+	</td>
+	<td><span>Usage</span></td>
+	<td>
+		<select id='usage_selector' multiple data-placeholder='Select usage (optional)' >
+		<option>CAP_DEV</option>
+		<option>MAINTENANCE</option>
+		<option>ONSITE</option>
+		</select>		
+	</td>
+	<td><span>Proposal</span></td>
+	<td>
+	<input name="proposal_fld" id='proposal_fld' size="8"  />
+	</td>
+	
+</tr>
+</table>
 
 </fieldset>
 </form>
@@ -55,13 +74,17 @@
 		staticColumns: ['Seq', 'EMSL Inst ID', 'Instrument', 'Type', 'Start', 'Minutes', 'Users', 'ID', {id:"Proposal"}, {id:"Usage"},  {id:"Operator"},  {id:"Comment"}, 'Validation'],
 		getLoadParameters: function() {
 			var p = {};
-			p.instrument = $('#instrument_fld_chooser').val();
+			var instruments = $('#instrument_fld_chooser').val();
+			if(instruments) {
+				p.instrument = $.map(instruments, function(item) { return "'" + item + "'"; }).join(', ');
+			}
+			var usage = $('#usage_selector').val();
+			if(usage) {
+				p.usage = $.map(usage, function(item) { return "'" + item + "'"; }).join(', ');
+			}
+			p.proposal = $('#proposal_fld').val();
 			p.year = $('#year_fld').val();
 			p.month = $('#month_fld').val();
-			if(!p.instrument) {
-				alert("You must choose an instrument");
-				return false;
-			}
 			return p;
 		},
 		afterLoadAction: function() {
@@ -116,7 +139,16 @@
 		myCommonControls.showControls(true);
 
 		myUtil.initEntryFields();
-		myCommonControls.showControls(true);
+		$('fieldset span').css('font-weight', 'bold');
+		
+		$('#instrument_fld_chooser').prop('multiple', 'multiple').css('width', '300px');
+		$('#instrument_fld_chooser').attr('data-placeholder', 'Select instruments (optional)');
+		$("#instrument_fld_chooser option[value='']").remove();
+		$('#instrument_fld_chooser').chosen({search_contains: true});
+		
+		$('#usage_selector').css('width', '300px');
+		$('#usage_selector').chosen({search_contains: true});
+		
 		$('.sel_chooser').chosen({search_contains: true});
 	});
 
