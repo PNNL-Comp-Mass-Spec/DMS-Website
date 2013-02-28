@@ -19,10 +19,17 @@
 <?= $this->calendar->generate($year, $month, $calendarData); ?>
 
 <div class='repBox' >
-<span class='repLink' ><a href='<?= $tracking_link ?>'>Tracking Report</a></span>
-<span class='repLink' ><a href='<?= $log_link ?>'>Operations Logs</a></span>
-<span class='repLink' ><a href='<?= $report_link ?>'>Usage Report</a></span>
-<span class='repLink' ><a href='<?= $ers_link ?>'>ERS Report</a></span>
+<table>
+<tr style='vertical-align: top;'>
+<td><span class='repLink' ><a href='<?= $tracking_link ?>'>Tracking Report</a></span></td>
+<td>
+	<div><span class='repLink' ><a href='<?= $log_link ?>'>Operations Logs</a></span></div>
+	<div><span class='repLink' ><a href='<?= site_url() . "run_op_logs/grid"?>'>Operations Logs (grid)</a></span></div>
+</td>
+<td><span class='repLink' ><a href='<?= $report_link ?>'>Usage Report</a></span></td>
+<td><span class='repLink' ><a href='<?= $ers_link ?>'>ERS Report</a></span></td>
+</tr>
+</table>
 </div>
 
 </div>

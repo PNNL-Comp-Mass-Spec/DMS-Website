@@ -32,7 +32,6 @@ h3 {
 
 <div id='main' >
 <h3>Editing Grid Demonstration Pages</h3>	
-<div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/operation_log_review' >Instrument Usage Ops Updates</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/factors' >Factors</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/instrument_usage' >Instrument Usage EMSL Updates</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/requested_run' >Requested Run</a></div>

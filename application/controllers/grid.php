@@ -19,7 +19,7 @@ class Grid extends Base_controller {
 		$this->load->view("grid/demo");	
 	}
 	// --------------------------------------------------------------------
-	private
+	protected
 	function grid_page($view_name, $save_url = '', $data_url = '') 
 	{
 		$this->load->helper("form");			
@@ -36,7 +36,7 @@ class Grid extends Base_controller {
 
 	// --------------------------------------------------------------------
 	// get data from sproc
-	private
+	protected
 	function grid_data_from_sproc($sproc_id, $config_db)
 	{
 		$this->cu->load_lib('grid_data', $sproc_id, $config_db);
@@ -45,7 +45,7 @@ class Grid extends Base_controller {
 	}
 
 	// --------------------------------------------------------------------
-	private
+	protected
 	function grid_data_from_query() {
 		$response = new stdClass();
 		try {
@@ -155,33 +155,6 @@ class Grid extends Base_controller {
 		if($month) $this->db->where("Month", $month);
 		$this->grid_data_from_query();
 	}
-	// --------------------------------------------------------------------
-	// --------------------------------------------------------------------
-	function operation_log_review() {
-		$this->my_tag = "operation_log_review";
-		$this->my_title = "Operation Log Review";
-		$save_url = 'run_op_logs/call/update_sproc';
-		$this->grid_page('operation_log_review', $save_url);
-	}
-	// --------------------------------------------------------------------
-	function operation_log_review_data() {
-		$instrument = $this->input->post("instrument");
-		$usage = $this->input->post("usage");
-		$type = $this->input->post("type");
-		$year = $this->input->post("year");
-		$month = $this->input->post("month");
 
-		$this->my_tag = "operation_log_review";
-		$this->load->database();
-		$this->db->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
-		$this->db->from("V_Ops_Logs_List_Report");
-		if($instrument) $this->db->where("Instrument in ($instrument)");
-		if($usage) $this->db->where("Usage in ($usage)");
-		if($type) $this->db->where("Type in ($type)");
-		if($year) $this->db->where("Year", $year);
-		if($month) $this->db->where("Month", $month);
-		$this->grid_data_from_query();
-	}
-	
 }
 ?>
