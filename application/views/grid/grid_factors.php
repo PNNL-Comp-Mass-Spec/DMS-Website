@@ -28,33 +28,40 @@
     <table>
     <tr>
     <td>
-	<div id="radio">
-	<input type="radio" id="radio1" name="radio" value="Requested_Run_ID" checked="checked" /><label for="radio1">Requests</label>
-	<input type="radio" id="radio2" name="radio" value="Dataset_Name"/><label for="radio2">Datasets</label>
+	<div id="source_selector">
+	<input type="radio" id="source_type1" name="source_type" value="Requested_Run_ID" checked="checked" /><label for="source_type1">Requests</label>
+	<input type="radio" id="source_type2" name="source_type" value="Dataset_Name"/><label for="source_type2">Datasets</label>
 	</div>
     </td>
     
     <td>
     <div id='ds_chsr_panel' style='display:none;'>
 	<span class='ctls'>
-	from data package... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_data_package_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	from data package... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_data_package_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
 	</span>
 	<span class='ctls'>
-	from datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
+	from datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
 	</span>
 	</div>
+	
 	<div id='req_chsr_panel'>
 	<span class='ctls'>
-	from requested runs... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	from requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
 	</span>
 	</div>
+
 	</td>
 	</tr>
+	
+	<tr>
+	<td colspan=2>
+	<textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
+	<textarea cols="100" rows="5" name="datasetItemList" id="datasetItemList" onchange="epsilon.convertList('itemList', ',')" style="display:none;"></textarea>
+	</td>
+	</tr>	
+	
 	</table>
 	
-	<div>
-	<textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
-	</div>
 </fieldset>
 </form>
 
@@ -80,8 +87,9 @@
 		hiddenColumns: ['Sel', 'BatchID', 'Experiment'],
 		staticColumns: ['Dataset', 'Name', 'Status', 'Request'],
 		getLoadParameters: function() {
-			var itemList = $('#itemList').val();
-			return { itemList:itemList, itemType:'Dataset_Name' };
+			var sourceType = $("#source_selector input[type='radio']:checked").val();
+			var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
+			return { itemList:itemList, itemType:sourceType };
 		},
 		afterLoadAction: function() {
 			myCommonControls.enableAddColumn(true);
@@ -89,10 +97,10 @@
 		},
 		getSaveParameters: function() {
 			var dataRows = myGrid.grid.getData();
-			var changes = gridUtil.getChanges(dataRows, 'Dataset');
+			var changes = gridUtil.getChanges(dataRows, 'Request');
 			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
 			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
-			factorXML = '<id type="Dataset_Name" />' + factorXML;
+			factorXML = '<id type="Request" />' + factorXML;
 			return { factorList: factorXML };
 		},
 		afterSaveAction: function() {
@@ -117,17 +125,21 @@
 		setItemSource: function(source) {
 		 	if(source == "Dataset_Name") {
 		 		$('#req_chsr_panel').hide();
+		 		$('#requestItemList').hide();
 		 		$('#ds_chsr_panel').show();
+		 		$('#datasetItemList').show();
 		 	} else {
 		 		$('#req_chsr_panel').show();
+		 		$('#requestItemList').show();
 		 		$('#ds_chsr_panel').hide();		 		
+		 		$('#datasetItemList').hide();
 		 	}			
 		}
 	}
 
 	$(document).ready(function () { 
-		 $( "#radio" ).buttonset();
-		 $('input:radio').click(function() {
+		 $( "#source_selector" ).buttonset();
+		 $('#source_selector input:radio').click(function() {
 		 	myUtil.setItemSource(this.value);
 		 });
 
