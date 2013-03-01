@@ -558,9 +558,6 @@ var commonGridControls = {
 		var context = this;
 		context.myMainGrid = (wrapper) ? wrapper : context.myMainGrid;	
 		$('#reload_btn').click(function() {
-			if($('#save_btn').is(':visible')) {
-				if ( !confirm("This operation will overwrite unsaved changes - are you sure?") ) return;
-			}
 		    context.myMainGrid.buildGrid();
 			context.myMainGrid.loadGrid();
 		});
