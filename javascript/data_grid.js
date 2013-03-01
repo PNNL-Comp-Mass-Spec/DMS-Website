@@ -333,6 +333,8 @@ var mainGrid = {
 	beforeSaveAction: null,
 	afterSaveAction: null,
 	columnMenuHook: null,
+	getClickHandler: null,
+	getContextMenuHandler: null,
 	editPermissionFilter: null,
 	//
 	// the following properties SHOULD NOT be overridden
@@ -380,6 +382,12 @@ var mainGrid = {
 		headerMenuPlugin.onCommand.subscribe(this.headerUtil.getMenuCmdHandler(this.handleDataChanged));
 		if(this.columnMenuHook) {
 			headerMenuPlugin.onBeforeMenuShow.subscribe(this.columnMenuHook);			
+		}
+		if(this.getClickHandler) {
+			this.grid.onClick.subscribe(this.getClickHandler());
+		}
+		if(this.getContextMenuHandler) {
+			this.grid.onContextMenu.subscribe(this.getContextMenuHandler());
 		}
 		this.grid.registerPlugin(headerMenuPlugin);
 		this.grid.registerPlugin(new Slick.AutoTooltips());
@@ -446,7 +454,7 @@ var mainGrid = {
 		} else 
 		if(colSpecType === 'object') {
 			colSpec = colName;
-			if(!colSpec.editor) colSpec.editor = Slick.Editors.Text;
+			if(!colSpec.ned && !colSpec.editor) colSpec.editor = Slick.Editors.Text;
 		}
 		if(!colSpec.name) colSpec.name = colSpec.id;
 		if(!colSpec.field) colSpec.field = colSpec.id;
@@ -550,6 +558,9 @@ var commonGridControls = {
 		var context = this;
 		context.myMainGrid = (wrapper) ? wrapper : context.myMainGrid;	
 		$('#reload_btn').click(function() {
+			if($('#save_btn').is(':visible')) {
+				if ( !confirm("This operation will overwrite unsaved changes - are you sure?") ) return;
+			}
 		    context.myMainGrid.buildGrid();
 			context.myMainGrid.loadGrid();
 		});
