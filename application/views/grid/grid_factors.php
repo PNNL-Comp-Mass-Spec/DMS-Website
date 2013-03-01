@@ -9,6 +9,12 @@
 
 <? $chimg = base_url()."images/chooser.png"; ?>
 
+<style>
+	.ui-widget {
+		font-size: 1em;
+	}
+</style>
+
 </head>
 
 <body>
@@ -17,10 +23,19 @@
 <div style='height:1em;'></div>
 <form>
 <fieldset>
-    <legend class='ctl_legend'>Dataset Factors</legend>
-    <div>
-	<label for="itemList">Datasets</label>
-	<span class='ctls'> &nbsp; </span>
+    <legend class='ctl_legend'>Factors</legend>
+    
+    <table>
+    <tr>
+    <td>
+	<div id="radio">
+	<input type="radio" id="radio1" name="radio" value="Requested_Run_ID" checked="checked" /><label for="radio1">Requests</label>
+	<input type="radio" id="radio2" name="radio" value="Dataset_Name"/><label for="radio2">Datasets</label>
+	</div>
+    </td>
+    
+    <td>
+    <div id='ds_chsr_panel' style='display:none;'>
 	<span class='ctls'>
 	from data package... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_data_package_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
 	</span>
@@ -28,6 +43,15 @@
 	from datasets... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
 	</span>
 	</div>
+	<div id='req_chsr_panel'>
+	<span class='ctls'>
+	from requested runs... <a href="javascript:epsilon.callChooser('itemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	</span>
+	</div>
+	</td>
+	</tr>
+	</table>
+	
 	<div>
 	<textarea name="itemList" cols="100" rows="5" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
 	</div>
@@ -89,10 +113,24 @@
 				myCommonControls.enableSave(true);			
 		},
 		initEntryFields: function() {
+		},
+		setItemSource: function(source) {
+		 	if(source == "Dataset_Name") {
+		 		$('#req_chsr_panel').hide();
+		 		$('#ds_chsr_panel').show();
+		 	} else {
+		 		$('#req_chsr_panel').show();
+		 		$('#ds_chsr_panel').hide();		 		
+		 	}			
 		}
 	}
 
 	$(document).ready(function () { 
+		 $( "#radio" ).buttonset();
+		 $('input:radio').click(function() {
+		 	myUtil.setItemSource(this.value);
+		 });
+
 		myCommonControls = $.extend({}, commonGridControls);
 		myImportExport = $.extend({}, gridImportExport, { 
 			postImportAction: myUtil.postImportAction, 
