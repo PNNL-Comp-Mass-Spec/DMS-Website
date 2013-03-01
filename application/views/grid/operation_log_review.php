@@ -68,9 +68,32 @@
 <script src="<?= base_url().'javascript/data_grid.js' ?>"></script>
 
 <script>
+	gamma.pageContext.site_url = '<?= site_url() ?>';
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
 	
+	var myCellFormatters = {
+		makeLink: function(page, value, target) {
+		    if (!value) return "";
+		    var link = gamma.pageContext.site_url + page + value;
+		    return '<a href="' + link + '" target="' + target + '">' + value + '</a>';
+		},
+		interval: function (row, cell, value, columnDef, dataContext) {
+		    return myCellFormatters.makeLink('run_interval/show/', value, '_blank20');
+		},		
+		log: function (row, cell, value, columnDef, dataContext) {
+			if(dataContext.Type == 'Operation') {
+	 		    return myCellFormatters.makeLink('instrument_operation_history/show/', value, '_blank21');
+			}
+			if(dataContext.Type == 'Configuration') {
+ 			    return myCellFormatters.makeLink('instrument_config_history/show/', value, '_blank21');
+			}
+			return value;
+		},		
+		request: function (row, cell, value, columnDef, dataContext) {
+		    return myCellFormatters.makeLink('requested_run/show/', value, '_blank22');
+		}	
+	}	
 	var myCommonControls;
 	var myImportExport;
 	var myGrid;
@@ -78,7 +101,11 @@
 	var gridConfig = {
 		maxColumnChars: 50,
 		hiddenColumns: ['Year', 'Month', 'Day'],
-		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 'ID', 'Log', 'Request', {id:'Usage'}, {id:'Proposal'}, {id:'EMSL_User'}, {id:'Note', editor:Slick.Editors.LongText}],
+		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 
+		{id:'ID', formatter:myCellFormatters.interval, ned:true }, 
+		{id:'Log', formatter:myCellFormatters.log, ned:true }, 
+		{id:'Request', formatter:myCellFormatters.request, ned:true }, 
+		{id:'Usage'}, {id:'Proposal'}, {id:'EMSL_User'}, {id:'Note', editor:Slick.Editors.LongText}],
 		getLoadParameters: function() {
 			var p = {};
 			var instruments = $('#instrument_fld_chooser').val();
