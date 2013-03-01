@@ -85,7 +85,7 @@
 	var myGrid;
 	var gridConfig = {
 		hiddenColumns: ['Sel', 'BatchID', 'Experiment'],
-		staticColumns: ['Dataset', 'Name', 'Status', 'Request'],
+		staticColumns: ['Request', 'Name', 'Dataset', 'Status' ],
 		getLoadParameters: function() {
 			var sourceType = $("#source_selector input[type='radio']:checked").val();
 			var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
