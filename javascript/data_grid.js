@@ -6,6 +6,68 @@ var gridUtil = {
 		if(!dataRow.mod_axe) dataRow.mod_axe = {};
 		dataRow.mod_axe[field] = dataRow[field];		
 	},
+	visitRange: function(cell, range, grid, visitor) {
+		var dataRows = grid.getData();
+		var cols = this.getColumnsInRange(range, grid);
+		var rows = this.getRowsInRange(range);
+		var rowsAffected = [];
+		$.each(rows, function(x, row) {
+			$.each(cols, function(z, column) {
+				if(visitor) visitor(row, column, dataRows);
+			});
+			rowsAffected.push(row);					
+		});
+		grid.invalidateRows(rowsAffected);
+		gridUtil.setChangeHighlighting(grid);
+		grid.render();
+	},
+	getColumnsInRange: function(range, grid) {
+		var cols = [];
+		for(var col = range.fromCell; col <= range.toCell; col++) {
+			cols.push(grid.getColumns()[col]);
+		}
+		return cols;
+	},
+	getRowsInRange: function(range, grid) {
+		var rows = [];
+		for(var row = range.fromRow; row <= range.toRow; row++) {
+			rows.push(row);
+		}
+		return rows;			
+	},
+	getClearCellVisitor: function(cellProtectionChecker) {
+		var checkProtection = cellProtectionChecker;
+		return function(row, column, dataRows) {
+			if(!column.editor) return;
+			if(checkProtection && !checkProtection(column.field, dataRows[row])) return;
+			var val = dataRows[row][column.field];
+			if (!(val == null || val === '')) {
+				dataRows[row][column.field] = '';
+				gridUtil.markChange(dataRows[row], column.field);
+			}			
+		};
+	},
+	getFilldownVisitor: function(cellProtectionChecker) {
+		var checkProtection = cellProtectionChecker;
+		var lastValueSeen = {};
+		return function(row, column, dataRows) {
+			dataRow = dataRows[row];
+			field = column.field;
+			if(checkProtection && !checkProtection(field, dataRow)) return;
+			if(!lastValueSeen[field]) {
+				lastValueSeen[field] = '';
+			}
+			val = dataRow[field];
+			if (val == null || val === '') {
+				if(dataRow[field] != lastValueSeen[field]) {
+					dataRow[field] = lastValueSeen[field];
+					gridUtil.markChange(dataRow, field);
+				}
+			} else {
+				lastValueSeen[field] = dataRow[field];
+			}
+		};
+	},
 	fillDown: function (column, grid) {
 		Slick.GlobalEditorLock.commitCurrentEdit();	
 		var row, field, val;
@@ -588,3 +650,44 @@ var commonGridControls = {
 	}
 } // commonGridControls
 
+var contextMenuUtil = {
+	menu: null,
+	context: null,
+	range: null,
+	cell: null,
+	menuEvtHandler: function(e) {
+		this.cell = this.context.grid.getCellFromEvent(e);
+		this.range = this.inCurrentSelection(this.cell);
+		if(this.range) {
+			e.preventDefault();
+			this.showMenu(this.cell, e.pageX, e.pageY);
+		}
+	},
+	inCurrentSelection: function(cell) {
+		var range = this.context.grid.getSelectionModel().getSelectedRanges()[0];
+		if(!range) return false;
+		var inSel = (cell.cell >= range.fromCell) && (cell.cell <= range.toCell) && (cell.row >= range.fromRow) && (cell.row <= range.toRow); 
+		return (inSel) ? range : null ;
+	},
+	showMenu: function(cell, x, y) {
+		var theMenu = this.menu;
+		$(theMenu).css("top", y).css("left", x).show();
+		$("body").one("click", function () { 
+			$(theMenu).hide(); 
+		});
+	},
+	setMenuClickHandler: function(handler) {
+		var theMenu = this.menu;
+		var func = handler;
+		var me = this;
+		$(this.menu).click(function(e) {
+		    if (!$(e.target).is("li")) return;
+		    if (!me.context.grid.getEditorLock().commitCurrentEdit()) return;
+			var action = $(e.target).data('action');
+			if(action && func) {
+				func(action, me.cell, me.range, me.context.grid); // (cell, range, grid)
+				$(theMenu).hide(); 
+			}
+		});
+	}
+} // contextMenuUtil

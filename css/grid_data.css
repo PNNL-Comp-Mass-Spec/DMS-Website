@@ -93,3 +93,26 @@ input.editor-text {
 label {
 	font-weight:bold;
 }
+/*
+ * for popup context menu
+ */
+.context_popup {
+	position:absolute;
+	background: lightblue;
+	border: 1px solid gray;
+	padding: 2px;
+	display: inline-block;
+	min-width: 100px;
+	-moz-box-shadow: 2px 2px 2px silver;
+	-webkit-box-shadow: 2px 2px 2px silver;
+	z-index: 99999;
+}
+.context_popup li {
+	padding: 4px 4px 4px 14px;
+	list-style: none;
+	cursor: pointer;
+}
+.context_popup li:hover {
+	background-color: white;
+}
+
