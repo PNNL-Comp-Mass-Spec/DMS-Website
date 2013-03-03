@@ -656,9 +656,11 @@ var contextMenuUtil = {
 	range: null,
 	cell: null,
 	init: function(context, config) {
-		if(context) this.context = context;
-		if(config.getMenuId) this.menu = config.getMenuId();
-		if(config.doCommand) this.setMenuClickHandler(config.doCommand);		
+		var obj = $.extend({}, this);
+		if(context) obj.context = context;
+		if(config.getMenuId) obj.menu = config.getMenuId();
+		if(config.doCommand) obj.setMenuClickHandler(config.doCommand);
+		return obj;
 	},
 	menuEvtHandler: function(e) {
 		this.cell = this.context.grid.getCellFromEvent(e);
