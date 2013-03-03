@@ -698,3 +698,39 @@ var contextMenuUtil = {
 		});
 	}
 } // contextMenuUtil
+
+var cellLinkFormatterFactory = {
+	specs: null,
+	init: function(specs) {
+		var obj = $.extend({}, this);
+		obj.specs = specs;
+		return obj;
+	},
+	makeLink: function(page, value, target) {
+	    if (!value) return "";
+	    var link = gamma.pageContext.site_url + page + value;
+	    return '<a href="' + link + '" target="' + target + '">' + value + '</a>';
+	},
+	makeFor: function(colName) {
+		var context = this;
+		var target = '_blank' + '_' + colName.toLowerCase().replace(' ', '_');
+		var spec = this.specs[colName];
+		if(!spec) return null;
+		if(typeof spec == 'string') {
+			return function (row, cell, value, columnDef, dataContext) {
+			    return context.makeLink(spec, value, target);
+			}
+		}
+		if(spec.condition_field) {
+			return function (row, cell, value, columnDef, dataContext) {
+				var condition = dataContext[spec.condition_field];
+				var page = spec[condition];
+				if(page) { 
+					return context.makeLink(page, value, target);
+				} else {
+					return value;
+				}
+			}
+		}
+	}
+} // cellLinkFormatterFactory
