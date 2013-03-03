@@ -652,7 +652,7 @@ var commonGridControls = {
 
 var contextMenuUtil = {
 	menu: null,
-	context: null,
+	context: null, // must be an object extended from mainGrid
 	range: null,
 	cell: null,
 	init: function(context, config) {
