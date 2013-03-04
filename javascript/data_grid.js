@@ -659,7 +659,7 @@ var contextMenuUtil = {
 		var obj = $.extend({}, this);
 		if(context) obj.context = context;
 		if(config.getMenuId) obj.menu = config.getMenuId();
-		if(config.doCommand) obj.setMenuClickHandler(config.doCommand);
+		if(config.getCommandHandler) obj.setMenuClickHandler(config.getCommandHandler());
 		return obj;
 	},
 	menuEvtHandler: function(e) {
@@ -698,6 +698,32 @@ var contextMenuUtil = {
 		});
 	}
 } // contextMenuUtil
+
+var basicGridContextMenu = {
+	menuId: 'contextMenu',
+	getMenuId: function() {
+		return '#' + this.menuId;
+	},
+	cellProtectionChecker: null,
+	buildMenu: function() {
+		var ul = $('<ul id="' + this.menuId + '" class="context_popup" style="display:none;"></ul>').appendTo('body');
+		ul.append('<li data-action="clear">Clear Selection</li>');
+		ul.append('<li data-action="filldown">Fill Down</li>');			
+	},
+	getCommandHandler: function() {
+		var context = this;
+		return function(action, cell, range, grid) {
+			switch(action) {
+				case 'clear':
+					gridUtil.visitRange(cell, range, grid, gridUtil.getClearCellVisitor(context.cellProtectionChecker));
+					break;
+				case 'filldown':
+					gridUtil.visitRange(cell, range, grid, gridUtil.getFilldownVisitor(context.cellProtectionChecker));
+					break;
+			}
+		}
+	}
+} // basicGridContextMenu
 
 var cellLinkFormatterFactory = {
 	specs: null,
