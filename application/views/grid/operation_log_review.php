@@ -2,11 +2,9 @@
 <html>
 <head>
 <title><?= $title; ?></title>
-
 <? $this->load->view('resource_links/base2css') ?>
 <? $this->load->view('resource_links/slickgrid2css') ?>
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/grid_data.css' ?>" />
-
 </head>
 
 <body>
@@ -71,29 +69,17 @@
 	gamma.pageContext.site_url = '<?= site_url() ?>';
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
-	
-	var myCellFormatters = {
-		makeLink: function(page, value, target) {
-		    if (!value) return "";
-		    var link = gamma.pageContext.site_url + page + value;
-		    return '<a href="' + link + '" target="' + target + '">' + value + '</a>';
-		},
-		interval: function (row, cell, value, columnDef, dataContext) {
-		    return myCellFormatters.makeLink('run_interval/show/', value, '_blank20');
-		},		
-		log: function (row, cell, value, columnDef, dataContext) {
-			if(dataContext.Type == 'Operation') {
-	 		    return myCellFormatters.makeLink('instrument_operation_history/show/', value, '_blank21');
-			}
-			if(dataContext.Type == 'Configuration') {
- 			    return myCellFormatters.makeLink('instrument_config_history/show/', value, '_blank21');
-			}
-			return value;
-		},		
-		request: function (row, cell, value, columnDef, dataContext) {
-		    return myCellFormatters.makeLink('requested_run/show/', value, '_blank22');
-		}	
-	}	
+
+	var myHotlinks =  {
+		interval: 'run_interval/show/',
+		request: 'requested_run/show/',
+		log: {
+			condition_field: 'Type',
+			'Operation': 'instrument_operation_history/show',
+			'Configuration': 'instrument_config_history/show/'
+		}
+	}
+	var myFormatterFactory = cellLinkFormatterFactory.init(myHotlinks);
 	var myCommonControls;
 	var myImportExport;
 	var myGrid;
@@ -102,10 +88,13 @@
 		maxColumnChars: 50,
 		hiddenColumns: ['Year', 'Month', 'Day'],
 		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 
-		{id:'ID', formatter:myCellFormatters.interval, ned:true }, 
-		{id:'Log', formatter:myCellFormatters.log, ned:true }, 
-		{id:'Request', formatter:myCellFormatters.request, ned:true }, 
-		{id:'Usage'}, {id:'Proposal'}, {id:'EMSL_User'}, {id:'Note', editor:Slick.Editors.LongText}],
+		{id:'ID', formatter:myFormatterFactory.makeFor('interval'), ned:true }, 
+		{id:'Log', formatter:myFormatterFactory.makeFor('log'), ned:true }, 
+		{id:'Request', formatter:myFormatterFactory.makeFor('request'), ned:true }, 
+		{id:'Usage'}, 
+		{id:'Proposal'}, 
+		{id:'EMSL_User'}, 
+		{id:'Note', editor:Slick.Editors.LongText}],
 		getLoadParameters: function() {
 			var p = {};
 			var instruments = $('#instrument_fld_chooser').val();
@@ -148,8 +137,16 @@
 		},
 		editPermissionFilter: function(e,args) {
 			return myUtil.isEditable(args.column.field, args.item.Type);
-		}		
+		},
+		getContextMenuHandler: function() {
+			basicGridContextMenu.cellProtectionChecker = myUtil.cellProtectionChecker;
+			var ctx = contextMenuUtil.init(this, basicGridContextMenu);
+			return function (e) {
+				ctx.menuEvtHandler(e);
+		    }
+		}	
 	}
+		
 	// for the grunt work details
 	var myUtil = {
 		postImportAction: function() {
@@ -215,6 +212,9 @@
 			if(field == 'Note' && type != 'Long Interval') return false;
 			if(type == 'Operation' || type == 'Configuration') return false;
 			return true;			
+		},
+		cellProtectionChecker: function(field, rowData) {
+			return myUtil.isEditable(field, rowData.Type);
 		}
 	}
 
@@ -225,6 +225,7 @@
 		myImportExport.init(myGrid);
 		myCommonControls.init(myGrid);
 		myCommonControls.showControls(true);
+		basicGridContextMenu.buildMenu();
 
 		myUtil.initEntryFields();
 		$('fieldset span').css('font-weight', 'bold');
