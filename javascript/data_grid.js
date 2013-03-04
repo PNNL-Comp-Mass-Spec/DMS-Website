@@ -402,6 +402,9 @@ var mainGrid = {
 	// the following properties SHOULD NOT be overridden
 	grid: null,
 	pendingOp: false,
+	init: function(gridConfig) {
+		return $.extend({}, mainGrid, gridConfig);
+	},
 	loadGrid: function () {
 		var url = this.getLoadUrl();
 		var p = this.getLoadParameters();
@@ -557,19 +560,20 @@ var gridImportExport = {
 	keyColumnForUpdate: null,
 	acceptNewColumnsOnUpdate: false,
 	myMainGrid: null,
-	init: function(wrapper) {
-		var context = this;
-		this.myMainGrid = (wrapper) ? wrapper : this.myMainGrid;	
+	init: function(wrapper, config) {
+		var obj = $.extend({}, gridImportExport, config);
+		obj.myMainGrid = wrapper;	
 		$('#export_grid_btn').click(function() {
-			context.exportDelimitedData(context);
+			obj.exportDelimitedData(obj);
 		});
 		$('#import_grid_btn').click(function() {
-		    context.myMainGrid.buildGrid();
-			context.importDelimitedData(context);
+		    obj.myMainGrid.buildGrid();
+			obj.importDelimitedData(obj);
 		});
 		$('#update_grid_btn').click(function() {
-			context.updateFromDelimitedData(context);
+			obj.updateFromDelimitedData(obj);
 		});
+		return obj;
 	},
 	exportDelimitedData: function(context) {
 		if(!context.myMainGrid) return;
@@ -617,19 +621,20 @@ var commonGridControls = {
 	myMainGrid: null,
 	addColCtlEnabled: false,
 	init: function(wrapper) {
-		var context = this;
-		context.myMainGrid = (wrapper) ? wrapper : context.myMainGrid;	
+		var obj =  $.extend({}, commonGridControls);
+		obj.myMainGrid = (wrapper) ? wrapper : obj.myMainGrid;	
 		$('#reload_btn').click(function() {
-		    context.myMainGrid.buildGrid();
-			context.myMainGrid.loadGrid();
+		    obj.myMainGrid.buildGrid();
+			obj.myMainGrid.loadGrid();
 		});
 		$('#save_btn').click(function() {	
-			context.myMainGrid.saveGrid();
+			obj.myMainGrid.saveGrid();
 		});
 		$('#add_column_btn').click(function() {
 			var name = $('#add_column_name').val();
-			context.myMainGrid.addColumn(name);
+			obj.myMainGrid.addColumn(name);
 		});
+		return obj;
 	},
 	showControls: function(showOrHide) {
 		if(this.addColCtlEnabled) {

@@ -99,11 +99,9 @@
 	}
 
 	$(document).ready(function () { 
-		myCommonControls = $.extend({}, commonGridControls);
-		myImportExport = $.extend({}, gridImportExport, { postImportAction: myUtil.postImportAction });
-		myGrid = $.extend({}, mainGrid, gridConfig);
-		myImportExport.init(myGrid);
-		myCommonControls.init(myGrid);
+		myGrid = mainGrid.init(gridConfig);
+		myCommonControls = commonGridControls.init(myGrid);
+		myImportExport = gridImportExport.init(myGrid, { postImportAction: myUtil.postImportAction });
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);

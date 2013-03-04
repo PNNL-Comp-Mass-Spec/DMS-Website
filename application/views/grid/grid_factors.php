@@ -145,20 +145,17 @@
 	}
 
 	$(document).ready(function () { 
-		 $( "#source_selector" ).buttonset();
-		 $('#source_selector input:radio').click(function() {
-		 	myUtil.setItemSource(this.value);
-		 });
-
-		myCommonControls = $.extend({}, commonGridControls);
-		myImportExport = $.extend({}, gridImportExport, { 
+		myGrid = mainGrid.init(gridConfig);
+		myCommonControls = commonGridControls.init(myGrid);
+		myImportExport = gridImportExport.init(myGrid,  { 
 			postImportAction: myUtil.postImportAction, 
 			postUpdateAction: myUtil.postUpdateAction,
 			acceptNewColumnsOnUpdate: true
  		});
-		myGrid = $.extend({}, mainGrid, gridConfig);
-		myImportExport.init(myGrid);
-		myCommonControls.init(myGrid);
+		$( "#source_selector" ).buttonset();
+		$('#source_selector input:radio').click(function() {
+			myUtil.setItemSource(this.value);
+		});
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);
