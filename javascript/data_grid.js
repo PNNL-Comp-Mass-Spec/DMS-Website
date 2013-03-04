@@ -673,7 +673,7 @@ var contextMenuUtil = {
 	inCurrentSelection: function(cell) {
 		var range = this.context.grid.getSelectionModel().getSelectedRanges()[0];
 		if(!range) return false;
-		var inSel = (cell.cell >= range.fromCell) && (cell.cell <= range.toCell) && (cell.row >= range.fromRow) && (cell.row <= range.toRow); 
+		var inSel = range.contains(cell.row, cell.cell);
 		return (inSel) ? range : null ;
 	},
 	showMenu: function(cell, x, y) {
