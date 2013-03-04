@@ -650,20 +650,37 @@ var commonGridControls = {
 	}
 } // commonGridControls
 
-var contextMenuUtil = {
-	menu: null,
-	context: null, // must be an object extended from mainGrid
+var contextMenuManager = {
+	menuId: 'contextMenu',
+	menuObj: null,
+	myMainGrid: null,
 	range: null,
 	cell: null,
-	init: function(context, config) {
+	init: function(grid, menuId) {	
+		if(menuId) this.menuId = menuId;
 		var obj = $.extend({}, this);
-		if(context) obj.context = context;
-		if(config.getMenuId) obj.menu = config.getMenuId();
-		if(config.getCommandHandler) obj.setMenuClickHandler(config.getCommandHandler());
+		obj.myMainGrid = grid;
 		return obj;
 	},
+	actions: {},
+	menuExists: function() {
+		if(this.menuObj) return;
+		this.menuObj = $('<ul id="' + this.menuId + '" class="context_popup" style="display:none;"></ul>').appendTo('body');
+		this.setMenuClickHandler();
+	},
+	addMenuAction: function(action, handler) {
+		this.actions[action] = handler ;
+	},
+	addMenuLink: function(action, label) {
+		this.menuExists();
+		this.menuObj.append('<li data-action="' + action + '">' + label + '</li>');
+	},
+	addMenuItem: function(action, label, handler) {
+		this.addMenuLink(action, label);
+		this.addMenuAction(action, handler)
+	},
 	menuEvtHandler: function(e) {
-		this.cell = this.context.grid.getCellFromEvent(e);
+		this.cell = this.myMainGrid.grid.getCellFromEvent(e);
 		this.range = this.inCurrentSelection(this.cell);
 		if(this.range) {
 			e.preventDefault();
@@ -671,59 +688,43 @@ var contextMenuUtil = {
 		}
 	},
 	inCurrentSelection: function(cell) {
-		var range = this.context.grid.getSelectionModel().getSelectedRanges()[0];
+		var range = this.myMainGrid.grid.getSelectionModel().getSelectedRanges()[0];
 		if(!range) return false;
 		var inSel = range.contains(cell.row, cell.cell);
 		return (inSel) ? range : null ;
 	},
 	showMenu: function(cell, x, y) {
-		var theMenu = this.menu;
-		$(theMenu).css("top", y).css("left", x).show();
+		var theMenu = this.menuObj;
+		theMenu.css("top", y).css("left", x).show();
 		$("body").one("click", function () { 
-			$(theMenu).hide(); 
+			theMenu.hide(); 
 		});
 	},
-	setMenuClickHandler: function(handler) {
-		var theMenu = this.menu;
-		var func = handler;
+	setMenuClickHandler: function() {
+		var theMenu = this.menuObj;
 		var me = this;
-		$(this.menu).click(function(e) {
-		    if (!$(e.target).is("li")) return;
-		    if (!me.context.grid.getEditorLock().commitCurrentEdit()) return;
+		theMenu.click(function(e) {
+			if (!$(e.target).is("li")) return;
+			if (!me.myMainGrid.grid.getEditorLock().commitCurrentEdit()) return;
 			var action = $(e.target).data('action');
-			if(action && func) {
-				func(action, me.cell, me.range, me.context.grid); // (cell, range, grid)
-				$(theMenu).hide(); 
-			}
+			var func = me.actions[action];
+			if(!func) return;
+			func(action, me.cell, me.range, me.myMainGrid.grid); // (cell, range, grid)
+			theMenu.hide(); 
 		});
-	}
-} // contextMenuUtil
+	},
+	buildBasicMenu: function(cellProtectionChecker) {
+		this.addMenuItem("clear", "Clear Selection", function(action, cell, range, grid) {
+			gridUtil.visitRange(cell, range, grid, gridUtil.getClearCellVisitor(cellProtectionChecker));
+		});
+		this.addMenuItem("filldown", "Filldown", function(action, cell, range, grid) {
+			gridUtil.visitRange(cell, range, grid, gridUtil.getFilldownVisitor(cellProtectionChecker));
+		});
+		return this;
+	}	
+} // contextMenuManager
 
-var basicGridContextMenu = {
-	menuId: 'contextMenu',
-	getMenuId: function() {
-		return '#' + this.menuId;
-	},
-	cellProtectionChecker: null,
-	buildMenu: function() {
-		var ul = $('<ul id="' + this.menuId + '" class="context_popup" style="display:none;"></ul>').appendTo('body');
-		ul.append('<li data-action="clear">Clear Selection</li>');
-		ul.append('<li data-action="filldown">Fill Down</li>');			
-	},
-	getCommandHandler: function() {
-		var context = this;
-		return function(action, cell, range, grid) {
-			switch(action) {
-				case 'clear':
-					gridUtil.visitRange(cell, range, grid, gridUtil.getClearCellVisitor(context.cellProtectionChecker));
-					break;
-				case 'filldown':
-					gridUtil.visitRange(cell, range, grid, gridUtil.getFilldownVisitor(context.cellProtectionChecker));
-					break;
-			}
-		}
-	}
-} // basicGridContextMenu
+
 
 var cellLinkFormatterFactory = {
 	specs: null,
