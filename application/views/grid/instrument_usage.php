@@ -111,7 +111,14 @@
 			myCommonControls.enableSave(true);
 		},
 		editPermissionFilter: function(e,args) {
-		}		
+		},
+		getContextMenuHandler: function() {
+			var ctx = contextMenuManager.init(this);
+			ctx.buildBasicMenu();
+			return function (e) {
+				ctx.menuEvtHandler(e);
+		    }
+		}	
 	}
 	var myUtil = {
 		postImportAction: function() {

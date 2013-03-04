@@ -139,12 +139,11 @@
 			return myUtil.isEditable(args.column.field, args.item.Type);
 		},
 		getContextMenuHandler: function() {
-			basicGridContextMenu.cellProtectionChecker = myUtil.cellProtectionChecker;
-			var ctx = contextMenuUtil.init(this, basicGridContextMenu);
+			var ctx = contextMenuManager.init(this).buildBasicMenu(myUtil.cellProtectionChecker);
 			return function (e) {
 				ctx.menuEvtHandler(e);
 		    }
-		}	
+		}
 	}
 		
 	// for the grunt work details
@@ -225,7 +224,6 @@
 		myImportExport.init(myGrid);
 		myCommonControls.init(myGrid);
 		myCommonControls.showControls(true);
-		basicGridContextMenu.buildMenu();
 
 		myUtil.initEntryFields();
 		$('fieldset span').css('font-weight', 'bold');

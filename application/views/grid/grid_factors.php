@@ -55,8 +55,8 @@
 	
 	<tr>
 	<td colspan=2>
-	<textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
-	<textarea cols="100" rows="5" name="datasetItemList" id="datasetItemList" onchange="epsilon.convertList('itemList', ',')" style="display:none;"></textarea>
+	<textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="epsilon.convertList('requestItemList', ',')" ></textarea>
+	<textarea cols="100" rows="5" name="datasetItemList" id="datasetItemList" onchange="epsilon.convertList('datasetItemList', ',')" style="display:none;"></textarea>
 	</td>
 	</tr>	
 	
@@ -108,7 +108,14 @@
 		},
 		handleDataChanged: function() {
 			myCommonControls.enableSave(true);
-		}
+		},
+		getContextMenuHandler: function() {
+			var ctx = contextMenuManager.init(this);
+			ctx.buildBasicMenu();
+			return function (e) {
+				ctx.menuEvtHandler(e);
+		    }
+		}	
 	}
 	var myUtil = {
 		postImportAction: function() {
