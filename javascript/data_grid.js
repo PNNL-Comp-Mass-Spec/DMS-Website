@@ -715,6 +715,9 @@ var contextMenuManager = {
 			var func = me.actions[action];
 			if(!func) return;
 			func(action, me.cell, me.range, me.myMainGrid.grid); // (cell, range, grid)
+			if(me.myMainGrid.handleDataChanged && gridUtil.hasChanged(me.myMainGrid.grid.getData())) {
+				me.myMainGrid.handleDataChanged ();
+			}
 			theMenu.hide(); 
 		});
 	},
