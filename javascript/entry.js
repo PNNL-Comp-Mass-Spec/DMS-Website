@@ -21,7 +21,7 @@ var entry = {
 			var id = $('#requestID').val();
 			if(id != '0') {
 				var url = gamma.pageContext.site_url + "analysis_job_request/show/" + id;
-				$('#move_next_link').href = url;
+				$('#move_next_link').attr('href', url);
 				$('#move_next_link').show();
 			}
 		},
