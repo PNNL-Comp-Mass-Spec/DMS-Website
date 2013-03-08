@@ -29,8 +29,8 @@
     <tr>
     <td>
 	<div id="source_selector">
-	<input type="radio" id="source_type1" name="source_type" value="Requested_Run_ID" checked="checked" /><label for="source_type1">Requests</label>
-	<input type="radio" id="source_type2" name="source_type" value="Dataset_Name"/><label for="source_type2">Datasets</label>
+	<input type="radio" id="source_type_request" name="source_type" value="Requested_Run_ID" checked="checked" /><label for="source_type_request">Requests</label>
+	<input type="radio" id="source_type_dataset" name="source_type" value="Dataset_Name"/><label for="source_type_dataset">Datasets</label>
 	</div>
     </td>
     
@@ -110,17 +110,25 @@
 			myCommonControls.enableSave(true);
 		},
 		getContextMenuHandler: function() {
-			var ctx = contextMenuManager.init(this);
-			ctx.buildBasicMenu();
+			var ctx = contextMenuManager.init(this).buildBasicMenu();
 			return function (e) {
 				ctx.menuEvtHandler(e);
 		    }
 		}	
 	}
 	var myUtil = {
+		preImportAction: function(inputData) {
+			if($.inArray('Request', inputData.columns) === -1) {
+				alert('Imported data must contain the Request column');
+				return false;
+			}
+		},
 		postImportAction: function() {
 				var x = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
-				$('#itemList').val(x.join(', '));
+				$('#requestItemList').val(x.join(', '));
+				$('#source_type_request').attr("checked","checked").button('refresh');
+				var source = $("#source_selector input[type='radio']:checked").val();
+				myUtil.setItemSource(source);
 				myCommonControls.enableAddColumn(true);
 				myCommonControls.enableSave(true);
 		},
@@ -148,6 +156,7 @@
 		myGrid = mainGrid.init(gridConfig);
 		myCommonControls = commonGridControls.init(myGrid);
 		myImportExport = gridImportExport.init(myGrid,  { 
+			preImportAction: myUtil.preImportAction,
 			postImportAction: myUtil.postImportAction, 
 			postUpdateAction: myUtil.postUpdateAction,
 			acceptNewColumnsOnUpdate: true

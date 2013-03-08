@@ -586,7 +586,9 @@ var gridImportExport = {
 		if(!context.myMainGrid) return;
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
 		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
-		if(context.preImportAction) context.preImportAction();
+		if(context.preImportAction) {
+			if(context.preImportAction(inputData) === false) return;
+		}
 		context.myMainGrid.setDataRows(inputData, true);
 		if(context.postImportAction) context.postImportAction();
 	},
