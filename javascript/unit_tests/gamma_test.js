@@ -9,5 +9,4 @@ test("gamma remove", function() {
 	var expected = ['one', 'three', 'five'];
 	var result = gamma.removeItems(target, remove);
 	deepEqual( result, expected, "Array items successfully removed");
-
 });
