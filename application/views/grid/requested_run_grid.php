@@ -48,7 +48,7 @@
 	var myGrid;
 	var gridConfig = {
 		hiddenColumns: [],
-		staticColumns: ['Request', 'Name', 'Status', 'BatchID', 'Experiment'],
+		staticColumns: ['Request', 'Name', 'Status', 'BatchID', 'Experiment', 'Instrument', 'Separation_Type'],
 		getLoadParameters: function() {
 			var itemList = $('#itemList').val();
 			return { itemList:itemList };
