@@ -37,10 +37,10 @@
     <td>
     <div id='ds_chsr_panel' style='display:none;'>
 	<span class='ctls'>
-	From OSM package <input type='text' size='10' id='data_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='myUtil.getDatasetsFromOSMPackage()'>Get</a>
+	From OSM package <input type='text' size='10' id='data_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getDatasetsFromOSMPackage()'>Get</a>
 	</span>
 	<span class='ctls'>
-	From Data package <input type='text' size='10' id='ds_data_package_fld'/><a class='button' href='javascript:void(0)' onclick='myUtil.getDatasetsFromDataPackage()'>Get</a>
+	From Data package <input type='text' size='10' id='ds_data_package_fld'/><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getDatasetsFromDataPackage()'>Get</a>
 	</span>
 	<span class='ctls'>
 	From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
@@ -49,7 +49,7 @@
 	
 	<div id='req_chsr_panel'>
 	<span class='ctls'>
-	From OSM package <input type='text' size='10' id='osm_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='myUtil.getRequestsFromOSMPackage()'>Get</a>
+	From OSM package <input type='text' size='10' id='osm_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getRequestsFromOSMPackage()'>Get</a>
 	</span>
 	<span class='ctls'>
 	From requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
@@ -94,9 +94,7 @@
 		hiddenColumns: ['Sel', 'BatchID', 'Experiment'],
 		staticColumns: ['Request', 'Name', 'Dataset', 'Status' ],
 		getLoadParameters: function() {
-			var sourceType = $("#source_selector input[type='radio']:checked").val();
-			var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
-			return { itemList:itemList, itemType:sourceType };
+			return sourceListUtil.getSourceList();
 		},
 		afterLoadAction: function() {
 			myCommonControls.enableAddColumn(true);
@@ -131,11 +129,8 @@
 			}
 		},
 		postImportAction: function() {
-				var x = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
-				$('#requestItemList').val(x.join(', '));
-				$('#source_type_request').attr("checked","checked").button('refresh');
-				var source = $("#source_selector input[type='radio']:checked").val();
-				myUtil.setItemSource(source);
+				var requests = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
+				sourceListUtil.setRequestSource(requests);
 				myCommonControls.enableAddColumn(true);
 				myCommonControls.enableSave(true);
 		},
@@ -143,7 +138,10 @@
 				myCommonControls.enableSave(true);			
 		},
 		initEntryFields: function() {
-		},
+		}
+	}
+	
+	var sourceListUtil = {
 		setItemSource: function(source) {
 		 	if(source == "Dataset_Name") {
 		 		$('#req_chsr_panel').hide();
@@ -157,6 +155,17 @@
 		 		$('#datasetItemList').hide();
 		 	}			
 		},
+		setRequestSource: function(requests) {
+				$('#requestItemList').val(requests.join(', '));
+				$('#source_type_request').attr("checked","checked").button('refresh');
+				var source = $("#source_selector input[type='radio']:checked").val();
+				this.setItemSource(source);			
+		},
+		getSourceList: function() {
+			var sourceType = $("#source_selector input[type='radio']:checked").val();
+			var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
+			return { itemList:itemList, itemType:sourceType };			
+		},
 		getRequestsFromOSMPackage: function() {
 			this.getRequestsFromPackage('osm_package_id_fld', 'requestItemList', 'osm_package_requests');
 		},
@@ -169,7 +178,6 @@
 		getRequestsFromPackage: function(filterFld, targetFld, queryName) {
 			var id = $('#' + filterFld).val();
 			if(!id) { alert('Package ID cannot be blank'); return; }
-			// data/json/ad_hoc_query/osm_package_datasets/101
 			var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName + '/' + id;
 			gamma.getObjectFromJSON(url, {}, filterFld, function(json) {
 				var obj = $.parseJSON(json);
@@ -181,7 +189,7 @@
 				var list = d.join(', ');
 				$('#' + targetFld).val(list);
 			});
-		}
+		}		
 	}
 
 	$(document).ready(function () { 
@@ -195,7 +203,7 @@
  		});
 		$( "#source_selector" ).buttonset();
 		$('#source_selector input:radio').click(function() {
-			myUtil.setItemSource(this.value);
+			sourceListUtil.setItemSource(this.value);
 		});
 
 		myUtil.initEntryFields();
