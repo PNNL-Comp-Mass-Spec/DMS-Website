@@ -626,8 +626,10 @@ var commonGridControls = {
 		var obj =  $.extend({}, commonGridControls);
 		obj.myMainGrid = (wrapper) ? wrapper : obj.myMainGrid;	
 		$('#reload_btn').click(function() {
-		    obj.myMainGrid.buildGrid();
-			obj.myMainGrid.loadGrid();
+			if(obj.myMainGrid.grid && gridUtil.hasChanged(obj.myMainGrid.grid.getData())) {
+				if(!confirm("Reloading will destroy your unsaved changes: Do you wish to continue?")) return;
+			}
+			obj.reload();
 		});
 		$('#save_btn').click(function() {	
 			obj.myMainGrid.saveGrid();
@@ -653,7 +655,8 @@ var commonGridControls = {
 		$('#add_col_ctl_panel').toggle(enabled);	
 	},
 	reload: function() {
-		$('#reload_btn').click();			
+	    this.myMainGrid.buildGrid();
+		this.myMainGrid.loadGrid();
 	}
 } // commonGridControls
 

@@ -98,6 +98,30 @@ class Data extends CI_Controller {
 				break;
 		}	
 	}
+	// http://dmsdev.pnl.gov/data/json/<config source>/<query name>/<filter value>/.../<filter value>
+	// http://dmsdev.pnl.gov/data/json/ad_hoc_query/osm_package_requests/101
+	// http://dmsdev.pnl.gov/data/json/ad_hoc_query/osm_package_datasets/101
+	// --------------------------------------------------------------------
+	function json()
+	{
+		session_start();
+		$this->load->helper(array('url'));
+		$this->load->library('controller_utility', '', 'cu');
+		$this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
+
+		$input_parms = new stdClass ();
+		$input_parms->output_format = ''; // $this->uri->segment(3);
+		$input_parms->q_name = $this->uri->segment(4);
+		$input_parms->config_source = $this->uri->segment(3);;
+		$input_parms->filter_values = array_slice($this->uri->segment_array(), 4);
+
+		$this->general_query->setup_query($input_parms);
+
+		$query = $this->model->get_rows('filtered_and_sorted'); // filtered_only  filtered_and_sorted
+		echo json_encode($query->result());	
+//		echo $this->model->get_sql('filtered_and_sorted');		
+	}
+	
 
 	// --------------------------------------------------------------------
 	// http://dmsdev.pnl.gov/data/lr/grk/user/report

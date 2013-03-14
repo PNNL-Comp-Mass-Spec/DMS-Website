@@ -37,16 +37,22 @@
     <td>
     <div id='ds_chsr_panel' style='display:none;'>
 	<span class='ctls'>
-	from data package... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_data_package_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	From OSM package <input type='text' size='10' id='data_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='myUtil.getDatasetsFromOSMPackage()'>Get</a>
 	</span>
 	<span class='ctls'>
-	from datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
+	From Data package <input type='text' size='10' id='ds_data_package_fld'/><a class='button' href='javascript:void(0)' onclick='myUtil.getDatasetsFromDataPackage()'>Get</a>
+	</span>
+	<span class='ctls'>
+	From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
 	</span>
 	</div>
 	
 	<div id='req_chsr_panel'>
 	<span class='ctls'>
-	from requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+	From OSM package <input type='text' size='10' id='osm_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='myUtil.getRequestsFromOSMPackage()'>Get</a>
+	</span>
+	<span class='ctls'>
+	From requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
 	</span>
 	</div>
 
@@ -77,6 +83,7 @@
 <script src="<?= base_url().'javascript/data_grid.js' ?>"></script>
 
 <script>
+	gamma.pageContext.site_url = '<?= site_url() ?>';
 	gamma.pageContext.save_changes_url = '<?= $save_url ?>';
 	gamma.pageContext.data_url = '<?= $data_url ?>';
 
@@ -149,6 +156,31 @@
 		 		$('#ds_chsr_panel').hide();		 		
 		 		$('#datasetItemList').hide();
 		 	}			
+		},
+		getRequestsFromOSMPackage: function() {
+			this.getRequestsFromPackage('osm_package_id_fld', 'requestItemList', 'osm_package_requests');
+		},
+		getDatasetsFromOSMPackage: function() {
+			this.getRequestsFromPackage('data_package_id_fld', 'datasetItemList', 'osm_package_datasets');
+		},		
+		getDatasetsFromDataPackage: function() {
+			this.getRequestsFromPackage('ds_data_package_fld', 'datasetItemList', 'data_package_datasets');
+		},		
+		getRequestsFromPackage: function(filterFld, targetFld, queryName) {
+			var id = $('#' + filterFld).val();
+			if(!id) { alert('Package ID cannot be blank'); return; }
+			// data/json/ad_hoc_query/osm_package_datasets/101
+			var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName + '/' + id;
+			gamma.getObjectFromJSON(url, {}, filterFld, function(json) {
+				var obj = $.parseJSON(json);
+				if(!typeof obj == 'array') return;
+				if(obj.length == 0) return;
+				var d = $.map(obj, function(item) {
+					return item.id;
+				});
+				var list = d.join(', ');
+				$('#' + targetFld).val(list);
+			});
 		}
 	}
 
