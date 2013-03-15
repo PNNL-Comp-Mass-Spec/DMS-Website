@@ -36,11 +36,11 @@
     
     <td>
     <div id='ds_chsr_panel' style='display:none;' class='ctls_grp' data-target='datasetItemList'>
-	<span class='ctls'>
-	From OSM package <input type='text' size='10' id='data_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource("osm_package_datasets", this)'>Get</a>
+	<span class='ctls' data-query='osm_package_datasets'>
+	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource(this)'>Get</a>
 	</span>
-	<span class='ctls'>
-	From Data package <input type='text' size='10' id='ds_data_package_fld'/><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource("data_package_datasets", this)'>Get</a>
+	<span class='ctls' data-query='data_package_datasets'>
+	From Data package <input type='text' size='10' /><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource(this)'>Get</a>
 	</span>
 	<span class='ctls'>
 	From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
@@ -48,8 +48,8 @@
 	</div>
 	
 	<div id='req_chsr_panel' class='ctls_grp' data-target='requestItemList'>
-	<span class='ctls'>
-	From OSM package <input type='text' size='10' id='osm_package_id_fld'/><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource("osm_package_requests", this)'>Get</a>
+	<span class='ctls' data-query='osm_package_requests'>
+	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource(this)'>Get</a>
 	</span>
 	<span class='ctls'>
 	From requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
@@ -142,6 +142,13 @@
 	}
 	
 	var sourceListUtil = {
+		setSourceSelector: function() {
+			var context = this;
+			$( "#source_selector" ).buttonset();
+			$('#source_selector input:radio').click(function() {
+				context.setItemSource(this.value);
+			});
+		},
 		setItemSource: function(source) {
 		 	if(source == "Dataset_Name") {
 		 		$('#req_chsr_panel').hide();
@@ -166,18 +173,11 @@
 			var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
 			return { itemList:itemList, itemType:sourceType };			
 		},
-		getRequestsFromOSMPackage: function() {
-			this.getRequestsFromPackage('osm_package_id_fld', 'requestItemList', 'osm_package_requests');
-		},
-		getDatasetsFromOSMPackage: function() {
-			this.getRequestsFromPackage('data_package_id_fld', 'datasetItemList', 'osm_package_datasets');
-		},		
-		getDatasetsFromDataPackage: function() {
-			this.getRequestsFromPackage('ds_data_package_fld', 'datasetItemList', 'data_package_datasets');
-		},
-		getItemsFromSource: function(queryName, el) {
-			var filterEl = $(el).closest('.ctls').find('input');
-			var targetFld = $(el).closest('.ctls_grp').data('target');
+		getItemsFromSource: function(el) {
+			var ctlsEl = $(el).closest('.ctls');
+			var queryName = ctlsEl.data('query');
+			var filterEl = ctlsEl.find('input');
+			var targetFld = ctlsEl.closest('.ctls_grp').data('target');
 			var id = filterEl.val();
 			if(!id) { alert('Package ID cannot be blank'); return; }
 			var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName + '/' + id;
@@ -203,10 +203,8 @@
 			postUpdateAction: myUtil.postUpdateAction,
 			acceptNewColumnsOnUpdate: true
  		});
-		$( "#source_selector" ).buttonset();
-		$('#source_selector input:radio').click(function() {
-			sourceListUtil.setItemSource(this.value);
-		});
+
+ 		sourceListUtil.setSourceSelector();
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);
