@@ -94,7 +94,13 @@
 		},
 		handleDataChanged: function() {
 			myCommonControls.enableSave(true);
-		}
+		},
+		getContextMenuHandler: function() {
+			var ctx = contextMenuManager.init(this).buildBasicMenu();
+			return function (e) {
+				ctx.menuEvtHandler(e);
+		    }
+		}	
 	}
 	var myUtil = {
 			postImportAction: function() {
