@@ -86,7 +86,8 @@
 			var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
 			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 //			factorXML = '<id type="Request" />' + factorXML;
-			return { factorList: factorXML };
+//			return { factorList: factorXML };
+			return false; // temp to suppress save action
 		},
 		afterSaveAction: function() {
 			myCommonControls.reload();			
