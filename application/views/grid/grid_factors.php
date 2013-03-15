@@ -37,10 +37,10 @@
     <td>
     <div id='ds_chsr_panel' style='display:none;' class='ctls_grp' data-target='datasetItemList'>
 	<span class='ctls' data-query='osm_package_datasets'>
-	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource(this)'>Get</a>
+	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls' data-query='data_package_datasets'>
-	From Data package <input type='text' size='10' /><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource(this)'>Get</a>
+	From Data package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls'>
 	From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
@@ -49,7 +49,7 @@
 	
 	<div id='req_chsr_panel' class='ctls_grp' data-target='requestItemList'>
 	<span class='ctls' data-query='osm_package_requests'>
-	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' onclick='sourceListUtil.getItemsFromSource(this)'>Get</a>
+	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls'>
 	From requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
@@ -142,11 +142,14 @@
 	}
 	
 	var sourceListUtil = {
-		setSourceSelector: function() {
+		setup: function() {
 			var context = this;
 			$( "#source_selector" ).buttonset();
 			$('#source_selector input:radio').click(function() {
 				context.setItemSource(this.value);
+			});
+			$('.ctls_grp a.button').click(function(event) {
+				context.getItemsFromSource(event.target);
 			});
 		},
 		setItemSource: function(source) {
@@ -160,13 +163,13 @@
 		 		$('#requestItemList').show();
 		 		$('#ds_chsr_panel').hide();		 		
 		 		$('#datasetItemList').hide();
-		 	}			
+		 	}		
 		},
 		setRequestSource: function(requests) {
-				$('#requestItemList').val(requests.join(', '));
-				$('#source_type_request').attr("checked","checked").button('refresh');
-				var source = $("#source_selector input[type='radio']:checked").val();
-				this.setItemSource(source);			
+			$('#requestItemList').val(requests.join(', '));
+			$('#source_type_request').attr("checked","checked").button('refresh');
+			var source = $("#source_selector input[type='radio']:checked").val();
+			this.setItemSource(source);			
 		},
 		getSourceList: function() {
 			var sourceType = $("#source_selector input[type='radio']:checked").val();
@@ -179,7 +182,7 @@
 			var filterEl = ctlsEl.find('input');
 			var targetFld = ctlsEl.closest('.ctls_grp').data('target');
 			var id = filterEl.val();
-			if(!id) { alert('Package ID cannot be blank'); return; }
+			if(!id) { alert('Filter field cannot be blank'); return; }
 			var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName + '/' + id;
 			gamma.getObjectFromJSON(url, {}, filterEl.attr('id'), function(json) {
 				var obj = $.parseJSON(json);
@@ -204,7 +207,7 @@
 			acceptNewColumnsOnUpdate: true
  		});
 
- 		sourceListUtil.setSourceSelector();
+ 		sourceListUtil.setup();
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);
