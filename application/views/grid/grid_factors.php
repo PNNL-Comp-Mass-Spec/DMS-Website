@@ -94,7 +94,7 @@
 		hiddenColumns: ['Sel', 'BatchID', 'Experiment'],
 		staticColumns: ['Request', 'Name', 'Dataset', 'Status' ],
 		getLoadParameters: function() {
-			return sourceListUtil.getSourceList();
+			return sourceListSectionsUtil.getSourceList();
 		},
 		afterLoadAction: function() {
 			myCommonControls.enableAddColumn(true);
@@ -130,7 +130,7 @@
 		},
 		postImportAction: function() {
 				var requests = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
-				sourceListUtil.setRequestSource(requests);
+				sourceListSectionsUtil.setRequestSource(requests);
 				myCommonControls.enableAddColumn(true);
 				myCommonControls.enableSave(true);
 		},
@@ -141,15 +141,12 @@
 		}
 	}
 	
-	var sourceListUtil = {
+	var sourceListSectionsUtil = {
 		setup: function() {
 			var context = this;
 			$( "#source_selector" ).buttonset();
 			$('#source_selector input:radio').click(function() {
 				context.setItemSource(this.value);
-			});
-			$('.ctls_grp a.button').click(function(event) {
-				context.getItemsFromSource(event.target);
 			});
 		},
 		setItemSource: function(source) {
@@ -175,7 +172,20 @@
 			var sourceType = $("#source_selector input[type='radio']:checked").val();
 			var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
 			return { itemList:itemList, itemType:sourceType };			
+		}	
+	}
+	
+	// shareable
+	var sourceListUtil = {
+		setup: function() {
+			var context = this;
+			$('.ctls_grp a.button').click(function(event) {
+				context.getItemsFromSource(event.target);
+			});
 		},
+		// get list of items from given ad hoc query (via AJAX)
+		// filtered by single value from given filter field
+		// and placed into given target field
 		getItemsFromSource: function(el) {
 			var ctlsEl = $(el).closest('.ctls');
 			var queryName = ctlsEl.data('query');
@@ -208,6 +218,7 @@
  		});
 
  		sourceListUtil.setup();
+ 		sourceListSectionsUtil.setup();
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);
