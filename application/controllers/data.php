@@ -115,6 +115,13 @@ class Data extends CI_Controller {
 		$input_parms->config_source = $this->uri->segment(3);;
 		$input_parms->filter_values = array_slice($this->uri->segment_array(), 4);
 
+		$pfv = $this->input->post('filter_values');
+		if($pfv) {
+			$input_parms->filter_values = explode(',', $pfv);
+		} else {
+			$input_parms->filter_values = array_slice($this->uri->segment_array(), 4);
+		}
+
 		$this->general_query->setup_query($input_parms);
 
 		$query = $this->model->get_rows('filtered_and_sorted'); // filtered_only  filtered_and_sorted

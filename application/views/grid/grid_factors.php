@@ -36,10 +36,10 @@
     
     <td>
     <div id='ds_chsr_panel' style='display:none;' class='ctls_grp' data-target='datasetItemList'>
-	<span class='ctls' data-query='osm_package_datasets'>
+	<span class='ctls' data-query='osm_package_datasets' data-chsr='osm_package_list'>
 	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
-	<span class='ctls' data-query='data_package_datasets'>
+	<span class='ctls' data-query='data_package_datasets' data-chsr='data_package_list'>
 	From Data package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls'>
@@ -48,7 +48,7 @@
 	</div>
 	
 	<div id='req_chsr_panel' class='ctls_grp' data-target='requestItemList'>
-	<span class='ctls' data-query='osm_package_requests'>
+	<span class='ctls' data-query='osm_package_requests' data-chsr='osm_package_list'>
 	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls'>
@@ -141,6 +141,7 @@
 		}
 	}
 	
+	// set up and manage filter section controls
 	var sourceListSectionsUtil = {
 		setup: function() {
 			var context = this;
@@ -175,38 +176,6 @@
 		}	
 	}
 	
-	// shareable
-	var sourceListUtil = {
-		setup: function() {
-			var context = this;
-			$('.ctls_grp a.button').click(function(event) {
-				context.getItemsFromSource(event.target);
-			});
-		},
-		// get list of items from given ad hoc query (via AJAX)
-		// filtered by single value from given filter field
-		// and placed into given target field
-		getItemsFromSource: function(el) {
-			var ctlsEl = $(el).closest('.ctls');
-			var queryName = ctlsEl.data('query');
-			var filterEl = ctlsEl.find('input');
-			var targetFld = ctlsEl.closest('.ctls_grp').data('target');
-			var id = filterEl.val();
-			if(!id) { alert('Filter field cannot be blank'); return; }
-			var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName + '/' + id;
-			gamma.getObjectFromJSON(url, {}, filterEl.attr('id'), function(json) {
-				var obj = $.parseJSON(json);
-				if(!typeof obj == 'array') return;
-				if(obj.length == 0) return;
-				var d = $.map(obj, function(item) {
-					return item.id;
-				});
-				var list = d.join(', ');
-				$('#' + targetFld).val(list);
-			});
-		}		
-	}
-
 	$(document).ready(function () { 
 		myGrid = mainGrid.init(gridConfig);
 		myCommonControls = commonGridControls.init(myGrid);
@@ -222,6 +191,7 @@
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);
+
 	});
 
 </script>
