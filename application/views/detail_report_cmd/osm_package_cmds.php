@@ -48,6 +48,7 @@
 		<div class='chsr'>Requested Runs... <a href="javascript:packages.callChooserSetType('Requested_Runs', 'helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>Datasets... <a href="javascript:packages.callChooserSetType('Datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>Biomaterial... <a href="javascript:packages.callChooserSetType('Biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>Campaigns... <a href="javascript:packages.callChooserSetType('Campaigns', 'helper_campaign_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'><a href="javascript:packages.callSuggestionSetType('Datasets', 'datasets_from_completed_requested_runs')">Datasets</a> (from requested runs)...</div>
 		<div class='chsr'><a href="javascript:packages.callSuggestionSetType('Campaigns', 'campaign_from_exp_group_members')">Campaigns</a> (from exp. groups members)...</div>
 		</td>
