@@ -207,7 +207,7 @@
 			return message;	
 		},
 		isEditable: function(field, type) {
-			if((field == 'Usage' || field == 'Proposal') && type != 'Dataset') return false;
+			if((field == 'Usage' || field == 'Proposal') && !(type == 'Dataset' || type == 'Long Interval')) return false;
 			if(field == 'Note' && type != 'Long Interval') return false;
 			if(type == 'Operation' || type == 'Configuration') return false;
 			return true;			
