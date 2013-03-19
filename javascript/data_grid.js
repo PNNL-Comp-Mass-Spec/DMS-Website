@@ -51,13 +51,14 @@ var gridUtil = {
 		var checkProtection = cellProtectionChecker;
 		var lastValueSeen = {};
 		return function(row, column, dataRows) {
-			dataRow = dataRows[row];
-			field = column.field;
+			if(!column.editor) return;
+			var dataRow = dataRows[row];
+			var field = column.field;
 			if(checkProtection && !checkProtection(field, dataRow)) return;
 			if(!lastValueSeen[field]) {
 				lastValueSeen[field] = '';
 			}
-			val = dataRow[field];
+			var val = dataRow[field];
 			if (val == null || val === '') {
 				if(dataRow[field] != lastValueSeen[field]) {
 					dataRow[field] = lastValueSeen[field];
@@ -68,6 +69,27 @@ var gridUtil = {
 			}
 		};
 	},
+	getFilldownOverwriteVisitor: function(cellProtectionChecker) {
+		var checkProtection = cellProtectionChecker;
+		var lastValueSeen = {};
+		return function(row, column, dataRows) {
+			if(!column.editor) return;
+			var dataRow = dataRows[row];
+			var field = column.field;
+			if(checkProtection && !checkProtection(field, dataRow)) return;
+			var val = dataRow[field];
+			if(!lastValueSeen[field] && val) {
+				lastValueSeen[field] = dataRow[field];
+				return;
+			}
+			if (lastValueSeen[field]) {
+				if(dataRow[field] != lastValueSeen[field]) {
+					dataRow[field] = lastValueSeen[field];
+					gridUtil.markChange(dataRow, field);
+				}
+			}
+		};
+	},	
 	fillDown: function (column, grid) {
 		Slick.GlobalEditorLock.commitCurrentEdit();	
 		var row, field, val;
@@ -732,6 +754,9 @@ var contextMenuManager = {
 		});
 		this.addMenuItem("filldown", "Filldown", function(action, cell, range, grid) {
 			gridUtil.visitRange(cell, range, grid, gridUtil.getFilldownVisitor(cellProtectionChecker));
+		});
+		this.addMenuItem("filldownOverwrite", "Filldown (Overwrite)", function(action, cell, range, grid) {
+			gridUtil.visitRange(cell, range, grid, gridUtil.getFilldownOverwriteVisitor(cellProtectionChecker));
 		});
 		return this;
 	}	
