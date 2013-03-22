@@ -1108,6 +1108,11 @@ var epsilon = {
 				$('#' + fieldName).val(value);
 		}
 	},
+	setFieldTemplateValue: function(fieldName, value) {
+		if($('#' + fieldName)) {
+			$('#' + fieldName).val(value.replace(/\|/g, '\n'));
+		}
+	},
 	//------------------------------------------
 	// entry field formatting
 	//------------------------------------------
