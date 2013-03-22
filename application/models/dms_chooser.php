@@ -140,6 +140,9 @@ class Dms_chooser extends CI_Model {
 			case "picker.list":
 				$str .= "$label ".$this->get_list_chooser($f_name, $pln, 'replace', $seq);
 				break;
+			case "link.list":
+				$str .= "$label ".$this->get_link_chooser($f_name, $pln, 'replace', $seq);
+				break;
 		}
 		return $str;
 	}
@@ -159,5 +162,21 @@ class Dms_chooser extends CI_Model {
 		$str .= "</table>";
 		return $str;
 	}	
+	// --------------------------------------------------------------------
+	function get_link_chooser($target_field_name, $chooser_name, $mode = 'replace', $seq = '')
+	{
+		$str = '';
+		$options = $this->get_choices($chooser_name);
+		$str .= "<table>";
+		foreach($options as $k => $v) {
+			if($k) {
+				$lnk = "<a href='javascript:void(0)' onclick='epsilon.setFieldTemplateValue(\"$target_field_name\", \"$v\")' >$k</a>";
+				$str .= "<tr><td>$lnk</td></tr>";
+			}
+		}
+		$str .= "</table>";
+		return $str;
+	}		
+	
 }
 ?>
