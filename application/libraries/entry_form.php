@@ -382,7 +382,6 @@ class Entry_form {
 			if($chsr["type"] == 'autocomplete') {
 				$props['class'] = 'dms_autocomplete_chsr';
 				$props['data-query'] = $chsr["PickListName"];
-				$props['data-source'] = ($chsr['Target']) ? $chsr['Target'] : 'ad_hoc_query';
 			}
 		}
 		return $props;
