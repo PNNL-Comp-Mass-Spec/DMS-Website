@@ -466,32 +466,31 @@ var gamma = {
 	autocompleteChooser: {
 		// wire up all designated inputs with JQUI autocomplete actions
 		// defined by 'data-x' attributes:
-		// <input class='dms_autocomplete_chsr' data-query='' data-source='' >
+		// <input class='dms_autocomplete_chsr' data-query='' >
 		setup: function() {
 			var context = this;
 			$('.dms_autocomplete_chsr').each(function() {
 				filterInputFld = $(this);
 				var autocompleteQuery = $(this).data('query');
-				var configSource = $(this).data('source') || 'ad_hoc_query';
 				if(!autocompleteQuery) return;
-				filterInputFld.autocomplete(context.getOptions(autocompleteQuery, configSource));
+				filterInputFld.autocomplete(context.getOptions(autocompleteQuery));
 			});
 		},
 		// return JQUI autocomplete options object with source option set to AJAX callback
-		getOptions: function(queryName, configSource) {
+		getOptions: function(queryName) {
 			return {
 				minLength: 2,
 				// use self-invoking anonymous function to set source option to AJAX callback
 				// that is bound to given input parameters and will call server data controller with them
 				source: (function(queryName){
-					var url = gamma.pageContext.site_url + 'data/json/' + configSource + '/' + queryName;
+					var url = gamma.pageContext.site_url + 'chooser/json/' + queryName;
 			 		return function( request, response ) {
 								gamma.getObjectFromJSON(url, { filter_values:request.term }, null, function(json) {
 									var obj = $.parseJSON(json);
 									response( obj );
 								})
 							}
-				})(queryName, configSource)
+				})(queryName)
 			}
 		}		
 	}	

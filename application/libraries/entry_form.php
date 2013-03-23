@@ -320,6 +320,7 @@ class Entry_form {
 		case 'text':
 			$data['maxlength'] = $f_spec['maxlength'];
 			$data['size']      = $f_spec['size'];
+			$data = $this->add_chooser_properties($f_name, $f_spec, $data);
 			$s .= form_input($data);
 			break;
 	
@@ -333,6 +334,7 @@ class Entry_form {
 			} else {
 				$data['onChange'] = "epsilon.convertList('".$data['id']."', '".$delim."')";
 			}
+			$data = $this->add_chooser_properties($f_name, $f_spec, $data);
 			$s .= form_textarea($data);
 			break;
 	
@@ -369,6 +371,21 @@ class Entry_form {
 		}
 
 		return $s;
+	}
+
+	// -----------------------------------
+	// get attributes to be added to input field for autocomplete
+	function add_chooser_properties($f_name, $f_spec, $props)
+	{
+		if(array_key_exists("chooser_list", $f_spec)) {					
+			$chsr = $f_spec['chooser_list'][0];
+			if($chsr["type"] == 'autocomplete') {
+				$props['class'] = 'dms_autocomplete_chsr';
+				$props['data-query'] = $chsr["PickListName"];
+				$props['data-source'] = ($chsr['Target']) ? $chsr['Target'] : 'ad_hoc_query';
+			}
+		}
+		return $props;
 	}
 	
 	// -----------------------------------

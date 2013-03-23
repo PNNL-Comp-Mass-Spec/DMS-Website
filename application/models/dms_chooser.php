@@ -88,6 +88,46 @@ class Dms_chooser extends CI_Model {
 		return $options;
 	}
 	// --------------------------------------------------------------------
+	// returns choices list for given chooser
+	function get_filtered_choices($chooser_name, $filter_value)
+	{
+		$options = array();
+		if(array_key_exists($chooser_name, $this->choices)) {
+			switch($this->choices[$chooser_name]["type"]) {
+				case "select":
+					foreach($this->choices[$chooser_name]["value"] as $k=>$v) {
+						$options[$k] = $v;
+					}
+					break;
+				case "sql":
+					$db = "default";
+					if(array_key_exists("db", $this->choices[$chooser_name])) {
+						$db = $this->choices[$chooser_name]["db"];
+					}
+					$my_db = $this->load->database($db, TRUE);
+					$sql = $this->choices[$chooser_name]["value"];
+					if($filter_value) {
+						$sx = str_ireplace('select', 'SELECT TOP 2000', $sql);
+						$sql = "SELECT * FROM ($sx) TX WHERE val LIKE '%$filter_value%'";
+					}
+					$result = $my_db->query($sql);					
+					if($result) {
+						foreach($result->result_array() as $row) {
+							$obj = new stdClass();
+							$label = $row["val"];
+							$value = (string)$row["ex"];
+							$value = ($value != '')?$value:$label;
+							$obj->label = $label;
+							$obj->value = $value;
+							$options[] = $obj;
+						}
+					}
+					break;
+			}		
+		}
+		return $options;
+	}	
+	// --------------------------------------------------------------------
 	// this returns HTML for a drop-down selector and suitable options
 	// for the specified chooser_name.
 	function get_chooser($target_field_name, $chooser_name, $mode = 'replace', $seq = '')
@@ -142,6 +182,9 @@ class Dms_chooser extends CI_Model {
 				break;
 			case "link.list":
 				$str .= "$label ".$this->get_link_chooser($f_name, $pln, 'replace', $seq);
+				break;
+			case "autocomplete":
+				$str .= "(choices will appear when you start typing)";
 				break;
 		}
 		return $str;

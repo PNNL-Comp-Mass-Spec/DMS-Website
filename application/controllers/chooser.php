@@ -48,7 +48,18 @@ class Chooser extends CI_Controller {
 		$x = array_keys( $this->choosers->get_choices($chooser_name) );
 		echo json_encode($x);		
 	}
-
+	// --------------------------------------------------------------------
+	// this returns list of selections
+	// for the specified chooser_name.  It is suitable for AJAX
+	function json($chooser_name, $filter_value = '')
+	{
+		if(!$filter_value) {
+			$filter_value = $this->input->post('filter_values');
+		}
+		$this->load->model('dms_chooser', 'choosers');
+		$x = $this->choosers->get_filtered_choices($chooser_name, $filter_value);
+		echo json_encode($x);		
+	}
 	
 	//get_choices
 }
