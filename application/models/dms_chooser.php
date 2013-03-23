@@ -96,7 +96,10 @@ class Dms_chooser extends CI_Model {
 			switch($this->choices[$chooser_name]["type"]) {
 				case "select":
 					foreach($this->choices[$chooser_name]["value"] as $k=>$v) {
-						$options[$k] = $v;
+						$obj = new stdClass();
+						$obj->label = $v;
+						$obj->value = $k;
+						$options[] = $obj;
 					}
 					break;
 				case "sql":
