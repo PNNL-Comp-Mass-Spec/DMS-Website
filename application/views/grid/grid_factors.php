@@ -36,11 +36,11 @@
     
     <td>
     <div id='ds_chsr_panel' style='display:none;' class='ctls_grp' data-target='datasetItemList'>
-	<span class='ctls' data-query='osm_package_datasets' data-chsr='osm_package_list'>
-	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
+	<span class='ctls' data-query='osm_package_datasets' >
+	From OSM package <input type='text' size='10' class='dms_autocomplete_chsr' data-query='osm_package_list' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
-	<span class='ctls' data-query='data_package_datasets' data-chsr='data_package_list'>
-	From Data package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
+	<span class='ctls' data-query='data_package_datasets' >
+	From Data package <input type='text' size='10' class='dms_autocomplete_chsr' data-query='data_package_list' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls'>
 	From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>	
@@ -48,8 +48,8 @@
 	</div>
 	
 	<div id='req_chsr_panel' class='ctls_grp' data-target='requestItemList'>
-	<span class='ctls' data-query='osm_package_requests' data-chsr='osm_package_list'>
-	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
+	<span class='ctls' data-query='osm_package_requests' >
+	From OSM package <input type='text' size='10' class='dms_autocomplete_chsr' data-query='osm_package_list' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls'>
 	From requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
@@ -188,6 +188,7 @@
 
  		sourceListUtil.setup();
  		sourceListSectionsUtil.setup();
+		gamma.autocompleteChooser.setup();
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);

@@ -26,11 +26,11 @@
     
     <td>	
 	<div id='req_chsr_panel' class='ctls_grp' data-target='requestItemList'>
-	<span class='ctls' data-query='batch_requests' data-chsr='requested_run_batch_list'>
-	From batch <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
+	<span class='ctls' data-query='batch_requests' >
+	From batch <input type='text' size='10' class='dms_autocomplete_chsr' data-query='requested_run_batch_list' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
-	<span class='ctls' data-query='osm_package_requests' data-chsr='osm_package_list'>
-	From OSM package <input type='text' size='10' /><a class='button' href='javascript:void(0)' >Get</a>
+	<span class='ctls' data-query='osm_package_requests' >
+	From OSM package <input type='text' size='10' class='dms_autocomplete_chsr' data-query='osm_package_list' /><a class='button' href='javascript:void(0)' >Get</a>
 	</span>
 	<span class='ctls'>
 	From requested runs... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
@@ -118,6 +118,7 @@
 		myImportExport = gridImportExport.init(myGrid, { postImportAction: myUtil.postImportAction });
 
  		sourceListUtil.setup();
+		gamma.autocompleteChooser.setup();
 
 		myUtil.initEntryFields();
 		myCommonControls.showControls(true);

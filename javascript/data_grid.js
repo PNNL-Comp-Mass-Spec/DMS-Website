@@ -808,14 +808,6 @@ var sourceListUtil = {
 		$('.ctls_grp a.button').click(function(event) {
 			context.getItemsFromSource(event.target);
 		});
-		// set up autocomplete for filter input fields
-		// that have a suitable spec 
-		$('.ctls_grp span.ctls').each(function() {
-			var autocompleteQuery = $(this).data('chsr');
-			if(!autocompleteQuery) return;
-			var filterInputFld = $(this).find('input');
-			filterInputFld.autocomplete(context.getOptions(autocompleteQuery));
-		});
 	},
 	// get list of items from given ad hoc query (via AJAX)
 	// filtered by single value from given filter field
@@ -839,20 +831,6 @@ var sourceListUtil = {
 			var list = d.join(', ');
 			$('#' + targetFld).val(list);
 		});
-	},
-	getOptions: function(queryName) {
-		return {
-			minLength: 2,
-			source: (function(queryName){
-				var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName;
-		 		return function( request, response ) {
-							gamma.getObjectFromJSON(url, { filter_values:request.term }, null, function(json) {
-								var obj = $.parseJSON(json);
-								response( obj );
-							})
-						}
-			})(queryName)
-		}
 	}		
 } // sourceListUtil
 	
