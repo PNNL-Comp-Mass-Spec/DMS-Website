@@ -472,25 +472,53 @@ var gamma = {
 			$('.dms_autocomplete_chsr').each(function() {
 				filterInputFld = $(this);
 				var autocompleteQuery = $(this).data('query');
+				var append = $(this).data('append');
 				if(!autocompleteQuery) return;
-				filterInputFld.autocomplete(context.getOptions(autocompleteQuery));
+				filterInputFld.autocomplete(context.getOptions(autocompleteQuery, append));
 			});
 		},
 		// return JQUI autocomplete options object with source option set to AJAX callback
-		getOptions: function(queryName) {
+		getOptions: function(queryName, append) {
 			return {
-				minLength: 2,
+				minLength: 1,
+				select: (function(append){
+					var appendVal = append;
+			 		return function( event, ui ) {
+			 			if(appendVal) {
+							var curVal = event.target.value;
+							var x = curVal.lastIndexOf(',');
+							curVal = (x != -1) ? curVal = curVal.substring(0, x) + ', ': curVal = '';
+							event.target.value = curVal + ui.item.value;
+							event.preventDefault()			 				
+			 			}
+					}
+				})(append),
+				focus: (function(append){
+					var appendVal = append;
+			 		return function( event, ui ) {
+			 			if(appendVal) {
+							event.preventDefault()			 				
+			 			}
+					}
+				})(append),				
 				// use self-invoking anonymous function to set source option to AJAX callback
 				// that is bound to given input parameters and will call server data controller with them
-				source: (function(queryName){
+				source: (function(queryName, append){
+					var appendVal = append;
 					var url = gamma.pageContext.site_url + 'chooser/json/' + queryName;
 			 		return function( request, response ) {
-								gamma.getObjectFromJSON(url, { filter_values:request.term }, null, function(json) {
-									var obj = $.parseJSON(json);
-									response( obj );
-								})
+			 					var f = (appendVal) ? request.term.split(/,\s*/).pop() : request.term ;
+								if(f && (f.length > 1 || f == '*')) {
+									var p = { filter_values:f };
+									gamma.getObjectFromJSON(url, p, null, function(json) {
+										var obj = $.parseJSON(json);
+										response( obj );
+									})
+								} else {
+									response('');
+								}
 							}
-				})(queryName)
+				})(queryName, append)
 			}
 		}		
 	}	

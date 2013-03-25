@@ -379,9 +379,12 @@ class Entry_form {
 	{
 		if(array_key_exists("chooser_list", $f_spec)) {					
 			$chsr = $f_spec['chooser_list'][0];
-			if($chsr["type"] == 'autocomplete') {
+			if($chsr["type"] == 'autocomplete' || $chsr["type"] == 'autocomplete.append') {
 				$props['class'] = 'dms_autocomplete_chsr';
 				$props['data-query'] = $chsr["PickListName"];
+			}
+			if($chsr["type"] == 'autocomplete.append') {
+				$props['data-append'] = 'true';
 			}
 		}
 		return $props;

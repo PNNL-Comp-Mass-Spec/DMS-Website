@@ -91,6 +91,7 @@ class Dms_chooser extends CI_Model {
 	// returns choices list for given chooser
 	function get_filtered_choices($chooser_name, $filter_value)
 	{
+		$filter_value = str_ireplace('*', '', $filter_value);
 		$options = array();
 		if(array_key_exists($chooser_name, $this->choices)) {
 			switch($this->choices[$chooser_name]["type"]) {
@@ -187,6 +188,7 @@ class Dms_chooser extends CI_Model {
 				$str .= "$label ".$this->get_link_chooser($f_name, $pln, 'replace', $seq);
 				break;
 			case "autocomplete":
+			case "autocomplete.append":
 				$str .= "(choices will appear when you start typing)";
 				break;
 		}
