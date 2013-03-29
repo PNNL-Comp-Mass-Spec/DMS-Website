@@ -5,7 +5,7 @@
 </span>
 
 <span class='ctls' id='add_col_ctl_panel'>
-	<a id='add_column_btn' href='javascript:void(0)' >Add</a> a new column named: 
+	<a class='button' id='add_column_btn' href='javascript:void(0)' >Add</a> <span id='add_column_legend'>a new column named:</span> 
 	<input id='add_column_name' type='text' size="20"></input>
 </span>
 

@@ -644,6 +644,7 @@ var gridImportExport = {
 var commonGridControls = {
 	myMainGrid: null,
 	addColCtlEnabled: false,
+	afterAddCol: null,
 	init: function(wrapper) {
 		var obj =  $.extend({}, commonGridControls);
 		obj.myMainGrid = (wrapper) ? wrapper : obj.myMainGrid;	
@@ -659,6 +660,7 @@ var commonGridControls = {
 		$('#add_column_btn').click(function() {
 			var name = $('#add_column_name').val();
 			obj.myMainGrid.addColumn(name);
+			if(obj.afterAddCol) obj.afterAddCol();
 		});
 		return obj;
 	},
@@ -675,6 +677,9 @@ var commonGridControls = {
 	enableAddColumn: function(enabled) {
 		this.addColCtlEnabled = enabled;
 		$('#add_col_ctl_panel').toggle(enabled);	
+	},
+	setAddColumnLegend: function(legend) {
+		$('#add_column_legend').html(legend);
 	},
 	reload: function() {
 	    this.myMainGrid.buildGrid();
