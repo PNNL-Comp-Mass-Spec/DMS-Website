@@ -347,13 +347,22 @@
 				el.append(opt);
 			}
 		},
+		preImportAction: function(inputData) {
+			if($.inArray('Request', inputData.columns) === -1) {
+				alert('Imported data must contain the Request column');
+				return false;
+			}
+		},
 		postImportAction: function() {
 			var x = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
-			$('#itemList').val(x.join(', '));
+			$('#requestItemList').val(x.join(', '));
 			myCommonControls.enableSave(true);
 			myCommonControls.enableAddColumn(true);
 			myUtil.setFactorSelection();
 			myUtil.setColumnMenuCommands();
+		},
+		postUpdateAction: function() {
+			myCommonControls.enableSave(true);			
 		},
 		validateNewFactorName: function(newFactorName) {
 			var ok = true;
@@ -407,7 +416,12 @@
 	$(document).ready(function () { 
 		myGrid = mainGrid.init(gridConfig);
 		myCommonControls = commonGridControls.init(myGrid);
-		myImportExport = gridImportExport.init(myGrid, { postImportAction: myUtil.postImportAction });
+		myImportExport = gridImportExport.init(myGrid, { 
+			preImportAction: myUtil.preImportAction,
+			postImportAction: myUtil.postImportAction,
+			postUpdateAction: myUtil.postUpdateAction,
+			acceptNewColumnsOnUpdate: true
+		});
 
  		sourceListUtil.setup();
 		gamma.autocompleteChooser.setup();
