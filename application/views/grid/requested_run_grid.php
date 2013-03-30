@@ -41,13 +41,12 @@
 	<td rowspan="2">
 		<div class="ctl_panel ctl_pane">
 		<div class="ctl_panel">Blocking Commands</div>
-		<div class="ctl_panel"><a class='button' href='javascript:void(0)' onclick='myBlockingUtil.blockOp("global")' title='Place all requests into block 0 and globally randomize run order'>Randomize</a>
-			
+		<div class="ctl_panel"><a class='button' id='globally_randomize_btn' href='javascript:void(0)' >Globally Randomize</a>
 		</div>
-		<div class="ctl_panel"><a class='button' href='javascript:void(0)' onclick='myBlockingUtil.blockOp("block")'  title='Randomly assign requests to blocks of the selected size, and randomize run order within blocks'>Randomly Block</a>
+		<div class="ctl_panel"><a class='button' id='randomly_block_btn' href='javascript:void(0)' >Randomly Block</a>
 			<select id='block_size_ctl' ></select> (requests per block)
 		</div>
-		<div class="ctl_panel"><a class='button' href='javascript:void(0)' onclick='myBlockingUtil.blockOp("factor")'  title='Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)'>Block by Factor</a>
+		<div class="ctl_panel"><a class='button' id='factor_block_btn' href='javascript:void(0)'>Block by Factor</a>
 			<select id='factor_select_ctl'></select>
 		</div>
 		</div>
@@ -96,6 +95,7 @@
 			myCommonControls.enableSave(false);
 			myCommonControls.enableAddColumn(true);
 			myUtil.setFactorSelection();
+			myUtil.setColumnMenuCommands();			
 		},
 		getSaveParameters: function() {
 			var mapP2A;
@@ -121,7 +121,6 @@
 			var runParamXML = gamma.getXmlElementsFromObjectArray(runParamChanges, 'r', mapP2A);
 
 			return { factorList: factorXML, blockingList: runParamXML };
-//			return false; // temp to suppress save action
 		},
 		afterSaveAction: function() {
 			myCommonControls.reload();			
@@ -136,44 +135,7 @@
 		    }
 		}	
 	}
-	var myUtil = {
-		initEntryFields: function() {
-			var el = $("#block_size_ctl");
-			for(var i = 2; i < 10; i++) {
-				var opt = $("<option></option>").attr("value", i).text(i);
-				if(i == 4) opt.attr('selected',true)		
-				el.append(opt);
-			}
-		},
-		postImportAction: function() {
-			var x = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
-			$('#itemList').val(x.join(', '));
-			myCommonControls.enableSave(true);
-			myCommonControls.enableAddColumn(true);
-			myUtil.setFactorSelection();
-		},
-		validateNewFactorName: function(newFactorName) {
-			var ok = true;
-			$.each(myGrid.grid.getColumns(), function(idx, col) {
-				if(col.field == newFactorName) {
-					ok = false;
-				}
-			});
-			if(!ok) {
-				alert('New factor name is invalid (duplicates existing factor or is reserved word)');
-			}
-			return ok;
-		},
-		setFactorSelection: function() {
-			var factors = myBlockingUtil.getFactorColNameList();
-			var el = $("#factor_select_ctl");
-			el.empty(); 
-			$.each(factors, function(idx, factor) {
-			  el.append($("<option></option>").attr("value", factor).text(factor));
-			});
-		}
-	}
-	
+
 	var myBlockingUtil = {
 		runOrderFieldName: 'Run_Order',
 		blockNumberFieldName: 'Block',
@@ -195,6 +157,12 @@
 			});
 			this.setRandom(blockingObjList);
 			return blockingObjList;
+		},
+		loadBlockingObjectList: function(blockingObjList) {
+			$.each(blockingObjList, function(idx, obj) {
+				obj.blockNumber = obj.row['Block'];
+				obj.runOrder = obj.row['Run_Order'];
+			});			
 		},
 		getUniqueListOfBlockNumbers: function(blockingObjList) {
 			blockNumberList = [];
@@ -277,8 +245,16 @@
 			this.randomizeRunOrder(blockingObjList);
 			return blockingObjList;
 		},
-		randomlyBlock: function() {
+		randomlyBlock: function(param) {
 			var blkSize = $('#block_size_ctl').val();
+			if(param) {
+				var response = prompt('Block Size?', '4');
+				if(response) { 
+					blkSize = response;
+				} else {
+					return;
+				}
+			}
 			if(blkSize < 2 || blkSize > 15) {
 				alert('Block size must be within range 1-15');
 				return;
@@ -291,8 +267,8 @@
 			this.createRandomBlocksToSize(blockingObjList, blkSize);
 			return blockingObjList;	
 		},
-		blockFromFactor: function() {
-			var col_name = $('#factor_select_ctl').val();
+		blockFromFactor: function(col_name) {
+			col_name = col_name || $('#factor_select_ctl').val();
 			if(!col_name) {
 				alert('"' +  col_name + '" is not a valid name');
 				return;
@@ -300,15 +276,25 @@
 			var blockingObjList = this.getBlockingObjList(myGrid.grid.getData());
 			this.createBlocksFromFactor(blockingObjList, col_name);
 			return blockingObjList;
-		},		
+		},
+		reorderBlocks: function() {
+			var blockingObjList = this.getBlockingObjList(myGrid.grid.getData());
+			this.loadBlockingObjectList(blockingObjList);
+			this.randomizeWithinBlocks(blockingObjList);
+			return blockingObjList;
+		},
 		//-------------
 		copyBlockingToData: function(blockingObjList) {
 			var context = this;
 			$.each(blockingObjList, function(idx, obj){
-				obj.row[context.runOrderFieldName] = obj.runOrder;
-				obj.row[context.blockNumberFieldName] = obj.blockNumber;
-				gridUtil.markChange(obj.row, context.runOrderFieldName);
-				gridUtil.markChange(obj.row, context.blockNumberFieldName);
+				if(obj.row[context.runOrderFieldName] != obj.runOrder) {
+					obj.row[context.runOrderFieldName] = obj.runOrder;
+					gridUtil.markChange(obj.row, context.runOrderFieldName);
+				}
+				if(obj.row[context.blockNumberFieldName] != obj.blockNumber) {
+					obj.row[context.blockNumberFieldName] = obj.blockNumber;
+					gridUtil.markChange(obj.row, context.blockNumberFieldName);			
+				}
 			});	
 		},
 		getFactorColNameList: function() {
@@ -320,16 +306,19 @@
 			return factorCols;			
 		},
 		//-------------
-		blockOp: function(op) {
+		blockOp: function(op, param) {
 			var blockingObjList;
 			if(op == 'global') {
-				blockingObjList = this.globallyRandomize();
+				blockingObjList = this.globallyRandomize(param);
 			}
 			if(op == 'block') {
-				blockingObjList = this.randomlyBlock();
+				blockingObjList = this.randomlyBlock(param);
 			}
 			if(op == 'factor') {
-				blockingObjList = this.blockFromFactor();
+				blockingObjList = this.blockFromFactor(param);
+			}
+			if(op == 'reorder') {
+				blockingObjList = this.reorderBlocks(param);
 			}
 			this.copyBlockingToData(blockingObjList);
 			gridUtil.setChangeHighlighting(myGrid.grid);
@@ -337,6 +326,82 @@
 			myGrid.grid.render();
 			myCommonControls.enableSave(true);
 		}		
+	}
+	
+	var myUtil = {
+		titles:{
+			globally_randomize:'Place all requests into block 0 and globally randomize run order',
+			randomly_block:'Randomly assign requests to blocks of the selected size, and randomize run order within blocks',
+			factor_block:'Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)',
+			reorder_blocks:'Randomize run order within existing blocks'
+		},
+		initEntryFields: function() {
+			$('#globally_randomize_btn').click(function() { myBlockingUtil.blockOp("global") }).attr('title', this.titles.globally_randomize); 
+			$('#randomly_block_btn').click(function() { myBlockingUtil.blockOp("block") }).attr('title', this.titles.randomly_block);  
+			$('#factor_block_btn').click(function() { myBlockingUtil.blockOp("factor") }).attr('title', this.titles.factor_block);  
+
+			var el = $("#block_size_ctl");
+			for(var i = 2; i < 10; i++) {
+				var opt = $("<option></option>").attr("value", i).text(i);
+				if(i == 4) opt.attr('selected',true)		
+				el.append(opt);
+			}
+		},
+		postImportAction: function() {
+			var x = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
+			$('#itemList').val(x.join(', '));
+			myCommonControls.enableSave(true);
+			myCommonControls.enableAddColumn(true);
+			myUtil.setFactorSelection();
+			myUtil.setColumnMenuCommands();
+		},
+		validateNewFactorName: function(newFactorName) {
+			var ok = true;
+			$.each(myGrid.grid.getColumns(), function(idx, col) {
+				if(col.field == newFactorName) {
+					ok = false;
+				}
+			});
+			if(!ok) {
+				alert('New factor name is invalid (duplicates existing factor or is reserved word)');
+			}
+			return ok;
+		},
+		setFactorSelection: function() {
+			var factors = myBlockingUtil.getFactorColNameList();
+			var el = $("#factor_select_ctl");
+			el.empty(); 
+			$.each(factors, function(idx, factor) {
+			  el.append($("<option></option>").attr("value", factor).text(factor));
+			});
+		},
+		setColumnMenuCommands: function() {
+			var context = this;	
+			var col, cols;
+			col = myGrid.grid.getColumns()[myGrid.grid.getColumnIndex(myBlockingUtil.blockNumberFieldName)];
+			if(col) {				
+				col.header.menu.items.push( { command:"", title:"-----" });
+				col.header.menu.items.push({command:"randomize-global", title:"Randomize Globally", tooltip:context.titles.globally_randomize })
+				col.header.menu.items.push({command:"randomly-block", title:"Randomly Block", tooltip:context.titles.randomly_block })
+			}
+			col = myGrid.grid.getColumns()[myGrid.grid.getColumnIndex(myBlockingUtil.runOrderFieldName)];
+			if(col) {				
+				col.header.menu.items.push( { command:"", title:"-----" });
+				col.header.menu.items.push({command:"randomize-blocks", title:"Randomize Blocks", tooltip:context.titles.reorder_blocks })
+			}
+			cols = myBlockingUtil.getFactorColNameList();
+			$.each(cols, function(idx, colName) {
+				col = myGrid.grid.getColumns()[myGrid.grid.getColumnIndex(colName)];
+				if(!col) return;
+				col.header.menu.items.push( { command:"", title:"-----" });
+				col.header.menu.items.push({command:"factor-blocks", title:"Block With This Factor", tooltip:context.titles.factor_block })				
+			});
+
+			myGrid.headerUtil.commands['randomize-global'] = function(column, grid) { myBlockingUtil.blockOp("global") };
+			myGrid.headerUtil.commands['randomly-block'] = function(column, grid) { myBlockingUtil.blockOp("block", true) };
+			myGrid.headerUtil.commands['randomize-blocks'] = function(column, grid) { myBlockingUtil.blockOp("reorder") };
+			myGrid.headerUtil.commands['factor-blocks'] = function(column, grid) { myBlockingUtil.blockOp("factor", column.field) };
+		}
 	}
 
 	$(document).ready(function () { 
