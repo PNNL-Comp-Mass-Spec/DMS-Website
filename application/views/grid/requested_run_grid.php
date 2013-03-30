@@ -152,6 +152,18 @@
 			myCommonControls.enableAddColumn(true);
 			myUtil.setFactorSelection();
 		},
+		validateNewFactorName: function(newFactorName) {
+			var ok = true;
+			$.each(myGrid.grid.getColumns(), function(idx, col) {
+				if(col.field == newFactorName) {
+					ok = false;
+				}
+			});
+			if(!ok) {
+				alert('New factor name is invalid (duplicates existing factor or is reserved word)');
+			}
+			return ok;
+		},
 		setFactorSelection: function() {
 			var factors = myBlockingUtil.getFactorColNameList();
 			var el = $("#factor_select_ctl");
@@ -337,6 +349,7 @@
 
 		myUtil.initEntryFields();
 		myCommonControls.setAddColumnLegend('new factor named:');
+		myCommonControls.beforeAddCol = myUtil.validateNewFactorName;
 		myCommonControls.afterAddCol = myUtil.setFactorSelection;
 		myCommonControls.showControls(true);
 	});

@@ -276,11 +276,12 @@ var gridUtil = {
 	// size of data in given data rows, and return updated column specs
 	sizeColumnsToData: function (currentColumns, dataRows, maxColumnChars) {
 		var textWidthPixels = 8;
-		var maxChars, dataChars, val;
-		var minChars = 10;
+		var maxChars, dataChars, val, colLabel;
+		var minChars = 3;
 		$.each(currentColumns, function(idx, colSpec) {
 			maxChars = minChars;
-			if(colSpec.field.length > maxChars) maxChars = colSpec.field.length 
+			colLabelChars = colSpec.field.length + 2; // allow space for drop-down menu control
+			if(colLabelChars > maxChars) maxChars = colLabelChars; 
 			$.each(dataRows, function(i, dataRow) {
 				val = dataRow[colSpec.field];
 				if(val) {
@@ -644,6 +645,7 @@ var gridImportExport = {
 var commonGridControls = {
 	myMainGrid: null,
 	addColCtlEnabled: false,
+	beforeAddCol: null,
 	afterAddCol: null,
 	init: function(wrapper) {
 		var obj =  $.extend({}, commonGridControls);
@@ -659,6 +661,11 @@ var commonGridControls = {
 		});
 		$('#add_column_btn').click(function() {
 			var name = $('#add_column_name').val();
+			var ok = true;
+			if(obj.beforeAddCol) {
+				ok = obj.beforeAddCol(name);
+			}
+			if(!ok) return;
 			obj.myMainGrid.addColumn(name);
 			if(obj.afterAddCol) obj.afterAddCol();
 		});
