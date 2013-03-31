@@ -561,6 +561,15 @@ var mainGrid = {
 	},
 	clearGrid: function () {
 		this.setDataRows({columns:[],rows:[]}, true);			
+	},
+	setColumnMenuCmds: function(colName, cmds, useSep) {
+		var col = this.grid.getColumns()[this.grid.getColumnIndex(colName)];
+		if(!col) return;
+		if(useSep) col.header.menu.items.push( { command:'', title:'-----' });	
+		col.header.menu.items = $.merge(col.header.menu.items, cmds)
+	},
+	registerColumnMenuCmdHandlers: function(handlers) {
+		$.extend(this.headerUtil.commands, handlers);
 	}
 
 } // mainGrid
