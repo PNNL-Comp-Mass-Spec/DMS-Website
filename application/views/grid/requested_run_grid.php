@@ -86,7 +86,7 @@
 	var myGrid;
 	var gridConfig = {
 		hiddenColumns: [],
-		staticColumns: ['Request', 'Name', 'Status', 'Batch', 'Experiment', 'Dataset', 'LC_Col'],
+		staticColumns: ['Request', 'Name', 'Status', 'Batch', 'Experiment', 'Dataset', 'LC_Col', {id:"Instrument"}, {id:"Cart"}, {id:"Block"}, {id:""}, {id:"Run_Order"}],
 		getLoadParameters: function() {
 			var itemList = $('#requestItemList').val();
 			return { itemList:itemList };
@@ -305,6 +305,12 @@
 			});
 			return factorCols;			
 		},
+		titles:{
+			globally_randomize:'Place all requests into block 0 and globally randomize run order',
+			randomly_block:'Randomly assign requests to blocks of the selected size, and randomize run order within blocks',
+			factor_block:'Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)',
+			reorder_blocks:'Randomize run order within existing blocks'
+		},		
 		//-------------
 		blockOp: function(op, param) {
 			var blockingObjList;
@@ -329,20 +335,14 @@
 	}
 	
 	var myUtil = {
-		titles:{
-			globally_randomize:'Place all requests into block 0 and globally randomize run order',
-			randomly_block:'Randomly assign requests to blocks of the selected size, and randomize run order within blocks',
-			factor_block:'Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)',
-			reorder_blocks:'Randomize run order within existing blocks'
-		},
 		initEntryFields: function() {
-			$('#globally_randomize_btn').click(function() { myBlockingUtil.blockOp("global") }).attr('title', this.titles.globally_randomize); 
-			$('#randomly_block_btn').click(function() { myBlockingUtil.blockOp("block") }).attr('title', this.titles.randomly_block);  
-			$('#factor_block_btn').click(function() { myBlockingUtil.blockOp("factor") }).attr('title', this.titles.factor_block);  
+			$('#globally_randomize_btn').click(function() { myBlockingUtil.blockOp('global') }).attr('title', myBlockingUtil.titles.globally_randomize); 
+			$('#randomly_block_btn').click(function() { myBlockingUtil.blockOp('block') }).attr('title', myBlockingUtil.titles.randomly_block);  
+			$('#factor_block_btn').click(function() { myBlockingUtil.blockOp('factor') }).attr('title', myBlockingUtil.titles.factor_block);  
 
-			var el = $("#block_size_ctl");
+			var el = $('#block_size_ctl');
 			for(var i = 2; i < 10; i++) {
-				var opt = $("<option></option>").attr("value", i).text(i);
+				var opt = $('<option></option>').attr('value', i).text(i);
 				if(i == 4) opt.attr('selected',true)		
 				el.append(opt);
 			}
@@ -361,8 +361,9 @@
 			myUtil.setFactorSelection();
 			myUtil.setColumnMenuCommands();
 		},
-		postUpdateAction: function() {
-			myCommonControls.enableSave(true);			
+		postUpdateAction: function(newColumns) {
+			myCommonControls.enableSave(true);	
+			myUtil.setFactorColumnCommands(newColumns);		
 		},
 		validateNewFactorName: function(newFactorName) {
 			var ok = true;
@@ -378,10 +379,10 @@
 		},
 		setFactorSelection: function() {
 			var factors = myBlockingUtil.getFactorColNameList();
-			var el = $("#factor_select_ctl");
+			var el = $('#factor_select_ctl');
 			el.empty(); 
 			$.each(factors, function(idx, factor) {
-			  el.append($("<option></option>").attr("value", factor).text(factor));
+			  el.append($('<option></option>').attr('value', factor).text(factor));
 			});
 		},
 		setColumnMenuCommands: function() {
@@ -389,27 +390,31 @@
 			var col, cols;
 			col = myGrid.grid.getColumns()[myGrid.grid.getColumnIndex(myBlockingUtil.blockNumberFieldName)];
 			if(col) {				
-				col.header.menu.items.push( { command:"", title:"-----" });
-				col.header.menu.items.push({command:"randomize-global", title:"Randomize Globally", tooltip:context.titles.globally_randomize })
-				col.header.menu.items.push({command:"randomly-block", title:"Randomly Block", tooltip:context.titles.randomly_block })
+				col.header.menu.items.push( { command:'', title:'-----' });
+				col.header.menu.items.push({command:'randomize-global', title:'Randomize Globally', tooltip:myBlockingUtil.titles.globally_randomize })
+				col.header.menu.items.push({command:'randomly-block', title:'Randomly Block', tooltip:myBlockingUtil.titles.randomly_block })
 			}
 			col = myGrid.grid.getColumns()[myGrid.grid.getColumnIndex(myBlockingUtil.runOrderFieldName)];
 			if(col) {				
-				col.header.menu.items.push( { command:"", title:"-----" });
-				col.header.menu.items.push({command:"randomize-blocks", title:"Randomize Blocks", tooltip:context.titles.reorder_blocks })
+				col.header.menu.items.push( { command:'', title:'-----' });
+				col.header.menu.items.push({command:'randomize-blocks', title:'Randomize Blocks', tooltip:myBlockingUtil.titles.reorder_blocks })
 			}
 			cols = myBlockingUtil.getFactorColNameList();
-			$.each(cols, function(idx, colName) {
+			context.setFactorColumnCommands(cols);
+
+			myGrid.headerUtil.commands['randomize-global'] = function(column, grid) { myBlockingUtil.blockOp('global') };
+			myGrid.headerUtil.commands['randomly-block'] = function(column, grid) { myBlockingUtil.blockOp('block', true) };
+			myGrid.headerUtil.commands['randomize-blocks'] = function(column, grid) { myBlockingUtil.blockOp('reorder') };
+			myGrid.headerUtil.commands['factor-blocks'] = function(column, grid) { myBlockingUtil.blockOp('factor', column.field) };
+		},
+		setFactorColumnCommands: function(colNames) {
+			var col;
+			$.each(colNames, function(idx, colName) {
 				col = myGrid.grid.getColumns()[myGrid.grid.getColumnIndex(colName)];
 				if(!col) return;
-				col.header.menu.items.push( { command:"", title:"-----" });
-				col.header.menu.items.push({command:"factor-blocks", title:"Block With This Factor", tooltip:context.titles.factor_block })				
+				col.header.menu.items.push( { command:'', title:'-----' } );
+				col.header.menu.items.push({command:'factor-blocks', title:'Block With This Factor', tooltip:myBlockingUtil.titles.factor_block });
 			});
-
-			myGrid.headerUtil.commands['randomize-global'] = function(column, grid) { myBlockingUtil.blockOp("global") };
-			myGrid.headerUtil.commands['randomly-block'] = function(column, grid) { myBlockingUtil.blockOp("block", true) };
-			myGrid.headerUtil.commands['randomize-blocks'] = function(column, grid) { myBlockingUtil.blockOp("reorder") };
-			myGrid.headerUtil.commands['factor-blocks'] = function(column, grid) { myBlockingUtil.blockOp("factor", column.field) };
 		}
 	}
 
@@ -419,6 +424,7 @@
 		myImportExport = gridImportExport.init(myGrid, { 
 			preImportAction: myUtil.preImportAction,
 			postImportAction: myUtil.postImportAction,
+			preUpateAction: myUtil.preImportAction,
 			postUpdateAction: myUtil.postUpdateAction,
 			acceptNewColumnsOnUpdate: true
 		});
@@ -429,7 +435,10 @@
 		myUtil.initEntryFields();
 		myCommonControls.setAddColumnLegend('new factor named:');
 		myCommonControls.beforeAddCol = myUtil.validateNewFactorName;
-		myCommonControls.afterAddCol = myUtil.setFactorSelection;
+		myCommonControls.afterAddCol = function(colName) {
+			myUtil.setFactorSelection;
+			myUtil.setFactorColumnCommands([colName]);
+		}
 		myCommonControls.showControls(true);
 	});
 

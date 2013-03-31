@@ -617,8 +617,13 @@ var gridImportExport = {
 	},
 	updateFromDelimitedData: function(context) {
 		if(!context.myMainGrid) return;
+		var newColumns;
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
 		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
+
+		if(context.preUpateAction) { 
+			if(context.preUpateAction(inputData) === false) return;
+		}
 		
 		var keyColumn = context.keyColumnForUpdate || inputData.columns[0];
 		var changeColumns = $.map(inputData.columns, function(colName) {
@@ -628,7 +633,7 @@ var gridImportExport = {
 			return col.field;
 		});
 		if(context.acceptNewColumnsOnUpdate) {
-			var newColumns = $.map(inputData.columns, function(colName) {
+			newColumns = $.map(inputData.columns, function(colName) {
 				return ($.inArray(colName, curColumns) === -1)? colName : null;
 			});		
 			context.myMainGrid.addColumns(newColumns);
@@ -636,9 +641,8 @@ var gridImportExport = {
 		var grid = context.myMainGrid.grid;
 		var inputRows = inputData.rows;
 
-		if(context.preUpateAction) context.preUpateAction();
 		gridUtil.updateCurrentValues(grid, keyColumn, changeColumns, inputRows);
-		if(context.postUpdateAction) context.postUpdateAction();
+		if(context.postUpdateAction) context.postUpdateAction(newColumns);
 	}
 } // gridImportExport
 
@@ -667,7 +671,7 @@ var commonGridControls = {
 			}
 			if(!ok) return;
 			obj.myMainGrid.addColumn(name);
-			if(obj.afterAddCol) obj.afterAddCol();
+			if(obj.afterAddCol) obj.afterAddCol(name);
 		});
 		return obj;
 	},
