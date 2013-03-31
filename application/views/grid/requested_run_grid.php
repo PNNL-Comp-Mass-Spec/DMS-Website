@@ -75,6 +75,7 @@
 <? $this->load->view('resource_links/slickgrid2js') ?>
 
 <script src="<?= base_url().'javascript/data_grid.js' ?>"></script>
+<script src="<?= base_url().'javascript/run_blocking_grid.js' ?>"></script>
 
 <script>
 	gamma.pageContext.site_url = '<?= site_url() ?>';
@@ -83,7 +84,9 @@
 	
 	var myCommonControls;
 	var myImportExport;
+	var myBlockingUtil;
 	var myGrid;
+
 	var gridConfig = {
 		hiddenColumns: [],
 		staticColumns: ['Request', 'Name', 'Status', 'Batch', 'Experiment', 'Dataset', 'LC_Col', {id:"Instrument"}, {id:"Cart"}, {id:"Block"}, {id:"Run_Order"}],
@@ -135,204 +138,6 @@
 		    }
 		}	
 	}
-
-	var myBlockingUtil = {
-		runOrderFieldName: 'Run_Order',
-		blockNumberFieldName: 'Block',
-		lastNonFactorColumnName: 'Run_Order',
-		// set property "rnd" in each object in input list to have random value
-		setRandom: function(rlist) {
-			$.each(rlist, function(idx, obj){
-				obj.rnd = Math.random();
-			});
-		},
-		getBlockingObjList: function(data) {
-			var blockingObjList = [];
-			$.each(data, function(idx) {
-				var obj = {};
-				obj.row = data[idx];
-				obj.blockNumber = 0;
-				obj.runOrder = 0;	
-				blockingObjList.push(obj);
-			});
-			this.setRandom(blockingObjList);
-			return blockingObjList;
-		},
-		loadBlockingObjectList: function(blockingObjList) {
-			$.each(blockingObjList, function(idx, obj) {
-				obj.blockNumber = obj.row['Block'];
-				obj.runOrder = obj.row['Run_Order'];
-			});			
-		},
-		getUniqueListOfBlockNumbers: function(blockingObjList) {
-			blockNumberList = [];
-			$.each(blockingObjList, function(idx, obj) {
-				if(blockNumberList.indexOf(obj.blockNumber) === -1) {
-					blockNumberList.push(obj.blockNumber);
-				}
-			});
-			return blockNumberList;
-		},
-		getUniqueListOfBlockingFactorValues: function(blockingObjList, col_name) {
-			ftList = [];
-			$.each(blockingObjList, function(idx, obj) {
-				var bfv = obj.row[col_name];
-				if(ftList.indexOf(bfv) === -1) {
-					ftList.push(bfv);
-				}
-			});
-			return ftList;			
-		},
-		getBlockingObjListByBlockNumberValue: function(blockingObjList, blk) {
-			var tmplist = [];
-			$.each(blockingObjList, function(idx, obj){
-				if(obj.blockNumber == blk) {
-					tmplist.push(obj);
-				}
-			});
-			return tmplist;
-		},
-		getBlockingObjListByBlockingFactorValue: function(blockingObjList, col_name, bf) {
-			var tmplist = [];
-			$.each(blockingObjList, function(idx, obj){
-				if(obj.row[col_name] == bf) {
-					tmplist.push(obj);
-				}
-			});
-			return tmplist;
-		},
-		sortByRandomized: function(blockingObjList) {
-			return blockingObjList.sort(function(a,b){return a.rnd > b.rnd ? 1 : a.rnd < b.rnd ? -1 : 0 });
-		},
-		randomizeRunOrder: function(blockingObjList){	
-			var slist = this.sortByRandomized(blockingObjList);
-			$.each(slist, function(idx, obj){
-				obj.runOrder = idx + 1;
-			});
-		},
-		randomizeWithinBlocks: function(blockingObjList) {
-			var context = this;
-			var blockNumberList = this.getUniqueListOfBlockNumbers(blockingObjList);
-			$.each(blockNumberList, function(idx, blockNumber){
-				var tlist = context.getBlockingObjListByBlockNumberValue(blockingObjList, blockNumber);
-				context.randomizeRunOrder(tlist);
-			});
-		},		
-		createRandomBlocksToSize: function(blockingObjList, blkSize) {
-			var numBlocks = Math.ceil(blockingObjList.length / blkSize);
-			this.setRandom(blockingObjList);
-			var slist = this.sortByRandomized(blockingObjList);
-			$.each(slist, function(idx, obj) {
-				obj.blockNumber = (idx % numBlocks) + 1;
-			});
-			this.randomizeWithinBlocks(blockingObjList);
-		},
-		createBlocksFromFactor: function(blockingObjList, col_name) {
-			var context = this;
-			var bflist = this.getUniqueListOfBlockingFactorValues(blockingObjList, col_name);
-			$.each(bflist, function(idx, bf){
-				var tlist = context.getBlockingObjListByBlockingFactorValue(blockingObjList, col_name, bf);
-				var slist = context.sortByRandomized(tlist);
-				$.each(slist, function(seq, obj) {
-					obj.blockNumber = seq + 1;
-				});
-			});
-			this.randomizeWithinBlocks(blockingObjList);
-		},
-		//-------------
-		globallyRandomize: function() {
-			var blockingObjList = this.getBlockingObjList(myGrid.grid.getData());
-			this.randomizeRunOrder(blockingObjList);
-			return blockingObjList;
-		},
-		randomlyBlock: function(param) {
-			var blkSize = $('#block_size_ctl').val();
-			if(param) {
-				var response = prompt('Block Size?', '4');
-				if(response) { 
-					blkSize = response;
-				} else {
-					return;
-				}
-			}
-			if(blkSize < 2 || blkSize > 15) {
-				alert('Block size must be within range 1-15');
-				return;
-			}
-			var blockingObjList = this.getBlockingObjList(myGrid.grid.getData());
-			if(blockingObjList.length < blkSize) {
-				alert('Batch is smaller than block size');
-				return
-			}
-			this.createRandomBlocksToSize(blockingObjList, blkSize);
-			return blockingObjList;	
-		},
-		blockFromFactor: function(col_name) {
-			col_name = col_name || $('#factor_select_ctl').val();
-			if(!col_name) {
-				alert('"' +  col_name + '" is not a valid name');
-				return;
-			}
-			var blockingObjList = this.getBlockingObjList(myGrid.grid.getData());
-			this.createBlocksFromFactor(blockingObjList, col_name);
-			return blockingObjList;
-		},
-		reorderBlocks: function() {
-			var blockingObjList = this.getBlockingObjList(myGrid.grid.getData());
-			this.loadBlockingObjectList(blockingObjList);
-			this.randomizeWithinBlocks(blockingObjList);
-			return blockingObjList;
-		},
-		//-------------
-		copyBlockingToData: function(blockingObjList) {
-			var context = this;
-			$.each(blockingObjList, function(idx, obj){
-				if(obj.row[context.runOrderFieldName] != obj.runOrder) {
-					obj.row[context.runOrderFieldName] = obj.runOrder;
-					gridUtil.markChange(obj.row, context.runOrderFieldName);
-				}
-				if(obj.row[context.blockNumberFieldName] != obj.blockNumber) {
-					obj.row[context.blockNumberFieldName] = obj.blockNumber;
-					gridUtil.markChange(obj.row, context.blockNumberFieldName);			
-				}
-			});	
-		},
-		getFactorColNameList: function() {
-			var ci = myGrid.grid.getColumnIndex(this.lastNonFactorColumnName);
-			var factorCols = [];
-			$.each(myGrid.grid.getColumns(), function(idx, colDef) {
-				if(idx > ci) factorCols.push(colDef.field);
-			});
-			return factorCols;			
-		},
-		titles:{
-			globally_randomize:'Place all requests into block 0 and globally randomize run order',
-			randomly_block:'Randomly assign requests to blocks of the selected size, and randomize run order within blocks',
-			factor_block:'Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)',
-			reorder_blocks:'Randomize run order within existing blocks'
-		},		
-		//-------------
-		blockOp: function(op, param) {
-			var blockingObjList;
-			if(op == 'global') {
-				blockingObjList = this.globallyRandomize(param);
-			}
-			if(op == 'block') {
-				blockingObjList = this.randomlyBlock(param);
-			}
-			if(op == 'factor') {
-				blockingObjList = this.blockFromFactor(param);
-			}
-			if(op == 'reorder') {
-				blockingObjList = this.reorderBlocks(param);
-			}
-			this.copyBlockingToData(blockingObjList);
-			gridUtil.setChangeHighlighting(myGrid.grid);
-			myGrid.grid.invalidateAllRows();
-			myGrid.grid.render();
-			myCommonControls.enableSave(true);
-		}		
-	}
 	
 	var myUtil = {
 		initEntryFields: function() {
@@ -340,9 +145,9 @@
 		},
 		initializeBlockingControlPanel: function() {
 			// wire up command buttons
-			$('#globally_randomize_btn').click(function() { myBlockingUtil.blockOp('global') }).attr('title', myBlockingUtil.titles.globally_randomize); 
-			$('#randomly_block_btn').click(function() { myBlockingUtil.blockOp('block') }).attr('title', myBlockingUtil.titles.randomly_block);  
-			$('#factor_block_btn').click(function() { myBlockingUtil.blockOp('factor') }).attr('title', myBlockingUtil.titles.factor_block);  
+			$('#globally_randomize_btn').click(function() { myUtil.blockingOperation('global') }).attr('title', myBlockingUtil.titles.globally_randomize); 
+			$('#randomly_block_btn').click(function() { myUtil.blockingOperation('block') }).attr('title', myBlockingUtil.titles.randomly_block);  
+			$('#factor_block_btn').click(function() { myUtil.blockingOperation('factor') }).attr('title', myBlockingUtil.titles.factor_block);  
 			// set block size selector options
 			var el = $('#block_size_ctl');
 			for(var i = 2; i < 10; i++) {
@@ -393,6 +198,26 @@
 			  el.append($('<option></option>').attr('value', factor).text(factor));
 			});
 		},
+		blockingOperation: function(op, param) {
+			var blockingObjList;
+			if(op == 'global') {
+				blockingObjList = myBlockingUtil.globallyRandomize(param);
+			}
+			if(op == 'block') {
+				blockingObjList = myBlockingUtil.randomlyBlock(param);
+			}
+			if(op == 'factor') {
+				blockingObjList = myBlockingUtil.blockFromFactor(param);
+			}
+			if(op == 'reorder') {
+				blockingObjList = myBlockingUtil.reorderBlocks(param);
+			}
+			myBlockingUtil.copyBlockingToData(blockingObjList);
+			gridUtil.setChangeHighlighting(myGrid.grid);
+			myGrid.grid.invalidateAllRows();
+			myGrid.grid.render();
+			myCommonControls.enableSave(true);
+		},		
 		setColumnMenuCommands: function() {
 			var blockCmds = [
 				{command:'randomize-global', title:'Randomize Globally', tooltip:myBlockingUtil.titles.globally_randomize },
@@ -408,10 +233,10 @@
 			this.setFactorColumnCommands(myBlockingUtil.getFactorColNameList());
 			
 			var cmdHandlers = {
-				'randomize-global': function(column, grid) { myBlockingUtil.blockOp('global'); },
-				'randomly-block': function(column, grid) { myBlockingUtil.blockOp('block', true); },
-				'randomize-blocks': function(column, grid) { myBlockingUtil.blockOp('reorder'); },
-				'factor-blocks': function(column, grid) { myBlockingUtil.blockOp('factor', column.field); }
+				'randomize-global': function(column, grid) { myUtil.blockingOperation('global'); },
+				'randomly-block': function(column, grid) { myUtil.blockingOperation('block', true); },
+				'randomize-blocks': function(column, grid) { myUtil.blockingOperation('reorder'); },
+				'factor-blocks': function(column, grid) { myUtil.blockingOperation('factor', column.field); }
 			}
 			this.registerMenuCmdHandlers(cmdHandlers);
 
@@ -452,6 +277,8 @@
 
  		sourceListUtil.setup();
 		gamma.autocompleteChooser.setup();
+		
+		myBlockingUtil = runBlockingGridUtil.init(myGrid);
 
 		myUtil.initEntryFields();
 		myCommonControls.setAddColumnLegend('new factor named:');
