@@ -1,7 +1,6 @@
 	var runBlockingGridUtil = {
 		runOrderFieldName: 'Run_Order',
 		blockNumberFieldName: 'Block',
-		lastNonFactorColumnName: 'Run_Order',
 		grid: null,
 		init: function(wrapper) {
 			var obj = $.extend({}, this);
@@ -110,6 +109,45 @@
 			this.randomizeWithinBlocks(blockingObjList);
 		},
 		//-------------
+		copyBlockingToData: function(blockingObjList) {
+			var context = this;
+			$.each(blockingObjList, function(idx, obj){
+				if(obj.row[context.runOrderFieldName] != obj.runOrder) {
+					obj.row[context.runOrderFieldName] = obj.runOrder;
+					gridUtil.markChange(obj.row, context.runOrderFieldName);
+				}
+				if(obj.row[context.blockNumberFieldName] != obj.blockNumber) {
+					obj.row[context.blockNumberFieldName] = obj.blockNumber;
+					gridUtil.markChange(obj.row, context.blockNumberFieldName);			
+				}
+			});	
+		},
+		//---[blocking commands]----------
+		afterBlockingOperation: null,
+		titles:{
+			globally_randomize:'Place all requests into block 0 and globally randomize run order',
+			randomly_block:'Randomly assign requests to blocks of the selected size, and randomize run order within blocks',
+			factor_block:'Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)',
+			reorder_blocks:'Randomize run order within existing blocks'
+		},
+		blockingOperation: function(op, param) {
+			var blockingObjList;
+			if(op == 'global') {
+				blockingObjList = this.globallyRandomize(param);
+			} else
+			if(op == 'block') {
+				blockingObjList = this.randomlyBlock(param);
+			} else
+			if(op == 'factor') {
+				blockingObjList = this.blockFromFactor(param);
+			} else
+			if(op == 'reorder') {
+				blockingObjList = this.reorderBlocks(param);
+			} else {
+				return;
+			}
+			if(this.afterBlockingOperation) this.afterBlockingOperation(blockingObjList);
+		},
 		globallyRandomize: function() {
 			var blockingObjList = this.getBlockingObjList(this.grid().getData());
 			this.randomizeRunOrder(blockingObjList);
@@ -152,34 +190,5 @@
 			this.loadBlockingObjectList(blockingObjList);
 			this.randomizeWithinBlocks(blockingObjList);
 			return blockingObjList;
-		},
-		//-------------
-		copyBlockingToData: function(blockingObjList) {
-			var context = this;
-			$.each(blockingObjList, function(idx, obj){
-				if(obj.row[context.runOrderFieldName] != obj.runOrder) {
-					obj.row[context.runOrderFieldName] = obj.runOrder;
-					gridUtil.markChange(obj.row, context.runOrderFieldName);
-				}
-				if(obj.row[context.blockNumberFieldName] != obj.blockNumber) {
-					obj.row[context.blockNumberFieldName] = obj.blockNumber;
-					gridUtil.markChange(obj.row, context.blockNumberFieldName);			
-				}
-			});	
-		},
-		getFactorColNameList: function() {
-			var ci = this.grid().getColumnIndex(this.lastNonFactorColumnName);
-			var factorCols = [];
-			$.each(this.grid().getColumns(), function(idx, colDef) {
-				if(idx > ci) factorCols.push(colDef.field);
-			});
-			return factorCols;			
-		},
-		titles:{
-			globally_randomize:'Place all requests into block 0 and globally randomize run order',
-			randomly_block:'Randomly assign requests to blocks of the selected size, and randomize run order within blocks',
-			factor_block:'Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)',
-			reorder_blocks:'Randomize run order within existing blocks'
-		}		
-
+		}
 	}

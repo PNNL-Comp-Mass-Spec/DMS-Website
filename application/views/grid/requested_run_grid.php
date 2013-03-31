@@ -140,14 +140,15 @@
 	}
 	
 	var myUtil = {
+		lastNonFactorColumnName: 'Run_Order',
 		initEntryFields: function() {
 			this.initializeBlockingControlPanel();
 		},
 		initializeBlockingControlPanel: function() {
 			// wire up command buttons
-			$('#globally_randomize_btn').click(function() { myUtil.blockingOperation('global') }).attr('title', myBlockingUtil.titles.globally_randomize); 
-			$('#randomly_block_btn').click(function() { myUtil.blockingOperation('block') }).attr('title', myBlockingUtil.titles.randomly_block);  
-			$('#factor_block_btn').click(function() { myUtil.blockingOperation('factor') }).attr('title', myBlockingUtil.titles.factor_block);  
+			$('#globally_randomize_btn').click(function() { myBlockingUtil.blockingOperation('global') }).attr('title', myBlockingUtil.titles.globally_randomize); 
+			$('#randomly_block_btn').click(function() { myBlockingUtil.blockingOperation('block') }).attr('title', myBlockingUtil.titles.randomly_block);  
+			$('#factor_block_btn').click(function() { myBlockingUtil.blockingOperation('factor') }).attr('title', myBlockingUtil.titles.factor_block);  
 			// set block size selector options
 			var el = $('#block_size_ctl');
 			for(var i = 2; i < 10; i++) {
@@ -191,27 +192,14 @@
 			return ok;
 		},
 		setFactorSelection: function() {
-			var factors = myBlockingUtil.getFactorColNameList();
+			var factors = myUtil.getFactorColNameList();
 			var el = $('#factor_select_ctl');
 			el.empty(); 
 			$.each(factors, function(idx, factor) {
 			  el.append($('<option></option>').attr('value', factor).text(factor));
 			});
 		},
-		blockingOperation: function(op, param) {
-			var blockingObjList;
-			if(op == 'global') {
-				blockingObjList = myBlockingUtil.globallyRandomize(param);
-			}
-			if(op == 'block') {
-				blockingObjList = myBlockingUtil.randomlyBlock(param);
-			}
-			if(op == 'factor') {
-				blockingObjList = myBlockingUtil.blockFromFactor(param);
-			}
-			if(op == 'reorder') {
-				blockingObjList = myBlockingUtil.reorderBlocks(param);
-			}
+		afterBlockingOperation: function(blockingObjList) {
 			myBlockingUtil.copyBlockingToData(blockingObjList);
 			gridUtil.setChangeHighlighting(myGrid.grid);
 			myGrid.grid.invalidateAllRows();
@@ -230,13 +218,13 @@
 			];
 			myGrid.setColumnMenuCmds(myBlockingUtil.runOrderFieldName, runOrderCmds, true);
 
-			this.setFactorColumnCommands(myBlockingUtil.getFactorColNameList());
+			this.setFactorColumnCommands(myUtil.getFactorColNameList());
 			
 			var cmdHandlers = {
-				'randomize-global': function(column, grid) { myUtil.blockingOperation('global'); },
-				'randomly-block': function(column, grid) { myUtil.blockingOperation('block', true); },
-				'randomize-blocks': function(column, grid) { myUtil.blockingOperation('reorder'); },
-				'factor-blocks': function(column, grid) { myUtil.blockingOperation('factor', column.field); }
+				'randomize-global': function(column, grid) { myBlockingUtil.blockingOperation('global'); },
+				'randomly-block': function(column, grid) { myBlockingUtil.blockingOperation('block', true); },
+				'randomize-blocks': function(column, grid) { myBlockingUtil.blockingOperation('reorder'); },
+				'factor-blocks': function(column, grid) { myBlockingUtil.blockingOperation('factor', column.field); }
 			}
 			myGrid.registerColumnMenuCmdHandlers(cmdHandlers);
 
@@ -248,7 +236,15 @@
 			$.each(colNames, function(idx, colName) {
 				myGrid.setColumnMenuCmds(colName, cmds, true);
 			});
-		}
+		},
+		getFactorColNameList: function() {
+			var ci = myGrid.grid.getColumnIndex(this.lastNonFactorColumnName);
+			var factorCols = [];
+			$.each(myGrid.grid.getColumns(), function(idx, colDef) {
+				if(idx > ci) factorCols.push(colDef.field);
+			});
+			return factorCols;			
+		}	
 	}
 
 	$(document).ready(function () { 
@@ -266,6 +262,7 @@
 		gamma.autocompleteChooser.setup();
 		
 		myBlockingUtil = runBlockingGridUtil.init(myGrid);
+		myBlockingUtil.afterBlockingOperation = myUtil.afterBlockingOperation;
 
 		myUtil.initEntryFields();
 		myCommonControls.setAddColumnLegend('new factor named:');
