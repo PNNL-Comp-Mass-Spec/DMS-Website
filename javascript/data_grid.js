@@ -152,28 +152,23 @@ var gridUtil = {
 	// update current data rows in grid from input rows based on given keyColumn
 	// limited to given changeable columns
 	updateCurrentValues: function(grid, keyColumn, changeColumns, inputRows) {
-		var currentRows = grid.getData();	
-		var indexToCurrentRow = {};
-		$.each(currentRows, function(idx, row) {
-			var kV = row[keyColumn];
-			indexToCurrentRow[kV] = idx;
+		var inputIndex = {};
+		$.each(inputRows, function(idx, row) {
+			inputIndex[row[keyColumn]] = row;
 		});
-		var currentRowIndex, inputValue, currentValue, inputKeyValue, currentRow;
+		var key, currentValue, inputValue;
 		var rowsAffected = [];
-		$.each(inputRows, function(idx, inputRow) {
-			inputKeyValue = inputRow[keyColumn];
-			currentRowIndex = indexToCurrentRow[inputKeyValue];
-			currentRow = currentRows[currentRowIndex];
+		var currentRows = grid.getData();
+		$.each(currentRows, function(currentRowIndex, currentRow) {
+			key = currentRow[keyColumn];
 			$.each(changeColumns, function(i, colName) {
-				if(colName != keyColumn) {
-					inputValue = inputRow[colName] || '';
-					currentValue = currentRow[colName] || '';
-					if(inputValue != currentValue) {
-						// update and mark cell
-						currentRow[colName] = inputValue;
-						gridUtil.markChange(currentRow, colName);
-						rowsAffected.push(currentRowIndex);
-					}
+				if(colName == keyColumn) return;
+				currentValue = currentRow[colName] || '';
+				inputValue = inputIndex[key][colName] || '';
+				if(inputValue != currentValue) {
+					currentRow[colName] = inputValue;
+					gridUtil.markChange(currentRow, colName);
+					rowsAffected.push(currentRowIndex);
 				}
 			});
 		});
