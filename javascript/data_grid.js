@@ -621,8 +621,8 @@ var gridImportExport = {
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
 		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
 
-		if(context.preUpateAction) { 
-			if(context.preUpateAction(inputData) === false) return;
+		if(context.preUpdateAction) { 
+			if(context.preUpdateAction(inputData) === false) return;
 		}
 		
 		var keyColumn = context.keyColumnForUpdate || inputData.columns[0];

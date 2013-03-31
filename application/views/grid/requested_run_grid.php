@@ -361,6 +361,9 @@
 			myUtil.setFactorSelection();
 			myUtil.setColumnMenuCommands();
 		},
+		preUpdateAction: function() {
+			
+		},
 		postUpdateAction: function(newColumns) {
 			myCommonControls.enableSave(true);	
 			myUtil.setFactorColumnCommands(newColumns);		
@@ -424,7 +427,7 @@
 		myImportExport = gridImportExport.init(myGrid, { 
 			preImportAction: myUtil.preImportAction,
 			postImportAction: myUtil.postImportAction,
-			preUpateAction: myUtil.preImportAction,
+			preUpdateAction: myUtil.preUpdateAction,
 			postUpdateAction: myUtil.postUpdateAction,
 			acceptNewColumnsOnUpdate: true
 		});
