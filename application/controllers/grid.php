@@ -99,7 +99,7 @@ class Grid extends Base_controller {
 	function requested_run() {
 		$this->my_tag = "requested_run";
 		$this->my_title = "Requested Run";
-		$save_url = 'xxx/operation';
+		$save_url = 'requested_run_batch_blocking/operation';
 		$this->grid_page('requested_run_grid', $save_url);
 	}
 	// --------------------------------------------------------------------

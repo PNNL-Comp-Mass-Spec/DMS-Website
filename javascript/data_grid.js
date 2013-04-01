@@ -152,28 +152,23 @@ var gridUtil = {
 	// update current data rows in grid from input rows based on given keyColumn
 	// limited to given changeable columns
 	updateCurrentValues: function(grid, keyColumn, changeColumns, inputRows) {
-		var currentRows = grid.getData();	
-		var indexToCurrentRow = {};
-		$.each(currentRows, function(idx, row) {
-			var kV = row[keyColumn];
-			indexToCurrentRow[kV] = idx;
+		var inputIndex = {};
+		$.each(inputRows, function(idx, row) {
+			inputIndex[row[keyColumn]] = row;
 		});
-		var currentRowIndex, inputValue, currentValue, inputKeyValue, currentRow;
+		var key, currentValue, inputValue;
 		var rowsAffected = [];
-		$.each(inputRows, function(idx, inputRow) {
-			inputKeyValue = inputRow[keyColumn];
-			currentRowIndex = indexToCurrentRow[inputKeyValue];
-			currentRow = currentRows[currentRowIndex];
+		var currentRows = grid.getData();
+		$.each(currentRows, function(currentRowIndex, currentRow) {
+			key = currentRow[keyColumn];
 			$.each(changeColumns, function(i, colName) {
-				if(colName != keyColumn) {
-					inputValue = inputRow[colName] || '';
-					currentValue = currentRow[colName] || '';
-					if(inputValue != currentValue) {
-						// update and mark cell
-						currentRow[colName] = inputValue;
-						gridUtil.markChange(currentRow, colName);
-						rowsAffected.push(currentRowIndex);
-					}
+				if(colName == keyColumn) return;
+				currentValue = currentRow[colName] || '';
+				inputValue = inputIndex[key][colName] || '';
+				if(inputValue != currentValue) {
+					currentRow[colName] = inputValue;
+					gridUtil.markChange(currentRow, colName);
+					rowsAffected.push(currentRowIndex);
 				}
 			});
 		});
@@ -276,11 +271,12 @@ var gridUtil = {
 	// size of data in given data rows, and return updated column specs
 	sizeColumnsToData: function (currentColumns, dataRows, maxColumnChars) {
 		var textWidthPixels = 8;
-		var maxChars, dataChars, val;
-		var minChars = 10;
+		var maxChars, dataChars, val, colLabel;
+		var minChars = 3;
 		$.each(currentColumns, function(idx, colSpec) {
 			maxChars = minChars;
-			if(colSpec.field.length > maxChars) maxChars = colSpec.field.length 
+			colLabelChars = colSpec.field.length + 2; // allow space for drop-down menu control
+			if(colLabelChars > maxChars) maxChars = colLabelChars; 
 			$.each(dataRows, function(i, dataRow) {
 				val = dataRow[colSpec.field];
 				if(val) {
@@ -565,6 +561,15 @@ var mainGrid = {
 	},
 	clearGrid: function () {
 		this.setDataRows({columns:[],rows:[]}, true);			
+	},
+	setColumnMenuCmds: function(colName, cmds, useSep) {
+		var col = this.grid.getColumns()[this.grid.getColumnIndex(colName)];
+		if(!col) return;
+		if(useSep) col.header.menu.items.push( { command:'', title:'-----' });	
+		col.header.menu.items = $.merge(col.header.menu.items, cmds)
+	},
+	registerColumnMenuCmdHandlers: function(handlers) {
+		$.extend(this.headerUtil.commands, handlers);
 	}
 
 } // mainGrid
@@ -616,8 +621,13 @@ var gridImportExport = {
 	},
 	updateFromDelimitedData: function(context) {
 		if(!context.myMainGrid) return;
+		var newColumns;
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
 		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
+
+		if(context.preUpdateAction) { 
+			if(context.preUpdateAction(inputData) === false) return;
+		}
 		
 		var keyColumn = context.keyColumnForUpdate || inputData.columns[0];
 		var changeColumns = $.map(inputData.columns, function(colName) {
@@ -627,7 +637,7 @@ var gridImportExport = {
 			return col.field;
 		});
 		if(context.acceptNewColumnsOnUpdate) {
-			var newColumns = $.map(inputData.columns, function(colName) {
+			newColumns = $.map(inputData.columns, function(colName) {
 				return ($.inArray(colName, curColumns) === -1)? colName : null;
 			});		
 			context.myMainGrid.addColumns(newColumns);
@@ -635,15 +645,16 @@ var gridImportExport = {
 		var grid = context.myMainGrid.grid;
 		var inputRows = inputData.rows;
 
-		if(context.preUpateAction) context.preUpateAction();
 		gridUtil.updateCurrentValues(grid, keyColumn, changeColumns, inputRows);
-		if(context.postUpdateAction) context.postUpdateAction();
+		if(context.postUpdateAction) context.postUpdateAction(newColumns);
 	}
 } // gridImportExport
 
 var commonGridControls = {
 	myMainGrid: null,
 	addColCtlEnabled: false,
+	beforeAddCol: null,
+	afterAddCol: null,
 	init: function(wrapper) {
 		var obj =  $.extend({}, commonGridControls);
 		obj.myMainGrid = (wrapper) ? wrapper : obj.myMainGrid;	
@@ -658,7 +669,13 @@ var commonGridControls = {
 		});
 		$('#add_column_btn').click(function() {
 			var name = $('#add_column_name').val();
+			var ok = true;
+			if(obj.beforeAddCol) {
+				ok = obj.beforeAddCol(name);
+			}
+			if(!ok) return;
 			obj.myMainGrid.addColumn(name);
+			if(obj.afterAddCol) obj.afterAddCol(name);
 		});
 		return obj;
 	},
@@ -675,6 +692,9 @@ var commonGridControls = {
 	enableAddColumn: function(enabled) {
 		this.addColCtlEnabled = enabled;
 		$('#add_col_ctl_panel').toggle(enabled);	
+	},
+	setAddColumnLegend: function(legend) {
+		$('#add_column_legend').html(legend);
 	},
 	reload: function() {
 	    this.myMainGrid.buildGrid();
