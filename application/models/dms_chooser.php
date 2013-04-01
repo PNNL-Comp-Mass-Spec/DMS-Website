@@ -111,7 +111,7 @@ class Dms_chooser extends CI_Model {
 					$my_db = $this->load->database($db, TRUE);
 					$sql = $this->choices[$chooser_name]["value"];
 					if($filter_value) {
-						$sx = str_ireplace('select', 'SELECT TOP 2000', $sql);
+						$sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);
 						$sql = "SELECT * FROM ($sx) TX WHERE val LIKE '%$filter_value%'";
 					}
 					$result = $my_db->query($sql);					
