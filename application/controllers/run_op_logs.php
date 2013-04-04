@@ -36,7 +36,7 @@ class run_op_logs extends Grid {
 
 		$this->my_tag = "operation_log_review";
 		$this->load->database();
-		$this->db->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
+		$this->db->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, Minutes, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
 		$this->db->from("V_Ops_Logs_List_Report");
 		if($instrument) $this->db->where("Instrument in ($instrument)");
 		if($usage) $this->db->where("Usage in ($usage)");

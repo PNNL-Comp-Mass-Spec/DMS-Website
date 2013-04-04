@@ -101,7 +101,7 @@
 				operation: 'update',
 				year: $('#year_fld').val(),
 				month: $('#month_fld').val(),
-				instrument: $('#instrument_fld_chooser').val()
+				instrument: '' // $('#instrument_fld_chooser').val() is array, sproc expecting a string
 			}
 		},
 		afterSaveAction: function() {
