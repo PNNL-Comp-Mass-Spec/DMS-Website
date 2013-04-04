@@ -88,7 +88,7 @@
 		maxColumnChars: 50,
 		hiddenColumns: ['Year', 'Month', 'Day'],
 		staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 
-		{id:'Minutes'}, 
+		{id:'Minutes', ned:true }, 
 		{id:'ID', formatter:myFormatterFactory.makeFor('interval'), ned:true }, 
 		{id:'Log', formatter:myFormatterFactory.makeFor('log'), ned:true }, 
 		{id:'Request', formatter:myFormatterFactory.makeFor('request'), ned:true }, 
