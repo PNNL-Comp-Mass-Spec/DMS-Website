@@ -93,7 +93,7 @@ class Grid extends Base_controller {
 		$this->my_tag = "factors";
 		$this->grid_data_from_sproc('list_report_sproc', 'requested_run_factors');
 	}
-
+/*
 	// --------------------------------------------------------------------
 	// --------------------------------------------------------------------
 	function requested_run() {
@@ -107,7 +107,8 @@ class Grid extends Base_controller {
 		$this->my_tag = "requested_run";
 		$this->grid_data_from_sproc('requested_run_data_sproc', 'grid');
 	}
-	
+*/
+
 	// --------------------------------------------------------------------
 	// --------------------------------------------------------------------
 	function user() {
