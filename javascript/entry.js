@@ -122,14 +122,14 @@ var entry = {
 		}
 	
 	}, // pipeline_jobs
-	sample_prep: {
+	sample_prep_request: {
 		approveSubmit: function() {
 			var proceed = false;
 			// this function will be called by standard submit sequence
 			// prior to actually submitting form to server
 			return function() {
 				// check whether or not we need to have user confirm submit
-				proceed = entry.sample_prep.checkMaterial(proceed);
+				proceed = entry.sample_prep_request.checkMaterial(proceed);
 				if(!proceed) {
 					// present modal dialog with user choices
 					// and return false to cancel original submit
@@ -170,7 +170,7 @@ var entry = {
 		},
 		cmdInit: function () {
 			// set hook to trap standard page submit sequence
-			epsilon.actions.before = entry.sample_prep.approveSubmit;
+			epsilon.actions.before = entry.sample_prep_request.approveSubmit;
 		}
-	} // sample_prep
+	} // sample_prep_request
 } // entry
