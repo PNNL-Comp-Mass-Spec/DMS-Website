@@ -107,11 +107,28 @@
 		foreach($form_field_names as $field) {
 			if($seg_val === FALSE) break;
 			if($seg_val != '-') {
-				$a[$field] = $seg_val;
+				$a[$field] = convert_special_values($seg_val);
 			}
 			$seg_val = next($segs);
 		}
 		return $a;
+	}
+
+	// --------------------------------------------------------------------
+	function convert_special_values($value)
+	{
+		switch($value) {
+			case "__ThisYear__":
+				$value = date("Y");
+				break;
+			case "__LastYear__":
+				break;
+			case "__ThisMonth__":
+				break;
+			case "__LastMonth__":
+				break;
+		}
+		return $value;
 	}
 
 	// --------------------------------------------------------------------
