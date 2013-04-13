@@ -122,10 +122,13 @@
 				$value = date("Y");
 				break;
 			case "__LastYear__":
+				$value = date("Y", strtotime("last year"));
 				break;
 			case "__ThisMonth__":
+				$value = date("n");
 				break;
 			case "__LastMonth__":
+				$value = date("n", strtotime("last month"));
 				break;
 		}
 		return $value;
