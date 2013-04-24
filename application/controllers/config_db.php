@@ -1352,6 +1352,7 @@ class config_db extends CI_Controller {
 		$s .= "<tr><td><a href='".site_url()."chooser/get_chooser_list'>Display</a> list of all drop-down style choosers</td></tr>";
 		$s .= "<tr><td><a href='".site_url()."config_db/edit_table/dms_chooser.db/chooser_definitions'>Edit</a> drop-down chooser definitions config db</td></tr>";
 		$s .= "<tr><th>Definitions for Restricted Actions</th></tr>";
+		$s .= "<tr><td><a href='".site_url()."gen/auth'>Display</a> list of restricted_actions</td></tr>";
 		$s .= "<tr><td><a href='".site_url()."config_db/edit_table/master_authorization.db/restricted_actions'>Edit</a>  master_authorization restricted_actions config db</td></tr>";
 		$s .= "</table>\n";
 
