@@ -1,9 +1,10 @@
 //------------------------------------------
 // set up generic hook to catch $.post AJAX errors
 //------------------------------------------
-$(document).ajaxError(function (e, xhr, settings, exception) {
-    alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
-});	
+// Uncomment to enable
+//$(document).ajaxError(function (e, xhr, settings, exception) {
+//    alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
+//});	
 
 //------------------------------------------
 // stupid IE
