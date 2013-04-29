@@ -1,10 +1,17 @@
 //------------------------------------------
+//For browsers that don't support console.log
+//------------------------------------------
+if (typeof console === "undefined" || typeof console.log === "undefined") {
+	console = {};
+	console.log = function () { };
+}
+
+//------------------------------------------
 // set up generic hook to catch $.post AJAX errors
 //------------------------------------------
-// Uncomment to enable
-//$(document).ajaxError(function (e, xhr, settings, exception) {
-//    alert('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
-//});	
+$(document).ajaxError(function (e, xhr, settings, exception) {
+    console.log('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
+});
 
 //------------------------------------------
 // stupid IE
