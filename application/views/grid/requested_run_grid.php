@@ -268,7 +268,7 @@
 		myCommonControls.setAddColumnLegend('new factor named:');
 		myCommonControls.beforeAddCol = myUtil.validateNewFactorName;
 		myCommonControls.afterAddCol = function(colName) {
-			myUtil.setFactorSelection;
+			myUtil.setFactorSelection();
 			myUtil.setFactorColumnCommands([colName]);
 		}
 		myCommonControls.showControls(true);
