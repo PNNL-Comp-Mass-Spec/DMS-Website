@@ -63,5 +63,7 @@ foreach($source in $sources) {
 if($settings["launchBeyondCompare"]) {
 	foreach($key in $downloads.Keys) { 
 		& "C:\Program Files (x86)\Beyond Compare 2\bc2.exe" $code $downloads[$key] 
+		# Wait 500 msec before continuing to avoid shared resource conflicts
+		Start-Sleep -m 500
 	}
 }

@@ -1,4 +1,7 @@
-﻿$global:settings = @{
+﻿# Customize this file and place in your LocalAppData folder
+# For example, C:\Users\user1234\AppData\Local\PS_DMS_Scripts
+
+$global:settings = @{
 	"launchBeyondCompare" = $true
 }
 
