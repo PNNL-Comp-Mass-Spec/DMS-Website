@@ -316,7 +316,7 @@ $config['rewrite_short_tags'] = FALSE;
 |
 |
 */
-$config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
+$config['pwiki'] = 'http://prismwiki.pnl.gov/wiki/';
 $config['wikiHelpLinkPrefix'] = 'DMS_Help_for_';
 
 $config['version_color_code'] = 'LightGreen';
