@@ -66,6 +66,10 @@ $(document).ready(function() {
 
 </script>
 
+<!-- Add two blank lines to prevent the final item in the tree from appearing at the bottom of the frame -->
+<br>
+<br>
+
 </body>
 </html>
 
