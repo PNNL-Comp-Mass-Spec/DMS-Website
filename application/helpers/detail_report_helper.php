@@ -76,11 +76,7 @@ function make_detail_report_hotlink($spec, $link_id, $display, $val='')
 	$target = $spec['Target'];
 	switch($type) {
 		case "detail-report":
-			if(strpos($target, '@') === FALSE) {
-				$sep = (substr($target, -1) == '~')?'':'/';
-				$target .= $sep.'@';
-			}
-			$url = reduce_double_slashes(site_url().str_replace('@', $link_id, $target));
+			$url = make_detail_report_url($target, $link_id);
 			$str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
 			break;		
 		case "href-folder":
@@ -96,7 +92,8 @@ function make_detail_report_hotlink($spec, $link_id, $display, $val='')
 			$links = array();
 			foreach($flds as $ln) {
 				$ln = trim($ln);
-				$url = strncasecmp($ln, "http", 4)? site_url().$target.'/'.$ln: $ln;
+				$renderHTTP=TRUE;
+				$url = make_detail_report_url($target, $ln, $renderHTTP);
 				$links[] = "<a href='$url'>$ln</a>";
 			}
 			$str .= implode($delim.' ', $links);
@@ -105,7 +102,8 @@ function make_detail_report_hotlink($spec, $link_id, $display, $val='')
 			$str .= "<table class='inner_table'>";
 			foreach(explode(',', $display) as $ln) {
 				$ln = trim($ln);
-				$url = strncasecmp($ln, "http", 4)? site_url().$target.'/'.$ln: $ln;
+				$renderHTTP=TRUE;
+				$url = make_detail_report_url($target, $ln, $renderHTTP);
 				$str .= "<tr><td><a href='$url'>$ln</a></td></tr>";
 			}
 			$str .= "</table>";
@@ -252,6 +250,31 @@ function make_detail_report_commands($commands, $tag, $id)
 	}
 	return $str;
 }
+// -----------------------------------
+function make_detail_report_url($target, $link_id, $renderHTTP=FALSE)
+{
+
+	if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
+		$url = $link_id;
+	}
+	else {
+	
+		// Insert an @ sign if it is not already present
+		// When constructing the URL, we will replace the @ sign in $target with $link_id
+		if(strpos($target, '@') === FALSE) {
+			// Need to add the @ sign
+			// If $target does not end in ~, then add /
+			$sep = (substr($target, -1) == '~') ? '' : '/';
+			$targetNew = $target.$sep.'@';
+		} else {
+			$targetNew = $target;
+		}
+							
+		$url = reduce_double_slashes(site_url().str_replace('@', $link_id, $targetNew));				
+	}
+	
+	return $url;
+}				
 // -----------------------------------
 function make_export_links($entity, $id)
 {
