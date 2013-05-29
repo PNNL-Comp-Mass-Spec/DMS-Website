@@ -9,7 +9,7 @@ class unimod extends Base_controller {
 		parent::__construct();
 
 		$this->my_tag = "unimod";
-		$this->my_title = "Unimod Mods List Report";
+		$this->my_title = "Unimod Mods";
 	}
 }
 

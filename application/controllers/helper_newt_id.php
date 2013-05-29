@@ -9,7 +9,7 @@ class helper_newt_id extends Base_controller {
 		parent::__construct();
 
 		$this->my_tag = "helper_newt_id";
-		$this->my_title = "NEWT ID Helper List Report";
+		$this->my_title = "NEWT ID Helper";
 	}
 }
 
