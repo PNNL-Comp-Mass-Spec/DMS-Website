@@ -11,3 +11,4 @@ application/model_config/Sql_DMS2*/*
 Testing.xlsx
 ~$Testing.xlsx
 application/resources.lnk
+application/model_config/*.lnk
