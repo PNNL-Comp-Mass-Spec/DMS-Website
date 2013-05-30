@@ -30,7 +30,13 @@
 
 <script type='text/javascript'>
 
-function testme() {
+var FreezerModel = {
+	tagNodes: function() {
+      $("#tree").dynatree("getRoot").visit(function(node) {
+			var link = node.span.children[1];
+			$(link).prop('title', node.data.Tag);
+      });		
+	}
 }
 
 $(document).ready(function() {
@@ -44,6 +50,9 @@ $(document).ready(function() {
 			url: '<?= site_url() ?>freezer/get_freezers', 
 			data: {}
 		},
+		onPostInit: function(isReloading, isError) {
+			FreezerModel.tagNodes();			
+		},
 		onLazyRead: function(node) {
 			node.appendAjax({
 				url: '<?= site_url() ?>freezer/get_locations',
@@ -55,20 +64,39 @@ $(document).ready(function() {
 					"Rack":node.data.Rack,
 					"Row":node.data.Row,
 					"Col":node.data.Col
+				},
+				success: function(node) {
+					FreezerModel.tagNodes();
+					console.log("lazy->" + node.data.Tag);
 				}
 			});
 		},
 		onClick: function(node, event) {
 			var et = node.getEventTargetType(event);
-		}		
-	});
-
-	$("#tree a").hover(function() {
-		var node = $.ui.dynatree.getNode(this);
-		logMsg("Hover in %s", node);
-	}, function() {
-		var node = $.ui.dynatree.getNode(this);
-		logMsg("Hover out %s", node);
+			switch(et) {
+				case 'expander':
+					break;
+				case 'title':
+					console.log("click->" + node.data.Tag);
+					return false;
+					break;
+			}
+		},
+		onDblClick: function(node, event) {
+			var et = node.getEventTargetType(event);
+			switch(et) {
+				case 'expander':
+					break;
+				case 'title':
+					node.visit(function(nd){
+						nd.expand(true);
+					});
+					console.log("dbl click->" + node.data.Tag);
+					return false;
+					break;
+			}
+		}
+		
 	});
 
     $("#btnCollapseAll").click(function(){
