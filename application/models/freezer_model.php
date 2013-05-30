@@ -72,7 +72,7 @@ EOD;
 		$items = array();
 		foreach($locations as $entry) {
 			$obj = new stdClass();
-			$obj->title =  "$Type $entry[$Type]";
+			$obj->title =  "$Type $entry[$Type] ${entry['Status']}";
 			$obj->isFolder = true;
 			$obj->isLazy = true;
 			$obj->Type = $Type;

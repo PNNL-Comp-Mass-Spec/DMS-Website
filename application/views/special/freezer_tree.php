@@ -57,7 +57,18 @@ $(document).ready(function() {
 					"Col":node.data.Col
 				}
 			});
-		}
+		},
+		onClick: function(node, event) {
+			var et = node.getEventTargetType(event);
+		}		
+	});
+
+	$("#tree a").hover(function() {
+		var node = $.ui.dynatree.getNode(this);
+		logMsg("Hover in %s", node);
+	}, function() {
+		var node = $.ui.dynatree.getNode(this);
+		logMsg("Hover out %s", node);
 	});
 
     $("#btnCollapseAll").click(function(){
