@@ -1,0 +1,10 @@
+/* expandable list with alternate switch symbol */
+
+.ctlPanel {
+	padding-top: 2px;
+	padding-bottom: 6px;
+	font-size: 90%;
+}
+.side_menu_ctl_pnl {
+	padding-left: 6px;
+}

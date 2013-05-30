@@ -1,7 +1,7 @@
 <?php
 require("base_controller.php");
 
-class Freezer extends CI_Controller {
+class Freezer extends Base_controller {
 
 	var $my_tag = "freezer";
 
@@ -25,6 +25,52 @@ class Freezer extends CI_Controller {
 		echo "howdy";
 	}
 
+	// --------------------------------------------------------------------
+	function tree()
+	{
+		$this->load->helper(array('menu', 'dms_search'));
+		$this->load->model('dms_menu', 'menu', TRUE);
+
+		$data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
+		
+		$this->load->vars($data);
+		$this->load->view('special/freezer_tree');
+	}
+
+	// --------------------------------------------------------------------
+	// AJAX
+	function get_freezers()
+	{
+		$this->load->model('freezer_model', 'freezer', TRUE);
+
+		$frzrs = $this->freezer->get_freezers();
+		$items = $this->freezer->build_freezer_location_list('Freezer', $frzrs);
+		echo json_encode($items);
+	}
+	// --------------------------------------------------------------------
+	// AJAX
+	function get_locations()
+	{
+		$this->load->model('freezer_model', 'freezer', TRUE);
+
+		$Type = $this->input->get_post('Type');
+		$Freezer = $this->input->get_post('Freezer');
+		$Shelf = $this->input->get_post('Shelf');
+		$Rack = $this->input->get_post('Rack');
+		$Row = $this->input->get_post('Row');
+		$Col = $this->input->get_post('Col');
+
+		$sub_type = $this->freezer->get_sub_location_type($Type);
+		$frzrs = $this->freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row, $Col);
+		$items = $this->freezer->build_freezer_location_list($sub_type, $frzrs);
+		echo json_encode($items);
+	}
+	
+	
+	
+	// --------------------------------------------------------------------
+	// --------------------------------------------------------------------
+	
 	// --------------------------------------------------------------------
 	function import_shelf()
 	{
@@ -369,5 +415,6 @@ class Freezer extends CI_Controller {
 		$this->load->vars($data);
 		$this->load->view('special/freezer');
 	}
+
 }
 ?>
