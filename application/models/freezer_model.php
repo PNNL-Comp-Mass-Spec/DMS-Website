@@ -31,9 +31,13 @@ class Freezer_model extends CI_Model {
 	function get_freezers()
 	{
 		$sql = <<<EOD
-SELECT ID, Tag, Freezer, Shelf, Rack, Row, Col, Status, Barcode, Comment, Container_Limit
-FROM T_Material_Locations
+SELECT 
+	ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+	COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
+FROM dbo.T_Material_Locations ML
+	LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
 WHERE (Shelf = 'na') AND NOT Freezer = 'na'
+GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit
 EOD;
 		$query = $this->db->query($sql);
 
@@ -46,8 +50,11 @@ EOD;
 	function get_locations($Type, $Freezer, $Shelf, $Rack, $Row, $Col)
 	{		
 		$sql = <<<EOD
-SELECT ID, Tag, Freezer, Shelf, Rack, Row, Col, Status, Barcode, Comment, Container_Limit
-FROM T_Material_Locations 
+SELECT 
+	ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+	COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
+FROM dbo.T_Material_Locations ML
+	LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
 EOD;
 		switch($Type) {
 			case 'Shelf':
@@ -63,6 +70,7 @@ EOD;
 				$sql .= " WHERE     Freezer = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";		
 				break;
 		}
+		$sql .= " GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
 		$query = $this->db->query($sql);
 		return $query->result_array();		
 	}
@@ -71,22 +79,30 @@ EOD;
 	{
 		$items = array();
 		foreach($locations as $entry) {
+			$name = $entry[$Type];
 			$obj = new stdClass();
-			$obj->title =  "$Type $entry[$Type] ${entry['Status']}";
+			$obj->title =  "$Type $name";
 			$obj->isFolder = true;
 			$obj->isLazy = true;
-			$obj->Type = $Type;
-			$obj->ID = $entry['ID'];
-			$obj->Tag = $entry['Tag'];
-			$obj->Freezer = $entry['Freezer'];
-			$obj->Shelf = $entry['Shelf'];
-			$obj->Rack = $entry['Rack'];
-			$obj->Row = $entry['Row'];
-			$obj->Col = $entry['Col'];
-			$obj->Status = $entry['Status'];
-			$obj->Barcode = $entry['Barcode'];
-			$obj->Comment = $entry['Comment'];
-			$obj->Container_Limit = $entry['Container_Limit'];
+	
+			$info = new stdClass();
+			$info->Name = $name;			
+			$info->Type = $Type;
+			$info->ID = $entry['ID'];
+			$info->Tag = $entry['Tag'];
+			$info->Freezer = $entry['Freezer'];
+			$info->Shelf = $entry['Shelf'];
+			$info->Rack = $entry['Rack'];
+			$info->Row = $entry['Row'];
+			$info->Col = $entry['Col'];
+			$info->Status = $entry['Status'];
+			$info->Barcode = $entry['Barcode'];
+			$info->Comment = $entry['Comment'];
+			$info->Limit = $entry['Limit'];
+			$info->Containers = $entry['Containers'];
+			$info->Available = $entry['Available'];
+			$obj->info = $info;
+			
 			$items[] = $obj;
 		}
 		return $items;
