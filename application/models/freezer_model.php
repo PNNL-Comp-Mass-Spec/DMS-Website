@@ -40,7 +40,6 @@ WHERE (Shelf = 'na') AND NOT Freezer = 'na'
 GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit
 EOD;
 		$query = $this->db->query($sql);
-
 		if(!$query) {
 			throw new Exception("Error querying database");
 		}
@@ -75,6 +74,21 @@ EOD;
 		return $query->result_array();		
 	}
 	// --------------------------------------------------------------------
+	function get_containers($location)
+	{
+		$sql = <<<EOD
+SELECT  Container, Type, Location, Items, Files, Comment, Action, Barcode, Created, Campaigns, Researcher, #ID AS ID
+FROM V_Material_Containers_List_Report
+EOD;
+		$sql .= " WHERE Location = '$location'";
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
+		}
+		return $query->result_array();
+	}
+
+	// --------------------------------------------------------------------
 	function build_freezer_location_list($Type, $locations)
 	{
 		$items = array();
@@ -107,6 +121,38 @@ EOD;
 		}
 		return $items;
 	}
+	// --------------------------------------------------------------------
+	function build_container_list($containers)
+	{
+		$items = array();
+		foreach($locations as $entry) {
+			$name = $entry["Container"];
+			$obj = new stdClass();
+			$obj->title =  $name;
+			$obj->isFolder = false;
+			$obj->isLazy = true;
+	
+			$info = new stdClass();
+			$info->Name = $name;			
+			$info->Type = "Container";
+			$obj->Container = $entry['Container'];
+			$obj->ContainerType = $entry['Type'];
+			$obj->Location = $entry['Location'];
+			$obj->Items = $entry['Items'];
+			$obj->Files = $entry['Files'];
+			$obj->Comment = $entry['Comment'];
+			$obj->Barcode = $entry['Barcode'];
+			$obj->Created = $entry['Created'];
+			$obj->Campaigns = $entry['Campaigns'];
+			$obj->Researcher = $entry['Researcher'];
+			$obj->ID = $entry['ID'];
+			$obj->info = $info;
+			
+			$items[] = $obj;
+		}
+		return $items;
+	}
+	
 /*
 	// --------------------------------------------------------------------
 	function get_locations($freezer_spec, $shelf_spec,  $rack_spec) 

@@ -56,31 +56,40 @@ Display Options:
 var FreezerModel = {
 	setNodeDisplay: function() {
 		$("#tree").dynatree("getRoot").visit(function(node){
-			var showTag = $('#display_tag_ckbx').prop("checked");
-			var showStatus = $('#display_status_ckbx').prop("checked");
-			var showLoading = $('#display_loading_ckbx').prop("checked");
-			var newTitle = node.data.info.Type + " " + node.data.info.Name;
-			if(showTag) {
-				newTitle += " <" + node.data.info.Tag + ">";
+			if(node.data.info.Type == 'Container') {
+				FreezerModel.displayContainerNode(node);
+			} else {
+				FreezerModel.displayLocationNode(node);
 			}
-			if(showStatus) {
-				newTitle += " (" + node.data.info.Status + ")";				
-			}
-			if(showLoading) {
-				newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
-			}
-			if(!(showTag || showStatus || showLoading) && node.data.info.Status == "Active") {
-				newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
-			}
-			
-			node.setTitle(newTitle);
 		});
+	},
+	displayLocationNode: function(node) {
+		var showTag = $('#display_tag_ckbx').prop("checked");
+		var showStatus = $('#display_status_ckbx').prop("checked");
+		var showLoading = $('#display_loading_ckbx').prop("checked");
+		var newTitle = node.data.info.Type + " " + node.data.info.Name;
+		if(showTag) {
+			newTitle += " <" + node.data.info.Tag + ">";
+		}
+		if(showStatus) {
+			newTitle += " (" + node.data.info.Status + ")";				
+		}
+		if(showLoading) {
+			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
+		}
+		if(!(showTag || showStatus || showLoading) && node.data.info.Status == "Active") {
+			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
+		}
+		node.setTitle(newTitle);	
+	},
+	displayContainerNode: function(node) {
+		
 	}
 }
 
 $(document).ready(function() {
 /*	*/
-    $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
+    // $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
 
 	// set up tree menu
 	$("#tree").dynatree({
@@ -94,6 +103,10 @@ $(document).ready(function() {
 		onPostInit: function(isReloading, isError) {
 		},
 		onLazyRead: function(node) {
+			if(node.data.info.Status == 'Active') {
+				node.setLazyNodeStatus(DTNodeStatus_Ok);
+				return;
+			}
 			node.appendAjax({
 				url: '<?= site_url() ?>freezer/get_locations',
 				type: "POST",			
