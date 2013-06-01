@@ -125,27 +125,28 @@ EOD;
 	function build_container_list($containers)
 	{
 		$items = array();
-		foreach($locations as $entry) {
+		foreach($containers as $entry) {
 			$name = $entry["Container"];
 			$obj = new stdClass();
 			$obj->title =  $name;
 			$obj->isFolder = false;
 			$obj->isLazy = true;
+			$obj->hideCheckbox = true;
 	
 			$info = new stdClass();
 			$info->Name = $name;			
 			$info->Type = "Container";
-			$obj->Container = $entry['Container'];
-			$obj->ContainerType = $entry['Type'];
-			$obj->Location = $entry['Location'];
-			$obj->Items = $entry['Items'];
-			$obj->Files = $entry['Files'];
-			$obj->Comment = $entry['Comment'];
-			$obj->Barcode = $entry['Barcode'];
-			$obj->Created = $entry['Created'];
-			$obj->Campaigns = $entry['Campaigns'];
-			$obj->Researcher = $entry['Researcher'];
-			$obj->ID = $entry['ID'];
+			$info->Container = $entry['Container'];
+			$info->ContainerType = $entry['Type'];
+			$info->Location = $entry['Location'];
+			$info->Items = $entry['Items'];
+			$info->Files = $entry['Files'];
+			$info->Comment = $entry['Comment'];
+			$info->Barcode = $entry['Barcode'];
+			$info->Created = $entry['Created'];
+			$info->Campaigns = $entry['Campaigns'];
+			$info->Researcher = $entry['Researcher'];
+			$info->ID = $entry['ID'];
 			$obj->info = $info;
 			
 			$items[] = $obj;

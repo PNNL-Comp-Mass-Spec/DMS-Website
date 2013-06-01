@@ -80,10 +80,46 @@ var FreezerModel = {
 		if(!(showTag || showStatus || showLoading) && node.data.info.Status == "Active") {
 			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
 		}
-		node.setTitle(newTitle);	
+		node.data.tooltip = node.data.info.Tag;
+		node.setTitle(newTitle);
 	},
 	displayContainerNode: function(node) {
-		
+		var newTitle = node.data.info.ContainerType + " " + node.data.info.Name;
+		newTitle +=" [" + node.data.info.Items + "] ";
+		newTitle +=" " +  node.data.info.Researcher + " ";
+		newTitle +=" '" + node.data.info.Comment + "' ";
+//		newTitle +=" " +  node.data.info.Files + " ";
+		node.data.tooltip = node.data.info.Tag;
+		node.setTitle(newTitle);			
+	},
+	getLocationNodes: function(node) {
+			node.appendAjax({
+				url: '<?= site_url() ?>freezer/get_locations',
+				type: "POST",			
+				data: {
+					"Type": node.data.info.Type,
+					"Freezer":node.data.info.Freezer,
+					"Shelf":node.data.info.Shelf,
+					"Rack":node.data.info.Rack,
+					"Row":node.data.info.Row,
+					"Col":node.data.info.Col
+				},
+				success: function(node) {
+					FreezerModel.setNodeDisplay();
+				}
+			});		
+	},
+	getContainerNodes: function(node) {
+			node.appendAjax({
+				url: '<?= site_url() ?>freezer/get_containers',
+				type: "POST",			
+				data: {
+					"Location": node.data.info.Tag,
+				},
+				success: function(node) {
+					FreezerModel.setNodeDisplay();
+				}
+			});		
 	}
 }
 
@@ -104,24 +140,10 @@ $(document).ready(function() {
 		},
 		onLazyRead: function(node) {
 			if(node.data.info.Status == 'Active') {
-				node.setLazyNodeStatus(DTNodeStatus_Ok);
-				return;
+				FreezerModel.getContainerNodes(node);
+			} else {
+				FreezerModel.getLocationNodes(node);
 			}
-			node.appendAjax({
-				url: '<?= site_url() ?>freezer/get_locations',
-				type: "POST",			
-				data: {
-					"Type": node.data.info.Type,
-					"Freezer":node.data.info.Freezer,
-					"Shelf":node.data.info.Shelf,
-					"Rack":node.data.info.Rack,
-					"Row":node.data.info.Row,
-					"Col":node.data.info.Col
-				},
-				success: function(node) {
-					FreezerModel.setNodeDisplay();
-				}
-			});
 		},
 		onClick: function(node, event) {
 			var et = node.getEventTargetType(event);
