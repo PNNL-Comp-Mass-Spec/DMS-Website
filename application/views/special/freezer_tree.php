@@ -30,19 +30,6 @@
 	<a id="set_inactive_btn" title="Set selected locations to inactive" class="button" href="javascript:void(0)">Set Inactive</a> 
 </span>
 
-<span class="ctls labelling">
-Display Options:
-</span>	
-<span class="ctls">
-	<input id="display_tag_ckbx" type="checkbox" >Tag</input>
-</span>
-<span class="ctls">
-	<input id="display_status_ckbx" type="checkbox" >Status</input>
-</span>
-<span class="ctls">
-	<input id="display_loading_ckbx" type="checkbox" >Container Loading</input>
-</span>
-
 </div>
 
 <div id='tree'>
@@ -64,20 +51,8 @@ var FreezerModel = {
 		});
 	},
 	displayLocationNode: function(node) {
-		var showTag = $('#display_tag_ckbx').prop("checked");
-		var showStatus = $('#display_status_ckbx').prop("checked");
-		var showLoading = $('#display_loading_ckbx').prop("checked");
 		var newTitle = node.data.info.Type + " " + node.data.info.Name;
-		if(showTag) {
-			newTitle += " <" + node.data.info.Tag + ">";
-		}
-		if(showStatus) {
-			newTitle += " (" + node.data.info.Status + ")";				
-		}
-		if(showLoading) {
-			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
-		}
-		if(!(showTag || showStatus || showLoading) && node.data.info.Status == "Active") {
+		if(node.data.info.Status == "Active") {
 			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
 		}
 		node.data.tooltip = node.data.info.Tag;
