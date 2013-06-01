@@ -87,6 +87,20 @@ EOD;
 		}
 		return $query->result_array();
 	}
+	// --------------------------------------------------------------------
+	function get_material($container)
+	{
+		$sql = <<<EOD
+SELECT Item_Type, Item, ID
+FROM [DMS5_T3].[dbo].[V_Material_Items_List_Report]
+EOD;
+		$sql .= " WHERE Container = '$container'";
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
+		}
+		return $query->result_array();
+	}
 
 	// --------------------------------------------------------------------
 	function build_freezer_location_list($Type, $locations)
@@ -146,6 +160,30 @@ EOD;
 			$info->Created = $entry['Created'];
 			$info->Campaigns = $entry['Campaigns'];
 			$info->Researcher = $entry['Researcher'];
+			$info->ID = $entry['ID'];
+			$obj->info = $info;
+			
+			$items[] = $obj;
+		}
+		return $items;
+	}
+	// --------------------------------------------------------------------
+	function build_material_item_list($material_items)
+	{
+		$items = array();
+		foreach($material_items as $entry) {
+			$name = "${entry['Item_Type']} ${entry['Item']}";
+			$obj = new stdClass();
+			$obj->title =  $name;
+			$obj->isFolder = false;
+			$obj->isLazy = false;
+			$obj->hideCheckbox = true;
+	
+			$info = new stdClass();
+			$info->Name = $name;			
+			$info->Type = "Material";
+			$info->Item_Type = $entry['Item_Type'];
+			$info->Item = $entry['Item'];
 			$info->ID = $entry['ID'];
 			$obj->info = $info;
 			
