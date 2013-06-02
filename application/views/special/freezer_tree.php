@@ -176,14 +176,20 @@ $(document).ready(function() {
 		var flag = (cmd == "set_active_btn") ? "Active": "Inactive";
 		var tr = $("#tree").dynatree("getTree");
 		var nl = tr.getSelectedNodes();
-		var d = $.map(nl, function(item) {
-			return item.data.info.Tag;
+		var changes = [];
+		$.each(nl, function(idx, node) {
+			var obj = {
+				Location:node.data.info.Tag,
+				ID:node.data.info.ID
+			};
+			changes.push(obj);
 		});
-		var list = d.join(', ');
-		if(!list) {
-		alert("No locations are currently selected");			
+		if(changes.length == 0) {
+			alert("No locations are currently selected");			
 		} else {
-			alert("Future: Set locations '" + list + "' to " + flag);
+			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}];
+			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);			
+			alert("Future: Set locations '" + factorXML + "' to " + flag);
 		}
 		return false;
 	});
