@@ -32,6 +32,9 @@
 
 </div>
 
+<a id="test_btn" class="button" href="javascript:void(0)">Test</a> 
+
+
 <div id='tree'>
 <ul>
 
@@ -39,6 +42,7 @@
 </div>
 
 <script type='text/javascript'>
+gamma.pageContext.site_url = '<?= site_url() ?>';
 
 var FreezerModel = {
 	setNodeDisplay: function() {
@@ -95,7 +99,34 @@ var FreezerModel = {
 					FreezerModel.setNodeDisplay();
 				}
 			});		
-	}
+	},
+	getChangeList: function(action) {
+		var tr = $("#tree").dynatree("getTree");
+		var nl = tr.getSelectedNodes();
+		var changes = [];
+		var changesXML = '';
+		$.each(nl, function(idx, node) {
+			var obj = {
+				Location:node.data.info.Tag,
+				ID:node.data.info.ID,
+				Status:action
+			};
+			changes.push(obj);
+		});
+		if(changes.length > 0) {
+			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}, {p:'Status', a:'s'}];
+			changesXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+		}
+		return changesXML;		
+	},
+	updateDatabase: function(changesXML) {
+		var url = gamma.pageContext.site_url + 'freezer/operation';
+		var p = { locationList:changesXML };
+		gamma.doOperation(url, p, null, function(data, container) {
+			var response = (data);
+			//if(data.indexOf('Update was successful.') > -1) {}
+		});				
+	}	
 }
 
 $(document).ready(function() {
@@ -148,6 +179,10 @@ $(document).ready(function() {
 		}
 		
 	});
+	
+	$('#test_btn').on("click", function() {
+		FreezerModel.updateDatabase();
+	});
 
 	$("#btnCollapseAll").click(function(){
 		$("#tree").dynatree("getRoot").visit(function(node){
@@ -173,23 +208,13 @@ $(document).ready(function() {
 
 	$("#set_active_btn, #set_inactive_btn").click(function(event){
 		var cmd = event.target.id;
-		var flag = (cmd == "set_active_btn") ? "Active": "Inactive";
-		var tr = $("#tree").dynatree("getTree");
-		var nl = tr.getSelectedNodes();
-		var changes = [];
-		$.each(nl, function(idx, node) {
-			var obj = {
-				Location:node.data.info.Tag,
-				ID:node.data.info.ID
-			};
-			changes.push(obj);
-		});
-		if(changes.length == 0) {
+		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";	
+		var changesXML = FreezerModel.getChangeList(newStatus);
+		if(!changesXML) {
 			alert("No locations are currently selected");			
 		} else {
-			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}];
-			var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);			
-			alert("Future: Set locations '" + factorXML + "' to " + flag);
+			//alert("Future: Set locations '" + changesXML + "'");
+			FreezerModel.updateDatabase(changesXML);
 		}
 		return false;
 	});
