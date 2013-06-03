@@ -32,9 +32,6 @@
 
 </div>
 
-<a id="test_btn" class="button" href="javascript:void(0)">Test</a> 
-
-
 <div id='tree'>
 <ul>
 
@@ -100,7 +97,7 @@ var FreezerModel = {
 				}
 			});		
 	},
-	getChangeList: function(action) {
+	getChangeList: function(action, value) {
 		var tr = $("#tree").dynatree("getTree");
 		var nl = tr.getSelectedNodes();
 		var changes = [];
@@ -109,12 +106,13 @@ var FreezerModel = {
 			var obj = {
 				Location:node.data.info.Tag,
 				ID:node.data.info.ID,
-				Status:action
+				Action:action,
+				Value:value
 			};
 			changes.push(obj);
 		});
 		if(changes.length > 0) {
-			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}, {p:'Status', a:'s'}];
+			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}, {p:'Action', a:'a'}, {p:'Value', a:'v'}];
 			changesXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 		}
 		return changesXML;		
@@ -180,10 +178,6 @@ $(document).ready(function() {
 		
 	});
 	
-	$('#test_btn').on("click", function() {
-		FreezerModel.updateDatabase();
-	});
-
 	$("#btnCollapseAll").click(function(){
 		$("#tree").dynatree("getRoot").visit(function(node){
 			node.expand(false);
@@ -209,11 +203,11 @@ $(document).ready(function() {
 	$("#set_active_btn, #set_inactive_btn").click(function(event){
 		var cmd = event.target.id;
 		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";	
-		var changesXML = FreezerModel.getChangeList(newStatus);
+		var changesXML = FreezerModel.getChangeList('Status', newStatus);
 		if(!changesXML) {
 			alert("No locations are currently selected");			
 		} else {
-			//alert("Future: Set locations '" + changesXML + "'");
+//			alert("Future: Set locations '" + changesXML + "'");
 			FreezerModel.updateDatabase(changesXML);
 		}
 		return false;
