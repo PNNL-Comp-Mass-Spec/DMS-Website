@@ -97,39 +97,67 @@ var FreezerModel = {
 				}
 			});		
 	},
-	getChangeList: function(action, value) {
+	getSelectedNodes: function() {
 		var tr = $("#tree").dynatree("getTree");
-		var nl = tr.getSelectedNodes();
-		var changes = [];
-		var changesXML = '';
-		$.each(nl, function(idx, node) {
+		var selectedNodes = tr.getSelectedNodes();
+		return selectedNodes;
+	},
+	getChangeList: function(selectedNodes, action, value) {
+		var changeList = [];
+		$.each(selectedNodes, function(idx, node) {
 			var obj = {
 				Location:node.data.info.Tag,
 				ID:node.data.info.ID,
 				Action:action,
 				Value:value
 			};
-			changes.push(obj);
+			changeList.push(obj);
 		});
-		if(changes.length > 0) {
+		return changeList;
+	},
+	getChangeXML: function(changeList) {
+		var changesXML = '';
+		if(changeList.length > 0) {
 			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}, {p:'Action', a:'a'}, {p:'Value', a:'v'}];
-			changesXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+			changesXML = gamma.getXmlElementsFromObjectArray(changeList, 'r', mapP2A);
 		}
 		return changesXML;		
 	},
-	updateDatabase: function(changesXML) {
+	updateDatabase: function(changeList) {
+		var changesXML = FreezerModel.getChangeXML(changeList);
 		var url = gamma.pageContext.site_url + 'freezer/operation';
 		var p = { locationList:changesXML };
 		gamma.doOperation(url, p, null, function(data, container) {
 			var response = (data);
-			//if(data.indexOf('Update was successful.') > -1) {}
+			//if(data.indexOf('Update was successful.') > -1) {
+				FreezerModel.updateLocationNodes(changeList);
+			//}
 		});				
-	}	
+	},
+	getDelimitedList: function(objectArray, propertyName) {
+		var itemArray = [];
+		$.each(objectArray, function(idx, obj) {
+			itemArray.push("'" + obj[propertyName] + "'");
+		});		
+		return itemArray.join(',');
+	},
+	updateLocationNodes: function(changeList) {
+		var locationList = FreezerModel.getDelimitedList(changeList, "Location");
+		var url = '<?= site_url() ?>freezer/get_locations';
+		var p = { "Type":"Tag", "Freezer":locationList, "Shelf":"", "Rack":"", "Row":"", "Col":"" };
+		gamma.getObjectFromJSON(url, p, null, function(json) {
+			var objArray = $.parseJSON(json);
+			var tree = $("#tree").dynatree("getTree");
+			$.each(objArray, function(idx, obj) {
+				var node = tree.getNodeByKey(obj.key);
+				node.data.info.Status = obj.info.Status;
+				FreezerModel.displayLocationNode(node);
+			});
+		});		
+	}
 }
 
 $(document).ready(function() {
-/*	*/
-    // $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
 
 	// set up tree menu
 	$("#tree").dynatree({
@@ -202,13 +230,14 @@ $(document).ready(function() {
 
 	$("#set_active_btn, #set_inactive_btn").click(function(event){
 		var cmd = event.target.id;
-		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";	
-		var changesXML = FreezerModel.getChangeList('Status', newStatus);
-		if(!changesXML) {
+		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";
+		var selectedNodes = FreezerModel.getSelectedNodes();
+		var changeList = FreezerModel.getChangeList(selectedNodes, 'Status', newStatus);
+		if(changeList.length == 0) {
 			alert("No locations are currently selected");			
 		} else {
 //			alert("Future: Set locations '" + changesXML + "'");
-			FreezerModel.updateDatabase(changesXML);
+			FreezerModel.updateDatabase(changeList);
 		}
 		return false;
 	});
