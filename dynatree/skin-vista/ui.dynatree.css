@@ -8,7 +8,7 @@ ul.dynatree-container
 	white-space: nowrap;
 	padding: 3px;
 	margin: 0; /* issue 201 */
-	background-color: #E1E7EA;
+	background-color: transparent;
 /*	border: 1px dotted gray; */
 	overflow: auto;
 	height: 100%; /* issue 263 */

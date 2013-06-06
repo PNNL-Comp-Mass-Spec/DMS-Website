@@ -1,0 +1,13 @@
+/* expandable list with alternate switch symbol */
+
+#tree {
+	margin-top:10px;
+}
+
+.ctls {
+	margin-right: 18px;
+}
+.ctl_panel {
+	margin-top:5px;
+	margin-bottom: 5px;
+}
