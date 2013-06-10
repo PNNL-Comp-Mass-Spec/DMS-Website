@@ -18,19 +18,24 @@
 
 <div class='ctl_panel'>
 <span class="ctls">
-	<a id="btnCollapseAll" title="Collapse all expanded locations" class="button"  href="javascript:void(0)" >Collapse&nbsp;all</a>
+	<input class="button" type="button"  id="btnCollapseAll" title="Collapse all expanded locations" value="Collapse&nbsp;all"</a" />
 </span>
 <span class="ctls">
-	<a id="btnClearSelections" title="Clear selections" class="button"  href="javascript:void(0)" >Clear Selections</a>
+	<input class="button" type="button" id="btnClearSelections" title="Clear selections" value="Clear Selections" />
 </span>
 <span class="ctls">
-	<a id="set_active_btn" title="Set selected locations to active" class="button" href="javascript:void(0)">Set Active</a> 
+	<input class="button" type="button"  id="set_active_btn" title="Set selected locations to active" value="Set Active" /> 
 </span>
 <span class="ctls">
-	<a id="set_inactive_btn" title="Set selected locations to inactive" class="button" href="javascript:void(0)">Set Inactive</a> 
+	<input class="button" type="button"  id="set_inactive_btn" title="Set selected locations to inactive" value="Set Inactive" /> 
+</span>
+<span class="ctls">
+	<input class="button" type="button" id="move_container_btn" title="Move selected container(s) to selected location" value="Move Containers" />
 </span>
 
 </div>
+
+<div id="messages"></div>
 
 <div id='tree'>
 <ul>
@@ -154,6 +159,42 @@ var FreezerModel = {
 				FreezerModel.displayLocationNode(node);
 			});
 		});		
+	},
+	getSelectionPattern: function(selectedNodes) {
+		var selectionPattern = '';
+		var locationCount = 0;
+		var containerCount = 0;
+		if(selectedNodes.length == 0) {
+			$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
+		} else {
+			$('#btnClearSelections').prop("disabled", false).removeClass('ui-state-disabled')
+		}
+		$.each(selectedNodes, function(idx, node) {
+			if(node.data.info.Type == 'Container') {
+				containerCount++;
+			} else {
+				locationCount++;
+			}
+		});
+		if(containerCount == 0 && locationCount > 0) {
+			selectionPattern = "Location Ops";
+			$('#set_active_btn').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
+			
+		} else 
+		if(locationCount == 1 && containerCount > 0) {
+			selectionPattern = "Container Ops";
+			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", false).removeClass('ui-state-disabled')
+		} else {
+			selectionPattern = "Not Viable";			
+			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
+		}
+		return selectionPattern;
 	}
 }
 
@@ -189,21 +230,16 @@ $(document).ready(function() {
 					break;
 			}
 		},
-		onDblClick: function(node, event) {
-			var et = node.getEventTargetType(event);
-			switch(et) {
-				case 'expander':
-					break;
-				case 'title':
-					node.visit(function(nd){
-						nd.expand(true);
-					});
-					console.log("dbl click->" + node.data.info.Tag);
-					return false;
-					break;
-			}
+		onSelect: function(select, node) {
+			// Display list of selected nodes
+			var selectedNodes = node.tree.getSelectedNodes();
+			var selectionPattern = FreezerModel.getSelectionPattern(selectedNodes);
+			// convert to title/key array
+			var selKeys = $.map(selectedNodes, function(node){
+				return node.data.info.Type + "[" + node.data.key + "]";
+			});
+			$("#messages").text(selectionPattern + "->" + selKeys.join(", "));
 		}
-		
 	});
 	
 	$("#btnCollapseAll").click(function(){
@@ -241,6 +277,11 @@ $(document).ready(function() {
 		}
 		return false;
 	});
+	
+	$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+	$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+	$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
+	$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
 	
 	// set event handlers for global search panel
 	gamma.setSearchEventHandlers($('.global_search_panel'));

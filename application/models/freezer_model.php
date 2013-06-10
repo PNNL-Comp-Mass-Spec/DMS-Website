@@ -150,7 +150,8 @@ EOD;
 			$obj->title =  $name;
 			$obj->isFolder = false;
 			$obj->isLazy = true;
-			$obj->hideCheckbox = true;
+			$obj->key = $name;
+			//			$obj->hideCheckbox = true;
 	
 			$info = new stdClass();
 			$info->Name = $name;			
