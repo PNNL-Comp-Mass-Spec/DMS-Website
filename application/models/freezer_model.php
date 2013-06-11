@@ -7,6 +7,7 @@ class Freezer_model extends CI_Model {
 		"Rack" => "Row",
 		"Row" => "Col",
 		"Col" => "",
+		"Tag" => "Tag"
 	);
 
 	// --------------------------------------------------------------------
@@ -66,7 +67,10 @@ EOD;
 				$sql .= " WHERE Freezer = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Col = 'na' AND NOT ROW = 'na'";
 				break;
 			case 'Col':
-				$sql .= " WHERE     Freezer = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";		
+				$sql .= " WHERE Freezer = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";		
+				break;
+			case 'Tag':
+				$sql .= "  WHERE ML.Tag IN ($Freezer)";		
 				break;
 		}
 		$sql .= " GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
@@ -112,6 +116,7 @@ EOD;
 			$obj->title =  "$Type $name";
 			$obj->isFolder = true;
 			$obj->isLazy = true;
+			$obj->key = $entry['Tag'];
 	
 			$info = new stdClass();
 			$info->Name = $name;			
@@ -145,7 +150,8 @@ EOD;
 			$obj->title =  $name;
 			$obj->isFolder = false;
 			$obj->isLazy = true;
-			$obj->hideCheckbox = true;
+			$obj->key = $name;
+			//			$obj->hideCheckbox = true;
 	
 			$info = new stdClass();
 			$info->Name = $name;			

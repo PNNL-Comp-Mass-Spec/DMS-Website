@@ -4,6 +4,10 @@
 	margin-top:10px;
 }
 
+#messages {
+	min-height: 1em;
+}
+
 .ctls {
 	margin-right: 18px;
 }

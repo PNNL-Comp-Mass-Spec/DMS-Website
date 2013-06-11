@@ -18,19 +18,24 @@
 
 <div class='ctl_panel'>
 <span class="ctls">
-	<a id="btnCollapseAll" title="Collapse all expanded locations" class="button"  href="javascript:void(0)" >Collapse&nbsp;all</a>
+	<input class="button" type="button"  id="btnCollapseAll" title="Collapse all expanded locations" value="Collapse&nbsp;all"</a" />
 </span>
 <span class="ctls">
-	<a id="btnClearSelections" title="Clear selections" class="button"  href="javascript:void(0)" >Clear Selections</a>
+	<input class="button" type="button" id="btnClearSelections" title="Clear selections" value="Clear Selections" />
 </span>
 <span class="ctls">
-	<a id="set_active_btn" title="Set selected locations to active" class="button" href="javascript:void(0)">Set Active</a> 
+	<input class="button" type="button"  id="set_active_btn" title="Set selected locations to active" value="Set Active" /> 
 </span>
 <span class="ctls">
-	<a id="set_inactive_btn" title="Set selected locations to inactive" class="button" href="javascript:void(0)">Set Inactive</a> 
+	<input class="button" type="button"  id="set_inactive_btn" title="Set selected locations to inactive" value="Set Inactive" /> 
+</span>
+<span class="ctls">
+	<input class="button" type="button" id="move_container_btn" title="Move selected container(s) to selected location" value="Move Containers" />
 </span>
 
 </div>
+
+<div id="messages"></div>
 
 <div id='tree'>
 <ul>
@@ -41,95 +46,47 @@
 <script type='text/javascript'>
 gamma.pageContext.site_url = '<?= site_url() ?>';
 
-var FreezerModel = {
-	setNodeDisplay: function() {
-		$("#tree").dynatree("getRoot").visit(function(node){
-			if(node.data.info.Type == 'Container') {
-				FreezerModel.displayContainerNode(node);
-			} else {
-				FreezerModel.displayLocationNode(node);
-			}
-		});
+Freezer.Display = {
+	initControls: function() {
+		$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+		$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+		$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
+		$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
 	},
-	displayLocationNode: function(node) {
-		var newTitle = node.data.info.Type + " " + node.data.info.Name;
-		if(node.data.info.Status == "Active") {
-			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
+	getSelectionPattern: function(selectedNodes) {
+		var categorizedNodeList = Freezer.Util.getSelectedNodesByType("tree");
+		var selectionPattern = '';
+		var locationCount = categorizedNodeList.locations.length;
+		var containerCount = categorizedNodeList.containers.length;
+		if(locationCount == 0 && containerCount == 0) {
+			$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
+		} else {
+			$('#btnClearSelections').prop("disabled", false).removeClass('ui-state-disabled')
 		}
-		node.data.tooltip = node.data.info.Tag;
-		node.setTitle(newTitle);
-	},
-	displayContainerNode: function(node) {
-		var newTitle = node.data.info.ContainerType + " " + node.data.info.Name;
-		newTitle +=" [" + node.data.info.Items + "] ";
-		newTitle +=" " +  node.data.info.Researcher + " ";
-		newTitle +=" '" + node.data.info.Comment + "' ";
-//		newTitle +=" " +  node.data.info.Files + " ";
-		node.data.tooltip = node.data.info.Tag;
-		node.setTitle(newTitle);			
-	},
-	getLocationNodes: function(node) {
-			node.appendAjax({
-				url: '<?= site_url() ?>freezer/get_locations',
-				type: "POST",			
-				data: {
-					"Type": node.data.info.Type,
-					"Freezer":node.data.info.Freezer,
-					"Shelf":node.data.info.Shelf,
-					"Rack":node.data.info.Rack,
-					"Row":node.data.info.Row,
-					"Col":node.data.info.Col
-				},
-				success: function(node) {
-					FreezerModel.setNodeDisplay();
-				}
-			});		
-	},
-	getContainerNodes: function(node) {
-			node.appendAjax({
-				url: '<?= site_url() ?>freezer/get_containers',
-				type: "POST",			
-				data: {
-					"Location": node.data.info.Tag,
-				},
-				success: function(node) {
-					FreezerModel.setNodeDisplay();
-				}
-			});		
-	},
-	getChangeList: function(action, value) {
-		var tr = $("#tree").dynatree("getTree");
-		var nl = tr.getSelectedNodes();
-		var changes = [];
-		var changesXML = '';
-		$.each(nl, function(idx, node) {
-			var obj = {
-				Location:node.data.info.Tag,
-				ID:node.data.info.ID,
-				Action:action,
-				Value:value
-			};
-			changes.push(obj);
-		});
-		if(changes.length > 0) {
-			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}, {p:'Action', a:'a'}, {p:'Value', a:'v'}];
-			changesXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+		if(containerCount == 0 && locationCount > 0) {
+			selectionPattern = "Set Location Status";
+			$('#set_active_btn').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
+			
+		} else 
+		if(locationCount == 1 && containerCount > 0) {
+			selectionPattern = "Move Containers";
+			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", false).removeClass('ui-state-disabled')
+		} else {
+			selectionPattern = "";			
+			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
 		}
-		return changesXML;		
-	},
-	updateDatabase: function(changesXML) {
-		var url = gamma.pageContext.site_url + 'freezer/operation';
-		var p = { locationList:changesXML };
-		gamma.doOperation(url, p, null, function(data, container) {
-			var response = (data);
-			//if(data.indexOf('Update was successful.') > -1) {}
-		});				
+		selectionPattern = (selectionPattern) ? selectionPattern + ": " : "";
+		return selectionPattern;
 	}	
 }
 
 $(document).ready(function() {
-/*	*/
-    // $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
 
 	// set up tree menu
 	$("#tree").dynatree({
@@ -144,9 +101,9 @@ $(document).ready(function() {
 		},
 		onLazyRead: function(node) {
 			if(node.data.info.Status == 'Active') {
-				FreezerModel.getContainerNodes(node);
+				Freezer.Model.getContainerNodes(node);
 			} else {
-				FreezerModel.getLocationNodes(node);
+				Freezer.Model.getLocationNodes(node);
 			}
 		},
 		onClick: function(node, event) {
@@ -161,56 +118,58 @@ $(document).ready(function() {
 					break;
 			}
 		},
-		onDblClick: function(node, event) {
-			var et = node.getEventTargetType(event);
-			switch(et) {
-				case 'expander':
-					break;
-				case 'title':
-					node.visit(function(nd){
-						nd.expand(true);
-					});
-					console.log("dbl click->" + node.data.info.Tag);
-					return false;
-					break;
+		onSelect: function(select, node) {
+			// Display list of selected nodes
+			var selectedNodes = node.tree.getSelectedNodes();
+			var selectionPattern = Freezer.Display.getSelectionPattern(selectedNodes);
+			if(selectionPattern) {
+				var selKeys = $.map(selectedNodes, function(node){
+					return node.data.info.Type + "[" + node.data.key + "]";
+				});
+				$("#messages").text(selectionPattern + selKeys.join(", "));
+			} else {
+				$("#messages").text("");				
 			}
 		}
-		
 	});
+
+	Freezer.Display.initControls();
 	
 	$("#btnCollapseAll").click(function(){
-		$("#tree").dynatree("getRoot").visit(function(node){
+		Freezer.Util.getTree("tree").visit(function(node){
 			node.expand(false);
 		});
 		 return false;
 	});
 	$("#btnClearSelections").click(function(){
-		$("#tree").dynatree("getRoot").visit(function(node){
+		Freezer.Util.getTree("tree").visit(function(node){
 			node.select(false);
 		});
 		return false;
 	});
 	$("#display_tag_ckbx").on("change", function(event){
-		FreezerModel.setNodeDisplay();
+		Freezer.Model.setNodeDisplay();
 	});	
 	$("#display_status_ckbx").on("change", function(event){
-		FreezerModel.setNodeDisplay();
+		Freezer.Model.setNodeDisplay();
 	});	
 	$("#display_loading_ckbx").on("change", function(event){
-		FreezerModel.setNodeDisplay();
+		Freezer.Model.setNodeDisplay();
 	});	
 
 	$("#set_active_btn, #set_inactive_btn").click(function(event){
-		var cmd = event.target.id;
-		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";	
-		var changesXML = FreezerModel.getChangeList('Status', newStatus);
-		if(!changesXML) {
+		var changeList = Freezer.Util.getStatusChangeList();
+		if(changeList.length == 0) {
 			alert("No locations are currently selected");			
 		} else {
 //			alert("Future: Set locations '" + changesXML + "'");
-			FreezerModel.updateDatabase(changesXML);
+			Freezer.Model.updateDatabase(changeList);
 		}
 		return false;
+	});
+	
+	$('#move_container_btn').click(function(event){
+		Freezer.Model.moveContainers();
 	});
 	
 	// set event handlers for global search panel
