@@ -33,11 +33,14 @@ h1,h2,h3{
 .clr_30 {
 	background-color:#E5FFE5;
 }
+.clr_45 {
+	background-color:#CCECFF;
+}
 .clr_60 {
 	background-color:#FFFF75;
 }
 .clr_90 {
-	background-color:#FF9933;
+	background-color:#FF8C00;
 	color: Black ;
 	font-weight: bold;
 }
