@@ -211,6 +211,8 @@ var FreezerModel = {
 			$.each(objArray, function(idx, obj) {
 				var node = tree.getNodeByKey(obj.key);
 				node.data.info.Status = obj.info.Status;
+				node.data.info.Containers = obj.info.Containers;
+				node.data.info.Limit = obj.info.Limit;
 				FreezerModel.displayLocationNode(node);
 			});
 		});		
@@ -221,25 +223,21 @@ var FreezerModel = {
 		var list = containerList.join(', ');
 		var locationList = $.map(catNodes.locations, function(node) { return node.data.info.Tag; });
 		var destinationLoc = locationList[0];
-		var mode = 'move_container';
 		var url = gamma.pageContext.site_url + 'material_move_container/operation';
 		var p = {};
-		p.command = mode;
+		p.command = 'move_container';
 		p.containerList = list;
 		p.newValue = destinationLoc;
 		p.comment = ''; // Future: prompt for comment
 		$("#messages").html("");
 		gamma.doOperation(url, p, null, function(data, container) {
-			var response = (data);
 			if(data.indexOf('Update was successful.') > -1) {
-				$.each(catNodes.containers, function(idx, node) {
-					node.getParent().reloadChildren();
-					node.getParent().expand(true);				
-				});
-				$.each(catNodes.locations, function(idx, node) {
-					node.reloadChildren();										
-					node.getParent().reloadChildren();					
-				});
+				var affectedNodes = $.merge([], catNodes.locations);
+				$.merge(affectedNodes, $.map(catNodes.containers, function(node) { return node.getParent(); }));
+				$.each(affectedNodes, function(idx, node) { node.reloadChildren(); });
+				var changeList = FreezerModel.getChangeList(affectedNodes, '', '');
+				FreezerModel.updateLocationNodes(changeList);
+				catNodes.locations[0].expand(true);
 			} else {
 				$("#messages").html(data);
 			}
