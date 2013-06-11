@@ -46,9 +46,73 @@
 <script type='text/javascript'>
 gamma.pageContext.site_url = '<?= site_url() ?>';
 
+var FreezerUtil = {
+	getTree: function(elementName) {
+		return $('#' + elementName).dynatree("getTree");
+	},
+	getSelectedNodes: function(elementName) {
+		return FreezerUtil.getTree(elementName).getSelectedNodes();
+	},	
+	getSelectedNodesByType: function(elementName) {
+		var selectedNodes = FreezerUtil.getSelectedNodes(elementName);
+		var selections = {
+			containers: [],
+			locations: []
+		}
+		$.each(selectedNodes, function(idx, node) {
+			if(node.data.info.Type == 'Container') {
+				selections.containers.push(node);
+			} else {
+				selections.locations.push(node);
+			}
+		});
+		return selections;
+	},
+	getDelimitedList: function(objectArray, propertyName) {
+		var itemArray = [];
+		$.each(objectArray, function(idx, obj) {
+			itemArray.push("'" + obj[propertyName] + "'");
+		});		
+		return itemArray.join(',');
+	},
+	getNodeName: function(node, itemName){
+		return node.data.info[itemName];
+	},
+	getSelectionPattern: function(selectedNodes) {
+		var categorizedNodeList = FreezerUtil.getSelectedNodesByType("tree");
+		var selectionPattern = '';
+		var locationCount = categorizedNodeList.locations.length;
+		var containerCount = categorizedNodeList.containers.length;
+		if(locationCount == 0 && containerCount == 0) {
+			$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
+		} else {
+			$('#btnClearSelections').prop("disabled", false).removeClass('ui-state-disabled')
+		}
+		if(containerCount == 0 && locationCount > 0) {
+			selectionPattern = "Location Ops";
+			$('#set_active_btn').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
+			
+		} else 
+		if(locationCount == 1 && containerCount > 0) {
+			selectionPattern = "Container Ops";
+			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", false).removeClass('ui-state-disabled')
+		} else {
+			selectionPattern = "Not Viable";			
+			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
+			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
+		}
+		return selectionPattern;
+	}	
+}
+
 var FreezerModel = {
 	setNodeDisplay: function() {
-		$("#tree").dynatree("getRoot").visit(function(node){
+		FreezerUtil.getTree("tree").visit(function(node){
 			if(node.data.info.Type == 'Container') {
 				FreezerModel.displayContainerNode(node);
 			} else {
@@ -102,11 +166,6 @@ var FreezerModel = {
 				}
 			});		
 	},
-	getSelectedNodes: function() {
-		var tr = $("#tree").dynatree("getTree");
-		var selectedNodes = tr.getSelectedNodes();
-		return selectedNodes;
-	},
 	getChangeList: function(selectedNodes, action, value) {
 		var changeList = [];
 		$.each(selectedNodes, function(idx, node) {
@@ -132,27 +191,23 @@ var FreezerModel = {
 		var changesXML = FreezerModel.getChangeXML(changeList);
 		var url = gamma.pageContext.site_url + 'freezer/operation';
 		var p = { locationList:changesXML };
+		$("#messages").html("");
 		gamma.doOperation(url, p, null, function(data, container) {
 			var response = (data);
-			//if(data.indexOf('Update was successful.') > -1) {
+			if(data.indexOf('Update was successful.') > -1) {
 				FreezerModel.updateLocationNodes(changeList);
-			//}
+			} else {
+				$("#messages").html(data);				
+			}
 		});				
 	},
-	getDelimitedList: function(objectArray, propertyName) {
-		var itemArray = [];
-		$.each(objectArray, function(idx, obj) {
-			itemArray.push("'" + obj[propertyName] + "'");
-		});		
-		return itemArray.join(',');
-	},
 	updateLocationNodes: function(changeList) {
-		var locationList = FreezerModel.getDelimitedList(changeList, "Location");
+		var locationList = FreezerUtil.getDelimitedList(changeList, "Location");
 		var url = '<?= site_url() ?>freezer/get_locations';
 		var p = { "Type":"Tag", "Freezer":locationList, "Shelf":"", "Rack":"", "Row":"", "Col":"" };
 		gamma.getObjectFromJSON(url, p, null, function(json) {
 			var objArray = $.parseJSON(json);
-			var tree = $("#tree").dynatree("getTree");
+			var tree = FreezerUtil.getTree("tree");
 			$.each(objArray, function(idx, obj) {
 				var node = tree.getNodeByKey(obj.key);
 				node.data.info.Status = obj.info.Status;
@@ -160,42 +215,37 @@ var FreezerModel = {
 			});
 		});		
 	},
-	getSelectionPattern: function(selectedNodes) {
-		var selectionPattern = '';
-		var locationCount = 0;
-		var containerCount = 0;
-		if(selectedNodes.length == 0) {
-			$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
-		} else {
-			$('#btnClearSelections').prop("disabled", false).removeClass('ui-state-disabled')
-		}
-		$.each(selectedNodes, function(idx, node) {
-			if(node.data.info.Type == 'Container') {
-				containerCount++;
+	moveContainers: function() {
+		var catNodes = FreezerUtil.getSelectedNodesByType("tree");
+		var containerList = $.map(catNodes.containers, function(node) { return node.data.info.ID; });
+		var list = containerList.join(', ');
+		var locationList = $.map(catNodes.locations, function(node) { return node.data.info.Tag; });
+		var destinationLoc = locationList[0];
+		var mode = 'move_container';
+		var url = gamma.pageContext.site_url + 'material_move_container/operation';
+		var p = {};
+		p.command = mode;
+		p.containerList = list;
+		p.newValue = destinationLoc;
+		p.comment = ''; // Future: prompt for comment
+		$("#messages").html("");
+		gamma.doOperation(url, p, null, function(data, container) {
+			var response = (data);
+			if(data.indexOf('Update was successful.') > -1) {
+				$.each(catNodes.containers, function(idx, node) {
+					node.getParent().reloadChildren();
+					node.getParent().expand(true);				
+				});
+				$.each(catNodes.locations, function(idx, node) {
+					node.reloadChildren();										
+					node.getParent().reloadChildren();					
+				});
 			} else {
-				locationCount++;
+				$("#messages").html(data);
 			}
-		});
-		if(containerCount == 0 && locationCount > 0) {
-			selectionPattern = "Location Ops";
-			$('#set_active_btn').prop("disabled", false).removeClass('ui-state-disabled')
-			$('#set_inactive_btn').prop("disabled", false).removeClass('ui-state-disabled')
-			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
-			
-		} else 
-		if(locationCount == 1 && containerCount > 0) {
-			selectionPattern = "Container Ops";
-			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#move_container_btn').prop("disabled", false).removeClass('ui-state-disabled')
-		} else {
-			selectionPattern = "Not Viable";			
-			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
-		}
-		return selectionPattern;
+		});		
 	}
+	
 }
 
 $(document).ready(function() {
@@ -233,7 +283,7 @@ $(document).ready(function() {
 		onSelect: function(select, node) {
 			// Display list of selected nodes
 			var selectedNodes = node.tree.getSelectedNodes();
-			var selectionPattern = FreezerModel.getSelectionPattern(selectedNodes);
+			var selectionPattern = FreezerUtil.getSelectionPattern(selectedNodes);
 			// convert to title/key array
 			var selKeys = $.map(selectedNodes, function(node){
 				return node.data.info.Type + "[" + node.data.key + "]";
@@ -243,13 +293,13 @@ $(document).ready(function() {
 	});
 	
 	$("#btnCollapseAll").click(function(){
-		$("#tree").dynatree("getRoot").visit(function(node){
+		FreezerUtil.getTree("tree").visit(function(node){
 			node.expand(false);
 		});
 		 return false;
 	});
 	$("#btnClearSelections").click(function(){
-		$("#tree").dynatree("getRoot").visit(function(node){
+		FreezerUtil.getTree("tree").visit(function(node){
 			node.select(false);
 		});
 		return false;
@@ -267,7 +317,7 @@ $(document).ready(function() {
 	$("#set_active_btn, #set_inactive_btn").click(function(event){
 		var cmd = event.target.id;
 		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";
-		var selectedNodes = FreezerModel.getSelectedNodes();
+		var selectedNodes = FreezerUtil.getSelectedNodes("tree");
 		var changeList = FreezerModel.getChangeList(selectedNodes, 'Status', newStatus);
 		if(changeList.length == 0) {
 			alert("No locations are currently selected");			
@@ -276,6 +326,10 @@ $(document).ready(function() {
 			FreezerModel.updateDatabase(changeList);
 		}
 		return false;
+	});
+	
+	$('#move_container_btn').click(function(event){
+		FreezerModel.moveContainers();
 	});
 	
 	$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
