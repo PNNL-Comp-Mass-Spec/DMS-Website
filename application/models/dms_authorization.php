@@ -62,7 +62,7 @@ class Dms_authorization extends CI_Model {
 		$str .= <<<EOD
 SELECT Status, [Operations List], ID
 FROM V_User_List_Report_2
-WHERE [Payroll Num] = '$user_dprn'
+WHERE [Username] = '$user_dprn'
 EOD;
 		$my_db = $this->load->database('default', TRUE);
 		$query_data = $my_db->query($str);
