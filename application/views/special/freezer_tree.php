@@ -33,6 +33,14 @@
 	<input class="button" type="button" id="move_container_btn" title="Move selected container(s) to selected location" value="Move Containers" />
 </span>
 
+<span class="ctls">
+	<input class="button" type="button" id="find_location_btn" title="Find and expand location..." value="Find Location" />
+</span>
+
+<span class="ctls">
+	<input class="button" type="button" id="find_container_btn" title="Find and expand location holding container..." value="Find Continer" />
+</span>
+
 </div>
 
 <div id="messages"></div>
@@ -138,46 +146,7 @@ $(document).ready(function() {
 	});
 
 	Freezer.Display.initControls();
-	
-	Freezer.Util.exposeLocation = function(locTag) {
-		// fill out locTag to full location path (in case it is partial)
-		var segs = 'na.na.na.na.na'.split('.');
-		var inSegs = locTag.split('.');
-		$.each(inSegs, function(idx, s) {
-			segs[idx] = s;
-		});
-		// get hierarchy of parent locations
-		var tagSegs = $.merge([], segs);
-		var parentLocTags = [segs.join('.')];
-		for(var i = 4; i > 0; i--) {
-			var seg = segs[i];
-			if(seg != 'na') {
-				tagSegs[i] = 'na';
-				parentLocTags.push(tagSegs.join('.'));
-			}
-		}
-		// expand parents as needed
-		var tree = Freezer.Util.getTree("tree");
-		var topDown = parentLocTags.reverse();
-		var level = 0;
-		Freezer.Util.nextLevel(tree, topDown, level);
-	}
-	Freezer.Util.nextLevel = function(tree, topDown, level) {
-		if(level >= topDown.length) {
-			return;
-		}
-		var tag = topDown[level++];
-		var node = tree.getNodeByKey(tag);
-		if(node.hasChildren()) {
-			Freezer.Util.nextLevel(tree, topDown, level);
-		} else {
-			node.reloadChildren(function(node, isOk){
-			    Freezer.Util.nextLevel(tree, topDown, level);
-			});
-		}
-		node.expand(true);
-	}
-	
+		
 	$("#btnCollapseAll").click(function(){
 		Freezer.Util.getTree("tree").visit(function(node){
 			node.expand(false);
@@ -185,14 +154,9 @@ $(document).ready(function() {
 		 return false;
 	});
 	$("#btnClearSelections").click(function(){
-		var val = prompt("Enter location path")
-		val = val || '80B.1.1.1.1'
-		Freezer.Util.exposeLocation(val);
-/*		
 		Freezer.Util.getTree("tree").visit(function(node){
 			node.select(false);
 		});
-*/
 		return false;
 	});
 	$("#display_tag_ckbx").on("change", function(event){
@@ -218,6 +182,17 @@ $(document).ready(function() {
 	
 	$('#move_container_btn').click(function(event){
 		Freezer.Model.moveContainers();
+	});
+	
+	$('#find_location_btn').click(function(event){
+		var val = prompt("Enter location path")
+		val = val || '80B.1.1.1.1'
+		Freezer.Util.exposeLocation(val);
+	});
+	
+	$('#find_container_btn').click(function(event){
+		var val = prompt("Enter container name")
+		Freezer.Model.findContainerNode(val);
 	});
 	
 	// set event handlers for global search panel
