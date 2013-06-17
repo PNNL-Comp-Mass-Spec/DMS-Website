@@ -197,50 +197,20 @@ EOD;
 		}
 		return $items;
 	}
-	
-/*
 	// --------------------------------------------------------------------
-	function get_locations($freezer_spec, $shelf_spec,  $rack_spec) 
+	function find_container($container)
 	{
-		$this->load->database();
-
- 		// labelling information for view
-		$data['title'] = "Freezer";
-		$data['heading'] = "Freezer";
-
-		// navbar support
-		$this->load->model('dms_menu', 'menu', TRUE);
-		$data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report');
-
-		// optional limits on what to include
-		$freezer_spec = $this->uri->segment(3);
-		$shelf_spec = $this->uri->segment(4);
-		$rack_spec = $this->uri->segment(5);
-
-		// populate array of storage locations
-		$sql = "";
-		$sql .= "SELECT Freezer, Shelf, Rack, Row, Col, Location, Available ";
-		$sql .= "FROM V_Material_Locations_List_Report ";
-		$sql .= "WHERE Status = 'Active' ";
-		if($freezer_spec) {
-			$sql .= "AND Freezer LIKE '%$freezer_spec%' ";
+		$sql = <<<EOD
+SELECT  Container, Type, Location, Items, Files, Comment, Action, Barcode, Created, Campaigns, Researcher, #ID AS ID
+FROM V_Material_Containers_List_Report
+EOD;
+		$sql .= " WHERE Container = '$container'";
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
 		}
-		if($shelf_spec) {
-			$sql .= "AND Shelf = '$shelf_spec' ";
-		}
-		if($rack_spec) {
-			$sql .= "AND Rack = '$rack_spec' ";
-		}
-		$sql .= "ORDER BY Freezer, Shelf, Rack, Row, Col ";
-		//
-		$result = $this->db->query($sql);
-		//
-		if(!$result) {echo "Error loading location information"; return;}
-		//
-		$storage = array();
-		$rows = $result->result_array();
+		return $query->result_array();
 	}
-*/
  
 }
 ?>

@@ -77,6 +77,18 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_container_list($containers);
 		echo json_encode($items);
 	}
+	// --------------------------------------------------------------------
+	// AJAX
+	function find_container()
+	{
+		$this->load->model('freezer_model', 'freezer', TRUE);
+
+		$container = $this->input->get_post('Container');
+
+		$containers = $this->freezer->find_container($container);
+		$items = $this->freezer->build_container_list($containers);
+		echo json_encode($items);
+	}
 	
 	// --------------------------------------------------------------------
 	// --------------------------------------------------------------------
