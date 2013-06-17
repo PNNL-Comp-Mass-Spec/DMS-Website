@@ -33,6 +33,14 @@
 	<input class="button" type="button" id="move_container_btn" title="Move selected container(s) to selected location" value="Move Containers" />
 </span>
 
+<span class="ctls">
+	<input class="button" type="button" id="find_location_btn" title="Find and expand location..." value="Find Location" />
+</span>
+
+<span class="ctls">
+	<input class="button" type="button" id="find_container_btn" title="Find and expand location holding container..." value="Find Continer" />
+</span>
+
 </div>
 
 <div id="messages"></div>
@@ -100,6 +108,10 @@ $(document).ready(function() {
 		onPostInit: function(isReloading, isError) {
 		},
 		onLazyRead: function(node) {
+			if(node.data.info.Type == 'Container') {
+				node.setLazyNodeStatus(DTNodeStatus_Ok);
+				return;
+			}
 			if(node.data.info.Status == 'Active') {
 				Freezer.Model.getContainerNodes(node);
 			} else {
@@ -134,7 +146,7 @@ $(document).ready(function() {
 	});
 
 	Freezer.Display.initControls();
-	
+		
 	$("#btnCollapseAll").click(function(){
 		Freezer.Util.getTree("tree").visit(function(node){
 			node.expand(false);
@@ -170,6 +182,17 @@ $(document).ready(function() {
 	
 	$('#move_container_btn').click(function(event){
 		Freezer.Model.moveContainers();
+	});
+	
+	$('#find_location_btn').click(function(event){
+		var val = prompt("Enter location path")
+		val = val || '80B.1.1.1.1'
+		Freezer.Util.exposeLocation(val);
+	});
+	
+	$('#find_container_btn').click(function(event){
+		var val = prompt("Enter container name")
+		Freezer.Model.findContainerNode(val);
 	});
 	
 	// set event handlers for global search panel
