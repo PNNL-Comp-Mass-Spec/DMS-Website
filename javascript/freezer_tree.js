@@ -51,7 +51,7 @@ Freezer.Util = {
 	getNodeName: function(node, itemName){
 		return node.data.info[itemName];
 	},
-	exposeLocation: function(locTag) {
+	normalizeLocationPath: function(locTag) {
 		// fill out locTag to full location path (in case it is partial)
 		var segs = 'na.na.na.na.na'.split('.');
 		var inSegs = locTag.split('.');
@@ -59,9 +59,31 @@ Freezer.Util = {
 			if(idx == 0) s = s.toUpperCase();
 			segs[idx] = s;
 		});
+		return segs.join('.');		
+	},
+	getNormalizedIdentifier: function(id) {
+		var result = { Type:"unknown", NormalizedID:id};
+		var patt1 = /MC\-\d\d\d\d/i;
+		var patt2 = /^\d\d\d\d$/i;
+		if(patt1.test(id)) {
+			result.Type = "Container";
+			result.NormalizedID = id.toUpperCase();
+		} else 
+		if(patt2.test(id)) {
+			result.Type = "Container";
+			result.NormalizedID = "MC-" + id;			
+		} else {
+			result.Type = "Location";
+			result.NormalizedID = Freezer.Util.normalizeLocationPath(id);						
+		}
+		return result;
+	},
+	exposeLocation: function(locTag) {
+		var locTag = Freezer.Util.normalizeLocationPath(locTag);
+		var segs = locTag.split(".");
 		// get hierarchy of parent locations
 		var tagSegs = $.merge([], segs);
-		var parentLocTags = [segs.join('.')];
+		var parentLocTags = [locTag];
 		for(var i = 4; i > 0; i--) {
 			var seg = segs[i];
 			if(seg != 'na') {
@@ -201,6 +223,18 @@ Freezer.Model = {
 			});
 		});		
 	},
+	findLocationNode: function(location) {
+		var url = gamma.pageContext.site_url + 'freezer/find_location';
+		var p = { "Location":location };
+		gamma.getObjectFromJSON(url, p, null, function(json) {
+			var objArray = $.parseJSON(json);
+			if(objArray.length == 0) { 
+				alert("location could not be found"); 
+			} else {
+				Freezer.Util.exposeLocation(objArray[0].info.Tag);
+			}
+		});		
+	},	
 	findContainerNode: function(container) {
 		var url = gamma.pageContext.site_url + 'freezer/find_container';
 		var p = { "Container":container };

@@ -34,11 +34,7 @@
 </span>
 
 <span class="ctls">
-	<input class="button" type="button" id="find_location_btn" title="Find and expand location..." value="Find Location" />
-</span>
-
-<span class="ctls">
-	<input class="button" type="button" id="find_container_btn" title="Find and expand location holding container..." value="Find Continer" />
+	<input class="button" type="button" id="find_location_btn" title="Find and display location or container" value="Find..." />
 </span>
 
 </div>
@@ -185,16 +181,16 @@ $(document).ready(function() {
 	});
 	
 	$('#find_location_btn').click(function(event){
-		var val = prompt("Enter location path")
-		val = val || '80B.1.1.1.1'
-		Freezer.Util.exposeLocation(val);
+		var val = prompt("Enter location path or container ID");
+		var identifier = Freezer.Util.getNormalizedIdentifier(val);
+		if(identifier.Type == "Container") {
+			Freezer.Model.findContainerNode(identifier.NormalizedID);
+		} else 
+		if(identifier.Type == "Location") {
+			Freezer.Model.findLocationNode(identifier.NormalizedID);
+		}
 	});
-	
-	$('#find_container_btn').click(function(event){
-		var val = prompt("Enter container name")
-		Freezer.Model.findContainerNode(val);
-	});
-	
+
 	// set event handlers for global search panel
 	gamma.setSearchEventHandlers($('.global_search_panel'));
 

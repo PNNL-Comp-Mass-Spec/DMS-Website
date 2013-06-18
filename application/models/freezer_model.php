@@ -27,7 +27,7 @@ class Freezer_model extends CI_Model {
 	function get_sub_location_type($type) 
 	{
 		return $this->hierarchy[$type];
-	}
+	}	
 	// --------------------------------------------------------------------
 	function get_freezers()
 	{
@@ -107,10 +107,26 @@ EOD;
 	}
 
 	// --------------------------------------------------------------------
+	function get_location_type($location) 
+	{
+		$type = "Freezer";
+		$locs = array_keys($this->hierarchy);
+		array_pop($locs);
+		foreach($locs as $loc) {
+			$type = $loc;
+			if(!$this->hierarchy[$loc]) break;
+			if($location[$this->hierarchy[$loc]] == "na") break;
+		}
+		return $type;
+	}
+	// --------------------------------------------------------------------
 	function build_freezer_location_list($Type, $locations)
 	{
 		$items = array();
 		foreach($locations as $entry) {
+			if(!$Type) {
+				$Type = $this->get_location_type($entry);
+			}
 			$name = $entry[$Type];
 			$obj = new stdClass();
 			$obj->title =  "$Type $name";
@@ -205,6 +221,24 @@ SELECT  Container, Type, Location, Items, Files, Comment, Action, Barcode, Creat
 FROM V_Material_Containers_List_Report
 EOD;
 		$sql .= " WHERE Container = '$container'";
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
+		}
+		return $query->result_array();
+	}
+	// --------------------------------------------------------------------
+	function find_location($location)
+	{
+		$sql = <<<EOD
+SELECT 
+	ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+	COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
+FROM dbo.T_Material_Locations ML
+	LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
+EOD;
+		$sql .= " WHERE ML.Tag = '$location'";
+		$sql .= " GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
 		$query = $this->db->query($sql);
 		if(!$query) {
 			throw new Exception("Error querying database");
