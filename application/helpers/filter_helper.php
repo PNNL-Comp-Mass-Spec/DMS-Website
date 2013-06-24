@@ -115,12 +115,12 @@
 	}	
 
 	// --------------------------------------------------------------------
-	function make_intermedite_expansion_control() 
+	function make_intermediate_expansion_control() 
 	{
 		return 	'<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'intermediate\')" title="Expand showing only the primary filter"><span class="expando_section ui-icon ui-icon-circle-zoomout "></span></a>';
 	}
 	// --------------------------------------------------------------------
-	function make_intermedite_collapse_control() 
+	function make_intermediate_collapse_control() 
 	{
 		return 	'<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'minimal\')" title="Minimize filters"><span class="expando_section ui-icon ui-icon-circle-zoomin "></span></a>';
 	}
@@ -148,7 +148,7 @@
 			$data['value'] = $spec["value"];
 			$str .= $row_s . $cell_s . str_replace(" ", "&nbsp;", $spec["label"]) . "&nbsp;" . $cell_f . $cell_vs . form_input($data). $cell_f . $row_f;
 		}
-		$str .= make_intermedite_expansion_control();
+		$str .= make_intermediate_expansion_control();
 		return $str;
 	}
 
@@ -166,7 +166,7 @@
 		
 		$hid = "<span class='filter_clear'>" .  primary_filter_vis_control() . "</span>"; 
 		$clr = "<span class='filter_clear'>" . filter_clear_control('primary_filter_field') . "</span>";
-		$clps = make_intermedite_collapse_control();
+		$clps = make_intermediate_collapse_control();
 		
 		$lab = "<span class='filter_label' >Primary Filter</span>";
 		$str .= "<div class='filter_caption'> $lab $clps $clr $hid </div>\n";
