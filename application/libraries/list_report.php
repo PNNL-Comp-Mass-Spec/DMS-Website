@@ -136,6 +136,9 @@ class List_report {
 			case 'maximal':
 				make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter);
 				break;
+			case 'intermediate':
+				make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode);
+				break;
 		}
 	}
 
