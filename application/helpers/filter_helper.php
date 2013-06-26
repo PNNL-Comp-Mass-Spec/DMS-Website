@@ -11,6 +11,7 @@
 		
 		$style = 'display:none;float:left;padding:3px 3px 0 0;';
 
+
 		$g = "<div style='display:none' > $g </div>";
 		$p = "<div id='primary_filter_container' class='filter_container_box' class='filter_container_box' style='clear:both;' > $p </div>";
 		$s = "<div id='secondary_filter_container' class='filter_container_box' style='$style' > $s </div>";
@@ -26,7 +27,7 @@
 	}
 
 	// --------------------------------------------------------------------
-	function make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter)
+	function make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode = "")
 	{
 		$big_primary_filter = big_primary_filter($current_primary_filter_values);
 //		$col_filter_size = ($big_primary_filter)?14:7;
@@ -39,11 +40,13 @@
 		$r = make_sorting_filter($current_sorting_filter_values, $cols);
 		$c = make_column_filter($cols, $col_filter, $col_filter_size);
 		
+		$style = ($filter_display_mode) ? "style='display:none;'" : "";
+
 		$g = "<div style='display:none' > $g </div>";
 		$p = "<div id='primary_filter_container' class='filter_container_box' > $p </div>";
-		$s = "<div id='secondary_filter_container' class='filter_container_box' > $s </div>";
-		$r = "<div id='sorting_filter_container' class='filter_container_box' > $r </div>";
-		$c = "<div id='column_filter_container' class='filter_container_box' > $c </div>";
+		$s = "<div id='secondary_filter_container' class='filter_container_box' $style > $s </div>";
+		$r = "<div id='sorting_filter_container' class='filter_container_box' $style > $r </div>";
+		$c = "<div id='column_filter_container' class='filter_container_box' $style > $c </div>";
 
 		// set up table to hold fields
 		list($cell_s, $cell_vs, $cell_f) = array('<td style="vertical-align:top;">', '<td style="vertical-align:top;" rowspan="2">', "</td>\n");		
@@ -111,7 +114,18 @@
 		return $big;
 	}	
 
-
+	// --------------------------------------------------------------------
+	function make_intermediate_expansion_control() 
+	{
+		return 	'<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'intermediate\')" title="Expand showing only the primary filter"><span class="expando_section ui-icon ui-icon-circle-zoomout "></span></a>';
+	}
+	// --------------------------------------------------------------------
+	function make_intermediate_collapse_control() 
+	{
+		return 	'<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'minimal\')" title="Minimize filters"><span class="expando_section ui-icon ui-icon-circle-zoomin "></span></a>';
+	}
+	
+	
 	// --------------------------------------------------------------------
 	// primary filter form fields 
 	function make_primary_filter($primary_filter_defs)
@@ -134,6 +148,7 @@
 			$data['value'] = $spec["value"];
 			$str .= $row_s . $cell_s . str_replace(" ", "&nbsp;", $spec["label"]) . "&nbsp;" . $cell_f . $cell_vs . form_input($data). $cell_f . $row_f;
 		}
+		$str .= make_intermediate_expansion_control();
 		return $str;
 	}
 
@@ -151,9 +166,10 @@
 		
 		$hid = "<span class='filter_clear'>" .  primary_filter_vis_control() . "</span>"; 
 		$clr = "<span class='filter_clear'>" . filter_clear_control('primary_filter_field') . "</span>";
+		$clps = make_intermediate_collapse_control();
 		
 		$lab = "<span class='filter_label' >Primary Filter</span>";
-		$str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
+		$str .= "<div class='filter_caption'> $lab $clps $clr $hid </div>\n";
 
 		// set up table to hold fields
 		list($cell_s, $cell_f) = array("<td>", "</td>");		

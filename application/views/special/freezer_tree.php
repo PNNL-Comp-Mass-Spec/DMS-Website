@@ -33,6 +33,10 @@
 	<input class="button" type="button" id="move_container_btn" title="Move selected container(s) to selected location" value="Move Containers" />
 </span>
 
+<span class="ctls">
+	<input class="button" type="button" id="find_location_btn" title="Find and display location or container" value="Find..." />
+</span>
+
 </div>
 
 <div id="messages"></div>
@@ -100,6 +104,10 @@ $(document).ready(function() {
 		onPostInit: function(isReloading, isError) {
 		},
 		onLazyRead: function(node) {
+			if(node.data.info.Type == 'Container') {
+				node.setLazyNodeStatus(DTNodeStatus_Ok);
+				return;
+			}
 			if(node.data.info.Status == 'Active') {
 				Freezer.Model.getContainerNodes(node);
 			} else {
@@ -134,7 +142,7 @@ $(document).ready(function() {
 	});
 
 	Freezer.Display.initControls();
-	
+		
 	$("#btnCollapseAll").click(function(){
 		Freezer.Util.getTree("tree").visit(function(node){
 			node.expand(false);
@@ -172,6 +180,17 @@ $(document).ready(function() {
 		Freezer.Model.moveContainers();
 	});
 	
+	$('#find_location_btn').click(function(event){
+		var val = prompt("Enter location path or container ID");
+		var identifier = Freezer.Util.getNormalizedIdentifier(val);
+		if(identifier.Type == "Container") {
+			Freezer.Model.findContainerNode(identifier.NormalizedID);
+		} else 
+		if(identifier.Type == "Location") {
+			Freezer.Model.findLocationNode(identifier.NormalizedID);
+		}
+	});
+
 	// set event handlers for global search panel
 	gamma.setSearchEventHandlers($('.global_search_panel'));
 

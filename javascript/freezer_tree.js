@@ -50,7 +50,70 @@ Freezer.Util = {
 	},
 	getNodeName: function(node, itemName){
 		return node.data.info[itemName];
+	},
+	normalizeLocationPath: function(locTag) {
+		// fill out locTag to full location path (in case it is partial)
+		var segs = 'na.na.na.na.na'.split('.');
+		var inSegs = locTag.split('.');
+		$.each(inSegs, function(idx, s) {
+			if(idx == 0) s = s.toUpperCase();
+			segs[idx] = s;
+		});
+		return segs.join('.');		
+	},
+	getNormalizedIdentifier: function(id) {
+		var result = { Type:"unknown", NormalizedID:id};
+		var patt1 = /MC\-\d\d\d\d/i;
+		var patt2 = /^\d\d\d\d$/i;
+		if(patt1.test(id)) {
+			result.Type = "Container";
+			result.NormalizedID = id.toUpperCase();
+		} else 
+		if(patt2.test(id)) {
+			result.Type = "Container";
+			result.NormalizedID = "MC-" + id;			
+		} else {
+			result.Type = "Location";
+			result.NormalizedID = Freezer.Util.normalizeLocationPath(id);						
+		}
+		return result;
+	},
+	exposeLocation: function(locTag) {
+		var locTag = Freezer.Util.normalizeLocationPath(locTag);
+		var segs = locTag.split(".");
+		// get hierarchy of parent locations
+		var tagSegs = $.merge([], segs);
+		var parentLocTags = [locTag];
+		for(var i = 4; i > 0; i--) {
+			var seg = segs[i];
+			if(seg != 'na') {
+				tagSegs[i] = 'na';
+				parentLocTags.push(tagSegs.join('.'));
+			}
+		}
+		// expand parents as needed
+		var tree = Freezer.Util.getTree("tree");
+		var topDown = parentLocTags.reverse();
+		var level = 0;
+		Freezer.Util.nextLevel(tree, topDown, level);
+	},
+	nextLevel: function(tree, topDown, level) {
+		if(level >= topDown.length) {
+			return;
+		}
+		var tag = topDown[level++];
+		var node = tree.getNodeByKey(tag);
+		if(node.hasChildren()) {
+			Freezer.Util.nextLevel(tree, topDown, level);
+		} else {
+			node.reloadChildren(function(node, isOk){
+			    Freezer.Util.nextLevel(tree, topDown, level);
+			});
+		}
+		node.expand(true);
 	}
+
+
 }
 
 Freezer.Model = {
@@ -160,6 +223,30 @@ Freezer.Model = {
 			});
 		});		
 	},
+	findLocationNode: function(location) {
+		var url = gamma.pageContext.site_url + 'freezer/find_location';
+		var p = { "Location":location };
+		gamma.getObjectFromJSON(url, p, null, function(json) {
+			var objArray = $.parseJSON(json);
+			if(objArray.length == 0) { 
+				alert("location could not be found"); 
+			} else {
+				Freezer.Util.exposeLocation(objArray[0].info.Tag);
+			}
+		});		
+	},	
+	findContainerNode: function(container) {
+		var url = gamma.pageContext.site_url + 'freezer/find_container';
+		var p = { "Container":container };
+		gamma.getObjectFromJSON(url, p, null, function(json) {
+			var objArray = $.parseJSON(json);
+			if(objArray.length == 0) { 
+				alert("container could not be found"); 
+			} else {
+				Freezer.Util.exposeLocation(objArray[0].info.Location);
+			}
+		});		
+	},	
 	moveContainers: function() {
 		var catNodes = Freezer.Util.getSelectedNodesByType("tree");
 		var moveParms = Freezer.Util.getContainerMoveParameters(catNodes);

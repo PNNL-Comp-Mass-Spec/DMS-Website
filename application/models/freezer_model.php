@@ -27,7 +27,7 @@ class Freezer_model extends CI_Model {
 	function get_sub_location_type($type) 
 	{
 		return $this->hierarchy[$type];
-	}
+	}	
 	// --------------------------------------------------------------------
 	function get_freezers()
 	{
@@ -107,10 +107,26 @@ EOD;
 	}
 
 	// --------------------------------------------------------------------
+	function get_location_type($location) 
+	{
+		$type = "Freezer";
+		$locs = array_keys($this->hierarchy);
+		array_pop($locs);
+		foreach($locs as $loc) {
+			$type = $loc;
+			if(!$this->hierarchy[$loc]) break;
+			if($location[$this->hierarchy[$loc]] == "na") break;
+		}
+		return $type;
+	}
+	// --------------------------------------------------------------------
 	function build_freezer_location_list($Type, $locations)
 	{
 		$items = array();
 		foreach($locations as $entry) {
+			if(!$Type) {
+				$Type = $this->get_location_type($entry);
+			}
 			$name = $entry[$Type];
 			$obj = new stdClass();
 			$obj->title =  "$Type $name";
@@ -197,50 +213,38 @@ EOD;
 		}
 		return $items;
 	}
-	
-/*
 	// --------------------------------------------------------------------
-	function get_locations($freezer_spec, $shelf_spec,  $rack_spec) 
+	function find_container($container)
 	{
-		$this->load->database();
-
- 		// labelling information for view
-		$data['title'] = "Freezer";
-		$data['heading'] = "Freezer";
-
-		// navbar support
-		$this->load->model('dms_menu', 'menu', TRUE);
-		$data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report');
-
-		// optional limits on what to include
-		$freezer_spec = $this->uri->segment(3);
-		$shelf_spec = $this->uri->segment(4);
-		$rack_spec = $this->uri->segment(5);
-
-		// populate array of storage locations
-		$sql = "";
-		$sql .= "SELECT Freezer, Shelf, Rack, Row, Col, Location, Available ";
-		$sql .= "FROM V_Material_Locations_List_Report ";
-		$sql .= "WHERE Status = 'Active' ";
-		if($freezer_spec) {
-			$sql .= "AND Freezer LIKE '%$freezer_spec%' ";
+		$sql = <<<EOD
+SELECT  Container, Type, Location, Items, Files, Comment, Action, Barcode, Created, Campaigns, Researcher, #ID AS ID
+FROM V_Material_Containers_List_Report
+EOD;
+		$sql .= " WHERE Container = '$container'";
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
 		}
-		if($shelf_spec) {
-			$sql .= "AND Shelf = '$shelf_spec' ";
-		}
-		if($rack_spec) {
-			$sql .= "AND Rack = '$rack_spec' ";
-		}
-		$sql .= "ORDER BY Freezer, Shelf, Rack, Row, Col ";
-		//
-		$result = $this->db->query($sql);
-		//
-		if(!$result) {echo "Error loading location information"; return;}
-		//
-		$storage = array();
-		$rows = $result->result_array();
+		return $query->result_array();
 	}
-*/
+	// --------------------------------------------------------------------
+	function find_location($location)
+	{
+		$sql = <<<EOD
+SELECT 
+	ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+	COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
+FROM dbo.T_Material_Locations ML
+	LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
+EOD;
+		$sql .= " WHERE ML.Tag = '$location'";
+		$sql .= " GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
+		}
+		return $query->result_array();
+	}
  
 }
 ?>

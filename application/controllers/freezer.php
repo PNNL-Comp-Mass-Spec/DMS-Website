@@ -77,7 +77,47 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_container_list($containers);
 		echo json_encode($items);
 	}
-	
+	// --------------------------------------------------------------------
+	// AJAX
+	function find_container()
+	{
+		$this->load->model('freezer_model', 'freezer', TRUE);
+
+		$container = $this->input->get_post('Container');
+
+		$containers = $this->freezer->find_container($container);
+		$items = $this->freezer->build_container_list($containers);
+		echo json_encode($items);
+	}
+	// --------------------------------------------------------------------
+	// AJAX
+	function find_location()
+	{
+		$this->load->model('freezer_model', 'freezer', TRUE);
+
+		$location = $this->input->get_post('Location');
+
+		$locations = $this->freezer->find_location($location);
+		$items = $this->freezer->build_freezer_location_list('', $locations);
+		echo json_encode($items);
+	}
+	// --------------------------------------------------------------------
+	function test()
+	{
+		$this->load->model('freezer_model', 'freezer', TRUE);
+		$testLocs = array(
+			"80B.na.na.na.na",
+			"80B.1.na.na.na",
+			"80B.1.2.na.na",
+			"80B.1.2.1.na",			
+			"80B.1.2.1.2",
+		);
+		foreach($testLocs as $location) {
+			$locations = $this->freezer->find_location($location);
+			echo $location . "=>" .$this->freezer->get_location_type($locations[0]) ."\n";
+		}
+	}
+		
 	// --------------------------------------------------------------------
 	// --------------------------------------------------------------------
 	
