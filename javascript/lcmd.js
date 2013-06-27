@@ -181,6 +181,26 @@ var lcmd = {
 			lambda.submitOperation(url, p);
 		}
 	},
+	requested_run_admin: {
+		op: function(mode, value) {
+			var list = lambda.getCkbxList('ckbx');
+			if(list=='') {
+				alert('You must select requests.'); 
+				return;
+			}
+			if(list.length > 4096) {
+				alert('You have selected more items than system can handle at one time.  Please select fewer items and try again.');
+				return;
+			}
+			if (!confirm("Are you sure that you want to update the database?")) return;
+			url = gamma.pageContext.site_url + 'requested_run/operation/';
+			var p = {};
+			p.command = mode;
+			p.Param = (value)?$('#' + value).val():'';
+			p.ID = list;
+			lambda.submitOperation(url, p);
+		}
+	},
 	sample_prep_request_assignment: {
 		op: function(mode, value) {
 			var list = lambda.getCkbxList('ckbx');
