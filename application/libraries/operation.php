@@ -106,7 +106,7 @@ class Operation {
 			foreach($fields as $field) {
 				$calling_params->$field = $CI->form_validation->set_value($field);
 			}
-			$calling_params->mode = $CI->input->post('command');
+			$calling_params->mode = ($CI->input->post('mode')) ? $CI->input->post('mode') : $CI->input->post('command');
 			$calling_params->callingUser = get_user();
 			$calling_params->message = '';
 			

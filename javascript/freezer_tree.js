@@ -252,7 +252,7 @@ Freezer.Model = {
 		var moveParms = Freezer.Util.getContainerMoveParameters(catNodes);
 		var url = gamma.pageContext.site_url + 'material_move_container/operation';
 		var p = {
-			command:'move_container',
+			mode:'move_container',
 			containerList:moveParms.containers,
 			newValue:moveParms.destinationLoc,
 			comment:'' // Future: prompt for comment
