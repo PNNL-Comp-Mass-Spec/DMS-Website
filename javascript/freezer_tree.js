@@ -136,12 +136,13 @@ Freezer.Model = {
 	},
 	displayContainerNode: function(node) {
 		var newTitle = node.data.info.ContainerType + " " + node.data.info.Name;
-		newTitle +=" [" + node.data.info.Items + "] ";
+		newTitle +=" [" + node.data.info.Items + "] ";	
 		newTitle +=" " +  node.data.info.Researcher + " ";
 		newTitle +=" '" + node.data.info.Comment + "' ";
 //		newTitle +=" " +  node.data.info.Files + " ";
 		node.data.tooltip = node.data.info.Tag;
-		node.setTitle(newTitle);			
+		node.setTitle(newTitle);
+		node.href = "Bob";
 	},
 	getLocationNodes: function(node) {
 			node.appendAjax({
