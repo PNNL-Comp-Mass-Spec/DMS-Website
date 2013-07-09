@@ -48,9 +48,9 @@ var entry = {
 			$('#protCollNameList').val($('#suggested_ProteinCollectionList').val());
 			$('#protCollOptionsList').val($('#suggested_ProteinOptionsList').val());
 			
-			$('#ModificationDynMetOx').checked = ($('#suggested_DynMetOxEnabled').val( '1'));
-			$('#ModificationStatCysAlk').checked = ($('#suggested_StatCysAlkEnabled').val( '1'));
-			$('#ModificationDynSTYPhos').checked = ( $('#suggested_DynSTYPhosEnabled').val( '1'));
+			$('#ModificationDynMetOx').attr('checked', $('#suggested_DynMetOxEnabled').val() == '1');
+			$('#ModificationStatCysAlk').attr('checked', $('#suggested_StatCysAlkEnabled').val() == '1');
+			$('#ModificationDynSTYPhos').attr('checked', $('#suggested_DynSTYPhosEnabled').val() == '1');
 		
 			epsilon.showHideSections('show', '3,4,5');
 		},
