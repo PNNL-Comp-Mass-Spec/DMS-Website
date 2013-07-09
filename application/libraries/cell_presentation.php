@@ -158,9 +158,10 @@ class cell_presentation {
 				break;
 			case "select_case":
 				$t = $colSpec["Options"];
+				$link_item = ($target) ? $row[$target] : $value ;
 				if(array_key_exists($ref, $t)) {
-					$target = $t[$ref];
-					$url = reduce_double_slashes(site_url()."$target/show/$value");
+					$link_base = $t[$ref];
+					$url = reduce_double_slashes(site_url()."$link_base/show/$link_item");
 					$str .= "<td><a href='$url'>$value</a></td>";
 				} else {
 					$str .= "<td>$value</td>";
