@@ -119,7 +119,6 @@ class config_db extends CI_Controller {
 	private
 	function _exec_sql($config_db, $sql, $table_name) {
  		$restore = $this->_get_table_contents_sql($config_db, $table_name);
- 
 		$s = "";
 		$dbFilePath = $this->configDBPath.$config_db;
 		$dbh = new PDO("sqlite:$dbFilePath");
@@ -1385,6 +1384,19 @@ class config_db extends CI_Controller {
 			$data['heading'] =$data['title'];
 			$data['message'] = $msg;
 			$this->load->view('message_box', $data);
+	}
+
+	// --------------------------------------------------------------------
+	function vacuum_db($config_db) {
+		$dbFilePath = $this->configDBPath.$config_db;
+//		$before = filesize($dbFilePath);		
+		$dbh = new PDO("sqlite:$dbFilePath");
+// 		$dbh->beginTransaction();
+		$dbh->query("VACUUM;");
+//		$dbh->commit();
+		$dbh = null;
+//		$after = filesize($dbFilePath);		
+		echo "Config DB '$config_db' has been vacuumed.";
 	}
 
 /*

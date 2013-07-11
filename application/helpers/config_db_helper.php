@@ -286,8 +286,10 @@ echo "</th></tr>\n";
 		$s .= "<a href='".site_url()."config_db/support_config_db_list'>Support Database List</a> &nbsp; | &nbsp;";
 		if($config_db) {
 			$s .= "<a href='".site_url()."config_db/show_db/$config_db'>Config DB</a> &nbsp; | &nbsp;";
+			$s .= "<a href='".site_url()."config_db/vacuum_db/$db/_'>Vacuum</a> &nbsp; | &nbsp;";
 		} else {
-			$s .= "Config DB</a> &nbsp; | &nbsp;";
+			$s .= "Config DB &nbsp; | &nbsp;";
+			$s .= "Vacuum &nbsp; | &nbsp;";
 			$db = 'db';
 		}
 		$s .= "<a href='".site_url()."config_db/search/$db/_'>Search</a> &nbsp; | &nbsp;";
