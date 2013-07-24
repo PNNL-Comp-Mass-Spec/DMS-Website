@@ -18,6 +18,7 @@ var lcmd = {
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
+			// url will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupAssociations
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
@@ -47,6 +48,7 @@ var lcmd = {
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
 			if(mode=='set_membership_enabled') mode = $('#' + p1).val();
+			// url will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupMembership
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
@@ -94,6 +96,7 @@ var lcmd = {
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
+			// url will point to the operations_sproc value defined in dataset_disposition.db, typically UpdateDatasetDispositions
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
@@ -112,7 +115,7 @@ var lcmd = {
 		},
 		op: function(mode) {
 			if ( !confirm("Are you sure that you want to update the database?") ) return;
-			url = gamma.pageContext.ops_url;
+			var url = gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
 			p.InstrumentGroup = $('#instrument_group_fld').val();
@@ -129,7 +132,7 @@ var lcmd = {
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;
-			url = gamma.pageContext.ops_url;
+			var url = gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
 			p.containerList = list;
@@ -150,7 +153,7 @@ var lcmd = {
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;
-			url = gamma.pageContext.ops_url;
+			var url = gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
 			p.itemType = itemType;
@@ -174,6 +177,7 @@ var lcmd = {
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
+			// url will point to the operations_sproc value defined in osm_package_items.db, typically UpdateOSMPackageItemsXML
 			var url =  gamma.pageContext.site_url + 'osm_package_items/operation/';
 			$('#paramListXML').val(list);
 			$('#entry_cmd_mode').val(mode);
@@ -193,7 +197,9 @@ var lcmd = {
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;
-			url = gamma.pageContext.site_url + 'requested_run/operation/';
+			// url will point to the operations_sproc value defined in requested_run.db, typically UpdateRequestedRunAssignments
+			// See: http://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/general_params
+			var url = gamma.pageContext.site_url + 'requested_run/operation/';
 			var p = {};
 			p.command = mode;
 			p.Param = (value)?$('#' + value).val():'';
@@ -210,7 +216,8 @@ var lcmd = {
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
-			url =  gamma.pageContext.site_url + "sample_prep_request_assignment/operation";
+			// url will point to the operations_sproc value defined in sample_prep_request_assignment.db, typically UpdateSampleRequestAssignments
+			var url =  gamma.pageContext.site_url + "sample_prep_request_assignment/operation";
 			var p = {};
 			p.command = mode;
 			p.newValue = (value)?$('#' + value).val():'';

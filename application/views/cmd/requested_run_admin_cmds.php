@@ -13,6 +13,11 @@
 <span><?= $this->choosers->get_chooser('dataset_type', 'datasetTypePickList')?></span>
 </div>
 
+<div>
+<input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.requested_run_admin.op("separationGroup", "separation_group_chooser")' /> Change separation group of selected requests to 
+<span><?= $this->choosers->get_chooser('separation_group', 'separationGroupPickList')?></span>
+</div>
+
 <hr>
 <div>
 <input class='button lst_cmd_btn' type="button" value="Set Requests Active" onClick='tau.requested_run_admin.setRequestStatus("Active")' title="Test"  /> Set selected requests to "Active" status
