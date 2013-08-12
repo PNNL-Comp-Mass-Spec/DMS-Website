@@ -276,6 +276,33 @@ var gamma = {
 			);
 		};
 	}(),
+	makeElementOverlay: function(elementId, message) {
+		var target = $("#" + elementId);
+		var overlay = $("<div />").css({
+			position: "absolute",
+			width: "100%",
+			height: "100%",
+			left: 0,
+			top: 0,
+			zIndex: 1000,  // to be on the safe side
+			background: 'gray',
+			opacity: 0.8
+		});
+		var label = $("<div id='overlay_label' ></div>").css({
+			'margin-left' : '2em',
+			'margin-top' : '2em',
+			'font-size' : '4em',
+			'color' : 'black',
+			'font-style' : 'italic',
+			'display' : 'none'
+		});
+		if(message) {
+			label.text(message);
+			overlay.append(label);
+		}
+		overlay.appendTo(target.css("position", "relative"));		
+		return overlay;
+	},
 	clearSelector: function(name) {
 		$('#' + name + ' option').each(function(idx, opt) {
 			opt.selected = false;

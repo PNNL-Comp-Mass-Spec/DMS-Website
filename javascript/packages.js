@@ -12,6 +12,27 @@ var packages = {
 			delta.processResults(data, container);
 		});
 	},
+	updateOSMPackage: function(id, mode) {
+		if ( !confirm("Are you sure that you want to " + mode + " this package?") ) return;
+		var url = gamma.pageContext.site_url + "osm_package/call/";
+		var lUrl = gamma.pageContext.site_url + "osm_package/report";
+		var p = {osmPackageID: id, mode: mode};
+		gamma.doOperation(url, p, 'entry_update_status', function(data, container) {
+			var x = $.parseJSON(data);
+			if(x.result == 0) {
+				var s = "OSM Package was deleted. Go to <a href='"+ lUrl + "' >list report</a>";
+				$('#osm_cmd_container').hide();
+				$('#attachments_control_section').hide();
+				$('.LRepExport').hide();
+				container.html(s);			
+				var overlay = gamma.makeElementOverlay("data_container", "It's dead, Jim...");	
+				$('#overlay_label').fadeIn(900);
+			} else {
+				container.html(x.message);
+			}
+		});
+	}
+/* OMCS-977	
 	revealOsmPackageCreateSection: function() {
 		var iframe = document.getElementById('embedded_page');
 		var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
@@ -86,4 +107,5 @@ var packages = {
 		var p = $('#operation_form').serialize();
 		lambda.submitOperation(url, p);
 	}	
+*/	
 }

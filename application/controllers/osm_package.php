@@ -11,7 +11,8 @@ class osm_package extends Base_controller {
 		$this->my_tag = "osm_package";
 		$this->my_title = "OSM Package";
 	}
-	
+
+/* OMCS-977		
 	// --------------------------------------------------------------------
 	// (someday) use q_model
 	function suggested_items($id, $mode) {
@@ -26,6 +27,7 @@ class osm_package extends Base_controller {
 		$result = $query->row();
 		echo $result->computed;
 	}	
+ */
 }
 
 
