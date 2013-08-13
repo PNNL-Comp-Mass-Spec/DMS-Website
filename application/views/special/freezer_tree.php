@@ -14,86 +14,136 @@
 <div id="body_container" >
 <? $this->load->view('nav_bar') ?>
 
-<div class='local_title'>Freezer Location Admin</div>
-
-<div class='ctl_panel'>
-<span class="ctls">
-	<input class="button" type="button"  id="btnCollapseAll" title="Collapse all expanded locations" value="Collapse&nbsp;all"</a" />
-</span>
-<span class="ctls">
-	<input class="button" type="button" id="btnClearSelections" title="Clear selections" value="Clear Selections" />
-</span>
-<span class="ctls">
-	<input class="button" type="button"  id="set_active_btn" title="Set selected locations to active" value="Set Active" /> 
-</span>
-<span class="ctls">
-	<input class="button" type="button"  id="set_inactive_btn" title="Set selected locations to inactive" value="Set Inactive" /> 
-</span>
-<span class="ctls">
-	<input class="button" type="button" id="move_container_btn" title="Move selected container(s) to selected location" value="Move Containers" />
-</span>
-
-<span class="ctls">
-	<input class="button" type="button" id="find_location_btn" title="Find and display location or container" value="Find..." />
-</span>
-
-</div>
+<div class='local_title'>Freezer Management</div>
 
 <div id="messages"></div>
 
-<div id='tree'>
-<ul>
-
-</ul>
-</div>
+<table>
+<thead>
+	<tr>
+		<th>
+		<p style="text-align: left;">Source</p>
+		</th>
+		<th>
+		<p style="text-align: left;">Destination</p>
+		</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>
+		<input class="button" type="button" id="btnCollapseAll1" title="Collapse all expanded locations" value="Collapse&nbsp;all"</a" />
+		<input class="button" type="button" id="btnClearSelections1" title="Clear selections" value="Clear Selections" />	
+		</td>
+		<td>
+		<input class="button" type="button" id="btnCollapseAll2" title="Collapse all expanded locations" value="Collapse&nbsp;all"</a" />
+		</td>
+	</tr>
+	<tr valign="top">
+		<td>
+		<div style="width: 30em;"><div id="tree1" > </div></div>
+		</td>
+		<td>
+		<div style="width: 30em;"><div id="tree2"></div></div>
+		</td>
+	</tr>
+</tbody>
+</table>
 
 <script type='text/javascript'>
 gamma.pageContext.site_url = '<?= site_url() ?>';
 
 Freezer.Display = {
-	initControls: function() {
-		$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
-		$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
-		$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
-		$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
+	Model: null,
+	create: function(treeElementName) {
+		var me = $.extend({}, Freezer.Display);
+		me.Model = Freezer.Model.create(treeElementName);
+		return me;
 	},
-	getSelectionPattern: function(selectedNodes) {
-		var categorizedNodeList = Freezer.Util.getSelectedNodesByType("tree");
-		var selectionPattern = '';
-		var locationCount = categorizedNodeList.locations.length;
-		var containerCount = categorizedNodeList.containers.length;
-		if(locationCount == 0 && containerCount == 0) {
-			$('#btnClearSelections').prop("disabled", true).addClass('ui-state-disabled')
-		} else {
-			$('#btnClearSelections').prop("disabled", false).removeClass('ui-state-disabled')
-		}
-		if(containerCount == 0 && locationCount > 0) {
-			selectionPattern = "Set Location Status";
-			$('#set_active_btn').prop("disabled", false).removeClass('ui-state-disabled')
-			$('#set_inactive_btn').prop("disabled", false).removeClass('ui-state-disabled')
-			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
-			
-		} else 
-		if(locationCount == 1 && containerCount > 0) {
-			selectionPattern = "Move Containers";
-			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#move_container_btn').prop("disabled", false).removeClass('ui-state-disabled')
-		} else {
-			selectionPattern = "";			
-			$('#set_active_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#set_inactive_btn').prop("disabled", true).addClass('ui-state-disabled')
-			$('#move_container_btn').prop("disabled", true).addClass('ui-state-disabled')
-		}
-		selectionPattern = (selectionPattern) ? selectionPattern + ": " : "";
-		return selectionPattern;
-	}	
+	collapseTree: function() {
+		this.Model.getTree().reload();
+		return false;		
+	},
+	clearSelection: function() {
+		this.Model.getTree().visit(function(node){
+			node.select(false);
+		});
+		return false;		
+	}
 }
 
 $(document).ready(function() {
 
-	// set up tree menu
-	$("#tree").dynatree({
+	Freezer.Display.Source = Freezer.Display.create("tree1");
+	Freezer.Display.Destination = Freezer.Display.create("tree2");
+	
+	$("#btnCollapseAll1").click(function(){
+		return Freezer.Display.Source.collapseTree();
+	});
+	$("#btnCollapseAll2").click(function(){
+		return Freezer.Display.Destination.collapseTree();
+	});
+	$("#btnClearSelections1").click(function(){
+		return Freezer.Display.Source.clearSelection();
+	});
+	
+	
+	/*----- set up destination tree -----*/
+  Freezer.Display.Destination.Model.myTreeElement.dynatree({
+	minExpandLevel: 1,
+	selectMode: 2,
+	checkbox: false,
+	initAjax: {
+		url: '<?= site_url() ?>freezer/get_freezers', 
+		data: {}
+	},
+	onLazyRead: function(node){
+		if(node.data.info.Type == 'Container') {
+			node.setLazyNodeStatus(DTNodeStatus_Ok);
+			return;
+		}
+		if(node.data.info.Status == 'Active') {
+			Freezer.Display.Destination.Model.getContainerNodes(node);
+		} else {
+			if(node.data.info.Type == 'Col') {
+				node.setLazyNodeStatus(DTNodeStatus_Ok);
+			} else {
+				Freezer.Display.Destination.Model.getLocationNodes(node);
+			}
+		}
+    },
+    onActivate: function(node) {
+      $("#echoActive2").text(node.data.title + "(" + node.data.key + ")");
+    },
+    onDeactivate: function(node) {
+      $("#echoActive2").text("-");
+    },
+    dnd: {
+      autoExpandMS: 1000,
+      preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+      onDragEnter: function(node, sourceNode) {
+        // Return false to disallow dropping this node.
+		return node.data.info.Type == 'Col' && node.data.info.Available > 0
+      },
+      onDragOver: function(node, sourceNode, hitMode) {
+        // Return false to disallow dropping this node.
+		return node.data.info.Type == 'Col'
+      },
+      onDrop: function(node, sourceNode, hitMode, ui, draggable) {
+        // This function MUST be defined to enable dropping of items on the tree.
+        //sourceNode may be null, if it is a non-Dynatree droppable.
+		var container = sourceNode.data.info.Name;
+		var location = node.data.info.Tag;
+        logMsg("Move %o -> %o", container, location);
+      },
+      onDragLeave: function(node, sourceNode) {
+        // Always called if onDragEnter was called.
+      }
+    }
+  });
+
+	/*----- set up source tree -----*/
+	Freezer.Display.Source.Model.myTreeElement.dynatree({
 		minExpandLevel: 1,
 		selectMode: 2,
 		checkbox: true,
@@ -109,12 +159,12 @@ $(document).ready(function() {
 				return;
 			}
 			if(node.data.info.Status == 'Active') {
-				Freezer.Model.getContainerNodes(node);
+				Freezer.Display.Source.Model.getContainerNodes(node);
 			} else {
 				if(node.data.info.Type == 'Col') {
 					node.setLazyNodeStatus(DTNodeStatus_Ok);
 				} else {
-					Freezer.Model.getLocationNodes(node);
+					Freezer.Display.Source.Model.getLocationNodes(node);
 				}
 			}
 		},
@@ -124,10 +174,6 @@ $(document).ready(function() {
 				case 'expander':
 					break;
 				case 'title':
-					if(node.data.info.Type == 'Container') {
-						var link = gamma.pageContext.site_url + "material_container/show/" + node.data.info.Name;
-						window.open(link);
-					}
 					//node.toggleSelect();
 					console.log("click->" + node.data.info.Tag);
 					return false;
@@ -146,58 +192,23 @@ $(document).ready(function() {
 			} else {
 				$("#messages").text("");				
 			}
-		}
+		},
+		dnd: {
+		  onDragStart: function(node) {
+		    /** This function MUST be defined to enable dragging for the tree.
+		     *  Return false to cancel dragging of node.
+		     */
+		    logMsg("tree.onDragStart(%o)", node);
+		    if(node.data.isFolder)
+		      return false;
+		    return true;
+		  },
+		  onDragStop: function(node) {
+		    logMsg("tree.onDragStop(%o)", node);
+		  }
+		}		
 	});
-
-	Freezer.Display.initControls();
 		
-	$("#btnCollapseAll").click(function(){
-		Freezer.Util.getTree("tree").visit(function(node){
-			node.expand(false);
-		});
-		 return false;
-	});
-	$("#btnClearSelections").click(function(){
-		Freezer.Util.getTree("tree").visit(function(node){
-			node.select(false);
-		});
-		return false;
-	});
-	$("#display_tag_ckbx").on("change", function(event){
-		Freezer.Model.setNodeDisplay();
-	});	
-	$("#display_status_ckbx").on("change", function(event){
-		Freezer.Model.setNodeDisplay();
-	});	
-	$("#display_loading_ckbx").on("change", function(event){
-		Freezer.Model.setNodeDisplay();
-	});	
-
-	$("#set_active_btn, #set_inactive_btn").click(function(event){
-		var changeList = Freezer.Util.getStatusChangeList();
-		if(changeList.length == 0) {
-			alert("No locations are currently selected");			
-		} else {
-//			alert("Future: Set locations '" + changesXML + "'");
-			Freezer.Model.updateDatabase(changeList);
-		}
-		return false;
-	});
-	
-	$('#move_container_btn').click(function(event){
-		Freezer.Model.moveContainers();
-	});
-	
-	$('#find_location_btn').click(function(event){
-		var val = prompt("Enter location path or container ID");
-		var identifier = Freezer.Util.getNormalizedIdentifier(val);
-		if(identifier.Type == "Container") {
-			Freezer.Model.findContainerNode(identifier.NormalizedID);
-		} else 
-		if(identifier.Type == "Location") {
-			Freezer.Model.findLocationNode(identifier.NormalizedID);
-		}
-	});
 
 	// set event handlers for global search panel
 	gamma.setSearchEventHandlers($('.global_search_panel'));

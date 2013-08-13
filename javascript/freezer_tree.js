@@ -1,14 +1,20 @@
 var Freezer = {};
 
-Freezer.Util = {
-	getTree: function(elementName) {
-		return $('#' + elementName).dynatree("getTree");
+Freezer.Model = {
+	myTreeElement: '',
+	create: function(elementName) {
+		var me = $.extend({}, Freezer.Model);
+		me.myTreeElement = $('#' + elementName);
+		return me;
 	},
-	getSelectedNodes: function(elementName) {
-		return Freezer.Util.getTree(elementName).getSelectedNodes();
+	getTree: function() {
+		return this.myTreeElement.dynatree("getTree");
+	},
+	getSelectedNodes: function() {
+		return this.getTree().getSelectedNodes();
 	},	
-	getSelectedNodesByType: function(elementName) {
-		var selectedNodes = Freezer.Util.getSelectedNodes(elementName);
+	getSelectedNodesByType: function() {
+		var selectedNodes = this.getSelectedNodes();
 		var catNodes = {
 			containers: [],
 			locations: [],
@@ -45,8 +51,8 @@ Freezer.Util = {
 	getStatusChangeList: function() {
 		var cmd = event.target.id;
 		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";
-		var selectedNodes = Freezer.Util.getSelectedNodes("tree");
-		return Freezer.Model.getChangeList(selectedNodes, 'Status', newStatus);
+		var selectedNodes = this.getSelectedNodes();
+		return this.getChangeList(selectedNodes, 'Status', newStatus);
 	},
 	getNodeName: function(node, itemName){
 		return node.data.info[itemName];
@@ -74,12 +80,12 @@ Freezer.Util = {
 			result.NormalizedID = "MC-" + id;			
 		} else {
 			result.Type = "Location";
-			result.NormalizedID = Freezer.Util.normalizeLocationPath(id);						
+			result.NormalizedID = this.normalizeLocationPath(id);						
 		}
 		return result;
 	},
 	exposeLocation: function(locTag) {
-		var locTag = Freezer.Util.normalizeLocationPath(locTag);
+		var locTag = this.normalizeLocationPath(locTag);
 		var segs = locTag.split(".");
 		// get hierarchy of parent locations
 		var tagSegs = $.merge([], segs);
@@ -92,10 +98,10 @@ Freezer.Util = {
 			}
 		}
 		// expand parents as needed
-		var tree = Freezer.Util.getTree("tree");
+		var tree = this.getTree();
 		var topDown = parentLocTags.reverse();
 		var level = 0;
-		Freezer.Util.nextLevel(tree, topDown, level);
+		this.nextLevel(tree, topDown, level);
 	},
 	nextLevel: function(tree, topDown, level) {
 		if(level >= topDown.length) {
@@ -103,26 +109,23 @@ Freezer.Util = {
 		}
 		var tag = topDown[level++];
 		var node = tree.getNodeByKey(tag);
+		var that = this;
 		if(node.hasChildren()) {
-			Freezer.Util.nextLevel(tree, topDown, level);
+			this.nextLevel(tree, topDown, level);
 		} else {
 			node.reloadChildren(function(node, isOk){
-			    Freezer.Util.nextLevel(tree, topDown, level);
+			    that.nextLevel(tree, topDown, level);
 			});
 		}
 		node.expand(true);
-	}
-
-
-}
-
-Freezer.Model = {
+	},
 	setNodeDisplay: function() {
-		Freezer.Util.getTree("tree").visit(function(node){
+		var that = this;
+		this.getTree().visit(function(node){
 			if(node.data.info.Type == 'Container') {
-				Freezer.Model.displayContainerNode(node);
+				that.displayContainerNode(node);
 			} else {
-				Freezer.Model.displayLocationNode(node);
+				that.displayLocationNode(node);
 			}
 		});
 	},
@@ -136,41 +139,44 @@ Freezer.Model = {
 	},
 	displayContainerNode: function(node) {
 		var newTitle = node.data.info.ContainerType + " " + node.data.info.Name;
-		newTitle +=" [" + node.data.info.Items + "] ";
-		newTitle +=" " +  node.data.info.Researcher + " ";
-		newTitle +=" '" + node.data.info.Comment + "' ";
-//		newTitle +=" " +  node.data.info.Files + " ";
-		node.data.tooltip = node.data.info.Tag;
+		var extra = "";
+		extra +=" [" + node.data.info.Items + "] ";
+		extra +=" " +  node.data.info.Researcher + " ";
+		extra +=" '" + node.data.info.Comment + "' ";
+//		extra +=" " +  node.data.info.Files + " ";
+		node.data.tooltip = extra;
 		node.setTitle(newTitle);			
 	},
 	getLocationNodes: function(node) {
-			node.appendAjax({
-				url: gamma.pageContext.site_url + 'freezer/get_locations',
-				type: "POST",			
-				data: {
-					"Type": node.data.info.Type,
-					"Freezer":node.data.info.Freezer,
-					"Shelf":node.data.info.Shelf,
-					"Rack":node.data.info.Rack,
-					"Row":node.data.info.Row,
-					"Col":node.data.info.Col
-				},
-				success: function(node) {
-					Freezer.Model.setNodeDisplay();
-				}
-			});		
+		var that = this;
+		node.appendAjax({
+			url: gamma.pageContext.site_url + 'freezer/get_locations',
+			type: "POST",			
+			data: {
+				"Type": node.data.info.Type,
+				"Freezer":node.data.info.Freezer,
+				"Shelf":node.data.info.Shelf,
+				"Rack":node.data.info.Rack,
+				"Row":node.data.info.Row,
+				"Col":node.data.info.Col
+			},
+			success: function(node) {
+				that.setNodeDisplay();
+			}
+		});		
 	},
 	getContainerNodes: function(node) {
-			node.appendAjax({
-				url: gamma.pageContext.site_url + 'freezer/get_containers',
-				type: "POST",			
-				data: {
-					"Location": node.data.info.Tag,
-				},
-				success: function(node) {
-					Freezer.Model.setNodeDisplay();
-				}
-			});		
+		var that = this;
+		node.appendAjax({
+			url: gamma.pageContext.site_url + 'freezer/get_containers',
+			type: "POST",			
+			data: {
+				"Location": node.data.info.Tag,
+			},
+			success: function(node) {
+				that.setNodeDisplay();
+			}
+		});		
 	},
 	getChangeList: function(selectedNodes, action, value) {
 		var changeList = [];
@@ -194,36 +200,39 @@ Freezer.Model = {
 		return changesXML;		
 	},
 	updateDatabase: function(changeList) {
-		var changesXML = Freezer.Model.getChangeXML(changeList);
+		var that = this;
+		var changesXML = this.getChangeXML(changeList);
 		var url = gamma.pageContext.site_url + 'freezer/operation';
 		var p = { locationList:changesXML };
 		$("#messages").html("");
 		gamma.doOperation(url, p, null, function(data, container) {
 			var response = (data);
 			if(data.indexOf('Update was successful.') > -1) {
-				Freezer.Model.updateLocationNodes(changeList);
+				that.updateLocationNodes(changeList);
 			} else {
 				$("#messages").html(data);				
 			}
 		});				
 	},
 	updateLocationNodes: function(changeList) {
-		var locationList = Freezer.Util.getDelimitedList(changeList, "Location");
+		var that = this;
+		var locationList = this.getDelimitedList(changeList, "Location");
 		var url = gamma.pageContext.site_url + 'freezer/get_locations';
 		var p = { "Type":"Tag", "Freezer":locationList, "Shelf":"", "Rack":"", "Row":"", "Col":"" };
 		gamma.getObjectFromJSON(url, p, null, function(json) {
 			var objArray = $.parseJSON(json);
-			var tree = Freezer.Util.getTree("tree");
+			var tree = that.getTree();
 			$.each(objArray, function(idx, obj) {
 				var node = tree.getNodeByKey(obj.key);
 				node.data.info.Status = obj.info.Status;
 				node.data.info.Containers = obj.info.Containers;
 				node.data.info.Limit = obj.info.Limit;
-				Freezer.Model.displayLocationNode(node);
+				that.displayLocationNode(node);
 			});
 		});		
 	},
 	findLocationNode: function(location) {
+		var that = this;
 		var url = gamma.pageContext.site_url + 'freezer/find_location';
 		var p = { "Location":location };
 		gamma.getObjectFromJSON(url, p, null, function(json) {
@@ -231,11 +240,12 @@ Freezer.Model = {
 			if(objArray.length == 0) { 
 				alert("location could not be found"); 
 			} else {
-				Freezer.Util.exposeLocation(objArray[0].info.Tag);
+				that.exposeLocation(objArray[0].info.Tag);
 			}
 		});		
 	},	
 	findContainerNode: function(container) {
+		var that = this;
 		var url = gamma.pageContext.site_url + 'freezer/find_container';
 		var p = { "Container":container };
 		gamma.getObjectFromJSON(url, p, null, function(json) {
@@ -243,13 +253,14 @@ Freezer.Model = {
 			if(objArray.length == 0) { 
 				alert("container could not be found"); 
 			} else {
-				Freezer.Util.exposeLocation(objArray[0].info.Location);
+				that.exposeLocation(objArray[0].info.Location);
 			}
 		});		
 	},	
 	moveContainers: function() {
-		var catNodes = Freezer.Util.getSelectedNodesByType("tree");
-		var moveParms = Freezer.Util.getContainerMoveParameters(catNodes);
+		var that = this;
+		var catNodes = this.getSelectedNodesByType("tree");
+		var moveParms = this.getContainerMoveParameters(catNodes);
 		var url = gamma.pageContext.site_url + 'material_move_container/operation';
 		var p = {
 			mode:'move_container',
@@ -261,8 +272,8 @@ Freezer.Model = {
 		gamma.doOperation(url, p, null, function(data, container) {
 			if(data.indexOf('Update was successful.') > -1) {
 				$.each(catNodes.affectedLocs, function(idx, node) { node.reloadChildren(); });
-				var changeList = Freezer.Model.getChangeList(catNodes.affectedLocs, '', '');
-				Freezer.Model.updateLocationNodes(changeList);
+				var changeList = that.getChangeList(catNodes.affectedLocs, '', '');
+				that.updateLocationNodes(changeList);
 				catNodes.locations[0].expand(true);
 			} else {
 				$("#messages").html(data);
