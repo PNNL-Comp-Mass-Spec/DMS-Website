@@ -111,7 +111,11 @@ $(document).ready(function() {
 			if(node.data.info.Status == 'Active') {
 				Freezer.Model.getContainerNodes(node);
 			} else {
-				Freezer.Model.getLocationNodes(node);
+				if(node.data.info.Type == 'Col') {
+					node.setLazyNodeStatus(DTNodeStatus_Ok);
+				} else {
+					Freezer.Model.getLocationNodes(node);
+				}
 			}
 		},
 		onClick: function(node, event) {
@@ -120,6 +124,10 @@ $(document).ready(function() {
 				case 'expander':
 					break;
 				case 'title':
+					if(node.data.info.Type == 'Container') {
+						var link = gamma.pageContext.site_url + "material_container/show/" + node.data.info.Name;
+						window.open(link);
+					}
 					//node.toggleSelect();
 					console.log("click->" + node.data.info.Tag);
 					return false;

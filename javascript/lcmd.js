@@ -163,6 +163,7 @@ var lcmd = {
 			lambda.submitOperation(url, p);
 		}
 	},
+/*	OMCS-977
 	osm_package: {
 		op: function(mode) {
 			var list = '';
@@ -185,6 +186,7 @@ var lcmd = {
 			lambda.submitOperation(url, p);
 		}
 	},
+*/
 	requested_run_admin: {
 		op: function(mode, value) {
 			var list = lambda.getCkbxList('ckbx');
