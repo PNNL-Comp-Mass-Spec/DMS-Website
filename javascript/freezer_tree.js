@@ -257,6 +257,19 @@ Freezer.Model = {
 			}
 		});		
 	},	
+	findAvailableLocationNode: function(location) {
+		var that = this;
+		var url = gamma.pageContext.site_url + 'freezer/find_available_location';
+		var p = { "Location":location };
+		gamma.getObjectFromJSON(url, p, null, function(json) {
+			var objArray = $.parseJSON(json);
+			if(objArray.length == 0) { 
+				alert("location could not be found"); 
+			} else {
+				that.exposeLocation(objArray[0].info.Tag);
+			}
+		});		
+	},	
 	moveContainers: function() {
 		var that = this;
 		var catNodes = this.getSelectedNodesByType("tree");

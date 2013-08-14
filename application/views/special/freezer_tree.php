@@ -29,6 +29,7 @@
 		<td>
 		<input class="button" type="button" id="btnCollapseAll2" title="Collapse all expanded locations" value="Collapse"</a" />
 		<input class="button" type="button" id="find_location_btn2" title="Find and display location or container" value="Find..." />
+		<input class="button" type="button" id="find_available_location_btn2" title="Find available location" value="Available..." />
 		</td>
 	</tr>
 	<tr valign="top">
@@ -72,6 +73,10 @@ Freezer.Display = {
 			this.Model.findLocationNode(identifier.NormalizedID);
 		}
 	},
+	findAvailableLocation: function() {
+		var val = prompt("Enter partial location path");
+		this.Model.findAvailableLocationNode(val);
+	},
 	updateTreePostMove: function(tree, locationKey, callback) {
 		// find location node by key (if it exists)		
 		var locNode = tree.getNodeByKey(locationKey);
@@ -102,12 +107,12 @@ Freezer.Display = {
 		var sourceLocNode = containerNode.getParent();
 		var sourceLocKey = sourceLocNode.data.key;
 		var destLocKey = locationNode.data.key;
-		var treeA = Freezer.Display.Source.Model.getTree();
-		var treeB = Freezer.Display.Destination.Model.getTree();
-		that.updateTreePostMove(treeA, sourceLocKey, function() {
-			that.updateTreePostMove(treeA, destLocKey, function() {
-				that.updateTreePostMove(treeB, sourceLocKey, function() {
-					that.updateTreePostMove(treeB, destLocKey)
+		var treeLeft = Freezer.Display.Left.Model.getTree();
+		var treeRight = Freezer.Display.Right.Model.getTree();
+		that.updateTreePostMove(treeLeft, sourceLocKey, function() {
+			that.updateTreePostMove(treeLeft, destLocKey, function() {
+				that.updateTreePostMove(treeRight, sourceLocKey, function() {
+					that.updateTreePostMove(treeRight, destLocKey)
 				});
 			});
 		});
@@ -116,28 +121,31 @@ Freezer.Display = {
 
 $(document).ready(function() {
 
-	Freezer.Display.Source = Freezer.Display.create("tree1");
-	Freezer.Display.Destination = Freezer.Display.create("tree2");
+	Freezer.Display.Left = Freezer.Display.create("tree1");
+	Freezer.Display.Right = Freezer.Display.create("tree2");
 	
 	$("#btnCollapseAll1").click(function(){
-		return Freezer.Display.Source.collapseTree();
+		return Freezer.Display.Left.collapseTree();
 	});
 	$("#btnCollapseAll2").click(function(){
-		return Freezer.Display.Destination.collapseTree();
+		return Freezer.Display.Right.collapseTree();
 	});
 	$("#btnClearSelections1").click(function(){
-		return Freezer.Display.Source.clearSelection();
+		return Freezer.Display.Left.clearSelection();
 	});
 	$("#find_location_btn1").click(function(){
-		return Freezer.Display.Source.findLocationOrContainer();
+		return Freezer.Display.Left.findLocationOrContainer();
 	});
 	$("#find_location_btn2").click(function(){
-		return Freezer.Display.Destination.findLocationOrContainer();
+		return Freezer.Display.Right.findLocationOrContainer();
+	});
+	$("#find_available_location_btn2").click(function(){
+		return Freezer.Display.Right.findAvailableLocation();
 	});
 
 	
-	/*----- set up destination tree -----*/
-  Freezer.Display.Destination.Model.myTreeElement.dynatree({
+	/*----- set up right-hand tree -----*/
+  Freezer.Display.Right.Model.myTreeElement.dynatree({
 	minExpandLevel: 1,
 	selectMode: 2,
 	checkbox: false,
@@ -151,12 +159,12 @@ $(document).ready(function() {
 			return;
 		}
 		if(node.data.info.Status == 'Active') {
-			Freezer.Display.Destination.Model.getContainerNodes(node);
+			Freezer.Display.Right.Model.getContainerNodes(node);
 		} else {
 			if(node.data.info.Type == 'Col') {
 				node.setLazyNodeStatus(DTNodeStatus_Ok);
 			} else {
-				Freezer.Display.Destination.Model.getLocationNodes(node);
+				Freezer.Display.Right.Model.getLocationNodes(node);
 			}
 		}
     },
@@ -176,7 +184,7 @@ $(document).ready(function() {
 		return node.data.info.Type == 'Col'
       },
       onDrop: function(node, sourceNode, hitMode, ui, draggable) {
-        Freezer.Display.Destination.Model.moveContainer(sourceNode, node, function() {
+        Freezer.Display.Right.Model.moveContainer(sourceNode, node, function() {
         	Freezer.Display.updatePostMove(sourceNode, node);
         });
       },
@@ -193,13 +201,13 @@ $(document).ready(function() {
     }
   });
 
-	/*----- set up source tree -----*/
-	Freezer.Display.Source.Model.myTreeElement.dynatree({
+	/*----- set up left-hand tree -----*/
+	Freezer.Display.Left.Model.myTreeElement.dynatree({
 		minExpandLevel: 1,
 		selectMode: 2,
 		checkbox: true,
 		initAjax: {
-			url: '<?= site_url() ?>freezer/get_freezers', 
+			url: '<?= site_url() ?>freezer/get_freezers',
 			data: {}
 		},
 		onPostInit: function(isReloading, isError) {
@@ -210,12 +218,12 @@ $(document).ready(function() {
 				return;
 			}
 			if(node.data.info.Status == 'Active') {
-				Freezer.Display.Source.Model.getContainerNodes(node);
+				Freezer.Display.Left.Model.getContainerNodes(node);
 			} else {
 				if(node.data.info.Type == 'Col') {
 					node.setLazyNodeStatus(DTNodeStatus_Ok);
 				} else {
-					Freezer.Display.Source.Model.getLocationNodes(node);
+					Freezer.Display.Left.Model.getLocationNodes(node);
 				}
 			}
 		},
@@ -254,7 +262,7 @@ $(document).ready(function() {
 			return node.data.info.Type == 'Col'
 	      },
 	      onDrop: function(node, sourceNode, hitMode, ui, draggable) {
-	        Freezer.Display.Source.Model.moveContainer(sourceNode, node, function() {
+	        Freezer.Display.Left.Model.moveContainer(sourceNode, node, function() {
 	        	Freezer.Display.updatePostMove(sourceNode, node);
 	        });
 	      },

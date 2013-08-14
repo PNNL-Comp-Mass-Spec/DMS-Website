@@ -245,6 +245,28 @@ EOD;
 		}
 		return $query->result_array();
 	}
+	// --------------------------------------------------------------------
+	function find_available_location($location)
+	{
+		$tmpl = <<<EOD
+SELECT TOP (10)
+ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, COUNT(MC.ID) AS Containers, 
+ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
+FROM 
+T_Material_Locations AS ML LEFT OUTER JOIN
+T_Material_Containers AS MC ON ML.ID = MC.Location_ID
+WHERE (ML.Tag LIKE '@LOC@%')
+GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag, ML.Col, ML.Status, ML.Container_Limit
+HAVING (ML.Container_Limit - COUNT(MC.ID) > 0) AND (ML.Status = 'Active')
+ORDER BY ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col
+EOD;
+		$sql = str_replace ("@LOC@" , $location ,$tmpl );
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
+		}
+		return $query->result_array();
+	}
  
 }
 ?>
