@@ -50,7 +50,7 @@ Freezer.Model = {
 	},
 	getStatusChangeList: function() {
 		var cmd = event.target.id;
-		var newStatus = (cmd == "set_active_btn") ? "Active": "Inactive";
+		var newStatus = (cmd.indexOf("set_active") != -1) ? "Active": "Inactive";
 		var selectedNodes = this.getSelectedNodes();
 		return this.getChangeList(selectedNodes, 'Status', newStatus);
 	},
@@ -145,6 +145,7 @@ Freezer.Model = {
 		extra +=" '" + node.data.info.Comment + "' ";
 //		extra +=" " +  node.data.info.Files + " ";
 		node.data.tooltip = extra;
+		node.data.hideCheckbox = true;
 		node.setTitle(newTitle);			
 	},
 	getLocationNodes: function(node) {

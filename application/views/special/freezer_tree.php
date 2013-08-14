@@ -23,8 +23,8 @@
 	<tr>
 		<td>
 		<input class="button" type="button" id="btnCollapseAll1" title="Collapse all expanded locations" value="Collapse"</a" />
-		<input class="button" type="button" id="btnClearSelections1" title="Clear selections" value="Clear" />	
-	<input class="button" type="button" id="find_location_btn1" title="Find and display location or container" value="Find..." />
+		<input class="button" type="button" id="find_location_btn1" title="Find and display location or container" value="Find..." />
+		<input class="button" type="button" id="find_available_location_btn1" title="Find available location" value="Available..." />
 		</td>
 		<td>
 		<input class="button" type="button" id="btnCollapseAll2" title="Collapse all expanded locations" value="Collapse"</a" />
@@ -39,6 +39,15 @@
 		<td>
 		<div style="width: 30em;"><div id="tree2"></div></div>
 		</td>
+	</tr>
+	<tr>
+		<td>
+		<input class="button" type="button" id="btnClearSelections1" title="Clear selections" value="Clear Selection" />	
+		<input class="button" type="button"  id="set_active_btn1" title="Set selected locations to active" value="Set Active" /> 
+		<input class="button" type="button"  id="set_inactive_btn1" title="Set selected locations to inactive" value="Set Inactive" /> 
+		</td>
+		<td>
+		</td>		
 	</tr>
 </tbody>
 </table>
@@ -57,11 +66,14 @@ Freezer.Display = {
 		this.Model.getTree().reload();
 		return false;		
 	},
-	clearSelection: function() {
-		this.Model.getTree().visit(function(node){
-			node.select(false);
-		});
-		return false;		
+	updateLocations: function(){ 
+		var changeList = this.Model.getStatusChangeList();
+		if(changeList.length == 0) {
+			alert("No locations are currently selected");			
+		} else {
+			this.Model.updateDatabase(changeList);
+		}
+		return false;
 	},
 	findLocationOrContainer: function(){
 		var val = prompt("Enter location path or container ID");
@@ -116,6 +128,105 @@ Freezer.Display = {
 				});
 			});
 		});
+	},
+	setControls: function(enabled) {
+		if(enabled) {
+			$('#set_active_btn1').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#set_inactive_btn1').prop("disabled", false).removeClass('ui-state-disabled')
+			$('#btnClearSelections1').prop("disabled", false).removeClass('ui-state-disabled')
+		
+		} else {
+			$('#set_active_btn1').prop("disabled", true).addClass('ui-state-disabled')
+			$('#set_inactive_btn1').prop("disabled", true).addClass('ui-state-disabled')
+			$('#btnClearSelections1').prop("disabled", true).addClass('ui-state-disabled')	
+		}
+	
+	},
+	clearSelection: function() {
+		this.Model.getTree().visit(function(node){
+			node.select(false);
+		});
+		return false;		
+	},	
+	getClickHandler: function() {
+		return function(node, event) {
+			var et = node.getEventTargetType(event);
+			switch(et) {
+				case 'expander':
+					break;
+				case 'title':
+					return false;
+					break;
+			}
+		}
+	},
+	getDblClickHandler: function() {
+		return function(node, event) {
+			if(node.data.info.Type == 'Container') {
+				var link = gamma.pageContext.site_url + "material_container/show/" + node.data.info.Name;
+				window.open(link);
+			}			
+			if(node.data.info.Type == 'Col' && node.data.info.Available > 0) {
+				var link = gamma.pageContext.site_url + "material_container/create/init/-/-/" + node.data.info.Tag;
+				window.open(link);
+			}
+		}					
+	},
+	getSelectionHandler: function() {
+		var context = this;
+		return 	function(select, node) {
+			var selectedNodes = node.tree.getSelectedNodes();
+			if(selectedNodes.length > 0) {
+				context.setControls(true);
+			} else {
+				context.setControls(false);				
+			}
+		}
+	},
+	getLazyReadHandler: function() {
+		var context = this;
+		return function(node) {
+			if(node.data.info.Type == 'Container') {
+				node.setLazyNodeStatus(DTNodeStatus_Ok);
+				return;
+			}
+			if(node.data.info.Status == 'Active') {
+				context.Model.getContainerNodes(node);
+			} else {
+				if(node.data.info.Type == 'Col') {
+					node.setLazyNodeStatus(DTNodeStatus_Ok);
+				} else {
+					context.Model.getLocationNodes(node);
+				}
+			}
+		}
+	},
+	getDndObj: function() {
+		var context = this;
+		return {
+			autoExpandMS: 1000,
+			preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+			onDragEnter: function(node, sourceNode) {
+				return 'over';
+			},
+			onDragOver: function(node, sourceNode, hitMode) {
+				return node.data.info.Type == 'Col'
+			},
+			onDrop: function(node, sourceNode, hitMode, ui, draggable) {
+				context.Model.moveContainer(sourceNode, node, function() {
+					context.updatePostMove(sourceNode, node);
+				});
+			},
+			onDragLeave: function(node, sourceNode) {
+				// Always called if onDragEnter was called.
+			},
+			onDragStart: function(node) {
+				if(node.data.isFolder) return false;
+				return true;
+			},
+			onDragStop: function(node) {
+			}
+	    }
 	}
 }
 
@@ -124,6 +235,7 @@ $(document).ready(function() {
 	Freezer.Display.Left = Freezer.Display.create("tree1");
 	Freezer.Display.Right = Freezer.Display.create("tree2");
 	
+	/*----- bind controls -----*/
 	$("#btnCollapseAll1").click(function(){
 		return Freezer.Display.Left.collapseTree();
 	});
@@ -139,67 +251,20 @@ $(document).ready(function() {
 	$("#find_location_btn2").click(function(){
 		return Freezer.Display.Right.findLocationOrContainer();
 	});
+	$("#find_available_location_btn1").click(function(){
+		return Freezer.Display.Left.findAvailableLocation();
+	});
 	$("#find_available_location_btn2").click(function(){
 		return Freezer.Display.Right.findAvailableLocation();
 	});
 
-	
-	/*----- set up right-hand tree -----*/
-  Freezer.Display.Right.Model.myTreeElement.dynatree({
-	minExpandLevel: 1,
-	selectMode: 2,
-	checkbox: false,
-	initAjax: {
-		url: '<?= site_url() ?>freezer/get_freezers', 
-		data: {}
-	},
-	onLazyRead: function(node){
-		if(node.data.info.Type == 'Container') {
-			node.setLazyNodeStatus(DTNodeStatus_Ok);
-			return;
-		}
-		if(node.data.info.Status == 'Active') {
-			Freezer.Display.Right.Model.getContainerNodes(node);
-		} else {
-			if(node.data.info.Type == 'Col') {
-				node.setLazyNodeStatus(DTNodeStatus_Ok);
-			} else {
-				Freezer.Display.Right.Model.getLocationNodes(node);
-			}
-		}
-    },
-    onActivate: function(node) {
-      $("#echoActive2").text(node.data.title + "(" + node.data.key + ")");
-    },
-    onDeactivate: function(node) {
-      $("#echoActive2").text("-");
-    },
-    dnd: {
-      autoExpandMS: 1000,
-      preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
-      onDragEnter: function(node, sourceNode) {
-		return 'over';
-      },
-      onDragOver: function(node, sourceNode, hitMode) {
-		return node.data.info.Type == 'Col'
-      },
-      onDrop: function(node, sourceNode, hitMode, ui, draggable) {
-        Freezer.Display.Right.Model.moveContainer(sourceNode, node, function() {
-        	Freezer.Display.updatePostMove(sourceNode, node);
-        });
-      },
-      onDragLeave: function(node, sourceNode) {
-        // Always called if onDragEnter was called.
-      },
-	  onDragStart: function(node) {
-	    if(node.data.isFolder)
-	      return false;
-	    return true;
-	  },
-	  onDragStop: function(node) {
-	  }
-    }
-  });
+	$("#set_active_btn1, #set_inactive_btn1").click(function(event){ 
+		Freezer.Display.Left.updateLocations();
+		return false;
+	});
+
+	Freezer.Display.Left.setControls(false);
+
 
 	/*----- set up left-hand tree -----*/
 	Freezer.Display.Left.Model.myTreeElement.dynatree({
@@ -210,75 +275,28 @@ $(document).ready(function() {
 			url: '<?= site_url() ?>freezer/get_freezers',
 			data: {}
 		},
-		onPostInit: function(isReloading, isError) {
+		onLazyRead: Freezer.Display.Left.getLazyReadHandler(),
+		onClick: Freezer.Display.Left.getClickHandler(),
+		onDblClick: Freezer.Display.Left.getDblClickHandler(),
+		dnd: Freezer.Display.Left.getDndObj(),
+		onSelect: Freezer.Display.Left.getSelectionHandler()
+	});
+	
+	/*----- set up right-hand tree -----*/
+	Freezer.Display.Right.Model.myTreeElement.dynatree({
+		minExpandLevel: 1,
+		selectMode: 2,
+		checkbox: false,
+		initAjax: {
+			url: '<?= site_url() ?>freezer/get_freezers', 
+			data: {}
 		},
-		onLazyRead: function(node) {
-			if(node.data.info.Type == 'Container') {
-				node.setLazyNodeStatus(DTNodeStatus_Ok);
-				return;
-			}
-			if(node.data.info.Status == 'Active') {
-				Freezer.Display.Left.Model.getContainerNodes(node);
-			} else {
-				if(node.data.info.Type == 'Col') {
-					node.setLazyNodeStatus(DTNodeStatus_Ok);
-				} else {
-					Freezer.Display.Left.Model.getLocationNodes(node);
-				}
-			}
-		},
-		onClick: function(node, event) {
-			var et = node.getEventTargetType(event);
-			switch(et) {
-				case 'expander':
-					break;
-				case 'title':
-					//node.toggleSelect();
-					console.log("click->" + node.data.info.Tag);
-					return false;
-					break;
-			}
-		},
-		onSelect: function(select, node) {
-			// Display list of selected nodes
-			var selectedNodes = node.tree.getSelectedNodes();
-			var selectionPattern = Freezer.Display.getSelectionPattern(selectedNodes);
-			if(selectionPattern) {
-				var selKeys = $.map(selectedNodes, function(node){
-					return node.data.info.Type + "[" + node.data.key + "]";
-				});
-				$("#messages").text(selectionPattern + selKeys.join(", "));
-			} else {
-				$("#messages").text("");				
-			}
-		},
-		dnd: {
-	      autoExpandMS: 1000,
-	      preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
-	      onDragEnter: function(node, sourceNode) {
-			return 'over';
-	      },
-	      onDragOver: function(node, sourceNode, hitMode) {
-			return node.data.info.Type == 'Col'
-	      },
-	      onDrop: function(node, sourceNode, hitMode, ui, draggable) {
-	        Freezer.Display.Left.Model.moveContainer(sourceNode, node, function() {
-	        	Freezer.Display.updatePostMove(sourceNode, node);
-	        });
-	      },
-	      onDragLeave: function(node, sourceNode) {
-	      },
-		  onDragStart: function(node) {
-		    if(node.data.isFolder)
-		      return false;
-		    return true;
-		  },
-		  onDragStop: function(node) {
-		  }
-		}		
+		onLazyRead: Freezer.Display.Right.getLazyReadHandler(),
+		onClick: Freezer.Display.Right.getClickHandler(),
+		onDblClick: Freezer.Display.Right.getDblClickHandler(),
+	    dnd: Freezer.Display.Right.getDndObj()
 	});
 		
-
 	// set event handlers for global search panel
 	gamma.setSearchEventHandlers($('.global_search_panel'));
 
