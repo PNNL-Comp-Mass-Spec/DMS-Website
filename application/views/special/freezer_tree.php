@@ -19,24 +19,16 @@
 <div id="messages"></div>
 
 <table>
-<thead>
-	<tr>
-		<th>
-		<p style="text-align: left;">Source</p>
-		</th>
-		<th>
-		<p style="text-align: left;">Destination</p>
-		</th>
-	</tr>
-</thead>
 <tbody>
 	<tr>
 		<td>
-		<input class="button" type="button" id="btnCollapseAll1" title="Collapse all expanded locations" value="Collapse&nbsp;all"</a" />
-		<input class="button" type="button" id="btnClearSelections1" title="Clear selections" value="Clear Selections" />	
+		<input class="button" type="button" id="btnCollapseAll1" title="Collapse all expanded locations" value="Collapse"</a" />
+		<input class="button" type="button" id="btnClearSelections1" title="Clear selections" value="Clear" />	
+	<input class="button" type="button" id="find_location_btn1" title="Find and display location or container" value="Find..." />
 		</td>
 		<td>
-		<input class="button" type="button" id="btnCollapseAll2" title="Collapse all expanded locations" value="Collapse&nbsp;all"</a" />
+		<input class="button" type="button" id="btnCollapseAll2" title="Collapse all expanded locations" value="Collapse"</a" />
+		<input class="button" type="button" id="find_location_btn2" title="Find and display location or container" value="Find..." />
 		</td>
 	</tr>
 	<tr valign="top">
@@ -69,6 +61,56 @@ Freezer.Display = {
 			node.select(false);
 		});
 		return false;		
+	},
+	findLocationOrContainer: function(){
+		var val = prompt("Enter location path or container ID");
+		var identifier = this.Model.getNormalizedIdentifier(val);
+		if(identifier.Type == "Container") {
+			this.Model.findContainerNode(identifier.NormalizedID);
+		} else 
+		if(identifier.Type == "Location") {
+			this.Model.findLocationNode(identifier.NormalizedID);
+		}
+	},
+	updateTreePostMove: function(tree, locationKey, callback) {
+		// find location node by key (if it exists)		
+		var locNode = tree.getNodeByKey(locationKey);
+		if(!locNode) {
+			if(callback) callback();
+			return;
+		}
+		// get parent location node
+		var parLocNode = locNode.getParent();
+		
+		// reload parent location node
+		parLocNode.reloadChildren(function() {
+			// original location will have new node - find it via key
+			var node = tree.getNodeByKey(locationKey);
+			if(node) {
+				node.reloadChildren(function() {
+					node.expand();
+					if(callback) callback();
+				});
+			} else {
+				if(callback) callback();				
+			}
+		});
+				
+	},
+	updatePostMove: function(containerNode, locationNode) {
+		var that = this;
+		var sourceLocNode = containerNode.getParent();
+		var sourceLocKey = sourceLocNode.data.key;
+		var destLocKey = locationNode.data.key;
+		var treeA = Freezer.Display.Source.Model.getTree();
+		var treeB = Freezer.Display.Destination.Model.getTree();
+		that.updateTreePostMove(treeA, sourceLocKey, function() {
+			that.updateTreePostMove(treeA, destLocKey, function() {
+				that.updateTreePostMove(treeB, sourceLocKey, function() {
+					that.updateTreePostMove(treeB, destLocKey)
+				});
+			});
+		});
 	}
 }
 
@@ -86,7 +128,13 @@ $(document).ready(function() {
 	$("#btnClearSelections1").click(function(){
 		return Freezer.Display.Source.clearSelection();
 	});
-	
+	$("#find_location_btn1").click(function(){
+		return Freezer.Display.Source.findLocationOrContainer();
+	});
+	$("#find_location_btn2").click(function(){
+		return Freezer.Display.Destination.findLocationOrContainer();
+	});
+
 	
 	/*----- set up destination tree -----*/
   Freezer.Display.Destination.Model.myTreeElement.dynatree({
@@ -122,23 +170,26 @@ $(document).ready(function() {
       autoExpandMS: 1000,
       preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
       onDragEnter: function(node, sourceNode) {
-        // Return false to disallow dropping this node.
-		return node.data.info.Type == 'Col' && node.data.info.Available > 0
+		return 'over';
       },
       onDragOver: function(node, sourceNode, hitMode) {
-        // Return false to disallow dropping this node.
 		return node.data.info.Type == 'Col'
       },
       onDrop: function(node, sourceNode, hitMode, ui, draggable) {
-        // This function MUST be defined to enable dropping of items on the tree.
-        //sourceNode may be null, if it is a non-Dynatree droppable.
-		var container = sourceNode.data.info.Name;
-		var location = node.data.info.Tag;
-        logMsg("Move %o -> %o", container, location);
+        Freezer.Display.Destination.Model.moveContainer(sourceNode, node, function() {
+        	Freezer.Display.updatePostMove(sourceNode, node);
+        });
       },
       onDragLeave: function(node, sourceNode) {
         // Always called if onDragEnter was called.
-      }
+      },
+	  onDragStart: function(node) {
+	    if(node.data.isFolder)
+	      return false;
+	    return true;
+	  },
+	  onDragStop: function(node) {
+	  }
     }
   });
 
@@ -194,17 +245,27 @@ $(document).ready(function() {
 			}
 		},
 		dnd: {
+	      autoExpandMS: 1000,
+	      preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+	      onDragEnter: function(node, sourceNode) {
+			return 'over';
+	      },
+	      onDragOver: function(node, sourceNode, hitMode) {
+			return node.data.info.Type == 'Col'
+	      },
+	      onDrop: function(node, sourceNode, hitMode, ui, draggable) {
+	        Freezer.Display.Source.Model.moveContainer(sourceNode, node, function() {
+	        	Freezer.Display.updatePostMove(sourceNode, node);
+	        });
+	      },
+	      onDragLeave: function(node, sourceNode) {
+	      },
 		  onDragStart: function(node) {
-		    /** This function MUST be defined to enable dragging for the tree.
-		     *  Return false to cancel dragging of node.
-		     */
-		    logMsg("tree.onDragStart(%o)", node);
 		    if(node.data.isFolder)
 		      return false;
 		    return true;
 		  },
 		  onDragStop: function(node) {
-		    logMsg("tree.onDragStop(%o)", node);
 		  }
 		}		
 	});

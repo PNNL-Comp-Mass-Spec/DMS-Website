@@ -279,6 +279,23 @@ Freezer.Model = {
 				$("#messages").html(data);
 			}
 		});		
-	}
+	},
+	moveContainer: function(containerNode, locationNode, callback) {
+		var url = gamma.pageContext.site_url + 'material_move_container/operation';
+		var p = {
+			mode:'move_container',
+			containerList: containerNode.data.info.ID,
+			newValue: locationNode.data.info.Tag,
+			comment:'' // Future: prompt for comment
+		};
+		$("#messages").html("");
+		gamma.doOperation(url, p, null, function(data, container) {
+			if(data.indexOf('Update was successful.') > -1) {
+				if(callback) callback(containerNode, locationNode);
+			} else {
+				$("#messages").html(data);
+			}
+		});		
+	}	
 	
 }
