@@ -31,6 +31,7 @@ class cell_presentation {
 	{	
 		$str = "";
 		$display_cols = $this->get_display_cols(array_keys($row));
+		$colIndex = 0;
 		foreach($display_cols as $name) {
 			// don't display columns that begin with hash character
 			if($name[0] == '#') continue;
@@ -46,10 +47,11 @@ class cell_presentation {
 				}
 			}
 			if($colSpec) {
-				$str .= $this->render_hotlink($value, $row, $colSpec, NULL, $name);
+				$str .= $this->render_hotlink($value, $row, $colSpec, NULL, $name, $colIndex);
 			}  else {
 				$str .= "<td>" . $value . "</td>";
 			}
+			$colIndex++;
 		}
 		return $str;
 	}
@@ -57,7 +59,7 @@ class cell_presentation {
 	
 	// --------------------------------------------------------------------
 	private
-	function render_hotlink($value, $row, $colSpec, $col_width, $col_name='')
+	function render_hotlink($value, $row, $colSpec, $col_width, $col_name='', $colIndex)
 	{
 		$str = "";
 		// resolve target for hotlink
@@ -115,13 +117,13 @@ class cell_presentation {
 				break;
 			case "literal_link":
 				$url = $target.$ref;
-				$str .= "<td><a href='$url' $tool_tip>$value</a></td>";
+				$str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$value</a></td>";
 				break;
 			case "masked_link":
 				$url = $target.$ref;
 				if($url) {
 					$lbl =  $colSpec["Options"]["Label"];
-					$str .= "<td><a href='$url' $tool_tip>$lbl</a></td>";
+					$str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$lbl</a></td>";
 				} else {
 					$str .= "<td></td>";					
 				}

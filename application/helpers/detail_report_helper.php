@@ -23,18 +23,20 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 	$str .= "<th>Value</th>";
 	$str .= "</tr>";
 
+	$colIndex = 0;
+
 	// make a form field for each field in the field specs
 	foreach ($fields as $f_name => $f_val) {
 		$label = $f_name;
 		$val = $f_val;
-		
+				
 		// primary hotlink for field
 		if(isset($hotlinks[$f_name])) {
 			$link_id = $fields[$hotlinks[$f_name]["WhichArg"]];
 			if($hotlinks[$f_name]['Placement'] == 'labelCol') {
-				$label = make_detail_report_hotlink($hotlinks[$f_name], $link_id, $f_name, $val);
+				$label = make_detail_report_hotlink($hotlinks[$f_name], $link_id, $colIndex, $f_name, $val);
 			} else {
-				$val = make_detail_report_hotlink($hotlinks[$f_name], $link_id, $val);				
+				$val = make_detail_report_hotlink($hotlinks[$f_name], $link_id, $colIndex, $val);
 			}
 		}
 
@@ -43,9 +45,9 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 		if(isset($hotlinks[$pf_name])) {
 			$link_id = $fields[$hotlinks[$pf_name]["WhichArg"]];
 			if($hotlinks[$pf_name]['Placement'] == 'labelCol') {
-				$label = make_detail_report_hotlink($hotlinks[$pf_name], $link_id, $f_name, $val);
+				$label = make_detail_report_hotlink($hotlinks[$pf_name], $link_id, $colIndex, $f_name, $val);
 			} else {
-				$val = make_detail_report_hotlink($hotlinks[$pf_name], $link_id, $val);				
+				$val = make_detail_report_hotlink($hotlinks[$pf_name], $link_id, $colIndex, $val);
 			}
 		}
 		
@@ -60,6 +62,8 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 
 		// close row in table
 		$str .= "</tr>\n";
+		
+		$colIndex++;
 	}
 	$str .= "</table>\n";
 	return $str;
@@ -67,13 +71,14 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 
 // -----------------------------------
 //
-function make_detail_report_hotlink($spec, $link_id, $display, $val='')
+function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='')
 {
 	$str = "";
 	$fld_id = $spec["id"];
 	$wa = $spec["WhichArg"];
 	$type = $spec['LinkType'];
 	$target = $spec['Target'];
+	
 	switch($type) {
 		case "detail-report":
 			$url = make_detail_report_url($target, $link_id);
@@ -84,7 +89,7 @@ function make_detail_report_hotlink($spec, $link_id, $display, $val='')
 			$str = "<a href='file:///$lnk'>$display</a>";
 			break;
 		case "literal_link":
-			$str .= "<a href='$display'>$display</a>";
+			$str .= "<a href='$display' target='External$colIndex'>$display</a>";
 			break;
 		case "link_list":
 			$delim = (preg_match('/[,;]/', $display, $match))? $match[0] : '';
