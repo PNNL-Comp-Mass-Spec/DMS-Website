@@ -25,11 +25,13 @@
 		<input class="button" type="button" id="btnCollapseAll1" title="Collapse all expanded locations" value="Collapse"</a" />
 		<input class="button" type="button" id="find_location_btn1" title="Find and display location or container" value="Find..." />
 		<input class="button" type="button" id="find_available_location_btn1" title="Find available location" value="Available..." />
+		<input class="button" type="button" id="show_newest_container_btn1" title="Show newest container" value="Newest" />
 		</td>
 		<td>
 		<input class="button" type="button" id="btnCollapseAll2" title="Collapse all expanded locations" value="Collapse"</a" />
 		<input class="button" type="button" id="find_location_btn2" title="Find and display location or container" value="Find..." />
 		<input class="button" type="button" id="find_available_location_btn2" title="Find available location" value="Available..." />
+		<input class="button" type="button" id="show_newest_container_btn2" title="Show newest container" value="Newest" />
 		</td>
 	</tr>
 	<tr valign="top">
@@ -89,6 +91,16 @@ Freezer.Display = {
 		var val = prompt("Enter partial location path");
 		this.Model.findAvailableLocationNode(val);
 	},
+	showNewestContainer: function() {
+		var context = this;
+		this.Model.getTree().reload(function() {
+			context.Model.findNewestContainerNode(function(objArray) {
+				if(objArray.length) {
+					context.Model.exposeLocation(objArray[0].info.Tag);
+				}
+			});
+		});
+	},
 	updateTreePostMove: function(tree, locationKey, callback) {
 		// find location node by key (if it exists)		
 		var locNode = tree.getNodeByKey(locationKey);
@@ -140,14 +152,13 @@ Freezer.Display = {
 			$('#set_inactive_btn1').prop("disabled", true).addClass('ui-state-disabled')
 			$('#btnClearSelections1').prop("disabled", true).addClass('ui-state-disabled')	
 		}
-	
 	},
 	clearSelection: function() {
 		this.Model.getTree().visit(function(node){
 			node.select(false);
 		});
 		return false;		
-	},	
+	},
 	getClickHandler: function() {
 		return function(node, event) {
 			var et = node.getEventTargetType(event);
@@ -161,12 +172,14 @@ Freezer.Display = {
 		}
 	},
 	getDblClickHandler: function() {
+		var context = this;
 		return function(node, event) {
 			if(node.data.info.Type == 'Container') {
 				var link = gamma.pageContext.site_url + "material_container/show/" + node.data.info.Name;
 				window.open(link);
 			}			
 			if(node.data.info.Type == 'Col' && node.data.info.Available > 0) {
+				context.pendingLocaton = node.data.info.Tag;
 				var link = gamma.pageContext.site_url + "material_container/create/init/-/-/" + node.data.info.Tag;
 				window.open(link);
 			}
@@ -263,6 +276,12 @@ $(document).ready(function() {
 		return false;
 	});
 
+	$("#show_newest_container_btn1").click(function(){
+		return Freezer.Display.Left.showNewestContainer();
+	});
+	$("#show_newest_container_btn2").click(function(){
+		return Freezer.Display.Right.showNewestContainer();
+	});
 	Freezer.Display.Left.setControls(false);
 
 

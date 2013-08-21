@@ -267,6 +267,24 @@ EOD;
 		}
 		return $query->result_array();
 	}
+	// --------------------------------------------------------------------
+ 	function find_newest_containers()
+	{
+		$sql = <<<EOD
+SELECT TOP(10)
+ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, 0 AS Limit, 0 AS Containers, 
+0 AS Available, ML.Status, ML.ID, MC.Created
+FROM T_Material_Containers AS MC 
+INNER JOIN T_Material_Locations AS ML ON ML.ID = MC.Location_ID
+WHERE MC.Status = 'Active'
+ORDER BY MC.Created DESC
+EOD;
+		$query = $this->db->query($sql);
+		if(!$query) {
+			throw new Exception("Error querying database");
+		}
+		return $query->result_array();
+	}
  
 }
 ?>

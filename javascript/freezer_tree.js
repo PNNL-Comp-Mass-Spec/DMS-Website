@@ -271,6 +271,17 @@ Freezer.Model = {
 			}
 		});		
 	},	
+	findNewestContainerNode: function(callback) {
+		var that = this;
+		var url = gamma.pageContext.site_url + 'freezer/find_newest_containers';
+		var p = { };
+		gamma.getObjectFromJSON(url, p, null, function(json) {
+			if(callback) {
+				var objArray = $.parseJSON(json);
+				callback(objArray);
+			}
+		});		
+	},	
 	moveContainers: function() {
 		var that = this;
 		var catNodes = this.getSelectedNodesByType("tree");
