@@ -141,12 +141,18 @@ class Q_model extends CI_Model {
 			if(strtolower($p->rel) == 'arg') continue; // no wildards for arguements
 			
 			// look for wildcard characters
+			$match_blank = $p->val == '\b';
 			$exact_match = (substr($p->val, 0, 1) == '~');
 			$not_match = (substr($p->val, 0, 1) == ':');
 			$regex_all = (strpos($p->val, '*') !== FALSE);
 			$regex_one = (strpos($p->val, '?') !== FALSE);
 			$sql_any   = (strpos($p->val, '%') !== FALSE);
 			
+			// force match a blank
+			if($match_blank) {
+				$p->val = '';
+				$p->cmp = "MatchesBlank";
+			} else
 			// force exact match
 			if($exact_match) {
 				$p->val = str_replace('~', '', $p->val);

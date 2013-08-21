@@ -138,6 +138,10 @@ class Sql_mssql {
 			case "MTx":
 				$str .= "[$col] = '$val'";
 				break;
+			case "MatchesBlank":
+			case "MBTx":
+				$str .= "ISNULL([$col], '') = ''";
+				break;
 			case "StartsWithText":
 			case "SWTx":
 				$val = $val.'%';
