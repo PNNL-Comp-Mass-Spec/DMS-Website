@@ -348,10 +348,7 @@
 	function quote_if_contains_tab($value)
 	{
 		// convert any newlines
-		$value = str_replace("\r\n", "; ", $value);
-		$value = str_replace("\n\r", "; ", $value);
-		$value = str_replace("\r",   "; ", $value);
-		$value = str_replace("\n",   "; ", $value);
+		$value = str_replace(array("\r\n", "\r", "\n"), "; ", $value);
 
 		// Look for a tab character in $value
 		$pos = strpos($value, "\t");
@@ -361,8 +358,7 @@
 		if ($pos !== false) {
 			// Match found; surround with double quotes
 			// However, first replace double quotes with ""			
-			$value = str_replace('"', '""', $value);
-			$value = '"' . $value . '"';
+			$value = '"' . str_replace('"', '""', $value) . '"';
 		}
 		
 		return $value;
