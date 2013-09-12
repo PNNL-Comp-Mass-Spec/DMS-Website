@@ -85,11 +85,24 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			$str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
 			break;		
 		case "href-folder":
-			$lnk = str_replace('\\', '/', ($val=='')?$display:$val);
-			$str = "<a href='file:///$lnk'>$display</a>";
+			if ($val) {
+				$lnk = str_replace('\\', '/', $val);
+				$str = "<a href='file:///$lnk'>$display</a>";
+			}
+			else {
+				$str = $display;
+			}
 			break;
 		case "literal_link":
 			$str .= "<a href='$display' target='External$colIndex'>$display</a>";
+			break;
+		case "masked_link":
+			if($display) {
+				$lbl =  $target;
+				$str .= "<a href='$display' target='External$colIndex'>$lbl</a>";
+			} else {
+				$str .= "";
+			}
 			break;
 		case "link_list":
 			$delim = (preg_match('/[,;]/', $display, $match))? $match[0] : '';
