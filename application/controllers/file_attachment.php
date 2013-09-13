@@ -253,8 +253,8 @@ class file_attachment extends Base_controller {
 		$query = $this->db->get();		
 		if(!$query) return "Error querying database";
 		$entries = array();
-	    $icon_delete = expansion_link_icon('delete');
-		$icon_download = expansion_link_icon('down');
+	    $icon_delete = table_link_icon('delete');
+		$icon_download = table_link_icon('down');
 	    foreach($query->result() as $row){
 			$url = site_url() . "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
 			$downloadLink = "<a href='javascript:void(0)' onclick=fileAttachment.doDownload('$url') title='Download this file'>$icon_download</span></a> ";

@@ -8,6 +8,13 @@
 	}
 
 	// --------------------------------------------------------------------
+	function table_link_icon($usage = 'plus', $class = '') {
+		$icon = get_link_image($usage);
+		$s = "<span class='expando_section ui-icon $icon $class' style='text-indent:0;'></span>";
+		return $s;
+	}
+
+	// --------------------------------------------------------------------
 	function expansion_link_icon($usage = 'plus', $class = '') {
 		$icon = get_link_image($usage);
 		$s = "<span class='expando_section ui-icon $icon $class'></span>";
