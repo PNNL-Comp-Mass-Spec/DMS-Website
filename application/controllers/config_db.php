@@ -1398,6 +1398,34 @@ class config_db extends CI_Controller {
 //		$after = filesize($dbFilePath);		
 		echo "Config DB '$config_db' has been vacuumed.";
 	}
+	
+	// --------------------------------------------------------------------
+	// execute SQL against multiple config
+	// apply SQL to multiple config dbs
+	function update_multiple() {
+		$file_filter = "/.db/"; // do all config dbs
+		
+		// change to apply
+		$table_name = "detail_report_hotlinks";
+		$sql = "ALTER TABLE detail_report_hotlinks ADD options text;";
+		
+		// get list of config files from config folder
+		$config_files = $this->_get_config_db_file_list($file_filter);
+		asort($config_files);
+		
+		
+		// apply the change to each one
+		foreach($config_files as $config_db) {
+			// get list of config files that have table
+			$tbl_list = $this->_get_db_table_list($config_db, $table_name);
+			
+			// skip config dbs that don't containe the table
+			if(count($tbl_list) == 0) continue;
+			
+			echo $config_db . "<br>";
+//			$this->_exec_sql($config_db, $sql, $table_name); // uncomment to do damage
+		}
+	}	
 
 /*
 	// --------------------------------------------------------------------

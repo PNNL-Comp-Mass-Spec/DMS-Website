@@ -78,7 +78,8 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 	$wa = $spec["WhichArg"];
 	$type = $spec['LinkType'];
 	$target = $spec['Target'];
-	
+	$options = $spec['Options'];
+
 	switch($type) {
 		case "detail-report":
 			$url = make_detail_report_url($target, $link_id);
@@ -98,7 +99,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			break;
 		case "masked_link":
 			if($display) {
-				$lbl =  $target;
+				$lbl = ($options) ? $options['Label']: "(label is not defined)" ;
 				$str .= "<a href='$display' target='External$colIndex'>$lbl</a>";
 			} else {
 				$str .= "";

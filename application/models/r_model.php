@@ -106,7 +106,8 @@ class R_model extends CI_Model {
 				$a['Target'] = $row['Target'];
 				$a['Placement'] = $row['Placement'];
 				$a['id'] = $row['id'];
-	
+				$opts = (array_key_exists('options', $row)) ? $row['options'] : '';
+				$a['Options'] = ($opts)? json_decode($row['options'], true) : null ;
 				$this->detail_report_hotlinks[$row['name']] = $a;
 			}
 		}
