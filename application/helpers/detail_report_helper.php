@@ -23,52 +23,72 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 	$str .= "<th>Value</th>";
 	$str .= "</tr>";
 
+	$str .= make_detail_table_data_rows($fields, $hotlinks);
+
+	$str .= "</table>\n";
+	return $str;
+}
+// -----------------------------------
+//
+function make_detail_table_data_rows($fields, $hotlinks)
+{
+	$str = "";
 	$colIndex = 0;
 
 	// make a form field for each field in the field specs
 	foreach ($fields as $f_name => $f_val) {
+		// don't display columns that begin with hash character
+		if($f_name[0] == '#') continue;
+
+
+		// default field display for table
 		$label = $f_name;
 		$val = $f_val;
-				
-		// primary hotlink for field
-		if(isset($hotlinks[$f_name])) {
-			$link_id = $fields[$hotlinks[$f_name]["WhichArg"]];
-			if($hotlinks[$f_name]['Placement'] == 'labelCol') {
-				$label = make_detail_report_hotlink($hotlinks[$f_name], $link_id, $colIndex, $f_name, $val);
+		$label_display = "<td>$label</td>\n";
+		$val_display = "<td>$val</td>\n";
+		
+		// override default field display with hotlinks
+		$hotlink_specs = get_hotlink_specs_for_field($f_name, $hotlinks);
+		foreach($hotlink_specs as $hotlink_spec) {
+			$link_id = $fields[$hotlink_spec["WhichArg"]];
+			if($hotlink_spec['Placement'] == 'labelCol') {
+				$label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $f_name, $val);
 			} else {
-				$val = make_detail_report_hotlink($hotlinks[$f_name], $link_id, $colIndex, $val);
+				$val_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $val);
 			}
 		}
 
-		// secondary hotlink for field
-		$pf_name = '+'.$f_name;
-		if(isset($hotlinks[$pf_name])) {
-			$link_id = $fields[$hotlinks[$pf_name]["WhichArg"]];
-			if($hotlinks[$pf_name]['Placement'] == 'labelCol') {
-				$label = make_detail_report_hotlink($hotlinks[$pf_name], $link_id, $colIndex, $f_name, $val);
-			} else {
-				$val = make_detail_report_hotlink($hotlinks[$pf_name], $link_id, $colIndex, $val);
-			}
-		}
-		
 		// open row in table
 		$rowColor = alternator('ReportEvenRow', 'ReportOddRow');
 		$str .= "<tr class='$rowColor' >\n";
 
 		// first column in table is field name
-		$str .= "<td>" . $label . "</td>\n"; 
 		// second column in table is field value
-		$str .= "<td>" . $val . "</td>\n"; 
+		$str .= $label_display . $val_display; 
 
 		// close row in table
 		$str .= "</tr>\n";
 		
 		$colIndex++;
 	}
-	$str .= "</table>\n";
 	return $str;
 }
-
+// -----------------------------------
+//
+function get_hotlink_specs_for_field($f_name, $hotlinks) 
+{
+	// list of any hotlink spec(s) for the field
+	$hotlink_specs = array();
+	// is a primary hotlink defined for the field?
+	if(array_key_exists($f_name, $hotlinks)) {
+		$hotlink_specs[] = $hotlinks[$f_name];
+	}
+	// is a secondary hotlink defined for field?
+	if(array_key_exists('+'.$f_name, $hotlinks)) {
+		$hotlink_specs[] = $hotlinks['+'.$f_name];
+	}
+	return $hotlink_specs;
+}
 // -----------------------------------
 //
 function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='')
@@ -79,6 +99,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 	$type = $spec['LinkType'];
 	$target = $spec['Target'];
 	$options = $spec['Options'];
+	$cell_class = "";
 
 	switch($type) {
 		case "detail-report":
@@ -138,15 +159,13 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			}
 			$str .= "</table>";
 			break;
-			
 		case "color_label":
 			if(array_key_exists($link_id, $options)) {
-				$str .= "<p class='$options[$link_id]'>$display</p>";
-			} else {
-				$str .= $display;
-			}			
+//				$cell_class = "class='" . $options[$link_id] ."'";
+				$cx = "class='" . $options[$link_id] ."' style='padding: 1px 5px 1px 5px;'";
+			}
+			$str .= "<span $cx>$display</span>";
 			break;
-							
 		case "xml_params":
 			$str .= make_table_from_param_xml($display);
 			break;
@@ -158,7 +177,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			break;
 		
 	};
-	return $str; 
+	return "<td $cell_class>$str</td>\n";
 }
 
 // -----------------------------------
