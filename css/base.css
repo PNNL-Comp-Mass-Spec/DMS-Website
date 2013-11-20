@@ -49,6 +49,32 @@ h1,h2,h3{
 	color: #FFF5EE;
 	font-weight: bold;
 }
+/* narrow_clr values are used for coloring work packages on detail reports */
+.narrow_clr_30 {
+	background-color:#E5FFE5;
+	width: 125px;
+}
+.narrow_clr_45 {
+	background-color:#CCECFF;
+	width: 125px;
+}
+.narrow_clr_60 {
+	background-color:#FFFF75;
+	width: 125px;
+}
+
+.narrow_clr_90 {
+	background-color:#FF8C00;
+	color: Black ;
+	font-weight: bold;
+	width: 125px;
+}
+.narrow_clr_120 {
+	background-color:red;
+	color: #FFF5EE;
+	font-weight: bold;
+	width: 125px;
+}
 /*
  * page titles
  */

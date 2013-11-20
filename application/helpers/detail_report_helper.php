@@ -138,6 +138,15 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			}
 			$str .= "</table>";
 			break;
+			
+		case "color_label":
+			if(array_key_exists($link_id, $options)) {
+				$str .= "<p class='$options[$link_id]'>$display</p>";
+			} else {
+				$str .= $display;
+			}			
+			break;
+							
 		case "xml_params":
 			$str .= make_table_from_param_xml($display);
 			break;
