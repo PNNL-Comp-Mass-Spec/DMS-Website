@@ -1,4 +1,4 @@
-﻿#Add-PSSnapin KTools.PowerShell.SFTP  # available http://kevinrr3.blogspot.com/2013/02/sftp-in-powershell
+﻿Add-PSSnapin KTools.PowerShell.SFTP  # available http://kevinrr3.blogspot.com/2013/02/sftp-in-powershell
 
 function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $localDbFileFolderPath) {
 

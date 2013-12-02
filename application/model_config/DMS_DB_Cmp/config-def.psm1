@@ -1,5 +1,8 @@
 ﻿# Customize this file and place in your LocalAppData folder
 # For example, C:\Users\user1234\AppData\Local\PS_DMS_Scripts
+#
+# In order for powershell to be able to access this file, you must either digitally sign it or change the execution policy to unrestricted:
+#    powershell set-executionpolicy unrestricted
 
 $global:settings = @{
 	"launchBeyondCompare" = $true

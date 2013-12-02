@@ -6,16 +6,15 @@ if($env:LOCALAPPDATA) {
 }
 
 Import-Module $configDefFilePath
-Import-Module $PSScriptRoot\dump_db.psm1
+Import-Module .\dump_db.psm1
 
 # create timestamp-based root name for local folder names
 $rootName = "{0:yyyyMMddhhmm}" -f (get-date)
 
-cls
 # will there be any downloading?  If so, import download module and get password
 foreach($source in $sources) { 
 	if($source["sftpHost"]) {
-		Import-Module $PSScriptRoot\download_dbs.psm1
+		Import-Module .\download_dbs.psm1
 		$password = Read-Host -assecurestring "Please enter your password"
 		$userPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
 		break;
