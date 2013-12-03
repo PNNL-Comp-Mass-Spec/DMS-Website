@@ -1,4 +1,15 @@
-﻿# use local configuration settings file, if one is present
+﻿# To use this file, you must enable script execution
+# It's safer to digitally sign this script, then use the RemoteSigned policy
+#    powershell Set-ExecutionPolicy RemoteSigned
+#
+# However, signing the script takes some extra work; for details, see:
+#    powershell help about_signing
+#
+# The easier method is to set the execution policy to unrestricted:
+#    powershell Set-ExecutionPolicy unrestricted
+
+
+# use local configuration settings file, if one is present
 $configDefFilePath = "$PSScriptRoot\config-def.psm1"
 if($env:LOCALAPPDATA) { 
 	$cfp = "{0}\PS_DMS_Scripts\config-def.psm1" -f $env:LOCALAPPDATA
@@ -10,6 +21,8 @@ Import-Module .\dump_db.psm1
 
 # create timestamp-based root name for local folder names
 $rootName = "{0:yyyyMMddhhmm}" -f (get-date)
+
+#cls
 
 # will there be any downloading?  If so, import download module and get password
 foreach($source in $sources) { 
