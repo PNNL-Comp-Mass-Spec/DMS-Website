@@ -116,7 +116,7 @@ class Upload extends Base_controller {
 				$row[] = "<span id='$results_container' class='entity_results_container'></span>";
 				$rows[] = $row;
 			}
-	
+
 			// table dump
 			$this->load->library('table');
 			$this->table->set_template(array ('table_open'  => '<table class="EPag">'));
