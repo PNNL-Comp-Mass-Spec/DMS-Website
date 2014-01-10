@@ -12,7 +12,9 @@
 
 <h2 class='page_title'><?= $heading; ?></h2>
 
-<div>Select instrument:<?= $instrument_list ?></div>
+<div>Select instrument:<?= $instrument_list ?>
+	<span><input type="text" size="20" id="datepicker"></span>
+</div>
 
 <?= $rollup ?>
 			
@@ -38,6 +40,23 @@
 </div>
 
 <? $this->load->view('resource_links/base2js') ?>
+
+
+
+<script type='text/javascript'>
+	gamma.pageContext.base_url = '<?= base_url() ?>';
+</script>
+
+
+<script type='text/javascript'>
+$(document).ready(function () { 
+	$( "#datepicker" ).datepicker({
+	showOn: "button",
+	buttonImage: gamma.pageContext.base_url + "images/date.png",
+	buttonImageOnly: true
+	});
+});
+</script>
 
 </body>
 </html>
