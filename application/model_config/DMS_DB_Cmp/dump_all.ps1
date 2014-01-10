@@ -1,4 +1,15 @@
-﻿# use local configuration settings file, if one is present
+﻿# To use this file, you must enable script execution
+# It's safer to digitally sign this script, then use the RemoteSigned policy
+#    powershell Set-ExecutionPolicy RemoteSigned
+#
+# However, signing the script takes some extra work; for details, see:
+#    powershell help about_signing
+#
+# The easier method is to set the execution policy to unrestricted:
+#    powershell Set-ExecutionPolicy unrestricted
+
+
+# use local configuration settings file, if one is present
 $configDefFilePath = "$PSScriptRoot\config-def.psm1"
 if($env:LOCALAPPDATA) { 
 	$cfp = "{0}\PS_DMS_Scripts\config-def.psm1" -f $env:LOCALAPPDATA
@@ -6,16 +17,17 @@ if($env:LOCALAPPDATA) {
 }
 
 Import-Module $configDefFilePath
-Import-Module $PSScriptRoot\dump_db.psm1
+Import-Module .\dump_db.psm1
 
 # create timestamp-based root name for local folder names
 $rootName = "{0:yyyyMMddhhmm}" -f (get-date)
 
-cls
+#cls
+
 # will there be any downloading?  If so, import download module and get password
 foreach($source in $sources) { 
 	if($source["sftpHost"]) {
-		Import-Module $PSScriptRoot\download_dbs.psm1
+		Import-Module .\download_dbs.psm1
 		$password = Read-Host -assecurestring "Please enter your password"
 		$userPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
 		break;

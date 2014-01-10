@@ -20,6 +20,7 @@
 			<select name="itemType" id='itemTypeSelector'>
 			<option value="analysis_jobs">Analysis Jobs</option>
 			<option value="datasets">Datasets</option>
+			<option value="proposals">EUS Proposals</option>
 			<option value="experiments">Experiments</option>
 			<option value="biomaterial">Biomaterial</option>
 			</select>
@@ -31,6 +32,7 @@
 		<td>
 		<div class='chsr'>choose biomaterial... <a href="javascript:void()" onclick="packages.callChooserSetType('biomaterial', 'helper_cell_culture/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>choose experiments... <a href="javascript:void()" onclick="packages.callChooserSetType('experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
+		<div class='chsr'>choose proposals... <a href="javascript:void()" onclick="packages.callChooserSetType('proposals', 'helper_eus_proposal_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>choose datasets... <a href="javascript:void()" onclick="packages.callChooserSetType('datasets', 'helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		<div class='chsr'>choose analysis jobs... <a href="javascript:void()" onclick="packages.callChooserSetType('analysis_jobs', 'helper_analysis_job_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
 		</td>

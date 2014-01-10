@@ -160,6 +160,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			$str .= "</table>";
 			break;
 		case "color_label":
+			$cx = "";
 			if(array_key_exists($link_id, $options)) {
 //				$cell_class = "class='" . $options[$link_id] ."'";
 				$cx = "class='" . $options[$link_id] ."' style='padding: 1px 5px 1px 5px;'";
