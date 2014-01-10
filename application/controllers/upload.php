@@ -101,7 +101,7 @@ class Upload extends Base_controller {
 			// format entity list for display
 			$rows = array();
 			foreach($entity_list as $entity) {
-				$base_name = str_replace(' ', '_', strtolower($entity));
+				$base_name = preg_replace ('/[!"#$%&()*+, .\/:;<=>?@^`{|}~]/', '_', strtolower($entity));
 				$results_container = $base_name . '_results';
 				$obj = new stdClass();
 				$obj->entity = $entity;
