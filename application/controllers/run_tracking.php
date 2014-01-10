@@ -14,13 +14,56 @@ class run_tracking extends Base_controller {
 		$this->my_tag = "run_tracking";
 		$this->my_title = "Run Tracking";
 	}
+
+	// --------------------------------------------------------------------
+	// if we don't have a complete URL, make it so and redirect
+	// otherwise return the parameters from the complete URL
+	private function check_iniial_conditions()
+	{
+		// get what we can from URL
+		$instrument = $this->uri->segment(3, '');
+		$year = $this->uri->segment(4, date('Y'));
+		$month = $this->uri->segment(5, date('n'));
+		
+		// URL did not contain an instrument parameter
+		// so choose the first instrument in the list
+		if(!$instrument) {
+			$il = $this->get_instrument_list();
+			$instrument = $il[0]['Name'];
+		}
+
+		// Validate the month
+		if(is_numeric($month)) {
+			if((int)$month < 1) {
+				$month = '1';
+			} else {
+				$month = (int)$month;
+			}
+		} else {
+			$month = '1';
+		}
+
+		// URL was incomplete - construct one and redirect to it
+		$ns = $this->uri->total_segments();
+		if($ns < 5) {
+			$url = $this->my_tag . "/cal/$instrument/$year/$month";
+			redirect($url);
+		}
+		// URL was complete - return URL parameters
+		return array(
+			"inst" => $instrument,
+			"year" => $year,
+			"month" => $month
+		);
+	}
 	
 	// --------------------------------------------------------------------
 	function cal()
 	{
-		$instrument = $this->uri->segment(3, 'Exact01');
-		$year = $this->uri->segment(4, date('Y'));
-		$month = $this->uri->segment(5, date('n'));
+		$iym = $this->check_iniial_conditions();
+		$instrument = $iym["inst"];
+		$year = $iym["year"];
+		$month = $iym["month"];
 
 		// Validate the month
 		if(is_numeric($month)) {
@@ -157,7 +200,6 @@ EOD;
 		$selected = site_url() . $this->my_tag . "/cal/$instrument/$year/$month";
 		$id = 'instrument_sel';
 		$js = "id='$id' onChange='gamma.goToSelectedPage(\"$id\");'";
-
 		ksort($options[$emslLabel]);
 		ksort($options[$dmsLabel]);
 		return form_dropdown($id, $options, $selected, $js);
