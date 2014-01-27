@@ -69,7 +69,7 @@ class pipeline_jobs extends Base_controller {
 	function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
 	{
 		$this->cu->load_mod('q_model', 'swp_model', $config_name, $config_source);
-		$query = $this->swp_model->get_rows('filtered_and_paged');
+		$query = $this->swp_model->get_rows('filtered_and_sorted');
 		return $query->result_array();
 	}
 	
