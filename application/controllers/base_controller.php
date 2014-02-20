@@ -110,17 +110,15 @@ class Base_controller extends CI_Controller {
 		$this->cu->load_lib('list_report', 'list_report', $this->my_tag);
 		$this->list_report->report_data($option);
 	}
-
 	// --------------------------------------------------------------------
-	// returns HTML displaying the list report data rows
+	// returns HTML displaying supplemental information about page
 	// for inclusion in list report page
 	// AJAX
-	function report_sql()
+	function report_info($what_info)
 	{
 		$this->cu->load_lib('list_report', 'list_report', $this->my_tag);
-		$this->list_report->report_sql();
+		$this->list_report->report_info($what_info);
 	}
-	
 	// --------------------------------------------------------------------
 	// returns HTML for the paging display and control element 
 	// for inclusion in report pages

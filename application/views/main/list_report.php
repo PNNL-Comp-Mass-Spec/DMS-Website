@@ -100,6 +100,7 @@ Download in other formats:
 	gamma.pageContext.cntrlContainerId =  "clear_message";
 	gamma.pageContext.ops_url = '<?= $ops_url ?>';
 	gamma.pageContext.updateShowSQL = lstRep.updateShowSQL;
+	gamma.pageContext.updateShowURL = lstRep.updateShowURL;
 	gamma.pageContext.initalDataLoad = '<?= $loading ?>';
 </script>
 

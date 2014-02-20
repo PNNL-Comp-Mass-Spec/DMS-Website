@@ -169,9 +169,9 @@ class Data extends CI_Controller {
 				$this->cu->load_lib('list_report_ah', $config_name, $config_source);
 				$this->list_report_ah->report_data('rows');
 				break;
-			case 'report_sql':
+			case 'reportinfol':
 				$this->cu->load_lib('list_report_ah', $config_name, $config_source);
-				$this->list_report_ah->report_sql();
+				$this->list_report_ah->report_info("sql");
 				break;
 			case 'report_paging':
 				$this->cu->load_lib('list_report_ah', $config_name, $config_source);

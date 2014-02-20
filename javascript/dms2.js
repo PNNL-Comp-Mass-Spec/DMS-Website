@@ -261,11 +261,17 @@ var gamma = {
 	//  or update dialog, otherwise, only update if already open)
 	updateMessageBox: function() {
 		var dlg;
-		return function(url, form, ignoreIfClosed) {
+		return function(url, form, title, ignoreIfClosed) {
 			var isClosed = (dlg) ? !dlg.dialog('isOpen') : true;
+			if(dlg && !url) {
+				dlg.dialog( "close" );
+				return;
+			}
 			if(ignoreIfClosed && isClosed) return;
 			if(!dlg) {
-				dlg = $('<div></div>').dialog({title: 'SQL', autoOpen: false});	
+				dlg = $('<div></div>').dialog({title: title, autoOpen: false});	
+			} else {
+				dlg.dialog({ title: title });
 			}
 			url = gamma.pageContext.site_url + url;
 			var p = $('#' + form).serialize();
@@ -900,7 +906,7 @@ var delta = {
 		}
 	},
 	updateShowSQL: function () {
-		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS'); 
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL'); 
 	}
 };
 

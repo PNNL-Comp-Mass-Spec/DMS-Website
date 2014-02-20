@@ -50,8 +50,11 @@ var lstRep = {
 		}
 	},
 	updateShowSQL: function(ignoreIfClosed) {
-		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_sql', 'filter_form', ignoreIfClosed); 
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/sql', 'filter_form', 'SQL', ignoreIfClosed); 
 	},
+	updateShowURL: function(ignoreIfClosed) {
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/url', 'filter_form', 'URL', ignoreIfClosed); 
+	},	
 	// start the data update chain for the page
 	updateMyData: function(loading) {
 		if(loading == 'no_load') {
@@ -59,7 +62,8 @@ var lstRep = {
 		} else {
 			if(loading && loading == 'reset') $('#qf_first_row').val(1);
 			lstRep.data_update_action.run(); 	
-			lstRep.updateShowSQL(true);
+///			lstRep.updateShowSQL(true);
+			gamma.updateMessageBox();
 		}	
 	}
 } // lstRep

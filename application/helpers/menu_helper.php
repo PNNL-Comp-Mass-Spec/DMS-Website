@@ -301,6 +301,7 @@
 				break;
 			case 'List_Reports':
 				$menu_context['sql_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowSQL)";
+				$menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
 				break;
 			case 'Detail_Reports' :
 				$menu_context['sql_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowSQL)";

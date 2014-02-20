@@ -201,14 +201,46 @@ class List_report {
 	// returns HTML displaying the list report data rows
 	// for inclusion in list report page
 	// AJAX
-	function report_sql()
+	function report_info($what_info)
 	{
 		$CI = &get_instance();
 		session_start();
-		
 		$this->set_up_list_query();
-		echo $CI->data_model->get_sql("filtered_and_sorted");
+		
+		switch($what_info) {
+			case "sql":
+				echo $CI->data_model->get_sql("filtered_and_sorted");
+				break;
+			case "url":
+				$filters = $this->set_up_list_query();
+				echo $this->dump_filters($filters, $CI->my_tag);
+				break;
+		}
 	}
+	///------
+	private 
+	function dump_filters($filters, $tag)
+	{
+		$s = "";
+		// primary
+		$zz = array();
+		foreach($filters["primary"] as $f) {
+			$zz[] = ($f["value"]) ? $f["value"] : "-" ;
+		}
+		$s .= site_url() . "$tag/report/" . implode("/", $zz);
+		// secondary
+		$sf = array();
+		foreach($filters["secondary"] as $f) {
+			if($f["qf_comp_val"]) {
+				$sf[] = $f["qf_rel_sel"] . "|" .$f["qf_col_sel"] . "|" .$f["qf_comp_sel"] . "|" . $f["qf_comp_val"];
+			}
+		}
+		if(!empty($sf)) {
+			$s .= "<br><hr>Secondary:<br>" . implode("<br>", $sf);
+		}
+		return $s;
+	}
+	///-----
 	
 	// --------------------------------------------------------------------
 	// returns HTML for the paging display and control element 
@@ -286,6 +318,12 @@ class List_report {
 		$CI->data_model->add_paging_item($current_filter_values['qf_first_row'], $current_filter_values['qf_rows_per_page']);
 		
 		$CI->data_model->convert_wildcards();
+		
+		// return filter settings
+		return array(
+			"primary" => $current_primary_filter_values,
+			"secondary" => $current_secondary_filter_values
+		);
 	}
 	
 	
