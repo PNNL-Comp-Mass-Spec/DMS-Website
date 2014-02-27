@@ -71,7 +71,7 @@
 	var gridConfig = {
 		maxColumnChars: 50,
 		hiddenColumns: [],
-		staticColumns: ['Seq', 'EMSL Inst ID', 'Instrument', 'Type', 'Start', 'Minutes', 'Users', 'ID', {id:"Proposal"}, {id:"Usage"},  {id:"Operator"},  {id:"Comment"}, 'Validation'],
+		staticColumns: ['Seq', 'EMSL Inst ID', 'Instrument', 'Type', 'Start', 'Minutes', {id:"Users"}, 'ID', {id:"Proposal"}, {id:"Usage"},  {id:"Operator"},  {id:"Comment"}, 'Validation'],
 		getLoadParameters: function() {
 			var p = {};
 			var instruments = $('#instrument_fld_chooser').val();
