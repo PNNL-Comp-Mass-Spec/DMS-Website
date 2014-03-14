@@ -182,6 +182,7 @@ EOD;
 		$this->load->helper(array('form'));
 		$emslLabel = 'EMSL';
 		$dmsLabel = 'DMS';
+		$trkdLabel = 'Tracked';
 		$options = array($emslLabel => array(), $dmsLabel => array() );
 		if($instruments) {
 			foreach($instruments as $item) {
@@ -189,12 +190,25 @@ EOD;
 				//$inst = $item;
 				$link = site_url() . $this->my_tag . "/cal/$inst/$year/$month";
 				$rpt = $item['Reporting'];
+				switch($rpt[0]) {
+					case 'E':
+					$options[$emslLabel][$link] =  "$inst ($rpt)";
+						break;
+					case 'P':
+					$options[$dmsLabel][$link] =  "$inst ($rpt)";			
+						break;
+					case 'T':
+					$options[$trkdLabel][$link] =  "$inst ($rpt)";			
+						break;
+				}
+/*				
 				if($rpt[0] == 'E') {
 					$options[$emslLabel][$link] =  "$inst ($rpt)";
 //					$options[$link] = "$inst ($rpt)";				
 				} else {
 					$options[$dmsLabel][$link] =  "$inst ($rpt)";			
 				}
+ */
 			}
 		}
 		$selected = site_url() . $this->my_tag . "/cal/$instrument/$year/$month";
