@@ -14,9 +14,9 @@
 	<a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick Start...</a>
 	</div>
 	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:40em;'>
-	<a href='<?= site_url()?>gen/stats'>Statistics...</a>
+	<a href='http://dmsbeta.pnl.gov' target='#PrismWiki'>Training site...</a>
 	</div>
-	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:48em;'>
+	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:49em;'>
 	<a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>Proteomics queue...</a>
 	</div>
 </div>
@@ -35,23 +35,23 @@
 </MAP>
 
 <div id='diagram_section' style='position:relative;margin-left:15px;'>
-<div style='height:15px;'></div>
-<div>
-<img src='<?= base_url()."images/dms_hierarchy_5.gif" ?>' border='0' USEMAP="#visImageMap">
-</div>
+	<div style='height:15px;'></div>
+	<div>
+	<img src='<?= base_url()."images/dms_hierarchy_5.gif" ?>' border='0' USEMAP="#visImageMap">
+	</div>
 
-<div id='fly_section' style='position:absolute;top:2em;left:700px;width:25em;'>
-<?= make_fly_section_layout($qs_section_defs); ?>
-<div id='splash_message' class='fly_box'>
-<h2>DMS Hierarchy </h2>
-<p>DMS uses these entities to keep track of the proteomics process</p>
-<p>An understanding of what each one represents, and how it fits in, is essential for proper use of DMS</p>
-<p>There are some useful links for each entity in the sections below.  Once you know your way around DMS, using either the side menu panel or the drop-down menu bar may be more convenient.</p>
-<p>If you haven't a clue where to start, try <a href='http://prismwiki.pnl.gov/wiki/Data_Management_System' target='#PrismWiki'>Overview...</a></p>
-<p>If want to dig into the basics, try <a href='http://prismwiki.pnl.gov/wiki/DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a></p>
-<p>If you want to learn more about the features that DMS provides, try <a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick start...</a></p>
-</div> <!-- end 'splash_message' -->
-</div> <!-- end 'fly_section' -->
+	<div id='fly_section' style='position:absolute;top:2em;left:700px;width:25em;'>
+	<?= make_fly_section_layout($qs_section_defs); ?>
+		<div id='splash_message' class='fly_box'>
+		<h2>DMS Hierarchy </h2>
+		<p>DMS uses these entities to keep track of sample and data processing.</p>
+		<p>An understanding of what each one represents, and how it fits in, is essential for proper use of DMS.</p>
+		<p>If you haven't a clue where to start, try <a href='http://prismwiki.pnl.gov/wiki/Data_Management_System' target='#PrismWiki'>Overview...</a></p>
+		<p>If want to dig into the basics, try <a href='http://prismwiki.pnl.gov/wiki/DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a></p>
+		<p>If you want to learn more about the features that DMS provides, try <a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick start...</a></p>
+		<p>See the <a href='<?= site_url()?>gen/stats'>statistics...</a> page for bulk stats by entity type.</p>
+		</div> <!-- end 'splash_message' -->
+	</div> <!-- end 'fly_section' -->
 </div> <!-- end 'diagram_section' -->
 
 <div style='height:10px;'></div>
@@ -62,8 +62,8 @@
 <div style='height:2em;'></div>
 <div id='disclaimer_message' style="width:55em;">
 <p>
-The DMS is part of PRISM, the Proteomics Research Information Storage and Management System.
-DMS acquires data from mass spectrometers, collects laboratory information, and tracks and controls the intermediate data processing.
+The DMS is part of PRISM, the Pan-omics Research Information Storage and Management System.
+DMS acquires data from mass spectrometers and other instruments, collects laboratory information, and tracks and controls the intermediate data processing.
 </p>
 <p>
 You may use the <a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>proteomics queue </a>
