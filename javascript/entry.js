@@ -127,9 +127,9 @@ var entry = {
 			var proceed = false;
 			// this function will be called by standard submit sequence
 			// prior to actually submitting form to server
-			return function() {
+			return function(mode) {
 				// check whether or not we need to have user confirm submit
-				proceed = entry.sample_prep_request.checkMaterial(proceed);
+				proceed = entry.sample_prep_request.checkMaterial(mode);
 				if(!proceed) {
 					// present modal dialog with user choices
 					// and return false to cancel original submit
@@ -160,10 +160,11 @@ var entry = {
 				return proceed;	
 			}
 		}(),
-		checkMaterial: function (proceed) {
+		checkMaterial: function (mode) {
+			var proceed = false;
 			var state = $('#State').val();
 			var biomaterial = $('#CellCultureList').val();
-			if((state != 'Closed') || (biomaterial == '(none)' || biomaterial == '') ) {
+			if((mode == 'add') || (state != 'Closed') || (biomaterial == '(none)' || biomaterial == '') ) {
 				proceed = true;
 			}
 			return proceed;

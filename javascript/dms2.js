@@ -1107,7 +1107,7 @@ var epsilon = {
 		modeField.val(mode);
 		var proceed = true;
 		if(beforeAction) { 
-			proceed = beforeAction();
+			proceed = beforeAction(mode);
 		}
 		if(!proceed) return;
 		p = entryForm.serialize();
