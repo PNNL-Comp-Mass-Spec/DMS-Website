@@ -10,10 +10,12 @@
 
 
 # use local configuration settings file, if one is present
+# Example path: C:\Users\d3l243\AppData\Local\PS_DMS_Scripts\config-def.psm1
+#
 $configDefFilePath = "$PSScriptRoot\config-def.psm1"
 if($env:LOCALAPPDATA) { 
 	$cfp = "{0}\PS_DMS_Scripts\config-def.psm1" -f $env:LOCALAPPDATA
-	if(Test-Path -Path $cfp) { $configDefFilePath = $cfp }
+	if(Test-Path "$cfp") { $configDefFilePath = $cfp }
 }
 
 Import-Module $configDefFilePath
@@ -40,10 +42,10 @@ $downloads = @{}
 foreach($source in $sources) {
 	#set up local folders to receive downloaded and copied config db files and dump files
 	$localDbFileFolderPath = "{0}\{1}{2}" -f $defaults["localDbFileFolderPath"], $source["version"], $rootName
-	if (!(Test-Path -path $localDbFileFolderPath)) { New-Item $localDbFileFolderPath -Type Directory | Out-Null }
+	if (!(Test-Path "$localDbFileFolderPath")) { New-Item $localDbFileFolderPath -Type Directory | Out-Null }
 	#
 	$localDumpFileFolderPath = "{0}\{1}{2}" -f $defaults["localDumpFileFolderPath"], $source["version"], $rootName
-	if (!(Test-Path -path $localDumpFileFolderPath)) { New-Item $localDumpFileFolderPath -Type Directory | Out-Null }
+	if (!(Test-Path "$localDumpFileFolderPath")) { New-Item $localDumpFileFolderPath -Type Directory | Out-Null }
 
 	# if source is defined as SFTP, download the *.db files
 	# and extract the dump files
@@ -73,9 +75,21 @@ foreach($source in $sources) {
 
 # launch Beyond Compare
 if($settings["launchBeyondCompare"]) {
-	foreach($key in $downloads.Keys) { 
-		& "C:\Program Files (x86)\Beyond Compare 2\bc2.exe" $code $downloads[$key] 
-		# Wait 500 msec before continuing to avoid shared resource conflicts
-		Start-Sleep -m 500
+
+	$beyondComparePath = "C:\Program Files (x86)\Beyond Compare 4\bcomp.exe"
+
+	if (!(Test-Path "$beyondComparePath")) { 
+		$beyondComparePath = "C:\Program Files (x86)\Beyond Compare 2\bc2.exe" 
+	}
+
+	if (!(Test-Path "$beyondComparePath")) { 
+		Write-Host "Could not find Beyond Compare 4 or Beyond Compare 2" 
+	} else {
+	
+		foreach($key in $downloads.Keys) { 
+			& $beyondComparePath $code $downloads[$key] 
+			# Wait 500 msec before continuing to avoid shared resource conflicts
+			Start-Sleep -m 500
+		}
 	}
 }
