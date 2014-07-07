@@ -150,6 +150,17 @@ var tau = {
 			var iList = lambda.getSelectedItemList();
 			var xml = gamma.getXmlElementsFromArray(iList, 'r', 'i');
 			this.updateDatabaseFromList(xml, status);
-		}
+		},
+		changeWPN: function(oldWpn, newWpn) {
+			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag +  "/call/updatewp_sproc";
+			var p = {};
+			p.OldWorkPackage = oldWpn;
+			p.NewWorkPackage = newWpn;
+			p.RequestedIdList = lambda.getSelectedItemList().join();
+			if(!p.RequestedIdList) {
+				if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
+			}
+			lambda.submitCall(url, p);
+		},
 	} // requested_run_admin
 }

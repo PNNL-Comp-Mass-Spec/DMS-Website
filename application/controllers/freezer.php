@@ -283,68 +283,6 @@ class Freezer extends Base_controller {
 
 	}
 
-	// --------------------------------------------------------------------
-	// show freezer
-	function junk()
-	{
-		$this->load->helper(array('url', 'string'));
-		$this->load->library('table');
-
-		// optional limits
-		$freezer = $this->uri->segment(3);
-		$shelf = $this->uri->segment(4);
-		$rack = $this->uri->segment(5);
-
-		// type and serial number of component
-		$freezer = $this->uri->segment(3);
-
-		echo "<h2>Freezer:$freezer </h2>";
-
-		// get  information
-		//Location, Freezer, Shelf, Rack, Row, Col, Barcode, Comment, Limit, Containers, Status
-		$sql = "";
-		$sql .= "SELECT DISTINCT Shelf, Rack ";
-		$sql .= "FROM  V_Material_Locations_List_Report ";
-		$sql .= "WHERE ";
-		$sql .= "(Freezer like '%$freezer%') ";
-//echo $sql;
-//echo "<hr>";
-		//
-		$this->load->database();
-		$result = $this->db->query($sql);
-		//
-		if(!$result) {
-			echo "Error";
-			return;
-		}
-
-		$grid = array();
-		$rows = $result->result_array();
-		foreach($rows as $row) {
-			$shelf = $row['Shelf'];
-			$rack = $row["Rack"];
-			if($rack == 'na') {
-				$a = '';
-			} else {
-				$hr = site_url()."freezer/show_rack/".$freezer."/".$shelf."/".$rack;
-				$a = "<a href='$hr'>"."S:".$shelf.",R:".$rack."</a>";
-			}
-			$grid[$shelf][$rack] = $a;
-		}
-
-		// display results in table
-		//
-		$tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">' );
-		$this->table->set_template($tmpl);
-		$this->table->set_heading("", "Rack 1", "Rack 2", "Rack 3", "Rack 4", "Rack 5", "Rack 6", "No Rack");
-		for($s=1;$s<=5;$s++) {
-			$label = "<span style='font-weight:bold;'>Shelf $s</span>";
-			array_unshift($grid[$s], $label);
-			$this->table->add_row($grid[$s]);
-		}
-		echo $this->table->generate();
-
-	}
 
 	// --------------------------------------------------------------------
 	function show()
@@ -488,6 +426,109 @@ class Freezer extends Base_controller {
 
 		$this->load->vars($data);
 		$this->load->view('special/freezer');
+	}
+
+	// --------------------------------------------------------------------
+	// show freezer
+	function junk()
+	{
+		$this->load->helper(array('url', 'string'));
+		$this->load->library('table');
+
+		$freezer = $this->uri->segment(3);
+
+		echo "<h2>Freezer:$freezer </h2>";
+
+		// get  information
+		//Location, Freezer, Shelf, Rack, Row, Col, Barcode, Comment, Limit, Containers, Status
+		$sql = "";
+		$sql .= "SELECT DISTINCT Shelf, Rack ";
+		$sql .= "FROM  V_Material_Locations_List_Report ";
+		$sql .= "WHERE ";
+		$sql .= "(Freezer like '%$freezer%') ";
+//echo $sql;
+//echo "<hr>";
+		//
+		$this->load->database();
+		$result = $this->db->query($sql);
+		//
+		if(!$result) {
+			echo "Error";
+			return;
+		}
+
+		$grid = array();
+		$rows = $result->result_array();
+		foreach($rows as $row) {
+			$shelf = $row['Shelf'];
+			$rack = $row["Rack"];
+			if($rack == 'na') {
+				$a = '';
+			} else {
+				$hr = site_url()."freezer/show_rack/".$freezer."/".$shelf."/".$rack;
+				$a = "<a href='$hr'>"."S:".$shelf.",R:".$rack."</a>";
+			}
+			$grid[$shelf][$rack] = $a;
+		}
+
+		// display results in table
+		//
+		$tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">' );
+		$this->table->set_template($tmpl);
+		$this->table->set_heading("", "Rack 1", "Rack 2", "Rack 3", "Rack 4", "Rack 5", "Rack 6", "No Rack");
+		for($s=1;$s<=5;$s++) {
+			$label = "<span style='font-weight:bold;'>Shelf $s</span>";
+			array_unshift($grid[$s], $label);
+			$this->table->add_row($grid[$s]);
+		}
+		echo $this->table->generate();
+
+	}
+
+	// --------------------------------------------------------------------
+	function config()
+	{
+		$this->load->helper(array('freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu'));
+		$this->load->library('table');
+		$this->load->database();
+
+		$freezer_spec = $this->uri->segment(3);
+		
+ 		// labelling information for view
+		$data['title'] = "Freezer Matrix";
+		$data['heading'] = "Freezer $freezer_spec Matrix";
+
+		// navbar support
+		$this->load->model('dms_menu', 'menu', TRUE);
+		$data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report');
+
+		// table styling 
+		$table_setup = "border='1' cellpadding='2' cellspacing='1' class='mytable'";
+		$tstyl = " style='height:100%; width:100%; background-color:#abc; position:relative;'";
+		
+		// get list of rows and columns for given freezer
+		$sql = "";
+		$sql .= "SELECT  [ID] ,[Tag] ,[Shelf] ,[Rack] ,[Row] ,[Col] ,[Status] ";
+		$sql .= "FROM [T_Material_Locations] ";
+		$sql .= "WHERE Freezer LIKE '%$freezer_spec%' ";
+		$sql .= "AND NOT [Row] = 'na' AND NOT [Col] = 'na' ";
+		$sql .= "ORDER BY Shelf, Rack, [Row], Col ";
+		$rc_result = $this->db->query($sql);
+		if(!$rc_result) {echo "Error loading row/colmn";return;}
+		$locs = $rc_result->result_array();
+		
+		// build nested array representation of freezer locations
+		$fzr = make_freezer_matrix_array($locs);		
+
+		// make set of inner row-column tables
+		$otr = make_matrix_row_col_tables($fzr, $table_setup, $tstyl);
+
+		// render the final table	
+		$tbs = render_matrix_table($otr, $table_setup);
+		
+		$data['tbs'] = $tbs;
+		$this->load->vars($data);
+		$this->load->view('special/freezer_matrix');
 	}
 
 }

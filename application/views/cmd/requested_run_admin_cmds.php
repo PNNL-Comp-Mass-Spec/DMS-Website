@@ -29,6 +29,13 @@
 
 <hr>
 <div>
+<input class='button lst_cmd_btn' type="button" value="Change WPN" onClick='tau.requested_run_admin.changeWPN($("#oldWPN").val(), $("#newWPN").val())' title="Change WPN from old to new for selected requests"  /> 
+from existing <input id='oldWPN'/> to <input id='newWPN'/>
+for all or selected requests
+</div>
+
+<hr>
+<div>
 <input class='button lst_cmd_btn' type="button" value="Delete Requests" onClick='tau.requested_run_admin.setRequestStatus("delete")' title="Test"  /> Delete selected requests
 </div>
 

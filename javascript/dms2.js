@@ -625,6 +625,26 @@ var lambda = {
 		);
 	},
 	//------------------------------------------
+	// submit list report supplemental command
+	// using "call" semantics
+	submitCall: function(url, p, show_resp) {
+		var ctl = $('#' + gamma.pageContext.cntrlContainerId);
+		var container = $('#' + gamma.pageContext.responseContainerId);
+		container.spin('small');
+		$.post(url, p, function (data) {
+				container.spin(false);
+				var obj = $.parseJSON(data);
+				container.html(obj.message);
+				if(obj.result) {
+					ctl.show();
+				} else {
+					ctl.hide();
+					lambda.reloadListReportData();
+				}
+			}
+		);
+	},
+	//------------------------------------------
 	//loads a SQL comparison selector (via AJAX)
 	loadSqlComparisonSelector: function(containerId, url, col_sel) {
 		url += $('#' + col_sel).val();
