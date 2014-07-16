@@ -124,12 +124,17 @@ var entry = {
 	}, // pipeline_jobs
 	sample_prep_request: {
 		approveSubmit: function() {
+			// State memory of whether special close dialog can be skipped or not.
+			// Modal dialog sets it and then re-triggers submit command.
+			// state is remembered within closure, so that the subsequent
+			// call to aproveSubmit knows that user has approved proceding with action.
 			var proceed = false;
 			// this function will be called by standard submit sequence
 			// prior to actually submitting form to server
 			return function(mode) {
 				// check whether or not we need to have user confirm submit
-				proceed = entry.sample_prep_request.checkMaterial(mode);
+				var skip = mode == "add";
+				proceed = skip || entry.sample_prep_request.checkMaterial(proceed);
 				if(!proceed) {
 					// present modal dialog with user choices
 					// and return false to cancel original submit
@@ -160,11 +165,10 @@ var entry = {
 				return proceed;	
 			}
 		}(),
-		checkMaterial: function (mode) {
-			var proceed = false;
+		checkMaterial: function (proceed) {
 			var state = $('#State').val();
 			var biomaterial = $('#CellCultureList').val();
-			if((mode == 'add') || (state != 'Closed') || (biomaterial == '(none)' || biomaterial == '') ) {
+			if((state != 'Closed') || (biomaterial == '(none)' || biomaterial == '') ) {
 				proceed = true;
 			}
 			return proceed;
