@@ -292,7 +292,7 @@ class Freezer extends Base_controller {
 	// --------------------------------------------------------------------
 	function config()
 	{
-		$this->load->helper(array('freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu'));
+		$this->load->helper(array('freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu', 'form'));
 		$this->load->library('table');
 		$this->load->database();
 
@@ -330,9 +330,30 @@ class Freezer extends Base_controller {
 		// render the final table	
 		$tbs = render_matrix_table($otr, $table_setup);
 		
+		// make freezer dropdown
+		$js = "id='freezer_list' onchange='gamma.goToSelectedPage(\"freezer_list\");'";
+		$data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), null, $js);
+		
 		$data['tbs'] = $tbs;
 		$this->load->vars($data);
 		$this->load->view('special/freezer_matrix');
+	}
+	// --------------------------------------------------------------------
+	private
+	function freezer_list() 
+	{
+		$this->load->model('freezer_model', 'freezer', TRUE);
+
+		$frzrs = $this->freezer->get_freezers();
+		$lst = array();
+		foreach($frzrs as $frzr) {
+			$r = $frzr["Freezer"];
+			$r = preg_split ('/ /', $r);
+			$f = (count($r) > 1)?$r[1]:$r[0];
+			$l = site_url() . "freezer/config/$f";
+			$lst[$l] = $f;
+		}
+		return $lst;
 	}
 
 }

@@ -9,11 +9,16 @@
 </head>
 <body id='freezer_page'>
 <div id="body_container" >
-
+	
 <? $this->load->view('nav_bar') ?>
+
 
 <div style="padding:2px 0 2px 0;">
 <h2 class='page_title' style="display:inline;"><?= $heading; ?></h2>
+</div>
+
+<div>
+	<?= $picker ?>
 </div>
 
 <div><?= $tbs ?></div>
