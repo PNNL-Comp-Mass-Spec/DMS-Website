@@ -26,7 +26,7 @@ class List_report {
 		$this->tag = $CI->my_tag;
 		$this->title = $CI->my_title;
 	}
-	
+
 	// --------------------------------------------------------------------
 	// make list report page
 	//
@@ -47,7 +47,7 @@ class List_report {
  		// convert them to primary and secondary filter field values and cache those
  		// and redirect back to ourselves without the trailing URL segments
  		$segs = array_slice($CI->uri->segment_array(), 2);
-		$pfSegs = null;
+		$pfSegs = $segs;
 		$sfSegs = null;
 		$sfIdx = array_search("sfx", $segs);
 		if(!$sfIdx === false) {
