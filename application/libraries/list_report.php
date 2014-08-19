@@ -26,7 +26,7 @@ class List_report {
 		$this->tag = $CI->my_tag;
 		$this->title = $CI->my_title;
 	}
-
+	
 	// --------------------------------------------------------------------
 	// make list report page
 	//
@@ -44,12 +44,20 @@ class List_report {
 		$CI->model->clear_cached_total_rows();
 
  		// if there were extra segments for list report URL, 
- 		// convert them to primary filter field values and cache those
+ 		// convert them to primary and secondary filter field values and cache those
  		// and redirect back to ourselves without the trailing URL segments
  		$segs = array_slice($CI->uri->segment_array(), 2);
+		$pfSegs = null;
+		$sfSegs = null;
+		$sfIdx = array_search("sfx", $segs);
+		if(!$sfIdx === false) {
+			$sfSegs = array_slice($segs, $sfIdx + 1);
+			$pfSegs = array_slice($segs, 0, $sfIdx);
+		}
 		if(!empty($segs)) {
 			$primary_filter_specs = $CI->model->get_primary_filter_specs();
-			$this->set_pri_filter_from_url_segments($segs, $primary_filter_specs);
+			$this->set_pri_filter_from_url_segments($pfSegs, $primary_filter_specs);
+			$this->set_sec_filter_from_url_segments($sfSegs, $primary_filter_specs);
 			redirect($this->tag.'/'.$mode);
 		}	
 	
@@ -96,6 +104,21 @@ class List_report {
 		}
 		// and cache the values we got from the segments
 		$CI->primary_filter->save_current_filter_values();
+	}
+
+	// --------------------------------------------------------------------
+	// need to initialize secondary filter values from URL segments
+	// and cache them for subsequent queries
+	protected
+	function set_sec_filter_from_url_segments($segs, $primary_filter_specs)
+	{
+		$CI = &get_instance();
+		
+		// secondary filter object (we will use it to cache field values)
+		$CI->cu->load_lib('secondary_filter', $this->config_name, $this->config_source);
+		
+		$filter_state = $CI->secondary_filter->get_filter_from_list($segs);
+		$CI->secondary_filter->save_filter_values($filter_state);
 	}
 	
 	// --------------------------------------------------------------------
@@ -222,21 +245,28 @@ class List_report {
 	function dump_filters($filters, $tag)
 	{
 		$s = "";
-		// primary
-		$zz = array();
+		// dump primary filter to segment list
+		$pf = array();
 		foreach($filters["primary"] as $f) {
-			$zz[] = ($f["value"]) ? $f["value"] : "-" ;
+			$x = ($f["value"]) ? $f["value"] : "-" ;
+			$pf[] = str_replace(" ", "%20", $x);
 		}
-		$s .= site_url() . "$tag/report/" . implode("/", $zz);
-		// secondary
+		$s .= site_url() . "$tag/report/" . implode("/", $pf);
+		
+		// dump active secondary filters to array of segments
 		$sf = array();
 		foreach($filters["secondary"] as $f) {
 			if($f["qf_comp_val"]) {
-				$sf[] = $f["qf_rel_sel"] . "|" .$f["qf_col_sel"] . "|" .$f["qf_comp_sel"] . "|" . $f["qf_comp_val"];
+				$y = "/" . $f["qf_rel_sel"];
+				$y .= "/" . $f["qf_col_sel"];
+				$y .= "/" . $f["qf_comp_sel"];
+				$y .= "/" . $f["qf_comp_val"];
+				$sf[] = str_replace(" ", "%20", $y);
 			}
 		}
+		// add secondary filter segments (if present)
 		if(!empty($sf)) {
-			$s .= "<br><hr>Secondary:<br>" . implode("<br>", $sf);
+			$s .= "/sfx" . implode("", $sf);
 		}
 		return $s;
 	}

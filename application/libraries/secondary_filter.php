@@ -18,6 +18,11 @@ class Secondary_filter {
 	}
 
 	// --------------------------------------------------------------------
+	function get_num_filters()
+	{
+		return $this->qf_num_filters;
+	}
+	// --------------------------------------------------------------------
 	// get current secondary filter values either from POST
 	// or from cache storage (session)
 	function init($config_name, $config_source)
@@ -71,7 +76,7 @@ class Secondary_filter {
 	// set query filter so that it will not be used to filter results
 	function clear_query_filter()
 	{
-		for($i=0;$i<$this->qf_num_filters;$i++) {
+		for($i=0; $i<$this->qf_num_filters; $i++) {
 			foreach($this->qf_field_names as $name) {
 				$this->cur_qf_vals[$i][$name]  = "";			
 			}
@@ -97,10 +102,17 @@ class Secondary_filter {
 			// get current values for each field of current filter row
 			$a = new stdClass();
 			$a->relSelOpts = $relSelOpts;
-			$a->curRel = $this->cur_qf_vals[$i]['qf_rel_sel'];
-			$a->curCol = $this->cur_qf_vals[$i]['qf_col_sel'];
-			$a->curComp = $this->cur_qf_vals[$i]['qf_comp_sel'];
-			$a->curVal = $this->cur_qf_vals[$i]['qf_comp_val'];
+			if($i < count($this->cur_qf_vals)) {
+				$a->curRel = $this->cur_qf_vals[$i]['qf_rel_sel'];
+				$a->curCol = $this->cur_qf_vals[$i]['qf_col_sel'];
+				$a->curComp = $this->cur_qf_vals[$i]['qf_comp_sel'];
+				$a->curVal = $this->cur_qf_vals[$i]['qf_comp_val'];
+			} else {
+				$a->curRel = "";
+				$a->curCol = "";
+				$a->curComp = "";
+				$a->curVal = "";
+			}
 			//
 			// make comparison selector options list for current
 			// value of column (default to first column if current value is empty)
@@ -135,6 +147,39 @@ class Secondary_filter {
 	function get_cached_value()
 	{
 		return get_from_cache($this->storage_name);
+	}
+
+	// --------------------------------------------------------------------
+	// for building up current values from a simple ordered list
+	// (usually URL seqments)
+	function get_filter_from_list($items)
+	{
+		// build filters from list items
+		$filter_state = array();
+		$numItems = count($items);
+		$itemIdx = 0;
+		$filterIdx = 0;
+		while($itemIdx < $numItems ) {
+			foreach($this->qf_field_names as $name) {
+				$filter_state[$filterIdx][$name]  = $items[$itemIdx++];			
+			}
+			$filterIdx++;
+		}
+		// pad out filters
+		$numFilters = count($filter_state);
+		for($j = $numFilters; $j < $this->qf_num_filters; $j++) {
+			foreach($this->qf_field_names as $name) {
+				$filter_state[$j][$name]  = "";			
+			}			
+		}
+		return $filter_state;
+	}	
+
+	// --------------------------------------------------------------------
+	// save current filter values to cache
+	function save_filter_values($filter_state)
+	{		
+		save_to_cache($this->storage_name, $filter_state);
 	}
 
 	// --------------------------------------------------------------------
