@@ -114,7 +114,7 @@ class Sql_mssql {
 	{
 		$col = $predicate->col;
 		$cmp = $predicate->cmp;
-		$val = $predicate->val;
+		$val = trim($predicate->val);
 		
 		$str = '';
 		switch($cmp) {
