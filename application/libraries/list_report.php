@@ -27,7 +27,7 @@ class List_report {
 		$this->title = $CI->my_title;
 	}
 
-	// --------------------------------------------------------------------
+	// ----------------------------------------;----------------------------
 	// make list report page
 	//
 	function list_report($mode)
@@ -48,16 +48,16 @@ class List_report {
  		// and redirect back to ourselves without the trailing URL segments
  		$segs = array_slice($CI->uri->segment_array(), 2);
 		$pfSegs = $segs;
-		$sfSegs = null;
-		$sfIdx = array_search("sfx", $segs);
+		$sfSegs = array();
+		$sfIdx = $this->get_secondary_filter_preset_idx($segs);
+		$primary_filter_specs = $CI->model->get_primary_filter_specs();
 		if(!$sfIdx === false) {
 			$sfSegs = array_slice($segs, $sfIdx + 1);
 			$pfSegs = array_slice($segs, 0, $sfIdx);
-		}
+			$this->set_sec_filter_from_url_segments($sfSegs, $primary_filter_specs);		
+		}	
 		if(!empty($segs)) {
-			$primary_filter_specs = $CI->model->get_primary_filter_specs();
 			$this->set_pri_filter_from_url_segments($pfSegs, $primary_filter_specs);
-			$this->set_sec_filter_from_url_segments($sfSegs, $primary_filter_specs);
 			redirect($this->tag.'/'.$mode);
 		}	
 	
@@ -75,6 +75,37 @@ class List_report {
 		$data['nav_bar_menu_items']= set_up_nav_bar('List_Reports');
 		$CI->load->vars($data);		
 		$CI->load->view('main/list_report');
+	}
+
+	// --------------------------------------------------------------------
+	// check segment array to see of there is a secondary filter preset
+	private 
+	function get_secondary_filter_preset_idx($segs)
+	{
+		$result = false;
+		$ns = count($segs);
+		$nxt = "";
+		$s = "";
+		// step through segments and look for secondary filter keywords
+		for($i = 0; $i < $ns; $i++) {
+			// clear secondary filter
+			$s = $segs[$i];
+			if($s == "clear-sfx" && $i + 1 == $ns) {
+				$result = $i;
+				break;
+			}
+			// verify keyword followed by relation
+			if($s == "sfx") {
+				if($i + 1 < $ns) {
+					$nxt = $segs[$i + 1];
+					if($nxt == "AND" || $nxt == "OR") {
+						$result = $i;						
+						break;
+					}
+				}
+			}
+		}
+		return $result;
 	}
 
 	// --------------------------------------------------------------------
