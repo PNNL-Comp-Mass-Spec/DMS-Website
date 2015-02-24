@@ -71,9 +71,15 @@ class helper_inst_source extends Base_controller {
 
 					$files[] = $fileInfo . ")";
 					break;
+					
 				case 'Dir':
-					$dirs[] = "$lnk ($type)";
+					$dirInfo = "$lnk ($type";
+					if(strlen($size) > 0)
+						$dirInfo .= ", " . $size;
+
+					$dirs[] = $dirInfo . ")";
 					break;
+					
 				default:
 					$other[] = "$lnk ($type)";
 					break;
