@@ -227,6 +227,42 @@ var lcmd = {
 			lambda.submitOperation(url, p);
 		}
 	},
+	mc_enable_control_by_manager: {
+		op: function(mode, newValFld) {
+			var list = lambda.getCkbxList('ckbx');
+			if(list=='') {
+				alert('You must select at least one manager.'); 
+				return;
+			}
+			if ( !confirm("Are you sure that you want to update the database?") )
+				return;
+			var url =  gamma.pageContext.ops_url;
+			var p = {};
+			p.command = mode;
+			p.newValue =  $('#' + newValFld).val();
+			p.paramValue = mode;
+			p.managerIDList = list;
+			lambda.submitOperation(url, p);
+		}
+	},	
+	mc_enable_control_by_manager_type: {
+		op: function(mode, newValFld) {
+			var list = lambda.getCkbxList('ckbx');
+			if(list=='') {
+				alert('You must select at least one manager type.'); 
+				return;
+			}
+			if ( !confirm("Are you sure that you want to update the database?") )
+				return;
+			var url =  gamma.pageContext.ops_url;
+			var p = {};
+			p.command = mode;
+			p.newValue =  $('#' + newValFld).val();
+			p.paramValue = mode;
+			p.managerTypeIDList = list;
+			lambda.submitOperation(url, p);
+		}
+	},	
 	dataset_ext_cmds: {
 		transferData: function (perspective, dslist) {
 	
