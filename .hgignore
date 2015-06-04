@@ -12,3 +12,4 @@ Testing.xlsx
 ~$Testing.xlsx
 application/resources.lnk
 application/model_config/*.lnk
+.git/
