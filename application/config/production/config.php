@@ -16,7 +16,12 @@
 */
 // modify to allow site to work with either PNNL network or bionet access
 //$config['base_url']	= "http://dmsdev.pnl.gov/";
-$config['base_url']	= "http://".$_SERVER["SERVER_NAME"]."/";
+
+$protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+
+
+//$config['base_url']	= "http://".$_SERVER["SERVER_NAME"]."/";
+$config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
 
 /*
 |--------------------------------------------------------------------------
