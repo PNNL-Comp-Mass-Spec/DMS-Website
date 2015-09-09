@@ -3,8 +3,8 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
 <style type="text/css">
 .header {

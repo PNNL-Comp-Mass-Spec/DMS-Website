@@ -2,13 +2,13 @@
 <html>
 <head>
 <title><?= $title; ?></title>
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/slickgrid2css') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/slickgrid2css') ?>
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/grid_data.css' ?>" />
 </head>
 
 <body>
-<? $this->load->view('nav_bar') ?>
+<?php $this->load->view('nav_bar') ?>
 
 <div style='height:1em;'></div>
 <form>
@@ -54,14 +54,14 @@
 </fieldset>
 </form>
 
-<? $this->load->view('grid/grid_control_panel') ?>
+<?php $this->load->view('grid/grid_control_panel') ?>
 
 <div id="myTable" ></div>
 
-<? $this->load->view('grid/delimited_text') ?>
+<?php $this->load->view('grid/delimited_text') ?>
 
-<? $this->load->view('resource_links/base2js') ?>
-<? $this->load->view('resource_links/slickgrid2js') ?>
+<?php $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/slickgrid2js') ?>
 
 <script src="<?= base_url().'javascript/data_grid.js' ?>"></script>
 

@@ -3,12 +3,12 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2css') ?>
 
 </head>
 <body id='usage_tracking_calendar'>
 <div id="body_container" >
-<? $this->load->view('nav_bar') ?>
+<?php $this->load->view('nav_bar') ?>
 
 <h2 class='page_title'><?= $heading; ?></h2>
 
@@ -37,7 +37,7 @@
 
 </div>
 
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
 
 </body>

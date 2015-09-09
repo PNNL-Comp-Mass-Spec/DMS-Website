@@ -3,14 +3,14 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2css') ?>
 
 </head>
 
 <body>
 <div id="body_container" >
 
-<? $this->load->view('nav_bar') ?>
+<?php $this->load->view('nav_bar') ?>
 
 <div class='local_title'><?= $title; ?></div>
 
@@ -84,11 +84,11 @@ Download in other formats:
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
 
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
-<? if($list_report_cmds != ""): ?>
+<?php if($list_report_cmds != ""): ?>
 <script src="<?= base_url().'javascript/lcmd.js' ?>"></script>
-<? endif; ?>
+<?php endif; ?>
 
 <script src="<?= base_url().'javascript/lstRep.js' ?>"></script>
 

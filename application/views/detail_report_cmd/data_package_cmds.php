@@ -1,5 +1,5 @@
 
-<? $chimg = base_url()."images/chooser.png"; ?>
+<?php $chimg = base_url()."images/chooser.png"; ?>
 
 <div class='LRcmd_panel'>
 <span class='LRcmd_cartouche' ><?= general_visibility_control('Add Items to Data Package', 'add_items_section', '') ?></span>

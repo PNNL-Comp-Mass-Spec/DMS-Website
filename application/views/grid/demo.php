@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Grid Demo Pages</title>
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/slickgrid2css') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/slickgrid2css') ?>
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/grid_data.css' ?>" />
 
 <style>

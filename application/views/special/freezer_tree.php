@@ -3,16 +3,16 @@
 <head>
 <title>DMS Freezers</title>
 
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/base2js') ?>
-<? $this->load->view('resource_links/freezer_tree') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/freezer_tree') ?>
 
 </head>
 
 <body class="freezer_tree" >
 
 <div id="body_container" >
-<? $this->load->view('nav_bar') ?>
+<?php $this->load->view('nav_bar') ?>
 
 <div class='local_title'>Freezer Management</div>
 

@@ -3,8 +3,8 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/cfg') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/cfg') ?>
 
 </head>
 <body>
@@ -45,18 +45,18 @@
 </form>
 
 <div id='display_container'>
-<? if($display_format == 'table_dump'): ?>
+<?php if($display_format == 'table_dump'): ?>
 <?= make_table_dump_display($config_db_table_list); ?>
-<? elseif($display_format == 'text'): ?>
+<?php elseif($display_format == 'text'): ?>
 Not implmented yet.
-<? endif; ?>
+<?php endif; ?>
 </div>
 
 <div id='end_of_content' style="height:1em;" ></div>
 
 </div>
 
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
 <script type="text/javascript">
 	

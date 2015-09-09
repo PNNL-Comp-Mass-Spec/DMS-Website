@@ -3,14 +3,14 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2css') ?>
 
 </head>
 
 <body>
 <div id="body_container" >
 
-<? $this->load->view('nav_bar') ?>
+<?php $this->load->view('nav_bar') ?>
 
 <h2 class='page_title'><?= $title; ?></h2>
 
@@ -48,7 +48,7 @@ $this->load->view("main/detail_report_export");
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
 
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
 	gamma.pageContext.site_url = '<?= site_url() ?>';

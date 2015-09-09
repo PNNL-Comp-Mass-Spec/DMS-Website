@@ -1,8 +1,8 @@
 <div id="hdrContainer">
 <div id="menu">
 <ul id="nav">
-<? $index = 0; ?>
-<? nav_bar_layout($nav_bar_menu_items, $index) ?>
+<?php $index = 0; ?>
+<?php nav_bar_layout($nav_bar_menu_items, $index) ?>
 </ul>
 <span class="phVersion global_search_panel" ><?= make_search_form() ?></span>
 </div>

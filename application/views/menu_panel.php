@@ -3,9 +3,9 @@
 <head>
 <title>DMS Main Menu</title>
 
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/base2js') ?>
-<? $this->load->view('resource_links/menu_panel') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/menu_panel') ?>
 
 </head>
 

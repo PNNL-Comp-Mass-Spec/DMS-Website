@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 	<title><?= $title ?></title>
 	<link rel="stylesheet" href="<?= base_url() ?>qunit/qunit-1.11.0.css">
-	<? $this->load->view('resource_links/base2css') ?>
+	<?php $this->load->view('resource_links/base2css') ?>
 </head>
 <body>
 	<div id="qunit"></div>
 	<div id="qunit-fixture"></div>
 
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
 	<script src="<?= base_url() ?>qunit/qunit-1.11.0.js"></script>
 	<script src="<?= base_url() ?>javascript/unit_tests/<?= $testFile ?>.js"></script>

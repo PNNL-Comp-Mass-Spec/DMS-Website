@@ -3,8 +3,8 @@
 <head>
 <title>Spreadsheet Loader</title>
 
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
 gamma.pageContext = {};
@@ -56,7 +56,7 @@ function clearSpreadsheetDisplay() {
 <body>
 <div id="body_container" >
 
-<? $this->load->view('nav_bar') ?>
+<?php $this->load->view('nav_bar') ?>
 
 <div class='local_title'><?= $title; ?></div>
 
@@ -78,7 +78,7 @@ Uploaded file:
 
 <table>
 <tr>
-<td style='vertical-align:top;' ><div style='height:10px;'></div><div id='master_control_container' style='display:none;border:2px solid #AAA;'><? $this->load->view('uploader/upload_controls') ?></div></td>
+<td style='vertical-align:top;' ><div style='height:10px;'></div><div id='master_control_container' style='display:none;border:2px solid #AAA;'><?php $this->load->view('uploader/upload_controls') ?></div></td>
 <td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory')">Help</a></div></td>
 </tr>
 </table>

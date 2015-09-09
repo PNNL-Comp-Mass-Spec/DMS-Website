@@ -2,13 +2,13 @@
 <html>
 <head>
 <title><?= $title; ?></title>
-<? $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2css') ?>
 </head>
 
 <body>
 <div id="body_container" >
 
-<? $this->load->view('nav_bar') ?>
+<?php $this->load->view('nav_bar') ?>
 
 <h2 class='page_title'><?= $title; ?></h2>
 
@@ -29,7 +29,7 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
 
-<? $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
 	gamma.pageContext.site_url = '<?= site_url() ?>';
@@ -41,10 +41,10 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 	epsilon.adjustEnabledFields();
 </script>
 
-<? if($entry_submission_cmds != ""): ?>
+<?php if($entry_submission_cmds != ""): ?>
 <script src="<?= base_url().'javascript/entry.js' ?>"></script>
 <script type='text/javascript'>gamma.pageContext.cmdInit = entry.<?= $this->my_tag ?>.cmdInit;</script>
-<? endif; ?>
+<?php endif; ?>
 
 <script type='text/javascript'>
 	$(document).ready(function () { 

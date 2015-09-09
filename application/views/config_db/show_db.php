@@ -3,9 +3,9 @@
 <head>
 <title><?= $title; ?></title>
 
-<? $this->load->view('resource_links/base2css') ?>
-<? $this->load->view('resource_links/base2js') ?>
-<? $this->load->view('resource_links/cfg') ?>
+<?php $this->load->view('resource_links/base2css') ?>
+<?php $this->load->view('resource_links/base2js') ?>
+<?php $this->load->view('resource_links/cfg') ?>
 
 <script type="text/javascript">
 function ops(submit_url) {
@@ -45,7 +45,7 @@ $(document).ready(function (){show_hide_all('none')});
 </div>
 
 <div id='display_container'>
-<? $this->load->view("config_db/sub_show_db"); ?>
+<?php $this->load->view("config_db/sub_show_db"); ?>
 </div>
 
 <table class='cfg_tab'>
