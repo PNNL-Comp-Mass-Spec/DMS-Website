@@ -389,6 +389,8 @@ $config['model_config_path'] = "application/model_config/cbdms/" ;
 
 $config['dms_inst_source_url'] = "http://cbdms.pnl.gov" ;
 
+$config['page_menu_root'] = "page_menu_cbdms" ;
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
 ?>

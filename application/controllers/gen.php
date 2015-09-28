@@ -12,6 +12,7 @@ class Gen extends CI_Controller {
 		session_start();
 		$this->load->helper(array('url', 'string'));
 		$this->color_code = $this->config->item('version_color_code');
+		$this->page_menu_root = ($this->config->item('page_menu_root')) ? $this->config->item('page_menu_root') : "page_menu" ;
 	}
 	// --------------------------------------------------------------------
 	function index()
@@ -71,9 +72,10 @@ class Gen extends CI_Controller {
 		// which sub view to load?
 		$data['sub_view_name'] = $sub_view_name;
 		$data['splash_view_name'] = ($splash_view_name)?$splash_view_name:'splash_default';
+		$data['page_menu_root'] = $this->page_menu_root;
 
 		$this->load->vars($data);
-		$this->load->view('page_menu/page_menu');
+		$this->load->view($this->page_menu_root . '/page_menu');
 	}
 
 	// --------------------------------------------------------------------

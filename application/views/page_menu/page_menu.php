@@ -18,7 +18,7 @@
 
 <h2 class='page_title'><?= $heading; ?></h2>
 
-<?php $this->load->view("page_menu/$sub_view_name") ?>
+<?php $this->load->view("$page_menu_root/$sub_view_name") ?>
 
 </div>
 </body>
