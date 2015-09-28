@@ -1,13 +1,14 @@
 <?php
 class dms_menu extends CI_Model {
 		
-	var $configDBFolder = "application/model_config/";
+	var $configDBFolder = "";
 
 	// --------------------------------------------------------------------
 	function __construct() 
 	{
 		//Call the Model constructor
 		parent::__construct();
+		$this->configDBFolder = $this->config->item('model_config_path');
 	}
 
 	// --------------------------------------------------------------------

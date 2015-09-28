@@ -30,7 +30,8 @@ class S_model extends CI_Model {
 	
 	private $config_name = '';
 	private $config_source = '';
-	private	$configDBFolder = "application/model_config/";
+	private	$configDBFolder = '';
+	
 	
 	// object that contains database-specific code used to actually access the stored procedure
 	private $sproc_handler = NULL;
@@ -60,6 +61,7 @@ class S_model extends CI_Model {
 	{
 		// Call the Model constructor
 		parent::__construct();
+		$this->configDBFolder = $this->config->item('model_config_path');
 	}
 
 	// (someday) see if we can figure out how to get bound values updated when rowset is returned (mssql_next_result is not working )

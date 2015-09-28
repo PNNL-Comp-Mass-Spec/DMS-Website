@@ -66,8 +66,10 @@ class helper_inst_source extends Base_controller {
 		    exit;
 		}
 		
-		// get source content file from gigasax website
-		$file = fopen ("http://gigasax.pnl.gov/DMS_Inst_Source/".$inst."_source.txt", "r");
+		// get source content file from website
+		$cfg = $this->config->item('dms_inst_source_url');
+		$url = $cfg ? $cfg : "http://gigasax.pnl.gov";
+		$file = fopen ($url."/DMS_Inst_Source/".$inst."_source.txt", "r");		
 		if (!$file) {
 		    echo "<p>Unable to open source file.</p>";
 			echo "<p>See the list of <a href=\"/helper_inst_source/view/\">commonly used DMS instruments</a></li>";

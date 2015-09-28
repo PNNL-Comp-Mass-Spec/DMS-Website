@@ -4,13 +4,14 @@ class Dms_authorization extends CI_Model {
 	var $storage_name = 'dms_authorization';
 	var $user_permissions = array();
 
-	var $dBFolder = "application/model_config/";
+	var $dBFolder = "";
 	
 	// --------------------------------------------------------------------
 	function __construct() 
 	{
 		//Call the Model constructor
 		parent::__construct();
+		$this->dBFolder = $this->config->item('model_config_path');
 //		$this->initialize();
 	}
 	// --------------------------------------------------------------------

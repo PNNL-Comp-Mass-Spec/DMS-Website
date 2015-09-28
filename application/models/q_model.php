@@ -40,7 +40,7 @@ class Q_model extends CI_Model {
 	
 	private $config_name = '';
 	private $config_source = '';
-	private	$configDBFolder = "application/model_config/";
+	private	$configDBFolder = "";
 	
 	// database-specific object to build SQL out of generic query parts
 	private $sql_builder = NULL;
@@ -64,6 +64,7 @@ class Q_model extends CI_Model {
 	{
 		// Call the Model constructor
 		parent::__construct();
+		$this->configDBFolder = $this->config->item('model_config_path');
 	}
 
 	// --------------------------------------------------------------------

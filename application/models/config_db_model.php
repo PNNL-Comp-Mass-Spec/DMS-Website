@@ -4,7 +4,7 @@ class config_db_model extends CI_Model {
 
     var $table_defs = array();
 	var $table_edit_col_defs = array();
- 	var $masterConfigDBPath = 'application/model_config/master_config_db.db';
+ 	var $masterConfigDBPath = "";
 
 	// --------------------------------------------------------------------
 	function __construct() 
@@ -12,6 +12,7 @@ class config_db_model extends CI_Model {
 		//Call the Model constructor
 		parent::__construct();
 
+		$this->masterConfigDBPath = $this->config->item('model_config_path') . "master_config_db.db";	
 		$this->initialize_table_defs();
 		$this->initialize_table_field_defs();
 	}

@@ -14,7 +14,7 @@ class config_db extends CI_Controller {
 		session_start();
 		$this->load->helper(array('url', 'string'));
 		
-		$this->configDBPath = 'application/model_config/';
+		$this->configDBPath = $this->config->item('model_config_path');
 		
 		$CI = &get_instance();
 		$this->mod_enabled = $CI->config->item('modify_config_db_enabled');

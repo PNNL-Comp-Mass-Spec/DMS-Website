@@ -6,7 +6,7 @@ class G_model extends CI_Model {
 	
 	private $config_name = '';
 	private $config_source = '';
-	private	$configDBFolder = "application/model_config/";
+	private	$configDBFolder = "";
 	
 	// title templates
 	private $titles = array(
@@ -51,6 +51,7 @@ class G_model extends CI_Model {
 	{
 		// Call the Model constructor
 		parent::__construct();
+		$this->configDBFolder = $this->config->item('model_config_path');
 	}
 	
 	// --------------------------------------------------------------------

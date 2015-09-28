@@ -385,6 +385,7 @@ $config['modify_config_db_enabled'] = FALSE;
 
 $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
 
+$config['model_config_path'] = "application/model_config/" ;
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

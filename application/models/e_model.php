@@ -6,7 +6,7 @@ class E_model extends CI_Model {
 	
 	private $config_name = '';
 	private $config_source = '';
-	private	$configDBFolder = "application/model_config/";
+	private	$configDBFolder = "";
 	
 	// definitions of fields for entry form
 	private $form_fields = array();
@@ -22,6 +22,7 @@ class E_model extends CI_Model {
 	{
 		// Call the Model constructor
 		parent::__construct();
+		$this->configDBFolder = $this->config->item('model_config_path');
 	}
 	
 	// --------------------------------------------------------------------

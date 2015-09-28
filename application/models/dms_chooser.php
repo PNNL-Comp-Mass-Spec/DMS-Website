@@ -18,7 +18,7 @@ class Dms_chooser extends CI_Model {
 	// initialize the list of choosers from the config db file
 	function load_choosers()
 	{
-		$dbFilePath = 'application/model_config/dms_chooser.db';
+		$dbFilePath = $this->config->item('model_config_path') . "/dms_chooser.db";
 		$dbh = new PDO("sqlite:$dbFilePath");
 		$r = $dbh->query("SELECT * FROM chooser_definitions", PDO::FETCH_ASSOC);
 		foreach ($r as $row) {
