@@ -387,6 +387,8 @@ $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
 
 $config['model_config_path'] = "application/model_config/" ;
 
+$config['dms_inst_source_url'] = "http://gigasax.pnl.gov" ;
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
 ?>
