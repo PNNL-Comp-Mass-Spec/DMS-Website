@@ -25,8 +25,11 @@ function show_hide_block(name) {
 }
 function make_controller() {
  	var reply = prompt("Base title for page family", '');
-	var page = "<?= site_url(); ?>" + "config_db/make_controller/<?= $config_db ?>/" + reply;
-	window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
+    if (reply) 
+    {
+	    var page = "<?= site_url(); ?>" + "config_db/make_controller/<?= $config_db ?>/" + reply;
+	    window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
+    }
 }
 
 $(document).ready(function (){show_hide_all('none')});

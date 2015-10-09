@@ -149,6 +149,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			$str .= "</table>";
 			break;
 		case "tablular_list":
+		case "tabular_list":
 			$str .= "<table class='inner_table'>";
 			foreach(explode('|', $display) as $ln) {
 				$str .= '<tr>';
@@ -173,6 +174,20 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 		case "markup":
 			$str .= nl2br($display);
 			break;
+		case "glossary_entry":
+			$url = make_detail_report_url($target, $wa);
+
+			if($options["Label"])
+				$linkTitle = "title='" . $options["Label"] . "'";
+			else
+				$linkTitle = "";
+				
+			$str = "<a id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$display</a>";
+			
+			// Pop-up option
+			// $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$display','width=800,height=600')\">$display</a>";
+			
+			break;		
 		default:
 			$str = "??? $display ???";
 			break;

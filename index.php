@@ -35,13 +35,14 @@ if (defined('ENVIRONMENT'))
 		case 'development':
 		case 'production':
 		case 'refactor':
+		case 'cbdms':
 			error_reporting(E_ALL);
-		break;
+			break;
 	
 		case 'testing':
 		case 'training':
 			error_reporting(0);
-		break;
+			break;
 
 		default:
 			exit('The application environment is not set correctly.');
