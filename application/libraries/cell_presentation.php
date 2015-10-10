@@ -231,6 +231,7 @@ class cell_presentation {
 				$str .= "<td>" . nl2br($value) . "</td>";
 				break;
 			case "min_col_width":
+				// No special rendering
 				$str .= "<td>" . $value . "</td>";
 				break;
 			case "image_link":
@@ -251,7 +252,11 @@ class cell_presentation {
 				} else {
 					$str .= "<td></td>";					
 				}
-				break;	
+				break;
+			case "column_tooltip":
+				// No special rendering
+				$str .= "<td>" . $value . "</td>";
+				break;
 			default:
 				$str .= "<td>???" . $colSpec["LinkType"] . "???</td>";
 				break;
@@ -276,12 +281,14 @@ class cell_presentation {
 		}
 		return $noLink;
 	}
+	
 	// -----------------------------------
 	// create HTML to display a set of column headers
 	function make_column_header($rows, $sorting_cols = array())
 	{	
 		if(empty($rows)) return '';
 		$str = "";
+		
 		// which columns are showing
 		$display_cols = $this->get_display_cols(array_keys(current($rows)));
 		
@@ -293,10 +300,19 @@ class cell_presentation {
 				// sorting marker
 				$marker = $this->get_column_sort_marker($col_name, $col_sort);
 				
+				// Check for a column header tooltip
+				$toolTip = $this->get_column_tooltip($col_name);
+				if ($toolTip) {
+					$toolTip = 'title="' . $toolTip . '"';
+					$str .= '<th style="background-color:#C2E7F6;">';
+				} else {
+					$toolTip = '';
+					$str .= '<th>';					
+				}
+					
 				// make header label
-				$str .= "<th>";
 				$str .= $marker;
-				$str .= "<a href='javascript:void(0)' onclick='lambda.setColSort(\"$col_name\")'  class='col_header'>$col_name</a>";
+				$str .= "<a href='javascript:void(0)' onclick='lambda.setColSort(\"$col_name\")'  class='col_header' " . $toolTip . ">$col_name</a>";
 				$str .= $this->get_cell_padding($col_name);
 				$str .= "</th>";
 			}
@@ -361,6 +377,20 @@ class cell_presentation {
 		return $padding;
 	}
 
+	// --------------------------------------------------------------------
+	private
+	function get_column_tooltip($col_name)
+	{
+		$toolTip = '';
+		if(array_key_exists($col_name, $this->hotlinks)) {
+			$colSpec = $this->hotlinks[$col_name];
+			if($colSpec["LinkType"] == 'column_tooltip') {
+				$toolTip = $colSpec["Target"];
+			}
+		}
+		return $toolTip;
+	}
+	
 	// --------------------------------------------------------------------
 	function fix_datetime_display(&$result, $col_info)
 	{
