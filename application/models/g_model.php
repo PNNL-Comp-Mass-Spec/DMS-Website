@@ -123,7 +123,12 @@ class G_model extends CI_Model {
 	{
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
-		if(!file_exists($dbFilePath)) throw new Exception($this->missing_page_family);
+		if(!file_exists($dbFilePath)) {
+			if ($this->configDBFolder)
+				throw new Exception($this->missing_page_family . " (see $this->configDBFolder)");
+			else
+				throw new Exception($this->missing_page_family);
+		}
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
 		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
@@ -161,7 +166,12 @@ class G_model extends CI_Model {
 	{
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
-		if(!file_exists($dbFilePath)) throw new Exception($this->missing_page_family);
+		if(!file_exists($dbFilePath)) {
+			if ($this->configDBFolder)
+				throw new Exception($this->missing_page_family . " (see $this->configDBFolder)");
+			else
+				throw new Exception($this->missing_page_family);
+		}		
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
 		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);

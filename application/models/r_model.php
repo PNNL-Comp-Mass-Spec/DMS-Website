@@ -67,7 +67,12 @@ class R_model extends CI_Model {
 	{
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
-		if(!file_exists($dbFilePath)) throw new Exception("The config database file '$dbFileName' does not exist.");
+		if(!file_exists($dbFilePath)) {
+			if ($this->configDBFolder)
+				throw new Exception("The config database file '$dbFileName' does not exist in folder '$this->configDBFolder'");
+			else
+				throw new Exception("The config database file '$dbFileName' does not exist");
+		}
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
 		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
