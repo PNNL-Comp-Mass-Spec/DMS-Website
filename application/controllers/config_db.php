@@ -5,7 +5,7 @@ class config_db extends CI_Controller {
 	var $my_tag = ""; // needed for Generic_Controller
 	var $configDBFolder = '';
 	var $configDBPath = '';
-
+	
 	// --------------------------------------------------------------------
 	function __construct() {
 		// Call the parent constructor

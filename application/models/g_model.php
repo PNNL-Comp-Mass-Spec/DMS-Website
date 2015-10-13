@@ -151,7 +151,7 @@ class G_model extends CI_Model {
 			if(!(strpos($obj->hotlinks, 'update_opener') === FALSE)) {
 				$this->the_parameters['has_opener_hotlinks'] = TRUE;
 				$this->the_parameters['is_ms_helper'] = TRUE;;
-			} 
+			}
 		}
 	}
 
