@@ -52,6 +52,14 @@ class Controller_utility {
 		$user = get_user();
 
 		$this->load_mod('g_model', 'gen_model', 'na', $CI->my_tag);
+		
+		if($CI->gen_model->error_text) {
+			if($output_message) {
+				$this->message_box('Error', $CI->gen_model->error_text);
+			}
+			return FALSE;			
+		}
+		
 		$result = $CI->gen_model->check_permission($user, $action, $CI->my_tag);
 
 		if($result === TRUE) {

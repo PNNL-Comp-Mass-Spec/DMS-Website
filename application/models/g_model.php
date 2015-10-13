@@ -4,6 +4,10 @@
 // main class
 class G_model extends CI_Model {
 	
+	public $error_text = "";
+	
+	private $missing_page_family = 'Undefined page family.  Contact the system administrators if this URL should resolve to a valid results page.';
+	
 	private $config_name = '';
 	private $config_source = '';
 	private	$configDBFolder = "";
@@ -119,6 +123,8 @@ class G_model extends CI_Model {
 	{
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
+		if(!file_exists($dbFilePath)) throw new Exception($this->missing_page_family);
+		
 		$dbh = new PDO("sqlite:$dbFilePath");
 		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
 
@@ -154,6 +160,8 @@ class G_model extends CI_Model {
 	function get_general_defs($config_name, $dbFileName)
 	{
 		$dbFilePath = $this->configDBFolder . $dbFileName;
+		
+		if(!file_exists($dbFilePath)) throw new Exception($this->missing_page_family);
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
 		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
