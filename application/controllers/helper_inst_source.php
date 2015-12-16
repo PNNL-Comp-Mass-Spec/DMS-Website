@@ -25,8 +25,10 @@ class helper_inst_source extends Base_controller {
 
 		if (empty($inst)) {
 		
-			echo "<p>Commonly used DMS Instruments</p>";
-			echo "<ul>";
+			echo "<p>Commonly used DMS Instruments</p>\n";
+			echo "<!-- To edit this list, see file DMS2/application/controllers/helper_inst_source.php -->\n";
+			
+			echo "<ul>\n";
 			$instruments = array();
 			$instruments[] = "12T_FTICR_B";
 			$instruments[] = "15T_FTICR";
@@ -34,6 +36,7 @@ class helper_inst_source extends Base_controller {
 			$instruments[] = "21T_Agilent";
 			$instruments[] = "7T_FTICR_B";
 			$instruments[] = "Agilent_GC_MS_01";
+			$instruments[] = "Agilent_QQQ_04";
 			$instruments[] = "AgQTOF05";
 			$instruments[] = "CBSS_Orb1";
 			$instruments[] = "Exact03";
@@ -50,6 +53,7 @@ class helper_inst_source extends Base_controller {
 			$instruments[] = "LTQ_Orb_1";
 			$instruments[] = "LTQ_Orb_2";
 			$instruments[] = "LTQ_Orb_3";
+			$instruments[] = "Lumos01";
 			$instruments[] = "Maxis_01";			
 			$instruments[] = "QExactHF03";
 			$instruments[] = "QExactHF05";
@@ -68,7 +72,7 @@ class helper_inst_source extends Base_controller {
 			
 			foreach ($instruments as $instrument)
 			{
-				echo "<li><a href=\"/helper_inst_source/view/" . $instrument . "\">" . $instrument. "</a></li>";
+				echo "<li><a href=\"/helper_inst_source/view/" . $instrument . "\">" . $instrument. "</a></li>\n";
 			}
 				
 		    exit;
@@ -79,8 +83,9 @@ class helper_inst_source extends Base_controller {
 		$url = $cfg ? $cfg : "http://gigasax.pnl.gov";
 		$file = fopen ($url."/DMS_Inst_Source/".$inst."_source.txt", "r");		
 		if (!$file) {
-		    echo "<p>Unable to open source file.</p>";
-			echo "<p>See the list of <a href=\"/helper_inst_source/view/\">commonly used DMS instruments</a></li>";
+		    echo "<p>Unable to open source file.</p>\n";
+			echo "<p>See the list of <a href=\"/helper_inst_source/view/\">commonly used DMS instruments</a></li>\n";
+			echo "<!-- To edit the list, see file DMS2/application/controllers/helper_inst_source.php -->\n";
 		    exit;
 		}
 
