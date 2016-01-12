@@ -90,7 +90,7 @@ class Spreadsheet_loader {
 		for($i=0; $i<count($this->ss_rows);$i++) {
 			if($in_section) {
 				$name = $this->ss_rows[$i][0];
-				$has_data = ($this->ss_rows[$i][1] != '');
+				$has_data = (count($this->ss_rows[$i]) > 1 && $this->ss_rows[$i][1] != '');
 				if($has_data) {
 					if(!$in_data) throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
 					$mark = FALSE;

@@ -517,15 +517,29 @@ class Upload extends Base_controller {
 	// --------------------------------------------------------------------
 	private
 	function cross_check_aux_info_fields($aux_info_target, $aux_info)
-	{		
+	{
 		// get aux info definitions
 		$this->load->model('q_model', 'model');
 		$this->model->init('list_report', 'aux_info_def');
 		$this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
 		$query = $this->model->get_rows('filtered_only');
-		$result =  $query->result_array();
-		
+
 		$errors = array();
+
+		$class_methods = get_class_methods($query);
+
+		$methodCount = 0;
+		if (is_array($class_methods) || is_object($class_methods)) {
+			foreach ($class_methods as $method_name) {
+				$methodCount++;
+			}
+		}
+
+		if ($methodCount == 0 || $query->num_rows() == 0)
+			return $errors;
+
+		$result =  $query->result_array();
+
 		foreach($aux_info as $obj) {
 			$good = FALSE;
 			foreach($result as $row) {
