@@ -110,7 +110,7 @@ class S_model extends CI_Model {
 			$this->bound_calling_parameters = new Bound_arguments();
 			foreach($this->sproc_args as $arg) {
 				$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
-				$b->fn = $fn; // ??
+		//		$b->fn = $fn; // ??
 				if(isset($parmObj->$fn)) {
 					$this->bound_calling_parameters->$fn = $parmObj->$fn;
 				} else {
@@ -289,7 +289,7 @@ class S_model extends CI_Model {
 		$callingParams = new Bound_arguments();
 		foreach($this->sproc_args as $arg) {
 			$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
-			$b->fn = $fn; // ??
+	//		$b->fn = $fn; // ??
 			if(isset($parmObj->$fn)) {
 				$callingParams->$fn = $parmObj->$fn;
 			} else {
