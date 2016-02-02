@@ -11,8 +11,8 @@ class Instrument_usage_report extends Grid {
 
 		$this->my_tag = "instrument_usage_report";
 		$this->my_title = "Instrument Usage";
-
 	}
+
 	// --------------------------------------------------------------------
 	// --------------------------------------------------------------------
 	function grid() {
@@ -32,13 +32,13 @@ class Instrument_usage_report extends Grid {
 
 		$this->my_tag = "instrument_usage";
 		$this->load->database();
-		$this->db->select('Seq , [EMSL Inst ID] , Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , ID , Validation');
+		$this->db->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , ID , Validation', FALSE);
 		$this->db->from("V_Instrument_Usage_Report_List_Report");
 		if($instrument) $this->db->where("Instrument in ($instrument)");
 		if($usage) $this->db->where("Usage in ($usage)");
 		if($proposal) $this->db->where("Proposal", $proposal);
 		if($year) $this->db->where("Year", $year);
-		if($month) $this->db->where("Month", $month);
+		if($month) $this->db->where("Month", $month);		
 		$this->grid_data_from_query();
 	}
 
