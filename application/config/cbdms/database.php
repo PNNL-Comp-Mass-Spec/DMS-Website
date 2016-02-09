@@ -47,8 +47,7 @@ $db['default']['cachedir'] = "";
 
 $db['broker']['hostname'] = "CBDMS_ODBC";
 $db['broker']['username'] = "DMSWebUser";
-$db['broker']['password'] = "see_repo_DMS2_DatabaseConfigFilus
-";
+$db['broker']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['broker']['database'] = "DMS_Pipeline";
 $db['broker']['dbdriver'] = "mssql";
 $db['broker']['dbprefix'] = "";
