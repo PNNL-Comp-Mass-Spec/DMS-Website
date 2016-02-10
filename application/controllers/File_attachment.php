@@ -67,11 +67,13 @@ class File_attachment extends Base_controller {
 			$full_path = '';
 			$this->load->database();
 			$this->db->select("File_Name AS [filename], archive_folder_path as path");
+			$this->db->from("T_File_Attachment");
 			$this->db->where("Entity_Type", $entity_type);
 			$this->db->where("Entity_ID", $entity_id);
 			$this->db->where("File_Name", $filename);
-			$query = $this->db->get("T_File_Attachment",1);
-
+			$sql = $this->db->get_compiled_select();
+			$query = $this->db->query($sql);
+			//$query = $this->db->get();
 			if($query && $query->num_rows()>0) {
 				$full_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
 				$result->path = $full_path;
@@ -111,7 +113,8 @@ class File_attachment extends Base_controller {
 			if ( ! $this->upload->do_upload()) {
 				$error = $this->upload->display_errors();
 			} else {
-				$data = $this->upload->data();
+				$data = $this->upload->data();		
+				$orig_name = $data["orig_name"];
 				$name = $data["file_name"];
 				$size = $data["file_size"];
 				$type = $this->input->post("entity_type");
@@ -120,7 +123,7 @@ class File_attachment extends Base_controller {
 				$entity_folder_path = $this->get_path($type, $id);
 				$archive_folder_path = $this->archive_root_path . $entity_folder_path;
 
-				$dest_path = "{$archive_folder_path}/{$name}";
+				$dest_path = "{$archive_folder_path}/{$orig_name}";
 				$src_path = "{$config['upload_path']}{$name}";
 
 				if(!file_exists($archive_folder_path)){
@@ -128,12 +131,13 @@ class File_attachment extends Base_controller {
 				}
 				if(!rename($src_path,$dest_path)){
 					//error occurred during copy, handle accordingly
+					throw new Exception("Could not rename '$src_path' to '$dest_path'");
 				}else{
 					rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
 					chmodr($this->archive_root_path,0755);
 				}
 
-				$msg = $this->make_attachment_tracking_entry($name, $type, $id, $description, $size, $entity_folder_path);
+				$msg = $this->make_attachment_tracking_entry($orig_name, $type, $id, $description, $size, $entity_folder_path);
 				if($msg) throw new Exception($msg);
 			}
 		} catch (Exception $e) {
@@ -302,6 +306,8 @@ class File_attachment extends Base_controller {
 			if(!$remote->ok) throw new Exception($remote->message);
 
 	 		$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
+//echo "-->" . $result ."<--";
+	 		
 		    if(!$result->ok) throw new Exception($result->message);
  			$full_path = $result->path;
 
