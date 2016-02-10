@@ -523,23 +523,9 @@ class Upload extends Base_controller {
 		$this->model->init('list_report', 'aux_info_def');
 		$this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
 		$query = $this->model->get_rows('filtered_only');
-
-		$errors = array();
-
-		$class_methods = get_class_methods($query);
-
-		$methodCount = 0;
-		if (is_array($class_methods) || is_object($class_methods)) {
-			foreach ($class_methods as $method_name) {
-				$methodCount++;
-			}
-		}
-
-		if ($methodCount == 0 || $query->num_rows() == 0)
-			return $errors;
-
 		$result =  $query->result_array();
-
+		
+		$errors = array();
 		foreach($aux_info as $obj) {
 			$good = FALSE;
 			foreach($result as $row) {
