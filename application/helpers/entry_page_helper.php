@@ -130,6 +130,12 @@
 			case "__LastMonth__":
 				$value = date("n", strtotime("last month"));
 				break;
+			case "__ThisWeek__":
+				$value = date("W");
+				break;
+			case "__LastWeek__":
+				$value = date("W", strtotime("last week"));
+				break;
 		}
 		return $value;
 	}

@@ -38,6 +38,7 @@ foreach($source in $sources) {
 
 #process each defined source
 $code = ""
+$cbdmsCode = ""
 $downloads = @{}
 foreach($source in $sources) {
 	#set up local folders to receive downloaded and copied config db files and dump files
@@ -62,7 +63,13 @@ foreach($source in $sources) {
 		$sourceFileFolderPath = $source["sourceFileFolderPath"]
 		Copy-Item $sourceFileFolderPath\*.db $localDbFileFolderPath
 		DumpSqliteDBFiles $localDbFileFolderPath $localDumpFileFolderPath
-		$code = $localDumpFileFolderPath
+
+		if($source["version"] -eq "cbdmsCode") {
+			$cbdmsCode = $localDumpFileFolderPath
+		} else {
+			$code = $localDumpFileFolderPath
+		}
+
 	}
 	# delete the *.db files if in same folder as *.sql dump files
 	if($localDbFileFolderPath -eq $localDumpFileFolderPath) {
@@ -86,8 +93,12 @@ if($settings["launchBeyondCompare"]) {
 		Write-Host "Could not find Beyond Compare 4 or Beyond Compare 2" 
 	} else {
 	
-		foreach($key in $downloads.Keys) { 
-			& $beyondComparePath $code $downloads[$key] 
+		foreach($key in $downloads.Keys) {
+			if ($key -eq "cbdmsOnline") {
+				& $beyondComparePath $cbdmsCode $downloads[$key] 
+			} else {
+				& $beyondComparePath $code $downloads[$key] 
+			}
 			# Wait 500 msec before continuing to avoid shared resource conflicts
 			Start-Sleep -m 500
 		}
