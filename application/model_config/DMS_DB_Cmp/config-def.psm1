@@ -27,7 +27,17 @@ $global:sources = @(
 		"remoteDir" = "/var/www/html/dms/application/model_config";
 	},
 	@{
+		"version" = "cbdmsOnline";
+		"sftpHost" = "cbdmsweb.emsl.pnl.gov";
+		"userName" = "d3j410";
+		"remoteDir" = "/data/www/html/dms/application/model_config/cbdms";
+	},
+	@{
 		"version" = "code";
 		"sourceFileFolderPath" = "C:\Users\d3j410\Documents\Aptana3Workspace\DMS_Website\application\model_config";
+	},
+	@{
+		"version" = "cbdmsCode";
+		"sourceFileFolderPath" = "C:\Users\d3j410\Documents\Aptana3Workspace\DMS_Website\application\model_config\cbdms";
 	}
 )
