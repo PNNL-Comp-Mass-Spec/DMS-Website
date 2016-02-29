@@ -188,6 +188,7 @@ class Data extends CI_Controller {
 	// get list of URLs for ad hoc list reports
 	function lr_menu($config_source = "ad_hoc_query", $config_name = 'utility_queries')
 	{
+		$CI = &get_instance();
 		$configDBFolder = $CI->config->item('model_config_path');
 		$dbFileName = $config_source . '.db';
 		

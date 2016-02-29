@@ -1,5 +1,5 @@
 <?php
-require("list_report.php");
+require("List_report.php");
 
 // --------------------------------------------------------------------
 // list report from queries defined in utility_queries table
