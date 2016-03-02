@@ -1,4 +1,4 @@
-require("base_controller.php");
+require("Base_controller.php");
 
 class <?= $tag ?> extends Base_controller {
 	// --------------------------------------------------------------------

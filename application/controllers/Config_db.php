@@ -1150,9 +1150,13 @@ class Config_db extends CI_Controller {
 	function _controller_exists($config_db, &$page_fam_tag, &$file_path)
 	{
 		// set up file names
-		$page_fam_tag = str_replace('.db', '', $config_db);
+
+		// Assure that the page family name is all lowercase
+		$page_fam_tag = strtolower(str_replace('.db', '', $config_db));
 		$dir = "application/controllers/";
-		$file_path = $dir.$page_fam_tag.'.php';
+		
+		// The controller filename must start with a capital letter then be all lowercase
+		$file_path = $dir . ucfirst($page_fam_tag) . '.php';
 
 		return file_exists($file_path);
 	}
