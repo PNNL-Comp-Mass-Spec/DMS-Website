@@ -1033,8 +1033,11 @@ var epsilon = {
 		// resolve cross-reference to other field, if one exists
 		var xv = (xref != '')?$('#' + xref).val():'';
 		if(xref != '' && xv == ''){ 
-			alert (xref + ' must be selected first.');
-			return;
+			// Previously showed an error if the cross referenced field was empty
+			// We now allow this for cases where a field starts off as blank but the user needs to choose a value from a list
+			//alert (xref + ' must be selected first.');
+			//return;
+			xv = ' ';
 		}
 		// check if chooserPage URL needs separator
 		var sep = '/';
