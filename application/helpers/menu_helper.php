@@ -300,10 +300,15 @@
 			case 'Entry_Pages'  :
 				break;
 			case 'List_Reports':
+				// Call function updateMessageBox in dms2.js to obtain the SQL or the URL behind the given list report
+				// That function POSTs a request to a report_info/url or report_info/sql page
+				// For example http://dms2.pnl.gov/dataset_qc/report_info/url
+				//          or http://dms2.pnl.gov/dataset_qc/report_info/sql
 				$menu_context['sql_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowSQL)";
 				$menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
 				break;
 			case 'Detail_Reports' :
+				// Call function updateMessageBox in dms2.js to obtain the SQL behind the given list report
 				$menu_context['sql_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowSQL)";
 				break;
 			case 'Param_Pages':

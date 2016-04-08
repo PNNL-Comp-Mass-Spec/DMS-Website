@@ -273,8 +273,15 @@ var gamma = {
 			} else {
 				dlg.dialog({ title: title });
 			}
+			
+			// Send a post request to a report_info page, for example:
+			// http://dms2.pnl.gov/dataset_qc/report_info/url
+			//  or
+			// http://dms2.pnl.gov/dataset_qc/report_info/sql
+			
 			url = gamma.pageContext.site_url + url;
 			var p = $('#' + form).serialize();
+			
 			$.post(url, p, function(data) {
 					dlg.html(data);
 					dlg.dialog('open');

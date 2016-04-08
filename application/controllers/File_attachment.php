@@ -306,6 +306,8 @@ class File_attachment extends Base_controller {
 			if(!$remote->ok) throw new Exception($remote->message);
 
 	 		$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
+
+			//echo "-->" . $result ."<--";
 	 		
 		    if(!$result->ok) throw new Exception($result->message);
  			$full_path = $result->path;

@@ -277,6 +277,7 @@ class List_report {
 	{
 		$s = "";
 		// dump primary filter to segment list
+		// Replace spaces with %20
 		$pf = array();
 		foreach($filters["primary"] as $f) {
 			$x = ($f["value"]) ? $f["value"] : "-" ;
@@ -286,12 +287,22 @@ class List_report {
 		
 		// dump active secondary filters to array of segments
 		$sf = array();
+		
+		$dateFilters = array("LaterThan", "EarlierThan");
+
 		foreach($filters["secondary"] as $f) {
 			if($f["qf_comp_val"]) {
 				$y = "/" . $f["qf_rel_sel"];
 				$y .= "/" . $f["qf_col_sel"];
 				$y .= "/" . $f["qf_comp_sel"];
-				$y .= "/" . $f["qf_comp_val"];
+
+				if (in_array( $f["qf_comp_sel"], $dateFilters)) {
+					// Replace forward slashes with dashes
+					$y .= "/" . str_replace("/", "-", $f["qf_comp_val"]);
+				} else {
+					$y .= "/" . $f["qf_comp_val"];
+				} 
+
 				$sf[] = str_replace(" ", "%20", $y);
 			}
 		}
