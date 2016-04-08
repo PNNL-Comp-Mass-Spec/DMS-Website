@@ -70,7 +70,7 @@ switch (ENVIRONMENT)
 	case 'cbdms':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
-	break;
+		break;
 
 	case 'testing':
 	case 'training':
@@ -84,7 +84,7 @@ switch (ENVIRONMENT)
 		{
 			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
 		}
-	break;
+		break;
 
 	default:
 		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
@@ -293,3 +293,8 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
+// Uncomment the following to see the PHP info page
+// Alternatively, go to http://dms2.pnl.gov/gen/info
+// phpinfo();
+
