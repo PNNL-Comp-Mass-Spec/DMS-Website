@@ -1,38 +1,43 @@
 Location of files on PrismWeb:
-/home/prismweb/dms2
+/file1/www/html/dms/
 Corresponding Website: http://dms2.pnl.gov/
 
 Location of files on PrismWebDev:
-/home/prismweb/dms2
+/file1/www/html/dmsdev/
 Corresponding Website: http://dmsdev.pnl.gov/
 
 Location of files for DMSBeta (on PrismWeb):
-/home/prismweb/dms2beta/
+/file1/www/html/dmsbeta/
 Corresponding Website: http://dmsbeta.pnl.gov/
 
 Models, views, and controllers are at:
-/home/prismweb/dms2/system/application
+/file1/www/html/dms/application
 
-DMS 2 Config DBs are at:   /home/prismweb/dms2/system/application/model_config
-DMSBeta Config DBs are at: /home/prismweb/dms2beta/system/application/model_config
+DMS 2 Config DBs are at:   /file1/www/html/dms/application/model_config
+DMSBeta Config DBs are at: /file1/www/html/dmsbeta/application/model_config
 
 
 
 -- Additional files on PrismWeb --
 
-Hobbit files are at '/opt/hobbit/server/etc'
+Xymon files are at /file1/www/html/prismbb/xymon/server/etc
 
-PrismWiki files are at /storage/www/prismwiki
+PrismWiki files are at /file1/www/html/prismwiki
 
 See also the DB_Updating_Readme.txt file at 
-...DMS2/system/application/model_config/
+...DMS2/application/model_config/
 for info on the SqLite .DB files.
 
-Web log files are at /etc/httpd/logs (which points to /var/log/httpd)
+Web log files are at /etc/httpd/logs (which points to /var/log/httpd which points to /file1/log/httpd)
 	Rotate command is at  /etc/logrotate.d/httpd
+	The logs are only rotated when apache is restarted:
 
-	yesterday=ac$(date -r access_log.1 +%Y-%m-%d_%H%M).log;
-	logdir=/var/log/httpd;
-	cp ${logdir}/access_log.1 ${logdir}/archived/${yesterday};
-	chmod 775 ${logdir}/archived/${yesterday};
-	chgrp apache ${logdir}/archived/${yesterday};
+/var/log/httpd/*log {
+    missingok
+    notifempty
+    sharedscripts
+    delaycompress
+    postrotate
+        /sbin/service httpd reload > /dev/null 2>/dev/null || true
+    endscript
+}
