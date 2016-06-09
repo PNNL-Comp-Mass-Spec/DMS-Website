@@ -17,27 +17,27 @@ $global:sources = @(
 	@{
 		"version" = "dev";
 		"sftpHost" = "prismwebdev2.pnl.gov";
-		"userName" = "d3j410";
-		"remoteDir" = "/storage/www/html/dms2/application/model_config";
+		"userName" = "d3l243";
+		"remoteDir" = "/file1/www/html/dmsdev/application/model_config";
 	},
 	@{
 		"version" = "prod";
 		"sftpHost" = "prismweb2.emsl.pnl.gov";
-		"userName" = "d3j410";
-		"remoteDir" = "/var/www/html/dms/application/model_config";
+		"userName" = "d3l243";
+		"remoteDir" = "/file1/www/html/dms/application/model_config";
 	},
 	@{
 		"version" = "cbdmsOnline";
 		"sftpHost" = "cbdmsweb.emsl.pnl.gov";
-		"userName" = "d3j410";
+		"userName" = "d3l243";
 		"remoteDir" = "/data/www/html/dms/application/model_config/cbdms";
 	},
 	@{
 		"version" = "code";
-		"sourceFileFolderPath" = "C:\Users\d3j410\Documents\Aptana3Workspace\DMS_Website\application\model_config";
+		"sourceFileFolderPath" = "F:\My Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config";
 	},
 	@{
 		"version" = "cbdmsCode";
-		"sourceFileFolderPath" = "C:\Users\d3j410\Documents\Aptana3Workspace\DMS_Website\application\model_config\cbdms";
+		"sourceFileFolderPath" = "F:\My Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config\cbdms";
 	}
 )

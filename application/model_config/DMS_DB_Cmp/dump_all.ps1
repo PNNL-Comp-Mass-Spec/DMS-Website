@@ -1,4 +1,14 @@
-﻿# To use this file, you must enable script execution
+﻿# This script requires the KTools.PowerShell.SFTP snap-in
+# Install with Powershell-SFTP-Snap-in-v1.3_KTools.PowerShell.SFTP.zip (it installs to C:\Program Files\KTools)
+#
+# If the Powershell has problems loading KTools.PowerShell.SFTP.dll, make sure that it does not have the "untrusted" streams bit set:
+#   cd "C:\Program Files\KTools\KTools.PowerShell.SFTP\bin"
+#   dir /r
+#
+# If you see entries with ":Zone.Identifier:$DATA" you need to remove them using streams -d (part of SysInternals)
+#
+#
+# To use this script, you must enable script execution
 # It's safer to digitally sign this script, then use the RemoteSigned policy
 #    powershell Set-ExecutionPolicy RemoteSigned
 #
@@ -9,7 +19,7 @@
 #    powershell Set-ExecutionPolicy unrestricted
 
 
-# use local configuration settings file, if one is present
+# Use a local configuration settings file, if one is present
 # Example path: C:\Users\d3l243\AppData\Local\PS_DMS_Scripts\config-def.psm1
 #
 $configDefFilePath = "$PSScriptRoot\config-def.psm1"
@@ -83,7 +93,7 @@ foreach($source in $sources) {
 # launch Beyond Compare
 if($settings["launchBeyondCompare"]) {
 
-	$beyondComparePath = "C:\Program Files (x86)\Beyond Compare 4\bcomp.exe"
+	$beyondComparePath = "C:\Program Files\Beyond Compare 4\bcomp.exe"
 
 	if (!(Test-Path "$beyondComparePath")) { 
 		$beyondComparePath = "C:\Program Files (x86)\Beyond Compare 2\bc2.exe" 
