@@ -10,8 +10,12 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 	$str .= "\n<table class='DRep' >\n";
 
 	$str .= "<tr>";
-	$str .= "<th colspan='2'>";
-	$str .= "<h2><a class=help_link title='This section shows the tracking information for the Analysis Job Request'>Tracking Information</a></h2>";
+ 	$str .= "<th align='left'>";
+	$str .= "<a title='Back to the list report' href='../report'><img src='" . base_url(). "/images/page_white_get.png' border='0' ></img></a>";	
+ 	$str .= "</th>";
+	$str .= "<th>";
+	// Old text; removed in June 2016
+	// $str .= "<h2><a class=help_link title='This section shows the tracking information for the Analysis Job Request'>Tracking Information</a></h2>";
 	if($show_entry_links) {
 	 	$str .= make_detail_report_edit_links($controller_name, $id);
 	}
