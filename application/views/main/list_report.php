@@ -93,6 +93,9 @@ Download in other formats:
 <script src="<?= base_url().'javascript/lstRep.js' ?>"></script>
 
 <script type='text/javascript'>
+	//
+	// gamma is defined in dms2.js
+	//
 	gamma.pageContext.site_url = '<?= site_url() ?>';
 	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 	gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';

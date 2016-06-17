@@ -215,6 +215,19 @@ var gamma = {
 		parsed_data.data = data;
 		return parsed_data;
 	},
+	/// Get the suggested width, in pixels, for a dialog box
+	/// based on the number of characters in a string
+	getDialogWidth: function(textLength) {
+		var width = Math.round(textLength * 8.8);
+		
+		if (width < 150)
+			return 150;
+			
+		if (width > 1000)
+			return 1000;
+
+		return width;
+	},
 	// return text containing list of XML elements
 	// with given element name and attributes extracted from objects
 	// according to mapping array 
@@ -268,9 +281,12 @@ var gamma = {
 				return;
 			}
 			if(ignoreIfClosed && isClosed) return;
+			
 			if(!dlg) {
+				// Make a new dialog box
 				dlg = $('<div></div>').dialog({title: title, autoOpen: false});	
 			} else {
+				// Update the title of an existing dialog box
 				dlg.dialog({ title: title });
 			}
 			
@@ -283,10 +299,64 @@ var gamma = {
 			var p = $('#' + form).serialize();
 			
 			$.post(url, p, function(data) {
+					var maxTextLength = 0;
+					
+					if (title == 'SQL') {
+						// Insert some line breaks
+						var myRegEx = /(SELECT.+)\s(FROM\s.+)\sWHERE\s+(.+)/;
+						var match = myRegEx.exec(data);
+						
+						if (match) {
+							var whereClauseRegEx = /\s+(AND|OR)\s+/g;
+													
+							data = '<pre>';
+							data += match[1] + '<br>';                                                   // SELECT ...
+							data += match[2] + '<br>';                                                   // FROM ...
+							data += 'WHERE ' + match[3].replace(whereClauseRegEx, ' $1<br>      ');      // WHERE ...
+							data += '</pre>';
+							
+							var dataRows = data.split('<br>');
+							for(var k = 0; k < dataRows.length; k++) {
+								maxTextLength = Math.max(maxTextLength, dataRows[k].length);
+						    }
+
+							if (maxTextLength < 15)
+								maxTextLength = 15;
+								
+						} else {
+							// No RegEx match
+							maxTextLength = data.length;
+							data = '<pre>' + data + '</pre>';
+						}												
+					} else {
+						maxTextLength = data.length;
+					}
+					
+					var width = gamma.getDialogWidth(maxTextLength);
+					dlg.dialog({ width: width });
+
 					dlg.html(data);
 					dlg.dialog('open');
 				}
 			);
+		};
+	}(),
+	// Display text (data) in a floating modeless dialog (created dynamically)
+	updateMessageBoxText: function() {
+		var dlg;
+		return function(data, title) {
+				
+			if(!dlg) {
+				dlg = $('<div></div>').dialog({title: title, autoOpen: false});
+			} else {
+				dlg.dialog({ title: title });
+			}
+
+			var width = gamma.getDialogWidth(data.length);
+			dlg.dialog({ width: width });
+			
+			dlg.html(data);
+			dlg.dialog('open');
 		};
 	}(),
 	makeElementOverlay: function(elementId, message) {
@@ -934,7 +1004,15 @@ var delta = {
 	},
 	updateShowSQL: function () {
 		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL'); 
-	}
+	},
+	updateShowURL: function() {
+
+		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/show/' + gamma.pageContext.Id;
+		
+		gamma.updateMessageBoxText(url, 'URL');
+
+	},	
+
 };
 
 //------------------------------------------
