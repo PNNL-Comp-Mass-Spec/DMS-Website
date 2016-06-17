@@ -220,8 +220,8 @@ var gamma = {
 	getDialogWidth: function(textLength) {
 		var width = Math.round(textLength * 8.8);
 		
-		if (width < 150)
-			return 150;
+		if (width < 250)
+			return 250;
 			
 		if (width > 1000)
 			return 1000;
@@ -301,33 +301,57 @@ var gamma = {
 			$.post(url, p, function(data) {
 					var maxTextLength = 0;
 					
-					if (title == 'SQL') {
+					// Check for the title being 'SQL'
+					if (title.match(/SQL/i)) {
 						// Insert some line breaks
-						var myRegEx = /(SELECT.+)\s(FROM\s.+)\sWHERE\s+(.+)/;
-						var match = myRegEx.exec(data);
+						// Try to match SELECT * FROM table
+						//           or SELECT * FROM table WHERE x=y
+						var selectFromRegEx      = /(SELECT.+)\s+(FROM\s.+)/i;
+						var selectFromWhereRegEx = /(SELECT.+)\s+(FROM\s.+)\s+WHERE\s+(.+)/i;
+						var whereClauseRegEx     = /\s+(AND|OR)\s+/gi;
+						var orderByRegEx         = /\s+(ORDER BY\s.+)/i;
+
+						var match = selectFromWhereRegEx.exec(data);
 						
 						if (match) {
-							var whereClauseRegEx = /\s+(AND|OR)\s+/g;
 													
 							data = '<pre>';
-							data += match[1] + '<br>';                                                   // SELECT ...
-							data += match[2] + '<br>';                                                   // FROM ...
-							data += 'WHERE ' + match[3].replace(whereClauseRegEx, ' $1<br>      ');      // WHERE ...
+							data += match[1] + '<br>';                                               // SELECT ...
+							data += match[2] + '<br>';                                               // FROM ...
+
+							// Add a line break after AND or OR
+							data += 'WHERE ' + match[3].replace(whereClauseRegEx, ' $1<br>      ');  // WHERE ...
+
+							// Add a line break before ORDER BY
+							data = data.replace(orderByRegEx, '<br>$1');
 							data += '</pre>';
-							
+								
+						} else {
+							// SQL does not have a WHERE clause
+							var match = selectFromRegEx.exec(data);
+							if (match) {
+								data = '<pre>';
+								data += match[1] + '<br>';   // SELECT ...
+								data += match[2] + '<br>';   // FROM ...
+								
+								// Add a line break before ORDER BY
+								data = data.replace(orderByRegEx, '<br>$1');
+								data += '</pre>';
+
+							} else {
+								// No RegEx match
+								maxTextLength = data.length;
+								data = '<pre>' + data + '</pre>';
+							}
+						}
+						
+						if (maxTextLength == 0) {
 							var dataRows = data.split('<br>');
 							for(var k = 0; k < dataRows.length; k++) {
 								maxTextLength = Math.max(maxTextLength, dataRows[k].length);
 						    }
+						}
 
-							if (maxTextLength < 15)
-								maxTextLength = 15;
-								
-						} else {
-							// No RegEx match
-							maxTextLength = data.length;
-							data = '<pre>' + data + '</pre>';
-						}												
 					} else {
 						maxTextLength = data.length;
 					}
@@ -1003,6 +1027,7 @@ var delta = {
 		}
 	},
 	updateShowSQL: function () {
+		// Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
 		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL'); 
 	},
 	updateShowURL: function() {

@@ -50,6 +50,7 @@ var lstRep = {
 		}
 	},
 	updateShowSQL: function(ignoreIfClosed) {
+		// Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
 		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/sql', 'filter_form', 'SQL', ignoreIfClosed); 
 	},
 	updateShowURL: function(ignoreIfClosed) {
