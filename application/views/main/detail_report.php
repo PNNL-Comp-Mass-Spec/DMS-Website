@@ -51,12 +51,16 @@ $this->load->view("main/detail_report_export");
 <?php $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
+	//
+	// gamma and delta are defined in dms2.js
+	//
 	gamma.pageContext.site_url = '<?= site_url() ?>';
 	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 	gamma.pageContext.responseContainerId = 'update_message';
 	gamma.pageContext.Id = '<?= $id ?>';
-	gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';
+	gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';	
 	gamma.pageContext.updateShowSQL = delta.updateShowSQL;
+	gamma.pageContext.updateShowURL = delta.updateShowURL;
 </script>
 
 <script src="<?= base_url().'javascript/file_attachment.js' ?>"></script>
