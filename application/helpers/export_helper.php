@@ -6,46 +6,38 @@
 	//
 	function export_to_excel($result, $filename='excel_download', $col_filter = array())
 	{
-		$headers = ''; 
-		$data = '';
-		
 		$cols = array_keys(current($result));
-		if(!empty($col_filter)) $cols = $col_filter;
-		
+		if(!empty($col_filter)) $cols = $col_filter;		
 		$headers = implode("\t", fix_ID_column($cols));
-	
-		// field data
-		foreach($result as $row) {
-			$line = '';
-			foreach($cols as $name) {
-				$value = $row[$name];
-				if ((!isset($value)) OR ($value == "")) {
-					 $value = "\t";
-				} else {
-					 $value = quote_if_contains_tab($value) . "\t";				
-				}
-				$line .= $value;
-			}
-			$data .= trim($line)."\n";
-		}
-	
-		$data = str_replace("\r","",$data);
+
+		$data = get_tab_delimited_text($result, $cols);
 		
+		// Use a file extension of .tsv for tab-separated
+		// Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
 		header("Content-type: application/x-msdownload");
-		header("Content-Disposition: attachment; filename=$filename.xls");
+		header("Content-Disposition: attachment; filename=$filename.tsv");
 		echo "$headers\n$data";
 	}
 	// --------------------------------------------------------------------
 	//
 	function export_to_tab_delimited_text($result, $filename='tsv_download', $col_filter = array())
 	{
-		$headers = ''; 
-		$data = '';
-
 		$cols = array_keys(current($result));
 		if(!empty($col_filter)) $cols = $col_filter;
-	
 		$headers = implode("\t", fix_ID_column($cols));
+
+		$data = get_tab_delimited_text($result, $cols);
+		
+		header("Content-type: text/plain");
+		header("Content-Disposition: attachment; filename=$filename.txt");
+		echo "$headers\n$data";
+	}
+	// --------------------------------------------------------------------
+	//
+	function get_tab_delimited_text($result, $cols)
+	{
+
+		$data = '';
 	
 		// field data
 		foreach($result as $row) {
@@ -65,9 +57,7 @@
 	
 		$data = str_replace("\r","",$data);
 		
-		header("Content-type: text/plain");
-		header("Content-Disposition: attachment; filename=$filename.txt");
-		echo "$headers\n$data";
+		return $data;
 	}
 	// --------------------------------------------------------------------
 	//
@@ -336,8 +326,8 @@
 		if (strtoupper(substr($colsCopy[0], 0, 2)) == "ID") {
 			// The first column's name starts with ID
 			// Excel will interpret this as meaning the file is an SYLK file (http://support.microsoft.com/kb/323626)
-			// To avoid this, surround the column name with double quotes
-			$colsCopy[0] = '"' . $colsCopy[0] . '"';
+			// To avoid this, change the column name to Id
+			$colsCopy[0] = 'Id';
 		}
 
 		return $colsCopy;
