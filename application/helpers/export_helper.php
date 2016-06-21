@@ -136,8 +136,10 @@
 			}
 		}
 	
+		// Use a file extension of .tsv for tab-separated
+		// Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
 		header("Content-type: application/x-msdownload");
-		header("Content-Disposition: attachment; filename=$filename.xls");
+		header("Content-Disposition: attachment; filename=$filename.tsv");
 		echo $data;
 		echo $ai;
 	}
@@ -279,8 +281,10 @@
 			}
 		}
 	
+		// Use a file extension of .tsv for tab-separated
+		// Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
 		header("Content-type: application/x-msdownload");
-		header("Content-Disposition: attachment; filename=$filename.xls");
+		header("Content-Disposition: attachment; filename=$filename.tsv");
 		echo $data;
 		echo $ai;
 	}
