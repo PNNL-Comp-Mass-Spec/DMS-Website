@@ -2,7 +2,7 @@
 <?php $chimg = base_url()."images/chooser.png"; ?>
 
 <div class='LRcmd_panel'>
-<span class='LRcmd_cartouche' ><?= general_visibility_control('Add Items to Data Package', 'add_items_section', '') ?></span>
+<span class='LRcmd_cartouche' ><?= general_visibility_control('Add/Remove Items', 'add_items_section', '') ?></span>
 <span class='LRcmd_cartouche' ><?= detail_report_cmd_link("Refresh", "delta.updateMyData()") ?></span>
 <span class='LRcmd_cartouche' ><?= detail_report_cmd_link("Go to job coverage page", "", "", "data_package_job_coverage/report/$id") ?></span>
 <span class='LRcmd_cartouche' ><?= detail_report_cmd_link("Go to dataset coverage page", "", "", "data_package_dataset_job_coverage/param/$id") ?></span>
