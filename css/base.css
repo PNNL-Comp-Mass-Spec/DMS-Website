@@ -201,7 +201,7 @@ table.EPag span.ePhelper {
  * styling for detail report page main table
  */
 table.DRep {
-	margin-top: 10px;
+	margin-top: 0px;
 	background-color: #BBBBBB;
 	border-spacing: 1px;
 	border: 1px solid #aaa;

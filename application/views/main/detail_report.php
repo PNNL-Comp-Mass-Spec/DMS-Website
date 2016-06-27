@@ -12,8 +12,7 @@
 
 <?php $this->load->view('nav_bar') ?>
 
-<h2 class='page_title'><?= $title; ?></h2>
-
+<div class='local_title'><?= $title; ?></div>
 
 <div id='data_container'>
 (data will be loaded here)
