@@ -2,7 +2,7 @@
 // The primary function of this class is to build and execute an SQL query
 // against one of the databases defined in the application/config/database file.
 // It gets the basic components of the query from a config db as defined by the
-// config_name and config_source.  It can then be augmented with vaules taken from 
+// config_name and config_source.  It can then be augmented with values taken from 
 // various user inputs in the form of filters (selection, paging, sorting). 
 // This class also supplies certain definition information for use in building
 // and using those filters.
@@ -11,9 +11,10 @@
 class Query_parts {
 	var $dbn = 'default';
 	var $table = '';
+	var $detail_sproc = '';			// Only used on detail reports (via detail_report_sproc); only used when detail_report_data_table is empty
 	var $columns = '*';
-	var $predicates = array(); // of Query_predicate
-	var $sorting_items = array(); // column => direction
+	var $predicates = array(); 		// of Query_predicate
+	var $sorting_items = array(); 	// column => direction
 	var $paging_items = array('first_row' => 1, 'rows_per_page' => 12);
 	var $sorting_default = array('col' => '', 'dir' => '');
 }
@@ -81,7 +82,7 @@ class Q_model extends CI_Model {
 		$dbFileName = $config_source . '.db';
 		
 		$this->_clear();
-		$this->set_my_sql_builder('sql_mssql'); // (someday) pass in via argument (or constructor?) or do in config.php based on database type
+		$this->set_my_sql_builder('sql_mssql'); 	// (someday) pass in via argument (or constructor?) or do in config.php based on database type
 		try {
 			switch($config_name) {
 				case '':
@@ -258,22 +259,32 @@ class Q_model extends CI_Model {
 	}
 
 	// --------------------------------------------------------------------
-	// return single row for given ID using first defined filter
+	// Return single row for given ID using first defined filter
+	// Used to retrieve data for a detail report
 	function get_item($id)
 	{
 		if(empty($this->primary_filter_specs)) throw new exception('no primary id column defined');
 		
-		$spc = current($this->primary_filter_specs);
-
-		$this->add_predicate_item('AND', $spc['col'], $spc['cmp'], $id);
+		if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc))
+		{
+			return $this->get_data_row_from_sproc($id);
+		}
+		else 
+		{
+			$spc = current($this->primary_filter_specs);
+			$this->add_predicate_item('AND', $spc['col'], $spc['cmp'], $id);
 		
-		$query = $this->get_rows('filtered_only');
+			$query = $this->get_rows('filtered_only');
 
-		// get single row from results
-		return $query->row_array();		
+			// get single row from results
+			return $query->row_array();
+		}
+		
 	}
 	
 	// --------------------------------------------------------------------
+	// Retrieve data for a list report when $option is 'filtered_and_paged'
+	// Retrieve a single result for a detail report when $option is 'filtered_only'
 	function get_rows($option = 'filtered_and_paged')
 	{
 		$this->assure_sorting($option);
@@ -289,6 +300,55 @@ class Q_model extends CI_Model {
 // $query->result_array() // array of arrays
 // $query->free_result();
 	}
+
+	// --------------------------------------------------------------------
+	// Ported from get_data_rows_from_sproc in Param_report.php
+	// Returns the first row of data returned by the stored procedure
+	// Throws an exception if there is an error or if the SP returns a non-zero value
+	function get_data_row_from_sproc($id)
+	{
+		$CI = &get_instance();
+		
+		$calling_params = new stdClass();
+
+		// When calling a stored procedure from a detail report, we do not allow for passing custom values for stored procedure parameters
+		// If you want to do that, use a list-report that is backed by a stored procedure
+		// (see, for example, predefined_analysis_datasets or requested_run_factors)
+		// 
+		// The default parameter names are id, mode, callingUser, and message
+		// However, the stored procedure doesn't have to have those parameters.
+		// Use the sproc_args table in the config DB to specify the actual parameters
+		
+		$calling_params->id = $id;
+		$calling_params->mode = 'Get';
+		$calling_params->callingUser = '';		// get_user();
+
+		try {
+			// Call the stored procedure		
+			$ok = $CI->cu->load_mod('s_model', 'sproc_model',$this->config_name, $this->config_source);
+			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+
+			$ok = $CI->sproc_model->execute_sproc($calling_params);
+			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+
+			$rows = $CI->sproc_model->get_rows();
+			
+			if (empty($rows)) {
+				// No results
+				// echo "<div id='data_message' >No rows found</div>";
+				return NULL;
+			}
+			
+			return $rows[0];
+			
+		} catch (Exception $e) {
+			$message = $e->getMessage();
+			throw new exception($message);
+		}
+
+	
+	}
+
 
 	// --------------------------------------------------------------------
 	// make sure there is at least one valid sorting column if option includes sorting
@@ -597,6 +657,9 @@ class Q_model extends CI_Model {
 					break;
 				case 'detail_report_data_table':
 					$this->query_parts->table = $row['value'];
+					break;
+				case 'detail_report_sproc':
+					$this->query_parts->detail_sproc = $row['value'];
 					break;
 				case 'detail_report_data_cols':
 					$this->query_parts->columns = $row['value'];

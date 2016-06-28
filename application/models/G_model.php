@@ -213,6 +213,7 @@ class G_model extends CI_Model {
 					$resolved_action = 'unrestricted';
 					break;
 				case 'detail_report_data_table':
+				case 'detail_report_sproc':
 					$this->actions['show'] = TRUE;
 					break;
 				case 'entry_sproc':

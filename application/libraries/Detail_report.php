@@ -214,7 +214,7 @@ class Detail_report {
 
 		$CI->cu->load_lib('entry_form', $form_def->specs, $this->config_source);
 		
-		// get get entry field values for this entity
+		// Get entry field values for this entity
 		$CI->cu->load_mod('q_model', 'input_model', 'entry_page', $this->config_source);
 		$field_values = $CI->input_model->get_item($id);
 

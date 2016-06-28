@@ -164,7 +164,7 @@ class Param_report {
 			$CI->form_validation->set_rules($form_def->rules);
 			$valid_fields = $CI->form_validation->run();
 			
-			// get field values from validation objec into an object
+			// get field values from validation object into an object
 			// that will be used for calling stored procedure
 			// and also putting values back into entry form HTML 
 			foreach($form_def->fields as $field) {

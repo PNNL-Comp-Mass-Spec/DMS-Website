@@ -1,5 +1,5 @@
 <?php
-// The function of this clase is to execute a stored procedure
+// The function of this class is to execute a stored procedure
 // against one of the databases defined in the application/config/database file.
 // It gets the procedure name and arguments from a config db as defined by the
 // config_name and config_source. If the stored procedure returns a rowset,

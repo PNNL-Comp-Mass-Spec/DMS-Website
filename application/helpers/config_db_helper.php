@@ -9,6 +9,7 @@ insert into general_params ("name","value") values ('base_table' , '$obj->tbl');
 insert into general_params ("name","value") values ('list_report_data_table' , '$obj->lrn' );
 insert into general_params ("name","value") values ('detail_report_data_table' , '$obj->drn');
 insert into general_params ("name","value") values ('detail_report_data_id_col' , 'ID');
+insert into general_params ("name","value") values ('detail_report_sproc' , '');
 insert into general_params ("name","value") values ('entry_page_data_table' , '$obj->ern');
 insert into general_params ("name","value") values ('entry_page_data_id_col' , 'ID');
 insert into general_params ("name","value") values ('entry_sproc' , '$obj->spn');
@@ -341,6 +342,7 @@ echo "</th></tr>\n";
 			'entry_sproc' => '',
 			'list_report_sproc' => '',
 			'detail_report_data_table' => '',
+			'detail_report_sproc' => '',
 			'operations_sproc' => '',
 			'list_report_cmds' => '',
 			'detail_report_commands' => '',
@@ -355,6 +357,7 @@ echo "</th></tr>\n";
 			'entry_sproc' => 'Entry Page',
 			'list_report_sproc' => 'Param Report',
 			'detail_report_data_table' => 'Detail Report',
+			'detail_report_sproc' => 'Detail Report via Sproc',
 			'operations_sproc' => 'Operations',
 			'list_report_cmds' => 'List Report Cmds',
 			'detail_report_commands' => 'Det Cmds T',
@@ -397,7 +400,7 @@ echo "</th></tr>\n";
 		$s .= "</tr>\n";
 		foreach($crosstab as $output_row) {
 			$s .= "<tr>\n";
-			foreach($output_row as $c => $v) {
+			foreach($output_row as $c => $v) {		// $c is the key; $v is the value
 				$link = '';
 				if(!$v) {
 					$v = '&nbsp;';
@@ -409,19 +412,25 @@ echo "</th></tr>\n";
 						$v = "<a href='$url' title='$title'>$v</a> &nbsp;";
 					}
 					if($c == 'list_report_data_table') {
-						$title = "Go to the list report page for this page family (associated view:$v)";
+						$title = "Go to the list report page for this page family (associated view: $v)";
 						$url = site_url().$output_row['page_family'].'/report';
 						$link = "<a href='$url' title='$title'>list report</a> &nbsp;";
 						$v = '';
 					}
 					if($c == 'list_report_sproc') {
-						$title = "Go to the param report page for this page family (associated sproc:$v)";
+						$title = "Go to the param report page for this page family (associated sproc: $v)";
 						$url = site_url().$output_row['page_family'].'/param';
 						$link = "<a href='$url' title='$title'>param report</a> &nbsp;";
 						$v = '';
 					}
 					if($c == 'detail_report_data_table') {
-						$title = "This page family has a detail report page (associated view:$v)";
+						$title = "This page family has a detail report page (associated view: $v)";
+						$url = 'javascript:void(0)';
+						$link = "<a href='$url' title='$title'>(detail report)</a> &nbsp;";
+						$v = '';
+					}
+					if($c == 'detail_report_sproc') {
+						$title = "This page family has a detail report page (associated stored procedure: $v)";
 						$url = 'javascript:void(0)';
 						$link = "<a href='$url' title='$title'>(detail report)</a> &nbsp;";
 						$v = '';
@@ -439,13 +448,13 @@ echo "</th></tr>\n";
 						$v = '';
 					}
 					if($c == 'operations_sproc') {
-						$title = "This page family has an operation action defined (associated sproc:$v)";
+						$title = "This page family has an operation action defined (associated stored procedure: $v)";
 						$url = 'javascript:void(0)';
 						$link = "<a href='$url' title='$title'>(ops sproc)</a> &nbsp;";
 						$v = '';
 					}
 					if($c == 'entry_sproc') {
-						$title = "Go to the entry page for this page family (associated sproc:$v)";
+						$title = "Go to the entry page for this page family (associated sproc: $v)";
 						$url = site_url().$output_row['page_family'].'/create';
 						$link = "<a href='$url' title='$title'>entry page</a> &nbsp;";
 						$v = '';
