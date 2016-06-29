@@ -59,8 +59,9 @@ class Primary_filter {
 		// maybe we can check for the presence of any scalars that begin with "pf_"
 		if(!empty($_POST)){
 			foreach(array_keys($filter_specs) as $id) {
-				if(isset($_POST[$id])) { 
-					$filter_specs[$id]["value"] = $_POST[$id];
+				$filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
+				if(!empty($filterVal)) { 
+					$filter_specs[$id]["value"] = $filterVal;
 				}
 			}
 			return $filter_specs;
@@ -127,4 +128,3 @@ class Primary_filter {
 		clear_cache($this->storage_name);
 	}
 }
-?>
