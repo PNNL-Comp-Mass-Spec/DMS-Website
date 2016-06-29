@@ -5,7 +5,6 @@ class Paging_filter {
 	
 	private $config_name = '';
 	private $config_source = '';
-//	private $storage_name = '';
 	
 	private $field_names = array('qf_first_row', 'qf_rows_per_page');
 	private $cur_filter_values = NULL;
@@ -25,7 +24,7 @@ class Paging_filter {
 
 		$this->config_name = $config_name;
 		$this->config_source = $config_source;
-		$this->storage_name = self::storage_name_root.$this->config_name.'_'.$this->config_source;
+		$storage_name = self::storage_name_root.$this->config_name.'_'.$this->config_source;
 			
 		$this->clear_filter();
 		
@@ -34,11 +33,11 @@ class Paging_filter {
 		if($state) {
 			$this->cur_filter_values = $state;
 			$state['qf_first_row'] = 1; // don't remember first row between visits
-			save_to_cache($this->storage_name, $state);
+			save_to_cache($storage_name, $state);
 		}
 		else {
 			// try to get current values of filters from cache
-			$state = get_from_cache($this->storage_name);
+			$state = get_from_cache($storage_name);
 			if($state) {
 				$this->cur_filter_values = $state;
 			} else {
@@ -48,7 +47,7 @@ class Paging_filter {
 				if($x) { 
 					$this->cur_filter_values['qf_rows_per_page'] = $x;
 					$state = $this->cur_filter_values;
-					save_to_cache($this->storage_name, $state);
+					save_to_cache($storage_name, $state);
 				}
 			}
 		}
@@ -61,10 +60,14 @@ class Paging_filter {
 	function get_current_filter_values_from_post($field_names)
 	{
 		$values = array();
+		
+		
+		
 		if(!empty($_POST)){
 			foreach($field_names as $id) {
-				if(isset($_POST[$id])) { 
-					$values[$id] = $_POST[$id];
+				$filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
+				if(!empty($filterVal)) { 
+					$values[$id] = $filterVal;
 				}
 			}
 			return $values;
@@ -88,13 +91,7 @@ class Paging_filter {
 	{
 		return $this->cur_filter_values;
 	}
-/*
-	// --------------------------------------------------------------------
-	function get_storage_name()
-	{
-		return $this->storage_name;
-	}
-*/
+
 	// --------------------------------------------------------------------
 	function get_cached_value()
 	{
@@ -109,4 +106,3 @@ class Paging_filter {
 		clear_cache($this->storage_name);
 	}
 }
-?>
