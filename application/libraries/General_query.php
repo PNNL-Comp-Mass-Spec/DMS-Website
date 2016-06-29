@@ -41,7 +41,7 @@ class General_query {
 		$p = new General_query_def();
 		$p->output_format = $CI->uri->segment(3);
 		$p->q_name = $CI->uri->segment(4);
-		$p->config_source = $CI->uri->segment(5);;
+		$p->config_source = $CI->uri->segment(5);
 		$p->filter_values = array_slice($CI->uri->segment_array(), 5);
 		return $p;
 	}
@@ -82,7 +82,10 @@ class General_query {
 		$filter_specs = $model->get_primary_filter_specs();
 		$i = 0;
 		foreach(array_values($filter_specs) as $pi) {
-			if($i >= count($filter_values)) break;
+			if($i >= count($filter_values)) {
+				break;
+			}
+			
 			$val = $filter_values[$i];
 			if($val != '-') {
 				$rel = ($pi['cmp'] == 'Rp')?'ARG':'AND';
@@ -123,7 +126,6 @@ class General_query {
 	function tsv($result)
 	{
 		$headers = ''; 
-		$data = '';
 
 		header("Content-type: text/plain");
 
@@ -136,7 +138,7 @@ class General_query {
 		// field data
 		foreach($result as $row) {
 			$line = '';
-			foreach($row as $name => $value) {
+			foreach($row as $name => $value) {		// $name is the key, $value is the value
 				if ((!isset($value)) OR ($value == "")) {
 					 $value = "\t";
 				} else {
@@ -150,10 +152,7 @@ class General_query {
 	
 	// --------------------------------------------------------------------
 	function xml_dataset($result, $table = 'TX')
-	{
-		$headers = ''; 
-		$data = '';
-
+	{		
 		header("Content-type: text/plain");
 
 		// field data
@@ -169,4 +168,3 @@ class General_query {
 	}
 	
 }
-?>

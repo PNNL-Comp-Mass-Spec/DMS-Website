@@ -120,9 +120,12 @@ class Dms_chooser extends CI_Model {
 							$obj = new stdClass();
 							$label = $row["val"];
 							$value = (string)$row["ex"];
-							$value = ($value != '')?$value:$label;
 							$obj->label = $label;
-							$obj->value = $value;
+							if ($value != '') {
+								$obj->value = $value ;
+							} else { 
+								$obj->value = $label;
+							}
 							$options[] = $obj;
 						}
 					}
@@ -227,4 +230,3 @@ class Dms_chooser extends CI_Model {
 	}		
 	
 }
-?>

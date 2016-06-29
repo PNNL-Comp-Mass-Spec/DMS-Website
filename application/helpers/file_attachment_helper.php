@@ -1,28 +1,36 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 function chmodr($path, $filemode) { 
-    if (!is_dir($path)) 
+    if (!is_dir($path)) {
         return chmod($path, $filemode); 
-
+	}
+	
     $dh = opendir($path); 
     while (($file = readdir($dh)) !== false) { 
         if($file != '.' && $file != '..') { 
             $fullpath = $path.'/'.$file; 
-            if(is_link($fullpath)) 
+            if(is_link($fullpath)) {
                 return FALSE; 
-            elseif(!is_dir($fullpath) && !chmod($fullpath, $filemode)) 
-                    return FALSE; 
-            elseif(!chmodr($fullpath, $filemode)) 
+			}
+            if(!is_dir($fullpath) && !chmod($fullpath, $filemode)) {
                 return FALSE; 
+			}
+            if(!chmodr($fullpath, $filemode)) {
+                return FALSE; 
+			}
         } 
     } 
 
     closedir($dh); 
 
-    if(chmod($path, $filemode)) 
+    if(chmod($path, $filemode)) {
         return TRUE; 
-    else 
+	} else {
         return FALSE; 
+	}
 }
 
 function friendly_file_size($file_size_bytes) {
@@ -42,6 +50,3 @@ function friendly_file_size($file_size_bytes) {
   $file_size_string = ($unit == "GB") ? sprintf("%1\$.2f $unit",$nice_file_size) : sprintf("%1\$.1f $unit",$nice_file_size);
   return $file_size_string;
 }
-
-
-?>

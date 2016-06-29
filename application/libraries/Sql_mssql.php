@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 class Sql_mssql {
 	
@@ -96,7 +99,6 @@ class Sql_mssql {
 	private
 	function make_order_by($sort_items)
 	{
-		$s = '';
 		$a = array();
 		foreach($sort_items as $item) {
 			$a[] = "[" . $item->col . "] " . $item->dir;
@@ -313,4 +315,3 @@ class Sql_mssql {
 	}
 	
 }
-?>

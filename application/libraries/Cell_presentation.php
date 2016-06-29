@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 class Cell_presentation {
 
@@ -34,7 +37,9 @@ class Cell_presentation {
 		$colIndex = 0;
 		foreach($display_cols as $name) {
 			// don't display columns that begin with hash character
-			if($name[0] == '#') continue;
+			if($name[0] == '#') {
+				continue;
+			}
 
 			$value = $row[$name];
 			$colSpec = null;
@@ -129,7 +134,7 @@ class Cell_presentation {
 				}
 				break;
 			case "CHECKBOX":
-//				$str .= "<td>" . form_checkbox('ckbx', $ref, FALSE) . "</td>";
+				// $str .= "<td>" . form_checkbox('ckbx', $ref, FALSE) . "</td>";
 				$str .= "<td><input type='checkbox' value='$ref' name='ckbx' class='lr_ckbx'></td>";
 				break;
 			case "checkbox_json":
@@ -183,7 +188,6 @@ class Cell_presentation {
 				$str .= "<td><a href='javascript:void(0)' onclick='submitDynamicForm(\"$url\", \"$s\")'>$value</a></td>";
 				break;
 			case "row_to_json":
-				$s = "";
 				$fsp = "";
 				$rowAction = 'localRowAction';
 				if(array_key_exists('Options', $colSpec)) {
@@ -217,8 +221,9 @@ class Cell_presentation {
 				break;
 
 			case "link_list":
-				$delim = (preg_match('/[,;]/', $ref, $match))? $match[0] : '';
-				$flds = ($delim == '')? array($ref) : explode($delim, $ref);
+				$matches = array();
+				$delim = (preg_match('/[,;]/', $ref, $matches)) ? $matches[0] : '';
+				$flds = ($delim == '') ? array($ref) : explode($delim, $ref);
 				$links = array();
 				foreach($flds as $ln) {
 					$ln = trim($ln);
@@ -286,7 +291,9 @@ class Cell_presentation {
 	// create HTML to display a set of column headers
 	function make_column_header($rows, $sorting_cols = array())
 	{	
-		if(empty($rows)) return '';
+		if(empty($rows)) {
+			return '';
+		}
 		$str = "";
 		
 		// which columns are showing
@@ -397,10 +404,15 @@ class Cell_presentation {
 		// get list of datetime columns
 		$dc = array();
 		foreach($col_info as $f) {
-			if($f->type=='datetime') $dc[] = $f->name;
+			if($f->type=='datetime') {
+				$dc[] = $f->name;
+			}
 		}
-		// none - we are done
-		if(count($dc)==0) return;
+		
+		if(count($dc)==0) {
+			// none - we are done
+			return;
+		}
 
 		// traverse the array of rows, and fix the datetime colum formats
 		//
@@ -414,7 +426,10 @@ class Cell_presentation {
 			// traverse all the date columns in the current row
 			foreach($dc as $col) {
 				// skip if the column value is empty
-				if(!isset($result[$i][$col])) continue;
+				if(!isset($result[$i][$col])) {
+					continue;
+				}
+				
 				// convert to blank if column value is null
 				if(is_null($result[$i][$col])) {
 					$result[$i][$col] = '';
@@ -440,4 +455,3 @@ class Cell_presentation {
 	}
 	
 }
-?>

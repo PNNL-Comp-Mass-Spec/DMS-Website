@@ -1,5 +1,9 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
-// support functions for entry page features of base_controller
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
+
+	// support functions for entry page features of base_controller
 
 	// --------------------------------------------------------------------
 	// get initial values for entry fields - URL will tell us where to get them
@@ -78,16 +82,18 @@
 					case 'Scrub':
 						$s = "";
 						$field = $a[$fld];
-						$pat = '/(\[Req:[^\]]*\])/';
-						$ms = array();
-						preg_match_all($pat, $field, $ms);
-						if(count($ms[0]) != 0) {
-							$s .= $ms[0][count($ms[0])-1];
+						
+						$patReq = '/(\[Req:[^\]]*\])/';
+						$matches = array();
+						preg_match_all($patReq, $field, $matches);
+						if(count($matches[0]) != 0) {
+							$s .= $matches[0][count($matches[0])-1];
 						}
-						$pat = '/(DTA:[a-zA-Z0-9_#\-]*)/';
-						preg_match($pat, $field, $ms);
-						if(count($ms) > 1) {
-							$s .= " " . $ms[1];
+						
+						$patDTA = '/(DTA:[a-zA-Z0-9_#\-]*)/';
+						preg_match($patDTA, $field, $matches);
+						if(count($matches) > 1) {
+							$s .= " " . $matches[1];
 						}
 						$a[$fld] = $s;
 						break;
@@ -144,16 +150,16 @@
 	function entry_outcome_message($message, $option = 'success', $id='')
 	{
 		$str = '';
-		$id = ($id)?" id='$id'":'';
+		$idWithTag = ($id)?" id='$id'":'';
 		switch($option) {
 			case 'success':
-				$str =  "<div class='EPag_message' $id>" . $message . "</div>";
+				$str =  "<div class='EPag_message' $idWithTag>" . $message . "</div>";
 				break;
 			case 'failure':
-				$str =  "<div class='EPag_error' $id>" . $message . "</div>";
+				$str =  "<div class='EPag_error' $idWithTag>" . $message . "</div>";
 				break;
 			case 'error':
-				$str =  "<div class='bad_clr' $id>" . $message . "</div>";
+				$str =  "<div class='bad_clr' $idWithTag>" . $message . "</div>";
 				break;
 			default:
 				$str =  "<div${id}>" . $message . "</div>";
@@ -214,5 +220,3 @@
 		}
 		return $links;	
 	}
-	
-?>

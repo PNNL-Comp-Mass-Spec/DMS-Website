@@ -58,12 +58,11 @@ class Saved_settings {
 		$CI->cu->load_lib('sorting_filter', $config_name, $config_source);
 		$CI->sorting_filter->clear_cached_state();
 		
-		// column filter
-		$CI->cu->load_lib('column_filter', $config_name, $config_source);
-		$col_filter = $CI->column_filter->clear_cached_state();
+		// column filter (unused)
+		// $CI->cu->load_lib('column_filter', $config_name, $config_source);
+		// $col_filter = $CI->column_filter->clear_cached_state();
 		
 		echo "Saved preferences were cleared";
 	}
 	
 }
-?>

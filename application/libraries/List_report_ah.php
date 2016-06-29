@@ -50,7 +50,7 @@ class List_report_ah extends List_report {
 		// get stuff related to list report optional features
 		$data['loading'] = ($mode == 'search')?'no_load':'';
 		$data['list_report_cmds'] = ''; ///$CI->gen_model->get_param('list_report_cmds');
-		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');;
+		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
 		$data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
 		$data['ops_url'] = ''; ///site_url() . $CI->gen_model->get_param('list_report_cmds_url');		
 
@@ -81,4 +81,3 @@ class List_report_ah extends List_report {
 	}
 	
 }
-?>

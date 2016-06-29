@@ -79,4 +79,3 @@ class Config_db_model extends CI_Model {
 	}
 
 }
-?>

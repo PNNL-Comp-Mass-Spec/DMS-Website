@@ -98,7 +98,9 @@ class S_model extends CI_Model {
 	{	
 		$this->error_text = '';
 		try {
-			if(!isset($parmObj)) throw new Exception('Input parameter object was not supplied');
+			if(!isset($parmObj)) {
+				throw new Exception('Input parameter object was not supplied');
+			}
 
 			$CI =& get_instance();
 			$my_db = $CI->load->database($this->dbn, TRUE, TRUE);
@@ -195,13 +197,14 @@ class S_model extends CI_Model {
 			}
 		}
 */
-		$rows = $CI->table_sorter->sort_multi_col($rows, $sorting_filter);
+		$sortedRows = $CI->table_sorter->sort_multi_col($rows, $sorting_filter);
 		if(!empty($paging_filter)) {
 			$length = (int) $paging_filter['qf_rows_per_page'];
 			$offset = (int) $paging_filter['qf_first_row'] - 1;
-			$rows = array_slice($rows, $offset, $length);
+			$pagedRows = array_slice($sortedRows, $offset, $length);
+			return $pagedRows;
 		}
-		return $rows;
+		return $sortedRows;
 	}
 	
 	// --------------------------------------------------------------------
@@ -265,7 +268,7 @@ class S_model extends CI_Model {
 	// return a list of fields for given sproc (minus the '<local>' fields)
 	function get_sproc_fields()
 	{
-		$fields	= array();;
+		$fields	= array();
 		foreach($this->sproc_args as $arg) {
 			$field_name = $arg['field'];
 			if($field_name != '<local>') {
@@ -306,7 +309,9 @@ class S_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		// get list of tables in database
 		$tbl_list = array();
@@ -390,4 +395,3 @@ class S_model extends CI_Model {
 		clear_cache($this->col_info_storage_name);
 	}
 }
-?>

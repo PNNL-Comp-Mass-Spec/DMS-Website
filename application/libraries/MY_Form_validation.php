@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 class MY_Form_validation extends CI_Form_validation {
 
@@ -18,9 +21,9 @@ class MY_Form_validation extends CI_Form_validation {
 	// convert exotic characters to plan ASCII and trim whitespaced off ends
 	function trim($str)
 	{
-		$str = trim(iconv("utf-8", "ASCII//TRANSLIT", $str));
+		$scrubbed = trim(iconv("utf-8", "ASCII//TRANSLIT", $str));
 //		$_POST[$this->_current_field] = $str;
-		return $str;
+		return $scrubbed;
 	}
 
 	function char_set($str, $parm)
@@ -105,4 +108,3 @@ class MY_Form_validation extends CI_Form_validation {
 		}
 	}
 }
-?>

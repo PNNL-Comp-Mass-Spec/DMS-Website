@@ -190,4 +190,3 @@ class Secondary_filter {
 		clear_cache($this->storage_name);
 	}
 }
-?>

@@ -1,9 +1,13 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
+
 
 // -----------------------------------
 	function make_qs_fly_menu($params)
 	{
-		$num_menu_itmes = count($params['section_menu_items']);
+		$num_menu_items = count($params['section_menu_items']);
 		$s = '';
 		$s .= "<div class='qs_menu fly_aspect'>\n";
 
@@ -16,9 +20,9 @@
 			$s .= "</div>\n";		
 		}
 
-		if($num_menu_itmes > 0) {
+		if($num_menu_items > 0) {
 			$s .= "<ul>\n";
-			for($i=0; $i<$num_menu_itmes; $i++) {
+			for($i=0; $i<$num_menu_items; $i++) {
 				$s .= make_qs_menu_item($params, $i);
 			}
 			$s .= "</ul>\n";
@@ -78,10 +82,10 @@
 	}
 
 // -----------------------------------
-	function make_qs_section($params, $num_revealed = 2)
+	function make_qs_section($params, $default_num_revealed = 2)
 	{
-		$num_menu_itmes = count($params['section_menu_items']);
-		$num_revealed = ($num_revealed>$num_menu_itmes)?$num_menu_itmes:$num_revealed;
+		$num_menu_items = count($params['section_menu_items']);
+		$num_revealed = ($default_num_revealed>$num_menu_items)?$num_menu_items:$default_num_revealed;
 		$sect_name = "b".$params['section_number'];
 		$s = '';
 		$s .= "<div class='qs_menu qs_aspect'>\n";
@@ -89,7 +93,7 @@
 		$s .= "<div class='qs_menu_active_area qs_aspect_active_area'>\n";
 		$s .= "<div class='qs_menu_hdr'>".$params['section_header']."</div>\n";
 
-		if($num_menu_itmes > 0) {
+		if($num_menu_items > 0) {
 			$s .= "<ul>\n";
 			for($i=0; $i<$num_revealed; $i++) {
 				$s .= make_qs_menu_item($params, $i);
@@ -98,11 +102,11 @@
 		}
 
 		$s .= "<div>\n";
-		if($num_menu_itmes > $num_revealed) {
+		if($num_menu_items > $num_revealed) {
 			$s .= "	<a href='javascript:void(0)' onclick='showHideMenuBlock(\"".$sect_name."\")'><span id='".$sect_name."_ctl'>More...</span></a>\n";
 			$s .= "	<div id='".$sect_name."' class='qs_more'>\n";
 			$s .= "	<ul>\n";
-			for($i=$num_revealed; $i<$num_menu_itmes; $i++) {
+			for($i=$num_revealed; $i<$num_menu_items; $i++) {
 				$s .= make_qs_menu_item($params, $i);
 			}
 			$s .= "	</ul>\n";
@@ -352,5 +356,3 @@
 			}
 		}
 	}
-
-?>

@@ -104,4 +104,3 @@ class Sorting_filter {
 		clear_cache($this->storage_name);
 	}
 }
-?>

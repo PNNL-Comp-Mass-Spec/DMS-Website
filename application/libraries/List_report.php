@@ -68,7 +68,7 @@ class List_report {
 		// get stuff related to list report optional features
 		$data['loading'] = ($mode == 'search')?'no_load':'';
 		$data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
-		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');;
+		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
 		$data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
 		$data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');		
 		
@@ -335,7 +335,7 @@ class List_report {
 		try {	
 			// make HTML using pager
 			$s = '';
-			$total_rows = $CI->data_model->get_total_rows();;
+			$total_rows = $CI->data_model->get_total_rows();
 			$per_page = $current_filter_values['qf_rows_per_page'];
 			$first_row = $current_filter_values['qf_first_row'];
 			$CI->list_report_pager->set($first_row, $total_rows, $per_page);
@@ -411,8 +411,6 @@ class List_report {
 
 		$CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
 
-		$data['title'] = $CI->gen_model->get_page_label($this->title, 'export');
-
 		$rows = $CI->data_model->get_rows('filtered_and_sorted')->result_array();
 		
 		$CI->load->library('cell_presentation');
@@ -442,4 +440,3 @@ class List_report {
 	}
 	
 }
-?>

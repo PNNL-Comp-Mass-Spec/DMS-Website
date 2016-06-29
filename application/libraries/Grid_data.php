@@ -27,7 +27,9 @@ class Grid_data {
 		try {
 			$CI->load->database();
 			$result = $CI->db->query($sql);
-			if(!$result) throw new exception('??');
+			if(!$result) {
+				throw new exception('??');
+			}
 			$columns = array();
 			foreach($result->field_data() as $field) {
 				$columns[] = $field->name;
@@ -35,7 +37,7 @@ class Grid_data {
 			$response->result = 'ok';
 			$response->message = '';
 			$response->columns = $columns;
-			$response->rows = $result->result_array();;
+			$response->rows = $result->result_array();
 		} catch (Exception $e) {
 			$response->result = 'error';
 			$response->message = $e->getMessage();			
@@ -49,21 +51,27 @@ class Grid_data {
 	{
 		$CI = &get_instance();
 		
-		if(!$config_name) $config_name = $this->config_name;
+		if(!$config_name) {
+			$config_name = $this->config_name;
+		}
 
 		$CI->load->helper(array('user','url'));
 		$response = new stdClass();
 		try {
 			// init sproc model
 			$ok = $CI->cu->load_mod('s_model', 'sproc_model', $config_name, $this->config_source);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			if(!$ok) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
 			
-			$fields = $CI->sproc_model->get_sproc_fields();	;	
+			$fields = $CI->sproc_model->get_sproc_fields();
 			$paramObj = $this->get_input_values($fields, $paramArray);
 			$calling_params = $CI->sproc_model->get_calling_args($paramObj);
 
-			$ok = $CI->sproc_model->execute_sproc($calling_params);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			$success = $CI->sproc_model->execute_sproc($calling_params);
+			if(!$success) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
 	
 			$response->result = 'ok';
 			$response->message = $CI->sproc_model->get_parameters()->message;	
@@ -103,4 +111,3 @@ class Grid_data {
 	}
 
 }
-?>

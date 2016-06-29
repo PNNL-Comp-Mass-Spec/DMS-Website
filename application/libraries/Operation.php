@@ -77,7 +77,9 @@ class Operation {
 		try {
 			// init sproc model
 			$ok = $CI->cu->load_mod('s_model', 'sproc_model', $config_name, $this->config_source);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			if(!$ok) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
 			
 			// get sproc fields and use them to make validation field definitions
 			$fields = $CI->sproc_model->get_sproc_fields();
@@ -111,8 +113,10 @@ class Operation {
 			$calling_params->message = '';
 			
 			// call sproc
-			$ok = $CI->sproc_model->execute_sproc($calling_params);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			$success = $CI->sproc_model->execute_sproc($calling_params);
+			if(!$success) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
 	
 			$response->result = $CI->sproc_model->get_parameters()->retval;
 			$response->message = $CI->sproc_model->get_parameters()->message;			
@@ -132,4 +136,3 @@ class Operation {
 	}
 	
 }
-?>

@@ -171,7 +171,9 @@ echo var_dump($av)."<hr>";
     		return unserialize($state);
 		} else {
 			$s = $this->load_user_prefs_from_cookie();
-			if($s) $s = unserialize($s);
+			if($s) {
+				$s = unserialize($s);
+			}
 			return $s;
 		}
     }
@@ -205,4 +207,3 @@ echo var_dump($av)."<hr>";
     	return get_cookie($user_name);
     }
 }
-?>

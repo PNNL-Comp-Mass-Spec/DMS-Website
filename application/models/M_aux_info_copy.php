@@ -147,4 +147,3 @@ return;
 		return $val;
 	}
 }
-?>

@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 
 	// --------------------------------------------------------------------
@@ -7,7 +10,10 @@
 	function export_to_excel($result, $filename='excel_download', $col_filter = array())
 	{
 		$cols = array_keys(current($result));
-		if(!empty($col_filter)) $cols = $col_filter;		
+		if(!empty($col_filter)) {
+			$cols = $col_filter;
+		}
+		
 		$headers = implode("\t", fix_ID_column($cols));
 
 		$data = get_tab_delimited_text($result, $cols);
@@ -23,7 +29,10 @@
 	function export_to_tab_delimited_text($result, $filename='tsv_download', $col_filter = array())
 	{
 		$cols = array_keys(current($result));
-		if(!empty($col_filter)) $cols = $col_filter;
+		if(!empty($col_filter)) {
+			$cols = $col_filter;
+		}
+		
 		$headers = implode("\t", fix_ID_column($cols));
 
 		$data = get_tab_delimited_text($result, $cols);
@@ -55,9 +64,9 @@
 			$data .= trim($line)."\n";
 		}
 	
-		$data = str_replace("\r","",$data);
+		$dataNoCR = str_replace("\r","",$data);
 		
-		return $data;
+		return $dataNoCR;
 	}
 	// --------------------------------------------------------------------
 	//
@@ -194,7 +203,7 @@
 		     $tool = $step->getAttribute('Tool');
 		     $special = $step->getAttribute('Special');
 		     $shape = "box";
-		     $color = "black";
+		     // $color = "black";
 		     switch ($special) {
 		          case "Clone":
 		               $shape = "trapezium";
@@ -209,7 +218,7 @@
 		     $step_number = $dependency->parentNode->getAttribute('Number');
 		     $target_step_number = $dependency->getAttribute('Step_Number');
 		     $test = $dependency->getAttribute('Test');
-		     $value = $dependency->getAttribute('Value');
+		     // $value = $dependency->getAttribute('Value');
 		     $enable_only = $dependency->getAttribute('Enable_Only');
 		     $label = "";
 		     $line = "";
@@ -250,7 +259,7 @@
 		$prevCategory = '';
 		$prevSubCategory = '';
 		if(count($aux_info) > 0) {
-			$fields = array("Category", "Subcategory", "Item", "Value");
+			// $fields = array("Category", "Subcategory", "Item", "Value");
 			foreach($aux_info as $row) {
 				$line = '';
 	
@@ -342,20 +351,18 @@
 	function quote_if_contains_tab($value)
 	{
 		// convert any newlines
-		$value = str_replace(array("\r\n", "\r", "\n"), "; ", $value);
+		$valueNoCrLf = str_replace(array("\r\n", "\r", "\n"), "; ", $value);
 
 		// Look for a tab character in $value
-		$pos = strpos($value, "\t");
+		$pos = strpos($valueNoCrLf, "\t");
 		
 		// Note that you must use !== instead of !=
 		// See http://www.php.net/manual/en/function.strpos.php
 		if ($pos !== false) {
 			// Match found; surround with double quotes
 			// However, first replace double quotes with ""			
-			$value = '"' . str_replace('"', '""', $value) . '"';
+			return '"' . str_replace('"', '""', $valueNoCrLf) . '"';
 		}
 		
-		return $value;
+		return $valueNoCrLf;
 	}
-
-?>

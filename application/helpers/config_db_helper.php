@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
     // --------------------------------------------------------------------
     function make_suggested_sql_for_general_params($obj) {
@@ -42,7 +45,7 @@ return $s;
 		$sql = "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$table."'";
 		$result = $my_db->query($sql);
 		if(!$result) {
-			$str .=  "Couldn't get values from database.";
+			echo "Couldn't get values from database table [" . $table . "]<br>\n";
 		} else {
 			foreach($result->result_array() as $row) {
 				$col = $row['COLUMN_NAME'];
@@ -96,18 +99,16 @@ return $s;
 			$view_sql .= "\n('entry_page_data_table') not defined\n\n";
 		}
 
-		$sprocName = '';
 		if(array_key_exists('entry_sproc', $gen_parms)) {
-			$sprocName = $gen_parms['entry_sproc'];
-			$view_sql .= make_main_sproc_sql($sprocName, $table, $sa);	
+			$sprocEntry = $gen_parms['entry_sproc'];
+			$view_sql .= make_main_sproc_sql($sprocEntry, $table, $sa);	
 		} else {
 			$view_sql .= "\n('entry_sproc') not defined\n\n";
 		}
 
-		$sprocName = '';
 		if(array_key_exists('operations_sproc', $gen_parms)) {
-			$sprocName = $gen_parms['operations_sproc'];
-			$view_sql .= make_operations_sproc_sql($sprocName, $table, $sa);	
+			$sprocOperations = $gen_parms['operations_sproc'];
+			$view_sql .= make_operations_sproc_sql($sprocOperations, $table, $sa);	
 		} else {
 			$view_sql .= "\n('operations_sproc') not defined\n\n";
 		}
@@ -138,46 +139,46 @@ return $s;
 
 		// make sproc args section
 		$args = '';
-		$sep = '';
+		$argSep = '';
 		foreach($sa as $s) {
 			$n = '@'.$s['argName'];
 			$t = $s['type'];
 			if($s['size'] != '') {
 				$t .= '('.$s['size'].')';
 			}
-			$args .= "{$sep}\n\t{$n} {$t}";
-			$sep =',';
+			$args .= "{$argSep}\n\t{$n} {$t}";
+			$argSep =',';
 		}
 		$data['args'] = $args;
 
 		// make sproc cols section
 		$cols = '';
-		$sep = '';
+		$colSep = '';
 		foreach($sa as $s) {
 			$n = $s['colName'];
-			$cols .= "{$sep}\n\t\t{$n}";
-			$sep =',';
+			$cols .= "{$colSep}\n\t\t{$n}";
+			$colSep =',';
 		}
 		$data['cols'] = $cols;
 
 		// make sproc inserts section
 		$insrts = '';
-		$sep = '';
+		$insertSep = '';
 		foreach($sa as $s) {
 			$n = '@'.$s['argName'];
-			$insrts .= "{$sep}\n\t\t{$n}";
-			$sep =',';
+			$insrts .= "{$insertSep}\n\t\t{$n}";
+			$insertSep =',';
 		}
 		$data['insrts'] = $insrts;
 
 		// make sproc updates section
 		$updts = '';
-		$sep = '';
+		$updateSep = '';
 		foreach($sa as $s) {
 			$n = '@'.$s['argName'];
 			$c = $s['colName'];
-			$updts .= "{$sep}\n\t\t{$c} = {$n}";
-			$sep =',';
+			$updts .= "{$updateSep}\n\t\t{$c} = {$n}";
+			$updateSep =',';
 		}
 		$data['updts'] = $updts;
 		
@@ -234,7 +235,7 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title)
 			echo "<hr>\n";
 			echo "<span class='cfg_hdr'>$db</span>\n";
 			echo "<a href='".site_url()."config_db/show_db/$db"."'>Config DB</a>";
-			echo "<brr>\n";			
+			echo "<br>\n";			
 
 			// dump contents of each table
 			foreach($tables as $table => $rows) {
@@ -249,11 +250,11 @@ echo "</th></tr>\n";
 				foreach ($rows as $row) {
 					if(!$i++) {
 						$cols = array_keys($row);
-						$n = count($cols);
-//						// table header
-//						echo "<tr><th colspan=\"$n\">";
-//						echo "$table  &nbsp; ";
-//						echo "</th></tr>\n";
+						// $colCount = count($cols);
+						// table header
+						// echo "<tr><th colspan=\"$n\">";
+						// echo "$table  &nbsp; ";
+						// echo "</th></tr>\n";
 						// column headers
 						echo "<tr>\n";
 						foreach($cols as $c) {
@@ -483,11 +484,15 @@ echo "</th></tr>\n";
 		$ceiling_id = 5000;
 		$roof_id = $ceiling_id * 2;
 		$range_size = $range_stop_id - $range_start_id;
-		if($range_size < 0) return "Bad range";
+		if($range_size < 0) {
+			return "Bad range";
+		}
 		
 		$rs = range($range_start_id, $range_stop_id);
 		$rd = range($dest_id, $dest_id + $range_size);
-		if(count(array_intersect($rs, $rd)) > 0) return "Source and destination ranges overlap";
+		if(count(array_intersect($rs, $rd)) > 0) {
+			return "Source and destination ranges overlap";
+		}
 		
 		$r = ($range_start_id == $range_stop_id)?"item '$range_start_id'":"items with $id_col between '$range_start_id' and '$range_stop_id'";
 		$s = "-- move $r in front of item '$dest_id'\n";
@@ -520,6 +525,3 @@ echo "</th></tr>\n";
 		$hdr .= "</tr>\n";
 		return $hdr;
 	}
-	
-
-?>

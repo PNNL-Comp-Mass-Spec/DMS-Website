@@ -68,14 +68,17 @@ class R_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
 		if(!file_exists($dbFilePath)) {
-			if ($this->configDBFolder)
+			if ($this->configDBFolder) {
 				throw new Exception("The config database file '$dbFileName' does not exist in folder '$this->configDBFolder'");
-			else
+			} else {
 				throw new Exception("The config database file '$dbFileName' does not exist");
+			}
 		}
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		// get list of tables in database
 		$tbl_list = array();
@@ -129,7 +132,9 @@ class R_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		// get list of tables in database
 		$tbl_list = array();
@@ -142,14 +147,18 @@ class R_model extends CI_Model {
 			$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
 			$sth->execute();
 			$obj = $sth->fetch(PDO::FETCH_OBJ);
-			if($obj === FALSE) throw new Exception('Could not find query specs');
+			if($obj === FALSE) {
+				throw new Exception('Could not find query specs');
+			}
 
 			$i = 1;
 			$hotlinks = (isset($obj->hotlinks) and $obj->hotlinks != '' )?json_decode($obj->hotlinks, TRUE):array();
 			foreach($hotlinks as $name => $spec) {
 				$a = array();
 				$a['LinkType'] = $spec['LinkType'];
-				if($spec['LinkType'] == 'CHECKBOX') $this->has_checkboxes = TRUE;
+				if($spec['LinkType'] == 'CHECKBOX') {
+					$this->has_checkboxes = TRUE;
+				}
 				$a['WhichArg'] = (array_key_exists('WhichArg', $spec))?$spec['WhichArg']:'value';
 				$a['Target'] = (array_key_exists('Target', $spec))?$spec['Target']:'';
 				$a['hid'] = "name='hot_link".$i++."'";
@@ -172,4 +181,3 @@ class R_model extends CI_Model {
 	
 	
 }
-?>

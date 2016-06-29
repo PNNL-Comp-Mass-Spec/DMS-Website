@@ -14,106 +14,106 @@
 		
 		//--------------------------------------------------------------
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Dataset_Count' AND Label = 'All'");
-		$query = $this->db->get();
-		$results['d_total'] = ($query)?$query->row()->total:0;
+		$allDatasets = $this->db->get();
+		$results['d_total'] = ($allDatasets)?$allDatasets->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Dataset_Count' AND Label = 'Last 7 days'");
-		$query = $this->db->get();
-		$results['ld_total'] = ($query)?$query->row()->total:0;
+		$datasetsLast7Days = $this->db->get();
+		$results['ld_total'] = ($datasetsLast7Days)?$datasetsLast7Days->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Dataset_Count' AND Label = 'Last 30 days'");
-		$query = $this->db->get();
-		$results['md_total'] = ($query)?$query->row()->total:0;
+		$datasetsLast30Days = $this->db->get();
+		$results['md_total'] = ($datasetsLast30Days)?$datasetsLast30Days->row()->total:0;
 
 		//--------------------------------------------------------------
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Experiment_Count' AND Label = 'All'");
-		$query = $this->db->get();
-		$results['e_total'] = ($query)?$query->row()->total:0;
+		$allExperiments = $this->db->get();
+		$results['e_total'] = ($allExperiments)?$allExperiments->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Experiment_Count' AND Label = 'Last 7 days'");
-		$query = $this->db->get();
-		$results['le_total'] = ($query)?$query->row()->total:0;
+		$experimentsLast7Days = $this->db->get();
+		$results['le_total'] = ($experimentsLast7Days)?$experimentsLast7Days->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Experiment_Count' AND Label = 'Last 30 days'");
-		$query = $this->db->get();
-		$results['me_total'] = ($query)?$query->row()->total:0;
+		$experimentsLast30Days = $this->db->get();
+		$results['me_total'] = ($experimentsLast30Days)?$experimentsLast30Days->row()->total:0;
 
 		//--------------------------------------------------------------
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Campaign_Count' AND Label = 'All'");
-		$query = $this->db->get();
-		$results['c_total'] = ($query)?$query->row()->total:0;
+		$allCampaigns = $this->db->get();
+		$results['c_total'] = ($allCampaigns)?$allCampaigns->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Campaign_Count' AND Label = 'Last 7 days'");
-		$query = $this->db->get();
-		$results['lc_total'] = ($query)?$query->row()->total:0;
+		$campaignsLast7Days = $this->db->get();
+		$results['lc_total'] = ($campaignsLast7Days)?$campaignsLast7Days->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Campaign_Count' AND Label = 'Last 30 days'");
-		$query = $this->db->get();
-		$results['mc_total'] = ($query)?$query->row()->total:0;
+		$campaignsLast30Days = $this->db->get();
+		$results['mc_total'] = ($campaignsLast30Days)?$campaignsLast30Days->row()->total:0;
 
 		//--------------------------------------------------------------
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Job_Count' AND Label = 'All'");
-		$query = $this->db->get();
-		$results['a_total'] = ($query)?$query->row()->total:0;
+		$allJobs = $this->db->get();
+		$results['a_total'] = ($allJobs)?$allJobs->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Job_Count' AND Label = 'New'");
-		$query = $this->db->get();
-		$results['na_total'] = ($query)?$query->row()->total:0;
+		$newJobs = $this->db->get();
+		$results['na_total'] = ($newJobs)?$newJobs->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Job_Count' AND Label = 'Last 7 days'");
-		$query = $this->db->get();
-		$results['la_total'] = ($query)?$query->row()->total:0;
+		$jobsLast7Days = $this->db->get();
+		$results['la_total'] = ($jobsLast7Days)?$jobsLast7Days->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Job_Count' AND Label = 'Last 30 days'");
-		$query = $this->db->get();
-		$results['ma_total'] = ($query)?$query->row()->total:0;
+		$jobsLast30Days = $this->db->get();
+		$results['ma_total'] = ($jobsLast30Days)?$jobsLast30Days->row()->total:0;
 
 		//--------------------------------------------------------------
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'CellCulture_Count' AND Label = 'All'");
-		$query = $this->db->get();
-		$results['b_total'] = ($query)?$query->row()->total:0;
+		$allBiomaterial = $this->db->get();
+		$results['b_total'] = ($allBiomaterial)?$allBiomaterial->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'CellCulture_Count' AND Label = 'Last 7 days'");
-		$query = $this->db->get();
-		$results['lb_total'] = ($query)?$query->row()->total:0;
+		$biomaterialLast7Days = $this->db->get();
+		$results['lb_total'] = ($biomaterialLast7Days)?$biomaterialLast7Days->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'CellCulture_Count' AND Label = 'Last 30 days'");
-		$query = $this->db->get();
-		$results['mb_total'] = ($query)?$query->row()->total:0;
+		$biomaterialLast30Days = $this->db->get();
+		$results['mb_total'] = ($biomaterialLast30Days)?$biomaterialLast30Days->row()->total:0;
 
 		//-----------------------------------------------------
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Organism_Count' AND Label = 'All'");
-		$query = $this->db->get();
-		$results['o_total'] = ($query)?$query->row()->total:0;
+		$allOrganisms = $this->db->get();
+		$results['o_total'] = ($allOrganisms)?$allOrganisms->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Organism_Count' AND Label = 'Last 7 days'");
-		$query = $this->db->get();
-		$results['lo_total'] = ($query)?$query->row()->total:0;
+		$organismsLast7Days = $this->db->get();
+		$results['lo_total'] = ($organismsLast7Days)?$organismsLast7Days->row()->total:0;
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Organism_Count' AND Label = 'Last 30 days'");
-		$query = $this->db->get();
-		$results['mo_total'] = ($query)?$query->row()->total:0;
+		$organismsLast30Days = $this->db->get();
+		$results['mo_total'] = ($organismsLast30Days)?$organismsLast30Days->row()->total:0;
 
  		//-----------------------------------------------------
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'RawDataTB' AND Label = 'All'");
-		$query = $this->db->get();
-		$n = ($query)?$query->row()->total:0;
+		$allRawDataTB = $this->db->get();
+		$n = ($allRawDataTB)?$allRawDataTB->row()->total:0;
 		$results['r_total'] = sprintf("%8.2f", $n);
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'RawDataTB' AND Label = 'Last 7 days'");
-		$query = $this->db->get();
-		$n = ($query)?$query->row()->total:0;
+		$rawDataTBLast7Days = $this->db->get();
+		$n = ($rawDataTBLast7Days)?$rawDataTBLast7Days->row()->total:0;
 		$results['lr_total'] = sprintf("%8.2f", $n);
 
 		$this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'RawDataTB' AND Label = 'Last 30 days'");
-		$query = $this->db->get();
-		$n = ($query)?$query->row()->total:0;
+		$rawDataTBLast30Days = $this->db->get();
+		$n = ($rawDataTBLast30Days)?$rawDataTBLast30Days->row()->total:0;
 		$results['mr_total'] = sprintf("%8.2f", $n);
 
 		return $results;
@@ -121,4 +121,3 @@
 	
 
 }
-?>

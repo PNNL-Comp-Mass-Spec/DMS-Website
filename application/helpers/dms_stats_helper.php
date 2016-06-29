@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 /// -----------------------------------
 // create HTML to display overall DMS statistics
@@ -51,8 +54,6 @@ function make_stats_display($results)
 	$str .= "";
 	$str .= "</table>\n";
 
-//$str .= var_dump($results);
+	//$str .= var_dump($results);
 	return $str;
 }
-
-?>

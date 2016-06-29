@@ -505,4 +505,3 @@ class Entry_form {
 	}
 	
 }
-?>

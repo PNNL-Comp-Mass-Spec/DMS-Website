@@ -160,7 +160,9 @@ class E_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		// get list of tables in database
 		$tbl_list = array();
@@ -256,4 +258,3 @@ class E_model extends CI_Model {
 	}
 	
 }
-?>

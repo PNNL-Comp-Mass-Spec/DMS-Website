@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 // -----------------------------------
 // create HTML to display detail report fields
@@ -42,8 +45,9 @@ function make_detail_table_data_rows($fields, $hotlinks)
 	// make a form field for each field in the field specs
 	foreach ($fields as $f_name => $f_val) {
 		// don't display columns that begin with hash character
-		if($f_name[0] == '#') continue;
-
+		if($f_name[0] == '#') {
+			continue;
+		}
 
 		// default field display for table
 		$label = $f_name;
@@ -131,7 +135,8 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			}
 			break;
 		case "link_list":
-			$delim = (preg_match('/[,;]/', $display, $match))? $match[0] : '';
+			$matches = array();
+			$delim = (preg_match('/[,;]/', $display, $matches))? $matches[0] : '';
 			$flds = ($delim == '')? array($display) : explode($delim, $display);
 			$links = array();
 			foreach($flds as $ln) {
@@ -181,11 +186,12 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 		case "glossary_entry":
 			$url = make_detail_report_url($target, $wa);
 
-			if($options["Label"])
+			if($options["Label"]) {
 				$linkTitle = "title='" . $options["Label"] . "'";
-			else
+			} else {
 				$linkTitle = "";
-				
+			}
+			
 			$str = "<a id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$display</a>";
 			
 			// Pop-up option
@@ -196,7 +202,8 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			$str = "??? $display ???";
 			break;
 		
-	};
+	}
+	
 	return "<td $cell_class>$str</td>\n";
 }
 
@@ -345,7 +352,10 @@ function make_detail_report_url($target, $link_id, $renderHTTP=FALSE)
 // -----------------------------------
 function make_export_links($entity, $id)
 {
-	// http://dmsdev.pnl.gov/experiment/export_detail/Rifle_20_04/excel
+	// Example URLs:
+	// http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/excel
+	// http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/tsv
+	// http://dms2.pnl.gov/experiment/export_spreadsheet/QC_Shew_16_01/data
 	$s = '';
 	$excel_lnk = site_url(). $entity . "/export_detail/" . $id . "/excel";
 	$tsv_lnk   = site_url(). $entity . "/export_detail/" . $id . "/tsv";
@@ -362,7 +372,7 @@ function make_export_links($entity, $id)
 // -----------------------------------
 function make_message_box($message)
 {
-	$style_sheet = base_url().'css/base.css';
+	//$style_sheet = base_url().'css/base.css';
 	$class = (strripos($message, 'error') === false)?'EPag_message':'EPag_error';
 	$s = '';
 	$s .= "<div class='$class' style='width:40em;margin:20px;'>";
@@ -370,4 +380,3 @@ function make_message_box($message)
 	$s .= "</div>";
 	return $s;
 }
-?>

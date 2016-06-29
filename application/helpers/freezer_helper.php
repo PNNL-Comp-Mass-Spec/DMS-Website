@@ -1,5 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 // --------------------------------------------------------------------
 // render contents of location
@@ -116,5 +118,3 @@ function render_matrix_table($otr, $table_setup)
 	$tbs .= "</table>";
 	return $tbs;
 }
-
-?>

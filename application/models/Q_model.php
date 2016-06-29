@@ -140,7 +140,9 @@ class Q_model extends CI_Model {
 		for($i=0; $i<count($this->query_parts->predicates); $i++) {
 			$p =& $this->query_parts->predicates[$i];
 			
-			if(strtolower($p->rel) == 'arg') continue; // no wildards for arguements
+			if(strtolower($p->rel) == 'arg') {
+				continue; // no wildards for arguements
+			}
 			
 			// look for wildcard characters
 			$match_blank = $p->val == '\b';
@@ -263,7 +265,9 @@ class Q_model extends CI_Model {
 	// Used to retrieve data for a detail report
 	function get_item($id)
 	{
-		if(empty($this->primary_filter_specs)) throw new exception('no primary id column defined');
+		if(empty($this->primary_filter_specs)) { 
+			throw new exception('no primary id column defined');                     
+		}
 		
 		if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc))
 		{
@@ -326,10 +330,14 @@ class Q_model extends CI_Model {
 		try {
 			// Call the stored procedure		
 			$ok = $CI->cu->load_mod('s_model', 'sproc_model',$this->config_name, $this->config_source);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			if(!$ok) { 
+				throw new exception($CI->sproc_model->get_error_text());                             
+			}
 
-			$ok = $CI->sproc_model->execute_sproc($calling_params);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			$success = $CI->sproc_model->execute_sproc($calling_params);
+			if(!$success) { 
+				throw new exception($CI->sproc_model->get_error_text());                             
+			}
 
 			$rows = $CI->sproc_model->get_rows();
 			
@@ -409,9 +417,11 @@ class Q_model extends CI_Model {
 			if(!$query) {
 				throw new Exception("Error getting total row count from database");
 			}
+                        
 	 		if ($query->num_rows() == 0) {
 	 			throw new Exception("Total count row was not returned");
 			}
+                        
 			$row = $query->row();
 			$query->free_result();
 			$working_total = $row->numrows;
@@ -541,12 +551,16 @@ class Q_model extends CI_Model {
 	{
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) { 
+			throw new Exception('Could not connect to config database at '.$dbFilePath);                     
+		}
 
 		$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
 		$sth->execute();
 		$obj = $sth->fetch(PDO::FETCH_OBJ);
-		if($obj === FALSE) throw new Exception('Could not find query specs');
+		if($obj === FALSE) { 
+			throw new Exception('Could not find query specs');                     
+		}
 		
 		$this->query_parts->dbn = $obj->db;
 		$this->query_parts->table = $obj->table;
@@ -575,7 +589,9 @@ class Q_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		// get list of tables in database
 		$tbl_list = array();
@@ -648,7 +664,9 @@ class Q_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) { 
+			throw new Exception('Could not connect to config database at '.$dbFilePath);                     
+		}
 
 		foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
 			switch($row['name']) {
@@ -666,7 +684,7 @@ class Q_model extends CI_Model {
 					break;
 				case 'detail_report_data_id_col':
 					$col = $row['value'];
-//					$name = "pf_".str_replace(' ', '_', strtolower($col));
+					// $name = "pf_".str_replace(' ', '_', strtolower($col));
 					$a = array();
 					$a['col'] = $col;
 					$a['cmp'] = 'MatchesText';// 'Equals'; // 'MatchesText'?
@@ -684,7 +702,9 @@ class Q_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
 			switch($row['name']) {
@@ -699,7 +719,7 @@ class Q_model extends CI_Model {
 					break;
 				case 'entry_page_data_id_col':
 					$col = $row['value'];
-//					$name = "pf_".str_replace(' ', '_', strtolower($col));
+					// $name = "pf_".str_replace(' ', '_', strtolower($col));
 					$a = array();
 					$a['col'] = $col;
 					$a['cmp'] = 'MatchesText'; // 'MatchesText'? 'Equals'?
@@ -745,4 +765,3 @@ class Q_model extends CI_Model {
 	}
 	
 }
-?>

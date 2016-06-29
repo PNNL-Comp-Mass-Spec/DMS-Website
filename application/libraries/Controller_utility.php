@@ -20,7 +20,10 @@ class Controller_utility {
 	function load_lib($lib_name, $config_name, $config_source, $options = FALSE)
 	{
 		$CI = &get_instance();
-		if(property_exists($CI, $lib_name)) return TRUE;
+		if(property_exists($CI, $lib_name)) {
+			return TRUE;
+		}
+		
 		$CI->load->library($lib_name);
 		if($options === FALSE) {
 			return $CI->$lib_name->init($config_name, $config_source);
@@ -34,7 +37,10 @@ class Controller_utility {
 	function load_mod($model_name, $local_name, $config_name, $config_source)
 	{
 		$CI = &get_instance();
-		if(property_exists($CI, $local_name)) return TRUE;
+		if(property_exists($CI, $local_name)) { 
+			return TRUE;
+		}
+		
 		$CI->load->model($model_name, $local_name);
 		return $CI->$local_name->init($config_name, $config_source);
 	}
@@ -72,4 +78,3 @@ class Controller_utility {
 		}
 	}
 }
-?>

@@ -58,10 +58,10 @@ class Freezer extends Base_controller {
 		$Shelf = $this->input->get_post('Shelf');
 		$Rack = $this->input->get_post('Rack');
 		$Row = $this->input->get_post('Row');
-		$Col = $this->input->get_post('Col');
+		// $Col = $this->input->get_post('Col');
 
 		$sub_type = $this->freezer->get_sub_location_type($Type);
-		$frzrs = $this->freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row, $Col);
+		$frzrs = $this->freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row);
 		$items = $this->freezer->build_freezer_location_list($sub_type, $frzrs);
 		echo json_encode($items);
 	}

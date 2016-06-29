@@ -1,8 +1,9 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 class Sproc_mssql {
-
-	private $total_rows = 0;
 
 	// --------------------------------------------------------------------
 	function __construct()
@@ -16,19 +17,26 @@ class Sproc_mssql {
 	function execute($sprocName, $conn_id, $args, $par)
 	{
 		$stmt = mssql_init($sprocName, $conn_id);
-		if(!$stmt) throw new Exception('Statement initialization failed');
+		if(!$stmt) {
+			throw new Exception('Statement initialization failed');
+		}
 
 		reset($args);
 		foreach($args as $arg) {
-			$fn = $arg['field']; // name of field member in param object (or null)
 			$nm = '@'.$arg['name'];  // sproc arg name needs prefix
 			$tp = constant($this->tpconv[$arg['type']]); // convert type name to constant
 			$dr = $arg['dir']=='output'; // convert direction to boolean
 			$sz = ($arg['size'])?$arg['size']:-1;
-			$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
+			if ($arg['field'] == '<local>') {
+				$fn = $arg['name'];
+			} else {
+				$fn = $arg['field'];	// name of field member in param object (or null)
+			}			
 //			echo "arg:'{$nm}', var:'{$fn}', type:'{$tp}',  dir:'{$dr}',  size:'{$sz}', (value)'{$par->$fn}' <br>";
 			$ok = mssql_bind($stmt, $nm, $par->$fn, $tp, $dr, false, $sz);
-			if(!$ok) throw new Exception("Error trying to bind field '$fn'");		
+			if(!$ok) {
+				throw new Exception("Error trying to bind field '$fn'");
+			}
 		}
 		mssql_bind($stmt, "RETVAL", $par->retval, SQLINT2);  // always bind to return value from sproc
 		
@@ -85,4 +93,3 @@ class Sproc_mssql {
 	);
 	
 }
-?>

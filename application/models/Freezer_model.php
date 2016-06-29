@@ -47,7 +47,7 @@ EOD;
 		return $query->result_array();
 	}
 	// --------------------------------------------------------------------
-	function get_locations($Type, $Freezer, $Shelf, $Rack, $Row, $Col)
+	function get_locations($Type, $Freezer, $Shelf, $Rack, $Row)
 	{		
 		$sql = <<<EOD
 SELECT 
@@ -114,8 +114,12 @@ EOD;
 		array_pop($locs);
 		foreach($locs as $loc) {
 			$type = $loc;
-			if(!$this->hierarchy[$loc]) break;
-			if($location[$this->hierarchy[$loc]] == "na") break;
+			if(!$this->hierarchy[$loc]) {
+				break;
+			}
+			if($location[$this->hierarchy[$loc]] == "na") {
+				break;
+			}
 		}
 		return $type;
 	}
@@ -287,4 +291,3 @@ EOD;
 	}
  
 }
-?>

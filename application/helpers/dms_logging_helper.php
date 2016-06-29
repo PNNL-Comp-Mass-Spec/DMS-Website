@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 	// --------------------------------------------------------------------
 	function sproc_log_in($sproc, $user, $parms, $override=FALSE)
@@ -54,5 +57,3 @@
 		echo "<br>";
 		echo implode("<br>", $ma);
 	}
-
-?>

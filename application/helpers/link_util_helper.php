@@ -23,22 +23,24 @@
 	// --------------------------------------------------------------------
 	function label_link_icon($usage = 'plus', $class = '', $label = '') {
 		$icon = get_link_image($usage);
-		$label = ($label) ? "<span class='icon_link_label'>$label</span>" : "";
-		$s = "$label <span class='expando_section ui-icon $icon $class'></span>";
+		$labelToUse = ($label) ? "<span class='icon_link_label'>$label</span>" : "";
+		$s = "$labelToUse <span class='expando_section ui-icon $icon $class'></span>";
 		return $s;
 	}
 	// --------------------------------------------------------------------
 	function detail_report_cmd_link($label, $js = '', $tooltip = '', $href = '' )
 	{
 		$click = ($js)? "onclick='$js' " : "" ;
-		$href = ($href) ? "href='" . site_url() . "$href' " : "href='javascript:void(0)'" ;
+		$hrefToUse = ($href) ? "href='" . site_url() . "$href' " : "href='javascript:void(0)'" ;
 		$title = ($tooltip) ? "title='$tooltip'" : "" ;
-		return "<a class='cmd_link_a'$href$click$title >" . label_link_icon('go', '', $label) . "</a>";
+		return "<a class='cmd_link_a'$hrefToUse$click$title >" . label_link_icon('go', '', $label) . "</a>";
 	}	
 	// --------------------------------------------------------------------
 	function filter_section_visibility_control($label, $filter_container, $icon_type, $tool_tip)
 	{
-		if(!$icon_type) $icon_type = 'plus';
+		if(!$icon_type) {
+			$icon_type = 'plus';
+		}
 		$marker_class = $filter_container;
 		$icon = label_link_icon($icon_type, $marker_class, $label);
 		$s = "<a class='cmd_link_a' href='javascript:void(0)' onclick='lambda.toggleFilterVisibility(\"$filter_container\", 0.1, this)' title='$tool_tip'>$icon</a>";
@@ -69,11 +71,11 @@
 	// --------------------------------------------------------------------
 	function helper_selection_cmd_link($id, $label, $js = '', $type = '', $tooltip = '')
 	{
-		$id = "id='$id'";
+		$idWithTag = "id='$id'";
 		$click = ($js)? "onclick='$js' " : "" ;
 		$href = "href='javascript:void(0)'" ;
 		$title = ($tooltip) ? "title='$tooltip'" : "" ;
-		return "<a class='cmd_link_a'$id $href$click$title >" . label_link_icon($type, '', $label) . "</a>";
+		return "<a class='cmd_link_a'$idWithTag $href$click$title >" . label_link_icon($type, '', $label) . "</a>";
 	}	
 	// --------------------------------------------------------------------
 	function search_btn()
@@ -96,7 +98,9 @@
 	function general_visibility_control($label, $containerId, $tooltip = '')
 	{
 		$tt = 'Show or hide section';
-		if($tooltip) $tt .= ' for ' . $tooltip;
+		if($tooltip) {
+			$tt .= ' for ' . $tooltip;
+		}
 		return "<a class='cmd_link_a' title='$tt' href='javascript:void(0)' onclick='gamma.toggleVisibility(\"$containerId\", 0.5, this)'>$label " . expansion_link_icon() . "</a>";
 	}
 	// --------------------------------------------------------------------
@@ -152,4 +156,3 @@
 		}
 		return $s;	
 	}
-?>

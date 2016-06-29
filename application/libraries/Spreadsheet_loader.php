@@ -62,7 +62,6 @@ class Spreadsheet_loader {
 			if($grab_it) {
 				if($this->ss_rows[$i][0] == '') {
 					throw new exception("Blanks are not permitted in the first column in the tracking info section (row $i)");
-					break;
 				}
 				$this->tracking_info_fields[$this->ss_rows[$i][0]] = $i;
 			}
@@ -70,7 +69,9 @@ class Spreadsheet_loader {
 				$grab_it = TRUE;
 	    	}
 		}
-		if(!$end_it) throw new exception('The tracking info section was not terminated by "AUXILIARY INFORMATION" header');
+		if(!$end_it) {
+			throw new exception('The tracking info section was not terminated by "AUXILIARY INFORMATION" header');
+		}
 	}
 	
 	// --------------------------------------------------------------------
@@ -92,7 +93,9 @@ class Spreadsheet_loader {
 				$name = $this->ss_rows[$i][0];
 				$has_data = (count($this->ss_rows[$i]) > 1 && $this->ss_rows[$i][1] != '');
 				if($has_data) {
-					if(!$in_data) throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
+					if(!$in_data) {
+						throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
+					}
 					$mark = FALSE;
 					$p = new stdClass();
 					$p->category = $category;
@@ -106,7 +109,9 @@ class Spreadsheet_loader {
 					$mark = TRUE;
 					$in_data = FALSE;
 				} else {
-					if($in_data) throw new exception("Possible extra subcategory ('$name' near row $i)". "<br><br>" . $this->sup_mes['header']);
+					if($in_data) {
+						throw new exception("Possible extra subcategory ('$name' near row $i)". "<br><br>" . $this->sup_mes['header']);
+					}
 					$subcategory = $name;
 					$o = new stdClass();
 					$o->category = $category;
@@ -249,4 +254,3 @@ class Spreadsheet_loader {
 		return $this->entity_list;
 	}
 }
-?>

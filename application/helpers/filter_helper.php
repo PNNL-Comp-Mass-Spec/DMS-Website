@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 	// --------------------------------------------------------------------
 	function make_search_filter_minimal($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter)
@@ -102,7 +105,9 @@
 	// --------------------------------------------------------------------
 	function big_primary_filter($current_primary_filter_values)
 	{
-		if(count($current_primary_filter_values) > 5) return TRUE;
+		if(count($current_primary_filter_values) > 5) {
+			return TRUE;
+		}
 
 		$big = FALSE;
 		foreach($current_primary_filter_values as $id => $spec) {
@@ -175,7 +180,7 @@
 		list($cell_s, $cell_f) = array("<td>", "</td>");		
 		list($row_s, $row_f) = array("<tr>", "</tr>\n");		
 		$str .= "<table class='FTab' id='primary_filter_table' >\n";
-		$i = 0;
+		
 		foreach($primary_filter_defs as $id => $spec) {
 			$data['id'] = $id;
 			$data['name'] = $data['id'];
@@ -302,4 +307,3 @@
 		$str .= "</div>";
 		return $str;
 	}
-?>

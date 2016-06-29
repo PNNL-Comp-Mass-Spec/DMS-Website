@@ -68,7 +68,9 @@ class Detail_report {
 			// get data
 			$CI->cu->load_mod('q_model', 'detail_model', $this->config_name, $this->config_source);
 			$result_row = $CI->detail_model->get_item($id);
-			if(empty($result_row)) throw new exception("Details for entity '$id' could not be found");
+			if(empty($result_row)) {
+				throw new exception("Details for entity '$id' could not be found");
+			}
 
 			// hotlinks
 			$CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
@@ -274,4 +276,3 @@ class Detail_report {
 	}
 
 }
-?>

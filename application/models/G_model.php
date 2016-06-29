@@ -124,14 +124,17 @@ class G_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
 		if(!file_exists($dbFilePath)) {
-			if ($this->configDBFolder)
+			if ($this->configDBFolder) {
 				throw new Exception($this->missing_page_family . " (see $this->configDBFolder)");
-			else
+			} else {
 				throw new Exception($this->missing_page_family);
+			}
 		}
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		// get list of tables in database
 		$tbl_list = array();
@@ -144,7 +147,9 @@ class G_model extends CI_Model {
 			$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
 			$sth->execute();
 			$obj = $sth->fetch(PDO::FETCH_OBJ);
-			if($obj === FALSE) throw new Exception('Could not find query specs');
+			if($obj === FALSE) {
+				throw new Exception('Could not find query specs');
+			}
 
 			$label = (isset($obj->label))?$obj->label:'Page';
 			$this->titles['report'] = $label;
@@ -167,14 +172,17 @@ class G_model extends CI_Model {
 		$dbFilePath = $this->configDBFolder . $dbFileName;
 		
 		if(!file_exists($dbFilePath)) {
-			if ($this->configDBFolder)
+			if ($this->configDBFolder) {
 				throw new Exception($this->missing_page_family . " (see $this->configDBFolder)");
-			else
+			} else {
 				throw new Exception($this->missing_page_family);
+			}
 		}		
 		
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to config database at '.$dbFilePath);
+		}
 
 		// get list of tables in database
 		$tbl_list = array();
@@ -204,32 +212,34 @@ class G_model extends CI_Model {
 			if($row['name'] == 'detail_report_aux_info_target') {
 					$this->detail_report_aux_info_target = $row['value'];
 			} else
-			switch($row['name']) {
-				case 'list_report_data_table':
-					$this->actions['report'] = TRUE;
-					break;
-				case 'list_report_sproc':
-					$this->actions['param'] = TRUE;
-					$resolved_action = 'unrestricted';
-					break;
-				case 'detail_report_data_table':
-				case 'detail_report_sproc':
-					$this->actions['show'] = TRUE;
-					break;
-				case 'entry_sproc':
-					$this->actions['enter'] = 'P';
-					break;
-				case 'operations_sproc':
-					$this->actions['operation'] = 'P';
-					break;
-				default:
-					// add root name of any ad hoc sproc to actions list
-					if(stripos($row['name'], '_sproc') !== FALSE) {
-						$name = str_replace('_sproc' , '', $row['name']);
-						$this->actions[$name] = TRUE;
-					}
-					break;
-			}			
+			{
+				switch($row['name']) {
+					case 'list_report_data_table':
+						$this->actions['report'] = TRUE;
+						break;
+					case 'list_report_sproc':
+						$this->actions['param'] = TRUE;
+						// $resolved_action = 'unrestricted';
+						break;
+					case 'detail_report_data_table':
+					case 'detail_report_sproc':
+						$this->actions['show'] = TRUE;
+						break;
+					case 'entry_sproc':
+						$this->actions['enter'] = 'P';
+						break;
+					case 'operations_sproc':
+						$this->actions['operation'] = 'P';
+						break;
+					default:
+						// add root name of any ad hoc sproc to actions list
+						if(stripos($row['name'], '_sproc') !== FALSE) {
+							$name = str_replace('_sproc' , '', $row['name']);
+							$this->actions[$name] = TRUE;
+						}
+						break;
+				}		
+			}
 		}
 		if(in_array('list_report_hotlinks', $tbl_list)) {		
 			$this->list_report_hotlinks = array();
@@ -274,10 +284,14 @@ class G_model extends CI_Model {
 		try {
 			if(array_key_exists($action, $this->actions)) {
 				$allowed = $this->actions[$action];
-			} else throw new exception("Action '$action' is not recognized");
+			} else {
+				throw new exception("Action '$action' is not recognized");
+			}
 
 			// not all actions are possible for a given page family
-			if($allowed === FALSE) throw new Exception('That action is not allowed');
+			if($allowed === FALSE) {
+				throw new Exception('That action is not allowed');
+			}
 
 			// we are going to have to check further, so load the authorization model
 			$CI =& get_instance();
@@ -296,18 +310,22 @@ class G_model extends CI_Model {
 			}
 
 			// free pass from here if action has no restrictions
-			if($allowed === TRUE) return TRUE;
+			if($allowed === TRUE) {
+				return TRUE;
+			}
 
 			// get list of authorizations required for the action
 			$restrictions = $CI->auth->get_controller_action_restrictions($page_family, $action);		
 			
 			// action has no restrictions, good to go
-			if(empty($restrictions)) return TRUE;
+			if(empty($restrictions)) {
+				return TRUE;
+			}
 
 			// look for intersection of permissions with restrictions
-			$hits = array_intersect($restrictions, $permissions);
+			$restrictionHits = array_intersect($restrictions, $permissions);
 
-			if(empty($hits)) {
+			if(empty($restrictionHits)) {
 				$msg = "";
 				$msg .= "Action is restricted to '";
 				$msg .= implode  (', ', $restrictions);
@@ -328,4 +346,3 @@ class G_model extends CI_Model {
 
 	
 }
-?>

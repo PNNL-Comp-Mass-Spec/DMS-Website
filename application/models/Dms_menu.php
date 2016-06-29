@@ -19,7 +19,9 @@ class Dms_menu extends CI_Model {
 		$sections = array();
 		$dbFilePath = $this->configDBFolder.$config_db_name;
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to menu config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to menu config database at '.$dbFilePath);
+		}
 
 		foreach ($dbh->query("SELECT * FROM $section_def_table", PDO::FETCH_ASSOC) as $row) {
 			$section_name = $row['section_name'];
@@ -39,7 +41,10 @@ class Dms_menu extends CI_Model {
 	{
 		$dbFilePath = $this->configDBFolder.$config_db_name;
 		$dbh = new PDO("sqlite:$dbFilePath");
-		if(!$dbh) throw new Exception('Could not connect to menu config database at '.$dbFilePath);
+		if(!$dbh) {
+			throw new Exception('Could not connect to menu config database at '.$dbFilePath);
+		}
+		
 		$mnu = array();
 		foreach ($dbh->query("SELECT * FROM $menu_def_table", PDO::FETCH_ASSOC) as $row) {
 			$mnu[] = $row;
@@ -47,4 +52,3 @@ class Dms_menu extends CI_Model {
 		return $mnu;
 	}
 }
-?>

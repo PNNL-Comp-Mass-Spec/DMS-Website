@@ -121,8 +121,12 @@ class Entry {
 			$input_params->$field = $CI->form_validation->set_value($field);
 		}
 		try {
-			if (!$valid_fields) throw new exception('There were validation errors');
+			if (!$valid_fields) {
+				throw new exception('There were validation errors');
+			}
 			
+			// $msg is an output parameter of call_stored_procedure
+			$msg = '';
 			$this->call_stored_procedure($input_params, $form_def, $msg);
 			
 			// everything worked - compose tidings of joy
@@ -190,16 +194,20 @@ class Entry {
 	
 	// --------------------------------------------------------------------
 	protected
-	function call_stored_procedure($input_params, $form_def, &$msg)
+	function call_stored_procedure($input_params, $form_def, out &$msg)
 	{
 		$CI = &get_instance();
 		// call stored procedure		
 		$ok = $CI->cu->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->config_source);
-		if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+		if(!$ok) { 
+			throw new exception($CI->sproc_model->get_error_text());
+		}
 
 		$calling_params = $this->make_calling_param_object($input_params, $form_def->field_enable);
-		$ok = $CI->sproc_model->execute_sproc($calling_params);
-		if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+		$success = $CI->sproc_model->execute_sproc($calling_params);
+		if(!$success) {
+			throw new exception($CI->sproc_model->get_error_text());
+		}
 		
 		$msg = $CI->sproc_model->get_parameters()->message;
 		$this->update_input_params_from_stored_procedure_args($input_params);
@@ -283,4 +291,3 @@ class Entry {
 	}
 	
 }
-?>

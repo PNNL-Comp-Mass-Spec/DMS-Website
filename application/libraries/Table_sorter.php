@@ -83,4 +83,3 @@ class Table_sorter {
 	
 
 }
-?>

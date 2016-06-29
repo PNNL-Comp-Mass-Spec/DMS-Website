@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
 	// --------------------------------------------------------------------
 	// remember parameter settings between page visits
@@ -28,5 +31,3 @@ function save_to_cache($name, $obj)
 			unset($_SESSION[$name]);
 		}
 	}
-
-?>

@@ -64,7 +64,7 @@ class Param_report {
 		// get stuff related to list report optional features
 //		$data['loading'] = ($mode == 'search')?'no_load':'';
 		$data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
-		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');;
+		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
 		$data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
 		$data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');		
 
@@ -183,10 +183,14 @@ class Param_report {
 			
 			// call stored procedure		
 			$ok = $CI->cu->load_mod('s_model', 'sproc_model',$this->config_name, $this->config_source);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
-			//
-			$ok = $CI->sproc_model->execute_sproc($calling_params);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			if(!$ok) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
+			
+			$success = $CI->sproc_model->execute_sproc($calling_params);
+			if(!$success) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
 			
 		} catch (Exception $e) {
 			$message = $e->getMessage();
@@ -210,11 +214,11 @@ class Param_report {
 		$current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
 		
 		// model to get current row info
-		$ok = $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+		$CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
 		
 		// pull together info necessary to do paging displays and controls
 		// and use it to set up a pager object
-		$total_rows = $CI->sproc_model->get_total_rows();;
+		$total_rows = $CI->sproc_model->get_total_rows();
 		$per_page = $current_paging_filter_values['qf_rows_per_page'];
 		$first_row = $current_paging_filter_values['qf_first_row'];
 
@@ -238,7 +242,7 @@ class Param_report {
 		session_start();
 		
 		// call stored procedure		
-		$ok = $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+		$CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
 		$cols = $CI->sproc_model->get_col_names();
 
 		$CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
@@ -298,4 +302,3 @@ class Param_report {
 	}
 	
 }
-?>

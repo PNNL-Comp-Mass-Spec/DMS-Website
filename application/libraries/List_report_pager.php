@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 /**
  *
  */
@@ -82,9 +85,12 @@ class List_report_pager {
 
 		$start_row = $this->first_row_for_page($this->cur_page); //($this->cur_page - 1) * $this->per_page;
 		$start_row = ($start_row == 0)?1:$start_row;
+		
 		$end_row = $start_row + $this->per_page - 1;
-		if($end_row > $this->total_rows) $end_row = $this->total_rows;
-		//
+		if($end_row > $this->total_rows) {
+			$end_row = $this->total_rows;
+		}
+		
 		$icon_adjust = cmd_link_icon('adjust');
 		$page_sizer = '<a class="cmd_link_a" href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">Set Rows '.$icon_adjust.'</a>';
 		$show_all = '<a class="cmd_link_a" href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">Max Rows '.$icon_adjust.'</a>';
@@ -180,4 +186,3 @@ class List_report_pager {
 	}
 
 }
-?>
