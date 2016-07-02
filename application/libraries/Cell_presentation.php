@@ -93,6 +93,7 @@ class Cell_presentation {
 		switch($colSpec["LinkType"]) {
 			case "invoke_entity":
 				// look for conditions on link
+				// Supported condition is GreaterOrEqual
 				$noLink = $this->evaulate_conditional($colSpec, $ref, $value);
 				if($noLink) {
 					$str .= "<td>$value</td>";
@@ -127,7 +128,7 @@ class Cell_presentation {
 			case "masked_link":
 				$url = $target.$ref;
 				if($url) {
-					$lbl =  $colSpec["Options"]["Label"];
+					$lbl = $this->getOptionValue($colSpec, 'Label', 'Undefined_masked_link');
 					$str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$lbl</a></td>";
 				} else {
 					$str .= "<td></td>";					
@@ -138,6 +139,7 @@ class Cell_presentation {
 				$str .= "<td><input type='checkbox' value='$ref' name='ckbx' class='lr_ckbx'></td>";
 				break;
 			case "checkbox_json":
+				// This is an old, unused mode
 				$cols = (array_key_exists('Options', $colSpec))?$colSpec['Options']:array();
 				foreach($cols as $col => $v) {
 					$cols[$col] = $row[$col];
@@ -158,13 +160,23 @@ class Cell_presentation {
 				$str .= "<td $colorStyle >$value</td>";
 				break;
 			case "bifold_choice":
-				$t = $colSpec["Options"];
+				// This mode has been superseded by select_case
+				$t = $colSpec['Options'];
 				$target = ($ref == $target)?$t[0]:$t[1];
 				$url = reduce_double_slashes(site_url()."$target/show/$value");
 				$str .= "<td><a href='$url'>$value</a></td>";
 				break;
+			case "format_commas":
+				$matches = array();
+				if(is_numeric($value)) {
+					$valueNum = floatval($value);
+					$decimals = $this->getOptionValue($colSpec, 'Decimals', '0');
+					$value = number_format($valueNum, $decimals);
+				}
+				$str .= "<td>" . $value . "</td>";
+				break;				
 			case "select_case":
-				$t = $colSpec["Options"];
+				$t = $colSpec['Options'];
 				$link_item = ($target) ? $row[$target] : $value ;
 				if(array_key_exists($ref, $t)) {
 					$link_base = $t[$ref];
@@ -175,6 +187,7 @@ class Cell_presentation {
 				}
 				break;
 			case "copy_from":
+				// Old, unused mode; superseded by "row_to_json" and "row_to_url"
 				$url = reduce_double_slashes(site_url()."$target/$ref");
 				$str .= "<td><a href='$url'>$value</a></td>";
 				break;
@@ -191,7 +204,7 @@ class Cell_presentation {
 				$fsp = "";
 				$rowAction = 'localRowAction';
 				if(array_key_exists('Options', $colSpec)) {
-					$rowAction = $colSpec['Options']['rowAction'];
+					$rowAction = $this->getOptionValue($colSpec, 'rowAction', $rowAction);
 					if(array_key_exists('fields', $colSpec['Options'])) {
 						$fsp = ', "' . $colSpec['Options']['fields'] . '"';
 					}
@@ -202,7 +215,7 @@ class Cell_presentation {
 				$str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";				
 				break;
 			case "masked_href-folder":
-				$lbl =  $colSpec["Options"]["Label"];
+				$lbl = $this->getOptionValue($colSpec, 'Label', 'Undefined_masked_href-folder');
 				$lnk = str_replace('\\', '/', $ref);
 				if($lnk) {
 					$str = "<td>" . "<a href='file:///$lnk'>$lbl</a>" . "</td>";					
@@ -236,7 +249,7 @@ class Cell_presentation {
 				$str .= "<td>" . nl2br($value) . "</td>";
 				break;
 			case "min_col_width":
-				// No special rendering
+				// No special rendering here, though get_cell_padding will pad the cell if the text is too short
 				$str .= "<td>" . $value . "</td>";
 				break;
 			case "image_link":
@@ -248,10 +261,7 @@ class Cell_presentation {
 					$url_parts[$last_seg] = $target;
 					$link_url = implode("/", $url_parts);
 				}
-				$width = "250";
-				if(array_key_exists('Options', $colSpec) && array_key_exists('width', $colSpec['Options']) ) {
-					$width = $colSpec['Options']['width'];
-				}
+				$width = $this->getOptionValue($colSpec, 'width', '250');
 				if($url) {
 					$str .= "<td><a href='$link_url'><img src='$url' width='$width' border='0'></a></td>";
 				} else {
@@ -275,9 +285,9 @@ class Cell_presentation {
 	{
 		$noLink = false;
 		if(array_key_exists('Options', $colSpec)) {
-			$options = $colSpec['Options'];		
-			if($options != null && array_key_exists('GreaterOrEqual', $options)) {
-				$test = $options['GreaterOrEqual'];
+			$test = getOptionValue($colSpec, 'GreaterOrEqual');
+			$options = $colSpec['Options'];
+			if(!empty($test)) {
 				if($value < $test) {
 					$noLink = true;
 				}
@@ -309,7 +319,7 @@ class Cell_presentation {
 				
 				// Check for a column header tooltip
 				$toolTip = $this->get_column_tooltip($col_name);
-				if ($toolTip) {
+				if($toolTip) {
 					$toolTip = 'title="' . $toolTip . '"';
 					$str .= '<th style="background-color:#C2E7F6;">';
 				} else {
@@ -447,7 +457,23 @@ class Cell_presentation {
 			}
 		}
 	}
-
+	
+	// --------------------------------------------------------------------
+	// Look for item $itemName in the Options array in $colSpec
+	// If found, return its value, otherwise return $valueIfMissing
+	private
+	function getOptionValue($colSpec, $itemName, $valueIfMissing = "") {
+		if (array_key_exists('Options', $colSpec)) {
+			$options = $colSpec['Options'];
+			if ($options != null &&
+				is_array($colSpec['Options']) && 
+				array_key_exists($itemName, $colSpec['Options'])) {
+				return $colSpec['Options'][$itemName];
+			}
+		}
+		return $valueIfMissing;
+	}
+	
 	// --------------------------------------------------------------------
 	function set_col_filter($col_filter)
 	{
