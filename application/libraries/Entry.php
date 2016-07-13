@@ -47,10 +47,22 @@ class Entry {
 		// get initial field values and merge them with form object
 		$segs = array_slice($CI->uri->segment_array(), 2); // remove controller and function segments
 		$initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields);
-		foreach($initial_field_values as $field => $value) {
-			$CI->entry_form->set_field_value($field, $value);
+
+		if(empty($initial_field_values)) {
+			if($page_type == 'edit') {
+				if(!empty($segs) && sizeof($segs) > 0) {
+					$CI->cu->message_box('Edit Error', "Entity '$segs[0]' not found");
+				} else {
+					$CI->cu->message_box('Edit Error', "Entity ID not specified for editing");
+				}
+				return;
+			}
+		} else {
+			foreach($initial_field_values as $field => $value) {
+				$CI->entry_form->set_field_value($field, $value);
+			}
 		}
-		
+
 		// handle special field options for entry form object
 		$mode = $CI->entry_form->get_mode_from_page_type($page_type);
 		$this->handle_special_field_options($form_def, $mode);
