@@ -11,11 +11,19 @@ class Entry {
 	protected $title = '';
 	
 	// --------------------------------------------------------------------
+	/**
+     * Constructor
+     */
 	function __construct()
 	{
 	}
 
 	// --------------------------------------------------------------------
+	/**
+     * Initialize this class
+     * @param string $config_name Not used
+	 * @param string $config_source Configuration source
+     */
 	function init($config_name, $config_source)
 	{
 		$this->config_source = $config_source;
@@ -26,10 +34,12 @@ class Entry {
 	}	
 
 	// --------------------------------------------------------------------
-	// make an entry page to create or update (according to $page_type)
-	// a record in the database (the entry form is subsequently submitted 
-	// via AJAX call to function submit_entry_form)
-	function create_entry_page($page_type)
+	/**
+     * Make an entry page to create or update a record in the database (according to $page_type)
+	 * The entry form is subsequently submitted via AJAX call to function submit_entry_form.
+     * @param string $page_type
+     */
+ 	function create_entry_page($page_type)
 	{
 		$CI = &get_instance();
 		$CI->load->helper(array('entry_page'));
@@ -81,6 +91,12 @@ class Entry {
 	}
 
 	// --------------------------------------------------------------------
+	/**
+     * Handle command buttons
+     * @param object $me
+	 * @param mixed $commands Array of strings
+	 * @param string $page_type
+     */
 	protected
 	function handle_cmd_btns($me, $commands, $page_type)
 	{
@@ -93,7 +109,11 @@ class Entry {
 	}
 
 	// --------------------------------------------------------------------
-	// handle special field options for entry form object
+	/**
+     * Handle special field options for entry form object
+     * @param stdClass $form_def
+	 * @param string $mode
+     */	
 	protected
 	function handle_special_field_options($form_def, $mode)
 	{
@@ -110,12 +130,14 @@ class Entry {
 	}
 
 	// --------------------------------------------------------------------
-	// create or update entry in database from entry page form fields in POST:
-	// use entry form definition from config db
-	// validate entry form information, submit to database if valid,
-	// and return HTML containing entry form with updated values
-	// and sucess/failure messages
-	// AJAX
+	/**
+     *  Create or update entry in database from entry page form fields in POST:
+	 *  use entry form definition from config db
+	 *  validate entry form information, submit to database if valid,
+	 *  and return HTML containing entry form with updated values
+	 *  and sucess/failure messages
+	 * @category AJAX
+     */
 	function submit_entry_form()
 	{
 		$CI = &get_instance();
@@ -148,7 +170,7 @@ class Entry {
 			$supplement = $this->supplement_msg($message . $ps_links, 'normal');
 		} catch (Exception $e) {
 			// something broke - compose expressions of regret
-			$message = $e->getMessage();
+			$message = $e->getMessage() + " (page family: $this->tag)";
 			$outcome = $this->outcome_msg($message, 'failure');
 			$supplement = $this->supplement_msg($message, 'error');
 		}
@@ -172,8 +194,13 @@ class Entry {
 	{
 		return entry_outcome_message($message, $option, 'supplement_outcome_msg');
 	}
+	
 	// --------------------------------------------------------------------
-	// get entry form builder object and use it to make HTML
+	/**
+     * Get entry form builder object and use it to make HTML
+     * @param stdClass $input_params
+	 * @param stdClass $form_def
+     */
 	protected
 	function make_entry_form_HTML($input_params, $form_def)
 	{
@@ -194,7 +221,10 @@ class Entry {
 	}
 	
 	// --------------------------------------------------------------------
-	// make post-submission links to list report and detail report
+	/**
+     * Make post-submission links to list report and detail report
+     * @param stdClass $input_params
+     */
 	protected
 	function get_post_submission_link($input_params)
 	{
@@ -205,11 +235,17 @@ class Entry {
 	}
 	
 	// --------------------------------------------------------------------
+	/**
+     * Call a stored procedure
+     * @param stdClass $input_params
+	 * @param stdClass $form_def
+	 * @param string $msg Message returned by the stored procedure (output)
+     */
 	protected
-	function call_stored_procedure($input_params, $form_def, out &$msg)
+	function call_stored_procedure($input_params, $form_def, &$msg)
 	{
 		$CI = &get_instance();
-		// call stored procedure		
+		
 		$ok = $CI->cu->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->config_source);
 		if(!$ok) { 
 			throw new exception($CI->sproc_model->get_error_text());
@@ -226,8 +262,11 @@ class Entry {
 	}
 	
 	// --------------------------------------------------------------------
-	// copy values from params that were bound to stored procedure arguments
-	// back to input param object
+	/**
+     * Copy values from params that were bound to stored procedure arguments
+	 * back to input param object
+     * @param stdClass $input_params
+     */
 	protected
 	function update_input_params_from_stored_procedure_args($input_params)
 	{
@@ -247,8 +286,12 @@ class Entry {
 	}
 	
 	// --------------------------------------------------------------------
-	// make validation object and use it to 
-	// get field values from POST and validate them
+	/**
+     * Make validation object and use it to 
+	 * get field values from POST and validate them
+     * @param mixed $rules
+	 * @return bool
+     */
 	protected
 	function get_input_field_values($rules)
 	{
@@ -261,8 +304,14 @@ class Entry {
 	}
 	
 	// --------------------------------------------------------------------
-	// copy (shallow) input param object to proxy object 
-	// for actually supplying values to call stored procedure 
+	/**
+     * Copy (shallow) input param object to proxy object 
+	 * for actually supplying values to call stored procedure 
+	 * Returns a copy of $input_params, with disabled fields changed to [no change]
+     * @param mixed $input_params
+	 * @param mixed $field_enable
+	 * @return mixed 
+     */
 	protected
 	function make_calling_param_object($input_params, $field_enable)
 	{
@@ -281,10 +330,14 @@ class Entry {
 	}
 
 	// --------------------------------------------------------------------
-	// update input field list with enable/disable status from POST
-	// input field list designates whether or not each field has an
-	// enable/disable checkbox field and the ones that do have will be
-	// updated from the checked state of the associated checkboxes from POST
+	/**
+     * Update input field list with enable/disable status from POST.
+	 * Input field list designates whether or not each field has an
+	 * enable/disable checkbox field and the ones that do have will be
+	 * updated from the checked state of the associated checkboxes from POST.
+	 * @param mixed $field_enable
+	 * @return mixed 
+     */
 	protected
 	function get_field_enable($field_enable)
 	{
