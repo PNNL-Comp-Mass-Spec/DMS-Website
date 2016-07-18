@@ -10,17 +10,23 @@ class Sproc_mssql {
 	{
 	}
 
-	// --------------------------------------------------------------------
-	// call stored procedure given by $sprocName on database connection $conn_id
-	// binding arguments to fields in $par as defined by specifications in $args.
-	// return results as fields in $par
+	/**
+	 * Call stored procedure given by $sprocName on database connection $conn_id
+	 * binding arguments to fields in $par as defined by specifications in $args.
+	 * Return results as fields in $par
+	 * @param type $sprocName
+	 * @param type $conn_id
+	 * @param type $args
+	 * @param type $par
+	 * @throws Exception
+	 */
 	function execute($sprocName, $conn_id, $args, $par)
 	{
 		$stmt = mssql_init($sprocName, $conn_id);
 		if(!$stmt) {
-			throw new Exception('Statement initialization failed');
+			throw new Exception("Statement initialization failed for $sprocName");
 		}
-
+		
 		reset($args);
 		foreach($args as $arg) {
 			$nm = '@'.$arg['name'];  // sproc arg name needs prefix

@@ -99,7 +99,7 @@ class S_model extends CI_Model {
 		$this->error_text = '';
 		try {
 			if(!isset($parmObj)) {
-				throw new Exception('Input parameter object was not supplied');
+				throw new Exception("Input parameter object was not supplied to execute_sproc for $this->sprocName");
 			}
 
 			$CI =& get_instance();
@@ -120,15 +120,38 @@ class S_model extends CI_Model {
 				}
 			}  // $this->bound_calling_parameters = $this->get_calling_args($parmObj); ??
 			
-			// execute sproc
-			$this->sproc_handler->execute($this->sprocName, $my_db->conn_id, $this->sproc_args, $this->bound_calling_parameters);
+			// Execute the stored procedure
+			// Retry the call up to 3 times
+			$retriesRemaining = 3;
+			
+			// The initial delay when retrying is 250 msec
+			// This is doubled to 500 msec and then 1000 msec if we end up retrying the call
+			$sleepDelayMsec = 250;
+
+			while ($retriesRemaining > 0) {
+				try {
+					$this->sproc_handler->execute($this->sprocName, $my_db->conn_id, $this->sproc_args, $this->bound_calling_parameters);
+					break;
+				} catch (Exception $ex) {
+					$errorMessage = $ex->getMessage();
+					log_message('info', "Exception calling stored procedure $this->sprocName: $errorMessage");
+					$retriesRemaining--;
+					if ($retriesRemaining > 0) {
+						log_message('info', "Retrying call to $this->sprocName in $sleepDelayMsec msec");
+						usleep($sleepDelayMsec * 1000);
+						$sleepDelayMsec *= 2;
+					} else {
+						throw new Exception("Call to stored procedure $this->sprocName failed: $errorMessage");
+					}
+				}
+			}
 
 			// what was the result?
 			$result = $this->bound_calling_parameters->exec_result;
 
 			// dissapointing...
 			if(!$result) {
-				throw new Exception('Execution failed');
+				throw new Exception("Execution failed for $this->sprocName");
 			}
 
 			// figure out what kind of result we got, and handle it
@@ -143,13 +166,15 @@ class S_model extends CI_Model {
 			} else {
 				$sproc_return_value = $this->bound_calling_parameters->retval;
 				if($sproc_return_value != 0) {
-					throw new exception($this->bound_calling_parameters->message . ' (' . $sproc_return_value . ')');
+					throw new exception($this->bound_calling_parameters->message . " ($sproc_return_value for $this->sprocName)");
 				}
 			}
 
 			return true;
 		} catch (Exception $e) {
-			$this->error_text = $e->getMessage();
+			$errorMessage = $e->getMessage();
+			log_message('error', "Error in execute_sproc: $errorMessage");
+			$this->error_text = $errorMessage;
 			return false;
 		}
 		
