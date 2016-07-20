@@ -170,7 +170,7 @@ class Entry {
 			$supplement = $this->supplement_msg($message . $ps_links, 'normal');
 		} catch (Exception $e) {
 			// something broke - compose expressions of regret
-			$message = $e->getMessage() + " (page family: $this->tag)";
+			$message = $e->getMessage();     // . " (page family: $this->tag)";
 			$outcome = $this->outcome_msg($message, 'failure');
 			$supplement = $this->supplement_msg($message, 'error');
 		}
