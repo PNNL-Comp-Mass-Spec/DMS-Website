@@ -1,7 +1,8 @@
 <?php
-// actions and specifications that apply generally to a page family
 
-// main class
+/**
+ * Actions and specifications that apply generally to a page family
+ */
 class G_model extends CI_Model {
 	
 	public $error_text = "";
@@ -12,7 +13,10 @@ class G_model extends CI_Model {
 	private $config_source = '';
 	private	$configDBFolder = "";
 	
-	// title templates
+	/**
+	 * Title templates
+	 * @var array 
+	 */
 	private $titles = array(
 			'report' => '@ List Report',
 			'search' => '@ List Report',
@@ -24,7 +28,10 @@ class G_model extends CI_Model {
 			'rss' => '@ Feed',			
 		);
 	
-	// whether actions are allowed, forbidden, or permitted
+	/**
+	 * Whether actions are allowed, forbidden, or permitted
+	 * @var array 
+	 */
 	private $actions = array(
 		'report' => FALSE,
 		'show' => FALSE,
@@ -33,15 +40,21 @@ class G_model extends CI_Model {
 		'operation' => FALSE,
 	);
 	
-	// collection of all the general param entries
-	// contents of genenral_param table from config db are added to this base set
+	/**
+	 * Collection of all the general param entries
+	 * Contents of genenral_param table from config db are added to this base set
+	 * @var array
+	 */
 	private $the_parameters = array(
 		'has_opener_hotlinks' => FALSE,
 		'is_ms_helper' => FALSE,
 		'has_checkboxes' => FALSE,
 	);
 	
-	// specs for making post submission links for entry page
+	/**
+	 * Specs for making post submission links for entry page
+	 * @var array 
+	 */
 	private $post_submission = array('link_tag' => '', 'detail_id' => '', 'link' => '');
 	
 	
@@ -92,14 +105,19 @@ class G_model extends CI_Model {
 		return str_replace('@', $label, $this->titles[$page_type]);
 	}
 
-	// --------------------------------------------------------------------
-	// for simple "standard" commands to be generated into detailed report page
+	/**
+	 * For simple "standard" commands to be generated into detailed report page
+	 * @return type
+	 */
 	function get_detail_report_commands()
 	{
 		return 	$this->detail_report_commands;
 	}
-	// --------------------------------------------------------------------
-	// for any detail report command files to be loaded into detail report page
+	
+	/**
+	 * For any detail report command files to be loaded into detail report page
+	 * @return type
+	 */
 	function get_detail_report_cmds()
 	{
 		return 	$this->detail_report_cmds;
@@ -165,7 +183,14 @@ class G_model extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Read contents of general_params and update $this->the_parameters
+	 * Read list_report_hotlinks and update has_opener_hotlinks and has_checkboxes in $this->the_parameters
+	 * Read detail_report_commands and store in $this->detail_report_commands
+	 * @param type $config_name
+	 * @param type $dbFileName
+	 * @throws Exception
+	 */
 	private
 	function get_general_defs($config_name, $dbFileName)
 	{
@@ -241,6 +266,7 @@ class G_model extends CI_Model {
 				}		
 			}
 		}
+		
 		if(in_array('list_report_hotlinks', $tbl_list)) {		
 			$this->list_report_hotlinks = array();
 			foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
@@ -253,6 +279,7 @@ class G_model extends CI_Model {
 				}	
 			}
 		}
+		
 		if(in_array('detail_report_commands', $tbl_list)) {
 			$this->detail_report_commands = array();
 			foreach ($dbh->query("SELECT * FROM detail_report_commands", PDO::FETCH_ASSOC) as $row) {
@@ -274,11 +301,19 @@ class G_model extends CI_Model {
 		return (array_key_exists($name, $this->the_parameters))?$this->the_parameters[$name]:FALSE;
 	}
 
-	//--------------------------------------------------------------------
-	// Verify (all):
-	// - action is allowed for page family
-	// - user has at least basic access to website
-	// - user has necessary permission if action is a restricted one
+	/**
+	 * Validate permissions
+	 * Verify (all):
+	 * - action is allowed for page family
+	 * - user has at least basic access to website
+	 * - user has necessary permission if action is a restricted one
+	 * @param type $user
+	 * @param type $action
+	 * @param type $page_family
+	 * @return boolean
+	 * @throws exception
+	 * @throws Exception
+	 */
 	function check_permission($user, $action, $page_family)
 	{	
 		try {

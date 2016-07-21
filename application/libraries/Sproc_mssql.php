@@ -14,10 +14,10 @@ class Sproc_mssql {
 	 * Call stored procedure given by $sprocName on database connection $conn_id
 	 * binding arguments to fields in $par as defined by specifications in $args.
 	 * Return results as fields in $par
-	 * @param type $sprocName
-	 * @param type $conn_id
-	 * @param type $args
-	 * @param type $par
+	 * @param string $sprocName
+	 * @param resource $conn_id
+	 * @param array $args
+	 * @param object $par
 	 * @throws Exception
 	 */
 	function execute($sprocName, $conn_id, $args, $par)

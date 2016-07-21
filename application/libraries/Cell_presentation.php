@@ -3,6 +3,9 @@
 		exit('No direct script access allowed');
 	}
 
+/**
+ * This class is used to format data in list reports, including adding hotlinks
+ */
 class Cell_presentation {
 
 	private $hotlinks = array();
@@ -13,7 +16,10 @@ class Cell_presentation {
 	{
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Initialize
+	 * @param mixed $cell_presentation_specs
+	 */
 	function init($cell_presentation_specs)
 	{
 		$this->hotlinks = $cell_presentation_specs;		
@@ -62,7 +68,16 @@ class Cell_presentation {
 	}
 
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Render a hotlink as HTML, as specified by $colSpec["LinkType"]
+	 * @param mixed  $value     String or number
+	 * @param mixed  $row       Array of row data
+	 * @param mixed  $colSpec
+	 * @param type   $col_width Unused variable
+	 * @param string $col_name  Column name
+	 * @param int    $colIndex  Column index
+	 * @return string
+	 */
 	private
 	function render_hotlink($value, $row, $colSpec, $col_width, $col_name='', $colIndex)
 	{
@@ -297,8 +312,12 @@ class Cell_presentation {
 		return $noLink;
 	}
 	
-	// -----------------------------------
-	// create HTML to display a set of column headers
+	/**
+	 * Create HTML to display a set of column headers
+	 * @param type $rows
+	 * @param type $sorting_cols
+	 * @return string
+	 */
 	function make_column_header($rows, $sorting_cols = array())
 	{	
 		if(empty($rows)) {
@@ -349,11 +368,14 @@ class Cell_presentation {
 		return $marker;
 	}
 	
-	// -----------------------------------
-	// return an array containing columns that being used for
-	// sorting and info about their precedence and direction.
-	// accepts sorting column information in two different formats
-	// and produces a common output format
+	/**
+	 * Return an array containing columns that will be used for
+	 * sorting and info about their precedence and direction.
+	 * accepts sorting column information in two different formats
+	 * and produces a common output format
+	 * @param type $sorting_cols
+	 * @return \stdClass
+	 */
 	private
 	function get_column_sort_markers($sorting_cols)
 	{
@@ -408,7 +430,12 @@ class Cell_presentation {
 		return $toolTip;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Update the date columns to have user-friendly dates
+	 * @param type $result
+	 * @param type $col_info
+	 * @return type
+	 */
 	function fix_datetime_display(&$result, $col_info)
 	{
 		// get list of datetime columns
@@ -458,9 +485,14 @@ class Cell_presentation {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// Look for item $itemName in the Options array in $colSpec
-	// If found, return its value, otherwise return $valueIfMissing
+	/**
+	 * Look for item $itemName in the Options array in $colSpec
+	 * If found, return its value, otherwise return $valueIfMissing
+	 * @param type $colSpec
+	 * @param string $itemName
+	 * @param string $valueIfMissing
+	 * @return type
+	 */
 	private
 	function getOptionValue($colSpec, $itemName, $valueIfMissing = "") {
 		if (array_key_exists('Options', $colSpec)) {

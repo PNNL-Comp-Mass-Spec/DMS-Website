@@ -26,10 +26,12 @@ class Spreadsheet_loader {
 		return $this->aux_info_fields;
 	}
 	
-	// --------------------------------------------------------------------
-	// read given spreadsheet TSV formatted file into an internal two-dimensional
-	// array and parse it into supplementary arrays
-	// AJAX
+	/**
+	 * Read given spreadsheet TSV formatted file into an internal two-dimensional
+	 * array and parse it into supplementary arrays
+	 * @param type $fname
+	 * @category AJAX
+	 */
 	function load($fname)
 	{
 		// read TSV file into array of rows of fields

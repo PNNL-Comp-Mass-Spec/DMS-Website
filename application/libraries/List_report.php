@@ -213,10 +213,12 @@ class List_report {
 		echo form_dropdown('qf_comp_sel[]', $cmpSelOpts);
 	}
 	
-	// --------------------------------------------------------------------
-	// returns HTML displaying the list report data rows
+	/**
+	 * Returns HTML displaying the list report data rows
 	// for inclusion in list report page
-	// AJAX
+	 * @param type $option
+	 * @category AJAX
+	 */
 	function report_data($option = 'rows')
 	{
 		$CI = &get_instance();

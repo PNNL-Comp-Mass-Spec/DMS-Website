@@ -15,15 +15,21 @@ class Controller_utility {
 		$CI->load->view('message_box', $data);
 	}
 	
-	// --------------------------------------------------------------------
-	// load named library and initialize it with given config info
+	/**
+	 * Load named library and initialize it with given config info
+	 * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
+	 * @param string $config_name Config name, e.g. list_report
+	 * @param string $config_source Source, e.g. dataset, experiment, campaign
+	 * @param boolean $options Custom options flag
+	 * @return boolean
+	 */
 	function load_lib($lib_name, $config_name, $config_source, $options = FALSE)
 	{
 		$CI = &get_instance();
 		if(property_exists($CI, $lib_name)) {
 			return TRUE;
 		}
-		
+		// Load then initialize the model
 		$CI->load->library($lib_name);
 		if($options === FALSE) {
 			return $CI->$lib_name->init($config_name, $config_source);
@@ -32,15 +38,21 @@ class Controller_utility {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// load named model (with given local name) and initialize it with given config info
+	/**
+	 * Load named model (with given local name) and initialize it with given config info
+	 * @param string $model_name Module name, e.g. g_model, q_model
+	 * @param string $local_name Local name, e.g. gen_model for g_model; model for q_model
+	 * @param string $config_name Config type; typically na for g_model; list_report (or similar) for q_model
+	 * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+	 * @return boolean
+	 */
 	function load_mod($model_name, $local_name, $config_name, $config_source)
 	{
 		$CI = &get_instance();
 		if(property_exists($CI, $local_name)) { 
 			return TRUE;
 		}
-		
+		// Dynamically load and initialize the model
 		$CI->load->model($model_name, $local_name);
 		return $CI->$local_name->init($config_name, $config_source);
 	}

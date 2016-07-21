@@ -3,8 +3,14 @@
 		exit('No direct script access allowed');
 	}
 
-    // --------------------------------------------------------------------
+    /**
+	 * Create the suggested SQL for the general_params table
+	 * @param type $obj
+	 * @return type
+	 */
     function make_suggested_sql_for_general_params($obj) {
+		// Use a Heredoc string to define the insert into queries
+		// Note: do not indent the final line with EOD;
         $s = <<<EOD
 delete from general_params;
 ----
@@ -17,14 +23,19 @@ insert into general_params ("name","value") values ('entry_page_data_table' , '$
 insert into general_params ("name","value") values ('entry_page_data_id_col' , 'ID');
 insert into general_params ("name","value") values ('entry_sproc' , '$obj->spn');
 EOD;
-//insert into general_params ("name","value") values ('operations_sproc' , '$obj->upn');
-//insert into general_params ("name","value") values ('my_db_group' , 'name of database connection [package, broker] (omit for connection to default DMS database)');
-return $s;
+		//insert into general_params ("name","value") values ('operations_sproc' , '$obj->upn');
+		//insert into general_params ("name","value") values ('my_db_group' , 'name of database connection [package, broker] (omit for connection to default DMS database)');
+		return $s;
 }
 
-	// --------------------------------------------------------------------
-	// generate SQL to create basic database objects for a page family from
-	// the given table.  This will include the three views and the AddUpdate sproc
+	/**
+	 * Generate SQL to create basic database objects for a page family from the given table.
+	 * This will include the three views and the AddUpdate sproc
+	 * This procedure exits with an error message if base_table is not defined in the general_params table
+	 * @param object $my_db
+	 * @param string $gen_parms General parameters table name, typically general_params
+	 * @return string
+	 */
 	function make_family_sql($my_db, $gen_parms)
 	{		
 		$view_sql = "";
@@ -116,7 +127,12 @@ return $s;
 	return $view_sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Make SQL for creating the operations stored procedure
+	 * @param string $sprocName
+	 * @param string $table
+	 * @return type
+	 */
 	function make_operations_sproc_sql($sprocName, $table)
 	{
 		$data['sprocName'] = $sprocName;
@@ -129,7 +145,13 @@ return $s;
 		return $body;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Make SQL for creating the primary AddUpdate stored procedure
+	 * @param string $sprocName
+	 * @param string $table
+	 * @param type $sa
+	 * @return type
+	 */
 	function make_main_sproc_sql($sprocName, $table, $sa)
 	{
 		$data['sprocName'] = $sprocName;
@@ -187,10 +209,12 @@ return $s;
 		return $body;
 	}
 
-	// --------------------------------------------------------------------
-	// return SQL to create appropriate entries in the sproc_args and
-	// form field tables of the config database for the given stored procedure
-	// in the given database.
+	/**
+	 * Return SQL to create C# code for calling the stored procedure associated with this config DB
+	 * @param object $my_db
+	 * @param type $sa
+	 * @return string
+	 */
 	function make_csharp($my_db, $sa)
 	{		
 		$s = "";
@@ -214,9 +238,16 @@ return $s;
 		return $s;
 	}
 
-// --------------------------------------------------------------------
-function make_controller_code($config_db, $page_fam_tag, $data_info, $title) 
-{
+	/**
+	 * Create the controller
+	 * @param string $config_db Config DB name
+	 * @param string $page_fam_tag
+	 * @param type $data_info
+	 * @param string $title
+	 * @return type
+	 */
+	function make_controller_code($config_db, $page_fam_tag, $data_info, $title) 
+	{
 		$data['tag'] = $page_fam_tag;
 		$data['title'] = $title;
 
@@ -225,10 +256,14 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title)
 		return "<?php\n" . $body . "\n?>";
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Dump contents of each config DB in $config_db_table_list
+	 * Display as an HTML table
+	 * @param string[] $config_db_table_list
+	 */
 	function make_table_dump_display($config_db_table_list)
 	{
-		// dump content of each config db
+		
 		foreach($config_db_table_list as $db => $tables) {
 
 			// set of each config db section with distinctive label
@@ -240,10 +275,10 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title)
 			// dump contents of each table
 			foreach($tables as $table => $rows) {
 				echo "<table class='cfg_tab' >\n";
-// table header
-echo "<tr><th>";
-echo "$table  &nbsp; ";
-echo "</th></tr>\n";
+				// table header
+				echo "<tr><th>";
+				echo "$table  &nbsp; ";
+				echo "</th></tr>\n";
 				echo "<tr><td>";
 				echo "<table class='cfg_tab' >\n";
 				$i = 0;
@@ -278,7 +313,11 @@ echo "</th></tr>\n";
 		}		
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Create navigation links
+	 * @param string $config_db Config DB name
+	 * @return string
+	 */
 	function make_config_nav_links($config_db)
 	{
 		$db = $config_db;
@@ -298,7 +337,12 @@ echo "</th></tr>\n";
 		return $s;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Dump contents of each config DB in $config_db_table_list
+	 * Display as plain text
+	 * @param string[] $config_db_table_list
+	 * @param string $display_mode
+	 */
 	function make_table_dump_text($config_db_table_list, $display_mode)
 	{
 		$sep = "\t";
@@ -331,9 +375,12 @@ echo "</th></tr>\n";
 		}		
 	}
 
-	// --------------------------------------------------------------------
-	// dump crosstab of selected general_params parameters for given list
-	// of config dbs
+	/**
+	 * Dump a crosstab of selected general_params for each config DB in $config_db_table_list
+	 * @param string[] $config_db_table_list
+	 * @param string[] $config_db_table_name_list
+	 * @return string
+	 */
 	function make_general_params_dump($config_db_table_list, $config_db_table_name_list)
 	{
 		// params that are of interest
@@ -369,6 +416,7 @@ echo "</th></tr>\n";
 
 		// build crosstab of parameters of interest
 		$crosstab = array();
+		
 		// content of each config db
 		foreach($config_db_table_list as $db => $tables) {
 			// dump contents of each table
@@ -476,9 +524,15 @@ echo "</th></tr>\n";
 		return $s;
 	}
 
-	// --------------------------------------------------------------------
-	// sql to move range of items to dest id
-	//
+	/**
+	 * Create sql to move a range of items to a destination id
+	 * @param string $table_name
+	 * @param int $range_start_id
+	 * @param int $range_stop_id
+	 * @param int $dest_id
+	 * @param string $id_col ID Column name
+	 * @return string
+	 */
 	function make_sql_to_move_range_of_items($table_name, $range_start_id, $range_stop_id, $dest_id, $id_col)
 	{
 		$ceiling_id = 5000;
@@ -513,7 +567,12 @@ echo "</th></tr>\n";
 		return $s;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Create the edit table header
+	 * @param string[] $cols
+	 * @param string $tag
+	 * @return string
+	 */
 	function make_edit_table_header($cols, $tag)
 	{
 		$hdr = "<tr>\n";

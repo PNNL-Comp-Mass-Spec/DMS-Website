@@ -1,20 +1,30 @@
 <?php
-// manages specifications for an entry form
 
-// main class
+/**
+ * Manages specifications for an entry form
+ */
 class E_model extends CI_Model {
 	
 	private $config_name = '';
 	private $config_source = '';
 	private	$configDBFolder = "";
 	
-	// definitions of fields for entry form
+	/**
+	 * Definitions of fields for entry form
+	 * @var type 
+	 */
 	private $form_fields = array();
 
-	// definitions of external sources for entry form
+	/**
+	 * Definitions of external sources for entry form
+	 * @var type 
+	 */
 	private $external_sources = array();
 
-	// definitions of entry page commands
+	/**
+	 * Definitions of entry page commands
+	 * @var type 
+	 */
 	private $entry_commands = array();
 		
 	// --------------------------------------------------------------------
@@ -43,11 +53,14 @@ class E_model extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// return an object with member fields representing the different parameter 
-	// collections that are defined for the entry mode
-	// the specific collections are selected by the input list
-	// array('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands')
+	/**
+	 * Return an object with member fields representing the different parameter collections 
+	 * that are defined for the entry mode.
+	 * The specific collections are selected by the input list array
+	 * ('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands')
+	 * @param array $which_ones
+	 * @return \stdClass
+	 */
 	function get_form_def($which_ones)
 	{
 		$form_def = new stdClass();
@@ -85,9 +98,12 @@ class E_model extends CI_Model {
 		return $this->config_source;
 	}
 
-	// --------------------------------------------------------------------
-	// return the mapping between fields from the given external source
-	// the form fields for the source for this instantiated object
+	/**
+	 * Return the mapping between fields from the given external source
+	 * The form fields for the source for this instantiated object
+	 * @param type $source_name
+	 * @return boolean
+	 */
 	function get_external_source_field_map($source_name)
 	{
 		if(array_key_exists($source_name, $this->external_sources)) {
@@ -97,8 +113,10 @@ class E_model extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// return the field defined as key for spreadsheet loading
+	/**
+	 * Return the field defined as key for spreadsheet loading
+	 * @return type
+	 */
 	private
 	function get_load_key()
 	{
@@ -135,10 +153,12 @@ class E_model extends CI_Model {
 		return $specs;
 	}
 	
-	// --------------------------------------------------------------------
-	// return an array from the form field specifications keyed by
-	// field name and containing the validation rules for the field
-	// as the the value for the key
+	/**
+	 * Return an array from the form field specifications keyed by
+	 * field name and containing the validation rules for the field
+	 * as the the value for the key
+	 * @return type
+	 */
 	private
 	function get_field_validation_rules()
 	{

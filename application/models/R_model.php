@@ -1,11 +1,27 @@
 <?php
-// actions and specifications for hot links and other display cell presentations
 
-// main class
+/**
+ * Tracks actions and specifications for hot links and other display cell presentations
+ */
 class R_model extends CI_Model {
 	
+	/**
+	 * Config type, e.g. na for list reports and detail reports;
+	 * helper_inst_group_dstype for http://dms2.pnl.gov/data/lr/ad_hoc_query/helper_inst_group_dstype/report
+	 * @var type 
+	 */
 	private $config_name = '';
+	
+	/**
+	 * Data source, e.g. dataset, experiment, ad_hoc_query
+	 * @var type 
+	 */
 	private $config_source = '';
+	
+	/**
+	 * Path to the model config database file
+	 * @var type 
+	 */
 	private	$configDBFolder = "";
 	
 	private $list_report_hotlinks = array();
@@ -23,6 +39,13 @@ class R_model extends CI_Model {
 	}
 	
 	// --------------------------------------------------------------------
+	/**
+	 * Initialize, including reading data from the model config database
+	 * @param string $config_name Config type; na for list reports and detail reports, 
+	 *                            but a query name like helper_inst_group_dstype when the source is ad_hoc_query
+	 * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+	 * @return boolean
+	 */
 	function init($config_name, $config_source )
 	{
 		try {
@@ -61,7 +84,13 @@ class R_model extends CI_Model {
 		return $this->detail_report_hotlinks;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Read data from tables list_report_hotlinks and detail_report_hotlinks
+	 * in a model config database
+	 * @param string $config_name
+	 * @param string $dbFileName
+	 * @throws Exception
+	 */
 	private
 	function get_general_defs($config_name, $dbFileName)
 	{
@@ -126,6 +155,12 @@ class R_model extends CI_Model {
 	}
 
 	// --------------------------------------------------------------------
+	/**
+	 * Read data from table utility_queries, for example, with the ad_hoc_query page family
+	 * @param string $config_name
+	 * @param string $dbFileName
+	 * @throws Exception
+	 */
 	private
 	function get_utility_defs($config_name, $dbFileName)
 	{

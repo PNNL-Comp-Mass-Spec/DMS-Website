@@ -1,10 +1,9 @@
 <?php
 require("List_report.php");
 
-// --------------------------------------------------------------------
-// list report from queries defined in utility_queries table
-// --------------------------------------------------------------------
-
+/**
+ * Generate a list report from queries defined in the utility_queries table
+ */
 class List_report_ah extends List_report {
 
 	// --------------------------------------------------------------------
@@ -13,10 +12,11 @@ class List_report_ah extends List_report {
 		parent::__construct();
 	}
 
-	// --------------------------------------------------------------------
-	// (override of base class function)
-	// make list report page
-	//
+	/**
+	 * Make a list report page
+	 * (override of base class function)
+	 * @param string $mode
+	 */
 	function list_report($mode)
 	{
 		$CI = &get_instance();
