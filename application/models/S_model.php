@@ -5,12 +5,15 @@
 // config_name and config_source. If the stored procedure returns a rowset,
 // it is automatically saved and made accessible to external code.
 
-// helper class for stored procedure arguments:
-//   basic definition of object that will contain 
-//   bound arguments for calling stored procedure
-//   only the baseline canonical arguments are 
-//   statically defined by the class - sproc-specific
-//   arguments are added dynamically
+/**
+ * Helper class for stored procedure arguments:
+ *   Basic definition of object that will contain 
+ *   bound arguments for calling stored procedure
+ *   only the baseline canonical arguments are 
+ *   statically defined by the class - sproc-specific
+ *   arguments are added dynamically
+ * @category Helper class 
+ */
 class Bound_arguments {
 	var $retval = -1;
 	var $mode = '';
@@ -18,13 +21,15 @@ class Bound_arguments {
 	var $callingUser = '';
 }
 
-// main class
+/**
+ * Used to execute a stored procedure against one of the databases defined in the application/config/database file
+ */
 class S_model extends CI_Model {
 
 	// some names used for caching
 	const col_info_storage_name_root = "col_info_";
 	private $col_info_storage_name = "";
-	//
+	
 	const total_rows_storage_name_root = "total_rows_";
 	private  $total_rows_storage_name = "";
 	
@@ -33,25 +38,47 @@ class S_model extends CI_Model {
 	private	$configDBFolder = '';
 	
 	
-	// object that contains database-specific code used to actually access the stored procedure
+	/**
+	 * Object that contains database-specific code used to actually access the stored procedure
+	 * @var type 
+	 */
 	private $sproc_handler = NULL;
 	
-	// actual name of stored procedure
-	// may be different then config_name, which can reference aliases in general parameters table in config db
+	/**
+	 * Actual name of stored procedure
+	 * May be different then config_name, which can reference aliases in general parameters table in config db
+	 * @var string
+	 */
 	private $sprocName = '';
 	
-	// definition of stored procedure arguments from config db
+	/**
+	 * Definition of stored procedure arguments from config db
+	 * @var type 
+	 */
 	private $sproc_args = array();
 
-	// database connection group from config db (general parameters table)
+	/**
+	 * Database connection group from config db (general parameters table)
+	 * @var type 
+	 */
 	private $dbn = 'default';
 	
-	// object whose fields are bound to actual arguments used for calling sproc
-	private $bound_calling_parameters = NULL; // of type Bound_arguments
+	/**
+	 * Object whose fields are bound to actual arguments used for calling sproc
+	 * @var Bound_arguments 
+	 */
+	private $bound_calling_parameters = NULL;
 
-	// if stored procedure returned a rowset, it gets stored here
+	/**
+	 * Rowset returned by the stored procedure (NULL if none returned)
+	 * @var type 
+	 */
 	private $result_array = NULL;
-	// and information about its columns gets stored here
+	
+	/**
+	 * Information about data columns in $result_array
+	 * @var type 
+	 */
 	private $column_info = NULL;
 	
 	private $error_text = '';
@@ -91,9 +118,13 @@ class S_model extends CI_Model {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// initializes stored procedure, binds arguments to paramObj members and 
-	// local variables, and calls the stored procedure, returning the result
+	/**
+	 * Initializes stored procedure, binds arguments to paramObj members and 
+	 * local variables, and calls the stored procedure, returning the result
+	 * @param type $parmObj
+	 * @return boolean
+	 * @throws Exception
+	 */
 	function execute_sproc($parmObj)
 	{	
 		$this->error_text = '';
@@ -166,7 +197,7 @@ class S_model extends CI_Model {
 			} else {
 				$sproc_return_value = $this->bound_calling_parameters->retval;
 				if($sproc_return_value != 0) {
-					throw new exception($this->bound_calling_parameters->message . " ($sproc_return_value for $this->sprocName)");
+					throw new Exception($this->bound_calling_parameters->message . " ($sproc_return_value for $this->sprocName)");
 				}
 			}
 
@@ -238,10 +269,11 @@ class S_model extends CI_Model {
 		return $this->bound_calling_parameters;
 	}
 
-	// --------------------------------------------------------------------
-	// return the column information that was cached from the last execute_sproc
-	// that returned a rowset
-		function get_column_info()
+	/**
+	 * Return the column information that was cached from the last execute_sproc that returned a rowset
+	 * @return type
+	 */
+	function get_column_info()
 	{
 		$CI =& get_instance();
 		$CI->load->helper('cache');
@@ -254,9 +286,11 @@ class S_model extends CI_Model {
 		}
 		return $col_info;
 	}
-	// --------------------------------------------------------------------
-	// return the number of rows that was cached from the last execute_sproc
-	// that returned a rowset
+	
+	/**
+	 * Return the number of rows that was cached from the last execute_sproc that returned a rowset
+	 * @return int
+	 */
 	function get_total_rows()
 	{
 		$working_total = -1;
@@ -289,8 +323,10 @@ class S_model extends CI_Model {
 		return $this->sproc_args;
 	}
 
-	// --------------------------------------------------------------------
-	// return a list of fields for given sproc (minus the '<local>' fields)
+	/**
+	 * Return a list of fields for given sproc (minus the '<local>' fields)
+	 * @return type
+	 */
 	function get_sproc_fields()
 	{
 		$fields	= array();
@@ -309,9 +345,12 @@ class S_model extends CI_Model {
 		return $this->error_text;
 	}
 
-	// --------------------------------------------------------------------
-	// get list of arguments for calling the stored procedure
-	// based on configuration db definition and initialized from given param object
+	/**
+	 * Get a list of arguments for calling the stored procedure
+	 * based on configuration db definition and initialized from given param object
+	 * @param type $parmObj
+	 * @return \Bound_arguments
+	 */
 	function get_calling_args($parmObj)
 	{
 		$callingParams = new Bound_arguments();
