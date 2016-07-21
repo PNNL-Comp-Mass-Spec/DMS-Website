@@ -56,10 +56,14 @@ class Detail_report {
 		$CI->load->vars($data);	
 		$CI->load->view('main/detail_report');
 	}
-
-	// --------------------------------------------------------------------
-	// get detail report data for specified entity
-	// AJAX
+		
+	/**
+	 * Get detail report data for specified entity
+	 * @param type $id
+	 * @param type $show_entry_links
+	 * @throws exception
+	 * @category AJAX
+	 */
 	function detail_report_data($id, $show_entry_links = TRUE)
 	{
 		$CI = &get_instance();
@@ -90,10 +94,11 @@ class Detail_report {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// returns HTML displaying the list report data rows
-	// for inclusion in list report page
-	// AJAX
+	/**
+	 * Returns HTML displaying the list report data rows for inclusion in list report page
+	 * @param type $id
+	 * @category AJAX
+	 */
 	function detail_sql($id)
 	{
 		$CI = &get_instance();
@@ -102,10 +107,12 @@ class Detail_report {
 		$CI->cu->load_mod('q_model', 'detail_model', $this->config_name, $this->config_source);
 		echo $CI->detail_model->get_item_sql($id);
 	}
-	
-	// --------------------------------------------------------------------
-	// get aux info controls associated with specified entity
-	// AJAX
+
+	/**
+	 * Get aux info controls associated with specified entity
+	 * @param type $id
+	 * @category AJAX
+	 */	
 	function detail_report_aux_info_controls($id)
 	{
 		$CI = &get_instance();
@@ -117,10 +124,12 @@ class Detail_report {
 		// this is a bit of a hack to always get the number
 		$CI->cu->load_mod('q_model', 'detail_model', $this->config_name, $this->config_source);
 		$result_row = $CI->detail_model->get_item($id);	
-		$aux_info_id = (array_key_exists('ID', $result_row))?$result_row['ID']:$id;
+		if (!empty($result_row)) {
+			$aux_info_id = (array_key_exists('ID', $result_row))?$result_row['ID']:$id;
 
-		$CI->load->helper(array('string', 'detail_report_helper'));
-		echo make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id);
+			$CI->load->helper(array('string', 'detail_report_helper'));
+			echo make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id);
+		}
 	}
 
 	
