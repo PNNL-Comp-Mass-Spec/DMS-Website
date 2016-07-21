@@ -5,7 +5,10 @@
 
 class Sql_mssql {
 	
-	// for remembering the root part of the constructed SQL that can affect number of rows
+	/**
+	 * Tracks the root part of the constructed SQL that can affect the number of rows
+	 * @var type 
+	 */
 	private $baseSQL = '';
 
 	// --------------------------------------------------------------------
@@ -13,12 +16,14 @@ class Sql_mssql {
 	{
 	}
 
-	// --------------------------------------------------------------------
-	// build mssql T-SQL SQL query from component parts
+	/**
+	 * Build MSSQL T-SQL query from component parts
+	 * @param type $query_parts
+	 * @param type $option
+	 * @return string
+	 */
 	function build_query_sql($query_parts, $option="filtered_and_paged")
 	{
-		$baseSql = "";
-
 		// process the predicate list
 		$p_and = array();
 		$p_or = array();
@@ -36,14 +41,15 @@ class Sql_mssql {
 					break;
 			}
 		}
-		// build guts of query
-		$baseSql .= " FROM " . $query_parts->table;
-		//
-		// collect all 'or' clauses as one grouped item and put it into the 'and' item array
+		
+		// Build the guts of query
+		$baseSql = " FROM " . $query_parts->table;
+				
+		// Collect all 'or' clauses as one grouped item and put it into the 'and' item array
 		if(!empty($p_or)) {
 			$p_and[] = '(' . implode(' OR ', $p_or) . ')';
 		}
-		//
+		
 		// 'and' all predicate clauses together
 		$pred = implode(' AND ', $p_and);
 		if($pred != "") {
@@ -60,7 +66,7 @@ class Sql_mssql {
 				$sql .= "SELECT COUNT(*) AS numrows";
 				$sql .= $baseSql;
 				break;
-			case "colum_data_only":
+			case "column_data_only":
 				$sql .= "SELECT TOP(1)" . $display_cols;
 				$sql .= $baseSql;
 				break;
@@ -88,14 +94,22 @@ class Sql_mssql {
 				$sql .= $baseSql;
 				$sql .= ") AS T ";
 				$sql .= "WHERE #Row >= ". $first_row . " AND #Row < " . $last_row;
+				
+				// Note: an alternative to "Row_Number() Over (Order By x Desc)"
+				// is to use "ORDER BY x DESC OFFSET 0 ROWS FETCH NEXT 125 ROWS ONLY;"
+				// However, performance will typically be the wame
+				
 				break;
 		}
 		$this->baseSQL = $baseSql;
 		return $sql;
 	}
-	// --------------------------------------------------------------------
-	// build "order by" clause
-	// 
+	
+	/**
+	 * Build the Order By clause
+	 * @param type $sort_items
+	 * @return type
+	 */
 	private
 	function make_order_by($sort_items)
 	{
@@ -106,11 +120,13 @@ class Sql_mssql {
 		$s = implode(', ', $a);
 		return $s;
 	}
-
 	
-	// --------------------------------------------------------------------
-	// generate sql predicate string from predicate specification object
+	/**
+	 * Generate the Where Clause from the predicate specification object
 	// (column name, comparison operator, comparison value)
+	 * @param type $predicate
+	 * @return type
+	 */
 	private
 	function make_where_item($predicate)
 	{
@@ -209,7 +225,12 @@ class Sql_mssql {
 		}		
 		return $str;
 	}
-		// --------------------------------------------------------------------
+		
+	/**
+	 * Return the root part of the constructed SQL that can affect the number of rows
+	 * For example: FROM V_Analysis_Job_List_Report_2 WHERE [Tool] LIKE '%MSGFPlus%' AND [Last_Affected] > DATEADD(Week, -1, GETDATE())
+	 * @return type
+	 */
 	function get_base_sql()
 	{
 		return $this->baseSQL;
@@ -219,8 +240,10 @@ class Sql_mssql {
 	// (the following might be factored out of this class if data types are not db specific)
 	// --------------------------------------------------------------------
 	
-	// --------------------------------------------------------------------
-	// SQL comparison definitions
+	/**
+	 * SQL comparison definitions
+	 * @var type 
+	 */
 	private $sqlCompDefs = array(
 			"ContainsText" => array(
 					'label' => "Contains Text",
@@ -276,8 +299,11 @@ class Sql_mssql {
 					),
 	);
 	
-	// --------------------------------------------------------------------
-	// 
+	/**
+	 * Get the allowed comparisons for the given data type
+	 * @param type $data_type
+	 * @return mixed
+	 */
 	function get_allowed_comparisons_for_type($data_type)
 	{
 		$cmps = array();

@@ -7,7 +7,10 @@
 // This class also supplies certain definition information for use in building
 // and using those filters.
 
-// helper classes
+/**
+ * Track parts of the SQL query
+ * @category Helper class 
+ */
 class Query_parts {
 	var $dbn = 'default';
 	var $table = '';
@@ -18,17 +21,31 @@ class Query_parts {
 	var $paging_items = array('first_row' => 1, 'rows_per_page' => 12);
 	var $sorting_default = array('col' => '', 'dir' => '');
 }
+
+/**
+ * Track where clause items
+ * @category Helper class 
+ */
 class Query_predicate {
 	var $rel = 'AND';
 	var $col;
 	var $cmp;
 	var $val;
 }
+
+/**
+ * Keep track of the total rows returned by the query
+ * @category Helper class 
+ */
 class CachedTotalRows {
 	var $total = 0;
 	var $base_sql = '';
 }
-// main class
+
+/**
+ * Class for building and executing an SQL query
+ * against one of the databases defined in the application/config/database file
+ */
 class Q_model extends CI_Model {
 	const col_info_storage_name_root = "col_info_";
 	private $col_info_storage_name = "";
@@ -43,20 +60,36 @@ class Q_model extends CI_Model {
 	private $config_source = '';
 	private	$configDBFolder = "";
 	
-	// database-specific object to build SQL out of generic query parts
+	/**
+	 * Database-specific object to build SQL out of generic query parts
+	 * @var type 
+	 */
 	private $sql_builder = NULL;
 	
-	// sql used by main query that returns rows
+	/**
+	 * SQL used by main query that returns rows
+	 * @var type 
+	 */
 	private $main_sql = '';
 	
-	// parameters that will be used to build SQL
-	private $query_parts = NULL; // object of class Query_parts
+	/**
+	 * Parameters that will be used to build SQL
+	 * Object of class Query_parts
+	 * @var type 
+	 */
+	private $query_parts = NULL;
 
-	// array of objects, one object per column
-	// object having fields: name, type, max_length, primary_key
+	/**
+	 * Array of objects, one object per column
+	 * Object has fields: name, type, max_length, primary_key
+	 * @var type 
+	 */
 	private $result_column_info = NULL;
 	
-	// information from config db about primary filter defined for config_name/config_source
+	/**
+	 * Information from config DB about primary filter defined for config_name/config_source
+	 * @var array
+	 */
 	private $primary_filter_specs = array();
 	
 	
@@ -68,9 +101,14 @@ class Q_model extends CI_Model {
 		$this->configDBFolder = $this->config->item('model_config_path');
 	}
 
-	// --------------------------------------------------------------------
-	// get the basic query and filter definition information from a config db
-	// as specified by config_name and config_source
+	/**
+	 * Get the basic query and filter definition information from a config db
+	 * as specified by config_name and config_source
+     * @param string $config_name Config type; na for list reports and detail reports, 
+	 *                          but a query name like helper_inst_group_dstype when the source is ad_hoc_query
+	 * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query	 
+	 * @return boolean
+	 */
 	function init($config_name, $config_source = "ad_hoc_query")
 	{
 		$this->config_name = $config_name;
@@ -106,7 +144,9 @@ class Q_model extends CI_Model {
 		return FALSE;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Clear the cached query information
+	 */
 	private 
 	function _clear()
 	{
@@ -119,8 +159,10 @@ class Q_model extends CI_Model {
 		$this->primary_filter_specs = array();
 	}
 	
-	// --------------------------------------------------------------------
-	// SQL will be built using a database-specific object - set it up  here
+	/**
+	 *  SQL will be built using a database-specific object - set it up here
+	 * @param type $bldr_class
+	 */
 	private 
 	function set_my_sql_builder($bldr_class) {
 		$CI =& get_instance();
@@ -128,13 +170,14 @@ class Q_model extends CI_Model {
 		$this->sql_builder = $CI->sqlbldr;
 	}
 
-	// --------------------------------------------------------------------
-	// wildcards and special characters:
-	// the presence of regex/glob style wildcard characters
-	// will cause the defined column comparison to be
-	// overridden by a 'LIKE' operator, with substitution of
-	// SQL wildcards for regex/glob.
-	// a leading tilde will force an exact match
+	/**
+	 * Convert wildcards and special characters to SQL Server filters
+	 * The presence of regex/glob style wildcard characters
+	 *  will cause the defined column comparison to be
+	 *  overridden by a 'LIKE' operator, with substitution of
+	 *  SQL wildcards for regex/glob.
+	 * A leading tilde will force an exact match
+	 */
 	function convert_wildcards()
 	{
 		for($i=0; $i<count($this->query_parts->predicates); $i++) {
@@ -178,11 +221,18 @@ class Q_model extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// add one more item for building the query predicate ('WHERE' clause)
+	/**
+	 * Add one more item for building the query predicate ('WHERE' clause)
+	 * @param string $rel
+	 * @param string $col
+	 * @param string $cmp
+	 * @param string $val
+	 */
 	function add_predicate_item($rel, $col, $cmp, $val)
 	{
-		if($val != '') { // (someday) reject if any field empty, not just value field
+		
+		if($val != '') { 
+			// (someday perhaps) reject if any field is empty, not just value field
 			$p = new Query_predicate();
 			$p->rel = $rel;
 			$p->col = $col;
@@ -192,8 +242,11 @@ class Q_model extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// add one more item to be used for building the 'Order by' clause
+	/**
+	 * Add one more items to be used for building the 'Order by' clause
+	 * @param type $col
+	 * @param type $dir
+	 */
 	function add_sorting_item($col, $dir = '')
 	{
 		if($col) { // don't take malformed items
@@ -205,8 +258,11 @@ class Q_model extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// replace the paging values
+	/**
+	 * Replace the paging values
+	 * @param type $first_row
+	 * @param type $rows_per_page
+	 */
 	function add_paging_item($first_row, $rows_per_page)
 	{
 		if($first_row) { // don't take malformed items
@@ -215,7 +271,11 @@ class Q_model extends CI_Model {
 		}
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Construct the SQL query from component parts
+	 * @param type $option
+	 * @return type
+	 */
 	function get_sql($option = 'filtered_and_paged')
 	{
 		return $this->sqlbldr->build_query_sql($this->query_parts, $option);
@@ -505,22 +565,27 @@ class Q_model extends CI_Model {
 		save_to_cache($this->col_info_storage_name, $state);
 	}
 
-	// --------------------------------------------------------------------
-	// get single row from database and remember the column information
+	/**
+	 * Get a single row from database and remember the column information
+	 * @return type
+	 */
 	private
 	function get_col_data()
 	{
-		$sql = $this->sqlbldr->build_query_sql($this->query_parts, 'colum_data_only');
+		$sql = $this->sqlbldr->build_query_sql($this->query_parts, 'column_data_only');
 
 		$CI =& get_instance();
 		$my_db = $CI->load->database($this->query_parts->dbn, TRUE, TRUE);
 		$query = $my_db->query($sql);
 		$result_column_info = $query->field_data();
-// $query->free_result();
+		// $query->free_result();
 		return $result_column_info;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Get the column names
+	 * @return mixed Array of names
+	 */
 	function get_col_names()
 	{
 		$cols = array();
@@ -531,7 +596,11 @@ class Q_model extends CI_Model {
 		return $cols;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get the data type for the given column
+	 * @param type $col Column Name
+	 * @return string
+	 */
 	function get_column_data_type($col)
 	{
 		$type = '??';
@@ -545,7 +614,12 @@ class Q_model extends CI_Model {
 		return $type;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Load the query specs from table utility_queries in the config DB
+	 * @param string $config_name
+	 * @param string $dbFileName
+	 * @throws Exception
+	 */
 	private 
 	function get_query_specs_from_config_db($config_name, $dbFileName)
 	{
@@ -582,7 +656,11 @@ class Q_model extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get the list report query specs from tables general_params, list_report_primary_filter, and primary_filter_choosers
+	 * @param type $dbFileName
+	 * @throws Exception
+	 */
 	private 
 	function get_list_report_query_specs_from_config_db($dbFileName)
 	{
@@ -657,7 +735,11 @@ class Q_model extends CI_Model {
 				
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get the detail report query specs from the general_params table
+	 * @param type $dbFileName
+	 * @throws Exception
+	 */
 	private 
 	function get_detail_report_query_specs_from_config_db($dbFileName)
 	{
@@ -695,7 +777,11 @@ class Q_model extends CI_Model {
 		}	
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get the entry page query specs from tables the general_params table
+	 * @param type $dbFileName
+	 * @throws Exception
+	 */
 	private 
 	function get_entry_page_query_specs_from_config_db($dbFileName)
 	{
@@ -746,19 +832,29 @@ class Q_model extends CI_Model {
 	// stuff for query filters
 	// --------------------------------------------------------------------
 
-	// --------------------------------------------------------------------
+	/**
+	 * Information from config DB about primary filter defined for config_name/config_source
+	 * @return array
+	 */
 	function get_primary_filter_specs()
 	{
 		return $this->primary_filter_specs;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Get the allowed comparisons for the given data type
+	 * @param string $type
+	 * @return mixed
+	 */
 	function get_allowed_comparisons_for_type($type)
 	{
 		return $this->sql_builder->get_allowed_comparisons_for_type($type);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Allowed query predicate operators: AND and OR
+	 * @return mixed
+	 */
 	function get_allowed_rel_values()
 	{
 		return array("AND" => "AND","OR" => "OR");
