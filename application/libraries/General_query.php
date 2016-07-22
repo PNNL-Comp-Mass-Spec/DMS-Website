@@ -3,14 +3,20 @@
 // general query - return data directly using query model
 // --------------------------------------------------------------------
 
-// helper classes
+/**
+ * Query def
+ * @category Helper Class
+ */
 class General_query_def {
 	var $output_format = 'tsv';
 	var $q_name = '';
 	var $config_source = '';
 	var $filter_values = array();
 }
-// main class
+
+/**
+ * Return data directly using query model
+ */
 class General_query {
 
 	protected $config_source = '';
@@ -31,8 +37,10 @@ class General_query {
 		$this->config_source = $config_source;
 	}
 
-	// --------------------------------------------------------------------
-	// extract parameters from input url segments and return object 
+	/**
+	 * Extract parameters from input url segments and return object 
+	 * @return \General_query_def
+	 */
 	function get_query_values_from_url()
 	{
 		$CI = &get_instance();
@@ -62,10 +70,11 @@ class General_query {
 		return $input_parms;
 	}
 
-	// --------------------------------------------------------------------
-	// called by client controller to execute query via q_model and return result in format
-	// as specified by input_params object (of class General_query_def)
-	//
+	/**
+	 * Called by client controller to execute query via q_model and return result in format
+	 * as specified by input_params object (of class General_query_def)
+	 * @param type $input_parms
+	 */
 	function setup_query($input_parms)
 	{
 		$CI = &get_instance();		
@@ -73,9 +82,12 @@ class General_query {
 		$this->add_filter_values_to_model_predicate($input_parms->filter_values, $CI->model);
 	}
 
-	// --------------------------------------------------------------------
-	// merge input values in url segment order with filter spec in order
-	// and add results to model as predicate items
+	/**
+	 * Merge input values in url segment order with filter spec in order
+	 * and add results to model as predicate items
+	 * @param type $filter_values
+	 * @param type $model
+	 */
 	private
 	function add_filter_values_to_model_predicate($filter_values, $model)
 	{
@@ -122,7 +134,10 @@ class General_query {
 		}
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Show results as TSV
+	 * @param type $result
+	 */
 	function tsv($result)
 	{
 		$headers = ''; 
@@ -150,7 +165,11 @@ class General_query {
 		}
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Show results as XML
+	 * @param type $result
+	 * @param type $table
+	 */
 	function xml_dataset($result, $table = 'TX')
 	{		
 		header("Content-type: text/plain");

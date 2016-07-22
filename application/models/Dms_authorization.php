@@ -14,12 +14,16 @@ class Dms_authorization extends CI_Model {
 		$this->dBFolder = $this->config->item('model_config_path');
 //		$this->initialize();
 	}
+	
 	// --------------------------------------------------------------------
 	function initialize()
 	{
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Read the restricted actions defined in the master_authorization SQLite database
+	 * @return mixed Rows of data
+	 */
 	function get_master_restriction_list()
 	{
 	 	$dbFilePath = $this->dBFolder."master_authorization.db";
@@ -29,7 +33,12 @@ class Dms_authorization extends CI_Model {
         return $dbh->query($sql, PDO::FETCH_ASSOC);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Lookup restricted actions for the given controller
+	 * @param string $controller
+	 * @param string $action
+	 * @return array
+	 */
 	function get_controller_action_restrictions($controller, $action)
 	{
 		$restrictions = array();
@@ -44,7 +53,13 @@ class Dms_authorization extends CI_Model {
 		}
 		return $restrictions;
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Lookup permissions for the user
+	 * @param type $user_dprn
+	 * @return string
+	 * @throws Exception
+	 */
 	function get_user_permissions($user_dprn)
 	{
 		// is there a local cache of permissions?
@@ -65,12 +80,14 @@ SELECT Status, [Operations List], ID
 FROM V_User_List_Report_2
 WHERE [Username] = '$user_dprn'
 EOD;
+
 		$my_db = $this->load->database('default', TRUE);
 		$query_data = $my_db->query($str);
 		if(!$query_data) {
 			throw new Exception("Error getting records from database");
 		}
 		$rows = $query_data->result_array();
+
 		if(count($rows)==0) {
 			// user isn't in table - automatically a guest
 			$p[] ='DMS_Guest';
@@ -88,18 +105,25 @@ EOD;
 				$p[] = 'DMS_User';
 			}
 		}
+
 		// cache the permissions and return them
 		$this->user_permissions = $p;
 		$this->save_defaults();
 		return $p;
 	}
 	
-	// --------------------------------------------------------------------
-	// manage saving and reading user permissions from session
+	/**
+	 * Save user permissions for session
+	 */
 	function save_defaults()
 	{
 		$_SESSION[$this->storage_name] =  serialize($this->user_permissions);
 	}
+	
+	/**
+	 * Load user permissions for session
+	 * @return boolean True if cached user permissions were found
+	 */
 	function load_defaults() 
 	{		
 		if (isset($_SESSION[$this->storage_name])) {
@@ -111,6 +135,10 @@ EOD;
 			return FALSE;
 		}
     }
+	
+	/**
+	 * Clear cached user permissions
+	 */
 	function clear_saved_defaults()
 	{
 		$this->user_permissions = array();

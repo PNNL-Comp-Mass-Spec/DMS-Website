@@ -59,11 +59,13 @@ class List_report_ah extends List_report {
 		$CI->load->view('main/list_report');
 	}
 
-	// --------------------------------------------------------------------
-	// (override of base class function)
-	// returns HTML displaying the list report data rows
-	// for inclusion in list report page
-	// AJAX
+	/**
+	 * Returns HTML displaying the list report data rows
+	 * for inclusion in list report page
+	 * (override of base class function)
+	 * @param type $option
+	 * @category AJAX
+	 */
 	function report_data($option = 'rows')
 	{
 		$CI = &get_instance();

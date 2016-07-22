@@ -1,8 +1,8 @@
 <?php
-// --------------------------------------------------------------------
-// supports editing grid data
-// --------------------------------------------------------------------
 
+/**
+ * Supports editing grid data
+ */
 class Grid_data {
 
 	private $config_source = '';
@@ -45,8 +45,13 @@ class Grid_data {
 		echo json_encode($response);
 	}
 
-	// --------------------------------------------------------------------
-	// get data from sproc
+	/**
+	 * Get data from a stored procedure
+	 * @param type $paramArray
+	 * @param type $config_name
+	 * @return \stdClass
+	 * @throws exception
+	 */
 	function get_sproc_data($paramArray, $config_name = '')
 	{
 		$CI = &get_instance();

@@ -27,9 +27,10 @@ class List_report {
 		$this->title = $CI->my_title;
 	}
 
-	// ----------------------------------------;----------------------------
-	// make list report page
-	//
+	/**
+	 * Make list report page
+	 * @param type $mode
+	 */
 	function list_report($mode)
 	{
 		$CI = &get_instance();
@@ -77,8 +78,11 @@ class List_report {
 		$CI->load->view('main/list_report');
 	}
 
-	// --------------------------------------------------------------------
-	// check segment array to see of there is a secondary filter preset
+	/**
+	 * Check segment array to see of there is a secondary filter preset
+	 * @param array $segs
+	 * @return int
+	 */
 	private 
 	function get_secondary_filter_preset_idx($segs)
 	{
@@ -108,9 +112,11 @@ class List_report {
 		return $result;
 	}
 
-	// --------------------------------------------------------------------
-	// need to initialize primary filter values from URL segments
-	// and cache them for subsequent queries
+	/**
+	 * Initialize primary filter values from URL segments and cache them for subsequent queries
+	 * @param type $segs
+	 * @param type $primary_filter_specs
+	 */
 	protected
 	function set_pri_filter_from_url_segments($segs, $primary_filter_specs)
 	{
@@ -137,9 +143,11 @@ class List_report {
 		$CI->primary_filter->save_current_filter_values();
 	}
 
-	// --------------------------------------------------------------------
-	// need to initialize secondary filter values from URL segments
-	// and cache them for subsequent queries
+	/**
+	 * Initialize secondary filter values from URL segments and cache them for subsequent queries
+	 * @param type $segs
+	 * @param type $primary_filter_specs
+	 */
 	protected
 	function set_sec_filter_from_url_segments($segs, $primary_filter_specs)
 	{
@@ -152,10 +160,12 @@ class List_report {
 		$CI->secondary_filter->save_filter_values($filter_state);
 	}
 	
-	// --------------------------------------------------------------------
-	// make filter section for list report page:
-	// returns HTML containing filter components arranged in the specified format
-	// AJAX
+	/**
+	 * Make filter section for list report page
+	 * Returns HTML containing filter components arranged in the specified format
+	 * @param type $filter_display_mode
+	 * @category AJAX
+	 */
 	function report_filter($filter_display_mode = 'advanced')
 	{
 		$CI = &get_instance();
@@ -196,10 +206,11 @@ class List_report {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// returns the HTML for a query filter comparison field selector 
-	// for the given column name
-	// AJAX
+	/**
+	 * Crete the HTML for a query filter comparison field selector for the given column name
+	 * @param string $column_name
+	 * @category AJAX
+	 */
 	function get_sql_comparison($column_name) 
 	{
 		$CI = &get_instance();
@@ -214,9 +225,8 @@ class List_report {
 	}
 	
 	/**
-	 * Returns HTML displaying the list report data rows
-	// for inclusion in list report page
-	 * @param type $option
+	 * Create HTML displaying the list report data rows for inclusion in list report page
+	 * @param string $option
 	 * @category AJAX
 	 */
 	function report_data($option = 'rows')
@@ -253,10 +263,11 @@ class List_report {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// returns HTML displaying the list report data rows
-	// for inclusion in list report page
-	// AJAX
+	/**
+	 * Create HTML displaying the sql behind the data or the URL for deep-linking to the page
+	 * @param string $what_info
+	 * @category AJAX
+	 */
 	function report_info($what_info)
 	{
 		$CI = &get_instance();
@@ -273,7 +284,13 @@ class List_report {
 				break;
 		}
 	}
-	///------
+	
+	/**
+	 * Convert the filters into a string for use by report_info
+	 * @param type $filters
+	 * @param type $tag
+	 * @return string
+	 */
 	private 
 	function dump_filters($filters, $tag)
 	{
@@ -314,12 +331,12 @@ class List_report {
 		}
 		return $s;
 	}
-	///-----
 	
-	// --------------------------------------------------------------------
-	// returns HTML for the paging display and control element 
-	// for inclusion in report pages
-	// AJAX
+	
+	/**
+	 * Create HTML for the paging display and control element for inclusion in report pages
+	 * @category AJAX
+	 */
 	function report_paging()
 	{
 		$CI = &get_instance();
@@ -353,8 +370,10 @@ class List_report {
 		
 	}
 	
-	// --------------------------------------------------------------------
-	// set up query for database entity based on list report filtering
+	/**
+	 * Set up query for database entity based on list report filtering
+	 * @return array Filter settings
+	 */
 	protected
 	function set_up_list_query()
 	{
@@ -401,8 +420,10 @@ class List_report {
 	}
 	
 	
-	// --------------------------------------------------------------------
-	// export list report
+	/**
+	 * Export a list report
+	 * @param string $format
+	 */
 	function export($format)
 	{
 		$CI = &get_instance();
@@ -422,7 +443,8 @@ class List_report {
 		$CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
 		$col_filter = $CI->column_filter->get_current_filter_values();
 		
-// (someday) list report document export - output helper needs to clean out newlines and so forth.
+		// (someday) list report document export - output helper needs to clean out newlines and so forth.
+		
 		if (empty($rows)) {
 		  echo '<p>The table appears to have no data.</p>';
 		} else {

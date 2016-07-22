@@ -307,9 +307,9 @@ class G_model extends CI_Model {
 	 * - action is allowed for page family
 	 * - user has at least basic access to website
 	 * - user has necessary permission if action is a restricted one
-	 * @param type $user
-	 * @param type $action
-	 * @param type $page_family
+	 * @param string $user
+	 * @param string $action
+	 * @param string $page_family
 	 * @return boolean
 	 * @throws exception
 	 * @throws Exception

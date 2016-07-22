@@ -27,9 +27,10 @@ class Detail_report {
 		$this->title = $CI->my_title;
 	}
 
-	// --------------------------------------------------------------------
-	// make a page to show a detailed report for the single record identified by the 
-	// the user-supplied id
+	/**
+	 * Make a page to show a detailed report for the single record identified by the the user-supplied id
+	 * @param string $id
+	 */
 	function detail_report($id)
 	{
 		$CI = &get_instance();
@@ -59,8 +60,8 @@ class Detail_report {
 		
 	/**
 	 * Get detail report data for specified entity
-	 * @param type $id
-	 * @param type $show_entry_links
+	 * @param string $id
+	 * @param boolean $show_entry_links
 	 * @throws exception
 	 * @category AJAX
 	 */
@@ -96,7 +97,7 @@ class Detail_report {
 
 	/**
 	 * Returns HTML displaying the list report data rows for inclusion in list report page
-	 * @param type $id
+	 * @param string $id
 	 * @category AJAX
 	 */
 	function detail_sql($id)
@@ -110,7 +111,7 @@ class Detail_report {
 
 	/**
 	 * Get aux info controls associated with specified entity
-	 * @param type $id
+	 * @param string $id
 	 * @category AJAX
 	 */	
 	function detail_report_aux_info_controls($id)
@@ -131,11 +132,12 @@ class Detail_report {
 			echo make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id);
 		}
 	}
-
 	
-	// --------------------------------------------------------------------
-	// export detailed report for the single record identified by the 
-	// the user-supplied id
+	/**
+	 * Export detailed report for the single record identified by the user-supplied id
+	 * @param string $id
+	 * @param string $format
+	 */
 	function export_detail($id, $format)
 	{
 		$CI = &get_instance();
@@ -211,9 +213,11 @@ class Detail_report {
 		return $aux_info;
 	}
 
-	// --------------------------------------------------------------------
-	// get the field information that would appear on the entry page for the given
-	// entity (label -> value)
+	/**
+	 * Get the field information that would appear on the entry page for the given entity (label -> value)
+	 * @param string $id
+	 * @return type
+	 */
 	private
 	function get_entry_tracking_info($id)
 	{
@@ -243,9 +247,11 @@ class Detail_report {
 		return $entity_info;
 	}
 	
-	// --------------------------------------------------------------------
-	// export spreadsheet template for the single record identified by the 
-	// the user-supplied id
+	/**
+	 * Export spreadsheet template for the single record identified by the the user-supplied id
+	 * @param string $id
+	 * @param string $format
+	 */
 	function export_spreadsheet($id, $format)
 	{
 		$CI = &get_instance();
@@ -268,8 +274,11 @@ class Detail_report {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// display contents of given script as graph
+	/**
+	 * Display contents of given script as graph
+	 * @param string $scriptName
+	 * @param type $config_source
+	 */
 	function dot($scriptName, $config_source )
 	{
 		$CI = &get_instance();

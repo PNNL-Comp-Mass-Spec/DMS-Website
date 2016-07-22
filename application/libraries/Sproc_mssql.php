@@ -67,9 +67,12 @@ class Sproc_mssql {
 		return $result_array;
 	}
 	
-	// --------------------------------------------------------------------
-	// this builds up column metadata definitions
+	/**
+	 * This builds up column metadata definitions
 	// (it is copied from CI mssql_result driver)
+	 * @param type $result
+	 * @return \stdClass
+	 */
 	function extract_col_metadata($result)
 	{
 		$metadata = array();

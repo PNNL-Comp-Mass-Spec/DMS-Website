@@ -56,13 +56,18 @@ class Controller_utility {
 		$CI->load->model($model_name, $local_name);
 		return $CI->$local_name->init($config_name, $config_source);
 	}
-
-	// --------------------------------------------------------------------
-	// Verify (all):
-	// - action is allowed for the page family
-	// - user has at least basic access to website
-	// - user has necessary permission if action is a restricted one
-	// Present message box if access check fails and $output_message is true
+	
+	/**
+	 * Check permissions
+	 * Verify (all):
+	 * - action is allowed for the page family
+	 * - user has at least basic access to website
+	 * - user has necessary permission if action is a restricted one
+	 * Present message box if access check fails and $output_message is true
+	 * @param string $action
+	 * @param boolean$output_message
+	 * @return boolean
+	 */
 	function check_access($action, $output_message = TRUE)
 	{
 		$CI = &get_instance();

@@ -71,8 +71,10 @@ class List_report_pager {
 		$this->cur_page = ($this->cur_page > $this->num_pages)?$this->num_pages:$this->cur_page;
 	}
 	
-	// --------------------------------------------------------------------
-	// description of paging
+	/**
+	 * Description of paging, for example Rows 251 through 375 of 2249
+	 * @return string
+	 */
 	function create_stats()
 	{
 		// If our item count or per-page total is zero there is no need to continue.
@@ -84,7 +86,7 @@ class List_report_pager {
 		$mrr = $CI->preferences->get_preference('max_report_rows');
 
 		$start_row = $this->first_row_for_page($this->cur_page); //($this->cur_page - 1) * $this->per_page;
-		$start_row = ($start_row == 0)?1:$start_row;
+		$start_row = ($start_row == 0) ? 1 : $start_row;
 		
 		$end_row = $start_row + $this->per_page - 1;
 		if($end_row > $this->total_rows) {
@@ -101,23 +103,32 @@ class List_report_pager {
 	}
 	
 
-	// --------------------------------------------------------------------
-	// make the javascript invocation that sets the current page
+	/**
+	 * Make the javascript invocation that sets the current page
+	 * @param type $row
+	 * @return type
+	 */
 	private
 	function page_link($row)
 	{
 		return "javascript:" . $this->cur_row_function . "('" . $row . "')";
 	}
 	
-	// --------------------------------------------------------------------
-	// make the javascript invocation that sets the current page
+	/**
+	 * Determine the first row number visible on the page
+	 * @param type $page
+	 * @return type
+	 */
 	private
 	function first_row_for_page($page)
 	{
 		return (($page - 1) * $this->per_page) + 1;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Create the links: First, Previous, Next, Last
+	 * @return string HTML
+	 */
 	function create_links()
 	{
 		// There are certain situations where no action if possible

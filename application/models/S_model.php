@@ -121,7 +121,7 @@ class S_model extends CI_Model {
 	/**
 	 * Initializes stored procedure, binds arguments to paramObj members and 
 	 * local variables, and calls the stored procedure, returning the result
-	 * @param type $parmObj
+	 * @param stdClass $parmObj
 	 * @return boolean
 	 * @throws Exception
 	 */

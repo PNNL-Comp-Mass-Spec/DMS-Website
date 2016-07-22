@@ -1,8 +1,9 @@
 <?php
-// manages construction of an entry form (in different formats)
 
+/**
+ * Manages construction of an entry form (in different formats)
+ */
 class Entry_form {
-// build entry form display
 
 	private $form_field_specs = array();
 	
@@ -12,6 +13,10 @@ class Entry_form {
 
 	private $field_errors = array();
 	
+	/**
+	 * Flag for showing the help links on the entry form
+	 * @var boolean
+	 */
 	private $include_help_link = TRUE;
 	
 	private $file_tag = '';
@@ -30,8 +35,9 @@ class Entry_form {
 		$this->set_field_values_to_default();
 	}
 	
-	// --------------------------------------------------------------------
-	// set current field values to defaults as defined by specs
+	/**
+	 * Set current field values to defaults as defined by specs
+	 */
 	private
 	function set_field_values_to_default()
 	{
@@ -44,8 +50,11 @@ class Entry_form {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// get default value for field from spec
+	/**
+	 * Get default value for field from spec
+	 * @param type $f_spec
+	 * @return type
+	 */
 	private
 	function get_default_value($f_spec)
 	{
@@ -93,12 +102,14 @@ class Entry_form {
 		$this->field_enable = $fields;
 	}
 	
-	// --------------------------------------------------------------------
-	// build components for entry form into one of two arrays of rows,
-	// one array for visible components of the form and the other for
-	// invisible components, where each array row contains components 
-	// for an entry form row, and then call function to build HTML for 
-	// visible entry form
+	/**
+	 * Build components for entry form into one of two arrays of rows,
+	 * one array for visible components of the form and the other for
+	 * invisible components, where each array row contains components 
+	 * for an entry form row, and then call function to build HTML for 
+	 * visible entry form
+	 * @return type
+	 */
 	function build_display()
 	{
 		$CI =& get_instance();
@@ -154,8 +165,13 @@ class Entry_form {
 	// HTML formatting function - maybe move to helper someday
 	// ---------------------------------------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------
-	// put content of visible fields into HTML table
+	/**
+	 * Put content of visible fields into HTML table
+	 * @param type $visible_fields
+	 * @param type $has_enable_col
+	 * @param type $sections
+	 * @return string
+	 */
 	private
 	function display_table($visible_fields, $has_enable_col, $sections)
 	{
@@ -250,8 +266,13 @@ class Entry_form {
 		return $str;		
 	}
 	
-	// -----------------------------------
-	// package components of entry area
+	/**
+	 * Package components of entry area
+	 * @param type $field
+	 * @param type $choosers
+	 * @param type $error
+	 * @return string
+	 */
 	private
 	function make_entry_area($field, $choosers, $error)
 	{
@@ -268,8 +289,14 @@ class Entry_form {
 		return $str;
 	}
 
-	// -----------------------------------
-	// create a set of choosers from the list in the given field spec
+	/**
+	 * Create a set of choosers from the list in the given field spec
+	 * @param type $f_name
+	 * @param type $f_spec
+	 * @param type $element_start
+	 * @param type $element_end
+	 * @return string
+	 */
 	function make_choosers($f_name, $f_spec, $element_start = "<div style='margin-bottom:5px;'>", $element_end = "</div>")
 	{
 		$s = "";
@@ -290,8 +317,18 @@ class Entry_form {
 		return $s;
 	}
 
-	// -----------------------------------
-	// create a chooser from the given parameters
+	/**
+	 * Create a chooser from the given parameters
+	 * @param type $f_name
+	 * @param type $type
+	 * @param type $pln
+	 * @param type $target
+	 * @param type $label
+	 * @param type $delim
+	 * @param type $xref
+	 * @param type $seq
+	 * @return type
+	 */
 	private
 	function make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq)
 	{
@@ -308,7 +345,7 @@ class Entry_form {
 	
 		// set up delimiter for lists for the field
 		$delim = (isset($f_spec['chooser']['Delimiter']))?$f_spec['chooser']['Delimiter']:'';
-		$delim = ($delim != '')?$delim:',';
+		$delim = ($delim != '') ? $delim : ',';
 
 		$data['name']  = $f_name;
 		$data['id']  = $f_name;
@@ -373,8 +410,13 @@ class Entry_form {
 		return $s;
 	}
 
-	// -----------------------------------
-	// get attributes to be added to input field for autocomplete
+	/**
+	 * Get attributes to be added to input field for autocomplete
+	 * @param type $f_name
+	 * @param type $f_spec
+	 * @param type $props
+	 * @return string
+	 */
 	function add_chooser_properties($f_name, $f_spec, $props)
 	{
 		if(array_key_exists("chooser_list", $f_spec)) {					
@@ -390,8 +432,12 @@ class Entry_form {
 		return $props;
 	}
 	
-	// -----------------------------------
-	// 
+	/**
+	 * Create the link to the wiki page (provided $this->include_help_link is true)
+	 * Example: http://prismwiki.pnl.gov/wiki/DMS_Help_for_analysis_job_request#ID
+	 * @param type $label
+	 * @return string
+	 */
 	private
 	function make_wiki_help_link($label)
 	{
@@ -468,8 +514,10 @@ class Entry_form {
 	// form field adjustment section
 	// ---------------------------------------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------
-	// modify field specs to account for field edit permissions
+	/**
+	 * Modify field specs to account for field edit permissions
+	 * @param type $userPermissions
+	 */
 	function adjust_field_permissions($userPermissions)
 	{
 		// look at each field
@@ -491,8 +539,10 @@ class Entry_form {
 		}		
 	}
 
-	// --------------------------------------------------------------------
-	// change the visibility of designated fields according to given entry mode
+	/**
+	 * Change the visibility of designated fields according to given entry mode
+	 * @param type $mode
+	 */
 	function adjust_field_visibility($mode)
 	{
 		foreach($this->form_field_specs as $f_name => $f_spec) {

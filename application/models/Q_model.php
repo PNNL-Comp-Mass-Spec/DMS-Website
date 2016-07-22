@@ -320,9 +320,13 @@ class Q_model extends CI_Model {
 		$this->query_parts->columns = $columns;
 	}
 
-	// --------------------------------------------------------------------
-	// Return single row for given ID using first defined filter
-	// Used to retrieve data for a detail report
+	/**
+	 * Return single row for given ID using first defined filter
+	 * Used to retrieve data for a detail report
+	 * @param string $id
+	 * @return type
+	 * @throws exception
+	 */
 	function get_item($id)
 	{
 		if(empty($this->primary_filter_specs)) { 
@@ -365,10 +369,13 @@ class Q_model extends CI_Model {
 // $query->free_result();
 	}
 
-	// --------------------------------------------------------------------
-	// Ported from get_data_rows_from_sproc in Param_report.php
-	// Returns the first row of data returned by the stored procedure
-	// Throws an exception if there is an error or if the SP returns a non-zero value
+	/**
+	 * Ported from get_data_rows_from_sproc in Param_report.php
+	 * Returns the first row of data returned by the stored procedure
+	 * @param type $id
+	 * @return type
+	 * @throws exception Thrown if there is an error or if the SP returns a non-zero value
+	 */
 	function get_data_row_from_sproc($id)
 	{
 		$CI = &get_instance();

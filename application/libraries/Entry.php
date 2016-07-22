@@ -10,7 +10,6 @@ class Entry {
 	protected $tag = '';
 	protected $title = '';
 	
-	// --------------------------------------------------------------------
 	/**
      * Constructor
      */
@@ -18,7 +17,6 @@ class Entry {
 	{
 	}
 
-	// --------------------------------------------------------------------
 	/**
      * Initialize this class
      * @param string $config_name Not used
@@ -33,7 +31,6 @@ class Entry {
 		$this->title = $CI->my_title;
 	}	
 
-	// --------------------------------------------------------------------
 	/**
      * Make an entry page to create or update a record in the database (according to $page_type)
 	 * The entry form is subsequently submitted via AJAX call to function submit_entry_form.
@@ -90,7 +87,6 @@ class Entry {
 		$CI->load->view('main/entry_form');		
 	}
 
-	// --------------------------------------------------------------------
 	/**
      * Handle command buttons
      * @param object $me
@@ -108,7 +104,6 @@ class Entry {
 		return $btns;
 	}
 
-	// --------------------------------------------------------------------
 	/**
      * Handle special field options for entry form object
      * @param stdClass $form_def
@@ -129,7 +124,6 @@ class Entry {
 		$CI->entry_form->adjust_field_permissions($userPermissions);
 	}
 
-	// --------------------------------------------------------------------
 	/**
      *  Create or update entry in database from entry page form fields in POST:
 	 *  use entry form definition from config db
@@ -195,7 +189,6 @@ class Entry {
 		return entry_outcome_message($message, $option, 'supplement_outcome_msg');
 	}
 	
-	// --------------------------------------------------------------------
 	/**
      * Get entry form builder object and use it to make HTML
      * @param stdClass $input_params
@@ -220,7 +213,6 @@ class Entry {
 		return $CI->entry_form->build_display();
 	}
 	
-	// --------------------------------------------------------------------
 	/**
      * Make post-submission links to list report and detail report
      * @param stdClass $input_params
@@ -234,7 +226,6 @@ class Entry {
 		return make_post_submission_links($CI->my_tag, $ps_link_specs, $input_params, $actions);		
 	}
 	
-	// --------------------------------------------------------------------
 	/**
      * Call a stored procedure
      * @param stdClass $input_params
@@ -261,7 +252,6 @@ class Entry {
 		$this->update_input_params_from_stored_procedure_args($input_params);
 	}
 	
-	// --------------------------------------------------------------------
 	/**
      * Copy values from params that were bound to stored procedure arguments
 	 * back to input param object
@@ -285,7 +275,6 @@ class Entry {
 		}
 	}
 	
-	// --------------------------------------------------------------------
 	/**
      * Make validation object and use it to 
 	 * get field values from POST and validate them
@@ -303,7 +292,6 @@ class Entry {
 		return $CI->form_validation->run();
 	}
 	
-	// --------------------------------------------------------------------
 	/**
      * Copy (shallow) input param object to proxy object 
 	 * for actually supplying values to call stored procedure 
@@ -329,7 +317,6 @@ class Entry {
 		return $calling_params;
 	}
 
-	// --------------------------------------------------------------------
 	/**
      * Update input field list with enable/disable status from POST.
 	 * Input field list designates whether or not each field has an

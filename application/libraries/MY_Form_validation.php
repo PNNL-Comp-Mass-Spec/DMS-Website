@@ -17,8 +17,12 @@ class MY_Form_validation extends CI_Form_validation {
 	// validation functions
 	// --------------------------------------------------------------------
 
-	// called for every field
-	// convert exotic characters to plan ASCII and trim whitespaced off ends
+	/**
+	 * Called for every field
+	 * Convert exotic characters to plain ASCII and trim whitespace off ends
+	 * @param type $str
+	 * @return type
+	 */
 	function trim($str)
 	{
 		$scrubbed = trim(iconv("utf-8", "ASCII//TRANSLIT", $str));
