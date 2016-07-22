@@ -132,7 +132,12 @@ class CI_Exceptions {
 		// By default we log this, but allow a dev to skip it
 		if ($log_error)
 		{
-			log_message('error', $heading.': '.$page);
+			// Not sure why, but every time we load a list report a behind-the-scenes call to CodeIgniter
+			// results in a 404 error for page Undefined/index.
+			// This call is occurring at the same time as the AJAX calls to report_data and report_paging.
+			// Do not log this error, as it does not affect the user
+			if ($page != "Undefined/index")
+				log_message('error', $heading.': '.$page);
 		}
 
 		echo $this->show_error($heading, $message, 'error_404', 404);
