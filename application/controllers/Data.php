@@ -1,8 +1,8 @@
 <?php
-// --------------------------------------------------------------------
-// Features related to utility_queries table (mostly developmental at this point)
-// --------------------------------------------------------------------
 
+/**
+ * Features related to utility_queries table (mostly developmental at this point)
+ */
 class Data extends CI_Controller {
 
 	// --------------------------------------------------------------------
@@ -16,10 +16,14 @@ class Data extends CI_Controller {
 	// --------------------------------------------------------------------
 	
 	// --------------------------------------------------------------------
-	// http://dmsdev.pnl.gov/data/ax/<output format>/<query name>/<config source>/<filter value>/.../<filter value>
-	// Example: http://dmsdev.pnl.gov/data/ax/dump/list_report/instrument/vorbi
-	// Example: http://dmsdev.pnl.gov/data/ax/tsv/aux_info_categories/aux_info_def/500
-	// --------------------------------------------------------------------
+	/**
+	 * Export results in various formats
+	 * Expected URL format:
+	 *  http://dmsdev.pnl.gov/data/ax/<output format>/<query name>/<config source>/<filter value>/.../<filter value>
+	 * Example URLs:
+	 *  http://dmsdev.pnl.gov/data/ax/dump/list_report/instrument/vorbi
+	 *  http://dmsdev.pnl.gov/data/ax/tsv/aux_info_categories/aux_info_def/500
+	 */
 	function ax()
 	{
 		session_start();
@@ -51,10 +55,14 @@ class Data extends CI_Controller {
 		return get_nav_bar_menu_items($page_type);
 	}
 	
-	// --------------------------------------------------------------------
-	// http://dmsdev.pnl.gov/data/lz/<output format>/<config source>/<query name>
-	// http://dmsdev.pnl.gov/data/lz/tsv/ad_hoc_query/campaign
-	// http://dmsdev.pnl.gov/data/lz/tsv/ad_hoc_query/lcms_requested_run
+	/**
+	 * Export results in various formats
+	 * Expected URL format:
+	 *  http://dmsdev.pnl.gov/data/lz/<output format>/<config source>/<query name>
+	 * Example URLs:
+	 *  http://dmsdev.pnl.gov/data/lz/tsv/ad_hoc_query/campaign
+	 *  http://dmsdev.pnl.gov/data/lz/tsv/ad_hoc_query/lcms_requested_run
+	 */
 	function lz()
 	{
 		$this->load->library('controller_utility', '', 'cu');
@@ -98,10 +106,15 @@ class Data extends CI_Controller {
 				break;
 		}	
 	}
-	// http://dmsdev.pnl.gov/data/json/<config source>/<query name>/<filter value>/.../<filter value>
-	// http://dmsdev.pnl.gov/data/json/ad_hoc_query/osm_package_requests/101
-	// http://dmsdev.pnl.gov/data/json/ad_hoc_query/osm_package_datasets/101
-	// --------------------------------------------------------------------
+
+	/**
+	 * Export results in JSON
+	 * Expected URL format:
+	 *  http://dmsdev.pnl.gov/data/json/<config source>/<query name>/<filter value>/.../<filter value>
+	 * Example URLs:
+	 *  http://dmsdev.pnl.gov/data/json/ad_hoc_query/osm_package_requests/101
+	 *  http://dmsdev.pnl.gov/data/json/ad_hoc_query/osm_package_datasets/101
+	 */
 	function json()
 	{
 		session_start();
@@ -130,8 +143,13 @@ class Data extends CI_Controller {
 	}
 	
 
-	// --------------------------------------------------------------------
-	// http://dmsdev.pnl.gov/data/lr/grk/user/report
+	/**
+	 * Show data for ad-hoc queries
+	 * Example URLs:
+	 * http://dms2.pnl.gov/data/lr/ad_hoc_query/helper_inst_group_dstype/report
+	 * http://dms2.pnl.gov/data/lr/ad_hoc_query/capture_operations/report
+	 * http://dmsdev.pnl.gov/data/lr/grk/user/report
+	 */
 	function lr()
 	{		
 		$this->load->library('controller_utility', '', 'cu');
@@ -184,8 +202,12 @@ class Data extends CI_Controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// get list of URLs for ad hoc list reports
+	/**
+	 * Get list of URLs for ad hoc list reports
+	 * @param type $config_source
+	 * @param type $config_name
+	 * @throws Exception
+	 */
 	function lr_menu($config_source = "ad_hoc_query", $config_name = 'utility_queries')
 	{
 		$CI = &get_instance();
@@ -217,4 +239,3 @@ class Data extends CI_Controller {
 	}
 	
 }
-?>

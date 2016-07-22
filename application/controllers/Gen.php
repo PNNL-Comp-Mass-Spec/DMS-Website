@@ -14,37 +14,56 @@ class Gen extends CI_Controller {
 		$this->color_code = $this->config->item('version_color_code');
 		$this->page_menu_root = ($this->config->item('page_menu_root')) ? $this->config->item('page_menu_root') : "page_menu" ;
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Display the home page, with the side menu in a frame
+	 * http://dmsdev.pnl.gov/gen/
+	 * http://dmsdev.pnl.gov/gen/index
+	 */
 	function index()
 	{
 		$page = $this->input->post('page');
-		$page = ($page != '')?$page:site_url()."gen/welcome";
-		$data['page_url'] = $page;
+		$pageToShow = ($page != '')?$page:site_url()."gen/welcome";
+		
+		$data['page_url'] = $pageToShow;
 		$data['side_menu_url'] = site_url()."gen/side_menu";
 
 		$this->load->vars($data);
 		$this->load->view('top_level_frames');
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Display the current configuration
+	 * http://dmsdev.pnl.gov/gen/config
+	 */
 	function config()
 	{
 		echo("<li>Environment:".ENVIRONMENT . "\n");
 //		$this->config->load('database', TRUE);
 		$this->load->database();
 
-		$s = $this->color_code = $this->config->item('version_label');
-		echo("<li>version:$s\n");
+		$version = $this->color_code = $this->config->item('version_label');
+		echo("<li>version:$version\n");
 
-		$s = $this->color_code = $this->config->item('file_attachment_archive_root_path');
-		echo("<li>file attachment path:$s\n");
+		$archiveRoot = $this->color_code = $this->config->item('file_attachment_archive_root_path');
+		echo("<li>file attachment path:$archiveRoot\n");
 
-		$s = $this->db->database;
-		echo("<li>database:$s\n");
+		$dbName = $this->db->database;
+		echo("<li>database:$dbName\n");
 
-		$s = $this->db->username;
-		echo("<li>user:$s\n");
+		$userName = $this->db->username;
+		echo("<li>user:$userName\n");
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Create the menus
+	 * @param type $title
+	 * @param type $sub_view_name
+	 * @param type $splash_view_name
+	 * @param type $menu_config_db
+	 * @param type $menu_section_table
+	 * @param type $menu_item_table
+	 */
 	function _page_menu(
 				$title,
 				$sub_view_name,
@@ -78,13 +97,16 @@ class Gen extends CI_Controller {
 		$this->load->view($this->page_menu_root . '/page_menu');
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Create the specified menu
+	 * @param string $menu_name
+	 */
 	function page_menu($menu_name)
 	{
 		$sub_view_name ='sub_view_'.$menu_name;
 		$menu_config_db = "dms_".$menu_name."_menu.db";
-		$menu_section_table = "home_menu_sections";
-		$menu_item_table = "home_menu_items";
+		// $menu_section_table = "home_menu_sections";
+		// $menu_item_table = "home_menu_items";
 		$title = "PRISM DMS " . ucwords($menu_name);
 
 		$this->_page_menu($title, $sub_view_name, '', $menu_config_db);
@@ -101,25 +123,35 @@ class Gen extends CI_Controller {
 	// --------------------------------------------------------------------
 	function admin($layout = 'fly')
 	{
-		$layout = $layout == 'fly'? 'sub_view_fly_menus' :'sub_view_section_menus' ;
-		$this->_page_menu("DMS Admin", $layout, 'splash_admin', "dms_admin_menu.db");
+		$selectedLayout = $layout == 'fly' ? 'sub_view_fly_menus' : 'sub_view_section_menus' ;
+		$this->_page_menu("DMS Admin", $selectedLayout, 'splash_admin', "dms_admin_menu.db");
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Display the home page
+	 * http://dmsdev.pnl.gov/gen/welcome
+	 */
 	function welcome()
 	{
 		$this->_page_menu("Welcome to DMS", "sub_view_welcome");
 	}
 
 
-	// --------------------------------------------------------------------
+	/**
+	 * Construct the side menu
+	 * http://dmsdev.pnl.gov/gen/side_menu
+	 */
 	function side_menu()
 	{
 		$this->load->helper(array('menu', 'dms_search'));
 		$this->load->model('dms_menu', 'menu', TRUE);
 		$this->load->view('menu_panel');
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Return the side menu items a json
+	 * http://dmsdev.pnl.gov/gen/side_menu_objects
+	 */
 	function side_menu_objects()
 	{
 		$this->load->helper(array('menu', 'dms_search'));
@@ -129,7 +161,11 @@ class Gen extends CI_Controller {
 		$items = build_side_menu_object_tree($menu_def, '', '');
 		echo json_encode($items);
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Show session information
+	 * http://dmsdev.pnl.gov/gen/show_session
+	 */
 	function show_session()
 	{
 //		echo var_dump($_SESSION);
@@ -142,19 +178,26 @@ class Gen extends CI_Controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Show configuration info
+	 * http://dmsdev.pnl.gov/gen/info
+	 */
 	function info()
 	{
 		echo phpinfo();
 		echo var_dump($_SERVER);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Read the restricted actions defined in the master_authorization SQLite database
+	 * Display the results in an HTML table
+	 * http://dmsdev.pnl.gov/gen/auth
+	 */
 	function auth()
 	{
 		// load the authorization model
 		$this->load->model('dms_authorization', 'auth');
-		$rows = $this->auth->get_master_restriction_list();;
+		$rows = $this->auth->get_master_restriction_list();
 
 		$this->load->library('table');
 		$tmpl = array ('table_open' => '<table border="1" cellpadding="4" cellspacing="0">');
@@ -170,7 +213,10 @@ class Gen extends CI_Controller {
 		echo $this->table->generate();
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Show statistics on datasets, experiments, etc.
+	 * http://dmsdev.pnl.gov/gen/stats
+	 */
 	function stats()
 	{
 		$this->load->model('dms_statistics', 'model', TRUE);
@@ -193,4 +239,3 @@ class Gen extends CI_Controller {
 	}
 
 }
-?>
