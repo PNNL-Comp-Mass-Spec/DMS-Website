@@ -134,8 +134,43 @@ class S_model extends CI_Model {
 			}
 
 			$CI =& get_instance();
-			$my_db = $CI->load->database($this->dbn, TRUE, TRUE);
+			
+			// Connect to the database
+			// Retry the connection up to 3 times
+			$connectionRetriesRemaining = 3;
+			
+			// The initial delay when retrying is 250 msec
+			// This is doubled to 500 msec and then 1000 msec if we end up retrying the connection
+			$connectionSleepDelayMsec = 250;
+			
+			while ($connectionRetriesRemaining > 0) {
+				try {
+					$my_db = $CI->load->database($this->dbn, TRUE, TRUE);
 
+					if (is_bool($my_db) === true && !$my_db) {
+						// $CI->load->database() normally returns a database objet
+						// But if an error occurs, it returns FALSE
+						// Retry establishing the connection
+						throw new Exception('$CI->load->database returned false in S_model');
+					} else {
+						// Exit the while loop
+						break;
+					}
+				} catch (Exception $ex) {
+					$errorMessage = $ex->getMessage();
+					log_message('error', "Exception connecting to DB group $this->dbn (calling sproc $this->sprocName): $errorMessage");
+					$connectionRetriesRemaining--;
+					if ($connectionRetriesRemaining > 0) {
+						log_message('error', "Retrying connection to $this->dbn in $connectionSleepDelayMsec msec");
+						usleep($connectionSleepDelayMsec * 1000);
+						$connectionSleepDelayMsec *= 2;
+					} else {
+						throw new Exception("Connection to DB group $this->dbn failed: $errorMessage");
+					}
+				}
+				
+			}
+			
 			// bind arguments to object
 			// - create fields in local param object and bind sproc args to them
 			// - set values of local object fields from corresponding fields in input object, if present
@@ -143,51 +178,53 @@ class S_model extends CI_Model {
 			$this->bound_calling_parameters = new Bound_arguments();
 			foreach($this->sproc_args as $arg) {
 				$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
-		//		$b->fn = $fn; // ??
+
 				if(isset($parmObj->$fn)) {
 					$this->bound_calling_parameters->$fn = $parmObj->$fn;
 				} else {
 					$this->bound_calling_parameters->$fn = '';
 				}
 			}  // $this->bound_calling_parameters = $this->get_calling_args($parmObj); ??
+
 			
 			// Execute the stored procedure
 			// Retry the call up to 3 times
-			$retriesRemaining = 3;
+			$execRetriesRemaining = 3;
 			
 			// The initial delay when retrying is 250 msec
 			// This is doubled to 500 msec and then 1000 msec if we end up retrying the call
-			$sleepDelayMsec = 250;
+			$execSleepDelayMsec = 250;
 
-			while ($retriesRemaining > 0) {
+			while ($execRetriesRemaining > 0) {
 				try {
 					$this->sproc_handler->execute($this->sprocName, $my_db->conn_id, $this->sproc_args, $this->bound_calling_parameters);
+					// Exit the while loop					
 					break;
 				} catch (Exception $ex) {
 					$errorMessage = $ex->getMessage();
-					log_message('info', "Exception calling stored procedure $this->sprocName: $errorMessage");
-					$retriesRemaining--;
-					if ($retriesRemaining > 0) {
-						log_message('info', "Retrying call to $this->sprocName in $sleepDelayMsec msec");
+					log_message('error', "Exception calling stored procedure $this->sprocName: $errorMessage");
+					$execRetriesRemaining--;
+					if ($execRetriesRemaining > 0) {
+						log_message('error', "Retrying call to $this->sprocName in $execSleepDelayMsec msec");
 						usleep($sleepDelayMsec * 1000);
-						$sleepDelayMsec *= 2;
+						$execSleepDelayMsec *= 2;
 					} else {
 						throw new Exception("Call to stored procedure $this->sprocName failed: $errorMessage");
 					}
 				}
 			}
 
-			// what was the result?
+			// What was the result?
 			$result = $this->bound_calling_parameters->exec_result;
 
-			// dissapointing...
 			if(!$result) {
 				throw new Exception("Execution failed for $this->sprocName");
 			}
 
 			// figure out what kind of result we got, and handle it
-			if(is_resource($result)) { // rowset
- 				// extract col metadata
+			if(is_resource($result)) { 
+				// Rowset of data
+ 				// Extract col metadata
 				$this->column_info = $this->sproc_handler->extract_col_metadata($result);
 				$this->cache_column_info();
 	
@@ -195,6 +232,7 @@ class S_model extends CI_Model {
 				$this->result_array = $this->sproc_handler->get_rowset($result);
 				$this->cache_total_rows();
 			} else {
+				// Simply returns an error code; examine it
 				$sproc_return_value = $this->bound_calling_parameters->retval;
 				if($sproc_return_value != 0) {
 					throw new Exception($this->bound_calling_parameters->message . " ($sproc_return_value for $this->sprocName)");
@@ -204,7 +242,7 @@ class S_model extends CI_Model {
 			return true;
 		} catch (Exception $e) {
 			$errorMessage = $e->getMessage();
-			log_message('error', "Error in execute_sproc: $errorMessage");
+			log_message('error', "Error in execute_sproc for $this->sprocName: $errorMessage");
 			$this->error_text = $errorMessage;
 			return false;
 		}
@@ -356,7 +394,7 @@ class S_model extends CI_Model {
 		$callingParams = new Bound_arguments();
 		foreach($this->sproc_args as $arg) {
 			$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
-	//		$b->fn = $fn; // ??
+	
 			if(isset($parmObj->$fn)) {
 				$callingParams->$fn = $parmObj->$fn;
 			} else {
