@@ -434,11 +434,11 @@ class Q_model extends CI_Model {
 		$CI =& get_instance();
 		
 		// Connect to the database
-		// Retry the connection up to 3 times
-		$connectionRetriesRemaining = 3;
+		// Retry the connection up to 5 times
+		$connectionRetriesRemaining = 5;
 
 		// The initial delay when retrying is 250 msec
-		// This is doubled to 500 msec and then 1000 msec if we end up retrying the connection
+		// This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
 		$connectionSleepDelayMsec = 250;
 
 		while ($connectionRetriesRemaining > 0) {
