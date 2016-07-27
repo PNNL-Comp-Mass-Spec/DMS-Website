@@ -1,14 +1,18 @@
 <?php
 require("Base_controller.php");
 
-// helper class
+/**
+ * Helper class
+ */
 class Check_result {
 	var $ok = true;
 	var $message = "";
 	var $path = '';
 }
 
-// main class
+/**
+ * File attachment uploader class
+ */
 class File_attachment extends Base_controller {
 
 	// --------------------------------------------------------------------
@@ -21,7 +25,12 @@ class File_attachment extends Base_controller {
 		$this->my_title = "File Attachments";
 		$this->archive_root_path = $this->config->item('file_attachment_archive_root_path');
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Validate the availability of the remote mount
+	 * @return \Check_result
+	 * @throws Exception
+	 */
 	private
 	function validate_remote_mount()
 	{
@@ -31,21 +40,29 @@ class File_attachment extends Base_controller {
 			$result->path = $mnt_path;
 
 			$dir_ok = is_dir($mnt_path);
-			if(!$dir_ok) throw new Exception("'$mnt_path' is not a directory");
+			if (!$dir_ok) {
+				throw new Exception("'$mnt_path' is not a directory");
+			}
 
 			$remote_sentinal = $mnt_path . "sentinel-remote.txt";
 			$remote_ok = file_exists($remote_sentinal);
-			if(!$remote_ok) throw new Exception("Remote sentinal '$remote_sentinal' was unexpectedly not visible");
+			if (!$remote_ok) {
+				throw new Exception("Remote sentinal '$remote_sentinal' was unexpectedly not visible");
+			}
 
 			$local_sentinal = $mnt_path . "sentinel-local.txt";
 			$local_ok = !file_exists($local_sentinal);
-			if(!$local_ok) throw new Exception("Local sentinal '$local_sentinal' was unexpectedly visible");
-
+			if (!$local_ok) {
+				throw new Exception("Local sentinal '$local_sentinal' was unexpectedly visible");
+			}
 		} catch (Exception $e) {
 			$result->message = $e->getMessage();
 			$result->ok = false;
 		}
-		if (ENVIRONMENT != 'production') $result->ok = true;
+		
+		if (ENVIRONMENT != 'production') {
+			$result->ok = true;
+		}
 		return $result;
 	}
 
@@ -87,16 +104,20 @@ class File_attachment extends Base_controller {
 		return $result;
 	}
 
-	// --------------------------------------------------------------------
-	// copy uploaded file to receiving folder on web server,
-	// make file attachment tracking entry in DMS,
-	// and copy uploaded file to EMSL archive
+	/**
+	 * Copy uploaded file to receiving folder on web server,
+	 * make file attachment tracking entry in DMS,
+	 * and copy uploaded file to EMSL archive
+	 * @throws Exception
+	 */
 	function upload()
 	{
-		$error =  "Upload was successful";
+		$resultMsg =  "Upload was successful";
 		try {
 			$remote = $this->validate_remote_mount();
-			if(!$remote->ok) throw new Exception($remote->message);
+			if (!$remote->ok) {
+				throw new Exception($remote->message);
+			}
 
 			$timestamp = microtime(TRUE);
 			$config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->input->post("entity_id")."/{$timestamp}/";
@@ -110,8 +131,11 @@ class File_attachment extends Base_controller {
 			mkdir($config['upload_path'],0777,TRUE);
 
 			$this->load->library('upload', $config);
+			
+			// Upload the file from the user's computer to this server
+			// Store below BASEPATH/../attachment_uploads 
 			if ( ! $this->upload->do_upload()) {
-				$error = $this->upload->display_errors();
+				$resultMsg = $this->upload->display_errors();
 			} else {
 				$data = $this->upload->data();		
 				$orig_name = $data["orig_name"];
@@ -126,26 +150,37 @@ class File_attachment extends Base_controller {
 				$dest_path = "{$archive_folder_path}/{$orig_name}";
 				$src_path = "{$config['upload_path']}{$name}";
 
-				if(!file_exists($archive_folder_path)){
+				if(!file_exists($archive_folder_path)) {
 					mkdir($archive_folder_path,0777,true);
 				}
-				if(!rename($src_path,$dest_path)){
-					//error occurred during copy, handle accordingly
+				
+				// Old method: rename($src_path, $dest_path)
+				// Leads to warnings like this: 
+				//   Warning --> rename(.../attachment_uploads/...,/mnt/dms_attachments/...): Operation not permitted
+				// The solution is to use a copy then an unlink
+				
+				if(!copy($src_path, $dest_path)) {
+					// Error occurred during copy, raise an exception
 					throw new Exception("Could not rename '$src_path' to '$dest_path'");
-				}else{
+				} else {
+					// Copy succeeded; delete the local file
+					unlink($src_path);
+					
 					rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
 					chmodr($this->archive_root_path,0755);
 				}
 
 				$msg = $this->make_attachment_tracking_entry($orig_name, $type, $id, $description, $size, $entity_folder_path);
-				if($msg) throw new Exception($msg);
+				if ($msg) {
+					throw new Exception($msg);
+				}
 			}
 		} catch (Exception $e) {
-			$error = $e->getMessage();
+			$resultMsg = $e->getMessage();
 		}
 		// output is headed for an iframe
 		// this script will automatically run when put into it and will inform elements on main page that operation has completed
-		echo "<script type='text/javascript'>parent.fileAttachment.report_upload_results('$error')</script>";
+		echo "<script type='text/javascript'>parent.fileAttachment.report_upload_results('$resultMsg')</script>";
 	}
 
 	// --------------------------------------------------------------------
@@ -182,7 +217,9 @@ class File_attachment extends Base_controller {
 		try {
 			// init sproc model
 			$ok = $this->cu->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->my_tag);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			if (!$ok) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
 
 			$calling_params = new stdClass();
 
@@ -198,7 +235,9 @@ class File_attachment extends Base_controller {
 			$calling_params->message = '';
 
 			$ok = $this->sproc_model->execute_sproc($calling_params);
-			if(!$ok) throw new exception($this->sproc_model->get_error_text());
+			if (!$ok) {
+				throw new exception($this->sproc_model->get_error_text());
+			}
 
 			$ret = $this->sproc_model->get_parameters()->retval;
 			$response = $this->sproc_model->get_parameters()->message;
@@ -221,7 +260,9 @@ class File_attachment extends Base_controller {
 		try {
 			// init sproc model
 			$ok = $this->cu->load_mod('s_model', 'sproc_model', 'operations_sproc', $this->my_tag);
-			if(!$ok) throw new exception($CI->sproc_model->get_error_text());
+			if (!$ok) {
+				throw new exception($CI->sproc_model->get_error_text());
+			}
 
 			$calling_params = new stdClass();
 
@@ -231,7 +272,9 @@ class File_attachment extends Base_controller {
 			$calling_params->message = '';
 
 			$ok = $this->sproc_model->execute_sproc($calling_params);
-			if(!$ok) throw new exception($this->sproc_model->get_error_text());
+			if (!$ok) {
+				throw new exception($this->sproc_model->get_error_text());
+			}
 
 			$ret = $this->sproc_model->get_parameters()->retval;
 			$response = $this->sproc_model->get_parameters()->message;
@@ -241,8 +284,11 @@ class File_attachment extends Base_controller {
 		return $response;
 	}
 
-	// --------------------------------------------------------------------
-	// AJAX
+	/**
+	 * Show attachments for this entity
+	 * @return string
+	 * @category AJAX
+	 */
 	function show_attachments() {
 		$type = $this->input->post("entity_type");
 		$id = $this->input->post("entity_id");
@@ -255,7 +301,10 @@ class File_attachment extends Base_controller {
 		$this->db->where("Entity_ID", $id);
 		$this->db->where("Active >", 0);
 		$query = $this->db->get();
-		if(!$query) return "Error querying database";
+		if (!$query) {
+			return "Error querying database";
+		}
+		
 		$entries = array();
 	    $icon_delete = table_link_icon('delete');
 		$icon_download = table_link_icon('down');
@@ -283,7 +332,12 @@ class File_attachment extends Base_controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Confirm that the attachment can be retrieved
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 * @param type $filename
+	 */
 	function check_retrieve($entity_type, $entity_id, $filename)
 	{
 		$result = $this->validate_remote_mount();
@@ -299,34 +353,48 @@ class File_attachment extends Base_controller {
 		echo json_encode($result);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Retrieve the attachment for the given entity
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 * @param type $filename
+	 * @throws Exception
+	 */
 	function retrieve($entity_type, $entity_id, $filename){
 		try {
 			$remote = $this->validate_remote_mount();
-			if(!$remote->ok) throw new Exception($remote->message);
+			if (!$remote->ok) {
+				throw new Exception($remote->message);
+			}
 
-	 		$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
+			$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
 
 			//echo "-->" . $result ."<--";
 	 		
-		    if(!$result->ok) throw new Exception($result->message);
- 			$full_path = $result->path;
+		    if (!$result->ok) {
+				throw new Exception($result->message);
+			}
+			$full_path = $result->path;
 
-			if(!file_exists($full_path)) throw new Exception('File could not be found on server');
+			if (!file_exists($full_path)) {
+				throw new Exception('File could not be found on server');
+			}
 
 			//get mimetype info
 			$mime = mime_content_type($full_path);
 
-			if(preg_match('/Opera ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT']))
-			$UserBrowser = "Opera";
-			elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT']))
-			$UserBrowser = "IE";
-			else
-			$UserBrowser = '';
+			if (preg_match('/Opera ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT'])) {
+				$UserBrowser = "Opera";
+			} elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT'])) {
+				$UserBrowser = "IE";
+			} else {
+				$UserBrowser = '';
+			}
 
-			/// important for download in most browsers
-			$mime_type = ($UserBrowser == 'IE' || $UserBrowser == 'Opera') ?
-			'application/octetstream' : 'application/octet-stream';
+			// Old code:
+			// important for download in most browsers
+			// $mime_type = ($UserBrowser == 'IE' || $UserBrowser == 'Opera') ?
+			// 'application/octetstream' : 'application/octet-stream';
 			header("Content-type: {$mime}");
 			header("Content-Disposition: attachment; filename=\"{$filename}\"");
 			header("X-Sendfile: {$full_path}");
@@ -337,9 +405,17 @@ class File_attachment extends Base_controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// make file in EMSL archive using given contents,
-	// make file attachment tracking entry in DMS,
+	/**
+	 * Make file in EMSL archive using given contents,
+	 * then make file attachment tracking entry in DMS.
+	 * @param type $name
+	 * @param type $type
+	 * @param type $id
+	 * @param type $description
+	 * @param type $contents
+	 * @return type
+	 * @throws Exception
+	 */
 	private
 	function make_attached_file($name, $type, $id, $description, $contents)
 	{
@@ -383,28 +459,31 @@ class File_attachment extends Base_controller {
 		echo $msg;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Retrieve data from V_Experiment_Detail_Report_Ex and V_Auxinfo_Experiment_Values for Experiment $expID
+	 * @param type $expID
+	 * @return type
+	 */
 	function auxinfo($expID) {
 		$this->load->database();
 
-		$contents = "";
-
-		$sql = "SELECT * FROM V_Experiment_Detail_Report_Ex WHERE ID = $expID";
-		$query = $this->db->query($sql);
-		if(!$query) return;
- 		if ($query->num_rows() == 0) return;
-		$result = $query->result_array();
-		$fields = current($result);
-		$id = $fields["Experiment"];
-		$cols = array_keys($fields);
-		foreach($cols as $col) {
-			$contents .= $col . "\t" . $fields[$col] . "\n";
+		$contents = $this->getExperimentInfo($expID);		
+		if (empty($contents)) {
+			return;
 		}
 
-		$sql = "SELECT Category, Subcategory, Item, Value FROM V_Auxinfo_Experiment_Values WHERE ID = $expID ORDER BY Category, Subcategory, Item";
+		$sql = "SELECT Category, Subcategory, Item, Value "
+			 . "FROM V_Auxinfo_Experiment_Values "
+			 . "WHERE ID = $expID "
+			 . "ORDER BY Category, Subcategory, Item";
+		
 		$query = $this->db->query($sql);
-		if(!$query) return;
- 		if ($query->num_rows() == 0) return;
+		if (!$query) {
+			return;
+		}
+		if ($query->num_rows() == 0) {
+			return;
+		}
 		$result = $query->result_array();
 		$fields = current($result);
 		$cols = array_keys($fields);
@@ -424,6 +503,33 @@ class File_attachment extends Base_controller {
 		echo $contents;
 	}
 
+	/**
+	 * Retrieve data from V_Experiment_Detail_Report_Ex for Experiment $expID
+	 * @param type $expID
+	 * @return string
+	 */
+	function getExperimentInfo($expID)
+	{
+		$sql = "SELECT * FROM V_Experiment_Detail_Report_Ex WHERE ID = $expID";
+		$query = $this->db->query($sql);
+		if (!$query) {
+			return;
+		}
+		if ($query->num_rows() == 0) {
+			return;
+		}
+		
+		$result = $query->result_array();
+		$fields = current($result);
+		$id = $fields["Experiment"];
+		$cols = array_keys($fields);
+		foreach($cols as $col) {
+			$contents .= $col . "\t" . $fields[$col] . "\n";
+		}
+		
+		return $contents;
+	}
+	
 	// --------------------------------------------------------------------
 	function check_access(){
 		try {
@@ -451,6 +557,3 @@ class File_attachment extends Base_controller {
 	}
 
 }
-
-
-?>
