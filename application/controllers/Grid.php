@@ -61,7 +61,7 @@ class Grid extends Base_controller {
 			$response->rows = $result->result_array();;
 		} catch (Exception $e) {
 			$response->result = 'error';
-			$response->message = $e->getMessage();
+			$response->message = 'grid_data_from_query: ' . $e->getMessage();
 		}
 		echo json_encode($response);
 	}

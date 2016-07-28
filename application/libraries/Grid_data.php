@@ -40,7 +40,7 @@ class Grid_data {
 			$response->rows = $result->result_array();
 		} catch (Exception $e) {
 			$response->result = 'error';
-			$response->message = $e->getMessage();			
+			$response->message = 'get_query_data: ' . $e->getMessage();			
 		}
 		echo json_encode($response);
 	}
@@ -85,7 +85,7 @@ class Grid_data {
 			$response->rows = $CI->sproc_model->get_rows();
 		} catch (Exception $e) {
 			$response->result = 'error';
-			$response->message = $e->getMessage();			
+			$response->message = 'get_sproc_data: ' . $e->getMessage();			
 		}
 		return $response;
 	}
