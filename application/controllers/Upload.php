@@ -19,8 +19,11 @@ class Upload extends Base_controller {
 		echo "nothing to see here - move on";
 	}
 
-	// --------------------------------------------------------------------
-	// get config source for given entity type
+	/**
+	 * Get config source for given entity type
+	 * @param type $entity_type
+	 * @return type
+	 */
 	private
 	function get_config_source($entity_type)
 	{
@@ -31,8 +34,9 @@ class Upload extends Base_controller {
 		return $config_source;
 	}
 
-	// --------------------------------------------------------------------
-	// establish the spreadsheet loader page
+	/**
+	 * Establish the spreadsheet loader page
+	 */
 	function main()
 	{
 		$this->load->helper('user');
@@ -48,12 +52,13 @@ class Upload extends Base_controller {
 		$this->load->view("uploader/upload");
 	}
 
-	// --------------------------------------------------------------------
-	// upload the file identified via the POST
+	/**
+	 * Upload the file identified via the POST
 	// overwrite any existing copies
-	// return javascript that will execute immediately on being
+	// Return javascript that will execute immediately on being
 	// inserted into an iframe
-	// AJAX
+	 * @category AJAX
+	 */
 	function load()
 	{
 		$fieldName = 'myfile';
@@ -64,7 +69,9 @@ class Upload extends Base_controller {
 
 		$result = $_FILES['myfile']['error'];
 		if($result == 0) {
-			if(file_exists($target_path)) unlink($target_path);
+			if (file_exists($target_path)) {
+				unlink($target_path);
+			}
 			$result = !move_uploaded_file($_FILES['myfile']['tmp_name'], $target_path);
 		}
 		$error = '';
@@ -76,10 +83,12 @@ class Upload extends Base_controller {
 		echo "<script type='text/javascript'>parent.report_upload_results('$file_name', '$error')</script>";
 	}
 
-	// --------------------------------------------------------------------
-	// extract data from given file already uploaded to server
-	// and return HTML table listing entities found
-	// AJAX
+	/**
+	 * Extract data from given file already uploaded to server
+	 * and return HTML table listing entities found
+	 * @throws exception
+	 * @category AJAX
+	 */
 	function extract_data()
 	{
 		$fname = $this->input->post('file_name');
@@ -130,10 +139,12 @@ class Upload extends Base_controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// extract data from given file already uploaded to server
-	// and return HTML table of whole spreadsheet
-	// AJAX
+	/**
+	 * Extract data from given file already uploaded to server
+	 * and return HTML table of whole spreadsheet
+	 * @throws exception
+	 * @category AJAX
+	 */
 	function extract_table()
 	{
 		$fname = $this->input->post('file_name');
@@ -162,9 +173,13 @@ class Upload extends Base_controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// extract data from given file already uploaded to server
-	// and show details of given entity
+
+	/**
+	 * Extract data from given file already uploaded to server
+	 * and show details of given entity
+	 * @param type $fname
+	 * @param type $id
+	 */
 	function entity($fname, $id)
 	{
 //		$fname = $this->input->post('file_name');
@@ -219,8 +234,10 @@ class Upload extends Base_controller {
 		$this->load->view('uploader/upload_supplemental');
 	}
 
-	// --------------------------------------------------------------------
-	// update tracking info for given entity in DMS (and optionally its aux info)
+	/**
+	 * Update tracking info for given entity in DMS (and optionally its aux info)
+	 * @throws exception
+	 */
 	function update() ///$fname, $id, $mode
 	{
 		$fname = $this->input->post('file_name');
@@ -276,9 +293,16 @@ class Upload extends Base_controller {
 		echo $message;
 	}
 
-	// --------------------------------------------------------------------
-	// get current field values from existing entity
-	// (allows us to have partial field coverage from spreadsheet in update mode)
+	/**
+	 * Get current field values from existing entity
+	 * (allows us to have partial field coverage from spreadsheet in update mode)
+	 * @param type $id
+	 * @param type $entity_type
+	 * @param type $config_source
+	 * @param type $mode
+	 * @return \stdClass
+	 * @throws exception
+	 */
 	private
 	function get_current_field_values($id, $entity_type, $config_source, $mode)
 	{
@@ -301,8 +325,9 @@ class Upload extends Base_controller {
 		return $current_values;
 	}
 
-	// --------------------------------------------------------------------
-	// does given entity exist in database?
+	/**
+	 * Does given entity exist in database?
+	 */
 	function exists()
 	{
 		$fname = $this->input->post('file_name');
@@ -325,13 +350,16 @@ class Upload extends Base_controller {
 			echo $message;
 		}
 	}
+	
 	// --------------------------------------------------------------------
 	private
 	function get_entity_key($id, $entity_type, &$key, &$message)
 	{
 		$exists = FALSE;
 		try {
-			if(!array_key_exists($entity_type, $this->supported_entities)) throw new exception('Error:Unrecognized entity type');
+			if (!array_key_exists($entity_type, $this->supported_entities)) {
+				throw new exception('Error:Unrecognized entity type');
+			}
 
 			$sql = $this->supported_entities[$entity_type]['existence_check_sql'];
 			if(!$sql) throw new exception('Error:Existence query not defined');
@@ -350,11 +378,16 @@ class Upload extends Base_controller {
 		return $exists;
 	}
 
-	// --------------------------------------------------------------------
-	// build parameter object for calling stored procedure that updates
-	// the tracking entity.  the parameters pulled from the spreadsheet
-	// (defined by labels) will be mapped to calling parameter names
-	// matching the stored procedure arguments
+	/**
+	 * Build parameter object for calling stored procedure that updates the tracking entity.  
+	 * The parameters pulled from the spreadsheet (defined by labels) will be mapped 
+	 * to calling parameter names matching the stored procedure arguments
+	 * @param type $tracking_info
+	 * @param type $config_source
+	 * @param type $mode
+	 * @param type $current_values
+	 * @return type
+	 */
 	private
 	function make_tracking_info_params($tracking_info, $config_source, $mode, $current_values)
 	{
@@ -411,8 +444,10 @@ class Upload extends Base_controller {
 		return $aux_info_target;
 	}
 
-	// --------------------------------------------------------------------
-	// generate generic spreadsheet template for given entity type
+	/**
+	 * Generate generic spreadsheet template for given entity type
+	 * @param type $config_source
+	 */
 	function template($config_source)
 	{
 		// tracking info
@@ -575,8 +610,12 @@ class Upload extends Base_controller {
 		echo "<div style='$style'>You can get a template for a an existing entity by using the spreadsheet export link on the detail report page for that entity.  As a convenience, the 'List Report' link will take you to the list report page for the entity type, and you can get to the detail report page for a particular entity from there</div>";
 	}
 
-	// --------------------------------------------------------------------
-	// get definitions for entities that can be uploaded from spreadsheet loader
+	/**
+	 * Get definitions for entities that can be uploaded from spreadsheet loader
+	 * @param type $dbFileName
+	 * @throws Exception
+	 * @throws exception
+	 */
 	private
 	function get_config_info($dbFileName)
 	{
@@ -611,4 +650,4 @@ class Upload extends Base_controller {
 	}
 
 }
-?>
+

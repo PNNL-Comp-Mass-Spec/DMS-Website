@@ -154,6 +154,8 @@ class File_attachment extends Base_controller {
 					mkdir($archive_folder_path,0777,true);
 				}
 				
+				$sourceFileSize = filesize($src_path);
+				
 				// Old method: rename($src_path, $dest_path)
 				// Leads to warnings like this: 
 				//   Warning --> rename(.../attachment_uploads/...,/mnt/dms_attachments/...): Operation not permitted
@@ -161,9 +163,42 @@ class File_attachment extends Base_controller {
 				
 				if(!copy($src_path, $dest_path)) {
 					// Error occurred during copy, raise an exception
-					throw new Exception("Could not rename '$src_path' to '$dest_path'");
+					throw new Exception("Could not copy '$src_path' to '$dest_path'");
 				} else {
-					// Copy succeeded; delete the local file
+					// Copy succeeded
+					// Confirm that the file size of the remote file matches the source file size
+					
+					$destFileSize = filesize($dest_path);
+					
+					if (!$sourceFileSize == $destFileSize) {
+						// File sizes to not match
+						throw new Exception("Length of the archived file ($destFileSize) "
+							. "does not match the source file ($sourceFileSize): '$src_path' to '$dest_path'");
+					}
+					
+					// If the file is less than 100 MB in size, compute sha1 checksums and compare
+					if ($sourceFileSize < 100*1024*1024){
+						$sourceSHA1 = sha1_file($src_path);
+						if ($sourceSHA1 === false) {
+							// Checksumming failed
+							// Log an error, but move on
+							log_message('error', "sha1_file returned false for $src_path");
+						} else {
+							$destSHA1 = sha1_file($dest_path);
+							if ($destSHA1 === false) {
+								// Checksumming failed
+								// Log an error, but move on
+								log_message('error', "sha1_file returned false for $destSHA1");
+							} else {
+								if (strcmp($sourceSHA1, $destSHA1) !== 0) {
+									throw new Exception("Checksums do not match for file attachment: "
+										. "'$src_path' and '$dest_path' have $sourceSHA1 and $destSHA1");
+								}
+							}							
+						}																		
+					}
+					
+					// Delete the local file
 					unlink($src_path);
 					
 					rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
@@ -247,9 +282,12 @@ class File_attachment extends Base_controller {
 		return $response;
 	}
 
-	// --------------------------------------------------------------------
-	// perform operation on given attached file
-	// AJAX
+	/**
+	 * Perform operation on given attached file
+	 * @return type
+	 * @throws exception
+	 * @category AJAX
+	 */
 	function perform_operation()
 	{
 		$mode = $this->input->post("mode");
