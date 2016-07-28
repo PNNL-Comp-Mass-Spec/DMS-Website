@@ -147,12 +147,19 @@ class S_model extends CI_Model {
 				try {
 					$my_db = $CI->load->database($this->dbn, TRUE, TRUE);
 
-					if (is_bool($my_db) === true && !$my_db) {
-						// $CI->load->database() normally returns a database objet
+					if ($my_db === false) {
+						// $CI->load->database() normally returns a database object
 						// But if an error occurs, it returns FALSE
 						// Retry establishing the connection
 						throw new Exception('$CI->load->database returned false in S_model');
 					} else {
+						if ($my_db->conn_id === false) {
+							// $my_db->conn_id is normally an object
+							// But if an error occurs, it is FALSE
+							// Retry establishing the connection
+							throw new Exception('$my_db->conn_id returned false in S_model');
+						}
+						
 						// Exit the while loop
 						break;
 					}
