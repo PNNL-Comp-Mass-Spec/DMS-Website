@@ -47,13 +47,29 @@ class Sql_mssql {
 				
 		// Collect all 'or' clauses as one grouped item and put it into the 'and' item array
 		if(!empty($p_or)) {
-			$p_and[] = '(' . implode(' OR ', $p_or) . ')';
+			$orClause = implode(' OR ', $p_or);
+			
+			// Make sure $orList does not end in ' OR '
+			$pattern = '/ OR *$/i';
+			$orClauseChecked = preg_replace($pattern, '', $orClause);
+			
+			if (!empty($orClauseChecked)) {
+				$p_and[] = '(' . $orClauseChecked . ')';
+			}
 		}
 		
 		// 'and' all predicate clauses together
-		$pred = implode(' AND ', $p_and);
-		if($pred != "") {
-			$baseSql .= " WHERE $pred";
+		$andClause = implode(' AND ', $p_and);
+		
+		if(!empty($andClause)) {
+			// Make sure $andList does not end in ' AND '
+			// We sometimes see this because the last item in $p_and is empty
+			$pattern = '/ AND *$/i';
+			$andClauseChecked = preg_replace($pattern, '', $andClause);
+			
+			if(!empty($andClauseChecked)) {
+				$baseSql .= " WHERE $andClauseChecked";
+			}
 		}
 		
 		//columns to display
