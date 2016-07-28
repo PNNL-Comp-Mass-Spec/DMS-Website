@@ -300,7 +300,7 @@ class Cell_presentation {
 	{
 		$noLink = false;
 		if(array_key_exists('Options', $colSpec)) {
-			$test = getOptionValue($colSpec, 'GreaterOrEqual');
+			$test = $this->getOptionValue($colSpec, 'GreaterOrEqual');
 			$options = $colSpec['Options'];
 			if(!empty($test)) {
 				if($value < $test) {
