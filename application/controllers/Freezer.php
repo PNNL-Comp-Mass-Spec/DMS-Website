@@ -22,7 +22,7 @@ class Freezer extends Base_controller {
 	// --------------------------------------------------------------------
 	function index()
 	{
-		echo "howdy";
+		echo '<h2>Howdy</h2><p>You probably want <a href="http://dms2.pnl.gov/freezer/tree">http://dms2.pnl.gov/freezer/tree</a></p>';
 	}
 
 	// --------------------------------------------------------------------
@@ -146,7 +146,7 @@ class Freezer extends Base_controller {
 	// --------------------------------------------------------------------
 
 	// --------------------------------------------------------------------
-	function show()
+	function show($id)
 	{
 		$this->load->helper(array('freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu'));
 		$this->load->library('table');

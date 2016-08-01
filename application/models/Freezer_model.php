@@ -2,6 +2,7 @@
 class Freezer_model extends CI_Model {
 
 	var $hierarchy = array(
+		// Freezer name is column Freezer_Tag in the database
 		"Freezer" => "Shelf",
 		"Shelf" => "Rack",
 		"Rack" => "Row",
@@ -33,12 +34,12 @@ class Freezer_model extends CI_Model {
 	{
 		$sql = <<<EOD
 SELECT 
-	ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+	ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
 	COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
 FROM dbo.T_Material_Locations ML
 	LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
-WHERE (Shelf = 'na') AND NOT Freezer = 'na'
-GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit
+WHERE (Shelf = 'na') AND NOT Freezer_Tag = 'na'
+GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit
 EOD;
 		$query = $this->db->query($sql);
 		if(!$query) {
@@ -51,29 +52,29 @@ EOD;
 	{		
 		$sql = <<<EOD
 SELECT 
-	ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+	ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
 	COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
 FROM dbo.T_Material_Locations ML
 	LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
 EOD;
 		switch($Type) {
 			case 'Shelf':
-				$sql .= " WHERE Freezer = '$Freezer' AND Rack = 'na' AND NOT Shelf = 'na' ";
+				$sql .= " WHERE Freezer_Tag = '$Freezer' AND Rack = 'na' AND NOT Shelf = 'na' ";
 				break;
 			case 'Rack':
-				$sql .= " WHERE Freezer = '$Freezer' AND Shelf = '$Shelf' AND Row = 'na' AND NOT Rack = 'na'";
+				$sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Row = 'na' AND NOT Rack = 'na'";
 				break;
 			case 'Row':
-				$sql .= " WHERE Freezer = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Col = 'na' AND NOT ROW = 'na'";
+				$sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Col = 'na' AND NOT ROW = 'na'";
 				break;
 			case 'Col':
-				$sql .= " WHERE Freezer = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";		
+				$sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";		
 				break;
 			case 'Tag':
 				$sql .= "  WHERE ML.Tag IN ($Freezer)";		
 				break;
 		}
-		$sql .= " GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
+		$sql .= " GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
 		$query = $this->db->query($sql);
 		return $query->result_array();		
 	}
@@ -236,13 +237,13 @@ EOD;
 	{
 		$sql = <<<EOD
 SELECT 
-	ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+	ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
 	COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
 FROM dbo.T_Material_Locations ML
 	LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
 EOD;
 		$sql .= " WHERE ML.Tag = '$location'";
-		$sql .= " GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
+		$sql .= " GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
 		$query = $this->db->query($sql);
 		if(!$query) {
 			throw new Exception("Error querying database");
@@ -254,15 +255,15 @@ EOD;
 	{
 		$tmpl = <<<EOD
 SELECT TOP (10)
-ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, COUNT(MC.ID) AS Containers, 
+ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, COUNT(MC.ID) AS Containers, 
 ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
 FROM 
 T_Material_Locations AS ML LEFT OUTER JOIN
 T_Material_Containers AS MC ON ML.ID = MC.Location_ID
 WHERE (ML.Tag LIKE '@LOC@%')
-GROUP BY ML.ID, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag, ML.Col, ML.Status, ML.Container_Limit
+GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag, ML.Col, ML.Status, ML.Container_Limit
 HAVING (ML.Container_Limit - COUNT(MC.ID) > 0) AND (ML.Status = 'Active')
-ORDER BY ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col
+ORDER BY ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Col
 EOD;
 		$sql = str_replace ("@LOC@" , $location ,$tmpl );
 		$query = $this->db->query($sql);
@@ -276,7 +277,7 @@ EOD;
 	{
 		$sql = <<<EOD
 SELECT TOP(10)
-ML.Tag, ML.Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, 0 AS Limit, 0 AS Containers, 
+ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, 0 AS Limit, 0 AS Containers, 
 0 AS Available, ML.Status, ML.ID, MC.Created
 FROM T_Material_Containers AS MC 
 INNER JOIN T_Material_Locations AS ML ON ML.ID = MC.Location_ID
