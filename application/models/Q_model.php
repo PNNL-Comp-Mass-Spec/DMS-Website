@@ -424,8 +424,10 @@ class Q_model extends CI_Model {
 	}
 
 	/**
-	 * Obtain the database object for hte given database group
-	 * @param type $dbGroupName
+	 * Obtain the database object for the given database group
+	 * @param mixed	$dbGroupName DB Group name, typically default or broker, but sometimes 
+	 *                           package, capture, prism_ifc, prism_rpt, ontology, or manager_control
+	 *                           If empty, the active group is used (defined by $active_group)
 	 * @throws Exception
 	 */
 	private
@@ -457,20 +459,29 @@ class Q_model extends CI_Model {
 						// Retry establishing the connection
 						throw new Exception('$my_db->conn_id returned false in Q_model');
 					}
-
-					// Exit the while loop
-					break;
 				}
+
+				// Exit the while loop
+				break;
+				
 			} catch (Exception $ex) {
 				$errorMessage = $ex->getMessage();
-				log_message('error', "Exception connecting to DB group $dbGroupName: $errorMessage");
+				
+				$groupNameForLog = 'default';
+				if (!empty($dbGroupName)) {
+					$groupNameForLog = $dbGroupName;
+				}
+
+				$logMessage = "Exception connecting to the $groupNameForLog DB: $errorMessage";
+				
+				log_message('error', $logMessage);
 				$connectionRetriesRemaining--;
 				if ($connectionRetriesRemaining > 0) {
-					log_message('error', "Retrying connection to $dbGroupName in $connectionSleepDelayMsec msec");
+					log_message('error', "Retrying connection to the $groupNameForLog DB in $connectionSleepDelayMsec msec");
 					usleep($connectionSleepDelayMsec * 1000);
 					$connectionSleepDelayMsec *= 2;
 				} else {
-					throw new Exception("Connection to DB group $dbGroupName failed: $errorMessage");
+					throw new Exception("Connection to the $groupNameForLog DB failed: $errorMessage");
 				}
 			}
 
