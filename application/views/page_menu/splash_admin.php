@@ -1,5 +1,5 @@
 
-<p>This page is for adminstration of DMS and the DMS website</p>
+<p>This page is for administration of DMS and the DMS website</p>
 
 <p>If you are not an administrator, don't use this page</p>
 
