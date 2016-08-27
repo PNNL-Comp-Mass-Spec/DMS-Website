@@ -1,8 +1,8 @@
 <?php
 class Freezer_model extends CI_Model {
 
+	// Freezer name is column Freezer_Tag in tables T_Material_Freezers and T_Material_Locations in the database
 	var $hierarchy = array(
-		// Freezer name is column Freezer_Tag in the database
 		"Freezer" => "Shelf",
 		"Shelf" => "Rack",
 		"Rack" => "Row",
