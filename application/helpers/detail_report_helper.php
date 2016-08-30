@@ -4,7 +4,7 @@
 	}
 
 // -----------------------------------
-// create HTML to display detail report fields
+// Create HTML to display detail report fields, including adding hotlinks
 //
 function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $show_entry_links=TRUE)
 {
@@ -17,8 +17,7 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 	$str .= "<a title='Back to the list report' href='../report'><img src='" . base_url(). "/images/page_white_get.png' border='0' ></img></a>";	
  	$str .= "</th>";
 	$str .= "<th>";
-	// Old text; removed in June 2016
-	// $str .= "<h2><a class=help_link title='This section shows the tracking information for the Analysis Job Request'>Tracking Information</a></h2>";
+	
 	if($show_entry_links) {
 	 	$str .= make_detail_report_edit_links($controller_name, $id);
 	}
@@ -85,16 +84,19 @@ function make_detail_table_data_rows($fields, $hotlinks)
 //
 function get_hotlink_specs_for_field($f_name, $hotlinks) 
 {
-	// list of any hotlink spec(s) for the field
+	// List of any hotlink spec(s) for the field
 	$hotlink_specs = array();
-	// is a primary hotlink defined for the field?
+	
+	// Is a primary hotlink defined for the field?
 	if(array_key_exists($f_name, $hotlinks)) {
 		$hotlink_specs[] = $hotlinks[$f_name];
 	}
-	// is a secondary hotlink defined for field?
+	
+	// Is a secondary hotlink defined for field?
 	if(array_key_exists('+'.$f_name, $hotlinks)) {
 		$hotlink_specs[] = $hotlinks['+'.$f_name];
 	}
+	
 	return $hotlink_specs;
 }
 // -----------------------------------
@@ -111,7 +113,8 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 
 	switch($type) {
 		case "detail-report":
-			$url = make_detail_report_url($target, $link_id);
+			// Link to another DMS page, including both list reports and detail reports
+			$url = make_detail_report_url($target, $link_id, $options);
 			$str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
 			break;		
 		case "href-folder":
@@ -128,7 +131,10 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			break;
 		case "masked_link":
 			if($display) {
-				$lbl = ($options) ? $options['Label']: "(label is not defined)" ;
+				$lbl = "(label is not defined)";
+				if (!empty($options) && array_key_exists('Label', $options)) {
+					$lbl = $options['Label'];
+				}
 				$str .= "<a href='$display' target='External$colIndex'>$lbl</a>";
 			} else {
 				$str .= "";
@@ -142,7 +148,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			foreach($flds as $ln) {
 				$ln = trim($ln);
 				$renderHTTP=TRUE;
-				$url = make_detail_report_url($target, $ln, $renderHTTP);
+				$url = make_detail_report_url($target, $ln, $options, $renderHTTP);
 				$links[] = "<a href='$url'>$ln</a>";
 			}
 			$str .= implode($delim.' ', $links);
@@ -152,7 +158,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			foreach(explode(',', $display) as $ln) {
 				$ln = trim($ln);
 				$renderHTTP=TRUE;
-				$url = make_detail_report_url($target, $ln, $renderHTTP);
+				$url = make_detail_report_url($target, $ln, $options, $renderHTTP);
 				$str .= "<tr><td><a href='$url'>$ln</a></td></tr>";
 			}
 			$str .= "</table>";
@@ -171,8 +177,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			break;
 		case "color_label":
 			$cx = "";
-			if(array_key_exists($link_id, $options)) {
-//				$cell_class = "class='" . $options[$link_id] ."'";
+			if(!empty($options) && array_key_exists($link_id, $options)) {
 				$cx = "class='" . $options[$link_id] ."' style='padding: 1px 5px 1px 5px;'";
 			}
 			$str .= "<span $cx>$display</span>";
@@ -184,10 +189,10 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			$str .= nl2br($display);
 			break;
 		case "glossary_entry":
-			$url = make_detail_report_url($target, $wa);
+			$url = make_detail_report_url($target, $wa, $options);
 
-			if($options["Label"]) {
-				$linkTitle = "title='" . $options["Label"] . "'";
+			if(!empty($options) && array_key_exists('Label', $options)) {
+				$linkTitle = "title='" . $options['Label'] . "'";
 			} else {
 				$linkTitle = "";
 			}
@@ -325,7 +330,7 @@ function make_detail_report_commands($commands, $tag, $id)
 	return $str;
 }
 // -----------------------------------
-function make_detail_report_url($target, $link_id, $renderHTTP=FALSE)
+function make_detail_report_url($target, $link_id, $options, $renderHTTP=FALSE)
 {
 
 	if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
@@ -343,7 +348,15 @@ function make_detail_report_url($target, $link_id, $renderHTTP=FALSE)
 		} else {
 			$targetNew = $target;
 		}
-							
+
+		if (!empty($options) && array_key_exists('RemoveRegEx', $options)) {
+			$pattern = $options['RemoveRegEx'];
+			if (!empty($pattern)) {
+				$pattern = '/' . $pattern . '/';
+				$link_id = preg_replace($pattern, "", $link_id);
+			}
+		}
+		
 		$url = reduce_double_slashes(site_url().str_replace('@', $link_id, $targetNew));				
 	}
 	
