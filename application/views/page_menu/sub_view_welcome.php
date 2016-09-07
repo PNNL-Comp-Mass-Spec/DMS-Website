@@ -1,3 +1,10 @@
+<?php	
+	function xor_string($string, $key) {
+	    for($i = 0; $i < strlen($string); $i++) 
+	        $string[$i] = ($string[$i] ^ $key[$i % strlen($key)]);
+	    return $string;
+	}
+?>
 
 <div style='padding:6px;'>
 <div style='position:relative; height:1em;'>
@@ -66,11 +73,17 @@ The DMS is part of PRISM, the Pan-omics Research Information Storage and Managem
 DMS acquires data from mass spectrometers and other instruments, collects laboratory information, and tracks and controls the intermediate data processing.
 </p>
 <p>
-You may use the <a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>proteomics queue </a>
-to request assistance (login with your PNNL username and password).
-In case of an extremely urgent need for assistance, you may contact Ron Moore (371-6339) or Danny Orton (371-6578).
+You may use the <a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>Proteomics Support Queue</a> (JIRA)
+to request assistance (login with your PNNL username and password). In case of an urgent need for assistance, please contact one of the following:
 </p>
+<ul>
+	<li>Ron Moore (<?php echo xor_string("CE^YS\^P","proteomics"); ?>)</li>               <!-- xyz-6339 -->
+	<li>Danny Orton (<?php echo xor_string("CE^YSZZQ","proteomics"); ?>)</li>             <!-- xyz-6578 -->
+	<li>Matt Monroe (e-mail during business hours 
+	    or text anytime to <?php echo xor_string("EBVYPZYDTKFE","proteomics"); ?>)</li>   <!-- 554-wxyz -->
+</ul>
 <p>
 PRISM was created by Pacific Northwest National Laboratory for the U.S. Department of Energy under Contract Number DE-AC06-76RLO1830 and is operated under Contract Number DE-AC05-76RL01830.
 </p>
+<br>
 </div> <!-- end 'disclaimer_message' -->
