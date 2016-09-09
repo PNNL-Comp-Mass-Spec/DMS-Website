@@ -1,126 +1,136 @@
-
-
-------------------------------------------------- 
-GRANT  EXECUTE  ON <?= $sprocName ?> TO [DMS_SP_User]
-------------------------------------------------- 
-
+GO
 
 CREATE PROCEDURE <?= $sprocName ?> 
 /****************************************************
 **
-**  Desc: 
-**    Adds new or edits existing item in 
-**    <?= $table ?> 
+**	Desc: 
+**		Adds new or edits existing item in 
+**		<?= $table ?> 
 **
-**  Return values: 0: success, otherwise, error code
+**	Return values: 0: success, otherwise, error code
 **
-**  Parameters:
-**
-**    Auth: grk
-**    Date: <?= $dt ?> 
+**	Date: <?= $dt ?> mem - Initial version
 **    
-** Pacific Northwest National Laboratory, Richland, WA
-** Copyright 2009, Battelle Memorial Institute
 *****************************************************/
+(
 	<?= $args ?>,
 	@mode varchar(12) = 'add', -- or 'update'
 	@message varchar(512) output,
 	@callingUser varchar(128) = ''
+)
 As
-	set nocount on
+	Set XACT_ABORT, nocount on
 
-	declare @myError int
-	set @myError = 0
+	Declare @myError int
+	Declare @myRowCount int
+	Set @myError = 0
+	Set @myRowCount = 0
+	
+	Set @message = ''
 
-	declare @myRowCount int
-	set @myRowCount = 0
+	Declare @msg varchar(256)
 
-	set @message = ''
+	Begin Try 
+	
+		---------------------------------------------------
+		-- Validate input fields
+		---------------------------------------------------
+	
+		If @mode IS NULL OR Len(@mode) < 1
+		Begin
+			Set @myError = 51002
+			RAISERROR ('@mode cannot be blank',
+				11, 1)
+		End
+	
+		---------------------------------------------------
+		-- Is entry already in database?
+		---------------------------------------------------
+	
+		If @mode = 'add' And Exists (SELECT * FROM  <?= $table ?> WHERE ID = @ID)
+		Begin
+			-- Cannot create an entry that already exists
+			--
+			Set @msg = 'Cannot add: item "' + Cast(@ID as varchar(24)) + '" is already in the database'
+			RAISERROR (@msg, 11, 1)
+			return 51004
+		End
+		
+		
+		If @mode = 'update'
+		Begin
+			Declare @tmp int = 0
+			--
+			SELECT @tmp = ID
+			FROM  <?= $table ?>
+			WHERE (ID = @ID)
+			--
+			SELECT @myError = @@error, @myRowCount = @@rowcount
 
-	---------------------------------------------------
-	---------------------------------------------------
-	BEGIN TRY 
-
-	---------------------------------------------------
-	-- Validate input fields
-	---------------------------------------------------
-
-	-- future: this could get more complicated
-
-	---------------------------------------------------
-	-- Is entry already in database? (only applies to updates)
-	---------------------------------------------------
-
-	if @mode = 'update'
-	begin
-		-- cannot update a non-existent entry
+			If @myError <> 0 OR @tmp = 0
+				-- Cannot update a non-existent entry
+				Set @msg = 'Cannot update: item "' + Cast(@ID as varchar(24)) + '" is not in the database'
+				RAISERROR (@msg, 11, 16)
+				return 51005
+			End
+		End
+	
+		---------------------------------------------------
+		-- Action for add mode
+		---------------------------------------------------
 		--
-		declare @tmp int
-		set @tmp = 0
+		If @Mode = 'add'
+		Begin
+		
+			INSERT INTO <?= $table ?> (
+			<?= $cols ?>
+			) VALUES (
+			<?= $insrts ?> 
+			)
+			--
+			SELECT @myError = @@error, @myRowCount = @@rowcount
+			--
+			If @myError <> 0
+				RAISERROR ('Insert operation failed: "%d"', 11, 7, @ID)
+			
+			-- Return ID of newly created entry
+			-- This method is more accurate than using IDENT_CURRENT
+			Set @ID = SCOPE_IDENTITY()
+	
+		End -- add mode
+	
+		---------------------------------------------------
+		-- Action for update mode
+		---------------------------------------------------
 		--
-		SELECT @tmp = ID
-		FROM  <?= $table ?>
-		WHERE (ID = @ID)
-		--
-		SELECT @myError = @@error, @myRowCount = @@rowcount
-		--
-		if @myError <> 0 OR @tmp = 0
-			RAISERROR ('No entry could be found in database for update', 11, 16)
+		If @Mode = 'update' 
+		Begin
 
-		end
-	end
-
-	---------------------------------------------------
-	-- action for add mode
-	---------------------------------------------------
-	if @Mode = 'add'
-	begin
-
-	INSERT INTO <?= $table ?> (
-	<?= $cols ?>
-	) VALUES (
-	<?= $insrts ?> 
-	)
-	--
-	SELECT @myError = @@error, @myRowCount = @@rowcount
-	--
-	if @myError <> 0
-		RAISERROR ('Insert operation failed', 11, 7)
-
-	-- return ID of newly created entry
-	--
-	set @ID = IDENT_CURRENT('<?= $table ?>')
-
-	end -- add mode
-
-	---------------------------------------------------
-	-- action for update mode
-	---------------------------------------------------
-	--
-	if @Mode = 'update' 
-	begin
-		set @myError = 0
-		--
-		UPDATE <?= $table ?> 
-		SET 
-		<?= $updts ?> 
-		WHERE (ID = @ID)
-		--
-		SELECT @myError = @@error, @myRowCount = @@rowcount
-		--
-		if @myError <> 0
-			RAISERROR ('Update operation failed: "%s"', 11, 4, @ID)
-
-	end -- update mode
-
-	---------------------------------------------------
-	---------------------------------------------------
-	END TRY
-	BEGIN CATCH 
+			UPDATE <?= $table ?> 
+			SET
+			<?= $updts ?> 
+			WHERE (ID = @ID)
+			--
+			SELECT @myError = @@error, @myRowCount = @@rowcount
+			--
+			If @myError <> 0
+				RAISERROR ('Update operation failed: "%d"', 11, 4, @ID)
+	
+		End -- update mode
+	
+	End Try
+	Begin Catch 
 		EXEC FormatErrorMessage @message output, @myError output
 		
-		-- rollback any open transactions
-		IF (XACT_STATE()) <> 0
+		-- Rollback any open transactions
+		If (XACT_STATE()) <> 0
 			ROLLBACK TRANSACTION;
-	END CATCH
+	End Catch
+
 	return @myError
+GO
+
+------------------------------------------------- 
+GRANT  EXECUTE  ON <?= $sprocName ?> TO [DMS2_SP_User]
+------------------------------------------------- 
+
