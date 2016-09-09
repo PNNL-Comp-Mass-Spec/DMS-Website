@@ -300,7 +300,7 @@ class Upload extends Base_controller {
 	 * @param type $entity_type
 	 * @param type $config_source
 	 * @param type $mode
-	 * @return \stdClass
+	 * @return stdClass
 	 * @throws exception
 	 */
 	private
@@ -309,7 +309,7 @@ class Upload extends Base_controller {
 		$current_values = new stdClass();
 
 		// only look for current values in update mode
-		if($mode == 'update' or $mode == 'check_update') {
+		if($mode === 'update' or $mode === 'check_update') {
 			$key = 0;
 			$message = '';
 			$result = $this->get_entity_key($id, $entity_type, $key, $message);
@@ -332,7 +332,7 @@ class Upload extends Base_controller {
 	{
 		$fname = $this->input->post('file_name');
 		$id= $this->input->post('id');
-		$mode =  $this->input->post('mode');
+		$mode = $this->input->post('mode');
 		$entity_type= $this->input->post('entity_type');
 
 		$key = 0;

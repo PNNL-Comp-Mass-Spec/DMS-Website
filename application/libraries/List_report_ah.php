@@ -48,7 +48,7 @@ class List_report_ah extends List_report {
 		$data['title'] = $CI->gen_model->get_page_label('', $mode);
 
 		// get stuff related to list report optional features
-		$data['loading'] = ($mode == 'search')?'no_load':'';
+		$data['loading'] = ($mode === 'search')?'no_load':'';
 		$data['list_report_cmds'] = ''; ///$CI->gen_model->get_param('list_report_cmds');
 		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
 		$data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');

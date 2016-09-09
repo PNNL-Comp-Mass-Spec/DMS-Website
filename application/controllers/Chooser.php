@@ -16,9 +16,13 @@ class Chooser extends CI_Controller {
 		echo "CI Rocks!";
 	}
 
-	// --------------------------------------------------------------------
-	// this returns HTML for a drop-down selector and suitable options
-	// for the specified chooser_name.  It is suitable for AJAX
+	/**
+	 *  This returns HTML for a drop-down selector and suitable options
+	 *  for the specified chooser_name.  It is suitable for AJAX
+	 * @param type $target_field_name
+	 * @param type $chooser_name
+	 * @param type $mode
+	 */
 	function get_chooser($target_field_name, $chooser_name, $mode)
 	{
 		$this->load->model('dms_chooser', 'choosers');
