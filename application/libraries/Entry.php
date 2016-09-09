@@ -77,7 +77,7 @@ class Entry {
 		// build page display components and load page
 		$data['tag'] = $this->tag;
 		$data['title'] = $CI->gen_model->get_page_label($this->title, $page_type);
-		$data['form'] = $CI->entry_form->build_display();
+		$data['form'] = $CI->entry_form->build_display($mode);
 		$data['entry_cmds'] = $this->handle_cmd_btns($CI, $form_def->entry_commands, $page_type);
 		$data['entry_submission_cmds'] = $CI->gen_model->get_param('entry_submission_cmds');
 
@@ -210,7 +210,7 @@ class Entry {
 			$CI->entry_form->set_field_error($field, form_error($field));
 		}
 		// build HTML and return it
-		return $CI->entry_form->build_display();
+		return $CI->entry_form->build_display($mode);
 	}
 	
 	/**

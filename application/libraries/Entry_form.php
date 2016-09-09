@@ -108,9 +108,10 @@ class Entry_form {
 	 * invisible components, where each array row contains components 
 	 * for an entry form row, and then call function to build HTML for 
 	 * visible entry form
+	 * @param string $mode Add or Update
 	 * @return type
 	 */
-	function build_display()
+	function build_display($mode)
 	{
 		$CI =& get_instance();
 		$CI->load->model('dms_chooser', 'choosers');
@@ -132,7 +133,7 @@ class Entry_form {
 				}
 				$help = $this->make_wiki_help_link($spc['label']);
 				$label = $spc['label'];
-				$field = $this->make_entry_field($fld, $spc, $this->field_values[$fld]);
+				$field = $this->make_entry_field($fld, $spc, $this->field_values[$fld], $mode);
 				$choosers = $this->make_choosers($fld, $spc);
 				$error = $this->field_errors[$fld]; //$this->make_error_field($this->field_errors[$fld]);
 				//
@@ -336,10 +337,17 @@ class Entry_form {
 		return $CI->choosers->make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq);
 	}
 	
-	// -----------------------------------
-	// 
+	/**
+	 * Make an entry form field
+	 * 
+	 * @param type $f_name
+	 * @param type $f_spec
+	 * @param type $cur_value
+	 * @param string $mode  Create or Update
+	 * @return type
+	 */
 	private
-	function make_entry_field($f_name, $f_spec, $cur_value)
+	function make_entry_field($f_name, $f_spec, $cur_value, $mode)
 	{
 		$s = "";
 	
@@ -351,8 +359,17 @@ class Entry_form {
 		$data['id']  = $f_name;
 		$data['value'] = $cur_value;
 		
+		$fieldType = $f_spec['type'];
+		if ($fieldType === 'text-if-new') {
+			if ($mode === 'add') {
+				$fieldType = 'text';
+			} else {
+				$fieldType = 'non-edit';
+			}
+		}
+		
 		// create HTML according to field type
-		switch ($f_spec['type']) {
+		switch ($fieldType) {
 	
 		case 'text':
 			$data['maxlength'] = $f_spec['maxlength'];
@@ -360,7 +377,6 @@ class Entry_form {
 			$data = $this->add_chooser_properties($f_name, $f_spec, $data);
 			$s .= form_input($data);
 			break;
-	
 		case 'area':
 			$data['rows'] = $f_spec['rows'];
 			$data['cols'] = $f_spec['cols'];
@@ -547,7 +563,7 @@ class Entry_form {
 	{
 		foreach($this->form_field_specs as $f_name => $f_spec) {
 			if(array_key_exists('hide', $f_spec)) {
-				if($mode == $f_spec["hide"]) {
+				if($mode === $f_spec["hide"]) {
 					$this->form_field_specs[$f_name]["type"] = "hidden";
 				}
 			}

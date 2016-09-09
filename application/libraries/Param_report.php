@@ -56,13 +56,13 @@ class Param_report {
 			$CI->entry_form->set_field_value($field, $value);
 		}
 		$hdr = (empty($form_def->specs))?'':"<span class='filter_label'>Search Parameters</span>\n";
-		$data['form'] = $hdr . $CI->entry_form->build_display();
+		$data['form'] = $hdr . $CI->entry_form->build_display("add");
 
 		$data['title'] = $CI->gen_model->get_page_label($this->title, 'param');
 		$data['tag'] = $this->tag;
 
 		// get stuff related to list report optional features
-//		$data['loading'] = ($mode == 'search')?'no_load':'';
+//		$data['loading'] = ($mode === 'search')?'no_load':'';
 		$data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
 		$data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
 		$data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
