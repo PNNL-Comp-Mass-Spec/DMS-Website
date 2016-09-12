@@ -30,6 +30,11 @@ class G_model extends CI_Model {
 	
 	/**
 	 * Whether actions are allowed, forbidden, or permitted
+	 * Values are True if allowed, False if forbidden, and P if "permitted"
+	 * 
+	 * Permitted actions require that the user to be in a user group that has the granted permission, 
+	 * as tracked in the master_authorization database.  See function check_permission
+	 * 
 	 * @var array 
 	 */
 	private $actions = array(
@@ -240,20 +245,24 @@ class G_model extends CI_Model {
 			{
 				switch($row['name']) {
 					case 'list_report_data_table':
+						// List report table (or view) is defined
 						$this->actions['report'] = TRUE;
 						break;
 					case 'list_report_sproc':
+						// List report table (or view) is defined
 						$this->actions['param'] = TRUE;
-						// $resolved_action = 'unrestricted';
 						break;
 					case 'detail_report_data_table':
 					case 'detail_report_sproc':
+						// Detail report stored procedure is defined (for editing / creating entities)
 						$this->actions['show'] = TRUE;
 						break;
 					case 'entry_sproc':
+						// Only allow this action if it is permitted
 						$this->actions['enter'] = 'P';
 						break;
 					case 'operations_sproc':
+						// Only allow this action if it is permitted
 						$this->actions['operation'] = 'P';
 						break;
 					default:
@@ -344,11 +353,15 @@ class G_model extends CI_Model {
 				return "User '$user' does not have general access to the website";
 			}
 
-			// free pass from here if action has no restrictions
-			if($allowed === TRUE) {
-				return TRUE;
-			}
-
+			/*
+			 * Disabled in September 2016 to allow Show and Report permissions to work again
+			 * 
+				// free pass from here if action has no restrictions
+				if($allowed === TRUE) {
+					return TRUE;
+				}
+			*/
+			
 			// get list of authorizations required for the action
 			$restrictions = $CI->auth->get_controller_action_restrictions($page_family, $action);		
 			
@@ -362,13 +375,13 @@ class G_model extends CI_Model {
 
 			if(empty($restrictionHits)) {
 				$msg = "";
-				$msg .= "Action is restricted to '";
+				$msg .= "Action is restricted to <code>'";
 				$msg .= implode  (', ', $restrictions);
-				$msg .= "' permissions and user ";
+				$msg .= "'</code> permissions <br /> and user ";
 				$msg .= $user;
-				$msg .= " has '";
+				$msg .= " has <code>'";
 				$msg .= implode  (', ', $permissions);
-				$msg .= "' permissions.";
+				$msg .= "'</code> permissions.";
 				throw new Exception($msg);	
 			}
 	
@@ -378,6 +391,5 @@ class G_model extends CI_Model {
 			return $e->getMessage();
 		}
 	}
-
 	
 }
