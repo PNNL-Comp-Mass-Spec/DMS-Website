@@ -17,6 +17,12 @@
 </div>
 
 <?php
+
+	if (!$this->cu->check_access('operation', true)) {
+		echo "<p>You do not have permission to update items on this page</p>";
+	} else {
+		// echo "<p>You DO have permission to update items on this page</p>";
+
 		// show contents of locations in tables
 		$tmpl = array (
 			'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="GridCell">', 
@@ -44,7 +50,7 @@
 				}	
 			}
 		}
-
+	}
 ?>
 
 </div>

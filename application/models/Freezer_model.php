@@ -47,6 +47,7 @@ EOD;
 		}
 		return $query->result_array();
 	}
+
 	// --------------------------------------------------------------------
 	function get_locations($Type, $Freezer, $Shelf, $Rack, $Row)
 	{		
@@ -78,6 +79,7 @@ EOD;
 		$query = $this->db->query($sql);
 		return $query->result_array();		
 	}
+
 	// --------------------------------------------------------------------
 	function get_containers($location)
 	{
@@ -92,6 +94,7 @@ EOD;
 		}
 		return $query->result_array();
 	}
+
 	// --------------------------------------------------------------------
 	function get_material($container)
 	{
@@ -124,43 +127,80 @@ EOD;
 		}
 		return $type;
 	}
+
 	// --------------------------------------------------------------------
 	function build_freezer_location_list($Type, $locations)
 	{
 		$items = array();
-		foreach($locations as $entry) {
-			if(!$Type) {
-				$Type = $this->get_location_type($entry);
-			}
-			$name = $entry[$Type];
+		
+		if (!$this->cu->check_access('operation', false)) {
+			// User does not have permission to update items on this page
+			// Return some dummy values
+
 			$obj = new stdClass();
-			$obj->title =  "$Type $name";
+			$obj->title =  "Access denied: cannot update";
 			$obj->isFolder = true;
 			$obj->isLazy = true;
-			$obj->key = $entry['Tag'];
-	
+			$obj->key = "000";
+
 			$info = new stdClass();
-			$info->Name = $name;			
-			$info->Type = $Type;
-			$info->ID = $entry['ID'];
-			$info->Tag = $entry['Tag'];
-			$info->Freezer = $entry['Freezer'];
-			$info->Shelf = $entry['Shelf'];
-			$info->Rack = $entry['Rack'];
-			$info->Row = $entry['Row'];
-			$info->Col = $entry['Col'];
-			$info->Status = $entry['Status'];
-			$info->Barcode = $entry['Barcode'];
-			$info->Comment = $entry['Comment'];
-			$info->Limit = $entry['Limit'];
-			$info->Containers = $entry['Containers'];
-			$info->Available = $entry['Available'];
+			$info->Name = "Access denied: cannot update";			
+			$info->Type = "Shelf";
+			$info->ID = "000";
+			$info->Tag = "x";
+			$info->Freezer = "Non existent freezer";
+			$info->Shelf = "0";
+			$info->Rack = "0";
+			$info->Row = "0";
+			$info->Col = "0";
+			$info->Status = "Undefined";
+			$info->Barcode = "";
+			$info->Comment = "";
+			$info->Limit = 0;
+			$info->Containers = 0;
+			$info->Available = "No";
 			$obj->info = $info;
-			
+
 			$items[] = $obj;
+
+		} else {
+			// User does have permission to update items on this page
+	
+			foreach($locations as $entry) {
+				if(!$Type) {
+					$Type = $this->get_location_type($entry);
+				}
+				$name = $entry[$Type];
+				$obj = new stdClass();
+				$obj->title =  "$Type $name";
+				$obj->isFolder = true;
+				$obj->isLazy = true;
+				$obj->key = $entry['Tag'];
+		
+				$info = new stdClass();
+				$info->Name = $name;			
+				$info->Type = $Type;
+				$info->ID = $entry['ID'];
+				$info->Tag = $entry['Tag'];
+				$info->Freezer = $entry['Freezer'];
+				$info->Shelf = $entry['Shelf'];
+				$info->Rack = $entry['Rack'];
+				$info->Row = $entry['Row'];
+				$info->Col = $entry['Col'];
+				$info->Status = $entry['Status'];
+				$info->Barcode = $entry['Barcode'];
+				$info->Comment = $entry['Comment'];
+				$info->Limit = $entry['Limit'];
+				$info->Containers = $entry['Containers'];
+				$info->Available = $entry['Available'];
+				$obj->info = $info;
+				
+				$items[] = $obj;
+			}
 		}
 		return $items;
 	}
+
 	// --------------------------------------------------------------------
 	function build_container_list($containers)
 	{
@@ -194,6 +234,7 @@ EOD;
 		}
 		return $items;
 	}
+
 	// --------------------------------------------------------------------
 	function build_material_item_list($material_items)
 	{
@@ -218,6 +259,7 @@ EOD;
 		}
 		return $items;
 	}
+
 	// --------------------------------------------------------------------
 	function find_container($container)
 	{
@@ -232,6 +274,7 @@ EOD;
 		}
 		return $query->result_array();
 	}
+
 	// --------------------------------------------------------------------
 	function find_location($location)
 	{
@@ -250,6 +293,7 @@ EOD;
 		}
 		return $query->result_array();
 	}
+
 	// --------------------------------------------------------------------
 	function find_available_location($location)
 	{
@@ -272,6 +316,7 @@ EOD;
 		}
 		return $query->result_array();
 	}
+
 	// --------------------------------------------------------------------
  	function find_newest_containers()
 	{

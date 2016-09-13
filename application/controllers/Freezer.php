@@ -19,6 +19,7 @@ class Freezer extends Base_controller {
 		$this->help_page_link = $this->config->item('pwiki');
 		$this->help_page_link .= $this->config->item('wikiHelpLinkPrefix');
 	}
+
 	// --------------------------------------------------------------------
 	function index()
 	{
@@ -47,6 +48,7 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_freezer_location_list('Freezer', $frzrs);
 		echo json_encode($items);
 	}
+
 	// --------------------------------------------------------------------
 	// AJAX
 	function get_locations()
@@ -65,6 +67,7 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_freezer_location_list($sub_type, $frzrs);
 		echo json_encode($items);
 	}
+
 	// --------------------------------------------------------------------
 	// AJAX
 	function get_containers()
@@ -77,6 +80,7 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_container_list($containers);
 		echo json_encode($items);
 	}
+
 	// --------------------------------------------------------------------
 	// AJAX
 	function find_container()
@@ -89,6 +93,7 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_container_list($containers);
 		echo json_encode($items);
 	}
+
 	// --------------------------------------------------------------------
 	// AJAX
 	function find_location()
@@ -101,6 +106,7 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_freezer_location_list('', $locations);
 		echo json_encode($items);
 	}
+
 	// --------------------------------------------------------------------
 	// AJAX
 	function find_available_location()
@@ -113,6 +119,7 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_freezer_location_list('', $locations);
 		echo json_encode($items);
 	}
+
 	// --------------------------------------------------------------------
 	// AJAX
 	function find_newest_containers()
@@ -125,6 +132,7 @@ class Freezer extends Base_controller {
 		$items = $this->freezer->build_freezer_location_list('', $locations);
 		echo json_encode($items);
 	}
+
 	// --------------------------------------------------------------------
 	function test()
 	{
@@ -141,9 +149,6 @@ class Freezer extends Base_controller {
 			echo $location . "=>" .$this->freezer->get_location_type($locations[0]) ."\n";
 		}
 	}
-
-	// --------------------------------------------------------------------
-	// --------------------------------------------------------------------
 
 	// --------------------------------------------------------------------
 	function show($id)
@@ -338,6 +343,7 @@ class Freezer extends Base_controller {
 		$this->load->vars($data);
 		$this->load->view('special/freezer_matrix');
 	}
+
 	// --------------------------------------------------------------------
 	private
 	function freezer_list()
