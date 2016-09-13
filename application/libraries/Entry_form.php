@@ -134,7 +134,23 @@ class Entry_form {
 				$help = $this->make_wiki_help_link($spc['label']);
 				$label = $spc['label'];
 				$field = $this->make_entry_field($fld, $spc, $this->field_values[$fld], $mode);
-				$choosers = $this->make_choosers($fld, $spc);
+				
+				$showChooser = true;
+				$fieldType = $spc['type'];
+				if ($fieldType === 'text-if-new') {
+					if ($mode === 'add') {
+						$showChooser = true;
+					} else {
+						$showChooser = false;
+					}
+				}
+				
+				if ($showChooser) {
+					$choosers = $this->make_choosers($fld, $spc);
+				} else {
+					$choosers = "";
+				}
+				
 				$error = $this->field_errors[$fld]; //$this->make_error_field($this->field_errors[$fld]);
 				//
 				$entry = $this->make_entry_area($field, $choosers, $error);
