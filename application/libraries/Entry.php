@@ -167,6 +167,9 @@ class Entry {
 			$message = $e->getMessage();     // . " (page family: $this->tag)";
 			$outcome = $this->outcome_msg($message, 'failure');
 			$supplement = $this->supplement_msg($message, 'error');
+			
+			// Add or update the mode property of the input params
+			$input_params->mode = 'retry';
 		}
 
 		// get entry form object and use to to build and return HTML for form

@@ -138,9 +138,12 @@ class Entry_form {
 				$showChooser = true;
 				$fieldType = $spc['type'];
 				if ($fieldType === 'text-if-new') {
-					if ($mode === 'add') {
+					if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
+						// Mode is likely add, though for dataset creation it will be add_trigger
+						// Mode will be retry if an exception occurred while calling a stored procedure
 						$showChooser = true;
 					} else {
+						// Mode is likely update
 						$showChooser = false;
 					}
 				}
@@ -377,7 +380,9 @@ class Entry_form {
 		
 		$fieldType = $f_spec['type'];
 		if ($fieldType === 'text-if-new') {
-			if ($mode === 'add') {
+			if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
+				// Mode is likely add, though for dataset creation it will be add_trigger
+				// Mode will be retry if an exception occurred while calling a stored procedure
 				$fieldType = 'text';
 			} else {
 				$fieldType = 'non-edit';
