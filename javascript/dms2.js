@@ -990,8 +990,11 @@ var lambda = {
 //------------------------------------------
 var delta = {
 	//perform detail report command (via AJAX)
-	performCommand: function(url, id, mode) {
-		if( !confirm("Are you sure that you want to update the database?") ) return;
+	performCommand: function(url, id, mode, promptMsg) {
+		if (!promptMsg) {
+			promptMsg = "Are you sure that you want to update the database?";
+		}
+		if( !confirm(promptMsg) ) return;
 		var p = {};
 		p.ID = id;
 		p.command = mode;

@@ -295,9 +295,13 @@ function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $i
 		return $str;
 }
 
-// -----------------------------------
-// create HTML to display detail report commands section
-//
+/**
+ * Create HTML to display detail report commands section
+ * @param type $commands
+ * @param type $tag
+ * @param type $id
+ * @return type
+ */
 function make_detail_report_commands($commands, $tag, $id)
 {
 	$cmds = array();
@@ -305,6 +309,12 @@ function make_detail_report_commands($commands, $tag, $id)
 		$target = $spec['Target'];
 		$cmd = $spec['Command'];
 		$tooltip = $spec['Tooltip'];
+
+		// Message to show the user to confirm the action		
+		$prompt = $spec['Prompt'];
+		if (empty($prompt))
+			$prompt = 'Are you sure that you want to update the database?';
+ 
 		switch($spec['Type']) {
 			case 'copy_from':
 				$url =  site_url().$target . "/create/$tag/" . $id;
@@ -319,7 +329,7 @@ function make_detail_report_commands($commands, $tag, $id)
 			case 'cmd_op':
 				$url =  site_url().$target . "/command";
 				$icon = cmd_link_icon();
-				$cmds[] = "<a class='cmd_link_a' href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\")' title='$tooltip'>$label $icon</a>";
+				$cmds[] = "<a class='cmd_link_a' href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\", \"$prompt\")' title='$tooltip'>$label $icon</a>";
 				break;
 		}
 	}
