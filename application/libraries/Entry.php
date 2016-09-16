@@ -167,9 +167,16 @@ class Entry {
 			$message = $e->getMessage();     // . " (page family: $this->tag)";
 			$outcome = $this->outcome_msg($message, 'failure');
 			$supplement = $this->supplement_msg($message, 'error');
+
+			// Read the value of $_POST['entry_cmd_mode']
+			$entryCmdMode = filter_input(INPUT_POST, 'entry_cmd_mode', FILTER_SANITIZE_STRING);
 			
 			// Add or update the mode property of the input params
-			$input_params->mode = 'retry';
+			if (empty($entryCmdMode)) {
+				$input_params->mode = 'retry';
+			} else {
+				$input_params->mode = $entryCmdMode;
+			}
 		}
 
 		// get entry form object and use to to build and return HTML for form
@@ -186,6 +193,7 @@ class Entry {
 	{
 		return entry_outcome_message($message, $option, 'main_outcome_msg');
 	}
+	
 	private
 	function supplement_msg($message, $option)
 	{

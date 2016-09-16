@@ -140,7 +140,7 @@ class Entry_form {
 				if ($fieldType === 'text-if-new') {
 					if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
 						// Mode is likely add, though for dataset creation it will be add_trigger
-						// Mode will be retry if an exception occurred while calling a stored procedure
+						// Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
 						$showChooser = true;
 					} else {
 						// Mode is likely update
@@ -382,7 +382,7 @@ class Entry_form {
 		if ($fieldType === 'text-if-new') {
 			if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
 				// Mode is likely add, though for dataset creation it will be add_trigger
-				// Mode will be retry if an exception occurred while calling a stored procedure
+				// Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
 				$fieldType = 'text';
 			} else {
 				$fieldType = 'non-edit';
