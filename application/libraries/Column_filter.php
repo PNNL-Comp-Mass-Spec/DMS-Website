@@ -53,12 +53,12 @@ class Column_filter {
 	{
 		// we need to be able to tell the difference between an empty post
 		// (signifying a new page visit) and a post that happens to contain
-		// an empty list of columns.  the presence of "cf_column_selection_marker"
+		// an empty list of columns.  The presence of "cf_column_selection_marker"
 		// does that
 		$selected_items = FALSE;
 		if(array_key_exists('cf_column_selection_marker', $_POST)) {
 			if(array_key_exists('cf_column_selection', $_POST)) {
-				$selected_items = $_POST['cf_column_selection'];
+				$selected_items = filter_input(INPUT_POST, 'cf_column_selection', FILTER_SANITIZE_SPECIAL_CHARS);
 			} else {
 				$selected_items = array();
 			}
