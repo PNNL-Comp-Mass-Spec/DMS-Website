@@ -297,10 +297,11 @@ class List_report {
 		$s = "";
 		// dump primary filter to segment list
 		// Replace spaces with %20
+		// Trim leading and trailing whitespace
 		$pf = array();
 		foreach($filters["primary"] as $f) {
 			$x = ($f["value"]) ? $f["value"] : "-" ;
-			$pf[] = str_replace(" ", "%20", $x);
+			$pf[] = str_replace(" ", "%20", trim($x));
 		}
 		$s .= site_url() . "$tag/report/" . implode("/", $pf);
 		
@@ -322,7 +323,7 @@ class List_report {
 					$y .= "/" . $f["qf_comp_val"];
 				} 
 
-				$sf[] = str_replace(" ", "%20", $y);
+				$sf[] = str_replace(" ", "%20", trim($y));
 			}
 		}
 		// add secondary filter segments (if present)

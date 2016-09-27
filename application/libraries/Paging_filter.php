@@ -61,13 +61,11 @@ class Paging_filter {
 	{
 		$values = array();
 		
-		
-		
 		if(!empty($_POST)){
 			foreach($field_names as $id) {
 				$filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
 				if(!empty($filterVal)) { 
-					$values[$id] = $filterVal;
+					$values[$id] = trim($filterVal);
 				}
 			}
 			return $values;

@@ -58,7 +58,7 @@ class Sorting_filter {
 			foreach($this->field_names as $name) {
 				$xar = $CI->input->post($name);
 				for($i=0; $i<count($xar); $i++) {
-					$filter_values[$i][$name] = $xar[$i];
+					$filter_values[$i][$name] = trim($xar[$i]);
 				}
 			}
 			return $filter_values;

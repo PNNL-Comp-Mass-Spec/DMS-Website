@@ -61,7 +61,9 @@ class Primary_filter {
 			foreach(array_keys($filter_specs) as $id) {
 				$filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
 				if(!empty($filterVal)) { 
-					$filter_specs[$id]["value"] = $filterVal;
+					// Check for encoded tabs (introduced by filter_input) and change them back to true tab characters
+					// Also, trim whitespace
+					$filter_specs[$id]["value"] = trim(str_replace('&#9;', "	", $filterVal));
 				}
 			}
 			return $filter_specs;

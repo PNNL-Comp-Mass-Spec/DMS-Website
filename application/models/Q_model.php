@@ -237,7 +237,9 @@ class Q_model extends CI_Model {
 			$p->rel = $rel;
 			$p->col = $col;
 			$p->cmp = $cmp;
-			$p->val = $val;
+			// Check for encoded tabs and change them back to true tab characters
+			// Also, trim whitespace
+			$p->val = trim(str_replace('&#9;', "	", $val));
 			$this->query_parts->predicates[] = $p;
 		}
 	}
