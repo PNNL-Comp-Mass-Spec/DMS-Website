@@ -9,14 +9,19 @@ class Column_filter {
 	
 	private $cur_filter_values = array();
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 	}
 
-	// --------------------------------------------------------------------
-	// get current secondary filter values either from POST
-	// or from cache storage (session)
+	/**
+	 * Get current secondary filter values either from POST
+	 * or from cache storage (session)
+	 * @param type $config_name
+	 * @param type $config_source
+	 */
 	function init($config_name, $config_source)
 	{
 		$CI =& get_instance();
@@ -45,20 +50,22 @@ class Column_filter {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// get current values for filter if present in POST
-	// otherwise return FALSE
+	/**
+	 * Get current values for filtering columns if present in POST
+	 * Otherwise return FALSE
+	 * @return array
+	 */
 	private
 	function get_current_filter_values_from_post()
 	{
-		// we need to be able to tell the difference between an empty post
+		// We need to be able to tell the difference between an empty post
 		// (signifying a new page visit) and a post that happens to contain
 		// an empty list of columns.  The presence of "cf_column_selection_marker"
 		// does that
 		$selected_items = FALSE;
 		if(array_key_exists('cf_column_selection_marker', $_POST)) {
 			if(array_key_exists('cf_column_selection', $_POST)) {
-				$selected_items = filter_input(INPUT_POST, 'cf_column_selection', FILTER_SANITIZE_SPECIAL_CHARS);
+				$selected_items = filter_input(INPUT_POST, 'cf_column_selection', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
 			} else {
 				$selected_items = array();
 			}
@@ -66,8 +73,9 @@ class Column_filter {
 		return $selected_items;
 	}
 
-	// --------------------------------------------------------------------
-	// set filter so that it will not be used to filter results
+	/**
+	 * Set filter so that it will not be used to filter results
+	 */
 	private
 	function clear_filter()
 	{
