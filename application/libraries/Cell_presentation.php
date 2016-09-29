@@ -48,7 +48,7 @@ class Cell_presentation {
 			}
 
 			$value = $row[$name];
-			$colSpec = null;
+			$colSpec = null;			
 			if(array_key_exists($name, $this->hotlinks)) {
 				$colSpec = $this->hotlinks[$name];
 			}
@@ -416,17 +416,43 @@ class Cell_presentation {
 		return $padding;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Look for tooltip text associated with the given column
+	 * Checks for both col_name and +col_name entries
+	 * @param type $col_name
+	 * @return type
+	 */
 	private
 	function get_column_tooltip($col_name)
 	{
+		$toolTip = $this->get_column_tooltip_work($col_name);
+		if (empty($toolTip)) {
+			// ToolTip was not found using the column name
+			// Check for a name that is preceded by a plus sign
+			// This is used on pages where we have both a column_tooltip and a literal_link (or some other link) on the column
+			// For example, in page family dataset_pm_and_psm:  
+			//   XIC_FWHM_Q3 defines a literal_link to a SMAQC page
+			//   +XIC_FWHM_Q3 defines the tooltip for the XIC_FWHM_Q3 column
+			$toolTip = $this->get_column_tooltip_work('+' . $col_name);
+		}
+		return $toolTip;
+	}
+	
+	/**
+	 *  Look for tooltip text associated with the given column
+	 * @param type $col_name_to_find
+	 * @return type
+	 */
+	private
+	function get_column_tooltip_work($col_name_to_find)
+	{
 		$toolTip = '';
-		if(array_key_exists($col_name, $this->hotlinks)) {
-			$colSpec = $this->hotlinks[$col_name];
+		if(array_key_exists($col_name_to_find, $this->hotlinks)) {
+			$colSpec = $this->hotlinks[$col_name_to_find];
 			if($colSpec["LinkType"] == 'column_tooltip') {
 				$toolTip = $colSpec["Target"];
 			}
-		}
+		}		
 		return $toolTip;
 	}
 	
