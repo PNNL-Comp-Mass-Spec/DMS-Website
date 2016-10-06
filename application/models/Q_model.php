@@ -194,19 +194,22 @@ class Q_model extends CI_Model {
 			$regex_all = (strpos($p->val, '*') !== FALSE);
 			$regex_one = (strpos($p->val, '?') !== FALSE);
 			$sql_any   = (strpos($p->val, '%') !== FALSE);
-			
-			// force match a blank
+						
 			if($match_blank) {
+				// Force match a blank
 				$p->val = '';
 				$p->cmp = "MatchesBlank";
-			} else
-			// force exact match
-			if($exact_match) {
-				$p->val = str_replace('~', '', $p->val);
+			} else			
+			if($exact_match || ($p->cmp === "MatchesText")) {
+				// Force exact match
+				// Remove the first character if it is a tilde or backtick (~ or `)
+				$p->val = ltrim($p->val, '~`');
 				$p->cmp = "MatchesText";
 			} else
 			if($not_match) {
-				$p->val = str_replace(':', '', $p->val);
+				// Force does not contain text
+				// Remove the first character if it is a colon
+				$p->val = ltrim($p->val, ':');
 				$p->cmp = "DoesNotContainText";
 			} else
 			if( $regex_all || $regex_one) {
