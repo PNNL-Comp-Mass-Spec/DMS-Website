@@ -1,6 +1,7 @@
 var theta = {
 	getBlockingXMLFromList: function(flist) {
 		var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
+		// gamma.getXmlElementsFromObjectArray is defined in dms2.js
 		return gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
 	},
 	getFactorXMLFromList: function(flist) {
@@ -67,6 +68,7 @@ var theta = {
 	applyFactorToDatabase: function(update) {
 		var factor = $('#apply_factor_name').val();
 		var value = $('#apply_factor_value').val();
+		// lambda.getSelectedItemList is defined in dms2.js
 		var ilist = lambda.getSelectedItemList();
 		var flist = this.makeObjectList(ilist, factor, value);
 		if (flist.length == 0) {
@@ -117,6 +119,7 @@ var tau = {
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.factorList = factorXML;
+			// lambda.submitOperation is defined in dms2.js
 			lambda.submitOperation(url, p);
 		},
 		saveChangesToDatabase: function() {
@@ -126,6 +129,8 @@ var tau = {
 			this.updateDatabaseFromList(flist, 'Request');
 		},
 		load_delimited_text: function() {
+			// Parse tab-delimited text to convert it to XML which is passed to stored procedure UpdateRequestedRunFactors
+			// gamma.parseDelimitedText is defined in dms2.js
 			var parsed_data = gamma.parseDelimitedText('delimited_text_input');
 			var id_type = parsed_data.header[0];
 			var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order']);
@@ -143,7 +148,8 @@ var tau = {
 			var p = {};
 			p.requestList = xml;
 			p.command = command;
-			var url =  gamma.pageContext.ops_url;
+			// gamma.pageContext and lambda.submitOperation are defined in dms2.js
+			var url =  gamma.pageContext.ops_url;			
 			lambda.submitOperation(url, p);
 		},
 		setRequestStatus: function(status) {
@@ -160,6 +166,7 @@ var tau = {
 			if(!p.RequestedIdList) {
 				if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
 			}
+			// lambda.submitCall is defined in dms2.js
 			lambda.submitCall(url, p);
 		},
 	} // requested_run_admin

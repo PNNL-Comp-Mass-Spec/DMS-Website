@@ -14,6 +14,7 @@
 <?= general_visibility_control('Factor commands', 'factor_section', '') ?>
 <div id="factor_section" style="display:none;">
 <div>
+<?php # theta.applyFactorToDatabase is defined in factors.js ?>
 <input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
@@ -73,4 +74,3 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 
 <script src="<?= base_url()?>javascript/factors.js"></script>
 <script src="<?= base_url()?>javascript/run_blocking.js"></script>
-

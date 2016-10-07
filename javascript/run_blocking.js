@@ -160,6 +160,7 @@ var runBlocking = {
 			var p = {};
 			p.factorList = factorXML;
 			p.blockingList = blockingXML;
+			// lambda.submitOperation is defined in dms2.js
 			lambda.submitOperation(url, p);
 		},
 		saveChangesToDatabase: function() {
@@ -182,6 +183,7 @@ var runBlocking = {
 			this.updateDatabaseFromList(flist, blist);
 		},
 		setBlockForSelectedItems: function() {
+			// lambda.getSelectedItemList is defined in dms2.js
 			var iList = lambda.getSelectedItemList();
 			if (iList.length == 0) {
 				alert('No items are selected');
@@ -209,6 +211,7 @@ var runBlocking = {
 				alert("No batch ID");
 				return;
 			}
+			// lambda.submitOperation is defined in dms2.js
 			lambda.submitOperation(url, p);
 		}
 	}

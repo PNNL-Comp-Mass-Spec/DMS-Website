@@ -191,6 +191,8 @@ var gamma = {
 		});
 		return flds;
 	},
+	// Parse multiple rows of tab-delimited text
+	// Results are returned in object parsed_data
 	parseDelimitedText: function(text_fld, removeArtifact) {
 		parsed_data = {};
 		var lines = $('#' + text_fld).val().split('\n');

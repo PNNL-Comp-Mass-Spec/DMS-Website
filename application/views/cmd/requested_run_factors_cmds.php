@@ -7,12 +7,13 @@
 <input class='button lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDatabase()' id="btn_save" title="Update"  /> Save changes
 </div>
 
-<p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
+<p>Note: Factors are associated with Requested Run entries. Editing changes are local and must be explicitly saved to the database. <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
 
 <hr>
 <?= general_visibility_control('Factor commands', 'factor_section') ?>
 <div id="factor_section" style="display:none;">
 <div>
+<?php # theta.applyFactorToDatabase is defined in factors.js ?>
 <input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
