@@ -3,7 +3,8 @@
 <form name="DBG" action="">
 
 <div>
-<input class='button lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
+<?php # tau.requested_run_factors.saveChangesToDatabase is defined in factors.js ?>
+<input class='button lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDatabase()' id="btn_save" title="Update"  /> Save changes
 </div>
 
 <p>Note: Editing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>

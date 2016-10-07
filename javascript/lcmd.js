@@ -309,7 +309,7 @@ var lcmd = {
 			});
 			return rlist;
 		},
-		saveChangesToDababase: function () {
+		saveChangesToDatabase: function () {
 			if ( !confirm("Are you sure that you want to update the database?") ) return;
 			var rlist = this.getEditFieldsObjList();
 			var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}];

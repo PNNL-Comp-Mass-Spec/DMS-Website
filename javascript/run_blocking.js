@@ -162,7 +162,7 @@ var runBlocking = {
 			p.blockingList = blockingXML;
 			lambda.submitOperation(url, p);
 		},
-		saveChangesToDababase: function() {
+		saveChangesToDatabase: function() {
 			var factor_cols = this.getFactorCols();
 			var flist = theta.getFactorFieldList(factor_cols);
 			var blocking_cols = ['Block',  'Run Order'];

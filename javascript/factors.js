@@ -119,7 +119,7 @@ var tau = {
 			p.factorList = factorXML;
 			lambda.submitOperation(url, p);
 		},
-		saveChangesToDababase: function() {
+		saveChangesToDatabase: function() {
 			var cols = theta.getListReportColumnList();
 			var col_list = gamma.removeItems(cols, ['Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
 			var flist = theta.getFactorFieldList(col_list);

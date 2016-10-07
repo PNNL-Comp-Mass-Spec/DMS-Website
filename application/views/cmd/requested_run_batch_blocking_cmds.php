@@ -4,7 +4,8 @@
 <form name="DBG" action="">
 
 <div>
-<input class='button lst_cmd_btn' type="button" value="Update" onClick='runBlocking.requested_run_batch_blocking.saveChangesToDababase()' id="btn_save" title="Update"  /> Save changes
+<?php # requested_run_batch_blocking.saveChangesToDatabase is defined in run_blocking.js ?>
+<input class='button lst_cmd_btn' type="button" value="Update" onClick='runBlocking.requested_run_batch_blocking.saveChangesToDatabase()' id="btn_save" title="Update"  /> Save changes
 </div>
 
 <p>Note: Editing and randomizing changes are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
