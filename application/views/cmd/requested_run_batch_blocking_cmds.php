@@ -58,7 +58,7 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 <?= general_visibility_control('Upload commands', 'upload_section', '') ?>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='runBlocking.requested_run_batch_blocking.load_delimited_text()' title="Test"  /> Update database from delimited list
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='runBlocking.requested_run_batch_blocking.load_delimited_text()' title="Test"  /> Update database using a tab delimited list
 </div>
 <div>
 <p>Delimited text input:</p>

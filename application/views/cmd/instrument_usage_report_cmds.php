@@ -17,7 +17,7 @@
 <?= general_visibility_control('Upload commands', 'upload_section', '') ?>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_usage_report.load_delimited_text()' title="Test"  /> Update database from delimited list
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tracking.instrument_usage_report.load_delimited_text()' title="Test"  /> Update database using a tab delimited list
 </div>
 <div>
 <p>Delimited text input:</p>
@@ -31,5 +31,3 @@
 
 <script src="<?= base_url().'javascript/factors.js' ?>"></script>
 <script src="<?= base_url().'javascript/tracking.js' ?>"></script>
-
-

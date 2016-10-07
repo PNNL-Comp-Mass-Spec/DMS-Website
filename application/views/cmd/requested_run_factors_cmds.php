@@ -28,7 +28,8 @@ from selected items.
 <?= general_visibility_control('Upload commands', 'upload_section') ?>
 <div id="upload_section" style="display:none;">
 <div>
-<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test"  /> Update database from delimited list
+<?php # tau.requested_run_factors.load_delimited_text is defined in factors.js ?>
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test"  /> Update database using a tab delimited list
 </div>
 <div>
 <p>Delimited text input:</p>
