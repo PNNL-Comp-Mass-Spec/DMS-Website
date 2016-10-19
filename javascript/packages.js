@@ -31,7 +31,7 @@ var packages = {
 				container.html(x.message);
 			}
 		});
-	}
+	},
 /* OMCS-977	
 	revealOsmPackageCreateSection: function() {
 		var iframe = document.getElementById('embedded_page');
@@ -87,6 +87,7 @@ var packages = {
 			delta.processResults(data, container);
 		});
 	},
+	*/	
 	performOperation: function (mode) {
 		var list = '';
 		var rows = document.getElementsByName('ckbx');
@@ -106,6 +107,5 @@ var packages = {
 		$('#entry_cmd_mode').val(mode);
 		var p = $('#operation_form').serialize();
 		lambda.submitOperation(url, p);
-	}	
-*/	
+	}
 }
