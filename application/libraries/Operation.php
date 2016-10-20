@@ -17,52 +17,7 @@ class Operation {
 	{
 		$this->config_source = $config_source;
 	}
-/*	
-	// --------------------------------------------------------------------
-	// invokes the stored procedure given by $sproc_ref
-	// returns simple JSON response.  Meant for AJAX.
-	// (someday) allow name of stored procedure to be passed as part of POST
-	function exec($sproc_name = 'operations_sproc')
-	{
-//		$sproc_name = $CI->uri->segment(3, '');
-		$response = $this->internal_operation($sproc_name);
-		if($response->result == 0) {
-			$response->message = "Operation was successful. " . $response->message;
-		} else {
-			$response->message = "Update failed. " . $response->message;
-		}
-		echo json_encode($response);
-	}
 
-	// --------------------------------------------------------------------
-	// invokes the model's 'operation' stored procedure and
-	// returns simple text response.  Meant for AJAX.
-	// This is a thin wrapper over the internal function "internal_operation"
-	function operation()
-	{
-		$message = "";
-		$response = $this->internal_operation('operations_sproc');
-		if($response->result != 0) {
-			echo "Update failed. " . $response->message;
-		} else {
-			echo "Update was successful. You must refresh the rows if you wish to see the effects.";
-		}
-	}
-
-	// --------------------------------------------------------------------
-	// invokes the model's 'operation' stored procedure and
-	// returns simple text response.  Meant for AJAX.
-	// This is a thin wrapper over the internal function "internal_operation"
-	function command()
-	{
-		$response = $this->internal_operation('operations_sproc');
-		if($response->result != 0) {
-			echo "Update failed. " . $response->message;
-		} else {
-			echo "Operation was successful.";
-		}
-	}
-*/
 	// --------------------------------------------------------------------
 	// calls given stored procedure for this page family using calling parameters
 	// derived from the sproc args definition for the stored procedure in config db
