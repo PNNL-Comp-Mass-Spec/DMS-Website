@@ -106,6 +106,8 @@ var packages = {
 		$('#paramListXML').val(list);
 		$('#entry_cmd_mode').val(mode);
 		var p = $('#operation_form').serialize();
-		lambda.submitOperation(url, p);
+		// Call stored procedure UpdateDataPackageItemsXML
+		// lambda.submitOperation is defined in dms2.js
+		lambda.submitOperation(url, p, true);
 	}
 }

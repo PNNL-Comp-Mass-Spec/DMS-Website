@@ -1027,7 +1027,11 @@ var delta = {
 		if(data.indexOf('html failed') > -1) {
 			container.html(data);
 		} else {
-			container.html('Operation was successful');
+			if (data.length === 0)
+				container.html('Operation was successful');
+			else
+				container.html(data);
+
 			delta.updateMyData();
 		}
 	},

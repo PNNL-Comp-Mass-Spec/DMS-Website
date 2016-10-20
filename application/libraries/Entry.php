@@ -159,8 +159,13 @@ class Entry {
 			
 			// everything worked - compose tidings of joy
 			$ps_links = $this->get_post_submission_link($input_params);
-			$message = 'Operation was successful. ';
-			$outcome = $this->outcome_msg($message . $msg, 'normal');
+			$message = 'Operation was successful';
+			if (empty($msg)) {
+				$outcome = $this->outcome_msg($message, 'normal');
+			} else {
+				// Define $outcome as "Operation was successful: message"
+				$outcome = $this->outcome_msg($message . ": " . $msg, 'normal');
+			}
 			$supplement = $this->supplement_msg($message . $ps_links, 'normal');
 		} catch (Exception $e) {
 			// something broke - compose expressions of regret

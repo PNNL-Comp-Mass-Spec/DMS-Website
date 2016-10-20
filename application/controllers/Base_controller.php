@@ -359,9 +359,12 @@ class Base_controller extends CI_Controller {
 		$this->cu->load_lib('operation', 'na', $this->my_tag);
 		$response = $this->operation->internal_operation($sproc_name);
 		if($response->result == 0) {
-			$response->message = "Operation was successful. " . $response->message;
+			if (empty($response->message))
+				$response->message = "Operation was successful";
+			else
+				$response->message = "Operation was successful: " . $response->message;
 		} else {
-			$response->message = "Update failed. " . $response->message;
+			$response->message = "Update failed: " . $response->message;
 		}
 		echo json_encode($response);
 	}
@@ -381,7 +384,10 @@ class Base_controller extends CI_Controller {
 		if($response->result != 0) {
 			echo "Update failed. " . $response->message;
 		} else {
-			echo "Update was successful. You must refresh the rows if you wish to see the effects.";
+			if (empty($response->message))
+				echo "Operation was successful (row refresh may be required).";
+			else
+				echo "Operation was successful: " . $response->message;
 		}
 	}
 
@@ -401,7 +407,10 @@ class Base_controller extends CI_Controller {
 		if($response->result != 0) {
 			echo "Update failed. " . $response->message;
 		} else {
-			echo "Operation was successful.";
+			if (empty($response->message))
+				echo "Operation was successful";
+			else
+				echo "Operation was successful: " . $response->message;
 		}
 	}
 
