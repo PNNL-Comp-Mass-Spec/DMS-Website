@@ -13,16 +13,21 @@ set_time_limit(0);
  * --------------------------------------------------------------------
  * Override the Default Controller
  * --------------------------------------------------------------------
- *
  */
  
-// The controller class file name.  Example:  mycontroller
+// Explicit controller class to load
 $routing['controller'] = 'notification';
 
-// The controller function you wish to be called.
+// Specific function in the controller class to call
 $routing['function']	= 'email';
 
+/*
+ * --------------------------------------------------------------------
+ * Explicitly define some $_SERVER variables
+ * --------------------------------------------------------------------
+ */
 
+// Used by Email.php
 $_SERVER["SERVER_NAME"] = 'dms2.pnl.gov';
 
 $_SERVER["SCRIPT_FILENAME"] = pathinfo(__FILE__, PATHINFO_BASENAME);
