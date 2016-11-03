@@ -212,7 +212,8 @@ class CI_Exceptions {
 		}
 		else
 		{
-			set_status_header(500);
+			// Removed by MEM in upgrade from CodeIgniter-3.0.6 to CodeIgniter-3.1.2
+			// set_status_header(500);
 			$templates_path .= 'html'.DIRECTORY_SEPARATOR;
 		}
 
