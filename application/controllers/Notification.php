@@ -1,8 +1,27 @@
 <?php
 require("Base_controller.php");
 
+/**
+ * This controller allows users to sign up to be notified of
+ * DMS events of the last 24 hours that are associated with 
+ * one or more campaign research teams that a user is a member of
+ *
+ * Example URLs:
+ * http://dms2.pnl.gov/notification/report
+ * http://dms2.pnl.gov/notification/user/D3L243
+ * http://dms2.pnl.gov/notification/edit/D3L243
+ * 
+ * http://dms2.pnl.gov/notification/preview
+ * http://dms2.pnl.gov/notification/email_user/D3L243
+ * 
+ * The daily e-mails are sent via a cron job that runs email_daily_notification.php
+ * which instantiates this controller. To manually send the e-mails, go to:
+ * http://dms2.pnl.gov/notification/email
+ */
 class Notification extends Base_controller {
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 		// Call the parent constructor
@@ -12,7 +31,10 @@ class Notification extends Base_controller {
 		$this->my_title = "Notification";
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Retrieve notification events from the database
+	 * @return \stdClass
+	 */
 	function _get_notification_info()
 	{
 		$users = array();
@@ -47,7 +69,11 @@ class Notification extends Base_controller {
 		return $users;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Format the events as a table
+	 * @param type $notification
+	 * @return string
+	 */
 	function _format_events($notification)
 	{
 		$s = '';
@@ -67,8 +93,10 @@ class Notification extends Base_controller {
 		return $s;
 	}
 
-	// --------------------------------------------------------------------
-	function junk()
+	/**
+	 * Preview all of the notification events
+	 */
+	function preview()
 	{
 		$this->load->helper(array('url'));
 
@@ -86,7 +114,10 @@ class Notification extends Base_controller {
 		echo $msg;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Show the notification events for a single user
+	 * @param type $user
+	 */
 	function user($user)
 	{
 		$this->load->helper(array('url'));
@@ -94,18 +125,21 @@ class Notification extends Base_controller {
 		$users = $this->_get_notification_info();
 
 		if(!array_key_exists($user, $users)) {
-			echo 'No messages for ' . $user;
+			echo 'No messages for ' . $user . "\n";
 		} else {
 			$data['items'] = $this->_format_events($users[$user]);
 			$data['prn'] = $user;
-			$email = "grkiebel@pnl.gov"; // $users[$user]->email;
+			// Unused: $email = $users[$user]->email;
 			$msg = $this->load->view('email/notification_default', $data, true);
 			echo $msg;
 		}
 
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Send an e-mail to the user if notification events are available
+	 * @param type $user
+	 */
 	function email_user($user)
 	{
 		$this->load->helper(array('url'));
@@ -113,50 +147,59 @@ class Notification extends Base_controller {
 		// To send HTML mail, the Content-type header must be set
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
+		$headers .= 'From: DMS Notification <dms@prismweb.pnnl.gov>' . "\r\n";
+		
 		$users = $this->_get_notification_info();
 
 		if(!array_key_exists($user, $users)) {
-			echo 'No messages for ' . $user;
+			echo 'No messages for ' . $user . "\n";
 		} else {
 			$data['items'] = $this->_format_events($users[$user]);
 			$data['prn'] = $user;
-			$email = "grkiebel@pnl.gov"; // $users[$user]->email;
+			$email = 'proteomics@pnnl.gov';
+			// Uncomment to send the e-mail to the user
+			// $email = $users[$user]->email;
 			$msg = $this->load->view('email/notification_default', $data, true);
 			mail($email, "Automatic DMS Event Notification", $msg, $headers);
 			echo $msg;
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Send notification e-mails to all users with available notifications
+	 */
 	function email()
 	{
-//		if($_SERVER['SCRIPT_FILENAME'] != 'not.php') exit;
+//		Uncomment the following to abort sending e-mails if not called via the expected script
+//		if($_SERVER['SCRIPT_FILENAME'] != 'email_daily_notification.php') exit;
 
 		$this->load->helper(array('url'));
 
 		// To send HTML mail, the Content-type header must be set
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		$headers .= 'From: DMS Notification <dms@prismweb.pnl.gov>' . "\r\n";
+		$headers .= 'From: DMS Notification <dms@prismweb.pnnl.gov>' . "\r\n";
 
 		$users = $this->_get_notification_info();
 		$ul = array_keys($users);
 		sort($ul);
-		$items = array();
 		foreach($ul as $user) {
-			log_message('error', 'notification/email:' . $user);
+			log_message('info', 'notification/email:' . $user);
 			$data['items'] = $this->_format_events($users[$user]);
 			$data['prn'] = $user;
-			$email = $users[$user]->email; //"grkiebel@pnl.gov";
+			$email = $users[$user]->email;
+			// Uncomment to override the destination e-mail
+			// $email = 'debug.user@pnnl.gov';
 			$msg = $this->load->view('email/notification_default', $data, true);
 			mail($email, "Automatic DMS Event Notification", $msg, $headers);
-			sleep  (2);
-			//echo  $users[$user]->email;
+			sleep (1);
+			
+			if ($email === $users[$user]->email) {
+				echo "Mail for $user sent to $email\n";
+			} else {
+				echo "Mail for $user sent to $email (would typically go to " . $users[$user]->email . ')\n';
+			}
 		}
 	}
 
 }
-
-
-?>
