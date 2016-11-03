@@ -156,9 +156,10 @@ class CI_Log {
 	 *
 	 * @param	string	$level 	The error level: 'error', 'debug' or 'info'
 	 * @param	string	$msg 	The error message
+	 * @param	string	$ignoreThreshold 	True to log the message regardless of the log threshold
 	 * @return	bool
 	 */
-	public function write_log($level, $msg)
+	public function write_log($level, $msg, $ignoreThreshold = false)
 	{
 		if ($this->_enabled === FALSE)
 		{
@@ -167,12 +168,15 @@ class CI_Log {
 
 		$level = strtoupper($level);
 
-		if (( ! isset($this->_levels[$level]) OR ($this->_levels[$level] > $this->_threshold))
-			&& ! isset($this->_threshold_array[$this->_levels[$level]]))
+		if ($ignoreThreshold != true) 
 		{
-			return FALSE;
+			if (( ! isset($this->_levels[$level]) OR ($this->_levels[$level] > $this->_threshold))
+				&& ! isset($this->_threshold_array[$this->_levels[$level]]))
+			{
+				return FALSE;
+			}
 		}
-
+		
 		$filepath = $this->_log_path.'log-'.date('Y-m-d').'.'.$this->_file_ext;
 		$message = '';
 

@@ -38,7 +38,7 @@ class Notification extends Base_controller {
 	function _get_notification_info()
 	{
 		$users = array();
-		// get  information
+		// Query the database
 		$sql = '';
 		$sql .= 'SELECT Event, Name, Link, Campaign, Role, EventTypeID, [#EntityType], [#PRN], [User], User_ID, Entity,  Email ';
 		$sql .= 'FROM V_Notification_Message_By_Registered_Users ';
@@ -184,7 +184,8 @@ class Notification extends Base_controller {
 		$ul = array_keys($users);
 		sort($ul);
 		foreach($ul as $user) {
-			log_message('info', 'notification/email:' . $user);
+			// Pass true to log_message to force the message to be logged even if the log threshold is Error only
+			log_message('info', 'notification/email sent to ' . $user, true);
 			$data['items'] = $this->_format_events($users[$user]);
 			$data['prn'] = $user;
 			$email = $users[$user]->email;
