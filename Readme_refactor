@@ -1,233 +1,36 @@
-
-get rid of http://dms2.pnl.gov/update_archive/create
-get rid of http://dms2.pnl.gov/update_datasets/create
-
-get rid of unused icons
-get sprite version of silk icons
-
 -----------------------------------------------
-custom grid menus
------------------------------------------------
-// add menu item to a column (after myGrid is created)
-var ci = myGrid.grid.getColumnIndex('Factor2');
-var col = myGrid.grid.getColumns()[ci];
-col.header.menu.items.push({ command: "blarg", title: "Fargle" });
-//
-//add command handler for menu item
-myGrid.headerUtil.commands['blarg'] = function(column, grid) { alert('Fargle!') };
-
-
-    headerMenuPlugin.onBeforeMenuShow.subscribe(function(e, args) {
-      var menu = args.menu;
-
-      // We can add or modify the menu here, or cancel it by returning false.
-      var i = menu.items.length;
-      menu.items.push({
-        title: "Menu item " + i,
-        command: "item" + i
-      });
-    });
-
-
-
------------------------------------------------
--- instrument_allocation
+-- Unused pages
 -----------------------------------------------
 
-http://prismwebdev2.pnl.gov/dmsref/instrument_allocation/report
+Instrument Allocation Pages:
+- http://dms2.pnl.gov/instrument_allocation/report
+- http://dms2.pnl.gov/grid/instrument_allocation?fiscalYear=2012&itemList=
 
-list_report_data_table	V_Instrument_Allocation_List_Report
-base_table	T_Instrument_Allocation
-list_report_cmds	instrument_allocation_cmds
-operations_sproc	UpdateInstrumentUsageAllocationsXML
-list_report_cmds_url	instrument_allocation/operation
-detail_report_data_table	V_Instrument_Allocation_Detail_Report
-entry_page_data_table	V_Instrument_Allocation_Detail_Entry
-detail_report_data_id_col	FY_Proposal
-entry_page_data_id_col	FY_Proposal
-entry_sproc	UpdateInstrumentUsageAllocations
+Instrument Allocation DB Objects:
+- T_Instrument_Allocation
+- UpdateInstrumentUsageAllocations
+- UpdateInstrumentUsageAllocationsXML
+- V_Instrument_Allocation_Detail_Entry
+- V_Instrument_Allocation_Detail_Report
+- V_Instrument_Allocation_List_Report
+
+list_report_cmds	
+- instrument_allocation_cmds
+
 
 -----------------------------------------------------------------------
---[http://prismwebdev2.pnl.gov/dmsref/requested_run_grid/grid]---------
+-- Followup on the Editing Grid Demonstration Pages
 -----------------------------------------------------------------------
 
-http://prismwebdev2.pnl.gov/dmsref/chooser/get_choices/lcCartPickList
-----
-save changes for columns Cart, Column, Block, Run_Order (instrument group??, dataset type??)
-----
-lc_cart_request_loading
-	list_report_data_table	V_LC_Cart_Request_Loading_List_Report
-	list_report_cmds	lc_cart_request_loading_cmds
-**	operations_sproc	UpdateLCCartRequestAssignments
-	list_report_cmds_url	lc_cart_request_loading/operation
-	list_report_data_cols	Request as Sel, *
-----
-requested_run_batch_blocking
-	list_report_sproc	GetFactorCrosstabByBatch
-	list_report_cmds	requested_run_batch_blocking_cmds
-**	operations_sproc	UpdateRequestedRunBlockingAndFactors
-	list_report_cmds_url	requested_run_batch_blocking/operation
-	batch_sproc	MakeAutomaticRequestedRunFactors
------
+Editing Grid Demonstration Page Links
+- http://dms2.pnl.gov/grid
+- http://dms2.pnl.gov/requested_run_batch_blocking
 
-UpdateLCCartRequestAssignments
-	xmlNode.value('@rq', 'nvarchar(256)') request,
-	xmlNode.value('@ct', 'nvarchar(256)') cart,
-	xmlNode.value('@co', 'nvarchar(256)') col
-	FROM @xml.nodes('//r') AS R(xmlNode)
------
-[UpdateRequestedRunBlockingAndFactors]
-	UpdateRequestedRunBatchParameters
-		xmlNode.value('@t', 'nvarchar(256)') Parameter,		-- will be 'BF', 'BK', or 'RO'
-		xmlNode.value('@i', 'nvarchar(256)') Request,		-- Request ID
-		xmlNode.value('@v', 'nvarchar(256)') Value
-		FROM @xml.nodes('//r') AS R(xmlNode)
-		---
-		'Blocking Factor' ('BF')
-		'Block' ('BK')
-		'Run Order' ('RO')		
-	UpdateRequestedRunFactors
------
-[UpdateRequestedRunLCCartParams]
-	'clear_cart_assignments'
-	'fill_into_gaps' AND @reqRunIDList <> ''
-	'priority'
-	'specific_column'
-	'spread_among_columns'
-	
------------------------------------------------------------------------
---[http://prismwebdev2.pnl.gov/dmsref/factors/grid]---------
------------------------------------------------------------------------
+Page not functional:
+- http://dms2.pnl.gov/grid/user
 
-class factors extends Base_controller {
-	function get_factor_data($itemList, $itemType)
-		$ok = $this->cu->load_mod('s_model', 'sproc_model', 'list_report_sproc', 'requested_run_factors');
+Page with error:
+- http://dms2.pnl.gov/factors/grid
 
-grid_factors.php
-	gamma.pageContext.ops_url = '<?= site_url() ?>requested_run_factors/operation';
-	gamma.pageContext.data_url = '<?= site_url() .  $this->my_tag ?>/factor_data';
-
-requested_run_factors
-	list_report_sproc	GetRequestedRunFactorsForEdit
-	list_report_cmds	requested_run_factors_cmds
-	list_report_cmds_url	requested_run_factors/operation
-	operations_sproc	UpdateRequestedRunFactors
-
------------------------------------------------------------------------
---[http://prismwebdev2.pnl.gov/dmsref/instrument_allocation/grid]---------
------------------------------------------------------------------------
-
-instrument_allocation.db
-**	operations_sproc	UpdateInstrumentUsageAllocationsXML
-	
-UpdateInstrumentUsageAllocationsXML
-		<c fiscal_year="2012"/>
-		<r p="29591" g="FT" a="23.2" x="Comment1"/>
-		<r p="33200" g="FT" a="102.1" x="Comment2"/>
-		<r p="34696" g="FT" a="240" />
-		<r p="34708" g="FT" a="177.7" x="Comment3"/>
-
-<c fiscal_year="2012"/><r p="0" g="General" a="0" x="Oink" />
------------------------------------------------
--- DMS website migration
------------------------------------------------
-
-
-Remove Controller_utility ::message_box and associated components in favor of JQDialog??
-
-re-apply selective enhancements (chosen) to dynamically reloaded forms
-
-Fix "// REFACTOR:"
-
-Fix or get rid of aux info
-
-TEST:
- - uploader
- - factors
- - config db pages
- - file attachment
- - IE and FF
- - entry pages with enable checkboxes
- 
-------------------------------------------
-
-Normalise enable/disable:
-	$("#submit-button").attr("disabled", true);
-	$("#submit-button").removeAttr("disabled");
-
-factor out common server-side code for constructing supplemental entry forms from XML
-
-override built-in alert with JQ UI dialog
-
-Fix or eliminate flotr graphing
-	switch to flot from flotr
-
-arrange caching for chooser lists
-
-HTML 5 doctype and dropping "text=..." from script tags?
-
-------------------------------------------
-factors
-------------------------------------------
-
-Ability to delete a factor
-Ability to rename a factor
-Ability to select a range of cells and clear them
-Accepting list of dataset IDs as an alternative to dataset names (automatically recognize)
-Choosers for getting dataset lists (from a data package might be a useful one)
-The usual DMS web page framing (the top-level drop-down menu bar and so forth)
-x-Ability to clear all values in a column (effectively deletes that factor, if subsequently saved)
-x-Ability to sort rows
-x-Accepting tab-delimited text pasted into an upload field (like the current factors web page does)
-x-Some automatic sizing of column widths
-
-Ability to rename a factor:
-- For each row in data array: 
-    add property to row object for new column and copy value from original property
-    mark change object for new property and original property (to blank)
-    delete original property
-- change id,name,field of original column spec and reset colum array
-- refresh the grid
-
-allow adding factors from hard metadata
-
-------------------------------------------
-changes
-------------------------------------------
-
-http://prismwebdev2.pnl.gov/dmsref/gen/welcome
-
-Replaced prototype.js and scriptaculous with JQuery and JQueryUI
-Cleaned up JS:
-	Split code in dms2.js into separate objects (acts as namespaces)
-		gamma - general purpose methods
-		lambda - list report methods 	
-		theta - specialized list report methods (factors)
-		delta - detail report methods
-		epsilon - entry page methods
-		navBar - methods used by drop-down menu bar
-	Replaced "GlobalAJAX" with gamma.pageContext object and made usage consistent across modules
-	Pulled out common functions from cmd views into central library
-	Most all AJAX submissions go through central library 
-		Apply common behavior, such as busy indicator
-		Link to page-based code via callbacks where possible
-Used spin.js instead of animated GIF for "busy" indicator
-Can suppress creation of standard entry page command buttons via general_params table in config db
-	(INSERT INTO general_params ("name", "value") VALUES ('cmd_buttons', 'suppress');
-	Useful when "Easy" pages want to supersede them
-Using chosen.js for drop-down choosers on entry pages
-	Has built-in field for restricting list by typing in filter values
-Replaced scal date picker with one that is built into JQueryUI
-
--------------------------------------------
-
-function gunk(text) {
-  $("#tree").dynatree("getRoot").visit(function(node){
-//    if(!node.data.isFolder) {
-    	if(node.data.title.indexOf(text) !== -1) {
-    		node.makeVisible();
-    		node.select(true);
-    	}
- //   }
-  });
-}
+Page not found:
+- http://dms2.pnl.gov/grid/instrument_usage
