@@ -63,8 +63,6 @@ var lstRep = {
 		} else {
 			if(loading && loading == 'reset') $('#qf_first_row').val(1);
 			lstRep.data_update_action.run(); 	
-///			lstRep.updateShowSQL(true);
-			gamma.updateMessageBox();
 		}	
 	}
 } // lstRep

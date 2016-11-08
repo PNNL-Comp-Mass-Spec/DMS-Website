@@ -132,10 +132,12 @@ class CI_Exceptions {
 		// By default we log this, but allow a dev to skip it
 		if ($log_error)
 		{
-			// Not sure why, but every time we load a list report a behind-the-scenes call to CodeIgniter
-			// results in a 404 error for page Undefined/index.
-			// This call is occurring at the same time as the AJAX calls to report_data and report_paging.
-			// Do not log this error, as it does not affect the user
+			// Calls to list reports previously resulted in a POST to /undefined
+			// which got updated by CodeIgniter to /undefined/index
+			// The following if statement suppressed error logging of those calls
+			//
+			// The invalid call to updateMessageBox in lstRep.js was removed in November 2016
+			// and therefore this if statement can be removed at a future date
 			if ($page != "Undefined/index")
 				log_message('error', $heading.': '.$page);
 		}
