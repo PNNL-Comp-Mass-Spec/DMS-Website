@@ -5,6 +5,8 @@
 <script src="<?= base_url().'jquery/jquery.unobtrusive-ajax.min.js' ?>"></script>
 <script src="<?= base_url().'javascript/spin.min.js' ?>"></script>
 <script src="<?= base_url().'chosen/chosen/chosen.jquery.min.js' ?>"></script>
-<script src="<?= base_url().'javascript/dms2.js' ?>"></script>
+
+<?php // Increment version number here to force clients to reload dms2.js ?>
+<script src="<?= base_url().'javascript/dms2.js?version=100' ?>"></script>
 
 

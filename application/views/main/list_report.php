@@ -91,7 +91,8 @@ Download in other formats (<a href="http://prismwiki.pnl.gov/wiki/DMS_Data_Expor
 <script src="<?= base_url().'javascript/lcmd.js' ?>"></script>
 <?php endif; ?>
 
-<script src="<?= base_url().'javascript/lstRep.js' ?>"></script>
+<?php // Increment version number here to force clients to reload lstRep.js ?>
+<script src="<?= base_url().'javascript/lstRep.js?version=100' ?>"></script>
 
 <script type='text/javascript'>
 	//
