@@ -132,14 +132,7 @@ class CI_Exceptions {
 		// By default we log this, but allow a dev to skip it
 		if ($log_error)
 		{
-			// Calls to list reports previously resulted in a POST to /undefined
-			// which got updated by CodeIgniter to /undefined/index
-			// The following if statement suppressed error logging of those calls
-			//
-			// The invalid call to updateMessageBox in lstRep.js was removed in November 2016
-			// and therefore this if statement can be removed at a future date
-			if ($page != "Undefined/index")
-				log_message('error', $heading.': '.$page);
+			log_message('error', $heading.': '.$page);
 		}
 
 		echo $this->show_error($heading, $message, 'error_404', 404);
