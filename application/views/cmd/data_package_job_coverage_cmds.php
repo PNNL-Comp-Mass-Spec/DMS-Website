@@ -1,5 +1,10 @@
 <div class="LRCmds">
 
+<?php
+// This form is used by web page data_package_items/report
+// Button clicks are handled in javascript/lcmd.js
+?>
+ 
 <form name="DBG" action="">
 
 <hr>
@@ -11,7 +16,12 @@ Add selected jobs to package that are not already in package.
 </div>
 <div>
 <input class='button lst_cmd_btn' type="button" value="Remove Jobs" onClick='lcmd.data_package_job_coverage.op("delete")' id="btn_r" title=""  />
-Remove selected jobs from package.
+Remove selected jobs from package.<br>
+<label>
+	<?php // This should default to unchecked on this page (thus, we leave off the checked attribute) ?>
+	<input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
+	Also remove parent datasets and experiments
+</label> 
 </div>
 <div style='display:none'>
 <input class='button lst_cmd_btn' type="button" value="Test" onClick='lcmd.data_package_job_coverage.op("test")' id="btn_t" title=""  />

@@ -88,6 +88,7 @@ var packages = {
 		});
 	},
 	*/	
+	// This is called from "data_package_items/report" when the user clicks "Delete from Package" or "Update comment"
 	performOperation: function (mode) {
 		var list = '';
 		var rows = document.getElementsByName('ckbx');
@@ -102,9 +103,14 @@ var packages = {
 		if ( !confirm("Are you sure that you want to update the database?") )
 			return;
 	
+		var removeParents = 0;
+		if (document.getElementById('removeParentsCheckbox').checked)
+			removeParents=1;
+
 		var url =  gamma.pageContext.site_url + 'data_package_items/operation/';
 		$('#paramListXML').val(list);
 		$('#entry_cmd_mode').val(mode);
+		$('#removeParents').val(removeParents);
 		var p = $('#operation_form').serialize();
 		// Call stored procedure UpdateDataPackageItemsXML
 		// lambda.submitOperation is defined in dms2.js

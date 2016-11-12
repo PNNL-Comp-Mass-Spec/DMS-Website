@@ -72,10 +72,17 @@ var lcmd = {
 			});
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
+
+			var removeParents = 0;
+			if (document.getElementById('removeParentsCheckbox').checked)
+				removeParents=1;
+
 			var url =  gamma.pageContext.site_url + "data_package_items/exec/";
 			var p = {};
 			p.command = mode;
 			p.paramListXML = list;
+			p.removeParents = removeParents;
+			
 			lambda.submitOperation(url, p);
 		},
 		getDatasetInfo: function (mode) {
