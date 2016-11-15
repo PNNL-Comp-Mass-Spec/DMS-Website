@@ -14,9 +14,12 @@ class Paging_filter {
 	{
 	}
 
-	// --------------------------------------------------------------------
-	// get current secondary filter values either from POST
-	// or from cache storage (session)
+	/**
+	 * Get current secondary filter values either from POST
+	 * or from cache storage (session)
+	 * @param type $config_name
+	 * @param type $config_source
+	 */
 	function init($config_name, $config_source)
 	{
 		$CI =& get_instance();
@@ -53,9 +56,12 @@ class Paging_filter {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// get current values for secondary filter if present in POST
-	// otherwise return FALSE
+	/**
+	 * Get current values for secondary filter if present in POST
+	 * otherwise return FALSE
+	 * @param type $field_names
+	 * @return boolean
+	 */
 	private
 	function get_current_filter_values_from_post($field_names)
 	{
@@ -74,8 +80,9 @@ class Paging_filter {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// set query filter so that it will not be used to filter results
+	/**
+	 * Set query filter so that it will not be used to filter results
+	 */
 	private
 	function clear_filter()
 	{
@@ -101,6 +108,8 @@ class Paging_filter {
 	{
 		$CI =& get_instance();
 		$CI->load->helper('cache');
-		clear_cache($this->storage_name);
+		if (property_exists($this, "storage_name")) {
+			clear_cache($this->storage_name);
+		}
 	}
 }
