@@ -81,7 +81,7 @@ $this->load->view("main/param_report_export");
 
 <?php if($list_report_cmds != ""): ?>
 <script src="<?= base_url().'flot/jquery.flot.js' ?>"></script>
-<script src="<?= base_url().'javascript/lcmd.js' ?>"></script>
+<script src="<?= base_url().'javascript/lcmd.js?version=101' ?>"></script>
 <?php endif; ?>
 
 <script src="<?= base_url().'javascript/parRep.js' ?>"></script>

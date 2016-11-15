@@ -1,7 +1,7 @@
 <div class="LRCmds">
 
 <?php
-// This form is used by web page data_package_items/report
+// This form is used by web pages data_package_items/report and data_package_job_coverage/report
 // Button clicks are handled in javascript/lcmd.js
 ?>
  

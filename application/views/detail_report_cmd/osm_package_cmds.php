@@ -11,5 +11,5 @@
 <div id='entry_update_status' style="margin: 10px;"></div>
 </div>
 
-<script src="<?= base_url().'javascript/packages.js' ?>"></script>
+<script src="<?= base_url().'javascript/packages.js?version=101' ?>"></script>
 
