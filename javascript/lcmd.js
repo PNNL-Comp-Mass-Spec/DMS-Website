@@ -83,7 +83,9 @@ var lcmd = {
 			p.paramListXML = list;
 			p.removeParents = removeParents;
 			
-			lambda.submitOperation(url, p);
+			// Call stored procedure UpdateDataPackageItemsXML
+			// lambda.submitOperation is defined in dms2.js
+			lambda.submitOperation(url, p, true);
 		},
 		getDatasetInfo: function (mode) {
 			var id = $('#pf_data_package_id').val();

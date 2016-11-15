@@ -719,7 +719,17 @@ var lambda = {
 					ctl.show();
 				} else {
 					var msg = 'Operation was successful';
-					if(show_resp) msg = data;
+					if(show_resp) {
+						msg = data;
+
+						// data should be a JSON-encoded string, for example:
+						//   '{"result":0,"message":"Operation was successful: Deleted 1 analysis job"}'
+						
+						// Look for a message parameter, which many DMS stored procedures have as an output parameter
+						var dataObject = jQuery.parseJSON(data);
+						if (dataObject.message)
+							msg = dataObject.message;
+					}
 					container.html(msg);
 					ctl.hide();
 					lambda.reloadListReportData();
