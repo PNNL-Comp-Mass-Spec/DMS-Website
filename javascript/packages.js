@@ -7,7 +7,16 @@ var packages = {
 	updateDataPackageItems: function(id, form_id, mode) {
 		if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
 		var url = gamma.pageContext.site_url + "data_package/operation/";
+
+		var removeParents = 0;
+		if (document.getElementById('removeParentsCheckbox').checked)
+			removeParents=1;
+
 		$('#entry_cmd_mode').val(mode);
+		$('#removeParents').val(removeParents);
+		
+		// Call stored procedure UpdateDataPackageItems
+		// gamma.doOperation is defined in dms2.js
 		gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
 			delta.processResults(data, container);
 		});

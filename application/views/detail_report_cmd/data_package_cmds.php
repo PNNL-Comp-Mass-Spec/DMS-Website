@@ -1,6 +1,11 @@
 
 <?php $chimg = base_url()."images/chooser.png"; ?>
 
+<?php
+// These controls are used on web page data_package/show/1234
+// Button clicks are handled in javascript/packages.js
+?>
+
 <div class='LRcmd_panel'>
 <span class='LRcmd_cartouche' ><?= general_visibility_control('Add/Remove Items', 'add_items_section', '') ?></span>
 <span class='LRcmd_cartouche' ><?= detail_report_cmd_link("Refresh", "delta.updateMyData()") ?></span>
@@ -14,6 +19,10 @@
 <form id='entry_form'>
 	<input type="hidden" name="command" value="" id="entry_cmd_mode"/>
 	<input type='hidden' name='packageID' value='<?= $id ?>' /> 
+	
+	<!-- This is set to 0 or 1 by packages.js -->
+	<input type='hidden' id='removeParents' name='removeParents' />
+
 	<table>
 		<tr>
 		<td>Select Item type:
@@ -44,6 +53,13 @@
 	<div style='margin-top:4px;'>
 	<input class='button lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
 	<input class='button lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
+
+	<label>
+		<?php // This should default to unchecked on this page (thus, we leave off the checked attribute) ?>
+		<input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
+		Also remove parent datasets and experiments
+	</label> 
+
 	</div>
 
 </form>
@@ -51,5 +67,5 @@
 <div id='entry_update_status'></div>
 </div>
 
-<script src="<?= base_url().'javascript/packages.js' ?>"></script>
+<script src="<?= base_url().'javascript/packages.js?version=101' ?>"></script>
 
