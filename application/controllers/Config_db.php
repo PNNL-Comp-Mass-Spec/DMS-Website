@@ -1517,8 +1517,8 @@ class Config_db extends CI_Controller {
 		$s .= "<tr><th>Admin Page Menu Sections</th></tr>";
 		$s .= "<tr><td><a href='".site_url()."config_db/edit_table/dms_admin_menu.db/home_menu_sections'>Edit</a> menu sections</td></tr>";
 		$s .= "<tr><td><a href='".site_url()."config_db/edit_table/dms_admin_menu.db/home_menu_items'>Edit</a> menu items</td></tr>";
-		$s .= "<tr><th>Drop-down Choosers</th></tr>";
-		$s .= "<tr><td><a href='".site_url()."chooser/get_chooser_list'>Display</a> list of all drop-down style choosers</td></tr>";
+		$s .= "<tr><th>Drop-down Choosers (Pick Lists)</th></tr>";
+		$s .= "<tr><td><a href='".site_url()."chooser/get_chooser_list'>Display</a> list of all drop-down style choosers (e.g. datasetTypePickList)</td></tr>";
 		$s .= "<tr><td><a href='".site_url()."config_db/edit_table/dms_chooser.db/chooser_definitions'>Edit</a> drop-down chooser definitions config db</td></tr>";
 		$s .= "<tr><th>Definitions for Restricted Actions</th></tr>";
 		$s .= "<tr><td><a href='".site_url()."gen/auth'>Display</a> list of restricted actions</td></tr>";

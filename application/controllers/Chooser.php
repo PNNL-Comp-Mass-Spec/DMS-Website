@@ -35,10 +35,10 @@ class Chooser extends CI_Controller {
 		$this->load->model('dms_chooser', 'choosers');
 		echo "<table>\n";
 		foreach($this->choosers->get_chooser_names() as $chooser_name) {
-			$url = site_url()."chooser/get_chooser/bob/$chooser_name/replace";
+			$url = site_url()."chooser/get_chooser/preview/$chooser_name/replace";
 			echo "<tr>";
 			echo "<td><a href='$url'>$chooser_name</a></td>\n";
-			echo "<td>".$this->choosers->get_chooser('bob', $chooser_name, 'replace')."</td>";
+			echo "<td>".$this->choosers->get_chooser('preview', $chooser_name, 'replace')."</td>";
 			echo "</tr>";
 		}
 		echo "</table>\n";
