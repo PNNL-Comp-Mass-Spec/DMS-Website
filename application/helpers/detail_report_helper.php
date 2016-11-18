@@ -141,6 +141,8 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			}
 			break;
 		case "link_list":
+			// Create a separate hotlink for each item in a semi-colon list of items
+			// The link to use is defined by the target column in the detail_report_hotlinks section of the config DB
 			$matches = array();
 			$delim = (preg_match('/[,;]/', $display, $matches))? $matches[0] : '';
 			$flds = ($delim == '')? array($display) : explode($delim, $display);
@@ -154,6 +156,7 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			$str .= implode($delim.' ', $links);
 			break;
 		case "link_table":
+			// Table with links
 			$str .= "<table class='inner_table'>";
 			foreach(explode(',', $display) as $ln) {
 				$ln = trim($ln);
@@ -165,12 +168,39 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			break;
 		case "tablular_list":
 		case "tabular_list":
+			// Parse data separated by colons and vertical bars and create a table
+			// Row1_Name:Row1_Value|Row2_Name:Row2_Value|
 			$str .= "<table class='inner_table'>";
 			foreach(explode('|', $display) as $ln) {
 				$str .= '<tr>';
 				foreach(explode(':', $ln) as $f) {
 					$str .= '<td>'.trim($f).'</td>';
 				}
+				$str .= '</tr>';
+			}
+			$str .= "</table>";
+			break;
+		case "tabular_link_list":
+			// Parse data separated by colons and vertical bars and create a table
+			// Values in the second column are linked to the page defined by the target column in the detail_report_hotlinks section of the config DB
+			// Row1_Name:Row1_Value|Row2_Name:Row2_Value|
+			//
+			// Row1_Value will link to the given target
+			$str .= "<table class='inner_table'>";
+			foreach(explode('|', $display) as $ln) {
+				$str .= '<tr>';				
+				$rowColNum = 0;
+				foreach(explode(':', $ln) as $f) {
+					$rowColNum += 1;
+					if ($rowColNum == 2) {
+						$trimmedValue = trim($f);
+						$renderHTTP=TRUE;
+						$url = make_detail_report_url($target, $trimmedValue, $options, $renderHTTP);
+						$str .= '<td>' . "<a href='$url'>$trimmedValue</a>" . '</td>';
+					} else {
+						$str .= '<td>' . trim($f) . '</td>';
+					}
+				}				
 				$str .= '</tr>';
 			}
 			$str .= "</table>";
