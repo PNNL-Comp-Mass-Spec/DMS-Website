@@ -3,7 +3,15 @@
 		exit('No direct script access allowed');
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Make minimal search filter
+	 * @param type $cols
+	 * @param type $current_paging_filter_values
+	 * @param type $current_primary_filter_values
+	 * @param type $sec_filter_display_info
+	 * @param type $current_sorting_filter_values
+	 * @param type $col_filter
+	 */
 	function make_search_filter_minimal($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter)
 	{	
 		$g = make_paging_filter($current_paging_filter_values);
@@ -17,21 +25,30 @@
 		$style = 'display:none;float:left;padding:3px 3px 0 0;';
 
 
-		$g = "<div style='display:none' > $g </div>";
-		$p = "<div id='primary_filter_container' class='filter_container_box' class='filter_container_box' style='clear:both;' > $p </div>";
-		$s = "<div id='secondary_filter_container' class='filter_container_box' style='$style' > $s </div>";
-		$r = "<div id='sorting_filter_container' class='filter_container_box' style='$style' > $r </div>";
-		$c = "<div id='column_filter_container' class='filter_container_box' style='$style' > $c </div>";
+		$pageDiv = "<div style='display:none' > $g </div>";
+		$primaryDiv = "<div id='primary_filter_container' class='filter_container_box' class='filter_container_box' style='clear:both;' > $p </div>";
+		$secondaryDiv = "<div id='secondary_filter_container' class='filter_container_box' style='$style' > $s </div>";
+		$sortDiv = "<div id='sorting_filter_container' class='filter_container_box' style='$style' > $r </div>";
+		$colFilterDiv = "<div id='column_filter_container' class='filter_container_box' style='$style' > $c </div>";
 		
-		echo $g;
+		echo $pageDiv;
 		echo "<div style='height:3px;' ></div>";
-		echo $p;
-		echo $s;
-		echo $r;	
-		echo $c;
+		echo $primaryDiv;
+		echo $secondaryDiv;
+		echo $sortDiv;	
+		echo $colFilterDiv;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Make expanded search filter
+	 * @param type $cols
+	 * @param type $current_paging_filter_values
+	 * @param type $current_primary_filter_values
+	 * @param type $sec_filter_display_info
+	 * @param type $current_sorting_filter_values
+	 * @param type $col_filter
+	 * @param type $filter_display_mode
+	 */
 	function make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode = "")
 	{
 		$big_primary_filter = big_primary_filter($current_primary_filter_values);
@@ -47,48 +64,61 @@
 		
 		$style = ($filter_display_mode) ? "style='display:none;'" : "";
 
-		$g = "<div style='display:none' > $g </div>";
-		$p = "<div id='primary_filter_container' class='filter_container_box' > $p </div>";
-		$s = "<div id='secondary_filter_container' class='filter_container_box' $style > $s </div>";
-		$r = "<div id='sorting_filter_container' class='filter_container_box' $style > $r </div>";
-		$c = "<div id='column_filter_container' class='filter_container_box' $style > $c </div>";
+		$pageDiv = "<div style='display:none' > $g </div>";
+		$primaryDiv = "<div id='primary_filter_container' class='filter_container_box' > $p </div>";
+		$secondaryDiv = "<div id='secondary_filter_container' class='filter_container_box' $style > $s </div>";
+		$sortDiv = "<div id='sorting_filter_container' class='filter_container_box' $style > $r </div>";
+		$colFilterDiv = "<div id='column_filter_container' class='filter_container_box' $style > $c </div>";
 
 		// set up table to hold fields
-		list($cell_s, $cell_vs, $cell_f) = array('<td style="vertical-align:top;">', '<td style="vertical-align:top;" rowspan="2">', "</td>\n");		
+		list($cell_s, $cell_vs, $cell_cs, $cell_f) = array(
+			'<td style="vertical-align:top;">', 
+			'<td style="vertical-align:top;" rowspan="2">', 
+			'<td style="vertical-align:top;" colspan="2">', 
+			"</td>\n",
+			);
 		list($row_s, $row_f) = array("<tr>", "</tr>\n");		
 
 		$str = "<table id='search_filter_table' >\n";
 		if($big_primary_filter) {
 			$str .= $row_s;
-			$str .= $cell_vs . $p . $cell_f;
-			$str .= $cell_s . $s . $cell_f;
-			$str .= $cell_vs . $c . $cell_f;
+			$str .= $cell_vs . $primaryDiv . $cell_f;
+			$str .= $cell_cs . $secondaryDiv . $cell_f;
 			$str .= $row_f;
 			$str .= $row_s;
-			$str .= $cell_s . $r . $cell_f;
+			$str .= $cell_s . $sortDiv . $cell_f;
+			$str .= $cell_s . $colFilterDiv . $cell_f;
 			$str .= $row_f;
 		} else {
 			$str .= $row_s;
-			$str .= $cell_s . $p . $cell_f;
-			$str .= $cell_s . $s . $cell_f; 
-			$str .= $cell_s . $r . $cell_f;
-			$str .= $cell_s . $c . $cell_f;
+			$str .= $cell_s . $primaryDiv . $cell_f;
+			$str .= $cell_s . $secondaryDiv . $cell_f; 
+			$str .= $cell_s . $sortDiv . $cell_f;
+			$str .= $cell_s . $colFilterDiv . $cell_f;
 			$str .= $row_f;			
 		}
 		$str .= "</table>\n";
 				
-		echo $g;
+		echo $pageDiv;
 		echo $str;
 	}
 
-		// --------------------------------------------------------------------
+	/**
+	 * Make filter for param reports (stored procedure based list reports)
+	 * Example usage: predefined_analysis_preview/param
+	 * @param type $cols
+	 * @param type $current_paging_filter_values
+	 * @param type $current_sorting_filter_values
+	 * @param type $col_filter
+	 */
 	function make_param_filter($cols, $current_paging_filter_values, $current_sorting_filter_values, $col_filter)
 	{
 		$style = 'float:left;padding:3px 3px 0 0;display:none;';
 		
 		$g = make_paging_filter($current_paging_filter_values);
-		$g = "<div style='display:none' > $g </div>";
-		$r = 'x';
+		$pageDiv = "<div style='display:none' > $g </div>";
+		$sortDiv = 'x';
+		$colFilterDiv='';
 		if(!empty($cols)) {
 			$r = make_sorting_filter($current_sorting_filter_values, $cols);
 			$col_filter_size = 6;
@@ -97,15 +127,19 @@
 			$colFilterDiv = "<div id='column_filter_container' class='filter_container_box' style='$style' > $c </div>";
 		}
 	
-		echo $g;
+		echo $pageDiv;
 		if(!empty($cols)) {
 			echo "<div style='height:3px;clear:both;' ></div>";
-			echo $r;	
-			echo $c;
+			echo $sortDiv;	
+			echo $colFilterDiv;
 		}
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Construct the big primary filter table
+	 * @param type $current_primary_filter_values
+	 * @return boolean
+	 */
 	function big_primary_filter($current_primary_filter_values)
 	{
 		if(count($current_primary_filter_values) > 5) {
@@ -122,20 +156,29 @@
 		return $big;
 	}	
 
-	// --------------------------------------------------------------------
+	/**
+	 * Intermediate expansion control
+	 * @return string
+	 */
 	function make_intermediate_expansion_control() 
 	{
 		return 	'<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'intermediate\')" title="Expand showing only the primary filter"><span class="expando_section ui-icon ui-icon-circle-zoomout "></span></a>';
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Intermediate collapse control
+	 * @return string
+	 */
 	function make_intermediate_collapse_control() 
 	{
 		return 	'<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'minimal\')" title="Minimize filters"><span class="expando_section ui-icon ui-icon-circle-zoomin "></span></a>';
 	}
-	
-	
-	// --------------------------------------------------------------------
-	// primary filter form fields 
+		
+	/**
+	 * Primary filter form fields 
+	 * @param type $primary_filter_defs
+	 * @return type
+	 */
 	function make_primary_filter($primary_filter_defs)
 	{		
 		// get CI instance
@@ -184,8 +227,11 @@
 		return $str;
 	}
 
-	// --------------------------------------------------------------------
-	// primary filter form fields
+	/**
+	 * Construct the primary filter table
+	 * @param type $primary_filter_defs
+	 * @return string
+	 */
 	function make_primary_filter_in_table($primary_filter_defs)
 	{
 		// get CI instance
@@ -247,9 +293,12 @@
 		return $str;
 	}
 
-	// --------------------------------------------------------------------
-	// build HTML for table containing secondary filter fields
-	//(someday) cross-check number of filters against depth of fx
+	/**
+	 * Construct the secondary filter table
+	 * (someday) cross-check number of filters against depth of fx
+	 * @param type $sec_filter_display_info
+	 * @return string
+	 */
 	function make_secondary_filter($sec_filter_display_info)
 	{
 		$sfdi =& $sec_filter_display_info;
@@ -284,7 +333,12 @@
 		return $str;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Construct the sorting filter table
+	 * @param type $current_filter_values
+	 * @param type $cols
+	 * @return string
+	 */
 	function make_sorting_filter($current_filter_values, $cols)
 	{
 		$str = '';
@@ -319,7 +373,11 @@
 		return $str;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Construct the paging filter table
+	 * @param type $current_filter_values
+	 * @return type
+	 */
 	function make_paging_filter($current_filter_values)
 	{
 		$str = '';
@@ -334,8 +392,14 @@
 		return $str;
 	}
 
-	// --------------------------------------------------------------------
-	function make_column_filter($cols, $col_filter, $col_filter_size = 6)
+	/**
+	 * Construct the column filter table
+	 * @param type $cols
+	 * @param type $col_filter
+	 * @param type $col_filter_size
+	 * @return string
+	 */
+	function make_column_filter($cols, $col_filter, $col_filter_size = 5)
 	{
 		$str = "";
 
