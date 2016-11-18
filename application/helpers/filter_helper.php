@@ -10,7 +10,9 @@
 		$p = make_primary_filter($current_primary_filter_values);
 		$s = make_secondary_filter($sec_filter_display_info);
 		$r = make_sorting_filter($current_sorting_filter_values, $cols);
-		$c = make_column_filter($cols, $col_filter, 6);
+		
+		$col_filter_size = 5;
+		$c = make_column_filter($cols, $col_filter, $col_filter_size);
 		
 		$style = 'display:none;float:left;padding:3px 3px 0 0;';
 
@@ -34,8 +36,8 @@
 	{
 		$big_primary_filter = big_primary_filter($current_primary_filter_values);
 //		$col_filter_size = ($big_primary_filter)?14:7;
-		$col_filter_size = 6;
-		$col_filter_size = (count($cols) < $col_filter_size)?count($cols):$col_filter_size;
+		$default_col_filter_size = 5;
+		$col_filter_size = (count($cols) < $default_col_filter_size)?count($cols):$default_col_filter_size;
 
 		$g = make_paging_filter($current_paging_filter_values);
 		$p = make_primary_filter_in_table($current_primary_filter_values);
@@ -89,9 +91,10 @@
 		$r = 'x';
 		if(!empty($cols)) {
 			$r = make_sorting_filter($current_sorting_filter_values, $cols);
-			$c = make_column_filter($cols, $col_filter, 6);
-			$r = "<div id='sorting_filter_container' class='filter_container_box' style='$style' > $r </div>";
-			$c = "<div id='column_filter_container' class='filter_container_box' style='$style' > $c </div>";
+			$col_filter_size = 6;
+			$c = make_column_filter($cols, $col_filter, $col_filter_size);
+			$sortDiv = "<div id='sorting_filter_container' class='filter_container_box' style='$style' > $r </div>";
+			$colFilterDiv = "<div id='column_filter_container' class='filter_container_box' style='$style' > $c </div>";
 		}
 	
 		echo $g;
