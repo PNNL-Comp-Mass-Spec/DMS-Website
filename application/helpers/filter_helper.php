@@ -141,17 +141,41 @@
 
 		$str = "";
 
-		list($row_s, $row_f) = array("<span>", "</span>\n");		
-		list($cell_s, $cell_vs, $cell_f) = array("<span>", "<span>", "</span>");		
+		// Using a padding of 1 px on the bottom
+		list($row_s, $row_f) = array('<div class="primary_filter_inline">', "</div>\n");		
+		list($cell_s, $cell_f) = array("<label>", "</label>");		
 		
 		foreach($primary_filter_defs as $id => $spec) {
 			$data['id'] = $id;
 			$data['name'] = $data['id'];
 			$data['class'] = 'primary_filter_field filter_input_field';
-			$data['size'] =  10; //($spec["size"] < $data['size'])?$spec["size"]:$data['size'];
-            $data['maxlength'] = '100';
+			
+			// Typically the primary filter field size defined in the model config DB is ignored
+			// However, if it ends with an exclamation mark, the given field size is used
+			$fieldSize = $spec["size"];
+			$sizeTextLength = strlen($fieldSize);
+			if ($sizeTextLength > 1 && $fieldSize[$sizeTextLength - 1] === "!") {
+				// Override the textbox shown with a collapsed primary filter
+				$data['size'] = substr($fieldSize, 0, $sizeTextLength - 1);
+			} else {			
+				// By default, use a textbox of size 10
+				$data['size'] = 10;
+			}
+			
+			$maxLength = $spec["maxlength"];
+			if (!empty($maxLength) && $maxLength < 100) {
+				$data['maxlength'] = $maxLength;
+			} else {
+				$data['maxlength'] = '100';
+			}
+
 			$data['value'] = $spec["value"];
-			$str .= $row_s . $cell_s . str_replace(" ", "&nbsp;", $spec["label"]) . "&nbsp;" . $cell_f . $cell_vs . form_input($data). $cell_f . $row_f;
+			
+			// The appended text will be something like this:
+			//  <div class="primary_filter_inline"><label>Dataset 
+			//  <input type="text" name="pf_dataset" value="" id="pf_dataset" class="primary_filter_field filter_input_field" size="30" maxlength="100">
+			//  </label></div>
+			$str .= $row_s . $cell_s . str_replace(" ", "&nbsp;", $spec["label"]) . " " . form_input($data). $cell_f . $row_f;
 		}
 		$str .= make_intermediate_expansion_control();
 		return $str;
@@ -160,7 +184,7 @@
 	// --------------------------------------------------------------------
 	// primary filter form fields
 	function make_primary_filter_in_table($primary_filter_defs)
-	{		
+	{
 		// get CI instance
 		$CI =& get_instance();
 		$CI->load->helper('form');
@@ -181,12 +205,37 @@
 		list($row_s, $row_f) = array("<tr>", "</tr>\n");		
 		$str .= "<table class='FTab' id='primary_filter_table' >\n";
 		
+		$defaultTextboxSize = 15;
+		
 		foreach($primary_filter_defs as $id => $spec) {
 			$data['id'] = $id;
 			$data['name'] = $data['id'];
 			$data['class'] = 'primary_filter_field filter_input_field';
-			$data['size'] =  15;
-            $data['maxlength'] = '100';
+			
+			// Typically the primary filter field size defined in the model config DB is ignored
+			// However, if it ends with an exclamation mark, and if it is greater than 15, the given field size is used
+			$fieldSize = $spec["size"];
+			$sizeTextLength = strlen($fieldSize);
+			if ($sizeTextLength > 1 && $fieldSize[$sizeTextLength - 1] === "!") {
+				$fieldSize = substr($fieldSize, 0, $sizeTextLength - 1);
+				if ($fieldSize > $defaultTextboxSize) {
+					$data['size'] = $fieldSize;
+				} else {
+					// Do not shrink the textbox size below 15
+					$data['size'] = $defaultTextboxSize;
+				}
+			} else {			
+				// By default, use a textbox of size 15
+				$data['size'] = $defaultTextboxSize;
+			}
+			
+			$maxLength = $spec["maxlength"];
+			if (!empty($maxLength) && $maxLength < 100) {
+				$data['maxlength'] = $maxLength;
+			} else {
+				$data['maxlength'] = '100';
+			}
+			
 			$data['value'] = $spec["value"];
 			$choosers = $CI->entry_form->make_choosers($id, $spec, " &nbsp; ", "");
 			$str .= $row_s . $cell_s . $spec["label"] . $cell_f  . $cell_s . form_input($data) . $choosers . $cell_f . $row_f;
