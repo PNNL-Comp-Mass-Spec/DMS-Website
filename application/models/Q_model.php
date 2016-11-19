@@ -12,13 +12,55 @@
  * @category Helper class 
  */
 class Query_parts {
+	
+	/**
+	 * Database name
+	 * @var type 
+	 */
 	var $dbn = 'default';
+	
+	/**
+	 * Table to retrieve data from
+	 * @var type 
+	 */
 	var $table = '';
-	var $detail_sproc = '';			// Only used on detail reports (via detail_report_sproc); only used when detail_report_data_table is empty
+	
+	/**
+	 * Only used on detail reports (via detail_report_sproc); only used when detail_report_data_table is empty
+	 * @var type 
+	 */
+	var $detail_sproc = '';
+	
+	/**
+	 * Columns to show
+	 * @var type 
+	 */
 	var $columns = '*';
+	
+	/**
+	 * Query where clause info
+	 * @var type 
+	 */
 	var $predicates = array(); 		// of Query_predicate
+	
+	/**
+	 * User-defined list of column name and direction to sort on
+	 * @var type 
+	 */
 	var $sorting_items = array(); 	// column => direction
+	
+	/**
+	 * Paging information
+	 * @var type 
+	 */
 	var $paging_items = array('first_row' => 1, 'rows_per_page' => 12);
+	
+	/**
+	 * Default column and direction to sort on
+	 * Multiple column names can be specified by separating them with a comma
+	 * When using multiple columns, the same sort direction is applied to all of them
+	 * @var type 
+	 */
 	var $sorting_default = array('col' => '', 'dir' => '');
 }
 
@@ -513,22 +555,42 @@ class Q_model extends CI_Model {
 		if($option == 'filtered_and_paged' or $option == 'filtered_and_sorted') {
 			// only need to dig in if there aren't any sorting items already
 			if(empty($this->query_parts->sorting_items)) {
-				// use default sorting column or first column
+				// Use default sorting column or first column
 				$col = $this->query_parts->sorting_default['col'];
-				if(!$col) {
-				$col_info = $this->get_column_info();
+								
+				// use default sorting direction or ASC
+				$dir = $this->query_parts->sorting_default['dir'];
+				if($dir) {
+					// Assure that the sort direction is ASC or DESC
+					// Will auto-update desc or Descending to DESC; anything else is ASC
+					if ($this->startsWith(strtoupper($dir), "DESC")) {
+						$dir = "DESC";
+					} else {
+						$dir = "ASC";
+					}
+				} else {
+					$dir = 'ASC';
+				}
+
+				if($col) {
+					// Default column is defined
+					// It may contain multiple column names, separated by a comma. If so, append each separately
+					$colNames = explode(",", $col);
+					foreach($colNames as $colName) {
+						$this->add_sorting_item(trim($colName), $dir);
+					}
+				} else {
+					// Default column to sort on is not defined in the Model Config DB
+					// Sort on the first column
+					$col_info = $this->get_column_info();
 					if($col_info) {
 						$col = $col_info[0]->name;
 					} else {
 						throw new exception('cannot find default sorting row for "filitered_and_paged" ');
 					}
+					$this->add_sorting_item($col, $dir);
 				}
-				// use default sorting direction or ASC
-				$dir = $this->query_parts->sorting_default['dir'];
-				if(!$dir){
-					$dir = 'ASC';
-				}
-				$this->add_sorting_item($col, $dir);
+				
 			}
 		}
 	}
@@ -959,5 +1021,10 @@ class Q_model extends CI_Model {
 	{
 		return array("AND" => "AND","OR" => "OR");
 	}
-	
+
+	function startsWith($haystack, $needle)
+	{
+		 $length = strlen($needle);
+		 return (substr($haystack, 0, $length) === $needle);
+	}	
 }
