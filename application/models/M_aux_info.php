@@ -133,9 +133,11 @@ class M_aux_info extends CI_Model {
 		return true;
     }
 
-	// --------------------------------------------------------------------
-	// return an array from the form field specifications keyed by
-	// field name and containing the field label as the value for the key
+	/**
+	 * Return an array from the form field specifications keyed by
+	 * field name and containing the field label as the value for the key
+	 * @return type
+	 */
 	function get_field_validation_fields()
 	{
 		$x	= array();
@@ -148,9 +150,14 @@ class M_aux_info extends CI_Model {
 		return $x;
 	}
     
-	// --------------------------------------------------------------------
-	// return current values for given target, and id
-	// (only include items that have current values set)
+	/**
+	 * Return current values for given target, and id
+	 * (only include items that have current values set)
+	 * @param type $target
+	 * @param type $id
+	 * @return type
+	 * @throws Exception
+	 */
 	function get_aux_info_item_current_values($target, $id)
 	{
 		if($target=='') {
@@ -179,9 +186,16 @@ EOD;
 		return array($ai_items, $ai_choices);
 	}
 	
-	// --------------------------------------------------------------------
-	// return all defined aux info items for given target, category, subcategory
-	// including any currently set values for entity given by id
+	/**
+	 * Return all defined aux info items for given target, category, subcategory
+	 * including any currently set values for entity given by id
+	 * @param type $target
+	 * @param type $category
+	 * @param type $subcategory
+	 * @param type $id
+	 * @return type
+	 * @throws Exception
+	 */
 	function get_aux_info_item_values($target, $category, $subcategory, $id)
 	{
 		$sql = <<<EOD
@@ -224,9 +238,12 @@ EOD;
 		return $query->result_array();
 	}
 
-	// --------------------------------------------------------------------
-	// get list of aux info target definitions (tracking entities that are allowed
-	// to have associated aux info)
+	/**
+	 * get list of aux info target definitions (tracking entities that are allowed 
+	 * to have associated aux info)
+	 * @return type
+	 * @throws Exception
+	 */
 	function get_aux_info_targets()
 	{
 		$this->db->from('T_AuxInfo_Target');
@@ -239,8 +256,11 @@ EOD;
 		}
 		return $query->result_array();
 	}
-	// --------------------------------------------------------------------
-	// get list of aux info target names only
+	
+	/**
+	 * Get list of aux info target names only
+	 * @return type
+	 */
 	function get_aux_info_target_names()
 	{
 		$result = $this->get_aux_info_targets();
@@ -251,8 +271,12 @@ EOD;
 		return $targets;
 	}
 
-	// --------------------------------------------------------------------
-	// get list of all aux info item definitions for the given target
+	/**
+	 * Get list of all aux info item definitions for the given target
+	 * @param type $target
+	 * @return type
+	 * @throws Exception
+	 */
 	function get_aux_info_def($target)
 	{
 		$this->db->from('V_AuxInfo_Definition');
@@ -277,22 +301,37 @@ EOD;
 		}
 		return $def;
 	}
-	// --------------------------------------------------------------------
-	// get list of all aux info categories  for the given target
+	
+	/**
+	 * Get list of all aux info categories for the given target
+	 * @param type $target
+	 * @return type
+	 */
 	function get_aux_info_categories($target)
 	{
 		$result = $this->get_aux_info_def($target);
 		return array_keys($result);
 	}
-	// --------------------------------------------------------------------
-	// get list of all aux info subcategories  for the given target and category
+	
+	/**
+	 * Get list of all aux info subcategories for the given target and category
+	 * @param type $target
+	 * @param type $category
+	 * @return type
+	 */
 	function get_aux_info_subcategories($target, $category)
 	{
 		$result = $this->get_aux_info_def($target);
 		return array_keys($result[$category]);
 	}
-	// --------------------------------------------------------------------
-	// get list of all aux info items for the given target and category and subcategories
+	
+	/**
+	 * Get list of all aux info items for the given target and category and subcategories
+	 * @param type $target
+	 * @param type $category
+	 * @param type $subcategory
+	 * @return type
+	 */
 	function get_aux_info_items($target, $category, $subcategory)
 	{
 		$result = $this->get_aux_info_def($target);

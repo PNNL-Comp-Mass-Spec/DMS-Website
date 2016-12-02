@@ -23,6 +23,7 @@ class Aux_info_support {
 	function get_update_response_container() {
 		return $this->update_response_container;
 	}
+	
 	// -----------------------------------
 	function make_category_subcategory_selector($aux_info_def)
 	{
@@ -46,9 +47,14 @@ class Aux_info_support {
 		$str = "<select id='Category_Subcategory' size='$size' $js >\n" . $str . "</select>\n";
 		return $str;
 	}
-	// -----------------------------------
-	// create the entry form (and enclosing table)
-	// for editing aux info items ()for one subcategory)
+	
+	/**
+	 * Create the entry form (and enclosing table)
+	 * for editing aux info items ()for one subcategory)
+	 * @param type $items
+	 * @param type $choices
+	 * @return string
+	 */
 	function make_item_entry_form($items, $choices)
 	{
 		$in = 'FieldNamesEx[]';
@@ -112,14 +118,15 @@ class Aux_info_support {
 		return form_dropdown("$chooser_id", $options, '', $js);		
 	}
 
-// -----------------------------------
-// create HTML declaring a global variable as a javascript object
-// that contains information necessary to make AJAX calls
-function make_aux_info_global_AJAX_definitions()
-{
-	$throb = base_url()."images/throbber.gif";
-	$str = '';	
-	$str .= <<<EOD
+	/**
+	 * Create HTML declaring a global variable as a javascript object
+	 * that contains information necessary to make AJAX calls
+	 */
+	function make_aux_info_global_AJAX_definitions()
+	{
+		$throb = base_url()."images/throbber.gif";
+		$str = '';	
+		$str .= <<<EOD
 <script type="text/javascript">
 	var gAuxInfoAJAX = {
 		progress_message:'<span class="LRepProgress">Working...<img src="$throb" /></span>'
@@ -127,7 +134,7 @@ function make_aux_info_global_AJAX_definitions()
 </script>
 
 EOD;
-	return $str;
-}
+		return $str;
+	}
 
 }
