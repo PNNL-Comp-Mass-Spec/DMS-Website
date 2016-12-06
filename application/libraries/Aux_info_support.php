@@ -103,7 +103,7 @@ class Aux_info_support {
 		$options[''] = '';
 		foreach($choices as $ch) {
 			if($ch['Item']==$item) {
-			$av = $ch['AllowedValue'];
+				$av = $ch['AllowedValue'];
 				$options[$av] = $av;	
 			}
 		}

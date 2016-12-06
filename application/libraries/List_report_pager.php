@@ -72,7 +72,7 @@ class List_report_pager {
 	}
 	
 	/**
-	 * Description of paging, for example Rows 251 through 375 of 2249
+	 * Return a description of paging, for example Rows 251 through 375 of 2249
 	 * @return string
 	 */
 	function create_stats()
