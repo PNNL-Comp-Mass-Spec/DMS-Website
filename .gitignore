@@ -3,3 +3,5 @@
 /application/model_config/__Compare_Config_DBs_to_Remote__.bat.lnk
 /application/resources.lnk
 /nbproject/private/
+application/config/production/*.lnk
+application/model_config/DMS_DB_Sql/cbdms/DB_Updating_Readme.txt
