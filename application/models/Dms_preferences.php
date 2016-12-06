@@ -20,12 +20,13 @@ class Dms_preferences extends CI_Model {
 				'validation' => Dms_preferences::range_sep,
 				'allowed_values' => array(5,4000),
 			),
-			'minimum_col_width' => array(
-				'label' => 'Minimum Column Width',
-				'description' => 'The default number of characters in a collapsed list report column',
-				'value' => '10',
-				'validation' => Dms_preferences::range_sep,
-				'allowed_values' => array(3,20),
+			// Deprecated since unused:
+			/* 'minimum_col_width' => array(
+			 	'label' => 'Minimum Column Width',
+			 	'description' => 'The default number of characters in a collapsed list report column',
+			 	'value' => '10',
+			 	'validation' => Dms_preferences::range_sep,
+			 	'allowed_values' => array(3,20),
 			),
 			'date_display_fomat' => array(
 				'label' => 'Date Display format',
@@ -34,6 +35,8 @@ class Dms_preferences extends CI_Model {
 				'validation' => Dms_preferences::list_sep,
 				'allowed_values' => array('US_Standard_12hr', 'US_Standard_24hr', 'yyyy-mm-dd hh:mm:ss'),
 			),
+			// Deprecated since unused:
+			/*
 			'remember_list_report_settings' => array(
 				'label' => 'Remember List Report Settings',
 				'description' => "Automatically remember list report page settings between visits",
@@ -48,6 +51,7 @@ class Dms_preferences extends CI_Model {
 				'validation' => Dms_preferences::range_sep,
 				'allowed_values' => array(1,15),
 			),
+			 */
 		);
 
 	var $settings = array();
@@ -76,7 +80,8 @@ class Dms_preferences extends CI_Model {
 					}
 					break;
 				case Dms_preferences::list_sep:
-echo var_dump($av)."<hr>";
+					// Uncomment the following to see the contents of the allowed values array $av
+					// echo var_dump($av)."<hr>";
 					if(!in_array($value, $av)) {
 						$s = "Input '$value' was not in list of acceptable values for parameter '$p'";
 					}
