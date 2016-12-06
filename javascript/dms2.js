@@ -1349,7 +1349,7 @@ var epsilon = {
 				return;
 			}
 			var delim = ';';
-			if(mode == 'append_comma') delim = ',';		
+			if(mode == 'append_comma') delim = ', ';
 			var v = fld.val();
 			if(v != '') v = v + delim;
 			fld.val(v + chv);			
