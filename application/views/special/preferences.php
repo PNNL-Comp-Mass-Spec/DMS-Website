@@ -12,7 +12,9 @@
 	 	if (reply == null || reply == "") {
 			return;
 		}
-		location = url + reply;
+		// Replace non-breaking dashes with normal dashes
+		var findNonBreakingSpace = new RegExp(String.fromCharCode(8209), "g");
+		location = url + reply.replace(findNonBreakingSpace, "-");
 	}	
 </script>
 
@@ -52,7 +54,27 @@ foreach($settings as $setting => $def) {
 	$url = site_url()."preferences/set/$setting/";
 	$str .= "<td><a href='javascript:setPreference(\"$url\")'>Change</a></td>";
 	$str .= "<td>".$def['description']."</td>";
-	$str .= "<td>".implode($def['validation'], $def['allowed_values'])."</td>";
+	$str .= "<td>";
+	
+	if ($def['allowed_values'] === '-') {
+		// Allowed values specifies a range of integers
+		// Display the minimum then a dash then the maximum
+		$str .= "<td>".implode($def['validation'], $def['allowed_values'])."</td>";
+	}
+	else {
+		// Allowed values specifies a series of allowed strings
+		// Display them as a comma-separated list
+		// When constructing the list, replace dashes with a non-breaking hyphen and spaces with a non-breaking space
+		$allowedValueCount = count($def['allowed_values']);
+		for ($i = 0; $i < $allowedValueCount; $i++) {
+			$str .= str_replace('-', '&#8209;', str_replace(' ', '&nbsp;', $def['allowed_values'][$i]));
+			if ($i < $allowedValueCount - 1) {
+				$str .= $def['validation'];
+			}
+		}
+	}
+	
+	$str .= "</td>";
 	$str .= "</tr>";
 	echo $str;
 }

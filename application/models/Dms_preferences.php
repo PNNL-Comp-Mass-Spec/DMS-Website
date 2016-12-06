@@ -5,6 +5,9 @@ class Dms_preferences extends CI_Model {
     const list_sep = ', ';
 
 	var $storage_name = 'dms_preferences';
+	
+	// In this array, validation holds either the separator inserted between the min and max allowed values
+	// or the separator between items in a string array
 	var $settings_defaults = array(
 			'list_report_rows' => array(
 				'label' => 'List Report Rows per Page',
@@ -28,12 +31,13 @@ class Dms_preferences extends CI_Model {
 			 	'validation' => Dms_preferences::range_sep,
 			 	'allowed_values' => array(3,20),
 			),
-			'date_display_fomat' => array(
+			 */
+			'date_display_format' => array(
 				'label' => 'Date Display format',
 				'description' => "Display format for dates",
 				'value' => 'US_Standard_12hr',
 				'validation' => Dms_preferences::list_sep,
-				'allowed_values' => array('US_Standard_12hr', 'US_Standard_24hr', 'yyyy-mm-dd hh:mm:ss'),
+				'allowed_values' => array('US_Standard_12hr', 'US_Standard_24hr', 'yyyy-mm-dd hh:mm:ss', 'yyyy-mm-dd hh:mm'),
 			),
 			// Deprecated since unused:
 			/*
@@ -58,8 +62,9 @@ class Dms_preferences extends CI_Model {
 	
 	var $date_formats = array(
 			'US_Standard_24hr' => 'n/j/Y H:i:s',
-			'US_Standard_12hr' => 'n/j/Y h:i A',
+			'US_Standard_12hr' => 'n/j/Y g:i A',
 			'yyyy-mm-dd hh:mm:ss' => 'Y-m-d H:i:s',	
+			'yyyy-mm-dd hh:mm' => 'Y-m-d H:i'
 	);
 
 	// --------------------------------------------------------------------
@@ -104,7 +109,7 @@ class Dms_preferences extends CI_Model {
 	// --------------------------------------------------------------------
 	function get_date_format_string()
 	{
-		$format_name = $this->settings['date_display_fomat']['value'];
+		$format_name = $this->settings['date_display_format']['value'];
 		if(!array_key_exists($format_name, $this->date_formats)) {
 			$format_name = 'US_Standard_24hr';
 		}
@@ -128,6 +133,7 @@ class Dms_preferences extends CI_Model {
 			}
 		}
 	}
+	
 	// --------------------------------------------------------------------
 	function get_preferences()
 	{
@@ -143,6 +149,7 @@ class Dms_preferences extends CI_Model {
 			return FALSE;
 		}
 	}
+	
 	// --------------------------------------------------------------------
 	function set_preference($param, $value)	
 	{
@@ -169,6 +176,7 @@ class Dms_preferences extends CI_Model {
 		$_SESSION[$this->storage_name] =  $s;
 		$this->save_user_prefs_to_cookie($s);
 	}
+	
 	// --------------------------------------------------------------------
 	function load_defaults() {		
 		if (isset($_SESSION[$this->storage_name])) {
@@ -182,15 +190,19 @@ class Dms_preferences extends CI_Model {
 			return $s;
 		}
     }
+	
 	// --------------------------------------------------------------------
 	function clear_saved_defaults()
 	{
-		$_SESSION[$this->storage_name] =  serialize(array());
+		$_SESSION[$this->storage_name] = serialize(array());
 		$this->save_user_prefs_to_cookie(FALSE);
 	}
 
-/* */
-	// --------------------------------------------------------------------
+	/**
+	 * Save the user preferences as a cookie
+	 * @param type $ser_state Serialized state, or FALSE if deleting the cookie
+	 * @param type $cookie_life The number of seconds until expiration
+	 */
 	function save_user_prefs_to_cookie($ser_state, $cookie_life = '2073600')
 	{
 		$user_name = get_user();
