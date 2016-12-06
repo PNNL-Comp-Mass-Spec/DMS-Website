@@ -402,10 +402,15 @@ class Entry_form {
 			$data['rows'] = $f_spec['rows'];
 			$data['cols'] = $f_spec['cols'];
 			if(isset($f_spec['auto_format'])) {
+				// auto_format is defined in the form_field_options table in the config DB
 				if($f_spec['auto_format'] == 'xml') {
 					$data['onBlur'] = "epsilon.formatXMLText('".$data['id']."')";					
 				}
-			} else {
+				if($f_spec['auto_format'] == 'none') {
+					// Do not alter the text at all
+				}
+			} else {				
+				// Replace carriage returns and linefeeds with the delimiter
 				$data['onChange'] = "epsilon.convertList('".$data['id']."', '".$delim."')";
 			}
 			$data = $this->add_chooser_properties($f_name, $f_spec, $data);
