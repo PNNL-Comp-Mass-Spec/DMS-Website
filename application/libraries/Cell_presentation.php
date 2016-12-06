@@ -181,8 +181,19 @@ class Cell_presentation {
 				$url = reduce_double_slashes(site_url()."$target/show/$value");
 				$str .= "<td><a href='$url'>$value</a></td>";
 				break;
-			case "format_commas":
-				$matches = array();
+			case "format_date":
+				// Apply a custom date format, using the format code in the options column
+				// Additionally, if the Target field for this hotlink definition contains an integer, that value is used for min_col_width
+				// (this behavior is used because a given column cannot have two hotlinks defined for it)
+				// For date format codes, see http://php.net/manual/en/function.date.php
+				$dateValue = strtotime($value);
+				if($dateValue) {
+					$dateFormat = $this->getOptionValue($colSpec, 'Format', 'Y-m-d H:i:s');
+					$value = date($dateFormat, $dateValue);
+				}
+				$str .= "<td>" . $value . "</td>";
+				break;
+			case "format_commas":				
 				if(is_numeric($value)) {
 					$valueNum = floatval($value);
 					$decimals = $this->getOptionValue($colSpec, 'Decimals', '0');
@@ -405,11 +416,15 @@ class Cell_presentation {
 		$padding = '';
 		if(array_key_exists($col_name, $this->hotlinks)) {
 			$colSpec = $this->hotlinks[$col_name];
-			if($colSpec["LinkType"] == 'min_col_width') {
-				$min_width = $colSpec["Target"];
-				$len = strlen($col_name);
-				if($len < $min_width) {
-					$padding = str_repeat("&nbsp;", $min_width - $len);
+			if($colSpec["LinkType"] == 'min_col_width' ||
+			   $colSpec["LinkType"] == 'format_date') {
+				if (is_numeric($colSpec["Target"]))
+				{
+					$min_width = $colSpec["Target"];				
+					$len = strlen($col_name);
+					if($min_width > 0 && $len < $min_width) {
+						$padding = str_repeat("&nbsp;", $min_width - $len);
+					}
 				}
 			}
 		}
@@ -477,15 +492,15 @@ class Cell_presentation {
 			return;
 		}
 
-		// traverse the array of rows, and fix the datetime colum formats
+		// traverse the array of rows, and fix the datetime column formats
 		//
 		// get the date display format from global preferences
 		$CI =& get_instance();
 		$CI->load->model('dms_preferences', 'preferences');
-		$format = $CI->preferences->get_date_format_string();
+		$dateFormat = $CI->preferences->get_date_format_string();
 
-		// traverse all the rows in the reslut
-		for($i=0;$i<count($result);$i++) {
+		// traverse all the rows in the result
+		for($i=0; $i<count($result); $i++) {
 			// traverse all the date columns in the current row
 			foreach($dc as $col) {
 				// skip if the column value is empty
@@ -502,7 +517,7 @@ class Cell_presentation {
 					// mark display if original format could not be parsed.
 					$dt = strtotime($result[$i][$col]);
 					if($dt) {
-						$result[$i][$col] = date($format, $dt);
+						$result[$i][$col] = date($dateFormat, $dt);
 					} else {
 						$result[$i][$col] = "??".$result[$i][$col];
 					}
