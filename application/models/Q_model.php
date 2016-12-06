@@ -132,6 +132,15 @@ class Q_model extends CI_Model {
 	private $result_column_info = NULL;
 	
 	/**
+	 * Unix timestamp when the result column info was cached
+	 * Data in $result_column_info is updated every 24 hours
+	 * @var type 
+	 */
+	private $result_column_cachetime = NULL;
+	
+	const column_info_refresh_interval_minutes = 1440;
+	
+	/**
 	 * Information from config DB about primary filter defined for config_name/config_source
 	 * @var array
 	 */
@@ -681,7 +690,14 @@ class Q_model extends CI_Model {
 	 */
 	function get_column_info()
 	{
-		if(!$this->result_column_info) {
+		
+		$forceRefresh = false;
+		if (!is_null($this->result_column_cachetime) && 
+		    (time() - $this->result_column_cachetime) / 60.0 > self::column_info_refresh_interval_minutes) {
+			$forceRefresh=true;
+		}
+			
+		if(!$this->result_column_info || $forceRefresh) {
 			$CI =& get_instance();
 			$CI->load->helper('cache');
 			$state = get_from_cache($this->col_info_storage_name);
@@ -693,6 +709,8 @@ class Q_model extends CI_Model {
 					$this->set_col_info_data($state);
 				}
 			}
+			
+			$this->result_column_cachetime = time();
 		}
 		return $this->result_column_info;
 	}
