@@ -401,15 +401,27 @@ class Entry_form {
 		case 'area':
 			$data['rows'] = $f_spec['rows'];
 			$data['cols'] = $f_spec['cols'];
+			$autoFormatDelimitedList = true;
 			if(isset($f_spec['auto_format'])) {
 				// auto_format is defined in the form_field_options table in the config DB
-				if($f_spec['auto_format'] == 'xml') {
-					$data['onBlur'] = "epsilon.formatXMLText('".$data['id']."')";					
+				switch ($f_spec['auto_format']) {
+					case 'xml':
+						$data['onBlur'] = "epsilon.formatXMLText('".$data['id']."')";
+						$autoFormatDelimitedList = false;
+						break;
+					case 'none':
+					case 'mono':
+					case 'monospace':
+						// Do not alter the text at all
+						$autoFormatDelimitedList = false;
+						break;
+					default:
+						// Unrecognized auto_format spec
+						// Leave $autoFormatDelimitedList as true
+						break;
 				}
-				if($f_spec['auto_format'] == 'none') {
-					// Do not alter the text at all
-				}
-			} else {				
+			}
+			if ($autoFormatDelimitedList) {
 				// Replace carriage returns and linefeeds with the delimiter
 				$data['onChange'] = "epsilon.convertList('".$data['id']."', '".$delim."')";
 			}

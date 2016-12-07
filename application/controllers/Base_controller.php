@@ -177,7 +177,12 @@ class Base_controller extends CI_Controller {
 		$this->detail_report->detail_report($id);
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Show the data with minimal formatting (no headers, but does have "Edit, Copy and New")
+	 * For example http://dms2.pnl.gov/param_file/show_data/3287
+	 * Actual data loading occurs in method detail_report_data in file Detail_report.php
+	 * @param type $id
+	 */
 	function show_data($id)
 	{
 		$this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
@@ -186,6 +191,7 @@ class Base_controller extends CI_Controller {
 
 	/**
 	 * Make a page to show a detailed report for the single record identified by the the user-supplied id
+	 * Typically accessed using a call like http://dms2.pnl.gov/param_file/show/3287
 	 * @param string $id
 	 * @return type
 	 */
