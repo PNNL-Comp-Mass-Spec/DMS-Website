@@ -3,10 +3,20 @@
 		exit('No direct script access allowed');
 	}
 
-// -----------------------------------
-// Create HTML to display detail report fields, including adding hotlinks
-//
-function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $show_entry_links=TRUE)
+/**
+ * Create HTML to display detail report fields, including adding hotlinks
+ * Also adds the header fields, including the link to the list report and edit/entry buttons
+ * This method is called from view application/views/main/detail_report_data.php
+ * That view is loaded from method show_data in Base_controller.php
+ * @param type $columns
+ * @param type $fields
+ * @param type $hotlinks
+ * @param type $controller_name
+ * @param type $id
+ * @param type $show_entry_links
+ * @return string
+ */
+function make_detail_report_section($columns, $fields, $hotlinks, $controller_name, $id, $show_entry_links=TRUE)
 {
 	$str = '';
 	// fields are contained in a table
@@ -29,28 +39,56 @@ function make_detail_report_section($fields, $hotlinks, $controller_name, $id, $
 	$str .= "<th>Value</th>";
 	$str .= "</tr>";
 
-	$str .= make_detail_table_data_rows($fields, $hotlinks);
+	$str .= make_detail_table_data_rows($columns, $fields, $hotlinks);
 
 	$str .= "</table>\n";
 	return $str;
 }
-// -----------------------------------
-//
-function make_detail_table_data_rows($fields, $hotlinks)
+
+/**
+ * Convert the rows of data into html, including formatting datetime values and adding hotlinks
+ * @param type $columns
+ * @param type $fields
+ * @param type $hotlinks
+ * @return string
+ */
+function make_detail_table_data_rows($columns, $fields, $hotlinks)
 {
 	$str = "";
 	$colIndex = 0;
 
+	$dc = array();
+
+	// Look for any datetime columns
+	foreach ($columns as $column) {
+		if($column->type=='datetime') {
+			$dc[] = $column->name;
+		}
+	}
+	
+	// Show dates/times in the form: Dec 5 2016 5:44 PM
+	$dateFormat = "M j Y g:i A";
+
 	// make a form field for each field in the field specs
 	foreach ($fields as $f_name => $f_val) {
-		// don't display columns that begin with hash character
+		// don't display columns that begin with a hash character
 		if($f_name[0] == '#') {
 			continue;
 		}
 
 		// default field display for table
 		$label = $f_name;
-		$val = $f_val;
+		$val = $f_val;		
+		
+		if (!is_null($f_val) && in_array($f_name, $dc)) {
+			// Convert original date string to date object
+			// then convert that to the desired display format.
+			$dt = strtotime($f_val);
+			if($dt) {
+				$val = date($dateFormat, $dt);
+			}
+		}
+			
 		$label_display = "<td>$label</td>\n";
 		$val_display = "<td>$val</td>\n";
 		

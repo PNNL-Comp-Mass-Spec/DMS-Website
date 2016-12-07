@@ -71,19 +71,22 @@ class Detail_report {
 
 		try {
 			// get data
-			$CI->cu->load_mod('q_model', 'detail_model', $this->config_name, $this->config_source);
-			$result_row = $CI->detail_model->get_item($id);
+			$CI->cu->load_mod('q_model', 'detail_model', $this->config_name, $this->config_source);			
+			$result_row = $CI->detail_model->get_item($id);			
 			if(empty($result_row)) {
 				throw new exception("Details for entity '$id' could not be found");
 			}
 
+			$col_info = $CI->detail_model->get_column_info();
+			
 			// hotlinks
 			$CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
 	
 			// render with old detail report helper
 			$data['my_tag'] = $this->tag;
 			$data['id'] = $id;
-			$data["fields"] = $result_row;
+			$data["columns"] = $col_info;		// Column defs
+			$data["fields"] = $result_row;		// Returned data for the retrieved row
 			$data["hotlinks"] = $CI->link_model->get_detail_report_hotlinks();
 			$data['show_entry_links'] = $show_entry_links;
 	
