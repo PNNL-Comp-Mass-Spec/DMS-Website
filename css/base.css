@@ -238,6 +238,13 @@ table.DRep pre {
 	margin: 0px;
 }
 
+table.DRep code {
+	font-size: 14px;
+	font-family: Consolas, monospace;
+	display: inline;
+	margin: 0px;
+}
+
 .DrepAuxInfo {
 	padding: 5px 0px 2px 2px;
 }

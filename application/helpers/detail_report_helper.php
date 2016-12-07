@@ -254,7 +254,14 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 			$str .= make_table_from_param_xml($display);
 			break;
 		case "markup":
+			// Replace newlines with <br> using nl2br
 			$str .= nl2br($display);
+			break;
+		case "monomarkup":
+			// Replace newlines with <br> using nl2br
+			// Also surround the entire block with <code></code>
+			// CSS formatting in base.css renders the text as monospace; see table.DRep pre
+			$str .= '<code>' . nl2br($display) . '</code>';
 			break;
 		case "glossary_entry":
 			$url = make_detail_report_url($target, $wa, $options);

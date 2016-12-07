@@ -1031,6 +1031,7 @@ var delta = {
 		);
 	},
 	updateMyData: function() {
+		// Use a page like http://dms2.pnl.gov/analysis_job/show/1386092 to populate the data_container div defined in detail_report.php
 		delta.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container'); 
 	},
 	processResults: function(data, container) {
