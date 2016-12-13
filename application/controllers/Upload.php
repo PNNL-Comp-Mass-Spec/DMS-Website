@@ -121,7 +121,7 @@ class Upload extends Base_controller {
 				$row[] = $entity;
 				$url = site_url()."upload/entity/$fname/$entity";
 				$tooltip = 'Show details of this entity from spreadsheet';
-				$row[] = "<a href='javascript:void(0)' onclick='window.open(\"$url\", \"EW\", \"scrollbars,resizable,height=900,width=600,menubar\")' title='$tooltip'>Examine</a>";
+				$row[] = "<a href='javascript:void(0)' onclick='window.open(\"$url\", \"EW\", \"scrollbars,resizable,height=600,width=600,menubar\")' title='$tooltip'>Examine</a>";
 				$row[] = "<span id='$results_container' class='entity_results_container'></span>";
 				$rows[] = $row;
 			}
