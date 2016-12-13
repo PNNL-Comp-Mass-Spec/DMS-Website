@@ -66,6 +66,7 @@ File to upload:
 <input name="myfile" id="myfile" type="file" size="120"/>
 <input type="submit" name="submitBtn" value="Upload" title="Upload local file to DMS" />
 </form>
+<font size="-2">This must be a tab-delimited text file.  If you have a .xls file or .xlsx file, use Save As to export as "Text (tab delimited)"</font>
 </div>
 
 <div style="padding:10px 0 5px 0;">
