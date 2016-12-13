@@ -92,6 +92,8 @@ class Helper_inst_source extends Base_controller {
 		$data['title'] = $this->my_title;
 		$data['heading'] = "Source Files for $inst";
 
+		$showDotDMessage = false;
+
 		// open instrument source file and
 		// read lines and select and prepare as appropriate
 		// and stuff into results array
@@ -115,18 +117,28 @@ class Helper_inst_source extends Base_controller {
 			// clean off file extensions
 			$valueClean = preg_replace('/(\.raw$|\.wiff$|\.d$)/i'  , '', $value );
 
+			// Hide certain files
+			if ($value === "Use_dir_slashAS_for_hidden_DotD_folders.txt" ||
+				$value === "desktop.ini" ||
+				preg_match("/upload.txt$/i", $value) ||
+				preg_match("/\.(sld|meth|log|bat)$/i", $value)	) {
+				continue;
+			}
+			
 			// make name into link, as appropriate (file or dir)
 			// Do not link items that start with x_ or that end with .sld
+			// Also skip text file Use_dir_slashAS_for_hidden_DotD_folders.txt
 			if (($type == 'File' || $type == 'Dir') &&
 			    !preg_match("/^x_/i", $valueClean) &&
-			    !preg_match("/\.(sld|meth|txt|log)$/i", $value)
+			    !preg_match("/\.(sld|meth|txt|log)$/i", $value)				
 			   )
 			{
 				$lnk = "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"$valueClean\", \"replace\")' >$value</a>";
 			} else {
 				$lnk = $value;
 			}
-			// put into proper category
+			
+			// Put into proper category
 			switch($type) {
 				case 'File':
 					$fileInfo = "$lnk ($type";
@@ -142,6 +154,11 @@ class Helper_inst_source extends Base_controller {
 						$dirInfo .= ", " . $size;
 
 					$dirs[] = $dirInfo . ")";
+					
+					if (preg_match("/\.d$/i", $value)) {
+						$showDotDMessage = true;
+					}
+					
 					break;
 
 				default:
@@ -149,6 +166,12 @@ class Helper_inst_source extends Base_controller {
 					break;
 			}
 		}
+		
+		if ($showDotDMessage) {
+			$dirs[] = "";
+			$dirs[] = "Use dir /ah to see hidden .D folders";
+		}
+		
 		fclose($file);
 
 		$result = array_merge($other, $dirs, $files);
