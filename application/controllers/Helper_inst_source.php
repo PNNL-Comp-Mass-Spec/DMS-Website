@@ -91,19 +91,32 @@ class Helper_inst_source extends Base_controller {
 
 		$data['title'] = $this->my_title;
 		$data['heading'] = "Source Files for $inst";
+		$data['subheading'] = "";
 
 		$showDotDMessage = false;
 
-		// open instrument source file and
-		// read lines and select and prepare as appropriate
-		// and stuff into results array
+		// Open instrument source file and read the data line-by-line
+		// Use this to generate data that will be displayed as a table
+		
+		$headerRow = array();
 		$files = array();
 		$dirs = array();
 		$other = array();
+		
+		$headerRow[] = "||File or Folder||Type||Size||DMS Detail Report";
+		
 		while (!feof ($file)) {
 		    $line = fgets ($file, 1024);
+			
 			// skip blank lines
 			if(preg_match("/^\s*$/", $line)) continue;
+
+			if ($data['subheading'] == "" && strpos($line, "Folder:") === 0) {
+				$data['subheading'] = $line;
+				continue;
+			}
+
+			// Split on tabs
 			$flds = preg_split('/[\t]/', $line);
 			$type = trim($flds[0]);
 			$value = trim($flds[1]);
@@ -137,23 +150,32 @@ class Helper_inst_source extends Base_controller {
 			} else {
 				$lnk = $value;
 			}
+
+			$datasetLink = "";
+			if (0 === strpos($valueClean, "x_")) {
+				$datasetLink = "<a href=\"/dataset/show/" . substr($valueClean, 2) . "\" target=_blank>Show</a>";
+			}
 			
 			// Put into proper category
 			switch($type) {
 				case 'File':
-					$fileInfo = "$lnk ($type";
+					$fileInfo = "|$lnk|$type|";
 					if(strlen($size) > 0)
-						$fileInfo .= ", " . $size;
-
-					$files[] = $fileInfo . ")";
+						$fileInfo .= $size;
+					else
+						$fileInfo .= " ";
+					
+					$files[] = $fileInfo . "|" . $datasetLink;
 					break;
 
 				case 'Dir':
-					$dirInfo = "$lnk ($type";
+					$dirInfo = "|$lnk|$type|";
 					if(strlen($size) > 0)
-						$dirInfo .= ", " . $size;
+						$dirInfo .= $size;
+					else
+						$dirInfo .= " ";
 
-					$dirs[] = $dirInfo . ")";
+					$dirs[] = $dirInfo . "|" . $datasetLink;
 					
 					if (preg_match("/\.d$/i", $value)) {
 						$showDotDMessage = true;
@@ -162,24 +184,24 @@ class Helper_inst_source extends Base_controller {
 					break;
 
 				default:
-					$other[] = "$lnk ($type)";
+					$other[] = "|$lnk|$type| |";
 					break;
-			}
+			}			
 		}
 		
 		if ($showDotDMessage) {
 			$dirs[] = "";
 			$dirs[] = "Use dir /ah to see hidden .D folders";
-		}
+		}	
 		
 		fclose($file);
-
-		$result = array_merge($other, $dirs, $files);
+	
+		$result = array_merge($headerRow, $other, $dirs, $files);
 		$data['result'] = $result;
 
 		// load up data array and call view template
 		$this->load->vars($data);
-		$this->load->view('simple_list');
+		$this->load->view('tabular_data');
 	}
 
 }
