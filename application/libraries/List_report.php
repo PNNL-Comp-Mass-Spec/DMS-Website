@@ -48,17 +48,35 @@ class List_report {
  		// convert them to primary and secondary filter field values and cache those
  		// and redirect back to ourselves without the trailing URL segments
  		$segs = array_slice($CI->uri->segment_array(), 2);
+		
+		// Initially assume all items in $segs are primary filter items
 		$pfSegs = $segs;
+		
+		// Initialize empty secondary filters
 		$sfSegs = array();
+		
+		// Check for keyword "sfx" or "clear-sfx"
 		$sfIdx = $this->get_secondary_filter_preset_idx($segs);
-		$primary_filter_specs = $CI->model->get_primary_filter_specs();
+		
 		if(!$sfIdx === false) {
+			// Secondary filters are defined
+			// Extract them out then update $pfSegs
 			$sfSegs = array_slice($segs, $sfIdx + 1);
 			$pfSegs = array_slice($segs, 0, $sfIdx);
-			$this->set_sec_filter_from_url_segments($sfSegs, $primary_filter_specs);		
-		}	
+			$this->set_sec_filter_from_url_segments($sfSegs);
+		}
+		
 		if(!empty($segs)) {
+			// Retrieve the primary filters
+			$primary_filter_specs = $CI->model->get_primary_filter_specs();
+
 			$this->set_pri_filter_from_url_segments($pfSegs, $primary_filter_specs);
+			
+			if ($sfIdx === false) {
+				// Secondary filters were not defined in the URL
+				// Clear any cached filter values
+				$this->set_sec_filter_from_url_segments($sfSegs);
+			}
 			redirect($this->tag.'/'.$mode);
 		}	
 	
@@ -146,10 +164,9 @@ class List_report {
 	/**
 	 * Initialize secondary filter values from URL segments and cache them for subsequent queries
 	 * @param type $segs
-	 * @param type $primary_filter_specs
 	 */
 	protected
-	function set_sec_filter_from_url_segments($segs, $primary_filter_specs)
+	function set_sec_filter_from_url_segments($segs)
 	{
 		$CI = &get_instance();
 		
@@ -295,6 +312,7 @@ class List_report {
 	function dump_filters($filters, $tag)
 	{
 		$s = "";
+		
 		// dump primary filter to segment list
 		// Replace spaces with %20
 		// Trim leading and trailing whitespace
@@ -326,10 +344,12 @@ class List_report {
 				$sf[] = str_replace(" ", "%20", trim($y));
 			}
 		}
+		
 		// add secondary filter segments (if present)
 		if(!empty($sf)) {
 			$s .= "/sfx" . implode("", $sf);
 		}
+		
 		return $s;
 	}
 	
