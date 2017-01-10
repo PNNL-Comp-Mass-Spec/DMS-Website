@@ -62,17 +62,17 @@ class Entry_form {
 		if(isset($f_spec["default_function"])) {
 			// if so, use specified function to get value
 			$func_parts = explode(':', $f_spec["default_function"]);		
-			switch($func_parts[0]) {
-				case 'GetUser()':
+			switch(strtolower($func_parts[0])) {
+				case 'getuser()':
 					$val = get_user();
 					break;
-				case 'CurrentDate':
+				case 'currentdate':
 					$val = date("m/d/Y");
 					break;
-				case 'PreviousWeek':
+				case 'previousweek':
 					$val = date("m/d/Y", strtotime('-1 week'));
 					break;
-				case 'PreviousNDays':
+				case 'previousndays':
 					$interval = $func_parts[1] * -1;
 					$val = date("m/d/Y", strtotime("$interval day"));
 					break;
@@ -271,7 +271,7 @@ class Entry_form {
 		if(array_key_exists($fld, $this->field_enable)) {
 			$ckbx_id = $fld . '_ckbx_enable';
 			$click = "onClick='epsilon.enableDisableField(this, \"$fld\")'";
-			switch($this->field_enable[$fld]) {
+			switch(strtolower($this->field_enable[$fld])) {
 				case 'enabled':
 					$str = "<input type='checkbox' class='_ckbx_enable' name='$ckbx_id' $click checked='yes' >";
 					break;
@@ -390,7 +390,7 @@ class Entry_form {
 		}
 		
 		// create HTML according to field type
-		switch ($fieldType) {
+		switch (strtolower($fieldType)) {
 	
 		case 'text':
 			$data['maxlength'] = $f_spec['maxlength'];
@@ -404,7 +404,7 @@ class Entry_form {
 			$autoFormatDelimitedList = true;
 			if(isset($f_spec['auto_format'])) {
 				// auto_format is defined in the form_field_options table in the config DB
-				switch ($f_spec['auto_format']) {
+				switch (strtolower($f_spec['auto_format'])) {
 					case 'xml':
 						$data['onBlur'] = "epsilon.formatXMLText('".$data['id']."')";
 						$autoFormatDelimitedList = false;
@@ -540,8 +540,8 @@ class Entry_form {
 
 		// supplemental commands
 		foreach($entry_commands as $command => $spec) {
-			switch($spec['type']){
-				case "cmd":
+			switch(strtolower($spec['type'])){
+				case 'cmd':
 					$attributes = array();
 					$attributes['id'] = 'cmd_' . strtolower(str_replace(' ', '_', $command));
 					$attributes['content'] = $spec['label'];
@@ -550,7 +550,7 @@ class Entry_form {
 					$attributes['class'] = 'button entry_cmd_button';
 					$str .= form_button($attributes) . "<br>\n";
 					break;
-				case "retarget":
+				case 'retarget':
 					$target_url = site_url().$spec['target'];
 					$attributes = array();
 					$attributes['content'] = $spec['label'];
