@@ -23,7 +23,7 @@ if (!Array.prototype.indexOf) {
 		 if (this[i] === obj) { return i; }
 	     }
 	     return -1;
-	}
+	};
 }
 
 //------------------------------------------
@@ -42,19 +42,27 @@ $(document).ready(function () {
 });
 
 var navBar = {
-	// id of menu that is exposed
-	openMenuId: '',
+    /**
+     * Show a menu
+     * @param {type} menu_id Menu ID to expose
+     * @returns {undefined}
+     */
 	expose_menu: function(menu_id) {
 		navBar.openMenuId = menu_id;
 		var m = $('#' + menu_id);
 		m.css('display', 'block');
 	},
+    /**
+     * Hide a menu
+     * @param {type} e
+     * @returns {undefined}
+     */
 	hide_exposed_menus: function(e) {
 		if(e) {
 			var el = e.target;
 			var pe = $(el).closest('div')[0];
-			var notA = el.tagName.toLowerCase() != 'a';
-			var notM = pe.id != 'menu';
+			var notA = el.tagName.toLowerCase() !== 'a';
+			var notM = pe.id !== 'menu';
 			if(notA || notM) {
 				navBar.openMenuId = '';
 			}
@@ -63,9 +71,16 @@ var navBar = {
 		}
 		var menu_list = $('.ddm');
 		menu_list.each( function(idx, x) {
-				if(x.id != navBar.openMenuId) x.style.display = 'none';
+				if(x.id !== navBar.openMenuId) 
+                    x.style.display = 'none';
 			});	
 	},
+    /**
+     * Invoke an action
+     * @param {type} action
+     * @param {type} arg
+     * @returns {undefined}
+     */
 	invoke: function(action, arg) {
 		if(action) {
 			action(arg);
@@ -127,16 +142,18 @@ $("#el").spin(false); // Kills the spinner.
 
 var gamma = {
 	
-	//------------------------------------------
-	// event handlers for global search panel
-	//------------------------------------------
+    /**
+     * Event handlers for global search panel
+     * @param {type} panel
+     * @returns {undefined}
+     */
 	setSearchEventHandlers: function(panel) {
 		var sel = panel.find('select');
 		var val = panel.find('input');
 		var go = panel.find('a');
 		
 		val.keypress(function(e) {
-			if(e.keyCode == 13) {
+			if(e.keyCode === 13) {
 				gamma.dms_search(sel.val(), val.val()); 
 				return false;
 			}
@@ -175,14 +192,24 @@ var gamma = {
 	//------------------------------------------
 	pageContext: {
 	},
+    
 	//------------------------------------------
 	// parsing stuff
 	//------------------------------------------
-	//Returns a copy of a string with leading and trailing whitespace removed.
+	
+    /**
+     * Return a copy of a string with leading and trailing whitespace removed.
+     * @param {string} str String to process
+     * @returns {undefined}
+     */
 	trim: function(str) {
 		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	},
-	// parse tab-delimited line into array of trimmed values
+    /**
+     * Parse tab-delimited line into array of trimmed values
+     * @param {string} line Text to process
+     * @returns {array} Array of trimmed values
+     */
 	parse_lines: function(line) { 
 		flds = [];
 		var fields = line.split('\t');
@@ -191,9 +218,14 @@ var gamma = {
 		});
 		return flds;
 	},
-	// Parse multiple rows of tab-delimited text
-	// Results are returned in object parsed_data
-	parseDelimitedText: function(text_fld, removeArtifact) {
+    /**
+     * Parse multiple rows of tab-delimited text
+     * Values in the first row are treated as a header
+     * @param {string} text_fld Text to process
+     * @param {boolean} removeArtifact If true, remove a parsing artifact by removing the last row of the returned array
+     * @returns {object} Object with two arrays: header and data
+     */
+    parseDelimitedText: function(text_fld, removeArtifact) {
 		parsed_data = {};
 		var lines = $('#' + text_fld).val().split('\n');
 		var header = [];
@@ -201,8 +233,8 @@ var gamma = {
 		$.each(lines, function(lineNumber, line){
 			line = gamma.trim(line);
 			if(line) {	
-				var fields = gamma.parse_lines(line)
-				if(lineNumber == 0) {
+				var fields = gamma.parse_lines(line);
+				if(lineNumber === 0) {
 					header = fields;
 				} else {
 					data.push(fields); // check length of fields?
@@ -217,9 +249,13 @@ var gamma = {
 		parsed_data.data = data;
 		return parsed_data;
 	},
-	/// Get the suggested width, in pixels, for a dialog box
-	/// based on the number of characters in a string
-	getDialogWidth: function(textLength) {
+	/**
+     * Get the suggested width, in pixels, for a dialog box
+     * based on the number of characters in a string
+     * @param {integer} textLength Length of text to be shown in the dialog box
+     * @returns {integer} Suggested width (in pixels) for the dialog box
+     */
+    getDialogWidth: function(textLength) {
 		var width = Math.round(textLength * 8.8);
 		
 		if (width < 250)
@@ -230,9 +266,14 @@ var gamma = {
 
 		return width;
 	},
-	// return text containing list of XML elements
-	// with given element name and attributes extracted from objects
-	// according to mapping array 
+    /**
+     * Parse an array of objects using the mapping array to generate a list of XML elements
+     * Example mapping: [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
+     * @param {object} objArray Object array of pending changes, for example from function getChanges in data_grid.js
+     * @param {string} elementName
+     * @param {object} mapping Mapping from items in the object array to xml element names
+     * @returns {string} XML as a string
+     */
 	getXmlElementsFromObjectArray: function(objArray, elementName, mapping) {
 		var xml = '';
 		if (typeof(objArray) != "undefined") {
@@ -248,10 +289,15 @@ var gamma = {
 		}
 		return xml;
 	},
-	// return text containing list of XML elements
-	// with given element name, one element for each item in the array
-	// as attribute with given name
-	getXmlElementsFromArray: function(itemArray, elementName, attributeName) {
+     /**
+     * Convert an array of strings into a list of XML elements using the given element name
+     * The XML will have one element for each item in the array, assigning the item in the array as the attribute
+     * @param {array} itemArray Array of item names
+     * @param {string} elementName
+     * @param {string} attributeName
+     * @returns {string} XML as a string
+     */
+    getXmlElementsFromArray: function(itemArray, elementName, attributeName) {
 		var xml = '';
 		$.each(itemArray, function(x, item){
 			xml += '<' + elementName;
@@ -260,7 +306,13 @@ var gamma = {
 		});
 		return xml;
 	},
-	// return new array consisting of items in target that are not in remove
+	/**
+     * Return a new array consisting of items in target that are not in remove
+     * 
+     * @param {array} target Items to process
+     * @param {array} remove Items to remove
+     * @returns {array} Array of filtered items from target
+     */
 	removeItems: function(target, remove) {
 		var output = [];
 		$.each(target, function(idx, item){
@@ -367,7 +419,9 @@ var gamma = {
 			);
 		};
 	}(),
-	// Display text (data) in a floating modeless dialog (created dynamically)
+	/**
+     * Display text (data) in a floating modeless dialog (created dynamically)
+     */
 	updateMessageBoxText: function() {
 		var dlg;
 		return function(data, title) {
@@ -454,9 +508,9 @@ var gamma = {
 		}
 	},
 	//------------------------------------------
-	// side menu functions
+	// Side menu functions
+    // these functions hide and show the side menu
 	//------------------------------------------
-	// these functions hide and show the side menu
 	kill_frames: function() {
 		if(top != self) {
 		  top.location = location;
@@ -474,9 +528,13 @@ var gamma = {
 		  document.OFS.submit();
 		}
 	},	
-	//------------------------------------------
-	// document export - repurpose entry form
-	// to old fashioned submit instead of AJAX
+    /**
+     * Document export: repurpose entry form
+	 * to old fashioned submit instead of AJAX
+     * @param {string} url
+     * @param {type} form
+     * @returns {undefined}
+     */
 	export_to_doc: function(url, form) {
 		var frm = $('#' + form)[0];
 		var oldUrl = frm.action;
@@ -484,11 +542,17 @@ var gamma = {
 	    frm.submit();
 		frm.action = oldUrl;
 	},
-	//------------------------------------------
-	// general AJAX post the fills given container
-	// with returned text and allows pre and post
-	// callbacks to be defined
-	//------------------------------------------
+    /**
+     * General AJAX post that fills the given container
+	 * with returned text and allows 
+     * pre and post callbacks to be defined
+     * @param {string} url
+     * @param {type} p
+     * @param {type} containerId
+     * @param {type} afterAction
+     * @param {type} beforeAction
+     * @returns {undefined}
+     */
 	loadContainer: function (url, p, containerId, afterAction, beforeAction) { 
 		var container = $('#' + containerId);
 		var abort = false;
@@ -505,11 +569,17 @@ var gamma = {
 				}
 		});
 	},	
-	//------------------------------------------
-	// general AJAX post that gets a data object 
-	// from JSON returned by server and allows 
-	// pre and post callbacks to be defined
-	//------------------------------------------
+    /**
+     * General AJAX post that gets a data object 
+	 * from JSON returned by server and allows 
+	 * pre and post callbacks to be defined
+     * @param {string} url
+     * @param {type} p
+     * @param {type} containerId
+     * @param {type} afterAction
+     * @param {type} beforeAction
+     * @returns {undefined}
+     */
 	getObjectFromJSON: function (url, p, containerId, afterAction, beforeAction) { 
 		var container = (containerId)?$('#' + containerId):null;
 		var abort = false;
@@ -526,11 +596,17 @@ var gamma = {
 				}
 		});
 	},
-	//------------------------------------------
-	// general AJAX post that calls server operation
-	// and returns server response via callback
-	//------------------------------------------
-	doOperation: function (url, p, containerId, afterAction, beforeAction) {
+    /**
+     * General AJAX post that calls server operation
+	 * and returns server response via callback
+     * @param {string} url
+     * @param {type} p
+     * @param {type} containerId
+     * @param {type} afterAction
+     * @param {type} beforeAction
+     * @returns {undefined}
+     */
+    doOperation: function (url, p, containerId, afterAction, beforeAction) {
 		// make calling parameters from p
 		// p can be form Id, raw object, or falsey
 		var px = {};
@@ -557,13 +633,15 @@ var gamma = {
 	// misc functions and objects
 	//------------------------------------------
 	
-	// convert array of objects representing form values
-	// where each object has property 'name' and 'value'
-	//
-	// return single object with each field represented 
-	// as a property having value of associated field.
-	//
-	// fields with shared name have array of values
+    /**
+     * Convert array of objects representing form values
+	 * where each object has property 'name' and 'value'
+     * 
+     * Fields with shared name have array of values
+     *
+     * @param {object} fldObjArray
+     * @returns {undefined} Single object with each field represented as a property having value of associated field
+     */
 	reformatFormArray: function(fldObjArray) {
 		var obj = {};
 		$.each(fldObjArray, function(idx, fldObj) {
@@ -575,11 +653,15 @@ var gamma = {
 		});
 		return obj;
 	},
-	// use to terminate a calling chain
+	/**
+     * Use to terminate a calling chain
+     */
 	no_action: {
 	},
-	// object that chooser code uses to 
-	// remember key parameters for off-page chooser
+	/**
+     * object that chooser code uses to remember 
+     * key parameters for off-page chooser
+     */
 	currentChooser: {
 		// callBack
 		// delimiter
@@ -587,7 +669,11 @@ var gamma = {
 		// page
 		// window
 	},
-	// go to new web page given by url currently selected in the given selection element
+	/**
+     * Go to new web page given by url currently selected in the given selection element
+     * @param {type} id
+     * @returns {undefined}
+     */
 	goToSelectedPage: function(id) {
 		var node = document.getElementById(id);
 		window.location.href = node.options[node.selectedIndex].value;
@@ -672,15 +758,22 @@ var gamma = {
 //These functions are used by list reports
 //------------------------------------------
 var lambda = {	
-	//this function acts as a hook that other functions call to 
-	//reload the row data container for the list report.
-	//it needs to be overridden with the actual loading
-	//function defined on the page, which will be set up
-	//with page-specific features
+    /**
+     * This function acts as a hook that other functions call to 
+	 * reload the row data container for the list report.
+	 * it needs to be overridden with the actual loading
+	 * function defined on the page, which will be set up
+	 * with page-specific features
+     * @returns {undefined}
+     */
 	reloadListReportData: function() {
 		alert('"lambda.reloadListReportData" not overridden');
 	},
-	// for clearing cached page parameters
+    /**
+     * For clearing cached page parameters
+     * @param {type} pageType
+     * @returns {undefined}
+     */
 	setListReportDefaults: function(pageType) { 
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/defaults/' + pageType;
 		p = {};
@@ -689,9 +782,16 @@ var lambda = {
 			}
 		);
 	},
-	// go get some content from the server using given form and action
-	// and put it into the designated container element
-	// and initiate the designated follow-on action, if such exists
+	/**
+     * Go get some content from the server using given form and action
+	 * and put it into the designated container element
+	 * and initiate the designated follow-on action, if such exists
+     * @param {string} action Action (mode)
+     * @param {type} formId
+     * @param {type} containerId
+     * @param {object} follow_on_action
+     * @returns {undefined}
+     */
 	updateContainer: function (action, formId, containerId, follow_on_action) { 
 		var container = $('#' + containerId);
 		container.spin('small');
@@ -706,8 +806,13 @@ var lambda = {
 			}
 		);
 	},
-	//------------------------------------------
-	// submit list report supplemental command
+	/**
+     * Submit list report supplemental command
+     * @param {string} url
+     * @param {object} p Object to post
+     * @param {boolean} show_resp If true, show the response from the post
+     * @returns {undefined}
+     */
 	submitOperation: function(url, p, show_resp) {
 		var ctl = $('#' + gamma.pageContext.cntrlContainerId);
 		var container = $('#' + gamma.pageContext.responseContainerId);
@@ -737,9 +842,13 @@ var lambda = {
 			}
 		);
 	},
-	//------------------------------------------
-	// submit list report supplemental command
-	// using "call" semantics
+	/**
+     * Submit list report supplemental command using "call" semantics
+     * @param {string} url
+     * @param {object} p Object to post
+     * @param {boolean} show_resp Show response (unused)
+     * @returns {undefined}
+     */
 	submitCall: function(url, p, show_resp) {
 		var ctl = $('#' + gamma.pageContext.cntrlContainerId);
 		var container = $('#' + gamma.pageContext.responseContainerId);
@@ -757,36 +866,65 @@ var lambda = {
 			}
 		);
 	},
-	//------------------------------------------
-	//loads a SQL comparison selector (via AJAX)
+	/**
+     * Loads a SQL comparison selector (via AJAX)
+     * @param {type} containerId
+     * @param {type} url
+     * @param {type} col_sel
+     * @returns {undefined}
+     */
 	loadSqlComparisonSelector: function(containerId, url, col_sel) {
 		url += $('#' + col_sel).val();
 		gamma.loadContainer(url, {}, containerId);
 	},
-	//clear the specified list report search filter
+	/**
+     * Clear the specified list report search filter
+     * @param {type} filter
+     * @returns {undefined}
+     */
 	clearSearchFilter: function(filter) {
 		$( '.' + filter).each(function(idx, obj) {
 			obj.value = ''
 		});
 		lambda.is_filter_active();
 	},
-	//clear the list report search filters
+	/**
+     * Clear the list report search filters
+     * @returns {undefined}
+     */
 	clearSearchFilters: function() {
 		$(".filter_input_field").each(function(idx, obj) {
 			obj.value = ''
 		});
 		lambda.is_filter_active();
 	},
+    /**
+     * Toggle filter visibility
+     * @param {type} containerId
+     * @param {type} duration
+     * @param {type} element
+     * @returns {undefined}
+     */
 	toggleFilterVisibility: function(containerId, duration, element) {
 		var visible = gamma.toggleVisibility(containerId, duration, element);
 		this.adjustFilterVisibilityControl(containerId, visible);
 	},	
+    /**
+     * Adjust filter visibility
+     * @param {type} containerId
+     * @param {type} visible
+     * @returns {undefined}
+     */
 	adjustFilterVisibilityControl: function(containerId, visible) {
 		var vCtls = $('.' + containerId);
 		vCtls.each(function() {
 			gamma.setToggleIcon($(this), visible);
 		});
 	},
+    /**
+     * Adjust filter visibility
+     * @returns {undefined}
+     */
 	adjustFilterVisibilityControls: function() {
 		$('.filter_container_box').each(function() {
 			var id = this.id;
@@ -794,7 +932,12 @@ var lambda = {
 			lambda.adjustFilterVisibilityControl(id, visible);
 		});
 	},
-	//------------------------------------------
+	/**
+     * Set the sort direction of a column
+     * @param {type} colName
+     * @param {type} noUpdate
+     * @returns {undefined}
+     */
 	setColSort: function(colName, noUpdate) {
 		var curCol = $('#qf_sort_col_0').val();
 		var curDir = $('#qf_sort_dir_0').val();
@@ -809,16 +952,36 @@ var lambda = {
 	},
 	//------------------------------------------
 	// paging
-	//set the current starting row for the list report
+    //------------------------------------------
+    
+	/**
+     * Set the current starting row for the list report
+     * @param {type} row
+     * @returns {undefined}
+     */
 	setListReportCurRow: function(row) {
 		$('#qf_first_row').val(row);
 	 	lambda.reloadListReportData();
 	},
+    /**
+     * Set the number of items to show on each page
+     * @param {type} curPageSize
+     * @param {type} totalRows
+     * @param {type} max
+     * @returns {undefined}
+     */
 	setPageSize: function(curPageSize, totalRows, max) {
 		var reply = lambda.getPageSizeFromUser(curPageSize, totalRows, max);
 		if(reply == null) return;
 		lambda.setPageSizeParameter(reply);
 	},
+    /**
+     * Prompt the user for hte number of items to show on each page
+     * @param {type} curPageSize
+     * @param {type} totalRows
+     * @param {type} max
+     * @returns {lambda.getPageSizeFromUser.reply}
+     */
 	getPageSizeFromUser: function(curPageSize, totalRows, max) {
 		var reply = null;
 		if (curPageSize == 'all') {
@@ -840,6 +1003,11 @@ var lambda = {
 		}
 		return (reply > max)?max:reply;
 	},
+    /**
+     * Validate and store the user-specified page size
+     * @param {type} newPageSize
+     * @returns {undefined}
+     */
 	setPageSizeParameter: function(newPageSize) {
 		if(isNaN(newPageSize)) {
 			alert("Sorry, '" + newPageSize + "' is not a number");
@@ -852,6 +1020,12 @@ var lambda = {
 	},
 	//------------------------------------------
 	// search filter change monitoring
+    //------------------------------------------
+    
+    /**
+     * Define the observers for a filter field
+     * @returns {undefined}
+     */
 	set_filter_field_observers: function() {
 		var that = this;
 		var pFields = $('#filter_form').find(".primary_filter_field");
@@ -865,6 +1039,10 @@ var lambda = {
 				$(this).keyup(that.is_filter_active); 
 			});
 	},
+    /**
+     * Updates the filter active indicator
+     * @returns {undefined}
+     */
 	is_filter_active: function() {
 		var filterFlag = 0;
 		var sortFlag = 0;
@@ -880,6 +1058,11 @@ var lambda = {
 			} );	
 		lambda.set_filter_active_indicator(filterFlag, sortFlag);
 	},
+    /**
+     * Filter key
+     * @param {type} e
+     * @returns {Boolean}
+     */
 	filter_key: function(e) {
 		var code;
 	//	if (!e) var e = window.event;
@@ -892,6 +1075,12 @@ var lambda = {
 		}
 	   return true;
 	},
+    /**
+     * Set filter active indicator
+     * @param {type} activeSearchFilters
+     * @param {type} activeSorts
+     * @returns {undefined}
+     */
 	set_filter_active_indicator: function(activeSearchFilters, activeSorts) {
 		if(!activeSearchFilters) {
 			$('#filters_active').html('');
@@ -902,11 +1091,16 @@ var lambda = {
 			$('#filters_active').html('There are ' + activeSearchFilters +  ' filters set');
 		}
 	},
+    
 	//------------------------------------------
 	//These functions are used by multiple-choice 
 	//chooser list report to manage its checkboxes
 	//------------------------------------------
 	
+    /**
+     * Get selected item list
+     * @returns {Array|lambda.getSelectedItemList.checkedIDlist}
+     */
 	getSelectedItemList: function() {
 		var checkedIDlist = [];
 		$('.lr_ckbx').each(function(idx, obj){
@@ -923,7 +1117,11 @@ var lambda = {
 			rows[i].checked  = state;
 		}
 	},
-	//make list of values of checked checkboxes with given name
+	/**
+     * Make list of values of checked checkboxes with given name
+     * @param {type} checkBoxName
+     * @returns {String}
+     */
 	getCkbxList: function(checkBoxName) {
 	  var list = '';
 	  var rows = document.getElementsByName(checkBoxName);
@@ -937,6 +1135,11 @@ var lambda = {
 	  }
 	  return list;
 	},	
+    /**
+     * Transfer selected list data
+     * @param {type} perspective
+     * @returns {undefined}
+     */
 	transferSelectedListData: function(perspective) {
 		var list = lambda.getCkbxList('ckbx' );
 		if(list=='') {
@@ -956,7 +1159,12 @@ var lambda = {
 	// used by helper list reports with checkboxes
 	//------------------------------------------
 	
-	// set checked state of all checkboxes with given name from given list
+	/**
+     * Set checked state of all checkboxes with given name from given list
+     * @param {type} checkBoxName
+     * @param {type} selList
+     * @returns {undefined}
+     */
 	setCkbxFromList: function(checkBoxName, selList) {
 		var rows = document.getElementsByName(checkBoxName, selList);
 		// split list into separate trimmed elements
@@ -975,17 +1183,28 @@ var lambda = {
 	        }
 		}
 	},
-	// set checked state of chooser's checkboxes from
-	// the current value of the field it is choosing for
+	/**
+     * Set checked state of chooser's checkboxes from
+	 * the current value of the field for which it is choosing
+     * @param {type} checkBoxName
+     * @returns {undefined}
+     */
 	intializeChooserCkbx: function(checkBoxName) {
 		if(window.opener) {
 			var list = window.opener.epsilon.getFieldValueForChooser();
 			lambda.setCkbxFromList(checkBoxName, list);
 		}
 	},
+    
 	//------------------------------------------
 	// misc
 	//------------------------------------------
+    
+    /**
+     * Export data
+     * @param {type} format Export format: 'excel' or 'tsv'
+     * @returns {undefined}
+     */
 	download_to_doc: function(format) {
 		var row_count = $('#total_rowcount').html();
 		if(row_count > 4000) {
@@ -1001,7 +1220,27 @@ var lambda = {
 //These functions are used by detail report page 
 //------------------------------------------
 var delta = {
-	//perform detail report command (via AJAX)
+    /**
+     * Perform detail report command (via AJAX)
+     * 
+     * This function is reached when the user clicks a button on the detail report
+	 * Button definitions are in table detail_report_commands in the model config DB
+	 * Function make_detail_report_commands in detail_report_helper.php creates the hyperlink via the cmd_op option
+	 * For example:
+	 * javascript:delta.performCommand("http://dms2.pnl.gov/dataset/command", "QC_Shew_15_02_2_29Oct15_Lynx_15-08-27", "reset", "Are you sure that you want to reset this dataset to New?")
+	 * The performCommand function in turn will post to http://dms2.pnl.gov/dataset/command/QC_Shew_15_02_2_29Oct15_Lynx_15-08-27/reset 
+	 * That URL is processed by the base controller for the given page family, specifically function command in Base_controller.php
+	 * The command function calls function internal_operation in Operation.php
+	 * The internal_operation function looks up the name of the stored procedure specified by operations_sproc in the general_params table of the model config db
+	 * It then calls the stored procedure, passing on the given command to the @mode parameter
+	 * In the above example, DoDatasetOperation is called with @mode='reset'
+     * 
+     * @param {type} url URL to post to
+     * @param {type} id ID of the entity to update (e.g. dataset ID)
+     * @param {type} mode Mode to send to the operations_sproc stored procedure
+     * @param {type} promptMsg Message to show the user to ask them to confirm the operation
+     * @returns {undefined}
+     */
 	performCommand: function(url, id, mode, promptMsg) {
 		if (!promptMsg) {
 			promptMsg = "Are you sure that you want to update the database?";
@@ -1019,6 +1258,12 @@ var delta = {
 			}
 		);
 	},
+    /**
+     * Update the container
+     * @param {type} url
+     * @param {type} containerId
+     * @returns {undefined}
+     */
 	updateContainer: function(url, containerId) {
 		var container = $('#' + containerId);
 		url = gamma.pageContext.site_url + url;
@@ -1030,10 +1275,20 @@ var delta = {
 			}
 		);
 	},
+    /**
+     * Use a page like http://dms2.pnl.gov/analysis_job/show_data/1386092 
+     * to populate the data_container div defined in detail_report.php
+     * @returns {undefined}
+     */
 	updateMyData: function() {
-		// Use a page like http://dms2.pnl.gov/analysis_job/show/1386092 to populate the data_container div defined in detail_report.php
 		delta.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container'); 
 	},
+    /**
+     * Process results
+     * @param {type} data
+     * @param {type} container
+     * @returns {undefined}
+     */
 	processResults: function(data, container) {
 		if(data.indexOf('html failed') > -1) {
 			container.html(data);
@@ -1046,26 +1301,39 @@ var delta = {
 			delta.updateMyData();
 		}
 	},
+    /**
+     * Show the SQL behind the given page of data
+     * Example data retrieved: http://dms2.pnl.gov/analysis_job/detail_sql/1386092
+     * Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
+     * @returns {undefined}
+     */
 	updateShowSQL: function () {
-		// Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
 		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL'); 
 	},
+    /**
+     * Show the URL of the currently visible page
+     * @returns {undefined}
+     */
 	updateShowURL: function() {
 
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/show/' + gamma.pageContext.Id;
 		
 		gamma.updateMessageBoxText(url, 'URL');
 
-	},	
+	}
 
 };
 
 //------------------------------------------
-//These functions are used by entry page 
+//These functions are used by the entry page 
 //------------------------------------------
 var epsilon = {
 	
-	// style associated entry field for each enable checkbox
+	/**
+     * Adjust enabled fields
+     * Style associated entry field for each enable checkbox
+     * @returns {undefined}
+     */
 	adjustEnabledFields: function() {
 		var that = this;
 		$('._ckbx_enable').each(
@@ -1075,8 +1343,14 @@ var epsilon = {
 			}
 		);
 	},
-	// style associated entry field for checkbox
-	// according to whether it is enabled or disabled
+	/**
+     * Enable/disable field
+     * Style associated entry field for checkbox
+	 * according to whether it is enabled or disabled
+     * @param {type} chkbx
+     * @param {type} fieldName
+     * @returns {undefined}
+     */
 	enableDisableField: function(chkbx, fieldName)
 	{
 		if(chkbx.checked) {
@@ -1085,6 +1359,14 @@ var epsilon = {
 			$('#' + fieldName).css("color", "Silver");
 		}
 	},
+    /**
+     * Show/hide table rows
+     * @param {type} block_name
+     * @param {type} url
+     * @param {type} show_img
+     * @param {type} hide_img
+     * @returns {undefined}
+     */
 	showHideTableRows: function(block_name, url, show_img, hide_img) {
 		var className = '.' + block_name;
 		var img_element_id = block_name + "_cntl";
@@ -1100,28 +1382,58 @@ var epsilon = {
 			$('#' + img_element_id)[0].src = url + show_img;		
 	    }
 	},
+    /**
+     * Show table rows
+     * @param {type} block_name
+     * @param {type} url
+     * @param {type} hide_img
+     * @returns {undefined}
+     */
 	showTableRows: function(block_name, url, hide_img) {
 		var className = '.' + block_name;
 		var img_element_id = block_name + "_cntl";
 		$(className).each(function(idx, s){s.style.display=''});
 		$('#' + img_element_id)[0].src = url + hide_img;
 	},
+    /**
+     * Hide table rows
+     * @param {type} block_name
+     * @param {type} url
+     * @param {type} show_img
+     * @returns {undefined}
+     */
 	hideTableRows: function(block_name, url, show_img) {
 		var className = '.' + block_name;
 		var img_element_id = block_name + "_cntl";
 		$(className).each(function(idx, s){s.style.display='none'});
 		$('#' + img_element_id)[0].src = url + show_img;			
 	},
+    /**
+     * Show a section
+     * @param {type} block_name
+     * @returns {undefined}
+     */
 	showSection: function (block_name) {
 		var url = gamma.pageContext.base_url + 'images/';
 		var hide_img = 'z_hide_col.gif';
 		epsilon.showTableRows(block_name, url, hide_img);
 	},
+    /**
+     * Hide a section
+     * @param {type} block_name
+     * @returns {undefined}
+     */
 	hideSection: function (block_name) {
 		var url = gamma.pageContext.base_url + 'images/';
 		var show_img = 'z_show_col.gif';
 		epsilon.hideTableRows(block_name, url, show_img);
 	},
+    /**
+     * Show/hide sections
+     * @param {type} action
+     * @param {type} list
+     * @returns {undefined}
+     */
 	showHideSections: function(action, list) {
 		var blks = [];
 		if(!list || list === 'all') {
@@ -1144,21 +1456,34 @@ var epsilon = {
 		});
 	},
 	//------------------------------------------
-	//These functions are used by entry page that invokes 
-	//list report chooser
-	//Note: a global variable "gamma.currentChooser" that references an
-	//empty object must be defined by the entry page 
-	//that usese these functions
+	// These functions are used by any entry page that invokes a
+	// list report chooser
+	// Note: a global variable "gamma.currentChooser" that references
+	// an empty object must be defined by the entry page 
+	// that usese these functions
 	//------------------------------------------
 	
+    /**
+     * Close the chooser window page
+     * @returns {undefined}
+     */
 	closeChooserWindowPage: function() {
 		if (gamma.currentChooser.window && !gamma.currentChooser.window.closed) {
 			gamma.currentChooser.window.close();
 		}
 	},
-	//this function opens an exernal chooser page and remembers
-	//information necessary to update the proper entry field
-	//when that page calls back with user's choice
+	/**
+     * Call a chooser
+     * 
+     * This function opens an exernal chooser page and remembers
+	 * information necessary to update the proper entry field
+	 * when that page calls back with user's choice
+     * @param {type} fieldName
+     * @param {type} chooserPage
+     * @param {type} delimiter
+     * @param {type} xref
+     * @returns {undefined}
+     */
 	callChooser: function(fieldName, chooserPage, delimiter, xref) {
 		// resolve cross-reference to other field, if one exists
 		var xv = (xref != '')?$('#' + xref).val():'';
@@ -1186,8 +1511,15 @@ var epsilon = {
 		// open the chooser page in another window
 		gamma.currentChooser.window = window.open(chooserPage, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
 	},
-	//this function is called by an external chooser
-	//page to update the value in the field that it is serving
+	/**
+     * Update field value from chooser
+     * 
+     * This function is called by an external chooser
+	 * page to update the value in the field that it is serving
+     * @param {type} value
+     * @param {type} action
+     * @returns {undefined}
+     */
 	updateFieldValueFromChooser: function(value, action) {
 		// todo: make sure gamma.currentChooser.field is defined
 		fld = $('#' + gamma.currentChooser.field)[0];
@@ -1212,6 +1544,10 @@ var epsilon = {
 			gamma.currentChooser.callBack();
 		}
 	},
+    /**
+     * Get field value for chooser
+     * @returns {epsilon.getFieldValueForChooser.value|jQuery}
+     */
 	getFieldValueForChooser: function() {
 		// todo: make sure gamma.currentChooser.field is defined
 		var value = $('#' + gamma.currentChooser.field).val();
@@ -1220,7 +1556,11 @@ var epsilon = {
 		}
 		return value;
 	},
-	//for datepicker
+	/**
+     * Show the date picker
+     * @param {type} fieldName
+     * @returns {undefined}
+     */
 	callDatepicker: function(fieldName) {
 		var fld = $('#' + fieldName);
 		if(!fld.data().datepicker) {
@@ -1232,27 +1572,43 @@ var epsilon = {
 	// used for entry page submission
 	//------------------------------------------
 	
-	// object to contain entry page context values
-	// (must be initialized prior to library functions being called)
+	/**
+     * Object to contain entry page context values
+	 * (must be initialized prior to library functions being called)
+     * @type type
+     */
 	pageContext: {
 		containerId: null,
 		modeFieldId: null,
 		entryFormId: null		
 	},
-	// contains any actions to be performed prior to and after 
-	// AJAX submission 
+	/**
+     * Contains any actions to be performed prior to and after AJAX submission 
+     * @type type
+     */
 	actions: {
 		before: null,
 		after:null
 	},
-	// called by the built-in entry page family submission controls
-	// submit the entry form to the entry page or alternate submission logic
+	/**
+     * Called by the built-in entry page family submission controls
+	 * submit the entry form to the entry page or alternate submission logic
+     * @param {type} url
+     * @param {type} mode
+     * @returns {undefined}
+     */
 	submitStandardEntryPage: function(url, mode) {
 		epsilon.submitEntryFormToPage(url, mode, this.actions.after, this.actions.before);
 	},
-	//POST the entry form to the entry page via AJAX
-	// perform beforeAction (if defined) prior to submission - abort if it returns true
-	// perform afterAction (if defined) after receiving results of submission
+	/**
+     * POST the entry form to the entry page via AJAX
+     * 
+     * @param {type} url
+     * @param {type} mode
+     * @param {type} afterAction Action (if defined) to be performed prior to submission; abort if it returns true
+     * @param {type} beforeAction Action (if defined) to be performed after receiving results of submission
+     * @returns {undefined}
+     */
 	submitEntryFormToPage: function(url, mode, afterAction, beforeAction) {
 		var container = $('#' + this.pageContext.containerId);
 		var modeField = $('#' + this.pageContext.modeFieldId);
@@ -1276,7 +1632,12 @@ var epsilon = {
 			}
 		);
 	},
-	// POST the entry form to another page
+	/**
+     * POST the entry form to another page
+     * @param {type} url
+     * @param {type} mode
+     * @returns {undefined}
+     */
 	submitEntryFormToOtherPage: function(url, mode) {
 		var modeField = $('#' + epsilon.pageContext.modeFieldId);
 		var entryForm = $('#' + epsilon.pageContext.entryFormId);
@@ -1290,7 +1651,15 @@ var epsilon = {
 	// supplemental parameter entry forms
 	//------------------------------------------
 	
-	// get supplemental form fields via an AJAX call
+	/**
+     * Get supplemental form fields via an AJAX call
+     * @param {type} url
+     * @param {type} p
+     * @param {type} containerId
+     * @param {type} afterAction
+     * @param {type} beforeAction
+     * @returns {undefined}
+     */
 	load_suplemental_form: function(url, p, containerId, afterAction, beforeAction) {
 		var container = $('#' + containerId);
 		var abort = false;
@@ -1308,9 +1677,15 @@ var epsilon = {
 			}
 		);
 	},
-	//loop through all the fields in the given parameter form
-	//and build properly formatted XML and replace the
-	//contents of the given field with it
+	/**
+     * Loop through all the fields in the given parameter form
+	 * and build properly formatted XML and replace the
+	 * contents of the given field with it
+     * @param {type} formId
+     * @param {type} fieldId
+     * @param {type} hasSection
+     * @returns {undefined}
+     */
 	copy_param_form_to_xml_param_field :function(formId, fieldId, hasSection) {
 		var xml = '';
 		var targetForm = $('#' + formId);
@@ -1336,11 +1711,15 @@ var epsilon = {
 		});
 		targetField.val(xml);
 	},
-	//------------------------------------------
-	// called by a drop-down selection type chooser
-	// to update its target field
-	//------------------------------------------
-	
+	/**
+     * Set field value from selection
+     * 
+     * Called by a drop-down selection type chooser to update its target field
+     * @param {type} fieldName
+     * @param {type} chooserName
+     * @param {type} mode
+     * @returns {undefined}
+     */
 	setFieldValueFromSelection: function(fieldName, chooserName, mode) {
 		var fld = $('#' + fieldName);
 		var chv = $('#' + chooserName).val();
@@ -1356,11 +1735,23 @@ var epsilon = {
 			fld.val(v + chv);			
 		}
 	},
+    /**
+     * Set field value
+     * @param {type} fieldName
+     * @param {type} value
+     * @returns {undefined}
+     */
 	setFieldValue: function(fieldName, value) {
 		if($('#' + fieldName)) {
 				$('#' + fieldName).val(value);
 		}
 	},
+    /**
+     * Set field template value
+     * @param {type} fieldName
+     * @param {type} value
+     * @returns {undefined}
+     */
 	setFieldTemplateValue: function(fieldName, value) {
 		if($('#' + fieldName)) {
 			$('#' + fieldName).val(value.replace(/\|/g, '\n'));
@@ -1370,6 +1761,12 @@ var epsilon = {
 	// entry field formatting
 	//------------------------------------------
 	
+    /**
+     * Convert a list of values spearated by newlines and/or tabs to a list separated by repStr
+     * @param {type} fieldName
+     * @param {string} repStr List separator
+     * @returns {undefined}
+     */
 	convertList: function(fieldName, repStr) {
 		var fld = $('#' + fieldName);
 	    var findStr = "(\r\n|[\r\n]|\t)";
@@ -1377,6 +1774,11 @@ var epsilon = {
 		repStr += ' ';
 	    fld.val(fld.val().replace(re, repStr));
 	},
+    /**
+     * Format XML in a data field
+     * @param {type} fieldName
+     * @returns {undefined}
+     */
 	formatXMLText: function(fieldName) {
 		var fld = $('#' + fieldName);
 	    var findStr = "><";
