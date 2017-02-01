@@ -138,7 +138,7 @@ class Helper_inst_source extends Base_controller {
 				continue;
 			}
 			
-			// make name into link, as appropriate (file or dir)
+			// Make name into link, as appropriate (file or dir)
 			// Do not link items that start with x_ or that end with .sld
 			// Also skip text file Use_dir_slashAS_for_hidden_DotD_folders.txt
 			if (($type == 'File' || $type == 'Dir') &&
@@ -152,8 +152,11 @@ class Helper_inst_source extends Base_controller {
 			}
 
 			$datasetLink = "";
-			if (0 === strpos($valueClean, "x_")) {
+			if (strpos($valueClean, "x_") === 0) {
 				$datasetLink = "<a href=\"/dataset/show/" . substr($valueClean, 2) . "\" target=_blank>Show</a>";
+			} else if (preg_match("/\.raw$/i", $value) ||
+			           preg_match("/\.d$/i", $value) ) {
+				$datasetLink = "<a href=\"/dataset/show/" . $valueClean . "\" target=_blank>Show</a>";
 			}
 			
 			// Put into proper category
