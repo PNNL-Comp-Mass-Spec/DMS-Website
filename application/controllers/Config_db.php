@@ -1585,18 +1585,37 @@ class Config_db extends CI_Controller {
 		$config_files = $this->_get_config_db_file_list($file_filter);
 		asort($config_files);
 
+		echo "Finding Config DBs with table " . $table_name . '<br><br>';
+
 		// apply the change to each one
 		foreach($config_files as $config_db) {
 			// get list of config files that have table
 			$tbl_list = $this->_get_db_table_list($config_db, $table_name);
 
-			// skip config dbs that don't containe the table
-			if(count($tbl_list) == 0) continue;
+			// skip config dbs that don't contain the table
+			if(count($tbl_list) == 0) 
+				continue;
 
-			echo $config_db . "<br>";
-			
-			// uncomment to do damage
-//			$this->_exec_sql($config_db, $sql, $table_name); 
+			echo $config_db . " ...";
+
+			switch ($config_db)
+			{
+				case 'bionet.db':
+				case 'instrument_usage_report.db':
+				case 'master_config_db.db':
+				case 'ncbi_taxonomy.db':
+				case 'param_file.db':
+				case 'protein_collection.db':
+				case 'protein_collection_members.db':
+				case 'user_operation.db':
+					echo "Update to add the options column<br>";
+					// Uncomment the following to actually execute the SQL against the given config db
+					// $this->_exec_sql($config_db, $sql, $table_name); 
+					// echo "Updated " . $config_db;
+					break;
+				default:
+					echo "Skip <br>";
+			}
 		}
 	}
 
