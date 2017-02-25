@@ -318,6 +318,7 @@ switch (ENVIRONMENT)
 require_once BASEPATH.'core/CodeIgniter.php';
 
 // Uncomment the following to see the PHP info page
+// Warning, PHP_AUTH_PW will show your account's password if _SERVER["AUTH_TYPE"] is basic
 // Alternatively, go to http://dms2.pnl.gov/gen/info
+// On that page, passwords are masked with "********"
 // phpinfo();
-

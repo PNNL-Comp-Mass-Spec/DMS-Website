@@ -184,8 +184,24 @@ class Gen extends CI_Controller {
 	 */
 	function info()
 	{
+		// If the authentication type is basic, PHP_AUTH_PW will show the password as clear text
+		// The following checks for this and obfuscates the password if needed
+		$serverVars = $_SERVER;
+		$savedPassword = "";
+		
+		if (array_key_exists ('PHP_AUTH_PW' , $serverVars )) {
+			$savedPassword = $serverVars["PHP_AUTH_PW"];
+			$_SERVER["PHP_AUTH_PW"] = "******** (masked by application/controllers/Gen.php)";
+		}		
+		
 		echo phpinfo();
-		echo var_dump($_SERVER);
+		
+		Base_controller::var_dump_ex($_SERVER);
+		
+		if (strlen($savedPassword) > 0) {
+			$_SERVER["PHP_AUTH_PW"] = $savedPassword;
+		}
+
 	}
 
 	/**
