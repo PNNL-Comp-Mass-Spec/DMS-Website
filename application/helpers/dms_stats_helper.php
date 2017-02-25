@@ -3,9 +3,11 @@
 		exit('No direct script access allowed');
 	}
 
-/// -----------------------------------
-// create HTML to display overall DMS statistics
-//
+/**
+ * Create HTML to display overall DMS statistics
+ * @param type $results
+ * @return string
+ */
 function make_stats_display($results)
 {
 	$str = '';

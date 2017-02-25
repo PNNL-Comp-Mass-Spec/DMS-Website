@@ -3,7 +3,9 @@ require("Base_controller.php");
 
 class Experiment_file_attachment extends Base_controller {
 
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 		// Call the parent constructor
@@ -14,14 +16,25 @@ class Experiment_file_attachment extends Base_controller {
 		$this->archive_root_path = $this->config->item('file_attachment_archive_root_path');
 	}
 
-	// --------------------------------------------------------------------
-	// for testing get_path
+	/**
+	 * For testing get_path; example usage:
+	 * http://dms2.pnl.gov/experiment_file_attachment/path/experiment/150000
+	 *  returns experiment/2015_2/150000
+	 * http://dms2.pnl.gov/experiment_file_attachment/path/lc_cart_configuration/101
+	 *  returns lc_cart_configuration/spread/101
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 */
 	function path($entity_type, $entity_id) {
 		echo $this->get_path($entity_type, $entity_id);
 	}
 
-	// --------------------------------------------------------------------
-	// get storage path for attached files for the given entity
+	/**
+	 * Get storage path for attached files for the given entity
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 * @return type
+	 */
 	private
 	function get_path($entity_type, $entity_id)
 	{
@@ -38,8 +51,12 @@ class Experiment_file_attachment extends Base_controller {
 		return $path;
 	}
 
-	// --------------------------------------------------------------------
-	// AJAX
+	/**
+	 * Show attachments for an experiment
+	 * This is likely unused in 2017
+	 * @return string
+	 * @category AJAX
+	 */
 	function show_attachments() {
 		$type = $this->input->post("entity_type");
 		$id = $this->input->post("entity_id");
@@ -75,7 +92,12 @@ class Experiment_file_attachment extends Base_controller {
 		echo $this->table->generate($entries);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Retrieve the requested attachment
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 * @param type $filename
+	 */
 	function retrieve($entity_type,$entity_id,$filename){
 //		  $this->output->enable_profiler(true);
 	    $this->load->database();
@@ -92,12 +114,13 @@ class Experiment_file_attachment extends Base_controller {
 			//get mimetype info
 			$mime = mime_content_type($full_path);
 
-			if (ereg('Opera(/| )([0-9].[0-9]{1,2})', $_SERVER['HTTP_USER_AGENT']))
-			$UserBrowser = "Opera";
-			elseif (ereg('MSIE ([0-9].[0-9]{1,2})', $_SERVER['HTTP_USER_AGENT']))
-			$UserBrowser = "IE";
-			else
-			$UserBrowser = '';
+			if (ereg('Opera(/| )([0-9].[0-9]{1,2})', $_SERVER['HTTP_USER_AGENT'])) {
+				$UserBrowser = "Opera";
+			} elseif (ereg('MSIE ([0-9].[0-9]{1,2})', $_SERVER['HTTP_USER_AGENT'])) {
+				$UserBrowser = "IE";
+			} else {
+				$UserBrowser = '';
+			}
 
 			/// important for download in most browsers
 			$mime_type = ($UserBrowser == 'IE' || $UserBrowser == 'Opera') ?

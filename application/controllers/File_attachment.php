@@ -15,7 +15,9 @@ class Check_result {
  */
 class File_attachment extends Base_controller {
 
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 		// Call the parent constructor
@@ -28,7 +30,7 @@ class File_attachment extends Base_controller {
 	
 	/**
 	 * Validate the availability of the remote mount
-	 * @return \Check_result
+	 * @return Check_result
 	 * @throws Exception
 	 */
 	private
@@ -36,6 +38,12 @@ class File_attachment extends Base_controller {
 	{
 		$result = new Check_result();
 		try {
+			// $this->archive_root_path is typically /mnt/dms_attachments
+			// Note that on Prismweb2 this path is only accessible via the apache user; commands:
+			//   sudo su -
+			//   su apache
+			//   ls /mnt/dms_attachments
+			// Alternatively, use /mnt/dmsarch-ro/dms_attachments
 			$mnt_path = $this->archive_root_path;
 			$result->path = $mnt_path;
 
@@ -86,7 +94,14 @@ class File_attachment extends Base_controller {
 		$this->var_dump_ex($this->get_valid_file_path($entity_type, $entity_id, $filename));
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get the file path for the given item by querying T_File_Attachment
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 * @param type $filename
+	 * @return \Check_result
+	 * @throws Exception
+	 */
 	function get_valid_file_path($entity_type, $entity_id, $filename){
 		$result = new Check_result();
 		try {
@@ -227,14 +242,25 @@ class File_attachment extends Base_controller {
 		echo "<script type='text/javascript'>parent.fileAttachment.report_upload_results('$resultMsg')</script>";
 	}
 
-	// --------------------------------------------------------------------
-	// for testing get_path
+	/**
+	 * For testing get_path; example usage:
+	 * http://dms2.pnl.gov/file_attachment/path/dataset/255000
+	 *  returns dataset/2012_1/255000
+	 * http://dms2.pnl.gov/file_attachment/path/lc_cart_configuration/100
+	 *  lc_cart_configuration/spread/100
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 */
 	function path($entity_type, $entity_id) {
 		echo $this->get_path($entity_type, $entity_id);
 	}
 
-	// --------------------------------------------------------------------
-	// get storage path for attached files for the given entity
+	/**
+	 * Get storage path for attached files for the given entity
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 * @return type
+	 */
 	private
 	function get_path($entity_type, $entity_id)
 	{
@@ -251,8 +277,17 @@ class File_attachment extends Base_controller {
 		return $path;
 	}
 
-	// --------------------------------------------------------------------
-	// make tracking entry in DMS database for attached file
+	/**
+	 * Make tracking entry in DMS database for attached file
+	 * @param type $name
+	 * @param type $type
+	 * @param type $id
+	 * @param type $description
+	 * @param type $size
+	 * @param type $path
+	 * @return type
+	 * @throws exception
+	 */
 	private
 	function make_attachment_tracking_entry($name, $type, $id, $description, $size, $path)
 	{
@@ -333,6 +368,7 @@ class File_attachment extends Base_controller {
 
 	/**
 	 * Show attachments for this entity
+	 * This is likely unused in 2017
 	 * @return string
 	 * @category AJAX
 	 */
@@ -381,9 +417,11 @@ class File_attachment extends Base_controller {
 
 	/**
 	 * Confirm that the attachment can be retrieved
+	 * http://dms2.pnl.gov/file_attachment/check_retrieve/experiment/SWDev/MageMerge.docx
 	 * @param type $entity_type
 	 * @param type $entity_id
 	 * @param type $filename
+	 * @returns string Json encoded string
 	 */
 	function check_retrieve($entity_type, $entity_id, $filename)
 	{
@@ -397,6 +435,10 @@ class File_attachment extends Base_controller {
 				$result->message = "File '$filename' could not be found on server";
 			}
 		}
+		
+		// Example JSON returned:
+		// {"ok":false,"message":"Could not find entry for file in database","path":""}
+		// {"ok":true,"message":"","path":"\/mnt\/dms_attachments\/experiment\/2000_5\/87\/MageMerge.docx"}
 		echo json_encode($result);
 	}
 
@@ -577,7 +619,10 @@ class File_attachment extends Base_controller {
 		return $contents;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Verify that known attachments exist
+	 * http://dmsdev.pnl.gov/file_attachment/check_access
+	 */
 	function check_access(){
 		try {
 			$full_path = '';
