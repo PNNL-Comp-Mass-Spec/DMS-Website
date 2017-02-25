@@ -119,7 +119,7 @@ As
 		End -- update mode
 	
 	End Try
-	Begin Catch 
+	Begin Catch
 		EXEC FormatErrorMessage @message output, @myError output
 		
 		-- Rollback any open transactions
