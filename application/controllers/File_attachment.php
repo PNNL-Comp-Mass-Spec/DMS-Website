@@ -512,6 +512,14 @@ class File_attachment extends Base_controller {
 		$entity_folder_path = $this->get_path($type, $id);
 		$archive_folder_path = $this->archive_root_path . $entity_folder_path;
 
+		if (strcasecmp($id, "SWDev") == 0) {
+			echo "<table border='1'>\n";
+			echo "<tr><td>Experiment</td><td>$id</td></tr>\n";
+			echo "<tr><td>Target folder</td><td>$entity_folder_path</td></tr>\n";
+			echo "<tr><td>Full path</td><td>$archive_folder_path</td></tr>\n";
+			echo "</table>\n";
+		}
+		
 		$dest_path = "{$archive_folder_path}/{$name}";
 
 		try {
@@ -530,6 +538,11 @@ class File_attachment extends Base_controller {
 			$size = number_format((filesize($dest_path) / 1024), 2, '.', '');
 
 			$msg = $this->make_attachment_tracking_entry($name, $type, $id, $description, $size, $entity_folder_path);
+			
+			if (strcasecmp($id, "SWDev") == 0 && strlen($msg) == 0) {
+				$msg = "<br>Created file $dest_path <br>and called make_attachment_tracking_entry";
+			}
+			
 		} catch (Exception $e) {
 			$msg = $e->getMessage();
 		}
@@ -537,13 +550,16 @@ class File_attachment extends Base_controller {
 		return $msg;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Test creating attachment named auxinfo.txt for experiment SWDev
+	 * http://dmsdev.pnl.gov/file_attachment/test
+	 */
 	function test() {
 		$name = "auxinfo.txt";
 		$type = "experiment";
 		$id = "SWDev";
 		$description = "Test direct";
-		$contents = "How now, brown cow?";
+		$contents = "How now, brown cow?\n";
 		$msg = $this->make_attached_file($name, $type, $id, $description, $contents);
 		echo $msg;
 	}
