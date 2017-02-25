@@ -66,15 +66,24 @@ class File_attachment extends Base_controller {
 		return $result;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * View the status of the remote mount
+	 * http://dms2.pnl.gov/file_attachment/check_remote_mount
+	 */
 	function check_remote_mount()
 	{
-		var_dump($this->validate_remote_mount());
+		$this->var_dump_ex($this->validate_remote_mount());
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 *  View the status of a file
+	 * http://dms2.pnl.gov/file_attachment/check_file_path/lc_cart_configuration/100/TestFile.txt
+	 * @param type $entity_type
+	 * @param type $entity_id
+	 * @param type $filename
+	 */
 	function check_file_path($entity_type, $entity_id, $filename) {
-		var_dump($this->get_valid_file_path($entity_type, $entity_id, $filename));
+		$this->var_dump_ex($this->get_valid_file_path($entity_type, $entity_id, $filename));
 	}
 
 	// --------------------------------------------------------------------

@@ -54,6 +54,6 @@ function make_stats_display($results)
 	$str .= "";
 	$str .= "</table>\n";
 
-	//$str .= var_dump($results);
+	// $str .= "<br>" . Base_controller::var_dump_ex($results);
 	return $str;
 }

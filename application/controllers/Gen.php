@@ -168,7 +168,7 @@ class Gen extends CI_Controller {
 	 */
 	function show_session()
 	{
-//		echo var_dump($_SESSION);
+		// echo Base_controller::var_dump_ex($_SESSION);
 
 		echo "Session ID: ". session_id  () . "<hr />";
 		echo "SID: ". SID . "<hr />";
