@@ -314,6 +314,7 @@ var lcmd = {
 				obj.req = cartField.name;
 				obj.cart = cartField.value;
 				obj.col = $('#Col_' + obj.req).val();
+				obj.cartConfig = $('#Cart_Config_' + obj.req).val();
 				rlist.push(obj);
 			});
 			return rlist;
@@ -321,9 +322,9 @@ var lcmd = {
 		saveChangesToDatabase: function () {
 			if ( !confirm("Are you sure that you want to update the database?") ) return;
 			var rlist = this.getEditFieldsObjList();
-			var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}];
+			var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}, {p:'cartConfig', a:'cg'}];
 			var xml = gamma.getXmlElementsFromObjectArray(rlist, 'r', mapP2A);
-			var url =  gamma.pageContext.ops_url;
+			var url = gamma.pageContext.ops_url;
 			var p = {};
 			p.command = 'update';
 			p.cartAssignmentList = xml;
@@ -342,6 +343,21 @@ var lcmd = {
 			}
 			$.each(iList, function(idx, req) {
 				$('#Cart_' + req).val(cart);
+			});
+		},
+		setCartConfigName: function () {
+			var iList = lambda.getSelectedItemList();
+			if (iList.length == 0) {
+				alert('No items are selected');
+				return;
+			}
+			var cartConfig = $('#cart_config_input').val();
+			if(cartConfig == '') {
+				alert('Cart config name cannot be blank');
+				return;
+			}
+			$.each(iList, function(idx, req) {
+				$('#Cart_Config_' + req).val(cartConfig);
 			});
 		},
 		setCartCol: function () {
