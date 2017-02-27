@@ -254,9 +254,17 @@ class Cell_presentation {
 				$str = "<td>" . "<a href='file:///$lnk'>$value</a>" . "</td>";
 				break;
 			case "inplace_edit":
-				$str .= "<td><input class='$cn' id='$id' name='$ref' value='$value' /></td>";
 				$className = str_replace(' ', '_', $col_name);
 				$id = $className . '_' . $ref;
+				$width = $this->getOptionValue($colSpec, 'width', '0');
+	
+				$widthValue = filter_var($width, FILTER_VALIDATE_INT);
+			    if ($widthValue !== FALSE) {
+					$customSize = "size='$widthValue'";
+				} else {
+					$customSize = '';
+				}
+				$str .= "<td><input class='$className' id='$id' name='$ref' value='$value' $customSize/></td>";
 				break;
 
 			case "link_list":
