@@ -86,14 +86,14 @@ class Cell_presentation {
 		$target = $colSpec["Target"];
 		
 		// resolve value to use for hotlink
-		$wa = $colSpec["WhichArg"];		
+		$whichArg = $colSpec["WhichArg"];		
 		$ref = $value;
-		if($wa != "") {
-			switch($wa) {
+		if($whichArg != "") {
+			switch($whichArg) {
 				case "value":
 					break;
 				default:
-					$ref = $row[$wa];
+					$ref = $row[$whichArg];
 					break;
 			}
 		}
@@ -254,9 +254,9 @@ class Cell_presentation {
 				$str = "<td>" . "<a href='file:///$lnk'>$value</a>" . "</td>";
 				break;
 			case "inplace_edit":
-				$cn = str_replace(' ', '_', $col_name);
-				$id = $cn . '_' . $ref;
 				$str .= "<td><input class='$cn' id='$id' name='$ref' value='$value' /></td>";
+				$className = str_replace(' ', '_', $col_name);
+				$id = $className . '_' . $ref;
 				break;
 
 			case "link_list":
