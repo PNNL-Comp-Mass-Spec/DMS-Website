@@ -1722,17 +1722,35 @@ var epsilon = {
      */
 	setFieldValueFromSelection: function(fieldName, chooserName, mode) {
 		var fld = $('#' + fieldName);
-		var chv = $('#' + chooserName).val();
+		var chooserVal = $('#' + chooserName).val();
 		if(fld.val() != null) {
 			if(mode == 'replace' || mode == '') {
-				fld.val(chv);
+				fld.val(chooserVal);
 				return;
 			}
+
 			var delim = ';';
-			if(mode == 'append_comma') delim = ', ';
+
+			if (mode == 'prepend_comma' || mode == 'append_comma') 
+				delim = ', ';
+			else if (mode == 'prepend_underscore')
+				delim = '_';
+							
 			var v = fld.val();
-			if(v != '') v = v + delim;
-			fld.val(v + chv);			
+			
+			if (mode == 'prepend' || mode == 'prepend_underscore' || mode == 'prepend_comma') {
+				if(v != '') 
+					fld.val(chooserVal + delim + v);
+				else
+					fld.val(chooserVal);
+					
+				return;
+			}
+
+			if(v != '') 
+				v = v + delim;
+
+			fld.val(v + chooserVal);			
 		}
 	},
     /**

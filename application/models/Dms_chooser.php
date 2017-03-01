@@ -169,10 +169,22 @@ class Dms_chooser extends CI_Model {
 	{
 		$str = "";
 		switch($type){
+			case "picker.prepend":
+				if ($delim == ',')
+					$mode = 'prepend_comma';
+				else if ($delim == '_')
+					$mode = 'prepend_underscore';
+				else
+					$mode = 'prepend';
+				
+				$str .= "$label ".$this->get_chooser($f_name, $pln, $mode, $seq);
+				break;
 			case "picker.append":
-				$mode = ($delim==',')?'append_comma':'append';
+				$mode = ($delim == ',') ? 'append_comma' : 'append';
+				$str .= "$label ".$this->get_chooser($f_name, $pln, $mode, $seq);
+				break;	
 			case "picker.replace":
-				$mode = (isset($mode))?$mode:'replace';
+				$mode = 'replace';
 				$str .= "$label ".$this->get_chooser($f_name, $pln, $mode, $seq);
 				break;	
 			case "list-report.helper":
