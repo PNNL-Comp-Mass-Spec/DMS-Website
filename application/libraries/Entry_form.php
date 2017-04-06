@@ -76,6 +76,10 @@ class Entry_form {
 					$interval = $func_parts[1] * -1;
 					$val = date("m/d/Y", strtotime("$interval day"));
 					break;
+				case 'previousnweeks':
+					$interval = $func_parts[1] * -7;
+					$val = date("m/d/Y", strtotime("$interval day"));
+					break;
 			}
 		}  else {
 			// otherwise, use the literal default
