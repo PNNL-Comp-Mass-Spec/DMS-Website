@@ -2,11 +2,16 @@
 
 class Dms_chooser extends CI_Model {
 
-	// this array defines the selection list choosers
-	// and includes both cases (direct list of options vs query db for options)
+	/**
+	 * This array defines the selection list choosers and includes both cases
+	 * (direct list of options vs query db for options)
+	 * @var type 
+	 */
 	var $choices = array();
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct() 
 	{
 		//Call the Model constructor
@@ -14,8 +19,9 @@ class Dms_chooser extends CI_Model {
 		$this->load_choosers();
 	}
 
-	// --------------------------------------------------------------------
-	// initialize the list of choosers from the config db file
+	/**
+	 * Initialize the list of choosers from the config db file
+	 */
 	function load_choosers()
 	{
 		$dbFilePath = $this->config->item('model_config_path') . "/dms_chooser.db";
@@ -38,23 +44,31 @@ class Dms_chooser extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// returns list of chooser specs
+	/**
+	 * Return list of chooser specs
+	 * @return type
+	 */
 	function get_choosers()
 	{
 		return $this->choices;
 	}
 
-	// --------------------------------------------------------------------
-	// returns sorted list of chooser names
+	/**
+	 * Return sorted list of chooser names
+	 * @return type
+	 */
 	function get_chooser_names()
 	{
 		$cl = array_keys($this->choices);
 		natcasesort($cl);
 		return $cl;
 	}
-	// --------------------------------------------------------------------
-	// returns choices list for given chooser
+	
+	/**
+	 * Return choices list for given chooser
+	 * @param type $chooser_name
+	 * @return type
+	 */
 	function get_choices($chooser_name)
 	{
 		$options = array();
@@ -87,8 +101,13 @@ class Dms_chooser extends CI_Model {
 		}
 		return $options;
 	}
-	// --------------------------------------------------------------------
-	// returns choices list for given chooser
+	
+	/**
+	 * Return choices list for given chooser
+	 * @param type $chooser_name
+	 * @param type $filter_value
+	 * @return \stdClass
+	 */
 	function get_filtered_choices($chooser_name, $filter_value)
 	{
 		$filter_value = str_ireplace('*', '', $filter_value);
@@ -134,9 +153,15 @@ class Dms_chooser extends CI_Model {
 		}
 		return $options;
 	}	
-	// --------------------------------------------------------------------
-	// this returns HTML for a drop-down selector and suitable options
-	// for the specified chooser_name.
+	
+	/**
+	 * Return HTML for a drop-down selector and suitable options for the specified chooser_name.
+	 * @param type $target_field_name
+	 * @param type $chooser_name
+	 * @param type $mode
+	 * @param type $seq
+	 * @return string
+	 */
 	function get_chooser($target_field_name, $chooser_name, $mode = 'replace', $seq = '')
 	{
 		$str = "";
@@ -163,8 +188,18 @@ class Dms_chooser extends CI_Model {
 		return $str;
 	}
 
-	// -----------------------------------
-	// create a chooser from the given parameters
+	/**
+	 * Create a chooser from the given parameters
+	 * @param type $f_name
+	 * @param type $type
+	 * @param type $pln
+	 * @param type $target
+	 * @param type $label
+	 * @param type $delim
+	 * @param type $xref
+	 * @param type $seq
+	 * @return string
+	 */
 	function make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq = '1')
 	{
 		$str = "";
@@ -210,7 +245,14 @@ class Dms_chooser extends CI_Model {
 		return $str;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get list chooser
+	 * @param type $target_field_name
+	 * @param type $chooser_name
+	 * @param type $mode Unused
+	 * @param type $seq Unused
+	 * @return string
+	 */
 	function get_list_chooser($target_field_name, $chooser_name, $mode = 'replace', $seq = '')
 	{
 		$str = '';
@@ -225,7 +267,15 @@ class Dms_chooser extends CI_Model {
 		$str .= "</table>";
 		return $str;
 	}	
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Get link chooser
+	 * @param type $target_field_name
+	 * @param type $chooser_name
+	 * @param type $mode Unused
+	 * @param type $seq Unused
+	 * @return string
+	 */
 	function get_link_chooser($target_field_name, $chooser_name, $mode = 'replace', $seq = '')
 	{
 		$str = '';

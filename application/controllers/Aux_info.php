@@ -2,7 +2,9 @@
 
 class Aux_info extends CI_Controller {
 
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 		// Call the parent constructor
@@ -40,9 +42,12 @@ class Aux_info extends CI_Controller {
 		$this->aux_info_support->show_url = site_url()."aux_info/show/".$target."/".$id;
 	}
 
-	// --------------------------------------------------------------------
-	// returns HTML to display current values for aux info items for
-	// given target and entity given by id
+	/**
+	 * Returns HTML to display current values for aux info items for
+	 * given target and entity given by id
+	 * @param type $target
+	 * @param type $id
+	 */
 	function show($target, $id)
 	{
 		$this->load->helper('menu');
@@ -67,8 +72,12 @@ class Aux_info extends CI_Controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// presents the aux info entry page
+	/**
+	 * Presents the aux info entry page
+	 * @param type $target
+	 * @param type $id
+	 * @param type $name
+	 */
 	function entry($target, $id, $name)
 	{
 		$this->load->helper('menu');
@@ -100,8 +109,10 @@ class Aux_info extends CI_Controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// make entry form for subcategory items via AJAX ()called by loadItemEntryForm)
+	/**
+	 * Make entry form for subcategory items via AJAX ()called by loadItemEntryForm)
+	 * @param type $target
+	 */
 	function item_values($target)
 	{
 		$category = $this->input->post('category');
@@ -118,9 +129,9 @@ class Aux_info extends CI_Controller {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// --------------------------------------------------------------------
-	// update database (from AJAX call)
+	/**
+	 * Update database (from AJAX call)
+	 */
 	function update()
 	{
 		$fields = $this->model->get_field_validation_fields();
@@ -152,4 +163,3 @@ class Aux_info extends CI_Controller {
 		}
 	}
 }
-?>
