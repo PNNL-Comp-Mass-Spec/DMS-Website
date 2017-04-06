@@ -8,5 +8,3 @@
 
 <?php // Increment version number here to force clients to reload dms2.js ?>
 <script src="<?= base_url().'javascript/dms2.js?version=104' ?>"></script>
-
-

@@ -609,4 +609,3 @@ class Base_controller extends CI_Controller {
 		call_user_func($recursive, $input);
 	}
 }
-
