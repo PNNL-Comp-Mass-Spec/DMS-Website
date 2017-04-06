@@ -80,8 +80,14 @@ $this->load->view("main/param_report_export");
 <?php $this->load->view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
-<script src="<?= base_url().'flot/jquery.flot.js' ?>"></script>
-<script src="<?= base_url().'javascript/lcmd.js?version=102' ?>"></script>
+	<script src="<?= base_url().'flot/jquery.flot.js' ?>"></script>
+	<script src="<?= base_url().'javascript/lcmd.js?version=102' ?>"></script>
+<?php else: ?>
+	<script type='text/javascript'>
+		$(document).ready(function () { 
+			$('.sel_chooser').chosen({search_contains: true});
+		});
+	</script>
 <?php endif; ?>
 
 <script src="<?= base_url().'javascript/parRep.js' ?>"></script>
