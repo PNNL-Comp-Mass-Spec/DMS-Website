@@ -532,13 +532,13 @@ div.block_content {
 	text-decoration:none;
 	color:black;
 }
-.chzn-container {
+.chosen-container {
 	min-width: 150px !important;
 }
-.chzn-search input {
+.chosen-search input {
 	min-width: 110px !important;
 }
-.chzn-drop {
+.chosen-drop {
 	min-width: 148px !important;
 }
 .sel_chooser {
