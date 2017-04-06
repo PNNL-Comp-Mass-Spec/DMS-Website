@@ -154,7 +154,7 @@ class General_query {
 		foreach($result as $row) {
 			$line = '';
 			foreach($row as $name => $value) {		// $name is the key, $value is the value
-				if ((!isset($value)) OR ($value == "")) {
+				if (!isset($value) || $value == "") {
 					 $value = "\t";
 				} else {
 					 $value .= "\t";

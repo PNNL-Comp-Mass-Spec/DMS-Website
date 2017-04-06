@@ -53,7 +53,7 @@
 			$line = '';
 			foreach($cols as $name) {
 				$value = $row[$name];
-				if ((!isset($value)) OR ($value == "")) {
+				if (!isset($value) || $value == "") {
 					 $value = "\t";
 				}
 				else {
@@ -76,7 +76,7 @@
 		$data = '';
 		$data .= "Parameter" . "\t" . "Value" . "\n";
 		foreach($result as $name => $value) {
-				if ((!isset($value)) OR ($value == "")) {
+				if (!isset($value) || $value == "") {
 					 $value = "\t";
 				} else {
 					 $value = quote_if_contains_tab($value) . "\t";
@@ -93,7 +93,7 @@
 				$line = '';
 				foreach($fields as $field) {
 					$value = $row[$field];
-					if ((!isset($value)) OR ($value == "")) {
+					if (!isset($value) || $value == "") {
 						 $value = "\t";
 					} else {
 						 $value = quote_if_contains_tab($value) . "\t";
@@ -117,7 +117,7 @@
 		$data = '';
 		$data .= "Parameter" . "\t" . "Value" . "\n";
 		foreach($result as $name => $value) {
-				if ((!isset($value)) OR ($value == "")) {
+				if (!isset($value) || $value == "") {
 					 $value = "\t";
 				} else {
 					 $value = quote_if_contains_tab($value) . "\t";
@@ -134,7 +134,7 @@
 				$line = '';
 				foreach($fields as $field) {
 					$value = $row[$field];
-					if ((!isset($value)) OR ($value == "")) {
+					if (!isset($value) || $value == "") {
 						 $value = "\t";
 					} else {
 						 $value = quote_if_contains_tab($value) . "\t";
@@ -244,7 +244,7 @@
 		$data .= "TRACKING INFORMATION" . "\n";
 	
 		foreach($result as $name => $value) {
-				if ((!isset($value)) OR ($value == "")) {
+				if (!isset($value) || $value == "") {
 					 $value = "\t";
 				} else {
 					 $value .= "\t";
@@ -322,7 +322,7 @@
 	// --------------------------------------------------------------------
 	function fix_data($rowValue)
 	{
-		if ((!isset($rowValue)) OR ($rowValue == "")) {
+		if (!isset($rowValue) || $rowValue == "") {
 			 $rowValue = "\t";
 		} else {
 			 $rowValue = quote_if_contains_tab($rowValue) . "\t";

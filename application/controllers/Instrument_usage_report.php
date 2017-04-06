@@ -168,7 +168,7 @@ EOD;
 			$line = '';
 			foreach($cols as $name) {
 				$value = $row[$name];
-				if ((!isset($value)) OR ($value == "")) {
+				if (!isset($value) || $value == "") {
 					 $value = "\t";
 				}
 				else {
