@@ -72,7 +72,7 @@ class Instrument_usage_report extends Grid {
 
 		$sql = <<<EOD
 SELECT *
-FROM  T_EMSL_Instrument_Usage_Report
+FROM  V_Instrument_Usage_Report_Export
 WHERE [Year] = $year AND [Month] = $month
 ORDER BY [Instrument], [Year], [Month], [Start]
 EOD;
