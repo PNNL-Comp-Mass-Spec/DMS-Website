@@ -110,7 +110,7 @@ EOD;
 	{
 		$this->load->database();
 
-		$sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageDaily($year, $month)";
+		$sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageDaily($year, $month) WHERE NOT EMSL_Inst_ID Is Null";
 		$query = $this->db->query($sql);
 		$result = $query->result_array();
 		return $result;
@@ -145,7 +145,7 @@ EOD;
 	{
 		$this->load->database();
 
-		$sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageRollup($year, $month)";
+		$sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null";
 		$query = $this->db->query($sql);
 		$result = $query->result_array();
 		return $result;
