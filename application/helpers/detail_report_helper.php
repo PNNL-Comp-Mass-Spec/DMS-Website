@@ -95,7 +95,12 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 		// override default field display with hotlinks
 		$hotlink_specs = get_hotlink_specs_for_field($f_name, $hotlinks);
 		foreach($hotlink_specs as $hotlink_spec) {
-			$link_id = $fields[$hotlink_spec["WhichArg"]];
+			if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0){
+				$link_id = $fields[$hotlink_spec["WhichArg"]];
+			} else {
+				$link_id = "";
+			}
+			
 			if($hotlink_spec['Placement'] == 'labelCol') {
 				$label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $f_name, $val);
 			} else {
@@ -143,7 +148,11 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 {
 	$str = "";
 	$fld_id = $spec["id"];
-	$wa = $spec["WhichArg"];
+	if (array_key_exists("WhichArg", $spec)) {
+		$wa = $spec["WhichArg"];
+	} else {
+		$wa = "";
+	}	
 	$type = $spec['LinkType'];
 	$target = $spec['Target'];
 	$options = $spec['Options'];
