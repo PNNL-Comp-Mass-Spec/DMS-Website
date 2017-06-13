@@ -198,7 +198,12 @@
 			
 			// Typically the primary filter field size defined in the model config DB is ignored
 			// However, if it ends with an exclamation mark, the given field size is used
-			$fieldSize = $spec["size"];
+			if (in_array('size', $spec)) {
+				$fieldSize = $spec["size"];
+			} else {
+				$fieldSize = '';
+			}
+
 			$sizeTextLength = strlen($fieldSize);
 			if ($sizeTextLength > 1 && $fieldSize[$sizeTextLength - 1] === "!") {
 				// Override the textbox shown with a collapsed primary filter
@@ -208,7 +213,12 @@
 				$data['size'] = 10;
 			}
 			
-			$maxLength = $spec["maxlength"];
+			if (in_array('maxlength', $spec)) {
+				$maxLength = $spec["maxlength"];
+			} else {
+				$maxLength = '';
+			}
+			
 			if (!empty($maxLength) && $maxLength < 100) {
 				$data['maxlength'] = $maxLength;
 			} else {
