@@ -112,7 +112,7 @@ class Entry_form {
 	 * invisible components, where each array row contains components 
 	 * for an entry form row, and then call function to build HTML for 
 	 * visible entry form
-	 * @param string $mode Add or Update
+	 * @param string $mode 'add' or 'update'
 	 * @return type
 	 */
 	function build_display($mode)
@@ -363,10 +363,10 @@ class Entry_form {
 	/**
 	 * Make an entry form field
 	 * 
-	 * @param type $f_name
-	 * @param type $f_spec
-	 * @param type $cur_value
-	 * @param string $mode  Create or Update
+	 * @param type $f_name Field name
+	 * @param type $f_spec Field spec
+	 * @param type $cur_value Current value
+	 * @param string $mode  'add' or 'update'
 	 * @return type
 	 */
 	private
@@ -375,8 +375,8 @@ class Entry_form {
 		$s = "";
 	
 		// set up delimiter for lists for the field
-		$delim = (isset($f_spec['chooser']['Delimiter']))?$f_spec['chooser']['Delimiter']:'';
-		$delim = ($delim != '') ? $delim : ',';
+		$delimFromSpec = (isset($f_spec['chooser']['Delimiter'])) ? $f_spec['chooser']['Delimiter'] : '';
+		$delim = ($delimFromSpec != '') ? $delimFromSpec : ',';
 
 		$data['name']  = $f_name;
 		$data['id']  = $f_name;
@@ -391,6 +391,12 @@ class Entry_form {
 			} else {
 				$fieldType = 'non-edit';
 			}
+		} else if ($fieldType === 'text-nocopy') {
+			if (substr($mode, 0, 3 ) === 'add') {
+				// Blank out the value to force the user to re-define it for this new entry
+				$data['value'] = '';
+			}
+			$fieldType = 'text';
 		}
 		
 		// create HTML according to field type
@@ -444,6 +450,7 @@ class Entry_form {
 			break;
 	
 		case 'file':
+			// This form field type is unused as of June 2017
 			$data['maxlength'] = $f_spec['maxlength'];
 			$data['size']      = $f_spec['size'];
 			$s .= form_upload($data);
@@ -604,6 +611,7 @@ class Entry_form {
 	function adjust_field_visibility($mode)
 	{
 		foreach($this->form_field_specs as $f_name => $f_spec) {
+			// hide is defined in the form_field_options table in the config DB
 			if(array_key_exists('hide', $f_spec)) {
 				if($mode === $f_spec["hide"]) {
 					$this->form_field_specs[$f_name]["type"] = "hidden";
