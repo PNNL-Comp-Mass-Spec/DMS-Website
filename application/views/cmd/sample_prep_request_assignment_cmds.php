@@ -28,7 +28,7 @@
 <div>
 <input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.sample_prep_request_assignment.op("assignment", "user_list_fld")' /> Assign selected requests to preparer(s) 
 <span style='display:block'><textarea style="vertical-align:top" name='userList' id='user_list_fld' rows='3' cols='60' ></textarea></span>
-<span style="display:block" ><?= $this->choosers->get_chooser('user_list_fld', 'userNamePickList', 'append-comma')?>(select user to add to list)</span>
+<span style="display:block" ><?= $this->choosers->get_chooser('user_list_fld', 'samplePrepUserPickList', 'append-comma')?>(select user to add to list)</span>
 </div>
 
 <div>
