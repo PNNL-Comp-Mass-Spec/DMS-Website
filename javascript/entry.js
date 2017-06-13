@@ -25,6 +25,7 @@ var entry = {
 				$('#move_next_link').show();
 			}
 		},
+		// This method is invoked by analysis_job_request_psm based on the form field with type 'action'
 		getJobDefaults: function() {
 			var url = gamma.pageContext.my_tag + '/get_defaults';
 			this.callOperation(url);
