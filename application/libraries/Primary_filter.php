@@ -57,10 +57,11 @@ class Primary_filter {
 		// (someday) smarter extraction of primary filter values from POST:
 		// there may be other items in the POST not relevant to primary filter
 		// maybe we can check for the presence of any scalars that begin with "pf_"
-		if(!empty($_POST)){
+		if(!empty($_POST)) {
 			foreach(array_keys($filter_specs) as $id) {
 				$filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
-				if(!empty($filterVal)) { 
+				// Check for $filterVal being empty; cannot use empty() since '0' is considered empty
+				if ($filterVal !== '') {
 					// Check for encoded tabs (introduced by filter_input) and change them back to true tab characters
 					// Also, trim whitespace
 					$filter_specs[$id]["value"] = trim(str_replace('&#9;', "	", $filterVal));
