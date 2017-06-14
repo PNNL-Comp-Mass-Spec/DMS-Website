@@ -43,4 +43,4 @@ from selected items.
 </form>
 </div>
 
-<script src="<?= base_url().'javascript/factors.js' ?>"></script>
+<script src="<?= base_url().'javascript/factors.js?version=100' ?>"></script>

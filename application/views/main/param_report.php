@@ -90,7 +90,7 @@ $this->load->view("main/param_report_export");
 	</script>
 <?php endif; ?>
 
-<script src="<?= base_url().'javascript/parRep.js' ?>"></script>
+<script src="<?= base_url().'javascript/parRep.js?version=100' ?>"></script>
 
 
 <script type='text/javascript'>

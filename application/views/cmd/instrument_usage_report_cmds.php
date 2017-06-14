@@ -29,5 +29,5 @@
 </form>
 </div>
 
-<script src="<?= base_url().'javascript/factors.js' ?>"></script>
-<script src="<?= base_url().'javascript/tracking.js' ?>"></script>
+<script src="<?= base_url().'javascript/factors.js?version=100' ?>"></script>
+<script src="<?= base_url().'javascript/tracking.js?version=100' ?>"></script>

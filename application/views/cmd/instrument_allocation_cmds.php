@@ -46,5 +46,5 @@ for fiscal year <input id='set_fy' size='5' />
 </form>
 </div>
 
-<script src="<?= base_url().'javascript/tracking.js' ?>"></script>
+<script src="<?= base_url().'javascript/tracking.js?version=100' ?>"></script>
 

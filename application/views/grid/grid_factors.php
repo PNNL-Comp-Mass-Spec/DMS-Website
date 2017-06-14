@@ -80,7 +80,7 @@
 <?php $this->load->view('resource_links/base2js') ?>
 <?php $this->load->view('resource_links/slickgrid2js') ?>
 
-<script src="<?= base_url().'javascript/data_grid.js' ?>"></script>
+<script src="<?= base_url().'javascript/data_grid.js?version=100' ?>"></script>
 
 <script>
 	gamma.pageContext.site_url = '<?= site_url() ?>';
