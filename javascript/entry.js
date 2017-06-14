@@ -137,21 +137,30 @@ var entry = {
 				var skip = mode == "add";
 				proceed = skip || entry.sample_prep_request.checkMaterial(proceed);
 				if(!proceed) {
-					// present modal dialog with user choices
+					// Present modal dialog with user choices
 					// and return false to cancel original submit
-					var text = $('#message_contents').html();
+
+					// Old method: var text = $('#message_contents').html();
+					
+					// Alternative method, hooking into a hidden form_field
+					// To hide a field, update form_field_options to include the field name, type hide, and parameter update
+					// var text = $('#message_contents').val();
+					
+					// Simplest method, just hard-code the message
+					var text = 'Should the associated containers and biomaterial also be retired?';
+
 				    $( "<div></div>" ).html(text).dialog({
-				        height:300,
+				        height:200,
 				        width: 650,
 				        modal: true,
 				        buttons: {
-				           "Change And Continue Update": function() {
+				           "Yes, close the request and retire materials/containers": function() {
 								$('#State').val('Closed (containers and material)');
 				                $( this ).dialog( "close" );
 				                proceed = true;
 				           		$('#primary_cmd').click(); // retrigger the submit 
 				            },
-				            "Don't Change And Continue Update": function() {
+				            "No, just close the request": function() {
 				                $( this ).dialog( "close" );
 				                proceed = true;
 				            	$('#primary_cmd').click(); // retrigger the submit 
@@ -168,14 +177,14 @@ var entry = {
 		}(),
 		checkMaterial: function (proceed) {
 			var state = $('#State').val();
-			var biomaterial = $('#CellCultureList').val();
-			if((state != 'Closed') || (biomaterial == '(none)' || biomaterial == '') ) {
+			if((state != 'Closed') ) {
 				proceed = true;
 			}
 			return proceed;
 		},
 		cmdInit: function () {
-			// set hook to trap standard page submit sequence
+			// Set hook to trap standard page submit sequence
+			// See submitStandardEntryPage in dms2.js
 			epsilon.actions.before = entry.sample_prep_request.approveSubmit;
 		}
 	} // sample_prep_request
