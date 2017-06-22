@@ -78,9 +78,7 @@ to request assistance (login with your PNNL username and password). In case of a
 </p>
 <ul>
 	<li>Ron Moore (<?php echo xor_string("CE^YS\^P","proteomics"); ?>)</li>               <!-- xyz-6339 -->
-	<li>Danny Orton (<?php echo xor_string("CE^YSZZQ","proteomics"); ?>)</li>             <!-- xyz-6578 -->
-	<li>Matt Monroe (e-mail during business hours 
-	    or text anytime to <?php echo xor_string("EBVYPZYDTKFE","proteomics"); ?>)</li>   <!-- 554-wxyz -->
+	<li>Matt Monroe (e-mail during business hours or <?php echo xor_string("EBVYVXXDUCED","proteomics"); ?> after hours)</li>   <!-- 375-wxyz -->
 </ul>
 <p>
 PRISM was created by Pacific Northwest National Laboratory for the U.S. Department of Energy under Contract Number DE-AC06-76RLO1830 and is operated under Contract Number DE-AC05-76RL01830.
