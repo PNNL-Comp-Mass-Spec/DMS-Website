@@ -111,7 +111,10 @@
 		$a = array();	
 		$seg_val = current($segs);
 		foreach($form_field_names as $field) {
-			if($seg_val === FALSE) break;
+			if($seg_val === FALSE) {
+				break;
+			}
+			
 			if($seg_val != '-') {
 				$a[$field] = convert_special_values($seg_val);
 			}
@@ -120,30 +123,49 @@
 		return $a;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Check for the field either matching a special tag or containing a special tag
+	 * String comparisons are case sensitive
+	 * @param type $value
+	 * @return type
+	 */	
 	function convert_special_values($value)
 	{
+		// Check the field fully matching a special tag
 		switch($value) {
 			case "__ThisYear__":
-				$value = date("Y");
-				break;
+				return date("Y");
 			case "__LastYear__":
-				$value = date("Y", strtotime("last year"));
-				break;
+				return date("Y", strtotime("last year"));
 			case "__ThisMonth__":
-				$value = date("n");
-				break;
+				return  date("n");
 			case "__LastMonth__":
-				$value = date("n", strtotime("last month"));
-				break;
+				return date("n", strtotime("last month"));
 			case "__ThisWeek__":
-				$value = date("W");
-				break;
+				return date("W");
 			case "__LastWeek__":
-				$value = date("W", strtotime("last week"));
-				break;
+				return date("W", strtotime("last week"));
 		}
-		return $value;
+		
+		// Check for special tags at the start
+		if (startsWith($value, "StartsWith__")) {
+			// Use a backtick to signify that the value must start with the value
+			$newValue = str_replace("StartsWith__", "`", $value);
+		} else if (startsWith($value, "ExactMatch__")) {
+			// Use a tilde to signify that the value must exactly match the value
+			$newValue = str_replace("ExactMatch__", "~", $value);
+		} else if (startsWith($value, "NoMatch__")) {
+			// Use a colon to signify that the value cannot contain the value
+			$newValue = str_replace("NoMatch__", ":", $value);
+		} else {
+			$newValue = $value;
+		}
+		
+		// Check for the special Wildcard tag in the middle (allow both __Wildcard__ and __WildCard__)
+		// If found, replace with a percent sign to signify a wildcard match
+		$finalValue = str_ireplace("__Wildcard__", "%", $newValue);
+			
+		return $finalValue;
 	}
 
 	// --------------------------------------------------------------------
@@ -220,3 +242,9 @@
 		}
 		return $links;	
 	}
+	
+	function startsWith($haystack, $needle)
+	{
+		 $length = strlen($needle);
+		 return (substr($haystack, 0, $length) === $needle);
+	}	
