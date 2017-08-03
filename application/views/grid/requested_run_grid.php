@@ -74,7 +74,7 @@
 <?php $this->load->view('resource_links/base2js') ?>
 <?php $this->load->view('resource_links/slickgrid2js') ?>
 
-<script src="<?= base_url().'javascript/data_grid.js?version=100' ?>"></script>
+<script src="<?= base_url().'javascript/data_grid.js?version=101' ?>"></script>
 <script src="<?= base_url().'javascript/run_blocking_grid.js?version=100' ?>"></script>
 
 <script>
