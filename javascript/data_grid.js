@@ -270,9 +270,9 @@ var gridUtil = {
 	// set width property of given column specs according to 
 	// size of data in given data rows, and return updated column specs
 	sizeColumnsToData: function (currentColumns, dataRows, maxColumnChars) {
-		var textWidthPixels = 8;
+		var textWidthPixels = 8.1;
 		var maxChars, dataChars, val, colLabel;
-		var minChars = 3;
+		var minChars = 7;
 		$.each(currentColumns, function(idx, colSpec) {
 			maxChars = minChars;
 			colLabelChars = colSpec.field.length + 2; // allow space for drop-down menu control
@@ -285,7 +285,7 @@ var gridUtil = {
 				}
 			});
 			maxChars = (maxColumnChars && maxColumnChars < maxChars) ? maxColumnChars : maxChars;
-			colSpec.width = maxChars * textWidthPixels;
+			colSpec.width = Math.round(maxChars * textWidthPixels);
 		});			
 		return currentColumns;
 	},
