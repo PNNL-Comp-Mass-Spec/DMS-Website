@@ -75,7 +75,7 @@
 		request: 'requested_run/show/',
 		log: {
 			condition_field: 'Type',
-			'Operation': 'instrument_operation_history/show',
+			'Operation': 'instrument_operation_history/show/',
 			'Configuration': 'instrument_config_history/show/'
 		}
 	}
