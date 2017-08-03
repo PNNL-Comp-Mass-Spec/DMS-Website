@@ -102,9 +102,9 @@ $("#el").spin(false); // Kills the spinner.
 (function($) {
 	$.fn.spin = function(opts, color) {
 		var presets = {
-			"tiny": { lines: 8, length: 2, width: 2, radius: 3, top: 10, left: 10 },
-			"small": { lines: 8, length: 4, width: 3, radius: 5 , top: 15, left: 15},
-			"large": { lines: 10, length: 8, width: 4, radius: 8, top: 20, left: 20 }
+			"tiny": {  lines: 8,  length: 2, width: 2, radius: 3, opacity: 0.1, speed: 0.5, trail: 70, top: '15%', left: '10%' },
+			"small": { lines: 8,  length: 4, width: 3, radius: 5, opacity: 0.1, speed: 0.5, trail: 70, top: '25%', left: '15%' },
+			"large": { lines: 10, length: 8, width: 4, radius: 8, opacity: 0.1, speed: 0.5, trail: 70, top: '30%', left: '20%' }
 		};
 		if (Spinner) {
 			return this.each(function() {
