@@ -407,6 +407,21 @@ var gamma = {
 						}
 
 					} else {
+                        // Check for the url containing 'report_info'
+                        if (url.match(/\/report_info\//i)) {
+                            // Replace backtick, colon, and percent signs in the filter values
+                            // to instead use wildcard keywords
+                            
+                            data = data.replace(/`/g, "StartsWith__").replace(/\%/g, "__Wildcard__");
+                            
+                            // Also replace colons, but do not replace the colon in http://
+                            var urlParts = data.split("://", 2);
+                            
+                            if (urlParts.length > 1) {
+                                data = urlParts[0] + "://" + urlParts[1].replace(/\:/g, "NoMatch__");
+                            }
+                            
+                        }
 						maxTextLength = data.length;
 					}
 					
