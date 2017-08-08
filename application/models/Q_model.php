@@ -389,7 +389,7 @@ class Q_model extends CI_Model {
 	function get_item($id)
 	{
 		if(empty($this->primary_filter_specs)) { 
-			throw new exception('no primary id column defined');                     
+			throw new exception('no primary id column defined; update general_params to include detail_report_data_id_col');                     
 		}
 		
 		if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc))
@@ -398,6 +398,7 @@ class Q_model extends CI_Model {
 		}
 		else 
 		{
+			// primary_filter_specs is populated in get_detail_report_query_specs_from_config_db
 			$spc = current($this->primary_filter_specs);
 			$this->add_predicate_item('AND', $spc['col'], $spc['cmp'], $id);
 		
@@ -930,6 +931,9 @@ class Q_model extends CI_Model {
 			throw new Exception('Could not connect to config database at '.$dbFilePath);                     
 		}
 
+		$filterColumn = '';
+		$filterComparison = '';
+		
 		foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
 			switch($row['name']) {
 				case 'my_db_group':
@@ -945,16 +949,37 @@ class Q_model extends CI_Model {
 					$this->query_parts->columns = $row['value'];
 					break;
 				case 'detail_report_data_id_col':
-					$col = $row['value'];
-					// $name = "pf_".str_replace(' ', '_', strtolower($col));
-					$a = array();
-					$a['col'] = $col;
-					$a['cmp'] = 'MatchesText';// 'Equals'; // 'MatchesText'?
-					$a['label'] = $col;
-					$this->primary_filter_specs[$row['name']] = $a;
+					$filterColumn = $row['value'];
+					$filterComparison = 'MatchesText';
+					break;
+				case 'detail_report_data_id_type':
+					switch ($row['value']) {
+						case 'integer':
+						case 'bigint':
+						case 'int':
+						case 'smallint':
+						case 'tinyint':
+						case 'bit':
+						case 'float':
+						case 'real':
+							$filterComparison = 'Equals';
+							break;
+						default:
+							$filterComparison = 'MatchesText';
+					}					
 					break;
 			}
 		}	
+		
+		if (strlen($filterColumn) == 0) {
+			throw new Exception('Detail report ID column not defined (get_detail_report_query_specs_from_config_db)');
+		}
+			
+		$a = array();
+		$a['col'] = $filterColumn;
+		$a['cmp'] = $filterComparison;  // 'MatchesText' or 'Equals'
+		$a['label'] = $filterColumn;
+		$this->primary_filter_specs[$row['name']] = $a;
 	}
 
 	/**

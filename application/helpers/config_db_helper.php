@@ -18,6 +18,7 @@ insert into general_params ("name","value") values ('base_table' , '$obj->tbl');
 insert into general_params ("name","value") values ('list_report_data_table' , '$obj->lrn' );
 insert into general_params ("name","value") values ('detail_report_data_table' , '$obj->drn');
 insert into general_params ("name","value") values ('detail_report_data_id_col' , 'ID');
+insert into general_params ("name","value") values ('detail_report_data_id_type' , 'integer');
 insert into general_params ("name","value") values ('detail_report_sproc' , '');
 insert into general_params ("name","value") values ('entry_page_data_table' , '$obj->ern');
 insert into general_params ("name","value") values ('entry_page_data_id_col' , 'ID');
