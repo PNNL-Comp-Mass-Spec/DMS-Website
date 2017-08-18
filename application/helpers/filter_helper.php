@@ -196,9 +196,9 @@
 			$data['name'] = $data['id'];
 			$data['class'] = 'primary_filter_field filter_input_field';
 			
-			// Typically the primary filter field size defined in the model config DB is ignored
+			// Typically the primary filter field size defined in the model config DB is ignored and a default of 10 is used
 			// However, if it ends with an exclamation mark, the given field size is used
-			if (in_array('size', $spec)) {
+			if (array_key_exists('size', $spec)) {
 				$fieldSize = $spec["size"];
 			} else {
 				$fieldSize = '';
@@ -213,7 +213,7 @@
 				$data['size'] = 10;
 			}
 			
-			if (in_array('maxlength', $spec)) {
+			if (array_key_exists('maxlength', $spec)) {
 				$maxLength = $spec["maxlength"];
 			} else {
 				$maxLength = '';
