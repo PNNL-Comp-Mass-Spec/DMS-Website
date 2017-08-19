@@ -121,14 +121,14 @@ class E_model extends CI_Model {
 	function get_load_key()
 	{
 		$load_key = '';
-		// look for specific definintion from config db
+		// look for specific definition from config db
 		foreach($this->form_fields as $field => $spec) {
 			if(array_key_exists('load_key_field', $spec)) {
 				$load_key = $field;
 				break;
 			}
 		}
-		// default is first field that is not no-edit or hidden
+		// default is first field that is not non-edit or hidden
 		if(!$load_key) {
 			foreach($this->form_fields as $field => $spec) {
 				if($spec['type'] != "hidden" and $spec['type'] != "non-edit") {
