@@ -1,5 +1,8 @@
 <?php
 
+// Include application/libraries/Wildcard_conversion.php
+require_once('Wildcard_conversion.php');
+
 class Secondary_filter {
 	const storage_name_root = "lr_sec_filter_";
 	
@@ -11,6 +14,7 @@ class Secondary_filter {
 	private $cur_qf_vals = array();
 	
 	private $qf_num_filters = 4;
+
 
 	// --------------------------------------------------------------------
 	function __construct()
@@ -161,7 +165,14 @@ class Secondary_filter {
 		$filterIdx = 0;
 		while($itemIdx < $numItems ) {
 			foreach($this->qf_field_names as $name) {
-				$filter_state[$filterIdx][$name]  = $items[$itemIdx++];			
+				if ($itemIdx == 3) {
+					// Check for special wildcard text
+					$valueToStore = convert_special_values($items[$itemIdx]);
+				} else {
+					$valueToStore = $items[$itemIdx];
+				}				
+				$filter_state[$filterIdx][$name] = $valueToStore;
+				$itemIdx++;
 			}
 			$filterIdx++;
 		}
