@@ -7,4 +7,4 @@
 <script src="<?= base_url().'chosen/chosen/chosen.jquery.min.js?version=101' ?>"></script>
 
 <?php // Increment version number here to force clients to reload dms2.js ?>
-<script src="<?= base_url().'javascript/dms2.js?version=106' ?>"></script>
+<script src="<?= base_url().'javascript/dms2.js?version=107' ?>"></script>

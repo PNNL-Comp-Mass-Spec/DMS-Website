@@ -411,8 +411,10 @@ var gamma = {
                         if (url.match(/\/report_info\//i)) {
                             // Replace backtick, colon, and percent signs in the filter values
                             // to instead use wildcard keywords
+                            // However, do not replace %20 since that indicates a space
+                            // To skip %20 we use negative lookahead via (?!20)
                             
-                            data = data.replace(/`/g, "StartsWith__").replace(/\%/g, "__Wildcard__");
+                            data = data.replace(/`/g, "StartsWith__").replace(/%(?!20)/g, "__Wildcard__");
                             
                             // Also replace colons, but do not replace the colon in http://
                             var urlParts = data.split("://", 2);
