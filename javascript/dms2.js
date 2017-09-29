@@ -511,22 +511,36 @@ var gamma = {
 		data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy and close</button>";
 
 		data += "\n";	
-		data += "<script>\n";
-//		data += "<p>\n";
-		data += "document.getElementById('" + buttonName + "').addEventListener('click', function() {\n";
-		data += "  clipboard.copy({\n";
-		data += "    'text/plain': \"" + dataForClipboard + "\",\n";
-		data += "    'text/html': \""  + dataForClipboard + "\"\n";
-		data += "  }).then(\n";
-		data += "    function(){console.log('success: " + buttonName + "');\n";
-		data += "  }).then(\n";
-		data += "    function(){if(dlgPopupInfo) { dlgPopupInfo.dialog('close'); }\n";
-		data += "  }),\n";
-		data += "    function(err){console.log('failure: " + buttonName + "', err);\n";
-		data += "  };\n";
-		data += "});\n";
-		data += "</script>\n";
-//		data += "</p>\n";		
+		data += "<script>\n";    // Or "<p>\n";
+        					
+		// Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
+		data += '$("#' + buttonName + '").on("click",function(e) { \n';
+		data += "    clipboard.copy({\n";
+		data += "      'text/plain': \"" + dataForClipboard + "\", \n";
+		data += "      'text/html': \""  + htmlForClipboard + "\" }); \n";
+		data += "    console.log('success: " + buttonName + "'); \n";
+		data += "    if (gamma.dlgPopupInfo) { gamma.dlgPopupInfo.dialog('close'); } \n";
+		data += "  });";
+
+		/*
+		 * Alternative approach, using .getElementById
+		 * and a Javascript promise
+		 *
+			data += "document.getElementById('" + buttonName + "').addEventListener('click', function() {\n";
+			data += "  clipboard.copy({\n";
+			data += "    'text/plain': \"" + dataForClipboard + "\",\n";
+			data += "    'text/html': \""  + htmlForClipboard + "\"\n";
+			data += "  }).then(\n";
+			data += "    function(){console.log('success: " + buttonName + "');\n";
+			data += "  }).then(\n";
+			data += "    function(){if (gamma.dlgPopupInfo) { gamma.dlgPopupInfo.dialog('close'); }\n";
+			data += "  }),\n";
+			data += "    function(err){console.log('failure: " + buttonName + "', err);\n";
+			data += "  };\n";
+			data += "});\n";
+		*/
+
+		data += "</script>\n";    // Or "</p>\n";
 		
 		return data;
 	},	

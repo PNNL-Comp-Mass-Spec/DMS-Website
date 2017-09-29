@@ -149,23 +149,34 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 	
 	if (sizeof($pathCopyData) > 0)
 	{	
-		$scriptData = "\n<script>\n";
+		$scriptData = "\n<script>\n";    // Or "<p>\n";
 		
 		foreach ($pathCopyData as $key => $value)
 		{
-			$scriptData .= "document.getElementById('copy-data-button$key').addEventListener('click', function() {\n";
-			$scriptData .= "  clipboard.copy({\n";
-			$scriptData .= "    'text/plain': '$value',\n";
-			// $scriptData .= "    'text/html': '$value'\n";
-			$scriptData .= "  }).then(\n";
-			$scriptData .= "    function(){console.log('success'); },\n";
-			$scriptData .= "    function(err){console.log('failure', err);\n";
+			// Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
+			$scriptData .= '$("#copy-data-button' . $key . '").on("click",function(e) {';
+			$scriptData .= "    clipboard.copy({ 'text/plain': '$value' }); ";
+			$scriptData .= "    console.log('success: copy-data-button$key'); ";
 			$scriptData .= "  });\n";
-			$scriptData .= "});\n";
+				
+			/*
+			 * Alternative approach, using .getElementById
+			 * and a Javascript promise
+			 *
+				$scriptData .= "document.getElementById('copy-data-button$key').addEventListener('click', function() {";
+				$scriptData .= "  clipboard.copy({\n";
+				$scriptData .= "    'text/plain': '$value',\n";
+				// $scriptData .= "    'text/html': '$value'\n";
+				$scriptData .= "  }).then(\n";
+				$scriptData .= "    function(){console.log('success'); },\n";
+				$scriptData .= "    function(err){console.log('failure', err);\n";
+				$scriptData .= "  });\n";
+				$scriptData .= "});\n";
+			*/
 		}
 		
-		$scriptData .= "</script>\n";
-				
+		$scriptData .= "</script>\n";    // Or "</p>\n";
+						
 		$str .= $scriptData;
 
 	}
