@@ -344,7 +344,7 @@ var gamma = {
 			
 			if(!dlg) {
 				// Make a new dialog box
-				dlg = $('<div></div>').dialog({title: title, autoOpen: false});	
+				dlg = $('<div></div>').dialog({title: title, autoOpen: false, closeOnEscape: true});	
 			} else {
 				// Update the title of an existing dialog box
 				dlg.dialog({ title: title });
@@ -422,7 +422,7 @@ var gamma = {
 						data = '<pre>' + formattedSql + '</pre>';
 						
 						// Text in dataForClipboard is plain text and will appear when pasting into a text editor or SQL Server Management Studio
-						// Text in htmlForClipboard includes html symbols, and will appear when pasted into Microsoft Word
+						// Text in htmlForClipboard includes HTML symbols, and will appear when pasted into Microsoft Word
 						dataForClipboard = unformattedSql
 						htmlForClipboard = data;
 						
@@ -477,8 +477,10 @@ var gamma = {
 		return function(data, title) {
 				
 			if(!dlg) {
-				dlg = $('<div></div>').dialog({title: title, autoOpen: false});
+				// Make a new dialog box
+				dlg = $('<div></div>').dialog({title: title, autoOpen: false, closeOnEscape: true});
 			} else {
+				// Update the title of an existing dialog box
 				dlg.dialog({ title: title });
 			}
 
@@ -492,7 +494,7 @@ var gamma = {
 			data += "<br>";
 			
 			data = gamma.addCopyDataButton(data, buttonName, dataForClipboard, htmlForClipboard);
-					
+
 			dlg.html(data);
 			dlg.dialog('open');
 			
