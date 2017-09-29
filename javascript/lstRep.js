@@ -67,6 +67,7 @@ var lstRep = {
 	}
 } // lstRep
 
+// Omicron is used by the run_op_logs page family
 var omicron = {
 	update: function(url, value, dataRow, fields) {
 		var myForm;
