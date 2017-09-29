@@ -140,9 +140,9 @@ $("#el").spin(false); // Kills the spinner.
 // global and general-purpose functions and objects
 //------------------------------------------
 
-var dlgPopupInfo;
-
 var gamma = {
+	
+	dlgPopupInfo: '',
 	
     /**
      * Event handlers for global search panel
@@ -462,7 +462,7 @@ var gamma = {
 					dlg.html(data);
 					dlg.dialog('open');
 					
-					dlgPopupInfo = dlg;
+					gamma.dlgPopupInfo = dlg;
 				}
 			);
 		};
@@ -496,7 +496,7 @@ var gamma = {
 			dlg.html(data);
 			dlg.dialog('open');
 			
-			dlgPopupInfo = dlg;
+			gamma.dlgPopupInfo = dlg;
 		};
 	}(),
 	/*
