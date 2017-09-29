@@ -322,10 +322,14 @@ var gamma = {
 		});
 		return output;
 	},
-	// display results returned by AJAX query of server
-	// in floating modeless dialog (created dynamically)
-	// (if ignoreIfClosed is false or undefined, always open 
-	//  or update dialog, otherwise, only update if already open)
+	/* Display results returned by AJAX query of server
+	 * in floating modeless dialog (created dynamically)
+	 * (if ignoreIfClosed is false or undefined, always open 
+	 *  or update dialog, otherwise, only update if already open)
+	 *
+	 * Displayed when the user clicks Help->SQL (on a list report or detail report) to view the SQL query used to obtain the data 
+	 * or when they choose Help->URL on a list report to view the URL for deep linking on list reports
+	 */
 	updateMessageBox: function() {
 		var dlg;
 		return function(url, form, title, ignoreIfClosed) {
@@ -355,8 +359,14 @@ var gamma = {
 			$.post(url, p, function(data) {
 					var maxTextLength = 0;
 					
+					var dataForClipboard = '??';
+					var htmlForClipboard = '??';
+					var buttonName = 'copy-now';
+					
 					// Check for the title being 'SQL'
 					if (title.match(/SQL/i)) {
+						var buttonName = 'copy-sql-now';
+						
 						// Insert some line breaks
 						// Try to match SELECT * FROM table
 						//           or SELECT * FROM table WHERE x=y
@@ -366,47 +376,58 @@ var gamma = {
 						var orderByRegEx         = /\s+(ORDER BY\s.+)/i;
 
 						var match = selectFromWhereRegEx.exec(data);
+						var unformattedSql = data;
+						var formattedSql = '?';
 						
 						if (match) {
 													
-							data = '<pre>';
-							data += match[1] + '<br>';                                               // SELECT ...
-							data += match[2] + '<br>';                                               // FROM ...
+							formattedSql = '';
+							formattedSql += match[1] + '<br>';                                               // SELECT ...
+							formattedSql += match[2] + '<br>';                                               // FROM ...
 
 							// Add a line break after AND or OR
-							data += 'WHERE ' + match[3].replace(whereClauseRegEx, ' $1<br>      ');  // WHERE ...
+							formattedSql += 'WHERE ' + match[3].replace(whereClauseRegEx, ' $1<br>      ');  // WHERE ...
 
 							// Add a line break before ORDER BY
-							data = data.replace(orderByRegEx, '<br>$1');
-							data += '</pre>';
-								
+							formattedSql = formattedSql.replace(orderByRegEx, '<br>$1');							
+																					
 						} else {
 							// SQL does not have a WHERE clause
 							var match = selectFromRegEx.exec(data);
 							if (match) {
-								data = '<pre>';
-								data += match[1] + '<br>';   // SELECT ...
-								data += match[2] + '<br>';   // FROM ...
+
+								formattedSql = '';
+								formattedSql += match[1] + '<br>';   // SELECT ...
+								formattedSql += match[2] + '<br>';   // FROM ...
 								
 								// Add a line break before ORDER BY
-								data = data.replace(orderByRegEx, '<br>$1');
-								data += '</pre>';
+								formattedSql = formattedSql.replace(orderByRegEx, '<br>$1');
 
 							} else {
 								// No RegEx match
 								maxTextLength = data.length;
-								data = '<pre>' + data + '</pre>';
+								formattedSql = '' + data;
 							}
 						}
 						
 						if (maxTextLength == 0) {
-							var dataRows = data.split('<br>');
+							var dataRows = formattedSql.split('<br>');
 							for(var k = 0; k < dataRows.length; k++) {
 								maxTextLength = Math.max(maxTextLength, dataRows[k].length);
 						    }
 						}
-
+						
+						data = '<pre>Frank</pre>';
+						data = '<pre>' + formattedSql + '</pre>';
+						
+						// Text in dataForClipboard is plain text and will appear when pasting into a text editor or SQL Server Management Studio
+						// Text in htmlForClipboard includes html symbols, and will appear when pasted into Microsoft Word
+						dataForClipboard = unformattedSql
+						htmlForClipboard = data;
+						
 					} else {
+						var buttonName = 'copy-url-now';
+						
                         // Check for the url containing 'report_info'
                         if (url.match(/\/report_info\//i)) {
                             // Replace backtick, colon, and percent signs in the filter values
@@ -425,10 +446,17 @@ var gamma = {
                             
                         }
 						maxTextLength = data.length;
+						
+						dataForClipboard = data;
+						htmlForClipboard = data;
+						
+						data += '<br>'
 					}
 					
 					var width = gamma.getDialogWidth(maxTextLength);
 					dlg.dialog({ width: width });
+
+					data = gamma.addCopyDataButton(data, buttonName, dataForClipboard, htmlForClipboard);
 
 					dlg.html(data);
 					dlg.dialog('open');
@@ -436,8 +464,10 @@ var gamma = {
 			);
 		};
 	}(),
-	/**
+	/*
      * Display text (data) in a floating modeless dialog (created dynamically)
+     *
+	 * Displayed when the user clicks Help->URL on a detail report to view the URL for deep linking
      */
 	updateMessageBoxText: function() {
 		var dlg;
@@ -452,10 +482,44 @@ var gamma = {
 			var width = gamma.getDialogWidth(data.length);
 			dlg.dialog({ width: width });
 			
+			var dataForClipboard = data;
+			var htmlForClipboard = data;
+			var buttonName = "copy-data-now";
+			
+			data += "<br>";
+			
+			data = gamma.addCopyDataButton(data, buttonName, dataForClipboard, htmlForClipboard);
+					
 			dlg.html(data);
 			dlg.dialog('open');
 		};
 	}(),
+	/*
+     * Add a button and the required javascript for copying text
+     */
+	addCopyDataButton: function(data, buttonName, dataForClipboard, htmlForClipboard) {
+		
+		// Note: Copy functionality is implemented in clipboard.min.js
+		// More info at https://www.npmjs.com/package/clipboard-js
+		// and at       https://github.com/lgarron/clipboard.js
+		
+		data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy</button>";
+
+		data += "\n";	
+		data += "<script>\n";
+		data += "document.getElementById('" + buttonName + "').addEventListener('click', function() {\n";
+		data += "  clipboard.copy({\n";
+		data += "    'text/plain': \"" + dataForClipboard + "\",\n";
+		data += "    'text/html': \""  + dataForClipboard + "\"\n";
+		data += "  }).then(\n";
+		data += "    function(){console.log('success: " + buttonName + "'); },\n";
+		data += "    function(err){console.log('failure: " + buttonName + "', err);\n";
+		data += "  });\n";
+		data += "});\n";
+		data += "</script>\n";
+		
+		return data;
+	},	
 	makeElementOverlay: function(elementId, message) {
 		var target = $("#" + elementId);
 		var overlay = $("<div />").css({
@@ -769,7 +833,7 @@ var gamma = {
 			}
 		}		
 	}	
-};
+};	// gamma
 
 //------------------------------------------
 //These functions are used by list reports
@@ -1339,7 +1403,7 @@ var delta = {
 
 	}
 
-};
+};	//delta
 
 //------------------------------------------
 //These functions are used by the entry page 
@@ -1822,4 +1886,4 @@ var epsilon = {
 	    fld.val(fld.val().replace(re, repStr));
 	}
 	
-};
+};	// epsilon

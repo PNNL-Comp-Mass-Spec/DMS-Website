@@ -281,7 +281,7 @@ class List_report {
 	}
 
 	/**
-	 * Create HTML displaying the sql behind the data or the URL for deep-linking to the page
+	 * Create HTML displaying the SQL behind the data or the URL for deep-linking to the page
 	 * @param string $what_info
 	 * @category AJAX
 	 */
