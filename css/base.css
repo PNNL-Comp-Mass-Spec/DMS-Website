@@ -71,10 +71,31 @@ h2.page_title {
 }
 .search_btn {
 }
+.copypath_btn {
+  font-size: 11px;
+  color: #333399;
+  border-radius:4px;
+  border: 0px;
+  float: right;
+  margin-left: 3px;
+  background-color: #a3bef5;
+  background-image: -webkit-linear-gradient(top, #e8effc 0%, #bacff7 100%);
+  background-image: -moz-linear-gradient(top, #e8effc 0%, #bacff7 100%);
+  background-image: -o-linear-gradient(top, #e8effc 0%, #bacff7 100%);
+  background-image: -ms-linear-gradient(top, #e8effc 0%, #bacff7 100%);
+  background-image: linear-gradient(top, #e8effc 0%, #bacff7 100%);  
+}
 
-/*
- * 
- */
+.copypath_btn:hover {
+  cursor: pointer;
+  background-color: #759ef0;
+  background-image: -webkit-linear-gradient(top, #a3bef5 0%, #759ef0 100%);
+  background-image: -moz-linear-gradient(top, #a3bef5 0%, #759ef0 100%);
+  background-image: -o-linear-gradient(top, #a3bef5 0%, #759ef0 100%);
+  background-image: -ms-linear-gradient(top, #a3bef5 0%, #759ef0 100%);
+  background-image: linear-gradient(top, #a3bef5 0%, #759ef0 100%);  
+}
+
 .button {
   outline: 0;
  /* margin: 5px; */

@@ -69,6 +69,9 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 	// Show dates/times in the form: Dec 5 2016 5:44 PM
 	$dateFormat = "M j Y g:i A";
 
+	$pathCopyData = array();
+	$pathCopyButtonCount = 0;
+	
 	// make a form field for each field in the field specs
 	foreach ($fields as $f_name => $f_val) {
 		// don't display columns that begin with a hash character
@@ -90,7 +93,9 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 		}
 			
 		$label_display = "<td>$label</td>\n";
-		$val_display = "<td>$val</td>\n";
+		
+		// We will append </td> below
+		$val_display = "<td>$val";
 		
 		// override default field display with hotlinks
 		$hotlink_specs = get_hotlink_specs_for_field($f_name, $hotlinks);
@@ -112,15 +117,59 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 		$rowColor = alternator('ReportEvenRow', 'ReportOddRow');
 		$str .= "<tr class='$rowColor' >\n";
 
+		// Check whether the value points to a shared folder on a window server
+		$charIndex = strpos($val, "\\\\");
+		
+		if ($charIndex !== false)
+		{
+			$pathCopyButtonCount++;
+
+			// Note: Copy functionality is implemented in clipboard.min.js
+			// More info at https://www.npmjs.com/package/clipboard-js
+			// and at       https://github.com/lgarron/clipboard.js
+			
+			$buttonHtml = "<button id='copy-data-button$pathCopyButtonCount' class='copypath_btn'>Copy</button>";
+
+			$val_display .= " " . $buttonHtml;
+
+			$folderPath = str_replace("\\", "\\\\", substr($val, $charIndex));
+			
+			$pathCopyData[$pathCopyButtonCount] = $folderPath;
+		}
+		
 		// first column in table is field name
-		// second column in table is field value
-		$str .= $label_display . $val_display; 
+		// second column in table is field value, possibly with special formatting
+		$str .= $label_display . $val_display . "</td>\n";
 
 		// close row in table
 		$str .= "</tr>\n";
 		
 		$colIndex++;
 	}
+	
+	if (sizeof($pathCopyData) > 0)
+	{	
+		$scriptData = "\n<script>\n";
+		
+		foreach ($pathCopyData as $key => $value)
+		{
+			$scriptData .= "document.getElementById('copy-data-button$key').addEventListener('click', function() {\n";
+			$scriptData .= "  clipboard.copy({\n";
+			$scriptData .= "    'text/plain': '$value',\n";
+			// $scriptData .= "    'text/html': '$value'\n";
+			$scriptData .= "  }).then(\n";
+			$scriptData .= "    function(){console.log('success'); },\n";
+			$scriptData .= "    function(err){console.log('failure', err);\n";
+			$scriptData .= "  });\n";
+			$scriptData .= "});\n";
+		}
+		
+		$scriptData .= "</script>\n";
+				
+		$str .= $scriptData;
+
+	}
+	
 	return $str;
 }
 // -----------------------------------
@@ -293,7 +342,8 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 		
 	}
 	
-	return "<td $cell_class>$str</td>\n";
+	// The calling method will append </td>
+	return "<td $cell_class>$str";
 }
 
 // -----------------------------------
