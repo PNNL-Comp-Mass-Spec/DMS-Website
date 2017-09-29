@@ -140,6 +140,8 @@ $("#el").spin(false); // Kills the spinner.
 // global and general-purpose functions and objects
 //------------------------------------------
 
+var dlgPopupInfo;
+
 var gamma = {
 	
     /**
@@ -417,7 +419,6 @@ var gamma = {
 						    }
 						}
 						
-						data = '<pre>Frank</pre>';
 						data = '<pre>' + formattedSql + '</pre>';
 						
 						// Text in dataForClipboard is plain text and will appear when pasting into a text editor or SQL Server Management Studio
@@ -460,6 +461,8 @@ var gamma = {
 
 					dlg.html(data);
 					dlg.dialog('open');
+					
+					dlgPopupInfo = dlg;
 				}
 			);
 		};
@@ -492,6 +495,8 @@ var gamma = {
 					
 			dlg.html(data);
 			dlg.dialog('open');
+			
+			dlgPopupInfo = dlg;
 		};
 	}(),
 	/*
@@ -503,20 +508,25 @@ var gamma = {
 		// More info at https://www.npmjs.com/package/clipboard-js
 		// and at       https://github.com/lgarron/clipboard.js
 		
-		data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy</button>";
+		data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy and close</button>";
 
 		data += "\n";	
 		data += "<script>\n";
+//		data += "<p>\n";
 		data += "document.getElementById('" + buttonName + "').addEventListener('click', function() {\n";
 		data += "  clipboard.copy({\n";
 		data += "    'text/plain': \"" + dataForClipboard + "\",\n";
 		data += "    'text/html': \""  + dataForClipboard + "\"\n";
 		data += "  }).then(\n";
-		data += "    function(){console.log('success: " + buttonName + "'); },\n";
+		data += "    function(){console.log('success: " + buttonName + "');\n";
+		data += "  }).then(\n";
+		data += "    function(){if(dlgPopupInfo) { dlgPopupInfo.dialog('close'); }\n";
+		data += "  }),\n";
 		data += "    function(err){console.log('failure: " + buttonName + "', err);\n";
-		data += "  });\n";
+		data += "  };\n";
 		data += "});\n";
 		data += "</script>\n";
+//		data += "</p>\n";		
 		
 		return data;
 	},	
