@@ -378,7 +378,7 @@ var gamma = {
 						var orderByRegEx         = /\s+(ORDER BY\s.+)/i;
 
 						var match = selectFromWhereRegEx.exec(data);
-						var unformattedSql = data;
+						var unformattedSql = data.replace(/\n/g, ' ').trim();
 						var formattedSql = '?';
 						
 						if (match) {
@@ -408,7 +408,7 @@ var gamma = {
 							} else {
 								// No RegEx match
 								maxTextLength = data.length;
-								formattedSql = '' + data;
+								formattedSql = data.replace(/\n/g, ' ').trim();
 							}
 						}
 						
@@ -446,6 +446,9 @@ var gamma = {
                             }
                             
                         }
+
+                        data = data.replace(/\n/g, ' ').trim()
+                        
 						maxTextLength = data.length;
 						
 						dataForClipboard = data;
@@ -513,13 +516,15 @@ var gamma = {
 		data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy and close</button>";
 
 		data += "\n";	
-		data += "<script>\n";    // Or "<p>\n";
-        					
+		data += "<script>\n";
+//        data += "<p>\n";
+
 		// Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
 		data += '$("#' + buttonName + '").on("click",function(e) { \n';
 		data += "    clipboard.copy({\n";
-		data += "      'text/plain': \"" + dataForClipboard + "\", \n";
-		data += "      'text/html': \""  + htmlForClipboard + "\" }); \n";
+		data += "      'text/plain': \"" + dataForClipboard + '", \n';
+		data += "      'text/html': \""  + htmlForClipboard + '"';
+		data += "      }); \n"
 		data += "    console.log('success: " + buttonName + "'); \n";
 		data += "    if (gamma.dlgPopupInfo) { gamma.dlgPopupInfo.dialog('close'); } \n";
 		data += "  });";
@@ -542,7 +547,8 @@ var gamma = {
 			data += "});\n";
 		*/
 
-		data += "</script>\n";    // Or "</p>\n";
+		data += "</script>\n";
+//        data += "</p>\n";
 		
 		return data;
 	},	
