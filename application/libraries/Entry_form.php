@@ -6,26 +6,26 @@
 class Entry_form {
 
 	private $form_field_specs = array();
-	
+
 	private $field_values = array();
-	
+
 	private $field_enable = array();
 
 	private $field_errors = array();
-	
+
 	/**
 	 * Flag for showing the help links on the entry form
 	 * @var boolean
 	 */
 	private $include_help_link = TRUE;
-	
+
 	private $file_tag = '';
-	
+
 	// --------------------------------------------------------------------
 	function __construct()
 	{
 	}
-	
+
 	// --------------------------------------------------------------------
 	function init($form_field_specs, $file_tag)
 	{
@@ -34,7 +34,7 @@ class Entry_form {
 
 		$this->set_field_values_to_default();
 	}
-	
+
 	/**
 	 * Set current field values to defaults as defined by specs
 	 */
@@ -43,9 +43,9 @@ class Entry_form {
 	{
 		$CI =& get_instance();
 		$CI->load->helper('user');
-		
+
 		foreach($this->form_field_specs as $fld => $spc) {
-			$this->field_values[$fld] = $this->get_default_value($spc); 
+			$this->field_values[$fld] = $this->get_default_value($spc);
 			$this->field_errors[$fld] = '';
 		}
 	}
@@ -61,7 +61,7 @@ class Entry_form {
 		$val = '';
 		if(isset($f_spec["default_function"])) {
 			// if so, use specified function to get value
-			$func_parts = explode(':', $f_spec["default_function"]);		
+			$func_parts = explode(':', $f_spec["default_function"]);
 			switch(strtolower($func_parts[0])) {
 				case 'getuser()':
 					$val = get_user();
@@ -87,11 +87,11 @@ class Entry_form {
 		}
 		return $val;
 	}
-	
+
 	// --------------------------------------------------------------------
 	function set_field_value($field, $value)
 	{
-		$this->field_values[$field] = $value;		
+		$this->field_values[$field] = $value;
 	}
 
 	// --------------------------------------------------------------------
@@ -105,12 +105,12 @@ class Entry_form {
 	{
 		$this->field_enable = $fields;
 	}
-	
+
 	/**
 	 * Build components for entry form into one of two arrays of rows,
 	 * one array for visible components of the form and the other for
-	 * invisible components, where each array row contains components 
-	 * for an entry form row, and then call function to build HTML for 
+	 * invisible components, where each array row contains components
+	 * for an entry form row, and then call function to build HTML for
 	 * visible entry form
 	 * @param string $mode 'add' or 'update'
 	 * @return type
@@ -120,7 +120,7 @@ class Entry_form {
 		$CI =& get_instance();
 		$CI->load->model('dms_chooser', 'choosers');
 		$CI->load->helper(array('url', 'string', 'form'));
-		
+
 		$visible_fields = array();
 		$hidden_fields = array();
 		$block_number = 0;
@@ -132,13 +132,13 @@ class Entry_form {
 				// if field has section header attribute, add section header row to table
 				if(array_key_exists('section', $spc)) {
 					$block_number++;
-					$visible_fields[] = array(-1, $spc['section'], $block_number); 
+					$visible_fields[] = array(-1, $spc['section'], $block_number);
 					// (someday) allow for enable field and section headers to be used together
 				}
 				$help = $this->make_wiki_help_link($spc['label']);
 				$label = $spc['label'];
 				$field = $this->make_entry_field($fld, $spc, $this->field_values[$fld], $mode);
-				
+
 				$showChooser = true;
 				$fieldType = $spc['type'];
 				if ($fieldType === 'text-if-new') {
@@ -151,20 +151,20 @@ class Entry_form {
 						$showChooser = false;
 					}
 				}
-				
+
 				if ($showChooser) {
 					$choosers = $this->make_choosers($fld, $spc);
 				} else {
 					$choosers = "";
 				}
-				
+
 				$error = $this->field_errors[$fld]; //$this->make_error_field($this->field_errors[$fld]);
 				//
 				$entry = $this->make_entry_area($field, $choosers, $error);
 				$param = ($help)?$help . '&nbsp;' . $label:$label;
 				//
 				if(!empty($this->field_enable)) {
-					$enable_ctrl = $this->make_field_enable_checkbox($fld);				
+					$enable_ctrl = $this->make_field_enable_checkbox($fld);
 					$visible_fields[] = array($block_number, $param, $enable_ctrl, $entry);
 				} else {
 					$visible_fields[] = array($block_number, $param, $entry);
@@ -182,9 +182,9 @@ class Entry_form {
 		}
 		$str .= implode("\n", $hidden_fields);
 		return $str;
-	}	
+	}
 
-	
+
 	// ---------------------------------------------------------------------------------------------------------
 	// HTML formatting function - maybe move to helper someday
 	// ---------------------------------------------------------------------------------------------------------
@@ -201,7 +201,7 @@ class Entry_form {
 	{
 		$str = "";
 		$str .= "<table class='EPag'>\n";
-		
+
 		$header = ($has_enable_col)?array('Parameter', 'Value'):array('Parameter', 'Enable', 'Value');
 		$str .= "<tr>";
 		foreach($header as $head) {
@@ -215,7 +215,7 @@ class Entry_form {
 			$str .= "<td colspan=2>" . $this->make_master_section_controls() . "</td>";
 			$str .= "</tr>\n";
 		}
-*/		
+*/
 		// place all visible fields into table cells in table rows
 		foreach($visible_fields as $row) {
 			// remove the section number from the row fields (we don't display it)
@@ -239,10 +239,10 @@ class Entry_form {
 			}
 			$str .= "</tr>\n";
 		}
-		$str .= "</table>\n";		
+		$str .= "</table>\n";
 		return $str;
 	}
-	
+
 	// -----------------------------------
 	private
 	function make_master_section_controls(){
@@ -287,9 +287,9 @@ class Entry_form {
 					break;
 			}
 		}
-		return $str;		
+		return $str;
 	}
-	
+
 	/**
 	 * Package components of entry area
 	 * @param type $field
@@ -325,10 +325,10 @@ class Entry_form {
 	{
 		$s = "";
 		$seq = 0;
-		if(array_key_exists("chooser_list", $f_spec)) {					
+		if(array_key_exists("chooser_list", $f_spec)) {
 			foreach($f_spec['chooser_list'] as $chsr) {
 				$seq++;
- 				$pln = $chsr["PickListName"];
+				$pln = $chsr["PickListName"];
 				$delim = $chsr['Delimiter'];
 				$type = $chsr["type"];
 				$target = $chsr['Target'];
@@ -359,10 +359,10 @@ class Entry_form {
 		$CI =& get_instance();
 		return $CI->choosers->make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq);
 	}
-	
+
 	/**
 	 * Make an entry form field
-	 * 
+	 *
 	 * @param type $f_name Field name
 	 * @param type $f_spec Field spec
 	 * @param type $cur_value Current value
@@ -373,7 +373,7 @@ class Entry_form {
 	function make_entry_field($f_name, $f_spec, $cur_value, $mode)
 	{
 		$s = "";
-	
+
 		// set up delimiter for lists for the field
 		$delimFromSpec = (isset($f_spec['chooser']['Delimiter'])) ? $f_spec['chooser']['Delimiter'] : '';
 		$delim = ($delimFromSpec != '') ? $delimFromSpec : ',';
@@ -381,7 +381,7 @@ class Entry_form {
 		$data['name']  = $f_name;
 		$data['id']  = $f_name;
 		$data['value'] = $cur_value;
-		
+
 		$fieldType = $f_spec['type'];
 		if ($fieldType === 'text-if-new') {
 			if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
@@ -391,17 +391,18 @@ class Entry_form {
 			} else {
 				$fieldType = 'non-edit';
 			}
-		} else if ($fieldType === 'text-nocopy') {
+		} else if ($fieldType === 'text-nocopy' || $fieldType === 'area-nocopy') {
 			if (substr($mode, 0, 3 ) === 'add') {
 				// Blank out the value to force the user to re-define it for this new entry
 				$data['value'] = '';
 			}
-			$fieldType = 'text';
+			// Change $fieldType to 'text' or 'area'
+			$fieldType = substr($fieldType, 0, 4);
 		}
-		
+
 		// create HTML according to field type
 		switch (strtolower($fieldType)) {
-	
+
 		case 'text':
 			$data['maxlength'] = $f_spec['maxlength'];
 			$data['size']      = $f_spec['size'];
@@ -438,27 +439,27 @@ class Entry_form {
 			$data = $this->add_chooser_properties($f_name, $f_spec, $data);
 			$s .= form_textarea($data);
 			break;
-	
+
 		case 'non-edit':
 			$s .= '<input type="hidden" name="' . $data['name'] . '" value="' . $data['value'] . '" id="' . $data['id'] . '" />';
 			$s .= $data['value'];
 			break;
-	
+
 		case 'hidden':
 			$s .= "<input type='hidden' id='$f_name' name='$f_name' value='xx'/>";
 //			$s .= form_hidden($data['name'], $data['value']);
 			break;
-	
+
 		case 'file':
 			// This form field type is unused as of June 2017
 			$data['maxlength'] = $f_spec['maxlength'];
 			$data['size']      = $f_spec['size'];
 			$s .= form_upload($data);
 			break;
-			
+
 		case 'checkbox':
 			$lbl = $f_spec['label'];
-			$checked = ($data['value'])?"checked=true":"";		
+			$checked = ($data['value'])?"checked=true":"";
 			$s .= "<input type='checkbox' name='$f_name' id='$f_name' value='Yes' $checked />$lbl Enabled<br/>";
 			break;
 
@@ -484,7 +485,7 @@ class Entry_form {
 	 */
 	function add_chooser_properties($f_name, $f_spec, $props)
 	{
-		if(array_key_exists("chooser_list", $f_spec)) {					
+		if(array_key_exists("chooser_list", $f_spec)) {
 			$chsr = $f_spec['chooser_list'][0];
 			if($chsr["type"] == 'autocomplete' || $chsr["type"] == 'autocomplete.append') {
 				$props['class'] = 'dms_autocomplete_chsr';
@@ -496,7 +497,7 @@ class Entry_form {
 		}
 		return $props;
 	}
-	
+
 	/**
 	 * Create the link to the wiki page (provided $this->include_help_link is true)
 	 * Example: http://prismwiki.pnl.gov/wiki/DMS_Help_for_analysis_job_request#ID
@@ -524,7 +525,7 @@ class Entry_form {
 	{
 		return ($page_type == 'edit')?'update':'add';
 	}
-	
+
 	// -----------------------------------
 	function make_entry_commands($entry_commands, $page_type)
 	{
@@ -597,11 +598,11 @@ class Entry_form {
 				if(count($hits) == 0) {
 					$this->form_field_specs[$f_name]['type'] = 'non-edit';
 					if(array_key_exists('chooser_list', $f_spec)) {
-						unset($this->form_field_specs[$f_name]['chooser_list']);					
+						unset($this->form_field_specs[$f_name]['chooser_list']);
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	/**
@@ -617,7 +618,7 @@ class Entry_form {
 					$this->form_field_specs[$f_name]["type"] = "hidden";
 				}
 			}
-		}		
+		}
 	}
-	
+
 }
