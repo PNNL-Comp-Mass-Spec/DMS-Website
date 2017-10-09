@@ -516,7 +516,7 @@ var gamma = {
 		data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy and close</button>";
 
 		data += "\n";	
-		data += "<script>\n";
+		data += "<script>\n";    // Or "<p>\n";
 //        data += "<p>\n";
 
 		// Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
@@ -547,8 +547,8 @@ var gamma = {
 			data += "});\n";
 		*/
 
-		data += "</script>\n";
-//        data += "</p>\n";
+
+		data += "</script>\n";    // Or "</p>\n";
 		
 		return data;
 	},	
