@@ -64,11 +64,14 @@ foreach($settings as $setting => $def) {
 	else {
 		// Allowed values specifies a series of allowed strings
 		// Display them as a comma-separated list
-		// When constructing the list, replace dashes with a non-breaking hyphen and spaces with a non-breaking space
+		// When constructing the list, prevent wrapping date format codes
+		// Option 1: replace dashes with a non-breaking hyphen (code &#8209;) and spaces with a non-breaking space (&nbsp;)
+		// Option 2: Use a span
 		$allowedValueCount = count($def['allowed_values']);
 		for ($i = 0; $i < $allowedValueCount; $i++) {
-			$str .= str_replace('-', '&#8209;', str_replace(' ', '&nbsp;', $def['allowed_values'][$i]));
+			$str .= '<span style="white-space: nowrap;">' . $def['allowed_values'][$i] . '</span>';
 			if ($i < $allowedValueCount - 1) {
+				// Add the value separator (will be a comma or dash)
 				$str .= $def['validation'];
 			}
 		}
