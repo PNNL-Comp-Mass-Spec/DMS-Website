@@ -11,7 +11,9 @@ class Cell_presentation {
 	private $hotlinks = array();
 	var $col_filter = array();
 		
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 	}
@@ -35,7 +37,11 @@ class Cell_presentation {
 		return $cols;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * 
+	 * @param type $row
+	 * @return string
+	 */
 	function render_row($row)
 	{	
 		$str = "";
@@ -193,12 +199,8 @@ class Cell_presentation {
 				}
 				$str .= "<td>" . $value . "</td>";
 				break;
-			case "format_commas":				
-				if(is_numeric($value)) {
-					$valueNum = floatval($value);
-					$decimals = $this->getOptionValue($colSpec, 'Decimals', '0');
-					$value = number_format($valueNum, $decimals);
-				}
+			case "format_commas":
+				$value = $this->valueToString($value, $colSpec, TRUE);
 				$str .= "<td>" . $value . "</td>";
 				break;				
 			case "select_case":
@@ -303,7 +305,9 @@ class Cell_presentation {
 				}
 				break;
 			case "column_tooltip":
-				// No special rendering
+				// If Decimals is defined in the options, format with the number of decimal places
+				// If not defined, leave as-is
+				$value = $this->valueToString($value, $colSpec, FALSE);
 				$str .= "<td>" . $value . "</td>";
 				break;
 			default:
@@ -313,8 +317,13 @@ class Cell_presentation {
 		return $str;
 	}
 	
-	// -----------------------------------
-	// 
+	/**
+	 * 
+	 * @param type $colSpec
+	 * @param type $ref
+	 * @param type $value
+	 * @return boolean
+	 */
 	function evaulate_conditional($colSpec, $ref, $value)
 	{
 		$noLink = false;
@@ -375,7 +384,12 @@ class Cell_presentation {
 		return "<tr>".$str."</tr>";
 	}
 
-	// -----------------------------------
+	/**
+	 * 
+	 * @param type $col_name
+	 * @param type $col_sort
+	 * @return string
+	 */
 	private
 	function get_column_sort_marker($col_name, $col_sort)
 	{
@@ -417,7 +431,11 @@ class Cell_presentation {
 		return $col_sort;
 	}
 	
-	// -----------------------------------
+	/**
+	 * 
+	 * @param type $col_name
+	 * @return type
+	 */
 	private
 	function get_cell_padding($col_name)
 	{
@@ -554,8 +572,38 @@ class Cell_presentation {
 		}
 		return $valueIfMissing;
 	}
+
+	/**
+	 * Convert a value to a string, rounding to the number of decimal points defined by the Decimals option in the page config
+	 * @param type $value Value to convert
+	 * @param type $colSpec Column specification
+	 * @param type $convertIfDecimalsNotDefined True to round to 0 decimals even if option Decimals is not defined in the Options
+	 * @return type
+	 */
+	private
+	function valueToString($value, $colSpec, $convertIfDecimalsNotDefined) {
+		
+		if(is_numeric($value)) {
+			
+			if ($convertIfDecimalsNotDefined === TRUE) {
+				$decimals = $this->getOptionValue($colSpec, 'Decimals', '0');
+			} else {
+				$decimals = $this->getOptionValue($colSpec, 'Decimals', '-1');
+			}
+
+			if ($decimals != '-1') {
+				$valueNum = floatval($value);
+				$value = number_format($valueNum, $decimals);
+			}
+		}
+
+		return $value;
+	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * 
+	 * @param type $col_filter
+	 */
 	function set_col_filter($col_filter)
 	{
 		$this->col_filter = $col_filter;
