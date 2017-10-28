@@ -110,8 +110,8 @@ class Cell_presentation {
 			case "invoke_entity":
 				// look for conditions on link
 				// Supported condition is GreaterOrEqual
-				$noLink = $this->evaulate_conditional($colSpec, $ref, $value);
-				if($noLink) {
+				$noLink = $this->evaulate_conditional($colSpec, $value);
+				if ($noLink) {
 					$str .= "<td>$value</td>";
 				} else {
 					// place target substitution marker 
@@ -323,12 +323,10 @@ class Cell_presentation {
 	 * @param type $value
 	 * @return boolean
 	 */
-	function evaulate_conditional($colSpec, $ref, $value)
-	{
+	function evaulate_conditional($colSpec, $value) {
 		$noLink = false;
 		if (array_key_exists('Options', $colSpec)) {
 			$test = $this->getOptionValue($colSpec, 'GreaterOrEqual');
-			$options = $colSpec['Options'];
 			if (!empty($test)) {
 				if ($value < $test) {
 					$noLink = true;
