@@ -1,7 +1,8 @@
-<?php  
-	if (!defined('BASEPATH')) {
-		exit('No direct script access allowed');
-	}
+<?php
+
+if (!defined('BASEPATH')) {
+	exit('No direct script access allowed');
+}
 
 /**
  * This class is used to format data in list reports, including adding hotlinks
@@ -10,30 +11,28 @@ class Cell_presentation {
 
 	private $hotlinks = array();
 	var $col_filter = array();
-		
+
 	/**
 	 * Constructor
 	 */
-	function __construct()
-	{
+	function __construct() {
+		
 	}
 
 	/**
 	 * Initialize
 	 * @param mixed $cell_presentation_specs
 	 */
-	function init($cell_presentation_specs)
-	{
-		$this->hotlinks = $cell_presentation_specs;		
+	function init($cell_presentation_specs) {
+		$this->hotlinks = $cell_presentation_specs;
 	}
-	
+
 	// --------------------------------------------------------------------
 	private
-	function get_display_cols($cols)
-	{
-		if(!empty($this->col_filter)) {
+		function get_display_cols($cols) {
+		if (!empty($this->col_filter)) {
 			$cols = $this->col_filter;
-		} 
+		}
 		return $cols;
 	}
 
@@ -42,30 +41,28 @@ class Cell_presentation {
 	 * @param type $row
 	 * @return string
 	 */
-	function render_row($row)
-	{	
+	function render_row($row) {
 		$str = "";
 		$display_cols = $this->get_display_cols(array_keys($row));
 		$colIndex = 0;
-		foreach($display_cols as $name) {
+		foreach ($display_cols as $name) {
 			// don't display columns that begin with hash character
-			if($name[0] == '#') {
+			if ($name[0] == '#') {
 				continue;
 			}
 
 			$value = $row[$name];
-			$colSpec = null;			
-			if(array_key_exists($name, $this->hotlinks)) {
+			$colSpec = null;
+			if (array_key_exists($name, $this->hotlinks)) {
 				$colSpec = $this->hotlinks[$name];
-			}
-			elseif(array_key_exists('@exclude', $this->hotlinks)) {
-				if(!in_array($name, $this->hotlinks['@exclude']['Options'])) {
+			} elseif (array_key_exists('@exclude', $this->hotlinks)) {
+				if (!in_array($name, $this->hotlinks['@exclude']['Options'])) {
 					$colSpec = $this->hotlinks['@exclude'];
 				}
 			}
-			if($colSpec) {
+			if ($colSpec) {
 				$str .= $this->render_hotlink($value, $row, $colSpec, NULL, $name, $colIndex);
-			}  else {
+			} else {
 				$str .= "<td>" . $value . "</td>";
 			}
 			$colIndex++;
@@ -73,7 +70,6 @@ class Cell_presentation {
 		return $str;
 	}
 
-	
 	/**
 	 * Render a hotlink as HTML, as specified by $colSpec["LinkType"]
 	 * @param mixed  $value     String or number
@@ -85,17 +81,16 @@ class Cell_presentation {
 	 * @return string
 	 */
 	private
-	function render_hotlink($value, $row, $colSpec, $col_width, $col_name='', $colIndex)
-	{
+		function render_hotlink($value, $row, $colSpec, $col_width, $col_name = '', $colIndex) {
 		$str = "";
 		// resolve target for hotlink
 		$target = $colSpec["Target"];
-		
+
 		// resolve value to use for hotlink
-		$whichArg = $colSpec["WhichArg"];		
+		$whichArg = $colSpec["WhichArg"];
 		$ref = $value;
-		if($whichArg != "") {
-			switch($whichArg) {
+		if ($whichArg != "") {
+			switch ($whichArg) {
 				case "value":
 					break;
 				default:
@@ -103,15 +98,15 @@ class Cell_presentation {
 					break;
 			}
 		}
-		
+
 		// tooltip?
 		$tool_tip = '';
-		if(array_key_exists('ToolTip', $colSpec) && $colSpec['ToolTip'] ) {
-			$tool_tip = "title='".$colSpec['ToolTip']."'";
+		if (array_key_exists('ToolTip', $colSpec) && $colSpec['ToolTip']) {
+			$tool_tip = "title='" . $colSpec['ToolTip'] . "'";
 		}
 
 		// render the hotlink
-		switch($colSpec["LinkType"]) {
+		switch ($colSpec["LinkType"]) {
 			case "invoke_entity":
 				// look for conditions on link
 				// Supported condition is GreaterOrEqual
@@ -121,25 +116,25 @@ class Cell_presentation {
 				} else {
 					// place target substitution marker 
 					// (and preserve special primary filter characters)
-					if(strpos($target, '@') === FALSE) {
-						$sep = (substr($target, -1) == '~')?'':'/';
-						$target .= $sep.'@';
+					if (strpos($target, '@') === FALSE) {
+						$sep = (substr($target, -1) == '~') ? '' : '/';
+						$target .= $sep . '@';
 					}
-					$url = reduce_double_slashes(site_url().str_replace('@', $ref, $target));
+					$url = reduce_double_slashes(site_url() . str_replace('@', $ref, $target));
 					$str .= "<td><a href='$url' $tool_tip>$value</a></td>";
 				}
 				break;
 			case "invoke_multi_col":
-				$cols = (array_key_exists('Options', $colSpec))?$colSpec['Options']:array();
-				foreach($cols as $col => $v) {
-					if($v) {
+				$cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
+				foreach ($cols as $col => $v) {
+					if ($v) {
 						$cols[$col] = $col;
 					} else {
 						$cols[$col] = $row[$col];
 					}
 				}
 				$ref = implode('/', array_values($cols));
-				$url = reduce_double_slashes(site_url()."$target/$ref");
+				$url = reduce_double_slashes(site_url() . "$target/$ref");
 				$str .= "<td><a href='$url' $tool_tip>$value</a></td>";
 				break;
 			case "literal_link":
@@ -147,12 +142,12 @@ class Cell_presentation {
 				$str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$value</a></td>";
 				break;
 			case "masked_link":
-				$url = $target.$ref;
-				if($url) {
+				$url = $target . $ref;
+				if ($url) {
 					$lbl = $this->getOptionValue($colSpec, 'Label', 'Undefined_masked_link');
 					$str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$lbl</a></td>";
 				} else {
-					$str .= "<td></td>";					
+					$str .= "<td></td>";
 				}
 				break;
 			case "CHECKBOX":
@@ -161,8 +156,8 @@ class Cell_presentation {
 				break;
 			case "checkbox_json":
 				// This is an old, unused mode
-				$cols = (array_key_exists('Options', $colSpec))?$colSpec['Options']:array();
-				foreach($cols as $col => $v) {
+				$cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
+				foreach ($cols as $col => $v) {
 					$cols[$col] = $row[$col];
 				}
 				$ref = implode('|', array_values($cols));
@@ -173,18 +168,18 @@ class Cell_presentation {
 				$str .= "<td>" . "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
 				break;
 			case "color_label":
-				if(array_key_exists($ref, $colSpec["cond"])) {
-					$colorStyle = "class='".$colSpec['cond'][$ref]."'";
+				if (array_key_exists($ref, $colSpec["cond"])) {
+					$colorStyle = "class='" . $colSpec['cond'][$ref] . "'";
 				} else {
-					$colorStyle = "";					
+					$colorStyle = "";
 				}
 				$str .= "<td $colorStyle >$value</td>";
 				break;
 			case "bifold_choice":
 				// This mode has been superseded by select_case
 				$t = $colSpec['Options'];
-				$target = ($ref == $target)?$t[0]:$t[1];
-				$url = reduce_double_slashes(site_url()."$target/show/$value");
+				$target = ($ref == $target) ? $t[0] : $t[1];
+				$url = reduce_double_slashes(site_url() . "$target/show/$value");
 				$str .= "<td><a href='$url'>$value</a></td>";
 				break;
 			case "format_date":
@@ -193,7 +188,7 @@ class Cell_presentation {
 				// (this behavior is used because a given column cannot have two hotlinks defined for it)
 				// For date format codes, see http://php.net/manual/en/function.date.php
 				$dateValue = strtotime($value);
-				if($dateValue) {
+				if ($dateValue) {
 					$dateFormat = $this->getOptionValue($colSpec, 'Format', 'Y-m-d H:i:s');
 					$value = date($dateFormat, $dateValue);
 				}
@@ -202,13 +197,13 @@ class Cell_presentation {
 			case "format_commas":
 				$value = $this->valueToString($value, $colSpec, TRUE);
 				$str .= "<td>" . $value . "</td>";
-				break;				
+				break;
 			case "select_case":
 				$t = $colSpec['Options'];
-				$link_item = ($target) ? $row[$target] : $value ;
-				if(array_key_exists($ref, $t)) {
+				$link_item = ($target) ? $row[$target] : $value;
+				if (array_key_exists($ref, $t)) {
 					$link_base = $t[$ref];
-					$url = reduce_double_slashes(site_url()."$link_base/show/$link_item");
+					$url = reduce_double_slashes(site_url() . "$link_base/show/$link_item");
 					$str .= "<td><a href='$url'>$value</a></td>";
 				} else {
 					$str .= "<td>$value</td>";
@@ -216,39 +211,43 @@ class Cell_presentation {
 				break;
 			case "copy_from":
 				// Old, unused mode; superseded by "row_to_json" and "row_to_url"
-				$url = reduce_double_slashes(site_url()."$target/$ref");
+				$url = reduce_double_slashes(site_url() . "$target/$ref");
 				$str .= "<td><a href='$url'>$value</a></td>";
 				break;
 			case "row_to_url":
 				$s = "";
-				foreach($row as $f => $v) {
-					$s.= ($s)?'|':'';
+				foreach ($row as $f => $v) {
+					$s .= ($s) ? '|' : '';
 					$s .= "$f@$v";
 				}
-				$url = reduce_double_slashes(site_url()."$target");
+				$url = reduce_double_slashes(site_url() . "$target");
 				$str .= "<td><a href='javascript:void(0)' onclick='submitDynamicForm(\"$url\", \"$s\")'>$value</a></td>";
 				break;
 			case "row_to_json":
 				$fsp = "";
 				$rowAction = 'localRowAction';
-				if(array_key_exists('Options', $colSpec)) {
+				if (array_key_exists('Options', $colSpec)) {
 					$rowAction = $this->getOptionValue($colSpec, 'rowAction', $rowAction);
-					if(array_key_exists('fields', $colSpec['Options'])) {
+					if (array_key_exists('fields', $colSpec['Options'])) {
 						$fsp = ', "' . $colSpec['Options']['fields'] . '"';
 					}
 				}
-				foreach(array_keys($row) as $k) {if($row[$k] == null) {$row[$k] = ''; }}
+				foreach (array_keys($row) as $k) {
+					if ($row[$k] == null) {
+						$row[$k] = '';
+					}
+				}
 				$s = json_encode($row);
-				$url = reduce_double_slashes(site_url()."$target");
-				$str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";				
+				$url = reduce_double_slashes(site_url() . "$target");
+				$str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";
 				break;
 			case "masked_href-folder":
 				$lbl = $this->getOptionValue($colSpec, 'Label', 'Undefined_masked_href-folder');
 				$lnk = str_replace('\\', '/', $ref);
-				if($lnk) {
-					$str = "<td>" . "<a href='file:///$lnk'>$lbl</a>" . "</td>";					
+				if ($lnk) {
+					$str = "<td>" . "<a href='file:///$lnk'>$lbl</a>" . "</td>";
 				} else {
-					$str = "<td></td>";										
+					$str = "<td></td>";
 				}
 				break;
 			case "href-folder":
@@ -259,9 +258,9 @@ class Cell_presentation {
 				$className = str_replace(' ', '_', $col_name);
 				$id = $className . '_' . $ref;
 				$width = $this->getOptionValue($colSpec, 'width', '0');
-	
+
 				$widthValue = filter_var($width, FILTER_VALIDATE_INT);
-			    if ($widthValue !== FALSE) {
+				if ($widthValue !== FALSE) {
 					$customSize = "size='$widthValue'";
 				} else {
 					$customSize = '';
@@ -274,12 +273,12 @@ class Cell_presentation {
 				$delim = (preg_match('/[,;]/', $ref, $matches)) ? $matches[0] : '';
 				$flds = ($delim == '') ? array($ref) : explode($delim, $ref);
 				$links = array();
-				foreach($flds as $ln) {
+				foreach ($flds as $ln) {
 					$ln = trim($ln);
-					$url = strncasecmp($ln, "http", 4)? site_url().$target.'/'.$ln: $ln;
+					$url = strncasecmp($ln, "http", 4) ? site_url() . $target . '/' . $ln : $ln;
 					$links[] = "<a href='$url'>$ln</a>";
 				}
-				$str .= "<td>" . implode($delim.' ', $links) . "</td>";
+				$str .= "<td>" . implode($delim . ' ', $links) . "</td>";
 				break;
 			case "markup":
 				$str .= "<td>" . nl2br($value) . "</td>";
@@ -291,17 +290,17 @@ class Cell_presentation {
 			case "image_link":
 				$url = $ref;
 				$link_url = $url;
-				if($target) {
+				if ($target) {
 					$url_parts = explode('/', $ref);
 					$last_seg = count($url_parts) - 1;
 					$url_parts[$last_seg] = $target;
 					$link_url = implode("/", $url_parts);
 				}
 				$width = $this->getOptionValue($colSpec, 'width', '250');
-				if($url) {
+				if ($url) {
 					$str .= "<td><a href='$link_url'><img src='$url' width='$width' border='0'></a></td>";
 				} else {
-					$str .= "<td></td>";					
+					$str .= "<td></td>";
 				}
 				break;
 			case "column_tooltip":
@@ -316,7 +315,7 @@ class Cell_presentation {
 		}
 		return $str;
 	}
-	
+
 	/**
 	 * 
 	 * @param type $colSpec
@@ -327,11 +326,11 @@ class Cell_presentation {
 	function evaulate_conditional($colSpec, $ref, $value)
 	{
 		$noLink = false;
-		if(array_key_exists('Options', $colSpec)) {
+		if (array_key_exists('Options', $colSpec)) {
 			$test = $this->getOptionValue($colSpec, 'GreaterOrEqual');
 			$options = $colSpec['Options'];
-			if(!empty($test)) {
-				if($value < $test) {
+			if (!empty($test)) {
+				if ($value < $test) {
 					$noLink = true;
 				}
 			}
@@ -339,41 +338,40 @@ class Cell_presentation {
 		}
 		return $noLink;
 	}
-	
+
 	/**
 	 * Create HTML to display a set of column headers
 	 * @param type $rows
 	 * @param type $sorting_cols
 	 * @return string
 	 */
-	function make_column_header($rows, $sorting_cols = array())
-	{	
-		if(empty($rows)) {
+	function make_column_header($rows, $sorting_cols = array()) {
+		if (empty($rows)) {
 			return '';
 		}
 		$str = "";
-		
+
 		// which columns are showing
 		$display_cols = $this->get_display_cols(array_keys(current($rows)));
-		
+
 		// get array of col sort makers
 		$col_sort = $this->get_column_sort_markers($sorting_cols);
 
-		foreach($display_cols as $col_name){
-			if($col_name[0] != '#') { // do not show columns with names that begin with hash
+		foreach ($display_cols as $col_name) {
+			if ($col_name[0] != '#') { // do not show columns with names that begin with hash
 				// sorting marker
 				$marker = $this->get_column_sort_marker($col_name, $col_sort);
-				
+
 				// Check for a column header tooltip
 				$toolTip = $this->get_column_tooltip($col_name);
-				if($toolTip) {
+				if ($toolTip) {
 					$toolTip = 'title="' . $toolTip . '"';
 					$str .= '<th style="background-color:#C2E7F6;">';
 				} else {
 					$toolTip = '';
-					$str .= '<th>';					
+					$str .= '<th>';
 				}
-					
+
 				// make header label
 				$str .= $marker;
 				$str .= "<a href='javascript:void(0)' onclick='lambda.setColSort(\"$col_name\")'  class='col_header' " . $toolTip . ">$col_name</a>";
@@ -381,7 +379,7 @@ class Cell_presentation {
 				$str .= "</th>";
 			}
 		}
-		return "<tr>".$str."</tr>";
+		return "<tr>" . $str . "</tr>";
 	}
 
 	/**
@@ -391,16 +389,15 @@ class Cell_presentation {
 	 * @return string
 	 */
 	private
-	function get_column_sort_marker($col_name, $col_sort)
-	{
+		function get_column_sort_marker($col_name, $col_sort) {
 		$marker = '';
-		if(array_key_exists($col_name, $col_sort)) {
+		if (array_key_exists($col_name, $col_sort)) {
 			$arrow = 'arrow_' . $col_sort[$col_name]->dir . $col_sort[$col_name]->precedence . '.png';
-			$marker = "<img src='" . base_url(). "/images/$arrow' border='0' >";
+			$marker = "<img src='" . base_url() . "/images/$arrow' border='0' >";
 		}
 		return $marker;
 	}
-	
+
 	/**
 	 * Return an array containing columns that will be used for
 	 * sorting and info about their precedence and direction.
@@ -410,45 +407,42 @@ class Cell_presentation {
 	 * @return \stdClass
 	 */
 	private
-	function get_column_sort_markers($sorting_cols)
-	{
+		function get_column_sort_markers($sorting_cols) {
 		$col_sort = array();
 		$sorting_precedence = 1;
-		foreach($sorting_cols as $obj) {
-			if(is_object($obj)) { // query parts sorting spec format
+		foreach ($sorting_cols as $obj) {
+			if (is_object($obj)) { // query parts sorting spec format
 				$sort_marker = new stdClass();
 				$sort_marker->precedence = $sorting_precedence++;
-				$sort_marker->dir = ($obj->dir == 'ASC')?'up':'down';
+				$sort_marker->dir = ($obj->dir == 'ASC') ? 'up' : 'down';
 				$col_sort[$obj->col] = $sort_marker;
 			} else
-			if(is_array($obj)) { // raw sorting filter format
+			if (is_array($obj)) { // raw sorting filter format
 				$sort_marker = new stdClass();
 				$sort_marker->precedence = $sorting_precedence++;
-				$sort_marker->dir = ($obj['qf_sort_dir'] == 'ASC')?'up':'down';
+				$sort_marker->dir = ($obj['qf_sort_dir'] == 'ASC') ? 'up' : 'down';
 				$col_sort[$obj['qf_sort_col']] = $sort_marker;
 			}
 		}
 		return $col_sort;
 	}
-	
+
 	/**
 	 * 
 	 * @param type $col_name
 	 * @return type
 	 */
 	private
-	function get_cell_padding($col_name)
-	{
+		function get_cell_padding($col_name) {
 		$padding = '';
-		if(array_key_exists($col_name, $this->hotlinks)) {
+		if (array_key_exists($col_name, $this->hotlinks)) {
 			$colSpec = $this->hotlinks[$col_name];
-			if($colSpec["LinkType"] == 'min_col_width' ||
-			   $colSpec["LinkType"] == 'format_date') {
-				if (is_numeric($colSpec["Target"]))
-				{
-					$min_width = $colSpec["Target"];				
+			if ($colSpec["LinkType"] == 'min_col_width' ||
+				$colSpec["LinkType"] == 'format_date') {
+				if (is_numeric($colSpec["Target"])) {
+					$min_width = $colSpec["Target"];
 					$len = strlen($col_name);
-					if($min_width > 0 && $len < $min_width) {
+					if ($min_width > 0 && $len < $min_width) {
 						$padding = str_repeat("&nbsp;", $min_width - $len);
 					}
 				}
@@ -464,8 +458,7 @@ class Cell_presentation {
 	 * @return type
 	 */
 	private
-	function get_column_tooltip($col_name)
-	{
+		function get_column_tooltip($col_name) {
 		$toolTip = $this->get_column_tooltip_work($col_name);
 		if (empty($toolTip)) {
 			// ToolTip was not found using the column name
@@ -478,80 +471,78 @@ class Cell_presentation {
 		}
 		return $toolTip;
 	}
-	
+
 	/**
 	 *  Look for tooltip text associated with the given column
 	 * @param type $col_name_to_find
 	 * @return type
 	 */
 	private
-	function get_column_tooltip_work($col_name_to_find)
-	{
+		function get_column_tooltip_work($col_name_to_find) {
 		$toolTip = '';
-		if(array_key_exists($col_name_to_find, $this->hotlinks)) {
+		if (array_key_exists($col_name_to_find, $this->hotlinks)) {
 			$colSpec = $this->hotlinks[$col_name_to_find];
-			if($colSpec["LinkType"] == 'column_tooltip') {
+			if ($colSpec["LinkType"] == 'column_tooltip') {
 				$toolTip = $colSpec["Target"];
 			}
-		}		
+		}
 		return $toolTip;
 	}
-	
+
 	/**
 	 * Update the date columns to have user-friendly dates
 	 * @param type $result
 	 * @param type $col_info
 	 * @return type
 	 */
-	function fix_datetime_display(&$result, $col_info)
-	{
+	function fix_datetime_display(&$result, $col_info) {
 		// get list of datetime columns
 		$dc = array();
-		foreach($col_info as $f) {
-			if($f->type=='datetime') {
+		foreach ($col_info as $f) {
+			if ($f->type === 'datetime') {
 				$dc[] = $f->name;
 			}
 		}
-		
-		if(count($dc)==0) {
-			// none - we are done
+
+		if (count($dc) == 0) {
+			// No fields are type datetime; nothing to update
 			return;
 		}
 
-		// traverse the array of rows, and fix the datetime column formats
+		// Traverse the array of rows, and fix the datetime column formats
 		//
-		// get the date display format from global preferences
-		$CI =& get_instance();
+		// Get the date display format from global preferences
+		$CI = & get_instance();
 		$CI->load->model('dms_preferences', 'preferences');
 		$dateFormat = $CI->preferences->get_date_format_string();
 
 		// traverse all the rows in the result
-		for($i=0; $i<count($result); $i++) {
+		for ($i = 0; $i < count($result); $i++) {
 			// traverse all the date columns in the current row
-			foreach($dc as $col) {
+			foreach ($dc as $col) {
 				// skip if the column value is empty
-				if(!isset($result[$i][$col])) {
+				if (!isset($result[$i][$col])) {
 					continue;
 				}
-				
+
 				// convert to blank if column value is null
-				if(is_null($result[$i][$col])) {
+				if (is_null($result[$i][$col])) {
 					$result[$i][$col] = '';
 				} else {
 					// convert original date string to date object
 					// and then convert that to desired display format.
 					// mark display if original format could not be parsed.
 					$dt = strtotime($result[$i][$col]);
-					if($dt) {
+					if ($dt) {
 						$result[$i][$col] = date($dateFormat, $dt);
 					} else {
-						$result[$i][$col] = "??".$result[$i][$col];
+						$result[$i][$col] = "??" . $result[$i][$col];
 					}
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Look for item $itemName in the Options array in $colSpec
 	 * If found, return its value, otherwise return $valueIfMissing
@@ -561,11 +552,11 @@ class Cell_presentation {
 	 * @return type
 	 */
 	private
-	function getOptionValue($colSpec, $itemName, $valueIfMissing = "") {
+		function getOptionValue($colSpec, $itemName, $valueIfMissing = "") {
 		if (array_key_exists('Options', $colSpec)) {
 			$options = $colSpec['Options'];
 			if ($options != null &&
-				is_array($colSpec['Options']) && 
+				is_array($colSpec['Options']) &&
 				array_key_exists($itemName, $colSpec['Options'])) {
 				return $colSpec['Options'][$itemName];
 			}
@@ -577,7 +568,8 @@ class Cell_presentation {
 	 * Convert a value to a string, rounding to the number of decimal points defined by the Decimals option in the page config
 	 * @param type $value Value to convert
 	 * @param type $colSpec Column specification
-	 * @param type $convertIfDecimalsNotDefined True to round to 0 decimals even if option Decimals is not defined in the Options
+	 * @param type $alwaysAddCommas When true, always group numbers to the left of the decimal point using commas
+	 *                              When false, only do so if the Commas option is defined and has a non-zero value
 	 * @return type
 	 */
 	private
@@ -604,9 +596,8 @@ class Cell_presentation {
 	 * 
 	 * @param type $col_filter
 	 */
-	function set_col_filter($col_filter)
-	{
+	function set_col_filter($col_filter) {
 		$this->col_filter = $col_filter;
 	}
-	
+
 }
