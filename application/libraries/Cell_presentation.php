@@ -138,7 +138,8 @@ class Cell_presentation {
 				$str .= "<td><a href='$url' $tool_tip>$value</a></td>";
 				break;
 			case "literal_link":
-				$url = $target.$ref;
+				$url = $target . $ref;
+				$value = $this->valueToString($value, $colSpec, FALSE);
 				$str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$value</a></td>";
 				break;
 			case "masked_link":
