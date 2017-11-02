@@ -77,8 +77,9 @@ You may use the <a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=
 to request assistance (login with your PNNL username and password). In case of an urgent need for assistance, please contact one of the following:
 </p>
 <ul>
-	<li>Ron Moore (<?php echo xor_string("CE^YS\^P","proteomics"); ?>)</li>               <!-- xyz-6339 -->
-	<li>Matt Monroe (e-mail during business hours or <?php echo xor_string("EBVYVXXDUCED","proteomics"); ?> after hours)</li>   <!-- 375-wxyz -->
+	<li>Ron Moore: <?php echo xor_string("CE^YS\^P","proteomics"); ?> (office) or                       <!-- xyz-6339 -->
+	               <?php echo xor_string("EBVYP]\DWFBJ","proteomics"); ?> (cell)</li>                   <!-- xyz-4528 -->
+	<li>Matt Monroe: e-mail during business hours or <?php echo xor_string("EBVYVXXDUCED","proteomics"); ?> after hours</li>   <!-- 375-wxyz -->
 </ul>
 <p>
 PRISM was created by Pacific Northwest National Laboratory for the U.S. Department of Energy under Contract Number DE-AC06-76RLO1830 and is operated under Contract Number DE-AC05-76RL01830.
