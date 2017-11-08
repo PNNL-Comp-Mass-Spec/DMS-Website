@@ -183,8 +183,13 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 	
 	return $str;
 }
-// -----------------------------------
-//
+
+/**
+ * Get hotlink info for the given field
+ * @param type $f_name Field name
+ * @param type $hotlinks Hotlink info
+ * @return type Array of hotlink info
+ */
 function get_hotlink_specs_for_field($f_name, $hotlinks) 
 {
 	// List of any hotlink spec(s) for the field
@@ -196,26 +201,35 @@ function get_hotlink_specs_for_field($f_name, $hotlinks)
 	}
 	
 	// Is a secondary hotlink defined for field?
-	if(array_key_exists('+'.$f_name, $hotlinks)) {
+	// Secondary keys have a plus sign ahead of the field name
+	if(array_key_exists('+' . $f_name, $hotlinks)) {
 		$hotlink_specs[] = $hotlinks['+'.$f_name];
 	}
 	
 	return $hotlink_specs;
 }
-// -----------------------------------
-//
-function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='')
+
+/**
+ * Construct a detail report hotlink
+ * @param type $colSpec
+ * @param type $link_id
+ * @param type $colIndex
+ * @param type $display
+ * @param type $val
+ * @return type
+ */
+function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $val='')
 {
 	$str = "";
-	$fld_id = $spec["id"];
-	if (array_key_exists("WhichArg", $spec)) {
-		$wa = $spec["WhichArg"];
+	$fld_id = $colSpec["id"];
+	if (array_key_exists("WhichArg", $colSpec)) {
+		$wa = $colSpec["WhichArg"];
 	} else {
 		$wa = "";
 	}	
-	$type = $spec['LinkType'];
-	$target = $spec['Target'];
-	$options = $spec['Options'];
+	$type = $colSpec['LinkType'];
+	$target = $colSpec['Target'];
+	$options = $colSpec['Options'];
 	$cell_class = "";
 
 	switch($type) {
@@ -357,8 +371,11 @@ function make_detail_report_hotlink($spec, $link_id, $colIndex, $display, $val='
 	return "<td $cell_class>$str";
 }
 
-// -----------------------------------
-
+/**
+ * Make a table given XML
+ * @param type $xml
+ * @return string
+ */
 function make_table_from_param_xml($xml)
 {
 	$dom = new DomDocument();
@@ -383,10 +400,12 @@ function make_table_from_param_xml($xml)
 	return $s;
 }
 
-
-// -----------------------------------
-// create HTML to display detail report edit links
-//
+/**
+ * Create HTML to display detail report edit links
+ * @param type $controller_name
+ * @param type $id
+ * @return type
+ */
 function make_detail_report_edit_links($controller_name, $id)
 {
 	$str = '';
@@ -398,9 +417,12 @@ function make_detail_report_edit_links($controller_name, $id)
 	$str .= "<span><a id='btn_goto_create_main' class='button' title='Make new record' href='$new_url' >New</a></span>";
 	return $str;
 }
-// -----------------------------------
-// create HTML to display detail report aux info section
-//
+
+/**
+ * Create HTML to display detail report aux info section
+ * @param type $result
+ * @return string
+ */
 function make_detail_report_aux_info_section($result)
 {
 	$str = '';
@@ -424,8 +446,13 @@ function make_detail_report_aux_info_section($result)
 	return $str;
 }
 
-// -----------------------------------
-// create HTML for controls for displaying and editing aux info on detail report page
+/**
+ * Create HTML for controls for displaying and editing aux info on detail report page
+ * @param type $aux_info_target
+ * @param type $aux_info_id
+ * @param type $id
+ * @return string
+ */
 function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id)
 {
 		$js = "javascript:showAuxInfo(\"aux_info_container\", \"" . site_url(). "aux_info/show/"  .$aux_info_target . "/" . $aux_info_id."\")";
@@ -484,7 +511,15 @@ function make_detail_report_commands($commands, $tag, $id)
 	}
 	return $str;
 }
-// -----------------------------------
+
+/**
+ * Construct a URL to include as a hotlink on a detail report page
+ * @param type $target
+ * @param type $link_id
+ * @param type $options
+ * @param type $renderHTTP
+ * @return type
+ */
 function make_detail_report_url($target, $link_id, $options, $renderHTTP=FALSE)
 {
 
@@ -517,7 +552,13 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP=FALSE)
 	
 	return $url;
 }				
-// -----------------------------------
+
+/**
+ * Make links for exporting data
+ * @param type $entity
+ * @param type $id
+ * @return string
+ */
 function make_export_links($entity, $id)
 {
 	// Example URLs:
@@ -537,7 +578,12 @@ function make_export_links($entity, $id)
 	
 	return $s;
 }
-// -----------------------------------
+
+/**
+ * Construct a message box
+ * @param type $message
+ * @return string
+ */
 function make_message_box($message)
 {
 	//$style_sheet = base_url().'css/base.css';
