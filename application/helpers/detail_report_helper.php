@@ -1,7 +1,11 @@
-<?php  
-	if (!defined('BASEPATH')) {
-		exit('No direct script access allowed');
-	}
+<?php
+
+if (!defined('BASEPATH')) {
+	exit('No direct script access allowed');
+}
+
+// Include the Number formatting methods
+require_once(BASEPATH . '../application/libraries/Number_formatting.php');
 
 /**
  * Create HTML to display detail report fields, including adding hotlinks
@@ -261,6 +265,41 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 				$str .= "";
 			}
 			break;
+		case "item_list":
+			// $f is a vertical bar separated list
+			// Create a one-row table using the items in the list
+			
+			// Look for item Widths in the Options field, for example:
+			// {"Widths":"20,80"}   or
+			// {"Widths":"20%,80%"}
+			// This indicates to use column widths of 20% and 80%
+			$colWidthList = getOptionValue($colSpec, 'Widths', '');
+			$colWidths = explode(',', $colWidthList);
+			
+			$str .= "<table class='item_list_table' width='100%'><tr>";
+			$i = 0;
+			foreach(explode('|', $display) as $f) {
+				if ($i < count($colWidths)) {
+					$widthText = trim($colWidths[$i]);
+					if (substr($widthText, -1) == '%') {
+						// Remove the trailing percent sign
+						$widthText = substr($widthText, 0, strlen($widthText) - 1);
+					}
+				} else {
+					$widthText = '';
+				}
+
+				$widthValue = filter_var($widthText, FILTER_VALIDATE_INT);
+				if ($widthValue !== FALSE) {
+					$str .= "<td width='$widthValue%'>" . trim($f) . '</td>';
+				} else {
+					$str .= '<td>' . trim($f) . '</td>';
+				}				
+
+				$i++;
+			}
+			$str .= "</tr></table>";
+			break;
 		case "link_list":
 			// Create a separate hotlink for each item in a semi-colon list of items
 			// The link to use is defined by the target column in the detail_report_hotlinks section of the config DB
@@ -332,6 +371,9 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 				$cx = "class='" . $options[$link_id] ."' style='padding: 1px 5px 1px 5px;'";
 			}
 			$str .= "<span $cx>$display</span>";
+			break;
+		case "format_commas":
+			$str = valueToString($display, $colSpec, TRUE);
 			break;
 		case "xml_params":
 			$str .= make_table_from_param_xml($display);
