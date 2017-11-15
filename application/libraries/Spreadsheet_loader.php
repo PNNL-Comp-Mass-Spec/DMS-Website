@@ -9,18 +9,26 @@ class Spreadsheet_loader {
 	private $entity_type = '';
 	private $entity_list = array();
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get tracking info fields
+	 * @return type
+	 */
 	function get_tracking_info_fields()
 	{
 		return $this->tracking_info_fields;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Get Aux Info fields
+	 * @return type
+	 */
 	function get_aux_info_fields()
 	{
 		return $this->aux_info_fields;
@@ -34,7 +42,6 @@ class Spreadsheet_loader {
 	 */
 	function load($fname)
 	{
-		// read TSV file into array of rows of fields
 		$this->ss_rows = array();
 		$handle = fopen("./uploads/$fname", "r");
 		while (($fields = fgetcsv($handle, 0, "\t")) !== FALSE) {
@@ -48,8 +55,10 @@ class Spreadsheet_loader {
 		$this->extract_entity_list();
 	}
 
-	// --------------------------------------------------------------------
-	// get list of tracking info fields and their row number
+	/**
+	 * Get list of tracking info fields and their row number
+	 * @throws exception
+	 */
 	private
 	function find_tracking_info_fields()
 	{
@@ -76,11 +85,13 @@ class Spreadsheet_loader {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// get list of aux info items, including their category, subcategory, 
-	// and item names and the row number in the main data array.
-	// this builds the $this->aux_info_fields array (flat array of items labeled with category and subcategory)
-	// and the $this->aux_info_groups (arrays of items nested within category/subcatory pairs)
+	/**
+	 * Get list of aux info items, including their category, subcategory, 
+	 * and item names and the row number in the main data array.
+	 * this builds the $this->aux_info_fields array (flat array of items labeled with category and subcategory)
+	 *  and the $this->aux_info_groups (arrays of items nested within category/subcatory pairs)
+	 * @throws exception
+	 */
 	private
 	function find_aux_info_fields()
 	{
@@ -128,15 +139,18 @@ class Spreadsheet_loader {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// suplemental messages
+	/**
+	 * Supplemental messages
+	 */
 	private $sup_mes = array (
 		'header' => "The usual reason for this is either forgetting to include both category and subcategory headers for each aux info section, or leaving the value blank for an aux info item for the first entity",
 	);
 	
-	// --------------------------------------------------------------------
-	// get array of field/values for the tracking information for the 
-	// given entity
+	/**
+	 * Get array of field/values for the tracking information for the given entity
+	 * @param type $id
+	 * @return type
+	 */
 	function get_entity_tracking_info($id)
 	{
 		$info = array();
@@ -154,8 +168,11 @@ class Spreadsheet_loader {
 		return $info;
 	}
 
-	// --------------------------------------------------------------------
-	// get aux info for given entity
+	/**
+	 * Get aux info for given entity
+	 * @param type $id
+	 * @return type
+	 */
 	function get_entity_aux_info($id)
 	{
 		$info = array();
@@ -170,9 +187,12 @@ class Spreadsheet_loader {
 		return $info;
 	}
 
-	// --------------------------------------------------------------------
-	// repackage given aux info into array of category/subcategory groups
-	// with array of item/values for each cat/subcat
+	/**
+	 * Repackage given aux info into array of category/subcategory groups
+	 * with array of item/values for each cat/subcat
+	 * @param type $aux_info_fields
+	 * @return type
+	 */
 	function group_aux_info_items($aux_info_fields)
 	{
 		$out = array();
@@ -190,8 +210,10 @@ class Spreadsheet_loader {
 		return $out;
 	}
 
-	// --------------------------------------------------------------------
-	// what type of entity was defined in the spreadsheet
+	/**
+	 * What type of entity was defined in the spreadsheet
+	 * @throws exception
+	 */
 	private
 	function extract_entity_type()
 	{
@@ -213,8 +235,9 @@ class Spreadsheet_loader {
 		}		
 	}
 	
-	// --------------------------------------------------------------------
-	// get list of entities that are defined in spreadsheet
+	/**
+	 * Get list of entities that are defined in spreadsheet
+	 */
 	private
 	function extract_entity_list()
 	{
@@ -238,19 +261,28 @@ class Spreadsheet_loader {
 		}
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Get extracted data
+	 * @return type
+	 */
 	function get_extracted_data()
 	{
 		return $this->ss_rows;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get entity type
+	 * @return type
+	 */
 	function get_entity_type()
 	{
 		return $this->entity_type;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+	 * Get entity list
+	 * @return type
+	 */
 	function get_entity_list()
 	{
 		return $this->entity_list;
