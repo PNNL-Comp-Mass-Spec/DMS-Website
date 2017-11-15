@@ -42,12 +42,61 @@ class Spreadsheet_loader {
 	 */
 	function load($fname)
 	{
+		$filePath = "./uploads/$fname";
+	
+		$mimeType = mime_content_type($filePath);
+		
+		if (strpos($mimeType, 'spreadsheetml') > 0 || strpos($mimeType, 'ms-excel')) {
+			// Excel file (either .xls or .xlsx)
+			throw new exception(
+				"Save the Excel file as a tab-delimited text file: "
+				. "Choose File, then Save As, then for Type select Text");	
+		}
+
+		if (strpos($mimeType, 'opendocument.spreadsheet') > 0 ) {
+			// OpenOffice .ODS file
+			throw new exception(
+				"Save the spreadhsheet as a tab-delimited text file: "
+				. "Choose File, then Save As, then for Type select Text CSV; "
+				. "for the Field Delimiter select {TAB}");	
+		}
+		
+		if (strpos($mimeType, 'octet-stream') > 0 ) {
+			// Likely a unicode text file
+			throw new exception(
+				"Unicode text files are not supported. Save as a plain text file with ASCII or UTF-8 encoding");			
+		}
+		
+		if ($mimeType !== 'text/plain') {
+			throw new exception("Upload a plain text file, not a file of type: $mimeType");
+		}
+		
+		// Read the TSV file into an array of rows of fields
 		$this->ss_rows = array();
-		$handle = fopen("./uploads/$fname", "r");
+		$handle = fopen($filePath, "r");
+		
+		$rowCount = 0;
 		while (($fields = fgetcsv($handle, 0, "\t")) !== FALSE) {
+			$rowCount++;
+			if ($rowCount == 1 && count($fields) > 0 && strlen($fields[0]) > 3) {
+				// Check for a UTF-8 file, which starts with:
+				// ASCII 239, ï
+				// ASCII 187, »
+				// ASCII 191, ¿ 
+				if (ord($fields[0][0]) == 239 && 
+				    ord($fields[0][1]) == 187 &&
+				    ord($fields[0][2]) == 191)
+				{
+					// This is a UTF-8 file; remove the first three characters from the first field
+					$fields[0] = substr($fields[0], 3);
+				}						
+			}
+			
 			$this->ss_rows[] = $fields;
+
 		}
 		fclose($handle);
+		
 		// figure out where things are and build supplemental arrays
 		$this->find_tracking_info_fields();
 		$this->find_aux_info_fields();
