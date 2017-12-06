@@ -207,7 +207,13 @@ class Cell_presentation {
 				$link_item = ($target) ? $row[$target] : $value;
 				if (array_key_exists($ref, $t)) {
 					$link_base = $t[$ref];
-					$url = reduce_double_slashes(site_url() . "$link_base/show/$link_item");
+					if (strpos($link_base, '/') === FALSE) {
+						// Base link does not contain a forward slash; use /show/
+						$url = reduce_double_slashes(site_url() . "$link_base/show/$link_item");
+					} else {
+						// Base link includes a forward slash
+						$url = reduce_double_slashes(site_url() . "$link_base/$link_item");
+					}
 					$str .= "<td><a href='$url'>$value</a></td>";
 				} else {
 					$str .= "<td>$value</td>";
