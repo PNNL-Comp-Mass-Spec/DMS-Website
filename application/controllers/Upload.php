@@ -3,7 +3,8 @@ require("Base_controller.php");
 
 class Upload extends Base_controller {
 
-	// will be loaded with all the entities currently supported by the spreadsheet loader.
+	// Tracks names of entities currently supported by the spreadsheet loader.
+	// Comes from table loadable_entities in spreadsheet_loader.db
 	private $supported_entities = array ();
 
 	// --------------------------------------------------------------------

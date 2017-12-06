@@ -10,6 +10,7 @@ var lcmd = {
 					return;
 				}
 			} else {
+				// lambda.getCkbxList is in dms2.js
 				list = lambda.getCkbxList('ckbx');
 				if (list == '') {
 					alert('You must select items.');
@@ -39,6 +40,7 @@ var lcmd = {
 					return;
 				}
 			} else {
+				// lambda.getCkbxList is in dms2.js
 				list = lambda.getCkbxList('ckbx');
 				if (list == '') {
 					alert('You must select items.');
@@ -98,6 +100,7 @@ var lcmd = {
 	},
 	dataset_disposition: {
 		op: function(mode) {
+			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
 				alert('You must select requests.'); 
@@ -135,6 +138,7 @@ var lcmd = {
 	},
 	material_move_container: {
 		op: function(mode, val) {
+			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
 				alert('You must select requests.'); 
@@ -152,6 +156,10 @@ var lcmd = {
 	},
 	material_move_items: {
 		op: function(mode, itemType, val) {
+			// lambda.getCkbxList is in dms2.js
+			// Contents of list will be of the form E:8432,E:8435,R:170
+			// where the item names come from the value text associated with each checkbox
+			// Checkbox names come from column #I_ID in view V_Material_Items_List_Report
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
 				alert('You must select items.'); 
@@ -198,6 +206,7 @@ var lcmd = {
 */
 	requested_run_admin: {
 		op: function(mode, value) {
+			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
 				alert('You must select requests.'); 
@@ -220,6 +229,7 @@ var lcmd = {
 	},
 	sample_prep_request_assignment: {
 		op: function(mode, value) {
+			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
 				alert('You must select requests.'); 
@@ -238,6 +248,7 @@ var lcmd = {
 	},
 	mc_enable_control_by_manager: {
 		op: function(mode, newValFld) {
+			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
 				alert('You must select at least one manager.'); 
@@ -256,6 +267,7 @@ var lcmd = {
 	},	
 	mc_enable_control_by_manager_type: {
 		op: function(mode, newValFld) {
+			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
 				alert('You must select at least one manager type.'); 
@@ -276,6 +288,8 @@ var lcmd = {
 		transferData: function (perspective, dslist) {
 	
 			var commalist = $('#' + dslist).val();
+
+			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx' );
 			if(list=='' && commalist=='') {
 				alert('You must select at least 1 dataset or enter 1 dataset id.'); 
