@@ -381,7 +381,9 @@ class G_model extends CI_Model {
 				$msg .= $user;
 				$msg .= " has <code>'";
 				$msg .= implode  (', ', $permissions);
-				$msg .= "'</code> permissions.";
+				$msg .= "'</code> permissions.<br /><br /> ";
+				$msg .= 'To request additional access, e-mail Matthew Monroe<br /> ';
+				$msg .= 'or use the Proteomics Queue link on the <a href="/">DMS home page</a>.';
 				throw new Exception($msg);	
 			}
 	
