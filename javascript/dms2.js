@@ -1591,10 +1591,10 @@ var epsilon = {
      * This function opens an exernal chooser page and remembers
 	 * information necessary to update the proper entry field
 	 * when that page calls back with user's choice
-     * @param {type} fieldName
-     * @param {type} chooserPage
-     * @param {type} delimiter
-     * @param {type} xref
+     * @param {type} fieldName Field Name
+     * @param {type} chooserPage Chooser URL
+     * @param {type} delimiter Delimeter when selecting multiple values
+     * @param {type} xref Field name whose contents should be sent to the helper page
      * @returns {undefined}
      */
 	callChooser: function(fieldName, chooserPage, delimiter, xref) {

@@ -156,10 +156,10 @@ class Dms_chooser extends CI_Model {
 	
 	/**
 	 * Return HTML for a drop-down selector and suitable options for the specified chooser_name.
-	 * @param type $target_field_name
-	 * @param type $chooser_name
-	 * @param type $mode
-	 * @param type $seq
+	 * @param type $target_field_name Field Name
+	 * @param type $chooser_name Chooser name (aka pick list name)
+	 * @param type $mode Chooser mode (append, append_comma, prepend, prepend_comma, prepend_underscore, or replace)
+	 * @param type $seq Sequence ID (1, 2, 3, etc.)
 	 * @return string
 	 */
 	function get_chooser($target_field_name, $chooser_name, $mode = 'replace', $seq = '')
@@ -190,14 +190,14 @@ class Dms_chooser extends CI_Model {
 
 	/**
 	 * Create a chooser from the given parameters
-	 * @param type $f_name
-	 * @param type $type
-	 * @param type $pln
-	 * @param type $target
-	 * @param type $label
-	 * @param type $delim
-	 * @param type $xref
-	 * @param type $seq
+	 * @param type $f_name Field Name
+	 * @param type $type Chooser type
+	 * @param type $pln Chooser name (aka pick list name); empty string when the type is 'list-report.helper'
+	 * @param type $target Target helper page (only used if the type is 'list-report.helper')
+	 * @param type $label Text to show before the chooser dropdown or chooser list
+	 * @param type $delim Delimiter to use when selecting multiple items
+	 * @param type $xref Field name whose contents should be sent to the helper page when the type is 'list-report.helper'
+	 * @param type $seq Sequence ID (1, 2, 3, etc.)
 	 * @return string
 	 */
 	function make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq = '1')
