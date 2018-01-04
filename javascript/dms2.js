@@ -1599,13 +1599,13 @@ var epsilon = {
      */
 	callChooser: function(fieldName, chooserPage, delimiter, xref) {
 		// resolve cross-reference to other field, if one exists
-		var xv = (xref != '')?$('#' + xref).val():'';
-		if(xref != '' && xv == ''){ 
+		var xrefValue = (xref != '')?$('#' + xref).val():'';
+		if(xref != '' && xrefValue == ''){ 
 			// Previously showed an error if the cross referenced field was empty
 			// We now allow this for cases where a field starts off as blank but the user needs to choose a value from a list
 			//alert (xref + ' must be selected first.');
 			//return;
-			xv = ' ';
+			xrefValue = ' ';
 		}
 		// check if chooserPage URL needs separator
 		var sep = '/';
@@ -1613,7 +1613,14 @@ var epsilon = {
 			sep = '';
 		}
 		// if there is a cross-reference, pass it on end of URL
-		if(xv != '') chooserPage += sep + xv;
+		if(xrefValue != '') {
+			// If xrefValue contains the delimiter, remove the delimiter and any text following it
+			var delimPos = xrefValue.indexOf(delimiter);
+			if (delimPos > 0) {
+				xrefValue = xrefValue.slice(0, delimPos);
+			}
+			chooserPage += sep + xrefValue;
+		}
 		// make sure that there are no other chooser pages open
 		epsilon.closeChooserWindowPage();
 		// remember which field gets the update 
