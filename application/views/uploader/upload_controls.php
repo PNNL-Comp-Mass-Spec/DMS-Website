@@ -14,7 +14,7 @@
 <div><input type="CHECKBOX" id="incAuxinfo" value="true" CHECKED />Include Auxiliary Info</div>
 
 <div style='font-weight:bold;' >What action to take:</div>
-<div><input type=RADIO NAME="createupdate" VALUE="add" >Create new entites</div>
+<div><input type=RADIO NAME="createupdate" VALUE="add" >Create new entities</div>
 <div><input type=RADIO NAME="createupdate" VALUE="update">Update existing entities</div>
 <div><input type=RADIO NAME="createupdate" VALUE="check_add"  >Verify Create <span style='font-size:80%;'>(database is not changed)</span></div>
 <div><input type=RADIO NAME="createupdate" VALUE="check_update" >Verify Update <span style='font-size:80%;'>(database is not changed)</span></div>
