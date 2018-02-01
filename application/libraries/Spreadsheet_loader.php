@@ -71,6 +71,10 @@ class Spreadsheet_loader {
 			throw new exception("Upload a plain text file, not a file of type: $mimeType");
 		}
 		
+		// Enable auto-detection of line endings
+		// This is especially important for reading text files saved from Excel on a Mac
+		ini_set("auto_detect_line_endings", "1");
+		
 		// Read the TSV file into an array of rows of fields
 		$this->ss_rows = array();
 		$handle = fopen($filePath, "r");
