@@ -637,10 +637,31 @@ class File_attachment extends Base_controller {
 	
 	/**
 	 * Verify that known attachments exist
-	 * http://dmsdev.pnl.gov/file_attachment/check_access
+	 * By default only shows missing files
+	 * Append "show_all_files" to see all files
+	 * Append any other text to only show files that contain that text in the name
+	 *
+	 * Example URLs:
+	 * http://dms2.pnl.gov/file_attachment/check_access
+	 * http://dms2.pnl.gov/file_attachment/check_access/show_all_files	 
+	 * http://dms2.pnl.gov/file_attachment/check_access/txt
 	 */
 	function check_access(){
 		try {
+			$filterOption = $this->uri->segment(3, "");
+			$filenameFilter = "";
+			
+			if (strlen($filterOption) == 0)
+				$showAll = false;
+			else {
+				if (strtolower($filterOption) == "show_all_files")
+					$filenameFilter = "";
+				else
+					$filenameFilter = strtolower($filterOption);
+
+				$showAll = true;
+			}
+			
 			$full_path = '';
 			$this->load->database();
 			$this->db->select("File_Name AS [filename], Entity_Type as type, Entity_ID as id, archive_folder_path as path");
@@ -650,13 +671,51 @@ class File_attachment extends Base_controller {
 			$this->load->library('table');
 			$this->table->set_template(array ('heading_cell_start'  => '<th style="text-align:left;">'));
 
-			$this->table->set_heading('File', 'Type', 'ID', 'Path');
+			$headerColumns = array('File', 'Type', 'ID', 'Path');
+			
+			if ($showAll) {
+				$headerColumns[] = 'Exists';
+			}
+
+			$this->table->set_heading($headerColumns);
+				
 			foreach($query->result() as $row) {
 				$full_path = "{$this->archive_root_path}{$row->path}/{$row->filename}";
-				if(!file_exists($full_path)) {
-					$this->table->add_row($row->filename, $row->type, $row->id, $row->path);
+				
+				if (strlen($filenameFilter) > 0 && strpos(strtolower($row->filename), $filenameFilter) === false) {
+					// Skip this file
+					continue;
+				}
+				
+				$fileExists = file_exists($full_path);
+				
+				if ($showAll) {
+					$this->table->add_row($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
+				} else {
+					if (!$fileExists) {
+						$this->table->add_row($row->filename, $row->type, $row->id, $row->path);
+					}
 				}
 			}
+
+			// Navigation table			
+			echo '<table cellpadding="10" style="border: 1px solid"><tr>' . "\n";
+			echo '<td><a href="' . site_url() . 'file_attachment/check_access">Missing files</a></td>' . "\n";
+			echo '<td><a href="' . site_url() . 'file_attachment/check_access/show_all_files">All files</a></td>' . "\n";
+			echo '<td><a href="' . site_url() . 'file_attachment/check_access/xls">Excel files</a></td>' . "\n";
+			echo '<td><a href="' . site_url() . 'file_attachment/check_access/txt">Text files</a></td>' . "\n";
+			echo '</tr></table>' . "\n";
+
+			// Description of the files shown
+			if ($showAll) {
+				if (strlen($filenameFilter) > 0)
+					echo '<p><font size="+1">"' . $filenameFilter . '" Files</font></p>';
+				else
+					echo '<p><font size="+1">All Files</font></p>';
+			} else {
+				echo '<p><font size="+1">Missing Files</font></p>';
+			}
+
 			echo $this->table->generate();
 
 		} catch (Exception $e) {
