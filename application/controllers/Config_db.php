@@ -122,6 +122,19 @@ class Config_db extends CI_Controller {
 	}
 
 	/**
+	 * Make the link to the contents page for this page family, for example
+	 * <a href="http://dmsdev.pnl.gov/config_db/show_db/dataset.db">Contents</a>
+	 * @param string $config_db Config DB name, including .db
+	 * @param string $link_title Link title
+	 * @return string
+	 */
+	private
+	function _make_page_family_contents_link($config_db, $link_title = "Contents")
+	{
+		return '<a href="' . site_url() . "config_db/show_db/" . $config_db . '">' . "$link_title</a>";
+	}
+	
+	/**
 	 * Make the link to the corresponding help page on PrismWiki
 	 * @param type $table_name
 	 * @return string
@@ -869,8 +882,7 @@ class Config_db extends CI_Controller {
  		$s .= "<tr><td>";
 		$s .= $this->_make_wiki_help_link($table_name);
 		
-		$linkPageFamilyContents = site_url()."config_db/show_db/".$config_db;		
-		$s .= '&nbsp;&nbsp;<a href="' . $linkPageFamilyContents . '">' . "Contents</a>";
+		$s .= "&nbsp;&nbsp;" . $this->_make_page_family_contents_link($config_db);
 		
 		$s .= "<table class='cfg_tab' >\n";
 		// table header
@@ -1632,8 +1644,8 @@ class Config_db extends CI_Controller {
 		echo "| &nbsp;<a href='http://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
 		echo "<ul>\n";
 		foreach($config_files as $config_db) {
-			$url = site_url()."config_db/show_db/".$config_db;
-			echo "<li><a href='$url'>$config_db</a></li>";
+			$linkHtml = $this->_make_page_family_contents_link($config_db, $config_db);
+			echo "<li>$linkHtml</li>";
 		}
 		echo "</ul>\n";
 	}
