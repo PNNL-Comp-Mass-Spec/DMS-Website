@@ -868,6 +868,10 @@ class Config_db extends CI_Controller {
  		// inner table
  		$s .= "<tr><td>";
 		$s .= $this->_make_wiki_help_link($table_name);
+		
+		$linkPageFamilyContents = site_url()."config_db/show_db/".$config_db;		
+		$s .= '&nbsp;&nbsp;<a href="' . $linkPageFamilyContents . '">' . "Contents</a>";
+		
 		$s .= "<table class='cfg_tab' >\n";
 		// table header
 		$nc = $data_obj->num_cols + 2;
