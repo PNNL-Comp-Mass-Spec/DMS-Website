@@ -108,7 +108,7 @@ class Config_db extends CI_Controller {
 	 */
 	function submit_show_db($config_db) {
 		if (!$this->mod_enabled) {
-			$this->message();
+			$this->show_not_allowed($config_db);
 			return;
 		}
 		$tbl_list = $this->_get_db_table_list($config_db);
@@ -350,7 +350,7 @@ class Config_db extends CI_Controller {
 	 */
 	function create_table($config_db, $table_name) {
 		if (!$this->mod_enabled) {
-			$this->message();
+			$this->show_not_allowed($config_db);
 			return;
 		}
 		// FUTURE: Don't do if table already exists
@@ -365,9 +365,10 @@ class Config_db extends CI_Controller {
 	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name Table name
 	 */
-	function remove_table($config_db, $table_name) {
-		if (!$this->mod_enabled){
-			$this->message();
+	function remove_table($config_db, $table_name) 
+	{
+		if (!$this->mod_enabled) {
+			$this->show_not_allowed($config_db);
 			return;
 		}
 		$sql = "drop table $table_name;";
@@ -429,9 +430,10 @@ class Config_db extends CI_Controller {
 	 * @return type
 	 * @category AJAX
 	 */
-	function exec_sql($config_db, $table_name) {
-		if (!$this->mod_enabled){
-			$this->message();
+	function exec_sql($config_db, $table_name) 
+	{
+		if (!$this->mod_enabled) {
+			$this->show_not_allowed($config_db);
 			return;
 		}
 	    $this->load->helper(array('config_db'));
@@ -641,9 +643,10 @@ class Config_db extends CI_Controller {
 	 * @param string $table_name Table name
 	 * @return type
 	 */ 
-	function edit_table($config_db, $table_name) {
-		if (!$this->mod_enabled){
-			$this->message();
+	function edit_table($config_db, $table_name) 
+	{
+		if (!$this->mod_enabled) {
+			$this->show_not_allowed($config_db);
 			return;
 		}
  	    $this->load->helper(array('config_db'));
@@ -673,7 +676,7 @@ class Config_db extends CI_Controller {
 	 */
 	function submit_edit_table($config_db, $table_name) {
 		if (!$this->mod_enabled) {
-			$this->message();
+			$this->show_not_allowed($config_db);
 			return;
 		}
 	    $this->load->helper(array('config_db'));
@@ -1405,7 +1408,7 @@ class Config_db extends CI_Controller {
 	function make_controller($config_db, $title)
 	{
 		if (!$this->mod_enabled) {
-			$this->message();
+			$this->show_not_allowed($config_db);
 			return;
 		}
 
@@ -1663,6 +1666,18 @@ class Config_db extends CI_Controller {
 			$this->load->view('message_box', $data);
 	}
 
+	/**
+	 * Show Not Allowed message box, linking back to the contents page for this page family
+	 * @param string $config_db Config DB name, including .db
+	 */
+	function show_not_allowed($config_db)
+	{
+		$linkHtml = $this->_make_page_family_contents_link($config_db, ucwords($config_db) . " Contents");
+		$title = "Not Allowed";
+		$msg = "This feature is not enabled for this version of DMS; back to $linkHtml";
+		$this->message($title, $msg);
+	}
+	
 	/**
 	 * Use the SQLite vacuum command to compact a database
 	 * @param type $config_db
