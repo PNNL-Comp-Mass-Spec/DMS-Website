@@ -84,7 +84,7 @@ class File_attachment extends Base_controller {
 	}
 
 	/**
-	 *  View the status of a file
+	 * View the status of a file
 	 * http://dms2.pnl.gov/file_attachment/check_file_path/lc_cart_configuration/100/TestFile.txt
 	 * @param type $entity_type
 	 * @param type $entity_id

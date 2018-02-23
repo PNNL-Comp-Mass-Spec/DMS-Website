@@ -13,7 +13,9 @@ class Config_db extends CI_Controller {
 	var $configDBFolder = '';
 	var $configDBPath = '';
 
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct() {
 		// Call the parent constructor
 		parent::__construct();
@@ -29,7 +31,10 @@ class Config_db extends CI_Controller {
 		$this->load->model('config_db_model', 'config_model');
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Redirect http://dms2.pnl.gov/config_db/
+	 * to http://dms2.pnl.gov/config_db/page_families
+	 */
 	function index() {
  		$this->load->helper(array('url'));
 		redirect('config_db/page_families');
@@ -37,7 +42,7 @@ class Config_db extends CI_Controller {
 	
 	/**
 	 * Show contents of the config DB
-	 * @param string $config_db
+	 * @param string $config_db Config DB name, including .db
 	 */
 	function show_db($config_db) {
 		$this->load->helper(array('config_db'));
@@ -60,7 +65,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Show the link to config_db/code_for_family_sql/configDBName
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @return string
 	 */
 	private
@@ -77,7 +82,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Show the Make Controller or Controller Exists link
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @return string
 	 */
 	private
@@ -97,7 +102,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Show the config DB contents after applying a change
-	 * @param string $config_db
+	 * @param string $config_db Config DB name, including .db
 	 * @return type
 	 * @category AJAX
 	 */
@@ -139,7 +144,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Execute the given SQL against the model config DB
-	 * @param $config_db $config_db
+	 * @param strgin $config_db Config DB name, including .db
 	 * @param string $sql SQL Query (typically an UPDATE or INSERT query)
 	 * @param string $table_name Target table name
 	 * @return type
@@ -169,7 +174,7 @@ class Config_db extends CI_Controller {
 	 * Log the changes to a file in the tmpfiles directory
 	 * @param string $change SQL that was applied
 	 * @param string $restore Old table contents before applying the change
-	 * @param $config_db $config_db
+	 * @param string $config_db Config DB name, including .db
 	 */
 	private
 	function _log_sql($change, $restore, $config_db)
@@ -214,7 +219,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Dump contents of each table
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param type $tbl_list
 	 * @return string
 	 */
@@ -256,9 +261,9 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Get contents of a single table
-	 * @param string $config_db
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name Table name
-	 * @return string
+	 * @return PDOStatement PDOStatement object, or FALSE on failure.
 	 */
 	private
 	function _get_table_contents($config_db, $table_name) {
@@ -268,7 +273,12 @@ class Config_db extends CI_Controller {
 		return $r;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get contents of table as HTML
+	 * @param string $config_db Config DB name, including .db
+	 * @param string $table_name Table name
+	 * @return string
+	 */
 	private
 	function _get_table_dump($config_db, $table_name) {
 		$dbFilePath = $this->configDBPath.$config_db;
@@ -321,7 +331,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Create a table (does not check for an existing table)
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name
 	 * @return type
 	 */
@@ -337,7 +347,11 @@ class Config_db extends CI_Controller {
 		$this->submit_show_db($config_db);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Remove a table
+	 * @param string $config_db Config DB name, including .db
+	 * @param string $table_name Table name
+	 */
 	function remove_table($config_db, $table_name) {
 		if (!$this->mod_enabled){
 			$this->message();
@@ -350,7 +364,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Move a range of items in a table
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name
 	 * @param int $range_start_id
 	 * @param int $range_stop_id
@@ -371,7 +385,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Reorder items in a table
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name
 	 * @return type
 	 * @category AJAX
@@ -397,7 +411,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Execute the SQL to obtain the results
-	 * @param string $config_db Model config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name Table name
 	 * @return type
 	 * @category AJAX
@@ -423,8 +437,8 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Get suggested INSERT and UPDATE queries to populate the table
-	 * @param string $config_db
-	 * @param string $table_name
+	 * @param string $config_db Config DB name, including .db
+	 * @param string $table_name Table name
 	 * @category AJAX
 	 */
 	function get_suggested_sql($config_db, $table_name) {
@@ -449,7 +463,11 @@ class Config_db extends CI_Controller {
 		echo $sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get suggested entry commands
+	 * @param string $config_db Config DB name, including .db
+	 * @return string
+	 */
 	private
 	function _get_suggested_entry_commands($config_db)
 	{
@@ -458,7 +476,11 @@ class Config_db extends CI_Controller {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get suggested external sources
+	 * @param string $config_db Config DB name, including .db
+	 * @return string
+	 */
 	private
 	function _get_suggested_external_sources($config_db)
 	{
@@ -467,7 +489,11 @@ class Config_db extends CI_Controller {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get suggested general params
+	 * @param string $config_db Config DB name, including .db
+	 * @return string
+	 */
 	private
 	function _get_suggested_general_params($config_db)
 	{
@@ -478,7 +504,11 @@ class Config_db extends CI_Controller {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get suggested detail report commands
+	 * @param string $config_db Config DB name, including .db
+	 * @return string
+	 */
 	private
 	function _get_suggested_detail_report_commands($config_db)
 	{
@@ -486,7 +516,12 @@ class Config_db extends CI_Controller {
 		$sql .= "Working on it";
 		return $sql;
 	}
-	// --------------------------------------------------------------------
+
+	/**
+	 * Get suggested primary filter choosers
+	 * @param string $config_db Config DB name, including .db
+	 * @return string
+	 */
 	private
 	function _get_suggested_primary_filter_choosers($config_db)
 	{
@@ -504,7 +539,11 @@ class Config_db extends CI_Controller {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get suggested form field choosers
+	 * @param string $config_db Config DB name, including .db
+	 * @return string
+	 */
 	private
 	function _get_suggested_form_field_choosers($config_db)
 	{
@@ -522,7 +561,11 @@ class Config_db extends CI_Controller {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get suggested form field options
+	 * @param string $config_db Config DB name, including .db
+	 * @return string
+	 */
 	private
 	function _get_suggested_form_field_options($config_db)
 	{
@@ -539,7 +582,12 @@ class Config_db extends CI_Controller {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get table contents as SQL INSERT statements 
+	 * @param string $config_db Config DB name, including .db
+	 * @param string $table_name Table name
+	 * @return string
+	 */
 	private
 	function _get_table_contents_sql($config_db, $table_name)
 	{
@@ -574,8 +622,12 @@ class Config_db extends CI_Controller {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------
-	// display an editing page for the given table in the given config db
+	/**
+	 * Display an editing page for the given table in the given config db
+	 * @param string $config_db Config DB name, including .db
+	 * @param string $table_name Table name
+	 * @return type
+	 */ 
 	function edit_table($config_db, $table_name) {
 		if (!$this->mod_enabled){
 			$this->message();
@@ -601,7 +653,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Same as edit_table, except change table then load view 'sub_table_edit'
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name
 	 * @return type
 	 * @category AJAX
@@ -680,7 +732,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Get information for the editing for the given table in the given config db
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_name
 	 * @return \stdClass
 	 */
@@ -730,7 +782,7 @@ class Config_db extends CI_Controller {
 	/**
 	 * Return SQL to create appropriate entries for the sproc args table
 	 * for the given config database
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @return string
 	 */
 	private
@@ -760,7 +812,7 @@ class Config_db extends CI_Controller {
 	/**
 	 * Return SQL to create appropriate entries for the form fields table
 	 * for the given config database
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @return string
 	 */
 	private
@@ -906,7 +958,15 @@ class Config_db extends CI_Controller {
 		return $s;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Get html for editing a table entry
+	 * @param string $config_db Config DB name
+	 * @param string $table_name Table name
+	 * @param string $col_name
+	 * @param integer $col_width
+	 * @param integer $max_width
+	 * @return string
+	 */
 	private
 	function _get_edit_table_entry_field($config_db, $table_name, $col_name, $col_width, $max_width)
 	{
@@ -967,7 +1027,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Output sql to make hotlinks for all columns in the list report view defined in the given config db
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @return string
 	 */
 	private
@@ -1009,7 +1069,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Output sql to make hotlinks for all columns in the detail report view defined in the given config db
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @return string
 	 */
 	private
@@ -1052,7 +1112,7 @@ class Config_db extends CI_Controller {
 	
 	/**
 	 * Output sql to make primary filters for all columns in the list report view in the given config db
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @return string
 	 */
 	private
@@ -1103,7 +1163,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Get the list of tables in the database
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $table_filter
 	 * @return string[]
 	 */
@@ -1137,7 +1197,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Get the general_params table contents
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $db_group
 	 * @return string[]
 	 */
@@ -1167,7 +1227,7 @@ class Config_db extends CI_Controller {
 	 * from the raw format of the INFORMATION_SCHEMA, and return in an array
 	 * @param type $dbObj
 	 * @param type $sproc
-	 * @return type
+	 * @return type Array of stored procedure argument info
 	 */
 	private
 	function _get_sproc_arg_defs_from_main_db($dbObj, $sproc) {
@@ -1203,8 +1263,8 @@ class Config_db extends CI_Controller {
 	/**
 	 * Return SQL to create the appropriate entries in the sproc_args table
 	 * from given sproc args definition array
-	 * @param type $sa
-	 * @param type $sproc
+	 * @param type $sa Array of stored procedure argument info
+	 * @param string $sproc Stored procedure name
 	 * @return type
 	 */
 	private
@@ -1221,7 +1281,7 @@ class Config_db extends CI_Controller {
 	/**
 	 * Return SQL to create appropriate entries in the form field table
 	 * from given sproc args definition array
-	 * @param type $sa
+	 * @param type $sa Array of stored procedure argument info
 	 * @return type
 	 */
 	private
@@ -1300,7 +1360,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Check whether the controller exists, e.g. controllers/Analysis_job.php
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $page_fam_tag
 	 * @param string $file_path
 	 * @return boolean
@@ -1322,7 +1382,7 @@ class Config_db extends CI_Controller {
 
 	/**
 	 * Create the controller (if it doesn't yet exist)
-	 * @param string $config_db Config DB name
+	 * @param string $config_db Config DB name, including .db
 	 * @param string $title
 	 * @return type
 	 */
@@ -1377,11 +1437,14 @@ class Config_db extends CI_Controller {
 		return $obj;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Retury array of config files in the config folder
+	 * @param string $file_filter
+	 * @return type
+	 */
 	private
 	function _get_config_db_file_list($file_filter = '')
 	{
-		// get list of config files from config folder
 		$config_files = array();
 		if ($handle = opendir($this->configDBPath)) {
 		    while (false !== ($file = readdir($handle))) {
@@ -1394,11 +1457,13 @@ class Config_db extends CI_Controller {
 		return $config_files;
 	}
 
-	// --------------------------------------------------------------------
-	// return array of table names
-	// for all the config dbs where the config db
-	// file names satisfy the $file_filter and the table names
-	// satisfy the $table_filter
+	/**
+	 * Return array of table names for all the config dbs where the config db
+	 * file names satisfy the $file_filter and the table names satisfy the $table_filter
+	 * @param type $file_filter
+	 * @param type $table_filter
+	 * @return type
+	 */ 
 	private
 	function _get_filtered_config_table_name_list($file_filter, $table_filter)
 	{
@@ -1417,10 +1482,13 @@ class Config_db extends CI_Controller {
 	}
 
 
-	// --------------------------------------------------------------------
-	// return list of tables in all the config dbs where the config db
-	// file names satisfy the $file_filter and the table names
-	// satisfy the $table_filter
+	/**
+	 * Return list of tables in all the config dbs where the config db file names
+	 * satisfy the $file_filter and the table names satisfy the $table_filter
+	 * @param type $file_filter
+	 * @param type $table_filter
+	 * @return type
+	 */
 	private
 	function _get_filtered_config_table_list($file_filter, $table_filter)
 	{
@@ -1443,7 +1511,13 @@ class Config_db extends CI_Controller {
 		return $config_db_table_list;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Search contents of Config DBs
+	 * Example URLs:
+	 * http://dms2.pnl.gov/config_db/search/dataset.db/list_report_hotlink
+	 * http://dms2.pnl.gov/config_db/search/dataset/list_report_hotlink
+	 * http://dms2.pnl.gov/config_db/search/experiment/_
+	 */
 	function search()
 	{
  	    $this->load->helper(array('config_db'));
@@ -1477,7 +1551,10 @@ class Config_db extends CI_Controller {
 	   }
    }
 
-   // --------------------------------------------------------------------
+    /**
+	 * View page family database list
+	 * http://dms2.pnl.gov/config_db/page_families
+	 */
 	function page_families() {
 		$this->load->helper(array('config_db'));
 		$data['title'] = "Page Family Directory";
@@ -1499,7 +1576,10 @@ class Config_db extends CI_Controller {
 		$this->load->view('config_db/main');
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * View support database list
+	 * http://dms2.pnl.gov/config_db/support_config_db_list
+	 */
 	function support_config_db_list() {
 		$this->load->helper(array('config_db'));
 		$data['title'] = "Support Config DB Directory";
@@ -1534,7 +1614,10 @@ class Config_db extends CI_Controller {
 		$this->load->view('config_db/main');
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * View config db filenames
+	 * http://dms2.pnl.gov/config_db/dir
+	 */
 	function dir()
 	{
 		// get list of config files from config folder
@@ -1550,7 +1633,12 @@ class Config_db extends CI_Controller {
 		}
 		echo "</ul>\n";
 	}
-	// --------------------------------------------------------------------
+	
+	/**
+	 * Show Not Allowed message box
+	 * @param type $title
+	 * @param type $msg
+	 */
 	function message($title="Not Allowed", $msg="This feature is not enabled for this version of DMS")
 	{
 			$data['title'] = $title;
@@ -1559,7 +1647,10 @@ class Config_db extends CI_Controller {
 			$this->load->view('message_box', $data);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+	 * Use the SQLite vacuum command to compact a database
+	 * @param type $config_db
+	 */
 	function vacuum_db($config_db) {
 		$dbFilePath = $this->configDBPath.$config_db;
 //		$before = filesize($dbFilePath);
@@ -1571,10 +1662,11 @@ class Config_db extends CI_Controller {
 //		$after = filesize($dbFilePath);
 		echo "Config DB '$config_db' has been vacuumed.";
 	}
-
+	
 	/**
-	 * Execute SQL against multiple config
+	 * Execute SQL against multiple config dbs
 	 * Note: statement "$this->_exec_sql" is commented out below for safety
+	 * http://dms2.pnl.gov/config_db/update_multiple
 	 */
 	function update_multiple() {
 		// do all config dbs

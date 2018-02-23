@@ -3,7 +3,9 @@ require("Base_controller.php");
 
 class Gen extends CI_Controller {
 
-	// --------------------------------------------------------------------
+	/**
+	 * Constructor
+	 */
 	function __construct()
 	{
 		// Call the parent constructor
@@ -17,8 +19,8 @@ class Gen extends CI_Controller {
 	
 	/**
 	 * Display the home page, with the side menu in a frame
-	 * http://dmsdev.pnl.gov/gen/
-	 * http://dmsdev.pnl.gov/gen/index
+	 * http://dms2.pnl.gov/gen/
+	 * http://dms2.pnl.gov/gen/index
 	 */
 	function index()
 	{
@@ -34,7 +36,7 @@ class Gen extends CI_Controller {
 	
 	/**
 	 * Display the current configuration
-	 * http://dmsdev.pnl.gov/gen/config
+	 * http://dms2.pnl.gov/gen/config
 	 */
 	function config()
 	{
@@ -129,7 +131,7 @@ class Gen extends CI_Controller {
 
 	/**
 	 * Display the home page
-	 * http://dmsdev.pnl.gov/gen/welcome
+	 * http://dms2.pnl.gov/gen/welcome
 	 */
 	function welcome()
 	{
@@ -139,7 +141,7 @@ class Gen extends CI_Controller {
 
 	/**
 	 * Construct the side menu
-	 * http://dmsdev.pnl.gov/gen/side_menu
+	 * http://dms2.pnl.gov/gen/side_menu
 	 */
 	function side_menu()
 	{
@@ -150,7 +152,7 @@ class Gen extends CI_Controller {
 	
 	/**
 	 * Return the side menu items a json
-	 * http://dmsdev.pnl.gov/gen/side_menu_objects
+	 * http://dms2.pnl.gov/gen/side_menu_objects
 	 */
 	function side_menu_objects()
 	{
@@ -164,7 +166,7 @@ class Gen extends CI_Controller {
 	
 	/**
 	 * Show session information
-	 * http://dmsdev.pnl.gov/gen/show_session
+	 * http://dms2.pnl.gov/gen/show_session
 	 */
 	function show_session()
 	{
@@ -180,7 +182,7 @@ class Gen extends CI_Controller {
 
 	/**
 	 * Show configuration info
-	 * http://dmsdev.pnl.gov/gen/info
+	 * http://dms2.pnl.gov/gen/info
 	 */
 	function info()
 	{
@@ -207,7 +209,7 @@ class Gen extends CI_Controller {
 	/**
 	 * Read the restricted actions defined in the master_authorization SQLite database
 	 * Display the results in an HTML table
-	 * http://dmsdev.pnl.gov/gen/auth
+	 * http://dms2.pnl.gov/gen/auth
 	 */
 	function auth()
 	{
@@ -231,7 +233,7 @@ class Gen extends CI_Controller {
 
 	/**
 	 * Show statistics on datasets, experiments, etc.
-	 * http://dmsdev.pnl.gov/gen/stats
+	 * http://dms2.pnl.gov/gen/stats
 	 */
 	function stats()
 	{
