@@ -116,19 +116,22 @@ class Config_db extends CI_Controller {
 		$this->load->view('config_db/sub_show_db');
 	}
 
-	// -----------------------------------
-	//
+	/**
+	 * Make the link to the corresponding help page on PrismWiki
+	 * @param type $table_name
+	 * @return string
+	 */
 	private
-	function _make_trac_help_link($table_name)
+	function _make_wiki_help_link($table_name)
 	{
 		$s = "";
 	//	$CI =& get_instance();
 	//	$ptrac = $CI->config->item('ptrac');
 	//	$trac_helpLink_prefix = $CI->config->item('tracHelpLinkPrefix');
 
-		$ptrac = "http://prismwiki.pnl.gov/wiki/";
-		$trac_helpLink_prefix = "DMS_Config_DB_Help_";
-		$href = $ptrac.$trac_helpLink_prefix.$table_name;
+		$wikiBaseUrl = "http://prismwiki.pnl.gov/wiki/";
+		$wiki_helpLink_prefix = "DMS_Config_DB_Help_";
+		$href = $wikiBaseUrl.$wiki_helpLink_prefix.$table_name;
 	//	$src = base_url(). "/images/help.png";
 		$s .= "<a class='help_link' target='_blank' title='Click for help with table' href='$href'>Help</a>";
 		return $s;
@@ -227,7 +230,7 @@ class Config_db extends CI_Controller {
 		    $s .= "</th></tr>";
 		    $s .= "<tr><td>";
 			$s .= "<a href='javascript:show_hide_block(\"block_$t\")' >Show/Hide</a> &nbsp;";
-		    $s .= $this->_make_trac_help_link($t);
+		    $s .= $this->_make_wiki_help_link($t);
 		    if (in_array($t, $tbl_list)) {
 		        if ($this->mod_enabled) {
 		            $s .= " &nbsp; <a href='".site_url()."config_db/edit_table/$config_db/$t'>Edit</a>";
@@ -305,7 +308,7 @@ class Config_db extends CI_Controller {
 */
 		$s .= "<tr><td colspan='$n'>";
 		$s .= $this->config_model->get_table_def($table_name, 'description') . " &nbsp;";
-	//	$s .= $this->_make_trac_help_link($table_name) . " &nbsp;";
+	//	$s .= $this->_make_wiki_help_link($table_name) . " &nbsp;";
 		$s .= "</td></tr>\n";
 	   // table rows
 		$s .= $rs;
@@ -812,7 +815,7 @@ class Config_db extends CI_Controller {
 
  		// inner table
  		$s .= "<tr><td>";
-		$s .= $this->_make_trac_help_link($table_name);
+		$s .= $this->_make_wiki_help_link($table_name);
 		$s .= "<table class='cfg_tab' >\n";
 		// table header
 		$nc = $data_obj->num_cols + 2;
