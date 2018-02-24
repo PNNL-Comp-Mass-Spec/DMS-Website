@@ -882,7 +882,11 @@ class Config_db extends CI_Controller {
 	{
 		$s = "";
 
-		$max_width = floor(400/$data_obj->num_cols);
+		if ($data_obj->num_cols > 0)
+			$max_width = floor(400/$data_obj->num_cols);
+		else
+			$max_width = 400;
+			
 		$accept_img = "<img src='".base_url()."images/accept.png' border='0'  alt='accept' />";
 		$delete_img = "<img src='".base_url()."images/delete.png' border='0'  alt='delete' />";
 		$add_img = "<img src='".base_url()."images/add.png' border='0' alt='add' />";
