@@ -252,9 +252,13 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 			}
 			break;
 		case "literal_link":
+			// Link to the URL specified by $display
+			// The link text is the target URL
 			$str .= "<a href='$display' target='External$colIndex'>$display</a>";
 			break;
 		case "masked_link":
+			// Link to the URL specified by $display
+			// The link text is specified by the label setting in Options, for example {"Label":"Show files"}
 			if($display) {
 				$lbl = "(label is not defined)";
 				if (!empty($options) && array_key_exists('Label', $options)) {
@@ -264,6 +268,62 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 			} else {
 				$str .= "";
 			}
+			break;
+		case "masked_link_list":
+			// Link to each URL listed in a semicolon or comma-separated list of items in $display
+			// The link text is specified by the label setting in Options, for example {"Label":"Show files"}
+			// If the Label setting is the keyword UrlSegment#, for the link text use the given segment from the URL
+			// For example, if Label is UrlSegment4, and the URL is https://status.my.emsl.pnl.gov/view/t/337916
+			// the link text will be 337916
+			$matches = array();
+			
+			// Determine the delimiter by looking for the first comma or semicolon
+			$delim = (preg_match('/[,;]/', $display, $matches)) ? $matches[0] : '';
+			$flds = ($delim == '') ? array($display) : explode($delim, $display);
+			
+			$lbl = "";
+			$urlSegmentForLabel = 0;
+			if (!empty($options) && array_key_exists('Label', $options)) {
+				$lbl = $options['Label'];
+				
+				$segmentMatches = array();
+				$urlSegmentForLabel = (preg_match('/UrlSegment([0-9]+)/i', $lbl, $segmentMatches)) ? $segmentMatches[1] : 0;
+				
+				if ($urlSegmentForLabel > 0)
+					$lbl = '';
+			}
+
+			$links = array();
+			foreach($flds as $targetUrl) {
+				$targetUrl = trim($targetUrl);
+
+				$lblToUse = '';
+				if ($urlSegmentForLabel > 0) {
+					// Split the URL on forward slashes
+					// Example contents of $urlParts for https://status.my.emsl.pnl.gov/view/t/337916
+					// $urlParts[0] = https:
+					// $urlParts[1] = 
+					// $urlParts[2] = status.my.emsl.pnl.gov
+					// $urlParts[3] = view
+					// $urlParts[4] = t
+					// $urlParts[5] = 337916
+					
+					$urlParts = explode('/', $targetUrl);
+					if (count($urlParts) > $urlSegmentForLabel + 1)
+						$lblToUse = $urlParts[$urlSegmentForLabel + 1];
+					else
+						$lblToUse = $lbl;
+					
+				} else {
+					$lblToUse = $lbl;
+				}
+				
+				if (empty($lblToUse))
+					$lblToUse = $targetUrl;
+
+				$links[] = "<a href='$targetUrl' target='External$colIndex'>$lblToUse</a>";
+			}
+			$str .= implode($delim.' ', $links);
 			break;
 		case "item_list":
 			// $f is a vertical bar separated list
@@ -301,28 +361,31 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 			$str .= "</tr></table>";
 			break;
 		case "link_list":
-			// Create a separate hotlink for each item in a semi-colon list of items
+			// Create a separate hotlink for each item in a semicolon or comma-separated list of items in $display
 			// The link to use is defined by the target column in the detail_report_hotlinks section of the config DB
 			$matches = array();
-			$delim = (preg_match('/[,;]/', $display, $matches))? $matches[0] : '';
-			$flds = ($delim == '')? array($display) : explode($delim, $display);
+			
+			// Determine the delimiter by looking for the first comma or semicolon
+			$delim = (preg_match('/[,;]/', $display, $matches)) ? $matches[0] : '';
+			$flds = ($delim == '') ? array($display) : explode($delim, $display);
+			
 			$links = array();
-			foreach($flds as $ln) {
-				$ln = trim($ln);
+			foreach($flds as $currentItem) {
+				$currentItem = trim($currentItem);
 				$renderHTTP=TRUE;
-				$url = make_detail_report_url($target, $ln, $options, $renderHTTP);
-				$links[] = "<a href='$url'>$ln</a>";
+				$url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
+				$links[] = "<a href='$url'>$currentItem</a>";
 			}
 			$str .= implode($delim.' ', $links);
 			break;
 		case "link_table":
 			// Table with links
 			$str .= "<table class='inner_table'>";
-			foreach(explode(',', $display) as $ln) {
-				$ln = trim($ln);
+			foreach(explode(',', $display) as $currentItem) {
+				$currentItem = trim($currentItem);
 				$renderHTTP=TRUE;
-				$url = make_detail_report_url($target, $ln, $options, $renderHTTP);
-				$str .= "<tr><td><a href='$url'>$ln</a></td></tr>";
+				$url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
+				$str .= "<tr><td><a href='$url'>$currentItem</a></td></tr>";
 			}
 			$str .= "</table>";
 			break;
@@ -331,10 +394,10 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 			// Parse data separated by colons and vertical bars and create a table
 			// Row1_Name:Row1_Value|Row2_Name:Row2_Value|
 			$str .= "<table class='inner_table'>";
-			foreach(explode('|', $display) as $ln) {
+			foreach(explode('|', $display) as $currentItem) {
 				$str .= '<tr>';
-				foreach(explode(':', $ln) as $f) {
-					$str .= '<td>'.trim($f).'</td>';
+				foreach(explode(':', $currentItem) as $itemField) {
+					$str .= '<td>' . trim($itemField) . '</td>';
 				}
 				$str .= '</tr>';
 			}
@@ -347,18 +410,18 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 			//
 			// Row1_Value will link to the given target
 			$str .= "<table class='inner_table'>";
-			foreach(explode('|', $display) as $ln) {
+			foreach(explode('|', $display) as $currentItem) {
 				$str .= '<tr>';				
 				$rowColNum = 0;
-				foreach(explode(':', $ln) as $f) {
+				foreach(explode(':', $currentItem) as $itemField) {
 					$rowColNum += 1;
 					if ($rowColNum == 2) {
-						$trimmedValue = trim($f);
+						$trimmedValue = trim($itemField);
 						$renderHTTP=TRUE;
 						$url = make_detail_report_url($target, $trimmedValue, $options, $renderHTTP);
 						$str .= '<td>' . "<a href='$url'>$trimmedValue</a>" . '</td>';
 					} else {
-						$str .= '<td>' . trim($f) . '</td>';
+						$str .= '<td>' . trim($itemField) . '</td>';
 					}
 				}				
 				$str .= '</tr>';
@@ -629,7 +692,7 @@ function make_export_links($entity, $id)
 function make_message_box($message)
 {
 	//$style_sheet = base_url().'css/base.css';
-	$class = (strripos($message, 'error') === false)?'EPag_message':'EPag_error';
+	$class = (strripos($message, 'error') === false) ? 'EPag_message' : 'EPag_error';
 	$s = '';
 	$s .= "<div class='$class' style='width:40em;margin:20px;'>";
 	$s .= $message;
