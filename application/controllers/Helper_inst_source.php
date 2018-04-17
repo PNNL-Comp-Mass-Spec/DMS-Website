@@ -109,7 +109,7 @@ class Helper_inst_source extends Base_controller {
 		$dirs = array();
 		$other = array();
 		
-		$headerRow[] = "||File or Folder||Type||Size||DMS Detail Report";
+		$headerRow[] = "||File or Directory||Type||Size||DMS Detail Report";
 		
 		while (!feof ($file)) {
 		    $line = fgets ($file, 1024);
@@ -117,7 +117,8 @@ class Helper_inst_source extends Base_controller {
 			// skip blank lines
 			if(preg_match("/^\s*$/", $line)) continue;
 
-			if ($data['subheading'] == "" && strpos($line, "Folder:") === 0) {
+			if ($data['subheading'] == "" && 
+				(strpos($line, "Folder:") === 0 || strpos($line, "Directory:") === 0)) {
 				$data['subheading'] = $line;
 				continue;
 			}
