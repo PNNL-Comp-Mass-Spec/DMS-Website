@@ -63,6 +63,9 @@ var lcmd = {
 	},
 	data_package_job_coverage: {
 		op: function(mode){
+			// lambda.getSelectedItemList is in dms2.js
+			// The item names come from the value field of the selected checkboxes on the web page, for example:
+			// <input type="checkbox" value="<item pkg="2900" type="Job" id="1511459"></item>" name="ckbx" class="lr_ckbx">
 			var iList = lambda.getSelectedItemList();
 			if (iList.length == 0) {
 				alert('No items are selected');
@@ -80,6 +83,11 @@ var lcmd = {
 				removeParents=1;
 
 			var url =  gamma.pageContext.site_url + "data_package_items/exec/";
+
+			console.log("Contacting " + url);
+			console.log("with p.paramListXML = " + list);
+			console.log("and p.removeParents = " + removeParents);
+			
 			var p = {};
 			p.command = mode;
 			p.paramListXML = list;
