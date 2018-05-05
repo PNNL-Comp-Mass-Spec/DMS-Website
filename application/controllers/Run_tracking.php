@@ -18,7 +18,7 @@ class Run_tracking extends Base_controller {
 	// --------------------------------------------------------------------
 	// if we don't have a complete URL, make it so and redirect
 	// otherwise return the parameters from the complete URL
-	private function check_iniial_conditions()
+	private function check_initial_conditions()
 	{
 		// get what we can from URL
 		$instrument = $this->uri->segment(3, '');
@@ -60,7 +60,7 @@ class Run_tracking extends Base_controller {
 	// --------------------------------------------------------------------
 	function cal()
 	{
-		$iym = $this->check_iniial_conditions();
+		$iym = $this->check_initial_conditions();
 		$instrument = $iym["inst"];
 		$year = $iym["year"];
 		$month = $iym["month"];
@@ -302,7 +302,13 @@ EOD;
 			$interval = $row["Interval"];
 			$comState = $row['CommentState'];
 			$comment = $row['Comment'];
-			$dt = strtotime($row['Time_End']);
+			$dt = new DateTime();
+			if (is_string($row['Time_End'])) {
+				$dt = strtotime($row['Time_End']);
+			}
+			else {
+				$dt = $row['Time_End'];
+			}
 			$hour = date("g A", $dt);
 			if($interval > $this->maxNormalInterval) {
 				$intervals[] = array("ID"=>$id, "Day"=>$day, "Interval"=>$interval, "Hour"=>$hour, "ComState"=>$comState, "Comment"=>$comment);

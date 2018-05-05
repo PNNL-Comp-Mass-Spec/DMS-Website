@@ -65,7 +65,8 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 
 	// Look for any datetime columns
 	foreach ($columns as $column) {
-		if($column->type=='datetime') {
+		// mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
+		if ($column->type == 'datetime' or $column->type == 93) {
 			$dc[] = $column->name;
 		}
 	}
@@ -90,7 +91,13 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 		if (!is_null($f_val) && in_array($f_name, $dc)) {
 			// Convert original date string to date object
 			// then convert that to the desired display format.
-			$dt = strtotime($f_val);
+			$dt = false;
+			if (is_string($f_val)) {
+				$dt = strtotime($f_val);
+			}
+			else {
+				$dt = $f_val;
+			}
 			if($dt) {
 				$val = date($dateFormat, $dt);
 			}

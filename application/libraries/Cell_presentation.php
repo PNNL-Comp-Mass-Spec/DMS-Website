@@ -507,7 +507,8 @@ class Cell_presentation {
 		// get list of datetime columns
 		$dc = array();
 		foreach ($col_info as $f) {
-			if ($f->type === 'datetime') {
+			// mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
+			if ($f->type === 'datetime' or $f->type === 93) {
 				$dc[] = $f->name;
 			}
 		}
@@ -540,7 +541,13 @@ class Cell_presentation {
 					// convert original date string to date object
 					// and then convert that to desired display format.
 					// mark display if original format could not be parsed.
-					$dt = strtotime($result[$i][$col]);
+					$dt = false;
+					if (is_string($result[$i][$col])) {
+						$dt = strtotime($result[$i][$col]);
+					}
+					else {
+						$dt = $result[$i][$col];
+					}
 					if ($dt) {
 						$result[$i][$col] = date($dateFormat, $dt);
 					} else {
@@ -549,6 +556,63 @@ class Cell_presentation {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Update the decimal columns to have user-friendly doubles
+	 * @param type $result
+	 * @param type $col_info
+	 * @return type
+	 */
+	function fix_decimal_display(&$result, $col_info) {
+		// get list of decimal columns
+		$dc = array();
+		foreach ($col_info as $f) {
+			// mssql returns decimals as doubles (and 'real' type), sqlsrv returns 3 (SQL decimal)
+			if ($f->type === 'real' or $f->type === 3) {
+				$dc[] = $f->name;
+			}
+		}
+
+		if (count($dc) == 0) {
+			// No fields are type decimals; nothing to update
+			return;
+		}
+
+		// Traverse the array of rows, and fix the decimal column formats
+		//
+		// traverse all the rows in the result
+		for ($i = 0; $i < count($result); $i++) {
+			// traverse all the decimal columns in the current row
+			foreach ($dc as $col) {
+				// skip if the column value is empty
+				if (!isset($result[$i][$col])) {
+					continue;
+				}
+
+				// convert to blank if column value is null
+				if (is_null($result[$i][$col])) {
+					$result[$i][$col] = '';
+				} else {
+					// convert original decimal string to double
+					// if it is not a string, don't touch it.
+					if (is_string($result[$i][$col])) {
+						$result[$i][$col] = doubleval($result[$i][$col]);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Update the decimal and datetime columns to have user-friendly doubles and dates
+	 * @param type $result
+	 * @param type $col_info
+	 * @return type
+	 */
+	function fix_datetime_and_decimal_display(&$result, $col_info) {
+		$this->fix_datetime_display($result, $col_info);
+		$this->fix_decimal_display($result, $col_info);
 	}
 
 	/**

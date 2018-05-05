@@ -267,7 +267,7 @@ class List_report {
 			echo "<div id='data_message' >No rows found</div>";
 		} else {
 			$col_info = $CI->data_model->get_column_info();
-			$CI->cell_presentation->fix_datetime_display($rows, $col_info);
+			$CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 	
 			$qp = $CI->data_model->get_query_parts();
 			$data['row_renderer'] = $CI->cell_presentation;
@@ -459,7 +459,7 @@ class List_report {
 		
 		$CI->load->library('cell_presentation');
 		$col_info = $CI->data_model->get_column_info();
-		$CI->cell_presentation->fix_datetime_display($rows, $col_info);
+		$CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 		
 		$CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
 		$col_filter = $CI->column_filter->get_current_filter_values();

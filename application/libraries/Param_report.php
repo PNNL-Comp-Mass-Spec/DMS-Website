@@ -106,7 +106,7 @@ class Param_report {
 			
 			// (someday) roll the date fix into a function shareable with export_param
 			$col_info = $CI->sproc_model->get_column_info();
-			$CI->cell_presentation->fix_datetime_display($rows, $col_info);
+			$CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 			$CI->cell_presentation->set_col_filter($col_filter);
 			
 			$current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
@@ -278,7 +278,7 @@ class Param_report {
 		// (someday) roll the date fix into a function shareable with param_data
 		$CI->load->library('cell_presentation');
 		$col_info = $CI->sproc_model->get_column_info();
-		$CI->cell_presentation->fix_datetime_display($rows, $col_info);
+		$CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
 		$CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
 		$col_filter = $CI->column_filter->get_current_filter_values();
