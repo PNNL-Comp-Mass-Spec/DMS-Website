@@ -9,6 +9,13 @@
 
 <hr>
 <?= general_visibility_control('Membership commands', 'membership_section', '') ?>
+<?php
+  // Clicking the Add Jobs or Remove Jobs button calls the op method below data_package_job_coverage in lcmd.js
+  // That in turn calls /data_package_items/exec/
+  // with an XML formatted list of items to add/update
+  // That in turn calls stored procedure UpdateDataPackageItemsXML
+?>
+
 <div id="membership_section" style="display:none;">
 <div>
 <input class='button lst_cmd_btn' type="button" value="Add Jobs" onClick='lcmd.data_package_job_coverage.op("add")' id="btn_a" title=""  /> 
