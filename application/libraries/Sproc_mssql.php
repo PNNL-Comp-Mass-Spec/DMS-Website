@@ -51,11 +51,23 @@ class Sproc_mssql {
 			$ra_msg = mssql_get_last_message();
 			throw new Exception($ra_msg);
 		}
+		// Process the results here, before we call mssql_free_statement()!)
+		///// $par->exec_result = resource (aka a table)
+		$result = $par->exec_result;
+		$par->exec_result = new stdclass();
+		$par->exec_result->hasRows = false;
+		if(is_resource($result)){
+			$par->exec_result->hasRows = true;
+			$metadata = $this->extract_field_metadata($result);
+			$rows = $this->get_rows($result);
+			$par->exec_result->metadata = $metadata;
+			$par->exec_result->rows = $rows;
+		}
 		mssql_free_statement($stmt);		
 	}
 
 	// --------------------------------------------------------------------
-	function get_rowset($result)
+	private function get_rows($result)
 	{
 		// package results into array of arrays
 		$result_array = array();
@@ -73,7 +85,7 @@ class Sproc_mssql {
 	 * @param type $result
 	 * @return \stdClass
 	 */
-	function extract_col_metadata($result)
+	private function extract_field_metadata($result)
 	{
 		$metadata = array();
 		while ($field = mssql_fetch_field($result)) {	
