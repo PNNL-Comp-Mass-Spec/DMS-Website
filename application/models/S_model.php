@@ -229,14 +229,14 @@ class S_model extends CI_Model {
 			}
 
 			// figure out what kind of result we got, and handle it
-			if(is_resource($result)) { 
+			if($result->hasRows) {
 				// Rowset of data
  				// Extract col metadata
-				$this->column_info = $this->sproc_handler->extract_col_metadata($result);
+				$this->column_info = $result->metadata;
 				$this->cache_column_info();
 
 				// package results into array of arrays
-				$this->result_array = $this->sproc_handler->get_rowset($result);
+				$this->result_array = $result->rows;
 				$this->cache_total_rows();
 			} else {
 				// Simply returns an error code; examine it
