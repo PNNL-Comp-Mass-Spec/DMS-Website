@@ -62,7 +62,7 @@ class Experiment_file_attachment extends Base_controller {
 		$id = $this->input->post("entity_id");
 
 		$this->load->database();
-		$this->db->select("File_Name AS [Name], Description");
+		$this->db->select("File_Name AS Name, Description");
 		$this->db->from("T_File_Attachment");
 		$this->db->where("Entity_Type", $type);
 		$this->db->where("Entity_ID", $id);
@@ -101,7 +101,7 @@ class Experiment_file_attachment extends Base_controller {
 	function retrieve($entity_type,$entity_id,$filename){
 //		  $this->output->enable_profiler(true);
 	    $this->load->database();
-	    $this->db->select("File_Name AS [filename], archive_folder_path as path");
+	    $this->db->select("File_Name AS filename, archive_folder_path as path");
 	    $this->db->where("Entity_Type", $entity_type);
 	    $this->db->where("Entity_ID", $entity_id);
 	    $this->db->where("File_Name", $filename);

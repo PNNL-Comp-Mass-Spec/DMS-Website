@@ -107,7 +107,7 @@ class File_attachment extends Base_controller {
 		try {
 			$full_path = '';
 			$this->load->database();
-			$this->db->select("File_Name AS [filename], archive_folder_path as path");
+			$this->db->select("File_Name AS filename, archive_folder_path as path");
 			$this->db->from("T_File_Attachment");
 			$this->db->where("Entity_Type", $entity_type);
 			$this->db->where("Entity_ID", $entity_id);
@@ -378,7 +378,7 @@ class File_attachment extends Base_controller {
     	$this->load->helper(array('link_util'));
 
 		$this->load->database();
-		$this->db->select("File_Name AS [Name], Description, ID as FID");
+		$this->db->select("File_Name AS Name, Description, ID as FID");
 		$this->db->from("T_File_Attachment");
 		$this->db->where("Entity_Type", $type);
 		$this->db->where("Entity_ID", $id);
@@ -664,7 +664,7 @@ class File_attachment extends Base_controller {
 			
 			$full_path = '';
 			$this->load->database();
-			$this->db->select("File_Name AS [filename], Entity_Type as type, Entity_ID as id, archive_folder_path as path");
+			$this->db->select("File_Name AS filename, Entity_Type as type, Entity_ID as id, archive_folder_path as path");
 			$this->db->where("Active > 0");
 			$query = $this->db->get("T_File_Attachment");
 
