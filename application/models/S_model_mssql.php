@@ -7,12 +7,12 @@
 
 /**
  * Helper class for stored procedure arguments:
- *   Basic definition of object that will contain
+ *   Basic definition of object that will contain 
  *   bound arguments for calling stored procedure
- *   only the baseline canonical arguments are
+ *   only the baseline canonical arguments are 
  *   statically defined by the class - sproc-specific
  *   arguments are added dynamically
- * @category Helper class
+ * @category Helper class 
  */
 class Bound_arguments {
 	var $retval = -1;
@@ -29,60 +29,60 @@ class S_model extends CI_Model {
 	// some names used for caching
 	const col_info_storage_name_root = "col_info_";
 	private $col_info_storage_name = "";
-
+	
 	const total_rows_storage_name_root = "total_rows_";
 	private  $total_rows_storage_name = "";
-
+	
 	private $config_name = '';
 	private $config_source = '';
 	private	$configDBFolder = '';
-
-
+	
+	
 	/**
 	 * Object that contains database-specific code used to actually access the stored procedure
-	 * @var type
+	 * @var type 
 	 */
 	private $sproc_handler = NULL;
-
+	
 	/**
 	 * Actual name of stored procedure
 	 * May be different then config_name, which can reference aliases in general parameters table in config db
 	 * @var string
 	 */
 	private $sprocName = '';
-
+	
 	/**
 	 * Definition of stored procedure arguments from config db
-	 * @var type
+	 * @var type 
 	 */
 	private $sproc_args = array();
 
 	/**
 	 * Database connection group from config db (general parameters table)
-	 * @var type
+	 * @var type 
 	 */
 	private $dbn = 'default';
-
+	
 	/**
 	 * Object whose fields are bound to actual arguments used for calling sproc
-	 * @var Bound_arguments
+	 * @var Bound_arguments 
 	 */
 	private $bound_calling_parameters = NULL;
 
 	/**
 	 * Rowset returned by the stored procedure (NULL if none returned)
-	 * @var type
+	 * @var type 
 	 */
 	private $result_array = NULL;
-
+	
 	/**
 	 * Information about data columns in $result_array
-	 * @var type
+	 * @var type 
 	 */
 	private $column_info = NULL;
-
+	
 	private $error_text = '';
-
+	
 	// --------------------------------------------------------------------
 	function __construct()
 	{
@@ -92,7 +92,7 @@ class S_model extends CI_Model {
 	}
 
 	// (someday) see if we can figure out how to get bound values updated when rowset is returned (mssql_next_result is not working )
-
+	
 	// --------------------------------------------------------------------
 	function init($config_name, $config_source = "ad_hoc_query")
 	{
@@ -103,13 +103,11 @@ class S_model extends CI_Model {
 			$this->col_info_storage_name = self::col_info_storage_name_root.$this->config_name.'_'.$this->config_source;
 			$this->col_info_storage_name = self::col_info_storage_name_root.$this->config_name.'_'.$this->config_source;
 			$this->total_rows_storage_name = self::total_rows_storage_name_root.$this->config_name.'_'.$this->config_source;
-
+			
 			$dbFileName = $config_source . '.db';
-
+			
 			$this->_clear();
-
-			// Use sproc_sqlsrv with PHP 7 on Apache 2.4
-			// Use sproc_mssql  with PHP 5 on Apache 2.2
+	
 			$this->set_my_sproc_handler('sproc_mssql'); // (someday) pass in via argument (or constructor?)
 
 			$this->get_sproc_arg_defs($config_name, $dbFileName);
@@ -119,16 +117,16 @@ class S_model extends CI_Model {
 			return FALSE;
 		}
 	}
-
+	
 	/**
-	 * Initializes stored procedure, binds arguments to paramObj members and
+	 * Initializes stored procedure, binds arguments to paramObj members and 
 	 * local variables, and calls the stored procedure, returning the result
 	 * @param stdClass $parmObj
 	 * @return boolean
 	 * @throws Exception
 	 */
 	function execute_sproc($parmObj)
-	{
+	{	
 		$this->error_text = '';
 		try {
 			if(!isset($parmObj)) {
@@ -136,15 +134,15 @@ class S_model extends CI_Model {
 			}
 
 			$CI =& get_instance();
-
+			
 			// Connect to the database
 			// Retry the connection up to 5 times
 			$connectionRetriesRemaining = 5;
-
+			
 			// The initial delay when retrying is 250 msec
 			// This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
 			$connectionSleepDelayMsec = 250;
-
+			
 			while ($connectionRetriesRemaining > 0) {
 				try {
 					$my_db = $CI->load->database($this->dbn, TRUE, TRUE);
@@ -161,7 +159,7 @@ class S_model extends CI_Model {
 							// Retry establishing the connection
 							throw new Exception('$my_db->conn_id returned false in S_model');
 						}
-
+						
 						// Exit the while loop
 						break;
 					}
@@ -177,13 +175,13 @@ class S_model extends CI_Model {
 						throw new Exception("Connection to DB group $this->dbn failed: $errorMessage");
 					}
 				}
-
+				
 			}
-
+			
 			// bind arguments to object
 			// - create fields in local param object and bind sproc args to them
 			// - set values of local object fields from corresponding fields in input object, if present
-			//
+			// 
 			$this->bound_calling_parameters = new Bound_arguments();
 			foreach($this->sproc_args as $arg) {
 				$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
@@ -195,11 +193,11 @@ class S_model extends CI_Model {
 				}
 			}  // $this->bound_calling_parameters = $this->get_calling_args($parmObj); ??
 
-
+			
 			// Execute the stored procedure
 			// Retry the call up to 4 times
 			$execRetriesRemaining = 4;
-
+			
 			// The initial delay when retrying is 250 msec
 			// This is doubled to 500 msec, then 1000, then 2000 msec if we end up retrying the connection
 			$execSleepDelayMsec = 250;
@@ -207,7 +205,7 @@ class S_model extends CI_Model {
 			while ($execRetriesRemaining > 0) {
 				try {
 					$this->sproc_handler->execute($this->sprocName, $my_db->conn_id, $this->sproc_args, $this->bound_calling_parameters);
-					// Exit the while loop
+					// Exit the while loop					
 					break;
 				} catch (Exception $ex) {
 					$errorMessage = $ex->getMessage();
@@ -231,14 +229,14 @@ class S_model extends CI_Model {
 			}
 
 			// figure out what kind of result we got, and handle it
-			if($result->hasRows) {
+			if(is_resource($result)) { 
 				// Rowset of data
  				// Extract col metadata
-				$this->column_info = $result->metadata;
+				$this->column_info = $this->sproc_handler->extract_col_metadata($result);
 				$this->cache_column_info();
-
+	
 				// package results into array of arrays
-				$this->result_array = $result->rows;
+				$this->result_array = $this->sproc_handler->get_rowset($result);
 				$this->cache_total_rows();
 			} else {
 				// Simply returns an error code; examine it
@@ -255,7 +253,7 @@ class S_model extends CI_Model {
 			$this->error_text = $errorMessage;
 			return false;
 		}
-
+		
 	}
 
 	// --------------------------------------------------------------------
@@ -266,7 +264,7 @@ class S_model extends CI_Model {
 		$CI->load->helper('cache');
 
 		save_to_cache($this->total_rows_storage_name, count($this->result_array));
-	}
+	}	
 
 	// --------------------------------------------------------------------
 	private
@@ -276,7 +274,7 @@ class S_model extends CI_Model {
 		$CI->load->helper('cache');
 
 		save_to_cache($this->col_info_storage_name, $this->column_info);
-	}
+	}	
 
 	// --------------------------------------------------------------------
 	function get_rows()
@@ -291,7 +289,7 @@ class S_model extends CI_Model {
 
 		$CI =& get_instance();
 		$CI->load->library('table_sorter');
-/*
+/*		
 		foreach($sorting_filter as $sort) {
 			$col = $sort['qf_sort_col'];
 			$dir = $sort['qf_sort_dir'];
@@ -309,7 +307,7 @@ class S_model extends CI_Model {
 		}
 		return $sortedRows;
 	}
-
+	
 	// --------------------------------------------------------------------
 	function get_parameters()
 	{
@@ -333,7 +331,7 @@ class S_model extends CI_Model {
 		}
 		return $col_info;
 	}
-
+	
 	/**
 	 * Return the number of rows that was cached from the last execute_sproc that returned a rowset
 	 * @return int
@@ -383,7 +381,7 @@ class S_model extends CI_Model {
 				$fields[]	= $field_name;
 			}
 		}
-		return $fields;
+		return $fields;		
 	}
 
 	// --------------------------------------------------------------------
@@ -403,7 +401,7 @@ class S_model extends CI_Model {
 		$callingParams = new Bound_arguments();
 		foreach($this->sproc_args as $arg) {
 			$fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
-
+	
 			if(isset($parmObj->$fn)) {
 				$callingParams->$fn = $parmObj->$fn;
 			} else {
@@ -412,7 +410,7 @@ class S_model extends CI_Model {
 		}
 		return $callingParams;
 	}
-
+	
 	// --------------------------------------------------------------------
 	private
 	function get_sproc_arg_defs($config_name, $dbFileName)
@@ -442,39 +440,39 @@ class S_model extends CI_Model {
 				// $config_name is alias for actual sproc name - change sproc name
 				$this->sprocName = $row['value'];
 			}
-		}
-
+		}	
+	
 		// get definitions of arguments for stored procedure
 		if(in_array('sproc_args', $tbl_list)) {
 			$args = array();
 			if(in_array('sproc_args', $tbl_list)) {
 				$dbh = new PDO("sqlite:$dbFilePath");
-
+		
 				$sql = "select * from sproc_args where \"procedure\" = '$this->sprocName';";
 				foreach ($dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
 					$args[] = array(
-						'field' => $row['field'],
-						'name' => $row['name'],
-						'type' => $row['type'],
-						'dir' => $row['dir'],
-						'size' => $row['size']
+						'field' => $row['field'], 
+						'name' => $row['name'], 
+						'type' => $row['type'], 
+						'dir' => $row['dir'], 
+						'size' => $row['size']			
 					);
 				}
 				$this->sproc_args = $args;
 			}
 		}
 	}
-
+	
 	// --------------------------------------------------------------------
-	private
+	private 
 	function set_my_sproc_handler($hndlr_class) {
 		$CI =& get_instance();
 		$CI->load->library($hndlr_class, '', 'sprochndlr');
 		$this->sproc_handler = $CI->sprochndlr;
 	}
-
+	
 	// --------------------------------------------------------------------
-	private
+	private 
 	function _clear()
 	{
 	}
@@ -490,7 +488,7 @@ class S_model extends CI_Model {
 	{
 		return $this->sprocName;
 	}
-
+	
 	// --------------------------------------------------------------------
 	function get_config_source()
 	{
