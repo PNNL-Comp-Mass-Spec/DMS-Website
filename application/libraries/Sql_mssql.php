@@ -322,10 +322,19 @@ class Sql_mssql {
 	 */
 	function get_allowed_comparisons_for_type($data_type)
 	{
+		// The sqlsrv_driver returns data types as integers
+		// See // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
+		
 		$cmps = array();
 		switch($data_type) {
 			case 'text':
 			case 'char':
+			case 1:		// char
+			case -8:	// nchar
+			case -10:	// ntext
+			case -9:	// nvarchar
+			case -1:	// text
+			case 12:	// varchar
 				foreach($this->sqlCompDefs as $n => $def) {
 					if (in_array('text', $def['type'])) {
 						$cmps[$n] = $def['label'];
@@ -336,6 +345,15 @@ class Sql_mssql {
 			case 'money':
 			case 'numeric':
 			case 'real':
+			case -5:	// bigint
+			case -7:	// bit
+			case 3:		// decimal
+			case 6:		// float
+			case 4:		// int
+			case 2:		// numeric
+			case 7:		// real
+			case 5:		// smallint
+			case -6:	// tinyint
 				foreach($this->sqlCompDefs as $n => $def) {
 					if (in_array('numeric', $def['type'])) {
 						$cmps[$n] = $def['label'];
@@ -343,6 +361,9 @@ class Sql_mssql {
 				}
 				break;
 			case 'datetime':
+			case 91:	// date
+			case 93:	// datetime
+			case -154:	// time
 				foreach($this->sqlCompDefs as $n => $def) {
 					if (in_array('datetime', $def['type'])) {
 						$cmps[$n] = $def['label'];
