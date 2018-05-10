@@ -108,10 +108,6 @@ class S_model extends CI_Model {
 
 			$this->_clear();
 
-			// Use sproc_sqlsrv with PHP 7 on Apache 2.4
-			// Use sproc_mssql  with PHP 5 on Apache 2.2
-			$this->set_my_sproc_handler('sproc_mssql'); // (someday) pass in via argument (or constructor?)
-
 			$this->get_sproc_arg_defs($config_name, $dbFileName);
 			return TRUE;
 		} catch (Exception $e) {
@@ -179,6 +175,11 @@ class S_model extends CI_Model {
 				}
 
 			}
+
+			// Use sproc_sqlsrv with PHP 7 on Apache 2.4
+			// Use sproc_mssql  with PHP 5 on Apache 2.2
+			// Set this here where we can get the right driver name for the DB connection
+			$this->set_my_sproc_handler("sproc_".$my_db->dbdriver);
 
 			// bind arguments to object
 			// - create fields in local param object and bind sproc args to them
