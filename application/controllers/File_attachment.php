@@ -8,6 +8,8 @@ class Check_result {
 	var $ok = true;
 	var $message = "";
 	var $path = '';
+	var $local_path = NULL;
+	var $archive_path = '';
 }
 
 /**
@@ -22,10 +24,14 @@ class File_attachment extends Base_controller {
 	{
 		// Call the parent constructor
 		parent::__construct();
-    	$this->load->helper(array('file_attachment','download'));
+		$this->load->helper(array('file_attachment','download'));
 		$this->my_tag = "file_attachment";
 		$this->my_title = "File Attachments";
 		$this->archive_root_path = $this->config->item('file_attachment_archive_root_path');
+		$this->local_root_path = $this->config->item('file_attachment_local_root_path'); // returns NULL if not set
+		if (!is_null($this->local_root_path) and !is_dir($this->local_root_path)) {
+			$this->local_root_path = NULL;
+		}
 	}
 	
 	/**
@@ -118,6 +124,14 @@ class File_attachment extends Base_controller {
 			if($query && $query->num_rows()>0) {
 				$full_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
 				$result->path = $full_path;
+				$result->archive_path = $full_path;
+				if (!is_null($this->local_root_path)) {
+					$local_path = "{$this->local_root_path}{$query->row()->path}/{$query->row()->filename}";
+					$result->local_path = $local_path;
+					if (file_exists($local_path)) {
+						$result->path = $local_path;
+					}
+				}
 			} else {
 				throw new Exception("Could not find entry for file in database");
 			}
@@ -169,69 +183,28 @@ class File_attachment extends Base_controller {
 				$id = $this->input->post("entity_id");
 				$description = $this->input->post("description");
 				$entity_folder_path = $this->get_path($type, $id);
-				$archive_folder_path = $this->archive_root_path . $entity_folder_path;
 
-				$dest_path = "{$archive_folder_path}/{$orig_name}";
 				$src_path = "{$config['upload_path']}{$name}";
 
-				if(!file_exists($archive_folder_path)) {
-					mkdir($archive_folder_path,0777,true);
-				}
-				
-				$sourceFileSize = filesize($src_path);
-				
-				// Old method: rename($src_path, $dest_path)
-				// Leads to warnings like this: 
-				//   Warning --> rename(.../attachment_uploads/...,/mnt/dms_attachments/...): Operation not permitted
-				// The solution is to use a copy then an unlink
-				
-				if(!copy($src_path, $dest_path)) {
-					// Error occurred during copy, raise an exception
-					throw new Exception("Could not copy '$src_path' to '$dest_path'");
-				} else {
-					// Copy succeeded
-					// Confirm that the file size of the remote file matches the source file size
-					
-					$destFileSize = filesize($dest_path);
-					
-					if (!$sourceFileSize == $destFileSize) {
-						// File sizes to not match
-						throw new Exception("Length of the archived file ($destFileSize) "
-							. "does not match the source file ($sourceFileSize): '$src_path' to '$dest_path'");
-					}
-					
-					// If the file is less than 100 MB in size, compute sha1 checksums and compare
-					if ($sourceFileSize < 100*1024*1024){
-						$sourceSHA1 = sha1_file($src_path);
-						if ($sourceSHA1 === false) {
-							// Checksumming failed
-							// Log an error, but move on
-							log_message('error', "sha1_file returned false for $src_path");
-						} else {
-							$destSHA1 = sha1_file($dest_path);
-							if ($destSHA1 === false) {
-								// Checksumming failed
-								// Log an error, but move on
-								log_message('error', "sha1_file returned false for $destSHA1");
-							} else {
-								if (strcmp($sourceSHA1, $destSHA1) !== 0) {
-									throw new Exception("Checksums do not match for file attachment: "
-										. "'$src_path' and '$dest_path' have $sourceSHA1 and $destSHA1");
-								}
-							}							
-						}																		
-					}
-					
-					// Delete the local file
-					unlink($src_path);
-					
-					rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
-					chmodr($this->archive_root_path,0755);
+				$copy_local_state = true;
+				if (!is_null($this->local_root_path)) {
+					$copy_local_state = $this->copy_file($src_path, $this->local_root_path, $entity_folder_path, $orig_name, true);
 				}
 
-				$msg = $this->make_attachment_tracking_entry($orig_name, $type, $id, $description, $size, $entity_folder_path);
-				if ($msg) {
-					throw new Exception($msg);
+				if ($copy_local_state and 
+					$this->copy_file($src_path, $this->archive_root_path, $entity_folder_path, $orig_name, false))
+				{
+					// Delete the local file
+					unlink($src_path);
+
+					rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
+				}
+
+				if (strtolower(substr($orig_name, 0, 8)) !== 'testfile') {
+					$msg = $this->make_attachment_tracking_entry($orig_name, $type, $id, $description, $size, $entity_folder_path);
+					if ($msg) {
+						throw new Exception($msg);
+					}
 				}
 			}
 		} catch (Exception $e) {
@@ -240,6 +213,98 @@ class File_attachment extends Base_controller {
 		// output is headed for an iframe
 		// this script will automatically run when put into it and will inform elements on main page that operation has completed
 		echo "<script type='text/javascript'>parent.fileAttachment.report_upload_results('$resultMsg')</script>";
+	}
+
+	/**
+	 * Copy a file from the source path to the specified destination, optionally creating a backup of an existing destination file
+	 * 
+	 * @param type $src_path
+	 * @param type $root_path
+	 * @param type $entity_folder_path
+	 * @param type $file_name
+	 * @param type $backup_existing
+	 */
+	private
+	function copy_file($src_path, $root_path, $entity_folder_path, $file_name, $backup_existing)
+	{
+		$dest_folder_path = $root_path . $entity_folder_path;
+		$dest_path = "{$dest_folder_path}/{$file_name}";
+
+		// get the lowest-level (closest to the target path) existing directory. is_dir tests for existence and directory.
+		$min_existing_dir = $dest_folder_path;
+		while (strlen($min_existing_dir) > strlen($root_path) and !is_dir($min_existing_dir)) {
+			$min_existing_dir = dirname($min_existing_dir);
+		}
+
+		// is_dir tests for existence and directory.
+		if(!is_dir($dest_folder_path)) {
+			mkdir($dest_folder_path,0777,true);
+		}
+
+		$sourceFileSize = filesize($src_path);
+
+		if ($backup_existing and file_exists($dest_path)) {
+			$first_backup_path = $dest_path . '.bak';
+			$backup_path = $first_backup_path;
+			$count = 0;
+			while (file_exists($backup_path)) {
+				$count += 1;
+				$backup_path = $first_backup_path . $count;            
+			}
+
+			if (!copy($dest_path, $backup_path)) {
+				// Error occurred during copy, raise an exception
+				throw new Exception("Could not backup copy '$dest_path' to '$backup_path'");
+			}
+		}
+
+		// Old method: rename($src_path, $dest_path)
+		// Leads to warnings like this: 
+		//   Warning --> rename(.../attachment_uploads/...,/mnt/dms_attachments/...): Operation not permitted
+		// The solution is to use a copy then an unlink
+
+		if(!copy($src_path, $dest_path)) {
+			// Error occurred during copy, raise an exception
+			throw new Exception("Could not copy '$src_path' to '$dest_path'");
+		} else {
+			// Copy succeeded
+			// Confirm that the file size of the remote file matches the source file size
+
+			$destFileSize = filesize($dest_path);
+
+			if (!$sourceFileSize == $destFileSize) {
+				// File sizes to not match
+				throw new Exception("Length of the archived file ($destFileSize) "
+					. "does not match the source file ($sourceFileSize): '$src_path' to '$dest_path'");
+				}
+
+			// If the file is less than 100 MB in size, compute sha1 checksums and compare
+			if ($sourceFileSize < 100*1024*1024){
+				$sourceSHA1 = sha1_file($src_path);
+				if ($sourceSHA1 === false) {
+					// Checksumming failed
+					// Log an error, but move on
+					log_message('error', "sha1_file returned false for $src_path");
+				} else {
+					$destSHA1 = sha1_file($dest_path);
+					if ($destSHA1 === false) {
+						// Checksumming failed
+						// Log an error, but move on
+						log_message('error', "sha1_file returned false for $destSHA1");
+					} else {
+						if (strcmp($sourceSHA1, $destSHA1) !== 0) {
+							throw new Exception("Checksums do not match for file attachment: "
+								. "'$src_path' and '$dest_path' have $sourceSHA1 and $destSHA1");
+						}
+					}
+				}
+			}
+
+			chmodr($min_existing_dir,0755);
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -261,7 +326,7 @@ class File_attachment extends Base_controller {
 	 * @param type $entity_id
 	 * @return type
 	 */
-	private
+	protected
 	function get_path($entity_type, $entity_id)
 	{
 		$path = "";
@@ -343,7 +408,7 @@ class File_attachment extends Base_controller {
 			// init sproc model
 			$ok = $this->cu->load_mod('s_model', 'sproc_model', 'operations_sproc', $this->my_tag);
 			if (!$ok) {
-				throw new exception($CI->sproc_model->get_error_text());
+				throw new exception($this->sproc_model->get_error_text());
 			}
 
 			$calling_params = new stdClass();
@@ -368,14 +433,14 @@ class File_attachment extends Base_controller {
 
 	/**
 	 * Show attachments for this entity
-	 * This is likely unused in 2017
+	 * This is called from javascript file javascript/file_attachment.js
 	 * @return string
 	 * @category AJAX
 	 */
 	function show_attachments() {
 		$type = $this->input->post("entity_type");
 		$id = $this->input->post("entity_id");
-    	$this->load->helper(array('link_util'));
+		$this->load->helper(array('link_util'));
 
 		$this->load->database();
 		$this->db->select("File_Name AS Name, Description, ID as FID");
@@ -389,18 +454,18 @@ class File_attachment extends Base_controller {
 		}
 		
 		$entries = array();
-	    $icon_delete = table_link_icon('delete');
+		$icon_delete = table_link_icon('delete');
 		$icon_download = table_link_icon('down');
-	    foreach($query->result() as $row){
+		foreach($query->result() as $row){
 			$url = site_url() . "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
 			$downloadLink = "<a href='javascript:void(0)' onclick=fileAttachment.doDownload('$url') title='Download this file'>$icon_download</span></a> ";
 			$deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'>$icon_delete</span></a> ";
 			$entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
-	    }
+		}
 		$count = $query->num_rows();
 		if($count) {
 			$this->load->library('table');
-	    	$this->table->set_heading("Action", "Name", "Description");
+			$this->table->set_heading("Action", "Name", "Description");
 		    $tmpl = array(
 		      'table_open'      => "<table id=\"file_attachments\" style=\"width:100%;\">",
 		      'row_start'       => '<tr class="ReportEvenRow">',
@@ -408,7 +473,7 @@ class File_attachment extends Base_controller {
 		      'heading_row_start' => '<thead><tr style="text-align:left;">',
 		      'heading_row_end' => '</tr></thead>'
 		    );
-	    	$this->table->set_template($tmpl);
+			$this->table->set_template($tmpl);
 			echo $this->table->generate($entries);
 		} else {
 			echo "<h4>No attachments</h4>";
@@ -467,6 +532,27 @@ class File_attachment extends Base_controller {
 
 			if (!file_exists($full_path)) {
 				throw new Exception('File could not be found on server');
+			}
+
+			// copy file locally...
+			if (!is_null($this->local_root_path) and $result->path === $result->archive_path) {
+				// get the lowest-level (closest to the target path) existing directory. is_dir tests for existence and directory.
+				$min_dir = dirname($result->local_path);
+				$min_existing_dir = $min_dir;
+				while (strlen($min_existing_dir) > strlen($this->local_root_path) and !is_dir($min_existing_dir)) {
+					$min_existing_dir = dirname($min_existing_dir);
+				}
+
+				// is_dir tests for existence and directory.
+				if(!is_dir($min_dir)) {
+					mkdir($min_dir,0777,true);
+				}
+				chmodr($min_existing_dir,0755);
+
+				if (copy($result->archive_path, $result->local_path)) {
+					$full_path = $result->local_path;
+					chmodr($full_path,0755);
+				}
 			}
 
 			//get mimetype info
