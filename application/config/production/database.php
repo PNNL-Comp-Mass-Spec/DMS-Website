@@ -99,9 +99,9 @@ $db['default'] = array(
 
 // Use sqlsrv with PHP 7 on Apache 2.4
 // Use mssql  with PHP 5 on Apache 2.2
-$mssqlsrvDbDriver = "mssql";
+$mssqlsrvDbDriver = "sqlsrv";
 
-$db['default']['hostname'] = "Gigasax_ODBC";
+$db['default']['hostname'] = "Gigasax";
 $db['default']['username'] = "dmswebuser";
 $db['default']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['default']['database'] = "DMS5";
@@ -113,7 +113,7 @@ $db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
 
-$db['broker']['hostname'] = "Gigasax_ODBC";
+$db['broker']['hostname'] = "Gigasax";
 $db['broker']['username'] = "DMSWebUser";
 $db['broker']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['broker']['database'] = "DMS_Pipeline";
@@ -125,7 +125,7 @@ $db['broker']['db_debug'] = FALSE;
 $db['broker']['cache_on'] = FALSE;
 $db['broker']['cachedir'] = "";
 
-$db['package']['hostname'] = "Gigasax_ODBC";
+$db['package']['hostname'] = "Gigasax";
 $db['package']['username'] = "DMSWebUser";
 $db['package']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['package']['database'] = "DMS_Data_Package";
@@ -137,7 +137,7 @@ $db['package']['db_debug'] = FALSE;
 $db['package']['cache_on'] = FALSE;
 $db['package']['cachedir'] = "";
 
-$db['capture']['hostname'] = "Gigasax_ODBC";
+$db['capture']['hostname'] = "Gigasax";
 $db['capture']['username'] = "dmswebuser";
 $db['capture']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['capture']['database'] = "DMS_Capture";
@@ -150,7 +150,7 @@ $db['capture']['cache_on'] = FALSE;
 $db['capture']['cachedir'] = "";
 
 
-$db['prism_ifc']['hostname'] = "Pogo_ODBC";
+$db['prism_ifc']['hostname'] = "Pogo";
 $db['prism_ifc']['username'] = "mtuser";
 $db['prism_ifc']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['prism_ifc']['database'] = "PRISM_IFC";
@@ -162,7 +162,7 @@ $db['prism_ifc']['db_debug'] = TRUE;
 $db['prism_ifc']['cache_on'] = FALSE;
 $db['prism_ifc']['cachedir'] = "";
 
-$db['prism_rpt']['hostname'] = "Pogo_ODBC";
+$db['prism_rpt']['hostname'] = "Pogo";
 $db['prism_rpt']['username'] = "mtuser";
 $db['prism_rpt']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['prism_rpt']['database'] = "PRISM_RPT";
@@ -174,7 +174,7 @@ $db['prism_rpt']['db_debug'] = TRUE;
 $db['prism_rpt']['cache_on'] = FALSE;
 $db['prism_rpt']['cachedir'] = "";
 
-$db['ontology']['hostname'] = "Gigasax_ODBC";
+$db['ontology']['hostname'] = "Gigasax";
 $db['ontology']['username'] = "dmswebuser";
 $db['ontology']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['ontology']['database'] = "Ontology_Lookup";
@@ -186,7 +186,7 @@ $db['ontology']['db_debug'] = TRUE;
 $db['ontology']['cache_on'] = FALSE;
 $db['ontology']['cachedir'] = "";
 
-$db['manager_control']['hostname'] = "Proteinseqs_ODBC";
+$db['manager_control']['hostname'] = "Proteinseqs";
 $db['manager_control']['username'] = "DMSWebUser";
 $db['manager_control']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['manager_control']['database'] = "Manager_Control";

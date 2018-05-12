@@ -24,7 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // modify to allow site to work with either PNNL network or bionet access
-$config['base_url']	= "http://".$_SERVER["SERVER_NAME"]."/";
+
+$protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+$config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
 
 /*
 |--------------------------------------------------------------------------
@@ -532,9 +534,13 @@ $config['sproc_call_log_enabled'] = FALSE;
 
 $config['modify_config_db_enabled'] = FALSE;
 
-$config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
+// Disabled for training: 
+// $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/"; 
+$config['file_attachment_local_root_path'] = "/files2/dmsbeta_attachments/";
 
 $config['model_config_path'] = "application/model_config/" ;
+
+$config['dms_inst_source_url'] = "http://gigasax.pnl.gov" ;
 
 /* End of file config.php */
 ?>

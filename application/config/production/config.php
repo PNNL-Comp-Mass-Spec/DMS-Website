@@ -27,7 +27,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$config['base_url']	= "http://dmsdev.pnl.gov/";
 
 $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
-//$config['base_url']	= "http://".$_SERVER["SERVER_NAME"]."/";
 $config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
 
 /*
@@ -536,7 +535,7 @@ $config['sproc_call_log_enabled'] = FALSE;
 $config['modify_config_db_enabled'] = FALSE;
 
 $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
-$config['file_attachment_local_root_path'] = "/file1/dms_attachments/";
+$config['file_attachment_local_root_path'] = "/files2/dms_attachments/";
 
 $config['model_config_path'] = "application/model_config/" ;
 
