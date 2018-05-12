@@ -246,7 +246,7 @@
 		$color = $CI->config->item('version_color_code');
 		if($banner) {
 			$s .= "<span style='color:$color;font-weight:bold;'>$banner</span>";
-			$s = implode(implode(" ", array_fill(0, 5, "&nbsp;")), array_fill(0, 6, $s));
+			$s = implode(implode(" ", array_fill(0, 5, "&nbsp;")), array_fill(0, 3, $s));
 		}
 		return $s;
 	}
