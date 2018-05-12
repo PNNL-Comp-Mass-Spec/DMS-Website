@@ -526,7 +526,7 @@ $config['proxy_ips'] = '';
 |
 |
 */
-$config['pwiki'] = 'http://prismwiki.pnl.gov/wiki/';
+$config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
 $config['wikiHelpLinkPrefix'] = 'DMS_Help_for_';
 
 $config['version_color_code'] = 'black';
