@@ -76,6 +76,9 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 
 	$pathCopyData = array();
 	$pathCopyButtonCount = 0;
+
+	$protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+	$server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
 	
 	// make a form field for each field in the field specs
 	foreach ($fields as $f_name => $f_val) {
@@ -120,6 +123,14 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 			if($hotlink_spec['Placement'] == 'labelCol') {
 				$label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $f_name, $val);
 			} else {
+				if ($server_bionet and stripos($val, "http") === 0) {
+					$new_target = str_ireplace(".pnl.gov", ".bionet", $val);
+					$prev_protocol = stripos($new_target, "https") === 0 ? "https" : "http";
+					if ($prev_protocol !== $protocol) {
+						$new_target = str_ireplace($prev_protocol, $protocol, $new_target);
+					}
+					$val = $new_target;
+				}
 				$val_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $val);
 			}
 		}

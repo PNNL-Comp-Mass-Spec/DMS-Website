@@ -117,12 +117,22 @@ class R_model extends CI_Model {
 
 		if(in_array('list_report_hotlinks', $tbl_list)) {		
 			$this->list_report_hotlinks = array();
+			$protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+			$server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
 			$i = 1;
 			foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
 				$a = array();
 				$a['LinkType'] = $row['LinkType'];
 				$a['WhichArg'] = $row['WhichArg'];
 				$a['Target'] = $row['Target'];
+				if ($server_bionet and stripos($a['Target'], "http") === 0) {
+					$new_target = str_ireplace(".pnl.gov", ".bionet", $a['Target']);
+					$prev_protocol = stripos($new_target, "https") === 0 ? "https" : "http";
+					if ($prev_protocol !== $protocol) {
+						$new_target = str_ireplace($prev_protocol, $protocol, $new_target);
+					}
+					$a['Target'] = $new_target;
+				}
 				$a['hid'] = "name='hot_link".$i++."'"; // $row['hid'];
 				if($row['LinkType'] == 'color_label') {
 					$a['cond'] = json_decode($row['Options'], true);
