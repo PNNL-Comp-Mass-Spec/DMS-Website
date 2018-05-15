@@ -103,6 +103,11 @@ class Sproc_sqlsrv {
 			$par->exec_result->metadata = $metadata;
 			$par->exec_result->rows = $rows;
 		}
+
+		while($res = sqlsrv_next_result($stmt))
+		{
+			// make sure all result sets are stepped through, since the output params may not be set until this happens
+		}
 		sqlsrv_free_stmt($stmt);
 	}
 
