@@ -27,10 +27,13 @@ class File_attachment extends Base_controller {
 		$this->load->helper(array('file_attachment','download'));
 		$this->my_tag = "file_attachment";
 		$this->my_title = "File Attachments";
-		$this->archive_root_path = $this->config->item('file_attachment_archive_root_path');
+		$this->archive_root_path = $this->config->item('file_attachment_archive_root_path'); // returns NULL if not set
+		if (!is_null($this->archive_root_path) and !is_dir($this->archive_root_path)) {
+			$this->archive_root_path = NULL;
+		}
 		$this->local_root_path = $this->config->item('file_attachment_local_root_path'); // returns NULL if not set
-		if (!is_null($this->local_root_path) and !is_dir($this->local_root_path)) {
-			$this->local_root_path = NULL;
+		if (is_null($this->local_root_path) or !is_dir($this->local_root_path)) {
+			throw new Exception("configuration item 'file_attachment_local_root_path' is either not set or not a directory!");
 		}
 	}
 	
@@ -43,6 +46,11 @@ class File_attachment extends Base_controller {
 	function validate_remote_mount()
 	{
 		$result = new Check_result();
+		if (is_null($this->archive_root_path)) {
+			$result->ok = ENVIRONMENT != 'production';
+			$result->message = "'file_attachment_archive_root_path' not specified in configuration; archive not available.";
+			return $result;
+		}
 		try {
 			// $this->archive_root_path is typically /mnt/dms_attachments
 			// Note that on Prismweb2 this path is only accessible via the apache user; commands:
@@ -79,6 +87,34 @@ class File_attachment extends Base_controller {
 		}
 		return $result;
 	}
+	
+	/**
+	 * Validate the availability of the local storage path
+	 * @return Check_result
+	 * @throws Exception
+	 */
+	private
+	function validate_local_path()
+	{
+		$result = new Check_result();
+		try {
+			$mnt_path = $this->local_root_path;
+			$result->path = $mnt_path;
+
+			$dir_ok = is_dir($mnt_path);
+			if (!$dir_ok) {
+				throw new Exception("'$mnt_path' is not a directory");
+			}
+		} catch (Exception $e) {
+			$result->message = $e->getMessage();
+			$result->ok = false;
+		}
+
+		if (ENVIRONMENT != 'production') {
+			$result->ok = true;
+		}
+		return $result;
+	}
 
 	/**
 	 * View the status of the remote mount
@@ -87,6 +123,15 @@ class File_attachment extends Base_controller {
 	function check_remote_mount()
 	{
 		$this->var_dump_ex($this->validate_remote_mount());
+	}
+
+	/**
+	 * View the status of the local path
+	 * http://dms2.pnl.gov/file_attachment/check_local_path
+	 */
+	function check_local_path()
+	{
+		$this->var_dump_ex($this->validate_local_path());
 	}
 
 	/**
@@ -111,7 +156,6 @@ class File_attachment extends Base_controller {
 	function get_valid_file_path($entity_type, $entity_id, $filename){
 		$result = new Check_result();
 		try {
-			$full_path = '';
 			$this->load->database();
 			$this->db->select("File_Name AS filename, archive_folder_path as path");
 			$this->db->from("T_File_Attachment");
@@ -122,14 +166,14 @@ class File_attachment extends Base_controller {
 			$query = $this->db->query($sql);
 			//$query = $this->db->get();
 			if($query && $query->num_rows()>0) {
-				$full_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
-				$result->path = $full_path;
-				$result->archive_path = $full_path;
-				if (!is_null($this->local_root_path)) {
-					$local_path = "{$this->local_root_path}{$query->row()->path}/{$query->row()->filename}";
-					$result->local_path = $local_path;
-					if (file_exists($local_path)) {
-						$result->path = $local_path;
+				$local_path = "{$this->local_root_path}{$query->row()->path}/{$query->row()->filename}";
+				$result->local_path = $local_path;
+				$result->path = $local_path;
+				if (!is_null($this->archive_root_path)) {
+					$archive_path = "{$this->archive_root_path}{$query->row()->path}/{$query->row()->filename}";
+					$result->archive_path = $archive_path;
+					if (!file_exists($result->local_path)) {
+						$result->path = $archive_path;
 					}
 				}
 			} else {
@@ -152,9 +196,15 @@ class File_attachment extends Base_controller {
 	{
 		$resultMsg =  "Upload was successful";
 		try {
-			$remote = $this->validate_remote_mount();
-			if (!$remote->ok) {
-				throw new Exception($remote->message);
+			$local = $this->validate_local_path();
+			if (!$local->ok) {
+				throw new Exception($local->message);
+			}
+			if (!is_null($this->archive_root_path)) {
+				$remote = $this->validate_remote_mount();
+				if (!$remote->ok) {
+					throw new Exception($remote->message);
+				}
 			}
 
 			$timestamp = microtime(TRUE);
@@ -186,13 +236,13 @@ class File_attachment extends Base_controller {
 
 				$src_path = "{$config['upload_path']}{$name}";
 
-				$copy_local_state = true;
-				if (!is_null($this->local_root_path)) {
-					$copy_local_state = $this->copy_file($src_path, $this->local_root_path, $entity_folder_path, $orig_name, true);
+				$copy_local_state = $this->copy_file($src_path, $this->local_root_path, $entity_folder_path, $orig_name, true);
+				$copy_remote_state = true;
+				if (!is_null($this->archive_root_path)) {
+					$copy_remote_state = $this->copy_file($src_path, $this->archive_root_path, $entity_folder_path, $orig_name, false);
 				}
 
-				if ($copy_local_state and 
-					$this->copy_file($src_path, $this->archive_root_path, $entity_folder_path, $orig_name, false))
+				if ($copy_local_state and $copy_remote_state)
 				{
 					// Delete the local file
 					unlink($src_path);
@@ -490,9 +540,14 @@ class File_attachment extends Base_controller {
 	 */
 	function check_retrieve($entity_type, $entity_id, $filename)
 	{
-		$result = $this->validate_remote_mount();
+		$result = $this->validate_local_path();
 		if($result->ok) {
 	 		$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
+		}
+		if (!is_null($this->archive_root_path) and $result->path === $result->archive_path) {
+			$result2 = $this->validate_remote_mount();
+			$result->ok = $result2->ok;
+			$result->message = $result2->message;
 		}
 		if($result->ok) {
 			if(!file_exists($result->path)) {
@@ -516,12 +571,19 @@ class File_attachment extends Base_controller {
 	 */
 	function retrieve($entity_type, $entity_id, $filename){
 		try {
-			$remote = $this->validate_remote_mount();
-			if (!$remote->ok) {
-				throw new Exception($remote->message);
+			$local = $this->validate_local_path();
+			if (!$local->ok) {
+				throw new Exception($local->message);
 			}
 
 			$result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
+
+			if (!is_null($this->archive_root_path) and $result->path === $result->archive_path) {
+				$remote = $this->validate_remote_mount();
+				if (!$remote->ok) {
+					throw new Exception($remote->message);
+				}
+			}
 
 			//echo "-->" . $result ."<--";
 	 		
@@ -535,7 +597,7 @@ class File_attachment extends Base_controller {
 			}
 
 			// copy file locally...
-			if (!is_null($this->local_root_path) and $result->path === $result->archive_path) {
+			if ($result->path === $result->archive_path) {
 				// get the lowest-level (closest to the target path) existing directory. is_dir tests for existence and directory.
 				$min_dir = dirname($result->local_path);
 				$min_existing_dir = $min_dir;
@@ -597,20 +659,22 @@ class File_attachment extends Base_controller {
 		$msg = "";
 		$entity_folder_path = $this->get_path($type, $id);
 		$archive_folder_path = $this->archive_root_path . $entity_folder_path;
+		$local_folder_path = $this->local_root_path . $entity_folder_path;
 
 		if (strcasecmp($id, "SWDev") == 0) {
 			echo "<table border='1'>\n";
 			echo "<tr><td>Experiment</td><td>$id</td></tr>\n";
 			echo "<tr><td>Target folder</td><td>$entity_folder_path</td></tr>\n";
-			echo "<tr><td>Full path</td><td>$archive_folder_path</td></tr>\n";
+			echo "<tr><td>Archive path</td><td>$archive_folder_path</td></tr>\n";
+			echo "<tr><td>Local path</td><td>$local_folder_path</td></tr>\n";
 			echo "</table>\n";
 		}
 		
-		$dest_path = "{$archive_folder_path}/{$name}";
+		$dest_path = "{$local_folder_path}/{$name}";
 
 		try {
-			if(!file_exists($archive_folder_path)){
-				mkdir($archive_folder_path,0777,true);
+			if(!file_exists($local_folder_path)){
+				mkdir($local_folder_path,0777,true);
 			}
 			$handle = fopen($dest_path, 'w+');
 			if($handle === FALSE) {
