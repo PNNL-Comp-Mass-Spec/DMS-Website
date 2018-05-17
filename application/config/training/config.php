@@ -536,6 +536,7 @@ $config['modify_config_db_enabled'] = FALSE;
 
 // Disabled for training: 
 // $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/"; 
+
 $config['file_attachment_local_root_path'] = "/files2/dmsbeta_attachments/";
 
 $config['model_config_path'] = "application/model_config/" ;

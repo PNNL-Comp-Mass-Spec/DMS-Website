@@ -97,11 +97,15 @@ $db['default'] = array(
 );
 */
 
-$db['default']['hostname'] = "Gigasax_ODBC";
+// Use sqlsrv with PHP 7 on Apache 2.4
+// Use mssql  with PHP 5 on Apache 2.2
+$mssqlsrvDbDriver = "sqlsrv";
+
+$db['default']['hostname'] = "Gigasax";
 $db['default']['username'] = "dmswebuser";
 $db['default']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['default']['database'] = "DMS5_Beta";
-$db['default']['dbdriver'] = "mssql";
+$db['default']['dbdriver'] = $mssqlsrvDbDriver;
 $db['default']['dbprefix'] = "";
 $db['default']['active_r'] = TRUE;
 $db['default']['pconnect'] = FALSE;
@@ -109,11 +113,11 @@ $db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
 
-$db['package']['hostname'] = "Gigasax_ODBC";
+$db['package']['hostname'] = "Gigasax";
 $db['package']['username'] = "DMSWebUser";
 $db['package']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['package']['database'] = "DMS_Data_Package_Beta";
-$db['package']['dbdriver'] = "mssql";
+$db['package']['dbdriver'] = $mssqlsrvDbDriver;
 $db['package']['dbprefix'] = "";
 $db['package']['active_r'] = TRUE;
 $db['package']['pconnect'] = TRUE;
@@ -121,11 +125,36 @@ $db['package']['db_debug'] = FALSE;
 $db['package']['cache_on'] = FALSE;
 $db['package']['cachedir'] = "";
 
-$db['ontology']['hostname'] = "Gigasax_ODBC";
+
+$db['prism_ifc']['hostname'] = "Pogo";
+$db['prism_ifc']['username'] = "mtuser";
+$db['prism_ifc']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
+$db['prism_ifc']['database'] = "PRISM_IFC";
+$db['prism_ifc']['dbdriver'] = $mssqlsrvDbDriver;
+$db['prism_ifc']['dbprefix'] = "";
+$db['prism_ifc']['active_r'] = TRUE;
+$db['prism_ifc']['pconnect'] = TRUE;
+$db['prism_ifc']['db_debug'] = TRUE;
+$db['prism_ifc']['cache_on'] = FALSE;
+$db['prism_ifc']['cachedir'] = "";
+
+$db['prism_rpt']['hostname'] = "Pogo";
+$db['prism_rpt']['username'] = "mtuser";
+$db['prism_rpt']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
+$db['prism_rpt']['database'] = "PRISM_RPT";
+$db['prism_rpt']['dbdriver'] = $mssqlsrvDbDriver;
+$db['prism_rpt']['dbprefix'] = "";
+$db['prism_rpt']['active_r'] = TRUE;
+$db['prism_rpt']['pconnect'] = TRUE;
+$db['prism_rpt']['db_debug'] = TRUE;
+$db['prism_rpt']['cache_on'] = FALSE;
+$db['prism_rpt']['cachedir'] = "";
+
+$db['ontology']['hostname'] = "Gigasax";
 $db['ontology']['username'] = "dmswebuser";
 $db['ontology']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['ontology']['database'] = "Ontology_Lookup";
-$db['ontology']['dbdriver'] = "mssql";
+$db['ontology']['dbdriver'] = $mssqlsrvDbDriver;
 $db['ontology']['dbprefix'] = "";
 $db['ontology']['active_r'] = TRUE;
 $db['ontology']['pconnect'] = TRUE;

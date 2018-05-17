@@ -537,7 +537,9 @@ $config['sproc_call_log_enabled'] = FALSE;
 
 $config['modify_config_db_enabled'] = TRUE;
 
-$config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
+// $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
+
+$config['file_attachment_local_root_path'] = "/data/dms_attachments/";
 
 $config['model_config_path'] = "application/model_config/cbdms/" ;
 
