@@ -114,7 +114,7 @@ $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
 
 $db['package']['hostname'] = "Gigasax";
-$db['package']['username'] = "DMSWebUser";
+$db['package']['username'] = "dmswebuser";
 $db['package']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['package']['database'] = "DMS_Data_Package_Beta";
 $db['package']['dbdriver'] = $mssqlsrvDbDriver;
@@ -124,7 +124,6 @@ $db['package']['pconnect'] = TRUE;
 $db['package']['db_debug'] = FALSE;
 $db['package']['cache_on'] = FALSE;
 $db['package']['cachedir'] = "";
-
 
 $db['prism_ifc']['hostname'] = "Pogo";
 $db['prism_ifc']['username'] = "mtuser";

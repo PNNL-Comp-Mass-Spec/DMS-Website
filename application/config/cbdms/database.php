@@ -114,7 +114,7 @@ $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
 
 $db['broker']['hostname'] = "CBDMS_ODBC";
-$db['broker']['username'] = "DMSWebUser";
+$db['broker']['username'] = "dmswebuser";
 $db['broker']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['broker']['database'] = "DMS_Pipeline";
 $db['broker']['dbdriver'] = $mssqlsrvDbDriver;
@@ -126,7 +126,7 @@ $db['broker']['cache_on'] = FALSE;
 $db['broker']['cachedir'] = "";
 
 $db['package']['hostname'] = "CBDMS_ODBC";
-$db['package']['username'] = "DMSWebUser";
+$db['package']['username'] = "dmswebuser";
 $db['package']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['package']['database'] = "DMS_Data_Package";
 $db['package']['dbdriver'] = $mssqlsrvDbDriver;
@@ -187,7 +187,7 @@ $db['ontology']['cache_on'] = FALSE;
 $db['ontology']['cachedir'] = "";
 
 $db['manager_control']['hostname'] = "CBDMS_ODBC";
-$db['manager_control']['username'] = "DMSWebUser";
+$db['manager_control']['username'] = "dmswebuser";
 $db['manager_control']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['manager_control']['database'] = "Manager_Control";
 $db['manager_control']['dbdriver'] = $mssqlsrvDbDriver;
