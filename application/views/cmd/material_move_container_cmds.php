@@ -3,6 +3,7 @@
 <form name="DBG" id="cmds" >
 
 <div>
+<?php // lcmd.material_move_container is in lcmd.js ?>
 <span><input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.material_move_container.op("retire_container")' /></span>
 <span>Retire selected containers (must be empty)
 </span>

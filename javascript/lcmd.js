@@ -19,7 +19,7 @@ var lcmd = {
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
-			// url will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupAssociations
+			// URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupAssociations
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
@@ -50,7 +50,7 @@ var lcmd = {
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
 			if(mode=='set_membership_enabled') mode = $('#' + p1).val();
-			// url will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupMembership
+			// URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupMembership
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
@@ -111,12 +111,12 @@ var lcmd = {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select requests.'); 
+				alert('You must select datasets.'); 
 				return;
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
-			// url will point to the operations_sproc value defined in dataset_disposition.db, typically UpdateDatasetDispositions
+			// URL will point to the operations_sproc value defined in dataset_disposition.db, typically UpdateDatasetDispositions
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
@@ -147,12 +147,18 @@ var lcmd = {
 	material_move_container: {
 		op: function(mode, val) {
 			// lambda.getCkbxList is in dms2.js
+			// Valid options for mode:
+			//   retire_container
+			//   retire_container_and_contents
+			//   unretire_container
+			//   move_container
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select requests.'); 
+				alert('You must select containers.'); 
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;
+			// URL will point to the operations_sproc value defined in material_container.db, typically DoMaterialContainerOperation
 			var url = gamma.pageContext.ops_url;
 			var p = {};
 			p.command = mode;
@@ -203,7 +209,7 @@ var lcmd = {
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
-			// url will point to the operations_sproc value defined in osm_package_items.db, typically UpdateOSMPackageItemsXML
+			// URL will point to the operations_sproc value defined in osm_package_items.db, typically UpdateOSMPackageItemsXML
 			var url =  gamma.pageContext.site_url + 'osm_package_items/operation/';
 			$('#paramListXML').val(list);
 			$('#entry_cmd_mode').val(mode);
@@ -217,7 +223,7 @@ var lcmd = {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select requests.'); 
+				alert('You must select requested runs.'); 
 				return;
 			}
 			if(list.length > 4096) {
@@ -225,7 +231,7 @@ var lcmd = {
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;
-			// url will point to the operations_sproc value defined in requested_run.db, typically UpdateRequestedRunAssignments
+			// URL will point to the operations_sproc value defined in requested_run.db, typically UpdateRequestedRunAssignments
 			// See: http://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/general_params
 			var url = gamma.pageContext.site_url + 'requested_run/operation/';
 			var p = {};
@@ -240,12 +246,12 @@ var lcmd = {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select requests.'); 
+				alert('You must select prep requests.'); 
 				return;
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
-			// url will point to the operations_sproc value defined in sample_prep_request_assignment.db, typically UpdateSampleRequestAssignments
+			// URL will point to the operations_sproc value defined in sample_prep_request_assignment.db, typically UpdateSampleRequestAssignments
 			var url =  gamma.pageContext.site_url + "sample_prep_request_assignment/operation";
 			var p = {};
 			p.command = mode;
