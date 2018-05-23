@@ -523,7 +523,16 @@ $config['proxy_ips'] = '';
 |
 |
 */
-$config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
+
+// Is the user accessing DMS from bionet?
+$server_bionet = stripos($_SERVER["SERVER_NAME"], ".bionet") !== FALSE;
+
+if ($server_bionet) {
+	$config['pwiki'] = 'http://prismwiki.bionet/wiki/';
+}
+else {
+	$config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
+}
 $config['wikiHelpLinkPrefix'] = 'DMS_Help_for_';
 
 $config['version_color_code'] = 'black';

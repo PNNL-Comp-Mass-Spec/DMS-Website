@@ -152,7 +152,7 @@ class Config_db extends CI_Controller {
 	//	$ptrac = $CI->config->item('ptrac');
 	//	$trac_helpLink_prefix = $CI->config->item('tracHelpLinkPrefix');
 
-		$wikiBaseUrl = "http://prismwiki.pnl.gov/wiki/";
+		$wikiBaseUrl = $this->config->item('pwiki');
 		$wiki_helpLink_prefix = "DMS_Config_DB_Help_";
 		$href = $wikiBaseUrl.$wiki_helpLink_prefix.$table_name;
 	//	$src = base_url(). "/images/help.png";
@@ -1675,7 +1675,7 @@ class Config_db extends CI_Controller {
 		$config_files = $this->_get_config_db_file_list($file_filter);
 		asort($config_files);
 		echo "<h3>Config DB Files</h3>\n";
-		echo "| &nbsp;<a href='http://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
+		echo "| &nbsp;<a href='".$this->config->item('pwiki')."DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
 		echo "<ul>\n";
 		foreach($config_files as $config_db) {
 			$linkHtml = $this->_make_page_family_contents_link($config_db, $config_db);

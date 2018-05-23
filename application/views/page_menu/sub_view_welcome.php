@@ -12,13 +12,13 @@
 	<a href="javascript:showHideMenuDiagram();"><span id='diag_ctl_label'>Show Section Menus</span></a>
 	</div>
 	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:12em;'>
-	<a href='http://prismwiki.pnl.gov/wiki/Data_Management_System' target='#PrismWiki'>Overview...</a>
+	<a href='<?= $this->config->item('pwiki') ?>Data_Management_System' target='#PrismWiki'>Overview...</a>
 	</div>
 	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:20em;'>
-	<a href='http://prismwiki.pnl.gov/wiki/DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a>
+	<a href='<?= $this->config->item('pwiki') ?>DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a>
 	</div>
 	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:30em;'>
-	<a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick Start...</a>
+	<a href='<?= $this->config->item('pwiki') ?>PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick Start...</a>
 	</div>
 	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:40em;'>
 	<a href='http://dmsbeta.pnl.gov' target='#PrismWiki'>Training site...</a>
@@ -53,9 +53,9 @@
 		<h2>DMS Hierarchy </h2>
 		<p>DMS uses these entities to keep track of sample and data processing.</p>
 		<p>An understanding of what each one represents, and how it fits in, is essential for proper use of DMS.</p>
-		<p>If you haven't a clue where to start, try <a href='http://prismwiki.pnl.gov/wiki/Data_Management_System' target='#PrismWiki'>Overview...</a></p>
-		<p>If want to dig into the basics, try <a href='http://prismwiki.pnl.gov/wiki/DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a></p>
-		<p>If you want to learn more about the features that DMS provides, try <a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick start...</a></p>
+		<p>If you haven't a clue where to start, try <a href='<?= $this->config->item('pwiki') ?>Data_Management_System' target='#PrismWiki'>Overview...</a></p>
+		<p>If want to dig into the basics, try <a href='<?= $this->config->item('pwiki') ?>DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a></p>
+		<p>If you want to learn more about the features that DMS provides, try <a href='<?= $this->config->item('pwiki') ?>PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick start...</a></p>
 		<p>See the <a href='<?= site_url()?>gen/stats'>statistics...</a> page for bulk stats by entity type.</p>
 		</div> <!-- end 'splash_message' -->
 	</div> <!-- end 'fly_section' -->

@@ -322,8 +322,9 @@ EOD;
 	function make_config_nav_links($config_db)
 	{
 		$db = $config_db;
+		$CI = &get_instance();
 		$s = '';
-		$s .= "<a href='http://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
+		$s .= "<a href='".$CI->config->item('pwiki')."DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
 		$s .= "<a href='".site_url()."config_db/page_families'>Page Family Database List</a> &nbsp; | &nbsp;";
 		$s .= "<a href='".site_url()."config_db/support_config_db_list'>Support Database List</a> &nbsp; | &nbsp;";
 		if($config_db) {
