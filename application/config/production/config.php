@@ -23,8 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-// modify to allow site to work with either PNNL network or bionet access
-//$config['base_url']	= "http://dmsdev.pnl.gov/";
 
 $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
 $config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";

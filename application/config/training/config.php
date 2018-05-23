@@ -23,7 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-// modify to allow site to work with either PNNL network or bionet access
 
 $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
 $config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
@@ -522,7 +521,16 @@ $config['proxy_ips'] = '';
 |
 |
 */
-$config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
+
+// Is the user accessing DMS from bionet?
+$server_bionet = stripos($_SERVER["SERVER_NAME"], ".bionet") !== FALSE;
+
+if ($server_bionet) {
+	$config['pwiki'] = 'http://prismwiki.bionet/wiki/';
+}
+else {
+	$config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
+}
 $config['wikiHelpLinkPrefix'] = 'DMS_Help_for_';
 
 $config['version_color_code'] = 'Coral';
