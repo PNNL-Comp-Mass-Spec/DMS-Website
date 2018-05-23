@@ -1,6 +1,7 @@
 <?php
 /**
  * This file is invoked via a daily crontab job that runs as root
+ * (see /var/spool/cron/root; edit with sudo crontab -e)
  * The code invokes http://dms2.pnl.gov/notification/email
  * to send notification e-mails to users who have signed up to receive them
  *
