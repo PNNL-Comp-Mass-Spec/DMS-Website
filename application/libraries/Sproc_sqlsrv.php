@@ -58,6 +58,12 @@ class Sproc_sqlsrv {
 				$params[] = array(&$par->$fn, $dr);
 			}
 		}
+               
+                // If the stored procedure uses a Print statement before returning query results, sqlsrv reports an error
+                // Disable this behavior
+                // https://msdn.microsoft.com/en-us/library/cc626306(v=SQL.90).aspx
+                sqlsrv_configure("WarningsReturnAsErrors", 0);
+
 		//$sql = $sql.")}"; // for "call" syntax, which ignores parameter names (must supply empty items in the query for skipped parameters)
 		
 		//$stmt = sqlsrv_prepare($conn_id, $sql, $params);
