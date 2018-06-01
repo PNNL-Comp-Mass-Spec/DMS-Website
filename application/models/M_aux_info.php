@@ -231,11 +231,11 @@ EOD;
 		$this->db->where('Target', $target);
 		$this->db->where('Category', $category);
 		$this->db->where('Subcategory', $subcategory);
-		$query = $this->db->get();
-		if(!$query) {
 			throw new Exception("Error querying database");
-		}
-		return $query->result_array();
+		$resultSet = $this->db->get();
+        if(!$resultSet) {
+        }
+		return $resultSet->result_array();
 	}
 
 	/**
@@ -247,14 +247,13 @@ EOD;
 	function get_aux_info_targets()
 	{
 		$this->db->from('T_AuxInfo_Target');
-		$query = $this->db->get();
-		if(!$query) {
-			throw new Exception("Error querying database");
-		}
- 		if ($query->num_rows() == 0) {
+		$resultSet = $this->db->get();
+        if(!$resultSet) {
+        }		
+ 		if ($resultSet->num_rows() == 0) {
  			throw new Exception("No rows found");
 		}
-		return $query->result_array();
+		return $resultSet->result_array();
 	}
 	
 	/**
@@ -281,15 +280,14 @@ EOD;
 	{
 		$this->db->from('V_AuxInfo_Definition');
 		$this->db->where('Target', $target);
-		$query = $this->db->get();
-		if(!$query) {
-			throw new Exception("Error querying database");
-		}
- 		if ($query->num_rows() == 0) {
+		$resultSet = $this->db->get();
+        if(!$resultSet) {
+        }		
+ 		if ($resultSet->num_rows() == 0) {
  			throw new Exception("No rows found");
 		}
 		$def = array();
-		foreach($query->result_array() as $row) {
+		foreach($resultSet->result_array() as $row) {
 			$spec = array();
 			$spec['Item_ID'] = $row['Item_ID'];
 			$spec['DataSize'] = $row['DataSize'];

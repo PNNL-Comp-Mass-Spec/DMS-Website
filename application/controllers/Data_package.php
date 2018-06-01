@@ -31,11 +31,12 @@ class Data_package extends Base_controller {
 
 		$sql = "dbo.CheckDataPackageDatasetJobCoverage($id, '$tool', '$mode')";
 		$this->db->from($sql);
-		$query = $this->db->get();
-		if(!$query) return "Error querying database";
- 		if ($query->num_rows() == 0) return "No rows found";
-		$result = $query->result_array();
-		$fields = $query->list_fields();
+		$resultSet = $this->db->get();
+        if(!$resultSet) {                           
+        }
+ 		if ($resultSet->num_rows() == 0) {
+		$result = $resultSet->result_array();
+		$fields = $resultSet->list_fields();
 
 	    header("Content-type: text/plain");
 		echo "-- $mode Package:$id Tool:$tool --\n";
@@ -67,10 +68,10 @@ class Data_package extends Base_controller {
 		echo "<DMS ID='$id' />\n";
 		foreach($sqlList as $section => $sql) {
 			echo "<$section>\n";
-			$query = $this->db->query($sql);
-			if(!$query) continue;
-	 		if ($query->num_rows() == 0) continue;
-			$result = $query->result_array();
+			$resultSet = $this->db->query($sql);
+			if(!$resultSet) continue;
+	 		if ($resultSet->num_rows() == 0) continue;
+			$result = $resultSet->result_array();
 			$cols = array_keys(current($result));
 			foreach($result as $row) {
 				echo "<item ";
