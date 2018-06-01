@@ -1,3 +1,9 @@
+
+<?php
+	// Buttons for various pages, including https://dms2.pnl.gov/instrument_usage_report/grid 
+	// Button actions are handled by javascript/data_grid.js
+?>
+
 <div id='ctl_panel' class='ctl_panel'>
 	
 <span class='ctls'>

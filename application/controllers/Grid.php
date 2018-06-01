@@ -27,8 +27,14 @@ class Grid extends Base_controller {
 		$data = array();
 		$data['title'] = $this->my_title;
 		$data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
+                
+		// Example value for $data_url: "instrument_usage_report/grid_data"
+		// That leads to $data['data_url'] = "https://dms2.pnl.gov/instrument_usage_report/grid_data"
 		$data['data_url'] = ($data_url) ? site_url() .  $data_url : site_url()  . "grid/" . $this->my_tag  . "_data";
-		$data['save_url'] = ($save_url) ? site_url() .  $save_url : site_url()  . $this->my_tag  . "operation";;
+                
+		// Example value for $save_url: "instrument_usage_report/operation"
+		// That leads to $data['save_url'] = "https://dms2.pnl.gov/instrument_usage_report/operation"
+		$data['save_url'] = ($save_url) ? site_url() .  $save_url : site_url()  . $this->my_tag  . "operation";
 
 		$this->load->vars($data);
 		$this->load->view("grid/".$view_name);

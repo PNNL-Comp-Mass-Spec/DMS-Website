@@ -2,6 +2,10 @@
 
 <form name="DBG" action="">
 
+<?php
+	// Buttons for https://dms2.pnl.gov/instrument_usage_report/report 
+?>
+
 <hr>
 <?= general_visibility_control('Reload commands', 'reload_section', '') ?>
 <div id="reload_section" style="display:none;">

@@ -1,3 +1,9 @@
+
+<?php
+	// Links and buttons for various pages, including https://dms2.pnl.gov/instrument_usage_report/grid
+	// Button actions are handled by javascript/data_grid.js 
+?>
+
 <div id='delimited_text_ctl_panel' class='ctl_panel'>
 <?= general_visibility_control('Import/Export Delimited Text', 'delimited_text_panel', 'delimited text import and export') ?>
 </div>
