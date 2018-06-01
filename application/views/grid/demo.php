@@ -32,7 +32,7 @@ h3 {
 
 <div id='main' >
 <h3>Editing Grid Demonstration Pages</h3>	
-<div class='item' ><a  class='button my_link' href='<?= site_url() ?>factors/grid' >Factors</a></div><div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/instrument_usage' >Instrument Usage EMSL Updates</a></div>
+<div class='item' ><a  class='button my_link' href='<?= site_url() ?>factors/grid' >Factors</a></div><div class='item' ><a  class='button my_link' href='<?= site_url() ?>instrument_usage_report/grid' >Instrument Usage EMSL Updates</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url() ?>requested_run_batch_blocking/grid' >Requested Run</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/user' >User</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url() ?>grid/instrument_allocation' >Instrument Allocation</a></div>
