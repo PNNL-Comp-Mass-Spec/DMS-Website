@@ -45,7 +45,8 @@ class Lc_cart_controller_graphic extends CI_Controller {
 		$result = $this->db->query($sql);
 		//
 		if(!$result) {
-			echo "No results found for cart";
+			$currentTimestamp = date("Y-m-d");
+			echo "No results found for cart; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 
@@ -74,7 +75,8 @@ class Lc_cart_controller_graphic extends CI_Controller {
 		$result = $this->db->query($sql);
 		//
 		if(!$result) {
-			echo "No results found for position";
+			$currentTimestamp = date("Y-m-d");
+			echo "No results found for position; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 
@@ -96,7 +98,8 @@ class Lc_cart_controller_graphic extends CI_Controller {
 		$result = $this->db->query($sql);
 		//
 		if(!$result) {
-			echo "Error";
+            $currentTimestamp = date("Y-m-d");
+			echo "Error querying database for cart component; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		$row = $result->row_array();

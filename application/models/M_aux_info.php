@@ -172,7 +172,8 @@ EOD;
 		$query = $this->db->query($sql);
 
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for aux info item values using V_AuxInfo_Value; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}
@@ -215,7 +216,8 @@ ORDER BY SI
 EOD;
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for aux info item values using V_AuxInfo_Definition; see application/logs/log-$currentTimestamp.php");
 		}
  		if ($query->num_rows() == 0) {
  			throw new Exception("No rows found");
@@ -231,9 +233,10 @@ EOD;
 		$this->db->where('Target', $target);
 		$this->db->where('Category', $category);
 		$this->db->where('Subcategory', $subcategory);
-			throw new Exception("Error querying database");
 		$resultSet = $this->db->get();
         if(!$resultSet) {
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception("Error querying database for aux_info_allowed_values; see application/logs/log-$currentTimestamp.php");
         }
 		return $resultSet->result_array();
 	}
@@ -249,6 +252,8 @@ EOD;
 		$this->db->from('T_AuxInfo_Target');
 		$resultSet = $this->db->get();
         if(!$resultSet) {
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception("Error querying database for aux_info_targets; see application/logs/log-$currentTimestamp.php");
         }		
  		if ($resultSet->num_rows() == 0) {
  			throw new Exception("No rows found");
@@ -282,6 +287,8 @@ EOD;
 		$this->db->where('Target', $target);
 		$resultSet = $this->db->get();
         if(!$resultSet) {
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception("Error querying database for aux_info_def; see application/logs/log-$currentTimestamp.php");
         }		
  		if ($resultSet->num_rows() == 0) {
  			throw new Exception("No rows found");

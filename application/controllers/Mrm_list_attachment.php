@@ -25,7 +25,8 @@ class Mrm_list_attachment extends Base_controller {
 		$result = $this->db->query($sql);
 		//
 		if(!$result) {
-			echo "No results found";
+            $currentTimestamp = date("Y-m-d");
+			echo "No results found for attachment ID $id; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		$file_info = $result->row();

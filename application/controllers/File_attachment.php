@@ -177,7 +177,8 @@ class File_attachment extends Base_controller {
 					}
 				}
 			} else {
-				throw new Exception("Could not find entry for file in database");
+                $currentTimestamp = date("Y-m-d");
+                throw new Exception("Could not find entry for file attachment in database; see application/logs/log-$currentTimestamp.php");
 			}
 		} catch (Exception $e) {
 			$result->message = $e->getMessage();
@@ -384,6 +385,8 @@ class File_attachment extends Base_controller {
 		$this->load->database();
 		$resultSet = $this->db->query($sql);
 		if(!$resultSet) {
+            $currentTimestamp = date("Y-m-d");
+            $path = "Error querying database for file attachment storage path; see application/logs/log-$currentTimestamp.php";
 		} else {
 			$result = $resultSet->result();
 			$path = $result[0]->path;
@@ -497,9 +500,10 @@ class File_attachment extends Base_controller {
 		$this->db->where("Entity_Type", $type);
 		$this->db->where("Entity_ID", $id);
 		$this->db->where("Active >", 0);
-			return "Error querying database";
 		$resultSet = $this->db->get();
 		if (!$resultSet) {
+            $currentTimestamp = date("Y-m-d");
+            return "Error querying database for attachment; see application/logs/log-$currentTimestamp.php";
 		}
 		
 		$entries = array();

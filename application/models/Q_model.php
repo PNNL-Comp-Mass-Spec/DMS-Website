@@ -641,11 +641,13 @@ class Q_model extends CI_Model {
 			$my_db = $this->get_db_object($this->query_parts->dbn);			
 			$query = $my_db->query($sql);
 			if(!$query) {
-				throw new Exception("Error getting total row count from database");
+                $currentTimestamp = date("Y-m-d");
+                throw new Exception ("Error getting total row count from database; see application/logs/log-$currentTimestamp.php");
 			}
                         
 	 		if ($query->num_rows() == 0) {
-	 			throw new Exception("Total count row was not returned");
+                $currentTimestamp = date("Y-m-d");
+                throw new Exception ("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
 			}
                         
 			$row = $query->row();

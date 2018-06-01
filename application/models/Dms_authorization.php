@@ -84,7 +84,8 @@ EOD;
 		$my_db = $this->load->database('default', TRUE);
 		$query_data = $my_db->query($str);
 		if(!$query_data) {
-			throw new Exception("Error getting records from database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for user permissions; see application/logs/log-$currentTimestamp.php");
 		}
 		$rows = $query_data->result_array();
 

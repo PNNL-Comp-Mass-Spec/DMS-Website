@@ -28,7 +28,8 @@ class Grid_data {
 			$CI->load->database();
 			$result = $CI->db->query($sql);
 			if(!$result) {
-				throw new exception('??');
+                $currentTimestamp = date("Y-m-d");
+                throw new exception ("Error querying database; see application/logs/log-$currentTimestamp.php");
 			}
 			$columns = array();
 			foreach($result->field_data() as $field) {

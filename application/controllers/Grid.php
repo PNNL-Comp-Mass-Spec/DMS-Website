@@ -60,7 +60,8 @@ class Grid extends Base_controller {
 		try {
 			$result = $this->db->get();
 			if(!$result) {                           
-					throw new exception('??');
+                $currentTimestamp = date("Y-m-d");
+                throw new exception("Error querying database for grid data; see application/logs/log-$currentTimestamp.php");
 			}
 			$columns = array();
 			foreach($result->field_data() as $field) {

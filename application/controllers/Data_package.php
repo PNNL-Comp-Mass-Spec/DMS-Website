@@ -22,8 +22,14 @@ class Data_package extends Base_controller {
 //		$this->my_post_submission_detail_id = "ID";
 	}
 
-	// --------------------------------------------------------------------
-	// (someday) use q_model
+	/**
+     * Get information about jobs associated with the given tool for the given data package (likely not in use)
+     * Example URL: https://dms2.pnl.gov/data_package/ag/3142/MSGFPlus_MzML/PackageJobCount
+     * @param type $id Data Package ID
+     * @param type $tool Analysis tool name
+     * @param type $mode Query mode: NoPackageJobs, NoDMSJobs, or PackageJobCount
+     * @return string
+     */
 	function ag($id, $tool, $mode) {
 		$this->load->helper(array('url', 'string'));
 
@@ -33,8 +39,12 @@ class Data_package extends Base_controller {
 		$this->db->from($sql);
 		$resultSet = $this->db->get();
         if(!$resultSet) {                           
+            $currentTimestamp = date("Y-m-d");
+            return "Error querying database via CheckDataPackageDatasetJobCoverage; see application/logs/log-$currentTimestamp.php";
         }
  		if ($resultSet->num_rows() == 0) {
+            return "No rows found calling CheckDataPackageDatasetJobCoverage";
+        }
 		$result = $resultSet->result_array();
 		$fields = $resultSet->list_fields();
 

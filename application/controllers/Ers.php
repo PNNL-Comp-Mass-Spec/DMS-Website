@@ -28,7 +28,8 @@ class Ers extends CI_Controller {
 		$result = $ersDB->query($sql);
 		//
 		if(!$result) {
-			echo "No results found";
+			$currentTimestamp = date("Y-m-d");
+			echo "No results found for active EUS proposals; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		echo $this->table->generate($result);
@@ -46,7 +47,8 @@ class Ers extends CI_Controller {
 		$result = $ersDB->query($sql);
 		//
 		if(!$result) {
-			echo "No results found";
+			$currentTimestamp = date("Y-m-d");
+			echo "No results found for active EUS users; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		echo $this->table->generate($result);
@@ -63,7 +65,8 @@ class Ers extends CI_Controller {
 		$result = $dmsDB->query($sql);
 		//
 		if(!$result) {
-			echo "No results found";
+            $currentTimestamp = date("Y-m-d");
+			echo "No results found for EUS proposals; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		echo $this->table->generate($result);
@@ -80,7 +83,8 @@ class Ers extends CI_Controller {
 		$result = $dmsDB->query($sql);
 		//
 		if(!$result) {
-			echo "No results found";
+			$currentTimestamp = date("Y-m-d");
+			echo "No results found for EUS users; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		echo $this->table->generate($result);
@@ -97,7 +101,8 @@ class Ers extends CI_Controller {
 		$result = $dmsDB->query($sql);
 		//
 		if(!$result) {
-			echo "No DMS results found";
+			$currentTimestamp = date("Y-m-d");
+			echo "No results found for EUS proposals; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		$dms_proposals = array();
@@ -111,7 +116,8 @@ class Ers extends CI_Controller {
 		$result = $ersDB->query($sql);
 		//
 		if(!$result) {
-			echo "No ERS results found";
+			$currentTimestamp = date("Y-m-d");
+			echo "No ERS results found; see application/logs/log-$currentTimestamp.php";
 			return;
 		}
 		$ers_proposals = array();

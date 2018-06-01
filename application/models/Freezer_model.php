@@ -29,7 +29,12 @@ class Freezer_model extends CI_Model {
 	{
 		return $this->hierarchy[$type];
 	}	
-	// --------------------------------------------------------------------
+	
+    /**
+     * https://dms2.pnl.gov/freezer/get_freezers
+     * @return type
+     * @throws Exception
+     */
 	function get_freezers()
 	{
 		$sql = <<<EOD
@@ -43,12 +48,21 @@ GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Commen
 EOD;
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for freezers; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * https://dms2.pnl.gov/freezer/get_locations/Tag/1206C.3.2.1.1
+     * @param type $Type Location type: Shelf, Rack, Row, Col, or Tag
+     * @param type $Freezer Freezer name
+     * @param type $Shelf Shelf number (ignored if $Type is Shelf or Tag
+     * @param type $Rack Rack number (ignored if $Type is Shelf, Rack, or Tag
+     * @param type $Row Row number (only used if $Type is Col)
+     * @return type
+     */
 	function get_locations($Type, $Freezer, $Shelf, $Rack, $Row)
 	{		
 		$sql = <<<EOD
@@ -90,7 +104,8 @@ EOD;
 		$sql .= " WHERE Location = '$location'";
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for containers; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}
@@ -105,7 +120,8 @@ EOD;
 		$sql .= " WHERE Container = '$container'";
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for material items; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}
@@ -270,7 +286,8 @@ EOD;
 		$sql .= " WHERE Container = '$container'";
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for container; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}
@@ -289,7 +306,8 @@ EOD;
 		$sql .= " GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for material location; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}
@@ -312,7 +330,8 @@ EOD;
 		$sql = str_replace ("@LOC@" , $location ,$tmpl );
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for available locations; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}
@@ -331,7 +350,8 @@ ORDER BY MC.Created DESC
 EOD;
 		$query = $this->db->query($sql);
 		if(!$query) {
-			throw new Exception("Error querying database");
+            $currentTimestamp = date("Y-m-d");
+            throw new Exception ("Error querying database for newest containers; see application/logs/log-$currentTimestamp.php");
 		}
 		return $query->result_array();
 	}

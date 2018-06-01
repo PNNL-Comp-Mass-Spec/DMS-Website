@@ -174,7 +174,12 @@ class Freezer extends Base_controller {
 		//
 		$result = $this->db->query($sql);
 		//
-		if(!$result) {echo "Error loading location information"; return;}
+		if(!$result) {
+			$currentTimestamp = date("Y-m-d");
+			echo "Error loading active freezer locations; see application/logs/log-$currentTimestamp.php";
+            return;
+            
+        }
 		//
 		$storage = array();
 		$rows = $result->result_array();
@@ -254,7 +259,11 @@ class Freezer extends Base_controller {
 		//
 		$result = $this->db->query($sql);
 		//
-		if(!$result) {echo "Error loading location information"; return;}
+		if(!$result) {
+			$currentTimestamp = date("Y-m-d");
+			echo "Error loading freezer locations; see application/logs/log-$currentTimestamp.php";
+            return;           
+        }
 		//
 		$storage = array();
 		$rows = $result->result_array();
@@ -279,7 +288,11 @@ class Freezer extends Base_controller {
 		//
 		$result = $this->db->query($sql);
 		//
-		if(!$result) {echo "Error loading container information";return;}
+		if(!$result) {
+			$currentTimestamp = date("Y-m-d");
+			echo "Error loading containers; see application/logs/log-$currentTimestamp.php";
+            return;            
+        }
 		//
 		$contents = array();
 		$rows = $result->result_array();
@@ -323,7 +336,11 @@ class Freezer extends Base_controller {
 		$sql .= "AND NOT [Row] = 'na' AND NOT [Col] = 'na' ";
 		$sql .= "ORDER BY Shelf, Rack, [Row], Col ";
 		$rc_result = $this->db->query($sql);
-		if(!$rc_result) {echo "Error loading row/colmn";return;}
+		if(!$rc_result) {
+			$currentTimestamp = date("Y-m-d");
+			echo "Error loading container row/column info; see application/logs/log-$currentTimestamp.php";
+            return;            
+        }
 		$locs = $rc_result->result_array();
 
 		// build nested array representation of freezer locations
