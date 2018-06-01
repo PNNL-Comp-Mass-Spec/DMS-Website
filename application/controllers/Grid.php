@@ -1,6 +1,9 @@
 <?php
 require("Base_controller.php");
 
+// Include the String operations methods
+require_once(BASEPATH . '../application/libraries/String_operations.php');
+
 class Grid extends Base_controller {
 	// --------------------------------------------------------------------
 	function __construct()
@@ -130,7 +133,7 @@ class Grid extends Base_controller {
 		$this->db->select('ID, U_PRN AS PRN, U_Name AS Name, U_HID AS HID, U_Status AS Status, U_Access_Lists AS Access, U_email AS Email, U_domain AS Domain, U_netid AS NetID, U_comment AS Comment, CONVERT(VARCHAR(12), U_created, 101) AS Created');
 		$this->db->from("T_Users");
 		$userName = $this->input->post("userName");
-		if($userName) {
+		if(IsNotWhitespace($userName)) {
 			$this->db->like('U_Name', $userName);
 		}
 		$allUsers = $this->input->post("allUsers");

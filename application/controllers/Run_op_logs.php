@@ -1,6 +1,9 @@
 <?php
 require("Grid.php");
 
+// Include the String operations methods
+require_once(BASEPATH . '../application/libraries/String_operations.php');
+
 class Run_op_logs extends Grid {
 
 	// --------------------------------------------------------------------
@@ -39,11 +42,11 @@ class Run_op_logs extends Grid {
 		$this->load->database();
 		$this->db->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, Minutes, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
 		$this->db->from("V_Ops_Logs_List_Report");
-		if($instrument) $this->db->where("Instrument in ($instrument)");
-		if($usage) $this->db->where("Usage in ($usage)");
-		if($type) $this->db->where("Type in ($type)");
-		if($year) $this->db->where("Year", $year);
-		if($month) $this->db->where("Month", $month);
+		if(IsNotWhitespace($instrument)) $this->db->where("Instrument in ($instrument)");
+		if(IsNotWhitespace($usage)) $this->db->where("Usage in ($usage)");
+		if(IsNotWhitespace($type)) $this->db->where("Type in ($type)");
+		if(IsNotWhitespace($year)) $this->db->where("Year", $year);
+		if(IsNotWhitespace($month)) $this->db->where("Month", $month);
 		$this->grid_data_from_query();
 	}
 
