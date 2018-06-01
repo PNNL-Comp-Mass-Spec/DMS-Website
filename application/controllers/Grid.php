@@ -59,7 +59,9 @@ class Grid extends Base_controller {
 		$response = new stdClass();
 		try {
 			$result = $this->db->get();
-			if(!$result) throw new exception('??');
+			if(!$result) {                           
+					throw new exception('??');
+			}
 			$columns = array();
 			foreach($result->field_data() as $field) {
 				$columns[] = $field->name;

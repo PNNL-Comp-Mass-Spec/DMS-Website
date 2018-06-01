@@ -12,7 +12,7 @@ $global:defaults = @{
 	"localDbFileFolderPath" = "C:\Data\Junk";
 	"localDumpFileFolderPath" = "C:\Data\Junk";
 	"dmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config\DMS_DB_Sql";
-    "cbdmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config\DMS_DB_Sql\cbdms";
+	"cbdmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config\DMS_DB_Sql\cbdms";
 }
 
 $global:sources = @(
