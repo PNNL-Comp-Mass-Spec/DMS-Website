@@ -149,7 +149,9 @@ class Sql_mssql {
 		$col = $predicate->col;
 		$cmp = $predicate->cmp;
 		$val = trim($predicate->val);
-		
+
+		$valNoCommas = str_replace(',', '', $val);
+        
 		$str = '';
 		switch($cmp) {
 			case "wildcards":
@@ -183,40 +185,40 @@ class Sql_mssql {
 				break;
 			case "Equals":
 			case "EQn":
-				if(is_numeric($val)) {
-					$str .= "[$col] = $val";
+				if(is_numeric($valNoCommas)) {
+					$str .= "[$col] = $valNoCommas";
 				} else {
 					$str .= "[$col] = '$val'";
 				}
 				break;
 			case "NotEqual":
 			case "NEn":
-				if(is_numeric($val)) {
-					$str .= "NOT [$col] = $val";						
+				if(is_numeric($valNoCommas)) {
+					$str .= "NOT [$col] = $valNoCommas";						
 				}
 				break;
 			case "GreaterThan":
 			case "GTn":
-				if(is_numeric($val)) {
-					$str .= "[$col] > $val";
+				if(is_numeric($valNoCommas)) {
+					$str .= "[$col] > $valNoCommas";
 				}
 				break;
 			case "LessThan":
 			case "LTn":
-				if(is_numeric($val)) {
-					$str .= "[$col] < $val";				
+				if(is_numeric($valNoCommas)) {
+					$str .= "[$col] < $valNoCommas";				
 				}
 				break;
 			case "LessThanOrEqualTo":
 			case "LTOEn":
-				if(is_numeric($val)) {
-					$str .= "[$col] <= $val";				
+				if(is_numeric($valNoCommas)) {
+					$str .= "[$col] <= $valNoCommas";				
 				}
 				break;
 			case "GreaterThanOrEqualTo":
 			case "GTOEn":
-				if(is_numeric($val)) {
-					$str .= "[$col] >= $val";				
+				if(is_numeric($valNoCommas)) {
+					$str .= "[$col] >= $valNoCommas";				
 				}
 				break;
 			case "MatchesTextOrBlank":
