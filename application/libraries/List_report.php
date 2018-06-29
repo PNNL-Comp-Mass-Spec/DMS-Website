@@ -399,6 +399,7 @@ class List_report {
 	function set_up_list_query()
 	{
 		$CI = &get_instance();
+        
 		// it all starts with a model
 		$CI->cu->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
 
@@ -427,7 +428,7 @@ class List_report {
 			$CI->data_model->add_predicate_item($pi['qf_rel_sel'], $pi['qf_col_sel'], $pi['qf_comp_sel'], $pi['qf_comp_val']);
 		}
 		foreach($current_sorting_filter_values as $item) {
-				$CI->data_model->add_sorting_item($item['qf_sort_col'], $item['qf_sort_dir']);
+            $CI->data_model->add_sorting_item($item['qf_sort_col'], $item['qf_sort_dir']);
 		}
 		$CI->data_model->add_paging_item($current_filter_values['qf_first_row'], $current_filter_values['qf_rows_per_page']);
 		

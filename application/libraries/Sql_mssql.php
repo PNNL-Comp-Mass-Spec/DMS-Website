@@ -139,7 +139,7 @@ class Sql_mssql {
 	
 	/**
 	 * Generate the Where Clause from the predicate specification object
-	// (column name, comparison operator, comparison value)
+	 * (column name, comparison operator, comparison value)
 	 * @param type $predicate
 	 * @return type
 	 */
@@ -162,12 +162,12 @@ class Sql_mssql {
 				break;
 			case "ContainsText":
 			case "CTx":
-					$val = (substr($val, 0, 1) == '`')?str_replace('`', '', $val).'%':'%'.$val.'%';
+				$val = (substr($val, 0, 1) == '`') ? substr($val, 1).'%' : '%'.$val.'%';
 				$str .= "[$col] LIKE '$val'";
 				break;
 			case "DoesNotContainText":
 			case "DNCTx":
-					$val = (substr($val, 0, 1) == '`')?str_replace('`', '', $val).'%':'%'.$val.'%';
+				$val = (substr($val, 0, 1) == '`') ? substr($val, 1).'%' : '%'.$val.'%';
 				$str .= "NOT [$col] LIKE '$val'";
 				break;
 			case "MatchesText":
@@ -180,7 +180,7 @@ class Sql_mssql {
 				break;
 			case "StartsWithText":
 			case "SWTx":
-				$val = $val.'%';
+                $val = (substr($val, 0, 1) == '`') ? substr($val, 1).'%' : $val.'%';
 				$str .= "[$col] LIKE '$val'";
 				break;
 			case "Equals":

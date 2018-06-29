@@ -244,17 +244,17 @@ class Q_model extends CI_Model {
 			// look for wildcard characters
 			$match_blank = $p->val == '\b';
 			$exact_match = (substr($p->val, 0, 1) == '~');
-			$not_match = (substr($p->val, 0, 1) == ':');
-			$regex_all = (strpos($p->val, '*') !== FALSE);
-			$regex_one = (strpos($p->val, '?') !== FALSE);
-			$sql_any   = (strpos($p->val, '%') !== FALSE);
+			$not_match   = (substr($p->val, 0, 1) == ':');
+			$regex_all   = (strpos($p->val, '*') !== FALSE);
+			$regex_one   = (strpos($p->val, '?') !== FALSE);
+			$sql_any     = (strpos($p->val, '%') !== FALSE);
 						
 			if($match_blank) {
 				// Force match a blank
 				$p->val = '';
 				$p->cmp = "MatchesBlank";
 			} else			
-			if($exact_match || ($p->cmp === "MatchesText")) {
+			if($exact_match || ($p->cmp === "MatchesText") || ($p->cmp === "MTx")) {
 				// Force exact match
 				// Remove the first character if it is a tilde or backtick (~ or `)
 				$p->val = ltrim($p->val, '~`');
@@ -266,7 +266,7 @@ class Q_model extends CI_Model {
 				$p->val = ltrim($p->val, ':');
 				$p->cmp = "DoesNotContainText";
 			} else
-			if( $regex_all || $regex_one) {
+			if($regex_all || $regex_one) {
 				$p->cmp = 'wildcards';
 			} else {
 				$exceptions = array('MatchesText', 'MTx', 'MatchesTextOrBlank', 'MTxOB');
