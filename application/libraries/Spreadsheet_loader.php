@@ -100,7 +100,37 @@ class Spreadsheet_loader {
 
 		}
 		fclose($handle);
-		
+
+        // Examine the data to replace ascii characters above ascii 127 with the corresponding HTML code string
+        // For example, the non-breaking space hex A0 is replaced with &#160;
+
+        $loadedRowCount = count($this->ss_rows);
+        $stripCharsLineNum = -1;
+        
+        for($i = 0; $i < $loadedRowCount; $i++) {
+            $colCount = count($this->ss_rows[$i]);
+            if ($colCount == 0)
+                continue;
+            
+            if (trim(strtoupper($this->ss_rows[$i][0])) == "TRACKING INFORMATION") {
+                // The next line will have experiment names, dataset names, etc.
+                // Strip out characters above ascii 127 since those aren't allowed in DMS 
+                $stripCharsLineNum = $i + 1;
+            }
+            
+            for($j = 0; $j < $colCount; $j++) {
+                if ($i == $stripCharsLineNum && $j > 0) {
+                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                } else {
+                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH);
+                }
+                
+                if ($this->ss_rows[$i][$j] != $sanitized) {
+                    $this->ss_rows[$i][$j] = $sanitized;
+                }
+            }
+        }
+        
 		// figure out where things are and build supplemental arrays
 		$this->find_tracking_info_fields();
 		$this->find_aux_info_fields();
