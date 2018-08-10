@@ -154,10 +154,26 @@ class Spreadsheet_loader {
 		$mark = FALSE;
 		$category = '';
 		$subcategory = '';
-		for($i=0; $i<count($this->ss_rows);$i++) {
+		$rowCount = count($this->ss_rows);
+
+		for($i = 0; $i < $rowCount; $i++) {
 			if($in_section) {
+				$colCount = count($this->ss_rows[$i]);
+				$rowHasData = FALSE;
+				for($j = 0; $j < $colCount; $j++) {
+					if (trim($this->ss_rows[$i][$j]) != '') {
+						$rowHasData = TRUE;
+						break;
+					}
+				}
+				
+				// Skip the row if it only has whitespace
+				if (!$rowHasData) {
+					continue;
+				}
+				
 				$name = $this->ss_rows[$i][0];
-				$has_data = (count($this->ss_rows[$i]) > 1 && $this->ss_rows[$i][1] != '');
+				$has_data = ($colCount > 1 && $this->ss_rows[$i][1] != '');
 				if($has_data) {
 					if(!$in_data) {
 						throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
