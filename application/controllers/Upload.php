@@ -55,9 +55,9 @@ class Upload extends Base_controller {
 
 	/**
 	 * Upload the file identified via the POST
-	// overwrite any existing copies
-	// Return javascript that will execute immediately on being
-	// inserted into an iframe
+	 * overwrite any existing copies
+	 * Return javascript that will execute immediately on being
+	 * inserted into an iframe
 	 * @category AJAX
 	 */
 	function load()
@@ -544,7 +544,8 @@ class Upload extends Base_controller {
 				}
 			}
 			if(!$good) {
-				$errors[] = "Tracking item '$field' near row $row is not recogized";
+				$errors[] = "Tracking item '$field' near row $row is not recognized; " . 
+                            "re-export a new spreadsheet template from the $config_source detail report";
 			}
 		}
 		return $errors;
