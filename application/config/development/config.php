@@ -24,11 +24,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$config['base_url']	= "http://".$_SERVER["SERVER_NAME"]."/";
+//$config['base_url']	= "http://".$_SERVER["SERVER_NAME"]."/";
 
 // If using https, replace the above with these lines
-// $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
-// $config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
+$protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+$config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
 
 /*
 |--------------------------------------------------------------------------
@@ -546,7 +546,7 @@ $config['modify_config_db_enabled'] = TRUE;
 
 $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
 
-$config['file_attachment_local_root_path'] = "/files2/dms_attachments/";
+$config['file_attachment_local_root_path'] = "/files1/dms_attachments/";
 
 $config['model_config_path'] = "application/model_config/" ;
 
