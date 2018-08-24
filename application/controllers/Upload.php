@@ -55,9 +55,8 @@ class Upload extends Base_controller {
 
 	/**
 	 * Upload the file identified via the POST
-	 * overwrite any existing copies
-	 * Return javascript that will execute immediately on being
-	 * inserted into an iframe
+	 * Overwrite any existing copies
+	 * Return javascript that will execute immediately on being inserted into an iframe
 	 * @category AJAX
 	 */
 	function load()
@@ -68,17 +67,23 @@ class Upload extends Base_controller {
 		$file_name = basename($_FILES[$fieldName]['name']);
 		$target_path = $destination_path . $file_name;
 
-		$result = $_FILES['myfile']['error'];
-		if($result == 0) {
-			if (file_exists($target_path)) {
-				unlink($target_path);
+		if ($this->IsNullOrEmptyString($file_name)) {
+			$error = 'Filename is empty';
+		} else {
+			
+			$result = $_FILES['myfile']['error'];
+			if ($result == 0) {
+				if (file_exists($target_path) && $target_path !== $destination_path) {
+					unlink($target_path);
+				}
+				$result = !move_uploaded_file($_FILES['myfile']['tmp_name'], $target_path);
 			}
-			$result = !move_uploaded_file($_FILES['myfile']['tmp_name'], $target_path);
+			$error = '';
+			if($result) {
+				$error = 'File upload failed';
+			}
 		}
-		$error = '';
-		if($result) {
-			$error = 'File upload failed';
-		}
+
 		// output is headed for an iframe
 		// this script will automatically run when put into it and will inform elements on main page that operation has completed
 		echo "<script type='text/javascript'>parent.report_upload_results('$file_name', '$error')</script>";
@@ -651,5 +656,9 @@ class Upload extends Base_controller {
 		$this->supported_entities = $def;
 	}
 
+	function IsNullOrEmptyString($str) 
+	{
+	    return (!isset($str) || trim($str) === '');
+	}
 }
 
