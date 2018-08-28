@@ -81,7 +81,7 @@ class Paging_filter {
 	}
 
 	/**
-	 * Set query filter so that it will not be used to filter results
+	 * Reset (clear) the filter
 	 */
 	private
 	function clear_filter()
@@ -91,19 +91,27 @@ class Paging_filter {
 		$this->cur_filter_values['qf_rows_per_page'] = 10;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get current filter values
+     * @return type
+     */
 	function get_current_filter_values()
 	{
 		return $this->cur_filter_values;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get cached values
+     * @return type
+     */
 	function get_cached_value()
 	{
 		return get_from_cache($this->storage_name);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Clear cached data
+     */
 	function clear_cached_state()
 	{
 		$CI =& get_instance();

@@ -40,7 +40,7 @@ class Cell_presentation {
 	}
 
 	/**
-	 * 
+	 * Render a row
 	 * @param type $row
 	 * @return string
 	 */

@@ -66,16 +66,18 @@ class Sproc_mssql {
 		mssql_free_statement($stmt);		
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Package results into array of arrays
+     * @param type $result
+     * @return type
+     */
 	private function get_rows($result)
 	{
-		// package results into array of arrays
 		$result_array = array();
 		while ($row = mssql_fetch_assoc($result)) {
 			$result_array[] = $row;
 		}
 		mssql_free_result($result);
-//		mssql_next_result($result);
 		return $result_array;
 	}
 	

@@ -14,9 +14,13 @@ class Primary_filter {
 	{
 	}
 
-	// --------------------------------------------------------------------
-	// get current secondary filter values either from POST
-	// or from cache storage (session)
+	/**
+     * Get current secondary filter values either from POST
+	 * or from cache storage (session)
+     * @param type $config_name
+     * @param type $config_source
+     * @param type $filter_specs
+     */
 	function init($config_name, $config_source, $filter_specs)
 	{
 		foreach(array_keys($filter_specs) as $id) {
@@ -48,15 +52,18 @@ class Primary_filter {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// get current values for secondary filter if present in POST
-	// otherwise return FALSE
+	/**
+     * Get current values for secondary filter if present in POST.
+	 * Otherwise return FALSE
+     * @param type $filter_specs
+     * @return boolean
+     */
 	private
 	function get_current_filter_values_from_post($filter_specs)
 	{
 		// (someday) smarter extraction of primary filter values from POST:
-		// there may be other items in the POST not relevant to primary filter
-		// maybe we can check for the presence of any scalars that begin with "pf_"
+		// There may be other items in the POST not relevant to primary filter.
+		// Maybe we can check for the presence of any scalars that begin with "pf_"
 		if(!empty($_POST)) {
 			foreach(array_keys($filter_specs) as $id) {
 				$filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -73,16 +80,20 @@ class Primary_filter {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// for building up current values from another source
-	// (usually URL seqments)
+	/**
+     * For building up current values from another source
+	 * (usually URL seqments)
+     * @param type $field
+     * @param type $value
+     */
 	function set_current_filter_value($field, $value)
 	{
 		$this->cur_filter_values[$field]['value'] = $value;
 	}
 	
-	// --------------------------------------------------------------------
-	// clear the value for each field in the filter
+	/**
+     * Clear the value for each field in the filter
+     */
 	function clear_current_filter_values()
 	{
 		foreach($this->cur_filter_values as $fld => &$spec) {
@@ -90,40 +101,53 @@ class Primary_filter {
 		}
 	}
 
-	// --------------------------------------------------------------------
-	// save current filter values to cache
-	// (typically used when set_current_filter_value has been used)
+	/**
+     * Save current filter values to cache
+	 * (typically used when set_current_filter_value has been used)
+     */
 	function save_current_filter_values()
 	{
 		save_to_cache($this->storage_name, $this->cur_filter_values);
 	}
 	
-	// --------------------------------------------------------------------
-	// set query filter so that it will not be used to filter results
+	/**
+     * Reset (clear) the filter
+     */
 	private
 	function clear_query_filter()
 	{
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get current filter values
+     * @return type
+     */
 	function get_cur_filter_values()
 	{
 		return $this->cur_filter_values;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get the storage path
+     * @return type
+     */
 	function get_storage_name()
 	{
 		return $this->storage_name;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get cached values
+     * @return type
+     */
 	function get_cached_value()
 	{
 		return get_from_cache($this->storage_name);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Clear cached data
+     */
 	function clear_cached_state()
 	{
 		$CI =& get_instance();

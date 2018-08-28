@@ -3,19 +3,20 @@
 		exit('No direct script access allowed');
 	}
 
+/**
+ * Form validation functions
+ */
 class MY_Form_validation extends CI_Form_validation {
 
 
-	// --------------------------------------------------------------------
+	/**
+     * Constructor
+     */
 	function __construct()
 	{
 		// Call the parent constructor
 		parent::__construct();
 	}
-
-	// --------------------------------------------------------------------
-	// validation functions
-	// --------------------------------------------------------------------
 
 	/**
 	 * Called for every field

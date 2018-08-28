@@ -1,20 +1,27 @@
 <?php  
-	if (!defined('BASEPATH')) {
+    //
+	// Support functions for entry page features of base_controller
+    //
+
+    if (!defined('BASEPATH')) {
 		exit('No direct script access allowed');
 	}
 
 	// Include application/libraries/Wildcard_conversion.php
 	require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
 	
-	// support functions for entry page features of base_controller
-
-	// --------------------------------------------------------------------
-	// get initial values for entry fields - URL will tell us where to get them
-	// - defaults from config db
-	// - current values from same entity type being edited
-	// - current values from other entity type (if config db provides column mapping spec)
-	// - URL segment values
-	function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names)
+    /**
+     * Get initial values for entry fields - URL will tell us where to get them
+	 * - defaults from config db
+	 * - current values from same entity type being edited
+	 * - current values from other entity type (if config db provides column mapping spec)
+	 * - URL segment values
+     * @param type $segs
+     * @param type $config_source
+     * @param type $form_field_names
+     * @return type
+     */
+    function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names)
 	{		
 		$CI =& get_instance();
 
@@ -57,10 +64,14 @@
 		return $initial_field_values;
 	}
 
-	// --------------------------------------------------------------------
-	// return an array (of field => value) containing fields defined 
-	// in $col_mapping with values according to type of mapping defined
-	function load_from_external_source($col_mapping, $source_data)
+    /**
+     * Return an array (of field => value) containing fields defined 
+	 * in $col_mapping with values according to type of mapping defined
+     * @param type $col_mapping
+     * @param type $source_data
+     * @return string
+     */
+    function load_from_external_source($col_mapping, $source_data)
 	{
 		$CI =& get_instance();
 
@@ -106,9 +117,13 @@
 		return $a;
 	}
 	
-	// --------------------------------------------------------------------
-	// override default values with values directly from url segments 
-	// (based on matching segment and field order)
+	/**
+     * Override default values with values directly from URL segments 
+	 * (based on matching segment and field order)
+     * @param type $form_field_names
+     * @param type $segs
+     * @return type
+     */
 	function get_values_from_segs($form_field_names, $segs)
 	{
 		$a = array();	
@@ -126,7 +141,13 @@
 		return $a;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Create the entry outcome message
+     * @param type $message
+     * @param type $option
+     * @param type $id
+     * @return string
+     */
 	function entry_outcome_message($message, $option = 'success', $id='')
 	{
 		$str = '';
@@ -147,14 +168,29 @@
 		}
 		return $str;
 	}
-
-	// --------------------------------------------------------------------
-	// make post-submission links to list report and detail report
-	// "Go to list report" link is made by default if report action exists (unless overridden by "link_tag")
-	// detail_id - Makes "Go to detail report" link (if show action exists) using the specified entry page field as the identifier (unless suppressed by "link_tag")
-	// link_tag  - Makes default "Go to list report" link point to a list report in a different page family, and prevents "Go to detail report" link from appearing
-	// link	     - Adds an arbitrary link to the entry page that appears following successfully submitting the entry
 	
+    /**
+	 * Make post-submission links to list report and detail report
+	 * "Go to list report" link is made by default if report action exists (unless overridden by "link_tag")
+     * 
+     * Add rows to the general_params table in the Config DB to get additional post-submission links to appear
+     * - detail_id: Makes "Go to detail report" link (if show action exists) 
+     *              using the specified entry page field as the identifier 
+     *              unless suppressed by link_tag.
+     *              'post_submission_detail_id' in the General Params table
+	 * - link_tag:  Makes default "Go to list report" link point to a list report 
+     *              in a different page family, and prevents the 
+     *              "Go to detail report" link from appearing.
+     *              'post_submission_link_tag' in the General Params table
+	 * - link:	    Adds an arbitrary link shown following successfully submitting the entry
+     *              'post_submission_link' in the General Params table
+     * 
+     * @param type $tag
+     * @param type $ps_link_specs
+     * @param type $input_params
+     * @param type $actions
+     * @return string
+     */
 	function make_post_submission_links($tag, $ps_link_specs, $input_params, $actions)
 	{
 		$lr_tg = '';		

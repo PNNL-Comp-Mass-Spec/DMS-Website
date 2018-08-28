@@ -21,7 +21,10 @@ class Secondary_filter {
 	{
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get the number of active filters
+     * @return type
+     */
 	function get_num_filters()
 	{
 		return $this->qf_num_filters;
@@ -54,9 +57,11 @@ class Secondary_filter {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// get current values for secondary filter if present in POST
-	// otherwise return FALSE
+	/**
+     * Get current values for secondary filter if present in POST
+	 * Otherwise return FALSE
+     * @return boolean
+     */
 	private
 	function get_current_filter_values_from_post()
 	{
@@ -76,8 +81,9 @@ class Secondary_filter {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// set query filter so that it will not be used to filter results
+	/**
+     * Clear the filter
+     */
 	function clear_query_filter()
 	{
 		for($i=0; $i<$this->qf_num_filters; $i++) {
@@ -87,10 +93,14 @@ class Secondary_filter {
 		}					
 	}
 	
-	// --------------------------------------------------------------------
-	// collect info for building secondary filter display
-	// combines information from given model with current state of this secondary filter
-	// into a structure suitable for display or other output to be generated
+	/**
+     * Collect info for building secondary filter display.
+	 * Combines information from given model with current state of this secondary filter
+	 * into a structure suitable for display or other output to be generated
+     * @param type $model
+     * @param type $url
+     * @return \stdClass
+     */
 	function collect_information_for_display($model, $url = "data/get_sql_comparison/")
 	{
 		// get array of column names from model
@@ -135,27 +145,39 @@ class Secondary_filter {
 		return $fx;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get current filter values
+     * @return type
+     */
 	function get_current_filter_values()
 	{
 		return $this->cur_qf_vals;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Get the storage path
+     * @return type
+     */
 	function get_storage_name()
 	{
 		return $this->storage_name;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Get cached values
+     * @return type
+     */
 	function get_cached_value()
 	{
 		return get_from_cache($this->storage_name);
 	}
 
-	// --------------------------------------------------------------------
-	// for building up current values from a simple ordered list
-	// (usually URL seqments)
+	/**
+     * For building up current values from a simple ordered list
+	 * (usually URL seqments)
+     * @param type $items
+     * @return string
+     */
 	function get_filter_from_list($items)
 	{
 		// build filters from list items
@@ -186,14 +208,18 @@ class Secondary_filter {
 		return $filter_state;
 	}	
 
-	// --------------------------------------------------------------------
-	// save current filter values to cache
+	/**
+     * Save current filter values to the cache
+     * @param type $filter_state
+     */
 	function save_filter_values($filter_state)
 	{		
 		save_to_cache($this->storage_name, $filter_state);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Clear cached data
+     */
 	function clear_cached_state()
 	{
 		$CI =& get_instance();

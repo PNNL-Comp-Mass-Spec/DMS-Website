@@ -31,10 +31,11 @@ class Param_report {
 		$this->title = $CI->my_title;
 	}
 	
-	// --------------------------------------------------------------------
-	// sets up a page that contains an entry form defined by the
-	// e_model for the config db which will be used to get data
-	// rows in HTML via and AJAX call to the param_data function.
+	/**
+     * Sets up a page that contains an entry form defined by the
+	 * e_model for the config db which will be used to get data
+	 * rows in HTML via and AJAX call to the param_data function.
+     */
 	function param()
 	{
 		$CI = &get_instance();
@@ -74,13 +75,15 @@ class Param_report {
 		$CI->load->view('main/param_report');
 	}
 
-	// --------------------------------------------------------------------
-	// returns HTML data row table of data returned by stored procedure
-	// this uses the stored procedure defined by the 'list_report_sproc'
-	// parameter in the general_params table of the config db and expects
-	// POST data from a form defined by the form_fields table of the config db
-	// (via the e_model).
-	// AJAX
+	/**
+     * Returns HTML data row table of data returned by stored procedure.
+	 * This uses the stored procedure defined by the 'list_report_sproc'
+	 * parameter in the general_params table of the config db and expects
+	 * POST data from a form defined by the form_fields table of the config db
+	 * (via the e_model).
+     * @return type
+     * @category AJAX
+     */
 	function param_data()
 	{
 		$CI = &get_instance();
@@ -120,7 +123,11 @@ class Param_report {
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get filtered data
+     * @param type $paging
+     * @return type
+     */
 	private
 	function get_filtered_param_report_rows($paging = TRUE)
 	{
@@ -138,11 +145,14 @@ class Param_report {
 		return $CI->sproc_model->get_filtered_rows($current_sorting_filter_values, $current_paging_filter_values);
 	}
 
-	// --------------------------------------------------------------------
-	// get rowset from sproc specified by config_name/config_source
-	// using parameters delivered from the entry form specified
-	// by config_name/config_source, and set up controller for
-	// call to $CI->sproc_model->get_rows();
+	/**
+     * Get rowset from sproc specified by config_name/config_source
+	 * using parameters delivered from the entry form specified
+	 * by config_name/config_source, and set up controller for
+	 * call to $CI->sproc_model->get_rows();
+     * @return type
+     * @throws exception
+     */
 	private
 	function get_data_rows_from_sproc()
 	{
@@ -198,10 +208,11 @@ class Param_report {
 		return $message;	
 	}
 
-	// --------------------------------------------------------------------
-	// returns HTML for the paging display and control element 
-	// for inclusion in param report pages
-	// AJAX
+	/**
+     * Returns HTML for the paging display and control element 
+	 * for inclusion in param report pages
+     * @category AJAX
+     */
 	function param_paging()
 	{
 		$CI = &get_instance();
@@ -259,8 +270,11 @@ class Param_report {
 		make_param_filter($cols, $current_paging_filter_values, $current_sorting_filter_values, $col_filter);
 	}
 
-	// --------------------------------------------------------------------
-	// export param report
+	/**
+     * Export a param report
+     * @param type $format
+     * @return type
+     */
 	function export_param($format)
 	{
 		$CI = &get_instance();

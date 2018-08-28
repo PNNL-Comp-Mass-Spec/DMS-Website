@@ -1,8 +1,8 @@
 <?php
-// --------------------------------------------------------------------
-// 'operations' style stored procedure functions
-// --------------------------------------------------------------------
 
+/**
+ *  'operations' style stored procedure functions
+ */
 class Operation {
 
 	private $config_source = '';
@@ -18,12 +18,15 @@ class Operation {
 		$this->config_source = $config_source;
 	}
 
-	// --------------------------------------------------------------------
-	// calls given stored procedure for this page family using calling parameters
-	// derived from the sproc args definition for the stored procedure in config db
-	// (and looks for a 'command' field in POST which is set to sproc arg 'mode')
-	// returns a response object containing return value and message from sproc
-	function internal_operation($sproc_name)
+	/**
+     * Calls given stored procedure for this page family using calling parameters
+	 * derived from the sproc args definition for the stored procedure in config db
+	 * (and looks for a 'command' field in POST which is set to sproc arg 'mode').
+     * @param type $sproc_name
+     * @return \stdClass A response object containing return value and message from sproc
+     * @throws exception
+     */
+    function internal_operation($sproc_name)
 	{
 		$CI = &get_instance();
 		$config_name = $sproc_name;
@@ -82,8 +85,10 @@ class Operation {
 		return $response;
 	}
 
-	// --------------------------------------------------------------------
-	// get params that sproc was called with, including changes passed back from sproc
+	/**
+     * Get params that sproc was called with, including changes passed back from sproc
+     * @return type
+     */
 	function get_params()
 	{
 		$CI = &get_instance();

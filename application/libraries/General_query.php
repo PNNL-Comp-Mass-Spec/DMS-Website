@@ -38,7 +38,7 @@ class General_query {
 	}
 
 	/**
-	 * Extract parameters from input url segments and return object 
+	 * Extract parameters from input URL segments and return object 
 	 * @return \General_query_def
 	 */
 	function get_query_values_from_url()
@@ -83,7 +83,7 @@ class General_query {
 	}
 
 	/**
-	 * Merge input values in url segment order with filter spec in order
+	 * Merge input values in URL segment order with filter spec in order
 	 * and add results to model as predicate items
 	 * @param type $filter_values
 	 * @param type $model
@@ -107,7 +107,10 @@ class General_query {
 		}
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Output a result in the specified format
+     * @param type $output_format
+     */
 	function output_result($output_format)
 	{
 		$CI = &get_instance();		

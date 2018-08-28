@@ -8,7 +8,13 @@ class Table_sorter {
 	function __construct() {
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Sort a table on the given column
+     * @param type $table
+     * @param type $column
+     * @param type $dir
+     * @return type
+     */
 	function sort($table, $column, $dir = 'ASC') {
 		$this->column = $column;
 		switch($dir) {
@@ -22,7 +28,12 @@ class Table_sorter {
 		return $table;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Compare values for an ascending sort
+     * @param type $a
+     * @param type $b
+     * @return int
+     */
 	function compare_asc($a, $b) {
 		if ($a[$this->column] == $b[$this->column]) {
 			return 0;
@@ -30,7 +41,12 @@ class Table_sorter {
 		return ($a[$this->column] < $b[$this->column]) ? -1 : 1;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Compare values for a descending sort
+     * @param type $a
+     * @param type $b
+     * @return int
+     */
 	function compare_desc($a, $b) {
 		if ($a[$this->column] == $b[$this->column]) {
 			return 0;
@@ -38,7 +54,12 @@ class Table_sorter {
 		return ($a[$this->column] > $b[$this->column]) ? -1 : 1;
 	} 
 
-	// --------------------------------------------------------------------
+	/**
+     * Sort a table on multiple columns
+     * @param type $table
+     * @param type $sort_filter
+     * @return type
+     */
 	function sort_multi_col($table, $sort_filter)
 	{
 //print_r($sort_filter); echo '<hr>';	
@@ -47,15 +68,20 @@ class Table_sorter {
 		return $table;
 	}
 	
-	// --------------------------------------------------------------------
-	// compare based on multiple columns
+	/**
+     * Compare multiple columns while sorting
+     * @param type $a
+     * @param type $b
+     * @return type
+     */
 	function compare_multi_col($a, $b)
 	{
 //print_r($a); echo '<br>---------<br>';print_r($b); echo '<hr>';
 		
-		// initially presume the two values are equal
+		// Initially presume the two values are equal
 		$comparison = 0;	
-		// work forward through the sorting columns
+
+		// Work forward through the sorting columns
 		// until we either come to a column where
 		// the values are different or we run out
 		// of sorting columns to try

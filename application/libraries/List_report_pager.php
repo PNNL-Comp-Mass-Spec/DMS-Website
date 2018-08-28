@@ -32,7 +32,10 @@ class List_report_pager {
 	private $num_tag_open		= '&nbsp;';
 	private $num_tag_close		= '';
 
-	// --------------------------------------------------------------------
+	/**
+     * Constructor
+     * @param type $params
+     */
 	function __construct($params = array())
 	{
 		if (count($params) > 0) {
@@ -44,7 +47,10 @@ class List_report_pager {
 		$this->last_link = expansion_link_icon('last'); 
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Initialize the pager
+     * @param type $params
+     */
 	function initialize($params = array())
 	{
 		if (count($params) > 0) {
@@ -56,7 +62,12 @@ class List_report_pager {
 		}
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Update the page number and row info
+     * @param type $first_row
+     * @param type $total_rows
+     * @param type $per_page
+     */
 	function set($first_row, $total_rows, $per_page)
 	{
 		$this->total_rows = $total_rows;

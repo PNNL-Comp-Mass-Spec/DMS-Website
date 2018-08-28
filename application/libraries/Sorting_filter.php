@@ -17,9 +17,12 @@ class Sorting_filter {
 	{
 	}
 
-	// --------------------------------------------------------------------
-	// get current secondary filter values either from POST
-	// or from cache storage (session)
+	/**
+     * Get current secondary filter values either from POST
+	 * or from cache storage (session)
+     * @param type $config_name
+     * @param type $config_source
+     */
 	function init($config_name, $config_source)
 	{
 		$CI =& get_instance();
@@ -45,9 +48,11 @@ class Sorting_filter {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// get current values for secondary filter if present in POST
-	// otherwise return FALSE
+	/**
+     * Get current values for secondary filter if present in POST
+	 * otherwise return FALSE
+     * @return boolean
+     */
 	private
 	function get_current_filter_values_from_post()
 	{
@@ -67,8 +72,9 @@ class Sorting_filter {
 		}
 	}
 	
-	// --------------------------------------------------------------------
-	// set query filter so that it will not be used to filter results
+	/**
+     * Reset (clear) the filter
+     */
 	function clear_query_filter()
 	{
 		for($i=0;$i<$this->num_filters;$i++) {
@@ -78,25 +84,36 @@ class Sorting_filter {
 		}					
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get current filter values
+     * @return type
+     */
 	function get_current_filter_values()
 	{
 		return $this->cur_filter_values;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Get the storage path
+     * @return type
+     */
 	function get_storage_name()
 	{
 		return $this->storage_name;
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Get cached values
+     * @return type
+     */
 	function get_cached_value()
 	{
 		return get_from_cache($this->storage_name);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Clear cached data
+     */
 	function clear_cached_state()
 	{
 		$CI =& get_instance();

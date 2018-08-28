@@ -11,9 +11,13 @@ class Saved_settings {
 	{
 	}
 	
-	// --------------------------------------------------------------------
-	// clears cached session variables
-	// (intended for calling via AJAX)
+	/**
+     * Clears cached session variables
+	 * (intended for calling via AJAX)
+     * @param type $page_type
+     * @param type $config_source
+     * @return type
+     */
 	function defaults($page_type, $config_source) //'Param_Pages''list_report_sproc'   'list_report'
 	{
 		$CI = &get_instance();

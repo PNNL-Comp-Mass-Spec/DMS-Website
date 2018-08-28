@@ -117,10 +117,13 @@ class Sproc_sqlsrv {
 		sqlsrv_free_stmt($stmt);
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Package results into array of arrays
+     * @param type $result
+     * @return type
+     */
 	private function get_rows($result)
 	{
-		// package results into array of arrays
 		$result_array = array();
 		while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
 			$result_array[] = $row;

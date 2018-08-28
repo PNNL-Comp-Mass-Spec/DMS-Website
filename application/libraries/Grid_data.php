@@ -13,14 +13,23 @@ class Grid_data {
 	{
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Initialize the grid data
+     * @param type $config_name
+     * @param type $config_source
+     */
 	function init($config_name, $config_source)
 	{
 		$this->config_source = $config_source;
 		$this->config_name = $config_name;
 	}
 
-	// --------------------------------------------------------------------
+	/**
+     * Get data for the grid
+     * @param type $sql
+     * @param type $paramArray
+     * @throws exception
+     */
 	function get_query_data($sql, $paramArray) {
 		$CI = &get_instance();
 		$response = new stdClass();
