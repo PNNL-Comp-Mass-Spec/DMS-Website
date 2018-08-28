@@ -18,15 +18,15 @@ $global:defaults = @{
 $global:sources = @(
 	@{
 		"version" = "dev";
-		"sftpHost" = "prismwebdev2.pnl.gov";
+		"sftpHost" = "prismweb2.pnl.gov";
 		"userName" = "d3l243";
-		"remoteDir" = "/file1/www/html/dmsdev/application/model_config";
+		"remoteDir" = "/files1/www/html/dmsdev/application/model_config";
 	},
 	@{
 		"version" = "prod";
 		"sftpHost" = "prismweb3.pnl.gov";
 		"userName" = "d3l243";
-		"remoteDir" = "/files0/www/html/dms/application/model_config";
+		"remoteDir" = "/files1/www/html/dms/application/model_config";
 	},
 	@{
 		"version" = "cbdmsOnline";

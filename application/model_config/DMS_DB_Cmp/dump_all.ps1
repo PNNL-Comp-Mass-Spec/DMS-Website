@@ -19,7 +19,7 @@
 #
 $configDefFilePath = Join-Path $PSScriptRoot "config-def.psm1"
 if($env:LOCALAPPDATA) { 
-	# Look for config file C:\Users\<usrname>\AppData\Local\PS_DMS_Scripts\config-def.psm1
+	# Look for config file C:\Users\<username>\AppData\Local\PS_DMS_Scripts\config-def.psm1
 	$cfp = Join-Path $env:LOCALAPPDATA (Join-Path "PS_DMS_Scripts" "config-def.psm1")
 	if(Test-Path "$cfp") { 
 		# Config file found; use it
@@ -186,8 +186,9 @@ if ($defaults.Contains("dmsDbSqlPath")) {
 	# For any mis-matching files, copy them to C:\Data\Junk\CodeSyncyyyymmddhhMM
 	
 	$codeSyncDir = Join-Path $defaults["localDumpFileFolderPath"] "CodeSync$rootName"
+	$dmsDbSqlDir = $defaults["dmsDbSqlPath"]
 
-	CompareFilesToMaster $code $defaults["dmsDbSqlPath"] $codeSyncDir $maxFilesToDownload
+	CompareFilesToMaster $code $dmsDbSqlDir $codeSyncDir $maxFilesToDownload
 	
 }
 
@@ -197,8 +198,9 @@ if ($defaults.Contains("cbdmsDbSqlPath")) {
 	# For any mis-matching files, copy them to C:\Data\Junk\CodeSyncCbdmsyyyymmddhhMM
 	
 	$codeSyncCbdmsDir = Join-Path $defaults["localDumpFileFolderPath"] "CodeSyncCbdms$rootName"
+	$cbdmsDbSqlDir = $defaults["cbdmsDbSqlPath"]
 
-	CompareFilesToMaster $cbdmsCode $defaults["cbdmsDbSqlPath"] $codeSyncCbdmsDir $maxFilesToDownload
+	CompareFilesToMaster $cbdmsCode $cbdmsDbSqlDir $codeSyncCbdmsDir $maxFilesToDownload
 	
 }
 
@@ -218,27 +220,39 @@ if($settings["launchBeyondCompare"]) {
 	} else {
 
 		if (($codeSyncDir) -and (Test-Path "$codeSyncDir")) {
+			Write-output ""
 			Write-output "Show BC4 for $codeSyncDir"
+			Write-output "         vs. $dmsDbSqlDir"
 
-			& $beyondComparePath $codeSyncDir $defaults["dmsDbSqlPath"]
+			& $beyondComparePath $codeSyncDir $dmsDbSqlDir
 			Start-Sleep -m 500
 		}
 
 		if (($codeSyncCbdmsDir) -and (Test-Path "$codeSyncCbdmsDir")) {
+			Write-output ""
 			Write-output "Show BC4 for $codeSyncCbdmsDir"
+			Write-output "         vs. $cbdmsDbSqlDir"
 
-			& $beyondComparePath $codeSyncCbdmsDir $defaults["cbdmsDbSqlPath"]
+			& $beyondComparePath $codeSyncCbdmsDir $cbdmsDbSqlDir
 			Start-Sleep -m 500
 		}
 
 		foreach($key in $downloads.Keys) {
+			Write-output ""
 			Write-output "Show BC4 for $key"
 
 			if ($key -eq "cbdmsOnline") {
-				& $beyondComparePath $cbdmsCode $downloads[$key] 
+				$leftComparisonDir = $cbdmsCode
 			} else {
-				& $beyondComparePath $code $downloads[$key] 
+				$leftComparisonDir = $code
 			}
+			$rightComparisonDir = $downloads[$key]
+
+			Write-output "             $leftComparisonDir"
+			Write-output "         vs. $rightComparisonDir"
+
+			& $beyondComparePath $leftComparisonDir $rightComparisonDir
+
 			# Wait 500 msec before continuing to avoid shared resource conflicts
 			Start-Sleep -m 500
 
