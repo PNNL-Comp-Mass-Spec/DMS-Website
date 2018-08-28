@@ -7,7 +7,8 @@ function DumpSqliteDBFiles($localDbFileFolderPath, $localDumpFileFolderPath) {
 
 	$sqliteDBs = Get-ChildItem $localDbFileFolderPath -Filter "*.db"
 
-	Write-Output ("Converting {0} .db files to .sql " -f ($sqliteDBs.Length) )
+	Write-Output ("Converting {0} .db files to .sql" -f ($sqliteDBs.Length) )
+
 	$filesConverted = 0
 
 	foreach($file in $sqliteDBs) {
@@ -17,7 +18,7 @@ function DumpSqliteDBFiles($localDbFileFolderPath, $localDumpFileFolderPath) {
 		$dbFile = "$localDbFileFolderPath\$($file.Name)"
 		$dumpFile = "$localDumpFileFolderPath\$($file.BaseName).sql"
 
-		echo .dump | &$prog $dbFile > $dumpFile
+		echo .dump | &$prog $dbFile | Out-File -FilePath $dumpFile -Encoding utf8
 
 		$filesConverted = $filesConverted + 1
 	}
