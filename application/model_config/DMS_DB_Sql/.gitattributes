@@ -1,0 +1,16 @@
+# The .sql files created by dump_all.ps1 are UTF-16 little endian
+# (see https://github.com/PNNL-Comp-Mass-Spec/DMS-Website/tree/master/application/model_config/DMS_DB_Cmp)
+#
+# Git (and the Git Extensions program) treat UTF-16 files as binary.
+# In order to force them to be treated as text for file diffs,
+# we flag sql files with the diff=localizablestrings attribute.
+#
+# Next, update .git/config for this repository to have
+#
+# [diff "localizablestrings"]
+# textconv = "iconv -f utf-16 -t utf-8"
+#
+# For more information, see https://stackoverflow.com/a/21020607/1179467
+#
+
+*.sql	diff=localizablestrings
