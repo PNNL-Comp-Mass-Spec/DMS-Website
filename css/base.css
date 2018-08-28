@@ -123,6 +123,32 @@ h2.page_title {
 a.button {
   color: #FFFFFF;
 }
+
+
+.button-disabled  {
+  outline: 0;
+ /* margin: 5px; */
+  padding: 4px;
+  text-decoration: none !important;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 12px;
+  background-color: #686868;
+  border: 1px solid #555657;
+  width: auto;
+  height: 12px;
+  line-height: 12px;
+  border-radius:6px;
+}
+a.button-disabled  {
+  color: #DDDDDD;
+}
+
+
 input.button, button.button {
     padding: 5px;
     height: auto;

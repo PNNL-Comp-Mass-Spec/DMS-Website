@@ -65,7 +65,7 @@ class Controller_utility {
 	 * - user has necessary permission if action is a restricted one
 	 * Present message box if access check fails and $output_message is true
 	 * @param string $action
-	 * @param boolean$output_message
+	 * @param boolean $output_message When true, update the message box with "Access Denied"
 	 * @return boolean
 	 */
 	function check_access($action, $output_message = TRUE)

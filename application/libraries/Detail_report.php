@@ -62,10 +62,11 @@ class Detail_report {
 	 * Get detail report data for specified entity
 	 * @param string $id
 	 * @param boolean $show_entry_links
+	 * @param boolean $show_create_links
 	 * @throws exception
 	 * @category AJAX
 	 */
-	function detail_report_data($id, $show_entry_links = TRUE)
+	function detail_report_data($id, $show_entry_links = TRUE, $show_create_links = TRUE)
 	{
 		$CI = &get_instance();
 
@@ -86,7 +87,11 @@ class Detail_report {
 			$CI->load->library('cell_presentation');
 			$rows = array(&$result_row);
 			$CI->cell_presentation->fix_decimal_display($rows, $col_info);
-	
+
+            if (!($CI->cu->check_access('create', FALSE))) {
+				$show_create_links = FALSE;
+			}
+			
 			// render with old detail report helper
 			$data['my_tag'] = $this->tag;
 			$data['id'] = $id;
@@ -94,7 +99,8 @@ class Detail_report {
 			$data["fields"] = $result_row;		// Returned data for the retrieved row
 			$data["hotlinks"] = $CI->link_model->get_detail_report_hotlinks();
 			$data['show_entry_links'] = $show_entry_links;
-	
+			$data['show_create_links'] = $show_create_links;
+				
 			$CI->load->helper(array('string', 'detail_report_helper'));
 			$CI->load->vars($data);
 			$CI->load->view('main/detail_report_data');

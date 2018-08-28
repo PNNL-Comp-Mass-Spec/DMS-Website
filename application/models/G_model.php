@@ -41,13 +41,14 @@ class G_model extends CI_Model {
 		'report' => FALSE,
 		'show' => FALSE,
 		'param' => FALSE,
-		'enter' => FALSE,
+		'enter' => FALSE,       // Edit an existing entry
 		'operation' => FALSE,
+        'create' => FALSE       // Create a new entry (via New or Copy)
 	);
 	
 	/**
 	 * Collection of all the general param entries
-	 * Contents of genenral_param table from config db are added to this base set
+	 * Contents of general_param table from config db are added to this base set
 	 * @var array
 	 */
 	private $the_parameters = array(
@@ -220,6 +221,9 @@ class G_model extends CI_Model {
 			$tbl_list[] = $row['tbl_name'];
 		}
 
+        $allowCreate = FALSE;
+        $blockCreate = FALSE;
+
 		// maybe move this to general model?
 		foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
 			
@@ -260,6 +264,14 @@ class G_model extends CI_Model {
 					case 'entry_sproc':
 						// Only allow this action if it is permitted
 						$this->actions['enter'] = 'P';
+                        $allowCreate = TRUE;
+						break;
+					case 'entry_block_new':
+						// If this value evaluates to True by PHP, prevent the user
+                        // from using the New or Copy buttons to create a new item
+                        if ($row['value']) {
+                            $blockCreate = TRUE;
+                        }
 						break;
 					case 'operations_sproc':
 						// Only allow this action if it is permitted
@@ -276,6 +288,8 @@ class G_model extends CI_Model {
 			}
 		}
 		
+        $this->actions['create'] = $allowCreate && !$blockCreate;
+
 		if(in_array('list_report_hotlinks', $tbl_list)) {		
 			$this->list_report_hotlinks = array();
 			foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
@@ -304,7 +318,11 @@ class G_model extends CI_Model {
 		}
 	}
 	
-	//--------------------------------------------------------------------
+	/**
+     * Get the value for the specified parameter
+     * @param type $name
+     * @return type
+     */
 	function get_param($name)
 	{
 		return (array_key_exists($name, $this->the_parameters))?$this->the_parameters[$name]:FALSE;

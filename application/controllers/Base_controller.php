@@ -29,7 +29,7 @@ class Base_controller extends CI_Controller {
 	function create()
 	{
 		$page_type = 'create';
-		if (!$this->cu->check_access('enter')) {
+		if (!$this->cu->check_access('create')) {
 			return;
 		}
 		$this->cu->load_lib('entry', 'na', $this->my_tag);
@@ -212,8 +212,10 @@ class Base_controller extends CI_Controller {
 	function detail_report_data($id)
 	{
 		$show_entry_links = $this->cu->check_access('enter', FALSE);
+        $show_create_links = $this->cu->check_access('create', FALSE);
+        
 		$this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
-		$this->detail_report->detail_report_data($id, $show_entry_links);
+		$this->detail_report->detail_report_data($id, $show_entry_links, $show_create_links);
 	}
 
 	/**
