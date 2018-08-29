@@ -18,7 +18,7 @@ INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'RequestName','Request Name','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO "form_fields" VALUES(3,'RequesterPRN','Requester PRN','text','32','32','','','','trim|max_length[32]|required');
 INSERT INTO "form_fields" VALUES(4,'Campaign','Campaign','text','60','128','','','','trim|max_length[128]|required');
-INSERT INTO "form_fields" VALUES(5,'Reason','Reason For Experiment','area-nocopy','','','3','60','','trim|max_length[512]');
+INSERT INTO "form_fields" VALUES(5,'Reason','Reason For Experiment','area-nocopy','','','3','60','','trim|max_length[512]|required');
 INSERT INTO "form_fields" VALUES(7,'MaterialContainerList','Material Container List','area-nocopy','','','2','70','','trim|max_length[2048]');
 INSERT INTO "form_fields" VALUES(8,'Organism','Organism','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO "form_fields" VALUES(10,'Tissue','Plant/Animal Tissue','text','60','128','','','','trim|max_length[128]');
