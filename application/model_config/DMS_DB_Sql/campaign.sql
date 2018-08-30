@@ -98,6 +98,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(9,'+Team Members','detail-report','C
 INSERT INTO "detail_report_hotlinks" VALUES(10,'MyEMSL URL','masked_link','MyEMSL URL','','valueCol','dl_myemsl_url','{"Label":"Show files in MyEMSL"}');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Data Packages','detail-report','Campaign','data_package_campaigns/report/-/~','valueCol','dl_data_packages','');
 INSERT INTO "detail_report_hotlinks" VALUES(12,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show/','labelCol','dl_eus_Proposal','');
+INSERT INTO "detail_report_hotlinks" VALUES(13,'Samples Submitted','detail-report','Campaign','sample_submission/report/~','valueCol','dl_samples_submitted','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Add me as observer','cmd_op','add','notification','Add currently logged in user as observer to this campaign','');
 INSERT INTO "detail_report_commands" VALUES(2,'Remove me as observer','cmd_op','remove','notification','Remove currently logged in user as observer from this campaign','');
