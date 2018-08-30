@@ -137,16 +137,28 @@ var entry = {
 				var skip = mode == "add";
 				proceed = skip || entry.sample_prep_request.checkMaterial(proceed);
 				if(!proceed) {
-					// Present modal dialog with user choices
-					// and return false to cancel original submit
+					// Prior to September 2018, we would show the user a modal dialog asking:
+					//    "Should the associated containers and biomaterial also be retired?"
+					// Options were:
+					//    "Yes, close the request and retire materials/containers"
+					//    or "No, just close the request"
+					//    or "Cancel"
+					//
+					// This functionality was removed because we no longer
+                    // associate biomaterial (aka cell cultures) with sample prep requests
+                    // and thus there is nothing to retire
 
-					// Old method: var text = $('#message_contents').html();
+					// Options for obtaining the text to show the user:
+					// Option 1: 
+					//    var text = $('#message_contents').html();
 					
-					// Alternative method, hooking into a hidden form_field
-					// To hide a field, update form_field_options to include the field name, type hide, and parameter update
-					// var text = $('#message_contents').val();
+					// Option 2: 
+					//    Hook into a hidden form_field
+					//    To hide a field, update form_field_options to include the field name, type hide, and parameter update
+					//    var text = $('#message_contents').val();
 					
-					// Simplest method, just hard-code the message
+					// Option 3:
+					//    Hard-code the message
 					var text = 'Should the associated containers and biomaterial also be retired?';
 
 				    $( "<div></div>" ).html(text).dialog({
@@ -183,9 +195,21 @@ var entry = {
 			return proceed;
 		},
 		cmdInit: function () {
-			// Set hook to trap standard page submit sequence
-			// See submitStandardEntryPage in dms2.js
-			epsilon.actions.before = entry.sample_prep_request.approveSubmit;
+			// Prior to September 2018, we would show the user a modal dialog asking
+			//    "Should the associated containers and biomaterial also be retired?"
+            // 
+            // This functionality was removed because we no longer
+            // associate biomaterial (aka cell cultures) with sample prep requests
+            // and thus there is nothing to retire
+			
+			/*
+			 * Disabled
+			 *
+				// Set hook to trap standard page submit sequence
+				// See submitStandardEntryPage in dms2.js
+				epsilon.actions.before = entry.sample_prep_request.approveSubmit;
+			 *
+			 */
 		}
 	} // sample_prep_request
 } // entry

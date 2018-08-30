@@ -1716,6 +1716,7 @@ var epsilon = {
      * @param {type} url
      * @param {type} mode
      * @returns {undefined}
+     * @remarks Example usage is 'epsilon.actions.before = entry.sample_prep_request.approveSubmit;' in entry.js
      */
 	submitStandardEntryPage: function(url, mode) {
 		epsilon.submitEntryFormToPage(url, mode, this.actions.after, this.actions.before);

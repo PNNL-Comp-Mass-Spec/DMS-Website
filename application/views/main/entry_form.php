@@ -42,7 +42,7 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 </script>
 
 <?php if($entry_submission_cmds != ""): ?>
-<script src="<?= base_url().'javascript/entry.js?version=101' ?>"></script>
+<script src="<?= base_url().'javascript/entry.js?version=102' ?>"></script>
 <script type='text/javascript'>gamma.pageContext.cmdInit = entry.<?= $this->my_tag ?>.cmdInit;</script>
 <?php endif; ?>
 
