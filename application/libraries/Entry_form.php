@@ -44,19 +44,21 @@ class Entry_form {
 		$CI =& get_instance();
 		$CI->load->helper('user');
 
-		foreach($this->form_field_specs as $fld => $spc) {
-			$this->field_values[$fld] = $this->get_default_value($spc);
-			$this->field_errors[$fld] = '';
+		foreach($this->form_field_specs as $fldName => $spc) {
+                $this->field_values[$fldName] = $this->get_default_value($CI, $fldName, $spc);
+                $this->field_errors[$fldName] = '';
 		}
 	}
 
 	/**
 	 * Get default value for field from spec
-	 * @param type $f_spec
+	 * @param type $CI
+     * @param string $fldName
+     * @param type $f_spec
 	 * @return type
 	 */
 	private
-	function get_default_value($f_spec)
+	function get_default_value($CI, $fldName, $f_spec)
 	{
 		$val = '';
 		if(isset($f_spec["default_function"])) {
@@ -124,10 +126,7 @@ class Entry_form {
 		$visible_fields = array();
 		$hidden_fields = array();
 		$block_number = 0;
-		foreach($this->form_field_specs as $fld => $spc) {
-			if($spc['type'] == 'hidden') {
-				$val = $this->field_values[$fld];
-				$hidden_fields[] = "<input type='hidden' id='$fld' name='$fld' value='$val'/>";
+		foreach($this->form_field_specs as $fldName => $spc) {
 			} else {
 				// if field has section header attribute, add section header row to table
 				if(array_key_exists('section', $spc)) {
@@ -137,7 +136,7 @@ class Entry_form {
 				}
 				$help = $this->make_wiki_help_link($spc['label']);
 				$label = $spc['label'];
-				$field = $this->make_entry_field($fld, $spc, $this->field_values[$fld], $mode);
+				$field = $this->make_entry_field($fldName, $spc, $this->field_values[$fldName], $mode);
 
 				$showChooser = true;
 				$fieldType = $spc['type'];
@@ -153,24 +152,25 @@ class Entry_form {
 				}
 
 				if ($showChooser) {
-					$choosers = $this->make_choosers($fld, $spc);
+					$choosers = $this->make_choosers($fldName, $spc);
 				} else {
 					$choosers = "";
 				}
 
-				$error = $this->field_errors[$fld]; //$this->make_error_field($this->field_errors[$fld]);
+				$error = $this->field_errors[$fldName]; //$this->make_error_field($this->field_errors[$fldName]);
 				//
 				$entry = $this->make_entry_area($field, $choosers, $error);
 				$param = ($help)?$help . '&nbsp;' . $label:$label;
 				//
 				if(!empty($this->field_enable)) {
-					$enable_ctrl = $this->make_field_enable_checkbox($fld);
+					$enable_ctrl = $this->make_field_enable_checkbox($fldName);
 					$visible_fields[] = array($block_number, $param, $enable_ctrl, $entry);
 				} else {
 					$visible_fields[] = array($block_number, $param, $entry);
 				}
 			}
 		}
+        
 		// magic command/mode field
 		$attr = array('name' => 'entry_cmd_mode', 'id' => 'entry_cmd_mode', 'type' => 'hidden');
 		$hidden_fields[] = form_input($attr);
@@ -269,13 +269,13 @@ class Entry_form {
 
 	// -----------------------------------
 	private
-	function make_field_enable_checkbox($fld)
+	function make_field_enable_checkbox($fldName)
 	{
 		$str = '';
-		if(array_key_exists($fld, $this->field_enable)) {
-			$ckbx_id = $fld . '_ckbx_enable';
-			$click = "onClick='epsilon.enableDisableField(this, \"$fld\")'";
-			switch(strtolower($this->field_enable[$fld])) {
+		if(array_key_exists($fldName, $this->field_enable)) {
+			$ckbx_id = $fldName . '_ckbx_enable';
+			$click = "onClick='epsilon.enableDisableField(this, \"$fldName\")'";
+			switch(strtolower($this->field_enable[$fldName])) {
 				case 'enabled':
 					$str = "<input type='checkbox' class='_ckbx_enable' name='$ckbx_id' $click checked='yes' >";
 					break;
