@@ -61,6 +61,18 @@ class Entry_form {
 	function get_default_value($CI, $fldName, $f_spec)
 	{
 		$val = '';
+
+        if (!array_key_exists('default', $f_spec) &&
+            !array_key_exists('default_function', $f_spec) &&
+            array_key_exists('section', $f_spec)) 
+        {
+            $CI->cu->message_box('Configuration Error', 
+                    "In the config DB, form_field_options has a section entry "
+                    . "named $fldName, but that is not a valid form field; "
+                    . "update it to refer to a valid form field or remove the section");
+            return $val;
+        }
+        
 		if(isset($f_spec["default_function"])) {
 			// if so, use specified function to get value
 			$func_parts = explode(':', $f_spec["default_function"]);
@@ -127,9 +139,28 @@ class Entry_form {
 		$hidden_fields = array();
 		$block_number = 0;
 		foreach($this->form_field_specs as $fldName => $spc) {
+            if (!array_key_exists('type', $spc)) {
+                 $CI->cu->message_box('Configuration Error', 
+                    "In the config DB, one of the tables refers to $fldName "
+                    . "but that field is not defined in form_fields; see also "
+                    . "the columns returned by the view or table specified by "
+                    . "entry_page_data_table in general_params");
+                continue;
+            }
+            
+            if($spc['type'] == 'hidden') {
+				$val = $this->field_values[$fldName];
+				$hidden_fields[] = "<input type='hidden' id='$fldName' name='$fldName' value='$val'/>";
 			} else {
 				// if field has section header attribute, add section header row to table
-				if(array_key_exists('section', $spc)) {
+				if (array_key_exists('section', $spc)) {
+                    
+                    if (!array_key_exists('label', $spc)) {
+                        // Section name that points to a column that is not in the source data table or view
+                        // A warning box should have already been displayed via get_default_value
+                        continue;
+                    }
+                    
 					$block_number++;
 					$visible_fields[] = array(-1, $spc['section'], $block_number);
 					// (someday) allow for enable field and section headers to be used together
