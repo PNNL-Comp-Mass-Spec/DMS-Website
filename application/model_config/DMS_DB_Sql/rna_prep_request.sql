@@ -27,9 +27,7 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_WP','WP','32','','WP','Con
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , "options" text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Experiments','detail-report','ID','sample_prep_request_experiments/report','labelCol','experiments','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Updates','detail-report','ID','sample_prep_request_updates/report','labelCol','updates','');
-INSERT INTO "detail_report_hotlinks" VALUES(3,'Biomaterial List','detail-report','ID','sample_prep_biomaterial_location/report','labelCol','','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Campaign','detail-report','Campaign','campaign/show','labelCol','campaign','');
-INSERT INTO "detail_report_hotlinks" VALUES(5,'+Biomaterial List','link_list','Biomaterial List','cell_culture/show','valueCol','cell_culture_list','');
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Instrument Name','detail-report','Instrument Name','instrument/report/','valueCol','dl_instrumentName','');
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Dataset Type','detail-report','Instrument Name','helper_instrument_dataset_type/report','valueCol','dl_DatasetType','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_EUS_Proposal','');
@@ -48,7 +46,6 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO "sproc_args" VALUES(1,'RequestName','RequestName','varchar','input','128','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(2,'RequesterPRN','RequesterPRN','varchar','input','32','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(3,'Reason','Reason','varchar','input','512','AddUpdateRNAPrepRequest');
-INSERT INTO "sproc_args" VALUES(4,'BiomaterialList','BiomaterialList','varchar','input','1024','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(5,'Organism','Organism','varchar','input','128','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(6,'BiohazardLevel','BiohazardLevel','varchar','input','12','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(7,'Campaign','Campaign','varchar','input','128','AddUpdateRNAPrepRequest');
@@ -59,7 +56,6 @@ INSERT INTO "sproc_args" VALUES(11,'PrepMethod','PrepMethod','varchar','input','
 INSERT INTO "sproc_args" VALUES(12,'SampleNamingConvention','SampleNamingConvention','varchar','input','128','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(13,'EstimatedCompletion','EstimatedCompletion','varchar','input','32','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(14,'WorkPackageNumber','WorkPackageNumber','varchar','input','64','AddUpdateRNAPrepRequest');
-INSERT INTO "sproc_args" VALUES(15,'ProjectNumber','ProjectNumber','varchar','input','15','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(16,'eusProposalID','eusProposalID','varchar','input','10','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(17,'eusUsageType','eusUsageType','varchar','input','50','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(18,'eusUserID','eusUserID','int','input','','AddUpdateRNAPrepRequest');
@@ -68,7 +64,6 @@ INSERT INTO "sproc_args" VALUES(20,'DatasetType','DatasetType','varchar','input'
 INSERT INTO "sproc_args" VALUES(21,'InstrumentAnalysisSpecifications','InstrumentAnalysisSpecifications','varchar','input','512','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(22,'State','State','varchar','input','32','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(23,'ID','ID','int','output','','AddUpdateRNAPrepRequest');
-INSERT INTO "sproc_args" VALUES(24,'NumberOfBiomaterialRepsReceived','NumberOfBiomaterialRepsReceived','int','input','','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(25,'<local>','mode','varchar','input','12','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(26,'<local>','message','varchar','output','512','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(27,'<local>','callingUser','varchar','input','128','AddUpdateRNAPrepRequest');
@@ -78,9 +73,7 @@ INSERT INTO "form_fields" VALUES(2,'RequestName','Request Name','text','60','128
 INSERT INTO "form_fields" VALUES(3,'RequesterPRN','Requester PRN','text','32','32','','','','trim|max_length[32]|required');
 INSERT INTO "form_fields" VALUES(4,'Campaign','Campaign','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO "form_fields" VALUES(5,'Reason','Reason For Experiment','area','','','3','60','','trim|max_length[512]');
-INSERT INTO "form_fields" VALUES(6,'BiomaterialList','Biomaterial List','area','','','2','60','','trim|required|max_length[1024]');
 INSERT INTO "form_fields" VALUES(7,'Organism','Organism','text','60','128','','','','trim|max_length[128]|required');
-INSERT INTO "form_fields" VALUES(8,'NumberOfBiomaterialRepsReceived','Number Of Biomaterial Reps Received','text','12','12','','','','trim|max_length[12]');
 INSERT INTO "form_fields" VALUES(9,'BiohazardLevel','Biohazard Level','text','12','12','','','BSL1','trim|max_length[12]');
 INSERT INTO "form_fields" VALUES(10,'NumberofSamples','Number of Samples','text','4','4','','','1','trim|max_length[4]');
 INSERT INTO "form_fields" VALUES(11,'SampleNameList','Sample Name List','area','','','4','60','','trim|max_length[1500]');
@@ -91,7 +84,6 @@ INSERT INTO "form_fields" VALUES(15,'DatasetType','Dataset Type','text','24','50
 INSERT INTO "form_fields" VALUES(16,'InstrumentAnalysisSpecifications','Instrument Analysis Specifications','area','','','3','60','','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(17,'SampleNamingConvention','Sample Group Naming Prefix','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO "form_fields" VALUES(18,'WorkPackageNumber','Work Package Number','text','15','64','','','','trim|max_length[64]|required');
-INSERT INTO "form_fields" VALUES(19,'ProjectNumber','Project Number','text','15','15','','','','trim|max_length[15]');
 INSERT INTO "form_fields" VALUES(20,'eusUsageType','EMSL Usage Type','text','50','50','','','','trim|required|max_length[50]|not_contain[(unknown)]');
 INSERT INTO "form_fields" VALUES(21,'eusProposalID','EMSL Proposal ID','text','10','10','','','','trim|max_length[10]');
 INSERT INTO "form_fields" VALUES(22,'eusUserID','EMSL User ID','text','10','10','','','','trim|max_length[10]|numeric');
@@ -99,7 +91,6 @@ INSERT INTO "form_fields" VALUES(23,'EstimatedCompletion','EstimatedCompletion',
 INSERT INTO "form_fields" VALUES(24,'State','State','text','32','32','','','Pending Approval','trim|max_length[32]|required');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'RequesterPRN','picker.replace','userPRNPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'BiomaterialList','list-report.helper','','helper_cell_culture/report','',';','');
 INSERT INTO "form_field_choosers" VALUES(3,'Organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'BiohazardLevel','picker.replace','samplePrepReqBiohazardPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'Campaign','list-report.helper','','helper_campaign/report','',',','');
@@ -117,7 +108,7 @@ INSERT INTO "form_field_choosers" VALUES(16,'EstimatedCompletion','picker.prevDa
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'ID','section','Basic Information');
 INSERT INTO "form_field_options" VALUES(2,'RequesterPRN','default_function','GetUser()');
-INSERT INTO "form_field_options" VALUES(3,'BiomaterialList','section','Biomaterial Information');
+INSERT INTO "form_field_options" VALUES(3,'Organism','section','Biomaterial Information');
 INSERT INTO "form_field_options" VALUES(4,'InstrumentName','section','Instrument Run Information');
 INSERT INTO "form_field_options" VALUES(5,'NumberofSamples','section','Preparation Information');
 INSERT INTO "form_field_options" VALUES(6,'SampleNamingConvention','section','Project Tracking Information');
