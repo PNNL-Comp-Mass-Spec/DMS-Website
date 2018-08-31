@@ -95,7 +95,6 @@ INSERT INTO "detail_report_hotlinks" VALUES(6,'Analysis Jobs','detail-report','C
 INSERT INTO "detail_report_hotlinks" VALUES(7,'External Links','link_table','External Links','','valueCol','dl_external_link','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Team Members','tabular_list','Team Members','','valueCol','dl_team_members','');
 INSERT INTO "detail_report_hotlinks" VALUES(9,'+Team Members','detail-report','Campaign','staff_roles/report/-/-/~','labelCol','dl_team_by_campaign',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(10,'MyEMSL URL','masked_link','MyEMSL URL','','valueCol','dl_myemsl_url','{"Label":"Show files in MyEMSL"}');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Data Packages','detail-report','Campaign','data_package_campaigns/report/-/~','valueCol','dl_data_packages','');
 INSERT INTO "detail_report_hotlinks" VALUES(12,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show/','labelCol','dl_eus_Proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(13,'Samples Submitted','detail-report','Campaign','sample_submission/report/~','valueCol','dl_samples_submitted','');
