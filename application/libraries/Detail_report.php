@@ -88,6 +88,10 @@ class Detail_report {
 			$rows = array(&$result_row);
 			$CI->cell_presentation->fix_decimal_display($rows, $col_info);
 
+            if (!($CI->cu->check_access('enter', FALSE))) {
+				$show_entry_links = FALSE;
+			}
+
             if (!($CI->cu->check_access('create', FALSE))) {
 				$show_create_links = FALSE;
 			}
