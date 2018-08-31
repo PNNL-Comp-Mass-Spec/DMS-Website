@@ -546,8 +546,8 @@ function make_detail_report_edit_links($controller_name, $id, $show_create_links
     	$str .= "<span><a id='btn_goto_copy_main' class='button'   title='Copy this record' href='$copy_url'>Copy</a></span>";
         $str .= "<span><a id='btn_goto_create_main' class='button' title='Make new record'  href='$new_url'>New</a></span>";
     } else {
-        $str .= "<span><a id='btn_goto_copy_main' class='button-disabled'   title='Item copy is not allowed' href='#'>Copy</a></span>";
-        $str .= "<span><a id='btn_goto_create_main' class='button-disabled' title='New item creation is not allowed' href='#'>New</a></span>";
+        $str .= "<span><a id='btn_goto_copy_main' class='button-disabled'   title='Item copy is disabled' href='#'>Copy</a></span>";
+        $str .= "<span><a id='btn_goto_create_main' class='button-disabled' title='Item creation is disabled' href='#'>New</a></span>";
     }
     
 	return $str;
