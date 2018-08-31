@@ -10,6 +10,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Param_File_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Param_File_ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateParamFile');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Param_File_ID');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Param_File_ID','invoke_entity','value','param_file/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Job_Usage_Count','invoke_entity','Param_File_Name','analysis_job/report/-/-/-/-/-/~','');
