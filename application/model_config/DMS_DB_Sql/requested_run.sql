@@ -13,7 +13,7 @@ INSERT INTO "general_params" VALUES('post_submission_detail_id','RR_Request');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateRequestedRunAssignments');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'RR_Request','Request','non-edit','','','','','0','trim');
-INSERT INTO "form_fields" VALUES(2,'RR_Name','Request Name','text','60','80','','','','trim|required|max_length[64]|alpha_dash|min_length[8]');
+INSERT INTO "form_fields" VALUES(2,'RR_Name','Request Name','text','60','80','','','','trim|required|max_length[90]|alpha_dash|min_length[8]');
 INSERT INTO "form_fields" VALUES(3,'RR_Experiment','Experiment Name','text','40','80','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(4,'RR_Instrument','Instrument Group','text','25','80','','','(lookup)','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(5,'RR_Type','Run Type','text','25','80','','','(lookup)','trim|required|max_length[50]');
