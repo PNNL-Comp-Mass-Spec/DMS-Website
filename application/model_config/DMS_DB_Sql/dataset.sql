@@ -16,6 +16,7 @@ INSERT INTO "general_params" VALUES('operations_sproc','DoDatasetOperation');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','#DateSortKey');
 INSERT INTO "general_params" VALUES('list_report_data_cols','[ID],[Dataset],[Experiment],[Campaign],[State],[Instrument],[Created],[Comment],[Rating],[Dataset Type],[Operator],[Dataset Folder Path],[QC_Link],[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],[Blocking Factor],[Block],[Run Order],[Request],[EMSL Proposal],[EUS Proposal Type],[Work Package],[Requester],[Inst. Data Purged],[Organism],[Tissue],[#DateSortKey]');
 INSERT INTO "general_params" VALUES('base_table','T_Dataset');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Dataset_Num');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Experiment_Num','Experiment Name','text','40','80','','','','trim|required|max_length[64]|not_contain[Placeholder]');
 INSERT INTO "form_fields" VALUES(2,'DS_Instrument_Name','Instrument Name','text','25','80','','','','trim|required|max_length[64]');

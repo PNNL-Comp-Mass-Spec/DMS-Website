@@ -11,6 +11,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateAnalysisJob');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Analysis_Job_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Job');
 INSERT INTO "general_params" VALUES('operations_sproc','DoAnalysisJobOperation');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Job');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Job','Job','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'AJ_Dataset','Dataset','text','80','128','','','','trim|required|max_length[128]');
