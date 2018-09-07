@@ -164,7 +164,7 @@ INSERT INTO "sproc_args" VALUES(19,'<local>','message','varchar','output','512',
 INSERT INTO "sproc_args" VALUES(20,'<local>','callingUser','varchar','input','128','AddUpdateDataset');
 INSERT INTO "sproc_args" VALUES(21,'Capture_Subfolder','captureSubfolder','varchar','input','255','AddUpdateDataset');
 INSERT INTO "sproc_args" VALUES(22,'LC_Cart_Config','lcCartConfig','varchar','input','128','AddUpdateDataset');
-INSERT INTO "sproc_args" VALUES(23,'ID','datasetNum','varchar','input','128','DoDatasetOperation');
+INSERT INTO "sproc_args" VALUES(23,'ID','datasetNameOrID','varchar','input','128','DoDatasetOperation');
 INSERT INTO "sproc_args" VALUES(24,'<local>','mode','varchar','input','12','DoDatasetOperation');
 INSERT INTO "sproc_args" VALUES(25,'<local>','message','varchar','output','512','DoDatasetOperation');
 INSERT INTO "sproc_args" VALUES(26,'<local>','callingUser','varchar','input','128','DoDatasetOperation');
