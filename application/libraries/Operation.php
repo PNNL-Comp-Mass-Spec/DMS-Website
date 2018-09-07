@@ -12,7 +12,11 @@ class Operation {
 	{
 	}
 	
-	// --------------------------------------------------------------------
+	/**
+     * Define $config_source
+     * @param type $config_name
+     * @param type $config_source
+     */
 	function init($config_name, $config_source)
 	{
 		$this->config_source = $config_source;
@@ -22,6 +26,7 @@ class Operation {
      * Calls given stored procedure for this page family using calling parameters
 	 * derived from the sproc args definition for the stored procedure in config db
 	 * (and looks for a 'command' field in POST which is set to sproc arg 'mode').
+     * See also https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_detail_report_commands#Command_Types
      * @param type $sproc_name
      * @return \stdClass A response object containing return value and message from sproc
      * @throws exception
@@ -50,15 +55,17 @@ class Operation {
 				$rules[] = $rule;
 			}
 		
-			// make validation object and use it to 
+			// Make validation object and use it to 
 			// get field values from POST and validate them
-			$CI->load->helper('form');
+            // For more info, see https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_detail_report_commands#Command_Types
+
+            $CI->load->helper('form');
 			$CI->load->library('form_validation');
 			$CI->form_validation->set_error_delimiters('', '');
 			$CI->form_validation->set_rules($rules);
 			$valid_fields = $CI->form_validation->run();
 						
-			// get field values from validation objec into an object
+			// Get field values from validation object into an object
 			// that will be used for calling stored procedure
 			// and also putting values back into entry form HTML 
 			$CI->load->helper('user');
@@ -70,7 +77,7 @@ class Operation {
 			$calling_params->callingUser = get_user();
 			$calling_params->message = '';
 			
-			// call sproc
+			// Call the stored procedure
 			$success = $CI->sproc_model->execute_sproc($calling_params);
 			if(!$success) {
 				throw new exception($CI->sproc_model->get_error_text());
