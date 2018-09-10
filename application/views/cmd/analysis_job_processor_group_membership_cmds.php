@@ -9,15 +9,15 @@
 <div>
 For this group to be:
 <select name="LocalGroupMbshpEnabled" id='LocalGroupMbshpEnabled'><option selected value="">
-	<option value="set_membership_enabled_Y">Y</option>
-	<option value="set_membership_enabled_N">N</option>
+    <option value="set_membership_enabled_Y">Y</option>
+    <option value="set_membership_enabled_N">N</option>
 </select>
 For other groups to be:
 <select name="OtherGroupMbshpEnabled" id='OtherGroupMbshpEnabled'>
-	<option selected value=""></option>
-	<option  value="" >Don't change</option>
-	<option value="Y" >Y</option>
-	<option value="N" >N</option>
+    <option selected value=""></option>
+    <option  value="" >Don't change</option>
+    <option value="Y" >Y</option>
+    <option value="N" >N</option>
 </select>
 </div>
 <input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("set_membership_enabled", "LocalGroupMbshpEnabled", "OtherGroupMbshpEnabled")' /> 

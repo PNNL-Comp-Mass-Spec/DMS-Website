@@ -1,31 +1,31 @@
-<?php	
-	function xor_string($string, $key) {
-	    for($i = 0; $i < strlen($string); $i++) 
-	        $string[$i] = ($string[$i] ^ $key[$i % strlen($key)]);
-	    return $string;
-	}
+<?php   
+    function xor_string($string, $key) {
+        for($i = 0; $i < strlen($string); $i++) 
+            $string[$i] = ($string[$i] ^ $key[$i % strlen($key)]);
+        return $string;
+    }
 ?>
 
 <div style='padding:6px;'>
 <div style='position:relative; height:1em;'>
-	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:0em;'>
-	<a href="javascript:showHideMenuDiagram();"><span id='diag_ctl_label'>Show Section Menus</span></a>
-	</div>
-	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:12em;'>
-	<a href='<?= $this->config->item('pwiki') ?>Data_Management_System' target='#PrismWiki'>Overview...</a>
-	</div>
-	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:20em;'>
-	<a href='<?= $this->config->item('pwiki') ?>DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a>
-	</div>
-	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:30em;'>
-	<a href='<?= $this->config->item('pwiki') ?>PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick Start...</a>
-	</div>
-	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:40em;'>
-	<a href='http://dmsbeta.pnl.gov' target='#PrismWiki'>Training site...</a>
-	</div>
-	<div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:49em;'>
-	<a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>Proteomics queue...</a>
-	</div>
+    <div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:0em;'>
+    <a href="javascript:showHideMenuDiagram();"><span id='diag_ctl_label'>Show Section Menus</span></a>
+    </div>
+    <div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:12em;'>
+    <a href='<?= $this->config->item('pwiki') ?>Data_Management_System' target='#PrismWiki'>Overview...</a>
+    </div>
+    <div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:20em;'>
+    <a href='<?= $this->config->item('pwiki') ?>DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a>
+    </div>
+    <div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:30em;'>
+    <a href='<?= $this->config->item('pwiki') ?>PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick Start...</a>
+    </div>
+    <div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:40em;'>
+    <a href='http://dmsbeta.pnl.gov' target='#PrismWiki'>Training site...</a>
+    </div>
+    <div class='qs_WelcomeHeaders' style='position:absolute; top:0; left:49em;'>
+    <a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=10900&issuetype=7&Create=Create' target='#Jira'>Proteomics queue...</a>
+    </div>
 </div>
 </div>
 
@@ -42,23 +42,23 @@
 </MAP>
 
 <div id='diagram_section' style='position:relative;margin-left:15px;'>
-	<div style='height:15px;'></div>
-	<div>
-	<img src='<?= base_url()."images/dms_hierarchy_5.gif" ?>' border='0' USEMAP="#visImageMap">
-	</div>
+    <div style='height:15px;'></div>
+    <div>
+    <img src='<?= base_url()."images/dms_hierarchy_5.gif" ?>' border='0' USEMAP="#visImageMap">
+    </div>
 
-	<div id='fly_section' style='position:absolute;top:2em;left:700px;width:25em;'>
-	<?= make_fly_section_layout($qs_section_defs); ?>
-		<div id='splash_message' class='fly_box'>
-		<h2>DMS Hierarchy </h2>
-		<p>DMS uses these entities to keep track of sample and data processing.</p>
-		<p>An understanding of what each one represents, and how it fits in, is essential for proper use of DMS.</p>
-		<p>If you haven't a clue where to start, try <a href='<?= $this->config->item('pwiki') ?>Data_Management_System' target='#PrismWiki'>Overview...</a></p>
-		<p>If want to dig into the basics, try <a href='<?= $this->config->item('pwiki') ?>DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a></p>
-		<p>If you want to learn more about the features that DMS provides, try <a href='<?= $this->config->item('pwiki') ?>PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick start...</a></p>
-		<p>See the <a href='<?= site_url()?>gen/stats'>statistics...</a> page for bulk stats by entity type.</p>
-		</div> <!-- end 'splash_message' -->
-	</div> <!-- end 'fly_section' -->
+    <div id='fly_section' style='position:absolute;top:2em;left:700px;width:25em;'>
+    <?= make_fly_section_layout($qs_section_defs); ?>
+        <div id='splash_message' class='fly_box'>
+        <h2>DMS Hierarchy </h2>
+        <p>DMS uses these entities to keep track of sample and data processing.</p>
+        <p>An understanding of what each one represents, and how it fits in, is essential for proper use of DMS.</p>
+        <p>If you haven't a clue where to start, try <a href='<?= $this->config->item('pwiki') ?>Data_Management_System' target='#PrismWiki'>Overview...</a></p>
+        <p>If want to dig into the basics, try <a href='<?= $this->config->item('pwiki') ?>DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a></p>
+        <p>If you want to learn more about the features that DMS provides, try <a href='<?= $this->config->item('pwiki') ?>PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick start...</a></p>
+        <p>See the <a href='<?= site_url()?>gen/stats'>statistics...</a> page for bulk stats by entity type.</p>
+        </div> <!-- end 'splash_message' -->
+    </div> <!-- end 'fly_section' -->
 </div> <!-- end 'diagram_section' -->
 
 <div style='height:10px;'></div>
@@ -77,9 +77,9 @@ You may use the <a href='https://jira.pnnl.gov/jira/secure/CreateIssue.jspa?pid=
 to request assistance (login with your PNNL username and password). In case of an urgent need for assistance, please contact one of the following:
 </p>
 <ul>
-	<li>Ron Moore: <?php echo xor_string("CE^YS\^P","proteomics"); ?> (office) or                       <!-- xyz-6339 -->
-	               <?php echo xor_string("EBVYP]\DWFBJ","proteomics"); ?> (cell)</li>                   <!-- xyz-4528 -->
-	<li>Matt Monroe: e-mail during business hours or <?php echo xor_string("EBVYVXXDUCED","proteomics"); ?> after hours</li>   <!-- 375-wxyz -->
+    <li>Ron Moore: <?php echo xor_string("CE^YS\^P","proteomics"); ?> (office) or                       <!-- xyz-6339 -->
+                   <?php echo xor_string("EBVYP]\DWFBJ","proteomics"); ?> (cell)</li>                   <!-- xyz-4528 -->
+    <li>Matt Monroe: e-mail during business hours or <?php echo xor_string("EBVYVXXDUCED","proteomics"); ?> after hours</li>   <!-- 375-wxyz -->
 </ul>
 <p>
 PRISM was created by Pacific Northwest National Laboratory for the U.S. Department of Energy under Contract Number DE-AC06-76RLO1830 and is operated under Contract Number DE-AC05-76RL01830.

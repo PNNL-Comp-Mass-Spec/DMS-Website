@@ -1,22 +1,22 @@
 <div class='LRCmds'>
-	
+    
 <form name="DBG" action="">
 
 <div>
 <span>Dataset Rating:</span>
 <select name='rating' id='rating_fld'>
-	<option>Released</option>
-	<option>Not Released</option>
-	<option>Rerun (Good Data)</option>
-	<option>Rerun (Superseded)</option>
+    <option>Released</option>
+    <option>Not Released</option>
+    <option>Rerun (Good Data)</option>
+    <option>Rerun (Superseded)</option>
 </select>
 </div>
 
 <div>
 <span>Recycle Request:</span>
 <select name='recycle' id='recycle_fld' >
-	<option>No</option>
-	<option>Yes</option>
+    <option>No</option>
+    <option>Yes</option>
 </select>
 </div>
 

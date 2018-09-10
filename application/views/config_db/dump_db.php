@@ -19,10 +19,10 @@
 <form name='search_filter' action='post'>
 <table class='cfg_tab'>
 <tr>
-	<th><span>Search Filter</span></th>
+    <th><span>Search Filter</span></th>
 </tr>
 <tr>
-	<td>Find all tables whose names contain "Table Filter" <br> within all config db file whose names contain "File Filter".</td>
+    <td>Find all tables whose names contain "Table Filter" <br> within all config db file whose names contain "File Filter".</td>
 </tr>
 <tr><td>
 <table class='cfg_tab'>
@@ -59,15 +59,15 @@ Not implmented yet.
 <?php $this->load->view('resource_links/base2js') ?>
 
 <script type="text/javascript">
-	
+    
 function search() {
-	var file_filter = $('#file_filter').val();
-	var table_filter = $('#table_filter').val();
-	var url = '<?= site_url() ?>config_db/search/'+ file_filter + '/' + table_filter;
-	if($('#text_only').checked) {
-		url += '/text';
-	}
-	location = url;
+    var file_filter = $('#file_filter').val();
+    var table_filter = $('#table_filter').val();
+    var url = '<?= site_url() ?>config_db/search/'+ file_filter + '/' + table_filter;
+    if($('#text_only').checked) {
+        url += '/text';
+    }
+    location = url;
 }
 
 </script>

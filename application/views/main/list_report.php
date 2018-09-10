@@ -70,8 +70,8 @@ if($has_checkboxes) $this->load->view("main/list_report_checkboxes");
 
 <?php // any list report commands?
 if($list_report_cmds != "") {
-	$this->load->view("main/list_report_cmd_reporting");
-	$this->load->view("cmd/$list_report_cmds");
+    $this->load->view("main/list_report_cmd_reporting");
+    $this->load->view("cmd/$list_report_cmds");
 }
 ?>
 
@@ -95,18 +95,18 @@ Download in other formats (<a href="<?= $this->config->item('pwiki') ?>DMS_Data_
 <script src="<?= base_url().'javascript/lstRep.js?version=100' ?>"></script>
 
 <script type='text/javascript'>
-	//
-	// gamma is defined in dms2.js
-	//
-	gamma.pageContext.site_url = '<?= site_url() ?>';
-	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
-	gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
-	gamma.pageContext.responseContainerId =  "update_message";
-	gamma.pageContext.cntrlContainerId =  "clear_message";
-	gamma.pageContext.ops_url = '<?= $ops_url ?>';
-	gamma.pageContext.updateShowSQL = lstRep.updateShowSQL;
-	gamma.pageContext.updateShowURL = lstRep.updateShowURL;
-	gamma.pageContext.initalDataLoad = '<?= $loading ?>';
+    //
+    // gamma is defined in dms2.js
+    //
+    gamma.pageContext.site_url = '<?= site_url() ?>';
+    gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+    gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
+    gamma.pageContext.responseContainerId =  "update_message";
+    gamma.pageContext.cntrlContainerId =  "clear_message";
+    gamma.pageContext.ops_url = '<?= $ops_url ?>';
+    gamma.pageContext.updateShowSQL = lstRep.updateShowSQL;
+    gamma.pageContext.updateShowURL = lstRep.updateShowURL;
+    gamma.pageContext.initalDataLoad = '<?= $loading ?>';
 </script>
 
 </body>

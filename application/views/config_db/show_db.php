@@ -9,26 +9,26 @@
 
 <script type="text/javascript">
 function ops(submit_url) {
-	if ( !confirm("Are you sure that you want to modify the config db?") ) return;
-	var container_name = "display_container";
-	var url =  "<?= site_url()?>" + "config_db/" + submit_url;
-	$('#' + container_name).load(url); // gamma.loadContainer(url, {}, container_name);
+    if ( !confirm("Are you sure that you want to modify the config db?") ) return;
+    var container_name = "display_container";
+    var url =  "<?= site_url()?>" + "config_db/" + submit_url;
+    $('#' + container_name).load(url); // gamma.loadContainer(url, {}, container_name);
 }
 
 function show_hide_all(mode) {
-	$('div.block_content').each(function(idx, s){
-			s.style.display=mode;
-		});
+    $('div.block_content').each(function(idx, s){
+            s.style.display=mode;
+        });
 }
 function show_hide_block(name) {
-	$('#' + name).toggle();
+    $('#' + name).toggle();
 }
 function make_controller() {
- 	var reply = prompt("Base title for page family", '');
+    var reply = prompt("Base title for page family", '');
     if (reply) 
     {
-	    var page = "<?= site_url(); ?>" + "config_db/make_controller/<?= $config_db ?>/" + reply;
-	    window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
+        var page = "<?= site_url(); ?>" + "config_db/make_controller/<?= $config_db ?>/" + reply;
+        window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
     }
 }
 

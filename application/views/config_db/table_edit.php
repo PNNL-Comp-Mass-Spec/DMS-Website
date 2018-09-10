@@ -10,94 +10,94 @@
 <script type="text/javascript">
 
 function extractRow(theObject, index) {
-	var obj = {};
-	for (var propName in theObject) {
-		obj[propName] = theObject[propName][index];
-	}
-	return obj;
+    var obj = {};
+    for (var propName in theObject) {
+        obj[propName] = theObject[propName][index];
+    }
+    return obj;
 }
 
 // do editing action from editing from controls
 function ops(index, action) {
-	if ( !confirm("Are you sure that you want to modify the config db?") )
-		return;
-	var container = $('#edit_container');
-	var url =  "<?= site_url()?>config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
-	var fields = $('#edit_form').serializeArray();
-	var flds = gamma.reformatFormArray(fields);
-	var p = extractRow(flds, index);
-	p.mode = action;
-	$.post(url, p, function (data) {
-		    container.html(data);
-		}
-	);
+    if ( !confirm("Are you sure that you want to modify the config db?") )
+        return;
+    var container = $('#edit_container');
+    var url =  "<?= site_url()?>config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
+    var fields = $('#edit_form').serializeArray();
+    var flds = gamma.reformatFormArray(fields);
+    var p = extractRow(flds, index);
+    p.mode = action;
+    $.post(url, p, function (data) {
+            container.html(data);
+        }
+    );
 }
 
 // submit sql from entry field and refresh edit table
 function do_sql() {
-	if ( !confirm("Are you sure that you want to modify the config db?") ) return;
-	var url =  "<?= site_url()?>config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
-	var p = $('#sql_text').serialize();
-	$.post(url, p, function (data) {
-		    $('#edit_container').html(data);
-		}
-	);
+    if ( !confirm("Are you sure that you want to modify the config db?") ) return;
+    var url =  "<?= site_url()?>config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
+    var p = $('#sql_text').serialize();
+    $.post(url, p, function (data) {
+            $('#edit_container').html(data);
+        }
+    );
 }
 // get suggested sql for enhancing table
 function get_sql(mode){
-	var field = $('#sql_text_fld');
-	var url = "<?= site_url()?>config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
-	var p = {};
-	p.mode = mode;
-	field.val('');
-	$.post(url, p, function (data) {
-			field.val(data);
-		}
-	);
+    var field = $('#sql_text_fld');
+    var url = "<?= site_url()?>config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
+    var p = {};
+    p.mode = mode;
+    field.val('');
+    $.post(url, p, function (data) {
+            field.val(data);
+        }
+    );
 }
 // move any existing destination id to to source id
 // and set destination id to the input id
 function set_id(id) {
-	$('#source_id').html($('#dest_id').html());
-	$('#dest_id').html(id);
+    $('#source_id').html($('#dest_id').html());
+    $('#dest_id').html(id);
 
-	$('#range_start_id').html($('#range_stop_id').html());
-	$('#range_stop_id').html($('#range_dest_id').html());
-	$('#range_dest_id').html(id);
+    $('#range_start_id').html($('#range_stop_id').html());
+    $('#range_stop_id').html($('#range_dest_id').html());
+    $('#range_dest_id').html(id);
 }
 
 // get suggested SQL for moving item(s)
 function get_sql_from_range_move(mode){
-	if(mode == 'range') {
-		var r1_id = $('#range_start_id').html();
-		var r2_id = $('#range_stop_id').html();
-		var d_id = $('#range_dest_id').html();
-	} else {
-		var r1_id = $('#source_id').html();
-		var r2_id = $('#source_id').html();
-		var d_id = $('#dest_id').html();
-	}
-	if(!r1_id || !r2_id || !d_id) return;
+    if(mode == 'range') {
+        var r1_id = $('#range_start_id').html();
+        var r2_id = $('#range_stop_id').html();
+        var d_id = $('#range_dest_id').html();
+    } else {
+        var r1_id = $('#source_id').html();
+        var r2_id = $('#source_id').html();
+        var d_id = $('#dest_id').html();
+    }
+    if(!r1_id || !r2_id || !d_id) return;
 
-	var url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
-	var field = $('#sql_text_fld');
-	var p = {};
-	field.val('');
-	$.post(url, p, function (data) {
-			field.val(data);
-		}
-	);
+    var url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
+    var field = $('#sql_text_fld');
+    var p = {};
+    field.val('');
+    $.post(url, p, function (data) {
+            field.val(data);
+        }
+    );
 }
 // get suggested SQL for resequencing id column in table
 function get_sql_for_resequence(){
-	var url = "<?= site_url()?>config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
-	var field = $('#sql_text_fld');
-	var p = {};
-	field.val('');
-	$.post(url, p, function (data) {
-			field.val(data);
-		}
-	);
+    var url = "<?= site_url()?>config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
+    var field = $('#sql_text_fld');
+    var p = {};
+    field.val('');
+    $.post(url, p, function (data) {
+            field.val(data);
+        }
+    );
 }
 </script>
 
@@ -116,7 +116,7 @@ function get_sql_for_resequence(){
 <div style="height:1em;"></div>
 
 <table class='cfg_tab' style="width:98%;">
-	
+    
 <tr><th style="font-weight:bold;text-align:left;">Raw SQL Entry</th></tr>
 
 <tr><td><div id='sql_container' style="padding-right:5px;">

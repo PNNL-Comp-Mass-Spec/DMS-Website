@@ -3,30 +3,30 @@
 class Capture extends CI_Controller {
 
 
-	// --------------------------------------------------------------------
-	function __construct()
-	{
-		// Call the parent constructor
-		parent::__construct();
-	}
+    // --------------------------------------------------------------------
+    function __construct()
+    {
+        // Call the parent constructor
+        parent::__construct();
+    }
 
-	// --------------------------------------------------------------------
-	function index()
-	{
-		$this->load->helper(array('url','html'));
+    // --------------------------------------------------------------------
+    function index()
+    {
+        $this->load->helper(array('url','html'));
 
-		echo heading('Capture-capture Page links', 3);
+        echo heading('Capture-capture Page links', 3);
 
-		$links = array();
+        $links = array();
 
-		$links[] = anchor('capture_script/report', 'Scripts');
-		$links[] = anchor('capture_jobs/report', 'Jobs');
-		$links[] = anchor('capture_job_steps/report', 'Job steps');
-		$links[] = anchor('capture_step_tools/report', 'Step Tools');
-		$links[] = anchor('capture_local_processors/report', 'Local Processors');
+        $links[] = anchor('capture_script/report', 'Scripts');
+        $links[] = anchor('capture_jobs/report', 'Jobs');
+        $links[] = anchor('capture_job_steps/report', 'Job steps');
+        $links[] = anchor('capture_step_tools/report', 'Step Tools');
+        $links[] = anchor('capture_local_processors/report', 'Local Processors');
 
-		echo ul($links);
-	}
+        echo ul($links);
+    }
 
 }
 ?>

@@ -2,15 +2,15 @@
 require("Base_controller.php");
 
 class Eus_proposal_users extends Base_controller {
-	// --------------------------------------------------------------------
-	function __construct()
-	{
-		// Call the parent constructor
-		parent::__construct();
+    // --------------------------------------------------------------------
+    function __construct()
+    {
+        // Call the parent constructor
+        parent::__construct();
 
-		$this->my_tag = "eus_proposal_users";
-		$this->my_title = "EUS Proposal Users";
-	}
+        $this->my_tag = "eus_proposal_users";
+        $this->my_title = "EUS Proposal Users";
+    }
 }
 
 

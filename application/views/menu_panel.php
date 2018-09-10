@@ -10,7 +10,7 @@
 </head>
 
 <body class="menu_panel" >
-	
+    
 <div  class="searchpnl global_search_panel" >
 <?= make_search_form_vertical() ?>
 </div>
@@ -30,20 +30,20 @@
 <script type='text/javascript'>
 
 $(document).ready(function() {
-	
+    
     $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
 
-	// set up tree menu
+    // set up tree menu
     $("#tree").dynatree({
       minExpandLevel: 1,
-	  initAjax: {
-	  	url: '<?= site_url() ?>gen/side_menu_objects', data: {}
+      initAjax: {
+        url: '<?= site_url() ?>gen/side_menu_objects', data: {}
       },      
       onClick: function(node, event) {
         if( node.data.href ){
           window.open(node.data.href, 'display_side');
           return false;
-		}      	
+        }       
       }
     });
 
@@ -60,8 +60,8 @@ $(document).ready(function() {
       return false;
     });
 
-	// set event handlers for global search panel
-	gamma.setSearchEventHandlers($('.global_search_panel'));
+    // set event handlers for global search panel
+    gamma.setSearchEventHandlers($('.global_search_panel'));
 });
 
 </script>

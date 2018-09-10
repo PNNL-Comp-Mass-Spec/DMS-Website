@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | URL to your CodeIgniter root. Typically this will be your base URL,
 | WITH a trailing slash:
 |
-|	http://example.com/
+|   http://example.com/
 |
 | WARNING: You MUST set this value!
 |
@@ -24,11 +24,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-//$config['base_url']	= "http://".$_SERVER["SERVER_NAME"]."/";
+//$config['base_url']   = "http://".$_SERVER["SERVER_NAME"]."/";
 
 // If using https, replace the above with these lines
 $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
-$config['base_url']	= "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
+$config['base_url'] = "{$protocol}://".$_SERVER["SERVER_NAME"]."/";
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ $config['index_page'] = "";
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= "PATH_INFO";
+$config['uri_protocol'] = "PATH_INFO";
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language'] = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -129,17 +129,17 @@ $config['subclass_prefix'] = 'MY_';
 | Enabling this setting will tell CodeIgniter to look for a Composer
 | package auto-loader script in application/vendor/autoload.php.
 |
-|	$config['composer_autoload'] = TRUE;
+|   $config['composer_autoload'] = TRUE;
 |
 | Or if you have your vendor/ directory located somewhere else, you
 | can opt to set a specific path as well:
 |
-|	$config['composer_autoload'] = '/path/to/vendor/autoload.php';
+|   $config['composer_autoload'] = '/path/to/vendor/autoload.php';
 |
 | For more information about Composer, please visit http://getcomposer.org/
 |
 | Note: This will NOT disable or override the CodeIgniter-specific
-|	autoloading (application/config/autoload.php)
+|   autoloading (application/config/autoload.php)
 */
 $config['composer_autoload'] = FALSE;
 
@@ -204,15 +204,15 @@ $config['directory_trigger'] = 'd';
 | You can enable error logging by setting a threshold over zero. The
 | threshold determines what gets logged. Threshold options are:
 |
-|	0 = Disables logging, Error logging TURNED OFF
-|	1 = Error Messages (including PHP errors)
-|	2 = Debug Messages
-|	3 = Informational Messages
-|	4 = All Messages
+|   0 = Disables logging, Error logging TURNED OFF
+|   1 = Error Messages (including PHP errors)
+|   2 = Debug Messages
+|   3 = Informational Messages
+|   4 = All Messages
 |
 | You can also pass an array with threshold levels to show individual error types
 |
-| 	array(2) = Debug Messages, without Error Messages
+|   array(2) = Debug Messages, without Error Messages
 |
 | For a live site you'll usually only enable Errors (1) to be logged otherwise
 | your log files will fill up very fast.
@@ -298,12 +298,12 @@ $config['cache_path'] = '';
 | Whether to take the URL query string into consideration when generating
 | output cache files. Valid options are:
 |
-|	FALSE      = Disabled
-|	TRUE       = Enabled, take all query parameters into account.
-|	             Please be aware that this may result in numerous cache
-|	             files generated for the same page over and over again.
-|	array('q') = Enabled, but only take into account the specified list
-|	             of query parameters.
+|   FALSE      = Disabled
+|   TRUE       = Enabled, take all query parameters into account.
+|                Please be aware that this may result in numerous cache
+|                files generated for the same page over and over again.
+|   array('q') = Enabled, but only take into account the specified list
+|                of query parameters.
 |
 */
 $config['cache_query_string'] = FALSE;
@@ -328,45 +328,45 @@ $config['encryption_key'] = '';
 |
 | 'sess_driver'
 |
-|	The storage driver to use: files, database, redis, memcached
+|   The storage driver to use: files, database, redis, memcached
 |
 | 'sess_cookie_name'
 |
-|	The session cookie name, must contain only [0-9a-z_-] characters
+|   The session cookie name, must contain only [0-9a-z_-] characters
 |
 | 'sess_expiration'
 |
-|	The number of SECONDS you want the session to last.
-|	Setting to 0 (zero) means expire when the browser is closed.
+|   The number of SECONDS you want the session to last.
+|   Setting to 0 (zero) means expire when the browser is closed.
 |
 | 'sess_save_path'
 |
-|	The location to save sessions to, driver dependent.
+|   The location to save sessions to, driver dependent.
 |
-|	For the 'files' driver, it's a path to a writable directory.
-|	WARNING: Only absolute paths are supported!
+|   For the 'files' driver, it's a path to a writable directory.
+|   WARNING: Only absolute paths are supported!
 |
-|	For the 'database' driver, it's a table name.
-|	Please read up the manual for the format with other session drivers.
+|   For the 'database' driver, it's a table name.
+|   Please read up the manual for the format with other session drivers.
 |
-|	IMPORTANT: You are REQUIRED to set a valid save path!
+|   IMPORTANT: You are REQUIRED to set a valid save path!
 |
 | 'sess_match_ip'
 |
-|	Whether to match the user's IP address when reading the session data.
+|   Whether to match the user's IP address when reading the session data.
 |
-|	WARNING: If you're using the database driver, don't forget to update
-|	         your session table's PRIMARY KEY when changing this setting.
+|   WARNING: If you're using the database driver, don't forget to update
+|            your session table's PRIMARY KEY when changing this setting.
 |
 | 'sess_time_to_update'
 |
-|	How many seconds between CI regenerating the session ID.
+|   How many seconds between CI regenerating the session ID.
 |
 | 'sess_regenerate_destroy'
 |
-|	Whether to destroy session data associated with the old session ID
-|	when auto-regenerating the session ID. When set to FALSE, the data
-|	will be later deleted by the garbage collector.
+|   Whether to destroy session data associated with the old session ID
+|   when auto-regenerating the session ID. When set to FALSE, the data
+|   will be later deleted by the garbage collector.
 |
 | Other session cookie settings are shared with the rest of the application,
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
@@ -395,11 +395,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']      = '/';
+$config['cookie_secure']    = FALSE;
+$config['cookie_httponly']  = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -512,8 +512,8 @@ $config['rewrite_short_tags'] = FALSE;
 | You can use both an array or a comma-separated list of proxy addresses,
 | as well as specifying whole subnets. Here are a few examples:
 |
-| Comma-separated:	'10.0.1.200,192.168.5.0/24'
-| Array:		array('10.0.1.200', '192.168.5.0/24')
+| Comma-separated:  '10.0.1.200,192.168.5.0/24'
+| Array:        array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
 
@@ -529,10 +529,10 @@ $config['proxy_ips'] = '';
 $server_bionet = stripos($_SERVER["SERVER_NAME"], ".bionet") !== FALSE;
 
 if ($server_bionet) {
-	$config['pwiki'] = 'http://prismwiki.bionet/wiki/';
+    $config['pwiki'] = 'http://prismwiki.bionet/wiki/';
 }
 else {
-	$config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
+    $config['pwiki'] = 'https://prismwiki.pnl.gov/wiki/';
 }
 $config['wikiHelpLinkPrefix'] = 'DMS_Help_for_';
 

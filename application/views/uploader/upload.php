@@ -11,43 +11,43 @@ gamma.pageContext = {};
 gamma.pageContext.site_url = '<?= site_url() ?>';
 
 $(document).ready(function () { 
-	$('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // gamma.loadContainer(url, {}, ss_entity_list_container)
+    $('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // gamma.loadContainer(url, {}, ss_entity_list_container)
 });
 
 // called by javascript that is returned by upload operation 
 // into iframe and which is run immediately
 function report_upload_results(file_name, error) {
-	if(error != '') {
-		$('#uploaded_file_name').val('');
-//		$('#upload_error').html($error);
-	} else {
-		$('#uploaded_file_name').val(file_name);
-//		$('#upload_error').html('Upload was successful');
-		extract();
-		clearSpreadsheetDisplay();
-	}
+    if(error != '') {
+        $('#uploaded_file_name').val('');
+//      $('#upload_error').html($error);
+    } else {
+        $('#uploaded_file_name').val(file_name);
+//      $('#upload_error').html('Upload was successful');
+        extract();
+        clearSpreadsheetDisplay();
+    }
 }
 function updateContainer(action, containerId, id) { 
-	var url = gamma.pageContext.site_url + 'upload/' + action;
-	var p = {};
-	p.file_name = $('#uploaded_file_name').val();
-	p.id = id;
-	if(!p.file_name) {alert('No file name'); return; }
-	gamma.loadContainer(url, p, containerId);
+    var url = gamma.pageContext.site_url + 'upload/' + action;
+    var p = {};
+    p.file_name = $('#uploaded_file_name').val();
+    p.id = id;
+    if(!p.file_name) {alert('No file name'); return; }
+    gamma.loadContainer(url, p, containerId);
 }
 // extract data from uploaded spreadsheet and display on page
 function extract() {
-	$('#master_control_container').show();
-	updateContainer('extract_data', 'ss_entity_list_container', '');
-//	showSpreadsheetContents();
+    $('#master_control_container').show();
+    updateContainer('extract_data', 'ss_entity_list_container', '');
+//  showSpreadsheetContents();
 }
 function showSpreadsheetContents() {
-	$('#ss_table_display_area').show();
-	updateContainer('extract_table', 'ss_table_container', '');	
+    $('#ss_table_display_area').show();
+    updateContainer('extract_table', 'ss_table_container', ''); 
 }
 function clearSpreadsheetDisplay() {
-	$('#ss_table_display_area').hide();
-	$('#ss_table_container').html("")
+    $('#ss_table_display_area').hide();
+    $('#ss_table_container').html("")
 }
 </script>
 
@@ -63,8 +63,8 @@ function clearSpreadsheetDisplay() {
 <div style='padding:5px 0 0 0;' >
 
 <?php
-	// File parsing logic is in file application/controllers/Upload.php
-	// which in turn calls load in   application/libraries/Spreadsheet_loader.php" -->
+    // File parsing logic is in file application/controllers/Upload.php
+    // which in turn calls load in   application/libraries/Spreadsheet_loader.php" -->
  ?>
 <form action = "<?= site_url() ?>upload/load" method="post" enctype="multipart/form-data" target="upload_target" >
 File to upload: 

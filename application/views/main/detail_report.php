@@ -28,7 +28,7 @@
 
 <?php if(count($detail_report_cmds) > 0):?>
 <div id='command_box_container'>
-<?php foreach($detail_report_cmds as $cmd): ?>	
+<?php foreach($detail_report_cmds as $cmd): ?>  
 <?php $this->load->view("detail_report_cmd/$cmd"); ?>
 <?php endforeach ?>
 </div>
@@ -50,30 +50,30 @@ $this->load->view("main/detail_report_export");
 <?php $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
-	//
-	// gamma and delta are defined in dms2.js
-	//
-	gamma.pageContext.site_url = '<?= site_url() ?>';
-	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
-	gamma.pageContext.responseContainerId = 'update_message';
-	gamma.pageContext.Id = '<?= $id ?>';
-	gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';	
-	gamma.pageContext.updateShowSQL = delta.updateShowSQL;
-	gamma.pageContext.updateShowURL = delta.updateShowURL;
+    //
+    // gamma and delta are defined in dms2.js
+    //
+    gamma.pageContext.site_url = '<?= site_url() ?>';
+    gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+    gamma.pageContext.responseContainerId = 'update_message';
+    gamma.pageContext.Id = '<?= $id ?>';
+    gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';   
+    gamma.pageContext.updateShowSQL = delta.updateShowSQL;
+    gamma.pageContext.updateShowURL = delta.updateShowURL;
 </script>
 
 <script src="<?= base_url().'javascript/file_attachment.js?version=100' ?>"></script>
 <script src="<?= base_url().'javascript/aux_info.js?version=100' ?>"></script>
 
 <script type='text/javascript'>
-	function updateAuxIntoControls() {
-		delta.updateContainer(gamma.pageContext.my_tag + '/detail_report_aux_info_controls/' + gamma.pageContext.Id, 'aux_info_controls_container'); 
-	}
-	$(document).ready(function () { 
-		delta.updateMyData();
-		if(gamma.pageContext.aux_info_target) updateAuxIntoControls();
-		fileAttachment.init();
-	});
+    function updateAuxIntoControls() {
+        delta.updateContainer(gamma.pageContext.my_tag + '/detail_report_aux_info_controls/' + gamma.pageContext.Id, 'aux_info_controls_container'); 
+    }
+    $(document).ready(function () { 
+        delta.updateMyData();
+        if(gamma.pageContext.aux_info_target) updateAuxIntoControls();
+        fileAttachment.init();
+    });
 </script>
 
 </body>

@@ -32,13 +32,13 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 <?php $this->load->view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
-	gamma.pageContext.site_url = '<?= site_url() ?>';
-	gamma.pageContext.base_url = '<?= base_url() ?>';
-	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
-	epsilon.pageContext.containerId = 'form_container';
-	epsilon.pageContext.modeFieldId = 'entry_cmd_mode';
-	epsilon.pageContext.entryFormId = 'entry_form';
-	epsilon.adjustEnabledFields();
+    gamma.pageContext.site_url = '<?= site_url() ?>';
+    gamma.pageContext.base_url = '<?= base_url() ?>';
+    gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+    epsilon.pageContext.containerId = 'form_container';
+    epsilon.pageContext.modeFieldId = 'entry_cmd_mode';
+    epsilon.pageContext.entryFormId = 'entry_form';
+    epsilon.adjustEnabledFields();
 </script>
 
 <?php if($entry_submission_cmds != ""): ?>
@@ -47,14 +47,14 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 <?php endif; ?>
 
 <script type='text/javascript'>
-	$(document).ready(function () { 
-		$('.sel_chooser').chosen({search_contains: true});
-		gamma.autocompleteChooser.setup();
-	});
-	epsilon.actions.after = function() {
-		$('.sel_chooser').chosen({search_contains: true});		
-	};
-	if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();
+    $(document).ready(function () { 
+        $('.sel_chooser').chosen({search_contains: true});
+        gamma.autocompleteChooser.setup();
+    });
+    epsilon.actions.after = function() {
+        $('.sel_chooser').chosen({search_contains: true});      
+    };
+    if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();
 </script>
 
 </body>

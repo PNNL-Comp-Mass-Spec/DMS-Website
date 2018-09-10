@@ -16,16 +16,16 @@
 <div id='data_display_container'>
 <?php // data display section
 if (is_string($result)) {
-	echo $result;
+    echo $result;
 } else 
 if(is_array($result)){
-	echo "<ul>\n";
-	foreach($result as $item) {
-		echo "<li>$item</<li>\n";
-	}
-	echo "</ul>\n";
+    echo "<ul>\n";
+    foreach($result as $item) {
+        echo "<li>$item</<li>\n";
+    }
+    echo "</ul>\n";
 } else {
-	echo "No results available";
+    echo "No results available";
 }
 ?>
 </div>

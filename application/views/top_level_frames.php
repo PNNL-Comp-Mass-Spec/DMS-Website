@@ -19,8 +19,8 @@
 <!-- define the main frames for the DMS interface -->
 
 <frameset cols="17%,*">
-	<frame src="<?= $side_menu_url ?>" name="menuside" >
-	<frame src='<?= $page_url ?>' name="display_side"  >
+    <frame src="<?= $side_menu_url ?>" name="menuside" >
+    <frame src='<?= $page_url ?>' name="display_side"  >
 </frameset>
 
 </html>

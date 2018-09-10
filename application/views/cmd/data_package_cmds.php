@@ -21,9 +21,9 @@
 <div>
 <input class="button lst_cmd_btn" type="button" value="Delete From Package" onClick='packages.performOperation("delete")' title='Remove the selected items from their data package'/>
 <label>
-	<?php // This should default to checked on this page ?>
-	<input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' checked='true' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
-	Also remove parent datasets and experiments
+    <?php // This should default to checked on this page ?>
+    <input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' checked='true' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
+    Also remove parent datasets and experiments
 </label> 
 </div>
 <div>

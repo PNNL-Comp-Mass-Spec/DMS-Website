@@ -65,8 +65,8 @@ if($has_checkboxes) $this->load->view("main/list_report_checkboxes");
 
 <?php // any list report commands?
 if($list_report_cmds != "") {
-	$this->load->view("main/list_report_cmd_reporting");
-	$this->load->view("cmd/$list_report_cmds");
+    $this->load->view("main/list_report_cmd_reporting");
+    $this->load->view("cmd/$list_report_cmds");
 }
 ?>
 
@@ -80,25 +80,25 @@ $this->load->view("main/param_report_export");
 <?php $this->load->view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
-	<script src="<?= base_url().'flot/jquery.flot.js' ?>"></script>
-	<script src="<?= base_url().'javascript/lcmd.js?version=103' ?>"></script>
+    <script src="<?= base_url().'flot/jquery.flot.js' ?>"></script>
+    <script src="<?= base_url().'javascript/lcmd.js?version=103' ?>"></script>
 <?php else: ?>
-	<script type='text/javascript'>
-		$(document).ready(function () { 
-			$('.sel_chooser').chosen({search_contains: true});
-		});
-	</script>
+    <script type='text/javascript'>
+        $(document).ready(function () { 
+            $('.sel_chooser').chosen({search_contains: true});
+        });
+    </script>
 <?php endif; ?>
 
 <script src="<?= base_url().'javascript/parRep.js?version=100' ?>"></script>
 
 
 <script type='text/javascript'>
-	gamma.pageContext.site_url = '<?= site_url() ?>';
-	gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
-	gamma.pageContext.responseContainerId =  'update_message';
-	gamma.pageContext.cntrlContainerId =  'clear_message';
-	gamma.pageContext.ops_url = '<?= $ops_url ?>';
+    gamma.pageContext.site_url = '<?= site_url() ?>';
+    gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+    gamma.pageContext.responseContainerId =  'update_message';
+    gamma.pageContext.cntrlContainerId =  'clear_message';
+    gamma.pageContext.ops_url = '<?= $ops_url ?>';
 </script>
 
 </body>

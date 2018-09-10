@@ -10,12 +10,12 @@
 <div>
 <input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.sample_prep_request_assignment.op("priority", "priority_fld")' /> Set priority of selected requests to 
 <select name="priority" id='priority_fld'>
-	<option></option>
-	<option>1</option>
-	<option>2</option>
-	<option>3</option>
-	<option>4</option>
-	<option>5</option>
+    <option></option>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
 </select>
 </div>
 

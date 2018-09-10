@@ -25,9 +25,9 @@
 </tr>
 <tr>
 <td colspan="2">
-	<input class="button" type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="fileAttachment.do_upload()" />
-	<span id="result_display" style='padding:5px;' ></span>
-	</td>
+    <input class="button" type="button" name="submit2Btn" value="Upload" title="Upload local file to DMS" onClick="fileAttachment.do_upload()" />
+    <span id="result_display" style='padding:5px;' ></span>
+    </td>
 </tr>
 </table>
 </form>

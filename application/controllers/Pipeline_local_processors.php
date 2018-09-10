@@ -5,15 +5,15 @@ require("Base_controller.php");
 class Pipeline_local_processors extends Base_controller {
 
 
-	// --------------------------------------------------------------------
-	function __construct()
-	{
-		// Call the parent constructor
-		parent::__construct();
+    // --------------------------------------------------------------------
+    function __construct()
+    {
+        // Call the parent constructor
+        parent::__construct();
 
-		$this->my_tag = "pipeline_local_processors";
-		$this->my_title = "Pipeline Local Processors";
-	}
+        $this->my_tag = "pipeline_local_processors";
+        $this->my_title = "Pipeline Local Processors";
+    }
 
 }
 ?>

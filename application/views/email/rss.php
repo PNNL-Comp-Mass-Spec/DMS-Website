@@ -19,15 +19,15 @@
     <admin:generatorAgent rdf:resource="http://www.codeigniter.com/" />
 
     <?php foreach($posts as $entry): ?>
-	<item>
-	<title><?php echo $entry['post_title']; ?></title>
-	<guid><?php echo $file_tag . '_' . $entry['guid'] ?></guid>
-	<?php echo ($entry['url_title'])?'<link>'.base_url().$entry['url_title'].'</link>':''; ?>
+    <item>
+    <title><?php echo $entry['post_title']; ?></title>
+    <guid><?php echo $file_tag . '_' . $entry['guid'] ?></guid>
+    <?php echo ($entry['url_title'])?'<link>'.base_url().$entry['url_title'].'</link>':''; ?>
 
-	<description><![CDATA[<?= $entry['post_body']; ?>]]>
-	</description>
-	<pubDate><?php echo $entry['post_date'];?></pubDate>
-	</item>
+    <description><![CDATA[<?= $entry['post_body']; ?>]]>
+    </description>
+    <pubDate><?php echo $entry['post_date'];?></pubDate>
+    </item>
 
     <?php endforeach; ?>
     

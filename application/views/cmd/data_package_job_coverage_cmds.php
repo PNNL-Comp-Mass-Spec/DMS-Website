@@ -25,9 +25,9 @@ Add selected jobs to package that are not already in package.
 <input class='button lst_cmd_btn' type="button" value="Remove Jobs" onClick='lcmd.data_package_job_coverage.op("delete")' id="btn_r" title=""  />
 Remove selected jobs from package.<br>
 <label>
-	<?php // This should default to unchecked on this page (thus, we leave off the checked attribute) ?>
-	<input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
-	Also remove parent datasets and experiments
+    <?php // This should default to unchecked on this page (thus, we leave off the checked attribute) ?>
+    <input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
+    Also remove parent datasets and experiments
 </label> 
 </div>
 <div style='display:none'>

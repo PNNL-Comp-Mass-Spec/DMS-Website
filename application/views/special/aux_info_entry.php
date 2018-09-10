@@ -17,7 +17,7 @@ $(document).ready(function () { showAuxInfo("aux_info_container", '<?= $ais->sho
 <?php $this->load->view('nav_bar') ?>
 <h2><?= $heading; ?> for <?= $target; ?>: <?= $id; ?> <span style='font-weight:normal'>(<?= $name ?>)</span></h2>
 
-<div style='font-weight:bold;padding:0 0 4px 0'>Categories and Subcategories</div>	
+<div style='font-weight:bold;padding:0 0 4px 0'>Categories and Subcategories</div>  
 
 <div><?= $ais->make_category_subcategory_selector($aux_info_def) ?></div>
 <input type='hidden' id = 'TargetID'  value='<?= $id ?>' />

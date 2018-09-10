@@ -18,39 +18,39 @@
 
 <?php
 
-	if (!$this->cu->check_access('operation', true)) {
-		echo "<p>You do not have permission to update items on this page</p>";
-	} else {
-		// echo "<p>You DO have permission to update items on this page</p>";
+    if (!$this->cu->check_access('operation', true)) {
+        echo "<p>You do not have permission to update items on this page</p>";
+    } else {
+        // echo "<p>You DO have permission to update items on this page</p>";
 
-		// show contents of locations in tables
-		$tmpl = array (
-			'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="GridCell">', 
-			'heading_cell_start' => '<th class="block_header" colspan="4">' 
-		);
-		$this->table->set_template($tmpl); 
-		//
-		foreach($storage as $freezer => $f) {
-			foreach($f as $shelf => $s) {
-				foreach($s as $rack => $rk)	{
-					$this->table->set_heading("Freezer:$freezer &nbsp; Shelf:$shelf &nbsp; Rack:$rack");
-					//
-					foreach($rk as $row => $rw) {
-						$tr = array();
-						foreach($rw as $col => $location) {
-							$x = render_location_contents($location, $contents);
-							if($x) $tr[] = $x;
-						}
-						$this->table->add_row($tr);
-					}
-					//
-					echo $this->table->generate();
-					$this->table->clear();
-					echo "<br>";
-				}	
-			}
-		}
-	}
+        // show contents of locations in tables
+        $tmpl = array (
+            'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="GridCell">', 
+            'heading_cell_start' => '<th class="block_header" colspan="4">' 
+        );
+        $this->table->set_template($tmpl); 
+        //
+        foreach($storage as $freezer => $f) {
+            foreach($f as $shelf => $s) {
+                foreach($s as $rack => $rk) {
+                    $this->table->set_heading("Freezer:$freezer &nbsp; Shelf:$shelf &nbsp; Rack:$rack");
+                    //
+                    foreach($rk as $row => $rw) {
+                        $tr = array();
+                        foreach($rw as $col => $location) {
+                            $x = render_location_contents($location, $contents);
+                            if($x) $tr[] = $x;
+                        }
+                        $this->table->add_row($tr);
+                    }
+                    //
+                    echo $this->table->generate();
+                    $this->table->clear();
+                    echo "<br>";
+                }   
+            }
+        }
+    }
 ?>
 
 </div>
