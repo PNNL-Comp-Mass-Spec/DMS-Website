@@ -1,7 +1,7 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('list_report_data_table','	V_Requested_Run_Batch_List_Report');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Requested_Run_Batch_List_Report');
 INSERT INTO "general_params" VALUES('list_report_data_cols','ID as [Sel], [ID], [Name], [Requests], [Req. Priority], [Instrument], [Description], [Owner], [Created], [Comment]');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
