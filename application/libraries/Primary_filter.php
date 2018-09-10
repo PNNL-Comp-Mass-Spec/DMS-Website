@@ -71,7 +71,7 @@ class Primary_filter {
                 if ($filterVal !== '') {
                     // Check for encoded tabs (introduced by filter_input) and change them back to true tab characters
                     // Also, trim whitespace
-                    $filter_specs[$id]["value"] = trim(str_replace('&#9;', "    ", $filterVal));
+                    $filter_specs[$id]["value"] = trim(str_replace('&#9;', "	", $filterVal));
                 }
             }
             return $filter_specs;
