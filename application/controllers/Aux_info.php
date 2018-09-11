@@ -136,26 +136,28 @@ class Aux_info extends CI_Controller {
     {
         $fields = $this->model->get_field_validation_fields();
 
-        // get expected field values from POST
-        $obj = new stdClass();
+        // Get expected field values from POST
+        $parmObj = new stdClass();
         foreach(array_keys($fields) as $name) {
-            $obj->$name = isset($_POST[$name])?$_POST[$name]:'';
+            $parmObj->$name = isset($_POST[$name])?$_POST[$name]:'';
         }
 
-        // collect the item names and item values into delimited lists
-        $fn = '';
-        foreach($obj->FieldNamesEx as $nf) {
-            $fn .= $nf.'!';
+        // Collect the item names and item values into delimited lists
+        // The delimiter is !
+        $fieldNames = '';
+        foreach($parmObj->FieldNamesEx as $field) {
+            $fieldNames .= str_replace('!', '&#33;', $field) . '!';
         }
-        $obj->FieldNamesEx = $fn;
-        $fv = '';
-        foreach($obj->FieldValuesEx as $vf) {
-            $fv .= $vf.'!';
+        $parmObj->FieldNamesEx = $fieldNames;
+        
+        $fieldValues = '';
+        foreach($parmObj->FieldValuesEx as $value) {
+            $fieldValues .= str_replace('!', '&#33;', $value) . '!';
         }
-        $obj->FieldValuesEx = $fv;
+        $parmObj->FieldValuesEx = $fieldValues;
 
         $message = "";
-        $result = $this->model->add_or_update($obj, "add", $message);
+        $result = $this->model->add_or_update($parmObj, "add", $message);
         if($result != 0) {
             echo "($result):$message";
         } else {

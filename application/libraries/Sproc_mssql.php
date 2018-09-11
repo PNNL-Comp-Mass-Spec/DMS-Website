@@ -8,15 +8,15 @@ class Sproc_mssql extends Sproc_base {
 
     /**
      * Call stored procedure given by $sprocName on database connection $conn_id
-     * binding arguments to fields in $par as defined by specifications in $args.
-     * Return results as fields in $par
+     * binding arguments to fields in $input_params as defined by specifications in $args.
+     * Returns results as fields in $input_params
      * @param string $sprocName
      * @param resource $conn_id
      * @param array $args
-     * @param object $par
+     * @param object $input_params
      * @throws Exception
      */
-    function execute($sprocName, $conn_id, $args, $par)
+    function execute($sprocName, $conn_id, $args, $input_params)
     {
         $stmt = mssql_init($sprocName, $conn_id);
         if(!$stmt) {
@@ -25,39 +25,47 @@ class Sproc_mssql extends Sproc_base {
         
         reset($args);
         foreach($args as $arg) {
-            $nm = '@'.$arg['name'];  // sproc arg name needs prefix
-            $tp = constant($this->tpconv[$arg['type']]); // convert type name to constant
-            $dr = $arg['dir']=='output'; // convert direction to boolean
-            $sz = ($arg['size'])?$arg['size']:-1;
+            $paramName = '@'.$arg['name'];  // sproc arg name needs prefix
+            $paramType = constant($this->tpconv[$arg['type']]); // convert type name to constant
+
+            $isOutput = $arg['dir'] == 'output'; // convert direction to boolean
+            
+            $size = ($arg['size']) ? $arg['size'] : -1;
+            
             if ($arg['field'] == '<local>') {
-                $fn = $arg['name'];
+                $fieldName = $arg['name'];     // Field name is <local>; use the argument name as the field name
             } else {
-                $fn = $arg['field'];    // name of field member in param object (or null)
-            }           
-//          echo "arg:'{$nm}', var:'{$fn}', type:'{$tp}',  dir:'{$dr}',  size:'{$sz}', (value)'{$par->$fn}' <br>";
-            $ok = mssql_bind($stmt, $nm, $par->$fn, $tp, $dr, false, $sz);
+                $fieldName = $arg['field'];    // name of field member in param object (or null)
+            }    
+
+            $fieldValue = $input_params->$fieldName;
+//            echo "arg:'{$paramName}', var:'{$fieldName}', type:'{$paramType}',  dir:'{$isOutput}',  size:'{$size}', (value)'{$fieldValue}' <br>";
+            
+            $ok = mssql_bind($stmt, $paramName, $fieldValue, $paramType, $direction, false, $size);
             if(!$ok) {
-                throw new Exception("Error trying to bind field '$fn'");
+                throw new Exception("Error trying to bind field '$fieldName'");
             }
         }
-        mssql_bind($stmt, "RETVAL", $par->retval, SQLINT2);  // always bind to return value from sproc
+        mssql_bind($stmt, "RETVAL", $input_params->retval, SQLINT2);  // always bind to return value from sproc
         
-        $par->exec_result = mssql_execute($stmt);
-        if(!$par->exec_result) {
+        $input_params->exec_result = mssql_execute($stmt);
+        
+        if(!$input_params->exec_result) {
             $ra_msg = mssql_get_last_message();
             throw new Exception($ra_msg);
         }
-        // Process the results here, before we call mssql_free_statement()!)
-        ///// $par->exec_result = resource (aka a table)
-        $result = $par->exec_result;
-        $par->exec_result = new stdclass();
-        $par->exec_result->hasRows = false;
+
+        // Process the results here, before we call mssql_free_statement()
+        $result = $input_params->exec_result;
+        
+        $input_params->exec_result = new stdclass();
+        $input_params->exec_result->hasRows = false;
         if(is_resource($result)){
-            $par->exec_result->hasRows = true;
+            $input_params->exec_result->hasRows = true;
             $metadata = $this->extract_field_metadata($result);
             $rows = $this->get_rows($result);
-            $par->exec_result->metadata = $metadata;
-            $par->exec_result->rows = $rows;
+            $input_params->exec_result->metadata = $metadata;
+            $input_params->exec_result->rows = $rows;
         }
         mssql_free_statement($stmt);        
     }
@@ -86,11 +94,11 @@ class Sproc_mssql extends Sproc_base {
     private function extract_field_metadata($result)
     {
         $metadata = array();
-        while ($field = mssql_fetch_field($result)) {   
-            $F              = new stdClass();
-            $F->name        = $field->name;
-            $F->type        = $field->type;
-            $F->max_length  = $field->max_length;
+        while ($field = mssql_fetch_field($result)) {    
+            $F                 = new stdClass();
+            $F->name         = $field->name;
+            $F->type         = $field->type;
+            $F->max_length    = $field->max_length;
             $metadata[] = $F;
         }
         return $metadata;

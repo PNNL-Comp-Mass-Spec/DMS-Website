@@ -8,50 +8,58 @@ class Sproc_sqlsrv extends Sproc_base {
 
     /**
      * Call stored procedure given by $sprocName on database connection $conn_id
-     * binding arguments to fields in $par as defined by specifications in $args.
-     * Return results as fields in $par
-     * @param string $sprocName
-     * @param resource $conn_id
-     * @param array $args
-     * @param object $par
+     * binding arguments to fields in $input_params as defined by specifications in $args.
+     * Returns results as fields in $input_params
+     * @param string $sprocName Stored procedure name
+     * @param resource $conn_id Database connection ID, from  $this->db->conn_id
+     * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
+     * @param object $input_params
      * @throws Exception
      */
-    function execute($sprocName, $conn_id, $args, $par)
+    function execute($sprocName, $conn_id, $args, $input_params)
     {
-        $par->retval = 0;
+        $input_params->retval = 0;
         //$sql = "{? = CALL ".$sprocName." ("; // for "call" syntax, which ignores parameter names (must supply empty items in the query for skipped parameters)
         $sql = "EXEC ? = ".$sprocName; // Syntax reference: https://docs.microsoft.com/en-us/sql/t-sql/language-elements/execute-transact-sql?view=sql-server-2017
         $params = array();
-        $params[] = array(&$par->retval, SQLSRV_PARAM_OUT, SQLSRV_PHPTYPE_INT);
+        $params[] = array(&$input_params->retval, SQLSRV_PARAM_OUT, SQLSRV_PHPTYPE_INT);
         $firstParam = true;
+        
         reset($args);
         foreach($args as $arg) {
-            $nm = '@'.$arg['name'];  // sproc arg name needs prefix
-            //$tp = constant($this->tpconv[$arg['type']]); // convert type name to constant
-            $dr = SQLSRV_PARAM_IN;
-            if($arg['dir']=='output') { // convert direction to boolean
-                $dr = SQLSRV_PARAM_INOUT; //SQLSRV_PARAM_OUT;
+            $paramName = '@'.$arg['name'];  // sproc arg name needs prefix
+            //$paramType = constant($this->tpconv[$arg['type']]); // convert type name to constant
+
+            $direction = SQLSRV_PARAM_IN;
+            if($arg['dir']=='output') {
+                $direction = SQLSRV_PARAM_INOUT; // Alternatively SQLSRV_PARAM_OUT;
             }
-            $sz = ($arg['size'])?$arg['size']:-1;
+            
+            $size = ($arg['size']) ? $arg['size'] : -1;
+            
             if ($arg['field'] == '<local>') {
-                $fn = $arg['name'];
+                $fieldName = $arg['name'];     // Field name is <local>; use the argument name as the field name
             } else {
-                $fn = $arg['field'];    // name of field member in param object (or null)
+                $fieldName = $arg['field'];    // name of field member in param object (or null)
             }
-//          echo "arg:'{$nm}', var:'{$fn}', type:'{$tp}',  dir:'{$dr}',  size:'{$sz}', (value)'{$par->$fn}' <br>";
+            
+            $fieldValue = $input_params->$fieldName;            
+//            echo "arg:'{$paramName}', var:'{$fieldName}', type:'{$paramType}',  dir:'{$direction}',  size:'{$size}', (value)'{$fieldValue}' <br>";
+            
             if($firstParam) {
-                $sql = $sql." ".$nm." = ?";
+                $sql = $sql . " " . $paramName . " = ?";
                 $firstParam = false;
             } else {
-                $sql = $sql.", ".$nm." = ?";
+                $sql = $sql . ", ". $paramName . " = ?";
             }
+            
             // format: array($value [, $direction [, $phpType [, $sqlType]]]) http://php.net/manual/en/function.sqlsrv-prepare.php
             // see https://github.com/Microsoft/msphpsql/blob/9eadf805adf83c3f7de53e06f2a7f2630a9fdd8f/source/sqlsrv/stmt.cpp for types supported
-            if($dr==SQLSRV_PARAM_IN) {
-                $params[] = array($par->$fn, $dr);
+            if ($direction == SQLSRV_PARAM_IN) {
+                $params[] = array($fieldValue, $direction);
             }
             else {
-                $params[] = array(&$par->$fn, $dr);
+                $params[] = array(&$fieldValue, $direction);
             }
         }
                
@@ -63,17 +71,21 @@ class Sproc_sqlsrv extends Sproc_base {
         //$sql = $sql.")}"; // for "call" syntax, which ignores parameter names (must supply empty items in the query for skipped parameters)
         
         //$stmt = sqlsrv_prepare($conn_id, $sql, $params);
-        //$par->exec_result = sqlsrv_execute($stmt);
+        //$input_params->exec_result = sqlsrv_execute($stmt);
+        //
         // Or to just use query
-        $stmt = sqlsrv_query($conn_id, $sql, $params);
-        $par->exec_result = $stmt;
-        if(!$par->exec_result) {
+        $result = sqlsrv_query($conn_id, $sql, $params);
+        
+        $input_params->exec_result = $result;
+        if(!$input_params->exec_result) {
             $ra_msg = sqlsrv_errors();
             $msg = "";
             foreach ($ra_msg as $error) {
                 $msg = $msg."\n".$error["message"];
             }
-            if(false) { // set to false to disable these debug messages
+            
+            // Change this to true to see additional debug messages
+            if(false) {
                 $msg = $msg."\n".$sql;
                 //$msg = $msg."\nretval (SQLSRV_PARAM_OUT)";
                 foreach ($params as $param) {
@@ -93,24 +105,23 @@ class Sproc_sqlsrv extends Sproc_base {
             }
             throw new Exception($msg);
         }
-        //////
-        // MUST PROCESS THE RESULTS HERE!!!! ( because they will be freed by sqlsrv_free_stmt()!)
-        ///// $par->exec_result = resource (aka a table)
-        $par->exec_result = new stdclass();
-        $par->exec_result->hasRows = false;
-        if(sqlsrv_has_rows($stmt)){
-            $par->exec_result->hasRows = true;
-            $metadata = $this->extract_field_metadata($stmt);
-            $rows = $this->get_rows($stmt);
-            $par->exec_result->metadata = $metadata;
-            $par->exec_result->rows = $rows;
+
+        // Process the results here, before we call sqlsrv_free_stmt()
+        $input_params->exec_result = new stdclass();
+        $input_params->exec_result->hasRows = false;
+        if(sqlsrv_has_rows($result)){
+            $input_params->exec_result->hasRows = true;
+            $metadata = $this->extract_field_metadata($result);
+            $rows = $this->get_rows($result);
+            $input_params->exec_result->metadata = $metadata;
+            $input_params->exec_result->rows = $rows;
         }
 
-        while($res = sqlsrv_next_result($stmt))
+        while($res = sqlsrv_next_result($result))
         {
-            // make sure all result sets are stepped through, since the output params may not be set until this happens
+            // Make sure all result sets are stepped through, since the output params may not be set until this happens
         }
-        sqlsrv_free_stmt($stmt);
+        sqlsrv_free_stmt($result);
     }
 
     /**
@@ -132,7 +143,7 @@ class Sproc_sqlsrv extends Sproc_base {
      * @param type $result
      * @return \stdClass
      */
-    private function extract_field_metadata($stmt)
+    private function extract_field_metadata($result)
     {
         // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
         $tpconvSql = array(
@@ -175,41 +186,26 @@ class Sproc_sqlsrv extends Sproc_base {
             'char' => 'char'
         );
         $metadata = array();
-        foreach (sqlsrv_field_metadata($stmt) as $field ) {
+        foreach (sqlsrv_field_metadata($result) as $field ) {
             $sqlType = $tpconvSql[$field['Type']];
-            $F              = new stdClass();
-            $F->name        = $field['Name'];
+            $F                 = new stdClass();
+            $F->name         = $field['Name'];
             if (array_key_exists($sqlType, $tpconv)) {
                 $F->type    = $tpconv[$sqlType];
             }
             else {
                 $F->type    = $field['Type'];
             }
-            //$F->type      = $field['Type'];
-            //$F->type      = $tpconv[$sqlType];
-            $F->max_length  = $field['Size'];
-            //$F->precision = $field['Precision'];
-            //$F->scale     = $field['Scale'];
-            //$F->nullable  = $field['Nullable'];
-            $F->sqlType     = $sqlType;
+            //$F->type        = $field['Type'];
+            //$F->type        = $tpconv[$sqlType];
+            $F->max_length    = $field['Size'];
+            //$F->precision    = $field['Precision'];
+            //$F->scale        = $field['Scale'];
+            //$F->nullable    = $field['Nullable'];
+            $F->sqlType        = $sqlType;
             $metadata[] = $F;
         }
         return $metadata;
     }
-
-    // --------------------------------------------------------------------
-    // (someday) 'varchar' => constant('SQLVARCHAR'), ??
-    // conversion of sproc arg data type
-    // from config definition to SQL Server binding value
-    // (this list is partial)
-    //private $tpconv = array(
-    //  'varchar' => 'SQLVARCHAR',
-    //  'int' => 'SQLINT4',
-    //  'tinyint' => 'SQLINT1',
-    //  'real' => 'SQLFLT4',
-    //  'text' => 'SQLTEXT',
-    //  'smallint' => 'SQLINT2',
-    //  'char' => 'SQLCHAR'
-    //);
 
 }
