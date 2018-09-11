@@ -217,7 +217,7 @@ class S_model extends CI_Model {
                     $execRetriesRemaining--;
                     if ($execRetriesRemaining > 0) {
                         log_message('error', "Retrying call to $this->sprocName in $execSleepDelayMsec msec");
-                        usleep($sleepDelayMsec * 1000);
+                        usleep($execSleepDelayMsec * 1000);
                         $execSleepDelayMsec *= 2;
                     } else {
                         throw new Exception("Call to stored procedure $this->sprocName failed: $errorMessage");
