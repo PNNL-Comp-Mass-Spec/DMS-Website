@@ -36,8 +36,12 @@ class Aux_info extends CI_Controller {
         $this->load->library('aux_info_support');
     }
 
-    // --------------------------------------------------------------------
-    function _set_aux_info_names($target, $id='')
+    /**
+     * Set aux info names
+     * @param type $target
+     * @param type $id
+     */
+    private function _set_aux_info_names($target, $id='')
     {
         $this->aux_info_support->item_entry_url = site_url().'aux_info/item_values/'.$target.'/';
         $this->aux_info_support->copy_info_url =  site_url().'aux_info_copy/update/';
@@ -65,7 +69,7 @@ class Aux_info extends CI_Controller {
 
             $result = $this->model->get_aux_info_item_current_values($target, $id);
             if(count($result) == 0) {
-                $str = "No aux info available";
+                $str = "No aux info is defined for this item";
             } else {
                 $str = make_detail_report_aux_info_section($result);
             }
@@ -129,7 +133,6 @@ class Aux_info extends CI_Controller {
         $this->_set_aux_info_names($target, $id);
         try {
             $this->model->check_connection();
-//          $result = $this->model->get_aux_info_item_values($target, $category, $subcategory, $id);
             list($ai_items, $ai_choices) = $this->model->get_aux_info($target, $category, $subcategory, $id);
             echo $this->aux_info_support->make_item_entry_form($ai_items, $ai_choices);
         } catch (Exception $e) {
@@ -172,4 +175,5 @@ class Aux_info extends CI_Controller {
             echo "Update was successful";
         }
     }
+
 }

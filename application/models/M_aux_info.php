@@ -1,16 +1,16 @@
 <?php
 class M_aux_info extends CI_Model {
-
+       
     function init_definitions()
     {
-        $this->my_tag = "aux_info"; 
+        $this->my_tag = "aux_info";    
+
         // initialize parameters for query for list report
          $this->list_report_data_cols = "Category, Subcategory, Item, Value";
          $this->list_report_data_table = 'V_AuxInfo_Value';
-         $this->list_report_data_sort_col = 'SC, SS, SI';   
+         $this->list_report_data_sort_col = 'SC, SS, SI';    
 
-
-        // initialize primary filter specs      
+        // initialize primary filter specs        
         $this->list_report_primary_filter = array(
             'pf_target' => array(
                     'label' => 'Target',
@@ -118,7 +118,9 @@ class M_aux_info extends CI_Model {
         );
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Constructor
+     */
     function __construct()
     {
         // Call the Model constructor
@@ -127,7 +129,10 @@ class M_aux_info extends CI_Model {
         $this->init_definitions();
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Stub procedure for validating the connection
+     * @return boolean
+     */
     function check_connection()
     {
         return true;
@@ -140,9 +145,9 @@ class M_aux_info extends CI_Model {
      */
     function get_field_validation_fields()
     {
-        $x  = array();
+        $x    = array();
         foreach($this->form_fields as $f_name => $f_spec) {
-            $x[$f_name] = $f_spec["label"];
+            $x[$f_name]    = $f_spec["label"];
             if(array_key_exists('enable', $f_spec)) {
                 $x["${f_name}_ckbx"]= $f_spec["enable"];
             }
@@ -167,7 +172,7 @@ class M_aux_info extends CI_Model {
         SELECT Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI
         FROM V_AuxInfo_Value
         WHERE (Target = '$target') AND (Target_ID = $id)
-        ORDER BY SC, SS, SI     
+        ORDER BY SC, SS, SI        
 EOD;
         $query = $this->db->query($sql);
 
@@ -179,7 +184,14 @@ EOD;
     }
 
 
-    // --------------------------------------------------------------------
+    /**
+     * Get aux info for the given item
+     * @param type $target
+     * @param type $category
+     * @param type $subcategory
+     * @param type $id
+     * @return type
+     */
     function get_aux_info($target, $category, $subcategory, $id)
     {
         $ai_items = $this->get_aux_info_item_values($target, $category, $subcategory, $id);
@@ -219,13 +231,20 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception ("Error querying database for aux info item values using V_AuxInfo_Definition; see application/logs/log-$currentTimestamp.php");
         }
-        if ($query->num_rows() == 0) {
-            throw new Exception("No rows found");
+         if ($query->num_rows() == 0) {
+             throw new Exception("No rows found");
         }
         return $query->result_array();
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Get allowed values for the given category and subcategory
+     * @param type $target
+     * @param type $category
+     * @param type $subcategory
+     * @return type
+     * @throws Exception
+     */
     function get_aux_info_allowed_values($target, $category, $subcategory)
     {
         $this->db->select('Item, AllowedValue');
@@ -242,7 +261,7 @@ EOD;
     }
 
     /**
-     * get list of aux info target definitions (tracking entities that are allowed 
+     * Get list of aux info target definitions (tracking entities that are allowed 
      * to have associated aux info)
      * @return type
      * @throws Exception
@@ -254,9 +273,9 @@ EOD;
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_targets; see application/logs/log-$currentTimestamp.php");
-        }       
-        if ($resultSet->num_rows() == 0) {
-            throw new Exception("No rows found");
+        }        
+         if ($resultSet->num_rows() == 0) {
+             throw new Exception("No rows found");
         }
         return $resultSet->result_array();
     }
@@ -289,9 +308,9 @@ EOD;
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_def; see application/logs/log-$currentTimestamp.php");
-        }       
-        if ($resultSet->num_rows() == 0) {
-            throw new Exception("No rows found");
+        }        
+         if ($resultSet->num_rows() == 0) {
+             throw new Exception("No rows found");
         }
         $def = array();
         foreach($resultSet->result_array() as $row) {
