@@ -362,53 +362,69 @@ EOD;
         return $result[$category][$subcategory];
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Add or update Aux Info values
+     * @param stdClass $parmObj Field values from POST
+     * @param type $command Action to perform; will always be 'add'
+     * @param type $sa_message Error message to return
+     * @return type
+     */
     function add_or_update($parmObj, $command, &$sa_message)
     {
-        $stmt = mssql_init("AddUpdateAuxInfo", $this->db->conn_id);
-        if(!$stmt) {
-            $sa_message = "Statement initialization error";
-            return 1;       
-        }
-        $sa_mode = $command;
-        $sa_message = "";
+        $my_db = $this->db;
+                
+        // Use Sproc_sqlsrv with PHP 7 on Apache 2.4
+        // Use Sproc_mssql  with PHP 5 on Apache 2.2
+        // Set this based on the current DB driver
 
-        $sa_targetName = $parmObj->TargetName;
-        $sa_targetEntityName = $parmObj->EntityID;
-        $sa_categoryName = $parmObj->Category;
-        $sa_subCategoryName = $parmObj->Subcategory;
-        $sa_itemNameList = $parmObj->FieldNamesEx;
-        $sa_itemValueList = $parmObj->FieldValuesEx;
-/*  
+        $CI =& get_instance();
+        $CI->load->library("Sproc_".$my_db->dbdriver, '', 'sprochndlr');
+        $sproc_handler = $CI->sprochndlr;
+
+        $sprocName = "AddUpdateAuxInfo";
+        
+        $sa_message = "";
+ 
+        $input_params = new stdClass();
+
+        $args = array();
+        
+        $sproc_handler->AddLocalArgument($args, $input_params, "targetName",       $parmObj->TargetName,    "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "targetEntityName", $parmObj->EntityID,      "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "categoryName",     $parmObj->Category,      "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "subCategoryName",  $parmObj->Subcategory,   "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "itemNameList",     $parmObj->FieldNamesEx,  "varchar", "input", 4000);
+         $sproc_handler->AddLocalArgument($args, $input_params, "itemValueList",    $parmObj->FieldValuesEx, "varchar", "input", 3000);
+         $sproc_handler->AddLocalArgument($args, $input_params,  "mode",            $command,                "varchar", "input", 12);
+         $sproc_handler->AddLocalArgument($args, $input_params,  "message",         "",                      "varchar", "output", 512);
+                       
+/*
+ * Debug dump
+echo "mode ".$command."<br>";
 echo "TargetName:". $parmObj->TargetName . '<br>';
 echo "EntityID:". $parmObj->EntityID . '<br>';
 echo "Category:". $parmObj->Category . '<br>';
 echo "Subcategory:". $parmObj->Subcategory . '<br>';
 echo "FieldNamesEx:". $parmObj->FieldNamesEx . '<br>';
 echo "FieldValuesEx:". $parmObj->FieldValuesEx . '<br>';
-return; 
+return;    
  */
-        mssql_bind($stmt, "@targetName", $sa_targetName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@targetEntityName", $sa_targetEntityName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@categoryName", $sa_categoryName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@subCategoryName", $sa_subCategoryName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@itemNameList", $sa_itemNameList, SQLVARCHAR, false, false, 4000);
-        mssql_bind($stmt, "@itemValueList", $sa_itemValueList, SQLVARCHAR, false, false, 3000);
-        mssql_bind($stmt, "@mode", $sa_mode, SQLVARCHAR, false, false, 12);
-        mssql_bind($stmt, "@message", $sa_message, SQLVARCHAR, true, false, 512);
-        mssql_bind($stmt, "RETVAL",$val, SQLINT2);
+ 
+        $sproc_handler->execute($sprocName, $my_db->conn_id, $args, $input_params);
 
-        $result = mssql_execute($stmt);
-        
+        // Examine the result code        
+        $result = $input_params->exec_result;
+        $val = $input_params->retval;
+       
         if(!$result) {
-            $ra_msg = mssql_get_last_message();
-            $sa_message = "Database error:" . $ra_msg . ": " . $sa_message;
-        } else
-        if($val != 0) {
-            $ra_msg = mssql_get_last_message();
-            $sa_message = "Procedure error:" . $ra_msg . ": " . $sa_message;
+            $sa_message = "Execution failed for $sprocName";
+            return -1;
         }
-        return $val;
-    }   
+                
+        if($val != 0) {
+            $sa_message = "Procedure error: " . $input_params->message . " ($val for $sprocName)";
+        }
 
+        return $val;
+    }
 }

@@ -5,7 +5,6 @@ class M_aux_info_copy extends CI_Model {
     {
         $this->my_tag = "aux_info_copy";    
 
-
         // query to get data for existing record in database for editing
         $this->entry_page_data_cols = "*";
         $this->entry_page_data_table = '';
@@ -73,7 +72,9 @@ class M_aux_info_copy extends CI_Model {
         $this->entry_sproc = "CopyAuxInfo";
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Constructor
+     */
     function __construct()
     {
         // Call the Model constructor
@@ -82,14 +83,16 @@ class M_aux_info_copy extends CI_Model {
         $this->init_definitions();
     }
 
-    // --------------------------------------------------------------------
-    // return an array from the form field specifications keyed by
-    // field name and containing the field label as the value for the key
+    /**
+     * Return an array from the form field specifications keyed by
+     * field name and containing the field label as the value for the key
+     * @return type
+     */
     function get_field_validation_fields()
     {
-        $x  = array();
+        $x    = array();
         foreach($this->form_fields as $f_name => $f_spec) {
-            $x[$f_name] = $f_spec["label"];
+            $x[$f_name]    = $f_spec["label"];
             if(array_key_exists('enable', $f_spec)) {
                 $x["${f_name}_ckbx"]= $f_spec["enable"];
             }
@@ -97,53 +100,67 @@ class M_aux_info_copy extends CI_Model {
         return $x;
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Copy Aux Info values from one item to another
+     * @param type $parmObj
+     * @param type $command Action to perform; will always be 'CopyMode'
+     * @param type $sa_message
+     * @return type
+     */
     function add_or_update($parmObj, $command, &$sa_message)
     {
-        $stmt = mssql_init("CopyAuxInfo", $this->db->conn_id);
-        if(!$stmt) {
-            $sa_message = "Statement initialization error";
-            return 1;       
-        }
-        $sa_mode = $command;
+        $my_db = $this->db;
+                
+        // Use Sproc_sqlsrv with PHP 7 on Apache 2.4
+        // Use Sproc_mssql  with PHP 5 on Apache 2.2
+        // Set this based on the current DB driver
+
+        $CI =& get_instance();
+        $CI->load->library("Sproc_".$my_db->dbdriver, '', 'sprochndlr');
+        $sproc_handler = $CI->sprochndlr;
+
+        $sprocName = "CopyAuxInfo";
+        
         $sa_message = "";
 
-        $sa_targetName = $parmObj->TargetName;
-        $sa_targetEntityName = $parmObj->EntityID;
-        $sa_categoryName = $parmObj->Category;
-        $sa_subCategoryName = $parmObj->Subcategory;
-        $sa_sourceEntityName = $parmObj->CopySource;
+        $input_params = new stdClass();
+
+        $args = array();
+        
+        $sproc_handler->AddLocalArgument($args, $input_params, "targetName",       $parmObj->TargetName,  "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "targetEntityName", $parmObj->EntityID,    "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "categoryName",     $parmObj->Category,    "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "subCategoryName",  $parmObj->Subcategory, "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params, "sourceEntityName", $parmObj->CopySource,  "varchar", "input", 128);
+         $sproc_handler->AddLocalArgument($args, $input_params,  "mode",            $command,              "varchar", "input", 24);
+         $sproc_handler->AddLocalArgument($args, $input_params,  "message",         "",                    "varchar", "output", 512);        
+     
 /*
  * Debug dump
 echo "mode ".$command."<br>";
-echo "targetName ". $parmObj->TargetName."<br>";
-echo "targetEntityName ". $parmObj->EntityID."<br>";
-echo "categoryName ". $parmObj->Category."<br>";
-echo "subCategoryName ". $parmObj->Subcategory."<br>";
-echo "sourceEntityName ". $parmObj->CopySource."<br>";
+echo "TargetName ". $parmObj->TargetName."<br>";
+echo "TargetEntityName ". $parmObj->EntityID."<br>";
+echo "CategoryName ". $parmObj->Category."<br>";
+echo "SubCategoryName ". $parmObj->Subcategory."<br>";
+echo "SourceEntityName ". $parmObj->CopySource."<br>";
 return;
 */
 
+        $sproc_handler->execute($sprocName, $my_db->conn_id, $args, $input_params);
 
-        mssql_bind($stmt, "@targetName", $sa_targetName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@targetEntityName", $sa_targetEntityName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@categoryName", $sa_categoryName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@subCategoryName", $sa_subCategoryName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@sourceEntityName", $sa_sourceEntityName, SQLVARCHAR, false, false, 128);
-        mssql_bind($stmt, "@mode", $sa_mode, SQLVARCHAR, false, false, 24);
-        mssql_bind($stmt, "@message", $sa_message, SQLVARCHAR, true, false, 512);
-        mssql_bind($stmt, "RETVAL",$val, SQLINT2);
+        // Examine the result code       
+        $result = $input_params->exec_result;
+        $val = $input_params->retval;
 
-        $result = mssql_execute($stmt);
-        
         if(!$result) {
-            $ra_msg = mssql_get_last_message();
-            $sa_message = "Database error:" . $ra_msg . ": " . $sa_message;
-        } else
-        if($val != 0) {
-            $ra_msg = mssql_get_last_message();
-            $sa_message = "Procedure error:" . $ra_msg . ": " . $sa_message;
+            $sa_message = "Execution failed for $sprocName";
+            return -1;
         }
+
+        if($val != 0) {
+            $sa_message = "Procedure error: " . $input_params->message . " ($val for $sprocName)";
+        }
+
         return $val;
     }
 }
