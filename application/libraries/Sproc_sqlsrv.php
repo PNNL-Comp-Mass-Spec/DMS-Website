@@ -3,12 +3,8 @@
         exit('No direct script access allowed');
     }
 
-class Sproc_sqlsrv {
-
-    // --------------------------------------------------------------------
-    function __construct()
-    {
-    }
+require("Sproc_base.php");
+class Sproc_sqlsrv extends Sproc_base {
 
     /**
      * Call stored procedure given by $sprocName on database connection $conn_id
