@@ -1,6 +1,9 @@
 <?php
 require("Base_controller.php");
 
+// Include the String operations methods
+require_once(BASEPATH . '../application/libraries/String_operations.php');
+
 class Upload extends Base_controller {
 
     // Tracks names of entities currently supported by the spreadsheet loader.
@@ -56,7 +59,7 @@ class Upload extends Base_controller {
     /**
      * Upload the file identified via the POST
      * Overwrite any existing copies
-     * Return javascript that will execute immediately on being inserted into an iframe
+     * Return Javascript that will execute immediately on being inserted into an iframe
      * @category AJAX
      */
     function load()
@@ -67,7 +70,7 @@ class Upload extends Base_controller {
         $file_name = basename($_FILES[$fieldName]['name']);
         $target_path = $destination_path . $file_name;
 
-        if ($this->IsNullOrEmptyString($file_name)) {
+        if (IsNullOrWhiteSpace($file_name)) {
             $error = 'Filename is empty';
         } else {
             
@@ -656,9 +659,5 @@ class Upload extends Base_controller {
         $this->supported_entities = $def;
     }
 
-    function IsNullOrEmptyString($str) 
-    {
-        return (!isset($str) || trim($str) === '');
-    }
 }
 
