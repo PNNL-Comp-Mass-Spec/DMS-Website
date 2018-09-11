@@ -1,5 +1,8 @@
 <?php
 
+// Include the String operations methods
+require_once(BASEPATH . '../application/libraries/String_operations.php');
+
 class Aux_info extends CI_Controller {
 
     /**
@@ -73,12 +76,13 @@ class Aux_info extends CI_Controller {
     }
 
     /**
-     * Presents the aux info entry page
+     * Presents the aux info entry page, for example
+     * https://dms2.pnl.gov/aux_info/entry/Cell%20Culture/8875/Shew_QC_110415
      * @param type $target
      * @param type $id
      * @param type $name
      */
-    function entry($target, $id, $name)
+    function entry($target, $id, $name = "")
     {
         $this->load->helper('menu');
         $this->_set_aux_info_names($target, $id);
@@ -87,6 +91,10 @@ class Aux_info extends CI_Controller {
         // nav_bar setup
         $this->load->model('dms_menu', 'menu', TRUE);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info');
+
+        if (IsNullOrWhiteSpace($name)) {
+            $name = "Unknown";
+        }
 
         // labelling information for view
         $data['title'] = "Aux Info Entry";
