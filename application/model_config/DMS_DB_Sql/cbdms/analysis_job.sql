@@ -13,6 +13,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_id_col','Job');
 INSERT INTO "general_params" VALUES('operations_sproc','DoAnalysisJobOperation');
 INSERT INTO "general_params" VALUES('list_report_data_cols','[Job],[Pri],[State],[Tool],[Dataset],[Campaign],[Experiment],[Instrument],[Parm File],[Settings_File],[Organism],[Organism DB],[Protein Collection List],[Protein Options],[Comment],[Created],[Started],[Finished],[Runtime],[Job Request],[Results Folder],[Results Folder Path],[Last_Affected],[Rating]');
 INSERT INTO "general_params" VALUES('detail_report_data_cols','JobNum,Dataset,Experiment,[Dataset Folder],[Dataset Folder Path],Instrument,[Tool Name],[Parm File],[Parm File Storage Path],[Settings File],Organism,[Organism DB],[Organism DB Storage Path],[Protein Collection List],[Protein Options List],State,[Runtime Minutes],Owner,Comment,[Special Processing],[Results Folder Path],[Data Folder Link],[PSM Stats],Created,Started,Finished,Request,Priority,[Assigned Processor],[AM Code],[DEM Code],[Export Mode],[Dataset Unreviewed] ');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Job');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Job','Job','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'AJ_Dataset','Dataset','text','80','128','','','','trim|required|max_length[128]');

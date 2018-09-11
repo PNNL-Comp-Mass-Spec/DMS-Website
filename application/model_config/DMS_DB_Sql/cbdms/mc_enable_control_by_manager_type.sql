@@ -12,7 +12,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','ID','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','mc_enable_control_by_manager/report','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO "list_report_primary_filter" VALUES(1,'pf_manager_type','Manager Type','20','','Manager Type','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_manager_type','Manager Type','30!','','Manager Type','ContainsText','text','50','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'paramValue','paramValue','varchar','input','32','UpdateSingleMgrTypeControlParam');
 INSERT INTO "sproc_args" VALUES(2,'newValue','newValue','varchar','input','128','UpdateSingleMgrTypeControlParam');

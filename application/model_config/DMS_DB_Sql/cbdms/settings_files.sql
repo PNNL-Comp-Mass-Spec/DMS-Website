@@ -17,16 +17,21 @@ INSERT INTO "form_fields" VALUES(4,'Description','Description','area','','','4',
 INSERT INTO "form_fields" VALUES(5,'Active','Active','text','1','1','','','1','trim|max_length[1]');
 INSERT INTO "form_fields" VALUES(6,'AutoCentroid','AutoCentroid','area','','','1','80','','trim|max_length[255]');
 INSERT INTO "form_fields" VALUES(7,'HMS_AutoSupersede','HMS_AutoSupersede','area','','','1','80','','trim|max_length[255]');
-INSERT INTO "form_fields" VALUES(8,'Contents','Contents','area','','','18','80','
-<section name="AAA" tool="">
-    <item key="xxx" value=""></item>
-    <item key="yyy" value=""></item>
+INSERT INTO "form_fields" VALUES(8,'Contents','Contents','area','','','18','80','<section name="AAA" tool="">
+
+	<item key="xxx" value=""></item>
+
+	<item key="yyy" value=""></item>
+
 </section>
+
 <section name="BBB" tool="">
-    <item key="xxx" value=""></item>
-    <item key="yyy" value=""></item>
-</section>
-','trim|max_length[2147483647]');
+
+	<item key="xxx" value=""></item>
+
+	<item key="yyy" value=""></item>
+
+</section>','trim|max_length[2147483647]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'Contents','auto_format','xml');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
@@ -38,6 +43,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_description','Description'
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','settings_files/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Description','min_col_width','value','200','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Analysis Tool','invoke_entity','value','analysis_job/report/-/-/~@/-/-/-/-/-/52/-','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'ID','ID','int','input','','AddUpdateSettingsFile');
 INSERT INTO "sproc_args" VALUES(2,'AnalysisTool','AnalysisTool','varchar','input','64','AddUpdateSettingsFile');

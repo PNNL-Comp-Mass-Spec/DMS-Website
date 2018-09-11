@@ -18,9 +18,10 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_Name','Name','40!','','Name','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_Organism','Organism','15!','','Organism Name','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_Usage','Most recent weeks','2!','','Most Recent Usage','MostRecentWeeks','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_Min_Entries','Min entries','2!','','Entries','GreaterThanOrEqualTo','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_Max_Entries','Max entries','2!','','Entries','LessThanOrEqualTo','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_Min_Entries','Min entries','5!','','Entries','GreaterThanOrEqualTo','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_Max_Entries','Max entries','5!','','Entries','LessThanOrEqualTo','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_Description','Description','','','Description','ContainsText','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(7,'pf_Source','Source','20!','','Source','ContainsText','text','','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Organism Name','detail-report','Organism Name','organism/report/~','labelCol','dl_organism',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Usage Last 12 Months','detail-report','Name','analysis_job/report/-/-/-/-/-/-/@/-/52','labelCol','dl_usage_12_months',NULL);

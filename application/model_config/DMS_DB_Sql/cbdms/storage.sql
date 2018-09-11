@@ -22,6 +22,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'SP_function','picker.replace','stora
 INSERT INTO "form_field_choosers" VALUES(2,'SP_instrument_name','picker.replace','instrumentNamePickList','','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','storage/show/','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Instrument','invoke_entity','value','instrument/report/~','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'SP_path','path','varchar','input','255','AddUpdateStorage');
 INSERT INTO "sproc_args" VALUES(2,'SP_vol_name_client','volNameClient','varchar','input','128','AddUpdateStorage');
