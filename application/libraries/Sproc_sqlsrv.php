@@ -59,7 +59,7 @@ class Sproc_sqlsrv extends Sproc_base {
                 $params[] = array($fieldValue, $direction);
             }
             else {
-                $params[] = array(&$fieldValue, $direction);
+                $params[] = array(&$input_params->$fieldName, $direction);
             }
         }
                

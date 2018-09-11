@@ -38,10 +38,9 @@ class Sproc_mssql extends Sproc_base {
                 $fieldName = $arg['field'];    // name of field member in param object (or null)
             }    
 
-            $fieldValue = $input_params->$fieldName;
-//            echo "arg:'{$paramName}', var:'{$fieldName}', type:'{$paramType}',  dir:'{$isOutput}',  size:'{$size}', (value)'{$fieldValue}' <br>";
+//            echo "arg:'{$paramName}', var:'{$fieldName}', type:'{$paramType}',  dir:'{$isOutput}',  size:'{$size}', (value)'{$input_params->$fieldName}' <br>";
             
-            $ok = mssql_bind($stmt, $paramName, $fieldValue, $paramType, $direction, false, $size);
+            $ok = mssql_bind($stmt, $paramName, $input_params->$fieldName, $paramType, $isOutput, false, $size);
             if(!$ok) {
                 throw new Exception("Error trying to bind field '$fieldName'");
             }
