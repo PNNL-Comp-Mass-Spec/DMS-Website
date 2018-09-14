@@ -115,7 +115,7 @@ INSERT INTO "list_report_hotlinks" VALUES(105,'MS2_RepIon_All','column_tooltip',
 INSERT INTO "list_report_hotlinks" VALUES(106,'MS2_RepIon_1Missing','column_tooltip','value','Number of peptides (PSMs) where all but 1 of the reporter ions were seen','');
 INSERT INTO "list_report_hotlinks" VALUES(107,'MS2_RepIon_2Missing','column_tooltip','value','Number of peptides (PSMs) where all but 2 of the reporter ions were seen','');
 INSERT INTO "list_report_hotlinks" VALUES(108,'MS2_RepIon_3Missing','column_tooltip','value','Number of peptides (PSMs) where all but 3 of the reporter ions were seen','');
-INSERT INTO "list_report_hotlinks" VALUES(109,'Quameter_Job','invoke_entity','value','analysis_job/show','');
+INSERT INTO "list_report_hotlinks" VALUES(109,'Quameter_Job','invoke_entity','value','capture_jobs/show','');
 INSERT INTO "list_report_hotlinks" VALUES(110,'SMAQC_Job','invoke_entity','value','analysis_job/show','');
 INSERT INTO "list_report_hotlinks" VALUES(111,'PSM_Source_Job','invoke_entity','value','analysis_job/show','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
