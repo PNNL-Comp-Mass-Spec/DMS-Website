@@ -13,4 +13,6 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_tool','Tool','6','','Tool 
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analysis_job/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'RequestID','invoke_entity','value','analysis_job_request/show','');
+INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
 COMMIT;
