@@ -115,7 +115,10 @@ class General_query {
     {
         $CI = &get_instance();      
         $model = $CI->model;
-        switch($output_format) {
+        
+        $pageTitle = $this->config_source;
+        
+        switch(strtolower($output_format)) {
             case 'dump':
                 $CI->load->helper('test');
                 dump_q_model($model);
@@ -132,7 +135,17 @@ class General_query {
                 $result = $query->result_array();
                 $this->tsv($result);
                 break;
+            case 'html':
             case 'table':
+                $query = $model->get_rows();
+                $result = $query->result_array();
+                $this->html_table($result, $pageTitle);
+                break;
+            case 'xml':
+            case 'xml_dataset':
+                $query = $model->get_rows();
+                $result = $query->result_array();
+                $this->xml_dataset($result, $pageTitle);
                 break;
         }
     }
@@ -169,6 +182,47 @@ class General_query {
     }
     
     /**
+     * Show results as an HTML-formatted table
+     */
+    function html_table($result, $pageTitle)
+    {
+        $headers = ''; 
+
+        header("Content-type: text/html");
+
+        echo "<html><head><title>$pageTitle</title></head>\n";
+
+        if (count($result) == 0) {
+            echo "<p>No results were found</p>\n";
+            echo "</body></html>\n";
+            return;
+        }
+        
+        // field headers
+        foreach(array_keys(current($result)) as $field_name){
+            $headers .= "<th>$field_name</th>";
+        }
+        
+        echo "<table border='1' style='border: 2px solid black;'>$headers\n";
+
+        // field data
+        foreach($result as $row) {
+            $line = '<tr>';
+            foreach($row as $name => $value) {      // $name is the key, $value is the value
+                if (!isset($value) || $value == "") {
+                     $value = "";
+                }       
+                $line .= "<td>$value</td>";
+            }
+            echo trim($line)."</tr>\n";
+        }
+        
+        echo "</table>\n";
+        
+        echo "</body></html>\n";
+    }
+    
+    /**
      * Show results as XML
      * @param type $result
      * @param type $table
@@ -177,16 +231,21 @@ class General_query {
     {       
         header("Content-type: text/plain");
 
+        echo "<data>\n";
+        
         // field data
         foreach($result as $row) {
             $line = '';
             $line .= "<$table>";
             foreach($row as $name => $value) {
-                $line .= "<$name>".$value."</$name>";
+                $parsedValue = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+                $line .= "<$name>".$parsedValue."</$name>";
             }
             $line .= "</$table>";
             echo trim($line)."\n";
         }
+        
+        echo "</data>\n";
     }
     
 }
