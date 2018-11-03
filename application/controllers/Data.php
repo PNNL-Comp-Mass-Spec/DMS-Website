@@ -81,8 +81,10 @@ class Data extends CI_Controller {
 
         $this->list_report_ah->set_up_data_query(); 
         $query = $this->data_model->get_rows('filtered_and_sorted');
+
+        $pageTitle = $config_source;
         
-        switch($output_format) {
+        switch(strtolower($output_format)) {
             case 'sql':
                 echo $this->data_model->get_sql('filtered_and_sorted');
                 break;
@@ -99,10 +101,17 @@ class Data extends CI_Controller {
                 $this->cu->load_lib('general_query', '', '');
                 $this->general_query->tsv($rows);
                 break;
+            case 'html':
+            case 'table':
+                $rows = $query->result_array();
+                $this->cu->load_lib('general_query', '', '');
+                $this->general_query->html_table($rows, $pageTitle);
+                break;
+            case 'xml':
             case 'xml_dataset':
                 $rows = $query->result_array();
                 $this->cu->load_lib('general_query', '', '');
-                $this->general_query->xml_dataset($rows);
+                $this->general_query->xml_dataset($rows, $pageTitle);
                 break;
         }   
     }
