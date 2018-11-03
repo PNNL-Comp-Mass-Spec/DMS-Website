@@ -19,10 +19,25 @@ class Data extends CI_Controller {
     /**
      * Export results in various formats
      * Expected URL format:
-     *  http://dmsdev.pnl.gov/data/ax/<output format>/<query name>/<config source>/<filter value>/.../<filter value>
+     *  http://dms2.pnl.gov/data/ax/<output format>/<query name>/<config source>/<filter value>/.../<filter value>
+     *
      * Example URLs:
-     *  http://dmsdev.pnl.gov/data/ax/dump/list_report/instrument/vorbi
-     *  http://dmsdev.pnl.gov/data/ax/tsv/aux_info_categories/aux_info_def/500
+     *  https://dms2.pnl.gov/data/ax/json/list_report/instrument/vorbietd02
+     *  https://dms2.pnl.gov/data/ax/table/list_report/instrument/vorbietd02
+     *  https://dms2.pnl.gov/data/ax/tsv/list_report/instrument/vorbietd02
+     *  https://dms2.pnl.gov/data/ax/xml/list_report/instrument/vorbietd02
+     *  https://dms2.pnl.gov/data/ax/sql/list_report/instrument/vorbietd02	
+     *  https://dms2.pnl.gov/data/ax/dump/list_report/instrument/vorbietd02
+     *
+     *  https://dms2.pnl.gov/data/ax/json/detail_report/user/D3l243	
+     *  https://dms2.pnl.gov/data/ax/table/detail_report/user/D3l243
+     *  https://dms2.pnl.gov/data/ax/tsv/detail_report/user/D3l243
+     *  https://dms2.pnl.gov/data/ax/xml/detail_report/user/D3l243
+     *  https://dms2.pnl.gov/data/ax/sql/detail_report/user/D3l243	
+     *  https://dms2.pnl.gov/data/ax/dump/detail_report/user/D3l243
+     *
+     *  https://dms2.pnl.gov/data/ax/tsv/aux_info_categories/aux_info_def/500
+     *  https://dms2.pnl.gov/data/ax/table/aux_info_categories/aux_info_def/500
      */
     function ax()
     {
@@ -58,10 +73,19 @@ class Data extends CI_Controller {
     /**
      * Export results in various formats
      * Expected URL format:
-     *  http://dmsdev.pnl.gov/data/lz/<output format>/<config source>/<query name>
+     *  https://dms2.pnl.gov/data/lz/<output format>/<config source>/<query name>
+     *
      * Example URLs:
-     *  http://dmsdev.pnl.gov/data/lz/tsv/ad_hoc_query/campaign
-     *  http://dmsdev.pnl.gov/data/lz/tsv/ad_hoc_query/lcms_requested_run
+     *  https://dms2.pnl.gov/data/lz/table/ad_hoc_query/job_operations
+     *  https://dms2.pnl.gov/data/lz/tsv/ad_hoc_query/job_operations
+     *  https://dms2.pnl.gov/data/lz/tsv/ad_hoc_query/lcms_requested_run
+     *  https://dms2.pnl.gov/data/lz/sql/ad_hoc_query/campaign	
+     *  https://dms2.pnl.gov/data/lz/count/ad_hoc_query/campaign
+     *  https://dms2.pnl.gov/data/lz/json/ad_hoc_query/capture_operations
+     *  https://dms2.pnl.gov/data/lz/xml/ad_hoc_query/dms_emsl_inst
+     *  https://dms2.pnl.gov/data/lz/tsv/user/list_report/
+     *  https://dms2.pnl.gov/data/lz/xml/user/list_report/
+     *  https://dms2.pnl.gov/data/lz/tsv/user/detail_report/
      */
     function lz()
     {
@@ -155,9 +179,9 @@ class Data extends CI_Controller {
     /**
      * Show data for ad-hoc queries
      * Example URLs:
-     * http://dms2.pnl.gov/data/lr/ad_hoc_query/helper_inst_group_dstype/report
-     * http://dms2.pnl.gov/data/lr/ad_hoc_query/capture_operations/report
-     * http://dmsdev.pnl.gov/data/lr/grk/user/report
+     * https://dms2.pnl.gov/data/lr/ad_hoc_query/helper_inst_group_dstype/report
+     * https://dms2.pnl.gov/data/lr/ad_hoc_query/capture_operations/report
+     * https://dmsdev.pnl.gov/data/lr/grk/user/report
      */
     function lr()
     {       
