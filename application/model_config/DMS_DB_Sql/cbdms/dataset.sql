@@ -119,6 +119,8 @@ INSERT INTO "detail_report_hotlinks" VALUES(29,'LC Cart','detail-report','LC Car
 INSERT INTO "detail_report_hotlinks" VALUES(30,'LC Cart Config','detail-report','LC Cart Config','lc_cart_configuration/report/~','labelCol','dl_lc_cart_config','');
 INSERT INTO "detail_report_hotlinks" VALUES(31,'PSM Jobs','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','labelCol','dl_psm_jobs','');
 INSERT INTO "detail_report_hotlinks" VALUES(32,'ID','detail-report','ID','datasetid/show','labelCol','dl_dataset_id','');
+INSERT INTO "detail_report_hotlinks" VALUES(33,'SHA1 Hash','detail-report','ID','dataset_file/report/','labelCol','dl_dataset_file','');
+INSERT INTO "detail_report_hotlinks" VALUES(34,'Experiment Tissue','detail-report','Experiment Tissue','tissue/report/~','labelCol','dl_experiment_tissue','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO "entry_commands" VALUES(1,'add_trigger','override','Create','','add');
 INSERT INTO "entry_commands" VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');
@@ -163,7 +165,7 @@ INSERT INTO "sproc_args" VALUES(19,'<local>','message','varchar','output','512',
 INSERT INTO "sproc_args" VALUES(20,'<local>','callingUser','varchar','input','128','AddUpdateDataset');
 INSERT INTO "sproc_args" VALUES(21,'Capture_Subfolder','captureSubfolder','varchar','input','255','AddUpdateDataset');
 INSERT INTO "sproc_args" VALUES(22,'LC_Cart_Config','lcCartConfig','varchar','input','128','AddUpdateDataset');
-INSERT INTO "sproc_args" VALUES(23,'ID','datasetNum','varchar','input','128','DoDatasetOperation');
+INSERT INTO "sproc_args" VALUES(23,'ID','datasetNameOrID','varchar','input','128','DoDatasetOperation');
 INSERT INTO "sproc_args" VALUES(24,'<local>','mode','varchar','input','12','DoDatasetOperation');
 INSERT INTO "sproc_args" VALUES(25,'<local>','message','varchar','output','512','DoDatasetOperation');
 INSERT INTO "sproc_args" VALUES(26,'<local>','callingUser','varchar','input','128','DoDatasetOperation');
