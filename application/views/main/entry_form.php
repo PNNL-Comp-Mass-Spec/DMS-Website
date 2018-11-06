@@ -47,12 +47,12 @@ if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submis
 <?php endif; ?>
 
 <script type='text/javascript'>
-    $(document).ready(function () { 
+    $(document).ready(function () {
         $('.sel_chooser').chosen({search_contains: true});
         gamma.autocompleteChooser.setup();
     });
     epsilon.actions.after = function() {
-        $('.sel_chooser').chosen({search_contains: true});      
+        $('.sel_chooser').chosen({search_contains: true});
     };
     if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();
 </script>

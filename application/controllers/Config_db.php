@@ -16,7 +16,7 @@ class Config_db extends CI_Controller {
     /**
      * Constructor
      */
-    function __construct() 
+    function __construct()
     {
         // Call the parent constructor
         parent::__construct();
@@ -36,17 +36,17 @@ class Config_db extends CI_Controller {
      * Redirect http://dms2.pnl.gov/config_db/
      * to http://dms2.pnl.gov/config_db/page_families
      */
-    function index() 
+    function index()
     {
         $this->load->helper(array('url'));
         redirect('config_db/page_families');
     }
-    
+
     /**
      * Show contents of the config DB
      * @param string $config_db Config DB name, including .db
      */
-    function show_db($config_db) 
+    function show_db($config_db)
     {
         $this->load->helper(array('config_db'));
         $data['title'] = "$config_db";
@@ -89,7 +89,7 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _make_controller_control($config_db) 
+    function _make_controller_control($config_db)
     {
         $s = "";
         if ($this->mod_enabled) {
@@ -110,7 +110,7 @@ class Config_db extends CI_Controller {
      * @return type
      * @category AJAX
      */
-    function submit_show_db($config_db) 
+    function submit_show_db($config_db)
     {
         if (!$this->mod_enabled) {
             $this->show_not_allowed($config_db);
@@ -138,7 +138,7 @@ class Config_db extends CI_Controller {
     {
         return '<a href="' . site_url() . "config_db/show_db/" . $config_db . '">' . "$link_title</a>";
     }
-    
+
     /**
      * Make the link to the corresponding help page on PrismWiki
      * @param string $table_name Table name
@@ -168,12 +168,12 @@ class Config_db extends CI_Controller {
      * @return type
      */
     private
-    function _exec_sql($config_db, $sql, $table_name) 
+    function _exec_sql($config_db, $sql, $table_name)
     {
-        
+
         // Script out the existing table contents
         $restore = $this->_get_table_contents_sql($config_db, $table_name);
-        
+
         $s = "";
         $dbFilePath = $this->configDBPath.$config_db;
         $dbh = new PDO("sqlite:$dbFilePath");
@@ -182,10 +182,10 @@ class Config_db extends CI_Controller {
             return null;
         }
         $sqlWithTransaction = "BEGIN TRANSACTION; $sql COMMIT;";
-        
+
         //echo $sqlWithTransaction;
         $dbh->exec($sqlWithTransaction);
-        
+
         $this->_log_sql($sql, $restore, $config_db);
     }
 
@@ -222,7 +222,7 @@ class Config_db extends CI_Controller {
             BEGIN TRANSACTION; UPDATE general_params SET "value" = 'SortKey' WHERE name = 'list_report_data_sort_col'; COMMIT;
             [END]
          */
-        
+
         $s = "";
         $s .= "\n=============================\n";
         $s .= "[ENTRY]\n";
@@ -243,9 +243,9 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _get_table_dump_all($config_db, $tbl_list) 
+    function _get_table_dump_all($config_db, $tbl_list)
     {
-        
+
         $s = "";
         $tables = $this->config_model->get_table_list();
         foreach ($tables as $t) {
@@ -286,7 +286,7 @@ class Config_db extends CI_Controller {
      * @return PDOStatement PDOStatement object, or FALSE on failure.
      */
     private
-    function _get_table_contents($config_db, $table_name) 
+    function _get_table_contents($config_db, $table_name)
     {
         $dbFilePath = $this->configDBPath.$config_db;
         $dbh = new PDO("sqlite:$dbFilePath");
@@ -301,7 +301,7 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _get_table_dump($config_db, $table_name) 
+    function _get_table_dump($config_db, $table_name)
     {
         $dbFilePath = $this->configDBPath.$config_db;
         $dbh = new PDO("sqlite:$dbFilePath");
@@ -357,7 +357,7 @@ class Config_db extends CI_Controller {
      * @param string $table_name
      * @return type
      */
-    function create_table($config_db, $table_name) 
+    function create_table($config_db, $table_name)
     {
         if (!$this->mod_enabled) {
             $this->show_not_allowed($config_db);
@@ -375,7 +375,7 @@ class Config_db extends CI_Controller {
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
      */
-    function remove_table($config_db, $table_name) 
+    function remove_table($config_db, $table_name)
     {
         if (!$this->mod_enabled) {
             $this->show_not_allowed($config_db);
@@ -440,7 +440,7 @@ class Config_db extends CI_Controller {
      * @return type
      * @category AJAX
      */
-    function exec_sql($config_db, $table_name) 
+    function exec_sql($config_db, $table_name)
     {
         if (!$this->mod_enabled) {
             $this->show_not_allowed($config_db);
@@ -466,7 +466,7 @@ class Config_db extends CI_Controller {
      * @param string $table_name Table name
      * @category AJAX
      */
-    function get_suggested_sql($config_db, $table_name) 
+    function get_suggested_sql($config_db, $table_name)
     {
         $this->load->helper(array('config_db'));
 
@@ -609,7 +609,7 @@ class Config_db extends CI_Controller {
     }
 
     /**
-     * Get table contents as SQL INSERT statements 
+     * Get table contents as SQL INSERT statements
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
      * @return string
@@ -623,12 +623,12 @@ class Config_db extends CI_Controller {
         if ($data_info->num_cols > 2) {
             array_shift($data_info->col_names);
         }
-        
+
         $cfr = array();
         foreach($data_info->col_names as $c) {
             $cfr[] = '"'.$c.'"';
         }
-        
+
         $r = $this->_get_table_contents($config_db, $table_name);
         if($r) {
             $sql .= "-- $config_db;\n----\n";
@@ -653,8 +653,8 @@ class Config_db extends CI_Controller {
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
      * @return type
-     */ 
-    function edit_table($config_db, $table_name) 
+     */
+    function edit_table($config_db, $table_name)
     {
         if (!$this->mod_enabled) {
             $this->show_not_allowed($config_db);
@@ -685,7 +685,7 @@ class Config_db extends CI_Controller {
      * @return type
      * @category AJAX
      */
-    function submit_edit_table($config_db, $table_name) 
+    function submit_edit_table($config_db, $table_name)
     {
         if (!$this->mod_enabled) {
             $this->show_not_allowed($config_db);
@@ -713,7 +713,7 @@ class Config_db extends CI_Controller {
             if ($data_info->num_cols > 2) {
                 array_shift($data_info->col_names);
             }
-            
+
             $ur = array();
             $ifr = array();
             $vfr = array();
@@ -765,7 +765,7 @@ class Config_db extends CI_Controller {
      * @return \stdClass
      */
     private
-    function _get_config_db_table_data_info($config_db, $table_name) 
+    function _get_config_db_table_data_info($config_db, $table_name)
     {
         $dbFilePath = $this->configDBPath.$config_db;
 
@@ -815,7 +815,7 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _get_suggested_sproc_args($config_db) 
+    function _get_suggested_sproc_args($config_db)
     {
         $sqla = "";
         $name = str_replace('.db', '', $config_db);
@@ -846,7 +846,7 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _get_suggested_form_fields($config_db) 
+    function _get_suggested_form_fields($config_db)
     {
         $sqlf = "";
         $name = str_replace('.db', '', $config_db);
@@ -878,7 +878,7 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _get_edit_table_form($config_db, $table_name, $data_obj) 
+    function _get_edit_table_form($config_db, $table_name, $data_obj)
     {
         $s = "";
 
@@ -886,7 +886,7 @@ class Config_db extends CI_Controller {
             $max_width = floor(400/$data_obj->num_cols);
         else
             $max_width = 400;
-            
+
         $accept_img = "<img src='".base_url()."images/accept.png' border='0'  alt='accept' />";
         $delete_img = "<img src='".base_url()."images/delete.png' border='0'  alt='delete' />";
         $add_img = "<img src='".base_url()."images/add.png' border='0' alt='add' />";
@@ -904,9 +904,9 @@ class Config_db extends CI_Controller {
         // inner table
         $s .= "<tr><td>";
         $s .= $this->_make_wiki_help_link($table_name);
-        
+
         $s .= "&nbsp;&nbsp;" . $this->_make_page_family_contents_link($config_db);
-        
+
         $s .= "<table class='cfg_tab' >\n";
         // table header
         $nc = $data_obj->num_cols + 2;
@@ -933,12 +933,12 @@ class Config_db extends CI_Controller {
          * Number of data rows
          */
         $n = 0;
-        
+
         /**
          * Array of column widths
          */
         $col_widths = $data_obj->col_widths;
-        
+
         foreach ($data_obj->data_rows as $row) {
             $fid = $n++;
             $s .= "\n<tr>\n";
@@ -1070,7 +1070,7 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _get_suggested_list_report_hotlinks($config_db) 
+    function _get_suggested_list_report_hotlinks($config_db)
     {
         $name = str_replace('.db', '', $config_db);
 
@@ -1113,7 +1113,7 @@ class Config_db extends CI_Controller {
      * @return string
      */
     private
-    function _get_suggested_detail_report_hotlinks($config_db) 
+    function _get_suggested_detail_report_hotlinks($config_db)
     {
         $name = str_replace('.db', '', $config_db);
 
@@ -1150,14 +1150,14 @@ class Config_db extends CI_Controller {
         }
         return $s;
     }
-    
+
     /**
      * Output sql to make primary filters for all columns in the list report view in the given config db
      * @param string $config_db Config DB name, including .db
      * @return string
      */
     private
-    function _get_suggested_list_report_primary_filter($config_db) 
+    function _get_suggested_list_report_primary_filter($config_db)
     {
         $name = str_replace('.db', '', $config_db);
 
@@ -1210,7 +1210,7 @@ class Config_db extends CI_Controller {
      * @return string[]
      */
     private
-    function _get_db_table_list($config_db, $table_filter='') 
+    function _get_db_table_list($config_db, $table_filter='')
     {
         $s = "";
         $table_list = array();
@@ -1224,7 +1224,7 @@ class Config_db extends CI_Controller {
         foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
             $table_list[] = $row['tbl_name'];
         }
-        
+
         // filter table names?
         if($table_filter) {
             $tx = array();
@@ -1245,7 +1245,7 @@ class Config_db extends CI_Controller {
      * @return string[]
      */
     private
-    function _get_general_params($config_db, &$db_group) 
+    function _get_general_params($config_db, &$db_group)
     {
         $s = "";
         $gen_parms = array();
@@ -1274,7 +1274,7 @@ class Config_db extends CI_Controller {
      * @return type Array of stored procedure argument info
      */
     private
-    function _get_sproc_arg_defs_from_main_db($dbObj, $sproc) 
+    function _get_sproc_arg_defs_from_main_db($dbObj, $sproc)
     {
         $sa = array();
         $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_NAME = '".$sproc."'";
@@ -1313,7 +1313,7 @@ class Config_db extends CI_Controller {
      * @return type
      */
     private
-    function _get_sproc_arg_sql($sa, $sproc) 
+    function _get_sproc_arg_sql($sa, $sproc)
     {
         $table = 'sproc_args';
         $sql = "DELETE FROM $table WHERE procedure = '".$sproc."';\n";
@@ -1331,7 +1331,7 @@ class Config_db extends CI_Controller {
      * @return type
      */
     private
-    function _get_form_field_sql($sa) 
+    function _get_form_field_sql($sa)
     {
         $table = 'form_fields';
         $sql = "DELETE FROM $table;\n";
@@ -1368,7 +1368,7 @@ class Config_db extends CI_Controller {
     }
 
     /**
-     * Generate SQL to create basic database objects for a page family from the given table. 
+     * Generate SQL to create basic database objects for a page family from the given table.
      * This will include the three views and the AddUpdate sproc
      */
     function code_for_family_sql()
@@ -1420,7 +1420,7 @@ class Config_db extends CI_Controller {
         // Assure that the page family name is all lowercase
         $page_fam_tag = strtolower(str_replace('.db', '', $config_db));
         $dir = "application/controllers/";
-        
+
         // The controller filename must start with a capital letter then be all lowercase
         $file_path = $dir . ucfirst($page_fam_tag) . '.php';
 
@@ -1468,13 +1468,13 @@ class Config_db extends CI_Controller {
      * @return \stdClass
      */
     private
-    function _get_standard_names($page_family_tag) 
+    function _get_standard_names($page_family_tag)
     {
         $baseName = ucwords(str_replace("_", " ", $page_family_tag));
 
         $baseViewName = str_replace(" ", "_", $baseName);
         $baseProcName = str_replace(" ", "", $baseName);
-        
+
         $obj = new stdClass ();
         $obj->lrn = "V_".$baseViewName."_List_Report";
         $obj->drn = "V_".$baseViewName."_Detail_Report";
@@ -1511,7 +1511,7 @@ class Config_db extends CI_Controller {
      * @param type $file_filter
      * @param type $table_filter
      * @return type
-     */ 
+     */
     private
     function _get_filtered_config_table_name_list($file_filter, $table_filter)
     {
@@ -1603,7 +1603,7 @@ class Config_db extends CI_Controller {
      * View page family database list
      * http://dms2.pnl.gov/config_db/page_families
      */
-    function page_families() 
+    function page_families()
     {
         $this->load->helper(array('config_db'));
         $data['title'] = "Page Family Directory";
@@ -1629,7 +1629,7 @@ class Config_db extends CI_Controller {
      * View support database list
      * http://dms2.pnl.gov/config_db/support_config_db_list
      */
-    function support_config_db_list() 
+    function support_config_db_list()
     {
         $this->load->helper(array('config_db'));
         $data['title'] = "Support Config DB Directory";
@@ -1683,7 +1683,7 @@ class Config_db extends CI_Controller {
         }
         echo "</ul>\n";
     }
-    
+
     /**
      * Show Not Allowed message box
      * @param type $title
@@ -1708,12 +1708,12 @@ class Config_db extends CI_Controller {
         $msg = "This feature is not enabled for this version of DMS; back to $linkHtml";
         $this->message($title, $msg);
     }
-    
+
     /**
      * Use the SQLite vacuum command to compact a database
      * @param string $config_db Config DB name, including .db
      */
-    function vacuum_db($config_db) 
+    function vacuum_db($config_db)
     {
         $dbFilePath = $this->configDBPath.$config_db;
 //      $before = filesize($dbFilePath);
@@ -1725,16 +1725,16 @@ class Config_db extends CI_Controller {
 //      $after = filesize($dbFilePath);
         echo "Config DB '$config_db' has been vacuumed.";
     }
-    
+
     /**
      * Execute SQL against multiple config dbs
      * Note: statement "$this->_exec_sql" is commented out below for safety
      * http://dms2.pnl.gov/config_db/update_multiple
      */
-    function update_multiple() 
+    function update_multiple()
     {
         // do all config dbs
-        $file_filter = "/.db/"; 
+        $file_filter = "/.db/";
 
         // change to apply
         $table_name = "detail_report_hotlinks";
@@ -1752,7 +1752,7 @@ class Config_db extends CI_Controller {
             $tbl_list = $this->_get_db_table_list($config_db, $table_name);
 
             // skip config dbs that don't contain the table
-            if(count($tbl_list) == 0) 
+            if(count($tbl_list) == 0)
                 continue;
 
             echo $config_db . " ...";
@@ -1769,7 +1769,7 @@ class Config_db extends CI_Controller {
                 case 'user_operation.db':
                     echo "Update to add the options column<br>";
                     // Uncomment the following to actually execute the SQL against the given config db
-                    // $this->_exec_sql($config_db, $sql, $table_name); 
+                    // $this->_exec_sql($config_db, $sql, $table_name);
                     // echo "Updated " . $config_db;
                     break;
                 default:

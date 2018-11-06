@@ -1,4 +1,4 @@
-<?php 
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
@@ -39,12 +39,12 @@ class List_report_pager {
     function __construct($params = array())
     {
         if (count($params) > 0) {
-            $this->initialize($params);     
+            $this->initialize($params);
         }
-        $this->first_link = expansion_link_icon('first'); 
-        $this->next_link = expansion_link_icon('next'); 
-        $this->prev_link = expansion_link_icon('prev'); 
-        $this->last_link = expansion_link_icon('last'); 
+        $this->first_link = expansion_link_icon('first');
+        $this->next_link = expansion_link_icon('next');
+        $this->prev_link = expansion_link_icon('prev');
+        $this->last_link = expansion_link_icon('last');
     }
 
     /**
@@ -58,7 +58,7 @@ class List_report_pager {
                 if (isset($this->$key)) {
                     $this->$key = $val;
                 }
-            }       
+            }
         }
     }
 
@@ -81,7 +81,7 @@ class List_report_pager {
         }
         $this->cur_page = ($this->cur_page > $this->num_pages)?$this->num_pages:$this->cur_page;
     }
-    
+
     /**
      * Return a description of paging, for example Rows 251 through 375 of 2249
      * @return string
@@ -98,12 +98,12 @@ class List_report_pager {
 
         $start_row = $this->first_row_for_page($this->cur_page); //($this->cur_page - 1) * $this->per_page;
         $start_row = ($start_row == 0) ? 1 : $start_row;
-        
+
         $end_row = $start_row + $this->per_page - 1;
         if($end_row > $this->total_rows) {
             $end_row = $this->total_rows;
         }
-        
+
         $icon_adjust = cmd_link_icon('adjust');
         $page_sizer = '<a class="cmd_link_a" href="javascript:lambda.setPageSize('.$this->per_page.', '.$this->total_rows.','.$mrr.')" title="Click to change setting for number of rows on a page">Set Rows '.$icon_adjust.'</a>';
         $show_all = '<a class="cmd_link_a" href="javascript:lambda.setPageSize(\'all\', '.$this->total_rows.','.$mrr.')" title="Click to show maximum allowed number of rows ('.$mrr.') on the page">Max Rows '.$icon_adjust.'</a>';
@@ -112,7 +112,7 @@ class List_report_pager {
 //      return "&nbsp; Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> &nbsp;" . $page_sizer. " &nbsp; " .$show_all;
         return "<span class='LRepPagerCtl'>Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> </span> <span class='LRepPagerCtl'>" . $page_sizer. "</span> <span class='LRepPagerCtl'>" .$show_all . "</span>";
     }
-    
+
 
     /**
      * Make the javascript invocation that sets the current page
@@ -124,7 +124,7 @@ class List_report_pager {
     {
         return "javascript:" . $this->cur_row_function . "('" . $row . "')";
     }
-    
+
     /**
      * Determine the first row number visible on the page
      * @param type $page
@@ -147,7 +147,7 @@ class List_report_pager {
            return '';
         }
 
-        
+
         $uri_page_number =  (($this->cur_page -1) * $this->per_page);
 
         $output = '';
@@ -156,7 +156,7 @@ class List_report_pager {
         if  ($this->cur_page > 1) {
             $output .= $this->first_tag_open.'<a href="'.$this->page_link('1').'">'.$this->first_link.'</a>'.$this->first_tag_close;
         } else {
-            $output .= $this->first_tag_open.$this->first_link.$this->first_tag_close;          
+            $output .= $this->first_tag_open.$this->first_link.$this->first_tag_close;
         }
 
         // Render the "previous" link
@@ -164,7 +164,7 @@ class List_report_pager {
             $i = $this->first_row_for_page($this->cur_page - 1);
             $output .= $this->prev_tag_open.'<a href="'.$this->page_link($i).'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
         } else {
-            $output .= $this->prev_tag_open.$this->prev_link.$this->prev_tag_close;         
+            $output .= $this->prev_tag_open.$this->prev_link.$this->prev_tag_close;
         }
 
         // Calculate the start and end numbers. These determine which number to start and end the digit links with
@@ -173,7 +173,7 @@ class List_report_pager {
 
         // Write the digit links
         for ($page = $start-1; $page <= $end; $page++) {
-            $i = $this->first_row_for_page($page);          
+            $i = $this->first_row_for_page($page);
             if ($i >= 0) {
                 if ($this->cur_page == $page) {
                     $output .= $this->cur_tag_open.$page.$this->cur_tag_close; // Current page
@@ -190,7 +190,7 @@ class List_report_pager {
             $i = $this->first_row_for_page($this->cur_page + 1);
             $output .= $this->next_tag_open.'<a href="'.$this->page_link($i).'">'.$this->next_link.'</a>'.$this->next_tag_close;
         } else {
-            $output .= $this->next_tag_open.$this->next_link.$this->next_tag_close;         
+            $output .= $this->next_tag_open.$this->next_link.$this->next_tag_close;
         }
 
         // Render the "Last" link
@@ -198,13 +198,13 @@ class List_report_pager {
             $i = $this->first_row_for_page($this->num_pages); //(($this->num_pages * $this->per_page) - $this->per_page);
             $output .= $this->last_tag_open.'<a href="'.$this->page_link($i).'">'.$this->last_link.'</a>'.$this->last_tag_close;
         } else {
-            $output .= $this->last_tag_open.$this->last_link.$this->last_tag_close;         
+            $output .= $this->last_tag_open.$this->last_link.$this->last_tag_close;
         }
 
         // Add the wrapper HTML if exists
         $output = $this->full_tag_open.$output.$this->full_tag_close;
-        
-        return $output;     
+
+        return $output;
     }
 
 }

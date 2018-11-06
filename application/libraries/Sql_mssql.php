@@ -1,13 +1,13 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
 
 class Sql_mssql {
-    
+
     /**
      * Tracks the root part of the constructed SQL that can affect the number of rows
-     * @var type 
+     * @var type
      */
     private $baseSQL = '';
 
@@ -41,37 +41,37 @@ class Sql_mssql {
                     break;
             }
         }
-        
+
         // Build the guts of query
         $baseSql = " FROM " . $query_parts->table;
-                
+
         // Collect all 'or' clauses as one grouped item and put it into the 'and' item array
         if(!empty($p_or)) {
             $orClause = implode(' OR ', $p_or);
-            
+
             // Make sure $orList does not end in ' OR '
             $pattern = '/ OR *$/i';
             $orClauseChecked = preg_replace($pattern, '', $orClause);
-            
+
             if (!empty($orClauseChecked)) {
                 $p_and[] = '(' . $orClauseChecked . ')';
             }
         }
-        
+
         // 'and' all predicate clauses together
         $andClause = implode(' AND ', $p_and);
-        
+
         if(!empty($andClause)) {
             // Make sure $andList does not end in ' AND '
             // We sometimes see this because the last item in $p_and is empty
             $pattern = '/ AND *$/i';
             $andClauseChecked = preg_replace($pattern, '', $andClause);
-            
+
             if(!empty($andClauseChecked)) {
                 $baseSql .= " WHERE $andClauseChecked";
             }
         }
-        
+
         //columns to display
         $display_cols = $query_parts->columns;
 
@@ -110,17 +110,17 @@ class Sql_mssql {
                 $sql .= $baseSql;
                 $sql .= ") AS T ";
                 $sql .= "WHERE #Row >= ". $first_row . " AND #Row < " . $last_row;
-                
+
                 // Note: an alternative to "Row_Number() Over (Order By x Desc)"
                 // is to use "ORDER BY x DESC OFFSET 0 ROWS FETCH NEXT 125 ROWS ONLY;"
                 // However, performance will typically be the wame
-                
+
                 break;
         }
         $this->baseSQL = $baseSql;
         return $sql;
     }
-    
+
     /**
      * Build the Order By clause
      * @param type $sort_items
@@ -136,7 +136,7 @@ class Sql_mssql {
         $s = implode(', ', $a);
         return $s;
     }
-    
+
     /**
      * Generate the Where Clause from the predicate specification object
      * (column name, comparison operator, comparison value)
@@ -151,7 +151,7 @@ class Sql_mssql {
         $val = trim($predicate->val);
 
         $valNoCommas = str_replace(',', '', $val);
-        
+
         $str = '';
         switch($cmp) {
             case "wildcards":
@@ -194,7 +194,7 @@ class Sql_mssql {
             case "NotEqual":
             case "NEn":
                 if(is_numeric($valNoCommas)) {
-                    $str .= "NOT [$col] = $valNoCommas";                        
+                    $str .= "NOT [$col] = $valNoCommas";
                 }
                 break;
             case "GreaterThan":
@@ -206,19 +206,19 @@ class Sql_mssql {
             case "LessThan":
             case "LTn":
                 if(is_numeric($valNoCommas)) {
-                    $str .= "[$col] < $valNoCommas";                
+                    $str .= "[$col] < $valNoCommas";
                 }
                 break;
             case "LessThanOrEqualTo":
             case "LTOEn":
                 if(is_numeric($valNoCommas)) {
-                    $str .= "[$col] <= $valNoCommas";               
+                    $str .= "[$col] <= $valNoCommas";
                 }
                 break;
             case "GreaterThanOrEqualTo":
             case "GTOEn":
                 if(is_numeric($valNoCommas)) {
-                    $str .= "[$col] >= $valNoCommas";               
+                    $str .= "[$col] >= $valNoCommas";
                 }
                 break;
             case "MatchesTextOrBlank":
@@ -235,15 +235,15 @@ class Sql_mssql {
                 break;
             case "MostRecentWeeks":
             case "MRWd":
-                $str .= " [$col] > DATEADD(Week, -$val, GETDATE()) "; 
+                $str .= " [$col] > DATEADD(Week, -$val, GETDATE()) ";
                 break;
             default:
                 $str .= "TRUE /* '$cmp' unrecognized */";
                 break;
-        }       
+        }
         return $str;
     }
-        
+
     /**
      * Return the root part of the constructed SQL that can affect the number of rows
      * For example: FROM V_Analysis_Job_List_Report_2 WHERE [Tool] LIKE '%MSGFPlus%' AND [Last_Affected] > DATEADD(Week, -1, GETDATE())
@@ -253,14 +253,14 @@ class Sql_mssql {
     {
         return $this->baseSQL;
     }
-    
+
     // --------------------------------------------------------------------
     // (the following might be factored out of this class if data types are not db specific)
     // --------------------------------------------------------------------
-    
+
     /**
      * SQL comparison definitions
-     * @var type 
+     * @var type
      */
     private $sqlCompDefs = array(
             "ContainsText" => array(
@@ -316,7 +316,7 @@ class Sql_mssql {
                     'type' => array('datetime'),
                     ),
     );
-    
+
     /**
      * Get the allowed comparisons for the given data type
      * @param type $data_type
@@ -326,7 +326,7 @@ class Sql_mssql {
     {
         // The sqlsrv_driver returns data types as integers
         // See // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
-        
+
         $cmps = array();
         switch($data_type) {
             case 'text':
@@ -340,7 +340,7 @@ class Sql_mssql {
                 foreach($this->sqlCompDefs as $n => $def) {
                     if (in_array('text', $def['type'])) {
                         $cmps[$n] = $def['label'];
-                    }                   
+                    }
                 }
                 break;
             case 'int':
@@ -359,7 +359,7 @@ class Sql_mssql {
                 foreach($this->sqlCompDefs as $n => $def) {
                     if (in_array('numeric', $def['type'])) {
                         $cmps[$n] = $def['label'];
-                    }                   
+                    }
                 }
                 break;
             case 'datetime':
@@ -369,7 +369,7 @@ class Sql_mssql {
                 foreach($this->sqlCompDefs as $n => $def) {
                     if (in_array('datetime', $def['type'])) {
                         $cmps[$n] = $def['label'];
-                    }                   
+                    }
                 }
                 break;
             default:
@@ -378,5 +378,5 @@ class Sql_mssql {
         }
         return $cmps;
     }
-    
+
 }

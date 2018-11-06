@@ -18,8 +18,8 @@
 <hr>
 <form id='entry_form'>
     <input type="hidden" name="command" value="" id="entry_cmd_mode"/>
-    <input type='hidden' name='packageID' value='<?= $id ?>' /> 
-    
+    <input type='hidden' name='packageID' value='<?= $id ?>' />
+
     <!-- This is set to 0 or 1 by packages.js -->
     <input type='hidden' id='removeParents' name='removeParents' />
 
@@ -58,7 +58,7 @@
         <?php // This should default to unchecked on this page (thus, we leave off the checked attribute) ?>
         <input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
         Also remove parent datasets and experiments
-    </label> 
+    </label>
 
     </div>
 

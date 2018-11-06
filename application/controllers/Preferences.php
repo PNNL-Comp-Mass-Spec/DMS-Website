@@ -3,7 +3,7 @@
 class Preferences extends CI_Controller {
 
     var $my_model = 'dms_preferences';
-    
+
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -22,7 +22,7 @@ class Preferences extends CI_Controller {
         $this->set('', '');
         return;
     }
-    
+
     // --------------------------------------------------------------------
     function set($param, $value)
     {
@@ -33,7 +33,7 @@ class Preferences extends CI_Controller {
         // nav_bar setup
         $this->load->model('dms_menu', 'menu', TRUE);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences');
-        
+
         $result = '';
         if($param != '' && $value != '') {
             $result = $this->model->set_preference($param, $value);
@@ -63,7 +63,7 @@ class Preferences extends CI_Controller {
         echo "<hr />";
         echo "Session ID: ". session_id  () . "<hr />";
         echo "SID: ". SID . "<hr />";
-        
+
         foreach($_SESSION as $k => $v) {
             echo $k . " <a href='$clear_base_url/$k'>clear</a>". "<br />" . serialize($v) . "<hr />";
         }
@@ -83,15 +83,15 @@ class Preferences extends CI_Controller {
         $tag = array_shift($segs);
         $name = "display_cols_".$tag;
 
-        // if no columns are specified on the url, 
+        // if no columns are specified on the url,
         // clear any previous saved version to revert
         // to the default
         if(count($segs)==0) {
             unset($_SESSION[$name]);
             echo 'cleared';
-            return; 
+            return;
         }
-        
+
         // wrap any column names that contain spaces
         // with appropriate quotes
         for($i=0;$i<count($segs);$i++) {

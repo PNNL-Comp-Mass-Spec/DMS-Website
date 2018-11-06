@@ -30,11 +30,11 @@ class Grid extends Base_controller {
         $data = array();
         $data['title'] = $this->my_title;
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
-                
+
         // Example value for $data_url: "instrument_usage_report/grid_data"
         // That leads to $data['data_url'] = "https://dms2.pnl.gov/instrument_usage_report/grid_data"
         $data['data_url'] = ($data_url) ? site_url() .  $data_url : site_url()  . "grid/" . $this->my_tag  . "_data";
-                
+
         // Example value for $save_url: "instrument_usage_report/operation"
         // That leads to $data['save_url'] = "https://dms2.pnl.gov/instrument_usage_report/operation"
         $data['save_url'] = ($save_url) ? site_url() .  $save_url : site_url()  . $this->my_tag  . "operation";
@@ -59,7 +59,7 @@ class Grid extends Base_controller {
         $response = new stdClass();
         try {
             $result = $this->db->get();
-            if(!$result) {                           
+            if(!$result) {
                 $currentTimestamp = date("Y-m-d");
                 throw new exception("Error querying database for grid data; see application/logs/log-$currentTimestamp.php");
             }

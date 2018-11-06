@@ -18,10 +18,10 @@ gamma.pageContext = {};
 gamma.pageContext.site_url = '<?= site_url() ?>';
 gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
 gamma.pageContext.hierarchy = {
-        "top":"aux_info_targets", 
-        "aux_info_targets":"aux_info_categories", 
-        "aux_info_categories":"aux_info_subcategories", 
-        "aux_info_subcategories":"aux_info_items", 
+        "top":"aux_info_targets",
+        "aux_info_targets":"aux_info_categories",
+        "aux_info_categories":"aux_info_subcategories",
+        "aux_info_subcategories":"aux_info_items",
         "aux_info_items":"aux_info_allowed_values",
         "aux_info_allowed_values":""
 };
@@ -31,7 +31,7 @@ function renameMember(type) {
 function addNewMember(type, parent_id) {
     alert('add new member to ' + type + ' that belongs to parent ' + parent_id);
 }
-function updateContainer(type, id, follow_on_action) { 
+function updateContainer(type, id, follow_on_action) {
     var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/test/' + type + '/' + id;
     var containerId = type + '_container';
     gamma.loadContainer(url, {}, containerId);
@@ -51,7 +51,7 @@ function getChildren(parent) {
     }
 }
 //after the page loads, set things in motion to populate it
-$(document).ready(function () { 
+$(document).ready(function () {
         getChildren('top');
     }
 );

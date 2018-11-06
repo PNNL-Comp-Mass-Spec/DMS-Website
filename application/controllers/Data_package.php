@@ -38,7 +38,7 @@ class Data_package extends Base_controller {
         $sql = "dbo.CheckDataPackageDatasetJobCoverage($id, '$tool', '$mode')";
         $this->db->from($sql);
         $resultSet = $this->db->get();
-        if(!$resultSet) {                           
+        if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             return "Error querying database via CheckDataPackageDatasetJobCoverage; see application/logs/log-$currentTimestamp.php";
         }

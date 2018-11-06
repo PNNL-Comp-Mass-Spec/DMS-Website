@@ -1,35 +1,35 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
 
-function chmodr($path, $filemode) { 
+function chmodr($path, $filemode) {
     if (!is_dir($path)) {
-        return chmod($path, $filemode); 
+        return chmod($path, $filemode);
     }
-    
-    $dh = opendir($path); 
-    while (($file = readdir($dh)) !== false) { 
-        if($file != '.' && $file != '..') { 
-            $fullpath = $path.'/'.$file; 
+
+    $dh = opendir($path);
+    while (($file = readdir($dh)) !== false) {
+        if($file != '.' && $file != '..') {
+            $fullpath = $path.'/'.$file;
             if(is_link($fullpath)) {
-                return FALSE; 
+                return FALSE;
             }
             if(!is_dir($fullpath) && !chmod($fullpath, $filemode)) {
-                return FALSE; 
+                return FALSE;
             }
             if(!chmodr($fullpath, $filemode)) {
-                return FALSE; 
+                return FALSE;
             }
-        } 
-    } 
+        }
+    }
 
-    closedir($dh); 
+    closedir($dh);
 
     if(chmod($path, $filemode)) {
-        return TRUE; 
+        return TRUE;
     } else {
-        return FALSE; 
+        return FALSE;
     }
 }
 

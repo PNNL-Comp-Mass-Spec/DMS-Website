@@ -64,7 +64,7 @@ var upld = {
                 // making the call via timeout starts new thread allowing the AJAX thread to terminate
                 // so that recursion doesn't pork up the thread pool and the call stack
                 setTimeout("upld.update_next_entity_in_list()", 200);
-        }); 
+        });
     },
     //pull the specifications for the next entity to be updated
     //out of the master list and call update_entity for it to update the db
@@ -83,24 +83,24 @@ var upld = {
     //start the ball rolling on processing the selected entities
     updateSelectedEntities: function() {
         gamma.pageContext.update_in_progress = true;
-    
+
         var file_name = $('#uploaded_file_name').val();
         if(file_name == '') { alert('File name is blank'); return; }
         gamma.pageContext.file_name = file_name;
-    
+
         var type = $('#entity_type').html();
         if(type == '') { alert('Entity type could not be determined'); return; }
         gamma.pageContext.entity_type = type;
-    
+
         var p = upld.get_master_control_settings();
         gamma.pageContext.processing_params = p;
-    
+
         var action = 'update';
         if(p.mode == 'check_exists') {
             action = 'exists';
         }
         gamma.pageContext.update_url = gamma.pageContext.site_url + "upload/" + action;
-    
+
         gamma.pageContext.entityList = lambda.getSelectedItemList();
         $('#start_update_btn').attr("disabled", true);
         $('#cancel_update_btn').attr("disabled", false);
@@ -116,10 +116,10 @@ var upld = {
     markUnprocessedEntities: function() {
         $('.lr_ckbx').each(function(){
             var obj = $.parseJSON(this.value);
-            if(obj && !$('#' + obj.container).html()) { 
+            if(obj && !$('#' + obj.container).html()) {
                 this.checked = true;
             } else {
-                this.checked = false;   
+                this.checked = false;
             }
         });
     },

@@ -18,11 +18,11 @@ class Base_controller extends CI_Controller {
     {
         redirect($this->my_tag.'/report');
     }
-    
+
     // --------------------------------------------------------------------
     // entry page section
     // --------------------------------------------------------------------
-    
+
     /**
      * Create an entry page to make a new record in the database
      */
@@ -71,7 +71,7 @@ class Base_controller extends CI_Controller {
     // --------------------------------------------------------------------
     // list report page section
     // --------------------------------------------------------------------
-    
+
     /**
      * action for "report" format of list report
      */
@@ -115,12 +115,12 @@ class Base_controller extends CI_Controller {
      * @param type $column_name
      * @category AJAX
      */
-    function get_sql_comparison($column_name) 
+    function get_sql_comparison($column_name)
     {
         $this->cu->load_lib('list_report', 'list_report', $this->my_tag);
         $this->list_report->get_sql_comparison($column_name);
     }
-    
+
     /**
      * Returns HTML displaying the list report data rows for inclusion in list report page
      * @param type $option
@@ -131,7 +131,7 @@ class Base_controller extends CI_Controller {
         $this->cu->load_lib('list_report', 'list_report', $this->my_tag);
         $this->list_report->report_data($option);
     }
-    
+
     /**
      * Returns HTML displaying supplemental information about page for inclusion in list report page
      * @param type $what_info
@@ -142,7 +142,7 @@ class Base_controller extends CI_Controller {
         $this->cu->load_lib('list_report', 'list_report', $this->my_tag);
         $this->list_report->report_info($what_info);
     }
-    
+
     /**
      * returns HTML for the paging display and control element for inclusion in report pages
      * @category AJAX
@@ -169,14 +169,14 @@ class Base_controller extends CI_Controller {
 
     // --------------------------------------------------------------------
     function show($id)
-    {   
+    {
         if (!$this->cu->check_access('show')) {
             return;
         }
         $this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report($id);
     }
-    
+
     /**
      * Show the data with minimal formatting (no headers, but does have "Edit, Copy and New")
      * For example http://dms2.pnl.gov/param_file/show_data/3287
@@ -201,7 +201,7 @@ class Base_controller extends CI_Controller {
             return;
         }
         $this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->detail_report($id);       
+        $this->detail_report->detail_report($id);
     }
 
     /**
@@ -213,7 +213,7 @@ class Base_controller extends CI_Controller {
     {
         $show_entry_links = $this->cu->check_access('enter', FALSE);
         $show_create_links = $this->cu->check_access('create', FALSE);
-        
+
         $this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report_data($id, $show_entry_links, $show_create_links);
     }
@@ -271,11 +271,11 @@ class Base_controller extends CI_Controller {
         $this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->dot($scriptName, $this->my_tag);
     }
-    
+
     // --------------------------------------------------------------------
     // param report (stored procedure based list report) section
     // --------------------------------------------------------------------
-    
+
     /**
      * Sets up a page that contains an entry form defined by the
      * E_model for the config db which will be used to get data
@@ -306,7 +306,7 @@ class Base_controller extends CI_Controller {
     }
 
     /**
-     * Returns HTML for the paging display and control element 
+     * Returns HTML for the paging display and control element
      * for inclusion in param report pages
      * @category AJAX
      */
@@ -315,7 +315,7 @@ class Base_controller extends CI_Controller {
         $this->cu->load_lib('param_report', 'list_report_sproc', $this->my_tag);
         $this->param_report->param_paging();
     }
-    
+
     /**
      * Returns HTML for defining custom filters
      * @category AJAX
@@ -339,7 +339,7 @@ class Base_controller extends CI_Controller {
     // --------------------------------------------------------------------
     // 'operations' style stored procedure functions section
     // --------------------------------------------------------------------
-    
+
     /**
      * Invokes the stored procedure given by $sproc_name and returns simple JSON response.
      * @param type $sproc_name
@@ -352,8 +352,8 @@ class Base_controller extends CI_Controller {
 //      $response->parms = $this->operation->get_params();
         echo json_encode($response);
     }
-        
-    
+
+
     /**
      * Invokes the stored procedure given by $sproc_name and returns simple JSON response.
      * (someday) allow name of stored procedure to be passed as part of POST
@@ -425,7 +425,7 @@ class Base_controller extends CI_Controller {
     // --------------------------------------------------------------------
     // miscelleneous section
     // --------------------------------------------------------------------
-    
+
     // --------------------------------------------------------------------
     function get_basic_nav_bar_items()
     {
@@ -443,9 +443,9 @@ class Base_controller extends CI_Controller {
         $this->load->library('controller_utility', '', 'cu');
         $this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
         $input_parms = $this->general_query->setup_query_for_base_controller();
-        $this->general_query->output_result($input_parms->output_format);       
+        $this->general_query->output_result($input_parms->output_format);
     }
-    
+
     /**
      * Clears cached session variables
      * (someday) handle param reports?
@@ -514,32 +514,32 @@ class Base_controller extends CI_Controller {
             $type_length = null;
 
             switch ($type) {
-                case "String": 
+                case "String":
                     $type_color = "green";
                     $type_length = strlen($data);
                     $type_data = "\"" . htmlentities($data) . "\""; break;
 
-                case "Double": 
-                case "Float": 
+                case "Double":
+                case "Float":
                     $type = "Float";
                     $type_color = "#0099c5";
                     $type_length = strlen($data);
                     $type_data = htmlentities($data); break;
 
-                case "Integer": 
+                case "Integer":
                     $type_color = "red";
                     $type_length = strlen($data);
                     $type_data = htmlentities($data); break;
 
-                case "Boolean": 
+                case "Boolean":
                     $type_color = "#92008d";
                     $type_length = strlen($data);
                     $type_data = $data ? "TRUE" : "FALSE"; break;
 
-                case "NULL": 
+                case "NULL":
                     $type_length = 0; break;
 
-                case "Array": 
+                case "Array":
                     $type_length = count($data);
             }
 
@@ -590,14 +590,14 @@ class Base_controller extends CI_Controller {
                     }
 
                 } else {
-                    echo $isTerminal ? 
-                            $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " : 
+                    echo $isTerminal ?
+                            $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " :
                             "<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>&nbsp;&nbsp;";
                 }
 
             } else {
-                echo $isTerminal ? 
-                        $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " : 
+                echo $isTerminal ?
+                        $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " :
                         "<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>&nbsp;&nbsp;";
 
                 if ($type_data != null) {

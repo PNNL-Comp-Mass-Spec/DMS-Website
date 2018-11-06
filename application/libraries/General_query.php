@@ -28,14 +28,14 @@ class General_query {
 
     protected $tag = '';
     protected $title = '';
-    
+
     /**
      * Constructor
      */
     function __construct()
     {
     }
-    
+
     /**
      * Initialize the class
      * @param type $config_name
@@ -48,7 +48,7 @@ class General_query {
     }
 
     /**
-     * Extract parameters from input URL segments and return object 
+     * Extract parameters from input URL segments and return object
      * @return \General_query_def
      */
     function get_query_values_from_url()
@@ -61,20 +61,20 @@ class General_query {
         $p->q_name = $CI->uri->segment(4);
         $p->config_source = $CI->uri->segment(5);
         $p->filter_values = array_slice($CI->uri->segment_array(), 5);
-        
+
         // Look for custom paging values specified after the question mark
-        // 
+        //
         // For example, with https://dms2.pnl.gov/data/ax/table/list_report/dataset/-/-/-/VOrbi05/QC_Shew_13?Offset=25&Rows=50&SortCol=ID&SortDir=ASC
         // we are filtering on:
         //   Instrument:      VOrbi05
         //   Experiment:      QC_Shew_13
-        
+
         // And paging with:
         //   Offset:          25
         //   RowsToDisplay:   50
         //   Sort column:     ID
         //   Sort directtion: Ascending
-        
+
         $offset = $CI->input->get('Offset', TRUE);
         $rows = $CI->input->get('Rows', TRUE);
         $sortCol = $CI->input->get('SortCol', TRUE);
@@ -93,32 +93,32 @@ class General_query {
         } else {
              $p->rows = 100;
         }
-       
+
         // Possibly override the sort column
         if ($sortCol) {
             $p->sort_col = $sortCol;
         }
-        
+
         if ($sortDir) {
             // Check whether $sortDir starts with Asc or Desc
-            
+
             if (strncmp(strtolower($sortDir), "asc", 3) === 0)
                 $p->sort_direction = 'ASC';
-            
+
             if (strncmp(strtolower($sortDir), "desc", 4) === 0)
                 $p->sort_direction = 'DESC';
         }
-            
+
         return $p;
     }
 
     /**
      * Setup the query
      * @return \General_query_def
-     */    
+     */
     function setup_query_for_base_controller()
     {
-        $CI = &get_instance();      
+        $CI = &get_instance();
         $CI->load->helper(array('url'));
 
         $input_parms = new General_query_def();
@@ -138,9 +138,9 @@ class General_query {
      */
     function setup_query($input_parms)
     {
-        $CI = &get_instance();      
+        $CI = &get_instance();
         $CI->cu->load_mod('q_model', 'model', $input_parms->q_name, $input_parms->config_source);
-        $this->add_filter_values_to_model_predicate($input_parms->filter_values, $CI->model);        
+        $this->add_filter_values_to_model_predicate($input_parms->filter_values, $CI->model);
         $this->configure_paging($input_parms, $CI->model);
     }
 
@@ -159,7 +159,7 @@ class General_query {
             if($i >= count($filter_values)) {
                 break;
             }
-            
+
             $val = $filter_values[$i];
             if($val != '-') {
                 $rel = ($pi['cmp'] == 'Rp')?'ARG':'AND';
@@ -168,7 +168,7 @@ class General_query {
             $i++;
         }
     }
-    
+
     /**
      * Configure paging
      * @param type $input_parms
@@ -189,18 +189,18 @@ class General_query {
         $model->add_paging_item($input_parms->offset, $input_parms->rows);
         $model->add_sorting_item($input_parms->sort_col, $input_parms->sort_direction);
     }
-    
+
     /**
      * Output a result in the specified format
      * @param type $output_format
      */
     function output_result($output_format)
     {
-        $CI = &get_instance();      
+        $CI = &get_instance();
         $model = $CI->model;
-        
+
         $pageTitle = $this->config_source;
-        
+
         switch(strtolower($output_format)) {
             case 'dump':
                 $CI->load->helper('test');
@@ -216,7 +216,7 @@ class General_query {
                 break;
             case 'json':
                 $query = $model->get_rows();
-                echo json_encode($query->result());     
+                echo json_encode($query->result());
                 break;
             case 'tsv':
                 $query = $model->get_rows();
@@ -237,14 +237,14 @@ class General_query {
                 break;
         }
     }
-    
+
     /**
      * Show results as TSV
      * @param type $result
      */
     function tsv($result)
     {
-        $headers = ''; 
+        $headers = '';
 
         header("Content-type: text/plain");
 
@@ -262,13 +262,13 @@ class General_query {
                      $value = "\t";
                 } else {
                      $value .= "\t";
-                }       
+                }
                 $line .= $value;
             }
             echo trim($line)."\n";
         }
     }
-    
+
     /**
      * Show results as an HTML-formatted table
      * @param type $result
@@ -277,7 +277,7 @@ class General_query {
      */
     function html_table($result, $pageTitle)
     {
-        $headers = ''; 
+        $headers = '';
 
         header("Content-type: text/html");
 
@@ -288,12 +288,12 @@ class General_query {
             echo "</body></html>\n";
             return;
         }
-        
+
         // field headers
         foreach(array_keys(current($result)) as $field_name){
             $headers .= "<th>$field_name</th>";
         }
-        
+
         echo "<table border='1' style='border: 2px solid black;'>$headers\n";
 
         // field data
@@ -302,28 +302,28 @@ class General_query {
             foreach($row as $name => $value) {      // $name is the key, $value is the value
                 if (!isset($value) || $value == "") {
                      $value = "";
-                }       
+                }
                 $line .= "<td>$value</td>";
             }
             echo trim($line)."</tr>\n";
         }
-        
+
         echo "</table>\n";
-        
+
         echo "</body></html>\n";
     }
-    
+
     /**
      * Show results as XML
      * @param type $result
      * @param type $table
      */
     function xml_dataset($result, $table = 'TX')
-    {       
+    {
         header("Content-type: text/plain");
 
         echo "<data>\n";
-        
+
         // field data
         foreach($result as $row) {
             $line = '';
@@ -335,8 +335,8 @@ class General_query {
             $line .= "</$table>";
             echo trim($line)."\n";
         }
-        
+
         echo "</data>\n";
     }
-    
+
 }

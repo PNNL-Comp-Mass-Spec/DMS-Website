@@ -14,13 +14,13 @@
 <div id="factor_section" style="display:none;">
 <div>
 <?php # theta.applyFactorToDatabase is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  />
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  />
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>

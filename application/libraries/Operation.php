@@ -11,7 +11,7 @@ class Operation {
     function __construct()
     {
     }
-    
+
     /**
      * Define $config_source
      * @param type $config_name
@@ -43,7 +43,7 @@ class Operation {
             if(!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
-            
+
             // get sproc fields and use them to make validation field definitions
             $fields = $CI->sproc_model->get_sproc_fields();
             $rules = array();
@@ -54,8 +54,8 @@ class Operation {
                 $rule['rules'] =  'trim'; // someday: rule to require presence of arg?
                 $rules[] = $rule;
             }
-        
-            // Make validation object and use it to 
+
+            // Make validation object and use it to
             // get field values from POST and validate them
             // For more info, see https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_detail_report_commands#Command_Types
 
@@ -64,10 +64,10 @@ class Operation {
             $CI->form_validation->set_error_delimiters('', '');
             $CI->form_validation->set_rules($rules);
             $valid_fields = $CI->form_validation->run();
-                        
+
             // Get field values from validation object into an object
             // that will be used for calling stored procedure
-            // and also putting values back into entry form HTML 
+            // and also putting values back into entry form HTML
             $CI->load->helper('user');
             $calling_params = new stdClass();
             foreach($fields as $field) {
@@ -76,18 +76,18 @@ class Operation {
             $calling_params->mode = ($CI->input->post('mode')) ? $CI->input->post('mode') : $CI->input->post('command');
             $calling_params->callingUser = get_user();
             $calling_params->message = '';
-            
+
             // Call the stored procedure
             $success = $CI->sproc_model->execute_sproc($calling_params);
             if(!$success) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
-    
+
             $response->result = $CI->sproc_model->get_parameters()->retval;
-            $response->message = $CI->sproc_model->get_parameters()->message;           
+            $response->message = $CI->sproc_model->get_parameters()->message;
         } catch (Exception $e) {
             $response->result = -1;
-            $response->message = $e->getMessage();          
+            $response->message = $e->getMessage();
         }
         return $response;
     }
@@ -101,5 +101,5 @@ class Operation {
         $CI = &get_instance();
         return $CI->sproc_model->get_parameters();
     }
-    
+
 }

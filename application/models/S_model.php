@@ -179,7 +179,7 @@ class S_model extends CI_Model {
             // Use Sproc_sqlsrv with PHP 7 on Apache 2.4
             // Use Sproc_mssql  with PHP 5 on Apache 2.2
             // Set this based on the current DB driver
-            
+
             $this->set_my_sproc_handler("Sproc_".$my_db->dbdriver);
 
             // bind arguments to object

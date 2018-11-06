@@ -12,7 +12,7 @@ Freezer.Model = {
 	},
 	getSelectedNodes: function() {
 		return this.getTree().getSelectedNodes();
-	},	
+	},
 	getSelectedNodesByType: function() {
 		var selectedNodes = this.getSelectedNodes();
 		var catNodes = {
@@ -35,7 +35,7 @@ Freezer.Model = {
 		var itemArray = [];
 		$.each(objectArray, function(idx, obj) {
 			itemArray.push("'" + obj[propertyName] + "'");
-		});		
+		});
 		return itemArray.join(',');
 	},
 	getContainerMoveParameters: function(catNodes) {
@@ -65,7 +65,7 @@ Freezer.Model = {
 			if(idx == 0) s = s.toUpperCase();
 			segs[idx] = s;
 		});
-		return segs.join('.');		
+		return segs.join('.');
 	},
 	getNormalizedIdentifier: function(id) {
 		var result = { Type:"unknown", NormalizedID:id};
@@ -74,13 +74,13 @@ Freezer.Model = {
 		if(patt1.test(id)) {
 			result.Type = "Container";
 			result.NormalizedID = id.toUpperCase();
-		} else 
+		} else
 		if(patt2.test(id)) {
 			result.Type = "Container";
-			result.NormalizedID = "MC-" + id;			
+			result.NormalizedID = "MC-" + id;
 		} else {
 			result.Type = "Location";
-			result.NormalizedID = this.normalizeLocationPath(id);						
+			result.NormalizedID = this.normalizeLocationPath(id);
 		}
 		return result;
 	},
@@ -132,7 +132,7 @@ Freezer.Model = {
 	displayLocationNode: function(node) {
 		var newTitle = node.data.info.Type + " " + node.data.info.Name;
 		if(node.data.info.Status == "Active") {
-			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";								
+			newTitle += " [" + node.data.info.Containers + "/" + node.data.info.Limit + "]";
 		}
 		node.data.tooltip = node.data.info.Tag;
 		node.setTitle(newTitle);
@@ -146,13 +146,13 @@ Freezer.Model = {
 //		extra +=" " +  node.data.info.Files + " ";
 		node.data.tooltip = extra;
 		node.data.hideCheckbox = true;
-		node.setTitle(newTitle);			
+		node.setTitle(newTitle);
 	},
 	getLocationNodes: function(node) {
 		var that = this;
 		node.appendAjax({
 			url: gamma.pageContext.site_url + 'freezer/get_locations',
-			type: "POST",			
+			type: "POST",
 			data: {
 				"Type": node.data.info.Type,
 				"Freezer":node.data.info.Freezer,
@@ -164,20 +164,20 @@ Freezer.Model = {
 			success: function(node) {
 				that.setNodeDisplay();
 			}
-		});		
+		});
 	},
 	getContainerNodes: function(node) {
 		var that = this;
 		node.appendAjax({
 			url: gamma.pageContext.site_url + 'freezer/get_containers',
-			type: "POST",			
+			type: "POST",
 			data: {
 				"Location": node.data.info.Tag,
 			},
 			success: function(node) {
 				that.setNodeDisplay();
 			}
-		});		
+		});
 	},
 	getChangeList: function(selectedNodes, action, value) {
 		var changeList = [];
@@ -198,7 +198,7 @@ Freezer.Model = {
 			var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}, {p:'Action', a:'a'}, {p:'Value', a:'v'}];
 			changesXML = gamma.getXmlElementsFromObjectArray(changeList, 'r', mapP2A);
 		}
-		return changesXML;		
+		return changesXML;
 	},
 	updateDatabase: function(changeList) {
 		var that = this;
@@ -211,9 +211,9 @@ Freezer.Model = {
 			if(data.indexOf('Update was successful.') > -1) {
 				that.updateLocationNodes(changeList);
 			} else {
-				$("#messages").html(data);				
+				$("#messages").html(data);
 			}
-		});				
+		});
 	},
 	updateLocationNodes: function(changeList) {
 		var that = this;
@@ -230,7 +230,7 @@ Freezer.Model = {
 				node.data.info.Limit = obj.info.Limit;
 				that.displayLocationNode(node);
 			});
-		});		
+		});
 	},
 	findLocationNode: function(location) {
 		var that = this;
@@ -238,39 +238,39 @@ Freezer.Model = {
 		var p = { "Location":location };
 		gamma.getObjectFromJSON(url, p, null, function(json) {
 			var objArray = $.parseJSON(json);
-			if(objArray.length == 0) { 
-				alert("location could not be found"); 
+			if(objArray.length == 0) {
+				alert("location could not be found");
 			} else {
 				that.exposeLocation(objArray[0].info.Tag);
 			}
-		});		
-	},	
+		});
+	},
 	findContainerNode: function(container) {
 		var that = this;
 		var url = gamma.pageContext.site_url + 'freezer/find_container';
 		var p = { "Container":container };
 		gamma.getObjectFromJSON(url, p, null, function(json) {
 			var objArray = $.parseJSON(json);
-			if(objArray.length == 0) { 
-				alert("container could not be found"); 
+			if(objArray.length == 0) {
+				alert("container could not be found");
 			} else {
 				that.exposeLocation(objArray[0].info.Location);
 			}
-		});		
-	},	
+		});
+	},
 	findAvailableLocationNode: function(location) {
 		var that = this;
 		var url = gamma.pageContext.site_url + 'freezer/find_available_location';
 		var p = { "Location":location };
 		gamma.getObjectFromJSON(url, p, null, function(json) {
 			var objArray = $.parseJSON(json);
-			if(objArray.length == 0) { 
-				alert("location could not be found"); 
+			if(objArray.length == 0) {
+				alert("location could not be found");
 			} else {
 				that.exposeLocation(objArray[0].info.Tag);
 			}
-		});		
-	},	
+		});
+	},
 	findNewestContainerNode: function(callback) {
 		var that = this;
 		var url = gamma.pageContext.site_url + 'freezer/find_newest_containers';
@@ -280,8 +280,8 @@ Freezer.Model = {
 				var objArray = $.parseJSON(json);
 				callback(objArray);
 			}
-		});		
-	},	
+		});
+	},
 	moveContainers: function() {
 		var that = this;
 		var catNodes = this.getSelectedNodesByType("tree");
@@ -303,7 +303,7 @@ Freezer.Model = {
 			} else {
 				$("#messages").html(data);
 			}
-		});		
+		});
 	},
 	moveContainer: function(containerNode, locationNode, callback) {
 		var url = gamma.pageContext.site_url + 'material_move_container/operation';
@@ -320,7 +320,7 @@ Freezer.Model = {
 			} else {
 				$("#messages").html(data);
 			}
-		});		
-	}	
-	
+		});
+	}
+
 }

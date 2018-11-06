@@ -36,13 +36,13 @@
         <option>CAP_DEV</option>
         <option>MAINTENANCE</option>
         <option>ONSITE</option>
-        </select>       
+        </select>
     </td>
     <td><span>Proposal</span></td>
     <td>
     <input name="proposal_fld" id='proposal_fld' size="8"  />
     </td>
-    
+
 </tr>
 </table>
 
@@ -63,7 +63,7 @@
 <script>
     gamma.pageContext.save_changes_url = '<?= $save_url ?>';
     gamma.pageContext.data_url = '<?= $data_url ?>';
-    
+
     var myCommonControls;
     var myImportExport;
     var myGrid;
@@ -96,7 +96,7 @@
             var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
             var paramXml = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
             paramXml = '<id type="Seq" />' + paramXml;
-            return { 
+            return {
                 factorList: paramXml,
                 operation: 'update',
                 year: $('#year_fld').val(),
@@ -105,7 +105,7 @@
             }
         },
         afterSaveAction: function() {
-            myCommonControls.reload();          
+            myCommonControls.reload();
         },
         handleDataChanged: function(args) {
             myCommonControls.enableSave(true);
@@ -118,13 +118,13 @@
             return function (e) {
                 ctx.menuEvtHandler(e);
             }
-        }   
+        }
     }
     var myUtil = {
         postImportAction: function() {
         },
         postUpdateAction: function() {
-                myCommonControls.enableSave(true);          
+                myCommonControls.enableSave(true);
         },
         initEntryFields: function() {
             var d = new Date();
@@ -133,11 +133,11 @@
             $('#year_fld').val(d.getFullYear());
         },
         isEditable: function(field, type) {
-            return true;            
+            return true;
         }
     }
 
-    $(document).ready(function () { 
+    $(document).ready(function () {
         myGrid = mainGrid.init(gridConfig);
         myCommonControls = commonGridControls.init(myGrid);
         myImportExport = gridImportExport.init(myGrid, { postImportAction: myUtil.postImportAction });
@@ -145,19 +145,19 @@
 
         myUtil.initEntryFields();
         $('fieldset span').css('font-weight', 'bold');
-        
+
         $('#instrument_fld_chooser').prop('multiple', 'multiple').css('width', '300px');
         $('#instrument_fld_chooser').attr('data-placeholder', 'Select instruments (optional)');
         $("#instrument_fld_chooser option[value='']").remove();
         $('#instrument_fld_chooser').chosen({search_contains: true});
-        
+
         $('#usage_selector').css('width', '300px');
         $('#usage_selector').chosen({search_contains: true});
-        
+
         $('.sel_chooser').chosen({search_contains: true});
     });
 
 </script>
-    
+
 </body>
 </html>

@@ -10,7 +10,7 @@
 </head>
 
 <body class="menu_panel" >
-    
+
 <div  class="searchpnl global_search_panel" >
 <?= make_search_form_vertical() ?>
 </div>
@@ -30,7 +30,7 @@
 <script type='text/javascript'>
 
 $(document).ready(function() {
-    
+
     $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
 
     // set up tree menu
@@ -38,12 +38,12 @@ $(document).ready(function() {
       minExpandLevel: 1,
       initAjax: {
         url: '<?= site_url() ?>gen/side_menu_objects', data: {}
-      },      
+      },
       onClick: function(node, event) {
         if( node.data.href ){
           window.open(node.data.href, 'display_side');
           return false;
-        }       
+        }
       }
     });
 

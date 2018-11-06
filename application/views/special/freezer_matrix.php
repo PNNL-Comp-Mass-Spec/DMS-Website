@@ -9,7 +9,7 @@
 </head>
 <body id='freezer_page'>
 <div id="body_container" >
-    
+
 <?php $this->load->view('nav_bar') ?>
 
 

@@ -9,7 +9,7 @@ var entry = {
 				var mm = $('#main_outcome_msg');
 				var sm = $('#supplement_outcome_msg');
 				if(mm && sm) { sm.html(mm.html())}
-			});	
+			});
 		},
 		submitMainEntryForm: function(mode, followOnAction) {
 			$('#requestID').val('0');
@@ -42,20 +42,20 @@ var entry = {
 		},
 		setFieldValues: function() {
 			if($('#return_code').val() != 'success') return;
-			
+
 			$('#toolName').val($('#suggested_ToolName').val());
 			$('#jobTypeName').val($('#suggested_JobTypeName').val());
 			$('#organismName').val($('#suggested_OrganismName').val());
 			$('#protCollNameList').val($('#suggested_ProteinCollectionList').val());
 			$('#protCollOptionsList').val($('#suggested_ProteinOptionsList').val());
-			
+
 			$('#ModificationDynMetOx').attr('checked', $('#suggested_DynMetOxEnabled').val() == '1');
 			$('#ModificationStatCysAlk').attr('checked', $('#suggested_StatCysAlkEnabled').val() == '1');
 			$('#ModificationDynSTYPhos').attr('checked', $('#suggested_DynSTYPhosEnabled').val() == '1');
-		
+
 			epsilon.showHideSections('show', '3,4,5');
 		},
-		cmdInit: function() { 
+		cmdInit: function() {
 			$('#move_next_link').hide();
 			epsilon.showHideSections('hide', '3,4,5');
 		}
@@ -73,8 +73,8 @@ var entry = {
 			this.load_param_form();
 		},
 		set_param_row_visibility: function (class_name, visibility) {
-			$('.' + class_name).each(function(idx, obj){ 
-				obj.style.display = visibility; 
+			$('.' + class_name).each(function(idx, obj){
+				obj.style.display = visibility;
 			});
 		},
 		revealControls: function (script) {
@@ -82,11 +82,11 @@ var entry = {
 			if(script) $('#cmd_buttons').show();
 			$('.sel_chooser').chosen({search_contains: true});
 		},
-		cmdInit: function () { 
+		cmdInit: function () {
 			// relocate standard family command buttons
 			$('#relocated_buttons').append($('#cmd_buttons'));
 			$('#cmd_buttons').hide();
-			
+
 			// define action to capture contents of param form
 			// as xml copied to main form field
 			epsilon.actions.before = function() {
@@ -95,7 +95,7 @@ var entry = {
 			}
 			entry.mac_jobs.load_param_form();
 		}
-	}, // mac_jobs	
+	}, // mac_jobs
 	pipeline_jobs: {
 		load_param_form: function () {
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#scriptName').val();
@@ -108,11 +108,11 @@ var entry = {
 			this.load_param_form();
 		},
 		set_param_row_visibility: function (class_name, visibility) {
-			$('.' + class_name).each(function(idx, obj) { 
-				obj.style.display = visibility; 
+			$('.' + class_name).each(function(idx, obj) {
+				obj.style.display = visibility;
 			});
 		},
-		cmdInit: function () { 
+		cmdInit: function () {
 			epsilon.actions.before = function() {
 				epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam', true);
 				return true;
@@ -121,7 +121,7 @@ var entry = {
 			gamma.load_script_diagram_cmd();
 			return true;
 		}
-	
+
 	}, // pipeline_jobs
 	sample_prep_request: {
 		approveSubmit: function() {
@@ -149,14 +149,14 @@ var entry = {
                     // and thus there is nothing to retire
 
 					// Options for obtaining the text to show the user:
-					// Option 1: 
+					// Option 1:
 					//    var text = $('#message_contents').html();
-					
-					// Option 2: 
+
+					// Option 2:
 					//    Hook into a hidden form_field
 					//    To hide a field, update form_field_options to include the field name, type hide, and parameter update
 					//    var text = $('#message_contents').val();
-					
+
 					// Option 3:
 					//    Hard-code the message
 					var text = 'Should the associated containers and biomaterial also be retired?';
@@ -170,12 +170,12 @@ var entry = {
 								$('#State').val('Closed (containers and material)');
 				                $( this ).dialog( "close" );
 				                proceed = true;
-				           		$('#primary_cmd').click(); // retrigger the submit 
+				           		$('#primary_cmd').click(); // retrigger the submit
 				            },
 				            "No, just close the request": function() {
 				                $( this ).dialog( "close" );
 				                proceed = true;
-				            	$('#primary_cmd').click(); // retrigger the submit 
+				            	$('#primary_cmd').click(); // retrigger the submit
 				           },
 				            Cancel: function() {
 				            	proceed = false;
@@ -184,7 +184,7 @@ var entry = {
 				        }
 				    });
 				}
-				return proceed;	
+				return proceed;
 			}
 		}(),
 		checkMaterial: function (proceed) {
@@ -197,11 +197,11 @@ var entry = {
 		cmdInit: function () {
 			// Prior to September 2018, we would show the user a modal dialog asking
 			//    "Should the associated containers and biomaterial also be retired?"
-            // 
+            //
             // This functionality was removed because we no longer
             // associate biomaterial (aka cell cultures) with sample prep requests
             // and thus there is nothing to retire
-			
+
 			/*
 			 * Disabled
 			 *

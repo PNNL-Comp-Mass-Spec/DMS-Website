@@ -23,7 +23,7 @@
     </span>
     <span>
     <input name="userName" size="40" id="userName" onchange="epsilon.convertList('userName', ',')" ></input>
-    </span>  
+    </span>
         <span>
     <label for="allUsers">Include inactive users</label>
     </span>
@@ -72,7 +72,7 @@
             return { factorList: factorXML };
         },
         afterSaveAction: function() {
-            myCommonControls.reload();          
+            myCommonControls.reload();
         },
         handleDataChanged: function() {
             myCommonControls.enableSave(true);
@@ -86,7 +86,7 @@
         }
     }
 
-    $(document).ready(function () { 
+    $(document).ready(function () {
         myGrid = mainGrid.init(gridConfig);
         myCommonControls = commonGridControls.init(myGrid);
         myImportExport = gridImportExport.init(myGrid, { postImportAction: myUtil.postImportAction });
@@ -96,6 +96,6 @@
     });
 
 </script>
-    
+
 </body>
 </html>

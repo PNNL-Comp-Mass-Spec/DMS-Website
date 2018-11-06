@@ -23,7 +23,7 @@
     </div>
     <div>
     <input name="fiscalYear" cols="100" rows="1" id="fiscalYear" onchange="epsilon.convertList('fiscalYear', ',')" ></input>
-    </div>  
+    </div>
     <div>
     <label for="itemList">Proposals <span class='supplemental_text'>(leave blank to get all for fiscal year)</span></label>
     </div>
@@ -69,7 +69,7 @@
                 if(obj.factor == "General") {
                     obj.comment = obj.value;
                     obj.value = 0;
-                } 
+                }
             });
             var mapP2A = [{p:'id', a:'p'}, {p:'factor', a:'g'}, {p:'value', a:'a'}, {p:'comment', a:'x'}];
             var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
@@ -78,7 +78,7 @@
             return { parameterList:factorXML };
         },
         afterSaveAction: function() {
-            myCommonControls.reload();          
+            myCommonControls.reload();
         },
         handleDataChanged: function() {
             myCommonControls.enableSave(true);
@@ -98,7 +98,7 @@
         }
     }
 
-    $(document).ready(function () { 
+    $(document).ready(function () {
         myGrid = mainGrid.init(gridConfig);
         myCommonControls = commonGridControls.init(myGrid);
         myImportExport = gridImportExport.init(myGrid, { postImportAction: myUtil.postImportAction });
@@ -108,6 +108,6 @@
     });
 
 </script>
-    
+
 </body>
 </html>

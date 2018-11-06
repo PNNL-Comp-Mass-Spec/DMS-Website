@@ -1,16 +1,16 @@
 <?php
 class M_aux_info extends CI_Model {
-       
+
     function init_definitions()
     {
-        $this->my_tag = "aux_info";    
+        $this->my_tag = "aux_info";
 
         // initialize parameters for query for list report
          $this->list_report_data_cols = "Category, Subcategory, Item, Value";
          $this->list_report_data_table = 'V_AuxInfo_Value';
-         $this->list_report_data_sort_col = 'SC, SS, SI';    
+         $this->list_report_data_sort_col = 'SC, SS, SI';
 
-        // initialize primary filter specs        
+        // initialize primary filter specs
         $this->list_report_primary_filter = array(
             'pf_target' => array(
                     'label' => 'Target',
@@ -154,7 +154,7 @@ class M_aux_info extends CI_Model {
         }
         return $x;
     }
-    
+
     /**
      * Return current values for given target, and id
      * (only include items that have current values set)
@@ -172,7 +172,7 @@ class M_aux_info extends CI_Model {
         SELECT Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI
         FROM V_AuxInfo_Value
         WHERE (Target = '$target') AND (Target_ID = $id)
-        ORDER BY SC, SS, SI        
+        ORDER BY SC, SS, SI
 EOD;
         $query = $this->db->query($sql);
 
@@ -198,7 +198,7 @@ EOD;
         $ai_choices = $this->get_aux_info_allowed_values($target, $category, $subcategory);
         return array($ai_items, $ai_choices);
     }
-    
+
     /**
      * Return all defined aux info items for given target, category, subcategory
      * including any currently set values for entity given by id
@@ -261,7 +261,7 @@ EOD;
     }
 
     /**
-     * Get list of aux info target definitions (tracking entities that are allowed 
+     * Get list of aux info target definitions (tracking entities that are allowed
      * to have associated aux info)
      * @return type
      * @throws Exception
@@ -273,13 +273,13 @@ EOD;
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_targets; see application/logs/log-$currentTimestamp.php");
-        }        
+        }
          if ($resultSet->num_rows() == 0) {
              throw new Exception("No rows found");
         }
         return $resultSet->result_array();
     }
-    
+
     /**
      * Get list of aux info target names only
      * @return type
@@ -308,7 +308,7 @@ EOD;
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_def; see application/logs/log-$currentTimestamp.php");
-        }        
+        }
          if ($resultSet->num_rows() == 0) {
              throw new Exception("No rows found");
         }
@@ -325,7 +325,7 @@ EOD;
         }
         return $def;
     }
-    
+
     /**
      * Get list of all aux info categories for the given target
      * @param type $target
@@ -336,7 +336,7 @@ EOD;
         $result = $this->get_aux_info_def($target);
         return array_keys($result);
     }
-    
+
     /**
      * Get list of all aux info subcategories for the given target and category
      * @param type $target
@@ -348,7 +348,7 @@ EOD;
         $result = $this->get_aux_info_def($target);
         return array_keys($result[$category]);
     }
-    
+
     /**
      * Get list of all aux info items for the given target and category and subcategories
      * @param type $target
@@ -372,7 +372,7 @@ EOD;
     function add_or_update($parmObj, $command, &$sa_message)
     {
         $my_db = $this->db;
-                
+
         // Use Sproc_sqlsrv with PHP 7 on Apache 2.4
         // Use Sproc_mssql  with PHP 5 on Apache 2.2
         // Set this based on the current DB driver
@@ -382,13 +382,13 @@ EOD;
         $sproc_handler = $CI->sprochndlr;
 
         $sprocName = "AddUpdateAuxInfo";
-        
+
         $sa_message = "";
- 
+
         $input_params = new stdClass();
 
         $args = array();
-        
+
         $sproc_handler->AddLocalArgument($args, $input_params, "targetName",       $parmObj->TargetName,    "varchar", "input", 128);
          $sproc_handler->AddLocalArgument($args, $input_params, "targetEntityName", $parmObj->EntityID,      "varchar", "input", 128);
          $sproc_handler->AddLocalArgument($args, $input_params, "categoryName",     $parmObj->Category,      "varchar", "input", 128);
@@ -397,7 +397,7 @@ EOD;
          $sproc_handler->AddLocalArgument($args, $input_params, "itemValueList",    $parmObj->FieldValuesEx, "varchar", "input", 3000);
          $sproc_handler->AddLocalArgument($args, $input_params,  "mode",            $command,                "varchar", "input", 12);
          $sproc_handler->AddLocalArgument($args, $input_params,  "message",         "",                      "varchar", "output", 512);
-                       
+
 /*
  * Debug dump
 echo "mode ".$command."<br>";
@@ -407,20 +407,20 @@ echo "Category:". $parmObj->Category . '<br>';
 echo "Subcategory:". $parmObj->Subcategory . '<br>';
 echo "FieldNamesEx:". $parmObj->FieldNamesEx . '<br>';
 echo "FieldValuesEx:". $parmObj->FieldValuesEx . '<br>';
-return;    
+return;
  */
- 
+
         $sproc_handler->execute($sprocName, $my_db->conn_id, $args, $input_params);
 
-        // Examine the result code        
+        // Examine the result code
         $result = $input_params->exec_result;
         $val = $input_params->retval;
-       
+
         if(!$result) {
             $sa_message = "Execution failed for $sprocName";
             return -1;
         }
-                
+
         if($val != 0) {
             $sa_message = "Procedure error: " . $input_params->message . " ($val for $sprocName)";
         }

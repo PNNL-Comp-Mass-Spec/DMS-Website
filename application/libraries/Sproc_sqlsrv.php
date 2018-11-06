@@ -24,7 +24,7 @@ class Sproc_sqlsrv extends Sproc_base {
         $params = array();
         $params[] = array(&$input_params->retval, SQLSRV_PARAM_OUT, SQLSRV_PHPTYPE_INT);
         $firstParam = true;
-        
+
         reset($args);
         foreach($args as $arg) {
             $paramName = '@'.$arg['name'];  // sproc arg name needs prefix
@@ -34,25 +34,25 @@ class Sproc_sqlsrv extends Sproc_base {
             if($arg['dir']=='output') {
                 $direction = SQLSRV_PARAM_INOUT; // Alternatively SQLSRV_PARAM_OUT;
             }
-            
+
             $size = ($arg['size']) ? $arg['size'] : -1;
-            
+
             if ($arg['field'] == '<local>') {
                 $fieldName = $arg['name'];     // Field name is <local>; use the argument name as the field name
             } else {
                 $fieldName = $arg['field'];    // name of field member in param object (or null)
             }
-            
-            $fieldValue = $input_params->$fieldName;            
+
+            $fieldValue = $input_params->$fieldName;
 //            echo "arg:'{$paramName}', var:'{$fieldName}', type:'{$paramType}',  dir:'{$direction}',  size:'{$size}', (value)'{$fieldValue}' <br>";
-            
+
             if($firstParam) {
                 $sql = $sql . " " . $paramName . " = ?";
                 $firstParam = false;
             } else {
                 $sql = $sql . ", ". $paramName . " = ?";
             }
-            
+
             // format: array($value [, $direction [, $phpType [, $sqlType]]]) http://php.net/manual/en/function.sqlsrv-prepare.php
             // see https://github.com/Microsoft/msphpsql/blob/9eadf805adf83c3f7de53e06f2a7f2630a9fdd8f/source/sqlsrv/stmt.cpp for types supported
             if ($direction == SQLSRV_PARAM_IN) {
@@ -62,20 +62,20 @@ class Sproc_sqlsrv extends Sproc_base {
                 $params[] = array(&$input_params->$fieldName, $direction);
             }
         }
-               
+
         // If the stored procedure uses a Print statement before returning query results, sqlsrv reports an error
         // Disable this behavior
         // https://msdn.microsoft.com/en-us/library/cc626306(v=SQL.90).aspx
         sqlsrv_configure("WarningsReturnAsErrors", 0);
 
         //$sql = $sql.")}"; // for "call" syntax, which ignores parameter names (must supply empty items in the query for skipped parameters)
-        
+
         //$stmt = sqlsrv_prepare($conn_id, $sql, $params);
         //$input_params->exec_result = sqlsrv_execute($stmt);
         //
         // Or to just use query
         $result = sqlsrv_query($conn_id, $sql, $params);
-        
+
         $input_params->exec_result = $result;
         if(!$input_params->exec_result) {
             $ra_msg = sqlsrv_errors();
@@ -83,7 +83,7 @@ class Sproc_sqlsrv extends Sproc_base {
             foreach ($ra_msg as $error) {
                 $msg = $msg."\n".$error["message"];
             }
-            
+
             // Change this to true to see additional debug messages
             if(false) {
                 $msg = $msg."\n".$sql;

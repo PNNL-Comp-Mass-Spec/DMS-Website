@@ -26,12 +26,12 @@ class List_report_ah extends List_report {
 
         $CI->cu->load_mod('g_model', 'gen_model', $this->config_name, $this->config_source);
         $CI->cu->load_mod('r_model', 'link_model', $this->config_name, $this->config_source);
-        
+
         // clear total rows cache in model to force getting value from database
         $CI->cu->load_mod('q_model', 'model', $this->config_name, $this->config_source);
         $CI->model->clear_cached_total_rows();
 
-        // if there were extra segments for list report URL, 
+        // if there were extra segments for list report URL,
         // convert them to primary filter field values and cache those
         // and redirect back to ourselves without the trailing URL segments
         $all_segs = $CI->uri->segment_array();
@@ -42,7 +42,7 @@ class List_report_ah extends List_report {
             $primary_filter_specs = $CI->model->get_primary_filter_specs();
             $this->set_pri_filter_from_url_segments($segs, $primary_filter_specs);
             redirect(implode('/', $root_segs));
-        }   
+        }
 
         $data['tag'] = $this->tag;
         $data['title'] = $CI->gen_model->get_page_label('', $mode);
@@ -52,10 +52,10 @@ class List_report_ah extends List_report {
         $data['list_report_cmds'] = ''; ///$CI->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = ''; ///site_url() . $CI->gen_model->get_param('list_report_cmds_url');       
+        $data['ops_url'] = ''; ///site_url() . $CI->gen_model->get_param('list_report_cmds_url');
 
         $data['nav_bar_menu_items']= set_up_nav_bar('List_Reports');
-        $CI->load->vars($data);     
+        $CI->load->vars($data);
         $CI->load->view('main/list_report');
     }
 
@@ -69,8 +69,8 @@ class List_report_ah extends List_report {
     function report_data($option = 'rows')
     {
         $CI = &get_instance();
-        // preemptively load the hotlinks model from the ad hoc config db 
-        // to prevent parent from loading it from general_param table, 
+        // preemptively load the hotlinks model from the ad hoc config db
+        // to prevent parent from loading it from general_param table,
         // then let parent handle it
         $CI->cu->load_mod('r_model', 'link_model', $this->config_name, $this->config_source);
         parent::report_data($option);
@@ -79,7 +79,7 @@ class List_report_ah extends List_report {
     // --------------------------------------------------------------------
     function set_up_data_query()
     {
-        $this->set_up_list_query();     
+        $this->set_up_list_query();
     }
-    
+
 }

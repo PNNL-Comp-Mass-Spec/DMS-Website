@@ -7,12 +7,12 @@ class Config_db_model extends CI_Model {
     var $masterConfigDBPath = "";
 
     // --------------------------------------------------------------------
-    function __construct() 
+    function __construct()
     {
         //Call the Model constructor
         parent::__construct();
 
-        $this->masterConfigDBPath = $this->config->item('model_config_path') . "master_config_db.db";   
+        $this->masterConfigDBPath = $this->config->item('model_config_path') . "master_config_db.db";
         $this->initialize_table_defs();
         $this->initialize_table_field_defs();
     }

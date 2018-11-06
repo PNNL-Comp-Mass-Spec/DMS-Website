@@ -4,7 +4,7 @@
 // This form is used by web pages data_package_items/report and data_package_job_coverage/report
 // Button clicks are handled in javascript/lcmd.js
 ?>
- 
+
 <form name="DBG" action="">
 
 <hr>
@@ -18,7 +18,7 @@
 
 <div id="membership_section" style="display:none;">
 <div>
-<input class='button lst_cmd_btn' type="button" value="Add Jobs" onClick='lcmd.data_package_job_coverage.op("add")' id="btn_a" title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Add Jobs" onClick='lcmd.data_package_job_coverage.op("add")' id="btn_a" title=""  />
 Add selected jobs to package that are not already in package.
 </div>
 <div>
@@ -28,7 +28,7 @@ Remove selected jobs from package.<br>
     <?php // This should default to unchecked on this page (thus, we leave off the checked attribute) ?>
     <input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
     Also remove parent datasets and experiments
-</label> 
+</label>
 </div>
 <div style='display:none'>
 <input class='button lst_cmd_btn' type="button" value="Test" onClick='lcmd.data_package_job_coverage.op("test")' id="btn_t" title=""  />
@@ -41,16 +41,16 @@ Test
 <div id="dump_section" style="display:none;">
 <div>
 Tool to search for
-<input id='tool_name' value='MSXML_Gen' size='24'></input> 
+<input id='tool_name' value='MSXML_Gen' size='24'></input>
 <span><?= $this->choosers->get_chooser('tool_name', 'analysisToolPickList')?></span>
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Datasets Without Jobs" onClick='lcmd.data_package_job_coverage.getDatasetInfo("NoDMSJobs")' title=""  /> 
-Get list of data package datasets with <span style="font-weight:bold;">no jobs in DMS</span> for tool 
+<input class='button lst_cmd_btn' type="button" value="Datasets Without Jobs" onClick='lcmd.data_package_job_coverage.getDatasetInfo("NoDMSJobs")' title=""  />
+Get list of data package datasets with <span style="font-weight:bold;">no jobs in DMS</span> for tool
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Datasets Without Jobs" onClick='lcmd.data_package_job_coverage.getDatasetInfo("NoPackageJobs")' title=""  /> 
-Get list of data package datasets with <span style="font-weight:bold;">no jobs in data package</span> for tool 
+<input class='button lst_cmd_btn' type="button" value="Datasets Without Jobs" onClick='lcmd.data_package_job_coverage.getDatasetInfo("NoPackageJobs")' title=""  />
+Get list of data package datasets with <span style="font-weight:bold;">no jobs in data package</span> for tool
 </div>
 <div>
 <p>Datasets:</p>

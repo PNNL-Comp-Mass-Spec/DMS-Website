@@ -23,13 +23,13 @@ class Freezer_model extends CI_Model {
     {
         return true;
     }
-    
+
     // --------------------------------------------------------------------
-    function get_sub_location_type($type) 
+    function get_sub_location_type($type)
     {
         return $this->hierarchy[$type];
-    }   
-    
+    }
+
     /**
      * https://dms2.pnl.gov/freezer/get_freezers
      * @return type
@@ -38,8 +38,8 @@ class Freezer_model extends CI_Model {
     function get_freezers()
     {
         $sql = <<<EOD
-SELECT 
-    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+SELECT
+    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit,
     COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
 FROM dbo.T_Material_Locations ML
     LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
@@ -64,10 +64,10 @@ EOD;
      * @return type
      */
     function get_locations($Type, $Freezer, $Shelf, $Rack, $Row)
-    {       
+    {
         $sql = <<<EOD
-SELECT 
-    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+SELECT
+    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit,
     COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
 FROM dbo.T_Material_Locations ML
     LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
@@ -83,15 +83,15 @@ EOD;
                 $sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Col = 'na' AND NOT ROW = 'na'";
                 break;
             case 'Col':
-                $sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";        
+                $sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";
                 break;
             case 'Tag':
-                $sql .= "  WHERE ML.Tag IN ($Freezer)";     
+                $sql .= "  WHERE ML.Tag IN ($Freezer)";
                 break;
         }
         $sql .= " GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
         $query = $this->db->query($sql);
-        return $query->result_array();      
+        return $query->result_array();
     }
 
     // --------------------------------------------------------------------
@@ -127,7 +127,7 @@ EOD;
     }
 
     // --------------------------------------------------------------------
-    function get_location_type($location) 
+    function get_location_type($location)
     {
         $type = "Freezer";
         $locs = array_keys($this->hierarchy);
@@ -148,7 +148,7 @@ EOD;
     function build_freezer_location_list($Type, $locations)
     {
         $items = array();
-        
+
         if (!$this->cu->check_access('operation', false)) {
             // User does not have permission to update items on this page
             // Return some dummy values
@@ -160,7 +160,7 @@ EOD;
             $obj->key = "000";
 
             $info = new stdClass();
-            $info->Name = "Access denied: cannot update";           
+            $info->Name = "Access denied: cannot update";
             $info->Type = "Shelf";
             $info->ID = "000";
             $info->Tag = "x";
@@ -181,7 +181,7 @@ EOD;
 
         } else {
             // User does have permission to update items on this page
-    
+
             foreach($locations as $entry) {
                 if(!$Type) {
                     $Type = $this->get_location_type($entry);
@@ -192,9 +192,9 @@ EOD;
                 $obj->isFolder = true;
                 $obj->isLazy = true;
                 $obj->key = $entry['Tag'];
-        
+
                 $info = new stdClass();
-                $info->Name = $name;            
+                $info->Name = $name;
                 $info->Type = $Type;
                 $info->ID = $entry['ID'];
                 $info->Tag = $entry['Tag'];
@@ -210,7 +210,7 @@ EOD;
                 $info->Containers = $entry['Containers'];
                 $info->Available = $entry['Available'];
                 $obj->info = $info;
-                
+
                 $items[] = $obj;
             }
         }
@@ -229,9 +229,9 @@ EOD;
             $obj->isLazy = true;
             $obj->key = $name;
             //          $obj->hideCheckbox = true;
-    
+
             $info = new stdClass();
-            $info->Name = $name;            
+            $info->Name = $name;
             $info->Type = "Container";
             $info->Container = $entry['Container'];
             $info->ContainerType = $entry['Type'];
@@ -245,7 +245,7 @@ EOD;
             $info->Researcher = $entry['Researcher'];
             $info->ID = $entry['ID'];
             $obj->info = $info;
-            
+
             $items[] = $obj;
         }
         return $items;
@@ -262,15 +262,15 @@ EOD;
             $obj->isFolder = false;
             $obj->isLazy = false;
             $obj->hideCheckbox = true;
-    
+
             $info = new stdClass();
-            $info->Name = $name;            
+            $info->Name = $name;
             $info->Type = "Material";
             $info->Item_Type = $entry['Item_Type'];
             $info->Item = $entry['Item'];
             $info->ID = $entry['ID'];
             $obj->info = $info;
-            
+
             $items[] = $obj;
         }
         return $items;
@@ -296,8 +296,8 @@ EOD;
     function find_location($location)
     {
         $sql = <<<EOD
-SELECT 
-    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, 
+SELECT
+    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit,
     COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
 FROM dbo.T_Material_Locations ML
     LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
@@ -317,9 +317,9 @@ EOD;
     {
         $tmpl = <<<EOD
 SELECT TOP (10)
-ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, COUNT(MC.ID) AS Containers, 
+ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, COUNT(MC.ID) AS Containers,
 ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
-FROM 
+FROM
 T_Material_Locations AS ML LEFT OUTER JOIN
 T_Material_Containers AS MC ON ML.ID = MC.Location_ID
 WHERE (ML.Tag LIKE '@LOC@%')
@@ -341,9 +341,9 @@ EOD;
     {
         $sql = <<<EOD
 SELECT TOP(10)
-ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, 0 AS Limit, 0 AS Containers, 
+ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, 0 AS Limit, 0 AS Containers,
 0 AS Available, ML.Status, ML.ID, MC.Created
-FROM T_Material_Containers AS MC 
+FROM T_Material_Containers AS MC
 INNER JOIN T_Material_Locations AS ML ON ML.ID = MC.Location_ID
 WHERE MC.Status = 'Active'
 ORDER BY MC.Created DESC
@@ -355,5 +355,5 @@ EOD;
         }
         return $query->result_array();
     }
- 
+
 }

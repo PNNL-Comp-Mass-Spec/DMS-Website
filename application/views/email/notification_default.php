@@ -9,7 +9,7 @@ body {
 table {
     font-size:11px;
     font-family:verdana, arial, helvetica, sans-serif;
-    background-color:#B0B0B0;   
+    background-color:#B0B0B0;
     margin-top:10px;
     border-spacing:1px;
 }
@@ -20,9 +20,9 @@ table td {
 }
 table th {
     text-align:left;
-    color:white;    
+    color:white;
     padding:5px;
-    background-color:#3366FF;   
+    background-color:#3366FF;
 }
 </style>
 </head>

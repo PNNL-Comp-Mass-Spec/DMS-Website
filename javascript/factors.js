@@ -60,7 +60,7 @@ var theta = {
 					obj.factor = factor;
 					obj.value = value;
 					flist.push(obj);
-				});				
+				});
 			}
 		});
 		return flist;
@@ -136,7 +136,7 @@ var tau = {
 			var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order']);
 			var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
 			this.updateDatabaseFromList(flist, id_type);
-		}		
+		}
 	},
 	requested_run_admin: {
 		updateDatabaseFromList: function(xml, command) {
@@ -149,7 +149,7 @@ var tau = {
 			p.requestList = xml;
 			p.command = command;
 			// gamma.pageContext and lambda.submitOperation are defined in dms2.js
-			var url =  gamma.pageContext.ops_url;			
+			var url =  gamma.pageContext.ops_url;
 			lambda.submitOperation(url, p);
 		},
 		setRequestStatus: function(status) {

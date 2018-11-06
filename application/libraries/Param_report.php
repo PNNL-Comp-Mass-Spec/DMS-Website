@@ -10,7 +10,7 @@ class Param_report {
 
     private $tag = '';
     private $title = '';
-    
+
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -19,7 +19,7 @@ class Param_report {
     // --------------------------------------------------------------------
     // list report page section
     // --------------------------------------------------------------------
-    
+
     // --------------------------------------------------------------------
     function init($config_name, $config_source)
     {
@@ -30,7 +30,7 @@ class Param_report {
         $this->tag = $CI->my_tag;
         $this->title = $CI->my_title;
     }
-    
+
     /**
      * Sets up a page that contains an entry form defined by the
      * e_model for the config db which will be used to get data
@@ -42,13 +42,13 @@ class Param_report {
 
         // general specifications for page family
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
-        
+
         // entry form
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs'));
-        
+
         $CI->cu->load_lib('entry_form', $form_def->specs, $this->config_source);
-        
+
         // get initial field values (from url segments) and merge them with form object
         $segs = array_slice($CI->uri->segment_array(), 2);
         $CI->load->helper(array('entry_page'));
@@ -67,11 +67,11 @@ class Param_report {
         $data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');      
+        $data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');
 
         $CI->load->helper(array('menu', 'link_util'));
         $data['nav_bar_menu_items']= set_up_nav_bar('Param_Pages');
-        $CI->load->vars($data); 
+        $CI->load->vars($data);
         $CI->load->view('main/param_report');
     }
 
@@ -88,7 +88,7 @@ class Param_report {
     {
         $CI = &get_instance();
         session_start();
-        $CI->load->helper('user');      
+        $CI->load->helper('user');
 
         $message = $this->get_data_rows_from_sproc();
         if($message) {
@@ -103,22 +103,22 @@ class Param_report {
 
             $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
             $col_filter = $CI->column_filter->get_current_filter_values();
-        
+
             $CI->load->library('cell_presentation');
             $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
-            
+
             // (someday) roll the date fix into a function shareable with export_param
             $col_info = $CI->sproc_model->get_column_info();
             $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
             $CI->cell_presentation->set_col_filter($col_filter);
-            
+
             $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
-            $data['rows'] = $rows;  
+            $data['rows'] = $rows;
             $data['row_renderer'] = $CI->cell_presentation;
             $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
 
             $CI->load->helper(array('string'));
-            $CI->load->vars($data); 
+            $CI->load->vars($data);
             $CI->load->view('main/param_report_data');
         }
     }
@@ -138,7 +138,7 @@ class Param_report {
         } else {
             $current_paging_filter_values = array();
         }
-        
+
         $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
@@ -161,22 +161,22 @@ class Param_report {
         // used for submission into POST and to be returned as HTML
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'rules'));
-    
+
         $calling_params = new stdClass();
         if(empty($form_def->fields)) {
             $valid_fields = TRUE;
         } else {
-            // make validation object and use it to 
+            // make validation object and use it to
             // get field values from POST and validate them
             $CI->load->helper('form');
             $CI->load->library('form_validation');
             $CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
             $CI->form_validation->set_rules($form_def->rules);
             $valid_fields = $CI->form_validation->run();
-            
+
             // get field values from validation object into an object
             // that will be used for calling stored procedure
-            // and also putting values back into entry form HTML 
+            // and also putting values back into entry form HTML
             foreach($form_def->fields as $field) {
                 $calling_params->$field = $CI->form_validation->set_value($field);
             }
@@ -190,26 +190,26 @@ class Param_report {
             if (!$valid_fields) {
                 throw new exception('There were validation errors: ' . validation_errors());
             }
-            
-            // call stored procedure        
+
+            // call stored procedure
             $ok = $CI->cu->load_mod('s_model', 'sproc_model',$this->config_name, $this->config_source);
             if(!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
-            
+
             $success = $CI->sproc_model->execute_sproc($calling_params);
             if(!$success) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
-            
+
         } catch (Exception $e) {
             $message = $e->getMessage();
         }
-        return $message;    
+        return $message;
     }
 
     /**
-     * Returns HTML for the paging display and control element 
+     * Returns HTML for the paging display and control element
      * for inclusion in param report pages
      * @category AJAX
      */
@@ -217,16 +217,16 @@ class Param_report {
     {
         $CI = &get_instance();
         session_start();
-        
+
         $CI->load->helper(array('link_util'));
 
         // current paging settings
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
-        
+
         // model to get current row info
         $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
-        
+
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
         $total_rows = $CI->sproc_model->get_total_rows();
@@ -244,15 +244,15 @@ class Param_report {
         $s .= "<span class='LRepPager'>$pr</span>";
         echo $s;
     }
-    
+
     // --------------------------------------------------------------------
     // AJAX
     function param_filter()
     {
         $CI = &get_instance();
         session_start();
-        
-        // call stored procedure        
+
+        // call stored procedure
         $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
         $cols = $CI->sproc_model->get_col_names();
 
@@ -261,7 +261,7 @@ class Param_report {
 
         $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
-        
+
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
@@ -296,7 +296,7 @@ class Param_report {
 
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
-        
+
         if (empty($rows)) {
           echo '<p>The table appears to have no data.</p>';
         } else {
@@ -314,5 +314,5 @@ class Param_report {
             }
         }
     }
-    
+
 }

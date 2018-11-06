@@ -4,30 +4,30 @@
  * Tracks actions and specifications for hot links and other display cell presentations
  */
 class R_model extends CI_Model {
-    
+
     /**
      * Config type, e.g. na for list reports and detail reports;
      * helper_inst_group_dstype for http://dms2.pnl.gov/data/lr/ad_hoc_query/helper_inst_group_dstype/report
-     * @var type 
+     * @var type
      */
     private $config_name = '';
-    
+
     /**
      * Data source, e.g. dataset, experiment, ad_hoc_query
-     * @var type 
+     * @var type
      */
     private $config_source = '';
-    
+
     /**
      * Path to the model config database file
-     * @var type 
+     * @var type
      */
     private $configDBFolder = "";
-    
+
     private $list_report_hotlinks = array();
-    
+
     private $detail_report_hotlinks = array();
-    
+
     private $has_checkboxes = FALSE;
 
     // --------------------------------------------------------------------
@@ -37,11 +37,11 @@ class R_model extends CI_Model {
         parent::__construct();
         $this->configDBFolder = $this->config->item('model_config_path');
     }
-    
+
     // --------------------------------------------------------------------
     /**
      * Initialize, including reading data from the model config database
-     * @param string $config_name Config type; na for list reports and detail reports, 
+     * @param string $config_name Config type; na for list reports and detail reports,
      *                            but a query name like helper_inst_group_dstype when the source is ad_hoc_query
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
@@ -51,13 +51,13 @@ class R_model extends CI_Model {
         try {
             $this->config_name = $config_name;
             $this->config_source = $config_source;
-    
+
             $dbFileName = $config_source . '.db';
 
             if($config_name == 'na' or $config_name == '') {
                 $this->get_general_defs($config_name, $dbFileName);
             } else {
-                $this->get_utility_defs($config_name, $dbFileName);             
+                $this->get_utility_defs($config_name, $dbFileName);
             }
             return TRUE;
         } catch (Exception $e) {
@@ -83,7 +83,7 @@ class R_model extends CI_Model {
     {
         return $this->detail_report_hotlinks;
     }
-    
+
     /**
      * Read data from tables list_report_hotlinks and detail_report_hotlinks
      * in a model config database
@@ -95,7 +95,7 @@ class R_model extends CI_Model {
     function get_general_defs($config_name, $dbFileName)
     {
         $dbFilePath = $this->configDBFolder . $dbFileName;
-        
+
         if(!file_exists($dbFilePath)) {
             if ($this->configDBFolder) {
                 throw new Exception("The config database file '$dbFileName' does not exist in folder '$this->configDBFolder'");
@@ -103,7 +103,7 @@ class R_model extends CI_Model {
                 throw new Exception("The config database file '$dbFileName' does not exist");
             }
         }
-        
+
         $dbh = new PDO("sqlite:$dbFilePath");
         if(!$dbh) {
             throw new Exception('Could not connect to config database at '.$dbFilePath);
@@ -115,7 +115,7 @@ class R_model extends CI_Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        if(in_array('list_report_hotlinks', $tbl_list)) {       
+        if(in_array('list_report_hotlinks', $tbl_list)) {
             $this->list_report_hotlinks = array();
             $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
             $server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
@@ -161,7 +161,7 @@ class R_model extends CI_Model {
                 $this->detail_report_hotlinks[$row['name']] = $a;
             }
         }
-        
+
     }
 
     // --------------------------------------------------------------------
@@ -175,7 +175,7 @@ class R_model extends CI_Model {
     function get_utility_defs($config_name, $dbFileName)
     {
         $dbFilePath = $this->configDBFolder . $dbFileName;
-        
+
         $dbh = new PDO("sqlite:$dbFilePath");
         if(!$dbh) {
             throw new Exception('Could not connect to config database at '.$dbFilePath);
@@ -187,7 +187,7 @@ class R_model extends CI_Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        if(in_array('utility_queries', $tbl_list)) {        
+        if(in_array('utility_queries', $tbl_list)) {
 
             $sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
             $sth->execute();
@@ -223,6 +223,6 @@ class R_model extends CI_Model {
     {
         return $this->config_source;
     }
-    
-    
+
+
 }

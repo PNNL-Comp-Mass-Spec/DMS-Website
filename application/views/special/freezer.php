@@ -25,10 +25,10 @@
 
         // show contents of locations in tables
         $tmpl = array (
-            'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="GridCell">', 
-            'heading_cell_start' => '<th class="block_header" colspan="4">' 
+            'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="GridCell">',
+            'heading_cell_start' => '<th class="block_header" colspan="4">'
         );
-        $this->table->set_template($tmpl); 
+        $this->table->set_template($tmpl);
         //
         foreach($storage as $freezer => $f) {
             foreach($f as $shelf => $s) {
@@ -47,7 +47,7 @@
                     echo $this->table->generate();
                     $this->table->clear();
                     echo "<br>";
-                }   
+                }
             }
         }
     }

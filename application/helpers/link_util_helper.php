@@ -34,7 +34,7 @@
         $hrefToUse = ($href) ? "href='" . site_url() . "$href' " : "href='javascript:void(0)'" ;
         $title = ($tooltip) ? "title='$tooltip'" : "" ;
         return "<a class='cmd_link_a'$hrefToUse$click$title >" . label_link_icon('go', '', $label) . "</a>";
-    }   
+    }
     // --------------------------------------------------------------------
     function filter_section_visibility_control($label, $filter_container, $icon_type, $tool_tip)
     {
@@ -51,17 +51,17 @@
     {
         return filter_section_visibility_control($label, 'column_filter_container', $icon_type, 'Show or hide the column filter');
     }
-    function primary_filter_vis_control($label = '', $icon_type = 'plus') 
+    function primary_filter_vis_control($label = '', $icon_type = 'plus')
     {
         return filter_section_visibility_control($label, 'primary_filter_container', $icon_type, 'Show or hide the primary filter');
     }
-    function secondary_filter_vis_control($label = '', $icon_type = 'plus') 
+    function secondary_filter_vis_control($label = '', $icon_type = 'plus')
     {
         return filter_section_visibility_control($label, 'secondary_filter_container', $icon_type, 'Show or hide the secondary filter');
     }
-    function sorting_filter_vis_control($label = '', $icon_type = 'plus') 
+    function sorting_filter_vis_control($label = '', $icon_type = 'plus')
     {
-        return filter_section_visibility_control($label, 'sorting_filter_container', $icon_type, 'Show or hide the sorting filter');        
+        return filter_section_visibility_control($label, 'sorting_filter_container', $icon_type, 'Show or hide the sorting filter');
     }
 
     // --------------------------------------------------------------------
@@ -76,7 +76,7 @@
         $href = "href='javascript:void(0)'" ;
         $title = ($tooltip) ? "title='$tooltip'" : "" ;
         return "<a class='cmd_link_a'$idWithTag $href$click$title >" . label_link_icon($type, '', $label) . "</a>";
-    }   
+    }
     // --------------------------------------------------------------------
     function search_btn()
     {
@@ -86,14 +86,14 @@
     {
         return "<a class='cmd_link_a' href='javascript:void(0)' onclick='lambda.clearSearchFilters()' title='Clear any existing filter values'>" . label_link_icon('delete', '', 'Clear') . "</a>";
     }
-    function collapse_filters_btn() 
+    function collapse_filters_btn()
     {
         return "<span id='show_less_filter'><a class='cmd_link_a' href='javascript:void(0)' onclick='lstRep.updateMyFilter(\"minimal\")' title='Show only the primary filter'>". label_link_icon('minus', '', 'Minimize') . "</a></span>";
     }
-    function expand_filters_btn() 
+    function expand_filters_btn()
     {
         return "<span id='show_more_filter'><a class='cmd_link_a' href='javascript:void(0)' onclick='lstRep.updateMyFilter(\"maximal\")' title='Show all filters'>" . label_link_icon('plus', '', 'Expand') . "</a></span>";
-    }   
+    }
     // --------------------------------------------------------------------
     function general_visibility_control($label, $containerId, $tooltip = '')
     {
@@ -154,5 +154,5 @@
                 $s = '??';
                 break;
         }
-        return $s;  
+        return $s;
     }

@@ -14,7 +14,7 @@ var packages = {
 
 		$('#entry_cmd_mode').val(mode);
 		$('#removeParents').val(removeParents);
-		
+
 		// Call stored procedure UpdateDataPackageItems
 		// gamma.doOperation is defined in dms2.js
 		gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
@@ -33,20 +33,20 @@ var packages = {
 				$('#osm_cmd_container').hide();
 				$('#attachments_control_section').hide();
 				$('.LRepExport').hide();
-				container.html(s);			
-				var overlay = gamma.makeElementOverlay("data_container", "It's dead, Jim...");	
+				container.html(s);
+				var overlay = gamma.makeElementOverlay("data_container", "It's dead, Jim...");
 				$('#overlay_label').fadeIn(900);
 			} else {
 				container.html(x.message);
 			}
 		});
 	},
-/* OMCS-977	
+/* OMCS-977
 	revealOsmPackageCreateSection: function() {
 		var iframe = document.getElementById('embedded_page');
 		var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 		$('#hdrContainer').hide();
-		gamma.toggleVisibility('package_entry_section',  0.5 ); 
+		gamma.toggleVisibility('package_entry_section',  0.5 );
 		return false;
 	},
 	callSuggestionSetType: function(item_type, mode) {
@@ -96,7 +96,7 @@ var packages = {
 			delta.processResults(data, container);
 		});
 	},
-	*/	
+	*/
 	// This is called from "data_package_items/report" when the user clicks "Delete from Package" or "Update comment"
 	performOperation: function (mode) {
 		var list = '';
@@ -106,12 +106,12 @@ var packages = {
 				list  += rows[i].value;
 		}
 		if(list=='') {
-			alert('You must select items'); 
+			alert('You must select items');
 			return;
 		}
 		if ( !confirm("Are you sure that you want to update the database?") )
 			return;
-	
+
 		var removeParents = 0;
 		if (document.getElementById('removeParentsCheckbox').checked)
 			removeParents=1;

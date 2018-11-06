@@ -4,7 +4,7 @@
 // --------------------------------------------------------------------
 
 class Controller_utility {
-    
+
     // --------------------------------------------------------------------
     function message_box($heading, $message, $title = '')
     {
@@ -14,7 +14,7 @@ class Controller_utility {
         $CI = &get_instance();
         $CI->load->view('message_box', $data);
     }
-    
+
     /**
      * Load named library and initialize it with given config info
      * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
@@ -49,14 +49,14 @@ class Controller_utility {
     function load_mod($model_name, $local_name, $config_name, $config_source)
     {
         $CI = &get_instance();
-        if(property_exists($CI, $local_name)) { 
+        if(property_exists($CI, $local_name)) {
             return TRUE;
         }
         // Dynamically load and initialize the model
         $CI->load->model($model_name, $local_name);
         return $CI->$local_name->init($config_name, $config_source);
     }
-    
+
     /**
      * Check permissions
      * Verify (all):
@@ -75,14 +75,14 @@ class Controller_utility {
         $user = get_user();
 
         $this->load_mod('g_model', 'gen_model', 'na', $CI->my_tag);
-        
+
         if($CI->gen_model->error_text) {
             if($output_message) {
                 $this->message_box('Error', $CI->gen_model->error_text);
             }
-            return FALSE;           
+            return FALSE;
         }
-        
+
         $result = $CI->gen_model->check_permission($user, $action, $CI->my_tag);
 
         if($result === TRUE) {

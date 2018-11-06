@@ -17,7 +17,7 @@
 <?php // data display section
 if (is_string($result)) {
     echo $result;
-} else 
+} else
 if(is_array($result)){
     echo "<ul>\n";
     foreach($result as $item) {

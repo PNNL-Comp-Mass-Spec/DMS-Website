@@ -71,9 +71,9 @@ var navBar = {
 		}
 		var menu_list = $('.ddm');
 		menu_list.each( function(idx, x) {
-				if(x.id !== navBar.openMenuId) 
+				if(x.id !== navBar.openMenuId)
                     x.style.display = 'none';
-			});	
+			});
 	},
     /**
      * Invoke an action
@@ -110,7 +110,7 @@ $("#el").spin(false); // Kills the spinner.
 			return this.each(function() {
 				var $this = $(this),
 					data = $this.data();
-				
+
 				if (data.spinner) {
 					data.spinner.stop();
 					delete data.spinner;
@@ -135,15 +135,15 @@ $("#el").spin(false); // Kills the spinner.
 		}
 	};
 })(jQuery);
-	
+
 //------------------------------------------
 // global and general-purpose functions and objects
 //------------------------------------------
 
 var gamma = {
-	
+
 	dlgPopupInfo: '',
-	
+
     /**
      * Event handlers for global search panel
      * @param {type} panel
@@ -153,52 +153,52 @@ var gamma = {
 		var sel = panel.find('select');
 		var val = panel.find('input');
 		var go = panel.find('a');
-		
+
 		val.keypress(function(e) {
 			if(e.keyCode === 13) {
-				gamma.dms_search(sel.val(), val.val()); 
+				gamma.dms_search(sel.val(), val.val());
 				return false;
 			}
 		   return true;
 		});
 		sel.change(function(e) {
-			gamma.dms_search(sel.val(), val.val()); 
+			gamma.dms_search(sel.val(), val.val());
 		});
 		go.click(function(e) {
-			gamma.dms_search(sel.val(), val.val()); 
+			gamma.dms_search(sel.val(), val.val());
 		});
 	},
-	
+
 	//------------------------------------------
 	// context values for current page
-	// 
+	//
 	// many library functions reference this object
-	// and depend on proper values being defined 
+	// and depend on proper values being defined
 	// by specific family page before they are called
-	// - Id 
-	// - base_url 
-	// - cntrlContainerId 
-	// - data_url 
-	// - entityList 
-	// - entity_type 
-	// - file_name 
-	// - hierarchy 
-	// - is_ms_helper 
-	// - my_tag 
-	// - ops_url 
-	// - processing_params 
-	// - responseContainerId 
-	// - site_url 
-	// - update_in_progress 
-	// - update_url 
+	// - Id
+	// - base_url
+	// - cntrlContainerId
+	// - data_url
+	// - entityList
+	// - entity_type
+	// - file_name
+	// - hierarchy
+	// - is_ms_helper
+	// - my_tag
+	// - ops_url
+	// - processing_params
+	// - responseContainerId
+	// - site_url
+	// - update_in_progress
+	// - update_url
 	//------------------------------------------
 	pageContext: {
 	},
-    
+
 	//------------------------------------------
 	// parsing stuff
 	//------------------------------------------
-	
+
     /**
      * Return a copy of a string with leading and trailing whitespace removed.
      * @param {string} str String to process
@@ -212,7 +212,7 @@ var gamma = {
      * @param {string} line Text to process
      * @returns {array} Array of trimmed values
      */
-	parse_lines: function(line) { 
+	parse_lines: function(line) {
 		flds = [];
 		var fields = line.split('\t');
 		$.each(fields, function(idx, fld){
@@ -234,7 +234,7 @@ var gamma = {
 		var data = [];
 		$.each(lines, function(lineNumber, line){
 			line = gamma.trim(line);
-			if(line) {	
+			if(line) {
 				var fields = gamma.parse_lines(line);
 				if(lineNumber === 0) {
 					header = fields;
@@ -259,10 +259,10 @@ var gamma = {
      */
     getDialogWidth: function(textLength) {
 		var width = Math.round(textLength * 8.8);
-		
+
 		if (width < 250)
 			return 250;
-			
+
 		if (width > 1000)
 			return 1000;
 
@@ -310,7 +310,7 @@ var gamma = {
 	},
 	/**
      * Return a new array consisting of items in target that are not in remove
-     * 
+     *
      * @param {array} target Items to process
      * @param {array} remove Items to remove
      * @returns {array} Array of filtered items from target
@@ -326,10 +326,10 @@ var gamma = {
 	},
 	/* Display results returned by AJAX query of server
 	 * in floating modeless dialog (created dynamically)
-	 * (if ignoreIfClosed is false or undefined, always open 
+	 * (if ignoreIfClosed is false or undefined, always open
 	 *  or update dialog, otherwise, only update if already open)
 	 *
-	 * Displayed when the user clicks Help->SQL (on a list report or detail report) to view the SQL query used to obtain the data 
+	 * Displayed when the user clicks Help->SQL (on a list report or detail report) to view the SQL query used to obtain the data
 	 * or when they choose Help->URL on a list report to view the URL for deep linking on list reports
 	 */
 	updateMessageBox: function() {
@@ -341,34 +341,34 @@ var gamma = {
 				return;
 			}
 			if(ignoreIfClosed && isClosed) return;
-			
+
 			if(!dlg) {
 				// Make a new dialog box
-				dlg = $('<div></div>').dialog({title: title, autoOpen: false, closeOnEscape: true});	
+				dlg = $('<div></div>').dialog({title: title, autoOpen: false, closeOnEscape: true});
 			} else {
 				// Update the title of an existing dialog box
 				dlg.dialog({ title: title });
 			}
-			
+
 			// Send a post request to a report_info page, for example:
 			// http://dms2.pnl.gov/dataset_qc/report_info/url
 			//  or
 			// http://dms2.pnl.gov/dataset_qc/report_info/sql
-			
+
 			url = gamma.pageContext.site_url + url;
 			var p = $('#' + form).serialize();
-			
+
 			$.post(url, p, function(data) {
 					var maxTextLength = 0;
-					
+
 					var dataForClipboard = '??';
 					var htmlForClipboard = '??';
 					var buttonName = 'copy-now';
-					
+
 					// Check for the title being 'SQL'
 					if (title.match(/SQL/i)) {
 						var buttonName = 'copy-sql-now';
-						
+
 						// Insert some line breaks
 						// Try to match SELECT * FROM table
 						//           or SELECT * FROM table WHERE x=y
@@ -380,9 +380,9 @@ var gamma = {
 						var match = selectFromWhereRegEx.exec(data);
 						var unformattedSql = data.replace(/\n/g, ' ').trim();
 						var formattedSql = '?';
-						
+
 						if (match) {
-													
+
 							formattedSql = '';
 							formattedSql += match[1] + '<br>';                                               // SELECT ...
 							formattedSql += match[2] + '<br>';                                               // FROM ...
@@ -391,8 +391,8 @@ var gamma = {
 							formattedSql += 'WHERE ' + match[3].replace(whereClauseRegEx, ' $1<br>      ');  // WHERE ...
 
 							// Add a line break before ORDER BY
-							formattedSql = formattedSql.replace(orderByRegEx, '<br>$1');							
-																					
+							formattedSql = formattedSql.replace(orderByRegEx, '<br>$1');
+
 						} else {
 							// SQL does not have a WHERE clause
 							var match = selectFromRegEx.exec(data);
@@ -401,7 +401,7 @@ var gamma = {
 								formattedSql = '';
 								formattedSql += match[1] + '<br>';   // SELECT ...
 								formattedSql += match[2] + '<br>';   // FROM ...
-								
+
 								// Add a line break before ORDER BY
 								formattedSql = formattedSql.replace(orderByRegEx, '<br>$1');
 
@@ -411,52 +411,52 @@ var gamma = {
 								formattedSql = data.replace(/\n/g, ' ').trim();
 							}
 						}
-						
+
 						if (maxTextLength == 0) {
 							var dataRows = formattedSql.split('<br>');
 							for(var k = 0; k < dataRows.length; k++) {
 								maxTextLength = Math.max(maxTextLength, dataRows[k].length);
 						    }
 						}
-						
+
 						data = '<pre>' + formattedSql + '</pre>';
-						
+
 						// Text in dataForClipboard is plain text and will appear when pasting into a text editor or SQL Server Management Studio
 						// Text in htmlForClipboard includes HTML symbols, and will appear when pasted into Microsoft Word
 						dataForClipboard = unformattedSql
 						htmlForClipboard = data;
-						
+
 					} else {
 						var buttonName = 'copy-url-now';
-						
+
                         // Check for the url containing 'report_info'
                         if (url.match(/\/report_info\//i)) {
                             // Replace backtick, colon, and percent signs in the filter values
                             // to instead use wildcard keywords
                             // However, do not replace %20 since that indicates a space
                             // To skip %20 we use negative lookahead via (?!20)
-                            
+
                             data = data.replace(/`/g, "StartsWith__").replace(/%(?!20)/g, "__Wildcard__");
-                            
+
                             // Also replace colons, but do not replace the colon in http://
                             var urlParts = data.split("://", 2);
-                            
+
                             if (urlParts.length > 1) {
                                 data = urlParts[0] + "://" + urlParts[1].replace(/\:/g, "NoMatch__");
                             }
-                            
+
                         }
 
                         data = data.replace(/\n/g, ' ').trim()
-                        
+
 						maxTextLength = data.length;
-						
+
 						dataForClipboard = data;
 						htmlForClipboard = data;
-						
+
 						data += '<br>'
 					}
-					
+
 					var width = gamma.getDialogWidth(maxTextLength);
 					dlg.dialog({ width: width });
 
@@ -464,7 +464,7 @@ var gamma = {
 
 					dlg.html(data);
 					dlg.dialog('open');
-					
+
 					gamma.dlgPopupInfo = dlg;
 				}
 			);
@@ -478,7 +478,7 @@ var gamma = {
 	updateMessageBoxText: function() {
 		var dlg;
 		return function(data, title) {
-				
+
 			if(!dlg) {
 				// Make a new dialog box
 				dlg = $('<div></div>').dialog({title: title, autoOpen: false, closeOnEscape: true});
@@ -489,18 +489,18 @@ var gamma = {
 
 			var width = gamma.getDialogWidth(data.length);
 			dlg.dialog({ width: width });
-			
+
 			var dataForClipboard = data;
 			var htmlForClipboard = data;
 			var buttonName = "copy-data-now";
-			
+
 			data += "<br>";
-			
+
 			data = gamma.addCopyDataButton(data, buttonName, dataForClipboard, htmlForClipboard);
 
 			dlg.html(data);
 			dlg.dialog('open');
-			
+
 			gamma.dlgPopupInfo = dlg;
 		};
 	}(),
@@ -508,14 +508,14 @@ var gamma = {
      * Add a button and the required javascript for copying text
      */
 	addCopyDataButton: function(data, buttonName, dataForClipboard, htmlForClipboard) {
-		
+
 		// Note: Copy functionality is implemented in clipboard.min.js
 		// More info at https://www.npmjs.com/package/clipboard-js
 		// and at       https://github.com/lgarron/clipboard.js
-		
+
 		data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy and close</button>";
 
-		data += "\n";	
+		data += "\n";
 		data += "<script>\n";    // Or "<p>\n";
 //        data += "<p>\n";
 
@@ -549,9 +549,9 @@ var gamma = {
 
 
 		data += "</script>\n";    // Or "</p>\n";
-		
+
 		return data;
-	},	
+	},
 	makeElementOverlay: function(elementId, message) {
 		var target = $("#" + elementId);
 		var overlay = $("<div />").css({
@@ -576,7 +576,7 @@ var gamma = {
 			label.text(message);
 			overlay.append(label);
 		}
-		overlay.appendTo(target.css("position", "relative"));		
+		overlay.appendTo(target.css("position", "relative"));
 		return overlay;
 	},
 	clearSelector: function(name) {
@@ -603,8 +603,8 @@ var gamma = {
 		if(visible) {
 			icon.toggleClass('ui-icon-circle-plus', false).toggleClass('ui-icon-circle-minus', true);
 		} else {
-			icon.toggleClass('ui-icon-circle-plus', true).toggleClass('ui-icon-circle-minus', false);				
-		}		
+			icon.toggleClass('ui-icon-circle-plus', true).toggleClass('ui-icon-circle-minus', false);
+		}
 	},
 	//------------------------------------------
 	//search functions
@@ -640,7 +640,7 @@ var gamma = {
 		  document.OFS.page.value = location;
 		  document.OFS.submit();
 		}
-	},	
+	},
     /**
      * Document export: repurpose entry form
 	 * to old fashioned submit instead of AJAX
@@ -657,7 +657,7 @@ var gamma = {
 	},
     /**
      * General AJAX post that fills the given container
-	 * with returned text and allows 
+	 * with returned text and allows
      * pre and post callbacks to be defined
      * @param {string} url
      * @param {type} p
@@ -666,10 +666,10 @@ var gamma = {
      * @param {type} beforeAction
      * @returns {undefined}
      */
-	loadContainer: function (url, p, containerId, afterAction, beforeAction) { 
+	loadContainer: function (url, p, containerId, afterAction, beforeAction) {
 		var container = $('#' + containerId);
 		var abort = false;
-		if(beforeAction) { 
+		if(beforeAction) {
 			abort = beforeAction();
 		}
 		if(abort) return;
@@ -681,10 +681,10 @@ var gamma = {
 					afterAction();
 				}
 		});
-	},	
+	},
     /**
-     * General AJAX post that gets a data object 
-	 * from JSON returned by server and allows 
+     * General AJAX post that gets a data object
+	 * from JSON returned by server and allows
 	 * pre and post callbacks to be defined
      * @param {string} url
      * @param {type} p
@@ -693,10 +693,10 @@ var gamma = {
      * @param {type} beforeAction
      * @returns {undefined}
      */
-	getObjectFromJSON: function (url, p, containerId, afterAction, beforeAction) { 
+	getObjectFromJSON: function (url, p, containerId, afterAction, beforeAction) {
 		var container = (containerId)?$('#' + containerId):null;
 		var abort = false;
-		if(beforeAction) { 
+		if(beforeAction) {
 			abort = beforeAction();
 		}
 		if(abort) return;
@@ -732,7 +732,7 @@ var gamma = {
 		}
 		var container = $('#' + containerId);
 		var abort = false;
-		if(beforeAction) { 
+		if(beforeAction) {
 			abort = beforeAction();
 		}
 		if(abort) return;
@@ -745,11 +745,11 @@ var gamma = {
 	//------------------------------------------
 	// misc functions and objects
 	//------------------------------------------
-	
+
     /**
      * Convert array of objects representing form values
 	 * where each object has property 'name' and 'value'
-     * 
+     *
      * Fields with shared name have array of values
      *
      * @param {object} fldObjArray
@@ -772,7 +772,7 @@ var gamma = {
 	no_action: {
 	},
 	/**
-     * object that chooser code uses to remember 
+     * object that chooser code uses to remember
      * key parameters for off-page chooser
      */
 	currentChooser: {
@@ -803,7 +803,7 @@ var gamma = {
 		var scriptName = $('#lnk_ID').html();
 		if(scriptName) {
 			var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
-			gamma.loadContainer(url, {}, 'script_diagram_container'); 
+			gamma.loadContainer(url, {}, 'script_diagram_container');
 		}
 	},
 	autocompleteChooser: {
@@ -832,7 +832,7 @@ var gamma = {
 							var x = curVal.lastIndexOf(',');
 							curVal = (x != -1) ? curVal = curVal.substring(0, x) + ', ': curVal = '';
 							event.target.value = curVal + ui.item.value;
-							event.preventDefault()			 				
+							event.preventDefault()
 			 			}
 					}
 				})(append),
@@ -840,10 +840,10 @@ var gamma = {
 					var appendVal = append;
 			 		return function( event, ui ) {
 			 			if(appendVal) {
-							event.preventDefault()			 				
+							event.preventDefault()
 			 			}
 					}
-				})(append),				
+				})(append),
 				// use self-invoking anonymous function to set source option to AJAX callback
 				// that is bound to given input parameters and will call server data controller with them
 				source: (function(queryName, append){
@@ -863,16 +863,16 @@ var gamma = {
 							}
 				})(queryName, append)
 			}
-		}		
-	}	
+		}
+	}
 };	// gamma
 
 //------------------------------------------
 //These functions are used by list reports
 //------------------------------------------
-var lambda = {	
+var lambda = {
     /**
-     * This function acts as a hook that other functions call to 
+     * This function acts as a hook that other functions call to
 	 * reload the row data container for the list report.
 	 * it needs to be overridden with the actual loading
 	 * function defined on the page, which will be set up
@@ -887,7 +887,7 @@ var lambda = {
      * @param {type} pageType
      * @returns {undefined}
      */
-	setListReportDefaults: function(pageType) { 
+	setListReportDefaults: function(pageType) {
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/defaults/' + pageType;
 		p = {};
 		$.post(url, p, function (data) {
@@ -905,7 +905,7 @@ var lambda = {
      * @param {object} follow_on_action
      * @returns {undefined}
      */
-	updateContainer: function (action, formId, containerId, follow_on_action) { 
+	updateContainer: function (action, formId, containerId, follow_on_action) {
 		var container = $('#' + containerId);
 		container.spin('small');
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/' + action;
@@ -942,7 +942,7 @@ var lambda = {
 
 						// data should be a JSON-encoded string, for example:
 						//   '{"result":0,"message":"Operation was successful: Deleted 1 analysis job"}'
-						
+
 						// Look for a message parameter, which many DMS stored procedures have as an output parameter
 						var dataObject = jQuery.parseJSON(data);
 						if (dataObject.message)
@@ -1021,7 +1021,7 @@ var lambda = {
 	toggleFilterVisibility: function(containerId, duration, element) {
 		var visible = gamma.toggleVisibility(containerId, duration, element);
 		this.adjustFilterVisibilityControl(containerId, visible);
-	},	
+	},
     /**
      * Adjust filter visibility
      * @param {type} containerId
@@ -1066,7 +1066,7 @@ var lambda = {
 	//------------------------------------------
 	// paging
     //------------------------------------------
-    
+
 	/**
      * Set the current starting row for the list report
      * @param {type} row
@@ -1099,14 +1099,14 @@ var lambda = {
 		var reply = null;
 		if (curPageSize == 'all') {
 			return (totalRows > max)?max:totalRows;
-		} 
+		}
 		var reply = prompt("Please enter a value for number \n of rows to display on each page \n (1 to " + max + ")", curPageSize);
 		if (reply == null || reply == "") {
 			return null;
 		}
 		if (reply == 'all') {
 			return (totalRows > max)?max:totalRows;
-		} 
+		}
 		if(isNaN(reply)) {
 			alert("Sorry, '" + reply + "' is not a number");
 			return null;
@@ -1134,7 +1134,7 @@ var lambda = {
 	//------------------------------------------
 	// search filter change monitoring
     //------------------------------------------
-    
+
     /**
      * Define the observers for a filter field
      * @returns {undefined}
@@ -1142,14 +1142,14 @@ var lambda = {
 	set_filter_field_observers: function() {
 		var that = this;
 		var pFields = $('#filter_form').find(".primary_filter_field");
-		pFields.each(function(idx, f) { 
-				$(this).keyup(that.filter_key); 
-				$(this).keyup(that.is_filter_active); 
+		pFields.each(function(idx, f) {
+				$(this).keyup(that.filter_key);
+				$(this).keyup(that.is_filter_active);
 			});
 		var sFields = $(".secondary_filter_input");
-		sFields.each(function(idx, f) { 
-				$(this).keyup(that.filter_key); 
-				$(this).keyup(that.is_filter_active); 
+		sFields.each(function(idx, f) {
+				$(this).keyup(that.filter_key);
+				$(this).keyup(that.is_filter_active);
 			});
 	},
     /**
@@ -1168,7 +1168,7 @@ var lambda = {
 			} );
 		ff.find(".sorting_filter_input").each(function(idx, obj) {
 				if(obj.value != '') sortFlag++;
-			} );	
+			} );
 		lambda.set_filter_active_indicator(filterFlag, sortFlag);
 	},
     /**
@@ -1197,19 +1197,19 @@ var lambda = {
 	set_filter_active_indicator: function(activeSearchFilters, activeSorts) {
 		if(!activeSearchFilters) {
 			$('#filters_active').html('');
-		} else 
+		} else
 		if(activeSearchFilters ==1 ){
 			$('#filters_active').html('There is ' + activeSearchFilters +  ' filter set');
 		} else {
 			$('#filters_active').html('There are ' + activeSearchFilters +  ' filters set');
 		}
 	},
-    
+
 	//------------------------------------------
-	//These functions are used by multiple-choice 
+	//These functions are used by multiple-choice
 	//chooser list report to manage its checkboxes
 	//------------------------------------------
-	
+
     /**
      * Get selected item list
      * @returns {Array|lambda.getSelectedItemList.checkedIDlist}
@@ -1247,7 +1247,7 @@ var lambda = {
 	    }
 	  }
 	  return list;
-	},	
+	},
     /**
      * Transfer selected list data
      * @param {type} perspective
@@ -1256,12 +1256,12 @@ var lambda = {
 	transferSelectedListData: function(perspective) {
 		var list = lambda.getCkbxList('ckbx' );
 		if(list=='') {
-			alert('You must select at least 1 item.'); 
+			alert('You must select at least 1 item.');
 			return;
 		}
 		if ( !confirm("Are you sure that you want to transfer the selected data?") )
 			return;
-	
+
 		var url =  gamma.pageContext.site_url + "/data_transfer/" + perspective;
 		var p = {};
 		p.perspective = perspective;
@@ -1271,7 +1271,7 @@ var lambda = {
 	//------------------------------------------
 	// used by helper list reports with checkboxes
 	//------------------------------------------
-	
+
 	/**
      * Set checked state of all checkboxes with given name from given list
      * @param {type} checkBoxName
@@ -1285,7 +1285,7 @@ var lambda = {
 	    for(var k = 0; k < selections.length; k++) {
 	    	selections[k] = gamma.trim(selections[k]);
 	    }
-	    // traverse checkbox elements, setting checkbox 
+	    // traverse checkbox elements, setting checkbox
 	    // if it's value matches an element in list
 		for (var i = 0; i < rows.length; i++) {
 	        for(var k = 0; k < selections.length; k++) {
@@ -1308,11 +1308,11 @@ var lambda = {
 			lambda.setCkbxFromList(checkBoxName, list);
 		}
 	},
-    
+
 	//------------------------------------------
 	// misc
 	//------------------------------------------
-    
+
     /**
      * Export data
      * @param {type} format Export format: 'excel' or 'tsv'
@@ -1325,29 +1325,29 @@ var lambda = {
 		}
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/' + format
 		gamma.export_to_doc(url, "filter_form");
-	}	
-	
+	}
+
 }; // lambda
 
 //------------------------------------------
-//These functions are used by detail report page 
+//These functions are used by detail report page
 //------------------------------------------
 var delta = {
     /**
      * Perform detail report command (via AJAX)
-     * 
+     *
      * This function is reached when the user clicks a button on the detail report
 	 * Button definitions are in table detail_report_commands in the model config DB
 	 * Function make_detail_report_commands in detail_report_helper.php creates the hyperlink via the cmd_op option
 	 * For example:
 	 * javascript:delta.performCommand("http://dms2.pnl.gov/dataset/command", "QC_Shew_15_02_2_29Oct15_Lynx_15-08-27", "reset", "Are you sure that you want to reset this dataset to New?")
-	 * The performCommand function in turn will post to http://dms2.pnl.gov/dataset/command/QC_Shew_15_02_2_29Oct15_Lynx_15-08-27/reset 
+	 * The performCommand function in turn will post to http://dms2.pnl.gov/dataset/command/QC_Shew_15_02_2_29Oct15_Lynx_15-08-27/reset
 	 * That URL is processed by the base controller for the given page family, specifically function command in Base_controller.php
 	 * The command function calls function internal_operation in Operation.php
 	 * The internal_operation function looks up the name of the stored procedure specified by operations_sproc in the general_params table of the model config db
 	 * It then calls the stored procedure, passing on the given command to the @mode parameter
 	 * In the above example, DoDatasetOperation is called with @mode='reset'
-     * 
+     *
      * @param {type} url URL to post to
      * @param {type} id ID of the entity to update (e.g. dataset ID)
      * @param {type} mode Mode to send to the operations_sproc stored procedure
@@ -1367,7 +1367,7 @@ var delta = {
 		$.post(url, p, function (data) {
 				container.spin(false);
 			    container.html(data);
-				delta.updateMyData();	
+				delta.updateMyData();
 			}
 		);
 	},
@@ -1389,12 +1389,12 @@ var delta = {
 		);
 	},
     /**
-     * Use a page like http://dms2.pnl.gov/analysis_job/show_data/1386092 
+     * Use a page like http://dms2.pnl.gov/analysis_job/show_data/1386092
      * to populate the data_container div defined in detail_report.php
      * @returns {undefined}
      */
 	updateMyData: function() {
-		delta.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container'); 
+		delta.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container');
 	},
     /**
      * Process results
@@ -1421,7 +1421,7 @@ var delta = {
      * @returns {undefined}
      */
 	updateShowSQL: function () {
-		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL'); 
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL');
 	},
     /**
      * Show the URL of the currently visible page
@@ -1430,7 +1430,7 @@ var delta = {
 	updateShowURL: function() {
 
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/show/' + gamma.pageContext.Id;
-		
+
 		gamma.updateMessageBoxText(url, 'URL');
 
 	}
@@ -1438,10 +1438,10 @@ var delta = {
 };	//delta
 
 //------------------------------------------
-//These functions are used by the entry page 
+//These functions are used by the entry page
 //------------------------------------------
 var epsilon = {
-	
+
 	/**
      * Adjust enabled fields
      * Style associated entry field for each enable checkbox
@@ -1492,7 +1492,7 @@ var epsilon = {
 			$('#' + img_element_id)[0].src = url + hide_img;
 		} else {
 			$(className).each(function(idx, s){s.style.display='none'});
-			$('#' + img_element_id)[0].src = url + show_img;		
+			$('#' + img_element_id)[0].src = url + show_img;
 	    }
 	},
     /**
@@ -1519,7 +1519,7 @@ var epsilon = {
 		var className = '.' + block_name;
 		var img_element_id = block_name + "_cntl";
 		$(className).each(function(idx, s){s.style.display='none'});
-		$('#' + img_element_id)[0].src = url + show_img;			
+		$('#' + img_element_id)[0].src = url + show_img;
 	},
     /**
      * Show a section
@@ -1572,10 +1572,10 @@ var epsilon = {
 	// These functions are used by any entry page that invokes a
 	// list report chooser
 	// Note: a global variable "gamma.currentChooser" that references
-	// an empty object must be defined by the entry page 
+	// an empty object must be defined by the entry page
 	// that usese these functions
 	//------------------------------------------
-	
+
     /**
      * Close the chooser window page
      * @returns {undefined}
@@ -1587,7 +1587,7 @@ var epsilon = {
 	},
 	/**
      * Call a chooser
-     * 
+     *
      * This function opens an exernal chooser page and remembers
 	 * information necessary to update the proper entry field
 	 * when that page calls back with user's choice
@@ -1600,7 +1600,7 @@ var epsilon = {
 	callChooser: function(fieldName, chooserPage, delimiter, xref) {
 		// resolve cross-reference to other field, if one exists
 		var xrefValue = (xref != '')?$('#' + xref).val():'';
-		if(xref != '' && xrefValue == ''){ 
+		if(xref != '' && xrefValue == ''){
 			// Previously showed an error if the cross referenced field was empty
 			// We now allow this for cases where a field starts off as blank but the user needs to choose a value from a list
 			//alert (xref + ' must be selected first.');
@@ -1623,7 +1623,7 @@ var epsilon = {
 		}
 		// make sure that there are no other chooser pages open
 		epsilon.closeChooserWindowPage();
-		// remember which field gets the update 
+		// remember which field gets the update
 		// for when the chooser page calls back (updateFieldValueFromChooser)
 		gamma.currentChooser.field = fieldName;
 		gamma.currentChooser.delimiter = delimiter;
@@ -1633,7 +1633,7 @@ var epsilon = {
 	},
 	/**
      * Update field value from chooser
-     * 
+     *
      * This function is called by an external chooser
 	 * page to update the value in the field that it is serving
      * @param {type} value
@@ -1651,9 +1651,9 @@ var epsilon = {
 		// replace or append new value, as appropriate
 		if(action == "append") {
 			if (gamma.currentChooser.delimiter != "" && fld.value != "") {
-				fld.value += gamma.currentChooser.delimiter + " " + value;		
+				fld.value += gamma.currentChooser.delimiter + " " + value;
 			} else {
-				fld.value += value;		
+				fld.value += value;
 			}
 		} else { // replace
 			fld.value = value;
@@ -1691,7 +1691,7 @@ var epsilon = {
 	//------------------------------------------
 	// used for entry page submission
 	//------------------------------------------
-	
+
 	/**
      * Object to contain entry page context values
 	 * (must be initialized prior to library functions being called)
@@ -1700,10 +1700,10 @@ var epsilon = {
 	pageContext: {
 		containerId: null,
 		modeFieldId: null,
-		entryFormId: null		
+		entryFormId: null
 	},
 	/**
-     * Contains any actions to be performed prior to and after AJAX submission 
+     * Contains any actions to be performed prior to and after AJAX submission
      * @type type
      */
 	actions: {
@@ -1723,7 +1723,7 @@ var epsilon = {
 	},
 	/**
      * POST the entry form to the entry page via AJAX
-     * 
+     *
      * @param {type} url
      * @param {type} mode
      * @param {type} afterAction Action (if defined) to be performed prior to submission; abort if it returns true
@@ -1736,7 +1736,7 @@ var epsilon = {
 		var entryForm = $('#' + this.pageContext.entryFormId);
 		modeField.val(mode);
 		var proceed = true;
-		if(beforeAction) { 
+		if(beforeAction) {
 			proceed = beforeAction(mode);
 		}
 		if(!proceed) return;
@@ -1766,12 +1766,12 @@ var epsilon = {
 		entryForm.action = url;
 		entryForm.method="post";
 		entryForm.submit();
-	},	
+	},
 
 	//------------------------------------------
 	// supplemental parameter entry forms
 	//------------------------------------------
-	
+
 	/**
      * Get supplemental form fields via an AJAX call
      * @param {type} url
@@ -1784,7 +1784,7 @@ var epsilon = {
 	load_suplemental_form: function(url, p, containerId, afterAction, beforeAction) {
 		var container = $('#' + containerId);
 		var abort = false;
-		if(beforeAction) { 
+		if(beforeAction) {
 			abort = beforeAction();
 		}
 		if(abort) return;
@@ -1828,13 +1828,13 @@ var epsilon = {
 				s += 'Value="' + value + '" ';
 				s += '/>';
 				xml += s;
-			}		
+			}
 		});
 		targetField.val(xml);
 	},
 	/**
      * Set field value from selection
-     * 
+     *
      * Called by a drop-down selection type chooser to update its target field
      * @param {type} fieldName
      * @param {type} chooserName
@@ -1852,26 +1852,26 @@ var epsilon = {
 
 			var delim = ';';
 
-			if (mode == 'prepend_comma' || mode == 'append_comma') 
+			if (mode == 'prepend_comma' || mode == 'append_comma')
 				delim = ', ';
 			else if (mode == 'prepend_underscore')
 				delim = '_';
-							
+
 			var v = fld.val();
-			
+
 			if (mode == 'prepend' || mode == 'prepend_underscore' || mode == 'prepend_comma') {
-				if(v != '') 
+				if(v != '')
 					fld.val(chooserVal + delim + v);
 				else
 					fld.val(chooserVal);
-					
+
 				return;
 			}
 
-			if(v != '') 
+			if(v != '')
 				v = v + delim;
 
-			fld.val(v + chooserVal);			
+			fld.val(v + chooserVal);
 		}
 	},
     /**
@@ -1899,7 +1899,7 @@ var epsilon = {
 	//------------------------------------------
 	// entry field formatting
 	//------------------------------------------
-	
+
     /**
      * Convert a list of values spearated by newlines and/or tabs to a list separated by repStr
      * @param {type} fieldName
@@ -1909,7 +1909,7 @@ var epsilon = {
 	convertList: function(fieldName, repStr) {
 		var fld = $('#' + fieldName);
 	    var findStr = "(\r\n|[\r\n]|\t)";
-	    var re = new RegExp(new RegExp(findStr, "g")); 
+	    var re = new RegExp(new RegExp(findStr, "g"));
 		repStr += ' ';
 	    fld.val(fld.val().replace(re, repStr));
 	},
@@ -1922,8 +1922,8 @@ var epsilon = {
 		var fld = $('#' + fieldName);
 	    var findStr = "><";
 	    var repStr = ">\n<";
-	    var re = new RegExp(new RegExp(findStr, "g")); 
+	    var re = new RegExp(new RegExp(findStr, "g"));
 	    fld.val(fld.val().replace(re, repStr));
 	}
-	
+
 };	// epsilon

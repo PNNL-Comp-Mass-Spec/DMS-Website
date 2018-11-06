@@ -17,7 +17,7 @@
         if($params['section_comment']) {
             $s .= "<div class='fly_aspect_menu_comment'>\n";
             $s .= "<span>".$params['section_comment']."</span>\n";
-            $s .= "</div>\n";       
+            $s .= "</div>\n";
         }
 
         if($num_menu_items > 0) {
@@ -44,7 +44,7 @@
         }
         return $s;
     }
-    
+
     // -----------------------------------
     function make_fly_master_list($section_defs)
     {
@@ -149,7 +149,7 @@
                 $s .= "<tr>\n$rs\n</tr>\n";
             }
             $grid_row++;
-        }       
+        }
         $s .= "</table>\n";
         return $s;
     }
@@ -209,7 +209,7 @@
                         }
                         elseif(!(stripos($name, 'http') === FALSE)) {
                             $target = "target='_blank'";
-                        } 
+                        }
                         else {
                             $url = site_url().$url;
                         }
@@ -237,9 +237,9 @@
     }
 
     // --------------------------------------------------------------------
-    // 
+    //
     function make_version_banner()
-    {   
+    {
         $s = '';
         $CI =& get_instance();
         $banner = $CI->config->item('version_banner');
@@ -261,16 +261,16 @@
         $CI->load->model('dms_menu', 'menu', TRUE);
         return get_nav_bar_menu_items($page_type);
     }
-    
-    
+
+
     // --------------------------------------------------------------------
     // get the definition of the nav_bar menu and roll in the context-sensitive stuff
     function get_nav_bar_menu_items($page_type)
-    {   
+    {
         $CI =& get_instance();
         $menu_context = get_menu_context($page_type);
         $nav_bar_menu_items = $CI->menu->get_menu_def("dms_menu.db", "nav_def");
-        convert_context_sensitive_menu_items($nav_bar_menu_items, $menu_context);   
+        convert_context_sensitive_menu_items($nav_bar_menu_items, $menu_context);
         return $nav_bar_menu_items;
     }
 
@@ -286,17 +286,17 @@
         if(isset($CI->help_page_link)) {
             $help_basic_link = $CI->help_page_link.$page_type;
             $menu_context['help_basic_link'] = $help_basic_link;
-            if(isset($CI->my_tag)) {    
+            if(isset($CI->my_tag)) {
                 $menu_context['help_page_link'] = $CI->help_page_link.$CI->my_tag;
             }
         }
-        if(isset($CI->my_tag)) {            
+        if(isset($CI->my_tag)) {
             switch($page_type) {
                 case 'List_Reports':
                 case 'Param_Pages':
                     $menu_context['clear_settings_link'] = "javascript:navBar.invoke(lambda.setListReportDefaults, \"$page_type\")";
                     break;
-            }       
+            }
             $config_db = (isset($CI->my_config_db))?$CI->my_config_db:$CI->my_tag;
             $menu_context['config_db_link'] = "config_db/show_db/".$config_db.".db";
         }
@@ -318,11 +318,11 @@
                 break;
             case 'Param_Pages':
                 break;
-        }       
+        }
         $version = $CI->config->item('version_label');
         $color_code = $CI->config->item('version_color_code');
         $menu_context['side_panel_toggle'] = "<span style='margin:0;'><a title='Show/Hide side menu' href='javascript:gamma.toggle_frames();'><img src='".base_url()."/images/layout.png' style='border-style:none'></a></span>";
-        $menu_context['server_info'] = "<span style='font-size:9px;color:".$color_code."'>".get_user()." &nbsp; &nbsp; ".$version."</span>";    
+        $menu_context['server_info'] = "<span style='font-size:9px;color:".$color_code."'>".get_user()." &nbsp; &nbsp; ".$version."</span>";
         $menu_context['home_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to home page' href='".site_url()."gen/welcome'><img src='".base_url()."/images/house.png' style='border-style:none'></a></span>";
         $menu_context['admin_page_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to admin menu page' href='".site_url()."gen/admin'><img src='".base_url()."/images/cog.png' style='border-style:none'></a></span>";
 

@@ -9,7 +9,7 @@ class Entry {
 
     protected $tag = '';
     protected $title = '';
-    
+
     /**
      * Constructor
      */
@@ -29,7 +29,7 @@ class Entry {
         $CI = &get_instance();
         $this->tag = $CI->my_tag;
         $this->title = $CI->my_title;
-    }   
+    }
 
     /**
      * Make an entry page to create or update a record in the database (according to $page_type)
@@ -43,14 +43,14 @@ class Entry {
 
         // general specifications for page family
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
-        
+
         // make entry form object using form definitions from model
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
         $CI->cu->load_lib('entry_form', $form_def->specs, $this->config_source);
-        
+
         // get initial field values and merge them with form object
         $segs = array_slice($CI->uri->segment_array(), 2); // remove controller and function segments
         $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields);
@@ -73,7 +73,7 @@ class Entry {
         // handle special field options for entry form object
         $mode = $CI->entry_form->get_mode_from_page_type($page_type);
         $this->handle_special_field_options($form_def, $mode);
-        
+
         // build page display components and load page
         $data['tag'] = $this->tag;
         $data['title'] = $CI->gen_model->get_page_label($this->title, $page_type);
@@ -83,8 +83,8 @@ class Entry {
 
         $CI->load->helper(array('menu', 'link_util'));
         $data['nav_bar_menu_items']= set_up_nav_bar('Entry_Pages');
-        $CI->load->vars($data); 
-        $CI->load->view('main/entry_form');     
+        $CI->load->vars($data);
+        $CI->load->view('main/entry_form');
     }
 
     /**
@@ -100,7 +100,7 @@ class Entry {
         $suppress_btns = $me->gen_model->get_param('cmd_buttons');
         if(!$suppress_btns) {
             $btns = $me->entry_form->make_entry_commands($commands, $page_type);
-        }       
+        }
         return $btns;
     }
 
@@ -108,13 +108,13 @@ class Entry {
      * Handle special field options for entry form object
      * @param stdClass $form_def
      * @param string $mode
-     */ 
+     */
     protected
     function handle_special_field_options($form_def, $mode)
     {
         $CI = &get_instance();
 
-        $CI->entry_form->set_field_enable($form_def->field_enable);     
+        $CI->entry_form->set_field_enable($form_def->field_enable);
 
         if($mode) {
             $CI->entry_form->adjust_field_visibility($mode);
@@ -136,11 +136,11 @@ class Entry {
     {
         $CI = &get_instance();
         $CI->load->helper(array('entry_page'));
-        
+
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def= $CI->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
-        
+
         $valid_fields = $this->get_input_field_values($form_def->rules);
 
         // get field values from validation object
@@ -152,11 +152,11 @@ class Entry {
             if (!$valid_fields) {
                 throw new exception('There were validation errors');
             }
-            
+
             // $msg is an output parameter of call_stored_procedure
             $msg = '';
             $this->call_stored_procedure($input_params, $form_def, $msg);
-            
+
             // everything worked - compose tidings of joy
             $ps_links = $this->get_post_submission_link($input_params);
             $message = 'Operation was successful';
@@ -175,7 +175,7 @@ class Entry {
 
             // Read the value of $_POST['entry_cmd_mode']
             $entryCmdMode = filter_input(INPUT_POST, 'entry_cmd_mode', FILTER_SANITIZE_STRING);
-            
+
             // Add or update the mode property of the input params
             if (empty($entryCmdMode)) {
                 $input_params->mode = 'retry';
@@ -198,13 +198,13 @@ class Entry {
     {
         return entry_outcome_message($message, $option, 'main_outcome_msg');
     }
-    
+
     private
     function supplement_msg($message, $option)
     {
         return entry_outcome_message($message, $option, 'supplement_outcome_msg');
     }
-    
+
     /**
      * Get entry form builder object and use it to make HTML
      * @param stdClass $input_params
@@ -218,8 +218,8 @@ class Entry {
         // handle special field options for entry form object
         $mode = (property_exists($input_params, 'mode'))?$input_params->mode:'';
         $this->handle_special_field_options($form_def, $mode);
-        
-        // update entry form object with field values 
+
+        // update entry form object with field values
         // and any field validation errors
         foreach($form_def->fields as $field) {
             $CI->entry_form->set_field_value($field, $input_params->$field);
@@ -228,7 +228,7 @@ class Entry {
         // build HTML and return it
         return $CI->entry_form->build_display($mode);
     }
-    
+
     /**
      * Make post-submission links to list report and detail report
      * @param stdClass $input_params
@@ -239,9 +239,9 @@ class Entry {
         $CI = &get_instance();
         $ps_link_specs = $CI->gen_model->get_post_submission_link_specs();
         $actions = $CI->gen_model->get_actions();
-        return make_post_submission_links($CI->my_tag, $ps_link_specs, $input_params, $actions);        
+        return make_post_submission_links($CI->my_tag, $ps_link_specs, $input_params, $actions);
     }
-    
+
     /**
      * Call a stored procedure
      * @param stdClass $input_params
@@ -252,9 +252,9 @@ class Entry {
     function call_stored_procedure($input_params, $form_def, &$msg)
     {
         $CI = &get_instance();
-        
+
         $ok = $CI->cu->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->config_source);
-        if(!$ok) { 
+        if(!$ok) {
             throw new exception($CI->sproc_model->get_error_text());
         }
 
@@ -263,11 +263,11 @@ class Entry {
         if(!$success) {
             throw new exception($CI->sproc_model->get_error_text());
         }
-        
+
         $msg = $CI->sproc_model->get_parameters()->message;
         $this->update_input_params_from_stored_procedure_args($input_params);
     }
-    
+
     /**
      * Copy values from params that were bound to stored procedure arguments
      * back to input param object
@@ -283,16 +283,16 @@ class Entry {
                 $fn = ($arg['field'] == '<local>')?$arg['name']:$arg['field'];
                 if(isset($input_params->$fn) && $bound_params->$fn != '[no change]') {
                     $input_params->$fn = $bound_params->$fn;
-                }   
+                }
             }
         }
         if(isset($bound_params->mode)) {
             $input_params->mode = $bound_params->mode;
         }
     }
-    
+
     /**
-     * Make validation object and use it to 
+     * Make validation object and use it to
      * get field values from POST and validate them
      * @param mixed $rules
      * @return bool
@@ -307,14 +307,14 @@ class Entry {
         $CI->form_validation->set_rules($rules);
         return $CI->form_validation->run();
     }
-    
+
     /**
-     * Copy (shallow) input param object to proxy object 
-     * for actually supplying values to call stored procedure 
+     * Copy (shallow) input param object to proxy object
+     * for actually supplying values to call stored procedure
      * Returns a copy of $input_params, with disabled fields changed to [no change]
      * @param mixed $input_params
      * @param mixed $field_enable
-     * @return mixed 
+     * @return mixed
      */
     protected
     function make_calling_param_object($input_params, $field_enable)
@@ -323,7 +323,7 @@ class Entry {
         $calling_params = clone $input_params;
         $calling_params->mode = $CI->input->post('entry_cmd_mode');
         $calling_params->callingUser = get_user();
-        
+
         // adjust calling parameters for any disabled fields
         foreach($field_enable as $field => $status) {
             if($status == 'disabled') {
@@ -339,7 +339,7 @@ class Entry {
      * enable/disable checkbox field and the ones that do have will be
      * updated from the checked state of the associated checkboxes from POST.
      * @param mixed $field_enable
-     * @return mixed 
+     * @return mixed
      */
     protected
     function get_field_enable($field_enable)
@@ -357,5 +357,5 @@ class Entry {
         }
         return $field_enable;
     }
-    
+
 }

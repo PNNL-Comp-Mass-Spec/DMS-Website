@@ -28,13 +28,13 @@
 //
 if (is_string($result)) {
     echo $result;
-} else 
+} else
 if(is_array($result)){
     echo "<table style='border: 1px solid black; padding: 1px; margin: 15px; border-collapse: collapse'>\n";
-    $headerProcessed = false;   
+    $headerProcessed = false;
     foreach($result as $item) {
         $colDelimiter = "td";
-        
+
         if ($headerProcessed === false) {
             if (strpos($item, "||") >= 0) {
                 $colDelimiter = "th";
@@ -44,13 +44,13 @@ if(is_array($result)){
         }
 
         echo "<tr>";
-        
+
         // Split $item on vertical bars
         $columns = explode("|", $item);
         $colNumber = 0;
         foreach($columns as $columnValue) {
             $colNumber++;
-            
+
             // The first column should be empty; skip it if it is
             if ($colNumber == 1 && strlen($columnValue) == 0)
                 continue;

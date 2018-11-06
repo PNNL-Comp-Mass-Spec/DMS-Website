@@ -15,13 +15,13 @@
 <div id="factor_section" style="display:none;">
 <div>
 <?php # theta.applyFactorToDatabase is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='theta.applyFactorToDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  />
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='theta.removeFactorFromDatabase(runBlocking.requested_run_batch_blocking.updateDatabaseFromList)' title=""  />
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>
@@ -31,7 +31,7 @@ from selected items.
 <?= general_visibility_control('Blocking commands', 'blocking_section', '') ?>
 <div id="blocking_section" style="display:none;">
 <div>
-<input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='runBlocking.randomizeWithinBlocks()' id="btn_test" title=""  /> 
+<input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='runBlocking.randomizeWithinBlocks()' id="btn_test" title=""  />
 Randomize run order within blocks
 </div>
 <div>
@@ -39,11 +39,11 @@ Randomize run order within blocks
 <input type='input' size='2' id='block_input_setting' value='1' />
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='runBlocking.requested_run_batch_blocking.createBlocksFromBlockingFactor($("#blocking_factor_name").val())' id="btn_assign_bf" title="Assign requests to blocks"  /> 
+<input class='button lst_cmd_btn' type="button" value="Assign Blocks by Factor" onClick='runBlocking.requested_run_batch_blocking.createBlocksFromBlockingFactor($("#blocking_factor_name").val())' id="btn_assign_bf" title="Assign requests to blocks"  />
 Assign requests to blocks according to factor <input id='blocking_factor_name' value='' size='18'></input>
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Assign Blocks (Rnd)" onClick='runBlocking.createBlocksViaRandomAssignment()' id="btn_assign_rnd" title="Assign requests to blocks"  /> 
+<input class='button lst_cmd_btn' type="button" value="Assign Blocks (Rnd)" onClick='runBlocking.createBlocksViaRandomAssignment()' id="btn_assign_rnd" title="Assign requests to blocks"  />
 Assign requests to blocks randomly where block size is <input id='block_size' value='6' size='4'></input> (ignores Blocking Factor)
 </div>
 </div>

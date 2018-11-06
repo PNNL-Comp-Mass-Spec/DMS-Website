@@ -1,8 +1,8 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
-    
+
     /// -----------------------------------
     // create HTML to display search form for DMS
     //
@@ -43,7 +43,7 @@
         array('target' => 'Archive', 'search_key' => 'By Dataset ID', 'link' => 'archive/report/-/' ),
         array('target' => 'Requested Run', 'search_key' => 'By ID', 'link' => 'requested_run/report/-/' ),
         array('target' => 'Requested Run', 'search_key' => 'By Name', 'link' => 'requested_run/report/' ),
-        );  
+        );
 
         $str = '';
         $str .= "<select>\n";

@@ -2,13 +2,13 @@
 
 class Column_filter {
     const storage_name_root = "lr_column_filter_";
-    
+
     private $config_name = '';
     private $config_source = '';
     private $storage_name = '';
-    
+
     private $cur_filter_values = array();
-    
+
     /**
      * Constructor
      */
@@ -30,11 +30,11 @@ class Column_filter {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
         $this->storage_name = self::storage_name_root.$this->config_name.'_'.$this->config_source;
-            
+
         $this->clear_filter();
-        
+
         // try to get current values of filters from POST
-        $state = $this->get_current_filter_values_from_post();      
+        $state = $this->get_current_filter_values_from_post();
         if($state !== FALSE) {
             $this->cur_filter_values = $state;
             save_to_cache($this->storage_name, $state);

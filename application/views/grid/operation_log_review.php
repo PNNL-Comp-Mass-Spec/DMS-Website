@@ -36,7 +36,7 @@
         <option>BROKEN</option>
         <option>USER</option>
         <option>USER_UNKNOWN</option>
-        </select>       
+        </select>
     </td>
     <td><span>Type</span></td>
     <td>
@@ -46,7 +46,7 @@
         <option>Operation</option>
         <option>Configuration</option>
         <option></option>
-        </select>       
+        </select>
     </td>
 </tr>
 </table>
@@ -87,14 +87,14 @@
     var gridConfig = {
         maxColumnChars: 50,
         hiddenColumns: ['Year', 'Month', 'Day'],
-        staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type', 
-        {id:'Minutes', ned:true }, 
-        {id:'ID', formatter:myFormatterFactory.makeFor('interval'), ned:true }, 
-        {id:'Log', formatter:myFormatterFactory.makeFor('log'), ned:true }, 
-        {id:'Request', formatter:myFormatterFactory.makeFor('request'), ned:true }, 
-        {id:'Usage'}, 
-        {id:'Proposal'}, 
-        {id:'EMSL_User'}, 
+        staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type',
+        {id:'Minutes', ned:true },
+        {id:'ID', formatter:myFormatterFactory.makeFor('interval'), ned:true },
+        {id:'Log', formatter:myFormatterFactory.makeFor('log'), ned:true },
+        {id:'Request', formatter:myFormatterFactory.makeFor('request'), ned:true },
+        {id:'Usage'},
+        {id:'Proposal'},
+        {id:'EMSL_User'},
         {id:'Note', editor:Slick.Editors.LongText}],
         getLoadParameters: function() {
             var p = {};
@@ -130,7 +130,7 @@
             return { changes: paramXml };
         },
         afterSaveAction: function() {
-            myCommonControls.reload();          
+            myCommonControls.reload();
         },
         handleDataChanged: function(args) {
             myCommonControls.enableSave(true);
@@ -146,13 +146,13 @@
             }
         }
     }
-        
+
     // for the grunt work details
     var myUtil = {
         postImportAction: function() {
         },
         postUpdateAction: function() {
-                myCommonControls.enableSave(true);          
+                myCommonControls.enableSave(true);
         },
         initEntryFields: function() {
             var d = new Date();
@@ -163,12 +163,12 @@
         getRequestChangeXml: function(dataRows) {
             var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
             var mapP2A = [{p:'Request', a:'request'}, {p:'Usage', a:'usage'}, {p:'Proposal', a:'proposal'}, {p:'EMSL_User', a:'user'}];
-            return gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);         
+            return gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);
         },
         getIntervalChangeXml: function(dataRows) {
             var changes = myUtil.getChangedRows(dataRows, myUtil.isInterval);
             var mapP2A = [{p:'ID', a:'id'}, {p:'Note', a:'note'}];
-            return gamma.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);            
+            return gamma.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);
         },
         /// move to gridUtil
         getChangedRows: function(dataRows, filter) {
@@ -193,7 +193,7 @@
             if(myUtil.isDataset(row) && field === 'Usage') {
                 row.Usage = row.Usage.toUpperCase();
                 args.grid.invalidateRows([args.row]);
-                args.grid.render();     
+                args.grid.render();
             }
         },
         findInvalidUsageProposal: function(dataRows) {
@@ -205,20 +205,20 @@
                     return false;
                 }
             });
-            return message; 
+            return message;
         },
         isEditable: function(field, type) {
             if((field == 'Usage' || field == 'Proposal') && !(type == 'Dataset' || type == 'Long Interval')) return false;
             if(field == 'Note' && type != 'Long Interval') return false;
             if(type == 'Operation' || type == 'Configuration') return false;
-            return true;            
+            return true;
         },
         cellProtectionChecker: function(field, rowData) {
             return myUtil.isEditable(field, rowData.Type);
         }
     }
 
-    $(document).ready(function () { 
+    $(document).ready(function () {
         myGrid = mainGrid.init(gridConfig);
         myCommonControls = commonGridControls.init(myGrid);
         myImportExport = gridImportExport.init(myGrid, { postImportAction: myUtil.postImportAction });
@@ -226,21 +226,21 @@
 
         myUtil.initEntryFields();
         $('fieldset span').css('font-weight', 'bold');
-        
+
         $('#instrument_fld_chooser').prop('multiple', 'multiple').css('width', '300px');
         $('#instrument_fld_chooser').attr('data-placeholder', 'Select instruments (optional)');
         $("#instrument_fld_chooser option[value='']").remove();
         $('#instrument_fld_chooser').chosen({search_contains: true});
-        
+
         $('#usage_selector').css('width', '300px');
         $('#usage_selector').chosen({search_contains: true});
-        
+
         $('#type_selector').css('width', '300px');
         $('#type_selector').chosen({search_contains: true});
         //$('.spin_me').spinner(); // needs jquery UI 1.9+
     });
 
 </script>
-    
+
 </body>
 </html>

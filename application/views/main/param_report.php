@@ -29,7 +29,7 @@
 </td>
 </tr>
 </table>
-<input class="button search_btn" type="button" onclick="parRep.updateMyData('reset')" value="Search" id="search_button" /> &nbsp; &nbsp; 
+<input class="button search_btn" type="button" onclick="parRep.updateMyData('reset')" value="Search" id="search_button" /> &nbsp; &nbsp;
 
 <span id='search_controls_container' style='display:none;'>
 Sorting <a href="javascript:void(0)" onclick="lambda.toggleFilterVisibility('sorting_filter_container', 0.1, this)"><?= expansion_link_icon() ?></a> &nbsp;
@@ -84,7 +84,7 @@ $this->load->view("main/param_report_export");
     <script src="<?= base_url().'javascript/lcmd.js?version=103' ?>"></script>
 <?php else: ?>
     <script type='text/javascript'>
-        $(document).ready(function () { 
+        $(document).ready(function () {
             $('.sel_chooser').chosen({search_contains: true});
         });
     </script>

@@ -22,11 +22,11 @@ class Unit_Test extends CI_Controller {
     {
         $segs = array_slice($this->uri->segment_array(), 2);
         $testFile = (count($segs) == 0)? 'test' : $segs[0] . '_test';
-    
+
         $data['title'] = "DMS JavaScript Unit Tests";
-        $data['testFile'] = $testFile;  
-        
-        $this->load->vars($data);   
+        $data['testFile'] = $testFile;
+
+        $this->load->vars($data);
         $this->load->view('unit_tests/test_frame');
     }
 

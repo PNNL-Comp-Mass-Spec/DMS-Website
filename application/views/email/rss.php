@@ -7,7 +7,7 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/">
 
     <channel>
-    
+
     <title><?php echo $feed_name; ?></title>
 
     <link><?php echo $feed_url; ?></link>
@@ -30,5 +30,5 @@
     </item>
 
     <?php endforeach; ?>
-    
+
     </channel></rss>

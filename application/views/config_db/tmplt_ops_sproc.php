@@ -1,14 +1,14 @@
 
 
-------------------------------------------------- 
+-------------------------------------------------
 GRANT  EXECUTE  ON <?= $sprocName ?> TO [DMS_SP_User]
-------------------------------------------------- 
+-------------------------------------------------
 
 
-CREATE PROCEDURE <?= $sprocName ?> 
+CREATE PROCEDURE <?= $sprocName ?>
 /****************************************************
 **
-**  Desc: 
+**  Desc:
 **    Performs operation given by @mode
 **    on entity given by @ID
 **
@@ -17,8 +17,8 @@ CREATE PROCEDURE <?= $sprocName ?>
 **  Parameters:
 **
 **  Auth:   mem
-**  Date:   <?= $dt ?> 
-**    
+**  Date:   <?= $dt ?>
+**
 ** Pacific Northwest National Laboratory, Richland, WA
 ** Copyright 2009, Battelle Memorial Institute
 *****************************************************/
@@ -43,9 +43,9 @@ As
     Begin Try
 
         ---------------------------------------------------
-        -- 
+        --
         ---------------------------------------------------
-    
+
         If @mode = 'delete'
         Begin
             DELETE FROM <?= $table ?> WHERE ID = @ID
@@ -65,7 +65,7 @@ As
     End Try
     Begin Catch
         EXEC FormatErrorMessage @message output, @myError output
-        
+
         -- rollback any open transactions
         IF (XACT_STATE()) <> 0
             ROLLBACK TRANSACTION;

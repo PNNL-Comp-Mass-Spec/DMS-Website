@@ -3,7 +3,7 @@
 <form name="DBG" action="">
 
 <?php
-    // Buttons for https://dms2.pnl.gov/instrument_usage_report/report 
+    // Buttons for https://dms2.pnl.gov/instrument_usage_report/report
 ?>
 
 <hr>

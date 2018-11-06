@@ -3,17 +3,17 @@ require("Base_controller.php");
 
 /**
  * This controller allows users to sign up to be notified of
- * DMS events of the last 24 hours that are associated with 
+ * DMS events of the last 24 hours that are associated with
  * one or more campaign research teams that a user is a member of
  *
  * Example URLs:
  * http://dms2.pnl.gov/notification/report
  * http://dms2.pnl.gov/notification/user/D3L243
  * http://dms2.pnl.gov/notification/edit/D3L243
- * 
+ *
  * http://dms2.pnl.gov/notification/preview
  * http://dms2.pnl.gov/notification/email_user/D3L243
- * 
+ *
  * The daily e-mails are sent via a cron job that runs email_daily_notification.php
  * which instantiates this controller. To manually send the e-mails, go to:
  * http://dms2.pnl.gov/notification/email
@@ -148,7 +148,7 @@ class Notification extends Base_controller {
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $headers .= 'From: DMS Notification <dms@prismweb.pnnl.gov>' . "\r\n";
-        
+
         $users = $this->_get_notification_info();
 
         if(!array_key_exists($user, $users)) {
@@ -194,7 +194,7 @@ class Notification extends Base_controller {
             $msg = $this->load->view('email/notification_default', $data, true);
             mail($email, "Automatic DMS Event Notification", $msg, $headers);
             sleep (1);
-            
+
             if ($email === $users[$user]->email) {
                 echo "Mail for $user sent to $email\n";
             } else {

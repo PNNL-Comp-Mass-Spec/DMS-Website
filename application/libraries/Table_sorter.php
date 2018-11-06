@@ -3,7 +3,7 @@
 class Table_sorter {
     protected $column;
     protected $sort_filter = array();
-    
+
     // --------------------------------------------------------------------
     function __construct() {
     }
@@ -27,7 +27,7 @@ class Table_sorter {
         }
         return $table;
     }
-    
+
     /**
      * Compare values for an ascending sort
      * @param type $a
@@ -40,7 +40,7 @@ class Table_sorter {
         }
         return ($a[$this->column] < $b[$this->column]) ? -1 : 1;
     }
-    
+
     /**
      * Compare values for a descending sort
      * @param type $a
@@ -52,7 +52,7 @@ class Table_sorter {
             return 0;
         }
         return ($a[$this->column] > $b[$this->column]) ? -1 : 1;
-    } 
+    }
 
     /**
      * Sort a table on multiple columns
@@ -62,12 +62,12 @@ class Table_sorter {
      */
     function sort_multi_col($table, $sort_filter)
     {
-//print_r($sort_filter); echo '<hr>';   
+//print_r($sort_filter); echo '<hr>';
         $this->sort_filter = $sort_filter;
         usort($table, array($this, 'compare_multi_col'));
         return $table;
     }
-    
+
     /**
      * Compare multiple columns while sorting
      * @param type $a
@@ -77,9 +77,9 @@ class Table_sorter {
     function compare_multi_col($a, $b)
     {
 //print_r($a); echo '<br>---------<br>';print_r($b); echo '<hr>';
-        
+
         // Initially presume the two values are equal
-        $comparison = 0;    
+        $comparison = 0;
 
         // Work forward through the sorting columns
         // until we either come to a column where
@@ -106,6 +106,6 @@ class Table_sorter {
 //echo "a:$a[$col], b:$b[$col], col:$col, cmp:$comparison <hr>";
         return $comparison;
     }
-    
+
 
 }

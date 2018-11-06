@@ -1,17 +1,17 @@
 <?php       class Dms_statistics extends CI_Model {
-    
+
     // --------------------------------------------------------------------
-    function __construct() 
+    function __construct()
     {
         //Call the Model constructor
         parent::__construct();
     }
-    
+
     // --------------------------------------------------------------------
     function get_stats()
     {
         $results = array();
-        
+
         //--------------------------------------------------------------
         $this->db->select("Value AS total")->from("T_General_Statistics")->where("Category = 'Dataset_Count' AND Label = 'All'");
         $allDatasets = $this->db->get();
@@ -118,6 +118,6 @@
 
         return $results;
     }
-    
+
 
 }

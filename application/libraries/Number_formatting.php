@@ -40,7 +40,7 @@
         }
 
         if ($decimals === '-1') {
-            // Do not format 
+            // Do not format
             return $value;
         }
 
@@ -78,7 +78,7 @@
         if (strlen($formattedValue) >= $maxLength) {
             // Use exponential notation (scientific notation)
             // Construct the format string
-            // For example, if $decimals is 3, $formatString will be '%.3e'                 
+            // For example, if $decimals is 3, $formatString will be '%.3e'
             $formatString = '%.' . $decimals . 'e';
 
             $formattedValue = sprintf($formatString, $valueNum);

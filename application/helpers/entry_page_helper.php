@@ -1,4 +1,4 @@
-<?php  
+<?php
     //
     // Support functions for entry page features of base_controller
     //
@@ -9,7 +9,7 @@
 
     // Include application/libraries/Wildcard_conversion.php
     require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
-    
+
     /**
      * Get initial values for entry fields - URL will tell us where to get them
      * - defaults from config db
@@ -22,7 +22,7 @@
      * @return type
      */
     function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names)
-    {       
+    {
         $CI =& get_instance();
 
         $initial_field_values = array();
@@ -37,7 +37,7 @@
             $id = $segs[0];
             $CI->cu->load_mod('q_model', 'input_model', 'entry_page', $config_source);
             $initial_field_values =  $CI->input_model->get_item($id);
-            
+
         } else
         if($num_segs > 1) {
             // get values from an external source
@@ -65,7 +65,7 @@
     }
 
     /**
-     * Return an array (of field => value) containing fields defined 
+     * Return an array (of field => value) containing fields defined
      * in $col_mapping with values according to type of mapping defined
      * @param type $col_mapping
      * @param type $source_data
@@ -96,14 +96,14 @@
                     case 'Scrub':
                         $s = "";
                         $field = $a[$fld];
-                        
+
                         $patReq = '/(\[Req:[^\]]*\])/';
                         $matches = array();
                         preg_match_all($patReq, $field, $matches);
                         if(count($matches[0]) != 0) {
                             $s .= $matches[0][count($matches[0])-1];
                         }
-                        
+
                         $patDTA = '/(DTA:[a-zA-Z0-9_#\-]*)/';
                         preg_match($patDTA, $field, $matches);
                         if(count($matches) > 1) {
@@ -116,9 +116,9 @@
         }
         return $a;
     }
-    
+
     /**
-     * Override default values with values directly from URL segments 
+     * Override default values with values directly from URL segments
      * (based on matching segment and field order)
      * @param type $form_field_names
      * @param type $segs
@@ -126,13 +126,13 @@
      */
     function get_values_from_segs($form_field_names, $segs)
     {
-        $a = array();   
+        $a = array();
         $seg_val = current($segs);
         foreach($form_field_names as $field) {
             if($seg_val === FALSE) {
                 break;
             }
-            
+
             if($seg_val != '-') {
                 $a[$field] = convert_special_values($seg_val);
             }
@@ -168,23 +168,23 @@
         }
         return $str;
     }
-    
+
     /**
      * Make post-submission links to list report and detail report
      * "Go to list report" link is made by default if report action exists (unless overridden by "link_tag")
-     * 
+     *
      * Add rows to the general_params table in the Config DB to get additional post-submission links to appear
-     * - detail_id: Makes "Go to detail report" link (if show action exists) 
-     *              using the specified entry page field as the identifier 
+     * - detail_id: Makes "Go to detail report" link (if show action exists)
+     *              using the specified entry page field as the identifier
      *              unless suppressed by link_tag.
      *              'post_submission_detail_id' in the General Params table
-     * - link_tag:  Makes default "Go to list report" link point to a list report 
-     *              in a different page family, and prevents the 
+     * - link_tag:  Makes default "Go to list report" link point to a list report
+     *              in a different page family, and prevents the
      *              "Go to detail report" link from appearing.
      *              'post_submission_link_tag' in the General Params table
      * - link:      Adds an arbitrary link shown following successfully submitting the entry
      *              'post_submission_link' in the General Params table
-     * 
+     *
      * @param type $tag
      * @param type $ps_link_specs
      * @param type $input_params
@@ -193,7 +193,7 @@
      */
     function make_post_submission_links($tag, $ps_link_specs, $input_params, $actions)
     {
-        $lr_tg = '';        
+        $lr_tg = '';
         $dr_tag = '';
         $id = '';
 
@@ -204,7 +204,7 @@
         if($actions['report']) {
             $lr_tg = $tag;
         } else {
-            $lr_tg = '';        
+            $lr_tg = '';
         }
         // get base url tag for post submission detail report link
         if($actions['show'] && $ps_link_specs['link_tag'] == '') {
@@ -219,12 +219,12 @@
             $id = $input_params->$argName;
         }
         $x_tag = ($ps_link_specs['link'] != '')?json_decode($ps_link_specs['link'], true):null;
-    
+
         // make the HTML
         $links = "";
         if($lr_tg != ''){
             $url = site_url().$lr_tg."/report";
-            $links .= "&nbsp; <a href='$url'>Go to list report</a>";            
+            $links .= "&nbsp; <a href='$url'>Go to list report</a>";
         }
         if($dr_tag != '' && $id != '') {
             $url = site_url().$dr_tag."/show/".$id;
@@ -234,5 +234,5 @@
             $url = site_url().$x_tag["link"].$id;
             $links .= "&nbsp; <a href='$url'>".$x_tag["label"]."</a>";
         }
-        return $links;  
+        return $links;
     }

@@ -1,18 +1,18 @@
 <?php       class M_data_package_publish extends Model {
-    
+
     // --------------------------------------------------------------------
-    function __construct() 
+    function __construct()
     {
         //Call the Model constructor
         parent :: Model();
     }
-    
+
     // --------------------------------------------------------------------
     // get paths to analysis job results folders for jobs in given data package
     function get_data_package_job_results_folder_paths($data_package_ID)
     {
         $sql = <<<EOD
-SELECT 
+SELECT
         TDPA.Job ,
         ISNULL(AP.AP_archive_path, '') + '/' +
         ISNULL(TDS.DS_folder_name, TDS.Dataset_Num) + '/' +
@@ -51,7 +51,7 @@ EOD;
     function get_data_package_share_folder_paths($data_package_ID)
     {
         $sql = <<<EOD
-SELECT 
+SELECT
     REPLACE(Storage_Path_Relative, '\', '/') AS Storage_Path
 FROM    S_V_Data_Package_Export AS data_package_path
 WHERE   ID = $data_package_ID
@@ -65,8 +65,8 @@ EOD;
     function get_data_package_metadata($data_package_ID)
     {
         $sql = <<<EOD
-    
-SELECT  
+
+SELECT
     ID ,
     Name ,
     Description ,
@@ -93,11 +93,11 @@ EOD;
     function get_data_package_experiment_metadata($data_package_ID)
     {
         $sql = <<<EOD
-    
-SELECT 
+
+SELECT
     Experiment_ID ,
     Experiment ,
-    TRG.OG_name AS Organism, 
+    TRG.OG_name AS Organism,
     TC.Campaign_Num AS Campaign,
     CONVERT(VARCHAR(24), Created, 101) AS Created ,
     TEX.EX_reason AS Reason,
@@ -119,7 +119,7 @@ EOD;
     {
         $sql = <<<EOD
 
-SELECT  
+SELECT
     DS.Dataset_ID ,
     Dataset ,
     -- Experiment ,
@@ -151,13 +151,13 @@ SELECT
     VMA.Comment ,
     VMA.State ,
     TPA.[Package Comment] AS Package_Comment
-FROM  S_V_Data_Package_Analysis_Jobs_Export AS TPA 
+FROM  S_V_Data_Package_Analysis_Jobs_Export AS TPA
     INNER JOIN V_Mage_Analysis_Jobs AS VMA  ON VMA.Job = TPA.Job
-WHERE TPA.Data_Package_ID = $data_package_ID 
+WHERE TPA.Data_Package_ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-    
+
 
 }

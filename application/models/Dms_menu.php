@@ -1,10 +1,10 @@
 <?php
 class Dms_menu extends CI_Model {
-        
+
     var $configDBFolder = "";
 
     // --------------------------------------------------------------------
-    function __construct() 
+    function __construct()
     {
         //Call the Model constructor
         parent::__construct();
@@ -44,7 +44,7 @@ class Dms_menu extends CI_Model {
         if(!$dbh) {
             throw new Exception('Could not connect to menu config database at '.$dbFilePath);
         }
-        
+
         $mnu = array();
         foreach ($dbh->query("SELECT * FROM $menu_def_table", PDO::FETCH_ASSOC) as $row) {
             $mnu[] = $row;

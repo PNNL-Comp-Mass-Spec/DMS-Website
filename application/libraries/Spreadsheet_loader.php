@@ -1,14 +1,14 @@
 <?php
 
 class Spreadsheet_loader {
-    
+
     private $ss_rows = array();
     private $tracking_info_fields = array();
     private $aux_info_fields = array();
     private $aux_info_groups = array();
     private $entity_type = '';
     private $entity_list = array();
-    
+
     /**
      * Constructor
      */
@@ -24,7 +24,7 @@ class Spreadsheet_loader {
     {
         return $this->tracking_info_fields;
     }
-    
+
     /**
      * Get Aux Info fields
      * @return type
@@ -33,7 +33,7 @@ class Spreadsheet_loader {
     {
         return $this->aux_info_fields;
     }
-    
+
     /**
      * Read given spreadsheet TSV formatted file into an internal two-dimensional
      * array and parse it into supplementary arrays
@@ -43,14 +43,14 @@ class Spreadsheet_loader {
     function load($fname)
     {
         $filePath = "./uploads/$fname";
-    
+
         $mimeType = mime_content_type($filePath);
-        
+
         if (strpos($mimeType, 'spreadsheetml') > 0 || strpos($mimeType, 'ms-excel')) {
             // Excel file (either .xls or .xlsx)
             throw new exception(
                 "Save the Excel file as a tab-delimited text file: "
-                . "Choose File, then Save As, then for Type select Text");  
+                . "Choose File, then Save As, then for Type select Text");
         }
 
         if (strpos($mimeType, 'opendocument.spreadsheet') > 0 ) {
@@ -58,27 +58,27 @@ class Spreadsheet_loader {
             throw new exception(
                 "Save the spreadhsheet as a tab-delimited text file: "
                 . "Choose File, then Save As, then for Type select Text CSV; "
-                . "for the Field Delimiter select {TAB}");  
+                . "for the Field Delimiter select {TAB}");
         }
-        
+
         if (strpos($mimeType, 'octet-stream') > 0 ) {
             // Likely a unicode text file
             throw new exception(
-                "Unicode text files are not supported. Save as a plain text file with ASCII or UTF-8 encoding");            
+                "Unicode text files are not supported. Save as a plain text file with ASCII or UTF-8 encoding");
         }
-        
+
         if ($mimeType !== 'text/plain') {
             throw new exception("Upload a plain text file, not a file of type: $mimeType");
         }
-        
+
         // Enable auto-detection of line endings
         // This is especially important for reading text files saved from Excel on a Mac
         ini_set("auto_detect_line_endings", "1");
-        
+
         // Read the TSV file into an array of rows of fields
         $this->ss_rows = array();
         $handle = fopen($filePath, "r");
-        
+
         $rowCount = 0;
         while (($fields = fgetcsv($handle, 0, "\t")) !== FALSE) {
             $rowCount++;
@@ -86,16 +86,16 @@ class Spreadsheet_loader {
                 // Check for a UTF-8 file, which starts with:
                 // ASCII 239, ï
                 // ASCII 187, »
-                // ASCII 191, ¿ 
-                if (ord($fields[0][0]) == 239 && 
+                // ASCII 191, ¿
+                if (ord($fields[0][0]) == 239 &&
                     ord($fields[0][1]) == 187 &&
                     ord($fields[0][2]) == 191)
                 {
                     // This is a UTF-8 file; remove the first three characters from the first field
                     $fields[0] = substr($fields[0], 3);
-                }                       
+                }
             }
-            
+
             $this->ss_rows[] = $fields;
 
         }
@@ -106,31 +106,31 @@ class Spreadsheet_loader {
 
         $loadedRowCount = count($this->ss_rows);
         $stripCharsLineNum = -1;
-        
+
         for($i = 0; $i < $loadedRowCount; $i++) {
             $colCount = count($this->ss_rows[$i]);
             if ($colCount == 0)
                 continue;
-            
+
             if (trim(strtoupper($this->ss_rows[$i][0])) == "TRACKING INFORMATION") {
                 // The next line will have experiment names, dataset names, etc.
-                // Strip out characters above ascii 127 since those aren't allowed in DMS 
+                // Strip out characters above ascii 127 since those aren't allowed in DMS
                 $stripCharsLineNum = $i + 1;
             }
-            
+
             for($j = 0; $j < $colCount; $j++) {
                 if ($i == $stripCharsLineNum && $j > 0) {
                     $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
                 } else {
                     $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH);
                 }
-                
+
                 if ($this->ss_rows[$i][$j] != $sanitized) {
                     $this->ss_rows[$i][$j] = $sanitized;
                 }
             }
         }
-        
+
         // figure out where things are and build supplemental arrays
         $this->find_tracking_info_fields();
         $this->find_aux_info_fields();
@@ -167,9 +167,9 @@ class Spreadsheet_loader {
             throw new exception('The tracking info section was not terminated by "AUXILIARY INFORMATION" header');
         }
     }
-    
+
     /**
-     * Get list of aux info items, including their category, subcategory, 
+     * Get list of aux info items, including their category, subcategory,
      * and item names and the row number in the main data array.
      * this builds the $this->aux_info_fields array (flat array of items labeled with category and subcategory)
      *  and the $this->aux_info_groups (arrays of items nested within category/subcatory pairs)
@@ -196,12 +196,12 @@ class Spreadsheet_loader {
                         break;
                     }
                 }
-                
+
                 // Skip the row if it only has whitespace
                 if (!$rowHasData) {
                     continue;
                 }
-                
+
                 $name = $this->ss_rows[$i][0];
                 $has_data = ($colCount > 1 && $this->ss_rows[$i][1] != '');
                 if($has_data) {
@@ -230,7 +230,7 @@ class Spreadsheet_loader {
                     $o->subcategory = $subcategory;
                     $this->aux_info_groups[] = $o;
                     $in_data = TRUE;
-                }               
+                }
             }
             if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
                 $in_section = TRUE;
@@ -244,7 +244,7 @@ class Spreadsheet_loader {
     private $sup_mes = array (
         'header' => "The usual reason for this is either forgetting to include both category and subcategory headers for each aux info section, or leaving the value blank for an aux info item for the first entity",
     );
-    
+
     /**
      * Get array of field/values for the tracking information for the given entity
      * @param type $id
@@ -324,16 +324,16 @@ class Spreadsheet_loader {
                 }
                 $this->entity_type = $s;
                 break;
-            } 
+            }
         }
         if($this->entity_type == '') {
             throw new exception("Entity type is not defined");
         }
         if($this->entity_type != strtoupper($this->entity_type)) {
             throw new exception("Entity type '$this->entity_type' must be upper case");
-        }       
+        }
     }
-    
+
     /**
      * Get list of entities that are defined in spreadsheet
      */
@@ -345,11 +345,11 @@ class Spreadsheet_loader {
 
         // use row number to get row of entity values from parsed main data array
         $this->entity_list = $this->ss_rows[$row];
-        
+
         // first field is header column, get rid of it
         array_shift($this->entity_list);
-        
-        // sometimes spreadsheet has extra empty columns, 
+
+        // sometimes spreadsheet has extra empty columns,
         // so remove trailing blank entries starting at end of list and working forward
         while(!empty($this->entity_list)) {
             if(trim(end($this->entity_list)) == '') {
@@ -359,7 +359,7 @@ class Spreadsheet_loader {
             }
         }
     }
-    
+
     /**
      * Get extracted data
      * @return type
@@ -377,7 +377,7 @@ class Spreadsheet_loader {
     {
         return $this->entity_type;
     }
-    
+
     /**
      * Get entity list
      * @return type

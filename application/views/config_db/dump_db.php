@@ -59,7 +59,7 @@ Not implmented yet.
 <?php $this->load->view('resource_links/base2js') ?>
 
 <script type="text/javascript">
-    
+
 function search() {
     var file_filter = $('#file_filter').val();
     var table_filter = $('#table_filter').val();

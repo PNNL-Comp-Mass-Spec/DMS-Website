@@ -36,7 +36,7 @@ class File_attachment extends Base_controller {
             throw new Exception("configuration item 'file_attachment_local_root_path' is either not set or not a directory!");
         }
     }
-    
+
     /**
      * Validate the availability of the remote mount
      * @return Check_result
@@ -81,13 +81,13 @@ class File_attachment extends Base_controller {
             $result->message = $e->getMessage();
             $result->ok = false;
         }
-        
+
         if (ENVIRONMENT != 'production') {
             $result->ok = true;
         }
         return $result;
     }
-    
+
     /**
      * Validate the availability of the local storage path
      * @return Check_result
@@ -220,13 +220,13 @@ class File_attachment extends Base_controller {
             mkdir($config['upload_path'],0777,TRUE);
 
             $this->load->library('upload', $config);
-            
+
             // Upload the file from the user's computer to this server
-            // Store below BASEPATH/../attachment_uploads 
+            // Store below BASEPATH/../attachment_uploads
             if ( ! $this->upload->do_upload()) {
                 $resultMsg = $this->upload->display_errors();
             } else {
-                $data = $this->upload->data();      
+                $data = $this->upload->data();
                 $orig_name = $data["orig_name"];
                 $name = $data["file_name"];
                 $size = $data["file_size"];
@@ -268,7 +268,7 @@ class File_attachment extends Base_controller {
 
     /**
      * Copy a file from the source path to the specified destination, optionally creating a backup of an existing destination file
-     * 
+     *
      * @param type $src_path
      * @param type $root_path
      * @param type $entity_folder_path
@@ -300,7 +300,7 @@ class File_attachment extends Base_controller {
             $count = 0;
             while (file_exists($backup_path)) {
                 $count += 1;
-                $backup_path = $first_backup_path . $count;            
+                $backup_path = $first_backup_path . $count;
             }
 
             if (!copy($dest_path, $backup_path)) {
@@ -310,7 +310,7 @@ class File_attachment extends Base_controller {
         }
 
         // Old method: rename($src_path, $dest_path)
-        // Leads to warnings like this: 
+        // Leads to warnings like this:
         //   Warning --> rename(.../attachment_uploads/...,/mnt/dms_attachments/...): Operation not permitted
         // The solution is to use a copy then an unlink
 
@@ -505,7 +505,7 @@ class File_attachment extends Base_controller {
             $currentTimestamp = date("Y-m-d");
             return "Error querying database for attachment; see application/logs/log-$currentTimestamp.php";
         }
-        
+
         $entries = array();
         $icon_delete = table_link_icon('delete');
         $icon_download = table_link_icon('down');
@@ -558,7 +558,7 @@ class File_attachment extends Base_controller {
                 $result->message = "File '$filename' could not be found on server";
             }
         }
-        
+
         // Example JSON returned:
         // {"ok":false,"message":"Could not find entry for file in database","path":""}
         // {"ok":true,"message":"","path":"\/mnt\/dms_attachments\/experiment\/2000_5\/87\/MageMerge.docx"}
@@ -589,7 +589,7 @@ class File_attachment extends Base_controller {
             }
 
             //echo "-->" . $result ."<--";
-            
+
             if (!$result->ok) {
                 throw new Exception($result->message);
             }
@@ -672,7 +672,7 @@ class File_attachment extends Base_controller {
             echo "<tr><td>Local path</td><td>$local_folder_path</td></tr>\n";
             echo "</table>\n";
         }
-        
+
         $dest_path = "{$local_folder_path}/{$name}";
 
         try {
@@ -691,11 +691,11 @@ class File_attachment extends Base_controller {
             $size = number_format((filesize($dest_path) / 1024), 2, '.', '');
 
             $msg = $this->make_attachment_tracking_entry($name, $type, $id, $description, $size, $entity_folder_path);
-            
+
             if (strcasecmp($id, "SWDev") == 0 && strlen($msg) == 0) {
                 $msg = "<br>Created file $dest_path <br>and called make_attachment_tracking_entry";
             }
-            
+
         } catch (Exception $e) {
             $msg = $e->getMessage();
         }
@@ -725,7 +725,7 @@ class File_attachment extends Base_controller {
     function auxinfo($expID) {
         $this->load->database();
 
-        $contents = $this->getExperimentInfo($expID);       
+        $contents = $this->getExperimentInfo($expID);
         if (empty($contents)) {
             return;
         }
@@ -734,7 +734,7 @@ class File_attachment extends Base_controller {
              . "FROM V_Auxinfo_Experiment_Values "
              . "WHERE ID = $expID "
              . "ORDER BY Category, Subcategory, Item";
-        
+
         $resultSet = $this->db->query($sql);
         if (!$resultSet) {
             return;
@@ -776,7 +776,7 @@ class File_attachment extends Base_controller {
         if ($resultSet->num_rows() == 0) {
             return;
         }
-        
+
         $result = $resultSet->result_array();
         $fields = current($result);
         $id = $fields["Experiment"];
@@ -784,10 +784,10 @@ class File_attachment extends Base_controller {
         foreach($cols as $col) {
             $contents .= $col . "\t" . $fields[$col] . "\n";
         }
-        
+
         return $contents;
     }
-    
+
     /**
      * Verify that known attachments exist
      * By default only shows missing files
@@ -796,14 +796,14 @@ class File_attachment extends Base_controller {
      *
      * Example URLs:
      * http://dms2.pnl.gov/file_attachment/check_access
-     * http://dms2.pnl.gov/file_attachment/check_access/show_all_files   
+     * http://dms2.pnl.gov/file_attachment/check_access/show_all_files
      * http://dms2.pnl.gov/file_attachment/check_access/txt
      */
     function check_access(){
         try {
             $filterOption = $this->uri->segment(3, "");
             $filenameFilter = "";
-            
+
             if (strlen($filterOption) == 0)
                 $showAll = false;
             else {
@@ -814,7 +814,7 @@ class File_attachment extends Base_controller {
 
                 $showAll = true;
             }
-            
+
             $full_path = '';
             $this->load->database();
             $this->db->select("File_Name AS filename, Entity_Type as type, Entity_ID as id, archive_folder_path as path");
@@ -825,23 +825,23 @@ class File_attachment extends Base_controller {
             $this->table->set_template(array ('heading_cell_start'  => '<th style="text-align:left;">'));
 
             $headerColumns = array('File', 'Type', 'ID', 'Path');
-            
+
             if ($showAll) {
                 $headerColumns[] = 'Exists';
             }
 
             $this->table->set_heading($headerColumns);
-                
+
             foreach($resultSet->result() as $row) {
                 $full_path = "{$this->archive_root_path}{$row->path}/{$row->filename}";
-                
+
                 if (strlen($filenameFilter) > 0 && strpos(strtolower($row->filename), $filenameFilter) === false) {
                     // Skip this file
                     continue;
                 }
-                
+
                 $fileExists = file_exists($full_path);
-                
+
                 if ($showAll) {
                     $this->table->add_row($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
                 } else {
@@ -851,7 +851,7 @@ class File_attachment extends Base_controller {
                 }
             }
 
-            // Navigation table         
+            // Navigation table
             echo '<table cellpadding="10" style="border: 1px solid"><tr>' . "\n";
             echo '<td><a href="' . site_url() . 'file_attachment/check_access">Missing files</a></td>' . "\n";
             echo '<td><a href="' . site_url() . 'file_attachment/check_access/show_all_files">All files</a></td>' . "\n";

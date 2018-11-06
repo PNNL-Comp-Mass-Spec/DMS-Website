@@ -97,21 +97,21 @@ class Helper_inst_source extends Base_controller {
 
         // Open instrument source file and read the data line-by-line
         // Use this to generate data that will be displayed as a table
-        
+
         $headerRow = array();
         $files = array();
         $dirs = array();
         $other = array();
-        
+
         $headerRow[] = "||File or Directory||Type||Size||DMS Detail Report";
-        
+
         while (!feof ($file)) {
             $line = fgets ($file, 1024);
-            
+
             // skip blank lines
             if(preg_match("/^\s*$/", $line)) continue;
 
-            if ($data['subheading'] == "" && 
+            if ($data['subheading'] == "" &&
                 (strpos($line, "Folder:") === 0 || strpos($line, "Directory:") === 0)) {
                 $data['subheading'] = $line;
                 continue;
@@ -138,13 +138,13 @@ class Helper_inst_source extends Base_controller {
                 preg_match("/\.(sld|meth|log|bat)$/i", $value)  ) {
                 continue;
             }
-            
+
             // Make name into link, as appropriate (file or dir)
             // Do not link items that start with x_ or that end with .sld
             // Also skip text file Use_dir_slashAS_for_hidden_DotD_folders.txt
             if (($type == 'File' || $type == 'Dir') &&
                 !preg_match("/^x_/i", $valueClean) &&
-                !preg_match("/\.(sld|meth|txt|log)$/i", $value)             
+                !preg_match("/\.(sld|meth|txt|log)$/i", $value)
                )
             {
                 $lnk = "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"$valueClean\", \"replace\")' >$value</a>";
@@ -159,7 +159,7 @@ class Helper_inst_source extends Base_controller {
                        preg_match("/\.d$/i", $value) ) {
                 $datasetLink = "<a href=\"/dataset/show/" . $valueClean . "\" target=_blank>Show</a>";
             }
-            
+
             // Put into proper category
             switch($type) {
                 case 'File':
@@ -168,7 +168,7 @@ class Helper_inst_source extends Base_controller {
                         $fileInfo .= $size;
                     else
                         $fileInfo .= " ";
-                    
+
                     $files[] = $fileInfo . "|" . $datasetLink;
                     break;
 
@@ -180,26 +180,26 @@ class Helper_inst_source extends Base_controller {
                         $dirInfo .= " ";
 
                     $dirs[] = $dirInfo . "|" . $datasetLink;
-                    
+
                     if (preg_match("/\.d$/i", $value)) {
                         $showDotDMessage = true;
                     }
-                    
+
                     break;
 
                 default:
                     $other[] = "|$lnk|$type| |";
                     break;
-            }           
+            }
         }
-        
+
         if ($showDotDMessage) {
             $dirs[] = "";
             $dirs[] = "Use dir /ah to see hidden .D folders";
-        }   
-        
+        }
+
         fclose($file);
-    
+
         $result = array_merge($headerRow, $other, $dirs, $files);
         $data['result'] = $result;
 

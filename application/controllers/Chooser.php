@@ -9,7 +9,7 @@ class Chooser extends CI_Controller {
         parent::__construct();
         $this->load->helper(array('url', 'string', 'form'));
     }
-    
+
     // --------------------------------------------------------------------
     function index()
     {
@@ -28,7 +28,7 @@ class Chooser extends CI_Controller {
         $this->load->model('dms_chooser', 'choosers');
         echo $this->choosers->get_chooser($target_field_name, $chooser_name, $mode);
     }
-    
+
     // --------------------------------------------------------------------
     function get_chooser_list()
     {
@@ -43,7 +43,7 @@ class Chooser extends CI_Controller {
         }
         echo "</table>\n";
     }
-    
+
     /**
      * This returns list of selections for the specified chooser_name.  It is suitable for AJAX
      * @param type $chooser_name
@@ -52,9 +52,9 @@ class Chooser extends CI_Controller {
     {
         $this->load->model('dms_chooser', 'choosers');
         $x = array_keys( $this->choosers->get_choices($chooser_name) );
-        echo json_encode($x);       
+        echo json_encode($x);
     }
-    
+
     /**
      * This returns list of selections for the specified chooser_name.  It is suitable for AJAX
      * @param type $chooser_name
@@ -67,7 +67,7 @@ class Chooser extends CI_Controller {
         }
         $this->load->model('dms_chooser', 'choosers');
         $x = $this->choosers->get_filtered_choices($chooser_name, $filter_value);
-        echo json_encode($x);       
+        echo json_encode($x);
     }
 
 }

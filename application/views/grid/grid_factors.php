@@ -24,7 +24,7 @@
 <form>
 <fieldset>
     <legend class='ctl_legend'>Factors</legend>
-    
+
     <table>
     <tr>
     <td>
@@ -33,7 +33,7 @@
     <input type="radio" id="source_type_dataset" name="source_type" value="Dataset_Name"/><label for="source_type_dataset">Datasets</label>
     </div>
     </td>
-    
+
     <td>
     <div id='ds_chsr_panel' style='display:none;' class='ctls_grp' data-target='datasetItemList'>
     <span class='ctls' data-query='osm_package_datasets' >
@@ -43,10 +43,10 @@
     From Data package <input type='text' size='10' class='dms_autocomplete_chsr' data-query='data_package_list' /><a class='button' href='javascript:void(0)' >Get</a>
     </span>
     <span class='ctls'>
-    From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>   
+    From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
     </span>
     </div>
-    
+
     <div id='req_chsr_panel' class='ctls_grp' data-target='requestItemList'>
     <span class='ctls' data-query='osm_package_requests' >
     From OSM package <input type='text' size='10' class='dms_autocomplete_chsr' data-query='osm_package_list' /><a class='button' href='javascript:void(0)' >Get</a>
@@ -58,16 +58,16 @@
 
     </td>
     </tr>
-    
+
     <tr>
     <td colspan=2>
     <textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="epsilon.convertList('requestItemList', ',')" ></textarea>
     <textarea cols="100" rows="5" name="datasetItemList" id="datasetItemList" onchange="epsilon.convertList('datasetItemList', ',')" style="display:none;"></textarea>
     </td>
-    </tr>   
-    
+    </tr>
+
     </table>
-    
+
 </fieldset>
 </form>
 
@@ -109,7 +109,7 @@
             return { factorList: factorXML };
         },
         afterSaveAction: function() {
-            myCommonControls.reload();          
+            myCommonControls.reload();
         },
         handleDataChanged: function() {
             myCommonControls.enableSave(true);
@@ -119,7 +119,7 @@
             return function (e) {
                 ctx.menuEvtHandler(e);
             }
-        }   
+        }
     }
     var myUtil = {
         preImportAction: function(inputData) {
@@ -135,12 +135,12 @@
                 myCommonControls.enableSave(true);
         },
         postUpdateAction: function() {
-                myCommonControls.enableSave(true);          
+                myCommonControls.enableSave(true);
         },
         initEntryFields: function() {
         }
     }
-    
+
     // set up and manage filter section controls
     var sourceListSectionsUtil = {
         setup: function() {
@@ -159,29 +159,29 @@
             } else {
                 $('#req_chsr_panel').show();
                 $('#requestItemList').show();
-                $('#ds_chsr_panel').hide();             
+                $('#ds_chsr_panel').hide();
                 $('#datasetItemList').hide();
-            }       
+            }
         },
         setRequestSource: function(requests) {
             $('#requestItemList').val(requests.join(', '));
             $('#source_type_request').attr("checked","checked").button('refresh');
             var source = $("#source_selector input[type='radio']:checked").val();
-            this.setItemSource(source);         
+            this.setItemSource(source);
         },
         getSourceList: function() {
             var sourceType = $("#source_selector input[type='radio']:checked").val();
             var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
-            return { itemList:itemList, itemType:sourceType };          
-        }   
+            return { itemList:itemList, itemType:sourceType };
+        }
     }
-    
-    $(document).ready(function () { 
+
+    $(document).ready(function () {
         myGrid = mainGrid.init(gridConfig);
         myCommonControls = commonGridControls.init(myGrid);
-        myImportExport = gridImportExport.init(myGrid,  { 
+        myImportExport = gridImportExport.init(myGrid,  {
             preImportAction: myUtil.preImportAction,
-            postImportAction: myUtil.postImportAction, 
+            postImportAction: myUtil.postImportAction,
             postUpdateAction: myUtil.postUpdateAction,
             acceptNewColumnsOnUpdate: true
         });
@@ -196,6 +196,6 @@
     });
 
 </script>
-    
+
 </body>
 </html>

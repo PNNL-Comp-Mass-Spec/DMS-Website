@@ -5,14 +5,14 @@ class Dms_chooser extends CI_Model {
     /**
      * This array defines the selection list choosers and includes both cases
      * (direct list of options vs query db for options)
-     * @var type 
+     * @var type
      */
     var $choices = array();
-    
+
     /**
      * Constructor
      */
-    function __construct() 
+    function __construct()
     {
         //Call the Model constructor
         parent::__construct();
@@ -63,7 +63,7 @@ class Dms_chooser extends CI_Model {
         natcasesort($cl);
         return $cl;
     }
-    
+
     /**
      * Return choices list for given chooser
      * @param type $chooser_name
@@ -86,7 +86,7 @@ class Dms_chooser extends CI_Model {
                         $db = $this->choices[$chooser_name]["db"];
                     }
                     $my_db = $this->load->database($db, TRUE);
-                    $result = $my_db->query($this->choices[$chooser_name]["value"]);                    
+                    $result = $my_db->query($this->choices[$chooser_name]["value"]);
                     if($result) {
                         $options[""] = "-- choices --";
                         foreach($result->result_array() as $row) {
@@ -97,11 +97,11 @@ class Dms_chooser extends CI_Model {
                         }
                     }
                     break;
-            }       
+            }
         }
         return $options;
     }
-    
+
     /**
      * Return choices list for given chooser
      * @param type $chooser_name
@@ -133,7 +133,7 @@ class Dms_chooser extends CI_Model {
                         $sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);
                         $sql = "SELECT * FROM ($sx) TX WHERE val LIKE '%$filter_value%'";
                     }
-                    $result = $my_db->query($sql);                  
+                    $result = $my_db->query($sql);
                     if($result) {
                         foreach($result->result_array() as $row) {
                             $obj = new stdClass();
@@ -142,18 +142,18 @@ class Dms_chooser extends CI_Model {
                             $obj->label = $label;
                             if ($value != '') {
                                 $obj->value = $value ;
-                            } else { 
+                            } else {
                                 $obj->value = $label;
                             }
                             $options[] = $obj;
                         }
                     }
                     break;
-            }       
+            }
         }
         return $options;
-    }   
-    
+    }
+
     /**
      * Return HTML for a drop-down selector and suitable options for the specified chooser_name.
      * @param type $target_field_name Field Name
@@ -211,26 +211,26 @@ class Dms_chooser extends CI_Model {
                     $mode = 'prepend_underscore';
                 else
                     $mode = 'prepend';
-                
+
                 $str .= "$label ".$this->get_chooser($f_name, $pln, $mode, $seq);
                 break;
             case "picker.append":
                 $mode = ($delim == ',') ? 'append_comma' : 'append';
                 $str .= "$label ".$this->get_chooser($f_name, $pln, $mode, $seq);
-                break;  
+                break;
             case "picker.replace":
                 $mode = 'replace';
                 $str .= "$label ".$this->get_chooser($f_name, $pln, $mode, $seq);
-                break;  
+                break;
             case "list-report.helper":
                 $CI =& get_instance();
                 $CI->load->helper(array('string'));
                 $target_url = reduce_double_slashes(site_url().$target);
                 $str .= "$label <a href=\"javascript:epsilon.callChooser('$f_name', '$target_url', '$delim', '$xref')\"><img src='".base_url()."images/chooser.png' border='0'></a>";
-                break;  
+                break;
             case "picker.prevDate":
                 $str .= "$label <a href=\"javascript:epsilon.callDatepicker('$f_name')\"><img src='".base_url()."images/date.png' border='0'></a>";
-                break;  
+                break;
             case "picker.list":
                 $str .= "$label ".$this->get_list_chooser($f_name, $pln, 'replace', $seq);
                 break;
@@ -266,8 +266,8 @@ class Dms_chooser extends CI_Model {
         }
         $str .= "</table>";
         return $str;
-    }   
-    
+    }
+
     /**
      * Get link chooser
      * @param type $target_field_name
@@ -289,6 +289,6 @@ class Dms_chooser extends CI_Model {
         }
         $str .= "</table>";
         return $str;
-    }       
-    
+    }
+
 }

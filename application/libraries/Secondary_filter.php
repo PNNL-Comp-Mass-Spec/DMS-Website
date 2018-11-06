@@ -5,14 +5,14 @@ require_once('Wildcard_conversion.php');
 
 class Secondary_filter {
     const storage_name_root = "lr_sec_filter_";
-    
+
     private $config_name = '';
     private $config_source = "";
     private $storage_name = "";
-    
+
     private $qf_field_names = array('qf_rel_sel', 'qf_col_sel', 'qf_comp_sel', 'qf_comp_val');
     private $cur_qf_vals = array();
-    
+
     private $qf_num_filters = 4;
 
 
@@ -40,9 +40,9 @@ class Secondary_filter {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
         $this->storage_name = self::storage_name_root.$this->config_name.'_'.$this->config_source;
-                
+
         $this->clear_query_filter();
-        
+
         // try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post();
         if($state) {
@@ -56,7 +56,7 @@ class Secondary_filter {
             }
         }
     }
-    
+
     /**
      * Get current values for secondary filter if present in POST
      * Otherwise return FALSE
@@ -80,7 +80,7 @@ class Secondary_filter {
             return FALSE;
         }
     }
-    
+
     /**
      * Clear the filter
      */
@@ -88,11 +88,11 @@ class Secondary_filter {
     {
         for($i=0; $i<$this->qf_num_filters; $i++) {
             foreach($this->qf_field_names as $name) {
-                $this->cur_qf_vals[$i][$name]  = "";            
+                $this->cur_qf_vals[$i][$name]  = "";
             }
-        }                   
+        }
     }
-    
+
     /**
      * Collect info for building secondary filter display.
      * Combines information from given model with current state of this secondary filter
@@ -153,7 +153,7 @@ class Secondary_filter {
     {
         return $this->cur_qf_vals;
     }
-    
+
     /**
      * Get the storage path
      * @return type
@@ -162,7 +162,7 @@ class Secondary_filter {
     {
         return $this->storage_name;
     }
-    
+
     /**
      * Get cached values
      * @return type
@@ -192,7 +192,7 @@ class Secondary_filter {
                     $valueToStore = convert_special_values($items[$itemIdx]);
                 } else {
                     $valueToStore = $items[$itemIdx];
-                }               
+                }
                 $filter_state[$filterIdx][$name] = $valueToStore;
                 $itemIdx++;
             }
@@ -202,18 +202,18 @@ class Secondary_filter {
         $numFilters = count($filter_state);
         for($j = $numFilters; $j < $this->qf_num_filters; $j++) {
             foreach($this->qf_field_names as $name) {
-                $filter_state[$j][$name]  = "";         
-            }           
+                $filter_state[$j][$name]  = "";
+            }
         }
         return $filter_state;
-    }   
+    }
 
     /**
      * Save current filter values to the cache
      * @param type $filter_state
      */
     function save_filter_values($filter_state)
-    {       
+    {
         save_to_cache($this->storage_name, $filter_state);
     }
 

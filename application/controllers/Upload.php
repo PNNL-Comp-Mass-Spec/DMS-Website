@@ -73,7 +73,7 @@ class Upload extends Base_controller {
         if (IsNullOrWhiteSpace($file_name)) {
             $error = 'Filename is empty';
         } else {
-            
+
             $result = $_FILES['myfile']['error'];
             if ($result == 0) {
                 if (file_exists($target_path) && $target_path !== $destination_path) {
@@ -359,7 +359,7 @@ class Upload extends Base_controller {
             echo $message;
         }
     }
-    
+
     // --------------------------------------------------------------------
     private
     function get_entity_key($id, $entity_type, &$key, &$message)
@@ -388,8 +388,8 @@ class Upload extends Base_controller {
     }
 
     /**
-     * Build parameter object for calling stored procedure that updates the tracking entity.  
-     * The parameters pulled from the spreadsheet (defined by labels) will be mapped 
+     * Build parameter object for calling stored procedure that updates the tracking entity.
+     * The parameters pulled from the spreadsheet (defined by labels) will be mapped
      * to calling parameter names matching the stored procedure arguments
      * @param type $tracking_info
      * @param type $config_source
@@ -552,7 +552,7 @@ class Upload extends Base_controller {
                 }
             }
             if(!$good) {
-                $errors[] = "Tracking item '$field' near row $row is not recognized; " . 
+                $errors[] = "Tracking item '$field' near row $row is not recognized; " .
                             "re-export a new spreadsheet template from the $config_source detail report";
             }
         }
@@ -569,7 +569,7 @@ class Upload extends Base_controller {
         $this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
         $query = $this->model->get_rows('filtered_only');
         $result =  $query->result_array();
-        
+
         $errors = array();
         foreach($aux_info as $obj) {
             $good = FALSE;

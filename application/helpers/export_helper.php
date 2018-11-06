@@ -1,4 +1,4 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
@@ -13,11 +13,11 @@
         if(!empty($col_filter)) {
             $cols = $col_filter;
         }
-        
+
         $headers = implode("\t", fix_ID_column($cols));
 
         $data = get_tab_delimited_text($result, $cols);
-        
+
         // Use a file extension of .tsv for tab-separated
         // Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
         header("Content-type: application/x-msdownload");
@@ -32,11 +32,11 @@
         if(!empty($col_filter)) {
             $cols = $col_filter;
         }
-        
+
         $headers = implode("\t", fix_ID_column($cols));
 
         $data = get_tab_delimited_text($result, $cols);
-        
+
         header("Content-type: text/plain");
         header("Content-Disposition: attachment; filename=$filename.txt");
         echo "$headers\n$data";
@@ -47,7 +47,7 @@
     {
 
         $data = '';
-    
+
         // field data
         foreach($result as $row) {
             $line = '';
@@ -58,14 +58,14 @@
                 }
                 else {
                      $value = quote_if_contains_tab($value) . "\t";
-                }       
+                }
                 $line .= $value;
             }
             $data .= trim($line)."\n";
         }
-    
+
         $dataNoCR = str_replace("\r","",$data);
-        
+
         return $dataNoCR;
     }
     // --------------------------------------------------------------------
@@ -80,10 +80,10 @@
                      $value = "\t";
                 } else {
                      $value = quote_if_contains_tab($value) . "\t";
-                }   
+                }
                 $data .= trim($name ."\t" . $value)."\n";
         }
-    
+
         // detail report for aux info (if any)
         $ai = '';
         if(count($aux_info) > 0) {
@@ -97,13 +97,13 @@
                          $value = "\t";
                     } else {
                          $value = quote_if_contains_tab($value) . "\t";
-                    }   
-                    $line .= $value;            
+                    }
+                    $line .= $value;
                 }
                 $ai .= trim($line)."\n";
             }
         }
-    
+
         header("Content-type: text/plain");
         header("Content-Disposition: attachment; filename=$filename.txt");
         echo $data;
@@ -121,10 +121,10 @@
                      $value = "\t";
                 } else {
                      $value = quote_if_contains_tab($value) . "\t";
-                }   
+                }
                 $data .= trim($name ."\t" . $value)."\n";
         }
-    
+
         // detail report for aux info (if any)
         $ai = '';
         if(count($aux_info) > 0) {
@@ -139,12 +139,12 @@
                     } else {
                          $value = quote_if_contains_tab($value) . "\t";
                     }
-                    $line .= $value;            
+                    $line .= $value;
                 }
                 $ai .= trim($line)."\n";
             }
         }
-    
+
         // Use a file extension of .tsv for tab-separated
         // Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
         header("Content-type: application/x-msdownload");
@@ -164,21 +164,21 @@
         $fn = $dir.$scriptName.'.dot';
         $typ = "png";
         $fo = $dir.$scriptName.'.'.$typ;
-        
+
         // create dot file
         file_put_contents($fn, $s);
 
         // generate graph image from dot file
         $output = shell_exec("dot -T$typ -o $fo $fn");
         echo "<pre>$output</pre>";
-        
+
         // display graph image
         echo "<h2>Workflow for $scriptName Script</h2>";
         echo "<div style='width:60em;'>$description</div>";
         echo "<div style='height:1em;'></div>";
-        echo '<img src="'.base_url().$fo.'" ></img>';       
+        echo '<img src="'.base_url().$fo.'" ></img>';
     }
-    
+
     // --------------------------------------------------------------------
     // converts a job script from XML to a dot grapic file
     function convert_script_to_dot($script) {
@@ -190,7 +190,7 @@
         $dot_cmds .= 'node [ shape = "record"  color=black fontname = "Verdana" fontsize = 10 ]';
         $dot_cmds .= 'edge [ color=black fontname = "Verdana" fontsize = 10 ]';
         $dot_cmds .= "\n";
-        
+
         $steps = $xp->query("//Step");
         foreach ($steps as $step) {
              $description = "";
@@ -212,7 +212,7 @@
              //$dot_cmds .= "$step_number [label=\"$step_number $tool\"] [shape=$shape, color=$color]" . ";\n";
              $dot_cmds .= "$step_number [label = \"{ $step_number $tool| $description }\"]";
         }
-        
+
         $dependencies = $xp->query("//Depends_On");
         foreach ($dependencies as $dependency) {
              $step_number = $dependency->parentNode->getAttribute('Number');
@@ -224,10 +224,10 @@
              $line = "";
              if($test) {
                   $label = "[label=\"Skip if:$test\"]";
-             }    
+             }
              if($enable_only) {
                   $line = " [style=dotted]";
-             }    
+             }
              $dot_cmds .= "$target_step_number -> $step_number $label $line" . "\n";
         }
         $dot_cmds .= "}";
@@ -242,16 +242,16 @@
         $data = strtoupper(str_replace('_', ' ', $entity)). "\n";
         $data .= "\n";
         $data .= "TRACKING INFORMATION" . "\n";
-    
+
         foreach($result as $name => $value) {
                 if (!isset($value) || $value == "") {
                      $value = "\t";
                 } else {
                      $value .= "\t";
-                }   
+                }
                 $data .= trim($name ."\t" . $value)."\n";
         }
-    
+
         // detail report for aux info (if any)
         $ai = '';
         $ai .= "AUXILIARY INFORMATION" . "\n";
@@ -262,18 +262,18 @@
             // $fields = array("Category", "Subcategory", "Item", "Value");
             foreach($aux_info as $row) {
                 $line = '';
-    
+
                 if (!$firstRow) {
                     $prevCategory = $row['Category'];
                     $prevSubCategory = $row['Subcategory'];
                     $firstRow = False;
                 }
-    
+
                 $rowCategory = fix_data($row['Category']);
                 $rowSubCategory = fix_data($row['Subcategory']);
                 $rowItem = fix_data($row['Item']);
                 $rowValue = fix_data($row['Value']);
-    
+
                 if ($row['Category'] != $prevCategory) {
                     $ai .= trim($rowCategory)."\n".trim($rowSubCategory)."\n".trim($rowItem)."\t".trim($rowValue)."\n";
                 } else {
@@ -283,13 +283,13 @@
                         $ai .= trim($rowItem)."\t".trim($rowValue)."\n";
                     }
                 }
-    
+
                 $prevCategory = $row['Category'];
                 $prevSubCategory = $row['Subcategory'];
-    
+
             }
         }
-    
+
         // Use a file extension of .tsv for tab-separated
         // Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
         header("Content-type: application/x-msdownload");
@@ -315,10 +315,10 @@
         $ai = $CI->table->generate();
         $data['title'] = 'Spreadsheet Loader Template Contents';
         $data['content'] = $ti . $ai;
-        $CI->load->vars($data); 
+        $CI->load->vars($data);
         $CI->load->view('basic');
     }
-    
+
     // --------------------------------------------------------------------
     function fix_data($rowValue)
     {
@@ -331,11 +331,11 @@
     }
 
     // --------------------------------------------------------------------
-    function fix_ID_column($cols) 
-    {   
+    function fix_ID_column($cols)
+    {
         // Make a copy of the $cols array
         $colsCopy = $cols;
-        
+
         if (strtoupper(substr($colsCopy[0], 0, 2)) == "ID") {
             // The first column's name starts with ID
             // Excel will interpret this as meaning the file is an SYLK file (http://support.microsoft.com/kb/323626)
@@ -355,14 +355,14 @@
 
         // Look for a tab character in $value
         $pos = strpos($valueNoCrLf, "\t");
-        
+
         // Note that you must use !== instead of !=
         // See http://www.php.net/manual/en/function.strpos.php
         if ($pos !== false) {
             // Match found; surround with double quotes
-            // However, first replace double quotes with ""         
+            // However, first replace double quotes with ""
             return '"' . str_replace('"', '""', $valueNoCrLf) . '"';
         }
-        
+
         return $valueNoCrLf;
     }

@@ -25,7 +25,7 @@ function show_hide_block(name) {
 }
 function make_controller() {
     var reply = prompt("Base title for page family", '');
-    if (reply) 
+    if (reply)
     {
         var page = "<?= site_url(); ?>" + "config_db/make_controller/<?= $config_db ?>/" + reply;
         window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
@@ -40,7 +40,7 @@ $(document).ready(function (){show_hide_all('none')});
 <div id="body_container" >
 
 <h2 class='page_title'><?= $heading; ?></h2>
-<div style='min-height:2em;'> 
+<div style='min-height:2em;'>
 | &nbsp;
 <a href="javascript:void(0)" onclick="show_hide_all('block')" >Show Tables</a> &nbsp; | &nbsp;
 <a href="javascript:void(0)" onclick="show_hide_all('none')" >Hide Tables</a> &nbsp; | &nbsp;

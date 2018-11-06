@@ -1,4 +1,4 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
@@ -38,12 +38,12 @@ EOD;
      * @return string
      */
     function make_family_sql($my_db, $gen_parms)
-    {       
+    {
         $view_sql = "";
         $sa = array();
-        
+
         $table = '';
-        if(array_key_exists('base_table', $gen_parms)) {    
+        if(array_key_exists('base_table', $gen_parms)) {
             $table = $gen_parms['base_table'];
         }
         if(!$table) {
@@ -67,9 +67,9 @@ EOD;
                 $siz = $row['CHARACTER_MAXIMUM_LENGTH'];
                 $sa[] = array('argName' => $arg, 'colName' => $col, 'label' => $lbl, 'type' => $typ, 'size' => $siz);
             }
-        }       
+        }
 
-        if(array_key_exists('list_report_data_table', $gen_parms)) {            
+        if(array_key_exists('list_report_data_table', $gen_parms)) {
             // make view
             $viewName = $gen_parms['list_report_data_table'];
             $sep = '';
@@ -113,14 +113,14 @@ EOD;
 
         if(array_key_exists('entry_sproc', $gen_parms)) {
             $sprocEntry = $gen_parms['entry_sproc'];
-            $view_sql .= make_main_sproc_sql($sprocEntry, $table, $sa); 
+            $view_sql .= make_main_sproc_sql($sprocEntry, $table, $sa);
         } else {
             $view_sql .= "\n('entry_sproc') not defined\n\n";
         }
 
         if(array_key_exists('operations_sproc', $gen_parms)) {
             $sprocOperations = $gen_parms['operations_sproc'];
-            $view_sql .= make_operations_sproc_sql($sprocOperations, $table, $sa);  
+            $view_sql .= make_operations_sproc_sql($sprocOperations, $table, $sa);
         } else {
             $view_sql .= "\n('operations_sproc') not defined\n\n";
         }
@@ -140,7 +140,7 @@ EOD;
         $data['table'] = $table;
 
         $data['dt'] = date("m/d/Y");
-        
+
         $CI =& get_instance();
         $body = $CI->load->view('config_db/tmplt_ops_sproc', $data, true);
         return $body;
@@ -204,7 +204,7 @@ EOD;
             $updateSep =',';
         }
         $data['updts'] = $updts;
-        
+
         $CI =& get_instance();
         $body = $CI->load->view('config_db/tmplt_sproc', $data, true);
         return $body;
@@ -217,7 +217,7 @@ EOD;
      * @return string
      */
     function make_csharp($my_db, $sa)
-    {       
+    {
         $s = "";
         foreach($sa as $a) {
             $typ = "";
@@ -247,7 +247,7 @@ EOD;
      * @param string $title
      * @return type
      */
-    function make_controller_code($config_db, $page_fam_tag, $data_info, $title) 
+    function make_controller_code($config_db, $page_fam_tag, $data_info, $title)
     {
         $data['tag'] = $page_fam_tag;
         $data['title'] = $title;
@@ -256,7 +256,7 @@ EOD;
         $body = $CI->load->view('config_db/tmplt_controller', $data, true);
         return "<?php\n" . $body . "\n?>";
     }
-    
+
     /**
      * Dump contents of each config DB in $config_db_table_list
      * Display as an HTML table
@@ -264,14 +264,14 @@ EOD;
      */
     function make_table_dump_display($config_db_table_list)
     {
-        
+
         foreach($config_db_table_list as $db => $tables) {
 
             // set of each config db section with distinctive label
             echo "<hr>\n";
             echo "<span class='cfg_hdr'>$db</span>\n";
             echo "<a href='".site_url()."config_db/show_db/$db"."'>Config DB</a>";
-            echo "<br>\n";          
+            echo "<br>\n";
 
             // dump contents of each table
             foreach($tables as $table => $rows) {
@@ -311,7 +311,7 @@ EOD;
                 echo "<div style='height:1em;'></div>\n";
             }
             echo "\n\n";
-        }       
+        }
     }
 
     /**
@@ -367,14 +367,14 @@ EOD;
                             break;
                         case 'dbo':
                                 if(stripos($row['name'], 'data_table') || stripos($row['name'], 'sproc')) {
-                                    echo implode($sep, array_merge(array($db), $row));                                  
+                                    echo implode($sep, array_merge(array($db), $row));
                                     echo "\n";
                                 }
                             break;
                     }
                 }
             }
-        }       
+        }
     }
 
     /**
@@ -418,7 +418,7 @@ EOD;
 
         // build crosstab of parameters of interest
         $crosstab = array();
-        
+
         // content of each config db
         foreach($config_db_table_list as $db => $tables) {
             // dump contents of each table
@@ -438,14 +438,14 @@ EOD;
                 $crosstab[] = $output_row;
             }
         }
-        
+
         $s = '';
         // dump crosstab to output table
         $s .= "<table class='cfg_tab'>\n";
         // header row
         $s .= "<tr>\n";
         foreach(array_keys($params) as $c) {
-            $s .= "<th> $param_labels[$c] </th>\n";         
+            $s .= "<th> $param_labels[$c] </th>\n";
         }
         // data rows
         $s .= "</tr>\n";
@@ -518,10 +518,10 @@ EOD;
                         $v = '';
                     }
                 }
-                $s .= "<td>$link $v</td>\n";                
+                $s .= "<td>$link $v</td>\n";
             }
             $s .= "</tr>\n";
-        }   
+        }
         $s .= "</table>\n";
         return $s;
     }
@@ -543,13 +543,13 @@ EOD;
         if($range_size < 0) {
             return "Bad range";
         }
-        
+
         $rs = range($range_start_id, $range_stop_id);
         $rd = range($dest_id, $dest_id + $range_size);
         if(count(array_intersect($rs, $rd)) > 0) {
             return "Source and destination ranges overlap";
         }
-        
+
         $r = ($range_start_id == $range_stop_id)?"item '$range_start_id'":"items with $id_col between '$range_start_id' and '$range_stop_id'";
         $s = "-- move $r in front of item '$dest_id'\n";
 
@@ -560,7 +560,7 @@ EOD;
         $s .= " --close gap left by items in range\n";
 
         $s .= "update $table_name set $id_col =  $id_col + $range_size + $ceiling_id  where $id_col >= $dest_id and $id_col < $roof_id;\n";
-        $s .= "update $table_name set $id_col = $id_col - ($ceiling_id - 1) where $id_col > $ceiling_id and $id_col < $roof_id;"; 
+        $s .= "update $table_name set $id_col = $id_col - ($ceiling_id - 1) where $id_col > $ceiling_id and $id_col < $roof_id;";
         $s .= " --open gap at destination\n";
 
         $s .= "update $table_name set $id_col = ($id_col - $roof_id) + $dest_id where $id_col >= $roof_id;";
@@ -568,7 +568,7 @@ EOD;
 
         return $s;
     }
-    
+
     /**
      * Create the edit table header
      * @param string[] $cols

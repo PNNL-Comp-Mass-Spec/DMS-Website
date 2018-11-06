@@ -10,11 +10,11 @@
 gamma.pageContext = {};
 gamma.pageContext.site_url = '<?= site_url() ?>';
 
-$(document).ready(function () { 
+$(document).ready(function () {
     $('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // gamma.loadContainer(url, {}, ss_entity_list_container)
 });
 
-// called by javascript that is returned by upload operation 
+// called by javascript that is returned by upload operation
 // into iframe and which is run immediately
 function report_upload_results(file_name, error) {
     if(error != '') {
@@ -27,7 +27,7 @@ function report_upload_results(file_name, error) {
         clearSpreadsheetDisplay();
     }
 }
-function updateContainer(action, containerId, id) { 
+function updateContainer(action, containerId, id) {
     var url = gamma.pageContext.site_url + 'upload/' + action;
     var p = {};
     p.file_name = $('#uploaded_file_name').val();
@@ -43,7 +43,7 @@ function extract() {
 }
 function showSpreadsheetContents() {
     $('#ss_table_display_area').show();
-    updateContainer('extract_table', 'ss_table_container', ''); 
+    updateContainer('extract_table', 'ss_table_container', '');
 }
 function clearSpreadsheetDisplay() {
     $('#ss_table_display_area').hide();
@@ -67,7 +67,7 @@ function clearSpreadsheetDisplay() {
     // which in turn calls load in   application/libraries/Spreadsheet_loader.php" -->
  ?>
 <form action = "<?= site_url() ?>upload/load" method="post" enctype="multipart/form-data" target="upload_target" >
-File to upload: 
+File to upload:
 <input name="myfile" id="myfile" type="file" size="120"/>
 <input type="submit" name="submitBtn" value="Upload" title="Upload local file to DMS" />
 </form>

@@ -18,13 +18,13 @@
 <form>
 <fieldset>
     <legend class='ctl_legend'>Requested Runs</legend>
-    
+
     <table>
     <tr>
     <td>
     </td>
- 
-    <td>    
+
+    <td>
     <div id='req_chsr_panel' class='ctls_grp' data-target='requestItemList'>
     <span class='ctls' data-query='batch_requests' >
     From batch <input type='text' size='10' class='dms_autocomplete_chsr' data-query='requested_run_batch_list' /><a class='button' href='javascript:void(0)' >Get</a>
@@ -52,15 +52,15 @@
         </div>
     </td>
     </tr>
-    
+
     <tr>
     <td colspan=2>
     <textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="epsilon.convertList('requestItemList', ',')" ></textarea>
     </td>
-    </tr>   
-    
+    </tr>
+
     </table>
-    
+
 </fieldset>
 </form>
 
@@ -81,7 +81,7 @@
     gamma.pageContext.site_url = '<?= site_url() ?>';
     gamma.pageContext.save_changes_url = '<?= $save_url ?>';
     gamma.pageContext.data_url = '<?= $data_url ?>';
-    
+
     var myCommonControls;
     var myImportExport;
     var myBlockingUtil;
@@ -98,14 +98,14 @@
             myCommonControls.enableSave(false);
             myCommonControls.enableAddColumn(true);
             myUtil.setFactorSelection();
-            myUtil.setColumnMenuCommands();         
+            myUtil.setColumnMenuCommands();
         },
         getSaveParameters: function() {
             var mapP2A;
             var runParmColNameList = ['Status', 'Instrument', 'Cart', 'Block', 'Run_Order'];
             var dataRows = myGrid.grid.getData();
             var changes = gridUtil.getChanges(dataRows, 'Request');
-            
+
             var runParamChanges = [];
             var factorChanges = [];
             $.each(changes, function(idx, change) {
@@ -126,7 +126,7 @@
             return { factorList: factorXML, blockingList: runParamXML };
         },
         afterSaveAction: function() {
-            myCommonControls.reload();          
+            myCommonControls.reload();
         },
         handleDataChanged: function() {
             myCommonControls.enableSave(true);
@@ -136,9 +136,9 @@
             return function (e) {
                 ctx.menuEvtHandler(e);
             }
-        }   
+        }
     }
-    
+
     var myUtil = {
         lastNonFactorColumnName: 'Run_Order',
         initEntryFields: function() {
@@ -146,16 +146,16 @@
         },
         initializeBlockingControlPanel: function() {
             // wire up command buttons
-            $('#globally_randomize_btn').click(function() { myBlockingUtil.blockingOperation('global') }).attr('title', myBlockingUtil.titles.globally_randomize); 
-            $('#randomly_block_btn').click(function() { myBlockingUtil.blockingOperation('block') }).attr('title', myBlockingUtil.titles.randomly_block);  
-            $('#factor_block_btn').click(function() { myBlockingUtil.blockingOperation('factor') }).attr('title', myBlockingUtil.titles.factor_block);  
+            $('#globally_randomize_btn').click(function() { myBlockingUtil.blockingOperation('global') }).attr('title', myBlockingUtil.titles.globally_randomize);
+            $('#randomly_block_btn').click(function() { myBlockingUtil.blockingOperation('block') }).attr('title', myBlockingUtil.titles.randomly_block);
+            $('#factor_block_btn').click(function() { myBlockingUtil.blockingOperation('factor') }).attr('title', myBlockingUtil.titles.factor_block);
             // set block size selector options
             var el = $('#block_size_ctl');
             for(var i = 2; i < 10; i++) {
                 var opt = $('<option></option>').attr('value', i).text(i);
-                if(i == 4) opt.attr('selected',true)        
+                if(i == 4) opt.attr('selected',true)
                 el.append(opt);
-            }           
+            }
         },
         preImportAction: function(inputData) {
             if($.inArray('Request', inputData.columns) === -1) {
@@ -172,11 +172,11 @@
             myUtil.setColumnMenuCommands();
         },
         preUpdateAction: function(inputData) {
-            
+
         },
         postUpdateAction: function(newColumns) {
-            myCommonControls.enableSave(true);  
-            myUtil.setFactorColumnCommands(newColumns);     
+            myCommonControls.enableSave(true);
+            myUtil.setFactorColumnCommands(newColumns);
             myUtil.setFactorSelection();
         },
         validateNewFactorName: function(newFactorName) {
@@ -194,7 +194,7 @@
         setFactorSelection: function() {
             var factors = myUtil.getFactorColNameList();
             var el = $('#factor_select_ctl');
-            el.empty(); 
+            el.empty();
             $.each(factors, function(idx, factor) {
               el.append($('<option></option>').attr('value', factor).text(factor));
             });
@@ -205,7 +205,7 @@
             myGrid.grid.invalidateAllRows();
             myGrid.grid.render();
             myCommonControls.enableSave(true);
-        },      
+        },
         setColumnMenuCommands: function() {
             var blockCmds = [
                 {command:'randomize-global', title:'Randomize Globally', tooltip:myBlockingUtil.titles.globally_randomize },
@@ -219,7 +219,7 @@
             myGrid.setColumnMenuCmds(myBlockingUtil.runOrderFieldName, runOrderCmds, true);
 
             this.setFactorColumnCommands(myUtil.getFactorColNameList());
-            
+
             var cmdHandlers = {
                 'randomize-global': function(column, grid) { myBlockingUtil.blockingOperation('global'); },
                 'randomly-block': function(column, grid) { myBlockingUtil.blockingOperation('block', true); },
@@ -243,14 +243,14 @@
             $.each(myGrid.grid.getColumns(), function(idx, colDef) {
                 if(idx > ci) factorCols.push(colDef.field);
             });
-            return factorCols;          
-        }   
+            return factorCols;
+        }
     }
 
-    $(document).ready(function () { 
+    $(document).ready(function () {
         myGrid = mainGrid.init(gridConfig);
         myCommonControls = commonGridControls.init(myGrid);
-        myImportExport = gridImportExport.init(myGrid, { 
+        myImportExport = gridImportExport.init(myGrid, {
             preImportAction: myUtil.preImportAction,
             postImportAction: myUtil.postImportAction,
             preUpdateAction: myUtil.preUpdateAction,
@@ -260,7 +260,7 @@
 
         sourceListUtil.setup();
         gamma.autocompleteChooser.setup();
-        
+
         myBlockingUtil = runBlockingGridUtil.init(myGrid);
         myBlockingUtil.afterBlockingOperation = myUtil.afterBlockingOperation;
 
@@ -275,6 +275,6 @@
     });
 
 </script>
-    
+
 </body>
 </html>

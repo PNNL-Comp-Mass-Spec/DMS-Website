@@ -21,7 +21,7 @@
 				var obj = {};
 				obj.row = data[idx];
 				obj.blockNumber = 0;
-				obj.runOrder = 0;	
+				obj.runOrder = 0;
 				blockingObjList.push(obj);
 			});
 			this.setRandom(blockingObjList);
@@ -31,7 +31,7 @@
 			$.each(blockingObjList, function(idx, obj) {
 				obj.blockNumber = obj.row['Block'];
 				obj.runOrder = obj.row['Run_Order'];
-			});			
+			});
 		},
 		getUniqueListOfBlockNumbers: function(blockingObjList) {
 			blockNumberList = [];
@@ -50,7 +50,7 @@
 					ftList.push(bfv);
 				}
 			});
-			return ftList;			
+			return ftList;
 		},
 		getBlockingObjListByBlockNumberValue: function(blockingObjList, blk) {
 			var tmplist = [];
@@ -73,7 +73,7 @@
 		sortByRandomized: function(blockingObjList) {
 			return blockingObjList.sort(function(a,b){return a.rnd > b.rnd ? 1 : a.rnd < b.rnd ? -1 : 0 });
 		},
-		randomizeRunOrder: function(blockingObjList){	
+		randomizeRunOrder: function(blockingObjList){
 			var slist = this.sortByRandomized(blockingObjList);
 			$.each(slist, function(idx, obj){
 				obj.runOrder = idx + 1;
@@ -86,7 +86,7 @@
 				var tlist = context.getBlockingObjListByBlockNumberValue(blockingObjList, blockNumber);
 				context.randomizeRunOrder(tlist);
 			});
-		},		
+		},
 		createRandomBlocksToSize: function(blockingObjList, blkSize) {
 			var numBlocks = Math.ceil(blockingObjList.length / blkSize);
 			this.setRandom(blockingObjList);
@@ -118,9 +118,9 @@
 				}
 				if(obj.row[context.blockNumberFieldName] != obj.blockNumber) {
 					obj.row[context.blockNumberFieldName] = obj.blockNumber;
-					gridUtil.markChange(obj.row, context.blockNumberFieldName);			
+					gridUtil.markChange(obj.row, context.blockNumberFieldName);
 				}
-			});	
+			});
 		},
 		//---[blocking commands]----------
 		afterBlockingOperation: null,
@@ -157,7 +157,7 @@
 			var blkSize = $('#block_size_ctl').val();
 			if(param) {
 				var response = prompt('Block Size?', '4');
-				if(response) { 
+				if(response) {
 					blkSize = response;
 				} else {
 					return;
@@ -173,7 +173,7 @@
 				return
 			}
 			this.createRandomBlocksToSize(blockingObjList, blkSize);
-			return blockingObjList;	
+			return blockingObjList;
 		},
 		blockFromFactor: function(col_name) {
 			col_name = col_name || $('#factor_select_ctl').val();

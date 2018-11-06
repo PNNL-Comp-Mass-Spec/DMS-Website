@@ -178,7 +178,7 @@ class Freezer extends Base_controller {
             $currentTimestamp = date("Y-m-d");
             echo "Error loading active freezer locations; see application/logs/log-$currentTimestamp.php";
             return;
-            
+
         }
         //
         $storage = array();
@@ -262,7 +262,7 @@ class Freezer extends Base_controller {
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
             echo "Error loading freezer locations; see application/logs/log-$currentTimestamp.php";
-            return;           
+            return;
         }
         //
         $storage = array();
@@ -291,7 +291,7 @@ class Freezer extends Base_controller {
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
             echo "Error loading containers; see application/logs/log-$currentTimestamp.php";
-            return;            
+            return;
         }
         //
         $contents = array();
@@ -339,7 +339,7 @@ class Freezer extends Base_controller {
         if(!$rc_result) {
             $currentTimestamp = date("Y-m-d");
             echo "Error loading container row/column info; see application/logs/log-$currentTimestamp.php";
-            return;            
+            return;
         }
         $locs = $rc_result->result_array();
 

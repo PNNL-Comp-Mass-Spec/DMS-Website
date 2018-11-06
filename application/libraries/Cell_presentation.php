@@ -19,7 +19,7 @@ class Cell_presentation {
      * Constructor
      */
     function __construct() {
-        
+
     }
 
     /**
@@ -117,7 +117,7 @@ class Cell_presentation {
                 if ($noLink) {
                     $str .= "<td>$value</td>";
                 } else {
-                    // place target substitution marker 
+                    // place target substitution marker
                     // (and preserve special primary filter characters)
                     if (strpos($target, '@') === FALSE) {
                         $sep = (substr($target, -1) == '~') ? '' : '/';
@@ -327,7 +327,7 @@ class Cell_presentation {
     }
 
     /**
-     * 
+     *
      * @param type $colSpec
      * @param type $ref
      * @param type $value
@@ -391,7 +391,7 @@ class Cell_presentation {
     }
 
     /**
-     * 
+     *
      * @param type $col_name
      * @param type $col_sort
      * @return string
@@ -436,7 +436,7 @@ class Cell_presentation {
     }
 
     /**
-     * 
+     *
      * @param type $col_name
      * @return type
      */
@@ -472,7 +472,7 @@ class Cell_presentation {
             // ToolTip was not found using the column name
             // Check for a name that is preceded by a plus sign
             // This is used on pages where we have both a column_tooltip and a literal_link (or some other link) on the column
-            // For example, in page family dataset_pm_and_psm:  
+            // For example, in page family dataset_pm_and_psm:
             //   XIC_FWHM_Q3 defines a literal_link to a SMAQC page
             //   +XIC_FWHM_Q3 defines the tooltip for the XIC_FWHM_Q3 column
             $toolTip = $this->get_column_tooltip_work('+' . $col_name);
@@ -616,7 +616,7 @@ class Cell_presentation {
     }
 
     /**
-     * 
+     *
      * @param type $col_filter
      */
     function set_col_filter($col_filter) {

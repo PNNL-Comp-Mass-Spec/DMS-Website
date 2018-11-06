@@ -2,13 +2,13 @@
 
 class Primary_filter {
     const storage_name_root = "lr_pri_filter_";
-    
+
     private $config_name = '';
     private $config_source = '';
     private $storage_name = '';
-    
+
     private $cur_filter_values = NULL;
-    
+
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -35,9 +35,9 @@ class Primary_filter {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
         $this->storage_name = self::storage_name_root.$this->config_name.'_'.$this->config_source;
-                
+
         $this->clear_query_filter();
-        
+
         // try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post($filter_specs);
         if($state) {
@@ -90,7 +90,7 @@ class Primary_filter {
     {
         $this->cur_filter_values[$field]['value'] = $value;
     }
-    
+
     /**
      * Clear the value for each field in the filter
      */
@@ -109,7 +109,7 @@ class Primary_filter {
     {
         save_to_cache($this->storage_name, $this->cur_filter_values);
     }
-    
+
     /**
      * Reset (clear) the filter
      */

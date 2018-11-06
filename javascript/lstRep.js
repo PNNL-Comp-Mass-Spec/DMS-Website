@@ -1,11 +1,11 @@
-var lstRep = {	
+var lstRep = {
 	// load the filter panel according to the given layout mode
 	updateMyFilter: function($mode) {
-		lambda.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', lstRep.filter_observers_action); 
-		if($mode == 'minimal') { 
-			$('#show_more_filter').show();$('#show_less_filter').hide(); 
-		} else { 
-			$('#show_more_filter').hide();$('#show_less_filter').show(); 
+		lambda.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', lstRep.filter_observers_action);
+		if($mode == 'minimal') {
+			$('#show_more_filter').show();$('#show_less_filter').hide();
+		} else {
+			$('#show_more_filter').hide();$('#show_less_filter').show();
 		}
 	},
 	// bind observers to the filter fields to monitor filter status
@@ -33,7 +33,7 @@ var lstRep = {
 				$('#paging_container_upper').show();
 				$('#paging_container_lower').show();
 				lambda.updateContainer('report_paging', 'filter_form', 'paging_container_upper', lstRep.paging_cleanup_action);
-			} 	
+			}
 		}
 	},
 	// call paging action and also initialize checkbox state if this page is a helper
@@ -46,24 +46,24 @@ var lstRep = {
 	// go get some data rows
 	data_update_action: {
 		run:function(){
-			lambda.updateContainer('report_data', 'filter_form', 'data_container', lstRep.data_post_load_action); 	
+			lambda.updateContainer('report_data', 'filter_form', 'data_container', lstRep.data_post_load_action);
 		}
 	},
 	updateShowSQL: function(ignoreIfClosed) {
 		// Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
-		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/sql', 'filter_form', 'SQL', ignoreIfClosed); 
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/sql', 'filter_form', 'SQL', ignoreIfClosed);
 	},
 	updateShowURL: function(ignoreIfClosed) {
-		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/url', 'filter_form', 'URL', ignoreIfClosed); 
-	},	
+		gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/url', 'filter_form', 'URL', ignoreIfClosed);
+	},
 	// start the data update chain for the page
 	updateMyData: function(loading) {
 		if(loading == 'no_load') {
 			$('#data_container').html('Data will be displayed after you click the "Search" button.');
 		} else {
 			if(loading && loading == 'reset') $('#qf_first_row').val(1);
-			lstRep.data_update_action.run(); 	
-		}	
+			lstRep.data_update_action.run();
+		}
 	}
 } // lstRep
 
@@ -109,7 +109,7 @@ var sigma = {
 					if(response.result) {
 						alert(response.message);
 					} else {
-			        	$(dlg).dialog( "close" );        		
+			        	$(dlg).dialog( "close" );
 			        	context.onSave();
 			        }
 				});
@@ -122,7 +122,7 @@ var sigma = {
 	      close: function() {
 	          if(context.onClose) context.onClose();
 	      }
-	    });		
+	    });
 	},
 	makeFieldSpecsFromList: function(fieldList) {
 		var id, specs = [];
@@ -154,13 +154,13 @@ var sigma = {
 			tags += tmplt.replace(/@lbl@/g, fieldSpec.label).replace(/@id@/g, fieldSpec.id).replace('@v@', fieldSpec.value);
 		});
 		tags += '</table></form>';
-		return tags;		
+		return tags;
 	}
 }
 
 
 // after the page loads, set things in motion to populate it
-$(document).ready(function () { 
+$(document).ready(function () {
 		lstRep.updateMyFilter('minimal');
 		lstRep.updateMyData(gamma.pageContext.initalDataLoad);
 	 	lambda.reloadListReportData = function() { lstRep.updateMyData('autoload');}

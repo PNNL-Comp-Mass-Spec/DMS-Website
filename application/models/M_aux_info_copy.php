@@ -3,7 +3,7 @@ class M_aux_info_copy extends CI_Model {
 
     function init_definitions()
     {
-        $this->my_tag = "aux_info_copy";    
+        $this->my_tag = "aux_info_copy";
 
         // query to get data for existing record in database for editing
         $this->entry_page_data_cols = "*";
@@ -110,7 +110,7 @@ class M_aux_info_copy extends CI_Model {
     function add_or_update($parmObj, $command, &$sa_message)
     {
         $my_db = $this->db;
-                
+
         // Use Sproc_sqlsrv with PHP 7 on Apache 2.4
         // Use Sproc_mssql  with PHP 5 on Apache 2.2
         // Set this based on the current DB driver
@@ -120,21 +120,21 @@ class M_aux_info_copy extends CI_Model {
         $sproc_handler = $CI->sprochndlr;
 
         $sprocName = "CopyAuxInfo";
-        
+
         $sa_message = "";
 
         $input_params = new stdClass();
 
         $args = array();
-        
+
         $sproc_handler->AddLocalArgument($args, $input_params, "targetName",       $parmObj->TargetName,  "varchar", "input", 128);
          $sproc_handler->AddLocalArgument($args, $input_params, "targetEntityName", $parmObj->EntityID,    "varchar", "input", 128);
          $sproc_handler->AddLocalArgument($args, $input_params, "categoryName",     $parmObj->Category,    "varchar", "input", 128);
          $sproc_handler->AddLocalArgument($args, $input_params, "subCategoryName",  $parmObj->Subcategory, "varchar", "input", 128);
          $sproc_handler->AddLocalArgument($args, $input_params, "sourceEntityName", $parmObj->CopySource,  "varchar", "input", 128);
          $sproc_handler->AddLocalArgument($args, $input_params,  "mode",            $command,              "varchar", "input", 24);
-         $sproc_handler->AddLocalArgument($args, $input_params,  "message",         "",                    "varchar", "output", 512);        
-     
+         $sproc_handler->AddLocalArgument($args, $input_params,  "message",         "",                    "varchar", "output", 512);
+
 /*
  * Debug dump
 echo "mode ".$command."<br>";
@@ -148,7 +148,7 @@ return;
 
         $sproc_handler->execute($sprocName, $my_db->conn_id, $args, $input_params);
 
-        // Examine the result code       
+        // Examine the result code
         $result = $input_params->exec_result;
         $val = $input_params->retval;
 

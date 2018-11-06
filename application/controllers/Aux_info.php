@@ -160,7 +160,7 @@ class Aux_info extends CI_Controller {
             $fieldNames .= str_replace('!', '&#33;', $field) . '!';
         }
         $parmObj->FieldNamesEx = $fieldNames;
-        
+
         $fieldValues = '';
         foreach($parmObj->FieldValuesEx as $value) {
             $fieldValues .= str_replace('!', '&#33;', $value) . '!';

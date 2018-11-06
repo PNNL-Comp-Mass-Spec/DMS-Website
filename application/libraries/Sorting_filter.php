@@ -2,14 +2,14 @@
 
 class Sorting_filter {
     const storage_name_root = "lr_sort_filter_";
-    
+
     private $config_name = '';
     private $config_source = "";
     private $storage_name = "";
-    
+
     private $field_names = array('qf_sort_col', 'qf_sort_dir');
     private $cur_filter_values = array();
-    
+
     private $num_filters = 3;
 
     // --------------------------------------------------------------------
@@ -31,9 +31,9 @@ class Sorting_filter {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
         $this->storage_name = self::storage_name_root.$this->config_name.'_'.$this->config_source;
-                
+
         $this->clear_query_filter();
-        
+
         // try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post();
         if($state) {
@@ -47,7 +47,7 @@ class Sorting_filter {
             }
         }
     }
-    
+
     /**
      * Get current values for secondary filter if present in POST
      * otherwise return FALSE
@@ -71,7 +71,7 @@ class Sorting_filter {
             return FALSE;
         }
     }
-    
+
     /**
      * Reset (clear) the filter
      */
@@ -79,9 +79,9 @@ class Sorting_filter {
     {
         for($i=0;$i<$this->num_filters;$i++) {
             foreach($this->field_names as $name) {
-                $this->cur_filter_values[$i][$name]  = "";          
+                $this->cur_filter_values[$i][$name]  = "";
             }
-        }                   
+        }
     }
 
     /**
@@ -92,7 +92,7 @@ class Sorting_filter {
     {
         return $this->cur_filter_values;
     }
-    
+
     /**
      * Get the storage path
      * @return type
@@ -101,7 +101,7 @@ class Sorting_filter {
     {
         return $this->storage_name;
     }
-    
+
     /**
      * Get cached values
      * @return type

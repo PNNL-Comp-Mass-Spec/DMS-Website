@@ -1,4 +1,4 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
@@ -22,33 +22,33 @@ class Sproc_mssql extends Sproc_base {
         if(!$stmt) {
             throw new Exception("Statement initialization failed for $sprocName");
         }
-        
+
         reset($args);
         foreach($args as $arg) {
             $paramName = '@'.$arg['name'];  // sproc arg name needs prefix
             $paramType = constant($this->tpconv[$arg['type']]); // convert type name to constant
 
             $isOutput = $arg['dir'] == 'output'; // convert direction to boolean
-            
+
             $size = ($arg['size']) ? $arg['size'] : -1;
-            
+
             if ($arg['field'] == '<local>') {
                 $fieldName = $arg['name'];     // Field name is <local>; use the argument name as the field name
             } else {
                 $fieldName = $arg['field'];    // name of field member in param object (or null)
-            }    
+            }
 
 //            echo "arg:'{$paramName}', var:'{$fieldName}', type:'{$paramType}',  dir:'{$isOutput}',  size:'{$size}', (value)'{$input_params->$fieldName}' <br>";
-            
+
             $ok = mssql_bind($stmt, $paramName, $input_params->$fieldName, $paramType, $isOutput, false, $size);
             if(!$ok) {
                 throw new Exception("Error trying to bind field '$fieldName'");
             }
         }
         mssql_bind($stmt, "RETVAL", $input_params->retval, SQLINT2);  // always bind to return value from sproc
-        
+
         $input_params->exec_result = mssql_execute($stmt);
-        
+
         if(!$input_params->exec_result) {
             $ra_msg = mssql_get_last_message();
             throw new Exception($ra_msg);
@@ -56,7 +56,7 @@ class Sproc_mssql extends Sproc_base {
 
         // Process the results here, before we call mssql_free_statement()
         $result = $input_params->exec_result;
-        
+
         $input_params->exec_result = new stdclass();
         $input_params->exec_result->hasRows = false;
         if(is_resource($result)){
@@ -66,7 +66,7 @@ class Sproc_mssql extends Sproc_base {
             $input_params->exec_result->metadata = $metadata;
             $input_params->exec_result->rows = $rows;
         }
-        mssql_free_statement($stmt);        
+        mssql_free_statement($stmt);
     }
 
     /**
@@ -83,7 +83,7 @@ class Sproc_mssql extends Sproc_base {
         mssql_free_result($result);
         return $result_array;
     }
-    
+
     /**
      * This builds up column metadata definitions
     // (it is copied from CI mssql_result driver)
@@ -93,7 +93,7 @@ class Sproc_mssql extends Sproc_base {
     private function extract_field_metadata($result)
     {
         $metadata = array();
-        while ($field = mssql_fetch_field($result)) {    
+        while ($field = mssql_fetch_field($result)) {
             $F                 = new stdClass();
             $F->name         = $field->name;
             $F->type         = $field->type;
@@ -102,20 +102,20 @@ class Sproc_mssql extends Sproc_base {
         }
         return $metadata;
     }
-    
+
     // --------------------------------------------------------------------
     // (someday) 'varchar' => constant('SQLVARCHAR'), ??
     // conversion of sproc arg data type
     // from config definition to SQL Server binding value
     // (this list is partial)
     private $tpconv = array(
-        'varchar' => 'SQLVARCHAR', 
-        'int' => 'SQLINT4',  
+        'varchar' => 'SQLVARCHAR',
+        'int' => 'SQLINT4',
         'tinyint' => 'SQLINT1',
         'real' => 'SQLFLT4',
-        'text' => 'SQLTEXT',  
-        'smallint' => 'SQLINT2',  
+        'text' => 'SQLTEXT',
+        'smallint' => 'SQLINT2',
         'char' => 'SQLCHAR'
     );
-    
+
 }

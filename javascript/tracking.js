@@ -7,7 +7,7 @@ var tracking = {
 			var data = [];
 			$.each(lines, function(lineNumber, line){
 				line = gamma.trim(line);
-				if(line) {	
+				if(line) {
 					var fields = gamma.parse_lines(line)
 					if(lineNumber == 0) {
 						header = fields;
@@ -90,7 +90,7 @@ var tracking = {
 							obj.value = value;
 							flist.push(obj);
 						}
-					});				
+					});
 				}
 			});
 			return flist;
@@ -126,14 +126,14 @@ var tracking = {
 			xml += 'p="' + $('#move_to').val() + '" ';
 			xml += 'a="' + $('#move_hours').val() + '" ';
 			xml += 'g="' + $('#move_group').val() + '" ';
-			xml += 'x="' + $('#move_comment').val() + '" ';	
+			xml += 'x="' + $('#move_comment').val() + '" ';
 			xml += ' />';
 			xml += '<r ';
 			xml += 'o="d" ';
 			xml += 'p="' + $('#move_from').val() + '" ';
 			xml += 'a="' + $('#move_hours').val() + '" ';
 			xml += 'g="' + $('#move_group').val() + '" ';
-			xml += 'x="' + $('#move_comment').val() + '" ';	
+			xml += 'x="' + $('#move_comment').val() + '" ';
 			xml += ' />';
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
@@ -148,8 +148,8 @@ var tracking = {
 			xml += 'p="' + $('#set_to').val() + '" ';
 			xml += 'a="' + $('#set_hours').val() + '" ';
 			xml += 'g="' + $('#set_group').val() + '" ';
-			xml += 'x="' + $('#set_comment').val() + '" ';	
-			xml += ' />';	
+			xml += 'x="' + $('#set_comment').val() + '" ';
+			xml += ' />';
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.parameterList = xml;

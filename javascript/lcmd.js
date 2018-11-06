@@ -87,12 +87,12 @@ var lcmd = {
 			console.log("Contacting " + url);
 			console.log("with p.paramListXML = " + list);
 			console.log("and p.removeParents = " + removeParents);
-			
+
 			var p = {};
 			p.command = mode;
 			p.paramListXML = list;
 			p.removeParents = removeParents;
-			
+
 			// Call stored procedure UpdateDataPackageItemsXML
 			// lambda.submitOperation is defined in dms2.js
 			lambda.submitOperation(url, p, true);
@@ -111,7 +111,7 @@ var lcmd = {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select datasets.'); 
+				alert('You must select datasets.');
 				return;
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
@@ -154,7 +154,7 @@ var lcmd = {
 			//   move_container
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select containers.'); 
+				alert('You must select containers.');
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;
@@ -176,7 +176,7 @@ var lcmd = {
 			// Checkbox names come from column #I_ID in view V_Material_Items_List_Report
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select items.'); 
+				alert('You must select items.');
 				return;
 			}
 			if(list.length > 4096) {
@@ -204,7 +204,7 @@ var lcmd = {
 					list  += rows[i].value;
 			}
 			if(list=='') {
-				alert('You must select items'); 
+				alert('You must select items');
 				return;
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
@@ -223,7 +223,7 @@ var lcmd = {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select requested runs.'); 
+				alert('You must select requested runs.');
 				return;
 			}
 			if(list.length > 4096) {
@@ -246,7 +246,7 @@ var lcmd = {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select prep requests.'); 
+				alert('You must select prep requests.');
 				return;
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
@@ -265,7 +265,7 @@ var lcmd = {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select at least one manager.'); 
+				alert('You must select at least one manager.');
 				return;
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
@@ -278,13 +278,13 @@ var lcmd = {
 			p.managerIDList = list;
 			lambda.submitOperation(url, p);
 		}
-	},	
+	},
 	mc_enable_control_by_manager_type: {
 		op: function(mode, newValFld) {
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx');
 			if(list=='') {
-				alert('You must select at least one manager type.'); 
+				alert('You must select at least one manager type.');
 				return;
 			}
 			if ( !confirm("Are you sure that you want to update the database?") )
@@ -297,16 +297,16 @@ var lcmd = {
 			p.managerTypeIDList = list;
 			lambda.submitOperation(url, p);
 		}
-	},	
+	},
 	dataset_ext_cmds: {
 		transferData: function (perspective, dslist) {
-	
+
 			var commalist = $('#' + dslist).val();
 
 			// lambda.getCkbxList is in dms2.js
 			var list = lambda.getCkbxList('ckbx' );
 			if(list=='' && commalist=='') {
-				alert('You must select at least 1 dataset or enter 1 dataset id.'); 
+				alert('You must select at least 1 dataset or enter 1 dataset id.');
 				return;
 			}
 			//Add or Remove trailing comma
@@ -320,10 +320,10 @@ var lcmd = {
 			{
 				commalist = commalist.substring(0, commalist.length-1)
 			}
-	
+
 			if ( !confirm("Are you sure that you want to transfer the selected data?") )
 				return;
-	
+
 			var url =  gamma.pageContext.site_url + "/data_transfer/" + perspective;
 			var p = {};
 			p.perspective = perspective;
@@ -334,7 +334,7 @@ var lcmd = {
 	lc_cart_request_loading: {
 		getEditFieldsObjList: function () {
 			// go through editable fields and build array of objects
-			// where each object references the fields for 
+			// where each object references the fields for
 			// one block
 			var rlist = [];
 			$('.Cart').each(function(idx, cartField) {
@@ -405,20 +405,20 @@ var lcmd = {
 		}
 	},
 	dataset_instrument_runtime: {
-		// get data rows via an AJAX call for list report 
+		// get data rows via an AJAX call for list report
 		// using all the current search filters, and build graph from it
 		download_to_graph: function() {
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export_param/json'
 			var p = $('#entry_form').serialize();
 			gamma.getObjectFromJSON(url, p, 'graph_container', function(rows) {
 					lcmd.dataset_instrument_runtime.draw_graph(rows);
-			}); 
+			});
 		},
 		draw_graph: function(rows) {
 			var caption = "Dataset Acquisition/Interval Time For " + $('#instrumentName').val() + " From " + $('#startDate').val() + " To " + $('#endDate').val()
-			$('#caption_container').html(caption);			
-			var dataSeriesSet = lcmd.dataset_instrument_runtime.make_data_series_from_column(rows, "Duration") ;		
-			var graphFormatting = lcmd.dataset_instrument_runtime.set_graph_format();	
+			$('#caption_container').html(caption);
+			var dataSeriesSet = lcmd.dataset_instrument_runtime.make_data_series_from_column(rows, "Duration") ;
+			var graphFormatting = lcmd.dataset_instrument_runtime.set_graph_format();
 			$('#graph_container').show();
 		    var f = $.plot($('#graph_container'), dataSeriesSet, graphFormatting);
 		},
@@ -451,10 +451,10 @@ var lcmd = {
 		set_graph_format: function() {
 			return { yaxis: { min: 0 }, bars: { show:true, barWidth:0.5 } };
 		}
-	}			
+	}
 } // lcmd
 
-$(document).ready(function () { 
+$(document).ready(function () {
 	$('.sel_chooser').chosen({search_contains: true});
 	if(gamma.pageContext.my_tag == 'requested_run_factors') {
 		gamma.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;

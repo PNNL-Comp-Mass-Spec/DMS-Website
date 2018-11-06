@@ -12,7 +12,7 @@ class Grid_data {
     function __construct()
     {
     }
-    
+
     /**
      * Initialize the grid data
      * @param type $config_name
@@ -50,7 +50,7 @@ class Grid_data {
             $response->rows = $result->result_array();
         } catch (Exception $e) {
             $response->result = 'error';
-            $response->message = 'get_query_data: ' . $e->getMessage();         
+            $response->message = 'get_query_data: ' . $e->getMessage();
         }
         echo json_encode($response);
     }
@@ -65,7 +65,7 @@ class Grid_data {
     function get_sproc_data($paramArray, $config_name = '')
     {
         $CI = &get_instance();
-        
+
         if(!$config_name) {
             $config_name = $this->config_name;
         }
@@ -78,7 +78,7 @@ class Grid_data {
             if(!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
-            
+
             $fields = $CI->sproc_model->get_sproc_fields();
             $paramObj = $this->get_input_values($fields, $paramArray);
             $calling_params = $CI->sproc_model->get_calling_args($paramObj);
@@ -87,21 +87,21 @@ class Grid_data {
             if(!$success) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
-    
+
             $response->result = 'ok';
-            $response->message = $CI->sproc_model->get_parameters()->message;   
-            
+            $response->message = $CI->sproc_model->get_parameters()->message;
+
             $response->columns = $CI->sproc_model->get_col_names();
             $response->rows = $CI->sproc_model->get_rows();
         } catch (Exception $e) {
             $response->result = 'error';
-            $response->message = 'get_sproc_data: ' . $e->getMessage();         
+            $response->message = 'get_sproc_data: ' . $e->getMessage();
         }
         return $response;
     }
 
     // --------------------------------------------------------------------
-    private 
+    private
     function get_input_values($fields, $paramArray) {
         if($paramArray === false) {
             $paramArray = array();
@@ -112,10 +112,10 @@ class Grid_data {
         }
         return $paramObj;
     }
-    
+
     // --------------------------------------------------------------------
     private
-    function make_col_specs($colNames) 
+    function make_col_specs($colNames)
     {
         $colSpec = array();
         foreach($colNames as $colName) {

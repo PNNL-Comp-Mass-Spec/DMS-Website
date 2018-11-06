@@ -4,29 +4,29 @@
  * Manages specifications for an entry form
  */
 class E_model extends CI_Model {
-    
+
     private $config_name = '';
     private $config_source = '';
     private $configDBFolder = "";
-    
+
     /**
      * Definitions of fields for entry form
-     * @var type 
+     * @var type
      */
     private $form_fields = array();
 
     /**
      * Definitions of external sources for entry form
-     * @var type 
+     * @var type
      */
     private $external_sources = array();
 
     /**
      * Definitions of entry page commands
-     * @var type 
+     * @var type
      */
     private $entry_commands = array();
-        
+
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -34,7 +34,7 @@ class E_model extends CI_Model {
         parent::__construct();
         $this->configDBFolder = $this->config->item('model_config_path');
     }
-    
+
     // --------------------------------------------------------------------
     function init($config_name, $config_source)
     {
@@ -42,7 +42,7 @@ class E_model extends CI_Model {
         try {
             $this->config_name = $config_name;
             $this->config_source = $config_source;
-    
+
             $dbFileName = $config_source . '.db';
 
             $this->get_entry_form_definitions($config_name, $dbFileName);
@@ -54,7 +54,7 @@ class E_model extends CI_Model {
     }
 
     /**
-     * Return an object with member fields representing the different parameter collections 
+     * Return an object with member fields representing the different parameter collections
      * that are defined for the entry mode.
      * The specific collections are selected by the input list array
      * ('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands')
@@ -70,13 +70,13 @@ class E_model extends CI_Model {
         }
         if(in_array('rules', $which_ones)) {
             $form_def->rules = $this->get_field_validation_rules();
-        }   
+        }
         if(in_array('specs', $which_ones)) {
             $form_def->specs = $this->form_fields;
-        }   
+        }
         if(in_array('load_key', $which_ones)) {
             $form_def->load_key = $this->get_load_key();
-        }   
+        }
         if(in_array('enable_spec', $which_ones)) {
             $form_def->enable_spec = $this->get_enable_field_specifications();
         }
@@ -152,7 +152,7 @@ class E_model extends CI_Model {
         }
         return $specs;
     }
-    
+
     /**
      * Return an array from the form field specifications keyed by
      * field name and containing the validation rules for the field
@@ -189,7 +189,7 @@ class E_model extends CI_Model {
         foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
-        
+
         if(in_array('form_fields', $tbl_list)) {
             $this->form_fields = array();
             foreach ($dbh->query("SELECT * FROM form_fields", PDO::FETCH_ASSOC) as $row) {
@@ -202,7 +202,7 @@ class E_model extends CI_Model {
                 $a['rows'] = $row['rows'];
                 $a['cols'] = $row['cols'];
                 $a['default'] = $row['default'];
-                
+
                 $this->form_fields[$row['name']] = $a;
             }
         }
@@ -228,14 +228,14 @@ class E_model extends CI_Model {
             }
             foreach($fl as $fn => $ch) {
                 if(count($ch) == 1) {
-                    $this->form_fields[$fn]['chooser_list'] = array($ch[0]);                
+                    $this->form_fields[$fn]['chooser_list'] = array($ch[0]);
                 } else {
-                    $this->form_fields[$fn]['chooser_list'] = $ch;              
+                    $this->form_fields[$fn]['chooser_list'] = $ch;
                 }
             }
         }
 
-        if(in_array('operations_fields', $tbl_list)) {          
+        if(in_array('operations_fields', $tbl_list)) {
             $this->operations_fields = array();
             foreach ($dbh->query("SELECT * FROM operations_fields", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
@@ -244,8 +244,8 @@ class E_model extends CI_Model {
                 $this->operations_fields[$row['name']] = $a;
             }
         }
-        
-        if(in_array('entry_commands', $tbl_list)) {     
+
+        if(in_array('entry_commands', $tbl_list)) {
             $this->entry_commands = array();
             foreach ($dbh->query("SELECT * FROM entry_commands", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
@@ -253,11 +253,11 @@ class E_model extends CI_Model {
                 $a['label'] = $row['label'];
                 $a['tooltip'] = $row['tooltip'];
                 $a['target'] = $row['target'];
-    
+
                 $this->entry_commands[$row['name']] = $a;
             }
         }
-        
+
         if(in_array('external_sources', $tbl_list)) {
             $this->external_sources = array();
             foreach ($dbh->query("SELECT DISTINCT * FROM external_sources", PDO::FETCH_ASSOC) as $row) {
@@ -276,5 +276,5 @@ class E_model extends CI_Model {
         }
 
     }
-    
+
 }

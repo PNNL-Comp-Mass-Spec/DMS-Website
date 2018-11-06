@@ -15,7 +15,7 @@
 <div>Select instrument:<?= $instrument_list ?></div>
 
 <?= $rollup ?>
-            
+
 <?= $this->calendar->generate($year, $month, $calendarData); ?>
 
 <div class='repBox' >

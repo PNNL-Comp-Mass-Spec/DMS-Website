@@ -1,4 +1,4 @@
-var parRep = {	
+var parRep = {
 	// update the column and sorting filters
 	filter_update_action: {
 		run:function(){
@@ -27,7 +27,7 @@ var parRep = {
 				$('#paging_container_upper').show();
 				$('#paging_container_lower').show();
 				lambda.updateContainer('param_paging', 'entry_form', 'paging_container_upper', parRep.paging_cleanup_action);
-			} 	
+			}
 		}
 	},
 	//go get some data rows
@@ -41,10 +41,10 @@ var parRep = {
 		if(loading && loading == 'reset' && $('#qf_first_row')) $('#qf_first_row').val(1);
 		parRep.data_update_action.run();
 	}
-} // parRep	
-	
+} // parRep
+
 //after the page loads, set things in motion to populate it
-$(document).ready(function () { 
+$(document).ready(function () {
 	 	lambda.reloadListReportData = function() { parRep.updateMyData('autoload');}
 		$('#data_container').html('Data will be displayed after you click the "Search" button.');
 });

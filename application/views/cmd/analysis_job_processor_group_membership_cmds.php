@@ -20,7 +20,7 @@ For other groups to be:
     <option value="N" >N</option>
 </select>
 </div>
-<input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("set_membership_enabled", "LocalGroupMbshpEnabled", "OtherGroupMbshpEnabled")' /> 
+<input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("set_membership_enabled", "LocalGroupMbshpEnabled", "OtherGroupMbshpEnabled")' />
 </div>
 
 <div></div>

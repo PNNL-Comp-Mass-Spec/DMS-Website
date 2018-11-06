@@ -116,7 +116,7 @@ function get_sql_for_resequence(){
 <div style="height:1em;"></div>
 
 <table class='cfg_tab' style="width:98%;">
-    
+
 <tr><th style="font-weight:bold;text-align:left;">Raw SQL Entry</th></tr>
 
 <tr><td><div id='sql_container' style="padding-right:5px;">
@@ -126,13 +126,13 @@ function get_sql_for_resequence(){
 </div></td></tr>
 
 <tr><td>
-<a href="javascript:void(0)" onclick="get_sql('suggest')" title='Get suggested SQL for possible new additions to table'>Suggest Additions</a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="get_sql('dump')" title='Get SQL for existing contents of table.'>Current Content</a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="do_sql()" title='Run the SQL against the config db.'>Update</a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="get_sql_from_range_move('item')" title='Get SQL to move items'> <span id='source_id'></span>-><span id='dest_id'></span> </a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="get_sql_from_range_move('range')" title='Get SQL to move range of items'> <span id='range_start_id'></span>-<span id='range_stop_id'></span>-><span id='range_dest_id'></span> </a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="get_sql_for_resequence()" title='Get SQL to resequence id col in table'>Resequence</a> &nbsp;  &nbsp; 
-<a href="javascript:void(0)" onclick="$('#sql_text_fld').val('')" title='Clear SQL field'>Clear</a> &nbsp;  &nbsp; 
+<a href="javascript:void(0)" onclick="get_sql('suggest')" title='Get suggested SQL for possible new additions to table'>Suggest Additions</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="get_sql('dump')" title='Get SQL for existing contents of table.'>Current Content</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="do_sql()" title='Run the SQL against the config db.'>Update</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="get_sql_from_range_move('item')" title='Get SQL to move items'> <span id='source_id'></span>-><span id='dest_id'></span> </a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="get_sql_from_range_move('range')" title='Get SQL to move range of items'> <span id='range_start_id'></span>-<span id='range_stop_id'></span>-><span id='range_dest_id'></span> </a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="get_sql_for_resequence()" title='Get SQL to resequence id col in table'>Resequence</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="$('#sql_text_fld').val('')" title='Clear SQL field'>Clear</a> &nbsp;  &nbsp;
 </td></tr>
 
 </table>

@@ -16,7 +16,7 @@ class Gen extends CI_Controller {
         $this->color_code = $this->config->item('version_color_code');
         $this->page_menu_root = ($this->config->item('page_menu_root')) ? $this->config->item('page_menu_root') : "page_menu" ;
     }
-    
+
     /**
      * Display the home page, with the side menu in a frame
      * http://dms2.pnl.gov/gen/
@@ -26,14 +26,14 @@ class Gen extends CI_Controller {
     {
         $page = $this->input->post('page');
         $pageToShow = ($page != '')?$page:site_url()."gen/welcome";
-        
+
         $data['page_url'] = $pageToShow;
         $data['side_menu_url'] = site_url()."gen/side_menu";
 
         $this->load->vars($data);
         $this->load->view('top_level_frames');
     }
-    
+
     /**
      * Display the current configuration
      * http://dms2.pnl.gov/gen/config
@@ -56,7 +56,7 @@ class Gen extends CI_Controller {
         $userName = $this->db->username;
         echo("<li>user:$userName\n");
     }
-    
+
     /**
      * Create the menus
      * @param type $title
@@ -149,7 +149,7 @@ class Gen extends CI_Controller {
         $this->load->model('dms_menu', 'menu', TRUE);
         $this->load->view('menu_panel');
     }
-    
+
     /**
      * Return the side menu items a json
      * http://dms2.pnl.gov/gen/side_menu_objects
@@ -163,7 +163,7 @@ class Gen extends CI_Controller {
         $items = build_side_menu_object_tree($menu_def, '', '');
         echo json_encode($items);
     }
-    
+
     /**
      * Show session information
      * http://dms2.pnl.gov/gen/show_session
@@ -190,16 +190,16 @@ class Gen extends CI_Controller {
         // The following checks for this and obfuscates the password if needed
         $serverVars = $_SERVER;
         $savedPassword = "";
-        
+
         if (array_key_exists ('PHP_AUTH_PW' , $serverVars )) {
             $savedPassword = $serverVars["PHP_AUTH_PW"];
             $_SERVER["PHP_AUTH_PW"] = "******** (masked by application/controllers/Gen.php)";
-        }       
-        
+        }
+
         echo phpinfo();
-        
+
         Base_controller::var_dump_ex($_SERVER);
-        
+
         if (strlen($savedPassword) > 0) {
             $_SERVER["PHP_AUTH_PW"] = $savedPassword;
         }

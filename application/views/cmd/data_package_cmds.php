@@ -24,7 +24,7 @@
     <?php // This should default to checked on this page ?>
     <input type="checkbox" id='removeParentsCheckbox' value='removeParentsCheckbox' checked='true' title='When deleting jobs or datasets, remove the parent datasets and/or experiments' />
     Also remove parent datasets and experiments
-</label> 
+</label>
 </div>
 <div>
 <input class="button lst_cmd_btn" type="button" value="Update Comment" onClick='packages.performOperation("comment")' title='Update the comment for the selected items'/>

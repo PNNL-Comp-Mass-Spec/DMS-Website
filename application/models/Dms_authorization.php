@@ -1,20 +1,20 @@
 <?php
 class Dms_authorization extends CI_Model {
-        
+
     var $storage_name = 'dms_authorization';
     var $user_permissions = array();
 
     var $dBFolder = "";
-    
+
     // --------------------------------------------------------------------
-    function __construct() 
+    function __construct()
     {
         //Call the Model constructor
         parent::__construct();
         $this->dBFolder = $this->config->item('model_config_path');
 //      $this->initialize();
     }
-    
+
     // --------------------------------------------------------------------
     function initialize()
     {
@@ -28,7 +28,7 @@ class Dms_authorization extends CI_Model {
     {
         $dbFilePath = $this->dBFolder."master_authorization.db";
         $table_name = 'restricted_actions';
-        $sql = "SELECT * FROM $table_name ORDER BY page_family;";        
+        $sql = "SELECT * FROM $table_name ORDER BY page_family;";
         $dbh = new PDO("sqlite:$dbFilePath");
         return $dbh->query($sql, PDO::FETCH_ASSOC);
     }
@@ -53,7 +53,7 @@ class Dms_authorization extends CI_Model {
         }
         return $restrictions;
     }
-    
+
     /**
      * Lookup permissions for the user
      * @param type $user_dprn
@@ -69,12 +69,12 @@ class Dms_authorization extends CI_Model {
 
         // is there a session cache of permissions?
         if($this->load_defaults()) {
-            return $this->user_permissions;         
+            return $this->user_permissions;
         }
 
         // look up user's permission from database
         $p = array();
-        $str = '';  
+        $str = '';
         $str .= <<<EOD
 SELECT Status, [Operations List], ID
 FROM V_User_List_Report_2
@@ -92,15 +92,15 @@ EOD;
         if(count($rows)==0) {
             // user isn't in table - automatically a guest
             $p[] ='DMS_Guest';
-        } else 
+        } else
         if($rows[0]['Status']!='Active') {
             // user is inactive - automatically a guest
-            $p[] = 'DMS_Guest';         
+            $p[] = 'DMS_Guest';
         } else {
             // user is in list and active, get their permissions
             $p = preg_split('/, */', $rows[0]['Operations List']);
 
-            // each user gets to have "DMS_User" permission automatically 
+            // each user gets to have "DMS_User" permission automatically
             // unless they have "DMS_Guest"
             if(!array_key_exists("DMS_User", $p) && !array_key_exists("DMS_Guest", $p)) {
                 $p[] = 'DMS_User';
@@ -112,7 +112,7 @@ EOD;
         $this->save_defaults();
         return $p;
     }
-    
+
     /**
      * Save user permissions for session
      */
@@ -120,13 +120,13 @@ EOD;
     {
         $_SESSION[$this->storage_name] =  serialize($this->user_permissions);
     }
-    
+
     /**
      * Load user permissions for session
      * @return boolean True if cached user permissions were found
      */
-    function load_defaults() 
-    {       
+    function load_defaults()
+    {
         if (isset($_SESSION[$this->storage_name])) {
             $state = $_SESSION[$this->storage_name];
             $this->user_permissions = unserialize($state);
@@ -136,7 +136,7 @@ EOD;
             return FALSE;
         }
     }
-    
+
     /**
      * Clear cached user permissions
      */

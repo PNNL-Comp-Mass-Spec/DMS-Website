@@ -15,7 +15,7 @@
         // Replace non-breaking dashes with normal dashes
         var findNonBreakingSpace = new RegExp(String.fromCharCode(8209), "g");
         location = url + reply.replace(findNonBreakingSpace, "-");
-    }   
+    }
 </script>
 
 </head>
@@ -28,7 +28,7 @@
 </div>
 
 <div id='posting_message_container' style='width:70em;'>
-<?php 
+<?php
 if($result != "") {
     echo "<div class='EPag_error' >";
     echo $result;
@@ -55,7 +55,7 @@ foreach($settings as $setting => $def) {
     $str .= "<td><a href='javascript:setPreference(\"$url\")'>Change</a></td>";
     $str .= "<td>".$def['description']."</td>";
     $str .= "<td>";
-    
+
     if ($def['allowed_values'] === '-') {
         // Allowed values specifies a range of integers
         // Display the minimum then a dash then the maximum
@@ -76,7 +76,7 @@ foreach($settings as $setting => $def) {
             }
         }
     }
-    
+
     $str .= "</td>";
     $str .= "</tr>";
     echo $str;

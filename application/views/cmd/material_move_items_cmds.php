@@ -4,7 +4,7 @@
 
 <div>
 <span><input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.material_move_items.op("retire_items", "mixed_material")' /></span>
-<span>Retire selected material items 
+<span>Retire selected material items
 </span>
 </div>
 

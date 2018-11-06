@@ -2,13 +2,13 @@
 
 class Paging_filter {
     const storage_name_root = "lr_paging_filter_";
-    
+
     private $config_name = '';
     private $config_source = '';
-    
+
     private $field_names = array('qf_first_row', 'qf_rows_per_page');
     private $cur_filter_values = NULL;
-    
+
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -28,9 +28,9 @@ class Paging_filter {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
         $storage_name = self::storage_name_root.$this->config_name.'_'.$this->config_source;
-            
+
         $this->clear_filter();
-        
+
         // try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post($this->field_names);
         if($state) {
@@ -47,7 +47,7 @@ class Paging_filter {
                 // user global defaults (if any)
                 $CI->load->model('dms_preferences', 'preferences');
                 $x = $CI->preferences->get_preference('list_report_rows');
-                if($x) { 
+                if($x) {
                     $this->cur_filter_values['qf_rows_per_page'] = $x;
                     $state = $this->cur_filter_values;
                     save_to_cache($storage_name, $state);
@@ -66,11 +66,11 @@ class Paging_filter {
     function get_current_filter_values_from_post($field_names)
     {
         $values = array();
-        
+
         if(!empty($_POST)){
             foreach($field_names as $id) {
                 $filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
-                if(!empty($filterVal)) { 
+                if(!empty($filterVal)) {
                     $values[$id] = trim($filterVal);
                 }
             }

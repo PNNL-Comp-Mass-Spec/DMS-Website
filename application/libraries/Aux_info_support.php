@@ -1,4 +1,4 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
@@ -6,14 +6,14 @@
  *
  */
 class Aux_info_support {
-    
+
     var $item_entry_url = "";
     var $item_entry_chooser_url = "";
     var $update_info_url = "";
     var $copy_info_url = "";
     var $show_url = "";
 //  var $entity_id = "";
-    
+
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -23,7 +23,7 @@ class Aux_info_support {
     function get_update_response_container() {
         return $this->update_response_container;
     }
-    
+
     // -----------------------------------
     function make_category_subcategory_selector($aux_info_def)
     {
@@ -47,7 +47,7 @@ class Aux_info_support {
         $str = "<select id='Category_Subcategory' size='$size' $js >\n" . $str . "</select>\n";
         return $str;
     }
-    
+
     /**
      * Create the entry form (and enclosing table)
      * for editing aux info items ()for one subcategory)
@@ -67,7 +67,7 @@ class Aux_info_support {
         foreach($items as $row) {
             // start table row
             $str .= "<tr>";
-            // column for item name 
+            // column for item name
             // display name
             $str .= "<td>";
             $str .= "<span>".$row['Item']."</span>";
@@ -76,18 +76,18 @@ class Aux_info_support {
             $str .= "</td>";
             // column for item data entry field (and current value of item)
             if((int)$row['DataSize'] > 128) {
-                $str .= "<td><textarea class='aiif' name='$iv' id='".$iv_id."_".$row['Item_ID']."' rows='2' cols='60' >".$row['Value']."</textarea></td>";  
+                $str .= "<td><textarea class='aiif' name='$iv' id='".$iv_id."_".$row['Item_ID']."' rows='2' cols='60' >".$row['Value']."</textarea></td>";
             } else {
-                $str .= "<td><input class='aiif' name='$iv' id='".$iv_id."_".$row['Item_ID']."'type='text' value='".$row['Value']."' size='64' maxlength='128'></td>";                  
+                $str .= "<td><input class='aiif' name='$iv' id='".$iv_id."_".$row['Item_ID']."'type='text' value='".$row['Value']."' size='64' maxlength='128'></td>";
             }
             // column for any choosers for allowed values for item
             if($row['HelperAppend'] != 'N') {
                 $ccid = "allowed_value_chooser_container_".$row['Item_ID'];
                 $str .= "<td><span id='".$ccid."'>";
                 $str .= $this->make_allowed_values_chooser($choices, $row['Item'], $row['Item_ID'], $row['HelperAppend']);
-                $str .= "</span></td>"; 
+                $str .= "</span></td>";
             } else {
-                $str .= "<td></td>";                    
+                $str .= "<td></td>";
             }
             // close table row
             $str .= "</tr>";
@@ -104,7 +104,7 @@ class Aux_info_support {
         foreach($choices as $ch) {
             if($ch['Item']==$item) {
                 $av = $ch['AllowedValue'];
-                $options[$av] = $av;    
+                $options[$av] = $av;
             }
         }
         //
@@ -115,7 +115,7 @@ class Aux_info_support {
         $js = "";
         $js .= "id='$chooser_id' ";
         $js .= " onChange='epsilon.setFieldValueFromSelection(\"$item_value_field\", \"$chooser_id\", \"$mode\")'";
-        return form_dropdown("$chooser_id", $options, '', $js);     
+        return form_dropdown("$chooser_id", $options, '', $js);
     }
 
     /**
@@ -125,7 +125,7 @@ class Aux_info_support {
     function make_aux_info_global_AJAX_definitions()
     {
         $throb = base_url()."images/throbber.gif";
-        $str = '';  
+        $str = '';
         $str .= <<<EOD
 <script type="text/javascript">
     var gAuxInfoAJAX = {

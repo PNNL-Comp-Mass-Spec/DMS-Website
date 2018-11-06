@@ -4,7 +4,7 @@
 var gridUtil = {
 	markChange: function(dataRow, field) {
 		if(!dataRow.mod_axe) dataRow.mod_axe = {};
-		dataRow.mod_axe[field] = dataRow[field];		
+		dataRow.mod_axe[field] = dataRow[field];
 	},
 	visitRange: function(cell, range, grid, visitor) {
 		var dataRows = grid.getData();
@@ -15,7 +15,7 @@ var gridUtil = {
 			$.each(cols, function(z, column) {
 				if(visitor) visitor(row, column, dataRows);
 			});
-			rowsAffected.push(row);					
+			rowsAffected.push(row);
 		});
 		grid.invalidateRows(rowsAffected);
 		gridUtil.setChangeHighlighting(grid);
@@ -33,7 +33,7 @@ var gridUtil = {
 		for(var row = range.fromRow; row <= range.toRow; row++) {
 			rows.push(row);
 		}
-		return rows;			
+		return rows;
 	},
 	getClearCellVisitor: function(cellProtectionChecker) {
 		var checkProtection = cellProtectionChecker;
@@ -44,7 +44,7 @@ var gridUtil = {
 			if (!(val == null || val === '')) {
 				dataRows[row][column.field] = '';
 				gridUtil.markChange(dataRows[row], column.field);
-			}			
+			}
 		};
 	},
 	getFilldownVisitor: function(cellProtectionChecker) {
@@ -89,9 +89,9 @@ var gridUtil = {
 				}
 			}
 		};
-	},	
+	},
 	fillDown: function (column, grid) {
-		Slick.GlobalEditorLock.commitCurrentEdit();	
+		Slick.GlobalEditorLock.commitCurrentEdit();
 		var row, field, val;
 		var dataRows = grid.getData();
 		var sel = {fromRow:0, toRow:dataRows.length - 1};
@@ -100,7 +100,7 @@ var gridUtil = {
 		var range = ranges[0];
 		if(range && range.fromRow != range.toRow && colIndex >= range.fromCell && colIndex <= range.toCell) {
 				sel = range;
-		} 
+		}
 		var lastValueSeen = "";
 		var rowsAffected = [];
 		for (var i = sel.fromRow; i <= sel.toRow; i++) {
@@ -125,7 +125,7 @@ var gridUtil = {
 		this.clearSelectedCells(column, grid, true);
 	},
 	clearSelectedCells: function (column, grid, all) {
-		Slick.GlobalEditorLock.commitCurrentEdit();	
+		Slick.GlobalEditorLock.commitCurrentEdit();
 		var dataRows = grid.getData();
 		var sel = {fromRow:0, toRow:dataRows.length - 1};
 		var colIndex = grid.getColumnIndex(column.name);
@@ -213,7 +213,7 @@ var gridUtil = {
 				});
 			}
 		});
-		return styledCells;		
+		return styledCells;
 	},
 	saveChanges: function (url, p, caller) {
 		if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -224,8 +224,8 @@ var gridUtil = {
 	        	if(obj.result !== 0) {
 	        		alert(obj.message);
 	        	} else {
-					if(caller.afterSaveAction) caller.afterSaveAction(obj);	
-				}			
+					if(caller.afterSaveAction) caller.afterSaveAction(obj);
+				}
 			} else
 			if(data.charAt(0) === '{' || data.indexOf('was successful') !== -1) {
 				if(caller.afterSaveAction) caller.afterSaveAction(data);
@@ -267,7 +267,7 @@ var gridUtil = {
 		gridUtil.setChangeHighlighting(grid);
 		grid.render();
 	},
-	// set width property of given column specs according to 
+	// set width property of given column specs according to
 	// size of data in given data rows, and return updated column specs
 	sizeColumnsToData: function (currentColumns, dataRows, maxColumnChars) {
 		var textWidthPixels = 8.1;
@@ -276,7 +276,7 @@ var gridUtil = {
 		$.each(currentColumns, function(idx, colSpec) {
 			maxChars = minChars;
 			colLabelChars = colSpec.field.length + 2; // allow space for drop-down menu control
-			if(colLabelChars > maxChars) maxChars = colLabelChars; 
+			if(colLabelChars > maxChars) maxChars = colLabelChars;
 			$.each(dataRows, function(i, dataRow) {
 				val = dataRow[colSpec.field];
 				if(val) {
@@ -286,7 +286,7 @@ var gridUtil = {
 			});
 			maxChars = (maxColumnChars && maxColumnChars < maxChars) ? maxColumnChars : maxChars;
 			colSpec.width = Math.round(maxChars * textWidthPixels);
-		});			
+		});
 		return currentColumns;
 	},
 	// convert simple data to format suitable for grid
@@ -312,7 +312,7 @@ var gridUtil = {
 		cols = $.map(currentColumns, function(colSpec) {
 			return colSpec.field;
 		});
-		s += cols.join("\t") + "\n";		
+		s += cols.join("\t") + "\n";
 		// data rows
 		$.each(dataRows, function(rowNum, dataRow) {
 			fields = $.map(currentColumns, function(colSpec) {
@@ -325,7 +325,7 @@ var gridUtil = {
 } // gridUtil
 
 /*
- * general grid header behaviors that are meant 
+ * general grid header behaviors that are meant
  * to extend a specific header object
  */
 var gridHeaderUtil = {
@@ -344,11 +344,11 @@ var gridHeaderUtil = {
 			return true;
 		},
 		'clear-all': function (column, grid) {
-			gridUtil.clearAllCells(column, grid);				
+			gridUtil.clearAllCells(column, grid);
 			return true;
 		},
 		'clear-selected': function (column, grid) {
-			gridUtil.clearSelectedCells(column, grid);				
+			gridUtil.clearSelectedCells(column, grid);
 			return true;
 		},
 		'sort-asc': function (column, grid) {
@@ -375,7 +375,7 @@ var gridHeaderUtil = {
 
 /*
  * grid behaviors that are meant to extend a specific instance of an object.
- * certain properties and functions must or can be overridden by subsequent 
+ * certain properties and functions must or can be overridden by subsequent
  * extension by a configuration object
  */
 var mainGrid = {
@@ -430,7 +430,7 @@ var mainGrid = {
 		gridUtil.refreshGrid(url, p,  this);
 	},
 	saveGrid: function() {
-		Slick.GlobalEditorLock.commitCurrentEdit();	
+		Slick.GlobalEditorLock.commitCurrentEdit();
 		var url = this.getSaveUrl();
 		var p = this.getSaveParameters();
 		if(p === false) return;
@@ -455,7 +455,7 @@ var mainGrid = {
 			this.headerUtil = $.extend({}, gridHeaderUtil);
 		}
 		var colDefs = this.buildColumns(this.staticColumns, false);
-		this.container = $("<div id='" + this.internalContainerId + "' class='GridContainer'></div>");			
+		this.container = $("<div id='" + this.internalContainerId + "' class='GridContainer'></div>");
 	    this.grid = new Slick.Grid(this.container, [], colDefs, this.options);
 	    this.container.appendTo($('#' + this.externalContainerId));
 	    this.grid.init();
@@ -464,7 +464,7 @@ var mainGrid = {
 		var headerMenuPlugin = new Slick.Plugins.HeaderMenu({});
 		headerMenuPlugin.onCommand.subscribe(this.headerUtil.getMenuCmdHandler(this.handleDataChanged));
 		if(this.columnMenuHook) {
-			headerMenuPlugin.onBeforeMenuShow.subscribe(this.columnMenuHook);			
+			headerMenuPlugin.onBeforeMenuShow.subscribe(this.columnMenuHook);
 		}
 		if(this.getClickHandler) {
 			this.grid.onClick.subscribe(this.getClickHandler());
@@ -501,7 +501,7 @@ var mainGrid = {
 			if(curNames.length == 0 || curNames.indexOf(colName) === -1) {
 				currentColumns.push(caller.makeColumnSpec(colName, true));
 			}
-		});	
+		});
 		this.grid.setColumns(currentColumns);
 	},
 	sizeColumnsToData: function (dataRows) {
@@ -520,13 +520,13 @@ var mainGrid = {
 		this.adjustColumns(columnNames);
 		var that = this;
 		$.each(columnNames, function(idx, colName) {
-			that.setEmptyColumnInData(colName);					
+			that.setEmptyColumnInData(colName);
 		});
 	},
 	setEmptyColumnInData: function (colName) {
 		$.each(this.grid.getData(), function(idx, dataRow) {
 			dataRow[colName] = '';
-		});			
+		});
 	},
 	makeColumnSpec: function(colName, editable) {
 		var colSpec;
@@ -534,14 +534,14 @@ var mainGrid = {
 		if(colSpecType === 'string') {
 			colSpec = { id:colName };
 			if(editable) colSpec.editor = Slick.Editors.Text;
-		} else 
+		} else
 		if(colSpecType === 'object') {
 			colSpec = colName;
 			if(!colSpec.ned && !colSpec.editor) colSpec.editor = Slick.Editors.Text;
 		}
 		if(!colSpec.name) colSpec.name = colSpec.id;
 		if(!colSpec.field) colSpec.field = colSpec.id;
-		
+
 		var menuItems = $.merge([], this.headerUtil.baseMenuItems);
 		if(colSpec.editor) {
 			menuItems = $.merge(menuItems, this.headerUtil.editMenuItems)
@@ -560,12 +560,12 @@ var mainGrid = {
 	    this.grid.render();
 	},
 	clearGrid: function () {
-		this.setDataRows({columns:[],rows:[]}, true);			
+		this.setDataRows({columns:[],rows:[]}, true);
 	},
 	setColumnMenuCmds: function(colName, cmds, useSep) {
 		var col = this.grid.getColumns()[this.grid.getColumnIndex(colName)];
 		if(!col) return;
-		if(useSep) col.header.menu.items.push( { command:'', title:'-----' });	
+		if(useSep) col.header.menu.items.push( { command:'', title:'-----' });
 		col.header.menu.items = $.merge(col.header.menu.items, cmds)
 	},
 	registerColumnMenuCmdHandlers: function(handlers) {
@@ -589,7 +589,7 @@ var gridImportExport = {
 	myMainGrid: null,
 	init: function(wrapper, config) {
 		var obj = $.extend({}, gridImportExport, config);
-		obj.myMainGrid = wrapper;	
+		obj.myMainGrid = wrapper;
 		$('#export_grid_btn').click(function() {
 			obj.exportDelimitedData(obj);
 		});
@@ -625,10 +625,10 @@ var gridImportExport = {
 		var parsed_data = gamma.parseDelimitedText('delimited_text');
 		var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
 
-		if(context.preUpdateAction) { 
+		if(context.preUpdateAction) {
 			if(context.preUpdateAction(inputData) === false) return;
 		}
-		
+
 		var keyColumn = context.keyColumnForUpdate || inputData.columns[0];
 		var changeColumns = $.map(inputData.columns, function(colName) {
 			return ($.inArray(colName, context.myMainGrid.staticColumns) === -1)? colName : null;
@@ -639,7 +639,7 @@ var gridImportExport = {
 		if(context.acceptNewColumnsOnUpdate) {
 			newColumns = $.map(inputData.columns, function(colName) {
 				return ($.inArray(colName, curColumns) === -1)? colName : null;
-			});		
+			});
 			context.myMainGrid.addColumns(newColumns);
 		}
 		var grid = context.myMainGrid.grid;
@@ -657,14 +657,14 @@ var commonGridControls = {
 	afterAddCol: null,
 	init: function(wrapper) {
 		var obj =  $.extend({}, commonGridControls);
-		obj.myMainGrid = (wrapper) ? wrapper : obj.myMainGrid;	
+		obj.myMainGrid = (wrapper) ? wrapper : obj.myMainGrid;
 		$('#reload_btn').click(function() {
 			if(obj.myMainGrid.grid && gridUtil.hasChanged(obj.myMainGrid.grid.getData())) {
 				if(!confirm("Reloading will destroy your unsaved changes: Do you wish to continue?")) return;
 			}
 			obj.reload();
 		});
-		$('#save_btn').click(function() {	
+		$('#save_btn').click(function() {
 			obj.myMainGrid.saveGrid();
 		});
 		$('#add_column_btn').click(function() {
@@ -681,17 +681,17 @@ var commonGridControls = {
 	},
 	showControls: function(showOrHide) {
 		if(this.addColCtlEnabled) {
-			$('#add_col_ctl_panel').toggle(showOrHide);	
+			$('#add_col_ctl_panel').toggle(showOrHide);
 		}
 		$('#ctl_panel').toggle(showOrHide);
-		$('#delimited_text_ctl_panel').toggle(showOrHide);		
+		$('#delimited_text_ctl_panel').toggle(showOrHide);
 	},
 	enableSave: function(showOrHide) {
-		$('#save_ctls').toggle(showOrHide);		
+		$('#save_ctls').toggle(showOrHide);
 	},
 	enableAddColumn: function(enabled) {
 		this.addColCtlEnabled = enabled;
-		$('#add_col_ctl_panel').toggle(enabled);	
+		$('#add_col_ctl_panel').toggle(enabled);
 	},
 	setAddColumnLegend: function(legend) {
 		$('#add_column_legend').html(legend);
@@ -708,7 +708,7 @@ var contextMenuManager = {
 	myMainGrid: null,
 	range: null,
 	cell: null,
-	init: function(grid, menuId) {	
+	init: function(grid, menuId) {
 		if(menuId) this.menuId = menuId;
 		var obj = $.extend({}, this);
 		obj.myMainGrid = grid;
@@ -748,8 +748,8 @@ var contextMenuManager = {
 	showMenu: function(cell, x, y) {
 		var theMenu = this.menuObj;
 		theMenu.css("top", y).css("left", x).show();
-		$("body").one("click", function () { 
-			theMenu.hide(); 
+		$("body").one("click", function () {
+			theMenu.hide();
 		});
 	},
 	setMenuClickHandler: function() {
@@ -765,7 +765,7 @@ var contextMenuManager = {
 			if(me.myMainGrid.handleDataChanged && gridUtil.hasChanged(me.myMainGrid.grid.getData())) {
 				me.myMainGrid.handleDataChanged ();
 			}
-			theMenu.hide(); 
+			theMenu.hide();
 		});
 	},
 	buildBasicMenu: function(cellProtectionChecker) {
@@ -779,7 +779,7 @@ var contextMenuManager = {
 			gridUtil.visitRange(cell, range, grid, gridUtil.getFilldownOverwriteVisitor(cellProtectionChecker));
 		});
 		return this;
-	}	
+	}
 } // contextMenuManager
 
 
@@ -810,7 +810,7 @@ var cellLinkFormatterFactory = {
 			return function (row, cell, value, columnDef, dataContext) {
 				var condition = dataContext[spec.condition_field];
 				var page = spec[condition];
-				if(page) { 
+				if(page) {
 					return context.makeLink(page, value, target);
 				} else {
 					return value;
@@ -851,6 +851,6 @@ var sourceListUtil = {
 			var list = d.join(', ');
 			$('#' + targetFld).val(list);
 		});
-	}		
+	}
 } // sourceListUtil
-	
+

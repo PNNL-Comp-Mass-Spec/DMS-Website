@@ -1,6 +1,6 @@
-<?php   
+<?php
     function xor_string($string, $key) {
-        for($i = 0; $i < strlen($string); $i++) 
+        for($i = 0; $i < strlen($string); $i++)
             $string[$i] = ($string[$i] ^ $key[$i % strlen($key)]);
         return $string;
     }

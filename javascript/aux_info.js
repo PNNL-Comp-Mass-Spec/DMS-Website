@@ -3,7 +3,7 @@
 function loadItemEntryForm(url){
 	var response_container = $('#item_entry_form_container');
 	var cat_sub = $('#Category_Subcategory').val().split('|');
-	var category = cat_sub[0]; 
+	var category = cat_sub[0];
 	var subcategory = cat_sub[1];
 	p = {};
 	p.category = category ;
@@ -22,7 +22,7 @@ function loadItemEntryForm(url){
 function updateAuxInfo(url, show_url) {
 	var response_container = $('#update_response');
 	var cat_sub = $('#Category_Subcategory').val().split('|');
-	var category = cat_sub[0]; 
+	var category = cat_sub[0];
 	var subcategory = cat_sub[1];
 	$('#category_field').val(category);
 	$('#subcategory_field').val(subcategory);

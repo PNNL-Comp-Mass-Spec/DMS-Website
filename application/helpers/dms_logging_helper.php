@@ -1,4 +1,4 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
@@ -14,7 +14,7 @@
         if(!($log_enabled || $override)) {
             return $inhibit_sproc_call;
         }
-        
+
         // local override forces sproc call inhibit
         if($override) {
             $inhibit_sproc_call = TRUE;
@@ -41,7 +41,7 @@
         $CI =& get_instance();
         $inhibit_sproc_call = $CI->config->item('inhibit_sproc_call');
         $log_enabled = $CI->config->item('sproc_call_log_enabled');
-        
+
         // we are done if sproc logging not enabled
         if(!$log_enabled) {
             return;

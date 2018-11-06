@@ -3,7 +3,7 @@
 <?= general_visibility_control('File Attachments', 'file_attachments_section', '') ?>
 </div>
 
-<div id='file_attachments_section'> 
+<div id='file_attachments_section'>
 
 <div id='file_attachments_box'>
 

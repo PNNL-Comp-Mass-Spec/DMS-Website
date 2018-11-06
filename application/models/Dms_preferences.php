@@ -5,7 +5,7 @@ class Dms_preferences extends CI_Model {
     const list_sep = ', ';
 
     var $storage_name = 'dms_preferences';
-    
+
     // In this array, validation holds either the separator inserted between the min and max allowed values
     // or the separator between items in a string array
     var $settings_defaults = array(
@@ -59,11 +59,11 @@ class Dms_preferences extends CI_Model {
         );
 
     var $settings = array();
-    
+
     var $date_formats = array(
             'US_Standard_24hr' => 'n/j/Y H:i:s',
             'US_Standard_12hr' => 'n/j/Y g:i A',
-            'yyyy-mm-dd hh:mm:ss' => 'Y-m-d H:i:s', 
+            'yyyy-mm-dd hh:mm:ss' => 'Y-m-d H:i:s',
             'yyyy-mm-dd hh:mm' => 'Y-m-d H:i'
     );
 
@@ -97,9 +97,9 @@ class Dms_preferences extends CI_Model {
         }
         return $s;
     }
-    
+
     // --------------------------------------------------------------------
-    function __construct() 
+    function __construct()
     {
         //Call the Model constructor
         parent::__construct();
@@ -122,7 +122,7 @@ class Dms_preferences extends CI_Model {
         $CI = &get_instance();
         $CI->load->helper('cookie');
         $CI->load->helper('user');
-        
+
         $this->settings = $this->settings_defaults;
         $state = $this->load_defaults();
         if($state) {
@@ -133,15 +133,15 @@ class Dms_preferences extends CI_Model {
             }
         }
     }
-    
+
     // --------------------------------------------------------------------
     function get_preferences()
     {
         return $this->settings;
     }
-    
+
     // --------------------------------------------------------------------
-    function get_preference($param) 
+    function get_preference($param)
     {
         if(isset($this->settings[$param])) {
             return $this->settings[$param]['value'];
@@ -149,14 +149,14 @@ class Dms_preferences extends CI_Model {
             return FALSE;
         }
     }
-    
+
     // --------------------------------------------------------------------
-    function set_preference($param, $value) 
+    function set_preference($param, $value)
     {
         if(array_key_exists($param, $this->settings)) {
             $r = $this->validate_parameter($param, $value);
             if($r=='') {
-                $this->settings[$param]['value'] = $value;  
+                $this->settings[$param]['value'] = $value;
                 $this->save_defaults();
             }
             return $r;
@@ -176,9 +176,9 @@ class Dms_preferences extends CI_Model {
         $_SESSION[$this->storage_name] =  $s;
         $this->save_user_prefs_to_cookie($s);
     }
-    
+
     // --------------------------------------------------------------------
-    function load_defaults() {      
+    function load_defaults() {
         if (isset($_SESSION[$this->storage_name])) {
             $state = $_SESSION[$this->storage_name];
             return unserialize($state);
@@ -190,7 +190,7 @@ class Dms_preferences extends CI_Model {
             return $s;
         }
     }
-    
+
     // --------------------------------------------------------------------
     function clear_saved_defaults()
     {
@@ -208,13 +208,13 @@ class Dms_preferences extends CI_Model {
         $user_name = get_user();
         if(!$ser_state) {
             delete_cookie($user_name);
-        } else {    
+        } else {
             $cookie = array(
                                'name'   => $user_name,
                                'value'  => $ser_state,
                                'expire' => $cookie_life
                            );
-            set_cookie($cookie);    
+            set_cookie($cookie);
         }
     }
 

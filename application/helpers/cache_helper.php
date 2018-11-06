@@ -1,4 +1,4 @@
-<?php  
+<?php
     if (!defined('BASEPATH')) {
         exit('No direct script access allowed');
     }
@@ -14,8 +14,8 @@ function save_to_cache($name, $obj)
     }
 
     // --------------------------------------------------------------------
-    function get_from_cache($name) 
-    {       
+    function get_from_cache($name)
+    {
         if (isset($_SESSION[$name])) {
             $state = unserialize($_SESSION[$name]);
             return $state;

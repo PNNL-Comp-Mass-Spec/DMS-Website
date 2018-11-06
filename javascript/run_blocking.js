@@ -6,7 +6,7 @@ var runBlocking = {
 	},
 	getBlockingFieldsObjList: function(col_name) {
 		// go through editable fields and build array of objects
-		// where each object references the edit fields for 
+		// where each object references the edit fields for
 		// one requested run
 		var rlist = [];
 		$('.Block').each(function(idx, bk) {
@@ -19,7 +19,7 @@ var runBlocking = {
 		this.setRandom(rlist);
 		return rlist;
 	},
-	randomizeRunOrder: function(rlist){	
+	randomizeRunOrder: function(rlist){
 		// get array of request objects that is
 		// sorted by random value
 		var slist = rlist.sort(function(a,b){return a.rnd > b.rnd ? 1 : a.rnd < b.rnd ? -1 : 0 });
@@ -140,7 +140,7 @@ var runBlocking = {
 				if(col.toLowerCase() == col_name.toLowerCase()) {
 					colx = col;
 				}
-			});	
+			});
 			return colx;
 		},
 		createBlocksFromBlockingFactor: function(col_name) {
@@ -155,7 +155,7 @@ var runBlocking = {
 			if ( !confirm("Are you sure that you want to update the database?") ) return;
 			var factorXML = theta.getFactorXMLFromList(flist);
 			var blockingXML = theta.getBlockingXMLFromList(blist);
-			
+
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.factorList = factorXML;
@@ -190,9 +190,9 @@ var runBlocking = {
 				return;
 			}
 			var block = $('#block_input_setting').val();
-			if(block != parseInt(block)) { 
-				alert('Block must be a number'); 
-				return; 
+			if(block != parseInt(block)) {
+				alert('Block must be a number');
+				return;
 			}
 			if(block < 1 || block > 50) {
 				alert('Block out of range');

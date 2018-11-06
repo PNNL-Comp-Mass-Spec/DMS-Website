@@ -6,7 +6,7 @@
     // --------------------------------------------------------------------
     function dump_e_model($mod)
     {
-        echo '<hr>';    
+        echo '<hr>';
         echo "Test of e_model<br>";
         echo 'q_name: ' . $mod->get_config_name() . '<br>';
         echo 'config_source: ' . $mod->get_config_source() . '<br>';
@@ -15,27 +15,27 @@
         $which_ones = array('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands');
         $form_def = $mod->get_form_def($which_ones);
 //print_r($form_def);
-/*      
+/*
         echo ' entry_commands <br>';
         print_r($form_def->entry_commands());
         echo '<hr>';
-        
+
 //      echo 'get_external_source_field_map <br>';
 //      print_r($mod->get_external_source_field_map($source_name));
 //      echo '<hr>';
-        
+
         echo ' field_names <br>';
         print_r($form_def->fields);
         echo '<hr>';
-        
+
         echo ' field_validation_rules <br>';
         print_r($form_def->rules);
         echo '<hr>';
-        
+
         echo ' field_specifications <br>';
         print_r($form_def->specs);
         echo '<hr>';
-        
+
         echo ' enable_field_specifications <br>';
         print_r($form_def->enable_spec);
         echo '<hr>';
@@ -45,20 +45,20 @@
         }
         if(property_exists ($form_def, 'rules')) {
             echo 'rules'; echo ":<br>"; print_r($form_def->rules ); echo '<hr>';
-        }   
+        }
         if(property_exists ($form_def, 'specs')) {
             echo 'specs'; echo ":<br>"; print_r($form_def->specs ); echo '<hr>';
-        }   
+        }
         if(property_exists ($form_def, 'load_key')) {
             echo 'load_key'; echo ":<br>"; print_r($form_def->load_key ); echo '<hr>';
-        }   
+        }
         if(property_exists ($form_def, 'enable_spec')) {
             echo 'enable_spec'; echo ":<br>"; print_r($form_def->enable_spec ); echo '<hr>';
         }
         if(property_exists ($form_def, 'entry_commands')) {
             echo 'entry_commands'; echo ":<br>"; print_r($form_def->entry_commands ); echo '<hr>';
         }
-        
+
     }
 
     // --------------------------------------------------------------------
@@ -93,7 +93,7 @@
         echo '<hr>';
 
         $query = $mod->get_rows($option);
-        
+
         echo 'SQL: <br>';
         echo $mod->get_main_sql();
         echo '<br>';
@@ -137,11 +137,11 @@
 
         echo 'Bound argumentst:<br>';
         print_r($mod->get_parameters());
-        echo '<hr>';        
+        echo '<hr>';
 
         echo 'Column info:<br>';
         print_r($mod->get_column_info());
-        echo '<hr>';        
+        echo '<hr>';
 
         $total_rows = $mod->get_total_rows();
         echo 'Rows: ('.$total_rows.')<br>';
@@ -159,13 +159,13 @@
     //      $this->table->set_empty("&nbsp;");
             echo $CI->table->generate($rows);
         }
-        
+
     }
-    
+
     // --------------------------------------------------------------------
     function dump_r_model($mod)
     {
-        echo '<hr>';    
+        echo '<hr>';
         echo "Test of r_model<br>";
         echo 'config_name: ' . $mod->get_config_name() . '<br>';
         echo 'config_source: ' . $mod->get_config_source() . '<br>';
@@ -181,7 +181,7 @@
         $hl_restored = json_decode($jl, TRUE);
         echo print_r($hl_restored);
         echo "<hr>\n";
-        
+
         $hd = $mod->get_detail_report_hotlinks();
         $jd = json_encode($hd);
         echo " detail_report_hotlinks <br>\n";
@@ -189,5 +189,5 @@
         echo "<hr>\n";
         echo $jd;
         echo "<hr>\n";
-        
+
     }

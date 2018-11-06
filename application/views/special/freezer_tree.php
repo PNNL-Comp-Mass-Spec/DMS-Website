@@ -44,12 +44,12 @@
     </tr>
     <tr>
         <td>
-        <input class="button" type="button" id="btnClearSelections1" title="Clear selections" value="Clear Selection" />    
-        <input class="button" type="button"  id="set_active_btn1" title="Set selected locations to active" value="Set Active" /> 
-        <input class="button" type="button"  id="set_inactive_btn1" title="Set selected locations to inactive" value="Set Inactive" /> 
+        <input class="button" type="button" id="btnClearSelections1" title="Clear selections" value="Clear Selection" />
+        <input class="button" type="button"  id="set_active_btn1" title="Set selected locations to active" value="Set Active" />
+        <input class="button" type="button"  id="set_inactive_btn1" title="Set selected locations to inactive" value="Set Inactive" />
         </td>
         <td>
-        </td>       
+        </td>
     </tr>
 </tbody>
 </table>
@@ -66,12 +66,12 @@ Freezer.Display = {
     },
     collapseTree: function() {
         this.Model.getTree().reload();
-        return false;       
+        return false;
     },
-    updateLocations: function(){ 
+    updateLocations: function(){
         var changeList = this.Model.getStatusChangeList();
         if(changeList.length == 0) {
-            alert("No locations are currently selected");           
+            alert("No locations are currently selected");
         } else {
             this.Model.updateDatabase(changeList);
         }
@@ -82,7 +82,7 @@ Freezer.Display = {
         var identifier = this.Model.getNormalizedIdentifier(val);
         if(identifier.Type == "Container") {
             this.Model.findContainerNode(identifier.NormalizedID);
-        } else 
+        } else
         if(identifier.Type == "Location") {
             this.Model.findLocationNode(identifier.NormalizedID);
         }
@@ -102,7 +102,7 @@ Freezer.Display = {
         });
     },
     updateTreePostMove: function(tree, locationKey, callback) {
-        // find location node by key (if it exists)     
+        // find location node by key (if it exists)
         var locNode = tree.getNodeByKey(locationKey);
         if(!locNode) {
             if(callback) callback();
@@ -110,7 +110,7 @@ Freezer.Display = {
         }
         // get parent location node
         var parLocNode = locNode.getParent();
-        
+
         // reload parent location node
         parLocNode.reloadChildren(function() {
             // original location will have new node - find it via key
@@ -121,10 +121,10 @@ Freezer.Display = {
                     if(callback) callback();
                 });
             } else {
-                if(callback) callback();                
+                if(callback) callback();
             }
         });
-                
+
     },
     updatePostMove: function(containerNode, locationNode) {
         var that = this;
@@ -146,18 +146,18 @@ Freezer.Display = {
             $('#set_active_btn1').prop("disabled", false).removeClass('ui-state-disabled')
             $('#set_inactive_btn1').prop("disabled", false).removeClass('ui-state-disabled')
             $('#btnClearSelections1').prop("disabled", false).removeClass('ui-state-disabled')
-        
+
         } else {
             $('#set_active_btn1').prop("disabled", true).addClass('ui-state-disabled')
             $('#set_inactive_btn1').prop("disabled", true).addClass('ui-state-disabled')
-            $('#btnClearSelections1').prop("disabled", true).addClass('ui-state-disabled')  
+            $('#btnClearSelections1').prop("disabled", true).addClass('ui-state-disabled')
         }
     },
     clearSelection: function() {
         this.Model.getTree().visit(function(node){
             node.select(false);
         });
-        return false;       
+        return false;
     },
     getClickHandler: function() {
         return function(node, event) {
@@ -177,13 +177,13 @@ Freezer.Display = {
             if(node.data.info.Type == 'Container') {
                 var link = gamma.pageContext.site_url + "material_container/show/" + node.data.info.Name;
                 window.open(link);
-            }           
+            }
             if(node.data.info.Type == 'Col' && node.data.info.Available > 0) {
                 context.pendingLocaton = node.data.info.Tag;
                 var link = gamma.pageContext.site_url + "material_container/create/init/-/-/" + node.data.info.Tag;
                 window.open(link);
             }
-        }                   
+        }
     },
     getSelectionHandler: function() {
         var context = this;
@@ -192,7 +192,7 @@ Freezer.Display = {
             if(selectedNodes.length > 0) {
                 context.setControls(true);
             } else {
-                context.setControls(false);             
+                context.setControls(false);
             }
         }
     },
@@ -247,7 +247,7 @@ $(document).ready(function() {
 
     Freezer.Display.Left = Freezer.Display.create("tree1");
     Freezer.Display.Right = Freezer.Display.create("tree2");
-    
+
     /*----- bind controls -----*/
     $("#btnCollapseAll1").click(function(){
         return Freezer.Display.Left.collapseTree();
@@ -271,7 +271,7 @@ $(document).ready(function() {
         return Freezer.Display.Right.findAvailableLocation();
     });
 
-    $("#set_active_btn1, #set_inactive_btn1").click(function(event){ 
+    $("#set_active_btn1, #set_inactive_btn1").click(function(event){
         Freezer.Display.Left.updateLocations();
         return false;
     });
@@ -300,14 +300,14 @@ $(document).ready(function() {
         dnd: Freezer.Display.Left.getDndObj(),
         onSelect: Freezer.Display.Left.getSelectionHandler()
     });
-    
+
     /*----- set up right-hand tree -----*/
     Freezer.Display.Right.Model.myTreeElement.dynatree({
         minExpandLevel: 1,
         selectMode: 2,
         checkbox: false,
         initAjax: {
-            url: '<?= site_url() ?>freezer/get_freezers', 
+            url: '<?= site_url() ?>freezer/get_freezers',
             data: {}
         },
         onLazyRead: Freezer.Display.Right.getLazyReadHandler(),
@@ -315,7 +315,7 @@ $(document).ready(function() {
         onDblClick: Freezer.Display.Right.getDblClickHandler(),
         dnd: Freezer.Display.Right.getDndObj()
     });
-        
+
     // set event handlers for global search panel
     gamma.setSearchEventHandlers($('.global_search_panel'));
 
