@@ -25,12 +25,18 @@ class General_query {
     protected $tag = '';
     protected $title = '';
     
-    // --------------------------------------------------------------------
+    /**
+     * Constructor
+     */
     function __construct()
     {
     }
     
-    // --------------------------------------------------------------------
+    /**
+     * Initialize the class
+     * @param type $config_name
+     * @param type $config_source
+     */
     function init($config_name, $config_source)
     {
         $this->config_name = $config_name;
@@ -54,7 +60,10 @@ class General_query {
         return $p;
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Setup the query
+     * @return \General_query_def
+     */    
     function setup_query_for_base_controller()
     {
         $CI = &get_instance();      
@@ -72,7 +81,7 @@ class General_query {
 
     /**
      * Called by client controller to execute query via q_model and return result in format
-     * as specified by input_params object (of class General_query_def)
+     * as specified by the input_parms object (of class General_query_def)
      * @param type $input_parms
      */
     function setup_query($input_parms)
@@ -183,6 +192,9 @@ class General_query {
     
     /**
      * Show results as an HTML-formatted table
+     * @param type $result
+     * @param type $pageTitle
+     * @return type
      */
     function html_table($result, $pageTitle)
     {
