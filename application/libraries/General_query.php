@@ -12,6 +12,10 @@ class General_query_def {
     var $q_name = '';
     var $config_source = '';
     var $filter_values = array();
+    var $offset = 1;
+    var $rows = 100;
+    var $sort_col = '';
+    var $sort_direction = 'DESC';
 }
 
 /**
@@ -57,6 +61,54 @@ class General_query {
         $p->q_name = $CI->uri->segment(4);
         $p->config_source = $CI->uri->segment(5);
         $p->filter_values = array_slice($CI->uri->segment_array(), 5);
+        
+        // Look for custom paging values specified after the question mark
+        // 
+        // For example, with https://dms2.pnl.gov/data/ax/table/list_report/dataset/-/-/-/VOrbi05/QC_Shew_13?Offset=25&Rows=50&SortCol=ID&SortDir=ASC
+        // we are filtering on:
+        //   Instrument:      VOrbi05
+        //   Experiment:      QC_Shew_13
+        
+        // And paging with:
+        //   Offset:          25
+        //   RowsToDisplay:   50
+        //   Sort column:     ID
+        //   Sort directtion: Ascending
+        
+        $offset = $CI->input->get('Offset', TRUE);
+        $rows = $CI->input->get('Rows', TRUE);
+        $sortCol = $CI->input->get('SortCol', TRUE);
+        $sortDir = $CI->input->get('SortDir', TRUE);
+
+        // Validate that the offset is an integer
+        if ( filter_var($offset, FILTER_VALIDATE_INT) !== false ) {
+             $p->offset = (int)$offset;
+        } else {
+             $p->offset = 1;
+        }
+
+        // Validate that rows is an integer
+        if ( filter_var($rows, FILTER_VALIDATE_INT) !== false ) {
+             $p->rows = (int)$rows;
+        } else {
+             $p->rows = 100;
+        }
+       
+        // Possibly override the sort column
+        if ($sortCol) {
+            $p->sort_col = $sortCol;
+        }
+        
+        if ($sortDir) {
+            // Check whether $sortDir starts with Asc or Desc
+            
+            if (strncmp(strtolower($sortDir), "asc", 3) === 0)
+                $p->sort_direction = 'ASC';
+            
+            if (strncmp(strtolower($sortDir), "desc", 4) === 0)
+                $p->sort_direction = 'DESC';
+        }
+            
         return $p;
     }
 
@@ -88,7 +140,8 @@ class General_query {
     {
         $CI = &get_instance();      
         $CI->cu->load_mod('q_model', 'model', $input_parms->q_name, $input_parms->config_source);
-        $this->add_filter_values_to_model_predicate($input_parms->filter_values, $CI->model);
+        $this->add_filter_values_to_model_predicate($input_parms->filter_values, $CI->model);        
+        $this->configure_paging($input_parms, $CI->model);
     }
 
     /**
@@ -117,6 +170,27 @@ class General_query {
     }
     
     /**
+     * Configure paging
+     * @param type $input_parms
+     * @param type $model
+     */
+    private
+    function configure_paging($input_parms, $model)
+    {
+        /*
+        echo "<pre>";
+        echo "Offset:         $input_parms->offset \n";
+        echo "Rows:           $input_parms->rows\n";
+        echo "Sort col:       $input_parms->sort_col\n";
+        echo "Sort direction: $input_parms->sort_direction";
+        echo "</pre>\n";
+        */
+
+        $model->add_paging_item($input_parms->offset, $input_parms->rows);
+        $model->add_sorting_item($input_parms->sort_col, $input_parms->sort_direction);
+    }
+    
+    /**
      * Output a result in the specified format
      * @param type $output_format
      */
@@ -134,6 +208,11 @@ class General_query {
                 break;
             case 'sql':
                 echo $model->get_sql();
+                break;
+           case 'count':
+                $query = $model->get_rows();
+                $rows = $query->result_array();
+                echo "rows:".count($rows);
                 break;
             case 'json':
                 $query = $model->get_rows();
