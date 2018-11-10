@@ -17,3 +17,16 @@
     function IsNotWhitespace($variable) {
         return (isset($variable) && trim($variable) !== '');
     }
+    
+    /**
+     * Return true if $needle starts with $haystack
+     * @param type $haystack
+     * @param type $needle
+     * @return type
+     */
+    function StartsWith($haystack, $needle)
+    {
+         $length = strlen($needle);
+         return (substr($haystack, 0, $length) === $needle);
+    }
+    

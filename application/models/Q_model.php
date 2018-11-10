@@ -7,6 +7,9 @@
 // This class also supplies certain definition information for use in building
 // and using those filters.
 
+// Include the String operations methods
+require_once(BASEPATH . '../application/libraries/String_operations.php');
+
 /**
  * Track parts of the SQL query
  * @category Helper class
@@ -573,7 +576,7 @@ class Q_model extends CI_Model {
                 if($dir) {
                     // Assure that the sort direction is ASC or DESC
                     // Will auto-update desc or Descending to DESC; anything else is ASC
-                    if ($this->startsWith(strtoupper($dir), "DESC")) {
+                    if (StartsWith(strtoupper($dir), "DESC")) {
                         $dir = "DESC";
                     } else {
                         $dir = "ASC";
@@ -1067,9 +1070,4 @@ class Q_model extends CI_Model {
         return array("AND" => "AND","OR" => "OR");
     }
 
-    function startsWith($haystack, $needle)
-    {
-         $length = strlen($needle);
-         return (substr($haystack, 0, $length) === $needle);
-    }
 }

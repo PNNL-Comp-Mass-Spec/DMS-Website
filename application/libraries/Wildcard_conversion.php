@@ -1,5 +1,8 @@
 <?php
 
+    // Include the String operations methods
+    require_once(BASEPATH . '../application/libraries/String_operations.php');
+
     /**
      * Check for the field either matching a special tag or containing a special tag
      * String comparisons are case sensitive
@@ -25,13 +28,13 @@
         }
 
         // Check for special tags at the start
-        if (startsWith($value, "StartsWith__")) {
+        if (StartsWith($value, "StartsWith__")) {
             // Use a backtick to signify that the value must start with the value
             $newValue = str_replace("StartsWith__", "`", $value);
-        } else if (startsWith($value, "ExactMatch__")) {
+        } else if (StartsWith($value, "ExactMatch__")) {
             // Use a tilde to signify that the value must exactly match the value
             $newValue = str_replace("ExactMatch__", "~", $value);
-        } else if (startsWith($value, "NoMatch__")) {
+        } else if (StartsWith($value, "NoMatch__")) {
             // Use a colon to signify that the value cannot contain the value
             $newValue = str_replace("NoMatch__", ":", $value);
         } else {
@@ -45,14 +48,3 @@
         return $finalValue;
     }
 
-    /**
-     * Return true if $needle starts with $haystack
-     * @param type $haystack
-     * @param type $needle
-     * @return type
-     */
-    function startsWith($haystack, $needle)
-    {
-         $length = strlen($needle);
-         return (substr($haystack, 0, $length) === $needle);
-    }
