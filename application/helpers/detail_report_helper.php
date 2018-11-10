@@ -7,6 +7,9 @@ if (!defined('BASEPATH')) {
 // Include the Number formatting methods
 require_once(BASEPATH . '../application/libraries/Number_formatting.php');
 
+// Include the String operations methods
+require_once(BASEPATH . '../application/libraries/String_operations.php');
+
 /**
  * Create HTML to display detail report fields, including adding hotlinks
  * Also adds the header fields, including the link to the list report and edit/entry buttons
@@ -428,27 +431,47 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
         case "tabular_link_list":
             // Parse data separated by colons and vertical bars and create a table
             // Values in the second column are linked to the page defined by the target column in the detail_report_hotlinks section of the config DB
-            // Row1_Name:Row1_Value|Row2_Name:Row2_Value|
+            // If the data starts with !Headers!, this means the first set of colon separated words are header names
             //
+            // Example 1:
+            // Row1_Name:Row1_Value|Row2_Name:Row2_Value|
             // Row1_Value will link to the given target
+            //
+            // Example 2:
+            // !Headers!Channel:Exp_ID:Experiment:Channel Type|1:212457:SampleA:Normal|2:212458:SampleB:Normal|3:212459:SampleC:Normal|4:212460:SampleD:Reference
+            // The headers are Channel, Exp_ID, Experiment, and Channel Type
+            // The numbers 212457, 212458, 212459, and 212460 will link to a URL like https://dms2.pnl.gov/experimentid/show/212457
+
             $str .= "<table class='inner_table'>";
             foreach(explode('|', $display) as $currentItem) {
+                if (StartsWith(strtolower($currentItem), '!headers!')) {
+                    $colTag = 'th';
+                    $currentItem = substr($currentItem, strlen('!headers!'));
+                    $headerLine = true;
+                } else {
+                    $colTag = 'td';
+                    $headerLine = false;
+                }
                 $str .= '<tr>';
+
                 $rowColNum = 0;
                 foreach(explode(':', $currentItem) as $itemField) {
                     $rowColNum += 1;
-                    if ($rowColNum == 2) {
-                        $trimmedValue = trim($itemField);
+                    $trimmedValue = trim($itemField);
+
+                    if ($headerLine === false && $rowColNum == 2) {
                         $renderHTTP=TRUE;
                         $url = make_detail_report_url($target, $trimmedValue, $options, $renderHTTP);
-                        $str .= '<td>' . "<a href='$url'>$trimmedValue</a>" . '</td>';
+                        $str .= "<$colTag><a href='$url'>$trimmedValue</a></$colTag>";
                     } else {
-                        $str .= '<td>' . trim($itemField) . '</td>';
+                        $str .= "<$colTag>$trimmedValue</$colTag>";
                     }
                 }
+
                 $str .= '</tr>';
             }
             $str .= "</table>";
+
             break;
         case "color_label":
             $cx = "";
