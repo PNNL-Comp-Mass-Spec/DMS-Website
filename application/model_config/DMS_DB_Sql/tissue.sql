@@ -2,8 +2,8 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_BTO_Tissue_Report');
-INSERT INTO "general_params" VALUES('list_report_data_sort_col','Tissue');
-INSERT INTO "general_params" VALUES('list_report_data_sort_dir','ASC');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Usage');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('my_db_group','ontology');
 INSERT INTO "general_params" VALUES('detail_report_data_table','V_BTO_Tissue_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','Identifier');
