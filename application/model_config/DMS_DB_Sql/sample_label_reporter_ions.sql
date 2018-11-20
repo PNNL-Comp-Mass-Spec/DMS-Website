@@ -1,0 +1,12 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO "general_params" VALUES('base_table','T_Sample_Labelling_Reporter_Ions');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Sample_Label_Reporter_Ions_List_Report');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Label, Channel');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Asc');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_Label','Label','15!','','Label','ContainsText','text','64','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_Channel','Channel','10!','','Channel','Equals','text','22','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_Tag_Name','Tag','15!','','Tag_Name','ContainsText','text','64','','');
+COMMIT;
