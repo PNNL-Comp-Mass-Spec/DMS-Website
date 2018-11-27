@@ -24,7 +24,7 @@ INSERT INTO "form_fields" VALUES(1,'Host',' Host','text-if-new','50','64','','',
 INSERT INTO "form_fields" VALUES(2,'IP',' IP','text','15','15','','','','trim|max_length[15]');
 INSERT INTO "form_fields" VALUES(3,'Alias',' Alias','text','50','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(4,'Tag',' Tag','text','24','24','','','','trim|max_length[24]');
-INSERT INTO "form_fields" VALUES(5,'Instruments',' Instruments','area','','','4','70','','trim|max_length[1024]');
+INSERT INTO "form_fields" VALUES(5,'Instruments',' Instruments','area','','','2','40','','trim|max_length[1024]');
 INSERT INTO "form_fields" VALUES(6,'Comment','Comment','area','','','4','70','','trim|max_length[1024]');
 INSERT INTO "form_fields" VALUES(7,'Active',' Active','text','12','12','','','','trim|max_length[12]');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
@@ -40,4 +40,5 @@ INSERT INTO "sproc_args" VALUES(9,'<local>','message','varchar','output','512','
 INSERT INTO "sproc_args" VALUES(10,'<local>','callingUser','varchar','input','128','AddUpdateBionetHost');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'Active','picker.replace','yesNoAsOneZeroPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'Instruments','picker.append','instrumentNameAdminPickList','','',',','');
 COMMIT;
