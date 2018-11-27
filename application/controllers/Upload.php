@@ -77,6 +77,7 @@ class Upload extends Base_controller {
             $result = $_FILES['myfile']['error'];
             if ($result == 0) {
                 if (file_exists($target_path) && $target_path !== $destination_path) {
+                    // Delete the existing file
                     unlink($target_path);
                 }
                 $result = !move_uploaded_file($_FILES['myfile']['tmp_name'], $target_path);
@@ -87,9 +88,10 @@ class Upload extends Base_controller {
             }
         }
 
-        // output is headed for an iframe
-        // this script will automatically run when put into it and will inform elements on main page that operation has completed
-        echo "<script type='text/javascript'>parent.report_upload_results('$file_name', '$error')</script>";
+        // Output is headed for an iframe
+        // This script will automatically run when put into it and will inform elements on main page that operation has completed
+        // Surround $file_name with double quotes in case the filename has an apostrophe
+        echo "<script type='text/javascript'>parent.report_upload_results(\"$file_name\", \"$error\")</script>";
     }
 
     /**
