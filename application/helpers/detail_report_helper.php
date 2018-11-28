@@ -240,17 +240,20 @@ function get_hotlink_specs_for_field($f_name, $hotlinks)
 
 /**
  * Construct a detail report hotlink
- * @param type $colSpec
- * @param type $link_id
- * @param type $colIndex
- * @param type $display
- * @param type $val
+ * @param array $colSpec  Key/value pairs from detail_report_hotlinks in the Model Config DB
+ *                        LinkType, WhichArg, Target, Placement, id, and Options
+ * @param type $link_id   Data value for field specified by WhichArg
+ * @param type $colIndex  Form field index (0-based)
+ * @param type $display   Form field name
+ * @param type $val       Data value for this form field from the database.  
+ *                        If Name and WhichArg are the same, $link_id and $val will be the same
  * @return type
  */
 function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $val='')
 {
     $str = "";
     $fld_id = $colSpec["id"];
+
     if (array_key_exists("WhichArg", $colSpec)) {
         $wa = $colSpec["WhichArg"];
     } else {
@@ -264,6 +267,15 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
     switch($type) {
         case "detail-report":
             // Link to another DMS page, including both list reports and detail reports
+            if (!empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
+                $hideLinkMatchText = $options['HideLinkIfValueMatch'];
+                if (empty($val) && $link_id === $hideLinkMatchText ||
+                    !empty($val) && $val === $hideLinkMatchText) {
+                    $str = $display;
+                    break;
+                }
+            }
+                
             $url = make_detail_report_url($target, $link_id, $options);
             $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
             break;
@@ -394,9 +406,23 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             $delim = (preg_match('/[,;]/', $display, $matches)) ? $matches[0] : '';
             $flds = ($delim == '') ? array($display) : explode($delim, $display);
 
+            if (!empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
+                $hideLinkMatchText = $options['HideLinkIfValueMatch'];
+            } else {
+                $hideLinkMatchText = '';
+            }
+
             $links = array();
             foreach($flds as $currentItem) {
                 $currentItem = trim($currentItem);
+                if (empty($currentItem)) {
+                    continue;
+                }
+                if (!empty($hideLinkMatchText) && $currentItem === $hideLinkMatchText) {
+                    $links[] = $currentItem;
+                    continue;
+                }
+
                 $renderHTTP=TRUE;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
                 $links[] = "<a href='$url'>$currentItem</a>";
@@ -682,6 +708,7 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP=FALSE)
 {
 
     if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
+        // The field has a URL; link to it
         $url = $link_id;
     }
     else {
