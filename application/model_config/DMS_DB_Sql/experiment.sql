@@ -68,7 +68,7 @@ CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Typ
 INSERT INTO "detail_report_commands" VALUES(1,'Retire Experiment','cmd_op','retire_experiment','experiment','Make this experiment inactive and remove it from the current container','Are you sure that you want to retire this experiment? Container/location information will be removed.');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Campaign','detail-report','Campaign','campaign/show','labelCol','campaign','');
-INSERT INTO "detail_report_hotlinks" VALUES(2,'Experiment Groups','link_list','Experiment Groups','experiment_group/show','valueCol','experiment_groups','');
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Experiment Groups','link_list','Experiment Groups','experiment_group/show','valueCol','experiment_groups','{"HideLinkIfValueMatch":"(none)"}');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Request','detail-report','Request','sample_prep_request/show','labelCol','request','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Datasets','detail-report','Experiment','dataset/report/-/-/-/-/~','labelCol','datasets','');
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Cell Cultures','link_list','Cell Cultures','cell_culture/show','valueCol','dl_cell_cultures','');
@@ -83,7 +83,9 @@ INSERT INTO "detail_report_hotlinks" VALUES(13,'+Location','detail-report','Loca
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Organism','detail-report','Organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Researcher','detail-report','Researcher','user/report/-/~','labelCol','dl_researcher','{"RemoveRegEx":" [(].*[)]"}');
 INSERT INTO "detail_report_hotlinks" VALUES(16,'Plant/Animal Tissue','detail-report','Plant/Animal Tissue','tissue/report/~','valueCol','dl_tissue','');
-INSERT INTO "detail_report_hotlinks" VALUES(17,'Labelling','detail-report','Labelling','sample_label_reporter_ions/report/~','valueCol','dl_labelling','');
+INSERT INTO "detail_report_hotlinks" VALUES(17,'Labelling','detail-report','Labelling','sample_label_reporter_ions/report/~','valueCol','dl_labelling_reporter_ions','{"HideLinkIfValueMatch":"none"}');
+INSERT INTO "detail_report_hotlinks" VALUES(18,'+Labelling','detail-report','ID','experiment_plex_members/report/','labelCol','dl_labelling_plex_id','{"HideLinkIfValueMatch":"none"}');
+INSERT INTO "detail_report_hotlinks" VALUES(19,'ID','detail-report','ID','experimentid/show','labelCol','dl_experiment_id','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'sample_prep_request','experimentNum','ColName','Sample Group Naming Prefix');
 INSERT INTO "external_sources" VALUES(2,'sample_prep_request','campaignNum','ColName','Campaign');
