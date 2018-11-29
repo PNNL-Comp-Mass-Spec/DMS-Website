@@ -201,7 +201,9 @@ class E_model extends CI_Model {
                 $a['maxlength'] = $row['maxlength'];
                 $a['rows'] = $row['rows'];
                 $a['cols'] = $row['cols'];
-                $a['default'] = $row['default'];
+                
+                // Replace <br> with linefeeds in the default value
+                $a['default'] = str_replace('<br>', "\r", $row['default']);
 
                 $this->form_fields[$row['name']] = $a;
             }
