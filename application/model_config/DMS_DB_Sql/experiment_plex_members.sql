@@ -14,6 +14,7 @@ INSERT INTO "general_params" VALUES('post_submission_detail_id','Exp_ID');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Plex_Exp_ID','invoke_entity','value','experiment_plex_members/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Channels','invoke_entity','Plex_Exp_ID','experiment_plex_members_tsv/report/','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Request','invoke_entity','value','sample_prep_request/show','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_plex_exp_id','Plex Exp ID','6!','','Plex_Exp_ID','Equals','text','22','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_plex_experiment','Plex Experiment','30!','','Plex Experiment','ContainsText','text','128','','');
