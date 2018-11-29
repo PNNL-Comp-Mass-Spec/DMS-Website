@@ -469,6 +469,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             // The numbers 212457, 212458, 212459, and 212460 will link to a URL like https://dms2.pnl.gov/experimentid/show/212457
 
             $str .= "<table class='inner_table'>";
+            $headerCount = 0;
             foreach(explode('|', $display) as $currentItem) {
                 if (StartsWith(strtolower($currentItem), '!headers!')) {
                     $colTag = 'th';
@@ -481,15 +482,25 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                 $str .= '<tr>';
 
                 $rowColNum = 0;
-                foreach(explode(':', $currentItem) as $itemField) {
+                if ($headerCount > 0)
+                    $explodeLimit = $headerCount;
+                else
+                    $explodeLimit = PHP_INT_MAX;
+                
+                foreach(explode(':', $currentItem, $explodeLimit) as $itemField) {
                     $rowColNum += 1;
                     $trimmedValue = trim($itemField);
 
                     if ($headerLine === false && $rowColNum == 2) {
+                        // This is the second column, and it's not the header row
+                        // Render as a URL
                         $renderHTTP=TRUE;
                         $url = make_detail_report_url($target, $trimmedValue, $options, $renderHTTP);
                         $str .= "<$colTag><a href='$url'>$trimmedValue</a></$colTag>";
                     } else {
+                        if ($headerLine) {
+                            $headerCount++;
+                        }
                         $str .= "<$colTag>$trimmedValue</$colTag>";
                     }
                 }
