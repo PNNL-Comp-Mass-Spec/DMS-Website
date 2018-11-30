@@ -56,7 +56,7 @@ class Spreadsheet_loader {
         if (strpos($mimeType, 'opendocument.spreadsheet') > 0 ) {
             // OpenOffice .ODS file
             throw new exception(
-                "Save the spreadhsheet as a tab-delimited text file: "
+                "Save the spreadsheet as a tab-delimited text file: "
                 . "Choose File, then Save As, then for Type select Text CSV; "
                 . "for the Field Delimiter select {TAB}");
         }

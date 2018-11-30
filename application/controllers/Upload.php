@@ -7,14 +7,14 @@ require_once(BASEPATH . '../application/libraries/String_operations.php');
 class Upload extends Base_controller {
 
     // Tracks names of entities currently supported by the spreadsheet loader.
-    // Comes from table loadable_entities in spreadsheet_loader.db
+    // Comes from column config_source in table loadable_entities in spreadsheet_loader.db
     private $supported_entities = array ();
 
     // --------------------------------------------------------------------
     function __construct()
     {
         parent::__construct();
-        $this->my_tag = 'table_loader'; // to tag up with legacy help page link
+        $this->my_tag = 'table_loader'; // Links to the help page; also used by the restricted_actions table in master_authorization
         $this->get_config_info('spreadsheet_loader.db');
     }
     // --------------------------------------------------------------------
@@ -619,7 +619,7 @@ class Upload extends Base_controller {
         echo "</div>";
 
         echo "<div style='$style'>You can get a blank template with all possible fields for the entity by clicking the 'Blank Template' link.</div>";
-        echo "<div style='$style'>You can get a template for a an existing entity by using the spreadsheet export link on the detail report page for that entity.  As a convenience, the 'List Report' link will take you to the list report page for the entity type, and you can get to the detail report page for a particular entity from there</div>";
+        echo "<div style='$style'>You can get a template for an existing entity by using the spreadsheet export link on the detail report page for that entity.  As a convenience, the 'List Report' link will take you to the list report page for the entity type, and you can get to the detail report page for a particular entity from there.</div>";
     }
 
     /**
