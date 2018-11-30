@@ -124,7 +124,7 @@ INSERT INTO "menu_def" VALUES(28,'Experiments','submenu','Experiment Factors','F
 INSERT INTO "menu_def" VALUES(29,'Experiment Factors','link','requested_run_factors/param','Define Factors');
 INSERT INTO "menu_def" VALUES(30,'Experiment Factors','link','custom_factors/report/-','Browse Factors');
 INSERT INTO "menu_def" VALUES(31,'Experiments','submenu','Experiment Labelling','Labelling');
-INSERT INTO "menu_def" VALUES(32,'Experiment Labelling','link','experiment_plex_members/report/-/-/-','Plex Members Summary');
+INSERT INTO "menu_def" VALUES(32,'Experiment Labelling','link','experiment_plex_members/report/-/-/-','Plex Members');
 INSERT INTO "menu_def" VALUES(33,'Experiment Labelling','link','experiment_plex_members_tsv/report/-/-/-','Plex Members TSV');
 INSERT INTO "menu_def" VALUES(34,'Experiment Labelling','link','sample_label_reporter_ions/report/-/-/-','Reporter Ions');
 INSERT INTO "menu_def" VALUES(35,'Experiments','submenu','Experiment Organisms','Organisms');
