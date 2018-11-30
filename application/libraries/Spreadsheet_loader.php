@@ -163,8 +163,8 @@ class Spreadsheet_loader {
                 $grab_it = TRUE;
             }
         }
-        if(!$end_it) {
-            throw new exception('The tracking info section was not terminated by "AUXILIARY INFORMATION" header');
+        if(!$grab_it) {
+            throw new exception('"TRACKING INFORMATION" header not found');
         }
     }
 
