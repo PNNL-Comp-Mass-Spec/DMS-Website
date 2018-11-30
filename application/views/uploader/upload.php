@@ -76,7 +76,7 @@ File to upload:
 
 <div style="padding:10px 0 5px 0;">
 Uploaded file:
-<input id='uploaded_file_name' type='text' size='80' />
+<input id='uploaded_file_name' type='text' size='40' />
 <span id='upload_error' ></span>
 <input class="button search_btn" type="button" onclick="extract()" value="Extract Data" title="Get list of entities from file and controls to load them" />
 <input class="button search_btn" type="button" onclick="showSpreadsheetContents()" value="Display Contents" title="Display contents of file in tabular format" />
