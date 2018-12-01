@@ -9,6 +9,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateLCColumn');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_LC_Column_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','SC_Column_Number');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Created');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','SC_Column_Number');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'SC_Column_Number','Column Number','text-if-new','60','128','','','','trim|max_length[60]|name_space');
 INSERT INTO "form_fields" VALUES(2,'SC_Packing_Mfg','Packing Mfg','text','60','64','','','','trim|max_length[64]');
@@ -35,7 +36,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(1,'Column Number','invoke_entity','value','lc_column/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Created','format_date','value','15','{"Format":"Y-m-d"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'SC_Column_Number','columnNumber','varchar','input','128','AddUpdateLCColumn');
+INSERT INTO "sproc_args" VALUES(1,'SC_Column_Number','columnNumber','varchar','output','128','AddUpdateLCColumn');
 INSERT INTO "sproc_args" VALUES(2,'SC_Packing_Mfg','packingMfg','varchar','input','64','AddUpdateLCColumn');
 INSERT INTO "sproc_args" VALUES(3,'SC_Packing_Type','packingType','varchar','input','64','AddUpdateLCColumn');
 INSERT INTO "sproc_args" VALUES(4,'SC_Particle_size','particleSize','varchar','input','64','AddUpdateLCColumn');

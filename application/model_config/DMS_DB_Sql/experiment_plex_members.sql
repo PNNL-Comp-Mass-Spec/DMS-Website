@@ -46,7 +46,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'Exp_ID','list-report.helper','','hel
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'Plex_Members','auto_format','none');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'Exp_ID','plexExperimentId','int','input','','AddUpdateExperimentPlexMembers');
+INSERT INTO "sproc_args" VALUES(1,'Exp_ID','plexExperimentId','int','output','','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(2,'Plex_Members','plexMembers','varchar','input','4000','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(3,'<local>','mode','varchar','input','12','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(4,'<local>','message','varchar','output','512','AddUpdateExperimentPlexMembers');

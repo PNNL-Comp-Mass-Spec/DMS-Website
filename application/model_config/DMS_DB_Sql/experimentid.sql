@@ -46,7 +46,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(17,'Labelling','detail-report','Labe
 INSERT INTO "detail_report_hotlinks" VALUES(18,'+Labelling','detail-report','ID','experiment_plex_members/report/','labelCol','dl_labelling_plex_id','{"HideLinkIfValueMatch":"none"}');
 INSERT INTO "detail_report_hotlinks" VALUES(19,'Experiment','detail-report','Experiment','experiment/show/','labelCol','dl_experiment','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'ID','name','varchar','input','128','DoMaterialItemOperation');
+INSERT INTO "sproc_args" VALUES(1,'Exp_ID','name','varchar','input','128','DoMaterialItemOperation');
 INSERT INTO "sproc_args" VALUES(2,'<local>','mode','varchar','input','32','DoMaterialItemOperation');
 INSERT INTO "sproc_args" VALUES(3,'<local>','message','varchar','output','512','DoMaterialItemOperation');
 INSERT INTO "sproc_args" VALUES(4,'<local>','callingUser','varchar','input','128','DoMaterialItemOperation');
@@ -68,12 +68,13 @@ INSERT INTO "sproc_args" VALUES(19,'postdigestIntStd','postdigestIntStd','varcha
 INSERT INTO "sproc_args" VALUES(20,'wellplateNum','wellplateNum','varchar','input','64','AddUpdateExperiment');
 INSERT INTO "sproc_args" VALUES(21,'wellNum','wellNum','varchar','input','8','AddUpdateExperiment');
 INSERT INTO "sproc_args" VALUES(22,'alkylation','alkylation','varchar','input','1','AddUpdateExperiment');
-INSERT INTO "sproc_args" VALUES(23,'<local>','mode','varchar','input','12','AddUpdateExperiment');
-INSERT INTO "sproc_args" VALUES(24,'<local>','message','varchar','output','512','AddUpdateExperiment');
-INSERT INTO "sproc_args" VALUES(25,'container','container','varchar','input','128','AddUpdateExperiment');
-INSERT INTO "sproc_args" VALUES(26,'barcode','barcode','varchar','input','64','AddUpdateExperiment');
-INSERT INTO "sproc_args" VALUES(27,'tissue','tissue','varchar','intput','128','AddUpdateExperiment');
-INSERT INTO "sproc_args" VALUES(28,'<local>','callingUser','varchar','input','128','AddUpdateExperiment');
+INSERT INTO "sproc_args" VALUES(23,'Exp_ID','experimentId','int','output','','AddUpdateExperiment');
+INSERT INTO "sproc_args" VALUES(24,'<local>','mode','varchar','input','12','AddUpdateExperiment');
+INSERT INTO "sproc_args" VALUES(25,'<local>','message','varchar','output','512','AddUpdateExperiment');
+INSERT INTO "sproc_args" VALUES(26,'container','container','varchar','input','128','AddUpdateExperiment');
+INSERT INTO "sproc_args" VALUES(27,'barcode','barcode','varchar','input','64','AddUpdateExperiment');
+INSERT INTO "sproc_args" VALUES(28,'tissue','tissue','varchar','intput','128','AddUpdateExperiment');
+INSERT INTO "sproc_args" VALUES(29,'<local>','callingUser','varchar','input','128','AddUpdateExperiment');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Exp_ID','Experiment ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'experimentNum','Experiment Name','text-if-new','40','80','','','','trim|required|max_length[50]|alpha_dash|min_length[6]');

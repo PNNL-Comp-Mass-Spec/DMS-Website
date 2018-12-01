@@ -24,7 +24,7 @@ INSERT INTO "form_fields" VALUES(6,'MassMods','Mass Mods','area','','','10','80'
 INSERT INTO "form_fields" VALUES(7,'ReplaceMassMods','Replace Existing Mass Mods','text','8','8','','','0','trim|numeric');
 INSERT INTO "form_fields" VALUES(8,'ValidateUnimod','Validate Unimod Names','text','8','8','','','1','trim|numeric');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'Param_File_ID','paramFileID','int','input','','AddUpdateParamFile');
+INSERT INTO "sproc_args" VALUES(1,'Param_File_ID','paramFileID','int','output','','AddUpdateParamFile');
 INSERT INTO "sproc_args" VALUES(2,'Param_File_Name','paramFileName','varchar','input','255','AddUpdateParamFile');
 INSERT INTO "sproc_args" VALUES(3,'Param_File_Description','paramFileDesc','varchar','input','1024','AddUpdateParamFile');
 INSERT INTO "sproc_args" VALUES(4,'Param_File_Type','paramFileType','varchar','input','50','AddUpdateParamFile');
