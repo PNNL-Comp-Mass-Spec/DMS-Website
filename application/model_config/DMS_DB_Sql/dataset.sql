@@ -120,6 +120,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(31,'PSM Jobs','detail-report','Datas
 INSERT INTO "detail_report_hotlinks" VALUES(32,'ID','detail-report','ID','datasetid/show','labelCol','dl_dataset_id','');
 INSERT INTO "detail_report_hotlinks" VALUES(33,'SHA1 Hash','detail-report','ID','dataset_file/report/','labelCol','dl_dataset_file','');
 INSERT INTO "detail_report_hotlinks" VALUES(34,'Experiment Tissue','detail-report','Experiment Tissue','tissue/report/~','labelCol','dl_experiment_tissue','');
+INSERT INTO "detail_report_hotlinks" VALUES(35,'Dataset','detail-report','ID','datasetid/show','labelCol','dl_dataset_id_on_name','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO "entry_commands" VALUES(1,'add_trigger','override','Create','','add');
 INSERT INTO "entry_commands" VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');
