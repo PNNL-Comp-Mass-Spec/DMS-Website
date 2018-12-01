@@ -24,7 +24,7 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_Description','Description'
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_Source','Source','20!','','Source','ContainsText','text','','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Organism Name','detail-report','Organism Name','organism/report/~','labelCol','dl_organism',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(2,'Usage Last 12 Months','detail-report','Name','analysis_job/report/-/-/-/-/-/-/@/-/52','labelCol','dl_usage_12_months',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Usage Last 12 Months','detail-report','Name','analysis_job/report/-/-/-/-/-/-/@/-/52','labelCol','dl_usage_12_months','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Usage All Years','detail-report','Name','analysis_job/report/-/-/-/-/-/-/@/-/-','labelCol','dl_usage_all_years','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Entries','detail-report','ID','protein_collection_members/report/@/-/-/-','labelCol','dl_entries','');
 INSERT INTO "detail_report_hotlinks" VALUES(5,'+Entries','format_commas','Entries','','valueCol','dl_entries_formatter','{"Decimals":"0"}');

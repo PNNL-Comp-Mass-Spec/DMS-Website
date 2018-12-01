@@ -10,7 +10,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_job','Job','12','','Job','Equals','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_state','State','20','','State','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_tool','Tool','32','','Tool','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_dataset','Dataset','60','','Dataset','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_dataset','Dataset','40!','','Dataset','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_experiment','Experiment','60','','Experiment','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','20','','Campaign','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_parm_file','Parm File','60','','Parm File','ContainsText','text','128','','');
