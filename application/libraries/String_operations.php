@@ -19,7 +19,7 @@
     }
     
     /**
-     * Return true if $needle starts with $haystack
+     * Return true if $haystack starts with $needle
      * @param type $haystack
      * @param type $needle
      * @return type
