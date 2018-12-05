@@ -87,7 +87,7 @@ class G_model extends CI_Model {
 
             $dbFileName = $config_source . '.db';
 
-            if($config_name == 'na' or $config_name == '') {
+            if($config_name == 'na' || $config_name == '') {
                 $this->get_general_defs($config_name, $dbFileName);
             } else {
                 $this->get_utility_defs($config_name, $dbFileName);

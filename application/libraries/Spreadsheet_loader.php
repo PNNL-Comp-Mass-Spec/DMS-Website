@@ -299,7 +299,7 @@ class Spreadsheet_loader {
             $group = clone($g);
             $items = array();
             foreach($aux_info_fields as $f) {
-                if($g->category == $f->category and $g->subcategory == $f->subcategory ) {
+                if($g->category == $f->category && $g->subcategory == $f->subcategory ) {
                     $items[$f->item] = $f->value;
                 }
             }

@@ -285,7 +285,7 @@ class Upload extends Base_controller {
             }
 
             //---- aux info update ---------------------------
-            if($incAuxinfo and !empty($aux_info)) {
+            if($incAuxinfo && !empty($aux_info)) {
                 $this->load->model('s_model', 'aux_model');
                 $ok = $this->aux_model->init('operations_sproc', 'aux_info_def');
                 if(!$ok) throw new exception($this->aux_model->get_error_text());
@@ -320,7 +320,7 @@ class Upload extends Base_controller {
         $current_values = new stdClass();
 
         // only look for current values in update mode
-        if($mode === 'update' or $mode === 'check_update') {
+        if($mode === 'update' || $mode === 'check_update') {
             $key = 0;
             $message = '';
             $result = $this->get_entity_key($id, $entity_type, $key, $message);
@@ -576,7 +576,7 @@ class Upload extends Base_controller {
         foreach($aux_info as $obj) {
             $good = FALSE;
             foreach($result as $row) {
-                if($obj->category == $row['Category'] and $obj->subcategory == $row['Subcategory'] and $obj->item == $row['Item']) {
+                if($obj->category == $row['Category'] && $obj->subcategory == $row['Subcategory'] && $obj->item == $row['Item']) {
                     $good = TRUE;
                     break;
                 }

@@ -89,7 +89,7 @@ class List_report_pager {
     function create_stats()
     {
         // If our item count or per-page total is zero there is no need to continue.
-        if ($this->total_rows <= 0 OR $this->per_page == 0) {
+        if ($this->total_rows <= 0 || $this->per_page == 0) {
            return '';
         }
 
@@ -143,7 +143,7 @@ class List_report_pager {
     function create_links()
     {
         // There are certain situations where no action if possible
-        if ($this->total_rows <= 0 OR $this->per_page == 0 OR $this->num_pages == 1) {
+        if ($this->total_rows <= 0 || $this->per_page == 0 || $this->num_pages == 1) {
            return '';
         }
 

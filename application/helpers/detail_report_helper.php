@@ -73,7 +73,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
     // Look for any datetime columns
     foreach ($columns as $column) {
         // mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
-        if ($column->type == 'datetime' or $column->type == 93) {
+        if ($column->type == 'datetime' || $column->type == 93) {
             $dc[] = $column->name;
         }
     }
@@ -130,7 +130,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
             if($hotlink_spec['Placement'] == 'labelCol') {
                 $label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $f_name, $val);
             } else {
-                if ($server_bionet and stripos($val, "http") === 0) {
+                if ($server_bionet && stripos($val, "http") === 0) {
                     $new_target = str_ireplace(".pnl.gov", ".bionet", $val);
                     $prev_protocol = stripos($new_target, "https") === 0 ? "https" : "http";
                     if ($prev_protocol !== $protocol) {

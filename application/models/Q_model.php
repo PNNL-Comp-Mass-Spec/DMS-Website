@@ -273,7 +273,7 @@ class Q_model extends CI_Model {
                 $p->cmp = 'wildcards';
             } else {
                 $exceptions = array('MatchesText', 'MTx', 'MatchesTextOrBlank', 'MTxOB');
-                if(!$sql_any and !in_array($p->cmp, $exceptions)) {
+                if(!$sql_any && !in_array($p->cmp, $exceptions)) {
                     // quote underscores in the absence of '%' or regex/glob wildcards
                     $p->val = str_replace('_', '[_]', $p->val);
                 }
@@ -565,7 +565,7 @@ class Q_model extends CI_Model {
     private
     function assure_sorting($option)
     {
-        if($option == 'filtered_and_paged' or $option == 'filtered_and_sorted') {
+        if($option == 'filtered_and_paged' || $option == 'filtered_and_sorted') {
             // only need to dig in if there aren't any sorting items already
             if(empty($this->query_parts->sorting_items)) {
                 // Use default sorting column or first column

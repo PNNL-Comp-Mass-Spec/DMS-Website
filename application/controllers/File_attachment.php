@@ -28,11 +28,11 @@ class File_attachment extends Base_controller {
         $this->my_tag = "file_attachment";
         $this->my_title = "File Attachments";
         $this->archive_root_path = $this->config->item('file_attachment_archive_root_path'); // returns NULL if not set
-        if (!is_null($this->archive_root_path) and !is_dir($this->archive_root_path)) {
+        if (!is_null($this->archive_root_path) && !is_dir($this->archive_root_path)) {
             $this->archive_root_path = NULL;
         }
         $this->local_root_path = $this->config->item('file_attachment_local_root_path'); // returns NULL if not set
-        if (is_null($this->local_root_path) or !is_dir($this->local_root_path)) {
+        if (is_null($this->local_root_path) || !is_dir($this->local_root_path)) {
             throw new Exception("configuration item 'file_attachment_local_root_path' is either not set or not a directory!");
         }
     }
@@ -243,7 +243,7 @@ class File_attachment extends Base_controller {
                     $copy_remote_state = $this->copy_file($src_path, $this->archive_root_path, $entity_folder_path, $orig_name, false);
                 }
 
-                if ($copy_local_state and $copy_remote_state)
+                if ($copy_local_state && $copy_remote_state)
                 {
                     // Delete the local file
                     unlink($src_path);
@@ -294,7 +294,7 @@ class File_attachment extends Base_controller {
 
         $sourceFileSize = filesize($src_path);
 
-        if ($backup_existing and file_exists($dest_path)) {
+        if ($backup_existing && file_exists($dest_path)) {
             $first_backup_path = $dest_path . '.bak';
             $backup_path = $first_backup_path;
             $count = 0;
@@ -547,7 +547,7 @@ class File_attachment extends Base_controller {
         if($result->ok) {
             $result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
         }
-        if (!is_null($this->archive_root_path) and $result->path === $result->archive_path) {
+        if (!is_null($this->archive_root_path) && $result->path === $result->archive_path) {
             $result2 = $this->validate_remote_mount();
             $result->ok = $result2->ok;
             $result->message = $result2->message;
@@ -581,7 +581,7 @@ class File_attachment extends Base_controller {
 
             $result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
 
-            if (!is_null($this->archive_root_path) and $result->path === $result->archive_path) {
+            if (!is_null($this->archive_root_path) && $result->path === $result->archive_path) {
                 $remote = $this->validate_remote_mount();
                 if (!$remote->ok) {
                     throw new Exception($remote->message);

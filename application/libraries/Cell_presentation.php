@@ -508,7 +508,7 @@ class Cell_presentation {
         $dc = array();
         foreach ($col_info as $f) {
             // mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
-            if ($f->type === 'datetime' or $f->type === 93) {
+            if ($f->type === 'datetime' || $f->type === 93) {
                 $dc[] = $f->name;
             }
         }
@@ -569,7 +569,7 @@ class Cell_presentation {
         $dc = array();
         foreach ($col_info as $f) {
             // mssql returns decimals as doubles (and 'real' type), sqlsrv returns 3 (SQL decimal)
-            if ($f->type === 'real' or $f->type === 3) {
+            if ($f->type === 'real' || $f->type === 3) {
                 $dc[] = $f->name;
             }
         }

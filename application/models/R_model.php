@@ -54,7 +54,7 @@ class R_model extends CI_Model {
 
             $dbFileName = $config_source . '.db';
 
-            if($config_name == 'na' or $config_name == '') {
+            if($config_name == 'na' || $config_name == '') {
                 $this->get_general_defs($config_name, $dbFileName);
             } else {
                 $this->get_utility_defs($config_name, $dbFileName);
@@ -125,7 +125,7 @@ class R_model extends CI_Model {
                 $a['LinkType'] = $row['LinkType'];
                 $a['WhichArg'] = $row['WhichArg'];
                 $a['Target'] = $row['Target'];
-                if ($server_bionet and stripos($a['Target'], "http") === 0) {
+                if ($server_bionet && stripos($a['Target'], "http") === 0) {
                     $new_target = str_ireplace(".pnl.gov", ".bionet", $a['Target']);
                     $prev_protocol = stripos($new_target, "https") === 0 ? "https" : "http";
                     if ($prev_protocol !== $protocol) {
