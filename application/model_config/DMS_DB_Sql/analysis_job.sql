@@ -90,7 +90,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(22,'Parm File','detail-report','Parm
 INSERT INTO "detail_report_hotlinks" VALUES(23,'Organism','detail-report','Organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO "detail_report_hotlinks" VALUES(24,'Organism DB','detail-report','Organism DB','helper_organism_db/report/~','labelCol','dl_organism_db','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
-INSERT INTO "entry_commands" VALUES(1,'previewed in','cmd','Preview','Determine if current values are valid, but do not change database.','');
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Determine if current values are valid, but do not change database.','');
 INSERT INTO "entry_commands" VALUES(2,'reset','cmd','Reset Job','','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'predefined_analysis_preview_mds','Job','Literal','0');

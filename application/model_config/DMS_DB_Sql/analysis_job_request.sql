@@ -72,7 +72,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(6,'Protein Collection List','link_ta
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Requestor Name','detail-report','Requestor Name','user/report/-/~','labelCol','dl_Requestor','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Parameter File','detail-report','Parameter File','param_file/report/-/~','labelCol','dl_param_file','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
-INSERT INTO "entry_commands" VALUES(1,'previewed in','cmd','Preview','Determine if current values are valid, but do not change database.','');
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Determine if current values are valid, but do not change database.','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'analysis_job','AJR_requestID','Literal','0');
 INSERT INTO "external_sources" VALUES(2,'analysis_job','AJR_requestName','Literal','New Request');

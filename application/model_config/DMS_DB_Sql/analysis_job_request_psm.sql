@@ -60,5 +60,5 @@ INSERT INTO "form_field_choosers" VALUES(6,'jobTypeName','picker.list','psmJobTy
 INSERT INTO "form_field_choosers" VALUES(7,'toolName','picker.list','psmToolNamePicklist','','',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'organismName','list-report.helper','','helper_organism/report','',',','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
-INSERT INTO "entry_commands" VALUES(1,'previewed in','cmd','Preview','Validate the options and view the parameter file that would be used','');
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Validate the options and view the parameter file that would be used','');
 COMMIT;

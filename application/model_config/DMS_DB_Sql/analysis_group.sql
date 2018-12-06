@@ -53,7 +53,7 @@ INSERT INTO "form_field_choosers" VALUES(12,'AJ_Dataset','list-report.helper',''
 INSERT INTO "form_field_choosers" VALUES(13,'removeDatasetsWithJobs','picker.replace','YNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(14,'AJ_OrganismDB','list-report.helper','','helper_organism_db/report/-/~','AJ_Organism',',','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
-INSERT INTO "entry_commands" VALUES(1,'previewed in','cmd','Preview','Determine if current values are valid, but do not change database.','');
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Determine if current values are valid, but do not change database.','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'analysis_job_request','AJ_Dataset','ColName','Datasets');
 INSERT INTO "external_sources" VALUES(2,'analysis_job_request','AJ_ToolName','ColName','Tool');
