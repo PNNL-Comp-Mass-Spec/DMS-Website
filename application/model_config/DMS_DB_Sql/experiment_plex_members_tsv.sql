@@ -13,7 +13,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateExperimentPlexMember
 INSERT INTO "general_params" VALUES('post_submission_detail_id','Exp_ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Exp_ID','Exp_ID','text-if-new','10','80','','','','trim|required|numeric');
-INSERT INTO "form_fields" VALUES(2,'Experiment','Experiment','non-edit','40','80','','','','trim');
+INSERT INTO "form_fields" VALUES(2,'Experiment','Experiment','non-edit|text-nocopy','40','80','','','','trim');
 INSERT INTO "form_fields" VALUES(3,'Channel1_ExpID','Channel 1 Exp_ID','text','70','120','','','','trim');
 INSERT INTO "form_fields" VALUES(4,'Channel2_ExpID','Channel 2 Exp_ID','text','70','120','','','','trim');
 INSERT INTO "form_fields" VALUES(5,'Channel3_ExpID','Channel 3 Exp_ID','text','70','120','','','','trim');
@@ -53,8 +53,8 @@ INSERT INTO "list_report_hotlinks" VALUES(2,'Exp_ID','invoke_entity','value','ex
 INSERT INTO "list_report_hotlinks" VALUES(3,'Comment','min_col_width','value','50','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Plex Members','tabular_link_list','Plex Members','experimentid/show','valueCol','dl_plex_members','');
-INSERT INTO "detail_report_hotlinks" VALUES(2,'Exp_ID','detail-report','Exp_ID','experimentid/show','labelCol','dl_exp_id','');
-INSERT INTO "detail_report_hotlinks" VALUES(3,'+Exp_ID','detail-report','Exp_ID','experiment_plex_members/show/','valueCol','dl_experiment_plex_members','');
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Exp_ID','detail-report','Exp_ID','experimentid/show','valueCol','dl_exp_id','');
+INSERT INTO "detail_report_hotlinks" VALUES(3,'+Exp_ID','detail-report','Exp_ID','experiment_plex_members/show/','labelCol','dl_experiment_plex_members','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Campaign','detail-report','Campaign','campaign/show','labelCol','campaign','');
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Request','detail-report','Request','sample_prep_request/show','labelCol','request','');
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Datasets','detail-report','Experiment','dataset/report/-/-/-/-/~','labelCol','datasets','');
