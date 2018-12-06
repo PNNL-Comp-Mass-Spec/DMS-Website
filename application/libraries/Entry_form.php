@@ -138,8 +138,8 @@ class Entry_form {
         $visible_fields = array();
         $hidden_fields = array();
         $block_number = 0;
-        foreach($this->form_field_specs as $fldName => $spc) {
-            if (!array_key_exists('type', $spc)) {
+        foreach($this->form_field_specs as $fldName => $spec) {
+            if (!array_key_exists('type', $spec)) {
                  $CI->cu->message_box('Configuration Error',
                     "In the config DB, one of the tables refers to $fldName "
                     . "but that field is not defined in form_fields; see also "
@@ -148,30 +148,33 @@ class Entry_form {
                 continue;
             }
 
-            if($spc['type'] == 'hidden') {
+			// The form field type may contain several keywords specified by a vertical bar       
+	        $fieldTypes = explode('|', $spec['type']);
+
+            if(in_array('hidden', $fieldTypes)) {
                 $val = $this->field_values[$fldName];
                 $hidden_fields[] = "<input type='hidden' id='$fldName' name='$fldName' value='$val'/>";
             } else {
                 // if field has section header attribute, add section header row to table
-                if (array_key_exists('section', $spc)) {
+                if (array_key_exists('section', $spec)) {
 
-                    if (!array_key_exists('label', $spc)) {
+                    if (!array_key_exists('label', $spec)) {
                         // Section name that points to a column that is not in the source data table or view
                         // A warning box should have already been displayed via get_default_value
                         continue;
                     }
 
                     $block_number++;
-                    $visible_fields[] = array(-1, $spc['section'], $block_number);
+                    $visible_fields[] = array(-1, $spec['section'], $block_number);
                     // (someday) allow for enable field and section headers to be used together
                 }
-                $help = $this->make_wiki_help_link($spc['label']);
-                $label = $spc['label'];
-                $field = $this->make_entry_field($fldName, $spc, $this->field_values[$fldName], $mode);
+                $help = $this->make_wiki_help_link($spec['label']);
+                $label = $spec['label'];
+                $field = $this->make_entry_field($fldName, $spec, $this->field_values[$fldName], $mode);
 
                 $showChooser = true;
-                $fieldType = $spc['type'];
-                if ($fieldType === 'text-if-new') {
+
+                if (in_array('text-if-new', $fieldTypes)) {
                     if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
                         // Mode is likely add, though for dataset creation it will be add_trigger
                         // Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
@@ -183,7 +186,7 @@ class Entry_form {
                 }
 
                 if ($showChooser) {
-                    $choosers = $this->make_choosers($fldName, $spc);
+                    $choosers = $this->make_choosers($fldName, $spec);
                 } else {
                     $choosers = "";
                 }
@@ -408,39 +411,54 @@ class Entry_form {
         // set up delimiter for lists for the field
         $delimFromSpec = (isset($f_spec['chooser']['Delimiter'])) ? $f_spec['chooser']['Delimiter'] : '';
         $delim = ($delimFromSpec != '') ? $delimFromSpec : ',';
-
+	
         $data['name']  = $f_name;
         $data['id']  = $f_name;
         $data['value'] = $cur_value;
 
-        $fieldType = $f_spec['type'];
-        if ($fieldType === 'text-if-new') {
+		// The form field type may contain several keywords specified by a vertical bar       
+        $fieldTypes = explode('|', $f_spec['type']);
+        
+        if (in_array('text-if-new', $fieldTypes)) {
+
+			// Replace text-if-new with either 'text' or 'non-edit'
+			// First remove 'text-if-new'
+			$fieldTypes = array_merge(array_diff($fieldTypes, array('text-if-new')));
+
             if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
                 // Mode is likely add, though for dataset creation it will be add_trigger
                 // Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
-                $fieldType = 'text';
+                $fieldTypes[] = 'text';
             } else {
-                $fieldType = 'non-edit';
+                $fieldTypes[] = 'non-edit';
             }
-        } else if ($fieldType === 'text-nocopy' || $fieldType === 'area-nocopy') {
+        } else if (in_array('text-nocopy', $fieldTypes) || in_array('area-nocopy', $fieldTypes)) {
             if (substr($mode, 0, 3 ) === 'add') {
                 // Blank out the value to force the user to re-define it for this new entry
+                // (or, for non-edit fields, blank out the fields because it is not relevant to the new item)
                 $data['value'] = '';
             }
-            // Change $fieldType to 'text' or 'area'
-            $fieldType = substr($fieldType, 0, 4);
+
+			if (!in_array('non-edit', $fieldTypes)) {
+				// Replace 'text-nocopy' or 'area-nocopy' with 'text' or 'area'
+				
+				if (in_array('area-nocopy', $fieldTypes)) {
+					$fieldTypes = array_merge(array_diff($fieldTypes, array('area-nocopy')));
+					$fieldTypes[] = 'area';
+				} else {
+					$fieldTypes = array_merge(array_diff($fieldTypes, array('text-nocopy')));
+					$fieldTypes[] = 'text';
+				}
+	    	}
         }
 
         // create HTML according to field type
-        switch (strtolower($fieldType)) {
-
-        case 'text':
+		if (in_array('text', $fieldTypes)) {
             $data['maxlength'] = $f_spec['maxlength'];
             $data['size']      = $f_spec['size'];
             $data = $this->add_chooser_properties($f_name, $f_spec, $data);
             $s .= form_input($data);
-            break;
-        case 'area':
+		} else if (in_array('area', $fieldTypes)) {
             $data['rows'] = $f_spec['rows'];
             $data['cols'] = $f_spec['cols'];
             $autoFormatDelimitedList = true;
@@ -469,39 +487,34 @@ class Entry_form {
             }
             $data = $this->add_chooser_properties($f_name, $f_spec, $data);
             $s .= form_textarea($data);
-            break;
 
-        case 'non-edit':
+		} else if (in_array('non-edit', $fieldTypes)) {
             $s .= '<input type="hidden" name="' . $data['name'] . '" value="' . $data['value'] . '" id="' . $data['id'] . '" />';
             $s .= $data['value'];
-            break;
 
-        case 'hidden':
+		} else if (in_array('hidden', $fieldTypes)) {
+
             $s .= "<input type='hidden' id='$f_name' name='$f_name' value='xx'/>";
 //          $s .= form_hidden($data['name'], $data['value']);
-            break;
 
-        case 'file':
+		} else if (in_array('file', $fieldTypes)) {
             // This form field type is unused as of June 2017
             $data['maxlength'] = $f_spec['maxlength'];
             $data['size']      = $f_spec['size'];
             $s .= form_upload($data);
-            break;
 
-        case 'checkbox':
+		} else if (in_array('checkbox', $fieldTypes)) {
             $lbl = $f_spec['label'];
             $checked = ($data['value'])?"checked=true":"";
             $s .= "<input type='checkbox' name='$f_name' id='$f_name' value='Yes' $checked />$lbl Enabled<br/>";
-            break;
 
-        case 'action':
+		} else if (in_array('action', $fieldTypes)) {
             $px = explode(':', $f_spec['default']);
             $fnx = $px[0];
             $lbx = $px[1];
             $dsx = $px[2];
             $s .= "<a href='javascript:void(0)' onclick='$fnx' >$lbx</a> $dsx";
 //          $s .= "<button name='${f_name}_btn' onclick='$fnx' class='button'>$lbx</button>";
-            break;
         }
 
         return $s;

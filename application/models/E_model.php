@@ -128,10 +128,14 @@ class E_model extends CI_Model {
                 break;
             }
         }
+        
+        // The form field type may contain several keywords specified by a vertical bar       
+        $fieldTypes = explode('|', $spec['type']);
+                
         // default is first field that is not non-edit or hidden
         if(!$load_key) {
             foreach($this->form_fields as $field => $spec) {
-                if($spec['type'] != "hidden" and $spec['type'] != "non-edit") {
+                if(!in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
                     $load_key = $field;
                     break;
                 }

@@ -471,7 +471,11 @@ class Upload extends Base_controller {
         $primary_key = $form_def->load_key;
         $entity_info[$form_def->specs[$primary_key]['label']] = 'key';
         foreach($form_def->specs as $field => $spec) {
-            if($field != $primary_key and $spec['type'] != "hidden" and $spec['type'] != "non-edit") {
+
+	        // The form field type may contain several keywords specified by a vertical bar       
+	        $fieldTypes = explode('|', $spec['type']);
+
+            if($field != $primary_key && !in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
                 $entity_info[$spec['label']] = 'xx';
             }
         }
