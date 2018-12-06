@@ -57,6 +57,8 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_campaign','Campaign','15!'
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_id','ID','6!','','ID','Equals','text','22','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_organism','Organism','15!','','Organism','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_tissue','Tissue','10','','Tissue','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_reason','Reason','10','','Reason','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(7,'pf_comment','Comment','10','','Comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Experiment','invoke_entity','value','experiment/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Request','invoke_entity','value','sample_prep_request/show','');

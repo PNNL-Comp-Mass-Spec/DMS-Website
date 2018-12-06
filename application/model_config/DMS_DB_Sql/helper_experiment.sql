@@ -12,6 +12,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_researcher','Researcher','
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_organism','Organism','15!','','Organism','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_reason','Reason','6','','Reason','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','20!','','Campaign','ContainsText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_experiment_id','Experiment ID','6','','ID','Equals','text','12','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Experiment','update_opener','value','','');
 COMMIT;
