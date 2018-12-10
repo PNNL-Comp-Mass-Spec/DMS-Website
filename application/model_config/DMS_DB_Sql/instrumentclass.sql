@@ -8,6 +8,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','Instrument Clas
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateInstrumentClass');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Instrument_Class_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','InstrumentClass');
+INSERT INTO "general_params" VALUES('entry_block_new','True');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'InstrumentClass','Instrument Class','non-edit','32','32','','','','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(2,'IsPurgable','Is Purgable','text','1','1','','','','trim|required|max_length[1]');
@@ -32,4 +33,8 @@ INSERT INTO "sproc_args" VALUES(8,'<local>','mode','varchar','input','12','AddUp
 INSERT INTO "sproc_args" VALUES(9,'<local>','message','varchar','output','512','AddUpdateInstrumentClass');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'Params','auto_format','xml');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_class','Class','10','','Instrument Class','ContainsText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_raw_data_type','Raw Data Type','10','','Raw Data Type','ContainsText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_comment','Comment','10','','Comment','ContainsText','text','80','','');
 COMMIT;
