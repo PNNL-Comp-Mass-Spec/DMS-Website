@@ -22,12 +22,12 @@ INSERT INTO "form_field_choosers" VALUES(3,'RequiresPreparation','picker.replace
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Instrument Class','invoke_entity','value','instrumentclass/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'InstrumentClass','InstrumentClass','varchar','input','32','AddUpdateInstrumentClass');
+INSERT INTO "sproc_args" VALUES(1,'InstrumentClass','instrumentClass','varchar','input','32','AddUpdateInstrumentClass');
 INSERT INTO "sproc_args" VALUES(2,'IsPurgable','isPurgable','varchar','input','1','AddUpdateInstrumentClass');
 INSERT INTO "sproc_args" VALUES(3,'RawDataType','rawDataType','varchar','input','32','AddUpdateInstrumentClass');
 INSERT INTO "sproc_args" VALUES(4,'RequiresPreparation','requiresPreparation','varchar','input','1','AddUpdateInstrumentClass');
-INSERT INTO "sproc_args" VALUES(6,'Params','Params','text','input','2147483647','AddUpdateInstrumentClass');
-INSERT INTO "sproc_args" VALUES(7,'Comment','Comment','varchar','input','255','AddUpdateInstrumentClass');
+INSERT INTO "sproc_args" VALUES(6,'Params','params','text','input','2147483647','AddUpdateInstrumentClass');
+INSERT INTO "sproc_args" VALUES(7,'Comment','comment','varchar','input','255','AddUpdateInstrumentClass');
 INSERT INTO "sproc_args" VALUES(8,'<local>','mode','varchar','input','12','AddUpdateInstrumentClass');
 INSERT INTO "sproc_args" VALUES(9,'<local>','message','varchar','output','512','AddUpdateInstrumentClass');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
