@@ -633,6 +633,11 @@ class Config_db extends CI_Controller {
         if($r) {
             $sql .= "-- $config_db;\n----\n";
             $sql .= "DELETE FROM $table_name;\n----\n";
+
+			if ($config_db === 'master_authorization.db') {
+	            $sql .= "UPDATE sqlite_sequence set seq=0 WHERE name = '$table_name';\n----\n";
+        	}
+        	
             foreach ($r as $row) {
                 $vfr = array();
                 foreach ($data_info->col_names as $col) {
