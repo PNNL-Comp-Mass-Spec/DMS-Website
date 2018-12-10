@@ -15,7 +15,7 @@ INSERT INTO "general_params" VALUES('list_report_data_cols','[Request],[Name],[S
 INSERT INTO "general_params" VALUES('detail_report_data_cols','Request,Name,Status,Campaign,Experiment,Dataset,[Staging Location],[Instrument Used],[Instrument Group],Type,[Separation Group],Requestor,Username,Created,[Days In Queue],Origin,[Instrument Settings],[Vialing Concentration],[Vialing Volume],Comment,Factors,Note,[Special Instructions],[#WPActivationState]');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'RR_Request','Request','non-edit','','','','','0','trim');
-INSERT INTO "form_fields" VALUES(2,'RR_Name','Request Name','text','60','80','','','','trim|required|max_length[64]|alpha_dash|min_length[8]');
+INSERT INTO "form_fields" VALUES(2,'RR_Name','Request Name','text','60','80','','','','trim|required|max_length[90]|alpha_dash|min_length[8]');
 INSERT INTO "form_fields" VALUES(3,'RR_Experiment','Experiment Name','text','40','80','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(4,'RR_Instrument','Instrument Group','text','25','80','','','(lookup)','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(5,'RR_Type','Run Type','text','25','80','','','(lookup)','trim|required|max_length[50]');

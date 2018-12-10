@@ -141,4 +141,5 @@ INSERT INTO "chooser_definitions" VALUES(123,'rnaPrepReqMethodPickList','default
 INSERT INTO "chooser_definitions" VALUES(124,'paramFileTypePickList','default','sql','SELECT Param_File_Type_Ex as val, Param_File_Type as ex FROM V_Param_File_Type_PickList order by Param_File_Type');
 INSERT INTO "chooser_definitions" VALUES(125,'campaignIDPickList','default','sql','SELECT Campaign as val, ID as ex FROM V_Campaign_List_Report_2 WHERE State = ''Active'' ORDER BY campaign');
 INSERT INTO "chooser_definitions" VALUES(126,'compoundTypePickList','default','sql','SELECT Compound_Type_Name  AS val, Compound_Type_Name AS ex FROM T_Reference_Compound_Type_Name');
+INSERT INTO "chooser_definitions" VALUES(127,'experimentPlexChannelTypePickList','default','select','{"Sample":"Sample", "Reference":"Reference", "Boost":"Boost", "Empty":"Empty"}');
 COMMIT;

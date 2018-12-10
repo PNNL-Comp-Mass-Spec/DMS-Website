@@ -6,7 +6,7 @@ INSERT INTO "general_params" VALUES('list_report_sproc','ReportProductionStats')
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Start_Date','Starting Date','text','24','80','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'End_Date','Ending Date','text','24','80','','','','trim');
-INSERT INTO "form_fields" VALUES(3,'Production_Only','Production Only','text','24','1','','','0','trim');
+INSERT INTO "form_fields" VALUES(3,'Production_Only','Production Only','text','24','1','','','1','trim');
 INSERT INTO "form_fields" VALUES(4,'Campaign_ID_Filter_List','Campaign ID List','text','24','2000','','','','trim');
 INSERT INTO "form_fields" VALUES(5,'EUS_Usage_Filter_List','EUS Usage List','text','24','2000','','','','trim');
 INSERT INTO "form_fields" VALUES(6,'Instrument_Filter_List','Instrument Filter List','text','24','2000','','','','trim');

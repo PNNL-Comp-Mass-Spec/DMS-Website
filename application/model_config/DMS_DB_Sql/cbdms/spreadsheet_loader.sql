@@ -17,4 +17,5 @@ INSERT INTO "loadable_entities" VALUES(5,'DATASET','dataset','','SELECT Dataset_
 INSERT INTO "loadable_entities" VALUES(6,'LC COLUMN','lc_column','','SELECT  ID FROM T_LC_Column WHERE SC_Column_Number = KEY','name');
 INSERT INTO "loadable_entities" VALUES(7,'BOGUS','bogus','','SELECT ID FROM T_Bogus WHERE Name = KEY','name');
 INSERT INTO "loadable_entities" VALUES(8,'REFERENCE COMPOUND','reference_compound','','SELECT Compound_ID FROM T_Reference_Compound WHERE Compound_ID = KEY','Compound_ID');
+INSERT INTO "loadable_entities" VALUES(9,'EXPERIMENT PLEX MEMBERS TSV','experiment_plex_members_tsv','','SELECT Plex_Exp_ID FROM T_Experiment_Plex_Members WHERE  Plex_Exp_ID = KEY','Plex_Exp_ID');
 COMMIT;

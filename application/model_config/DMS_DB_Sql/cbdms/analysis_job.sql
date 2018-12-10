@@ -29,7 +29,7 @@ INSERT INTO "form_fields" VALUES(11,'AJ_owner','Owner (PRN)','text','40','80',''
 INSERT INTO "form_fields" VALUES(12,'associatedProcessorGroup','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(13,'propagationMode','Export Mode','text','24','24','','','Export','trim|max_length[24]');
 INSERT INTO "form_fields" VALUES(14,'stateName','State','text','32','32','','','','trim|max_length[32]');
-INSERT INTO "form_fields" VALUES(15,'AJ_comment','Comment','area','','','4','50','','trim|max_length[255]');
+INSERT INTO "form_fields" VALUES(15,'AJ_comment','Comment','area','','','4','50','','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(16,'AJ_specialProcessing','Special Processing','area','','','4','80','','trim|max_length[512]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'AJ_owner','default_function','GetUser()');
@@ -93,7 +93,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(22,'Parm File','detail-report','Parm
 INSERT INTO "detail_report_hotlinks" VALUES(23,'Organism','detail-report','Organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO "detail_report_hotlinks" VALUES(24,'Organism DB','detail-report','Organism DB','helper_organism_db/report/~','labelCol','dl_organism_db','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
-INSERT INTO "entry_commands" VALUES(1,'previewed in','cmd','Preview','Determine if current values are valid, but do not change database.','');
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Determine if current values are valid, but do not change database.','');
 INSERT INTO "entry_commands" VALUES(2,'reset','cmd','Reset Job','','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'predefined_analysis_preview_mds','Job','Literal','0');

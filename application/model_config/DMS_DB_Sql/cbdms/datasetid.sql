@@ -66,6 +66,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(29,'LC Cart','detail-report','LC Car
 INSERT INTO "detail_report_hotlinks" VALUES(30,'LC Cart Config','detail-report','LC Cart Config','lc_cart_configuration/report/~','labelCol','dl_lc_cart_config','');
 INSERT INTO "detail_report_hotlinks" VALUES(31,'PSM Jobs','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','labelCol','dl_psm_jobs','');
 INSERT INTO "detail_report_hotlinks" VALUES(32,'Dataset','detail-report','Dataset','dataset/show','labelCol','dl_dataset_name','');
+INSERT INTO "detail_report_hotlinks" VALUES(33,'SHA1 Hash','detail-report','ID','dataset_file/report/','labelCol','dl_dataset_file','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO "primary_filter_choosers" VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO "primary_filter_choosers" VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');

@@ -7,7 +7,7 @@ INSERT INTO "general_params" VALUES('list_report_data_sort_col','Dataset_ID');
 INSERT INTO "general_params" VALUES('detail_report_data_table','V_Dataset_QC_Metrics_Detail_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','Dataset_ID');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Instrument','literal_link','value','http://prismweb.pnl.gov/smaqc/index.php/smaqc/instrument/','');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Instrument','literal_link','value','https://prismsupport.pnl.gov/smaqc/index.php/smaqc/instrument/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Dataset_ID','invoke_entity','value','smaqc/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'AMTs_10pct_FDR','column_tooltip','value','Number of LC-MS features','');
@@ -115,7 +115,7 @@ INSERT INTO "list_report_hotlinks" VALUES(105,'MS2_RepIon_All','column_tooltip',
 INSERT INTO "list_report_hotlinks" VALUES(106,'MS2_RepIon_1Missing','column_tooltip','value','Number of peptides (PSMs) where all but 1 of the reporter ions were seen','');
 INSERT INTO "list_report_hotlinks" VALUES(107,'MS2_RepIon_2Missing','column_tooltip','value','Number of peptides (PSMs) where all but 2 of the reporter ions were seen','');
 INSERT INTO "list_report_hotlinks" VALUES(108,'MS2_RepIon_3Missing','column_tooltip','value','Number of peptides (PSMs) where all but 3 of the reporter ions were seen','');
-INSERT INTO "list_report_hotlinks" VALUES(109,'Quameter_Job','invoke_entity','value','analysis_job/show','');
+INSERT INTO "list_report_hotlinks" VALUES(109,'Quameter_Job','invoke_entity','value','capture_jobs/show','');
 INSERT INTO "list_report_hotlinks" VALUES(110,'SMAQC_Job','invoke_entity','value','analysis_job/show','');
 INSERT INTO "list_report_hotlinks" VALUES(111,'PSM_Source_Job','invoke_entity','value','analysis_job/show','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);

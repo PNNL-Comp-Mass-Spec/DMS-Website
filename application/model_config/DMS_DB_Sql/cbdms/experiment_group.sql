@@ -11,6 +11,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateExperimentGroup');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Experiment_Groups_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('detail_report_cmds','file_attachment_cmds');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'GroupType','Group Type','non-edit','','','','','General','trim|max_length[50]');
