@@ -120,8 +120,7 @@ INSERT INTO "chooser_definitions" VALUES(112,'psmToolNamePicklist','default','sq
 ');
 INSERT INTO "chooser_definitions" VALUES(113,'amtDBPicklist','default','sql','SELECT DISTINCT MT_DB_Name AS val, MT_DB_Name AS ex FROM V_MTS_MT_DBs WHERE State_ID < 10');
 INSERT INTO "chooser_definitions" VALUES(114,'usageTrackedInstruments','default','sql','SELECT Name + '' ('' + Reporting + '')   '' AS val, Name AS ex FROM V_Instrument_Tracked ORDER BY Reporting, Name');
-INSERT INTO "chooser_definitions" VALUES(115,'multiDatasetRequestCommentTmpl','default','select','{ "Capability Development":"Description of work:|Est. desired start date:|Est. days required:|Production LC needed? (if yes, provide details):", "Triple Quad Usage":"Description of work:|Est. desired start date:|Est. days required:|Est. total samples:"  }
-');
+INSERT INTO "chooser_definitions" VALUES(115,'multiDatasetRequestCommentTmpl','default','select','{ "Capability Development":"Description of work:|Est. desired start date:|Est. days required:|Production LC needed? (if yes, provide details):", "Triple Quad Usage":"Description of work:|Est. desired start date:|Est. days required:|Est. total samples:", "RapidFire":"Cartridge: |Ionization: |Experiment Group: https://dms2.pnl.gov/experiment_group/show/0000|Number of Runs: |Additional Info:" }');
 INSERT INTO "chooser_definitions" VALUES(116,'data_package_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS val, ID AS ex FROM S_V_Data_Package_Export');
 INSERT INTO "chooser_definitions" VALUES(117,'osm_package_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS val, ID AS ex FROM S_V_OSM_Package_Export');
 INSERT INTO "chooser_definitions" VALUES(118,'requested_run_batch_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Batch AS val, ID AS ex FROM T_Requested_Run_Batches');
