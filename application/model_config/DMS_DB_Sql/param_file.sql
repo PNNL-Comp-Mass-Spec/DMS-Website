@@ -35,7 +35,7 @@ INSERT INTO "sproc_args" VALUES(8,'ValidateUnimod','validateUnimod','int','','',
 INSERT INTO "sproc_args" VALUES(9,'<local>','mode','varchar','input','12','AddUpdateParamFile');
 INSERT INTO "sproc_args" VALUES(10,'<local>','message','varchar','output','512','AddUpdateParamFile');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO "detail_report_hotlinks" VALUES(1,'Job Usage Count','detail-report','Name','analysis_job/report/-/-/-/-/-/~@','valueCol','dl_job_usage_count',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Job Usage Count','detail-report','Name','analysis_job/report/-/-/-/-/-/~@','labelCol','dl_job_usage_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Primary Tool','detail-report','Primary Tool','analysis_job/report/-/-/@','labelCol','dl_primary_tool',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Mass_Mods','detail-report','ID','param_file_mass_mods/report/@','labelCol','dl_mass_mods',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'+Primary Tool','detail-report','Primary Tool','analysis_tools/report','valueCol','dl_primary_tool_2',NULL);
