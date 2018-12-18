@@ -167,11 +167,20 @@ class General_query {
 
             $val = $filter_values[$i];
             if($val != '-') {
+                
+                // Boolean operator
                 $rel = ($pi['cmp'] == 'Rp') ? 'ARG' : 'AND';
                 
+                // Column name to filter on
+                $col = $pi['col'];
+                
+                // Comparison mode
+                $cmp = $pi['cmp'];
+                
+                // Value to filter on
                 $val = convert_special_values($val);
                 
-                $model->add_predicate_item( $rel, $pi['col'], $pi['cmp'], $val);
+                $model->add_predicate_item($rel, $col, $cmp, $val);
             }
             $i++;
         }
@@ -248,7 +257,7 @@ class General_query {
 
     /**
      * Show results as TSV
-     * @param type $result
+     * @param array $result
      */
     function tsv($result)
     {

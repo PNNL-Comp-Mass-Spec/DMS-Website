@@ -72,9 +72,28 @@ class Query_parts {
  * @category Helper class
  */
 class Query_predicate {
+    /**
+     * Boolean operator
+     * @var string
+     */
     var $rel = 'AND';
+    
+    /**
+     * Column name to filter on
+     * @var string
+     */
     var $col;
+    
+    /**
+     * Comparison mode (ContainsText, StartsWithText, GreaterThan, etc.)
+     * @var string
+     */
     var $cmp;
+    
+    /**
+     * Value to filter on
+     * @var string
+     */
     var $val;
 }
 
@@ -283,10 +302,10 @@ class Q_model extends CI_Model {
 
     /**
      * Add one more item for building the query predicate ('WHERE' clause)
-     * @param string $rel
-     * @param string $col
-     * @param string $cmp
-     * @param string $val
+     * @param string $rel Boolean operator (AND or OR)
+     * @param string $col Column name to filter on
+     * @param string $cmp Comparison mode (ContainsText, StartsWithText, GreaterThan, etc.)
+     * @param string $val Value to filter on
      */
     function add_predicate_item($rel, $col, $cmp, $val)
     {
