@@ -3,6 +3,9 @@
 // general query - return data directly using query model
 // --------------------------------------------------------------------
 
+    // Include application/libraries/Wildcard_conversion.php
+    require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
+    
 /**
  * Query def
  * @category Helper Class
@@ -142,6 +145,8 @@ class General_query {
         $CI->cu->load_mod('q_model', 'model', $input_parms->q_name, $input_parms->config_source);
         $this->add_filter_values_to_model_predicate($input_parms->filter_values, $CI->model);
         $this->configure_paging($input_parms, $CI->model);
+        
+        $CI->model->convert_wildcards();
     }
 
     /**
@@ -162,7 +167,10 @@ class General_query {
 
             $val = $filter_values[$i];
             if($val != '-') {
-                $rel = ($pi['cmp'] == 'Rp')?'ARG':'AND';
+                $rel = ($pi['cmp'] == 'Rp') ? 'ARG' : 'AND';
+                
+                $val = convert_special_values($val);
+                
                 $model->add_predicate_item( $rel, $pi['col'], $pi['cmp'], $val);
             }
             $i++;
