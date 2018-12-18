@@ -265,6 +265,12 @@ class General_query {
 
         header("Content-type: text/plain");
 
+        if (count($result) == 0){
+            // No results
+            echo "No results found\n";
+            return;
+        }
+        
         // field headers
         foreach(array_keys(current($result)) as $field_name){
             $headers .= $field_name . "\t";
