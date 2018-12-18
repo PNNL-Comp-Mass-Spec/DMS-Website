@@ -436,7 +436,9 @@ var gamma = {
                             // However, do not replace %20 since that indicates a space
                             // To skip %20 we use negative lookahead via (?!20)
 
-                            data = data.replace(/`/g, "StartsWith__").replace(/%(?!20)/g, "__Wildcard__");
+                            data = data.replace(/`/g, "StartsWith__");
+                            data = data.replace(/%(?!20)/g, "__Wildcard__");
+                            data = data.replace(/\\b/g, "IsBlank__")
 
                             // Also replace colons, but do not replace the colon in http://
                             var urlParts = data.split("://", 2);
