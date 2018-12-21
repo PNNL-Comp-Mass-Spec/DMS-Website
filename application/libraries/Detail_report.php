@@ -255,12 +255,13 @@ class Detail_report {
         $primary_key = $form_def->load_key;
 
         // The form field type may contain several keywords specified by a vertical bar       
-        $fieldTypes = explode('|', $spec['type']);
         
         // Get array of field labels associated with field values
         // make sure key field is first in list
         $entity_info[$form_def->specs[$primary_key]['label']] = $field_values[$primary_key];
         foreach($form_def->specs as $field => $spec) {
+            $fieldTypes = explode('|', $spec['type']);
+            
             if($field != $primary_key && !in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
                 $entity_info[$spec['label']] = $field_values[$field];
             }
