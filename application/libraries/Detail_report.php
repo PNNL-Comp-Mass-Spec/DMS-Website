@@ -233,6 +233,7 @@ class Detail_report {
 
     /**
      * Get the field information that would appear on the entry page for the given entity (label -> value)
+     * Skips hidden and non-edit fields
      * @param string $id
      * @return type
      */
@@ -251,14 +252,20 @@ class Detail_report {
         $CI->cu->load_mod('q_model', 'input_model', 'entry_page', $this->config_source);
         $field_values = $CI->input_model->get_item($id);
 
-        // get entity key field
+        // Get entity key field
         $primary_key = $form_def->load_key;
 
         // The form field type may contain several keywords specified by a vertical bar       
+        $primaryKeyFieldTypes = explode('|', $form_def->specs[$primary_key]['type']);
         
         // Get array of field labels associated with field values
-        // make sure key field is first in list
-        $entity_info[$form_def->specs[$primary_key]['label']] = $field_values[$primary_key];
+        // make sure the primary key field is first in list
+        // However, if the primary key field is a non-edit field, do not add it
+        
+        if(!in_array('hidden', $primaryKeyFieldTypes) && !in_array('non-edit', $primaryKeyFieldTypes)) {
+            $entity_info[$form_def->specs[$primary_key]['label']] = $field_values[$primary_key];
+        }
+        
         foreach($form_def->specs as $field => $spec) {
             $fieldTypes = explode('|', $spec['type']);
             
