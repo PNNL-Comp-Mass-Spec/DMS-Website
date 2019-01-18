@@ -33,4 +33,6 @@ INSERT INTO "sproc_args" VALUES(3,'CartDescription','CartDescription','varchar',
 INSERT INTO "sproc_args" VALUES(4,'CartState','CartState','varchar','input','50','AddUpdateLCCart');
 INSERT INTO "sproc_args" VALUES(5,'<local>','mode','varchar','input','12','AddUpdateLCCart');
 INSERT INTO "sproc_args" VALUES(6,'<local>','message','varchar','output','512','AddUpdateLCCart');
+CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Configuration Count','detail-report','Cart Name','lc_cart_configuration/report/-/~','labelCol','dl_ConfigurationCount','');
 COMMIT;
