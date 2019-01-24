@@ -126,7 +126,7 @@ class Entry_form {
      * invisible components, where each array row contains components
      * for an entry form row, and then call function to build HTML for
      * visible entry form
-     * @param string $mode 'add' or 'update'
+     * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
      * @return type
      */
     function build_display($mode)
@@ -400,7 +400,7 @@ class Entry_form {
      * @param type $f_name Field name
      * @param type $f_spec Field spec
      * @param type $cur_value Current value
-     * @param string $mode  'add' or 'update'
+     * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
      * @return type
      */
     private
@@ -567,7 +567,7 @@ class Entry_form {
     // -----------------------------------
     function get_mode_from_page_type($page_type)
     {
-        return ($page_type == 'edit')?'update':'add';
+        return ($page_type == 'edit') ? 'update' : 'add';
     }
 
     // -----------------------------------
@@ -575,15 +575,16 @@ class Entry_form {
     {
         $str = '';
 
-        // default command button
         $mode = $this->get_mode_from_page_type($page_type);
+        
+        // Default command button
         $attributes['id'] = 'primary_cmd';
         $url = site_url(). $this->file_tag . "/submit_entry_form";
         $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$mode')";
         $attributes['content'] = ($page_type == 'create')?'Create':'Update';
         $attributes['class'] = 'button entry_cmd_button';
-        //
-        // is there an override for the default command button?
+
+        // Is there an override for the default command button?
         foreach($entry_commands as $command => $spec) {
             if($spec['type'] == 'override' and $spec['target'] == $mode) {
                 $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$command')";
@@ -594,7 +595,7 @@ class Entry_form {
         }
         $str .= form_button($attributes) . "<br>\n";
 
-        // supplemental commands
+        // Supplemental commands
         foreach($entry_commands as $command => $spec) {
             switch(strtolower($spec['type'])){
                 case 'cmd':
@@ -651,7 +652,7 @@ class Entry_form {
 
     /**
      * Change the visibility of designated fields according to given entry mode
-     * @param type $mode
+     * @param type $mode Page mode: 'add' or 'update'
      */
     function adjust_field_visibility($mode)
     {

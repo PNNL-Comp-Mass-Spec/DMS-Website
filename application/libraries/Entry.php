@@ -123,7 +123,7 @@ class Entry {
     /**
      * Handle special field options for entry form object
      * @param stdClass $form_def
-     * @param string $mode
+     * @param string $mode Page mode: 'add' or 'update'
      */
     protected
     function handle_special_field_options($form_def, $mode)
