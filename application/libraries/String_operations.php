@@ -30,3 +30,18 @@
          return (substr($haystack, 0, $length) === $needle);
     }
     
+    
+    /**
+     * Return true if $haystack ends with $needle
+     * @param type $haystack
+     * @param type $needle
+     * @return type
+     */
+    function EndsWith($haystack, $needle)
+    {
+        if (strlen($needle) > strlen($haystack))
+            return false;
+        
+         $length = strlen($needle);
+         return (substr($haystack, strlen($haystack) - $length, $length) === $needle);
+    }
