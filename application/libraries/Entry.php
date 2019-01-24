@@ -51,6 +51,9 @@ class Entry {
         //
         $CI->cu->load_lib('entry_form', $form_def->specs, $this->config_source);
 
+        // Determine the page mode ('add' or 'update')
+        $mode = $CI->entry_form->get_mode_from_page_type($page_type);
+
         // get initial field values and merge them with form object
         $segs = array_slice($CI->uri->segment_array(), 2); // remove controller and function segments
         $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields);
@@ -66,12 +69,25 @@ class Entry {
             }
         } else {
             foreach($initial_field_values as $field => $value) {
+                
+                // Entry views in DMS can append __NoCopy__ to a field when we do not want the field value to be copied to new entries
+                // For example, see V_Sample_Prep_Request_Entry
+                if (EndsWith($value, '__NoCopy__')) {
+                    if (substr($mode, 0, 3 ) === 'add') {
+                        // Creating a new item (either from scratch or by copying an existing item)
+                        // Blank out the field
+                        $value = '';
+                    } else {
+                        // Editing an item; remove the NoCopy flag
+                        $value = substr($value, 0, strlen($value) - strlen('__NoCopy__'));
+                    }
+                }
+                
                 $CI->entry_form->set_field_value($field, $value);
             }
         }
 
         // handle special field options for entry form object
-        $mode = $CI->entry_form->get_mode_from_page_type($page_type);
         $this->handle_special_field_options($form_def, $mode);
 
         // build page display components and load page
