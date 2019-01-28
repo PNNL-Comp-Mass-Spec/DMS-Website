@@ -16,7 +16,7 @@ CREATE TABLE 'chooser_definitions' (
 INSERT INTO "chooser_definitions" VALUES(1,'YNPickList','default','select','{"N":"N", "Y":"Y"}');
 INSERT INTO "chooser_definitions" VALUES(2,'activeInactivePickList','default','select','{"Active":"Active", "Inactive":"Inactive"}');
 INSERT INTO "chooser_definitions" VALUES(3,'activeInactiveInvalidPickList','default','select','{"Active":"Active", "Inactive":"Inactive", "Invalid":"Invalid"}');
-INSERT INTO "chooser_definitions" VALUES(4,'analysisJobPriPickList','default','select','{"1":"1", "2":"2", "3":"3", "4":"4", "5":"5", "6":"6"}');
+INSERT INTO "chooser_definitions" VALUES(4,'analysisJobPriPickList','default','select','{"1":"1", "2":"2", "3":"3", "4":"4", "5":"5"}');
 INSERT INTO "chooser_definitions" VALUES(5,'analysisPredefJobPriPickList','default','select','{"1":"1", "2":"2", "3":"3", "4":"4", "5":"5", "6":"6", "7":"7", "8":"8", "9":"9"}');
 INSERT INTO "chooser_definitions" VALUES(6,'containerTypePickList','default','select','{"Bag":"Bag", "Box":"Box", "Wellplate":"Wellplate"}');
 INSERT INTO "chooser_definitions" VALUES(7,'datasetRatingPickList','default','select','{"Unreviewed":"Unreviewed", "Released":"Released", "Not Released":"Not Released", "Rerun (Good Data)":"Rerun (Good Data)", "Rerun (Superseded)":"Rerun (Superseded)"  }');
