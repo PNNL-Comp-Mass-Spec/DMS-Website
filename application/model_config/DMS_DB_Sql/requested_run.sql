@@ -52,11 +52,11 @@ INSERT INTO "form_field_choosers" VALUES(13,'RR_Comment','link.list','multiDatas
 INSERT INTO "form_field_choosers" VALUES(14,'RR_WorkPackage','list-report.helper','','helper_charge_code/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(15,'StagingLocation','list-report.helper','','helper_material_location','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','25!','','Name','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','45!','','Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_request','RequestID','6!','','Request','Equals','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','6!','','Status','StartsWithText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_batch','Batch','4!','','Batch','Equals','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','20','','Campaign','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','20!','','Campaign','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_requestNameCode','Code','32','','Request Name Code','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_instrument_group','Inst. Group','32','','Inst. Group','ContainsText','text','128','','');
