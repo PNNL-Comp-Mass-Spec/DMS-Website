@@ -81,7 +81,6 @@ INSERT INTO "detail_report_hotlinks" VALUES(9,'Settings File','detail-report','S
 INSERT INTO "detail_report_hotlinks" VALUES(10,'MTS PT DB Count','detail-report','JobNum','mts_pt_db_jobs/report','labelCol','PT_DBs',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(11,'MTS MT DB Count','detail-report','JobNum','mts_mt_db_jobs/report','labelCol','MT_DBs',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Peak Matching Results','detail-report','JobNum','mts_pm_results/report/-/','labelCol','pmresults',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(14,'MyEMSL URL','masked_link','MyEMSL URL','','valueCol','dl_myemsl_url','{"Label":"Show files in MyEMSL"}');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Data Folder Link','literal_link','Data Folder Link','','valueCol','dl_data_folder',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(16,'JobNum','detail-report','JobNum','pipeline_jobs_history/show','labelCol','pipeline_job_detail_history',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(17,'+JobNum','detail-report','JobNum','pipeline_jobs/show','valueCol','pipeline_job_detail',NULL);

@@ -8,7 +8,6 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Prep_LC_Column_En
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ColumnName');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdatePrepLCColumn');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ColumnName');
-INSERT INTO "general_params" VALUES('list_report_data_cols','[Column Name],[Mfg Name],[Mfg Model],[Mfg Serial Number],[Packing Mfg],[Packing Type],[Particle size],[Particle type],[Column Inner Dia],[Column Outer Dia],[Length],[Runs],[State],[Operator PRN],[Comment],[Created]');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ColumnName',' Column Name','text-if-new','50','128','','','','trim|max_length[128]|alpha_dash|min_length[8]');
 INSERT INTO "form_fields" VALUES(2,'MfgName',' Mfg Name','text','50','128','','','','trim|max_length[128]');

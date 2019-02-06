@@ -40,7 +40,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(15,'Labelling','detail-report','Labe
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Exp_ID','Exp_ID','text-if-new','10','80','','','','trim|required|numeric');
 INSERT INTO "form_fields" VALUES(2,'Experiment','Experiment','non-edit|text-nocopy','40','80','','','','trim');
-INSERT INTO "form_fields" VALUES(3,'Plex_Members','Plex Members','area','','','13','100','Tag, Exp_ID_or_Name, Channel Type, Comment<br>126, 00000, Normal, <br>127N, 00000, Normal, <br>127C, 00000, Normal, <br>128N, 00000, Normal, <br>128C, 00000, Normal, <br>129N, 00000, Normal, <br>129C, 00000, Normal, <br>130N, 00000, Normal, <br>130C, 00000, Normal, <br>131N, 00000, Normal, <br>131C, 00000, Reference, ','trim');
+INSERT INTO "form_fields" VALUES(3,'Plex_Members','Plex Members','area','','','13','100','Tag, Exp_ID_or_Name, Channel Type, Comment<br>126, 00000, Sample, <br>127N, 00000, Sample, <br>127C, 00000, Sample, <br>128N, 00000, Sample, <br>128C, 00000, Sample, <br>129N, 00000, Sample, <br>129C, 00000, Sample, <br>130N, 00000, Sample, <br>130C, 00000, Sample, <br>131N, 00000, Sample, <br>131C, 00000, Reference, ','trim');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'Exp_ID','list-report.helper','','helper_experimentid/report','',',','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );

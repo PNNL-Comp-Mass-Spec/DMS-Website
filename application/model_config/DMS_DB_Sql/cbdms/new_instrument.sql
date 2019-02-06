@@ -11,8 +11,8 @@ INSERT INTO "form_fields" VALUES(1,'iName','Instrument Name','text','24','24',''
 INSERT INTO "form_fields" VALUES(2,'iClass','Instrument Class','text','32','32','','','LTQ_FT','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(3,'InstrumentGroup','Instrument Group','text','50','64','','','Other','trim|required|max_length[64]');
 INSERT INTO "form_fields" VALUES(4,'iMethod','Capture Method','text','10','10','','','secfso','trim|required|max_length[10]');
-INSERT INTO "form_fields" VALUES(5,'iRoomNum','Room Number','text','50','50','','','Room 666','trim|required|max_length[50]');
-INSERT INTO "form_fields" VALUES(6,'iDescription','Description','area','','','4','80','This is a very nice instrument','trim|required|max_length[200]');
+INSERT INTO "form_fields" VALUES(5,'iRoomNum','Room Number','text','50','50','','','EMSL 14??','trim|required|max_length[50]');
+INSERT INTO "form_fields" VALUES(6,'iDescription','Description','area','','','4','80','Description is required','trim|required|max_length[200]');
 INSERT INTO "form_fields" VALUES(7,'Usage','Usage','text','50','50','','','','trim');
 INSERT INTO "form_fields" VALUES(8,'OperationsRole','Operations Role','text','50','50','','','Production','trim');
 INSERT INTO "form_fields" VALUES(9,'PercentEMSLOwned','Percent EMSL Owned','text','50','50','','','0','trim');
