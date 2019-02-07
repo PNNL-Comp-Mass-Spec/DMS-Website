@@ -1,0 +1,16 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO "general_params" VALUES('base_table','T_Residues');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Residue_List_Report');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Symbol');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','ASC');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_Symbol','Symbol','','','Symbol','MatchesText','text','1','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_Abbreviation','Abbreviation','20!','','Abbreviation','ContainsText','text','64','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_Amino_Acid','Amino Acid','','','Amino Acid','ContainsText','text','32','','');
+CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
+INSERT INTO "list_report_hotlinks" VALUES(1,'Abbreviation','invoke_entity','value','param_file_mass_mods/report/-/-/-/-/~@','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Monoisotopic Mass','column_tooltip','value','','{"Decimals":"4"}');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Average Mass','column_tooltip','value','','{"Decimals":"4"}');
+COMMIT;
