@@ -15,7 +15,8 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_host','Host','20','','Host','ContainsText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_ip','IP','20','','IP','ContainsText','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_alias','Alias','20','','Alias','ContainsText','text','64','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instruments','Instruments','20','','Instruments','ContainsText','text','64','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_tag','Tag','20','','Tag','ContainsText','text','20','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_instruments','Instruments','20','','Instruments','ContainsText','text','64','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Instruments','link_table','Instruments','instrument/report','valueCol','dl_Instruments',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Instrument Datasets','link_table','Instrument Datasets','helper_inst_source/view/','valueCol','dl_InstrumentDatasets',NULL);
