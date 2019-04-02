@@ -950,10 +950,18 @@ class Config_db extends CI_Controller {
             foreach ($data_obj->col_names as $col_name) {
                 $col_width = $col_widths[$col_name];
                 $col_val = ($row[$col_name]) ? $row[$col_name] : ''; ///grk &nbsp;
+
                 if ($col_name == $data_obj->col_names[0]) {
+                    // Column name
                     $a = "<a href='javascript:set_id(\"$col_val\")' class='cfg_id_link'>$col_val</a>";
                     $s .= "<td><input name='$col_name' size='$col_width' value='$col_val' type='hidden' />$a</td>";
                 } else {
+                    // Column value
+
+                    // Replace single quotes with the character code for a single quote, &#39;
+                    // Listing the character code twice to allow for saving changes
+                    $col_val = str_replace("'", "&#39;&#39;", $col_val);
+
                     if($col_width < $max_width) {
                         $s .= "<td><input name='$col_name' size='$col_width' value='$col_val' /></td>";
                     } else {
