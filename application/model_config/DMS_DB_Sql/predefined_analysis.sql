@@ -9,7 +9,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdatePredefinedAnalysis');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Predefined_Analysis_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
-INSERT INTO "general_params" VALUES('list_report_data_order_by','[Instrument Class], Level, [Seq.], ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Instrument Class, Level, Seq., ID');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim');

@@ -8,7 +8,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('list_report_cmds','material_move_items_cmds');
 INSERT INTO "general_params" VALUES('list_report_cmds_url','/material_move_items/operation');
 INSERT INTO "general_params" VALUES('list_report_data_cols','Item, ID, '''' AS Sel, Item_Type, Container, [Type], [Location], [Container Status], #I_ID');
-INSERT INTO "general_params" VALUES('list_report_data_order_by','Item');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Item');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateMaterialItems');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_container','Container','6','','Container','ContainsText','text','80','','');

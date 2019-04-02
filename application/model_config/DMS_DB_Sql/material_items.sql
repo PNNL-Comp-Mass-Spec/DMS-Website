@@ -5,7 +5,7 @@ INSERT INTO "general_params" VALUES('list_report_data_table','V_Material_Items_L
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('detail_report_data_table','V_Material_Items_List_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
-INSERT INTO "general_params" VALUES('list_report_data_order_by','Container');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Container, Item');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_container','Container','6','','Container','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_location','Location','6','','Location','ContainsText','text','80','','');
