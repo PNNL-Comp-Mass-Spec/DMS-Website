@@ -45,7 +45,7 @@ if($result != "") {
     <th style='text-align:left;'>Description</th>
     <th style='text-align:left;'>Allowed Values</th>
 </tr>
-<?
+<?php
 foreach($settings as $setting => $def) {
     $str = "";
     $str .= "<tr>";
