@@ -20,7 +20,7 @@
 			$.each(data, function(idx) {
 				var obj = {};
 				obj.row = data[idx];
-				obj.blockNumber = 0;
+				obj.blockNumber = 1;
 				obj.runOrder = 0;
 				blockingObjList.push(obj);
 			});
@@ -125,7 +125,7 @@
 		//---[blocking commands]----------
 		afterBlockingOperation: null,
 		titles:{
-			globally_randomize:'Place all requests into block 0 and globally randomize run order',
+			globally_randomize:'Place all requests into block 1 and globally randomize run order',
 			randomly_block:'Randomly assign requests to blocks of the selected size, and randomize run order within blocks',
 			factor_block:'Create blocks based on values for selected factor (attempts to have one request for each factor value in every block)',
 			reorder_blocks:'Randomize run order within existing blocks'
