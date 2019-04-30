@@ -14,7 +14,7 @@ INSERT INTO "general_params" VALUES('rss_item_link','dataset/show');
 INSERT INTO "general_params" VALUES('alternate_title_create','Create Dataset Trigger File');
 INSERT INTO "general_params" VALUES('operations_sproc','DoDatasetOperation');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','#DateSortKey');
-INSERT INTO "general_params" VALUES('list_report_data_cols','[ID],[Dataset],[Experiment],[Campaign],[State],[Instrument],[Created],[Comment],[Rating],[Dataset Type],[Operator],[Dataset Folder Path],[QC_Link],[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],[Blocking Factor],[Block],[Run Order],[Request],[Batch],[EMSL Proposal],[EUS Proposal Type],[Work Package],[Requester],[Inst. Data Purged],[Organism],[Tissue],[#DateSortKey]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','[ID],[Dataset],[Experiment],[Campaign],[State],[Instrument],[Created],[Comment],[Rating],[Dataset Type],[Operator],[Dataset Folder Path],[QC_Link],[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],[Request],[Organism],[Tissue],[#DateSortKey]');
 INSERT INTO "general_params" VALUES('base_table','T_Dataset');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','Dataset_Num');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
@@ -79,7 +79,6 @@ INSERT INTO "list_report_hotlinks" VALUES(2,'Rating','color_label','','','{"Unre
 INSERT INTO "list_report_hotlinks" VALUES(3,'QC_Link','masked_link','value','','{"Label":"QC_Link"}');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Experiment','invoke_entity','value','experiment/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(6,'EMSL Proposal','invoke_entity','value','eus_proposals/show','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Retry Capture','cmd_op','reset','dataset','Retry copying the instrument data from the instrument to the storage server.  This can only be used if the dataset folder on the storage server is empty or if it only contains a single corrupt .raw file.','Are you sure that you want to reset this dataset to New?');
 INSERT INTO "detail_report_commands" VALUES(2,'Create Data Analysis Request...','copy_from','','analysis_job_request','Open the entry form to create a new data analysis request for this dataset','');
