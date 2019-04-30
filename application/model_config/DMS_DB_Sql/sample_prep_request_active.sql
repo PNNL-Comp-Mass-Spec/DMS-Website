@@ -16,4 +16,5 @@ INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#Days
 INSERT INTO "list_report_hotlinks" VALUES(3,'Work Package','invoke_entity','value','charge_code/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(5,'EUS Proposal','invoke_entity','value','eus_proposals/show','');
+INSERT INTO "list_report_hotlinks" VALUES(6,'Comment','min_col_width','value','50','');
 COMMIT;
