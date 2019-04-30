@@ -66,8 +66,8 @@ INSERT INTO "detail_report_hotlinks" VALUES(7,'Analysis Job Item Count','detail-
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Total Item Count','detail-report','ID','data_package_items/report','labelCol','total_item_count',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(9,'PRISM Wiki','literal_link','PRISM Wiki','','valueCol','prism_wiki',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(10,'MyEMSL URL','masked_link','MyEMSL URL','','valueCol','myemsl_url','{"Label":"Show files in MyEMSL"}');
-INSERT INTO "detail_report_hotlinks" VALUES(11,'EUS Proposals Count','detail-report','ID','data_package_proposals/report','labelCol','eus_proposals_count','');
-INSERT INTO "detail_report_hotlinks" VALUES(12,'Campaign Count','detail-report','ID','data_package_campaigns/report','labelCol','campaign_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(11,'Campaign Count','detail-report','ID','data_package_campaigns/report','labelCol','campaign_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(12,'EUS Proposals Count','detail-report','ID','data_package_proposals/report','labelCol','eus_proposals_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(13,'EUS User ID','detail-report','EUS User ID','eus_users/show','labelCol','eus_user_id','');
 INSERT INTO "detail_report_hotlinks" VALUES(14,'EUS Proposal ID','detail-report','EUS Proposal ID','eus_proposals/show','labelCol','eus_proposal_id','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
