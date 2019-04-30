@@ -129,7 +129,7 @@ class Helper_inst_source extends Base_controller {
                 $size = "";
 
             // clean off file extensions
-            $valueClean = preg_replace('/(\.raw$|\.wiff$|\.d$)/i'  , '', $value );
+            $valueClean = preg_replace('/(\.raw$|\.wiff$|\.d$|\.uimf$)/i'  , '', $value );
 
             // Hide certain files
             if ($value === "Use_dir_slashAS_for_hidden_DotD_folders.txt" ||
