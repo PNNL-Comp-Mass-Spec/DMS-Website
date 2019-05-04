@@ -302,6 +302,12 @@ class S_model extends CI_Model {
             }
         }
 */
+        
+        if ($rows == null) {
+    	    // No rows were returned by the database
+	        return null;                
+        }
+
         $sortedRows = $CI->table_sorter->sort_multi_col($rows, $sorting_filter);
         if(!empty($paging_filter)) {
             $length = (int) $paging_filter['qf_rows_per_page'];
