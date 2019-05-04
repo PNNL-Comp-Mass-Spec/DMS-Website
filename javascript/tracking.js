@@ -45,6 +45,7 @@ var tracking = {
 			this.updateDatabaseFromList(flist, id_type);
 		},
 		reloadReport: function(operation) {
+			// Call stored procedure UpdateInstrumentUsageReport with @operation set to either 'refresh' or 'reload'
 			var url =  gamma.pageContext.ops_url;
 			var p = {};
 			p.factorList = '';
