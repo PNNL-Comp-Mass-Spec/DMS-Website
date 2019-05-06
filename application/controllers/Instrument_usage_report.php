@@ -54,18 +54,10 @@ class Instrument_usage_report extends Grid {
         $month = $this->uri->segment(4, date(''));
         $instrument = $this->uri->segment(5, '');
 
-        // Validate the month
-        if(is_numeric($month)) {
-            if((int)$month < 1) {
-                $month = '1';
-            } else {
-                $month = (int)$month;
-            }
-        } else {
-            $month = '1';
-        }
+        $yearVal = $this->validate_year($year);
+        $monthVal = $this->validate_month($month);
 
-        $result = $this->get_usage_data($instrument, $year, $month);
+        $result = $this->get_usage_data($instrument, $yearVal, $monthVal);
         $this->export_to_tab_delimited_text($result);
     }
 
@@ -93,18 +85,10 @@ EOD;
         $month = $this->uri->segment(4, date(''));
         $instrument = $this->uri->segment(5, '');
 
-        // Validate the month
-        if(is_numeric($month)) {
-            if((int)$month < 1) {
-                $month = '1';
-            } else {
-                $month = (int)$month;
-            }
-        } else {
-            $month = '1';
-        }
-
-        $result = $this->get_daily_data($instrument, $year, $month);
+        $yearVal = $this->validate_year($year);
+        $monthVal = $this->validate_month($month);
+        
+        $result = $this->get_daily_data($instrument, $yearVal, $monthVal);
         $this->export_to_tab_delimited_text($result);
 
     }
@@ -128,18 +112,10 @@ EOD;
         $month = $this->uri->segment(4, date(''));
         $instrument = $this->uri->segment(5, '');
 
-        // Validate the month
-        if(is_numeric($month)) {
-            if((int)$month < 1) {
-                $month = '1';
-            } else {
-                $month = (int)$month;
-            }
-        } else {
-            $month = '1';
-        }
+        $yearVal = $this->validate_year($year);
+        $monthVal = $this->validate_month($month);
 
-        $result = $this->get_rollup_data($instrument, $year, $month);
+        $result = $this->get_rollup_data($instrument, $yearVal, $monthVal);
         $this->export_to_tab_delimited_text($result);
 
     }
@@ -191,5 +167,44 @@ EOD;
         echo "$headers\n$data";
     }
 
+    private
+    function validate_year($year)
+    {
+        if (empty($year)) {
+            $year = (int)date('Y');
+        }
+
+        if(is_numeric($year)) {
+            if((int)$year < 1970) {
+                $yearVal = (int)date('Y');
+            } else {
+                $yearVal = (int)$year;
+            }
+        } else {
+            $yearVal = (int)date('Y');
+        }
+        
+        return $yearVal;
+    }
+    
+    private
+    function validate_month($month)
+    {
+        if (empty($month)) {
+            $month = (int)date('m');
+        }
+
+        if(is_numeric($month)) {
+            if((int)$month < 1) {
+                $monthVal = 1;
+            } else {
+                $monthVal = (int)$month;
+            }
+        } else {
+            $monthVal = 1;
+        }
+        
+        return $monthVal;
+    }
 }
 ?>
