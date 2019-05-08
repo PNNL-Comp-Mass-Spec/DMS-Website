@@ -19,7 +19,7 @@ function CompareFilesToMaster($localCodeDir, $masterCodeDir, $codeSyncDir, $maxF
     $localIdenticalFilesDir = Join-Path $localCodeDir "Identical"
     if ((Test-Path "$localIdenticalFilesDir")) { 
         $additionalLocalFiles = Get-ChildItem $localIdenticalFilesDir -File
-        $localCodeFiles += $additionalLocalFiles
+        $localCodeFiles = @($localCodeFiles) + $additionalLocalFiles
     }
 
     # Assure that the CodeSync directory is empty
