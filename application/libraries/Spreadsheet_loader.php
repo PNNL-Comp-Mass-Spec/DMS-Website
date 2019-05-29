@@ -1,5 +1,9 @@
 <?php
 
+// Not required because we are telling CodeIgniter to also use the Composer autoload.
+//require 'application/vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 class Spreadsheet_loader {
 
     private $ss_rows = array();
@@ -48,34 +52,41 @@ class Spreadsheet_loader {
         $filePath = "./uploads/$fname";
 
         $mimeType = mime_content_type($filePath);
+        $isSpreadsheet = false;
 
         if (strpos($mimeType, 'spreadsheetml') > 0 || strpos($mimeType, 'ms-excel')) {
             // Excel file (either .xls or .xlsx)
-            throw new exception(
-                "Save the Excel file as a tab-delimited text file: "
-                . "Choose File, then Save As, then for Type select Text");
+//            throw new exception(
+//                "Save the Excel file as a tab-delimited text file: "
+//                . "Choose File, then Save As, then for Type select Text");
+            $isSpreadsheet = true;
         }
 
         if (strpos($mimeType, 'opendocument.spreadsheet') > 0 ) {
             // OpenOffice .ODS file
-            throw new exception(
-                "Save the spreadsheet as a tab-delimited text file: "
-                . "Choose File, then Save As, then for Type select Text CSV; "
-                . "for the Field Delimiter select {TAB}");
+//            throw new exception(
+//                "Save the spreadsheet as a tab-delimited text file: "
+//                . "Choose File, then Save As, then for Type select Text CSV; "
+//                . "for the Field Delimiter select {TAB}");
+            $isSpreadsheet = true;
         }
 
-        if (strpos($mimeType, 'octet-stream') > 0 ) {
+        if (!$isSpreadsheet && strpos($mimeType, 'octet-stream') > 0 ) {
             // Likely a unicode text file
             throw new exception(
                 "Unicode text files are not supported. Save as a plain text file with ASCII or UTF-8 encoding");
         }
 
-        if ($mimeType !== 'text/plain') {
+        if (!$isSpreadsheet && $mimeType !== 'text/plain') {
             throw new exception("Upload a plain text file, not a file of type: $mimeType");
         }
 
-        // Handle a plain text file.
-        $this->load_text_file($filePath);
+        if ($isSpreadsheet) {
+            // Handle a spreadsheet file.
+            $this->load_spreadsheet_file($filePath);
+        } else {
+            // Handle a plain text file.
+            $this->load_text_file($filePath);
         }
 
         // Examine the data to replace ascii characters above ascii 127 with the corresponding HTML code string
@@ -163,6 +174,20 @@ class Spreadsheet_loader {
 
         }
         fclose($handle);       
+    }
+    
+    private function load_spreadsheet_file($filePath)
+    {
+        // Identify the file type
+        $readerType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($filePath);
+        // Create a reader for that file type
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($readerType);
+        // Set reader options
+        //$reader ->setReadDataOnly(true); // don't enable this - it will break proper date reading
+        // Load the file
+        $spreadsheet = $reader->load($filePath);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $this->ss_rows = $worksheet->toArray("");
     }
 
     /**
