@@ -3,6 +3,9 @@
 class Spreadsheet_loader {
 
     private $ss_rows = array();
+    private $rowStyle = false;
+    private $auxInfoCol = -1;
+    private $headerRow = -1;
     private $tracking_info_fields = array();
     private $aux_info_fields = array();
     private $aux_info_groups = array();
@@ -71,6 +74,66 @@ class Spreadsheet_loader {
             throw new exception("Upload a plain text file, not a file of type: $mimeType");
         }
 
+        // Handle a plain text file.
+        $this->load_text_file($filePath);
+        }
+
+        // Examine the data to replace ascii characters above ascii 127 with the corresponding HTML code string
+        // For example, the non-breaking space hex A0 is replaced with &#160;
+
+        $loadedRowCount = count($this->ss_rows);
+        $stripCharsLineNum = -1;
+        $stripCharsColNum = -1;
+
+        for($i = 0; $i < $loadedRowCount; $i++) {
+            $colCount = count($this->ss_rows[$i]);
+            if ($colCount == 0) {
+                continue;
+            }
+
+            if (trim(strtoupper($this->ss_rows[$i][0])) == "TRACKING INFORMATION") {
+                for($j = 1; $j < $colCount; $j++) {
+                    $contents = trim(strtoupper($this->ss_rows[$i][$j]));
+                    if ($contents == "AUXILIARY INFORMATION") {
+                        $this->rowStyle = true;
+                        $this->headerRow = $i + 1;
+                        $this->auxInfoCol = $j;
+                    } else if ($contents == "ROWS") {
+                        $this->rowStyle = true;
+                        $this->headerRow = $i + 1;
+                    }
+                }
+                // The next line will have experiment names, dataset names, etc.
+                // Strip out characters above ascii 127 since those aren't allowed in DMS
+                if ($this->rowStyle) {
+                    $stripCharsColNum = 0;
+                } else {
+                    $stripCharsLineNum = $i + 1;
+                }
+            }
+
+            for($j = 0; $j < $colCount; $j++) {
+                if (($i == $stripCharsLineNum && $j > 0) || $j == $stripCharsColNum) {
+                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                } else {
+                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH);
+                }
+
+                if ($this->ss_rows[$i][$j] != $sanitized) {
+                    $this->ss_rows[$i][$j] = $sanitized;
+                }
+            }
+        }
+
+        // figure out where things are and build supplemental arrays
+        $this->find_tracking_info_fields();
+        $this->find_aux_info_fields();
+        $this->extract_entity_type();
+        $this->extract_entity_list();
+    }
+    
+    private function load_text_file($filePath)
+    {
         // Enable auto-detection of line endings
         // This is especially important for reading text files saved from Excel on a Mac
         ini_set("auto_detect_line_endings", "1");
@@ -99,43 +162,7 @@ class Spreadsheet_loader {
             $this->ss_rows[] = $fields;
 
         }
-        fclose($handle);
-
-        // Examine the data to replace ascii characters above ascii 127 with the corresponding HTML code string
-        // For example, the non-breaking space hex A0 is replaced with &#160;
-
-        $loadedRowCount = count($this->ss_rows);
-        $stripCharsLineNum = -1;
-
-        for($i = 0; $i < $loadedRowCount; $i++) {
-            $colCount = count($this->ss_rows[$i]);
-            if ($colCount == 0)
-                continue;
-
-            if (trim(strtoupper($this->ss_rows[$i][0])) == "TRACKING INFORMATION") {
-                // The next line will have experiment names, dataset names, etc.
-                // Strip out characters above ascii 127 since those aren't allowed in DMS
-                $stripCharsLineNum = $i + 1;
-            }
-
-            for($j = 0; $j < $colCount; $j++) {
-                if ($i == $stripCharsLineNum && $j > 0) {
-                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-                } else {
-                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH);
-                }
-
-                if ($this->ss_rows[$i][$j] != $sanitized) {
-                    $this->ss_rows[$i][$j] = $sanitized;
-                }
-            }
-        }
-
-        // figure out where things are and build supplemental arrays
-        $this->find_tracking_info_fields();
-        $this->find_aux_info_fields();
-        $this->extract_entity_type();
-        $this->extract_entity_list();
+        fclose($handle);       
     }
 
     /**
@@ -147,20 +174,44 @@ class Spreadsheet_loader {
     {
         $this->tracking_info_fields = array();
         $grab_it = FALSE;
-        $end_it = FALSE;
-        for($i=0; $i<count($this->ss_rows);$i++) {
-            if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
-                $end_it = TRUE;
-                break;
+        if ($this->rowStyle) {
+            $headerRow = -1;
+            for($i=0; $i<count($this->ss_rows);$i++) {
+                if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
+                    $headerRow = $i + 1;
+                    $grab_it = TRUE;
+                    // find AUXILIARY INFORMATION
+                    //if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
+                    //    $end_it = TRUE;
+                    //    break;
+                    //}
+                    break;
+                }
             }
             if($grab_it) {
-                if($this->ss_rows[$i][0] == '') {
-                    throw new exception("Blanks are not permitted in the first column in the tracking info section (row $i)");
+                for($j = 0; $j < $this->auxInfoCol; $j++) {
+                    if($this->ss_rows[$headerRow][$j] == '') {
+                        throw new exception("Blanks are not permitted in the header row in the tracking info section (column $j)");
+                    }
+                    $this->tracking_info_fields[$this->ss_rows[$headerRow][$j]] = $j;
                 }
-                $this->tracking_info_fields[$this->ss_rows[$i][0]] = $i;
             }
-            if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
-                $grab_it = TRUE;
+        } else {
+            $end_it = FALSE;
+            for($i=0; $i<count($this->ss_rows);$i++) {
+                if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
+                    $end_it = TRUE;
+                    break;
+                }
+                if($grab_it) {
+                    if($this->ss_rows[$i][0] == '') {
+                        throw new exception("Blanks are not permitted in the first column in the tracking info section (row $i)");
+                    }
+                    $this->tracking_info_fields[$this->ss_rows[$i][0]] = $i;
+                }
+                if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
+                    $grab_it = TRUE;
+                }
             }
         }
         if(!$grab_it) {
@@ -186,54 +237,113 @@ class Spreadsheet_loader {
         $subcategory = '';
         $rowCount = count($this->ss_rows);
 
-        for($i = 0; $i < $rowCount; $i++) {
-            if($in_section) {
-                $colCount = count($this->ss_rows[$i]);
-                $rowHasData = FALSE;
-                for($j = 0; $j < $colCount; $j++) {
-                    if (trim($this->ss_rows[$i][$j]) != '') {
-                        $rowHasData = TRUE;
-                        break;
-                    }
-                }
-
-                // Skip the row if it only has whitespace
-                if (!$rowHasData) {
-                    continue;
-                }
-
-                $name = $this->ss_rows[$i][0];
-                $has_data = ($colCount > 1 && $this->ss_rows[$i][1] != '');
-                if($has_data) {
-                    if(!$in_data) {
-                        throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
-                    }
-                    $mark = FALSE;
-                    $p = new stdClass();
-                    $p->category = $category;
-                    $p->subcategory = $subcategory;
-                    $p->item = $name;
-                    $p->row = $i;
-                    $this->aux_info_fields[] = $p;
-                } else
-                if(!$mark) {
-                    $category = $name;
-                    $mark = TRUE;
-                    $in_data = FALSE;
-                } else {
-                    if($in_data) {
-                        throw new exception("Possible extra subcategory ('$name' near row $i)". "<br><br>" . $this->sup_mes['header']);
-                    }
-                    $subcategory = $name;
-                    $o = new stdClass();
-                    $o->category = $category;
-                    $o->subcategory = $subcategory;
-                    $this->aux_info_groups[] = $o;
-                    $in_data = TRUE;
+        if ($this->rowStyle) {
+            $headerRow = -1;
+            for($i = 0; $i < $rowCount; $i++) {
+                if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
+                    $in_section = TRUE;
+                    $headerRow = $i + 1;
+                    // find AUXILIARY INFORMATION
                 }
             }
-            if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
-                $in_section = TRUE;
+            if($in_section) {
+                $colCount = count($this->ss_rows[$headerRow]);
+                for($j = $this->auxInfoCol; $j < $colCount; $j++) {
+                    $rowCount = count($this->ss_rows);
+                    $colHasData = FALSE;
+                    for($i = $this->headerRow; $i < $rowCount; $i++) {
+                        if (trim($this->ss_rows[$i][$j]) != '') {
+                            $colHasData = TRUE;
+                            break;
+                        }
+                    }
+
+                    // Skip the column if it only has whitespace
+                    if (!$colHasData) {
+                        continue;
+                    }
+
+                    $name = $this->ss_rows[$headerRow][$j];
+                    $has_data = ($rowCount > 1 && $this->ss_rows[$headerRow+1][$j] != '');
+                    if($has_data) {
+                        if(!$in_data) {
+                            throw new exception("Possible missing category or subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
+                        }
+                        $mark = FALSE;
+                        $p = new stdClass();
+                        $p->category = $category;
+                        $p->subcategory = $subcategory;
+                        $p->item = $name;
+                        $p->column = $j;
+                        $this->aux_info_fields[] = $p;
+                    } else
+                    if(!$mark) {
+                        $category = $name;
+                        $mark = TRUE;
+                        $in_data = FALSE;
+                    } else {
+                        if($in_data) {
+                            throw new exception("Possible extra subcategory ('$name' near column $j)". "<br><br>" . $this->sup_mes['header']);
+                        }
+                        $subcategory = $name;
+                        $o = new stdClass();
+                        $o->category = $category;
+                        $o->subcategory = $subcategory;
+                        $this->aux_info_groups[] = $o;
+                        $in_data = TRUE;
+                    }
+                }
+            }
+        } else {
+            for($i = 0; $i < $rowCount; $i++) {
+                if($in_section) {
+                    $colCount = count($this->ss_rows[$i]);
+                    $rowHasData = FALSE;
+                    for($j = 0; $j < $colCount; $j++) {
+                        if (trim($this->ss_rows[$i][$j]) != '') {
+                            $rowHasData = TRUE;
+                            break;
+                        }
+                    }
+
+                    // Skip the row if it only has whitespace
+                    if (!$rowHasData) {
+                        continue;
+                    }
+
+                    $name = $this->ss_rows[$i][0];
+                    $has_data = ($colCount > 1 && $this->ss_rows[$i][1] != '');
+                    if($has_data) {
+                        if(!$in_data) {
+                            throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
+                        }
+                        $mark = FALSE;
+                        $p = new stdClass();
+                        $p->category = $category;
+                        $p->subcategory = $subcategory;
+                        $p->item = $name;
+                        $p->row = $i;
+                        $this->aux_info_fields[] = $p;
+                    } else
+                    if(!$mark) {
+                        $category = $name;
+                        $mark = TRUE;
+                        $in_data = FALSE;
+                    } else {
+                        if($in_data) {
+                            throw new exception("Possible extra subcategory ('$name' near row $i)". "<br><br>" . $this->sup_mes['header']);
+                        }
+                        $subcategory = $name;
+                        $o = new stdClass();
+                        $o->category = $category;
+                        $o->subcategory = $subcategory;
+                        $this->aux_info_groups[] = $o;
+                        $in_data = TRUE;
+                    }
+                }
+                if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
+                    $in_section = TRUE;
+                }
             }
         }
     }
@@ -253,14 +363,28 @@ class Spreadsheet_loader {
     function get_entity_tracking_info($id)
     {
         $info = array();
-        $col = array_search($id, $this->entity_list);
-        if(!($col === FALSE)) {
-            $col++;
-            foreach($this->tracking_info_fields as $field => $row) {
-                if(count($this->ss_rows[$row]) <= $col) {
-                    $info[$field] = '';
-                } else {
-                    $info[$field] = $this->ss_rows[$row][$col];
+        if ($this->rowStyle) {
+            $row = array_search($id, $this->entity_list);
+            if(!($row === FALSE)) {
+                $row = $row + $this->headerRow + 1;
+                foreach($this->tracking_info_fields as $field => $col) {
+                    if(count($this->ss_rows[$row]) <= $col) {
+                        $info[$field] = '';
+                    } else {
+                        $info[$field] = $this->ss_rows[$row][$col];
+                    }
+                }
+            }
+        } else {
+            $col = array_search($id, $this->entity_list);
+            if(!($col === FALSE)) {
+                $col++;
+                foreach($this->tracking_info_fields as $field => $row) {
+                    if(count($this->ss_rows[$row]) <= $col) {
+                        $info[$field] = '';
+                    } else {
+                        $info[$field] = $this->ss_rows[$row][$col];
+                    }
                 }
             }
         }
@@ -275,12 +399,23 @@ class Spreadsheet_loader {
     function get_entity_aux_info($id)
     {
         $info = array();
-        $col = array_search($id, $this->entity_list);
-        if(!($col === FALSE)) {
-            $col++;
-            foreach($this->aux_info_fields as $obj) {
-                $obj->value = $this->ss_rows[$obj->row][$col];
-                $info[] = $obj;
+        if ($this->rowStyle) {
+            $row = array_search($id, $this->entity_list);
+            if(!($row === FALSE)) {
+                $row++;
+                foreach($this->aux_info_fields as $obj) {
+                    $obj->value = $this->ss_rows[$row][$obj->column];
+                    $info[] = $obj;
+                }
+            }
+        } else {
+            $col = array_search($id, $this->entity_list);
+            if(!($col === FALSE)) {
+                $col++;
+                foreach($this->aux_info_fields as $obj) {
+                    $obj->value = $this->ss_rows[$obj->row][$col];
+                    $info[] = $obj;
+                }
             }
         }
         return $info;
@@ -343,11 +478,21 @@ class Spreadsheet_loader {
         // the entity is, by definition, the first field in the list, so get its row number
         $row = current($this->tracking_info_fields);
 
-        // use row number to get row of entity values from parsed main data array
-        $this->entity_list = $this->ss_rows[$row];
+        if ($this->rowStyle) {
+            // use column number to get row of entity values from parsed main data array
+            $this->entity_list = array();
+            $count = 0;
+            for ($i = $this->headerRow + 1; $i < count($this->ss_rows); $i++) {
+                $this->entity_list[$count] = $this->ss_rows[$i][$row];
+                $count++;
+            }
+        } else {
+            // use row number to get row of entity values from parsed main data array
+            $this->entity_list = $this->ss_rows[$row];
 
-        // first field is header column, get rid of it
-        array_shift($this->entity_list);
+            // first field is header column, get rid of it
+            array_shift($this->entity_list);
+        }
 
         // sometimes spreadsheet has extra empty columns,
         // so remove trailing blank entries starting at end of list and working forward
