@@ -85,6 +85,7 @@ INSERT INTO "list_report_primary_filter" VALUES(11,'pf_sequence_end','Seq End','
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','predefined_analysis/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Last_Affected','format_date','value','','{"Format":"Y-m-d"}');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Description','min_col_width','value','30','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Show datasets that satisy this rule...','call','param','predefined_analysis_datasets','Show existing datasets that meet criteria.','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
