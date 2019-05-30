@@ -760,11 +760,11 @@ function make_export_links($entity, $id)
     // Example URLs:
     // http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/excel
     // http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/tsv
-    // http://dms2.pnl.gov/experiment/export_spreadsheet/QC_Shew_16_01/data
+    // http://dms2.pnl.gov/experiment/export_spreadsheet/QC_Shew_16_01/data/true/xlsx
     $s = '';
     $excel_lnk = site_url(). $entity . "/export_detail/" . $id . "/excel";
     $tsv_lnk   = site_url(). $entity . "/export_detail/" . $id . "/tsv";
-    $spreadsheet_lnk = site_url(). $entity . "/export_spreadsheet/" . $id . "/data";
+    $spreadsheet_lnk = site_url(). $entity . "/export_spreadsheet/" . $id . "/data/true/xlsx";
 
     $s .= "Download in other formats: ";
     $s .= "|<span><a href='$excel_lnk'>Excel</a></span>";

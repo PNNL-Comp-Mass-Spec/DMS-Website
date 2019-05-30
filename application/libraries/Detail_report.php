@@ -281,7 +281,7 @@ class Detail_report {
      * @param string $id
      * @param string $format
      */
-    function export_spreadsheet($id, $format)
+    function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv")
     {
         $CI = &get_instance();
         session_start();
@@ -292,10 +292,10 @@ class Detail_report {
         $CI->load->helper(array('export'));
         switch($format) {
             case 'data':
-                export_spreadsheet($this->tag, $entity_info, $aux_info, $this->tag."_template");
+                export_spreadsheet($this->tag, $entity_info, $aux_info, $rowStyle, $ext, $this->tag."_template");
                 break;
             case 'blank':
-                export_spreadsheet($this->tag, $entity_info, $aux_info, $this->tag."_template");
+                export_spreadsheet($this->tag, $entity_info, $aux_info, $rowStyle, $ext, $this->tag."_template");
                 break;
             case 'test':
                 dump_spreadsheet($entity_info, $aux_info);

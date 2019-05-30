@@ -142,7 +142,7 @@ class Spreadsheet_loader {
         $this->extract_entity_type();
         $this->extract_entity_list();
     }
-    
+
     private function load_text_file($filePath)
     {
         // Enable auto-detection of line endings
@@ -173,9 +173,9 @@ class Spreadsheet_loader {
             $this->ss_rows[] = $fields;
 
         }
-        fclose($handle);       
+        fclose($handle);
     }
-    
+
     private function load_spreadsheet_file($filePath)
     {
         // Identify the file type

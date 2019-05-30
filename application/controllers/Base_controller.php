@@ -256,10 +256,10 @@ class Base_controller extends CI_Controller {
      * @param string $id
      * @param string $format
      */
-    function export_spreadsheet($id, $format)
+    function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv")
     {
         $this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->export_spreadsheet($id, $format);
+        $this->detail_report->export_spreadsheet($id, $format, $rowStyle, $ext);
     }
 
     /**

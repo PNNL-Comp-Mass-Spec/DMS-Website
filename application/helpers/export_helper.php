@@ -3,6 +3,9 @@
         exit('No direct script access allowed');
     }
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 
     // --------------------------------------------------------------------
     // NOTE: code is adapted from http://codeigniter.com/wiki/Excel_Plugin/
@@ -76,12 +79,12 @@
         $data = '';
         $data .= "Parameter" . "\t" . "Value" . "\n";
         foreach($result as $name => $value) {
-                if (!isset($value) || $value == "") {
-                     $value = "\t";
-                } else {
-                     $value = quote_if_contains_tab($value) . "\t";
-                }
-                $data .= trim($name ."\t" . $value)."\n";
+            if (!isset($value) || $value == "") {
+                 $value = "\t";
+            } else {
+                 $value = quote_if_contains_tab($value) . "\t";
+            }
+            $data .= trim($name ."\t" . $value)."\n";
         }
 
         // detail report for aux info (if any)
@@ -111,46 +114,52 @@
     }
     // --------------------------------------------------------------------
     //
-    function export_detail_to_excel($result, $aux_info, $filename='tsv_download')
+    function export_detail_to_excel($result, $aux_info, $filename='xlsx_download')
     {
         // detail report for tracking entity
-        $data = '';
-        $data .= "Parameter" . "\t" . "Value" . "\n";
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->setActiveSheetIndex(0);
+        $data = array();
+        $rowIndex = 1;
+        $data[0][0] = "Parameter";
+        $data[0][1] = "Value";
+
         foreach($result as $name => $value) {
-                if (!isset($value) || $value == "") {
-                     $value = "\t";
-                } else {
-                     $value = quote_if_contains_tab($value) . "\t";
-                }
-                $data .= trim($name ."\t" . $value)."\n";
+            $data[$rowIndex][0] = $name;
+            if (isset($value)) {
+                 $data[$rowIndex][1] = $value;
+            } else {
+                 $data[$rowIndex][1] = '';
+            }
+            $rowIndex++;
         }
 
         // detail report for aux info (if any)
-        $ai = '';
         if(count($aux_info) > 0) {
             $fields = array("Category", "Subcategory", "Item", "Value");
-            $ai .= "Category" . "\t" . "Subcategory" . "\t" . "Item" . "\t" . "Value" . "\n";
+            $data[$rowIndex] = $fields;
+            $rowIndex++;
             foreach($aux_info as $row) {
-                $line = '';
+                $colIndex = 0;
                 foreach($fields as $field) {
                     $value = $row[$field];
                     if (!isset($value) || $value == "") {
-                         $value = "\t";
+                         $data[$rowIndex][$colIndex] = '';
                     } else {
-                         $value = quote_if_contains_tab($value) . "\t";
+                         $data[$rowIndex][$colIndex] = $value;
                     }
-                    $line .= $value;
+                    $colIndex++;
                 }
-                $ai .= trim($line)."\n";
+                $rowIndex++;
             }
         }
 
-        // Use a file extension of .tsv for tab-separated
-        // Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
-        header("Content-type: application/x-msdownload");
-        header("Content-Disposition: attachment; filename=$filename.tsv");
-        echo $data;
-        echo $ai;
+        $worksheet->fromArray($data, '');
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
     }
 
     // --------------------------------------------------------------------
@@ -236,57 +245,133 @@
 
     // --------------------------------------------------------------------
     //
-    function export_spreadsheet($entity, $result, $aux_info, $filename='tsv_download')
+    function export_spreadsheet($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
     {
+        $rowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
+
+        if (strtolower($ext) != "tsv" && strtolower($ext) != "txt") {
+            export_spreadsheet_binary($entity, $result, $aux_info, $rowStyle, $ext, $filename);
+        } else {
+            export_spreadsheet_text($entity, $result, $aux_info, $rowStyle, $ext, $filename);
+        }
+    }
+
+    function export_spreadsheet_text($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
+    {
+        $rowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
+
         // detail report for tracking entity
         $data = strtoupper(str_replace('_', ' ', $entity)). "\n";
         $data .= "\n";
-        $data .= "TRACKING INFORMATION" . "\n";
+        if ($rowStyle) {
+            $markers = "TRACKING INFORMATION";
+            $headers = "";
+            $values = "";
 
-        foreach($result as $name => $value) {
+            foreach($result as $name => $value) {
+                if (!isset($value) || $value == "") {
+                     $value = "\t";
+                } else {
+                     $value .= "\t";
+                }
+                $markers .= "\t";
+                $headers .= trim($name)."\t";
+                $values .= trim($value)."\t";
+            }
+
+            // detail report for aux info (if any)
+            $markers .= "AUXILIARY INFORMATION";
+            $firstItem = True;
+            $prevCategory = '';
+            $prevSubCategory = '';
+            if(count($aux_info) > 0) {
+                // $fields = array("Category", "Subcategory", "Item", "Value");
+                foreach($aux_info as $item) {
+                    $line = '';
+
+                    if (!$firstItem) {
+                        $prevCategory = $item['Category'];
+                        $prevSubCategory = $item['Subcategory'];
+                        $firstItem = False;
+                    }
+
+                    $itemCategory = fix_data($item['Category']);
+                    $itemSubCategory = fix_data($item['Subcategory']);
+                    $itemName = fix_data($item['Item']);
+                    $itemValue = fix_data($item['Value']);
+
+                    if ($item['Category'] != $prevCategory) {
+                        $markers .= "\t\t\t";
+                        $headers .= trim($itemCategory)."\t".trim($itemSubCategory)."\t".trim($itemName)."\t";
+                        $values .= "\t\t".trim($itemValue)."\t";
+                    } else {
+                        if ($item['Subcategory'] != $prevSubCategory) {
+                            $markers .= "\t\t\t";
+                            $headers .= trim($itemCategory)."\t".trim($itemSubCategory)."\t".trim($itemName)."\t";
+                            $values .= "\t\t".trim($itemValue)."\t";
+                        } else {
+                            $markers .= "\t";
+                            $headers .= trim($itemName)."\t";
+                            $values .= trim($itemValue)."\t";
+                        }
+                    }
+
+                    $prevCategory = $item['Category'];
+                    $prevSubCategory = $item['Subcategory'];
+
+                }
+            }
+
+            $data = $markers."\n".$headers."\n".$values."\n";
+            $ai = "";
+        } else {
+            $data .= "TRACKING INFORMATION" . "\n";
+
+            foreach($result as $name => $value) {
                 if (!isset($value) || $value == "") {
                      $value = "\t";
                 } else {
                      $value .= "\t";
                 }
                 $data .= trim($name ."\t" . $value)."\n";
-        }
+            }
 
-        // detail report for aux info (if any)
-        $ai = '';
-        $ai .= "AUXILIARY INFORMATION" . "\n";
-        $firstRow = True;
-        $prevCategory = '';
-        $prevSubCategory = '';
-        if(count($aux_info) > 0) {
-            // $fields = array("Category", "Subcategory", "Item", "Value");
-            foreach($aux_info as $row) {
-                $line = '';
+            // detail report for aux info (if any)
+            $ai = '';
+            $ai .= "AUXILIARY INFORMATION" . "\n";
+            $firstRow = True;
+            $prevCategory = '';
+            $prevSubCategory = '';
+            if(count($aux_info) > 0) {
+                // $fields = array("Category", "Subcategory", "Item", "Value");
+                foreach($aux_info as $row) {
+                    $line = '';
 
-                if (!$firstRow) {
-                    $prevCategory = $row['Category'];
-                    $prevSubCategory = $row['Subcategory'];
-                    $firstRow = False;
-                }
+                    if (!$firstRow) {
+                        $prevCategory = $row['Category'];
+                        $prevSubCategory = $row['Subcategory'];
+                        $firstRow = False;
+                    }
 
-                $rowCategory = fix_data($row['Category']);
-                $rowSubCategory = fix_data($row['Subcategory']);
-                $rowItem = fix_data($row['Item']);
-                $rowValue = fix_data($row['Value']);
+                    $rowCategory = fix_data($row['Category']);
+                    $rowSubCategory = fix_data($row['Subcategory']);
+                    $rowItem = fix_data($row['Item']);
+                    $rowValue = fix_data($row['Value']);
 
-                if ($row['Category'] != $prevCategory) {
-                    $ai .= trim($rowCategory)."\n".trim($rowSubCategory)."\n".trim($rowItem)."\t".trim($rowValue)."\n";
-                } else {
-                    if ($row['Subcategory'] != $prevSubCategory) {
+                    if ($row['Category'] != $prevCategory) {
                         $ai .= trim($rowCategory)."\n".trim($rowSubCategory)."\n".trim($rowItem)."\t".trim($rowValue)."\n";
                     } else {
-                        $ai .= trim($rowItem)."\t".trim($rowValue)."\n";
+                        if ($row['Subcategory'] != $prevSubCategory) {
+                            $ai .= trim($rowCategory)."\n".trim($rowSubCategory)."\n".trim($rowItem)."\t".trim($rowValue)."\n";
+                        } else {
+                            $ai .= trim($rowItem)."\t".trim($rowValue)."\n";
+                        }
                     }
+
+                    $prevCategory = $row['Category'];
+                    $prevSubCategory = $row['Subcategory'];
+
                 }
-
-                $prevCategory = $row['Category'];
-                $prevSubCategory = $row['Subcategory'];
-
             }
         }
 
@@ -296,6 +381,211 @@
         header("Content-Disposition: attachment; filename=$filename.tsv");
         echo $data;
         echo $ai;
+    }
+
+    function export_spreadsheet_binary($entity, $result, $aux_info, $rowStyle = false, $ext = "xlsx", $filename='tsv_download')
+    {
+        $rowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
+
+        if ($ext[0] == '.') {
+            $ext = substr($ext,1);
+        }
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->setActiveSheetIndex(0);
+
+        $worksheet->setCellValue('A1', strtoupper(str_replace('_', ' ', $entity)));
+        $data = array();
+        $data[0][0] = "TRACKING INFORMATION";
+
+        if ($rowStyle) {
+            $colIndex = 0;
+            foreach($result as $name => $value) {
+                $data[1][$colIndex] = $name;
+                if (isset($value)) {
+                    $data[2][$colIndex] = $value;
+                } else {
+                    $data[2][$colIndex] = '';
+                }
+                $data[0][$colIndex] = '';
+                $colIndex++;
+            }
+
+            $data[0][0] = "TRACKING INFORMATION";
+            // detail report for aux info (if any)
+            $data[0][$colIndex] = "AUXILIARY INFORMATION";
+            $firstItem = True;
+            $prevCategory = '';
+            $prevSubCategory = '';
+            if(count($aux_info) > 0) {
+                // $fields = array("Category", "Subcategory", "Item", "Value");
+                foreach($aux_info as $item) {
+                    $line = '';
+
+                    if (!$firstItem) {
+                        $prevCategory = $item['Category'];
+                        $prevSubCategory = $item['Subcategory'];
+                        $firstItem = False;
+                    }
+
+                    $itemCategory = fix_data($item['Category']);
+                    $itemSubCategory = fix_data($item['Subcategory']);
+                    $itemName = fix_data($item['Item']);
+                    $itemValue = fix_data($item['Value']);
+
+                    if ($item['Category'] != $prevCategory) {
+                        $data[1][$colIndex] = trim($itemCategory);
+                        $data[2][$colIndex] = '';
+                        $colIndex++;
+                        $data[1][$colIndex] = trim($itemSubCategory);
+                        $data[2][$colIndex] = '';
+                        $colIndex++;
+                        $data[1][$colIndex] = trim($itemName);
+                        $data[2][$colIndex] = trim($itemValue);
+                        $colIndex++;
+                    } else {
+                        if ($item['Subcategory'] != $prevSubCategory) {
+                            $data[1][$colIndex] = trim($itemCategory);
+                            $data[2][$colIndex] = '';
+                            $colIndex++;
+                            $data[1][$colIndex] = trim($itemSubCategory);
+                            $data[2][$colIndex] = '';
+                            $colIndex++;
+                            $data[1][$colIndex] = trim($itemName);
+                            $data[2][$colIndex] = trim($itemValue);
+                            $colIndex++;
+                        } else {
+                            $data[1][$colIndex] = trim($itemName);
+                            $data[2][$colIndex] = trim($itemValue);
+                            $colIndex++;
+                        }
+                    }
+
+                    $prevCategory = $item['Category'];
+                    $prevSubCategory = $item['Subcategory'];
+                }
+            }
+        } else {
+            $rowIndex = 1;
+            foreach($result as $name => $value) {
+                $data[$rowIndex][0] = $name;
+                if (isset($value)) {
+                    $data[$rowIndex][1] = $value;
+                } else {
+                    $data[$rowIndex][1] = '';
+                }
+                $rowIndex++;
+            }
+
+            // detail report for aux info (if any)
+            $data[$rowIndex][0] = "AUXILIARY INFORMATION";
+            $rowIndex++;
+            $firstItem = True;
+            $prevCategory = '';
+            $prevSubCategory = '';
+            if(count($aux_info) > 0) {
+                // $fields = array("Category", "Subcategory", "Item", "Value");
+                foreach($aux_info as $item) {
+                    $line = '';
+
+                    if (!$firstItem) {
+                        $prevCategory = $item['Category'];
+                        $prevSubCategory = $item['Subcategory'];
+                        $firstItem = False;
+                    }
+
+                    $itemCategory = fix_data($item['Category']);
+                    $itemSubCategory = fix_data($item['Subcategory']);
+                    $itemName = fix_data($item['Item']);
+                    $itemValue = fix_data($item['Value']);
+
+                    if ($item['Category'] != $prevCategory) {
+                        $data[$rowIndex][0] = trim($itemCategory);
+                        $data[$rowIndex][1] = '';
+                        $rowIndex++;
+                        $data[$rowIndex][0] = trim($itemSubCategory);
+                        $data[$rowIndex][1] = '';
+                        $rowIndex++;
+                        $data[$rowIndex][0] = trim($itemName);
+                        $data[$rowIndex][1] = trim($itemValue);
+                        $rowIndex++;
+                    } else {
+                        if ($item['Subcategory'] != $prevSubCategory) {
+                            $data[$rowIndex][0] = trim($itemCategory);
+                            $data[$rowIndex][1] = '';
+                            $rowIndex++;
+                            $data[$rowIndex][0] = trim($itemSubCategory);
+                            $data[$rowIndex][1] = '';
+                            $rowIndex++;
+                            $data[$rowIndex][0] = trim($itemName);
+                            $data[$rowIndex][1] = trim($itemValue);
+                            $rowIndex++;
+                        } else {
+                            $data[$rowIndex][0] = trim($itemName);
+                            $data[$rowIndex][1] = trim($itemValue);
+                            $rowIndex++;
+                        }
+                    }
+
+                    $prevCategory = $item['Category'];
+                    $prevSubCategory = $item['Subcategory'];
+                }
+            }
+        }
+
+        $worksheet->fromArray($data, '', 'A3');
+
+        $writerType = $ext;
+        switch (strtolower($ext)) {
+            case 'xml':
+                $ext = 'xlsx';
+            case 'xlsx': // Excel (OfficeOpenXML) Spreadsheet
+            case 'xlsm': // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
+            case 'xltx': // Excel (OfficeOpenXML) Template
+            case 'xltm': // Excel (OfficeOpenXML) Macro Template (macros will be discarded)
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                $writerType = 'Xlsx';
+                break;
+            case 'xls': // Excel (BIFF) Spreadsheet
+            case 'xlt': // Excel (BIFF) Template
+                header('Content-Type: application/vnd.ms-excel');
+                $writerType = 'Xls';
+                break;
+            case 'ods': // Open/Libre Offic Calc
+            case 'ots': // Open/Libre Offic Calc Template
+                header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
+                $writerType = 'Ods';
+                break;
+            case 'htm':
+            case 'html':
+                header('Content-Type: text/html');
+                $writerType = 'Html';
+                break;
+            case 'csv':
+                header('Content-Type: application/x-msdownload');
+                $writerType = 'Csv';
+                break;
+            case 'pdf':
+                //header('Content-Type: application/pdf');
+                //$writerType = 'Tcpdf';
+                //$writerType = 'Dompdf';
+                //$writerType = 'Mpdf';
+
+                // Extra libraries required.
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                $writerType = 'Xlsx';
+                $ext = 'xlsx';
+                break;
+            default:
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                $writerType = 'Xlsx';
+                $ext = 'xlsx';
+                break;
+        }
+
+        header('Content-Disposition: attachment;filename="'.$filename.".".$ext.'"');
+        $writer = IOFactory::createWriter($spreadsheet, $writerType);
+        $writer->save('php://output');
     }
 
     // --------------------------------------------------------------------
