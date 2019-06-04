@@ -20,7 +20,7 @@ class Upload extends Base_controller {
     // --------------------------------------------------------------------
     function index()
     {
-        echo "nothing to see here - move on";
+        $this->main();
     }
 
     /**
