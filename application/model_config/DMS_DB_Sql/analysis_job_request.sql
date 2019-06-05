@@ -71,6 +71,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(5,'Tool','detail-report','Tool','pip
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Protein Collection List','link_table','Protein Collection List','protein_collection/report/~','valueCol','dl_protein_collection_list','');
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Requestor Name','detail-report','Requestor Name','user/report/-/~','labelCol','dl_Requestor','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Parameter File','detail-report','Parameter File','param_file/report/-/~','labelCol','dl_param_file','');
+INSERT INTO "detail_report_hotlinks" VALUES(9,'Legacy Fasta','detail-report','Legacy Fasta','helper_organism_db/report/~','valueCol','dl_legacy_fasta','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Determine if current values are valid, but do not change database.','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
