@@ -544,7 +544,7 @@ $config['modify_config_db_enabled'] = TRUE;
 // Do not store DMS Attachments in the archive when on CBDMSWeb
 // $config['file_attachment_archive_root_path'] = "/mnt/dms_attachments/";
 
-$config['file_attachment_local_root_path'] = "/data/dms_attachments/";
+$config['file_attachment_local_root_path'] = "/files1/dms_attachments/";
 
 $config['model_config_path'] = "application/model_config/cbdms/" ;
 
