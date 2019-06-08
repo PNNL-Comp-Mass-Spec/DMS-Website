@@ -96,8 +96,10 @@ INSERT INTO "detail_report_hotlinks" VALUES(7,'External Links','link_table','Ext
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Team Members','tabular_list','Team Members','','valueCol','dl_team_members','');
 INSERT INTO "detail_report_hotlinks" VALUES(9,'+Team Members','detail-report','Campaign','staff_roles/report/-/-/~','labelCol','dl_team_by_campaign',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Data Packages','detail-report','Campaign','data_package_campaigns/report/-/~','valueCol','dl_data_packages','');
-INSERT INTO "detail_report_hotlinks" VALUES(12,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show/','labelCol','dl_eus_Proposal','');
+INSERT INTO "detail_report_hotlinks" VALUES(12,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_eus_Proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(13,'Samples Submitted','detail-report','Campaign','sample_submission/report/~','valueCol','dl_samples_submitted','');
+INSERT INTO "detail_report_hotlinks" VALUES(14,'Work Packages','detail-report','Campaign','campaign_dataset_stats/param','labelCol','dl_campaign_dataset_stats','');
+INSERT INTO "detail_report_hotlinks" VALUES(15,'+Work Packages','link_list','Work Packages','charge_code/show','valueCol','dl_work_packages','{"HideLinkIfValueMatch":"none"}');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Add me as observer','cmd_op','add','notification','Add currently logged in user as observer to this campaign','');
 INSERT INTO "detail_report_commands" VALUES(2,'Remove me as observer','cmd_op','remove','notification','Remove currently logged in user as observer from this campaign','');
