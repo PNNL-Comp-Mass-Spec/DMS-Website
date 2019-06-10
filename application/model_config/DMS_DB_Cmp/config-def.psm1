@@ -32,7 +32,7 @@ $global:sources = @(
         "version" = "cbdmsOnline";
         "sftpHost" = "cbdmsweb.emsl.pnl.gov";
         "userName" = "d3l243";
-        "remoteDir" = "/data/www/html/dms/application/model_config/cbdms";
+        "remoteDir" = "/files1/www/html/dms/application/model_config";
     },
     @{
         "version" = "code";
