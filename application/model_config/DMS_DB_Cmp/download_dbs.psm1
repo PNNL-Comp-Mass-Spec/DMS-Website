@@ -16,8 +16,8 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
     # See available commands with
     # Get-Command -Module Posh-SSH
 
-    Write-Output ""
-    Write-Output "Connecting to $sftpHost as user $userName"
+    Write-Host ""
+    Write-Host "Connecting to $sftpHost as user $userName"
 
     # Establish the credentials
     $sftpPassword = ConvertTo-SecureString $userPassword -AsPlainText -Force
@@ -27,17 +27,19 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
     # This works, but it also retrieves files from subdirectories, which we don't want
     #Get-SCPFolder -ComputerName $sftpHost -Credential $credentials -RemoteFolder $remoteDir -LocalFolder $localDbFileFolderPath -NoProgress
 
-    # Open the SFTP connection
+    # Open the SFTP connection (for more info, use -Verbose)
     $sftpSession = New-SFTPSession -ComputerName $sftpHost -Credential $credentials
 
-    Write-Output "Finding files at $remoteDir"
+        Write-Host "Connection failed; aborting"
+
+    Write-Host "Finding files at $remoteDir"
     $remoteFiles = Get-SFTPChildItem -SessionId ($sftpSession).SessionId -Path $remoteDir
 
     if(!(test-path $localDbFileFolderPath)) {
         New-Item -ItemType Directory -Force -Path $localDbFileFolderPath | Out-Null
     }
     
-    Write-Output "Downloading .db files from $sftpHost"
+    Write-Host "Downloading .db files from $sftpHost"
 
     $filesDownloaded = 0
 
