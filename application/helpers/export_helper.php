@@ -53,10 +53,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             foreach($headerCols as $name => $index) {
                 $value = $row[$name];
                 if (!isset($value)) {
-                     $data[$rowIndex][$index] = "";
+                    $data[$rowIndex][$index] = "";
                 }
                 else {
-                     $data[$rowIndex][$index] = $value;
+                    $data[$rowIndex][$index] = $value;
                 }
             }
             $rowIndex++;
@@ -101,10 +101,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             foreach($cols as $name) {
                 $value = $row[$name];
                 if (!isset($value) || $value == "") {
-                     $value = "\t";
+                    $value = "\t";
                 }
                 else {
-                     $value = quote_if_contains_tab($value) . "\t";
+                    $value = quote_if_contains_tab($value) . "\t";
                 }
                 $line .= $value;
             }
@@ -125,9 +125,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $data .= "Parameter" . "\t" . "Value" . "\n";
         foreach($result as $name => $value) {
             if (!isset($value) || $value == "") {
-                 $value = "\t";
+                $value = "\t";
             } else {
-                 $value = quote_if_contains_tab($value) . "\t";
+                $value = quote_if_contains_tab($value) . "\t";
             }
             $data .= trim($name ."\t" . $value)."\n";
         }
@@ -142,9 +142,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 foreach($fields as $field) {
                     $value = $row[$field];
                     if (!isset($value) || $value == "") {
-                         $value = "\t";
+                        $value = "\t";
                     } else {
-                         $value = quote_if_contains_tab($value) . "\t";
+                        $value = quote_if_contains_tab($value) . "\t";
                     }
                     $line .= $value;
                 }
@@ -173,9 +173,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         foreach($result as $name => $value) {
             $data[$rowIndex][0] = $name;
             if (isset($value)) {
-                 $data[$rowIndex][1] = $value;
+                $data[$rowIndex][1] = $value;
             } else {
-                 $data[$rowIndex][1] = '';
+                $data[$rowIndex][1] = '';
             }
             $rowIndex++;
         }
@@ -190,9 +190,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 foreach($fields as $field) {
                     $value = $row[$field];
                     if (!isset($value) || $value == "") {
-                         $data[$rowIndex][$colIndex] = '';
+                        $data[$rowIndex][$colIndex] = '';
                     } else {
-                         $data[$rowIndex][$colIndex] = $value;
+                        $data[$rowIndex][$colIndex] = $value;
                     }
                     $colIndex++;
                 }
@@ -270,20 +270,20 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         $dependencies = $xp->query("//Depends_On");
         foreach ($dependencies as $dependency) {
-             $step_number = $dependency->parentNode->getAttribute('Number');
-             $target_step_number = $dependency->getAttribute('Step_Number');
-             $test = $dependency->getAttribute('Test');
-             // $value = $dependency->getAttribute('Value');
-             $enable_only = $dependency->getAttribute('Enable_Only');
-             $label = "";
-             $line = "";
-             if($test) {
-                  $label = "[label=\"Skip if:$test\"]";
-             }
-             if($enable_only) {
-                  $line = " [style=dotted]";
-             }
-             $dot_cmds .= "$target_step_number -> $step_number $label $line" . "\n";
+            $step_number = $dependency->parentNode->getAttribute('Number');
+            $target_step_number = $dependency->getAttribute('Step_Number');
+            $test = $dependency->getAttribute('Test');
+            // $value = $dependency->getAttribute('Value');
+            $enable_only = $dependency->getAttribute('Enable_Only');
+            $label = "";
+            $line = "";
+            if($test) {
+                $label = "[label=\"Skip if:$test\"]";
+            }
+            if($enable_only) {
+                $line = " [style=dotted]";
+            }
+            $dot_cmds .= "$target_step_number -> $step_number $label $line" . "\n";
         }
         $dot_cmds .= "}";
         return $dot_cmds;
@@ -316,9 +316,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
             foreach($result as $name => $value) {
                 if (!isset($value) || $value == "") {
-                     $value = "\t";
+                    $value = "\t";
                 } else {
-                     $value .= "\t";
+                    $value .= "\t";
                 }
                 $markers .= "\t";
                 $headers .= trim($name)."\t";
@@ -375,9 +375,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
             foreach($result as $name => $value) {
                 if (!isset($value) || $value == "") {
-                     $value = "\t";
+                    $value = "\t";
                 } else {
-                     $value .= "\t";
+                    $value .= "\t";
                 }
                 $data .= trim($name ."\t" . $value)."\n";
             }
@@ -659,9 +659,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     function fix_data($rowValue)
     {
         if (!isset($rowValue) || $rowValue == "") {
-             $rowValue = "\t";
+            $rowValue = "\t";
         } else {
-             $rowValue = quote_if_contains_tab($rowValue) . "\t";
+            $rowValue = quote_if_contains_tab($rowValue) . "\t";
         }
         return $rowValue;
     }
