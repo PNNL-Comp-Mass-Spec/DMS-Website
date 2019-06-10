@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     // --------------------------------------------------------------------
     // NOTE: code is adapted from http://codeigniter.com/wiki/Excel_Plugin/
     //
-    function export_to_excel($result, $filename='excel_download', $col_filter = array())
+    function export_to_excel_tsv($result, $filename='excel_download', $col_filter = array())
     {
         $cols = array_keys(current($result));
         if(!empty($col_filter)) {
@@ -27,6 +27,49 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         header("Content-Disposition: attachment; filename=$filename.tsv");
         echo "$headers\n$data";
     }
+
+    function export_to_excel($result, $filename='excel_download', $col_filter = array())
+    {
+        $cols = array_keys(current($result));
+        if(!empty($col_filter)) {
+            $cols = $col_filter;
+        }
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->setActiveSheetIndex(0);
+        $data = array();
+
+        $headerCols = array();
+        $colCount = 0;
+        foreach($cols as $header) {
+            $data[0][$colCount] = $header;
+            $headerCols[$header] = $colCount;
+            $colCount++;
+        }
+
+        // field data
+        $rowIndex = 1;
+        foreach($result as $row) {
+            foreach($headerCols as $name => $index) {
+                $value = $row[$name];
+                if (!isset($value)) {
+                     $data[$rowIndex][$index] = "";
+                }
+                else {
+                     $data[$rowIndex][$index] = $value;
+                }
+            }
+            $rowIndex++;
+        }
+
+        $worksheet->fromArray($data, '');
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+    }
+
     // --------------------------------------------------------------------
     //
     function export_to_tab_delimited_text($result, $filename='tsv_download', $col_filter = array())
@@ -44,6 +87,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         header("Content-Disposition: attachment; filename=$filename.txt");
         echo "$headers\n$data";
     }
+
     // --------------------------------------------------------------------
     //
     function get_tab_delimited_text($result, $cols)
@@ -71,6 +115,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         return $dataNoCR;
     }
+
     // --------------------------------------------------------------------
     //
     function export_detail_to_tab_delimited_text($result, $aux_info, $filename='tsv_download')
@@ -112,6 +157,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo $data;
         echo $ai;
     }
+
     // --------------------------------------------------------------------
     //
     function export_detail_to_excel($result, $aux_info, $filename='xlsx_download')
