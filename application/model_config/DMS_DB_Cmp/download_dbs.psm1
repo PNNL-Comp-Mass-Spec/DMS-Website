@@ -9,6 +9,10 @@
 # Set-ExecutionPolicy RemoteSigned -Scope Process -force
 # Import-Module Posh-SSH
 
+#########################################
+# Download files from the given host
+# Returns the number of files downloaded
+#########################################
 function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $localDbFileFolderPath, $maxFilesToDownload) {
 
     Import-Module Posh-SSH
@@ -30,7 +34,10 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
     # Open the SFTP connection (for more info, use -Verbose)
     $sftpSession = New-SFTPSession -ComputerName $sftpHost -Credential $credentials
 
+    if ($sftpSession -eq $null) {
         Write-Host "Connection failed; aborting"
+        return 0
+    }
 
     Write-Host "Finding files at $remoteDir"
     $remoteFiles = Get-SFTPChildItem -SessionId ($sftpSession).SessionId -Path $remoteDir
@@ -67,4 +74,6 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
 
     #Close the SFTP connection
     Get-SFTPSession | % { Remove-SFTPSession -SessionId ($_.SessionId) }  | Out-Null
+
+    return $filesDownloaded 
 }

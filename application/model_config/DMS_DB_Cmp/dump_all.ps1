@@ -90,7 +90,11 @@ foreach($source in $sources) {
     if($source["sftpHost"]) {
         # download config db files from sftp server and generate dump files
         if (!($skipDownload)) {
-            DownloadSftpFiles $source["sftpHost"] $source["userName"] $userPassword $source["remoteDir"] $localDbFileFolderPath $maxFilesToDownload
+            $filesDownloaded = DownloadSftpFiles $source["sftpHost"] $source["userName"] $userPassword $source["remoteDir"] $localDbFileFolderPath $maxFilesToDownload
+            if ($filesDownloaded -eq 0) {
+                Write-Output "DownloadSftpFiles did not download any files; skipping host $sftpHost"
+                return
+            }
         }
 
         if (!($skipDump)) {
