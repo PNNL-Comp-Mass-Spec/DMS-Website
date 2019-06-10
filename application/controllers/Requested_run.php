@@ -1,9 +1,7 @@
-
 <?php
 require("Base_controller.php");
 
 class Requested_run extends Base_controller {
-
 
     // --------------------------------------------------------------------
     function __construct()
@@ -13,8 +11,6 @@ class Requested_run extends Base_controller {
 
         $this->my_tag = "requested_run";
         $this->my_title = "Requested Run";
-
-
     }
 
 }
