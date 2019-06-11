@@ -32,6 +32,7 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
     #Get-SCPFolder -ComputerName $sftpHost -Credential $credentials -RemoteFolder $remoteDir -LocalFolder $localDbFileFolderPath -NoProgress
 
     # Open the SFTP connection (for more info, use -Verbose)
+    # If the RSA key of the remote host changes, delete the old entry in the registry at HKCU\Software\PoshSSH
     $sftpSession = New-SFTPSession -ComputerName $sftpHost -Credential $credentials
 
     if ($sftpSession -eq $null) {
