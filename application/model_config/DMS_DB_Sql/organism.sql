@@ -27,14 +27,10 @@ INSERT INTO "form_fields" VALUES(13,'orgGenus','Genus','text','60','128','','','
 INSERT INTO "form_fields" VALUES(14,'orgSpecies','Species','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(15,'orgStrain','Strain','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(17,'NEWT_ID_List','NEWT_ID_List','area','','','2','60','','trim|max_length[255]');
-INSERT INTO "form_fields" VALUES(18,'orgDNATransTabID','DNA Translation Table ID','text','6','6','','','','trim|max_length[4]');
-INSERT INTO "form_fields" VALUES(19,'orgMitoDNATransTabID','Mito DNA Translation Table ID','text','6','6','','','','trim|max_length[4]');
 INSERT INTO "form_fields" VALUES(22,'orgStorageLocation','Org. Storage Path','area','','','2','60','','trim|max_length[256]');
 INSERT INTO "form_fields" VALUES(23,'orgDBName','Default Protein Collection','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(24,'orgActive','Active','text','1','1','','','1','trim|max_length[1]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO "form_field_choosers" VALUES(1,'orgDNATransTabID','picker.replace','dnaTabIDPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'orgMitoDNATransTabID','picker.replace','dnaTabIDPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'orgActive','picker.replace','yesNoAsOneZeroPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'NCBITaxonomyID','list-report.helper','','helper_ncbi_taxonomy_id/report/','NCBITaxonomyID',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'AutoDefineTaxonomy','picker.replace','yesNoPickList','','',',','');
@@ -68,8 +64,6 @@ INSERT INTO "sproc_args" VALUES(13,'orgFamily','orgFamily','varchar','input','64
 INSERT INTO "sproc_args" VALUES(14,'orgGenus','orgGenus','varchar','input','128','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(15,'orgSpecies','orgSpecies','varchar','input','128','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(16,'orgStrain','orgStrain','varchar','input','128','AddUpdateOrganisms');
-INSERT INTO "sproc_args" VALUES(17,'orgDNATransTabID','orgDNATransTabID','varchar','input','6','AddUpdateOrganisms');
-INSERT INTO "sproc_args" VALUES(18,'orgMitoDNATransTabID','orgMitoDNATransTabID','varchar','input','6','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(19,'orgActive','orgActive','varchar','input','3','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(21,'NEWT_ID_List','NEWTIDList','varchar','intput','255','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(22,'NCBITaxonomyID','NCBITaxonomyID','int','intput','12','AddUpdateOrganisms');
