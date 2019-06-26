@@ -1,4 +1,8 @@
 <?php
+
+// Include the String operations methods
+require_once(BASEPATH . '../application/libraries/String_operations.php');
+
 // The function of this class is to execute a stored procedure
 // against one of the databases defined in the application/config/database file.
 // It gets the procedure name and arguments from a config db as defined by the
@@ -83,7 +87,9 @@ class S_model extends CI_Model {
 
     private $error_text = '';
 
-    // --------------------------------------------------------------------
+    /**
+     * Constructor
+     */
     function __construct()
     {
         // Call the Model constructor
@@ -93,7 +99,12 @@ class S_model extends CI_Model {
 
     // (someday) see if we can figure out how to get bound values updated when rowset is returned (mssql_next_result is not working )
 
-    // --------------------------------------------------------------------
+    /**
+     * Initialize objects
+     * @param type $config_name
+     * @param type $config_source
+     * @return boolean
+     */
     function init($config_name, $config_source = "ad_hoc_query")
     {
         $this->error_text = '';
@@ -232,7 +243,7 @@ class S_model extends CI_Model {
                 throw new Exception("Execution failed for $this->sprocName");
             }
 
-            // figure out what kind of result we got, and handle it
+            // Figure out what kind of result we got, and handle it
             if($result->hasRows) {
                 // Rowset of data
                 // Extract col metadata
@@ -243,10 +254,15 @@ class S_model extends CI_Model {
                 $this->result_array = $result->rows;
                 $this->cache_total_rows();
             } else {
-                // Simply returns an error code; examine it
+                // Procedure simply returns an error code; examine it
                 $sproc_return_value = $this->bound_calling_parameters->retval;
                 if($sproc_return_value != 0) {
-                    throw new Exception($this->bound_calling_parameters->message . " ($sproc_return_value for $this->sprocName)");
+                    if (IsNullOrWhitespace($this->bound_calling_parameters->message)) {
+                        $errorMessage = "Non-zero return code for $this->sprocName: $sproc_return_value";
+                    } else {
+                        $errorMessage = $this->bound_calling_parameters->message . " (return code $sproc_return_value for $this->sprocName)";
+                    }
+                    throw new Exception($errorMessage);
                 }
             }
 
