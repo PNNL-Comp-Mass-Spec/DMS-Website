@@ -119,7 +119,7 @@ INSERT INTO "sproc_args" VALUES(24,'StagingLocation','stagingLocation','varchar'
 INSERT INTO "sproc_args" VALUES(25,'RR_Request','requestIDForUpdate','int','input','','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(26,'<local>','mode','varchar','input','32','UpdateRequestedRunAssignments');
 INSERT INTO "sproc_args" VALUES(27,'Param','newValue','varchar','input','512','UpdateRequestedRunAssignments');
-INSERT INTO "sproc_args" VALUES(28,'ID','reqRunIDList','varchar','input','2048','UpdateRequestedRunAssignments');
+INSERT INTO "sproc_args" VALUES(28,'ID','reqRunIDList','varchar','input','64000','UpdateRequestedRunAssignments');
 INSERT INTO "sproc_args" VALUES(29,'<local>','message','varchar','output','512','UpdateRequestedRunAssignments');
 INSERT INTO "sproc_args" VALUES(30,'<local>','callingUser','varchar','input','128','UpdateRequestedRunAssignments');
 COMMIT;
