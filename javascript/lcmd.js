@@ -180,7 +180,8 @@ var lcmd = {
 				return;
 			}
 			if(list.length > 4096) {
-				alert('You have selected more items than system can handle at one time.  Please select fewer items and try again.');
+				// Stored procedure UpdateMaterialItems has argument @itemList varchar(4096)
+				alert('You have selected more items than the system can handle at one time.  Please select fewer items and try again.');
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;
@@ -226,8 +227,10 @@ var lcmd = {
 				alert('You must select requested runs.');
 				return;
 			}
-			if(list.length > 4096) {
-				alert('You have selected more items than system can handle at one time.  Please select fewer items and try again.');
+			if(list.length > 64000) {
+				// Stored procedure UpdateRequestedRunAssignments has argument @reqRunIDList varchar(max)
+				// We can thus push in more than 8000 characters; the 64000 limit is an arbitrary limit
+				alert('You have selected more items than the system can handle at one time.  Please select fewer items and try again.');
 				return;
 			}
 			if (!confirm("Are you sure that you want to update the database?")) return;

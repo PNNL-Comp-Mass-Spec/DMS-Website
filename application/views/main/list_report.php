@@ -88,7 +88,7 @@ Download in other formats (<a href="<?= $this->config->item('pwiki') ?>DMS_Data_
 <?php $this->load->view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
-<script src="<?= base_url().'javascript/lcmd.js?version=104' ?>"></script>
+<script src="<?= base_url().'javascript/lcmd.js?version=105' ?>"></script>
 <?php endif; ?>
 
 <?php // Increment version number here to force clients to reload lstRep.js ?>
