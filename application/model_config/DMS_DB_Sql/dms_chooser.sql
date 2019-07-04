@@ -142,4 +142,5 @@ INSERT INTO "chooser_definitions" VALUES(125,'paramFileTypePickList','default','
 INSERT INTO "chooser_definitions" VALUES(126,'campaignIDPickList','default','sql','SELECT Campaign as val, ID as ex FROM V_Campaign_List_Report_2 WHERE State = ''Active'' ORDER BY campaign');
 INSERT INTO "chooser_definitions" VALUES(127,'compoundTypePickList','default','sql','SELECT Compound_Type_Name  AS val, Compound_Type_Name AS ex FROM T_Reference_Compound_Type_Name');
 INSERT INTO "chooser_definitions" VALUES(128,'experimentPlexChannelTypePickList','default','select','{"Sample":"Sample", "Reference":"Reference", "Boost":"Boost", "Empty":"Empty"}');
+INSERT INTO "chooser_definitions" VALUES(129,'userStatusPickList','default','sql','SELECT Status_Description as val, User_Status as ex FROM T_User_status');
 COMMIT;

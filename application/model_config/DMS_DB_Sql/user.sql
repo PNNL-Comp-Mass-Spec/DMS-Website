@@ -20,7 +20,7 @@ INSERT INTO "form_fields" VALUES(8,'UserUpdate','User Update','text','1','1','',
 INSERT INTO "form_fields" VALUES(9,'OperationsList','Operations List','area','','','4','60','','trim|max_length[1024]');
 INSERT INTO "form_fields" VALUES(10,'Comment','Comment','area','','','2','60','','trim|max_length[512]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO "form_field_choosers" VALUES(1,'UserStatus','picker.replace','activeInactivePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(1,'UserStatus','picker.replace','userStatusPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'UserUpdate','picker.replace','YNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'OperationsList','picker.append','userOperationsPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
