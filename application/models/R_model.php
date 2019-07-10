@@ -126,12 +126,13 @@ class R_model extends CI_Model {
                 $a['WhichArg'] = $row['WhichArg'];
                 $a['Target'] = $row['Target'];
                 if ($server_bionet && stripos($a['Target'], "http") === 0) {
-                    $new_target = str_ireplace(".pnl.gov", ".bionet", $a['Target']);
-                    $prev_protocol = stripos($new_target, "https") === 0 ? "https" : "http";
+                    $target_host = str_ireplace(".emsl.pnl.gov", ".bionet", $a['Target']);
+                    $target_host = str_ireplace(".pnl.gov",      ".bionet", $target_host);
+                    $prev_protocol = stripos($target_host, "https") === 0 ? "https" : "http";
                     if ($prev_protocol !== $protocol) {
-                        $new_target = str_ireplace($prev_protocol, $protocol, $new_target);
+                        $target_host = str_ireplace($prev_protocol, $protocol, $target_host);
                     }
-                    $a['Target'] = $new_target;
+                    $a['Target'] = $target_host;
                 }
                 $a['hid'] = "name='hot_link".$i++."'"; // $row['hid'];
                 if($row['LinkType'] == 'color_label') {
