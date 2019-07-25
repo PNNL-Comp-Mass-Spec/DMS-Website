@@ -30,6 +30,10 @@
                 return date('W');
             case '__LastWeek__':
                 return date('W', strtotime('last week'));
+
+            case 'IsBlank__':
+                // Use \b to indicate that the field must be empty
+                return "\b";
         }
 
         // Check for special tags at the start
@@ -38,9 +42,6 @@
             $newValue = str_replace('StartsWith__', '`', $value);
         } else if (StartsWith($value, 'ExactMatch__')) {
             // Use a tilde to signify that the value must exactly match the value
-        } else if (StartsWith($value, "IsBlank__")) {
-            // Use \b to indicate that the field must be empty
-            $newValue = str_replace("IsBlank__", "\b", $value);
             $newValue = str_replace('ExactMatch__', '~', $value);
         } else if (StartsWith($value, 'NoMatch__')) {
             // Use a colon to signify that the value cannot contain the value
