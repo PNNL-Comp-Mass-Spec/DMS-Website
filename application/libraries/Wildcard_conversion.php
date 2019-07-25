@@ -31,6 +31,18 @@
             case '__LastWeek__':
                 return date('W', strtotime('last week'));
 
+            // January 1 for this year or last year
+            case '__StartThisYear__':
+                return date('Y-m-d', strtotime(date('Y-01-01')));
+            case '__StartLastYear__':
+                return date('Y-m-d', strtotime((date('Y') - 1) . '-01-01'));
+
+            // Today's date or the date one year ago
+            case '__Today__':
+                return date('Y-m-d');
+            case '__TodayLastYear__':
+                return date('Y-m-d', strtotime('last year'));
+
             case 'IsBlank__':
                 // Use \b to indicate that the field must be empty
                 return "\b";
