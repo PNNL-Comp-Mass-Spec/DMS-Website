@@ -69,24 +69,25 @@ INSERT INTO "home_menu_items" VALUES(44,'Experiments','experiment/search','Searc
 INSERT INTO "home_menu_items" VALUES(45,'Experiments','experiment_group/report','Display','a list of existing experiment groups');
 INSERT INTO "home_menu_items" VALUES(46,'Experiments','experiment_fraction/create','Create','a new experiment fraction group');
 INSERT INTO "home_menu_items" VALUES(47,'Experiments','experiment_group/create','Create','a new group for existing experiments');
-INSERT INTO "home_menu_items" VALUES(48,'Material Storage','material_container/report/-/-/-','Display','list of active material containers');
-INSERT INTO "home_menu_items" VALUES(49,'Material Storage','material_container/create','Create','a new storage container');
-INSERT INTO "home_menu_items" VALUES(50,'Material Storage','material_items/report/-/-/-','Display','list of active material items');
-INSERT INTO "home_menu_items" VALUES(51,'Material Storage','material_location/report/-/-/-','Display','a list of active material locations');
-INSERT INTO "home_menu_items" VALUES(52,'Material Storage','material_move_container/report/-/-/-','Move','containers between locations');
-INSERT INTO "home_menu_items" VALUES(53,'Material Storage','material_move_items/report/-/-/-','Move','material (Cell Culture, Experiments) between containers');
-INSERT INTO "home_menu_items" VALUES(54,'Material Storage','material_log/report/-/-/-','Display','material movement and status log');
-INSERT INTO "home_menu_items" VALUES(55,'Material Storage','wellplate/report/-/-/-','Display','a list of existing wellplates');
-INSERT INTO "home_menu_items" VALUES(56,'Material Storage','wellplate/create','Create','a new wellplate');
-INSERT INTO "home_menu_items" VALUES(57,'Sample Prep','sample_prep_request/report/-/-/-/-','Display','a list of all existing sample prep requests');
-INSERT INTO "home_menu_items" VALUES(58,'Sample Prep','sample_prep_request/create','Create','a new sample prep request');
-INSERT INTO "home_menu_items" VALUES(59,'Sample Prep','sample_prep_request/search','Search','for existing sample prep requests');
-INSERT INTO "home_menu_items" VALUES(60,'Sample Prep','sample_prep_request_assignment/report','Assign','staff to requests (admin function)');
-INSERT INTO "home_menu_items" VALUES(61,'Sample Prep','prep_lc_run/report','Display','a list of all prep LC runs');
-INSERT INTO "home_menu_items" VALUES(62,'Sample Prep','prep_lc_run/create','Create','a new prep LC run');
-INSERT INTO "home_menu_items" VALUES(63,'Sample Prep','prep_lc_column/report','Display','a list of all prep LC columns');
-INSERT INTO "home_menu_items" VALUES(64,'Sample Prep','prep_lc_column/create','Create','a new prep LC column');
-INSERT INTO "home_menu_items" VALUES(65,'Campaign','staff_roles/report','Display','a list of staff roles and assignments');
+INSERT INTO "home_menu_items" VALUES(48,'Experiments','experiment_plex_members/create','Create','a new experiment plex mapping');
+INSERT INTO "home_menu_items" VALUES(49,'Material Storage','material_container/report/-/-/-','Display','list of active material containers');
+INSERT INTO "home_menu_items" VALUES(50,'Material Storage','material_container/create','Create','a new storage container');
+INSERT INTO "home_menu_items" VALUES(51,'Material Storage','material_items/report/-/-/-','Display','list of active material items');
+INSERT INTO "home_menu_items" VALUES(52,'Material Storage','material_location/report/-/-/-','Display','a list of active material locations');
+INSERT INTO "home_menu_items" VALUES(53,'Material Storage','material_move_container/report/-/-/-','Move','containers between locations');
+INSERT INTO "home_menu_items" VALUES(54,'Material Storage','material_move_items/report/-/-/-','Move','material (Cell Culture, Experiments) between containers');
+INSERT INTO "home_menu_items" VALUES(55,'Material Storage','material_log/report/-/-/-','Display','material movement and status log');
+INSERT INTO "home_menu_items" VALUES(56,'Material Storage','wellplate/report/-/-/-','Display','a list of existing wellplates');
+INSERT INTO "home_menu_items" VALUES(57,'Material Storage','wellplate/create','Create','a new wellplate');
+INSERT INTO "home_menu_items" VALUES(58,'Sample Prep','sample_prep_request/report/-/-/-/-','Display','a list of all existing sample prep requests');
+INSERT INTO "home_menu_items" VALUES(59,'Sample Prep','sample_prep_request/create','Create','a new sample prep request');
+INSERT INTO "home_menu_items" VALUES(60,'Sample Prep','sample_prep_request/search','Search','for existing sample prep requests');
+INSERT INTO "home_menu_items" VALUES(61,'Sample Prep','sample_prep_request_assignment/report','Assign','staff to requests (admin function)');
+INSERT INTO "home_menu_items" VALUES(62,'Sample Prep','prep_lc_run/report','Display','a list of all prep LC runs');
+INSERT INTO "home_menu_items" VALUES(63,'Sample Prep','prep_lc_run/create','Create','a new prep LC run');
+INSERT INTO "home_menu_items" VALUES(64,'Sample Prep','prep_lc_column/report','Display','a list of all prep LC columns');
+INSERT INTO "home_menu_items" VALUES(65,'Sample Prep','prep_lc_column/create','Create','a new prep LC column');
+INSERT INTO "home_menu_items" VALUES(66,'Campaign','staff_roles/report','Display','a list of staff roles and assignments');
 CREATE TABLE menu_def (
     "id" INTEGER PRIMARY KEY,
     "owner_menu" TEXT,
