@@ -13,7 +13,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Dataset_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Dataset_ID');
 INSERT INTO "general_params" VALUES('alternate_title_create','Create Dataset Trigger File');
 INSERT INTO "general_params" VALUES('detail_report_data_cols','Dataset,Experiment,State,Organism,Instrument,[Separation Type],[LC Cart],[LC Column],Type,Operator,Comment,Rating,State,ID,Created,Request,[Dataset Folder Path],[Data Folder Link],[QC Link],[QC 2D],[QC Metric Stats],Jobs,Factors,[Predefines Triggered],[Acquisition Start],[Acquisition End],[Run Start],[Run Finish],[Scan Count],[Scan Types],[Acq Length],[File Size (MB)],[File Info Updated],[Folder Name],[Capture Subfolder]');
-INSERT INTO "general_params" VALUES('list_report_data_cols','[ID],[Dataset],[Experiment],[Campaign],[Instrument],[Created],[Comment],[Rating],[Dataset Type],[Operator],[Dataset Folder Path],[QC_Link],[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[LC Column],[Separation Type],[Blocking Factor],[Block],[Run Order],[Request],[Requester]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','[ID],[Dataset],[Experiment],[Campaign],[State],[Instrument],[Created],[Comment],[Rating],[Dataset Type],[Operator],[Dataset Folder Path],[QC_Link],[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[LC Column],[Separation Type],[Request],[Requester],[Organism],[Tissue]');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','Dataset_ID');
 INSERT INTO "general_params" VALUES('operations_sproc','DoDatasetOperation');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
