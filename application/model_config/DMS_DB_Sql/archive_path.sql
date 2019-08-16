@@ -27,7 +27,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_description','Description'
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_path_id','Path ID','12','','Path ID','Equals','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Path ID','invoke_entity','value','archive_path/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Instrument Name','invoke_entity','value','instrument/report/~','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Instrument Name','invoke_entity','value','instrument/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'AP_path_ID','ArchiveID','varchar','output','32','AddUpdateArchivePath');
 INSERT INTO "sproc_args" VALUES(2,'AP_archive_path','ArchivePath','varchar','input','128','AddUpdateArchivePath');

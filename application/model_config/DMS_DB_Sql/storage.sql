@@ -22,7 +22,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'SP_function','picker.replace','stora
 INSERT INTO "form_field_choosers" VALUES(2,'SP_instrument_name','picker.replace','instrumentNamePickList','','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','storage/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Instrument','invoke_entity','value','instrument/report/~','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Instrument','invoke_entity','value','instrument/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'SP_path','path','varchar','input','255','AddUpdateStorage');
 INSERT INTO "sproc_args" VALUES(2,'SP_vol_name_client','volNameClient','varchar','input','128','AddUpdateStorage');
@@ -40,5 +40,5 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_function','Function','20',
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_description','Description','20','','Description','ContainsText','text','255','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_path','Path','20','','Path','ContainsText','text','255','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO "detail_report_hotlinks" VALUES(1,'Instrument','detail-report','Instrument','instrument/report/~','labelCol','dl_Instrument',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Instrument','detail-report','Instrument','instrument/show/','labelCol','dl_Instrument','');
 COMMIT;

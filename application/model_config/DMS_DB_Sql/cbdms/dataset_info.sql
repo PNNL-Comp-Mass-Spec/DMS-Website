@@ -13,7 +13,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(1,'Dataset','invoke_entity','Dataset','dataset_info/show','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Dataset','detail-report','Dataset','dataset/show','labelCol','-9997',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(2,'Instrument','detail-report','Instrument','instrument/report/~','labelCol','-9997',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Instrument','detail-report','Instrument','instrument/show/','labelCol','-9997','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'+Instrument','detail-report','Instrument','instrument_operation_history/report/~','valueCol','-9997',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Scan Count Total','detail-report','Dataset','dataset_scans/report/~','labelCol','-9997',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','-9997',NULL);

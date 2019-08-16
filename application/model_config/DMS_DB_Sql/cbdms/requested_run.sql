@@ -86,7 +86,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(5,'Dataset','detail-report','Dataset
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Factors','detail-report','Request','custom_factors/report/-','labelCol','dl_show_factors',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(7,'+Factors','detail-report','Request','requested_run_factors/param/@/Requested_Run_ID','valueCol','dl_edit_factors',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Instrument Group','detail-report','Instrument Group','instrument_group/show/','valueCol','dl_instrument_group','');
-INSERT INTO "detail_report_hotlinks" VALUES(9,'Instrument Used','detail-report','Instrument Used','instrument/report/','valueCol','dl_instrument','');
+INSERT INTO "detail_report_hotlinks" VALUES(9,'Instrument Used','detail-report','Instrument Used','instrument/show/','valueCol','dl_instrument','');
 INSERT INTO "detail_report_hotlinks" VALUES(10,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_eus_proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Work Package','detail-report','Work Package','charge_code/show','labelCol','dl_Work_Package',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Work Package State','color_label','#WPActivationState','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120", "5":"clr_120","10":"clr_120"}');

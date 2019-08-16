@@ -28,7 +28,7 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Experiments','detail-report','ID','sample_prep_request_experiments/report','labelCol','experiments','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Updates','detail-report','ID','sample_prep_request_updates/report','labelCol','updates','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Campaign','detail-report','Campaign','campaign/show','labelCol','campaign','');
-INSERT INTO "detail_report_hotlinks" VALUES(6,'Instrument Name','detail-report','Instrument Name','instrument/report/','valueCol','dl_instrumentName','');
+INSERT INTO "detail_report_hotlinks" VALUES(6,'Instrument Name','detail-report','Instrument Name','instrument/show/','valueCol','dl_instrumentName','');
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Dataset Type','detail-report','Instrument Name','helper_instrument_dataset_type/report','valueCol','dl_DatasetType','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_EUS_Proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(9,'Work Package Number','detail-report','Work Package Number','charge_code/show','labelCol','dl_Work_Package','');

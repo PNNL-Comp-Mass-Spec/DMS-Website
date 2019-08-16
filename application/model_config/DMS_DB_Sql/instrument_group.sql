@@ -36,7 +36,7 @@ INSERT INTO "form_fields" VALUES(7,'DefaultDatasetTypeName','Default Dataset Typ
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Allowed_Dataset_Types','detail-report','Instrument_Group','instrument_allowed_dataset_type/report','labelCol','dl_dataset_type','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Instruments','detail-report','Instrument_Group','instrument/report/-/-/','labelCol','dl_instrument_list','');
-INSERT INTO "detail_report_hotlinks" VALUES(3,'+Instruments','link_list','Instruments','instrument/report','valueCol','dl_instrument_name','');
+INSERT INTO "detail_report_hotlinks" VALUES(3,'+Instruments','link_list','Instruments','instrument/show/','valueCol','dl_instrument_name','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'DefaultDatasetTypeName','picker.replace','datasetTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'Active','picker.replace','yesNoAsOneZeroPickList','','',',','');

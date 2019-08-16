@@ -56,7 +56,7 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Sample Prep Request','link_list','Sample Prep Request','sample_prep_request/show','valueCol','dl_sample_prep_request',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Experiment Groups','link_list','Experiment Groups','experiment_group/show','valueCol','dl_experiment_groups',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Folder','href-folder','Folder','','valueCol','dl_folder',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(4,'Instrument','detail-report','Instrument','instrument/report','labelCol','dl_instrument','');
+INSERT INTO "detail_report_hotlinks" VALUES(4,'Instrument','detail-report','Instrument','instrument/show','labelCol','dl_instrument','');
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Datasets','link_list','Datasets','dataset/show','valueCol','dl_datasets',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(6,'LC Column','detail-report','LC Column','prep_lc_column/show','valueCol','dl_lc_column','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
