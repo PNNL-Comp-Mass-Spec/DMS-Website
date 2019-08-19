@@ -97,7 +97,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(9,'Peak Matching Results','detail-re
 INSERT INTO "detail_report_hotlinks" VALUES(10,'Scan Count','detail-report','Dataset','dataset_scans/show','labelCol','dl_scan_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Scan Types','detail-report','Dataset','dataset_scans/report/~','labelCol','dl_scan_types','');
 INSERT INTO "detail_report_hotlinks" VALUES(12,'File Info Updated','detail-report','Dataset','dataset_info/report/~','labelCol','dl_file_info_updated','');
-INSERT INTO "detail_report_hotlinks" VALUES(13,'Instrument','detail-report','Instrument','instrument/report/~','labelCol','dl_instrument','');
+INSERT INTO "detail_report_hotlinks" VALUES(13,'Instrument','detail-report','Instrument','instrument/show/','labelCol','dl_instrument','');
 INSERT INTO "detail_report_hotlinks" VALUES(14,'+Instrument','detail-report','Instrument','instrument_operation_history/report/~','valueCol','dl_instrument_1','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'QC Link','literal_link','QC Link','','valueCol','dl_qc_link','');
 INSERT INTO "detail_report_hotlinks" VALUES(16,'Data Folder Link','literal_link','Data Folder Link','','valueCol','dl_data_folder','');
