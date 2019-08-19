@@ -29,7 +29,7 @@ INSERT INTO "form_fields" VALUES(14,'RR_Comment','Comment','area','','','6','80'
 INSERT INTO "form_fields" VALUES(15,'RR_WorkPackage','Work Package','text','15','50','','','(lookup)','trim|max_length[50]|required');
 INSERT INTO "form_fields" VALUES(16,'RR_EUSUsageType','EMSL Usage Type','text','15','50','','','(lookup)','trim|required|max_length[50]|not_contain[(unknown)]');
 INSERT INTO "form_fields" VALUES(17,'RR_EUSProposalID','EMSL Proposal ID','text','10','10','','','(lookup)','trim|max_length[10]');
-INSERT INTO "form_fields" VALUES(18,'RR_EUSUsers','EMSL Proposal User','text','10','10','','','(lookup)','trim|max_length[10]');
+INSERT INTO "form_fields" VALUES(18,'RR_EUSUsers','EMSL Proposal User','text','25','1024','','','(lookup)','trim|max_length[1024]');
 INSERT INTO "form_fields" VALUES(19,'MRMAttachment','MRM Transition List Attachment','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(20,'RR_Internal_Standard','Dataset Internal Standard','hidden','','','','','none','trim|max_length[50]');
 INSERT INTO "form_fields" VALUES(21,'RR_Status','Status','text','24','24','','','Active','trim|max_length[24]');
