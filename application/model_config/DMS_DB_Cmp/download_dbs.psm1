@@ -24,8 +24,8 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
     Write-Host "Connecting to $sftpHost as user $userName"
 
     # Establish the credentials
-    $sftpPassword = ConvertTo-SecureString $userPassword -AsPlainText -Force
 
+    $sftpPassword = ConvertTo-SecureString $userPassword -AsPlainText -Force
     $credentials = New-Object System.Management.Automation.PSCredential ($userName, $sftpPassword)
 
     # This works, but it also retrieves files from subdirectories, which we don't want

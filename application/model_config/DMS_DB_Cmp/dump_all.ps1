@@ -52,7 +52,22 @@ if ($timestampOverride) {
     foreach($source in $sources) { 
         if($source["sftpHost"]) {
             Import-Module .\download_dbs.psm1
-            $password = Read-Host -assecurestring "Please enter your password"
+
+            $credentialFileName ="cred_$env:UserName.txt"
+            if (Test-Path $credentialFileName) {
+                # Load a secure password from a credential file
+                Write-Host "Loading password from file $credentialFileName"
+                $password = Get-Content $credentialFileName | ConvertTo-SecureString
+            } else {
+                # Prompt the user to type their password
+                $password = Read-Host -assecurestring "Please enter your password"
+            }
+
+            if ([string]::IsNullOrEmpty($password) -or $password.Length -eq 0) {
+                Write-Host "Password not entered; aborting"
+                return
+            }
+
             $userPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
             break;
         }
