@@ -11,12 +11,19 @@ require("Base_controller.php");
  * http://dms2.pnl.gov/notification/user/D3L243
  * http://dms2.pnl.gov/notification/edit/D3L243
  *
- * http://dms2.pnl.gov/notification/preview
- * http://dms2.pnl.gov/notification/email_user/D3L243
- *
  * The daily e-mails are sent via a cron job that runs email_daily_notification.php
- * which instantiates this controller. To manually send the e-mails, go to:
+ * which instantiates this controller. 
+ *
+ * To manually send the e-mails, go to the following URL, which will *immediately* send e-mails to all users
  * http://dms2.pnl.gov/notification/email
+ * 
+ * To preview all of the e-mails that would be sent, go to 
+ * http://dms2.pnl.gov/notification/preview
+ *
+ * To preview the e-mail that would be sent to a specific user, go to:
+ * http://dms2.pnl.gov/notification/email_user/D3L243
+ * Note that this will also send the daily notification to proteomics@pnnl.gov
+ *
  */
 class Notification extends Base_controller {
     /**
