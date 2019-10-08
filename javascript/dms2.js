@@ -422,9 +422,10 @@ var gamma = {
 						data = '<pre>' + formattedSql + '</pre>';
 
 						// Text in dataForClipboard is plain text and will appear when pasting into a text editor or SQL Server Management Studio
-						// Text in htmlForClipboard includes HTML symbols, and will appear when pasted into Microsoft Word
-						dataForClipboard = unformattedSql
-						htmlForClipboard = data;
+						// Text in htmlForClipboard includes HTML symbols, and will appear when pasted into Microsoft Word                        
+                        // Replace double quotes with &quot; to avoid javascript exceptions                        
+						dataForClipboard = unformattedSql.replace(/"/g, '&quot;');
+						htmlForClipboard = data.replace(/"/g, '&quot;');
 
 					} else {
 						var buttonName = 'copy-url-now';
