@@ -31,7 +31,7 @@ INSERT INTO "list_report_primary_filter" VALUES(5,'pf_experiment','Experiment','
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','32','','Campaign','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','#DateSortKey','MostRecentWeeks','text','4','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_created_after','Created After','8','','Created','LaterThan','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(9,'pf_rating','Rating','12','','Rating','MatchesText','text','64','','');
+INSERT INTO "list_report_primary_filter" VALUES(9,'pf_rating','Rating','12','','Rating','StartsWithText','text','64','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Experiment','detail-report','Experiment','experiment/show','labelCol','experiment','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','dataset_folder_path','');

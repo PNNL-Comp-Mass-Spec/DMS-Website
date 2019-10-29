@@ -66,7 +66,7 @@ INSERT INTO "list_report_primary_filter" VALUES(5,'pf_experiment','Experiment','
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','32','','Campaign','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','#DateSortKey','MostRecentWeeks','text','4','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_created_after','Created After','8','','Created','LaterThan','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(9,'pf_rating','Rating','12','','Rating','MatchesText','text','64','','');
+INSERT INTO "list_report_primary_filter" VALUES(9,'pf_rating','Rating','12','','Rating','StartsWithText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(10,'pf_work_package','Work Pkg','12','','Work Package','StartsWithText','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(11,'pf_eus_proposal','EMSL Proposal','12','','EMSL Proposal','StartsWithText','text','12','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
