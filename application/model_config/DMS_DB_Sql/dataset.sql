@@ -14,7 +14,7 @@ INSERT INTO "general_params" VALUES('rss_item_link','dataset/show');
 INSERT INTO "general_params" VALUES('alternate_title_create','Create Dataset Trigger File');
 INSERT INTO "general_params" VALUES('operations_sproc','DoDatasetOperation');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','#DateSortKey');
-INSERT INTO "general_params" VALUES('list_report_data_cols','[ID],[Dataset],[Experiment],[Campaign],[State],[Instrument],[Created],[Comment],[Rating],[Dataset Type],[Operator],[Dataset Folder Path],[QC_Link],[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],[Request],[Organism],[Tissue],[#DateSortKey]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','[ID],[Dataset],[Experiment],[Campaign],[State],[Instrument],[Created],[Comment],[Rating],[Dataset Type],[Operator],[Dataset Folder Path],[QC_Link],[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],[Request],[Work Package],[Organism],[Tissue],[#DateSortKey]');
 INSERT INTO "general_params" VALUES('base_table','T_Dataset');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','Dataset_Num');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
