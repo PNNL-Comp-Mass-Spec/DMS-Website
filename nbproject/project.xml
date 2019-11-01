@@ -6,5 +6,20 @@
             <name>DMS_Website</name>
         </data>
         <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1"/>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>checkboxes</word>
+            <word>config</word>
+            <word>crosstab</word>
+            <word>gov</word>
+            <word>hotlink</word>
+            <word>hotlinks</word>
+            <word>http</word>
+            <word>params</word>
+            <word>pnl</word>
+            <word>prismwiki</word>
+            <word>sproc'</word>
+            <word>tooltip</word>
+            <word>wiki</word>
+        </spellchecker-wordlist>
     </configuration>
 </project>
