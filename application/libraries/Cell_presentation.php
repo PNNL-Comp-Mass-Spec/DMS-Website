@@ -13,13 +13,19 @@ require_once(BASEPATH . '../application/libraries/Number_formatting.php');
 class Cell_presentation {
 
     private $hotlinks = array();
+
+    /**
+     * List of specific columns to show
+     * Empty array if showing all columns
+     * @var type Array of strings
+     */
     var $col_filter = array();
 
     /**
      * Constructor
      */
     function __construct() {
-
+        
     }
 
     /**
@@ -30,9 +36,12 @@ class Cell_presentation {
         $this->hotlinks = $cell_presentation_specs;
     }
 
-    // --------------------------------------------------------------------
-    private
-        function get_display_cols($cols) {
+    /**
+     * Get list of columns to show
+     * @param array $cols All columns
+     * @return array Returns all columns if $this->col_filter is empty
+     */
+    private function get_display_cols($cols) {
         if (!empty($this->col_filter)) {
             $cols = $this->col_filter;
         }
@@ -83,8 +92,8 @@ class Cell_presentation {
      * @param int    $colIndex  Column index
      * @return string
      */
-    private
-        function render_hotlink($value, $row, $colSpec, $col_width, $col_name = '', $colIndex) {
+    private function render_hotlink($value, $row, $colSpec, $col_width, $col_name = '', $colIndex) {
+
         $str = "";
         // resolve target for hotlink
         $target = $colSpec["Target"];
@@ -396,8 +405,7 @@ class Cell_presentation {
      * @param type $col_sort
      * @return string
      */
-    private
-        function get_column_sort_marker($col_name, $col_sort) {
+    private function get_column_sort_marker($col_name, $col_sort) {
         $marker = '';
         if (array_key_exists($col_name, $col_sort)) {
             $arrow = 'arrow_' . $col_sort[$col_name]->dir . $col_sort[$col_name]->precedence . '.png';
@@ -414,8 +422,7 @@ class Cell_presentation {
      * @param type $sorting_cols
      * @return \stdClass
      */
-    private
-        function get_column_sort_markers($sorting_cols) {
+    private function get_column_sort_markers($sorting_cols) {
         $col_sort = array();
         $sorting_precedence = 1;
         foreach ($sorting_cols as $obj) {
@@ -436,12 +443,11 @@ class Cell_presentation {
     }
 
     /**
-     *
+     * Optionally assure that the cell is a minimum target width
      * @param type $col_name
      * @return type
      */
-    private
-        function get_cell_padding($col_name) {
+    private function get_cell_padding($col_name) {
         $padding = '';
         if (array_key_exists($col_name, $this->hotlinks)) {
             $colSpec = $this->hotlinks[$col_name];
@@ -465,8 +471,7 @@ class Cell_presentation {
      * @param type $col_name
      * @return type
      */
-    private
-        function get_column_tooltip($col_name) {
+    private function get_column_tooltip($col_name) {
         $toolTip = $this->get_column_tooltip_work($col_name);
         if (empty($toolTip)) {
             // ToolTip was not found using the column name
@@ -485,8 +490,7 @@ class Cell_presentation {
      * @param type $col_name_to_find
      * @return type
      */
-    private
-        function get_column_tooltip_work($col_name_to_find) {
+    private function get_column_tooltip_work($col_name_to_find) {
         $toolTip = '';
         if (array_key_exists($col_name_to_find, $this->hotlinks)) {
             $colSpec = $this->hotlinks[$col_name_to_find];
@@ -544,8 +548,7 @@ class Cell_presentation {
                     $dt = false;
                     if (is_string($result[$i][$col])) {
                         $dt = strtotime($result[$i][$col]);
-                    }
-                    else {
+                    } else {
                         $dt = $result[$i][$col];
                     }
                     if ($dt) {
@@ -616,8 +619,8 @@ class Cell_presentation {
     }
 
     /**
-     *
-     * @param type $col_filter
+     * Set the list of columns to show
+     * @param array $col_filter
      */
     function set_col_filter($col_filter) {
         $this->col_filter = $col_filter;

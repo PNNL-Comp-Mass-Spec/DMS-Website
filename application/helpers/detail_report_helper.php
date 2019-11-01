@@ -24,22 +24,18 @@ require_once(BASEPATH . '../application/libraries/String_operations.php');
  * @param type $show_create_links
  * @return string
  */
-function make_detail_report_section(
-        $columns, $fields, $hotlinks, $controller_name, $id,
-        $show_entry_links,
-        $show_create_links)
-{
+function make_detail_report_section($columns, $fields, $hotlinks, $controller_name, $id, $show_entry_links, $show_create_links) {
     $str = '';
     // fields are contained in a table
     $str .= "\n<table class='DRep' >\n";
 
     $str .= "<tr>";
     $str .= "<th align='left'>";
-    $str .= "<a title='Back to the list report' href='../report'><img src='" . base_url(). "/images/page_white_get.png' border='0' ></img></a>";
+    $str .= "<a title='Back to the list report' href='../report'><img src='" . base_url() . "/images/page_white_get.png' border='0' ></img></a>";
     $str .= "</th>";
     $str .= "<th>";
 
-    if($show_entry_links) {
+    if ($show_entry_links) {
         $str .= make_detail_report_edit_links($controller_name, $id, $show_create_links);
     }
     $str .= "</th>";
@@ -63,8 +59,7 @@ function make_detail_report_section(
  * @param type $hotlinks
  * @return string
  */
-function make_detail_table_data_rows($columns, $fields, $hotlinks)
-{
+function make_detail_table_data_rows($columns, $fields, $hotlinks) {
     $str = "";
     $colIndex = 0;
 
@@ -90,7 +85,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
     // make a form field for each field in the field specs
     foreach ($fields as $fieldName => $fieldValue) {
         // don't display columns that begin with a hash character
-        if($fieldName[0] == '#') {
+        if ($fieldName[0] == '#') {
             continue;
         }
 
@@ -104,11 +99,10 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
             $parsedDateTime = false;
             if (is_string($fieldValue)) {
                 $parsedDateTime = strtotime($fieldValue);
-            }
-            else {
+            } else {
                 $parsedDateTime = $fieldValue;
             }
-            if($parsedDateTime) {
+            if ($parsedDateTime) {
                 $val = date($dateFormat, $parsedDateTime);
             }
         }
@@ -120,14 +114,14 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 
         // override default field display with hotlinks
         $hotlink_specs = get_hotlink_specs_for_field($fieldName, $hotlinks);
-        foreach($hotlink_specs as $hotlink_spec) {
-            if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0){
+        foreach ($hotlink_specs as $hotlink_spec) {
+            if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0) {
                 $link_id = $fields[$hotlink_spec["WhichArg"]];
             } else {
                 $link_id = "";
             }
 
-            if($hotlink_spec['Placement'] == 'labelCol') {
+            if ($hotlink_spec['Placement'] == 'labelCol') {
                 $label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $fieldName, $val);
             } else {
                 if ($server_bionet && stripos($val, "http") === 0) {
@@ -149,8 +143,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
         // Check whether the value points to a shared folder on a window server
         $charIndex = strpos($val, "\\\\");
 
-        if ($charIndex !== false)
-        {
+        if ($charIndex !== false) {
             $pathCopyButtonCount++;
 
             // Note: Copy functionality is implemented in clipboard.min.js
@@ -176,12 +169,10 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
         $colIndex++;
     }
 
-    if (sizeof($pathCopyData) > 0)
-    {
+    if (sizeof($pathCopyData) > 0) {
         $scriptData = "\n<script>\n";    // Or "<p>\n";
 
-        foreach ($pathCopyData as $key => $value)
-        {
+        foreach ($pathCopyData as $key => $value) {
             // Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
             $scriptData .= '$("#copy-data-button' . $key . '").on("click",function(e) {';
             $scriptData .= "    clipboard.copy({ 'text/plain': '$value' }); ";
@@ -192,22 +183,21 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
              * Alternative approach, using .getElementById
              * and a Javascript promise
              *
-                $scriptData .= "document.getElementById('copy-data-button$key').addEventListener('click', function() {";
-                $scriptData .= "  clipboard.copy({\n";
-                $scriptData .= "    'text/plain': '$value',\n";
-                // $scriptData .= "    'text/html': '$value'\n";
-                $scriptData .= "  }).then(\n";
-                $scriptData .= "    function(){console.log('success'); },\n";
-                $scriptData .= "    function(err){console.log('failure', err);\n";
-                $scriptData .= "  });\n";
-                $scriptData .= "});\n";
-            */
+              $scriptData .= "document.getElementById('copy-data-button$key').addEventListener('click', function() {";
+              $scriptData .= "  clipboard.copy({\n";
+              $scriptData .= "    'text/plain': '$value',\n";
+              // $scriptData .= "    'text/html': '$value'\n";
+              $scriptData .= "  }).then(\n";
+              $scriptData .= "    function(){console.log('success'); },\n";
+              $scriptData .= "    function(err){console.log('failure', err);\n";
+              $scriptData .= "  });\n";
+              $scriptData .= "});\n";
+             */
         }
 
         $scriptData .= "</script>\n";    // Or "</p>\n";
 
         $str .= $scriptData;
-
     }
 
     return $str;
@@ -248,8 +238,7 @@ function get_hotlink_specs_for_field($fieldName, $hotlinks) {
  *                        If Name and WhichArg are the same, $link_id and $val will be the same
  * @return type
  */
-function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $val='')
-{
+function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $val = '') {
     $str = "";
     $fld_id = $colSpec["id"];
 
@@ -263,18 +252,18 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
     $options = $colSpec['Options'];
     $cell_class = "";
 
-    switch($type) {
+    switch ($type) {
         case "detail-report":
             // Link to another DMS page, including both list reports and detail reports
             if (!empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
                 $hideLinkMatchText = $options['HideLinkIfValueMatch'];
                 if (empty($val) && $link_id === $hideLinkMatchText ||
-                    !empty($val) && $val === $hideLinkMatchText) {
+                        !empty($val) && $val === $hideLinkMatchText) {
                     $str = $display;
                     break;
                 }
             }
-                
+
             $url = make_detail_report_url($target, $link_id, $options);
             $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
             break;
@@ -282,8 +271,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             if ($val) {
                 $lnk = str_replace('\\', '/', $val);
                 $str = "<a href='file:///$lnk'>$display</a>";
-            }
-            else {
+            } else {
                 $str = $display;
             }
             break;
@@ -295,7 +283,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
         case "masked_link":
             // Link to the URL specified by $display
             // The link text is specified by the label setting in Options, for example {"Label":"Show files"}
-            if($display) {
+            if ($display) {
                 $lbl = "(label is not defined)";
                 if (!empty($options) && array_key_exists('Label', $options)) {
                     $lbl = $options['Label'];
@@ -330,7 +318,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
 
             $links = array();
-            foreach($flds as $targetUrl) {
+            foreach ($flds as $targetUrl) {
                 $targetUrl = trim($targetUrl);
 
                 $lblToUse = '';
@@ -349,7 +337,6 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                         $lblToUse = $urlParts[$urlSegmentForLabel + 1];
                     else
                         $lblToUse = $lbl;
-
                 } else {
                     $lblToUse = $lbl;
                 }
@@ -359,12 +346,11 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 
                 $links[] = "<a href='$targetUrl' target='External$colIndex'>$lblToUse</a>";
             }
-            $str .= implode($delim.' ', $links);
+            $str .= implode($delim . ' ', $links);
             break;
         case "item_list":
             // $f is a vertical bar separated list
             // Create a one-row table using the items in the list
-
             // Look for item Widths in the Options field, for example:
             // {"Widths":"20,80"}   or
             // {"Widths":"20%,80%"}
@@ -374,7 +360,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 
             $str .= "<table class='item_list_table' width='100%'><tr>";
             $i = 0;
-            foreach(explode('|', $display) as $f) {
+            foreach (explode('|', $display) as $f) {
                 if ($i < count($colWidths)) {
                     $widthText = trim($colWidths[$i]);
                     if (substr($widthText, -1) == '%') {
@@ -412,7 +398,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
 
             $links = array();
-            foreach($flds as $currentItem) {
+            foreach ($flds as $currentItem) {
                 $currentItem = trim($currentItem);
                 if (empty($currentItem)) {
                     continue;
@@ -422,18 +408,18 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                     continue;
                 }
 
-                $renderHTTP=TRUE;
+                $renderHTTP = TRUE;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
                 $links[] = "<a href='$url'>$currentItem</a>";
             }
-            $str .= implode($delim.' ', $links);
+            $str .= implode($delim . ' ', $links);
             break;
         case "link_table":
             // Table with links
             $str .= "<table class='inner_table'>";
-            foreach(explode(',', $display) as $currentItem) {
+            foreach (explode(',', $display) as $currentItem) {
                 $currentItem = trim($currentItem);
-                $renderHTTP=TRUE;
+                $renderHTTP = TRUE;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
                 $str .= "<tr><td><a href='$url'>$currentItem</a></td></tr>";
             }
@@ -444,9 +430,9 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             // Parse data separated by colons and vertical bars and create a table
             // Row1_Name:Row1_Value|Row2_Name:Row2_Value|
             $str .= "<table class='inner_table'>";
-            foreach(explode('|', $display) as $currentItem) {
+            foreach (explode('|', $display) as $currentItem) {
                 $str .= '<tr>';
-                foreach(explode(':', $currentItem) as $itemField) {
+                foreach (explode(':', $currentItem) as $itemField) {
                     $str .= '<td>' . trim($itemField) . '</td>';
                 }
                 $str .= '</tr>';
@@ -469,7 +455,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 
             $str .= "<table class='inner_table'>";
             $headerCount = 0;
-            foreach(explode('|', $display) as $currentItem) {
+            foreach (explode('|', $display) as $currentItem) {
                 if (StartsWith(strtolower($currentItem), '!headers!')) {
                     $colTag = 'th';
                     $currentItem = substr($currentItem, strlen('!headers!'));
@@ -485,15 +471,15 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                     $explodeLimit = $headerCount;
                 else
                     $explodeLimit = PHP_INT_MAX;
-                
-                foreach(explode(':', $currentItem, $explodeLimit) as $itemField) {
+
+                foreach (explode(':', $currentItem, $explodeLimit) as $itemField) {
                     $rowColNum += 1;
                     $trimmedValue = trim($itemField);
 
                     if ($headerLine === false && $rowColNum == 2) {
                         // This is the second column, and it's not the header row
                         // Render as a URL
-                        $renderHTTP=TRUE;
+                        $renderHTTP = TRUE;
                         $url = make_detail_report_url($target, $trimmedValue, $options, $renderHTTP);
                         $str .= "<$colTag><a href='$url'>$trimmedValue</a></$colTag>";
                     } else {
@@ -511,8 +497,8 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             break;
         case "color_label":
             $cx = "";
-            if(!empty($options) && array_key_exists($link_id, $options)) {
-                $cx = "class='" . $options[$link_id] ."' style='padding: 1px 5px 1px 5px;'";
+            if (!empty($options) && array_key_exists($link_id, $options)) {
+                $cx = "class='" . $options[$link_id] . "' style='padding: 1px 5px 1px 5px;'";
             }
             $str .= "<span $cx>$display</span>";
             break;
@@ -535,7 +521,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
         case "glossary_entry":
             $url = make_detail_report_url($target, $wa, $options);
 
-            if(!empty($options) && array_key_exists('Label', $options)) {
+            if (!empty($options) && array_key_exists('Label', $options)) {
                 $linkTitle = "title='" . $options['Label'] . "'";
             } else {
                 $linkTitle = "";
@@ -550,7 +536,6 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
         default:
             $str = "??? $display ???";
             break;
-
     }
 
     // The calling method will append </td>
@@ -562,10 +547,9 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
  * @param type $xml
  * @return string
  */
-function make_table_from_param_xml($xml)
-{
+function make_table_from_param_xml($xml) {
     $dom = new DomDocument();
-    $dom->loadXML('<root>'.$xml.'</root>');
+    $dom->loadXML('<root>' . $xml . '</root>');
     $xp = new domxpath($dom);
     $params = $xp->query("//Param");
 
@@ -576,7 +560,7 @@ function make_table_from_param_xml($xml)
         $name = $param->getAttribute('Name');
         $value = $param->getAttribute('Value');
         $section = $param->getAttribute('Section');
-        if($section != $cur_section) {
+        if ($section != $cur_section) {
             $cur_section = $section;
             $s .= "<tr><td colspan='2'><span style='font-weight:bold;'>$section</span></td></tr>\n";
         }
@@ -593,12 +577,11 @@ function make_table_from_param_xml($xml)
  * @param type $show_create_links
  * @return type
  */
-function make_detail_report_edit_links($controller_name, $id, $show_create_links)
-{
+function make_detail_report_edit_links($controller_name, $id, $show_create_links) {
     $str = '';
-    $edit_url = site_url()."$controller_name/edit/$id";
-    $copy_url = site_url()."$controller_name/create/$id";
-    $new_url = site_url()."$controller_name/create";
+    $edit_url = site_url() . "$controller_name/edit/$id";
+    $copy_url = site_url() . "$controller_name/create/$id";
+    $new_url = site_url() . "$controller_name/create";
 
     $str .= "<span><a id='btn_goto_edit_main' class='button' title='Edit this item' href='$edit_url'>Edit</a></span>";
     if ($show_create_links) {
@@ -617,23 +600,22 @@ function make_detail_report_edit_links($controller_name, $id, $show_create_links
  * @param type $result
  * @return string
  */
-function make_detail_report_aux_info_section($result)
-{
+function make_detail_report_aux_info_section($result) {
     $str = '';
     $str .= "<table class='DRep'>\n";
-        $str .= "<tr>";
-        $str .= "<th>Category</th>";
-        $str .= "<th>Subcategory</th>";
-        $str .= "<th>Item</th>";
-        $str .= "<th>Value</th>";
-        $str .= "</tr>\n";
-    foreach($result as $row) {
+    $str .= "<tr>";
+    $str .= "<th>Category</th>";
+    $str .= "<th>Subcategory</th>";
+    $str .= "<th>Item</th>";
+    $str .= "<th>Value</th>";
+    $str .= "</tr>\n";
+    foreach ($result as $row) {
         $rowColor = alternator('ReportEvenRow', 'ReportOddRow');
         $str .= "<tr class='$rowColor' >\n";
-        $str .= "<td>".$row['Category']."</td>";
-        $str .= "<td>".$row['Subcategory']."</td>";
-        $str .= "<td>".$row['Item']."</td>";
-        $str .= "<td>".$row['Value']."</td>";
+        $str .= "<td>" . $row['Category'] . "</td>";
+        $str .= "<td>" . $row['Subcategory'] . "</td>";
+        $str .= "<td>" . $row['Item'] . "</td>";
+        $str .= "<td>" . $row['Value'] . "</td>";
         $str .= "</tr>\n";
     }
     $str .= "</table>\n";
@@ -647,18 +629,17 @@ function make_detail_report_aux_info_section($result)
  * @param type $id
  * @return string
  */
-function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id)
-{
-        $js = "javascript:showAuxInfo(\"aux_info_container\", \"" . site_url(). "aux_info/show/"  .$aux_info_target . "/" . $aux_info_id."\")";
-        $str = '';
-        $str .= "Aux Info: |";
-        $str .= "<span>";
-        $str .= "<a href='$js'>Show...</a>";
-        $str .= "</span>|";
-        $str .= "<span>";
-        $str .= "<a href='". site_url()."aux_info/entry/".$aux_info_target."/".$aux_info_id."/".$id. "'>Edit...</a>";
-        $str .= "</span>|";
-        return $str;
+function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id) {
+    $js = "javascript:showAuxInfo(\"aux_info_container\", \"" . site_url() . "aux_info/show/" . $aux_info_target . "/" . $aux_info_id . "\")";
+    $str = '';
+    $str .= "Aux Info: |";
+    $str .= "<span>";
+    $str .= "<a href='$js'>Show...</a>";
+    $str .= "</span>|";
+    $str .= "<span>";
+    $str .= "<a href='" . site_url() . "aux_info/entry/" . $aux_info_target . "/" . $aux_info_id . "/" . $id . "'>Edit...</a>";
+    $str .= "</span>|";
+    return $str;
 }
 
 /**
@@ -668,10 +649,9 @@ function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $i
  * @param type $id
  * @return type
  */
-function make_detail_report_commands($commands, $tag, $id)
-{
+function make_detail_report_commands($commands, $tag, $id) {
     $cmds = array();
-    foreach($commands as $label => $spec) {
+    foreach ($commands as $label => $spec) {
         $target = $spec['Target'];
         $cmd = $spec['Command'];
         $tooltip = $spec['Tooltip'];
@@ -681,26 +661,26 @@ function make_detail_report_commands($commands, $tag, $id)
         if (empty($prompt))
             $prompt = 'Are you sure that you want to update the database?';
 
-        switch($spec['Type']) {
+        switch ($spec['Type']) {
             case 'copy_from':
-                $url =  site_url().$target . "/create/$tag/" . $id;
+                $url = site_url() . $target . "/create/$tag/" . $id;
                 $icon = cmd_link_icon("go");
                 $cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label $icon</a>";
                 break;
             case 'call':
-                $url =  site_url().$target . "/$cmd/" . $id;
+                $url = site_url() . $target . "/$cmd/" . $id;
                 $icon = cmd_link_icon("go");
                 $cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label $icon</a>";
                 break;
             case 'cmd_op':
-                $url =  site_url().$target . "/command";
+                $url = site_url() . $target . "/command";
                 $icon = cmd_link_icon();
                 $cmds[] = "<a class='cmd_link_a' href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\", \"$prompt\")' title='$tooltip'>$label $icon</a>";
                 break;
         }
     }
     $str = "";
-    foreach($cmds as $cmd) {
+    foreach ($cmds as $cmd) {
         $str .= "<span class='cmd_link_cartouche'>$cmd</span>\n";
     }
     return $str;
@@ -714,22 +694,20 @@ function make_detail_report_commands($commands, $tag, $id)
  * @param type $renderHTTP
  * @return type
  */
-function make_detail_report_url($target, $link_id, $options, $renderHTTP=FALSE)
-{
+function make_detail_report_url($target, $link_id, $options, $renderHTTP = FALSE) {
 
     if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
         // The field has a URL; link to it
         $url = $link_id;
-    }
-    else {
+    } else {
 
         // Insert an @ sign if it is not already present
         // When constructing the URL, we will replace the @ sign in $target with $link_id
-        if(strpos($target, '@') === FALSE) {
+        if (strpos($target, '@') === FALSE) {
             // Need to add the @ sign
             // If $target does not end in ~, then add /
             $sep = (substr($target, -1) == '~') ? '' : '/';
-            $targetNew = $target.$sep.'@';
+            $targetNew = $target . $sep . '@';
         } else {
             $targetNew = $target;
         }
@@ -742,7 +720,7 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP=FALSE)
             }
         }
 
-        $url = reduce_double_slashes(site_url().str_replace('@', $link_id, $targetNew));
+        $url = reduce_double_slashes(site_url() . str_replace('@', $link_id, $targetNew));
     }
 
     return $url;
@@ -754,16 +732,15 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP=FALSE)
  * @param type $id
  * @return string
  */
-function make_export_links($entity, $id)
-{
+function make_export_links($entity, $id) {
     // Example URLs:
     // http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/excel
     // http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/tsv
     // http://dms2.pnl.gov/experiment/export_spreadsheet/QC_Shew_16_01/data/true/xlsx
     $s = '';
-    $excel_lnk = site_url(). $entity . "/export_detail/" . $id . "/excel";
-    $tsv_lnk   = site_url(). $entity . "/export_detail/" . $id . "/tsv";
-    $spreadsheet_lnk = site_url(). $entity . "/export_spreadsheet/" . $id . "/data/true/xlsx";
+    $excel_lnk = site_url() . $entity . "/export_detail/" . $id . "/excel";
+    $tsv_lnk = site_url() . $entity . "/export_detail/" . $id . "/tsv";
+    $spreadsheet_lnk = site_url() . $entity . "/export_spreadsheet/" . $id . "/data/true/xlsx";
 
     $s .= "Download in other formats: ";
     $s .= "|<span><a href='$excel_lnk'>Excel</a></span>";
@@ -779,8 +756,7 @@ function make_export_links($entity, $id)
  * @param type $message
  * @return string
  */
-function make_message_box($message)
-{
+function make_message_box($message) {
     //$style_sheet = base_url().'css/base.css';
     $class = (strripos($message, 'error') === false) ? 'EPag_message' : 'EPag_error';
     $s = '';
