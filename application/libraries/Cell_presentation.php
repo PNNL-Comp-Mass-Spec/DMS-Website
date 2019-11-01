@@ -197,9 +197,11 @@ class Cell_presentation {
                 break;
             case "format_date":
                 // Apply a custom date format, using the format code in the options column
-                // Additionally, if the Target field for this hotlink definition contains an integer, that value is used for min_col_width
-                // (this behavior is used because a given column cannot have two hotlinks defined for it)
                 // For date format codes, see http://php.net/manual/en/function.date.php
+                // 
+                // If the Target field for this hotlink definition contains an integer, 
+                // that value is used for min_col_width (this behavior is used because a given column 
+                // cannot have two hotlinks defined for it; see method get_cell_padding)
                 $dateValue = strtotime($value);
                 if ($dateValue) {
                     $dateFormat = getOptionValue($colSpec, 'Format', 'Y-m-d H:i:s');
@@ -300,6 +302,12 @@ class Cell_presentation {
                 $str .= "<td>" . implode($delim . ' ', $links) . "</td>";
                 break;
             case "markup":
+                // Display text with carriage returns
+                // Converts newlines to <br>
+                // 
+                // If the Target field for this hotlink definition contains an integer, 
+                // that value is used for min_col_width (this behavior is used because a given column 
+                // cannot have two hotlinks defined for it; see method get_cell_padding)
                 $str .= "<td>" . nl2br($value) . "</td>";
                 break;
             case "min_col_width":
@@ -452,7 +460,8 @@ class Cell_presentation {
         if (array_key_exists($col_name, $this->hotlinks)) {
             $colSpec = $this->hotlinks[$col_name];
             if ($colSpec["LinkType"] == 'min_col_width' ||
-                $colSpec["LinkType"] == 'format_date') {
+                    $colSpec["LinkType"] == 'format_date' ||
+                    $colSpec["LinkType"] == 'markup') {
                 if (is_numeric($colSpec["Target"])) {
                     $min_width = $colSpec["Target"];
                     $len = strlen($col_name);
