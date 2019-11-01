@@ -35,6 +35,7 @@ INSERT INTO "form_fields" VALUES(20,'RR_Internal_Standard','Dataset Internal Sta
 INSERT INTO "form_fields" VALUES(21,'RR_Status','Status','text','24','24','','','Active','trim|max_length[24]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'RR_Requestor','default_function','GetUser()');
+INSERT INTO "form_field_options" VALUES(2,'RR_Comment','auto_format','none');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'RR_Experiment','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'RR_Instrument','picker.replace','requestedRunInstrumentGroupPickList','','',',','');
@@ -61,6 +62,7 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_requestNameCode','Code','3
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_instrument_group','Inst. Group','32','','Inst. Group','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_work_package','Work Pkg','32','','Work Package','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(10,'pf_comment','Comment','20','','Comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Request','invoke_entity','value','requested_run/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Campaign','invoke_entity','value','campaign/show','');
@@ -68,10 +70,10 @@ INSERT INTO "list_report_hotlinks" VALUES(3,'Experiment','invoke_entity','value'
 INSERT INTO "list_report_hotlinks" VALUES(4,'Dataset','invoke_entity','value','dataset/show','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Days In Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Batch','invoke_entity','value','requested_run_batch/show','');
-INSERT INTO "list_report_hotlinks" VALUES(7,'Comment','min_col_width','value','40','');
 INSERT INTO "list_report_hotlinks" VALUES(8,'Work Package','invoke_entity','value','charge_code/show','');
 INSERT INTO "list_report_hotlinks" VALUES(9,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(10,'Proposal','invoke_entity','value','eus_proposals/show','');
+INSERT INTO "list_report_hotlinks" VALUES(11,'Comment','markup','Comment','60','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Delete this request','cmd_op','delete','requested_run','Delete this requested run.','Are you sure that you want to delete this requested run?');
 INSERT INTO "detail_report_commands" VALUES(2,'Convert Run to Dataset','copy_from','','dataset','Go to dataset entry page and copy information from this scheduled run.','');
@@ -91,6 +93,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(12,'Work Package State','color_label
 INSERT INTO "detail_report_hotlinks" VALUES(13,'Requestor','detail-report','Requestor','user/report/-/~','labelCol','dl_Requestor','{"RemoveRegEx":" [(].*[)]"}');
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Separation Group','detail-report','Separation Group','separation_group/show','labelCol','dl_separation_group','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Staging Location','detail-report','Staging Location','material_location/report/~@','valueCol','dl_staging_location','');
+INSERT INTO "detail_report_hotlinks" VALUES(16,'Comment','markup','Comment','','valueCol','dl_comment','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'RR_Name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(2,'RR_Experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
