@@ -68,13 +68,13 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
     $str = "";
     $colIndex = 0;
 
-    $dc = array();
+    $datetimeColumns = array();
 
     // Look for any datetime columns
     foreach ($columns as $column) {
         // mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
         if ($column->type == 'datetime' || $column->type == 93) {
-            $dc[] = $column->name;
+            $datetimeColumns[] = $column->name;
         }
     }
 
@@ -88,28 +88,28 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
     $server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
 
     // make a form field for each field in the field specs
-    foreach ($fields as $f_name => $f_val) {
+    foreach ($fields as $fieldName => $fieldValue) {
         // don't display columns that begin with a hash character
-        if($f_name[0] == '#') {
+        if($fieldName[0] == '#') {
             continue;
         }
 
         // default field display for table
-        $label = $f_name;
-        $val = $f_val;
+        $label = $fieldName;
+        $val = $fieldValue;
 
-        if (!is_null($f_val) && in_array($f_name, $dc)) {
+        if (!is_null($fieldValue) && in_array($fieldName, $datetimeColumns)) {
             // Convert original date string to date object
             // then convert that to the desired display format.
-            $dt = false;
-            if (is_string($f_val)) {
-                $dt = strtotime($f_val);
+            $parsedDateTime = false;
+            if (is_string($fieldValue)) {
+                $parsedDateTime = strtotime($fieldValue);
             }
             else {
-                $dt = $f_val;
+                $parsedDateTime = $fieldValue;
             }
-            if($dt) {
-                $val = date($dateFormat, $dt);
+            if($parsedDateTime) {
+                $val = date($dateFormat, $parsedDateTime);
             }
         }
 
@@ -119,7 +119,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
         $val_display = "<td>$val";
 
         // override default field display with hotlinks
-        $hotlink_specs = get_hotlink_specs_for_field($f_name, $hotlinks);
+        $hotlink_specs = get_hotlink_specs_for_field($fieldName, $hotlinks);
         foreach($hotlink_specs as $hotlink_spec) {
             if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0){
                 $link_id = $fields[$hotlink_spec["WhichArg"]];
@@ -128,7 +128,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
             }
 
             if($hotlink_spec['Placement'] == 'labelCol') {
-                $label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $f_name, $val);
+                $label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $fieldName, $val);
             } else {
                 if ($server_bionet && stripos($val, "http") === 0) {
                     $new_target = str_ireplace(".pnl.gov", ".bionet", $val);
@@ -215,24 +215,23 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks)
 
 /**
  * Get hotlink info for the given field
- * @param type $f_name Field name
- * @param type $hotlinks Hotlink info
+ * @param type $fieldName Field name
+ * @param type $hotlinks hotlink info
  * @return type Array of hotlink info
  */
-function get_hotlink_specs_for_field($f_name, $hotlinks)
-{
+function get_hotlink_specs_for_field($fieldName, $hotlinks) {
     // List of any hotlink spec(s) for the field
     $hotlink_specs = array();
 
     // Is a primary hotlink defined for the field?
-    if(array_key_exists($f_name, $hotlinks)) {
-        $hotlink_specs[] = $hotlinks[$f_name];
+    if (array_key_exists($fieldName, $hotlinks)) {
+        $hotlink_specs[] = $hotlinks[$fieldName];
     }
 
     // Is a secondary hotlink defined for field?
     // Secondary keys have a plus sign ahead of the field name
-    if(array_key_exists('+' . $f_name, $hotlinks)) {
-        $hotlink_specs[] = $hotlinks['+'.$f_name];
+    if (array_key_exists('+' . $fieldName, $hotlinks)) {
+        $hotlink_specs[] = $hotlinks['+' . $fieldName];
     }
 
     return $hotlink_specs;

@@ -48,23 +48,23 @@ class Cell_presentation {
         $str = "";
         $display_cols = $this->get_display_cols(array_keys($row));
         $colIndex = 0;
-        foreach ($display_cols as $name) {
+        foreach ($display_cols as $columnName) {
             // don't display columns that begin with hash character
-            if ($name[0] == '#') {
+            if ($columnName[0] == '#') {
                 continue;
             }
 
-            $value = $row[$name];
+            $value = $row[$columnName];
             $colSpec = null;
-            if (array_key_exists($name, $this->hotlinks)) {
-                $colSpec = $this->hotlinks[$name];
+            if (array_key_exists($columnName, $this->hotlinks)) {
+                $colSpec = $this->hotlinks[$columnName];
             } elseif (array_key_exists('@exclude', $this->hotlinks)) {
-                if (!in_array($name, $this->hotlinks['@exclude']['Options'])) {
+                if (!in_array($columnName, $this->hotlinks['@exclude']['Options'])) {
                     $colSpec = $this->hotlinks['@exclude'];
                 }
             }
             if ($colSpec) {
-                $str .= $this->render_hotlink($value, $row, $colSpec, NULL, $name, $colIndex);
+                $str .= $this->render_hotlink($value, $row, $colSpec, NULL, $columnName, $colIndex);
             } else {
                 $str .= "<td>" . $value . "</td>";
             }
