@@ -1,16 +1,21 @@
-<?php       class M_data_package_publish extends Model {
+<?php
 
-    // --------------------------------------------------------------------
-    function __construct()
-    {
+class M_data_package_publish extends Model {
+
+    /**
+     * Constructor
+     */
+    function __construct() {
         //Call the Model constructor
         parent :: Model();
     }
 
-    // --------------------------------------------------------------------
-    // get paths to analysis job results folders for jobs in given data package
-    function get_data_package_job_results_folder_paths($data_package_ID)
-    {
+    /**
+     * Get paths to analysis job results folders for jobs in given data package
+     * @param type $data_package_ID
+     * @return type
+     */
+    function get_data_package_job_results_folder_paths($data_package_ID) {
         $sql = <<<EOD
 SELECT
         TDPA.Job ,
@@ -28,10 +33,12 @@ EOD;
         return $query->result_array();
     }
 
-    // --------------------------------------------------------------------
-    // get paths to dataset folders for datasets in given data package
-    function get_data_package_dataset_folder_paths($data_package_ID)
-    {
+    /**
+     * Get paths to dataset folders for datasets in given data package
+     * @param type $data_package_ID
+     * @return type
+     */
+    function get_data_package_dataset_folder_paths($data_package_ID) {
         $sql = <<<EOD
 SELECT  DS.Dataset_ID ,
         ISNULL(AP.AP_archive_path, '') + '/' +
@@ -46,13 +53,14 @@ EOD;
         return $query->result_array();
     }
 
-    // --------------------------------------------------------------------
-    // get paths to share folder for given data package
-    function get_data_package_share_folder_paths($data_package_ID)
-    {
+    /**
+     * Get paths to share folder for given data package
+     * @param type $data_package_ID
+     * @return type
+     */
+    function get_data_package_share_folder_paths($data_package_ID) {
         $sql = <<<EOD
-SELECT
-    REPLACE(Storage_Path_Relative, '\', '/') AS Storage_Path
+SELECT REPLACE(Storage_Path_Relative, '\', '/') AS Storage_Path
 FROM    S_V_Data_Package_Export AS data_package_path
 WHERE   ID = $data_package_ID
 EOD;
@@ -60,12 +68,13 @@ EOD;
         return $query->result_array();
     }
 
-    // --------------------------------------------------------------------
-    // get data package metadata for given data package
-    function get_data_package_metadata($data_package_ID)
-    {
+    /**
+     * Get data package metadata for given data package
+     * @param type $data_package_ID
+     * @return type
+     */
+    function get_data_package_metadata($data_package_ID) {
         $sql = <<<EOD
-
 SELECT
     ID ,
     Name ,
@@ -88,12 +97,13 @@ EOD;
         return $query->result_array();
     }
 
-    // --------------------------------------------------------------------
-    // get experiment metadata for given data package
-    function get_data_package_experiment_metadata($data_package_ID)
-    {
+    /**
+     * Get experiment metadata for given data package
+     * @param type $data_package_ID
+     * @return type
+     */
+    function get_data_package_experiment_metadata($data_package_ID) {
         $sql = <<<EOD
-
 SELECT
     Experiment_ID ,
     Experiment ,
@@ -112,13 +122,13 @@ EOD;
         return $query->result_array();
     }
 
-
-    // --------------------------------------------------------------------
-    // get dataset metadata for given data package
-    function get_data_package_dataset_metadata($data_package_ID)
-    {
+    /**
+     * Get dataset metadata for given data package
+     * @param type $data_package_ID
+     * @return type
+     */
+    function get_data_package_dataset_metadata($data_package_ID) {
         $sql = <<<EOD
-
 SELECT
     DS.Dataset_ID ,
     Dataset ,
@@ -135,10 +145,12 @@ EOD;
         return $query->result_array();
     }
 
-    // --------------------------------------------------------------------
-    // get job metadata for given data package
-    function get_data_package_job_metadata($data_package_ID)
-    {
+    /**
+     * Get job metadata for given data package
+     * @param type $data_package_ID
+     * @return type
+     */
+    function get_data_package_job_metadata($data_package_ID) {
         $sql = <<<EOD
 SELECT
     VMA.Job ,
@@ -158,6 +170,5 @@ EOD;
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-
 
 }

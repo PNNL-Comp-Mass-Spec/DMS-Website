@@ -8,8 +8,8 @@ class Operation {
     private $config_source = '';
 
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     /**
@@ -17,8 +17,7 @@ class Operation {
      * @param type $config_name
      * @param type $config_source
      */
-    function init($config_name, $config_source)
-    {
+    function init($config_name, $config_source) {
         $this->config_source = $config_source;
     }
 
@@ -31,8 +30,7 @@ class Operation {
      * @return \stdClass A response object containing return value and message from sproc
      * @throws exception
      */
-    function internal_operation($sproc_name)
-    {
+    function internal_operation($sproc_name) {
         $CI = &get_instance();
         $config_name = $sproc_name;
         $response = new stdClass();
@@ -40,18 +38,18 @@ class Operation {
         try {
             // init sproc model
             $ok = $CI->cu->load_mod('s_model', 'sproc_model', $config_name, $this->config_source);
-            if(!$ok) {
+            if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
 
             // get sproc fields and use them to make validation field definitions
             $fields = $CI->sproc_model->get_sproc_fields();
             $rules = array();
-            foreach($fields as $field) {
+            foreach ($fields as $field) {
                 $rule = array();
                 $rule['field'] = $field;
-                $rule['label'] =  $field;
-                $rule['rules'] =  'trim'; // someday: rule to require presence of arg?
+                $rule['label'] = $field;
+                $rule['rules'] = 'trim'; // someday: rule to require presence of arg?
                 $rules[] = $rule;
             }
 
@@ -70,7 +68,7 @@ class Operation {
             // and also putting values back into entry form HTML
             $CI->load->helper('user');
             $calling_params = new stdClass();
-            foreach($fields as $field) {
+            foreach ($fields as $field) {
                 $calling_params->$field = $CI->form_validation->set_value($field);
             }
             $calling_params->mode = ($CI->input->post('mode')) ? $CI->input->post('mode') : $CI->input->post('command');
@@ -79,7 +77,7 @@ class Operation {
 
             // Call the stored procedure
             $success = $CI->sproc_model->execute_sproc($calling_params);
-            if(!$success) {
+            if (!$success) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
 
@@ -96,8 +94,7 @@ class Operation {
      * Get params that sproc was called with, including changes passed back from sproc
      * @return type
      */
-    function get_params()
-    {
+    function get_params() {
         $CI = &get_instance();
         return $CI->sproc_model->get_parameters();
     }

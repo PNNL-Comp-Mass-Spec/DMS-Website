@@ -1,16 +1,17 @@
 <?php
+
 // --------------------------------------------------------------------
 // general query - return data directly using query model
 // --------------------------------------------------------------------
+// Include application/libraries/Wildcard_conversion.php
+require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
 
-    // Include application/libraries/Wildcard_conversion.php
-    require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
-    
 /**
- * Query def
+ * Query definition
  * @category Helper Class
  */
 class General_query_def {
+
     var $output_format = 'tsv';
     var $q_name = '';
     var $config_source = '';
@@ -19,6 +20,7 @@ class General_query_def {
     var $rows = 100;
     var $sort_col = '';
     var $sort_direction = 'DESC';
+
 }
 
 /**
@@ -28,15 +30,14 @@ class General_query {
 
     protected $config_source = '';
     protected $config_name = '';
-
     protected $tag = '';
     protected $title = '';
 
     /**
      * Constructor
      */
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     /**
@@ -44,8 +45,7 @@ class General_query {
      * @param type $config_name
      * @param type $config_source
      */
-    function init($config_name, $config_source)
-    {
+    function init($config_name, $config_source) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
     }
@@ -54,8 +54,7 @@ class General_query {
      * Extract parameters from input URL segments and return object
      * @return \General_query_def
      */
-    function get_query_values_from_url()
-    {
+    function get_query_values_from_url() {
         $CI = &get_instance();
         $CI->load->helper(array('url'));
 
@@ -71,7 +70,6 @@ class General_query {
         // we are filtering on:
         //   Instrument:      VOrbi05
         //   Experiment:      QC_Shew_13
-
         // And paging with:
         //   Offset:          25
         //   RowsToDisplay:   50
@@ -84,17 +82,17 @@ class General_query {
         $sortDir = $CI->input->get('SortDir', TRUE);
 
         // Validate that the offset is an integer
-        if ( filter_var($offset, FILTER_VALIDATE_INT) !== false ) {
-             $p->offset = (int)$offset;
+        if (filter_var($offset, FILTER_VALIDATE_INT) !== false) {
+            $p->offset = (int) $offset;
         } else {
-             $p->offset = 1;
+            $p->offset = 1;
         }
 
         // Validate that rows is an integer
-        if ( filter_var($rows, FILTER_VALIDATE_INT) !== false ) {
-             $p->rows = (int)$rows;
+        if (filter_var($rows, FILTER_VALIDATE_INT) !== false) {
+            $p->rows = (int) $rows;
         } else {
-             $p->rows = 100;
+            $p->rows = 100;
         }
 
         // Possibly override the sort column
@@ -105,11 +103,13 @@ class General_query {
         if ($sortDir) {
             // Check whether $sortDir starts with Asc or Desc
 
-            if (strncmp(strtolower($sortDir), "asc", 3) === 0)
+            if (strncmp(strtolower($sortDir), "asc", 3) === 0) {
                 $p->sort_direction = 'ASC';
+            }
 
-            if (strncmp(strtolower($sortDir), "desc", 4) === 0)
+            if (strncmp(strtolower($sortDir), "desc", 4) === 0) {
                 $p->sort_direction = 'DESC';
+            }
         }
 
         return $p;
@@ -119,33 +119,31 @@ class General_query {
      * Setup the query
      * @return \General_query_def
      */
-    function setup_query_for_base_controller()
-    {
+    function setup_query_for_base_controller() {
         $CI = &get_instance();
         $CI->load->helper(array('url'));
 
-        $input_parms = new General_query_def();
-        $input_parms->config_source = $CI->my_tag;
-        $input_parms->output_format = $CI->uri->segment(3);
-        $input_parms->q_name = $CI->uri->segment(4);
-        $input_parms->filter_values = array_slice($CI->uri->segment_array(), 4);
+        $input_params = new General_query_def();
+        $input_params->config_source = $CI->my_tag;
+        $input_params->output_format = $CI->uri->segment(3);
+        $input_params->q_name = $CI->uri->segment(4);
+        $input_params->filter_values = array_slice($CI->uri->segment_array(), 4);
 
-        $this->setup_query($input_parms);
-        return $input_parms;
+        $this->setup_query($input_params);
+        return $input_params;
     }
 
     /**
      * Called by client controller to execute query via q_model and return result in format
-     * as specified by the input_parms object (of class General_query_def)
-     * @param type $input_parms
+     * as specified by the input_params object (of class General_query_def)
+     * @param type $input_params
      */
-    function setup_query($input_parms)
-    {
+    function setup_query($input_params) {
         $CI = &get_instance();
-        $CI->cu->load_mod('q_model', 'model', $input_parms->q_name, $input_parms->config_source);
-        $this->add_filter_values_to_model_predicate($input_parms->filter_values, $CI->model);
-        $this->configure_paging($input_parms, $CI->model);
-        
+        $CI->cu->load_mod('q_model', 'model', $input_params->q_name, $input_params->config_source);
+        $this->add_filter_values_to_model_predicate($input_params->filter_values, $CI->model);
+        $this->configure_paging($input_params, $CI->model);
+
         $CI->model->convert_wildcards();
     }
 
@@ -155,31 +153,29 @@ class General_query {
      * @param type $filter_values
      * @param type $model
      */
-    private
-    function add_filter_values_to_model_predicate($filter_values, $model)
-    {
+    private function add_filter_values_to_model_predicate($filter_values, $model) {
         $filter_specs = $model->get_primary_filter_specs();
         $i = 0;
-        foreach(array_values($filter_specs) as $pi) {
-            if($i >= count($filter_values)) {
+        foreach (array_values($filter_specs) as $pi) {
+            if ($i >= count($filter_values)) {
                 break;
             }
 
             $val = $filter_values[$i];
-            if($val != '-') {
-                
+            if ($val != '-') {
+
                 // Boolean operator
                 $rel = ($pi['cmp'] == 'Rp') ? 'ARG' : 'AND';
-                
+
                 // Column name to filter on
                 $col = $pi['col'];
-                
+
                 // Comparison mode
                 $cmp = $pi['cmp'];
-                
+
                 // Value to filter on
                 $val = convert_special_values($val);
-                
+
                 $model->add_predicate_item($rel, $col, $cmp, $val);
             }
             $i++;
@@ -188,37 +184,34 @@ class General_query {
 
     /**
      * Configure paging
-     * @param type $input_parms
+     * @param type $input_params
      * @param type $model
      */
-    private
-    function configure_paging($input_parms, $model)
-    {
+    private function configure_paging($input_params, $model) {
         /*
-        echo "<pre>";
-        echo "Offset:         $input_parms->offset \n";
-        echo "Rows:           $input_parms->rows\n";
-        echo "Sort col:       $input_parms->sort_col\n";
-        echo "Sort direction: $input_parms->sort_direction";
-        echo "</pre>\n";
-        */
+          echo "<pre>";
+          echo "Offset:         $input_params->offset \n";
+          echo "Rows:           $input_params->rows\n";
+          echo "Sort col:       $input_params->sort_col\n";
+          echo "Sort direction: $input_params->sort_direction";
+          echo "</pre>\n";
+         */
 
-        $model->add_paging_item($input_parms->offset, $input_parms->rows);
-        $model->add_sorting_item($input_parms->sort_col, $input_parms->sort_direction);
+        $model->add_paging_item($input_params->offset, $input_params->rows);
+        $model->add_sorting_item($input_params->sort_col, $input_params->sort_direction);
     }
 
     /**
      * Output a result in the specified format
      * @param type $output_format
      */
-    function output_result($output_format)
-    {
+    function output_result($output_format) {
         $CI = &get_instance();
         $model = $CI->model;
 
         $pageTitle = $this->config_source;
 
-        switch(strtolower($output_format)) {
+        switch (strtolower($output_format)) {
             case 'dump':
                 $CI->load->helper('test');
                 dump_q_model($model);
@@ -226,10 +219,10 @@ class General_query {
             case 'sql':
                 echo $model->get_sql();
                 break;
-           case 'count':
+            case 'count':
                 $query = $model->get_rows();
                 $rows = $query->result_array();
-                echo "rows:".count($rows);
+                echo "rows:" . count($rows);
                 break;
             case 'json':
                 $query = $model->get_rows();
@@ -259,36 +252,35 @@ class General_query {
      * Show results as TSV
      * @param array $result
      */
-    function tsv($result)
-    {
+    function tsv($result) {
         $headers = '';
 
         header("Content-type: text/plain");
 
-        if (count($result) == 0){
+        if (count($result) == 0) {
             // No results
             echo "No results found\n";
             return;
         }
-        
+
         // field headers
-        foreach(array_keys(current($result)) as $field_name){
+        foreach (array_keys(current($result)) as $field_name) {
             $headers .= $field_name . "\t";
         }
-        echo $headers."\n";
+        echo $headers . "\n";
 
         // field data
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $line = '';
-            foreach($row as $name => $value) {      // $name is the key, $value is the value
+            foreach ($row as $name => $value) {      // $name is the key, $value is the value
                 if (!isset($value) || $value == "") {
-                     $value = "\t";
+                    $value = "\t";
                 } else {
-                     $value .= "\t";
+                    $value .= "\t";
                 }
                 $line .= $value;
             }
-            echo trim($line)."\n";
+            echo trim($line) . "\n";
         }
     }
 
@@ -298,8 +290,7 @@ class General_query {
      * @param type $pageTitle
      * @return type
      */
-    function html_table($result, $pageTitle)
-    {
+    function html_table($result, $pageTitle) {
         $headers = '';
 
         header("Content-type: text/html");
@@ -313,22 +304,22 @@ class General_query {
         }
 
         // field headers
-        foreach(array_keys(current($result)) as $field_name){
+        foreach (array_keys(current($result)) as $field_name) {
             $headers .= "<th>$field_name</th>";
         }
 
         echo "<table border='1' style='border: 2px solid black;'>$headers\n";
 
         // field data
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $line = '<tr>';
-            foreach($row as $name => $value) {      // $name is the key, $value is the value
+            foreach ($row as $name => $value) {      // $name is the key, $value is the value
                 if (!isset($value) || $value == "") {
-                     $value = "";
+                    $value = "";
                 }
                 $line .= "<td>$value</td>";
             }
-            echo trim($line)."</tr>\n";
+            echo trim($line) . "</tr>\n";
         }
 
         echo "</table>\n";
@@ -341,22 +332,21 @@ class General_query {
      * @param type $result
      * @param type $table
      */
-    function xml_dataset($result, $table = 'TX')
-    {
+    function xml_dataset($result, $table = 'TX') {
         header("Content-type: text/plain");
 
         echo "<data>\n";
 
         // field data
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $line = '';
             $line .= "<$table>";
-            foreach($row as $name => $value) {
+            foreach ($row as $name => $value) {
                 $parsedValue = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
-                $line .= "<$name>".$parsedValue."</$name>";
+                $line .= "<$name>" . $parsedValue . "</$name>";
             }
             $line .= "</$table>";
-            echo trim($line)."\n";
+            echo trim($line) . "\n";
         }
 
         echo "</data>\n";

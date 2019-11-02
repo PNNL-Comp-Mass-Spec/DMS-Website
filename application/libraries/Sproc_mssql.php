@@ -1,9 +1,11 @@
 <?php
-    if (!defined('BASEPATH')) {
-        exit('No direct script access allowed');
-    }
+
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 require("Sproc_base.php");
+
 class Sproc_mssql extends Sproc_base {
 
     /**
@@ -16,16 +18,15 @@ class Sproc_mssql extends Sproc_base {
      * @param object $input_params
      * @throws Exception
      */
-    function execute($sprocName, $conn_id, $args, $input_params)
-    {
+    function execute($sprocName, $conn_id, $args, $input_params) {
         $stmt = mssql_init($sprocName, $conn_id);
-        if(!$stmt) {
+        if (!$stmt) {
             throw new Exception("Statement initialization failed for $sprocName");
         }
 
         reset($args);
-        foreach($args as $arg) {
-            $paramName = '@'.$arg['name'];  // sproc arg name needs prefix
+        foreach ($args as $arg) {
+            $paramName = '@' . $arg['name'];  // sproc arg name needs prefix
             $paramType = constant($this->tpconv[$arg['type']]); // convert type name to constant
 
             $isOutput = $arg['dir'] == 'output'; // convert direction to boolean
@@ -41,7 +42,7 @@ class Sproc_mssql extends Sproc_base {
 //            echo "arg:'{$paramName}', var:'{$fieldName}', type:'{$paramType}',  dir:'{$isOutput}',  size:'{$size}', (value)'{$input_params->$fieldName}' <br>";
 
             $ok = mssql_bind($stmt, $paramName, $input_params->$fieldName, $paramType, $isOutput, false, $size);
-            if(!$ok) {
+            if (!$ok) {
                 throw new Exception("Error trying to bind field '$fieldName'");
             }
         }
@@ -49,7 +50,7 @@ class Sproc_mssql extends Sproc_base {
 
         $input_params->exec_result = mssql_execute($stmt);
 
-        if(!$input_params->exec_result) {
+        if (!$input_params->exec_result) {
             $ra_msg = mssql_get_last_message();
             throw new Exception($ra_msg);
         }
@@ -59,7 +60,7 @@ class Sproc_mssql extends Sproc_base {
 
         $input_params->exec_result = new stdclass();
         $input_params->exec_result->hasRows = false;
-        if(is_resource($result)){
+        if (is_resource($result)) {
             $input_params->exec_result->hasRows = true;
             $metadata = $this->extract_field_metadata($result);
             $rows = $this->get_rows($result);
@@ -74,8 +75,7 @@ class Sproc_mssql extends Sproc_base {
      * @param type $result
      * @return type
      */
-    private function get_rows($result)
-    {
+    private function get_rows($result) {
         $result_array = array();
         while ($row = mssql_fetch_assoc($result)) {
             $result_array[] = $row;
@@ -86,18 +86,17 @@ class Sproc_mssql extends Sproc_base {
 
     /**
      * This builds up column metadata definitions
-    // (it is copied from CI mssql_result driver)
+      // (it is copied from CI mssql_result driver)
      * @param type $result
      * @return \stdClass
      */
-    private function extract_field_metadata($result)
-    {
+    private function extract_field_metadata($result) {
         $metadata = array();
         while ($field = mssql_fetch_field($result)) {
-            $F                 = new stdClass();
-            $F->name         = $field->name;
-            $F->type         = $field->type;
-            $F->max_length    = $field->max_length;
+            $F = new stdClass();
+            $F->name = $field->name;
+            $F->type = $field->type;
+            $F->max_length = $field->max_length;
             $metadata[] = $F;
         }
         return $metadata;

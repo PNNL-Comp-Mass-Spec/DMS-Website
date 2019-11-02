@@ -17,16 +17,15 @@ abstract class Sproc_base {
      * @param type $direction Direction: input or output (though output is in/out)
      * @param type $size Field size for varchar; use empty string for numeric
      */
-    function AddLocalArgument(&$args, &$input_params, $fieldName, $value, $fieldType, $direction, $size)
-    {
+    function AddLocalArgument(&$args, &$input_params, $fieldName, $value, $fieldType, $direction, $size) {
         // Append a new stored procedure argument
         $args[] = array(
-                        'field' => "<local>",
-                        'name' => $fieldName,
-                        'type' => $fieldType,
-                        'dir' => $direction,
-                        'size' => $size
-                    );
+            'field' => "<local>",
+            'name' => $fieldName,
+            'type' => $fieldType,
+            'dir' => $direction,
+            'size' => $size
+        );
 
         // Append a new field value, for example
         // $input_params->Experiment = 'QC_Shew_18_01'
@@ -44,5 +43,4 @@ abstract class Sproc_base {
      * @throws Exception
      */
     abstract function execute($sprocName, $conn_id, $args, $par);
-
 }

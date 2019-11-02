@@ -1,11 +1,13 @@
 <?php
 
 class Table_sorter {
+
     protected $column;
     protected $sort_filter = array();
 
     // --------------------------------------------------------------------
     function __construct() {
+        
     }
 
     /**
@@ -17,7 +19,7 @@ class Table_sorter {
      */
     function sort($table, $column, $dir = 'ASC') {
         $this->column = $column;
-        switch($dir) {
+        switch ($dir) {
             case 'ASC':
                 usort($table, array($this, 'compare_asc'));
                 break;
@@ -60,8 +62,7 @@ class Table_sorter {
      * @param type $sort_filter
      * @return type
      */
-    function sort_multi_col($table, $sort_filter)
-    {
+    function sort_multi_col($table, $sort_filter) {
 //print_r($sort_filter); echo '<hr>';
         $this->sort_filter = $sort_filter;
         usort($table, array($this, 'compare_multi_col'));
@@ -74,10 +75,8 @@ class Table_sorter {
      * @param type $b
      * @return type
      */
-    function compare_multi_col($a, $b)
-    {
+    function compare_multi_col($a, $b) {
 //print_r($a); echo '<br>---------<br>';print_r($b); echo '<hr>';
-
         // Initially presume the two values are equal
         $comparison = 0;
 
@@ -86,18 +85,18 @@ class Table_sorter {
         // the values are different or we run out
         // of sorting columns to try
         $col = '';
-        foreach($this->sort_filter as $sort) {
+        foreach ($this->sort_filter as $sort) {
             $col = $sort['qf_sort_col'];
             $dir = $sort['qf_sort_dir'];
-            if(!$col) {
+            if (!$col) {
                 break;
             }
             if ($a[$col] != $b[$col]) {
-                if($dir == 'ASC') {
+                if ($dir == 'ASC') {
                     $comparison = ($a[$col] < $b[$col]) ? -1 : 1;
                     break;
                 } else
-                if($dir == 'DESC') {
+                if ($dir == 'DESC') {
                     $comparison = ($a[$col] > $b[$col]) ? -1 : 1;
                     break;
                 }
@@ -106,6 +105,5 @@ class Table_sorter {
 //echo "a:$a[$col], b:$b[$col], col:$col, cmp:$comparison <hr>";
         return $comparison;
     }
-
 
 }

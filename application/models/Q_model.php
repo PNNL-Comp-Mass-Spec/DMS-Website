@@ -1,4 +1,5 @@
 <?php
+
 // The primary function of this class is to build and execute an SQL query
 // against one of the databases defined in the application/config/database file.
 // It gets the basic components of the query from a config db as defined by the
@@ -6,7 +7,6 @@
 // various user inputs in the form of filters (selection, paging, sorting).
 // This class also supplies certain definition information for use in building
 // and using those filters.
-
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
 
@@ -65,6 +65,7 @@ class Query_parts {
      * @var type
      */
     var $sorting_default = array('col' => '', 'dir' => '');
+
 }
 
 /**
@@ -72,29 +73,31 @@ class Query_parts {
  * @category Helper class
  */
 class Query_predicate {
+
     /**
      * Boolean operator
      * @var string
      */
     var $rel = 'AND';
-    
+
     /**
      * Column name to filter on
      * @var string
      */
     var $col;
-    
+
     /**
      * Comparison mode (ContainsText, StartsWithText, GreaterThan, etc.)
      * @var string
      */
     var $cmp;
-    
+
     /**
      * Value to filter on
      * @var string
      */
     var $val;
+
 }
 
 /**
@@ -102,8 +105,10 @@ class Query_predicate {
  * @category Helper class
  */
 class CachedTotalRows {
+
     var $total = 0;
     var $base_sql = '';
+
 }
 
 /**
@@ -111,14 +116,17 @@ class CachedTotalRows {
  * against one of the databases defined in the application/config/database file
  */
 class Q_model extends CI_Model {
+
     const col_info_storage_name_root = "col_info_";
+
     private $col_info_storage_name = "";
+
     //
     const total_rows_storage_name_root = "total_rows_";
 
     // Name under which to store the cached row count
     // Example name is total_rows_list_report_dataset
-    private  $total_rows_storage_name = "";
+    private $total_rows_storage_name = "";
     //
 //  const display_cols_storage_name_root = "display_cols_";
 //  const sql_storage_name_root = "base_sql_";
@@ -168,10 +176,8 @@ class Q_model extends CI_Model {
      */
     private $primary_filter_specs = array();
 
-
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
         // Call the Model constructor
         parent::__construct();
         $this->configDBFolder = $this->config->item('model_config_path');
@@ -185,20 +191,19 @@ class Q_model extends CI_Model {
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
      */
-    function init($config_name, $config_source = "ad_hoc_query")
-    {
+    function init($config_name, $config_source = "ad_hoc_query") {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
-        $this->col_info_storage_name = self::col_info_storage_name_root.$this->config_name.'_'.$this->config_source;
-        $this->total_rows_storage_name = self::total_rows_storage_name_root.$this->config_name.'_'.$this->config_source;
+        $this->col_info_storage_name = self::col_info_storage_name_root . $this->config_name . '_' . $this->config_source;
+        $this->total_rows_storage_name = self::total_rows_storage_name_root . $this->config_name . '_' . $this->config_source;
 
         $dbFileName = $config_source . '.db';
 
         $this->_clear();
         $this->set_my_sql_builder('sql_mssql');     // (someday) pass in via argument (or constructor?) or do in config.php based on database type
         try {
-            switch($config_name) {
+            switch ($config_name) {
                 case '':
                     break;
                 case 'list_report':
@@ -223,9 +228,7 @@ class Q_model extends CI_Model {
     /**
      * Clear the cached query information
      */
-    private
-    function _clear()
-    {
+    private function _clear() {
         $this->query_parts = new Query_parts();
         $this->query_parts->dbn = '';
         $this->query_parts->table = '';
@@ -239,9 +242,8 @@ class Q_model extends CI_Model {
      *  SQL will be built using a database-specific object - set it up here
      * @param type $bldr_class
      */
-    private
-    function set_my_sql_builder($bldr_class) {
-        $CI =& get_instance();
+    private function set_my_sql_builder($bldr_class) {
+        $CI = & get_instance();
         $CI->load->library($bldr_class, '', 'sqlbldr');
         $this->sql_builder = $CI->sqlbldr;
     }
@@ -254,45 +256,44 @@ class Q_model extends CI_Model {
      *  SQL wildcards for regex/glob.
      * A leading tilde will force an exact match
      */
-    function convert_wildcards()
-    {
-        for($i=0; $i<count($this->query_parts->predicates); $i++) {
-            $p =& $this->query_parts->predicates[$i];
+    function convert_wildcards() {
+        for ($i = 0; $i < count($this->query_parts->predicates); $i++) {
+            $p = & $this->query_parts->predicates[$i];
 
-            if(strtolower($p->rel) == 'arg') {
+            if (strtolower($p->rel) == 'arg') {
                 continue; // no wildards for arguements
             }
 
             // look for wildcard characters
             $match_blank = $p->val == '\b';
             $exact_match = (substr($p->val, 0, 1) == '~');
-            $not_match   = (substr($p->val, 0, 1) == ':');
-            $regex_all   = (strpos($p->val, '*') !== FALSE);
-            $regex_one   = (strpos($p->val, '?') !== FALSE);
-            $sql_any     = (strpos($p->val, '%') !== FALSE);
+            $not_match = (substr($p->val, 0, 1) == ':');
+            $regex_all = (strpos($p->val, '*') !== FALSE);
+            $regex_one = (strpos($p->val, '?') !== FALSE);
+            $sql_any = (strpos($p->val, '%') !== FALSE);
 
-            if($match_blank) {
+            if ($match_blank) {
                 // Force match a blank
                 $p->val = '';
                 $p->cmp = "MatchesBlank";
             } else
-            if($exact_match || ($p->cmp === "MatchesText") || ($p->cmp === "MTx")) {
+            if ($exact_match || ($p->cmp === "MatchesText") || ($p->cmp === "MTx")) {
                 // Force exact match
                 // Remove the first character if it is a tilde or backtick (~ or `)
                 $p->val = ltrim($p->val, '~`');
                 $p->cmp = "MatchesText";
             } else
-            if($not_match) {
+            if ($not_match) {
                 // Force does not contain text
                 // Remove the first character if it is a colon
                 $p->val = ltrim($p->val, ':');
                 $p->cmp = "DoesNotContainText";
             } else
-            if($regex_all || $regex_one) {
+            if ($regex_all || $regex_one) {
                 $p->cmp = 'wildcards';
             } else {
                 $exceptions = array('MatchesText', 'MTx', 'MatchesTextOrBlank', 'MTxOB');
-                if(!$sql_any && !in_array($p->cmp, $exceptions)) {
+                if (!$sql_any && !in_array($p->cmp, $exceptions)) {
                     // quote underscores in the absence of '%' or regex/glob wildcards
                     $p->val = str_replace('_', '[_]', $p->val);
                 }
@@ -307,10 +308,9 @@ class Q_model extends CI_Model {
      * @param string $cmp Comparison mode (ContainsText, StartsWithText, GreaterThan, etc.)
      * @param string $val Value to filter on
      */
-    function add_predicate_item($rel, $col, $cmp, $val)
-    {
+    function add_predicate_item($rel, $col, $cmp, $val) {
 
-        if($val != '') {
+        if ($val != '') {
             // (someday perhaps) reject if any field is empty, not just value field
             $p = new Query_predicate();
             $p->rel = $rel;
@@ -328,13 +328,12 @@ class Q_model extends CI_Model {
      * @param type $col
      * @param type $dir
      */
-    function add_sorting_item($col, $dir = '')
-    {
-        if($col) { // don't take malformed items
+    function add_sorting_item($col, $dir = '') {
+        if ($col) { // don't take malformed items
             $o = new stdClass();
             $o->col = $col;
             $d = strtoupper($dir);
-            $o->dir = ($d == 'DESC')?$d:'ASC';
+            $o->dir = ($d == 'DESC') ? $d : 'ASC';
             $this->query_parts->sorting_items[] = $o;
         }
     }
@@ -344,9 +343,8 @@ class Q_model extends CI_Model {
      * @param type $first_row
      * @param type $rows_per_page
      */
-    function add_paging_item($first_row, $rows_per_page)
-    {
-        if($first_row) { // don't take malformed items
+    function add_paging_item($first_row, $rows_per_page) {
+        if ($first_row) { // don't take malformed items
             $this->query_parts->paging_items['first_row'] = $first_row;
             $this->query_parts->paging_items['rows_per_page'] = $rows_per_page;
         }
@@ -357,14 +355,12 @@ class Q_model extends CI_Model {
      * @param type $option
      * @return type
      */
-    function get_sql($option = 'filtered_and_paged')
-    {
+    function get_sql($option = 'filtered_and_paged') {
         return $this->sqlbldr->build_query_sql($this->query_parts, $option);
     }
 
     // --------------------------------------------------------------------
-    function get_item_sql($id)
-    {
+    function get_item_sql($id) {
 //      $id = 'xx';
         $spc = current($this->primary_filter_specs);
         $this->add_predicate_item('AND', $spc['col'], $spc['cmp'], $id);
@@ -372,32 +368,27 @@ class Q_model extends CI_Model {
     }
 
     // --------------------------------------------------------------------
-    function get_base_sql()
-    {
+    function get_base_sql() {
         return $this->sql_builder->get_base_sql();
     }
 
     // --------------------------------------------------------------------
-    function get_main_sql()
-    {
+    function get_main_sql() {
         return $this->main_sql;
     }
 
     // --------------------------------------------------------------------
-    function get_query_parts()
-    {
+    function get_query_parts() {
         return $this->query_parts;
     }
 
     // --------------------------------------------------------------------
-    function set_table($table)
-    {
+    function set_table($table) {
         $this->query_parts->table = $table;
     }
 
     // --------------------------------------------------------------------
-    function set_columns($columns)
-    {
+    function set_columns($columns) {
         $this->query_parts->columns = $columns;
     }
 
@@ -408,18 +399,14 @@ class Q_model extends CI_Model {
      * @return type
      * @throws exception
      */
-    function get_item($id)
-    {
-        if(empty($this->primary_filter_specs)) {
+    function get_item($id) {
+        if (empty($this->primary_filter_specs)) {
             throw new exception('no primary id column defined; update general_params to include detail_report_data_id_col');
         }
 
-        if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc))
-        {
+        if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc)) {
             return $this->get_data_row_from_sproc($id);
-        }
-        else
-        {
+        } else {
             // primary_filter_specs is populated in get_detail_report_query_specs_from_config_db
             $spc = current($this->primary_filter_specs);
             $this->add_predicate_item('AND', $spc['col'], $spc['cmp'], $id);
@@ -429,7 +416,6 @@ class Q_model extends CI_Model {
             // get single row from results
             return $query->row_array();
         }
-
     }
 
     /**
@@ -438,8 +424,7 @@ class Q_model extends CI_Model {
      * @param type $option Can be 'filtered_and_paged' or 'filtered_only'
      * @return type
      */
-    function get_rows($option = 'filtered_and_paged')
-    {
+    function get_rows($option = 'filtered_and_paged') {
         $this->assure_sorting($option);
 
         $this->main_sql = $this->sqlbldr->build_query_sql($this->query_parts, $option);
@@ -460,8 +445,7 @@ class Q_model extends CI_Model {
      * @return type
      * @throws exception Thrown if there is an error or if the SP returns a non-zero value
      */
-    function get_data_row_from_sproc($id)
-    {
+    function get_data_row_from_sproc($id) {
         $CI = &get_instance();
 
         $calling_params = new stdClass();
@@ -480,13 +464,13 @@ class Q_model extends CI_Model {
 
         try {
             // Call the stored procedure
-            $ok = $CI->cu->load_mod('s_model', 'sproc_model',$this->config_name, $this->config_source);
-            if(!$ok) {
+            $ok = $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+            if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
 
             $success = $CI->sproc_model->execute_sproc($calling_params);
-            if(!$success) {
+            if (!$success) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
 
@@ -499,13 +483,10 @@ class Q_model extends CI_Model {
             }
 
             return $rows[0];
-
         } catch (Exception $e) {
             $message = $e->getMessage();
             throw new exception($message);
         }
-
-
     }
 
     /**
@@ -515,10 +496,9 @@ class Q_model extends CI_Model {
      *                           If empty, the active group is used (defined by $active_group)
      * @throws Exception
      */
-    private
-    function get_db_object($dbGroupName) {
+    private function get_db_object($dbGroupName) {
 
-        $CI =& get_instance();
+        $CI = & get_instance();
 
         // Connect to the database
         // Retry the connection up to 5 times
@@ -548,7 +528,6 @@ class Q_model extends CI_Model {
 
                 // Exit the while loop
                 break;
-
             } catch (Exception $ex) {
                 $errorMessage = $ex->getMessage();
 
@@ -569,11 +548,9 @@ class Q_model extends CI_Model {
                     throw new Exception("Connection to the $groupNameForLog DB failed: $errorMessage");
                 }
             }
-
         }
 
         return $my_db;
-
     }
 
     /**
@@ -581,18 +558,16 @@ class Q_model extends CI_Model {
      * @param type $option
      * @throws exception
      */
-    private
-    function assure_sorting($option)
-    {
-        if($option == 'filtered_and_paged' || $option == 'filtered_and_sorted') {
+    private function assure_sorting($option) {
+        if ($option == 'filtered_and_paged' || $option == 'filtered_and_sorted') {
             // only need to dig in if there aren't any sorting items already
-            if(empty($this->query_parts->sorting_items)) {
+            if (empty($this->query_parts->sorting_items)) {
                 // Use default sorting column or first column
                 $col = $this->query_parts->sorting_default['col'];
 
                 // use default sorting direction or ASC
                 $dir = $this->query_parts->sorting_default['dir'];
-                if($dir) {
+                if ($dir) {
                     // Assure that the sort direction is ASC or DESC
                     // Will auto-update desc or Descending to DESC; anything else is ASC
                     if (StartsWith(strtoupper($dir), "DESC")) {
@@ -604,25 +579,24 @@ class Q_model extends CI_Model {
                     $dir = 'ASC';
                 }
 
-                if($col) {
+                if ($col) {
                     // Default column is defined
                     // It may contain multiple column names, separated by a comma. If so, append each separately
                     $colNames = explode(",", $col);
-                    foreach($colNames as $colName) {
+                    foreach ($colNames as $colName) {
                         $this->add_sorting_item(trim($colName), $dir);
                     }
                 } else {
                     // Default column to sort on is not defined in the Model Config DB
                     // Sort on the first column
                     $col_info = $this->get_column_info();
-                    if($col_info) {
+                    if ($col_info) {
                         $col = $col_info[0]->name;
                     } else {
                         throw new exception('cannot find default sorting row for "filitered_and_paged" ');
                     }
                     $this->add_sorting_item($col, $dir);
                 }
-
             }
         }
     }
@@ -638,8 +612,7 @@ class Q_model extends CI_Model {
      * @return type
      * @throws Exception
      */
-    function get_total_rows()
-    {
+    function get_total_rows() {
         $working_total = -1;
 
         // need to get current base sql to compare with cached version
@@ -652,24 +625,24 @@ class Q_model extends CI_Model {
         // " FROM V_Dataset_List_Report_2" or
         // " FROM V_Data_Package_Aggregation_List_Report WHERE [Data_Package_ID] = 194'
         $state = get_from_cache($this->total_rows_storage_name);
-        if($state) {
-            if($state->base_sql == $base_sql) {
+        if ($state) {
+            if ($state->base_sql == $base_sql) {
                 $working_total = $state->total;
             }
         }
 
-        if($working_total < 0) {
+        if ($working_total < 0) {
             // get total from database
             $my_db = $this->get_db_object($this->query_parts->dbn);
             $query = $my_db->query($sql);
-            if(!$query) {
+            if (!$query) {
                 $currentTimestamp = date("Y-m-d");
-                throw new Exception ("Error getting total row count from database; see application/logs/log-$currentTimestamp.php");
+                throw new Exception("Error getting total row count from database; see application/logs/log-$currentTimestamp.php");
             }
 
             if ($query->num_rows() == 0) {
                 $currentTimestamp = date("Y-m-d");
-                throw new Exception ("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
+                throw new Exception("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
             }
 
             $row = $query->row();
@@ -686,23 +659,20 @@ class Q_model extends CI_Model {
     }
 
     // --------------------------------------------------------------------
-    function get_cached_total_rows()
-    {
+    function get_cached_total_rows() {
         return get_from_cache($this->total_rows_storage_name);
     }
 
     // --------------------------------------------------------------------
-    function clear_cached_total_rows()
-    {
-        $CI =& get_instance();
+    function clear_cached_total_rows() {
+        $CI = & get_instance();
         $CI->load->helper('cache');
         clear_cache($this->total_rows_storage_name);
     }
 
     // --------------------------------------------------------------------
-    function clear_cached_state()
-    {
-        $CI =& get_instance();
+    function clear_cached_state() {
+        $CI = & get_instance();
         $CI->load->helper('cache');
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);
@@ -713,24 +683,23 @@ class Q_model extends CI_Model {
      * either from cache or by running a single-row query against database
      * @return type
      */
-    function get_column_info()
-    {
+    function get_column_info() {
 
         $forceRefresh = false;
         if (!is_null($this->result_column_cachetime) &&
-            (time() - $this->result_column_cachetime) / 60.0 > self::column_info_refresh_interval_minutes) {
-            $forceRefresh=true;
+                (time() - $this->result_column_cachetime) / 60.0 > self::column_info_refresh_interval_minutes) {
+            $forceRefresh = true;
         }
 
-        if(!$this->result_column_info || $forceRefresh) {
-            $CI =& get_instance();
+        if (!$this->result_column_info || $forceRefresh) {
+            $CI = & get_instance();
             $CI->load->helper('cache');
             $state = get_from_cache($this->col_info_storage_name);
-            if($state) {
+            if ($state) {
                 $this->result_column_info = $state;
             } else {
                 $state = $this->get_col_data();
-                if($state) {
+                if ($state) {
                     $this->set_col_info_data($state);
                 }
             }
@@ -741,25 +710,21 @@ class Q_model extends CI_Model {
     }
 
     // --------------------------------------------------------------------
-    function get_column_info_cache_name()
-    {
+    function get_column_info_cache_name() {
         return $this->col_info_storage_name;
     }
 
     // --------------------------------------------------------------------
-    function get_column_info_cache_data()
-    {
-        $CI =& get_instance();
+    function get_column_info_cache_data() {
+        $CI = & get_instance();
         $CI->load->helper('cache');
 
         return get_from_cache($this->col_info_storage_name);
     }
 
     // --------------------------------------------------------------------
-    private
-    function set_col_info_data($state)
-    {
-        $CI =& get_instance();
+    private function set_col_info_data($state) {
+        $CI = & get_instance();
         $CI->load->helper('cache');
 
         $this->result_column_info = $state;
@@ -770,9 +735,7 @@ class Q_model extends CI_Model {
      * Get a single row from database and remember the column information
      * @return type
      */
-    private
-    function get_col_data()
-    {
+    private function get_col_data() {
         $sql = $this->sqlbldr->build_query_sql($this->query_parts, 'column_data_only');
 
         $my_db = $this->get_db_object($this->query_parts->dbn);
@@ -786,11 +749,10 @@ class Q_model extends CI_Model {
      * Get the column names
      * @return mixed Array of names
      */
-    function get_col_names()
-    {
+    function get_col_names() {
         $cols = array();
         $col_info = $this->get_column_info();
-        foreach($col_info as $obj) {
+        foreach ($col_info as $obj) {
             $cols[] = $obj->name;
         }
         return $cols;
@@ -801,12 +763,11 @@ class Q_model extends CI_Model {
      * @param type $col Column Name
      * @return string
      */
-    function get_column_data_type($col)
-    {
+    function get_column_data_type($col) {
         $type = '??';
         $col_info = $this->get_column_info();
-        foreach($col_info as $obj) {
-            if($col == $obj->name) {
+        foreach ($col_info as $obj) {
+            if ($col == $obj->name) {
                 $type = $obj->type;
                 break;
             }
@@ -820,29 +781,27 @@ class Q_model extends CI_Model {
      * @param string $dbFileName
      * @throws Exception
      */
-    private
-    function get_query_specs_from_config_db($config_name, $dbFileName)
-    {
+    private function get_query_specs_from_config_db($config_name, $dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
         $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) {
-            throw new Exception('Could not connect to config database at '.$dbFilePath);
+        if (!$dbh) {
+            throw new Exception('Could not connect to config database at ' . $dbFilePath);
         }
 
         $sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
         $sth->execute();
         $obj = $sth->fetch(PDO::FETCH_OBJ);
-        if($obj === FALSE) {
+        if ($obj === FALSE) {
             throw new Exception('Could not find query specs');
         }
 
         $this->query_parts->dbn = $obj->db;
         $this->query_parts->table = $obj->table;
         $this->query_parts->columns = $obj->columns;
-        $filters = (isset($obj->filters) && $obj->filters != '')?json_decode($obj->filters, TRUE):array();
+        $filters = (isset($obj->filters) && $obj->filters != '') ? json_decode($obj->filters, TRUE) : array();
         $this->primary_filter_specs = array();
-        foreach($filters as $col => $cmp) {
-            $name = "pf_".str_replace(' ', '_', strtolower($col));
+        foreach ($filters as $col => $cmp) {
+            $name = "pf_" . str_replace(' ', '_', strtolower($col));
             $a = array();
             $a['label'] = $col;
             $a['col'] = $col;
@@ -850,9 +809,9 @@ class Q_model extends CI_Model {
             $a['value'] = '';
             $this->primary_filter_specs[$name] = $a;
         }
-        $sorting = (isset($obj->sorting) && $obj->sorting != '')?json_decode($obj->sorting, TRUE):array();
-        if(!empty($sorting)) {
-            $this->query_parts->sorting_default= $sorting;
+        $sorting = (isset($obj->sorting) && $obj->sorting != '') ? json_decode($obj->sorting, TRUE) : array();
+        if (!empty($sorting)) {
+            $this->query_parts->sorting_default = $sorting;
         }
     }
 
@@ -861,14 +820,12 @@ class Q_model extends CI_Model {
      * @param type $dbFileName
      * @throws Exception
      */
-    private
-    function get_list_report_query_specs_from_config_db($dbFileName)
-    {
+    private function get_list_report_query_specs_from_config_db($dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
         $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) {
-            throw new Exception('Could not connect to config database at '.$dbFilePath);
+        if (!$dbh) {
+            throw new Exception('Could not connect to config database at ' . $dbFilePath);
         }
 
         // get list of tables in database
@@ -878,7 +835,7 @@ class Q_model extends CI_Model {
         }
 
         foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
-            switch($row['name']) {
+            switch ($row['name']) {
                 case 'my_db_group':
                     $this->query_parts->dbn = $row['value'];
                     break;
@@ -902,7 +859,7 @@ class Q_model extends CI_Model {
             }
         }
 
-        if(in_array('list_report_primary_filter', $tbl_list)) {
+        if (in_array('list_report_primary_filter', $tbl_list)) {
             $this->primary_filter_specs = array();
             foreach ($dbh->query("SELECT * FROM list_report_primary_filter", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
@@ -918,7 +875,7 @@ class Q_model extends CI_Model {
                 $this->primary_filter_specs[$row['name']] = $a;
             }
         }
-        if(in_array('primary_filter_choosers', $tbl_list)) {
+        if (in_array('primary_filter_choosers', $tbl_list)) {
             $fl = array();
             foreach ($dbh->query("SELECT * FROM primary_filter_choosers", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
@@ -929,15 +886,14 @@ class Q_model extends CI_Model {
                 $a['Delimiter'] = $row['Delimiter'];
                 $fl[$row['field']][] = $a;
             }
-            foreach($fl as $fn => $ch) {
-                if(count($ch) == 1) {
+            foreach ($fl as $fn => $ch) {
+                if (count($ch) == 1) {
                     $this->primary_filter_specs[$fn]['chooser_list'] = array($ch[0]);
                 } else {
                     $this->primary_filter_specs[$fn]['chooser_list'] = $ch;
                 }
             }
         }
-
     }
 
     /**
@@ -945,21 +901,19 @@ class Q_model extends CI_Model {
      * @param type $dbFileName
      * @throws Exception
      */
-    private
-    function get_detail_report_query_specs_from_config_db($dbFileName)
-    {
+    private function get_detail_report_query_specs_from_config_db($dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
         $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) {
-            throw new Exception('Could not connect to config database at '.$dbFilePath);
+        if (!$dbh) {
+            throw new Exception('Could not connect to config database at ' . $dbFilePath);
         }
 
         $filterColumn = '';
         $filterComparison = '';
 
         foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
-            switch($row['name']) {
+            switch ($row['name']) {
                 case 'my_db_group':
                     $this->query_parts->dbn = $row['value'];
                     break;
@@ -1011,18 +965,16 @@ class Q_model extends CI_Model {
      * @param type $dbFileName
      * @throws Exception
      */
-    private
-    function get_entry_page_query_specs_from_config_db($dbFileName)
-    {
+    private function get_entry_page_query_specs_from_config_db($dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
         $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) {
-            throw new Exception('Could not connect to config database at '.$dbFilePath);
+        if (!$dbh) {
+            throw new Exception('Could not connect to config database at ' . $dbFilePath);
         }
 
         foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
-            switch($row['name']) {
+            switch ($row['name']) {
                 case 'my_db_group':
                     $this->query_parts->dbn = $row['value'];
                     break;
@@ -1046,14 +998,12 @@ class Q_model extends CI_Model {
     }
 
     // --------------------------------------------------------------------
-    function get_config_name()
-    {
+    function get_config_name() {
         return $this->config_name;
     }
 
     // --------------------------------------------------------------------
-    function get_config_source()
-    {
+    function get_config_source() {
         return $this->config_source;
     }
 
@@ -1065,8 +1015,7 @@ class Q_model extends CI_Model {
      * Information from config DB about primary filter defined for config_name/config_source
      * @return array
      */
-    function get_primary_filter_specs()
-    {
+    function get_primary_filter_specs() {
         return $this->primary_filter_specs;
     }
 
@@ -1075,8 +1024,7 @@ class Q_model extends CI_Model {
      * @param string $type
      * @return mixed
      */
-    function get_allowed_comparisons_for_type($type)
-    {
+    function get_allowed_comparisons_for_type($type) {
         return $this->sql_builder->get_allowed_comparisons_for_type($type);
     }
 
@@ -1084,9 +1032,8 @@ class Q_model extends CI_Model {
      * Allowed query predicate operators: AND and OR
      * @return mixed
      */
-    function get_allowed_rel_values()
-    {
-        return array("AND" => "AND","OR" => "OR");
+    function get_allowed_rel_values() {
+        return array("AND" => "AND", "OR" => "OR");
     }
 
 }

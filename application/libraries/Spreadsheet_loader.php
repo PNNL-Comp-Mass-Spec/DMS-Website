@@ -2,7 +2,7 @@
 
 // Not required because we are telling CodeIgniter to also use the Composer autoload.
 //require 'application/vendor/autoload.php';
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+//use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Spreadsheet_loader {
 
@@ -19,16 +19,15 @@ class Spreadsheet_loader {
     /**
      * Constructor
      */
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     /**
      * Get tracking info fields
      * @return type
      */
-    function get_tracking_info_fields()
-    {
+    function get_tracking_info_fields() {
         return $this->tracking_info_fields;
     }
 
@@ -36,8 +35,7 @@ class Spreadsheet_loader {
      * Get Aux Info fields
      * @return type
      */
-    function get_aux_info_fields()
-    {
+    function get_aux_info_fields() {
         return $this->aux_info_fields;
     }
 
@@ -47,8 +45,7 @@ class Spreadsheet_loader {
      * @param type $fname
      * @category AJAX
      */
-    function load($fname)
-    {
+    function load($fname) {
         $filePath = "./uploads/$fname";
 
         $mimeType = mime_content_type($filePath);
@@ -62,7 +59,7 @@ class Spreadsheet_loader {
             $isSpreadsheet = true;
         }
 
-        if (strpos($mimeType, 'opendocument.spreadsheet') > 0 ) {
+        if (strpos($mimeType, 'opendocument.spreadsheet') > 0) {
             // OpenOffice .ODS file
 //            throw new exception(
 //                "Save the spreadsheet as a tab-delimited text file: "
@@ -71,10 +68,10 @@ class Spreadsheet_loader {
             $isSpreadsheet = true;
         }
 
-        if (!$isSpreadsheet && strpos($mimeType, 'octet-stream') > 0 ) {
+        if (!$isSpreadsheet && strpos($mimeType, 'octet-stream') > 0) {
             // Likely a unicode text file
             throw new exception(
-                "Unicode text files are not supported. Save as a plain text file with ASCII or UTF-8 encoding");
+            "Unicode text files are not supported. Save as a plain text file with ASCII or UTF-8 encoding");
         }
 
         if (!$isSpreadsheet && $mimeType !== 'text/plain') {
@@ -96,14 +93,14 @@ class Spreadsheet_loader {
         $stripCharsLineNum = -1;
         $stripCharsColNum = -1;
 
-        for($i = 0; $i < $loadedRowCount; $i++) {
+        for ($i = 0; $i < $loadedRowCount; $i++) {
             $colCount = count($this->ss_rows[$i]);
             if ($colCount == 0) {
                 continue;
             }
 
             if (trim(strtoupper($this->ss_rows[$i][0])) == "TRACKING INFORMATION") {
-                for($j = 1; $j < $colCount; $j++) {
+                for ($j = 1; $j < $colCount; $j++) {
                     $contents = trim(strtoupper($this->ss_rows[$i][$j]));
                     if ($contents == "AUXILIARY INFORMATION") {
                         $this->rowStyle = true;
@@ -123,7 +120,7 @@ class Spreadsheet_loader {
                 }
             }
 
-            for($j = 0; $j < $colCount; $j++) {
+            for ($j = 0; $j < $colCount; $j++) {
                 if (($i == $stripCharsLineNum && $j > 0) || $j == $stripCharsColNum) {
                     $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
                 } else {
@@ -143,8 +140,7 @@ class Spreadsheet_loader {
         $this->extract_entity_list();
     }
 
-    private function load_text_file($filePath)
-    {
+    private function load_text_file($filePath) {
         // Enable auto-detection of line endings
         // This is especially important for reading text files saved from Excel on a Mac
         ini_set("auto_detect_line_endings", "1");
@@ -162,22 +158,19 @@ class Spreadsheet_loader {
                 // ASCII 187, »
                 // ASCII 191, ¿
                 if (ord($fields[0][0]) == 239 &&
-                    ord($fields[0][1]) == 187 &&
-                    ord($fields[0][2]) == 191)
-                {
+                        ord($fields[0][1]) == 187 &&
+                        ord($fields[0][2]) == 191) {
                     // This is a UTF-8 file; remove the first three characters from the first field
                     $fields[0] = substr($fields[0], 3);
                 }
             }
 
             $this->ss_rows[] = $fields;
-
         }
         fclose($handle);
     }
 
-    private function load_spreadsheet_file($filePath)
-    {
+    private function load_spreadsheet_file($filePath) {
         // Identify the file type
         $readerType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($filePath);
         // Create a reader for that file type
@@ -194,14 +187,12 @@ class Spreadsheet_loader {
      * Get list of tracking info fields and their row number
      * @throws exception
      */
-    private
-    function find_tracking_info_fields()
-    {
+    private function find_tracking_info_fields() {
         $this->tracking_info_fields = array();
         $grab_it = FALSE;
         if ($this->rowStyle) {
             $headerRow = -1;
-            for($i=0; $i<count($this->ss_rows);$i++) {
+            for ($i = 0; $i < count($this->ss_rows); $i++) {
                 if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
                     $headerRow = $i + 1;
                     $grab_it = TRUE;
@@ -213,9 +204,9 @@ class Spreadsheet_loader {
                     break;
                 }
             }
-            if($grab_it) {
-                for($j = 0; $j < $this->auxInfoCol; $j++) {
-                    if($this->ss_rows[$headerRow][$j] == '') {
+            if ($grab_it) {
+                for ($j = 0; $j < $this->auxInfoCol; $j++) {
+                    if ($this->ss_rows[$headerRow][$j] == '') {
                         throw new exception("Blanks are not permitted in the header row in the tracking info section (column $j)");
                     }
                     $this->tracking_info_fields[$this->ss_rows[$headerRow][$j]] = $j;
@@ -223,13 +214,13 @@ class Spreadsheet_loader {
             }
         } else {
             $end_it = FALSE;
-            for($i=0; $i<count($this->ss_rows);$i++) {
+            for ($i = 0; $i < count($this->ss_rows); $i++) {
                 if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
                     $end_it = TRUE;
                     break;
                 }
-                if($grab_it) {
-                    if($this->ss_rows[$i][0] == '') {
+                if ($grab_it) {
+                    if ($this->ss_rows[$i][0] == '') {
                         throw new exception("Blanks are not permitted in the first column in the tracking info section (row $i)");
                     }
                     $this->tracking_info_fields[$this->ss_rows[$i][0]] = $i;
@@ -239,7 +230,7 @@ class Spreadsheet_loader {
                 }
             }
         }
-        if(!$grab_it) {
+        if (!$grab_it) {
             throw new exception('"TRACKING INFORMATION" header not found');
         }
     }
@@ -251,9 +242,7 @@ class Spreadsheet_loader {
      *  and the $this->aux_info_groups (arrays of items nested within category/subcatory pairs)
      * @throws exception
      */
-    private
-    function find_aux_info_fields()
-    {
+    private function find_aux_info_fields() {
         $this->aux_info_fields = array();
         $in_section = FALSE;
         $in_data = FALSE;
@@ -264,19 +253,19 @@ class Spreadsheet_loader {
 
         if ($this->rowStyle) {
             $headerRow = -1;
-            for($i = 0; $i < $rowCount; $i++) {
+            for ($i = 0; $i < $rowCount; $i++) {
                 if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
                     $in_section = TRUE;
                     $headerRow = $i + 1;
                     // find AUXILIARY INFORMATION
                 }
             }
-            if($in_section) {
+            if ($in_section) {
                 $colCount = count($this->ss_rows[$headerRow]);
-                for($j = $this->auxInfoCol; $j < $colCount; $j++) {
+                for ($j = $this->auxInfoCol; $j < $colCount; $j++) {
                     $rowCount = count($this->ss_rows);
                     $colHasData = FALSE;
-                    for($i = $this->headerRow; $i < $rowCount; $i++) {
+                    for ($i = $this->headerRow; $i < $rowCount; $i++) {
                         if (trim($this->ss_rows[$i][$j]) != '') {
                             $colHasData = TRUE;
                             break;
@@ -289,9 +278,9 @@ class Spreadsheet_loader {
                     }
 
                     $name = $this->ss_rows[$headerRow][$j];
-                    $has_data = ($rowCount > 1 && $this->ss_rows[$headerRow+1][$j] != '');
-                    if($has_data) {
-                        if(!$in_data) {
+                    $has_data = ($rowCount > 1 && $this->ss_rows[$headerRow + 1][$j] != '');
+                    if ($has_data) {
+                        if (!$in_data) {
                             throw new exception("Possible missing category or subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $mark = FALSE;
@@ -302,13 +291,13 @@ class Spreadsheet_loader {
                         $p->column = $j;
                         $this->aux_info_fields[] = $p;
                     } else
-                    if(!$mark) {
+                    if (!$mark) {
                         $category = $name;
                         $mark = TRUE;
                         $in_data = FALSE;
                     } else {
-                        if($in_data) {
-                            throw new exception("Possible extra subcategory ('$name' near column $j)". "<br><br>" . $this->sup_mes['header']);
+                        if ($in_data) {
+                            throw new exception("Possible extra subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $subcategory = $name;
                         $o = new stdClass();
@@ -320,11 +309,11 @@ class Spreadsheet_loader {
                 }
             }
         } else {
-            for($i = 0; $i < $rowCount; $i++) {
-                if($in_section) {
+            for ($i = 0; $i < $rowCount; $i++) {
+                if ($in_section) {
                     $colCount = count($this->ss_rows[$i]);
                     $rowHasData = FALSE;
-                    for($j = 0; $j < $colCount; $j++) {
+                    for ($j = 0; $j < $colCount; $j++) {
                         if (trim($this->ss_rows[$i][$j]) != '') {
                             $rowHasData = TRUE;
                             break;
@@ -338,8 +327,8 @@ class Spreadsheet_loader {
 
                     $name = $this->ss_rows[$i][0];
                     $has_data = ($colCount > 1 && $this->ss_rows[$i][1] != '');
-                    if($has_data) {
-                        if(!$in_data) {
+                    if ($has_data) {
+                        if (!$in_data) {
                             throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $mark = FALSE;
@@ -350,13 +339,13 @@ class Spreadsheet_loader {
                         $p->row = $i;
                         $this->aux_info_fields[] = $p;
                     } else
-                    if(!$mark) {
+                    if (!$mark) {
                         $category = $name;
                         $mark = TRUE;
                         $in_data = FALSE;
                     } else {
-                        if($in_data) {
-                            throw new exception("Possible extra subcategory ('$name' near row $i)". "<br><br>" . $this->sup_mes['header']);
+                        if ($in_data) {
+                            throw new exception("Possible extra subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $subcategory = $name;
                         $o = new stdClass();
@@ -376,7 +365,7 @@ class Spreadsheet_loader {
     /**
      * Supplemental messages
      */
-    private $sup_mes = array (
+    private $sup_mes = array(
         'header' => "The usual reason for this is either forgetting to include both category and subcategory headers for each aux info section, or leaving the value blank for an aux info item for the first entity",
     );
 
@@ -385,15 +374,14 @@ class Spreadsheet_loader {
      * @param type $id
      * @return type
      */
-    function get_entity_tracking_info($id)
-    {
+    function get_entity_tracking_info($id) {
         $info = array();
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);
-            if(!($row === FALSE)) {
+            if (!($row === FALSE)) {
                 $row = $row + $this->headerRow + 1;
-                foreach($this->tracking_info_fields as $field => $col) {
-                    if(count($this->ss_rows[$row]) <= $col) {
+                foreach ($this->tracking_info_fields as $field => $col) {
+                    if (count($this->ss_rows[$row]) <= $col) {
                         $info[$field] = '';
                     } else {
                         $info[$field] = $this->ss_rows[$row][$col];
@@ -402,10 +390,10 @@ class Spreadsheet_loader {
             }
         } else {
             $col = array_search($id, $this->entity_list);
-            if(!($col === FALSE)) {
+            if (!($col === FALSE)) {
                 $col++;
-                foreach($this->tracking_info_fields as $field => $row) {
-                    if(count($this->ss_rows[$row]) <= $col) {
+                foreach ($this->tracking_info_fields as $field => $row) {
+                    if (count($this->ss_rows[$row]) <= $col) {
                         $info[$field] = '';
                     } else {
                         $info[$field] = $this->ss_rows[$row][$col];
@@ -421,23 +409,22 @@ class Spreadsheet_loader {
      * @param type $id
      * @return type
      */
-    function get_entity_aux_info($id)
-    {
+    function get_entity_aux_info($id) {
         $info = array();
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);
-            if(!($row === FALSE)) {
+            if (!($row === FALSE)) {
                 $row++;
-                foreach($this->aux_info_fields as $obj) {
+                foreach ($this->aux_info_fields as $obj) {
                     $obj->value = $this->ss_rows[$row][$obj->column];
                     $info[] = $obj;
                 }
             }
         } else {
             $col = array_search($id, $this->entity_list);
-            if(!($col === FALSE)) {
+            if (!($col === FALSE)) {
                 $col++;
-                foreach($this->aux_info_fields as $obj) {
+                foreach ($this->aux_info_fields as $obj) {
                     $obj->value = $this->ss_rows[$obj->row][$col];
                     $info[] = $obj;
                 }
@@ -452,14 +439,13 @@ class Spreadsheet_loader {
      * @param type $aux_info_fields
      * @return type
      */
-    function group_aux_info_items($aux_info_fields)
-    {
+    function group_aux_info_items($aux_info_fields) {
         $out = array();
-        foreach($this->aux_info_groups as $g) {
+        foreach ($this->aux_info_groups as $g) {
             $group = clone($g);
             $items = array();
-            foreach($aux_info_fields as $f) {
-                if($g->category == $f->category && $g->subcategory == $f->subcategory ) {
+            foreach ($aux_info_fields as $f) {
+                if ($g->category == $f->category && $g->subcategory == $f->subcategory) {
                     $items[$f->item] = $f->value;
                 }
             }
@@ -473,23 +459,21 @@ class Spreadsheet_loader {
      * What type of entity was defined in the spreadsheet
      * @throws exception
      */
-    private
-    function extract_entity_type()
-    {
-        foreach($this->ss_rows as $row) {
+    private function extract_entity_type() {
+        foreach ($this->ss_rows as $row) {
             $s = $row[0];
-            if($s != '') {
-                if($s == 'TRACKING INFORMATION') {
+            if ($s != '') {
+                if ($s == 'TRACKING INFORMATION') {
                     throw new exception("Entity type is missing");
                 }
                 $this->entity_type = $s;
                 break;
             }
         }
-        if($this->entity_type == '') {
+        if ($this->entity_type == '') {
             throw new exception("Entity type is not defined");
         }
-        if($this->entity_type != strtoupper($this->entity_type)) {
+        if ($this->entity_type != strtoupper($this->entity_type)) {
             throw new exception("Entity type '$this->entity_type' must be upper case");
         }
     }
@@ -497,9 +481,7 @@ class Spreadsheet_loader {
     /**
      * Get list of entities that are defined in spreadsheet
      */
-    private
-    function extract_entity_list()
-    {
+    private function extract_entity_list() {
         // the entity is, by definition, the first field in the list, so get its row number
         $row = current($this->tracking_info_fields);
 
@@ -521,8 +503,8 @@ class Spreadsheet_loader {
 
         // sometimes spreadsheet has extra empty columns,
         // so remove trailing blank entries starting at end of list and working forward
-        while(!empty($this->entity_list)) {
-            if(trim(end($this->entity_list)) == '') {
+        while (!empty($this->entity_list)) {
+            if (trim(end($this->entity_list)) == '') {
                 array_pop($this->entity_list);
             } else {
                 break;
@@ -534,8 +516,7 @@ class Spreadsheet_loader {
      * Get extracted data
      * @return type
      */
-    function get_extracted_data()
-    {
+    function get_extracted_data() {
         return $this->ss_rows;
     }
 
@@ -543,8 +524,7 @@ class Spreadsheet_loader {
      * Get entity type
      * @return type
      */
-    function get_entity_type()
-    {
+    function get_entity_type() {
         return $this->entity_type;
     }
 
@@ -552,8 +532,8 @@ class Spreadsheet_loader {
      * Get entity list
      * @return type
      */
-    function get_entity_list()
-    {
+    function get_entity_list() {
         return $this->entity_list;
     }
+
 }

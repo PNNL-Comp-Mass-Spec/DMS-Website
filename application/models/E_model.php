@@ -28,16 +28,14 @@ class E_model extends CI_Model {
     private $entry_commands = array();
 
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
         // Call the Model constructor
         parent::__construct();
         $this->configDBFolder = $this->config->item('model_config_path');
     }
 
     // --------------------------------------------------------------------
-    function init($config_name, $config_source)
-    {
+    function init($config_name, $config_source) {
         $this->error_text = '';
         try {
             $this->config_name = $config_name;
@@ -61,40 +59,37 @@ class E_model extends CI_Model {
      * @param array $which_ones
      * @return \stdClass
      */
-    function get_form_def($which_ones)
-    {
+    function get_form_def($which_ones) {
         $form_def = new stdClass();
 
-        if(in_array('fields', $which_ones)) {
+        if (in_array('fields', $which_ones)) {
             $form_def->fields = array_keys($this->form_fields);
         }
-        if(in_array('rules', $which_ones)) {
+        if (in_array('rules', $which_ones)) {
             $form_def->rules = $this->get_field_validation_rules();
         }
-        if(in_array('specs', $which_ones)) {
+        if (in_array('specs', $which_ones)) {
             $form_def->specs = $this->form_fields;
         }
-        if(in_array('load_key', $which_ones)) {
+        if (in_array('load_key', $which_ones)) {
             $form_def->load_key = $this->get_load_key();
         }
-        if(in_array('enable_spec', $which_ones)) {
+        if (in_array('enable_spec', $which_ones)) {
             $form_def->enable_spec = $this->get_enable_field_specifications();
         }
-        if(in_array('entry_commands', $which_ones)) {
+        if (in_array('entry_commands', $which_ones)) {
             $form_def->entry_commands = $this->entry_commands;
         }
         return $form_def;
     }
 
     // --------------------------------------------------------------------
-    function get_config_name()
-    {
+    function get_config_name() {
         return $this->config_name;
     }
 
     // --------------------------------------------------------------------
-    function get_config_source()
-    {
+    function get_config_source() {
         return $this->config_source;
     }
 
@@ -104,9 +99,8 @@ class E_model extends CI_Model {
      * @param type $source_name
      * @return boolean
      */
-    function get_external_source_field_map($source_name)
-    {
-        if(array_key_exists($source_name, $this->external_sources)) {
+    function get_external_source_field_map($source_name) {
+        if (array_key_exists($source_name, $this->external_sources)) {
             return $this->external_sources[$source_name];
         } else {
             return FALSE;
@@ -117,25 +111,23 @@ class E_model extends CI_Model {
      * Return the field defined as key for spreadsheet loading
      * @return type
      */
-    private
-    function get_load_key()
-    {
+    private function get_load_key() {
         $load_key = '';
         // look for specific definition from config db
-        foreach($this->form_fields as $field => $spec) {
-            if(array_key_exists('load_key_field', $spec)) {
+        foreach ($this->form_fields as $field => $spec) {
+            if (array_key_exists('load_key_field', $spec)) {
                 $load_key = $field;
                 break;
             }
         }
-        
+
         // The form field type may contain several keywords specified by a vertical bar       
         $fieldTypes = explode('|', $spec['type']);
-                
+
         // default is first field that is not non-edit or hidden
-        if(!$load_key) {
-            foreach($this->form_fields as $field => $spec) {
-                if(!in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
+        if (!$load_key) {
+            foreach ($this->form_fields as $field => $spec) {
+                if (!in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
                     $load_key = $field;
                     break;
                 }
@@ -145,12 +137,10 @@ class E_model extends CI_Model {
     }
 
     // --------------------------------------------------------------------
-    private
-    function get_enable_field_specifications()
-    {
+    private function get_enable_field_specifications() {
         $specs = array();
-        foreach($this->form_fields as $f_name => $f_spec) {
-            if(array_key_exists('enable', $f_spec)) {
+        foreach ($this->form_fields as $f_name => $f_spec) {
+            if (array_key_exists('enable', $f_spec)) {
                 $specs[$f_name] = $f_spec['enable'];
             }
         }
@@ -163,29 +153,25 @@ class E_model extends CI_Model {
      * as the the value for the key
      * @return type
      */
-    private
-    function get_field_validation_rules()
-    {
+    private function get_field_validation_rules() {
         $rules = array();
-        foreach($this->form_fields as $f_name => $f_spec) {
+        foreach ($this->form_fields as $f_name => $f_spec) {
             $rule = array();
             $rule['field'] = $f_name;
-            $rule['label'] =  $f_spec['label'];
-            $rule['rules'] =  $f_spec['rules'];
+            $rule['label'] = $f_spec['label'];
+            $rule['rules'] = $f_spec['rules'];
             $rules[] = $rule;
         }
         return $rules;
     }
 
     // --------------------------------------------------------------------
-    private
-    function get_entry_form_definitions($config_name, $dbFileName)
-    {
+    private function get_entry_form_definitions($config_name, $dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
         $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) {
-            throw new Exception('Could not connect to config database at '.$dbFilePath);
+        if (!$dbh) {
+            throw new Exception('Could not connect to config database at ' . $dbFilePath);
         }
 
         // get list of tables in database
@@ -194,31 +180,31 @@ class E_model extends CI_Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        if(in_array('form_fields', $tbl_list)) {
+        if (in_array('form_fields', $tbl_list)) {
             $this->form_fields = array();
             foreach ($dbh->query("SELECT * FROM form_fields", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
                 $a['label'] = $row['label'];
                 $a['type'] = $row['type'];
                 $a['size'] = $row['size'];
-                $a['rules'] = $row['rules' ];
+                $a['rules'] = $row['rules'];
                 $a['maxlength'] = $row['maxlength'];
                 $a['rows'] = $row['rows'];
                 $a['cols'] = $row['cols'];
-                
+
                 // Replace <br> with linefeeds in the default value
                 $a['default'] = str_replace('<br>', "\r", $row['default']);
 
                 $this->form_fields[$row['name']] = $a;
             }
         }
-        if(in_array('form_field_options', $tbl_list)) {
+        if (in_array('form_field_options', $tbl_list)) {
             foreach ($dbh->query("SELECT * FROM form_field_options", PDO::FETCH_ASSOC) as $row) {
                 $this->form_fields[$row['field']][$row['type']] = $row['parameter'];
             }
         }
 
-        if(in_array('form_field_choosers', $tbl_list)) {
+        if (in_array('form_field_choosers', $tbl_list)) {
             $fl = array();
             foreach ($dbh->query("SELECT * FROM form_field_choosers", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
@@ -227,13 +213,13 @@ class E_model extends CI_Model {
                 $a['Target'] = $row['Target'];
                 $a['XRef'] = $row['XRef'];
                 $a['Delimiter'] = $row['Delimiter'];
-                if($row['Label'] != '') {
+                if ($row['Label'] != '') {
                     $a['Label'] = $row['Label'];
                 }
                 $fl[$row['field']][] = $a;
             }
-            foreach($fl as $fn => $ch) {
-                if(count($ch) == 1) {
+            foreach ($fl as $fn => $ch) {
+                if (count($ch) == 1) {
                     $this->form_fields[$fn]['chooser_list'] = array($ch[0]);
                 } else {
                     $this->form_fields[$fn]['chooser_list'] = $ch;
@@ -241,7 +227,7 @@ class E_model extends CI_Model {
             }
         }
 
-        if(in_array('operations_fields', $tbl_list)) {
+        if (in_array('operations_fields', $tbl_list)) {
             $this->operations_fields = array();
             foreach ($dbh->query("SELECT * FROM operations_fields", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
@@ -251,7 +237,7 @@ class E_model extends CI_Model {
             }
         }
 
-        if(in_array('entry_commands', $tbl_list)) {
+        if (in_array('entry_commands', $tbl_list)) {
             $this->entry_commands = array();
             foreach ($dbh->query("SELECT * FROM entry_commands", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
@@ -264,7 +250,7 @@ class E_model extends CI_Model {
             }
         }
 
-        if(in_array('external_sources', $tbl_list)) {
+        if (in_array('external_sources', $tbl_list)) {
             $this->external_sources = array();
             foreach ($dbh->query("SELECT DISTINCT * FROM external_sources", PDO::FETCH_ASSOC) as $row) {
                 $this->external_sources[$row['source_page']] = array();
@@ -274,13 +260,12 @@ class E_model extends CI_Model {
                 $tx = explode(".", $row['type']);
                 $a['type'] = $tx[0];
                 $a['value'] = $row['value'];
-                if(count($tx) > 1) {
+                if (count($tx) > 1) {
                     $a[$tx[1]] = $tx[2];
                 }
                 $this->external_sources[$row['source_page']][$row['field']] = $a;
             }
         }
-
     }
 
 }

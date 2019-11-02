@@ -313,8 +313,9 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                 $segmentMatches = array();
                 $urlSegmentForLabel = (preg_match('/UrlSegment([0-9]+)/i', $lbl, $segmentMatches)) ? $segmentMatches[1] : 0;
 
-                if ($urlSegmentForLabel > 0)
+                if ($urlSegmentForLabel > 0) {
                     $lbl = '';
+                }
             }
 
             $links = array();
@@ -333,16 +334,18 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                     // $urlParts[5] = 337916
 
                     $urlParts = explode('/', $targetUrl);
-                    if (count($urlParts) > $urlSegmentForLabel + 1)
+                    if (count($urlParts) > $urlSegmentForLabel + 1) {
                         $lblToUse = $urlParts[$urlSegmentForLabel + 1];
-                    else
+                    } else {
                         $lblToUse = $lbl;
+                    }
                 } else {
                     $lblToUse = $lbl;
                 }
 
-                if (empty($lblToUse))
+                if (empty($lblToUse)) {
                     $lblToUse = $targetUrl;
+                }
 
                 $links[] = "<a href='$targetUrl' target='External$colIndex'>$lblToUse</a>";
             }
@@ -467,10 +470,11 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                 $str .= '<tr>';
 
                 $rowColNum = 0;
-                if ($headerCount > 0)
+                if ($headerCount > 0) {
                     $explodeLimit = $headerCount;
-                else
+                } else {
                     $explodeLimit = PHP_INT_MAX;
+                }
 
                 foreach (explode(':', $currentItem, $explodeLimit) as $itemField) {
                     $rowColNum += 1;
@@ -658,8 +662,9 @@ function make_detail_report_commands($commands, $tag, $id) {
 
         // Message to show the user to confirm the action
         $prompt = $spec['Prompt'];
-        if (empty($prompt))
+        if (empty($prompt)) {
             $prompt = 'Are you sure that you want to update the database?';
+        }
 
         switch ($spec['Type']) {
             case 'copy_from':

@@ -1,4 +1,5 @@
 <?php
+
 // --------------------------------------------------------------------
 // list report page section
 // --------------------------------------------------------------------
@@ -7,18 +8,16 @@ class List_report {
 
     protected $config_source = '';
     protected $config_name = '';
-
     protected $tag = '';
     protected $title = '';
 
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     // --------------------------------------------------------------------
-    function init($config_name, $config_source)
-    {
+    function init($config_name, $config_source) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
@@ -31,8 +30,7 @@ class List_report {
      * Make list report page
      * @param type $mode
      */
-    function list_report($mode)
-    {
+    function list_report($mode) {
         $CI = &get_instance();
         session_start();
         $CI->load->helper(array('form', 'menu', 'link_util'));
@@ -58,7 +56,7 @@ class List_report {
         // Check for keyword "sfx" or "clear-sfx"
         $sfIdx = $this->get_secondary_filter_preset_idx($segs);
 
-        if(!$sfIdx === false) {
+        if (!$sfIdx === false) {
             // Secondary filters are defined
             // Extract them out then update $pfSegs
             $sfSegs = array_slice($segs, $sfIdx + 1);
@@ -66,7 +64,7 @@ class List_report {
             $this->set_sec_filter_from_url_segments($sfSegs);
         }
 
-        if(!empty($segs)) {
+        if (!empty($segs)) {
             // Retrieve the primary filters
             $primary_filter_specs = $CI->model->get_primary_filter_specs();
 
@@ -77,7 +75,7 @@ class List_report {
                 // Clear any cached filter values
                 $this->set_sec_filter_from_url_segments($sfSegs);
             }
-            redirect($this->tag.'/'.$mode);
+            redirect($this->tag . '/' . $mode);
         }
 
         $data['tag'] = $this->tag;
@@ -85,13 +83,13 @@ class List_report {
         $data['title'] = $CI->gen_model->get_page_label($this->title, $mode);
 
         // get stuff related to list report optional features
-        $data['loading'] = ($mode === 'search')?'no_load':'';
+        $data['loading'] = ($mode === 'search') ? 'no_load' : '';
         $data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
         $data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');
 
-        $data['nav_bar_menu_items']= set_up_nav_bar('List_Reports');
+        $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports');
         $CI->load->vars($data);
         $CI->load->view('main/list_report');
     }
@@ -101,26 +99,24 @@ class List_report {
      * @param array $segs
      * @return int
      */
-    private
-    function get_secondary_filter_preset_idx($segs)
-    {
+    private function get_secondary_filter_preset_idx($segs) {
         $result = false;
         $ns = count($segs);
         $nxt = "";
         $s = "";
         // step through segments and look for secondary filter keywords
-        for($i = 0; $i < $ns; $i++) {
+        for ($i = 0; $i < $ns; $i++) {
             // clear secondary filter
             $s = $segs[$i];
-            if($s == "clear-sfx" && $i + 1 == $ns) {
+            if ($s == "clear-sfx" && $i + 1 == $ns) {
                 $result = $i;
                 break;
             }
             // verify keyword followed by relation
-            if($s == "sfx") {
-                if($i + 1 < $ns) {
+            if ($s == "sfx") {
+                if ($i + 1 < $ns) {
                     $nxt = $segs[$i + 1];
-                    if($nxt == "AND" || $nxt == "OR") {
+                    if ($nxt == "AND" || $nxt == "OR") {
                         $result = $i;
                         break;
                     }
@@ -135,9 +131,7 @@ class List_report {
      * @param type $segs
      * @param type $primary_filter_specs
      */
-    protected
-    function set_pri_filter_from_url_segments($segs, $primary_filter_specs)
-    {
+    protected function set_pri_filter_from_url_segments($segs, $primary_filter_specs) {
         $CI = &get_instance();
 
         // primary filter object (we will use it to cache field values)
@@ -154,7 +148,7 @@ class List_report {
         $CI->primary_filter->clear_current_filter_values();
 
         // update values in primary filter object
-        foreach($initial_field_values as $field => $value) {
+        foreach ($initial_field_values as $field => $value) {
             $CI->primary_filter->set_current_filter_value($field, $value);
         }
         // and cache the values we got from the segments
@@ -165,9 +159,7 @@ class List_report {
      * Initialize secondary filter values from URL segments and cache them for subsequent queries
      * @param type $segs
      */
-    protected
-    function set_sec_filter_from_url_segments($segs)
-    {
+    protected function set_sec_filter_from_url_segments($segs) {
         $CI = &get_instance();
 
         // secondary filter object (we will use it to cache field values)
@@ -183,8 +175,7 @@ class List_report {
      * @param type $filter_display_mode
      * @category AJAX
      */
-    function report_filter($filter_display_mode = 'advanced')
-    {
+    function report_filter($filter_display_mode = 'advanced') {
         $CI = &get_instance();
         session_start();
 
@@ -210,7 +201,7 @@ class List_report {
         $CI->cu->load_lib('secondary_filter', $this->config_name, $this->config_source);
         $sec_filter_display_info = $CI->secondary_filter->collect_information_for_display($CI->data_model, "$this->config_source/get_sql_comparison/");
 
-        switch($filter_display_mode) {
+        switch ($filter_display_mode) {
             case 'minimal':
                 make_search_filter_minimal($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter);
                 break;
@@ -228,8 +219,7 @@ class List_report {
      * @param string $column_name
      * @category AJAX
      */
-    function get_sql_comparison($column_name)
-    {
+    function get_sql_comparison($column_name) {
         $CI = &get_instance();
         session_start();
 
@@ -246,8 +236,7 @@ class List_report {
      * @param string $option
      * @category AJAX
      */
-    function report_data($option = 'rows')
-    {
+    function report_data($option = 'rows') {
         $CI = &get_instance();
         session_start();
 
@@ -263,7 +252,7 @@ class List_report {
         $CI->cell_presentation->set_col_filter($col_filter);
 
         $rows = $CI->data_model->get_rows()->result_array();
-        if(empty($rows)) {
+        if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
             $col_info = $CI->data_model->get_column_info();
@@ -285,13 +274,12 @@ class List_report {
      * @param string $what_info
      * @category AJAX
      */
-    function report_info($what_info)
-    {
+    function report_info($what_info) {
         $CI = &get_instance();
         session_start();
         $this->set_up_list_query();
 
-        switch($what_info) {
+        switch ($what_info) {
             case "sql":
                 echo $CI->data_model->get_sql("filtered_and_sorted");
                 break;
@@ -308,17 +296,15 @@ class List_report {
      * @param type $tag
      * @return string
      */
-    private
-    function dump_filters($filters, $tag)
-    {
+    private function dump_filters($filters, $tag) {
         $s = "";
 
         // dump primary filter to segment list
         // Replace spaces with %20
         // Trim leading and trailing whitespace
         $pf = array();
-        foreach($filters["primary"] as $f) {
-            $x = ($f["value"]) ? $f["value"] : "-" ;
+        foreach ($filters["primary"] as $f) {
+            $x = ($f["value"]) ? $f["value"] : "-";
             $pf[] = str_replace(" ", "%20", trim($x));
         }
         $s .= site_url() . "$tag/report/" . implode("/", $pf);
@@ -328,13 +314,13 @@ class List_report {
 
         $dateFilters = array("LaterThan", "EarlierThan");
 
-        foreach($filters["secondary"] as $f) {
-            if($f["qf_comp_val"]) {
+        foreach ($filters["secondary"] as $f) {
+            if ($f["qf_comp_val"]) {
                 $y = "/" . $f["qf_rel_sel"];
                 $y .= "/" . $f["qf_col_sel"];
                 $y .= "/" . $f["qf_comp_sel"];
 
-                if (in_array( $f["qf_comp_sel"], $dateFilters)) {
+                if (in_array($f["qf_comp_sel"], $dateFilters)) {
                     // Replace forward slashes with dashes
                     $y .= "/" . str_replace("/", "-", $f["qf_comp_val"]);
                 } else {
@@ -346,20 +332,18 @@ class List_report {
         }
 
         // add secondary filter segments (if present)
-        if(!empty($sf)) {
+        if (!empty($sf)) {
             $s .= "/sfx" . implode("", $sf);
         }
 
         return $s;
     }
 
-
     /**
      * Create HTML for the paging display and control element for inclusion in report pages
      * @category AJAX
      */
-    function report_paging()
-    {
+    function report_paging() {
         $CI = &get_instance();
         session_start();
 
@@ -388,16 +372,13 @@ class List_report {
         } catch (Exception $e) {
             echo "Paging controls could not be built.  " . $e->getMessage();
         }
-
     }
 
     /**
      * Set up query for database entity based on list report filtering
      * @return array Filter settings
      */
-    protected
-    function set_up_list_query()
-    {
+    protected function set_up_list_query() {
         $CI = &get_instance();
 
         // it all starts with a model
@@ -421,13 +402,13 @@ class List_report {
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
         // add filter values to data model to set up query
-        foreach(array_values($current_primary_filter_values) as $pi) {
+        foreach (array_values($current_primary_filter_values) as $pi) {
             $CI->data_model->add_predicate_item($pi['rel'], $pi['col'], $pi['cmp'], $pi['value']);
         }
-        foreach($current_secondary_filter_values as $pi) {
+        foreach ($current_secondary_filter_values as $pi) {
             $CI->data_model->add_predicate_item($pi['qf_rel_sel'], $pi['qf_col_sel'], $pi['qf_comp_sel'], $pi['qf_comp_val']);
         }
-        foreach($current_sorting_filter_values as $item) {
+        foreach ($current_sorting_filter_values as $item) {
             $CI->data_model->add_sorting_item($item['qf_sort_col'], $item['qf_sort_dir']);
         }
         $CI->data_model->add_paging_item($current_filter_values['qf_first_row'], $current_filter_values['qf_rows_per_page']);
@@ -441,13 +422,11 @@ class List_report {
         );
     }
 
-
     /**
      * Export a list report
      * @param string $format
      */
-    function export($format)
-    {
+    function export($format) {
         $CI = &get_instance();
         session_start();
         $CI->load->helper(array('export'));
@@ -468,19 +447,19 @@ class List_report {
         // (someday) list report document export - output helper needs to clean out newlines and so forth.
 
         if (empty($rows)) {
-          echo '<p>The table appears to have no data.</p>';
+            echo '<p>The table appears to have no data.</p>';
         } else {
-            switch($format) {
+            switch ($format) {
                 case 'excel':
                     export_to_excel($rows, $this->tag, $col_filter);
                     break;
                 case 'tsv':
                     export_to_tab_delimited_text($rows, $this->tag, $col_filter);
                     break;
-            case 'json':
-                header("Content-type: application/json");
-                echo json_encode($rows);
-                break;
+                case 'json':
+                    header("Content-type: application/json");
+                    echo json_encode($rows);
+                    break;
             }
         }
     }

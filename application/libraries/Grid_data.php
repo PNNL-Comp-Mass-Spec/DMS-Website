@@ -9,8 +9,8 @@ class Grid_data {
     private $config_name = '';
 
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     /**
@@ -18,8 +18,7 @@ class Grid_data {
      * @param type $config_name
      * @param type $config_source
      */
-    function init($config_name, $config_source)
-    {
+    function init($config_name, $config_source) {
         $this->config_source = $config_source;
         $this->config_name = $config_name;
     }
@@ -36,12 +35,12 @@ class Grid_data {
         try {
             $CI->load->database();
             $result = $CI->db->query($sql);
-            if(!$result) {
+            if (!$result) {
                 $currentTimestamp = date("Y-m-d");
-                throw new exception ("Error querying database; see application/logs/log-$currentTimestamp.php");
+                throw new exception("Error querying database; see application/logs/log-$currentTimestamp.php");
             }
             $columns = array();
-            foreach($result->field_data() as $field) {
+            foreach ($result->field_data() as $field) {
                 $columns[] = $field->name;
             }
             $response->result = 'ok';
@@ -62,20 +61,19 @@ class Grid_data {
      * @return \stdClass
      * @throws exception
      */
-    function get_sproc_data($paramArray, $config_name = '')
-    {
+    function get_sproc_data($paramArray, $config_name = '') {
         $CI = &get_instance();
 
-        if(!$config_name) {
+        if (!$config_name) {
             $config_name = $this->config_name;
         }
 
-        $CI->load->helper(array('user','url'));
+        $CI->load->helper(array('user', 'url'));
         $response = new stdClass();
         try {
             // init sproc model
             $ok = $CI->cu->load_mod('s_model', 'sproc_model', $config_name, $this->config_source);
-            if(!$ok) {
+            if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
 
@@ -84,7 +82,7 @@ class Grid_data {
             $calling_params = $CI->sproc_model->get_calling_args($paramObj);
 
             $success = $CI->sproc_model->execute_sproc($calling_params);
-            if(!$success) {
+            if (!$success) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
 
@@ -101,24 +99,21 @@ class Grid_data {
     }
 
     // --------------------------------------------------------------------
-    private
-    function get_input_values($fields, $paramArray) {
-        if($paramArray === false) {
+    private function get_input_values($fields, $paramArray) {
+        if ($paramArray === false) {
             $paramArray = array();
         }
         $paramObj = new stdClass();
-        foreach($fields as $field) {
-            $paramObj->$field = (array_key_exists ($field, $paramArray)) ? $paramArray[$field] : '';
+        foreach ($fields as $field) {
+            $paramObj->$field = (array_key_exists($field, $paramArray)) ? $paramArray[$field] : '';
         }
         return $paramObj;
     }
 
     // --------------------------------------------------------------------
-    private
-    function make_col_specs($colNames)
-    {
+    private function make_col_specs($colNames) {
         $colSpec = array();
-        foreach($colNames as $colName) {
+        foreach ($colNames as $colName) {
             $spec = new stdClass();
             $colSpec[] = $spec;
         }

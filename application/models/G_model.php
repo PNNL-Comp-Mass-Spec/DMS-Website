@@ -142,8 +142,7 @@ class G_model extends CI_Model {
     }
 
     // --------------------------------------------------------------------
-    private
-    function get_utility_defs($config_name, $dbFileName)
+    private function get_utility_defs($config_name, $dbFileName)
     {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
@@ -184,7 +183,7 @@ class G_model extends CI_Model {
             $this->the_parameters['has_checkboxes'] = !(strpos($obj->hotlinks, 'CHECKBOX') === FALSE);
             if(!(strpos($obj->hotlinks, 'update_opener') === FALSE)) {
                 $this->the_parameters['has_opener_hotlinks'] = TRUE;
-                $this->the_parameters['is_ms_helper'] = TRUE;;
+                $this->the_parameters['is_ms_helper'] = TRUE;
             }
         }
     }
@@ -197,8 +196,7 @@ class G_model extends CI_Model {
      * @param type $dbFileName
      * @throws Exception
      */
-    private
-    function get_general_defs($config_name, $dbFileName)
+    private function get_general_defs($config_name, $dbFileName)
     {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 

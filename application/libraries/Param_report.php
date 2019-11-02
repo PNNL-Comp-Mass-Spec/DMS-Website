@@ -1,4 +1,5 @@
 <?php
+
 // --------------------------------------------------------------------
 // param report (stored procedure based list report) section
 // --------------------------------------------------------------------
@@ -7,22 +8,19 @@ class Param_report {
 
     private $config_source = '';
     private $config_name = '';
-
     private $tag = '';
     private $title = '';
 
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     // --------------------------------------------------------------------
     // list report page section
     // --------------------------------------------------------------------
-
     // --------------------------------------------------------------------
-    function init($config_name, $config_source)
-    {
+    function init($config_name, $config_source) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
@@ -36,8 +34,7 @@ class Param_report {
      * e_model for the config db which will be used to get data
      * rows in HTML via and AJAX call to the param_data function.
      */
-    function param()
-    {
+    function param() {
         $CI = &get_instance();
 
         // general specifications for page family
@@ -53,10 +50,10 @@ class Param_report {
         $segs = array_slice($CI->uri->segment_array(), 2);
         $CI->load->helper(array('entry_page'));
         $initial_field_values = get_values_from_segs($form_def->fields, $segs);
-        foreach($initial_field_values as $field => $value) {
+        foreach ($initial_field_values as $field => $value) {
             $CI->entry_form->set_field_value($field, $value);
         }
-        $hdr = (empty($form_def->specs))?'':"<span class='filter_label'>Search Parameters</span>\n";
+        $hdr = (empty($form_def->specs)) ? '' : "<span class='filter_label'>Search Parameters</span>\n";
         $data['form'] = $hdr . $CI->entry_form->build_display("add");
 
         $data['title'] = $CI->gen_model->get_page_label($this->title, 'param');
@@ -70,7 +67,7 @@ class Param_report {
         $data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');
 
         $CI->load->helper(array('menu', 'link_util'));
-        $data['nav_bar_menu_items']= set_up_nav_bar('Param_Pages');
+        $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages');
         $CI->load->vars($data);
         $CI->load->view('main/param_report');
     }
@@ -84,19 +81,18 @@ class Param_report {
      * @return type
      * @category AJAX
      */
-    function param_data()
-    {
+    function param_data() {
         $CI = &get_instance();
         session_start();
         $CI->load->helper('user');
 
         $message = $this->get_data_rows_from_sproc();
-        if($message) {
+        if ($message) {
             echo "<div id='data_message' >$message</div>";
             return;
         }
         $rows = $this->get_filtered_param_report_rows();
-        if(empty($rows)) {
+        if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
             $CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
@@ -128,12 +124,10 @@ class Param_report {
      * @param type $paging
      * @return type
      */
-    private
-    function get_filtered_param_report_rows($paging = TRUE)
-    {
+    private function get_filtered_param_report_rows($paging = TRUE) {
         $CI = &get_instance();
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
-        if($paging) {
+        if ($paging) {
             $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
         } else {
             $current_paging_filter_values = array();
@@ -153,9 +147,7 @@ class Param_report {
      * @return type
      * @throws exception
      */
-    private
-    function get_data_rows_from_sproc()
-    {
+    private function get_data_rows_from_sproc() {
         $CI = &get_instance();
         // get specifications for the entry form
         // used for submission into POST and to be returned as HTML
@@ -163,7 +155,7 @@ class Param_report {
         $form_def = $CI->form_model->get_form_def(array('fields', 'rules'));
 
         $calling_params = new stdClass();
-        if(empty($form_def->fields)) {
+        if (empty($form_def->fields)) {
             $valid_fields = TRUE;
         } else {
             // make validation object and use it to
@@ -177,7 +169,7 @@ class Param_report {
             // get field values from validation object into an object
             // that will be used for calling stored procedure
             // and also putting values back into entry form HTML
-            foreach($form_def->fields as $field) {
+            foreach ($form_def->fields as $field) {
                 $calling_params->$field = $CI->form_validation->set_value($field);
             }
         }
@@ -192,16 +184,15 @@ class Param_report {
             }
 
             // call stored procedure
-            $ok = $CI->cu->load_mod('s_model', 'sproc_model',$this->config_name, $this->config_source);
-            if(!$ok) {
+            $ok = $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+            if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
 
             $success = $CI->sproc_model->execute_sproc($calling_params);
-            if(!$success) {
+            if (!$success) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
-
         } catch (Exception $e) {
             $message = $e->getMessage();
         }
@@ -213,8 +204,7 @@ class Param_report {
      * for inclusion in param report pages
      * @category AJAX
      */
-    function param_paging()
-    {
+    function param_paging() {
         $CI = &get_instance();
         session_start();
 
@@ -247,8 +237,7 @@ class Param_report {
 
     // --------------------------------------------------------------------
     // AJAX
-    function param_filter()
-    {
+    function param_filter() {
         $CI = &get_instance();
         session_start();
 
@@ -275,14 +264,13 @@ class Param_report {
      * @param type $format
      * @return type
      */
-    function export_param($format)
-    {
+    function export_param($format) {
         $CI = &get_instance();
         session_start();
         $CI->load->helper(array('user', 'export'));
 
         $message = $this->get_data_rows_from_sproc();
-        if($message) {
+        if ($message) {
             echo $message;
             return;
         }
@@ -298,19 +286,19 @@ class Param_report {
         $col_filter = $CI->column_filter->get_current_filter_values();
 
         if (empty($rows)) {
-          echo '<p>The table appears to have no data.</p>';
+            echo '<p>The table appears to have no data.</p>';
         } else {
-            switch($format) {
+            switch ($format) {
                 case 'excel':
                     export_to_excel($rows, $this->tag, $col_filter);
                     break;
                 case 'tsv':
                     export_to_tab_delimited_text($rows, $this->tag, $col_filter);
                     break;
-            case 'json':
-                header("Content-type: application/json");
-                echo json_encode($rows);
-                break;
+                case 'json':
+                    header("Content-type: application/json");
+                    echo json_encode($rows);
+                    break;
             }
         }
     }

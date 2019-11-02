@@ -6,11 +6,8 @@
 class Entry_form {
 
     private $form_field_specs = array();
-
     private $field_values = array();
-
     private $field_enable = array();
-
     private $field_errors = array();
 
     /**
@@ -18,17 +15,15 @@ class Entry_form {
      * @var boolean
      */
     private $include_help_link = TRUE;
-
     private $file_tag = '';
 
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     // --------------------------------------------------------------------
-    function init($form_field_specs, $file_tag)
-    {
+    function init($form_field_specs, $file_tag) {
         $this->form_field_specs = $form_field_specs;
         $this->file_tag = $file_tag;
 
@@ -38,15 +33,13 @@ class Entry_form {
     /**
      * Set current field values to defaults as defined by specs
      */
-    private
-    function set_field_values_to_default()
-    {
-        $CI =& get_instance();
+    private function set_field_values_to_default() {
+        $CI = & get_instance();
         $CI->load->helper('user');
 
-        foreach($this->form_field_specs as $fldName => $spc) {
-                $this->field_values[$fldName] = $this->get_default_value($CI, $fldName, $spc);
-                $this->field_errors[$fldName] = '';
+        foreach ($this->form_field_specs as $fldName => $spc) {
+            $this->field_values[$fldName] = $this->get_default_value($CI, $fldName, $spc);
+            $this->field_errors[$fldName] = '';
         }
     }
 
@@ -57,26 +50,22 @@ class Entry_form {
      * @param type $f_spec
      * @return type
      */
-    private
-    function get_default_value($CI, $fldName, $f_spec)
-    {
+    private function get_default_value($CI, $fldName, $f_spec) {
         $val = '';
 
         if (!array_key_exists('default', $f_spec) &&
-            !array_key_exists('default_function', $f_spec) &&
-            array_key_exists('section', $f_spec))
-        {
-            $CI->cu->message_box('Configuration Error',
-                    "In the config DB, form_field_options has a section entry "
+                !array_key_exists('default_function', $f_spec) &&
+                array_key_exists('section', $f_spec)) {
+            $CI->cu->message_box('Configuration Error', "In the config DB, form_field_options has a section entry "
                     . "named $fldName, but that is not a valid form field; "
                     . "update it to refer to a valid form field or remove the section");
             return $val;
         }
 
-        if(isset($f_spec["default_function"])) {
+        if (isset($f_spec["default_function"])) {
             // if so, use specified function to get value
             $func_parts = explode(':', $f_spec["default_function"]);
-            switch(strtolower($func_parts[0])) {
+            switch (strtolower($func_parts[0])) {
                 case 'getuser()':
                     $val = get_user();
                     break;
@@ -95,7 +84,7 @@ class Entry_form {
                     $val = date("m/d/Y", strtotime("$interval day"));
                     break;
             }
-        }  else {
+        } else {
             // otherwise, use the literal default
             $val = $f_spec["default"];
         }
@@ -103,20 +92,17 @@ class Entry_form {
     }
 
     // --------------------------------------------------------------------
-    function set_field_value($field, $value)
-    {
+    function set_field_value($field, $value) {
         $this->field_values[$field] = $value;
     }
 
     // --------------------------------------------------------------------
-    function set_field_error($field, $error)
-    {
+    function set_field_error($field, $error) {
         $this->field_errors[$field] = $error;
     }
 
     // --------------------------------------------------------------------
-    function set_field_enable($fields)
-    {
+    function set_field_enable($fields) {
         $this->field_enable = $fields;
     }
 
@@ -129,29 +115,27 @@ class Entry_form {
      * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
      * @return type
      */
-    function build_display($mode)
-    {
-        $CI =& get_instance();
+    function build_display($mode) {
+        $CI = & get_instance();
         $CI->load->model('dms_chooser', 'choosers');
         $CI->load->helper(array('url', 'string', 'form'));
 
         $visible_fields = array();
         $hidden_fields = array();
         $block_number = 0;
-        foreach($this->form_field_specs as $fldName => $spec) {
+        foreach ($this->form_field_specs as $fldName => $spec) {
             if (!array_key_exists('type', $spec)) {
-                 $CI->cu->message_box('Configuration Error',
-                    "In the config DB, one of the tables refers to $fldName "
-                    . "but that field is not defined in form_fields; see also "
-                    . "the columns returned by the view or table specified by "
-                    . "entry_page_data_table in general_params");
+                $CI->cu->message_box('Configuration Error', "In the config DB, one of the tables refers to $fldName "
+                        . "but that field is not defined in form_fields; see also "
+                        . "the columns returned by the view or table specified by "
+                        . "entry_page_data_table in general_params");
                 continue;
             }
 
-			// The form field type may contain several keywords specified by a vertical bar       
-	        $fieldTypes = explode('|', $spec['type']);
+            // The form field type may contain several keywords specified by a vertical bar       
+            $fieldTypes = explode('|', $spec['type']);
 
-            if(in_array('hidden', $fieldTypes)) {
+            if (in_array('hidden', $fieldTypes)) {
                 $val = $this->field_values[$fldName];
                 $hidden_fields[] = "<input type='hidden' id='$fldName' name='$fldName' value='$val'/>";
             } else {
@@ -175,7 +159,7 @@ class Entry_form {
                 $showChooser = true;
 
                 if (in_array('text-if-new', $fieldTypes)) {
-                    if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
+                    if (substr($mode, 0, 3) === 'add' || $mode === 'retry') {
                         // Mode is likely add, though for dataset creation it will be add_trigger
                         // Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
                         $showChooser = true;
@@ -194,9 +178,9 @@ class Entry_form {
                 $error = $this->field_errors[$fldName]; //$this->make_error_field($this->field_errors[$fldName]);
                 //
                 $entry = $this->make_entry_area($field, $choosers, $error);
-                $param = ($help)?$help . '&nbsp;' . $label:$label;
+                $param = ($help) ? $help . '&nbsp;' . $label : $label;
                 //
-                if(!empty($this->field_enable)) {
+                if (!empty($this->field_enable)) {
                     $enable_ctrl = $this->make_field_enable_checkbox($fldName);
                     $visible_fields[] = array($block_number, $param, $enable_ctrl, $entry);
                 } else {
@@ -211,13 +195,12 @@ class Entry_form {
 
         // package form display elements into final container
         $str = '';
-        if(!empty($visible_fields)) {
+        if (!empty($visible_fields)) {
             $str .= $this->display_table($visible_fields, empty($this->field_enable), $block_number);
         }
         $str .= implode("\n", $hidden_fields);
         return $str;
     }
-
 
     // ---------------------------------------------------------------------------------------------------------
     // HTML formatting function - maybe move to helper someday
@@ -230,46 +213,44 @@ class Entry_form {
      * @param type $sections
      * @return string
      */
-    private
-    function display_table($visible_fields, $has_enable_col, $sections)
-    {
+    private function display_table($visible_fields, $has_enable_col, $sections) {
         $str = "";
         $str .= "<table class='EPag'>\n";
 
-        $header = ($has_enable_col)?array('Parameter', 'Value'):array('Parameter', 'Enable', 'Value');
+        $header = ($has_enable_col) ? array('Parameter', 'Value') : array('Parameter', 'Enable', 'Value');
         $str .= "<tr>";
-        foreach($header as $head) {
-            $str .= "<th>".$head."</th>";
+        foreach ($header as $head) {
+            $str .= "<th>" . $head . "</th>";
         }
         $str .= "</tr>\n";
 
-/* FUTURE: enable this via general_params setting
-        if($sections > 0) {
-            $str .= "<tr>";
-            $str .= "<td colspan=2>" . $this->make_master_section_controls() . "</td>";
-            $str .= "</tr>\n";
-        }
-*/
+        /* FUTURE: enable this via general_params setting
+          if($sections > 0) {
+          $str .= "<tr>";
+          $str .= "<td colspan=2>" . $this->make_master_section_controls() . "</td>";
+          $str .= "</tr>\n";
+          }
+         */
         // place all visible fields into table cells in table rows
-        foreach($visible_fields as $row) {
+        foreach ($visible_fields as $row) {
             // remove the section number from the row fields (we don't display it)
             $section_number = array_shift($row);
             // if row is a section header, apply header formatting to field and table row
             $col_span = '';
-            if($section_number == -1){
+            if ($section_number == -1) {
                 $blk = array_pop($row); // retrieve and remove block number for section head
                 $col_span = "colspan='2' class='section_block_header_all' id='section_block_header_$blk' ";
                 $row[0] = $this->make_section_header($blk, $row[0]);
             }
             // define classes for section rows with section numbers greater than 0
             $class = '';
-            if($section_number > 0) {
+            if ($section_number > 0) {
                 $class = "class='section_block_$section_number section_block_all'";
             }
             // place row fields in table cells in table row
             $str .= "<tr $class>";
-            foreach($row as $field) {
-                $str .= "<td $col_span>".$field."</td>";
+            foreach ($row as $field) {
+                $str .= "<td $col_span>" . $field . "</td>";
             }
             $str .= "</tr>\n";
         }
@@ -278,11 +259,10 @@ class Entry_form {
     }
 
     // -----------------------------------
-    private
-    function make_master_section_controls(){
+    private function make_master_section_controls() {
         $s = '';
-        $himg = "<img src='" . base_url(). "/images/z_show_col.gif' border='0' >";
-        $simg = "<img src='" . base_url(). "/images/z_hide_col.gif' border='0' >";
+        $himg = "<img src='" . base_url() . "/images/z_show_col.gif' border='0' >";
+        $simg = "<img src='" . base_url() . "/images/z_hide_col.gif' border='0' >";
         $s .= "<a href='javascript:void(0)' onclick='epsilon.showHideSections(\"hide\", \"all\")'>$simg</a> Collapse All Sections ";
         $s .= '&nbsp;';
         $s .= "<a href='javascript:void(0)' onclick='epsilon.showHideSections(\"show\", \"all\")'>$himg</a> Expand All Sections ";
@@ -290,26 +270,22 @@ class Entry_form {
     }
 
     // -----------------------------------
-    private
-    function make_section_header($section_count, $section_label)
-    {
+    private function make_section_header($section_count, $section_label) {
         $s = "";
         $block_label = "section_block_$section_count";
-        $marker = "<img id='".$block_label."_cntl"."' src='" . base_url(). "/images/z_hide_col.gif' border='0' >";
-        $s .= "<a href='javascript:void(0)' onclick='epsilon.showHideTableRows(\"$block_label\", \"".base_url()."/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
-        $s .= "&nbsp; <strong>".$section_label."</strong>";
+        $marker = "<img id='" . $block_label . "_cntl" . "' src='" . base_url() . "/images/z_hide_col.gif' border='0' >";
+        $s .= "<a href='javascript:void(0)' onclick='epsilon.showHideTableRows(\"$block_label\", \"" . base_url() . "/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
+        $s .= "&nbsp; <strong>" . $section_label . "</strong>";
         return $s;
     }
 
     // -----------------------------------
-    private
-    function make_field_enable_checkbox($fldName)
-    {
+    private function make_field_enable_checkbox($fldName) {
         $str = '';
-        if(array_key_exists($fldName, $this->field_enable)) {
+        if (array_key_exists($fldName, $this->field_enable)) {
             $ckbx_id = $fldName . '_ckbx_enable';
             $click = "onClick='epsilon.enableDisableField(this, \"$fldName\")'";
-            switch(strtolower($this->field_enable[$fldName])) {
+            switch (strtolower($this->field_enable[$fldName])) {
                 case 'enabled':
                     $str = "<input type='checkbox' class='_ckbx_enable' name='$ckbx_id' $click checked='yes' >";
                     break;
@@ -331,17 +307,15 @@ class Entry_form {
      * @param type $error
      * @return string
      */
-    private
-    function make_entry_area($field, $choosers, $error)
-    {
+    private function make_entry_area($field, $choosers, $error) {
         $str = '';
         $str .= "<table>";
         $str .= "<tr>";
-        $str .= "<td>".$field."</td>";
-        $str .= "<td style='vertical-align:bottom'>".$choosers."</td>";
+        $str .= "<td>" . $field . "</td>";
+        $str .= "<td style='vertical-align:bottom'>" . $choosers . "</td>";
         $str .= "</tr>";
-        if($error) {
-            $str .= "<tr><td colspan='2'>".$error."</td></tr>";
+        if ($error) {
+            $str .= "<tr><td colspan='2'>" . $error . "</td></tr>";
         }
         $str .= "</table>";
         return $str;
@@ -349,27 +323,26 @@ class Entry_form {
 
     /**
      * Create a set of choosers from the list in the given field spec
-     * @param type $f_name
+     * @param type $field_name
      * @param type $f_spec
      * @param type $element_start
      * @param type $element_end
      * @return string
      */
-    function make_choosers($f_name, $f_spec, $element_start = "<div style='margin-bottom:5px;'>", $element_end = "</div>")
-    {
+    function make_choosers($field_name, $f_spec, $element_start = "<div style='margin-bottom:5px;'>", $element_end = "</div>") {
         $s = "";
         $seq = 0;
-        if(array_key_exists("chooser_list", $f_spec)) {
-            foreach($f_spec['chooser_list'] as $chsr) {
+        if (array_key_exists("chooser_list", $f_spec)) {
+            foreach ($f_spec['chooser_list'] as $chsr) {
                 $seq++;
                 $pln = $chsr["PickListName"];
                 $delim = $chsr['Delimiter'];
                 $type = $chsr["type"];
                 $target = $chsr['Target'];
                 $xref = $chsr['XRef'];
-                $label = (array_key_exists('Label', $chsr))?$chsr['Label']:'Choose from:';
-                $ch = $this->make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq);
-                $s .= $element_start . $ch .$element_end;
+                $label = (array_key_exists('Label', $chsr)) ? $chsr['Label'] : 'Choose from:';
+                $ch = $this->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
+                $s .= $element_start . $ch . $element_end;
             }
         }
         return $s;
@@ -377,7 +350,7 @@ class Entry_form {
 
     /**
      * Create a chooser from the given parameters
-     * @param type $f_name
+     * @param type $field_name
      * @param type $type
      * @param type $pln
      * @param type $target
@@ -387,45 +360,41 @@ class Entry_form {
      * @param type $seq
      * @return type
      */
-    private
-    function make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq)
-    {
-        $CI =& get_instance();
-        return $CI->choosers->make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq);
+    private function make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq) {
+        $CI = & get_instance();
+        return $CI->choosers->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
     }
 
     /**
      * Make an entry form field
      *
-     * @param type $f_name Field name
+     * @param type $field_name Field name
      * @param type $f_spec Field spec
      * @param type $cur_value Current value
      * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
      * @return type
      */
-    private
-    function make_entry_field($f_name, $f_spec, $cur_value, $mode)
-    {
+    private function make_entry_field($field_name, $f_spec, $cur_value, $mode) {
         $s = "";
 
         // set up delimiter for lists for the field
         $delimFromSpec = (isset($f_spec['chooser']['Delimiter'])) ? $f_spec['chooser']['Delimiter'] : '';
         $delim = ($delimFromSpec != '') ? $delimFromSpec : ',';
-	
-        $data['name']  = $f_name;
-        $data['id']  = $f_name;
+
+        $data['name'] = $field_name;
+        $data['id'] = $field_name;
         $data['value'] = $cur_value;
 
-		// The form field type may contain several keywords specified by a vertical bar       
+        // The form field type may contain several keywords specified by a vertical bar       
         $fieldTypes = explode('|', $f_spec['type']);
-        
+
         if (in_array('text-if-new', $fieldTypes)) {
 
-			// Replace text-if-new with either 'text' or 'non-edit'
-			// First remove 'text-if-new'
-			$fieldTypes = array_merge(array_diff($fieldTypes, array('text-if-new')));
+            // Replace text-if-new with either 'text' or 'non-edit'
+            // First remove 'text-if-new'
+            $fieldTypes = array_merge(array_diff($fieldTypes, array('text-if-new')));
 
-            if (substr($mode, 0, 3 ) === 'add' || $mode === 'retry') {
+            if (substr($mode, 0, 3) === 'add' || $mode === 'retry') {
                 // Mode is likely add, though for dataset creation it will be add_trigger
                 // Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
                 $fieldTypes[] = 'text';
@@ -433,40 +402,40 @@ class Entry_form {
                 $fieldTypes[] = 'non-edit';
             }
         } else if (in_array('text-nocopy', $fieldTypes) || in_array('area-nocopy', $fieldTypes)) {
-            if (substr($mode, 0, 3 ) === 'add') {
+            if (substr($mode, 0, 3) === 'add') {
                 // Blank out the value to force the user to re-define it for this new entry
                 // (or, for non-edit fields, blank out the fields because it is not relevant to the new item)
                 $data['value'] = '';
             }
 
-			if (!in_array('non-edit', $fieldTypes)) {
-				// Replace 'text-nocopy' or 'area-nocopy' with 'text' or 'area'
-				
-				if (in_array('area-nocopy', $fieldTypes)) {
-					$fieldTypes = array_merge(array_diff($fieldTypes, array('area-nocopy')));
-					$fieldTypes[] = 'area';
-				} else {
-					$fieldTypes = array_merge(array_diff($fieldTypes, array('text-nocopy')));
-					$fieldTypes[] = 'text';
-				}
-	    	}
+            if (!in_array('non-edit', $fieldTypes)) {
+                // Replace 'text-nocopy' or 'area-nocopy' with 'text' or 'area'
+
+                if (in_array('area-nocopy', $fieldTypes)) {
+                    $fieldTypes = array_merge(array_diff($fieldTypes, array('area-nocopy')));
+                    $fieldTypes[] = 'area';
+                } else {
+                    $fieldTypes = array_merge(array_diff($fieldTypes, array('text-nocopy')));
+                    $fieldTypes[] = 'text';
+                }
+            }
         }
 
         // create HTML according to field type
-		if (in_array('text', $fieldTypes)) {
+        if (in_array('text', $fieldTypes)) {
             $data['maxlength'] = $f_spec['maxlength'];
-            $data['size']      = $f_spec['size'];
-            $data = $this->add_chooser_properties($f_name, $f_spec, $data);
+            $data['size'] = $f_spec['size'];
+            $data = $this->add_chooser_properties($field_name, $f_spec, $data);
             $s .= form_input($data);
-		} else if (in_array('area', $fieldTypes)) {
+        } else if (in_array('area', $fieldTypes)) {
             $data['rows'] = $f_spec['rows'];
             $data['cols'] = $f_spec['cols'];
             $autoFormatDelimitedList = true;
-            if(isset($f_spec['auto_format'])) {
+            if (isset($f_spec['auto_format'])) {
                 // auto_format is defined in the form_field_options table in the config DB
                 switch (strtolower($f_spec['auto_format'])) {
                     case 'xml':
-                        $data['onBlur'] = "epsilon.formatXMLText('".$data['id']."')";
+                        $data['onBlur'] = "epsilon.formatXMLText('" . $data['id'] . "')";
                         $autoFormatDelimitedList = false;
                         break;
                     case 'none':
@@ -483,32 +452,27 @@ class Entry_form {
             }
             if ($autoFormatDelimitedList) {
                 // Replace carriage returns and linefeeds with the delimiter
-                $data['onChange'] = "epsilon.convertList('".$data['id']."', '".$delim."')";
+                $data['onChange'] = "epsilon.convertList('" . $data['id'] . "', '" . $delim . "')";
             }
-            $data = $this->add_chooser_properties($f_name, $f_spec, $data);
+            $data = $this->add_chooser_properties($field_name, $f_spec, $data);
             $s .= form_textarea($data);
-
-		} else if (in_array('non-edit', $fieldTypes)) {
+        } else if (in_array('non-edit', $fieldTypes)) {
             $s .= '<input type="hidden" name="' . $data['name'] . '" value="' . $data['value'] . '" id="' . $data['id'] . '" />';
             $s .= $data['value'];
+        } else if (in_array('hidden', $fieldTypes)) {
 
-		} else if (in_array('hidden', $fieldTypes)) {
-
-            $s .= "<input type='hidden' id='$f_name' name='$f_name' value='xx'/>";
+            $s .= "<input type='hidden' id='$field_name' name='$field_name' value='xx'/>";
 //          $s .= form_hidden($data['name'], $data['value']);
-
-		} else if (in_array('file', $fieldTypes)) {
+        } else if (in_array('file', $fieldTypes)) {
             // This form field type is unused as of June 2017
             $data['maxlength'] = $f_spec['maxlength'];
-            $data['size']      = $f_spec['size'];
+            $data['size'] = $f_spec['size'];
             $s .= form_upload($data);
-
-		} else if (in_array('checkbox', $fieldTypes)) {
+        } else if (in_array('checkbox', $fieldTypes)) {
             $lbl = $f_spec['label'];
-            $checked = ($data['value'])?"checked=true":"";
-            $s .= "<input type='checkbox' name='$f_name' id='$f_name' value='Yes' $checked />$lbl Enabled<br/>";
-
-		} else if (in_array('action', $fieldTypes)) {
+            $checked = ($data['value']) ? "checked=true" : "";
+            $s .= "<input type='checkbox' name='$field_name' id='$field_name' value='Yes' $checked />$lbl Enabled<br/>";
+        } else if (in_array('action', $fieldTypes)) {
             $px = explode(':', $f_spec['default']);
             $fnx = $px[0];
             $lbx = $px[1];
@@ -521,21 +485,20 @@ class Entry_form {
     }
 
     /**
-     * Get attributes to be added to input field for autocomplete
-     * @param type $f_name
-     * @param type $f_spec
+     * Get attributes to be added to input field for auto complete
+     * @param type $field_name Field name
+     * @param type $f_spec field spec
      * @param type $props
      * @return string
      */
-    function add_chooser_properties($f_name, $f_spec, $props)
-    {
-        if(array_key_exists("chooser_list", $f_spec)) {
+    function add_chooser_properties($field_name, $f_spec, $props) {
+        if (array_key_exists("chooser_list", $f_spec)) {
             $chsr = $f_spec['chooser_list'][0];
-            if($chsr["type"] == 'autocomplete' || $chsr["type"] == 'autocomplete.append') {
+            if ($chsr["type"] == 'autocomplete' || $chsr["type"] == 'autocomplete.append') {
                 $props['class'] = 'dms_autocomplete_chsr';
                 $props['data-query'] = $chsr["PickListName"];
             }
-            if($chsr["type"] == 'autocomplete.append') {
+            if ($chsr["type"] == 'autocomplete.append') {
                 $props['data-append'] = 'true';
             }
         }
@@ -548,45 +511,41 @@ class Entry_form {
      * @param type $label
      * @return string
      */
-    private
-    function make_wiki_help_link($label)
-    {
+    private function make_wiki_help_link($label) {
         $s = "";
-        if($this->include_help_link) {
+        if ($this->include_help_link) {
             $file_tag = $this->file_tag;
             $nsLabel = str_replace(" ", "_", $label);
-            $CI =& get_instance();
+            $CI = & get_instance();
             $pwiki = $CI->config->item('pwiki');
             $wiki_helpLink_prefix = $CI->config->item('wikiHelpLinkPrefix');
             $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}#${nsLabel}";
-            $s .= "<a class=help_link target = '_blank' title='Click to explain field ".$label."' href='".$href."'><img src='" . base_url(). "/images/help.png' border='0' ></a>";
+            $s .= "<a class=help_link target = '_blank' title='Click to explain field " . $label . "' href='" . $href . "'><img src='" . base_url() . "/images/help.png' border='0' ></a>";
         }
         return $s;
     }
 
     // -----------------------------------
-    function get_mode_from_page_type($page_type)
-    {
+    function get_mode_from_page_type($page_type) {
         return ($page_type == 'edit') ? 'update' : 'add';
     }
 
     // -----------------------------------
-    function make_entry_commands($entry_commands, $page_type)
-    {
+    function make_entry_commands($entry_commands, $page_type) {
         $str = '';
 
         $mode = $this->get_mode_from_page_type($page_type);
-        
+
         // Default command button
         $attributes['id'] = 'primary_cmd';
-        $url = site_url(). $this->file_tag . "/submit_entry_form";
+        $url = site_url() . $this->file_tag . "/submit_entry_form";
         $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$mode')";
-        $attributes['content'] = ($page_type == 'create')?'Create':'Update';
+        $attributes['content'] = ($page_type == 'create') ? 'Create' : 'Update';
         $attributes['class'] = 'button entry_cmd_button';
 
         // Is there an override for the default command button?
-        foreach($entry_commands as $command => $spec) {
-            if($spec['type'] == 'override' and $spec['target'] == $mode) {
+        foreach ($entry_commands as $command => $spec) {
+            if ($spec['type'] == 'override' and $spec['target'] == $mode) {
                 $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$command')";
                 $attributes['content'] = $spec['label'];
                 $attributes['title'] = $spec['tooltip'];
@@ -596,8 +555,8 @@ class Entry_form {
         $str .= form_button($attributes) . "<br>\n";
 
         // Supplemental commands
-        foreach($entry_commands as $command => $spec) {
-            switch(strtolower($spec['type'])){
+        foreach ($entry_commands as $command => $spec) {
+            switch (strtolower($spec['type'])) {
                 case 'cmd':
                     $attributes = array();
                     $attributes['id'] = 'cmd_' . strtolower(str_replace(' ', '_', $command));
@@ -608,7 +567,7 @@ class Entry_form {
                     $str .= form_button($attributes) . "<br>\n";
                     break;
                 case 'retarget':
-                    $target_url = site_url().$spec['target'];
+                    $target_url = site_url() . $spec['target'];
                     $attributes = array();
                     $attributes['content'] = $spec['label'];
                     $attributes['onclick'] = "epsilon.submitEntryFormToOtherPage('$target_url', '$command')";
@@ -629,21 +588,20 @@ class Entry_form {
      * Modify field specs to account for field edit permissions
      * @param type $userPermissions
      */
-    function adjust_field_permissions($userPermissions)
-    {
+    function adjust_field_permissions($userPermissions) {
         // look at each field
-        foreach($this->form_field_specs as $f_name => $f_spec) {
+        foreach ($this->form_field_specs as $field_name => $f_spec) {
             // find ones that have permission restrictions
-            if(array_key_exists('permission', $f_spec)) {
+            if (array_key_exists('permission', $f_spec)) {
                 // do user's permisssions satisfy field restrictions?
                 $fieldPermissions = explode(',', $f_spec['permission']);
                 $hits = array_intersect($fieldPermissions, $userPermissions);
                 // no - change spec to make field non-editable
                 // and remove chooser (if one exists)
-                if(count($hits) == 0) {
-                    $this->form_field_specs[$f_name]['type'] = 'non-edit';
-                    if(array_key_exists('chooser_list', $f_spec)) {
-                        unset($this->form_field_specs[$f_name]['chooser_list']);
+                if (count($hits) == 0) {
+                    $this->form_field_specs[$field_name]['type'] = 'non-edit';
+                    if (array_key_exists('chooser_list', $f_spec)) {
+                        unset($this->form_field_specs[$field_name]['chooser_list']);
                     }
                 }
             }
@@ -654,13 +612,12 @@ class Entry_form {
      * Change the visibility of designated fields according to given entry mode
      * @param type $mode Page mode: 'add' or 'update'
      */
-    function adjust_field_visibility($mode)
-    {
-        foreach($this->form_field_specs as $f_name => $f_spec) {
+    function adjust_field_visibility($mode) {
+        foreach ($this->form_field_specs as $field_name => $f_spec) {
             // hide is defined in the form_field_options table in the config DB
-            if(array_key_exists('hide', $f_spec)) {
-                if($mode === $f_spec["hide"]) {
-                    $this->form_field_specs[$f_name]["type"] = "hidden";
+            if (array_key_exists('hide', $f_spec)) {
+                if ($mode === $f_spec["hide"]) {
+                    $this->form_field_specs[$field_name]["type"] = "hidden";
                 }
             }
         }

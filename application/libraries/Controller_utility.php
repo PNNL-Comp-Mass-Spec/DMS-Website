@@ -1,4 +1,5 @@
 <?php
+
 // --------------------------------------------------------------------
 // misc functions for controllers that use page libraries
 // --------------------------------------------------------------------
@@ -6,9 +7,8 @@
 class Controller_utility {
 
     // --------------------------------------------------------------------
-    function message_box($heading, $message, $title = '')
-    {
-        $data['title'] = ($title)?$title:$heading;
+    function message_box($heading, $message, $title = '') {
+        $data['title'] = ($title) ? $title : $heading;
         $data['heading'] = $heading;
         $data['message'] = $message;
         $CI = &get_instance();
@@ -23,15 +23,14 @@ class Controller_utility {
      * @param boolean $options Custom options flag
      * @return boolean
      */
-    function load_lib($lib_name, $config_name, $config_source, $options = FALSE)
-    {
+    function load_lib($lib_name, $config_name, $config_source, $options = FALSE) {
         $CI = &get_instance();
-        if(property_exists($CI, $lib_name)) {
+        if (property_exists($CI, $lib_name)) {
             return TRUE;
         }
         // Load then initialize the model
         $CI->load->library($lib_name);
-        if($options === FALSE) {
+        if ($options === FALSE) {
             return $CI->$lib_name->init($config_name, $config_source);
         } else {
             return $CI->$lib_name->init($config_name, $config_source, $options);
@@ -46,10 +45,9 @@ class Controller_utility {
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
      */
-    function load_mod($model_name, $local_name, $config_name, $config_source)
-    {
+    function load_mod($model_name, $local_name, $config_name, $config_source) {
         $CI = &get_instance();
-        if(property_exists($CI, $local_name)) {
+        if (property_exists($CI, $local_name)) {
             return TRUE;
         }
         // Dynamically load and initialize the model
@@ -68,16 +66,15 @@ class Controller_utility {
      * @param boolean $output_message When true, update the message box with "Access Denied"
      * @return boolean
      */
-    function check_access($action, $output_message = TRUE)
-    {
+    function check_access($action, $output_message = TRUE) {
         $CI = &get_instance();
         $CI->load->helper('user');
         $user = get_user();
 
         $this->load_mod('g_model', 'gen_model', 'na', $CI->my_tag);
 
-        if($CI->gen_model->error_text) {
-            if($output_message) {
+        if ($CI->gen_model->error_text) {
+            if ($output_message) {
                 $this->message_box('Error', $CI->gen_model->error_text);
             }
             return FALSE;
@@ -85,13 +82,14 @@ class Controller_utility {
 
         $result = $CI->gen_model->check_permission($user, $action, $CI->my_tag);
 
-        if($result === TRUE) {
+        if ($result === TRUE) {
             return TRUE;
         } else {
-            if($output_message) {
+            if ($output_message) {
                 $this->message_box('Access Denied', $result);
             }
             return FALSE;
         }
     }
+
 }

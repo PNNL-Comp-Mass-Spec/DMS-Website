@@ -1,7 +1,8 @@
 <?php
-    if (!defined('BASEPATH')) {
-        exit('No direct script access allowed');
-    }
+
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 class Sql_mssql {
 
@@ -12,8 +13,8 @@ class Sql_mssql {
     private $baseSQL = '';
 
     // --------------------------------------------------------------------
-    function __construct()
-    {
+    function __construct() {
+        
     }
 
     /**
@@ -22,13 +23,12 @@ class Sql_mssql {
      * @param type $option
      * @return string
      */
-    function build_query_sql($query_parts, $option="filtered_and_paged")
-    {
+    function build_query_sql($query_parts, $option = "filtered_and_paged") {
         // process the predicate list
         $p_and = array();
         $p_or = array();
-        foreach($query_parts->predicates as $predicate) {
-            switch(strtolower($predicate->rel)) {
+        foreach ($query_parts->predicates as $predicate) {
+            switch (strtolower($predicate->rel)) {
                 case 'and':
                     $p_and[] = $this->make_where_item($predicate);
                     break;
@@ -37,7 +37,7 @@ class Sql_mssql {
                     break;
                 case 'arg':
                     // replace parameter in table spec with filter value
-                    $query_parts->table = str_replace($predicate->col, "'".$predicate->val."'", $query_parts->table);
+                    $query_parts->table = str_replace($predicate->col, "'" . $predicate->val . "'", $query_parts->table);
                     break;
             }
         }
@@ -46,7 +46,7 @@ class Sql_mssql {
         $baseSql = " FROM " . $query_parts->table;
 
         // Collect all 'or' clauses as one grouped item and put it into the 'and' item array
-        if(!empty($p_or)) {
+        if (!empty($p_or)) {
             $orClause = implode(' OR ', $p_or);
 
             // Make sure $orList does not end in ' OR '
@@ -61,13 +61,13 @@ class Sql_mssql {
         // 'and' all predicate clauses together
         $andClause = implode(' AND ', $p_and);
 
-        if(!empty($andClause)) {
+        if (!empty($andClause)) {
             // Make sure $andList does not end in ' AND '
             // We sometimes see this because the last item in $p_and is empty
             $pattern = '/ AND *$/i';
             $andClauseChecked = preg_replace($pattern, '', $andClause);
 
-            if(!empty($andClauseChecked)) {
+            if (!empty($andClauseChecked)) {
                 $baseSql .= " WHERE $andClauseChecked";
             }
         }
@@ -77,7 +77,7 @@ class Sql_mssql {
 
         // construct final query according to its intended use
         $sql = "";
-        switch($option) {
+        switch ($option) {
             case "count_only": // query for returning count of total rows
                 $sql .= "SELECT COUNT(*) AS numrows";
                 $sql .= $baseSql;
@@ -94,7 +94,7 @@ class Sql_mssql {
                 $sql .= "SELECT " . $display_cols;
                 $sql .= $baseSql;
                 $orderBy = $this->make_order_by($query_parts->sorting_items);
-                $sql .= ($orderBy)?" ORDER By $orderBy":"";
+                $sql .= ($orderBy) ? " ORDER By $orderBy" : "";
                 break;
             case "filtered_and_paged":
                 // make ordering expression from sorting params
@@ -109,7 +109,7 @@ class Sql_mssql {
                 $sql .= " " . $display_cols;
                 $sql .= $baseSql;
                 $sql .= ") AS T ";
-                $sql .= "WHERE #Row >= ". $first_row . " AND #Row < " . $last_row;
+                $sql .= "WHERE #Row >= " . $first_row . " AND #Row < " . $last_row;
 
                 // Note: an alternative to "Row_Number() Over (Order By x Desc)"
                 // is to use "ORDER BY x DESC OFFSET 0 ROWS FETCH NEXT 125 ROWS ONLY;"
@@ -126,11 +126,9 @@ class Sql_mssql {
      * @param type $sort_items
      * @return type
      */
-    private
-    function make_order_by($sort_items)
-    {
+    private function make_order_by($sort_items) {
         $a = array();
-        foreach($sort_items as $item) {
+        foreach ($sort_items as $item) {
             $a[] = "[" . $item->col . "] " . $item->dir;
         }
         $s = implode(', ', $a);
@@ -143,9 +141,7 @@ class Sql_mssql {
      * @param type $predicate
      * @return type
      */
-    private
-    function make_where_item($predicate)
-    {
+    private function make_where_item($predicate) {
         $col = $predicate->col;
         $cmp = $predicate->cmp;
         $val = trim($predicate->val);
@@ -153,7 +149,7 @@ class Sql_mssql {
         $valNoCommas = str_replace(',', '', $val);
 
         $str = '';
-        switch($cmp) {
+        switch ($cmp) {
             case "wildcards":
                 $val = str_replace('_', '[_]', $val);
                 $val = str_replace('*', '%', $val);
@@ -162,12 +158,12 @@ class Sql_mssql {
                 break;
             case "ContainsText":
             case "CTx":
-                $val = (substr($val, 0, 1) == '`') ? substr($val, 1).'%' : '%'.$val.'%';
+                $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
                 $str .= "[$col] LIKE '$val'";
                 break;
             case "DoesNotContainText":
             case "DNCTx":
-                $val = (substr($val, 0, 1) == '`') ? substr($val, 1).'%' : '%'.$val.'%';
+                $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
                 $str .= "NOT [$col] LIKE '$val'";
                 break;
             case "MatchesText":
@@ -180,12 +176,12 @@ class Sql_mssql {
                 break;
             case "StartsWithText":
             case "SWTx":
-                $val = (substr($val, 0, 1) == '`') ? substr($val, 1).'%' : $val.'%';
+                $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : $val . '%';
                 $str .= "[$col] LIKE '$val'";
                 break;
             case "Equals":
             case "EQn":
-                if(is_numeric($valNoCommas)) {
+                if (is_numeric($valNoCommas)) {
                     $str .= "[$col] = $valNoCommas";
                 } else {
                     $str .= "[$col] = '$val'";
@@ -193,31 +189,31 @@ class Sql_mssql {
                 break;
             case "NotEqual":
             case "NEn":
-                if(is_numeric($valNoCommas)) {
+                if (is_numeric($valNoCommas)) {
                     $str .= "NOT [$col] = $valNoCommas";
                 }
                 break;
             case "GreaterThan":
             case "GTn":
-                if(is_numeric($valNoCommas)) {
+                if (is_numeric($valNoCommas)) {
                     $str .= "[$col] > $valNoCommas";
                 }
                 break;
             case "LessThan":
             case "LTn":
-                if(is_numeric($valNoCommas)) {
+                if (is_numeric($valNoCommas)) {
                     $str .= "[$col] < $valNoCommas";
                 }
                 break;
             case "LessThanOrEqualTo":
             case "LTOEn":
-                if(is_numeric($valNoCommas)) {
+                if (is_numeric($valNoCommas)) {
                     $str .= "[$col] <= $valNoCommas";
                 }
                 break;
             case "GreaterThanOrEqualTo":
             case "GTOEn":
-                if(is_numeric($valNoCommas)) {
+                if (is_numeric($valNoCommas)) {
                     $str .= "[$col] >= $valNoCommas";
                 }
                 break;
@@ -249,8 +245,7 @@ class Sql_mssql {
      * For example: FROM V_Analysis_Job_List_Report_2 WHERE [Tool] LIKE '%MSGFPlus%' AND [Last_Affected] > DATEADD(Week, -1, GETDATE())
      * @return type
      */
-    function get_base_sql()
-    {
+    function get_base_sql() {
         return $this->baseSQL;
     }
 
@@ -263,58 +258,58 @@ class Sql_mssql {
      * @var type
      */
     private $sqlCompDefs = array(
-            "ContainsText" => array(
-                    'label' => "Contains Text",
-                    'type' => array('text'),
-                    ),
-            "DoesNotContainText" => array(
-                    'label' => "Does Not Contain Text",
-                    'type' => array('text'),
-                    ),
-            "MatchesText" => array(
-                    'label' => "Matches Text",
-                    'type' => array('text'),
-                    ),
-            "StartsWithText" => array(
-                    'label' => "Starts With Text",
-                    'type' => array('text'),
-                    ),
-            "GreaterThanOrEqualTo" => array(
-                    'label' => "Greater Than or Equal To",
-                    'type' => array('numeric'),
-                    ),
-            "LessThanOrEqualTo" => array(
-                    'label' => "Less Than or Equal To",
-                    'type' => array('numeric'),
-                    ),
-            "GreaterThan" => array(
-                    'label' => "Greater Than",
-                    'type' => array('numeric'),
-                    ),
-            "LessThan" => array(
-                    'label' => "Less Than",
-                    'type' => array('numeric'),
-                    ),
-            "Equals" => array(
-                    'label' => "Equals",
-                    'type' => array('numeric'),
-                    ),
-            "NotEqual" => array(
-                    'label' => "Not Equal",
-                    'type' => array('numeric'),
-                    ),
-            "LaterThan" => array(
-                    'label' => "Later Than",
-                    'type' => array('datetime'),
-                    ),
-            "EarlierThan" => array(
-                    'label' => "Earlier Than",
-                    'type' => array('datetime'),
-                    ),
-            "MostRecentWeeks" => array(
-                    'label' => "Most Recent N Weeks",
-                    'type' => array('datetime'),
-                    ),
+        "ContainsText" => array(
+            'label' => "Contains Text",
+            'type' => array('text'),
+        ),
+        "DoesNotContainText" => array(
+            'label' => "Does Not Contain Text",
+            'type' => array('text'),
+        ),
+        "MatchesText" => array(
+            'label' => "Matches Text",
+            'type' => array('text'),
+        ),
+        "StartsWithText" => array(
+            'label' => "Starts With Text",
+            'type' => array('text'),
+        ),
+        "GreaterThanOrEqualTo" => array(
+            'label' => "Greater Than or Equal To",
+            'type' => array('numeric'),
+        ),
+        "LessThanOrEqualTo" => array(
+            'label' => "Less Than or Equal To",
+            'type' => array('numeric'),
+        ),
+        "GreaterThan" => array(
+            'label' => "Greater Than",
+            'type' => array('numeric'),
+        ),
+        "LessThan" => array(
+            'label' => "Less Than",
+            'type' => array('numeric'),
+        ),
+        "Equals" => array(
+            'label' => "Equals",
+            'type' => array('numeric'),
+        ),
+        "NotEqual" => array(
+            'label' => "Not Equal",
+            'type' => array('numeric'),
+        ),
+        "LaterThan" => array(
+            'label' => "Later Than",
+            'type' => array('datetime'),
+        ),
+        "EarlierThan" => array(
+            'label' => "Earlier Than",
+            'type' => array('datetime'),
+        ),
+        "MostRecentWeeks" => array(
+            'label' => "Most Recent N Weeks",
+            'type' => array('datetime'),
+        ),
     );
 
     /**
@@ -322,13 +317,12 @@ class Sql_mssql {
      * @param type $data_type
      * @return mixed
      */
-    function get_allowed_comparisons_for_type($data_type)
-    {
+    function get_allowed_comparisons_for_type($data_type) {
         // The sqlsrv_driver returns data types as integers
         // See // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
 
         $cmps = array();
-        switch($data_type) {
+        switch ($data_type) {
             case 'text':
             case 'char':
             case 1:     // char
@@ -337,7 +331,7 @@ class Sql_mssql {
             case -9:    // nvarchar
             case -1:    // text
             case 12:    // varchar
-                foreach($this->sqlCompDefs as $n => $def) {
+                foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('text', $def['type'])) {
                         $cmps[$n] = $def['label'];
                     }
@@ -356,7 +350,7 @@ class Sql_mssql {
             case 7:     // real
             case 5:     // smallint
             case -6:    // tinyint
-                foreach($this->sqlCompDefs as $n => $def) {
+                foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('numeric', $def['type'])) {
                         $cmps[$n] = $def['label'];
                     }
@@ -366,7 +360,7 @@ class Sql_mssql {
             case 91:    // date
             case 93:    // datetime
             case -154:  // time
-                foreach($this->sqlCompDefs as $n => $def) {
+                foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('datetime', $def['type'])) {
                         $cmps[$n] = $def['label'];
                     }

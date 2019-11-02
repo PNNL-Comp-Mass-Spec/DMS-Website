@@ -7,9 +7,13 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 
-    // --------------------------------------------------------------------
-    // NOTE: code is adapted from http://codeigniter.com/wiki/Excel_Plugin/
-    //
+    /**
+     * Export to tab-separated values file (TSV)
+     * Note: code is adapted from http://codeigniter.com/wiki/Excel_Plugin/
+     * @param type $result
+     * @param type $filename
+     * @param type $col_filter
+     */
     function export_to_excel_tsv($result, $filename='excel_download', $col_filter = array())
     {
         $cols = array_keys(current($result));
@@ -234,8 +238,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo '<img src="'.base_url().$fo.'" ></img>';
     }
 
-    // --------------------------------------------------------------------
-    // converts a job script from XML to a dot grapic file
+    /**
+     * Converts a job script from XML to a dot graphic file
+     * @param type $script
+     * @return string
+     */
     function convert_script_to_dot($script) {
         $dom = new DomDocument();
         $dom->loadXML($script);
@@ -293,23 +300,23 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     //
     function export_spreadsheet($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
     {
-        $rowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
+        $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
 
         if (strtolower($ext) != "tsv" && strtolower($ext) != "txt") {
-            export_spreadsheet_binary($entity, $result, $aux_info, $rowStyle, $ext, $filename);
+            export_spreadsheet_binary($entity, $result, $aux_info, $validatedRowStyle, $ext, $filename);
         } else {
-            export_spreadsheet_text($entity, $result, $aux_info, $rowStyle, $ext, $filename);
+            export_spreadsheet_text($entity, $result, $aux_info, $validatedRowStyle, $ext, $filename);
         }
     }
 
     function export_spreadsheet_text($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
     {
-        $rowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
+        $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
 
         // detail report for tracking entity
         $data = strtoupper(str_replace('_', ' ', $entity)). "\n";
         $data .= "\n";
-        if ($rowStyle) {
+        if ($validatedRowStyle) {
             $markers = "TRACKING INFORMATION";
             $headers = "";
             $values = "";
@@ -431,7 +438,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     function export_spreadsheet_binary($entity, $result, $aux_info, $rowStyle = false, $ext = "xlsx", $filename='tsv_download')
     {
-        $rowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
+        $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
 
         if ($ext[0] == '.') {
             $ext = substr($ext,1);
@@ -444,7 +451,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $data = array();
         $data[0][0] = "TRACKING INFORMATION";
 
-        if ($rowStyle) {
+        if ($validatedRowStyle) {
             $colIndex = 0;
             foreach($result as $name => $value) {
                 $data[1][$colIndex] = $name;

@@ -59,8 +59,7 @@ class Column_filter {
      * Otherwise return FALSE
      * @return array
      */
-    private
-            function get_current_filter_values_from_post() {
+    private function get_current_filter_values_from_post() {
         // We need to be able to tell the difference between an empty post
         // (signifying a new page visit) and a post that happens to contain
         // an empty list of columns.  The presence of "cf_column_selection_marker"
@@ -79,8 +78,7 @@ class Column_filter {
     /**
      * Set filter so that it will not be used to filter results
      */
-    private
-            function clear_filter() {
+    private function clear_filter() {
         $this->cur_filter_values = array();
     }
 
