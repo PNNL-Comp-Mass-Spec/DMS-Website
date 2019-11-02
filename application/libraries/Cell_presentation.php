@@ -73,7 +73,7 @@ class Cell_presentation {
                 }
             }
             if ($colSpec) {
-                $str .= $this->render_hotlink($value, $row, $colSpec, NULL, $columnName, $colIndex);
+                $str .= $this->render_hotlink($value, $row, $colSpec, $columnName, $colIndex);
             } else {
                 $str .= "<td>" . $value . "</td>";
             }
@@ -87,12 +87,11 @@ class Cell_presentation {
      * @param mixed  $value     String or number
      * @param mixed  $row       Array of row data
      * @param mixed  $colSpec
-     * @param type   $col_width Unused variable
      * @param string $col_name  Column name
      * @param int    $colIndex  Column index
      * @return string
      */
-    private function render_hotlink($value, $row, $colSpec, $col_width, $col_name = '', $colIndex) {
+    private function render_hotlink($value, $row, $colSpec, $col_name = '', $colIndex) {
 
         $str = "";
         // resolve target for hotlink

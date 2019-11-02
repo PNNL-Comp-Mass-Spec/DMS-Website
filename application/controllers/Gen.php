@@ -160,7 +160,7 @@ class Gen extends CI_Controller {
         $this->load->model('dms_menu', 'menu', TRUE);
 
         $menu_def = $this->menu->get_menu_def("dms_menu.db", "menu_def");
-        $items = build_side_menu_object_tree($menu_def, '', '');
+        $items = build_side_menu_object_tree($menu_def, '');
         echo json_encode($items);
     }
 
