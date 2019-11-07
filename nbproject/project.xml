@@ -10,15 +10,20 @@
             <word>checkboxes</word>
             <word>config</word>
             <word>crosstab</word>
+            <word>dms</word>
             <word>gov</word>
             <word>hotlink</word>
             <word>hotlinks</word>
             <word>http</word>
+            <word>https</word>
             <word>params</word>
             <word>pnl</word>
             <word>prismwiki</word>
             <word>sproc'</word>
+            <word>subcategories</word>
+            <word>subcategory</word>
             <word>tooltip</word>
+            <word>varchar</word>
             <word>wiki</word>
         </spellchecker-wordlist>
     </configuration>
