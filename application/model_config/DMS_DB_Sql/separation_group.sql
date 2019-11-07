@@ -14,7 +14,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_active','Active','','','Ac
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_sample_prep_visible','Sample Prep Visible','','','Sample_Prep_Visible','Equals','text','','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Separation_Group','invoke_entity','value','separation_group/show','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Separation_Types','invoke_entity','Separation_Group','helper_dataset_separation_type/report/-/-/~','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Separation_Types','invoke_entity','Separation_Group','separation_type/report/-/-/~','');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Separation_Group','Separation Group','text-if-new','50','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(2,'Comment','Comment','area','64','512','2','60','','trim|max_length[512]');
@@ -29,5 +29,6 @@ INSERT INTO "sproc_args" VALUES(5,'<local>','mode','varchar','input','12','AddUp
 INSERT INTO "sproc_args" VALUES(6,'<local>','message','varchar','output','512','AddUpdateSeparationGroup');
 INSERT INTO "sproc_args" VALUES(7,'<local>','callingUser','varchar','input','128','AddUpdateSeparationGroup');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
-INSERT INTO "detail_report_hotlinks" VALUES(1,'Separation_Types','detail-report','Separation_Group','helper_dataset_separation_type/report/-/-/~','labelCol','dl_separation_types','');
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Separation_Types','detail-report','Separation_Group','separation_type/report/-/-/~','labelCol','dl_separation_types','');
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Separation_Group','detail-report','Separation_Group','requested_run/report/-/-/-/-/-/-/-/-/-/-/sfx/AND/Separation%20Group/MatchesText/','labelCol','dl_requested_runs_for_separation_group','');
 COMMIT;
