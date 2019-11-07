@@ -11,7 +11,8 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_separation_type','Type','25!','','Separation Type','ContainsText','text','75','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_separation_type_comment','Comment','20','','Separation Type Comment','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_separation_group','Group','20','','Separation Group','ContainsText','text','50','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_dataset_usage_last_12_months','Usage (12 Mo)','20','','Usage Last 12 Months','GreaterThanOrEqualTo','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_dataset_usage_all_years','Usage All','20','','Dataset Usage All Years','GreaterThanOrEqualTo','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(6,'pf_most_recent_use','Most Recent','20','','Most Recent Use','LaterThan','text','20','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_sample_type','Sample Type','20','','Sample Type','ContainsText','text','75','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_dataset_usage_last_12_months','Usage (12 Mo)','20','','Usage Last 12 Months','GreaterThanOrEqualTo','text','20','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_dataset_usage_all_years','Usage All','20','','Dataset Usage All Years','GreaterThanOrEqualTo','text','20','','');
+INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_use','Most Recent','20','','Most Recent Use','LaterThan','text','20','','');
 COMMIT;
