@@ -1,9 +1,9 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('list_report_data_table','V_Material_Items_List_Report');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Material_Move_Items_List_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('detail_report_data_table','V_Material_Items_List_Report');
+INSERT INTO "general_params" VALUES('detail_report_data_table','V_Material_Move_Items_List_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('list_report_cmds','material_move_items_cmds');
 INSERT INTO "general_params" VALUES('list_report_cmds_url','/material_move_items/operation');
