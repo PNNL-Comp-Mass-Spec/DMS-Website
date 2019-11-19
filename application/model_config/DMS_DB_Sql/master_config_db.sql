@@ -7,7 +7,7 @@ INSERT INTO "table_edit_col_defs" VALUES(3,'detail_report_hotlinks','WhichArg','
 INSERT INTO "table_edit_col_defs" VALUES(4,'detail_report_hotlinks','name','dms_view_cols','{"view":"detail_report_data_table"}');
 INSERT INTO "table_edit_col_defs" VALUES(5,'form_field_choosers','Delimiter','default_value','{"value":","}');
 INSERT INTO "table_edit_col_defs" VALUES(6,'form_field_choosers','field','config_col_values','{"table":"form_fields", "column":"name"}');
-INSERT INTO "table_edit_col_defs" VALUES(7,'form_field_choosers','type','literal_list','{"list":["picker.replace", "list-report.helper",  "picker.append", "picker.prevDate", "picker.prepend"]}');
+INSERT INTO "table_edit_col_defs" VALUES(7,'form_field_choosers','type','literal_list','{"list":["picker.replace", "list-report.helper", "picker.append", "picker.prepend", "picker.prevDate", "link.list", "picker.list"]}');
 INSERT INTO "table_edit_col_defs" VALUES(8,'form_field_options','field','config_col_values','{"table":"form_fields", "column":"name"}');
 INSERT INTO "table_edit_col_defs" VALUES(9,'form_field_options','type','literal_list','{"list":["default_function", "section",  "enable",  "auto_format",  "hide",  "load_key_field", "permission"]}');
 INSERT INTO "table_edit_col_defs" VALUES(10,'list_report_hotlinks','LinkType','literal_list','{"list":["invoke_entity","CHECKBOX","color_label","column_tooltip","format_commas","format_date","href-folder","image_link","inplace_edit","invoke_multi_col","link_list","literal_link","markup","masked_href-folder","masked_link", "min_col_width", "row_to_json","row_to_url","select_case","update_opener"]}');
