@@ -161,6 +161,8 @@ class Dms_chooser extends CI_Model {
         $str = "";
         $chooser_element_name = $target_field_name . "_chooser" . $seq;
         $js = "id=\"$chooser_element_name\" class=\"sel_chooser\" ";
+        
+        // Define the onchange function, which is defined in DMS2/javascript/dms2.js
         $js .= " onChange='epsilon.setFieldValueFromSelection(\"$target_field_name\", \"$chooser_element_name\", \"$mode\")'";
         if (!array_key_exists($chooser_name, $this->choices)) {
             $str .= "The chooser name '$chooser_name' could not be found";
@@ -198,6 +200,8 @@ class Dms_chooser extends CI_Model {
         $str = "";
         switch ($type) {
             case "picker.prepend":
+            	// Place the selected item at the start of the list, followed by a semicolon by default. 
+            	// If the delimiter column has a comma or underscore, use that instead
                 if ($delim == ',') {
                     $mode = 'prepend_comma';
                 } else if ($delim == '_') {
@@ -210,16 +214,21 @@ class Dms_chooser extends CI_Model {
                 break;
 
             case "picker.append":
+            	// Append the selected item, separating with a semicolon by default. 
+            	// If the delimiter column has a comma, use a comma instead (no other delimiters are supported)
                 $mode = ($delim == ',') ? 'append_comma' : 'append';
                 $str .= "$label " . $this->get_chooser($f_name, $pln, $mode, $seq);
                 break;
 
             case "picker.replace":
+            	// Replace the text with the selected item; this is the most commonly used chooser
+            	// Drop-down choosers are defined in dms_chooser.db.
                 $mode = 'replace';
                 $str .= "$label " . $this->get_chooser($f_name, $pln, $mode, $seq);
                 break;
 
             case "list-report.helper":
+            	// Choose an item from a list report
                 $CI = & get_instance();
                 $CI->load->helper(array('string'));
                 $target_url = reduce_double_slashes(site_url() . $target);
@@ -227,14 +236,22 @@ class Dms_chooser extends CI_Model {
                 break;
 
             case "picker.prevDate":
+            	// Show the user a calendar to allow them to select a date. 
+            	// The PickListName was previously either prevDatePickList or futureDatePickList, but now that we're using a calendar, the name doesn't matter.
                 $str .= "$label <a href=\"javascript:epsilon.callDatepicker('$f_name')\"><img src='" . base_url() . "images/date.png' border='0'></a>";
                 break;
 
             case "picker.list":
+            	// Show the user a list of item names and descriptions.
+            	// When the user clicks a name, that name is placed in the textbox associated with the picker. 
+            	// Drop-down choosers are defined in dms_chooser.db, as described below for picker.replace
                 $str .= "$label " . $this->get_list_chooser($f_name, $pln);
                 break;
 
             case "link.list":
+            	// Show the user a list of template names. 
+            	// When the user clicks one, pre-canned text is placed in the associated list box. 
+            	// Templates are defined with the other DMS choosers in dms_chooser.db
                 $str .= "$label " . $this->get_link_chooser($f_name, $pln);
                 break;
 
