@@ -74,8 +74,8 @@ INSERT INTO "chooser_definitions" VALUES(59,'instrumentNameExPickList','default'
 INSERT INTO "chooser_definitions" VALUES(60,'instrumentOpsRolePickList','default','sql','SELECT val, '''' as ex FROM V_Instrument_OpsRole_Picklist ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(61,'instrumentStatusPickList','default','sql','SELECT val, '''' as ex FROM V_Instrument_Status_Picklist ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(62,'instrumentGroupPickList','default','sql','SELECT Instrument_Group As val, '''' As ex FROM V_Instrument_Group_PickList ORDER BY Instrument_Group');
-INSERT INTO "chooser_definitions" VALUES(63,'samplePrepInstrumentGroupPickList','default','sql','SELECT Instrument_Group As val, '''' As ex FROM V_Instrument_Group_PickList WHERE Sample_Prep_Visible > 0 ORDER BY Instrument_Group');
-INSERT INTO "chooser_definitions" VALUES(64,'requestedRunInstrumentGroupPickList','default','sql','SELECT Instrument_Group As val, '''' As ex FROM V_Instrument_Group_PickList WHERE Requested_Run_Visible > 0 ORDER BY Instrument_Group');
+INSERT INTO "chooser_definitions" VALUES(63,'samplePrepInstrumentGroupPickList','default','sql','SELECT Instrument_Group_and_Instruments as val, Instrument_Group As ex FROM V_Instrument_Group_PickList WHERE Sample_Prep_Visible > 0 ORDER BY Instrument_Group');
+INSERT INTO "chooser_definitions" VALUES(64,'requestedRunInstrumentGroupPickList','default','sql','SELECT Instrument_Group_and_Instruments as val, Instrument_Group As ex FROM V_Instrument_Group_PickList WHERE Requested_Run_Visible > 0 ORDER BY Instrument_Group');
 INSERT INTO "chooser_definitions" VALUES(65,'internalStandardsPicklist','default','sql','SELECT val, ex FROM V_Internal_Standards_Picklist ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(66,'labellingPickList','default','sql','SELECT Label as val, '''' as ex FROM T_Sample_Labelling ORDER BY Label');
 INSERT INTO "chooser_definitions" VALUES(68,'lcCartPickList','default','sql','SELECT Cart_Name AS val, Cart_Name AS ex FROM T_LC_Cart WHERE Cart_State_ID = 2 ORDER BY Cart_Name');
