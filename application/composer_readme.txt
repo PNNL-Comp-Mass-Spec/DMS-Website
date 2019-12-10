@@ -18,3 +18,6 @@ To have CodeIgniter load the composer autoloader (CodeIgniter 3+)
 
 To restore dependencies (requires composer.lock file)
   * php composer.phar install
+
+To fix permissions:
+  * sudo chown -R apache:apache vendor/*
