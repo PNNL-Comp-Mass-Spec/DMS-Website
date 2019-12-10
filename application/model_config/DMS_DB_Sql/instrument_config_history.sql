@@ -48,4 +48,5 @@ INSERT INTO "sproc_args" VALUES(8,'<local>','message','varchar','output','512','
 INSERT INTO "sproc_args" VALUES(9,'<local>','callingUser','varchar','input','128','AddUpdateInstrumentConfigHistory');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Note','markup','Note','','valueCol','dl_note',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Instrument','detail-report','Instrument','instrument/show/','labelCol','dl_instrument','');
 COMMIT;
