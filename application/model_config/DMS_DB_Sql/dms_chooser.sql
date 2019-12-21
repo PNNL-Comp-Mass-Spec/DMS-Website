@@ -144,4 +144,5 @@ INSERT INTO "chooser_definitions" VALUES(127,'compoundTypePickList','default','s
 INSERT INTO "chooser_definitions" VALUES(128,'experimentPlexChannelTypePickList','default','select','{"Sample":"Sample", "Reference":"Reference", "Boost":"Boost", "Empty":"Empty"}');
 INSERT INTO "chooser_definitions" VALUES(129,'userStatusPickList','default','sql','SELECT Status_Description as val, User_Status as ex FROM T_User_status');
 INSERT INTO "chooser_definitions" VALUES(130,'organismIDPickList','default','sql','SELECT [Name] as val, ID as ex FROM V_Organism_List_Report ORDER BY [Name]');
+INSERT INTO "chooser_definitions" VALUES(131,'sampleTypePickList','default','sql','SELECT Name as val, Name as ex FROM T_Secondary_Sep_SampleType ORDER BY Name');
 COMMIT;

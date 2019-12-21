@@ -117,6 +117,7 @@ INSERT INTO "restricted_actions" VALUES(113,'update_archive','enter','DMS_Infras
 INSERT INTO "restricted_actions" VALUES(114,'update_datasets','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation, DMS_Dataset_Operation');
 INSERT INTO "restricted_actions" VALUES(115,'user','enter','DMS_Infrastructure_Administration');
 INSERT INTO "restricted_actions" VALUES(116,'wellplate','enter','DMS_User');
+INSERT INTO "restricted_actions" VALUES(117,'separation_type','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
 DELETE FROM sqlite_sequence;
-INSERT INTO "sqlite_sequence" VALUES('restricted_actions',116);
+INSERT INTO "sqlite_sequence" VALUES('restricted_actions',117);
 COMMIT;
