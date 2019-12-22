@@ -299,8 +299,8 @@ class Config_db extends CI_Controller {
             }
             $rs .= "<tr>\n";
             foreach ($cols as $c) {
-                $x = ($row[$c]) ? $row[$c] : '&nbsp;';
-                $rs .= "<td>" . htmlspecialchars($x) . "</td>";
+                $x = ($row[$c]) ? htmlspecialchars($row[$c]) : '&nbsp;';
+                $rs .= "<td>$x</td>";
             }
             $rs .= "</tr>\n";
         }
