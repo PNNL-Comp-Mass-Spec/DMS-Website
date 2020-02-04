@@ -1,5 +1,6 @@
 Make sure php is in the path, or use the full path to the php executable
-* export PATH=$PATH:/opt/rh/rh-php71/root/usr/bin
+* export PATH=$PATH:/opt/remi/php73/root/usr/bin
+* Old: export PATH=$PATH:/opt/rh/rh-php71/root/usr/bin
 
 To add composer to the existing project, from scratch
 * For use with CodeIgniter, do this from the 'application' subfolder
