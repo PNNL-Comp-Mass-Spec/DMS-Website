@@ -28,7 +28,6 @@ INSERT INTO "form_fields" VALUES(5,'Start','Start','non-edit','','','','','','tr
 INSERT INTO "form_fields" VALUES(6,'Interval','Interval','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(7,'Comment',' Comment','area','','','10','70','','trim|max_length[2147483647]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO "form_field_choosers" VALUES(5,'Comment','picker.append','longIntervalReasonPickList','','',',','Explanation');
 INSERT INTO "form_field_choosers" VALUES(6,'Comment','picker.append','longIntervalUsagePickList','','',',','Usage Category');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Usage','tabular_list','Usage','','valueCol','dl_Usage','');
