@@ -26,7 +26,7 @@ INSERT INTO "form_field_choosers" VALUES(3,'OperationsList','picker.append','use
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_username','Username','7!','','Username','ContainsText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_name','Name','20!','','Name','ContainsText','text','64','','');
-INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','6!','','Status','ContainsText','text','64','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','6!','','Status','StartsWithText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_hanford_id','Hanford ID','8!','','Hanford ID','ContainsText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_operations_list','Operations','15!','','Operations List','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_eus_ID','EUS ID','6!','','EUS_ID','Equals','text','12','','');
