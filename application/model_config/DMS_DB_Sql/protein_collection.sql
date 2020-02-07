@@ -14,6 +14,7 @@ INSERT INTO "list_report_hotlinks" VALUES(4,'ID','invoke_entity','value','/prote
 INSERT INTO "list_report_hotlinks" VALUES(5,'Entries','invoke_entity','ID','protein_collection_members/report/@','');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Entries','format_commas','value','','{"Decimals":"0"}');
 INSERT INTO "list_report_hotlinks" VALUES(7,'Residues','format_commas','value','','{"Decimals":"0"}');
+INSERT INTO "list_report_hotlinks" VALUES(8,'Description','min_col_width','value','60','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_Name','Name','40!','','Name','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_Organism','Organism','15!','','Organism Name','ContainsText','text','','','');
