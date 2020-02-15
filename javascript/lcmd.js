@@ -277,7 +277,7 @@ var lcmd = {
 			var p = {};
 			p.command = mode;
 			p.newValue =  $('#' + newValFld).val();
-			p.paramValue = mode;
+			p.paramName = mode;
 			p.managerIDList = list;
 			lambda.submitOperation(url, p);
 		}
@@ -296,7 +296,7 @@ var lcmd = {
 			var p = {};
 			p.command = mode;
 			p.newValue =  $('#' + newValFld).val();
-			p.paramValue = mode;
+			p.paramName = mode;
 			p.managerTypeIDList = list;
 			lambda.submitOperation(url, p);
 		}

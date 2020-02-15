@@ -14,7 +14,7 @@ INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','mc_ena
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_manager_type','Manager Type','30!','','Manager Type','ContainsText','text','50','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'paramValue','paramValue','varchar','input','32','UpdateSingleMgrTypeControlParam');
+INSERT INTO "sproc_args" VALUES(1,'paramName','paramName','varchar','input','32','UpdateSingleMgrTypeControlParam');
 INSERT INTO "sproc_args" VALUES(2,'newValue','newValue','varchar','input','128','UpdateSingleMgrTypeControlParam');
 INSERT INTO "sproc_args" VALUES(3,'managerTypeIDList','managerTypeIDList','varchar','input','2048','UpdateSingleMgrTypeControlParam');
 INSERT INTO "sproc_args" VALUES(4,'<local>','callingUser','varchar','input','128','UpdateSingleMgrTypeControlParam');
