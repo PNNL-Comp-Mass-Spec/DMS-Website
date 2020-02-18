@@ -201,6 +201,7 @@ class Q_model extends CI_Model {
         $dbFileName = $config_source . '.db';
 
         $this->_clear();
+
         try {
             switch ($config_name) {
                 case '':
@@ -265,9 +266,9 @@ class Q_model extends CI_Model {
                 }
             }
         }
-
+        
         $this->set_my_sql_builder("sql_" . $my_db->dbdriver);
-
+        
         return FALSE;
     }
 
