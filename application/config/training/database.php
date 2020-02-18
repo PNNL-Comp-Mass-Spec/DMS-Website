@@ -100,6 +100,7 @@ $db['default'] = array(
 // Use sqlsrv with PHP 7 on Apache 2.4
 // Use mssql  with PHP 5 on Apache 2.2
 $mssqlsrvDbDriver = "sqlsrv";
+$postgreSqlDbDriver = "postgre";
 
 $db['default']['hostname'] = "Gigasax";
 $db['default']['username'] = "dmswebuser";

@@ -100,6 +100,7 @@ $db['default'] = array(
 // Use sqlsrv with PHP 7 on Apache 2.4
 // Use mssql  with PHP 5 on Apache 2.2
 $mssqlsrvDbDriver = "sqlsrv";
+$postgreSqlDbDriver = "postgre";
 
 $db['default']['hostname'] = "Gigasax";
 $db['default']['username'] = "dmswebuser";
@@ -209,11 +210,18 @@ $db['ontology']['db_debug'] = TRUE;
 $db['ontology']['cache_on'] = FALSE;
 $db['ontology']['cachedir'] = "";
 
+/**/
 $db['manager_control']['hostname'] = "Proteinseqs";
-$db['manager_control']['username'] = "dmswebuser";
-$db['manager_control']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['manager_control']['database'] = "Manager_Control_T3";
 $db['manager_control']['dbdriver'] = $mssqlsrvDbDriver;
+/*/
+$db['manager_control']['hostname'] = "prismweb3";
+$db['manager_control']['database'] = "dmsdev";
+$db['manager_control']['dbdriver'] = $postgreSqlDbDriver;
+$db['manager_control']['schema'] = "mc";
+/**/
+$db['manager_control']['username'] = "dmswebuser";
+$db['manager_control']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['manager_control']['dbprefix'] = "";
 $db['manager_control']['active_r'] = TRUE;
 $db['manager_control']['pconnect'] = TRUE;

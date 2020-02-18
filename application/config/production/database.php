@@ -185,11 +185,18 @@ $db['ontology']['db_debug'] = TRUE;
 $db['ontology']['cache_on'] = FALSE;
 $db['ontology']['cachedir'] = "";
 
+/**/
 $db['manager_control']['hostname'] = "Proteinseqs";
-$db['manager_control']['username'] = "dmswebuser";
-$db['manager_control']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['manager_control']['database'] = "Manager_Control";
 $db['manager_control']['dbdriver'] = $mssqlsrvDbDriver;
+/*/
+$db['manager_control']['hostname'] = "prismweb3";
+$db['manager_control']['database'] = "dms";
+$db['manager_control']['dbdriver'] = $postgreSqlDbDriver;
+$db['manager_control']['schema'] = "mc";
+/**/
+$db['manager_control']['username'] = "dmswebuser";
+$db['manager_control']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['manager_control']['dbprefix'] = "";
 $db['manager_control']['active_r'] = TRUE;
 $db['manager_control']['pconnect'] = TRUE;

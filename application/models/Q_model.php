@@ -201,7 +201,6 @@ class Q_model extends CI_Model {
         $dbFileName = $config_source . '.db';
 
         $this->_clear();
-        $this->set_my_sql_builder('sql_mssql');     // (someday) pass in via argument (or constructor?) or do in config.php based on database type
         try {
             switch ($config_name) {
                 case '':
@@ -222,6 +221,53 @@ class Q_model extends CI_Model {
         } catch (Exception $e) {
             return $e->getMessage();
         }
+
+        $CI = & get_instance();
+
+        // Connect to the database
+        // Retry the connection up to 5 times
+        $connectionRetriesRemaining = 5;
+
+        // The initial delay when retrying is 250 msec
+        // This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
+        $connectionSleepDelayMsec = 250;
+
+        while ($connectionRetriesRemaining > 0) {
+            try {
+                $my_db = $CI->load->database($this->query_parts->dbn, TRUE, TRUE);
+
+                if ($my_db === false) {
+                    // $CI->load->database() normally returns a database object
+                    // But if an error occurs, it returns FALSE
+                    // Retry establishing the connection
+                    throw new Exception('$CI->load->database returned false in S_model');
+                } else {
+                    if ($my_db->conn_id === false) {
+                        // $my_db->conn_id is normally an object
+                        // But if an error occurs, it is FALSE
+                        // Retry establishing the connection
+                        throw new Exception('$my_db->conn_id returned false in S_model');
+                    }
+
+                    // Exit the while loop
+                    break;
+                }
+            } catch (Exception $ex) {
+                $errorMessage = $ex->getMessage();
+                log_message('error', "Exception connecting to DB group $this->query_parts->dbn (config name $config_name): $errorMessage");
+                $connectionRetriesRemaining--;
+                if ($connectionRetriesRemaining > 0) {
+                    log_message('error', "Retrying connection to $this->query_parts->dbn in $connectionSleepDelayMsec msec");
+                    usleep($connectionSleepDelayMsec * 1000);
+                    $connectionSleepDelayMsec *= 2;
+                } else {
+                    throw new Exception("Connection to DB group $this->query_parts->dbn failed: $errorMessage");
+                }
+            }
+        }
+
+        $this->set_my_sql_builder("sql_" . $my_db->dbdriver);
+
         return FALSE;
     }
 
