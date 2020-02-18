@@ -20,7 +20,7 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_active','Active','6!','','
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_state_last_changed','State Last Changed','20','','State Last Changed','LaterThan','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_changed_by','Changed By','20','','Changed By','ContainsText','text','128','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'paramValue','paramName','varchar','input','32','UpdateSingleMgrControlParam');
+INSERT INTO "sproc_args" VALUES(1,'paramName','paramName','varchar','input','32','UpdateSingleMgrControlParam');
 INSERT INTO "sproc_args" VALUES(2,'newValue','newValue','varchar','input','128','UpdateSingleMgrControlParam');
 INSERT INTO "sproc_args" VALUES(3,'managerIDList','managerIDList','varchar','input','8000','UpdateSingleMgrControlParam');
 INSERT INTO "sproc_args" VALUES(4,'<local>','callingUser','varchar','input','128','UpdateSingleMgrControlParam');
