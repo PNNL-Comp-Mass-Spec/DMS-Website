@@ -72,6 +72,9 @@ class Sql_postgre {
             }
         }
 
+        // Replace '[_]' with '\_'
+        $baseSql = str_replace("[_]", "\_", $baseSql);
+
         //columns to display
         $display_cols = $query_parts->columns;
         // Replace '[' and ']' with '"'
@@ -160,7 +163,7 @@ class Sql_postgre {
         $str = '';
         switch ($cmp) {
             case "wildcards":
-                $val = str_replace('_', '[_]', $val);
+                $val = str_replace('_', '\_', $val);
                 $val = str_replace('*', '%', $val);
                 $val = str_replace('?', '_', $val);
                 $str .= "$col LIKE '$val'";
