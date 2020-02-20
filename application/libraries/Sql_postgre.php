@@ -166,17 +166,17 @@ class Sql_postgre {
                 $val = str_replace('_', '\_', $val);
                 $val = str_replace('*', '%', $val);
                 $val = str_replace('?', '_', $val);
-                $str .= "$col LIKE '$val'";
+                $str .= "$col SIMILAR TO '$val'";
                 break;
             case "ContainsText":
             case "CTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
-                $str .= "$col LIKE '$val'";
+                $str .= "$col SIMILAR TO '$val'";
                 break;
             case "DoesNotContainText":
             case "DNCTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
-                $str .= "NOT $col LIKE '$val'";
+                $str .= "NOT $col SIMILAR TO '$val'";
                 break;
             case "MatchesText":
             case "MTx":
@@ -189,7 +189,7 @@ class Sql_postgre {
             case "StartsWithText":
             case "SWTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : $val . '%';
-                $str .= "$col LIKE '$val'";
+                $str .= "$col SIMILAR TO '$val'";
                 break;
             case "Equals":
             case "EQn":
