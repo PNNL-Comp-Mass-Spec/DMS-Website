@@ -338,6 +338,7 @@ class Sql_postgre {
             case 'text':
             case 'char':
             case 'varchar':
+            case 'citext':
             case 1:     // char
             case -8:    // nchar
             case -10:   // ntext
@@ -364,6 +365,16 @@ class Sql_postgre {
             case 7:     // real
             case 5:     // smallint
             case -6:    // tinyint
+            case 'float4':
+            case 'bit':
+            case 'int2':
+            case 'smallint':
+            case 'int4':
+            case 'integer':
+            case 'int8':
+            case 'bigint':
+            case 'decimal':
+            case 'double precision':
                 foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('numeric', $def['type'])) {
                         $cmps[$n] = $def['label'];
