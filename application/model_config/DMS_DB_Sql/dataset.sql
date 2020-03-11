@@ -63,7 +63,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_id','ID','','','ID','Equal
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_state','State','32','','State','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_experiment','Experiment','20!','','Experiment','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','32','','Campaign','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','32!','','Campaign','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','#DateSortKey','MostRecentWeeks','text','4','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_created_after','Created After','8','','Created','LaterThan','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_rating','Rating','12','','Rating','StartsWithText','text','64','','');
