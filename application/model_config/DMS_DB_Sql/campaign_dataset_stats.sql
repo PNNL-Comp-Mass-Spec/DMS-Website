@@ -14,11 +14,12 @@ INSERT INTO "sproc_args" VALUES(2,'startDate','startDate','datetime','input','',
 INSERT INTO "sproc_args" VALUES(3,'endDate','endDate','datetime','input','','GetDatasetStatsByCampaign');
 INSERT INTO "sproc_args" VALUES(4,'includeInstrument','includeInstrument','tinyint','input','','GetDatasetStatsByCampaign');
 INSERT INTO "sproc_args" VALUES(5,'excludeQCAndBlankWithoutWP','excludeQCAndBlankWithoutWP','tinyint','input','','GetDatasetStatsByCampaign');
-INSERT INTO "sproc_args" VALUES(6,'campaignNameFilter','campaignNameFilter','varchar','input','128','GetDatasetStatsByCampaign');
-INSERT INTO "sproc_args" VALUES(7,'campaignNameExclude','campaignNameExclude','varchar','input','128','GetDatasetStatsByCampaign');
-INSERT INTO "sproc_args" VALUES(8,'instrumentBuilding','instrumentBuilding','varchar','input','64','GetDatasetStatsByCampaign');
-INSERT INTO "sproc_args" VALUES(9,'','previewSql','tinyint','input','','GetDatasetStatsByCampaign');
-INSERT INTO "sproc_args" VALUES(10,'','message','varchar','output','512','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(6,'excludeAllQCAndBlank','excludeAllQCAndBlank','tinyint','input','','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(7,'campaignNameFilter','campaignNameFilter','varchar','input','128','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(8,'campaignNameExclude','campaignNameExclude','varchar','input','128','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(9,'instrumentBuilding','instrumentBuilding','varchar','input','64','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(10,'','previewSql','tinyint','input','','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(11,'','message','varchar','output','512','GetDatasetStatsByCampaign');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'campaignNameFilter','Campaign Name Filter','text','24','128','','','EMSL','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(2,'campaignNameExclude','Campaign Exclusion Filter','text','24','128','','','','trim|max_length[128]');
@@ -28,7 +29,8 @@ INSERT INTO "form_fields" VALUES(5,'startDate','Start Date','text','10','64','',
 INSERT INTO "form_fields" VALUES(6,'endDate','End Date','text','10','64','','','','trim|Date');
 INSERT INTO "form_fields" VALUES(7,'includeInstrument','Include Instrument?','text','10','32','','','','trim|Numeric');
 INSERT INTO "form_fields" VALUES(8,'excludeQCAndBlankWithoutWP','Exclude QC/Blank Without WP','text','10','32','','','1','trim|Numeric');
-INSERT INTO "form_fields" VALUES(9,'previewSql','Preview SQL','hidden','','','','','','trim');
+INSERT INTO "form_fields" VALUES(9,'excludeAllQCAndBlank','Exclude All QC/Blank','text','10','32','','','0','trim|Numeric');
+INSERT INTO "form_fields" VALUES(10,'previewSql','Preview SQL','hidden','','','','','','trim');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'startDate','picker.prevDate','','','',',','Start Date');
 INSERT INTO "form_field_choosers" VALUES(2,'endDate','picker.prevDate','','','',',','End Date');
@@ -36,4 +38,5 @@ INSERT INTO "form_field_choosers" VALUES(3,'includeInstrument','picker.replace',
 INSERT INTO "form_field_choosers" VALUES(4,'campaignNameFilter','list-report.helper','	','helper_campaign/report','campaignNameFilter',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'campaignNameExclude','list-report.helper','','helper_campaign/report','campaignNameFilter',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'excludeQCAndBlankWithoutWP','picker.replace','yesNoAsOneZeroPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(7,'excludeAllQCAndBlank','picker.replace','yesNoAsOneZeroPickList','','',',','');
 COMMIT;
