@@ -84,4 +84,5 @@ INSERT INTO "detail_report_hotlinks" VALUES(8,'NCBI Synonyms','detail-report','N
 INSERT INTO "detail_report_hotlinks" VALUES(10,'Taxonomy List','tabular_list','Taxonomy List','','valueCol','dl_taxonomy_list','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Default Protein Collection','detail-report','Default Protein Collection','protein_collection/report/~','labelCol','dl_default_protein_collection','');
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Legacy FASTA Files','detail-report','Name','helper_organism_db/report/-/~','labelCol','dl_legacy_fasta_files','');
+INSERT INTO "detail_report_hotlinks" VALUES(13,'Organism Storage Link','literal_link','Organism Storage Link','','valueCol','dl_organism_storage_link','');
 COMMIT;
