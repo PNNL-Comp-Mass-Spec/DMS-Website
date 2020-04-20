@@ -109,18 +109,40 @@ EOD;
         $yearVal = $this->validate_year($year);
         $monthVal = $this->validate_month($month);
         
-        $result = $this->get_daily_data($instrument, $yearVal, $monthVal);
+        $result = $this->get_daily_data($instrument, $yearVal, $monthVal, false);
         $this->export_to_tab_delimited_text($result);
 
     }
+    
+    // --------------------------------------------------------------------
+    function dailydetails()
+    {
+        $year = $this->uri->segment(3, date(''));
+        $month = $this->uri->segment(4, date(''));
+        $instrument = $this->uri->segment(5, '');
 
+        $yearVal = $this->validate_year($year);
+        $monthVal = $this->validate_month($month);
+        
+        $result = $this->get_daily_data($instrument, $yearVal, $monthVal, true);
+        $this->export_to_tab_delimited_text($result);
+
+    }
+    
     // --------------------------------------------------------------------
     private
-    function get_daily_data($instrument, $year, $month)
+    function get_daily_data($instrument, $year, $month, $showDetails)
     {
         $this->load->database();
 
-        $sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageDaily($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start";
+        if ($showDetails) {
+        	$udf = "dbo.GetEMSLInstrumentUsageDailyDetails";
+        } else {          
+        	$udf = "dbo.GetEMSLInstrumentUsageDaily";
+        }
+        
+        $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start";
+        
         $query = $this->db->query($sql);
         $result = $query->result_array();
         return $result;
