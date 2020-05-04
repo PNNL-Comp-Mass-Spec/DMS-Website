@@ -57,7 +57,7 @@ INSERT INTO "form_fields" VALUES(13,'Operator',' Operator','text','50','64','','
 INSERT INTO "form_fields" VALUES(14,'Comment',' Comment','area','','','4','70','','trim|max_length[4096]');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Seq','invoke_entity','value','instrument_usage_report/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','datasetid/show','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset_ID','invoke_entity','value','datasetid/show','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'ID','detail-report','ID','datasetid/show','valueCol','dl_dataset_id','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Instrument','detail-report','Instrument','instrument/show/','valueCol','dl_instrument','');

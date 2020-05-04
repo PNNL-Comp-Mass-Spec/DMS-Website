@@ -35,7 +35,7 @@ class Instrument_usage_report extends Grid {
 
         $this->my_tag = "instrument_usage";
         $this->load->database();
-        $this->db->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , ID , Validation', FALSE);
+        $this->db->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , Dataset_ID as ID, Validation', FALSE);
         $this->db->from("V_Instrument_Usage_Report_List_Report");
 
         if(IsNotWhitespace($instrument)) $this->db->where("Instrument in ($instrument)");
