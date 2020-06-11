@@ -39,9 +39,9 @@ INSERT INTO "form_field_choosers" VALUES(5,'State','picker.replace','dataPackage
 INSERT INTO "form_field_choosers" VALUES(6,'Owner','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'Requester','picker.replace','userPRNPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','6','','Name','ContainsText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','25!','','Name','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_ID','ID','6','','ID','Equals','text','80','','');
-INSERT INTO "list_report_primary_filter" VALUES(3,'pf_description','Description','6','','Description','ContainsText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_description','Description','25!','','Description','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_state','State','6','','State','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_type','Type','6','','Package Type','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_owner','Owner','6','','Owner','ContainsText','text','80','','');
