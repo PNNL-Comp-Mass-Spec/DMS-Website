@@ -11,4 +11,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_proposal','ID','32','','Pr
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_user_last_name','Last Name','32','','User Last Names','ContainsText','text','64','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Proposal ID','update_opener','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Start_Date','format_date','value','15','{"Format":"Y-m-d"}');
+INSERT INTO "list_report_hotlinks" VALUES(3,'End_Date','format_date','value','15','{"Format":"Y-m-d"}');
+INSERT INTO "list_report_hotlinks" VALUES(4,'State','color_label','value','','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
 COMMIT;

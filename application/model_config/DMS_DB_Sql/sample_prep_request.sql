@@ -127,6 +127,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(23,'Requester','detail-report','Requ
 INSERT INTO "detail_report_hotlinks" VALUES(24,'Comment','markup','Comment','','valueCol','dl_Comment','');
 INSERT INTO "detail_report_hotlinks" VALUES(25,'Plant/Animal Tissue','detail-report','Plant/Animal Tissue','tissue/report/~','valueCol','dl_tissue','');
 INSERT INTO "detail_report_hotlinks" VALUES(26,'Organism','detail-report','Organism','organism/report/~','valueCol','dl_organism','');
+INSERT INTO "detail_report_hotlinks" VALUES(27,'EUS Proposal State','color_label','EUS Proposal State','','valueCol','dl_eus_proposal_state','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'RequestName','requestName','varchar','input','128','AddUpdateSamplePrepRequest');
 INSERT INTO "sproc_args" VALUES(2,'RequesterPRN','requesterPRN','varchar','input','32','AddUpdateSamplePrepRequest');

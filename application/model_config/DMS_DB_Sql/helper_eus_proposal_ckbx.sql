@@ -12,4 +12,5 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_title','Title','60','','Ti
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','Proposal ID','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Proposal ID','update_opener','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'State','color_label','value','','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
 COMMIT;

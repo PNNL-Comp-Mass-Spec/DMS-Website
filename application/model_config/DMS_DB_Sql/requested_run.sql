@@ -74,6 +74,7 @@ INSERT INTO "list_report_hotlinks" VALUES(8,'Work Package','invoke_entity','valu
 INSERT INTO "list_report_hotlinks" VALUES(9,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(10,'Proposal','invoke_entity','value','eus_proposals/show','');
 INSERT INTO "list_report_hotlinks" VALUES(11,'Comment','markup','Comment','60','');
+INSERT INTO "list_report_hotlinks" VALUES(12,'Proposal State','color_label','value','','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Delete this request','cmd_op','delete','requested_run','Delete this requested run.','Are you sure that you want to delete this requested run?');
 INSERT INTO "detail_report_commands" VALUES(2,'Convert Run to Dataset','copy_from','','dataset','Go to dataset entry page and copy information from this scheduled run.','');
@@ -94,6 +95,9 @@ INSERT INTO "detail_report_hotlinks" VALUES(13,'Requestor','detail-report','Requ
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Separation Group','detail-report','Separation Group','separation_group/show','labelCol','dl_separation_group','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Staging Location','detail-report','Staging Location','material_location/report/~@','valueCol','dl_staging_location','');
 INSERT INTO "detail_report_hotlinks" VALUES(16,'Comment','markup','Comment','','valueCol','dl_comment','');
+INSERT INTO "detail_report_hotlinks" VALUES(17,'EUS Proposal State','color_label','EUS Proposal State','','valueCol','dl_eus_proposal_state','       {"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}
+
+');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'RR_Name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(2,'RR_Experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
