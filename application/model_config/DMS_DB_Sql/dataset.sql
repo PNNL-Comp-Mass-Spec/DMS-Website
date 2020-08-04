@@ -125,6 +125,8 @@ INSERT INTO "detail_report_hotlinks" VALUES(35,'Dataset','detail-report','ID','d
 INSERT INTO "detail_report_hotlinks" VALUES(36,'SHA1 Hash','detail-report','ID','dataset_file/report/','labelCol','dl_dataset_file','');
 INSERT INTO "detail_report_hotlinks" VALUES(37,'Experiment Tissue','detail-report','Experiment Tissue','tissue/report/~','labelCol','dl_experiment_tissue','');
 INSERT INTO "detail_report_hotlinks" VALUES(38,'LC Column','detail-report','LC Column','lc_column/report/@/-/-','labelCol','dl_lc_column','');
+INSERT INTO "detail_report_hotlinks" VALUES(39,'MASIC QC Link','detail-report','Dataset','reporter_ion_observation_rate/report/-/~','labelCol','dl_rep_ion_obs_rate_list_report','');
+INSERT INTO "detail_report_hotlinks" VALUES(40,'+MASIC QC Link','literal_link','','','valueCol','dl_masic_data','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO "entry_commands" VALUES(1,'add_trigger','override','Create','','add');
 INSERT INTO "entry_commands" VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');
