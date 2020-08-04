@@ -12,7 +12,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('detail_report_cmds','file_attachment_cmds');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','4','','','','trim|max_length[4]');
+INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'Instrument','Instrument','text','24','24','','','','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(3,'DateOfChange','Date Of Change','text','24','24','','','','trim|required|max_length[24]|valid_date');
 INSERT INTO "form_fields" VALUES(4,'PostedBy','Posted By','text','50','64','','','','trim|required|max_length[64]');
