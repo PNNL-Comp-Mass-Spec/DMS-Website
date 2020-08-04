@@ -11,7 +11,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Settings_Files_En
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim|max_length[4]');
+INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'AnalysisTool','Analysis Tool','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(3,'FileName','FileName','area','','','1','80','','trim|max_length[255]');
 INSERT INTO "form_fields" VALUES(4,'Description','Description','area','','','4','80','','trim|max_length[1024]');

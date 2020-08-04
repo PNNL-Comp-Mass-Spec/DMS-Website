@@ -10,7 +10,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateAnalysisJobProcessor
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Analysis_Job_Processors_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim|max_length[4]');
+INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'State','State','text','1','1','','','E','trim|max_length[1]');
 INSERT INTO "form_fields" VALUES(3,'ProcessorName','ProcessorName','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(4,'Machine','Machine','text','60','64','','','','trim|max_length[64]');

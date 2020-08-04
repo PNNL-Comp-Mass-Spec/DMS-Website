@@ -11,7 +11,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_LC_Cart_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim|max_length[4]');
+INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'CartName','Cart Name','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(3,'CartDescription','Description','area','','','4','60','','trim|max_length[1024]');
 INSERT INTO "form_fields" VALUES(4,'CartState','State','text','50','50','','','','trim|max_length[50]');
