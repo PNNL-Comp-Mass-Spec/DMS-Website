@@ -8,4 +8,4 @@
 <script src="<?= base_url().'clipboard/clipboard.min.js?version=100' ?>"></script>
 
 <?php // Increment version number here to force clients to reload dms2.js ?>
-<script src="<?= base_url().'javascript/dms2.js?version=116' ?>"></script>
+<script src="<?= base_url().'javascript/dms2.js?version=117' ?>"></script>

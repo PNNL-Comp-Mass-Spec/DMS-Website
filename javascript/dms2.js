@@ -440,6 +440,10 @@ var gamma = {
                             data = data.replace(/`/g, "StartsWith__");
                             data = data.replace(/%(?!20)/g, "__Wildcard__");
                             data = data.replace(/\\b/g, "IsBlank__")
+                            
+                            // Square brackets
+                            data = data.replace(/\[/g, "__LeftBracket__")
+                            data = data.replace(/\]/g, "__RightBracket__")
 
                             // Also replace colons, but do not replace the colon in http://
                             var urlParts = data.split("://", 2);

@@ -61,9 +61,14 @@ function convert_special_values($value) {
         $newValue = $value;
     }
 
-    // Check for the special Wildcard tag in the middle (allow both __Wildcard__ and __WildCard__)
-    // If found, replace with a percent sign to signify a wildcard match
-    $finalValue = str_ireplace('__Wildcard__', '%', $newValue);
+    // Check for special tags in the middle (case insensitive matching)
+    // Replace the special tags with the corresponding character: %, [, or ]
+    // % signifies a wildcard match
+    // Square brackets are used to define a range of characters, e.g. [5-8]
+    
+    $newValue2 = str_ireplace('__Wildcard__', '%', $newValue);
+    $newValue3 = str_ireplace('__LeftBracket__', '[', $newValue2);
+    $finalValue = str_ireplace('__RightBracket__', ']', $newValue3);
 
     return $finalValue;
 }
