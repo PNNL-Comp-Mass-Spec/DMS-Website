@@ -7,8 +7,8 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analysis_job/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Instrument','invoke_entity','value','instrument_operation_history/report','');
-INSERT INTO "list_report_hotlinks" VALUES(4,'ObsRate_TopNPct_Link','image_link','value','index.html','{"width":"400"}');
-INSERT INTO "list_report_hotlinks" VALUES(5,'ObsRate_All_Link','image_link','value','index.html','{"width":"400"}');
+INSERT INTO "list_report_hotlinks" VALUES(4,'Observation_Rate_Link','image_link','value','index.html','{"width":"400"}');
+INSERT INTO "list_report_hotlinks" VALUES(5,'Intensity_Stats_Link','image_link','value','index.html','{"width":"400"}');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Channel1','format_commas','value','','{"Decimals":"2"}');
 INSERT INTO "list_report_hotlinks" VALUES(7,'Channel2','format_commas','value','','{"Decimals":"2"}');
 INSERT INTO "list_report_hotlinks" VALUES(8,'Channel3','format_commas','value','','{"Decimals":"2"}');
