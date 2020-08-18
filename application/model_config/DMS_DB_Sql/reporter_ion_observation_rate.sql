@@ -42,6 +42,7 @@ INSERT INTO "list_report_hotlinks" VALUES(35,'Channel14_All','format_commas','va
 INSERT INTO "list_report_hotlinks" VALUES(36,'Channel15_All','format_commas','value','','{"Decimals":"2"}');
 INSERT INTO "list_report_hotlinks" VALUES(37,'Channel16_All','format_commas','value','','{"Decimals":"2"}');
 INSERT INTO "list_report_hotlinks" VALUES(38,'Param_File','invoke_entity','value','param_file/report/-/@/-','');
+INSERT INTO "list_report_hotlinks" VALUES(39,'Reporter_Ion','invoke_entity','value','sample_label_reporter_ions/report/~','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_job','Job','6!','','Job','Equals','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_dataset','Dataset','40!','','Dataset','ContainsText','text','128','','');
