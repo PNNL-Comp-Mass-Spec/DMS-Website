@@ -20,4 +20,5 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analysis_job/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','data_package/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Dataset_ID','invoke_entity','value','datasetid/show','');
+INSERT INTO "list_report_hotlinks" VALUES(4,'Results URL','masked_link','value','','{"Label":"Browse"}');
 COMMIT;

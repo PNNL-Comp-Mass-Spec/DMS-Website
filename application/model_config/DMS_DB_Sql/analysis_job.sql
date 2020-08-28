@@ -63,6 +63,7 @@ INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analy
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Job Request','invoke_entity','value','analysis_job_request/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
+INSERT INTO "list_report_hotlinks" VALUES(5,'Results URL','masked_link','value','','{"Label":"Browse"}');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(2,'Make new request from this job......','copy_from','','analysis_job_request','Go to job request entry page and copy values from this page.','');
 INSERT INTO "detail_report_commands" VALUES(3,'Delete this job','cmd_op','delete','analysis_job','Delete an analysis job if it is still in the "new" state','Are you sure that you want to delete this job?');
