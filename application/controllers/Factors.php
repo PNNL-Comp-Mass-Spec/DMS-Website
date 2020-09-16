@@ -1,5 +1,5 @@
 <?php
-require("grid.php");
+require("Grid.php");
 
 class Factors extends Grid {
     // --------------------------------------------------------------------
