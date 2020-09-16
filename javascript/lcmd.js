@@ -423,7 +423,7 @@ var lcmd = {
 			var dataSeriesSet = lcmd.dataset_instrument_runtime.make_data_series_from_column(rows, "Duration") ;
 			var graphFormatting = lcmd.dataset_instrument_runtime.set_graph_format();
 			$('#graph_container').show();
-		    var f = $.plot($('#graph_container'), dataSeriesSet, graphFormatting);
+			var f = $.plot($('#graph_container'), dataSeriesSet, graphFormatting);
 		},
 		make_data_series_from_column: function(rows, colName) {
 			var intervalSeries = [];
@@ -447,12 +447,16 @@ var lcmd = {
 				}
 			);
 			return [
-				{ label: "Acquisition Time", color: '#0000ff', data: acquistionSeries },
-				{ label: "Interval Time", color: '#ff0000', data: intervalSeries }
+				{ label: "Acquisition Time", color: '#0000ff', bars: { show: true, barWidth: 0.5 }, data: acquistionSeries },
+				{ label: "Interval Time", color: '#ff0000', bars: { show: true, barWidth: 0.5 }, data: intervalSeries }
 			];
 		},
 		set_graph_format: function() {
-			return { yaxis: { min: 0 }, bars: { show:true, barWidth:0.5 } };
+			return {
+				yaxis: { min: 0 },
+        // See https://github.com/flot/flot/issues/1708 for current issue with legend background
+				legend: { show: true, backgroundColor: '#ffffff' }
+			};
 		}
 	}
 } // lcmd
