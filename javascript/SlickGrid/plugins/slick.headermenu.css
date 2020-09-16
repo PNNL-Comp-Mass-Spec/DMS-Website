@@ -7,6 +7,7 @@
   width: 14px;
   background-repeat: no-repeat;
   background-position: left center;
+  background-image: url(../images/down.gif);
   cursor: pointer;
 
   display: none;
@@ -55,4 +56,18 @@
 /* Disabled */
 .slick-header-menuitem-disabled {
   color: silver;
+}
+
+/* Divider */
+.slick-header-menuitem.slick-header-menuitem-divider {
+  cursor: default;
+  border: none;
+  overflow: hidden;
+  padding: 0;
+  height: 1px;
+  margin: 8px 2px;
+  background-color: #cecece;
+}
+.slick-header-menuitem-divider.slick-header-menuitem:hover {
+  background-color: #cecece;
 }

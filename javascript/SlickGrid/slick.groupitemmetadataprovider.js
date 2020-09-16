@@ -20,36 +20,58 @@
    * @module Data
    * @namespace Slick.Data
    * @constructor
-   * @param options
+   * @param inputOptions
    */
-  function GroupItemMetadataProvider(options) {
+  function GroupItemMetadataProvider(inputOptions) {
     var _grid;
     var _defaults = {
+      checkboxSelect: false,
+      checkboxSelectCssClass: "slick-group-select-checkbox",
+      checkboxSelectPlugin: null,
       groupCssClass: "slick-group",
+      groupTitleCssClass: "slick-group-title",
       totalsCssClass: "slick-group-totals",
       groupFocusable: true,
       totalsFocusable: false,
       toggleCssClass: "slick-group-toggle",
       toggleExpandedCssClass: "expanded",
       toggleCollapsedCssClass: "collapsed",
-      enableExpandCollapse: true
+      enableExpandCollapse: true,
+      groupFormatter: defaultGroupCellFormatter,
+      totalsFormatter: defaultTotalsCellFormatter,
+      includeHeaderTotals: false
     };
 
-    options = $.extend(true, {}, _defaults, options);
+    var options = $.extend(true, {}, _defaults, inputOptions);
 
+    function getOptions(){
+      return options;
+    }
 
-    function defaultGroupCellFormatter(row, cell, value, columnDef, item) {
+    function setOptions(inputOptions) {
+      $.extend(true, options, inputOptions);
+    }
+
+    function defaultGroupCellFormatter(row, cell, value, columnDef, item, grid) {
       if (!options.enableExpandCollapse) {
         return item.title;
       }
 
-      return "<span class='" + options.toggleCssClass + " " +
+      var indentation = item.level * 15 + "px";
+
+      return (options.checkboxSelect ? '<span class="' + options.checkboxSelectCssClass +
+          ' ' + (item.selectChecked ? 'checked' : 'unchecked') + '"></span>' : '') +
+          "<span class='" + options.toggleCssClass + " " +
           (item.collapsed ? options.toggleCollapsedCssClass : options.toggleExpandedCssClass) +
-          "'></span>" + item.title;
+          "' style='margin-left:" + indentation +"'>" +
+          "</span>" +
+          "<span class='" + options.groupTitleCssClass + "' level='" + item.level + "'>" +
+            item.title +
+          "</span>";
     }
 
-    function defaultTotalsCellFormatter(row, cell, value, columnDef, item) {
-      return (columnDef.groupTotalsFormatter && columnDef.groupTotalsFormatter(item, columnDef)) || "";
+    function defaultTotalsCellFormatter(row, cell, value, columnDef, item, grid) {
+      return (columnDef.groupTotalsFormatter && columnDef.groupTotalsFormatter(item, columnDef, grid)) || "";
     }
 
 
@@ -68,32 +90,51 @@
     }
 
     function handleGridClick(e, args) {
+      var $target = $(e.target);
       var item = this.getDataItem(args.row);
-      if (item && item instanceof Slick.Group && $(e.target).hasClass(options.toggleCssClass)) {
+      if (item && item instanceof Slick.Group && $target.hasClass(options.toggleCssClass)) {
+        var range = _grid.getRenderedRange();
+        this.getData().setRefreshHints({
+          ignoreDiffsBefore: range.top,
+          ignoreDiffsAfter: range.bottom + 1
+        });
+
         if (item.collapsed) {
-          this.getData().expandGroup(item.value);
-        }
-        else {
-          this.getData().collapseGroup(item.value);
+          this.getData().expandGroup(item.groupingKey);
+        } else {
+          this.getData().collapseGroup(item.groupingKey);
         }
 
         e.stopImmediatePropagation();
         e.preventDefault();
       }
+      if (item && item instanceof Slick.Group && $target.hasClass(options.checkboxSelectCssClass)) {
+        item.selectChecked = !item.selectChecked;
+        $target.removeClass((item.selectChecked ? "unchecked" : "checked"));
+        $target.addClass((item.selectChecked ? "checked" : "unchecked"));
+        // get rowIndexes array
+        var rowIndexes = _grid.getData().mapItemsToRows(item.rows);
+        (item.selectChecked ? options.checkboxSelectPlugin.selectRows : options.checkboxSelectPlugin.deSelectRows)(rowIndexes);
+      }
     }
 
     // TODO:  add -/+ handling
     function handleGridKeyDown(e, args) {
-      if (options.enableExpandCollapse && (e.which == $.ui.keyCode.SPACE)) {
+      if (options.enableExpandCollapse && (e.which == Slick.keyCode.SPACE)) {
         var activeCell = this.getActiveCell();
         if (activeCell) {
           var item = this.getDataItem(activeCell.row);
           if (item && item instanceof Slick.Group) {
+            var range = _grid.getRenderedRange();
+            this.getData().setRefreshHints({
+              ignoreDiffsBefore: range.top,
+              ignoreDiffsAfter: range.bottom + 1
+            });
+
             if (item.collapsed) {
-              this.getData().expandGroup(item.value);
-            }
-            else {
-              this.getData().collapseGroup(item.value);
+              this.getData().expandGroup(item.groupingKey);
+            } else {
+              this.getData().collapseGroup(item.groupingKey);
             }
 
             e.stopImmediatePropagation();
@@ -104,14 +145,16 @@
     }
 
     function getGroupRowMetadata(item) {
+      var groupLevel = item && item.level;
       return {
         selectable: false,
         focusable: options.groupFocusable,
-        cssClasses: options.groupCssClass,
+        cssClasses: options.groupCssClass + ' slick-group-level-' + groupLevel,
+        formatter: options.includeHeaderTotals && options.totalsFormatter,
         columns: {
           0: {
-            colspan: "*",
-            formatter: defaultGroupCellFormatter,
+            colspan: options.includeHeaderTotals?"1":"*",
+            formatter: options.groupFormatter,
             editor: null
           }
         }
@@ -119,11 +162,12 @@
     }
 
     function getTotalsRowMetadata(item) {
+      var groupLevel = item && item.group && item.group.level;      
       return {
         selectable: false,
         focusable: options.totalsFocusable,
-        cssClasses: options.totalsCssClass,
-        formatter: defaultTotalsCellFormatter,
+        cssClasses: options.totalsCssClass + ' slick-group-level-' + groupLevel,
+        formatter: options.totalsFormatter,
         editor: null
       };
     }
@@ -133,7 +177,9 @@
       "init": init,
       "destroy": destroy,
       "getGroupRowMetadata": getGroupRowMetadata,
-      "getTotalsRowMetadata": getTotalsRowMetadata
+      "getTotalsRowMetadata": getTotalsRowMetadata,
+      "getOptions": getOptions,
+      "setOptions": setOptions
     };
   }
 })(jQuery);
