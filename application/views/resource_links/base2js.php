@@ -1,6 +1,7 @@
 
-<script src="<?= base_url().'javascript/jquery/jquery-1.7.2.min.js' ?>"></script>
-<script src="<?= base_url().'javascript/jquery/jquery-ui-1.8.21.custom.min.js' ?>"></script>
+<script src="<?= base_url().'javascript/jquery/jquery-2.2.4.js' ?>"></script>
+<script src="<?= base_url().'javascript/jquery/jquery-migrate-1.4.1.js' ?>"></script>
+<script src="<?= base_url().'javascript/jquery-ui-1.12.1/jquery-ui.min.js' ?>"></script>
 <script src="<?= base_url().'javascript/jquery/jquery.event.drag-2.0.min.js' ?>"></script>
 <script src="<?= base_url().'javascript/jquery/jquery.unobtrusive-ajax.min.js' ?>"></script>
 <script src="<?= base_url().'javascript/spin.min.js?version=101' ?>"></script>
