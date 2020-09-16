@@ -528,10 +528,10 @@ var gamma = {
 
 		// Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
 		data += '$("#' + buttonName + '").on("click",function(e) { \n';
-		data += "    clipboard.copy({\n";
-		data += "      'text/plain': \"" + dataForClipboard + '", \n';
-		data += "      'text/html': \""  + htmlForClipboard + '"';
-		data += "      }); \n"
+		data += "    clipboard.write([new clipboard.ClipboardItem({\n";
+		data += '      "text/html": new Blob(["'  + htmlForClipboard + '"], { type: "text/html" }), \n';
+		data += '      "text/plain": new Blob(["' + dataForClipboard + '"], { type: "text/plain" })\n';
+		data += "      })]); \n"
 		data += "    console.log('success: " + buttonName + "'); \n";
 		data += "    if (gamma.dlgPopupInfo) { gamma.dlgPopupInfo.dialog('close'); } \n";
 		data += "  });";
@@ -541,7 +541,7 @@ var gamma = {
 		 * and a Javascript promise
 		 *
 			data += "document.getElementById('" + buttonName + "').addEventListener('click', function() {\n";
-			data += "  clipboard.copy({\n";
+			data += "  clipboard.write({\n";
 			data += "    'text/plain': \"" + dataForClipboard + "\",\n";
 			data += "    'text/html': \""  + htmlForClipboard + "\"\n";
 			data += "  }).then(\n";

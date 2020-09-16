@@ -175,7 +175,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
         foreach ($pathCopyData as $key => $value) {
             // Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
             $scriptData .= '$("#copy-data-button' . $key . '").on("click",function(e) {';
-            $scriptData .= "    clipboard.copy({ 'text/plain': '$value' }); ";
+            $scriptData .= "    clipboard.writeText('$value'); ";
             $scriptData .= "    console.log('success: copy-data-button$key'); ";
             $scriptData .= "  });\n";
 
@@ -184,7 +184,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
              * and a Javascript promise
              *
               $scriptData .= "document.getElementById('copy-data-button$key').addEventListener('click', function() {";
-              $scriptData .= "  clipboard.copy({\n";
+              $scriptData .= "  clipboard.write({\n";
               $scriptData .= "    'text/plain': '$value',\n";
               // $scriptData .= "    'text/html': '$value'\n";
               $scriptData .= "  }).then(\n";
