@@ -93,7 +93,7 @@ EOD;
     // --------------------------------------------------------------------
     function get_containers($location) {
         $sql = <<<EOD
-SELECT  Container, Type, Location, Items, Files, Comment, Action, Barcode, Created, Campaigns, Researcher, #ID AS ID
+SELECT  Container, Type, Location, Items, Files, Comment, Action, Created, Campaigns, Researcher, #ID AS ID
 FROM V_Material_Containers_List_Report
 EOD;
         $sql .= " WHERE Location = '$location'";
@@ -230,7 +230,7 @@ EOD;
             $info->Items = $entry['Items'];
             $info->Files = $entry['Files'];
             $info->Comment = $entry['Comment'];
-            $info->Barcode = $entry['Barcode'];
+            //$info->Barcode = $entry['Barcode'];
             $info->Created = $entry['Created'];
             $info->Campaigns = $entry['Campaigns'];
             $info->Researcher = $entry['Researcher'];
@@ -269,7 +269,7 @@ EOD;
     // --------------------------------------------------------------------
     function find_container($container) {
         $sql = <<<EOD
-SELECT  Container, Type, Location, Items, Files, Comment, Action, Barcode, Created, Campaigns, Researcher, #ID AS ID
+SELECT  Container, Type, Location, Items, Files, Comment, Action, Created, Campaigns, Researcher, #ID AS ID
 FROM V_Material_Containers_List_Report
 EOD;
         $sql .= " WHERE Container = '$container'";
