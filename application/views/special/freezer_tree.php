@@ -160,8 +160,9 @@ Freezer.Display = {
         return false;
     },
     getClickHandler: function() {
-        return function(node, event) {
-            var et = node.getEventTargetType(event);
+        return function(event, data) {
+            var node = data.node;
+            var et = $.ui.fancytree.getEventTargetType(event.originalEvent);
             switch(et) {
                 case 'expander':
                     break;
@@ -173,7 +174,8 @@ Freezer.Display = {
     },
     getDblClickHandler: function() {
         var context = this;
-        return function(node, event) {
+        return function(event, data) {
+            var node = data.node;
             if(node.data.info.Type == 'Container') {
                 var link = gamma.pageContext.site_url + "material_container/show/" + node.data.info.Name;
                 window.open(link);
@@ -187,7 +189,8 @@ Freezer.Display = {
     },
     getSelectionHandler: function() {
         var context = this;
-        return  function(select, node) {
+        return  function(event, data) {
+            var node = data.node;
             var selectedNodes = node.tree.getSelectedNodes();
             if(selectedNodes.length > 0) {
                 context.setControls(true);
@@ -198,18 +201,19 @@ Freezer.Display = {
     },
     getLazyReadHandler: function() {
         var context = this;
-        return function(node) {
+        return function(event, data) {
+            var node = data.node;
             if(node.data.info.Type == 'Container') {
-                node.setLazyNodeStatus(DTNodeStatus_Ok);
+                node.setStatus('ok');
                 return;
             }
             if(node.data.info.Status == 'Active') {
-                context.Model.getContainerNodes(node);
+                context.Model.getContainerNodes(node, data);
             } else {
                 if(node.data.info.Type == 'Col') {
-                    node.setLazyNodeStatus(DTNodeStatus_Ok);
+                    node.setStatus('ok');
                 } else {
-                    context.Model.getLocationNodes(node);
+                    context.Model.getLocationNodes(node, data);
                 }
             }
         }
@@ -219,25 +223,25 @@ Freezer.Display = {
         return {
             autoExpandMS: 1000,
             preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
-            onDragEnter: function(node, sourceNode) {
+            dragEnter: function(node, data) {
                 return 'over';
             },
-            onDragOver: function(node, sourceNode, hitMode) {
+            dragOver: function(node, data) {
                 return node.data.info.Type == 'Col'
             },
-            onDrop: function(node, sourceNode, hitMode, ui, draggable) {
-                context.Model.moveContainer(sourceNode, node, function() {
-                    context.updatePostMove(sourceNode, node);
+            dragDrop: function(node, data) {
+                context.Model.moveContainer(data.otherNode, node, function() {
+                    context.updatePostMove(data.otherNode, node);
                 });
             },
-            onDragLeave: function(node, sourceNode) {
-                // Always called if onDragEnter was called.
+            dragLeave: function(node, data) {
+                // Always called if dragEnter was called.
             },
-            onDragStart: function(node) {
-                if(node.data.isFolder) return false;
+            dragStart: function(node, data) {
+                if(node.isFolder()) return false;
                 return true;
             },
-            onDragStop: function(node) {
+            dragStop: function(node, data) {
             }
         }
     }
@@ -286,33 +290,35 @@ $(document).ready(function() {
 
 
     /*----- set up left-hand tree -----*/
-    Freezer.Display.Left.Model.myTreeElement.dynatree({
+    Freezer.Display.Left.Model.myTreeElement.fancytree({
+        extensions: ["dnd"],
         minExpandLevel: 1,
         selectMode: 2,
         checkbox: true,
-        initAjax: {
+        source: {
             url: '<?= site_url() ?>freezer/get_freezers',
             data: {}
         },
-        onLazyRead: Freezer.Display.Left.getLazyReadHandler(),
-        onClick: Freezer.Display.Left.getClickHandler(),
-        onDblClick: Freezer.Display.Left.getDblClickHandler(),
+        lazyLoad: Freezer.Display.Left.getLazyReadHandler(),
+        click: Freezer.Display.Left.getClickHandler(),
+        dblclick: Freezer.Display.Left.getDblClickHandler(),
         dnd: Freezer.Display.Left.getDndObj(),
-        onSelect: Freezer.Display.Left.getSelectionHandler()
+        select: Freezer.Display.Left.getSelectionHandler()
     });
 
     /*----- set up right-hand tree -----*/
-    Freezer.Display.Right.Model.myTreeElement.dynatree({
+    Freezer.Display.Right.Model.myTreeElement.fancytree({
+        extensions: ["dnd"],
         minExpandLevel: 1,
         selectMode: 2,
         checkbox: false,
-        initAjax: {
+        source: {
             url: '<?= site_url() ?>freezer/get_freezers',
             data: {}
         },
-        onLazyRead: Freezer.Display.Right.getLazyReadHandler(),
-        onClick: Freezer.Display.Right.getClickHandler(),
-        onDblClick: Freezer.Display.Right.getDblClickHandler(),
+        lazyLoad: Freezer.Display.Right.getLazyReadHandler(),
+        click: Freezer.Display.Right.getClickHandler(),
+        dblclick: Freezer.Display.Right.getDblClickHandler(),
         dnd: Freezer.Display.Right.getDndObj()
     });
 

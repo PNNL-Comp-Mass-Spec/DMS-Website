@@ -147,8 +147,8 @@ EOD;
 
             $obj = new stdClass();
             $obj->title = "Access denied: cannot update";
-            $obj->isFolder = true;
-            $obj->isLazy = true;
+            $obj->folder = true;
+            $obj->lazy = true;
             $obj->key = "000";
 
             $info = new stdClass();
@@ -180,8 +180,8 @@ EOD;
                 $name = $entry[$Type];
                 $obj = new stdClass();
                 $obj->title = "$Type $name";
-                $obj->isFolder = true;
-                $obj->isLazy = true;
+                $obj->folder = true;
+                $obj->lazy = true;
                 $obj->key = $entry['Tag'];
 
                 $info = new stdClass();
@@ -215,9 +215,10 @@ EOD;
             $name = $entry["Container"];
             $obj = new stdClass();
             $obj->title = $name;
-            $obj->isFolder = false;
-            $obj->isLazy = true;
+            $obj->folder = false;
+            $obj->lazy = true;
             $obj->key = $name;
+            $obj->children = [];
             //          $obj->hideCheckbox = true;
 
             $info = new stdClass();
@@ -248,8 +249,8 @@ EOD;
             $name = "${entry['Item_Type']} ${entry['Item']}";
             $obj = new stdClass();
             $obj->title = $name;
-            $obj->isFolder = false;
-            $obj->isLazy = false;
+            $obj->folder = false;
+            $obj->lazy = false;
             $obj->hideCheckbox = true;
 
             $info = new stdClass();

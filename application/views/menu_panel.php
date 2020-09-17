@@ -27,36 +27,75 @@
 </ul>
 </div>
 
+<div class='ctlPanel'>
+<br />
+<span class="side_menu_ctl_pnl"><a href="javascript:void(0)" id="btnToggleAutoCollapse" title="Toggle">Toggle&nbsp;Auto&nbsp;Collapse</a></span>
+</div>
+
 <script type='text/javascript'>
 
 $(document).ready(function() {
 
-    $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
-
     // set up tree menu
-    $("#tree").dynatree({
-      minExpandLevel: 1,
-      initAjax: {
-        url: '<?= site_url() ?>gen/side_menu_objects', data: {}
-      },
-      onClick: function(node, event) {
-        if( node.data.href ){
-          window.open(node.data.href, 'display_side');
-          return false;
+    $("#tree").fancytree({
+        autoActivate: false,
+        autoCollapse: true,
+        autoScroll: true,
+        clickFolderMode: 3, // expand with single click - 'folder' node attribute must be set to true
+        //clickFolderMode: 4, // expand when name is double clicked
+        //focusOnSelect: true,
+        selectMode: 1,
+        minExpandLevel: 1,
+        toggleEffect: { effect: "slideToggle", duration: 100 },
+        source: {
+            url: '<?= site_url() ?>gen/side_menu_objects', data: {}
+        },
+        icon: false, // Turn off icons
+        activate: function(event, data){
+            var node = data.node,
+                orgEvent = data.originalEvent || {};
+
+            // Open href (force new window if Ctrl is pressed)
+            if(node.data.href){
+                window.open(node.data.href, (orgEvent.ctrlKey || orgEvent.metaKey) ? "_blank" : "display_side");
+            }
+        },
+        click: function(event, data) {
+            var node = data.node,
+                orgEvent = data.originalEvent;
+
+            // Open href (force new window if Ctrl is pressed)
+            if(node.isActive() && node.data.href) {
+                window.open(node.data.href, (orgEvent.ctrlKey || orgEvent.metaKey) ? "_blank" : "display_side");
+            }
         }
-      }
     });
 
     $("#btnCollapseAll").click(function(){
-      $("#tree").dynatree("getRoot").visit(function(node){
-        node.expand(false);
-      });
+      $.ui.fancytree.getTree("#tree").expandAll(false);
+      //$.ui.fancytree.getTree("#tree").getRootNode().visit(function(node){
+      //  node.setExpanded(false);
+      //});
       return false;
     });
+
     $("#btnExpandAll").click(function(){
-      $("#tree").dynatree("getRoot").visit(function(node){
-        node.expand(true);
-      });
+      if ($.ui.fancytree.getTree("#tree").getOption("autoCollapse") === true)
+          $.ui.fancytree.getTree("#tree").setOption("autoCollapse", false);
+
+      $.ui.fancytree.getTree("#tree").expandAll(true);
+      //$.ui.fancytree.getTree("#tree").getRootNode().visit(function(node){
+      //  node.setExpanded(true);
+      //});
+      return false;
+    });
+
+    $("#btnToggleAutoCollapse").click(function(){
+      if ($.ui.fancytree.getTree("#tree").getOption("autoCollapse") === false)
+          $.ui.fancytree.getTree("#tree").setOption("autoCollapse", true);
+      else
+          $.ui.fancytree.getTree("#tree").setOption("autoCollapse", false);
+
       return false;
     });
 

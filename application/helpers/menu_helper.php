@@ -189,7 +189,7 @@ function build_side_menu_object_tree($menu_items, $mnu_name) {
                 case 'submenu':
                     $obj = new stdClass();
                     $obj->title = $label;
-                    $obj->isFolder = true;
+                    $obj->folder = true;
                     $obj->children = build_side_menu_object_tree($menu_items, $name);
                     $items[] = $obj;
                     break;

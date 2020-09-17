@@ -8,7 +8,7 @@ Freezer.Model = {
 		return me;
 	},
 	getTree: function() {
-		return this.myTreeElement.dynatree("getTree");
+		return $.ui.fancytree.getTree(this.myTreeElement);
 	},
 	getSelectedNodes: function() {
 		return this.getTree().getSelectedNodes();
@@ -148,36 +148,20 @@ Freezer.Model = {
 		node.data.hideCheckbox = true;
 		node.setTitle(newTitle);
 	},
-	getLocationNodes: function(node) {
-		var that = this;
-		node.appendAjax({
-			url: gamma.pageContext.site_url + 'freezer/get_locations',
-			type: "POST",
-			data: {
+	getLocationNodes: function(node, data) {
+    data.result = $.getJSON(gamma.pageContext.site_url + 'freezer/get_locations', {
 				"Type": node.data.info.Type,
 				"Freezer":node.data.info.Freezer,
 				"Shelf":node.data.info.Shelf,
 				"Rack":node.data.info.Rack,
 				"Row":node.data.info.Row,
 				"Col":node.data.info.Col
-			},
-			success: function(node) {
-				that.setNodeDisplay();
-			}
 		});
 	},
-	getContainerNodes: function(node) {
-		var that = this;
-		node.appendAjax({
-			url: gamma.pageContext.site_url + 'freezer/get_containers',
-			type: "POST",
-			data: {
-				"Location": node.data.info.Tag,
-			},
-			success: function(node) {
-				that.setNodeDisplay();
-			}
-		});
+	getContainerNodes: function(node, data) {
+    data.result = $.getJSON(gamma.pageContext.site_url + 'freezer/get_containers', {
+        "Location": node.data.info.Tag,
+    });
 	},
 	getChangeList: function(selectedNodes, action, value) {
 		var changeList = [];
