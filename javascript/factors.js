@@ -1,3 +1,5 @@
+// These functions are used by run_blocking.js and tracking.js
+// and by the requested_run_batch_blocking and requested_run_factors list reports
 var theta = {
 	getBlockingXMLFromList: function(flist) {
 		var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
@@ -90,6 +92,7 @@ var theta = {
 	}
 };
 
+// These functions are used by the requested_run_factors and requested_run_admin list reports
 var tau = {
 	requested_run_factors: {
 		setItemTypeField: function() {
@@ -116,7 +119,7 @@ var tau = {
 			if(id_type) {
 				factorXML = '<id type="' + id_type + '" />' + factorXML;
 			}
-			var url =  gamma.pageContext.ops_url;
+			var url = gamma.pageContext.ops_url;
 			var p = {};
 			p.factorList = factorXML;
 			// lambda.submitOperation is defined in dms2.js
@@ -149,7 +152,7 @@ var tau = {
 			p.requestList = xml;
 			p.command = command;
 			// gamma.pageContext and lambda.submitOperation are defined in dms2.js
-			var url =  gamma.pageContext.ops_url;
+			var url = gamma.pageContext.ops_url;
 			lambda.submitOperation(url, p);
 		},
 		setRequestStatus: function(status) {
@@ -158,6 +161,7 @@ var tau = {
 			this.updateDatabaseFromList(xml, status);
 		},
 		changeWPN: function(oldWpn, newWpn) {
+			// POST to requested_run_admin/call/updatewp_sproc
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag +  "/call/updatewp_sproc";
 			var p = {};
 			p.OldWorkPackage = oldWpn;
