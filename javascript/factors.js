@@ -155,10 +155,10 @@ var tau = {
 			var url = gamma.pageContext.ops_url;
 			lambda.submitOperation(url, p);
 		},
-		setRequestStatus: function(status) {
+		setRequestStatus: function(command) {
 			var iList = lambda.getSelectedItemList();
 			var xml = gamma.getXmlElementsFromArray(iList, 'r', 'i');
-			this.updateDatabaseFromList(xml, status);
+			this.updateDatabaseFromList(xml, command);
 		},
 		changeWPN: function(oldWpn, newWpn) {
 			// POST to requested_run_admin/call/updatewp_sproc
