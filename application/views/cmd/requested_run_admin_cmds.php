@@ -58,6 +58,31 @@ Assign the selected requests to instrument
 
 <hr>
 <div>
+<!-- 
+  tau.requested_run_admin.setRequestStatus is defined in factors.js
+  It calls stored procedure UpdateRequestedRunAdmin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
+-->
+<input class='button lst_cmd_btn' type="button" value="Set Requests Active" 
+       onClick='tau.requested_run_admin.setRequestStatus("Active")' 
+       title="Set Active"  /> Set selected requests to "Active" status
+</div>
+
+<div>
+<input class='button lst_cmd_btn' type="button" value="Set Requests Inactive"
+       onClick='tau.requested_run_admin.setRequestStatus("Inactive")' 
+       title="Set Inactive"  /> Set selected requests to "Inactive" status
+</div>
+
+<hr>
+<div>
+<!-- 
+    tau.requested_run_admin.changeWPN is defined in factors.js
+    It calls stored procedure UpdateRequestedRunWP, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
+    It does this via a POST to requested_run_admin/call/updatewp_sproc
+-->
+<input class='button lst_cmd_btn' type="button" value="Change WPN"
+       onClick='tau.requested_run_admin.changeWPN($("#oldWPN").val(), $("#newWPN").val())' 
+       title="Change WPN from old to new for selected requests"  />
 from existing <input id='oldWPN'/> to <input id='newWPN'/>
 for all or selected requests
 </div>
