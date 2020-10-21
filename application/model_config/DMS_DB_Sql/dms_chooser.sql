@@ -70,7 +70,6 @@ INSERT INTO "chooser_definitions" VALUES(54,'filterSetPickList','default','sql',
 INSERT INTO "chooser_definitions" VALUES(55,'instrumentClassPickList','default','sql','SELECT IN_class as val, '''' as ex FROM T_Instrument_Class ORDER BY IN_class ASC');
 INSERT INTO "chooser_definitions" VALUES(57,'instrumentNameAdminPickList','default','sql','SELECT val, ex FROM V_Instrument_Admin_Picklist ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(58,'instrumentNamePickList','default','sql','SELECT val, ex FROM V_Instrument_Picklist ORDER BY val');
-INSERT INTO "chooser_definitions" VALUES(59,'instrumentNameExPickList','default','sql','SELECT val, ex FROM V_Instrument_Picklist_Ex ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(60,'instrumentOpsRolePickList','default','sql','SELECT val, '''' as ex FROM V_Instrument_OpsRole_Picklist ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(61,'instrumentStatusPickList','default','sql','SELECT val, '''' as ex FROM V_Instrument_Status_Picklist ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(62,'instrumentGroupPickList','default','sql','SELECT Instrument_Group As val, '''' As ex FROM V_Instrument_Group_PickList ORDER BY Instrument_Group');

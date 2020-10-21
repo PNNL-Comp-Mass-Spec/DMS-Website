@@ -15,5 +15,5 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(2,'Interval','invoke_entity','ID','run_interval/edit','{"GreaterOrEqual":"180"}');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Dataset','select_case','#DSType','','{"Regular":"dataset","Tracking":"tracking_dataset"}');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
-INSERT INTO "primary_filter_choosers" VALUES(1,'pf_instrument','picker.replace','instrumentNameExPickList','','',',');
+INSERT INTO "primary_filter_choosers" VALUES(1,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
 COMMIT;
