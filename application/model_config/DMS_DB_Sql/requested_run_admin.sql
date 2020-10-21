@@ -14,8 +14,10 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','35!','','Nam
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_request','RequestID','12','','Request','Equals','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','20','','Status','ContainsText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_batch','Batch','20','','Batch','Equals','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(7,'pf_campaign','Campaign','25!','','Campaign','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(7,'pf_campaign','Campaign','30!','','Campaign','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_dataset','Dataset','40!','','Dataset','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(9,'pf_queue_state','Queue State','20','','Queue State','StartsWithText','text','32','','');
+INSERT INTO "list_report_primary_filter" VALUES(10,'pf_queued_instrument','Queued Instrument','20','','Queued Instrument','ContainsText','text','64','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Request','invoke_entity','value','requested_run/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Campaign','invoke_entity','value','campaign/show','');
