@@ -16,7 +16,7 @@ INSERT INTO "list_report_primary_filter" VALUES(8,'pf_proposal','Proposal','32',
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Days in Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Min Request','invoke_entity','value','requested_run/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(3,'Run Count','invoke_entity','Request Name Code','requested_run/report/-/-/~active/-/-/~','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Run Count','invoke_entity','Request Name Code','requested_run_admin/report/-/-/~active/-/-/-/-/-/~@','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Work Package','invoke_entity','value','charge_code/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_120","4":"clr_120","5":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Proposal','invoke_entity','value','eus_proposals/show','');

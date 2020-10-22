@@ -58,7 +58,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_request','RequestID','6!',
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','6!','','Status','StartsWithText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_batch','Batch','4!','','Batch','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','20!','','Campaign','ContainsText','text','50','','');
-INSERT INTO "list_report_primary_filter" VALUES(6,'pf_requestNameCode','Code','32','','Request Name Code','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_requestNameCode','Code','20!','','Request Name Code','StartsWithText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_instrument_group','Inst. Group','32','','Inst. Group','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_work_package','Work Pkg','32','','Work Package','ContainsText','text','50','','');
@@ -76,7 +76,7 @@ INSERT INTO "list_report_hotlinks" VALUES(9,'WP State','color_label','#WPActivat
 INSERT INTO "list_report_hotlinks" VALUES(10,'Proposal','invoke_entity','value','eus_proposals/show','');
 INSERT INTO "list_report_hotlinks" VALUES(11,'Comment','markup','Comment','60','');
 INSERT INTO "list_report_hotlinks" VALUES(12,'Proposal State','color_label','value','','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
-INSERT INTO "list_report_hotlinks" VALUES(13,'Queue State','invoke_entity','Request','requested_run_admin/report/-/@','');
+INSERT INTO "list_report_hotlinks" VALUES(13,'Queue State','invoke_entity','Campaign','requested_run_admin/report/-/-/-/-/~@/-/-/-','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Delete this request','cmd_op','delete','requested_run','Delete this requested run.','Are you sure that you want to delete this requested run?');
 INSERT INTO "detail_report_commands" VALUES(2,'Convert Run to Dataset','copy_from','','dataset','Go to dataset entry page and copy information from this scheduled run.','');
@@ -97,9 +97,11 @@ INSERT INTO "detail_report_hotlinks" VALUES(13,'Requestor','detail-report','Requ
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Separation Group','detail-report','Separation Group','separation_group/show','labelCol','dl_separation_group','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Staging Location','detail-report','Staging Location','material_location/report/~@','valueCol','dl_staging_location','');
 INSERT INTO "detail_report_hotlinks" VALUES(16,'Comment','markup','Comment','','valueCol','dl_comment','');
-INSERT INTO "detail_report_hotlinks" VALUES(17,'EUS Proposal State','color_label','EUS Proposal State','','valueCol','dl_eus_proposal_state','       {"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}
+INSERT INTO "detail_report_hotlinks" VALUES(17,'EUS Proposal State','color_label','EUS Proposal State','','valueCol','dl_eus_proposal_state','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}
 
 ');
+INSERT INTO "detail_report_hotlinks" VALUES(18,'Queue State','detail-report','Campaign','requested_run_admin/report/-/-/-/-/~@/-/-/-','labelCol','dl_requested_run_admin','');
+INSERT INTO "detail_report_hotlinks" VALUES(19,'Days In Queue','detail-report','Instrument Group','run_planning/report/~@/-/-/-/-/-/-/-','labelCol','dl_run_planning','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'RR_Name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(2,'RR_Experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
