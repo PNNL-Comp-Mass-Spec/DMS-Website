@@ -2,6 +2,12 @@
 
 <form name="DBG" action="">
 
+<!-- 
+  lcmd.requested_run_admin.op will POST to requested_run/operation/ , 
+  which in turn will call UpdateRequestedRunAssignments, 
+  as defined in https://dms2.pnl.gov/config_db/show_db/requested_run.db
+-->
+
 <hr>
 <div>
 <!-- "assignedInstrument" will be passed to the @mode parameter of stored procedure UpdateRequestedRunAssignments -->
@@ -24,12 +30,6 @@ Assign the selected requests to instrument
 </div>
 
 <hr>
-<!-- 
-  lcmd.requested_run_admin.op will POST to requested_run/operation/ , 
-  which in turn will call UpdateRequestedRunAssignments, 
-  as defined in https://dms2.pnl.gov/config_db/show_db/requested_run.db
-  -->
-
 <div>
 <!-- "instrumentGroupIgnoreType" will be passed to the @mode parameter of stored procedure UpdateRequestedRunAssignments -->
 <!-- The value selected in the chooser will be sent to the @newValue parameter -->

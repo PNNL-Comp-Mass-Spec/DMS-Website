@@ -231,6 +231,7 @@ class G_model extends CI_Model {
                 $this->the_parameters['is_ms_helper'] = ($row['value'] == 'yes');
             } else
             if(stripos($row['name'], 'post_submission') !== FALSE) {
+                // post_submission_link, post_submission_detail_id, or post_submission_link_tag
                 $name = str_replace('post_submission_' , '', $row['name']);
                 $this->post_submission[$name] = $row['value'];
             } else
