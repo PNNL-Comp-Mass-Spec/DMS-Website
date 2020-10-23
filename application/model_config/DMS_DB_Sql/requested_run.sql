@@ -80,6 +80,7 @@ INSERT INTO "list_report_hotlinks" VALUES(13,'Queue State','invoke_entity','Camp
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Delete this request','cmd_op','delete','requested_run','Delete this requested run.','Are you sure that you want to delete this requested run?');
 INSERT INTO "detail_report_commands" VALUES(2,'Convert Run to Dataset','copy_from','','dataset','Go to dataset entry page and copy information from this scheduled run.','');
+INSERT INTO "detail_report_commands" VALUES(3,'Convert Request Into Fractions','copy_from','','requested_run_fraction','Created a series of new requested run fractions; only applicable for LC-Nano separation groups','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Experiment','detail-report','Experiment','experiment/show','labelCol','experiment',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Campaign','detail-report','Campaign','campaign/show','labelCol','campaign',NULL);
