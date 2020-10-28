@@ -105,25 +105,17 @@ class R_model extends CI_Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
+        $CI = &get_instance();
+        $CI->load->library('URL_updater');
+
         if (in_array('list_report_hotlinks', $tbl_list)) {
             $this->list_report_hotlinks = array();
-            $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
-            $server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
             $i = 1;
             foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
                 $a = array();
                 $a['LinkType'] = $row['LinkType'];
                 $a['WhichArg'] = $row['WhichArg'];
-                $a['Target'] = $row['Target'];
-                if ($server_bionet && stripos($a['Target'], "http") === 0) {
-                    $target_host = str_ireplace(".emsl.pnl.gov", ".bionet", $a['Target']);
-                    $target_host = str_ireplace(".pnl.gov", ".bionet", $target_host);
-                    $prev_protocol = stripos($target_host, "https") === 0 ? "https" : "http";
-                    if ($prev_protocol !== $protocol) {
-                        $target_host = str_ireplace($prev_protocol, $protocol, $target_host);
-                    }
-                    $a['Target'] = $target_host;
-                }
+                $a['Target'] = $CI->url_updater->fix_link($row['Target']);
                 $a['hid'] = "name='hot_link" . $i++ . "'"; // $row['hid'];
                 if ($row['LinkType'] == 'color_label') {
                     $a['cond'] = json_decode($row['Options'], true);
@@ -144,7 +136,7 @@ class R_model extends CI_Model {
                 $a = array();
                 $a['LinkType'] = $row['LinkType'];
                 $a['WhichArg'] = $row['WhichArg'];
-                $a['Target'] = $row['Target'];
+                $a['Target'] = $CI->url_updater->fix_link($row['Target']);
                 $a['Placement'] = $row['Placement'];
                 $a['id'] = $row['id'];
                 $opts = (array_key_exists('options', $row)) ? $row['options'] : '';

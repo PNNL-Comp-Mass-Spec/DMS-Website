@@ -10,6 +10,9 @@ require_once(BASEPATH . '../application/libraries/Number_formatting.php');
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
 
+// Include the URL updater class
+require_once(BASEPATH . '../application/libraries/URL_updater.php');
+
 /**
  * Create HTML to display detail report fields, including adding hotlinks
  * Also adds the header fields, including the link to the list report and edit/entry buttons
@@ -79,8 +82,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
     $pathCopyData = array();
     $pathCopyButtonCount = 0;
 
-    $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
-    $server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
+    $url_updater = new URL_updater();
 
     // make a form field for each field in the field specs
     foreach ($fields as $fieldName => $fieldValue) {
@@ -124,14 +126,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
             if ($hotlink_spec['Placement'] == 'labelCol') {
                 $label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $fieldName, $val);
             } else {
-                if ($server_bionet && stripos($val, "http") === 0) {
-                    $new_target = str_ireplace(".pnl.gov", ".bionet", $val);
-                    $prev_protocol = stripos($new_target, "https") === 0 ? "https" : "http";
-                    if ($prev_protocol !== $protocol) {
-                        $new_target = str_ireplace($prev_protocol, $protocol, $new_target);
-                    }
-                    $val = $new_target;
-                }
+                $val = $url_updater->fix_link($val);
                 $val_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $val);
             }
         }

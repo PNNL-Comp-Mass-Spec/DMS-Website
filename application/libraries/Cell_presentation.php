@@ -7,6 +7,9 @@ if (!defined('BASEPATH')) {
 // Include the Number formatting methods
 require_once(BASEPATH . '../application/libraries/Number_formatting.php');
 
+// Include the URL updater class
+require_once(BASEPATH . '../application/libraries/URL_updater.php');
+
 /**
  * This class is used to format data in list reports, including adding hotlinks
  */
@@ -21,11 +24,13 @@ class Cell_presentation {
      */
     var $col_filter = array();
 
+    var $url_updater;
+
     /**
      * Constructor
      */
     function __construct() {
-        
+        $this->url_updater = new URL_updater();
     }
 
     /**
@@ -149,12 +154,14 @@ class Cell_presentation {
                 $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
                 break;
             case "literal_link":
-                $url = $target . $ref;
+                //$url = $target . $ref;
+                $url = $this->url_updater->fix_link($target . $ref);
                 $value = valueToString($value, $colSpec, FALSE);
                 $str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$value</a></td>";
                 break;
             case "masked_link":
-                $url = $target . $ref;
+                //$url = $target . $ref;
+                $url = $this->url_updater->fix_link($target . $ref);
                 if ($url) {
                     $lbl = getOptionValue($colSpec, 'Label', 'Undefined_masked_link');
                     $str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$lbl</a></td>";
@@ -296,7 +303,8 @@ class Cell_presentation {
                 foreach ($flds as $ln) {
                     $ln = trim($ln);
                     $url = strncasecmp($ln, "http", 4) ? site_url() . $target . '/' . $ln : $ln;
-                    $links[] = "<a href='$url'>$ln</a>";
+                    $url_fixed = $this->url_updater->fix_link($url);
+                    $links[] = "<a href='$url_fixed'>$ln</a>";
                 }
                 $str .= "<td>" . implode($delim . ' ', $links) . "</td>";
                 break;
@@ -314,13 +322,15 @@ class Cell_presentation {
                 $str .= "<td>" . $value . "</td>";
                 break;
             case "image_link":
-                $url = $ref;
+                //$url = $ref;
+                $url = $this->url_updater->fix_link($ref);
                 $link_url = $url;
                 if ($target) {
                     $url_parts = explode('/', $ref);
                     $last_seg = count($url_parts) - 1;
                     $url_parts[$last_seg] = $target;
-                    $link_url = implode("/", $url_parts);
+                    //$link_url = implode("/", $url_parts);                    
+                    $link_url = $this->url_updater->fix_link(implode("/", $url_parts));
                 }
                 $width = getOptionValue($colSpec, 'width', '250');
                 if ($url) {
