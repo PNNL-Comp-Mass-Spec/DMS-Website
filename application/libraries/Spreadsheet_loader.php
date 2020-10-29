@@ -414,9 +414,9 @@ class Spreadsheet_loader {
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);
             if (!($row === FALSE)) {
-                $row++;
+                $i = $this->headerRow + 1 + $row;
                 foreach ($this->aux_info_fields as $obj) {
-                    $obj->value = $this->ss_rows[$row][$obj->column];
+                    $obj->value = $this->ss_rows[$i][$obj->column];
                     $info[] = $obj;
                 }
             }
