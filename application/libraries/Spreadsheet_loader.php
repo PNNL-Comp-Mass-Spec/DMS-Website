@@ -239,7 +239,7 @@ class Spreadsheet_loader {
      * Get list of aux info items, including their category, subcategory,
      * and item names and the row number in the main data array.
      * this builds the $this->aux_info_fields array (flat array of items labeled with category and subcategory)
-     *  and the $this->aux_info_groups (arrays of items nested within category/subcatory pairs)
+     *  and the $this->aux_info_groups (arrays of items nested within category/subcategory pairs)
      * @throws exception
      */
     private function find_aux_info_fields() {
@@ -435,7 +435,7 @@ class Spreadsheet_loader {
 
     /**
      * Repackage given aux info into array of category/subcategory groups
-     * with array of item/values for each cat/subcat
+     * with array of item/values for each category/subcategory
      * @param type $aux_info_fields
      * @return type
      */
