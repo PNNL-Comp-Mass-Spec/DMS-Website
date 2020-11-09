@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?= base_url().'css/base.css?version=103' ?>" />
+<link rel="stylesheet" type="text/css" href="<?= base_url().'css/base.css?version=104' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/custom.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/nav_bar.css' ?>" />
 <link rel="stylesheet" type="text/css" href="<?= base_url().'css/jquery-ui-themes-1.12.1/themes/cupertino/jquery-ui.css' ?>" />
