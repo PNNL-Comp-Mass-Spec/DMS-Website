@@ -22,4 +22,5 @@ INSERT INTO "list_report_hotlinks" VALUES(5,'WP State','color_label','#WPActivat
 INSERT INTO "list_report_hotlinks" VALUES(6,'Proposal','invoke_entity','value','eus_proposals/show','');
 INSERT INTO "list_report_hotlinks" VALUES(7,'Batch','invoke_entity','value','requested_run_batch/show','');
 INSERT INTO "list_report_hotlinks" VALUES(8,'Comment','markup','value','60','');
+INSERT INTO "list_report_hotlinks" VALUES(9,'Request or Batch Name','color_label','#BatchPriority','','{"High":"clr_80"}');
 COMMIT;
