@@ -219,11 +219,11 @@ class Cell_presentation {
      * @param mixed  $value     String or number
      * @param mixed  $row       Array of row data
      * @param mixed  $colSpec
-     * @param string $col_name  Column name
+     * @param string $columnName  Column name
      * @param int    $colIndex  Column index
      * @return string
      */
-    private function render_hotlink($value, $row, $colSpec, $col_name = '', $colIndex) {
+    private function render_hotlink($value, $row, $colSpec, $columnName = '', $colIndex) {
 
         $str = "";
         // resolve target for hotlink
@@ -269,11 +269,11 @@ class Cell_presentation {
                 break;
             case "invoke_multi_col":
                 $cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
-                foreach ($cols as $col => $v) {
+                foreach ($cols as $columnName => $v) {
                     if ($v) {
-                        $cols[$col] = $col;
+                        $cols[$columnName] = $columnName;
                     } else {
-                        $cols[$col] = $row[$col];
+                        $cols[$columnName] = $row[$columnName];
                     }
                 }
                 $ref = implode('/', array_values($cols));
@@ -303,8 +303,8 @@ class Cell_presentation {
             case "checkbox_json":
                 // This is an old, unused mode
                 $cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
-                foreach ($cols as $col => $v) {
-                    $cols[$col] = $row[$col];
+                foreach ($cols as $columnName => $v) {
+                    $cols[$columnName] = $row[$columnName];
                 }
                 $ref = implode('|', array_values($cols));
                 $str .= "<td><input type='checkbox' value='$ref' name='ckbx' class='lr_ckbx'></td>";
@@ -314,12 +314,12 @@ class Cell_presentation {
                 $str .= "<td>" . "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
                 break;
             case "color_label":
-                if (array_key_exists($ref, $colSpec["cond"])) {
+                if (array_key_exists($ref, $colSpec['cond'])) {
                     $colorStyle = "class='" . $colSpec['cond'][$ref] . "'";
                 } else {
                     $colorStyle = "";
                 }
-                $str .= "<td $colorStyle >$value</td>";
+                $str .= "<td $colorStyle>$value</td>";
                 break;
             case "bifold_choice":
                 // This mode has been superseded by select_case
@@ -409,7 +409,7 @@ class Cell_presentation {
                 $str = "<td>" . "<a href='file:///$lnk'>$value</a>" . "</td>";
                 break;
             case "inplace_edit":
-                $className = str_replace(' ', '_', $col_name);
+                $className = str_replace(' ', '_', $columnName);
                 $id = $className . '_' . $ref;
                 $width = getOptionValue($colSpec, 'width', '0');
 
@@ -518,13 +518,13 @@ class Cell_presentation {
         // get array of col sort makers
         $col_sort = $this->get_column_sort_markers($sorting_cols);
 
-        foreach ($display_cols as $col_name) {
-            if ($col_name[0] != '#') { // do not show columns with names that begin with hash
+        foreach ($display_cols as $columnName) {
+            if ($columnName[0] != '#') { // do not show columns with names that begin with hash
                 // sorting marker
-                $marker = $this->get_column_sort_marker($col_name, $col_sort);
+                $marker = $this->get_column_sort_marker($columnName, $col_sort);
 
                 // Check for a column header tooltip
-                $toolTip = $this->get_column_tooltip($col_name);
+                $toolTip = $this->get_column_tooltip($columnName);
                 if ($toolTip) {
                     $toolTip = 'title="' . $toolTip . '"';
                     $str .= '<th style="background-color:#C2E7F6;">';
@@ -535,8 +535,8 @@ class Cell_presentation {
 
                 // make header label
                 $str .= $marker;
-                $str .= "<a href='javascript:void(0)' onclick='lambda.setColSort(\"$col_name\")'  class='col_header' " . $toolTip . ">$col_name</a>";
-                $str .= $this->get_cell_padding($col_name);
+                $str .= "<a href='javascript:void(0)' onclick='lambda.setColSort(\"$columnName\")'  class='col_header' " . $toolTip . ">$columnName</a>";
+                $str .= $this->get_cell_padding($columnName);
                 $str .= "</th>";
             }
         }
@@ -545,14 +545,14 @@ class Cell_presentation {
 
     /**
      *
-     * @param type $col_name
+     * @param type $columnName
      * @param type $col_sort
      * @return string
      */
-    private function get_column_sort_marker($col_name, $col_sort) {
+    private function get_column_sort_marker($columnName, $col_sort) {
         $marker = '';
-        if (array_key_exists($col_name, $col_sort)) {
-            $arrow = 'arrow_' . $col_sort[$col_name]->dir . $col_sort[$col_name]->precedence . '.png';
+        if (array_key_exists($columnName, $col_sort)) {
+            $arrow = 'arrow_' . $col_sort[$columnName]->dir . $col_sort[$columnName]->precedence . '.png';
             $marker = "<img src='" . base_url() . "/images/$arrow' border='0' >";
         }
         return $marker;
@@ -588,19 +588,19 @@ class Cell_presentation {
 
     /**
      * Optionally assure that the cell is a minimum target width
-     * @param type $col_name
+     * @param type $columnName
      * @return type
      */
-    private function get_cell_padding($col_name) {
+    private function get_cell_padding($columnName) {
         $padding = '';
-        if (array_key_exists($col_name, $this->hotlinks)) {
-            $colSpec = $this->hotlinks[$col_name];
+        if (array_key_exists($columnName, $this->hotlinks)) {
+            $colSpec = $this->hotlinks[$columnName];
             if ($colSpec["LinkType"] == 'min_col_width' ||
                     $colSpec["LinkType"] == 'format_date' ||
                     $colSpec["LinkType"] == 'markup') {
                 if (is_numeric($colSpec["Target"])) {
                     $min_width = $colSpec["Target"];
-                    $len = strlen($col_name);
+                    $len = strlen($columnName);
                     if ($min_width > 0 && $len < $min_width) {
                         $padding = str_repeat("&nbsp;", $min_width - $len);
                     }
@@ -613,11 +613,11 @@ class Cell_presentation {
     /**
      * Look for tooltip text associated with the given column
      * Checks for both col_name and +col_name entries
-     * @param type $col_name
+     * @param type $columnName
      * @return type
      */
-    private function get_column_tooltip($col_name) {
-        $toolTip = $this->get_column_tooltip_work($col_name);
+    private function get_column_tooltip($columnName) {
+        $toolTip = $this->get_column_tooltip_work($columnName);
         if (empty($toolTip)) {
             // ToolTip was not found using the column name
             // Check for a name that is preceded by a plus sign
@@ -625,20 +625,20 @@ class Cell_presentation {
             // For example, in page family dataset_pm_and_psm:
             //   XIC_FWHM_Q3 defines a literal_link to a SMAQC page
             //   +XIC_FWHM_Q3 defines the tooltip for the XIC_FWHM_Q3 column
-            $toolTip = $this->get_column_tooltip_work('+' . $col_name);
+            $toolTip = $this->get_column_tooltip_work('+' . $columnName);
         }
         return $toolTip;
     }
 
     /**
      *  Look for tooltip text associated with the given column
-     * @param type $col_name_to_find
+     * @param type $columnNameToFind
      * @return type
      */
-    private function get_column_tooltip_work($col_name_to_find) {
+    private function get_column_tooltip_work($columnNameToFind) {
         $toolTip = '';
-        if (array_key_exists($col_name_to_find, $this->hotlinks)) {
-            $colSpec = $this->hotlinks[$col_name_to_find];
+        if (array_key_exists($columnNameToFind, $this->hotlinks)) {
+            $colSpec = $this->hotlinks[$columnNameToFind];
             if ($colSpec["LinkType"] == 'column_tooltip') {
                 $toolTip = $colSpec["Target"];
             }
@@ -654,15 +654,15 @@ class Cell_presentation {
      */
     function fix_datetime_display(&$result, $col_info) {
         // get list of datetime columns
-        $dc = array();
+        $dateTimeColumns = array();
         foreach ($col_info as $f) {
             // mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
             if ($f->type === 'datetime' || $f->type === 93) {
-                $dc[] = $f->name;
+                $dateTimeColumns[] = $f->name;
             }
         }
 
-        if (count($dc) == 0) {
+        if (count($dateTimeColumns) == 0) {
             // No fields are type datetime; nothing to update
             return;
         }
@@ -677,29 +677,29 @@ class Cell_presentation {
         // traverse all the rows in the result
         for ($i = 0; $i < count($result); $i++) {
             // traverse all the date columns in the current row
-            foreach ($dc as $col) {
+            foreach ($dateTimeColumns as $columnName) {
                 // skip if the column value is empty
-                if (!isset($result[$i][$col])) {
+                if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
                 // convert to blank if column value is null
-                if (is_null($result[$i][$col])) {
-                    $result[$i][$col] = '';
+                if (is_null($result[$i][$columnName])) {
+                    $result[$i][$columnName] = '';
                 } else {
                     // convert original date string to date object
                     // and then convert that to desired display format.
                     // mark display if original format could not be parsed.
                     $dt = false;
-                    if (is_string($result[$i][$col])) {
-                        $dt = strtotime($result[$i][$col]);
+                    if (is_string($result[$i][$columnName])) {
+                        $dt = strtotime($result[$i][$columnName]);
                     } else {
-                        $dt = $result[$i][$col];
+                        $dt = $result[$i][$columnName];
                     }
                     if ($dt) {
-                        $result[$i][$col] = date($dateFormat, $dt);
+                        $result[$i][$columnName] = date($dateFormat, $dt);
                     } else {
-                        $result[$i][$col] = "??" . $result[$i][$col];
+                        $result[$i][$columnName] = "??" . $result[$i][$columnName];
                     }
                 }
             }
@@ -714,15 +714,15 @@ class Cell_presentation {
      */
     function fix_decimal_display(&$result, $col_info) {
         // get list of decimal columns
-        $dc = array();
+        $decimalColumns = array();
         foreach ($col_info as $f) {
             // mssql returns decimals as doubles (and 'real' type), sqlsrv returns 3 (SQL decimal)
             if ($f->type === 'real' || $f->type === 3) {
-                $dc[] = $f->name;
+                $decimalColumns[] = $f->name;
             }
         }
 
-        if (count($dc) == 0) {
+        if (count($decimalColumns) == 0) {
             // No fields are type decimals; nothing to update
             return;
         }
@@ -732,20 +732,20 @@ class Cell_presentation {
         // traverse all the rows in the result
         for ($i = 0; $i < count($result); $i++) {
             // traverse all the decimal columns in the current row
-            foreach ($dc as $col) {
+            foreach ($decimalColumns as $columnName) {
                 // skip if the column value is empty
-                if (!isset($result[$i][$col])) {
+                if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
                 // convert to blank if column value is null
-                if (is_null($result[$i][$col])) {
-                    $result[$i][$col] = '';
+                if (is_null($result[$i][$columnName])) {
+                    $result[$i][$columnName] = '';
                 } else {
                     // convert original decimal string to double
                     // if it is not a string, don't touch it.
-                    if (is_string($result[$i][$col])) {
-                        $result[$i][$col] = doubleval($result[$i][$col]);
+                    if (is_string($result[$i][$columnName])) {
+                        $result[$i][$columnName] = doubleval($result[$i][$columnName]);
                     }
                 }
             }
