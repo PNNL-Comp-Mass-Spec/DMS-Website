@@ -48,6 +48,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $cols = $col_filter;
         }
 
+        $autoSize = array();
         
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->setActiveSheetIndex(0);
@@ -56,6 +57,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $rowNumber = 1;        
         $colNumber = 1;
         foreach($cols as $header) {
+            $autoSize[$colNumber - 1] = true;
             $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
             $cell->setValue($header);
             $cell->getStyle()->getFont()->setBold(true);
@@ -73,8 +75,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                     
                     if (preg_match('/##FORMAT_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]##(.+)/i', $value, $matches)) {
                         store_formatted_cell($cell, $matches);
+                        $charCount = strlen($matches[4]);
                     } else {
                         $cell->setValue($value);
+                        $charCount = strlen($value);
+                    }
+                    
+                    if ($charCount > 60) {
+                        $autoSize[$colNumber - 1] = false;
+                    }
                 }
                 
                 $colNumber++;
@@ -82,6 +91,19 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $rowNumber++;
         }
 
+        // Auto-size the columns
+        $colCount = count($cols);
+        for ($columnIndex = 0; $columnIndex < $colCount; $columnIndex++) {
+            $colDimension = $worksheet->getColumnDimensionByColumn($columnIndex + 1);
+            if ($autoSize[$columnIndex] == true) {
+                $colDimension->setAutoSize(true);
+            } else {
+                $colDimension->setWidth(50);
+            }
+        }
+
+        // Freeze the top row
+        $worksheet->freezePane('A2');
 
         // Select cell A2
         $worksheet->setSelectedCellByColumnAndRow(1, 2);
