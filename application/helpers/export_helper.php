@@ -6,9 +6,8 @@
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-
     /**
-     * Export to tab-separated values file (TSV)
+     * Export a list report to a tab-separated values file (TSV)
      * Note: code is adapted from http://codeigniter.com/wiki/Excel_Plugin/
      * @param type $result
      * @param type $filename
@@ -32,6 +31,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo "$headers\n$data";
     }
 
+    /**
+     * Export a list report to an Excel file
+     * @param type $result
+     * @param type $filename
+     * @param type $col_filter
+     */
     function export_to_excel($result, $filename='excel_download', $col_filter = array())
     {
         $cols = array_keys(current($result));
@@ -74,8 +79,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $writer->save('php://output');
     }
 
-    // --------------------------------------------------------------------
-    //
     function export_to_tab_delimited_text($result, $filename='tsv_download', $col_filter = array())
     {
         $cols = array_keys(current($result));
@@ -92,8 +95,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo "$headers\n$data";
     }
 
-    // --------------------------------------------------------------------
-    //
+    /**
+     * Convert data in $result into tab-delimited text
+     * @param type $result
+     * @param type $cols
+     * @return type
+     */
     function get_tab_delimited_text($result, $cols)
     {
 
@@ -119,9 +126,13 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         return $dataNoCR;
     }
-
-    // --------------------------------------------------------------------
-    //
+   
+    /**
+     * Export a detail report to a tab-delimited file
+     * @param type $result
+     * @param type $aux_info
+     * @param type $filename
+     */
     function export_detail_to_tab_delimited_text($result, $aux_info, $filename='tsv_download')
     {
         // detail report for tracking entity
@@ -162,8 +173,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo $ai;
     }
 
-    // --------------------------------------------------------------------
-    //
+    /**
+     * Export a detail report to an Excel file
+     * @param type $result
+     * @param type $aux_info
+     * @param type $filename
+     */
     function export_detail_to_excel($result, $aux_info, $filename='xlsx_download')
     {
         // detail report for tracking entity
@@ -212,7 +227,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $writer->save('php://output');
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * Export XML text to .dot file
+     * @param type $scriptName
+     * @param type $description
+     * @param type $script
+     */
     function export_xml_to_dot($scriptName, $description, $script)
     {
         // build contents of dot file
@@ -296,8 +316,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         return $dot_cmds;
     }
 
-    // --------------------------------------------------------------------
-    //
+    /**
+     * 
+     * @param type $entity
+     * @param type $result
+     * @param type $aux_info
+     * @param type $rowStyle
+     * @param type $ext
+     * @param type $filename
+     */
     function export_spreadsheet($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
     {
         $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
@@ -309,6 +336,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         }
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $result
+     * @param type $aux_info
+     * @param type $rowStyle
+     * @param type $ext
+     * @param type $filename
+     */
     function export_spreadsheet_text($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
     {
         $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
@@ -436,6 +472,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo $ai;
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $result
+     * @param type $aux_info
+     * @param type $rowStyle
+     * @param type $ext
+     * @param type $filename
+     */
     function export_spreadsheet_binary($entity, $result, $aux_info, $rowStyle = false, $ext = "xlsx", $filename='tsv_download')
     {
         $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
@@ -641,7 +686,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $writer->save('php://output');
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * 
+     * @param type $entity_info
+     * @param type $aux_info
+     */
     function dump_spreadsheet($entity_info, $aux_info)
     {
         $CI =& get_instance();
@@ -662,7 +711,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $CI->load->view('basic');
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * 
+     * @param type $rowValue
+     * @return string
+     */
     function fix_data($rowValue)
     {
         if (!isset($rowValue) || $rowValue == "") {
@@ -673,7 +726,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         return $rowValue;
     }
 
-    // --------------------------------------------------------------------
+    /**
+     * 
+     * @param type $cols
+     * @return string
+     */
     function fix_ID_column($cols)
     {
         // Make a copy of the $cols array
@@ -689,8 +746,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         return $colsCopy;
     }
 
-    // --------------------------------------------------------------------
-    // Surround $value with double quotes if it contains a tab character
+    
+    /**
+     * Surround $value with double quotes if it contains a tab character
+     * @param type $value
+     * @return type
+     */
     function quote_if_contains_tab($value)
     {
         // convert any newlines
