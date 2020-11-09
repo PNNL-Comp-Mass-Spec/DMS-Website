@@ -15,8 +15,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      */
     function export_to_excel_tsv($result, $filename='excel_download', $col_filter = array())
     {
-        $cols = array_keys(current($result));
-        if(!empty($col_filter)) {
+        if(empty($col_filter)) {
+            $cols = array_keys(current($result));
+        } else {
             $cols = $col_filter;
         }
 
@@ -39,50 +40,139 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      */
     function export_to_excel($result, $filename='excel_download', $col_filter = array())
     {
-        $cols = array_keys(current($result));
-        if(!empty($col_filter)) {
+        $startTime = hrtime(true);
+        
+        if(empty($col_filter)) {
+            $cols = array_keys(current($result));
+        } else {
             $cols = $col_filter;
         }
 
+        
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->setActiveSheetIndex(0);
-        $data = array();
 
-        $headerCols = array();
-        $colCount = 0;
+        // Add the header names
+        $rowNumber = 1;        
+        $colNumber = 1;
         foreach($cols as $header) {
-            $data[0][$colCount] = $header;
-            $headerCols[$header] = $colCount;
-            $colCount++;
+            $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
+            $cell->setValue($header);
+            $cell->getStyle()->getFont()->setBold(true);
+            $colNumber++;
         }
 
-        // field data
-        $rowIndex = 1;
+        // Add the data
+        $rowNumber++;
         foreach($result as $row) {
-            foreach($headerCols as $name => $index) {
-                $value = $row[$name];
-                if (!isset($value)) {
-                    $data[$rowIndex][$index] = "";
+            $colNumber = 1;            
+            foreach($cols as $header) {
+                $value = $row[$header];
+                if (isset($value)) {
+                    $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
+                    
+                    if (preg_match('/##FORMAT_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]##(.+)/i', $value, $matches)) {
+                        store_formatted_cell($cell, $matches);
+                    } else {
+                        $cell->setValue($value);
                 }
-                else {
-                    $data[$rowIndex][$index] = $value;
-                }
+                
+                $colNumber++;
             }
-            $rowIndex++;
+            $rowNumber++;
         }
 
-        $worksheet->fromArray($data, '');
 
+        // Select cell A2
+        $worksheet->setSelectedCellByColumnAndRow(1, 2);
+
+        $endTime = hrtime(true);
+        $elapsedTime = 'Elapsed time: ' . ($endTime - $startTime) / 1000000 . ' msec';
+
+        // Uncomment to store times in the first row of the worksheet
+        // $worksheet->setCellValueByColumnAndRow(1, 1, $startTime);
+        // $worksheet->setCellValueByColumnAndRow(2, 1, $endTime);
+        // $worksheet->setCellValueByColumnAndRow(3, 1, $elapsedTime);
+         
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
     }
 
+    /**
+     * Store a value in an Excel cell and format its color
+     * @param type $cell
+     * @param type $matches
+     */
+    function store_formatted_cell($cell, $matches) {
+        $textColor = $matches[1];
+        $fillColor = $matches[2];
+        $textStyle = $matches[3];
+
+        $cell->setValue($matches[4]);
+
+        if((empty($textColor) || $textColor == 'default') &&
+           (empty($fillColor) || $fillColor == 'default') &&
+           (empty($textStyle) || $textStyle == 'default')) {
+            return;
+        }
+
+        $cellStyle = $cell->getStyle();
+        
+        if (!empty($textColor) && $textColor !== 'default') {
+            if (strlen($textColor) == 6) {
+                // Define 100% opacity by prepending the RGB value with FF
+                $textColor = 'FF' . $textColor;
+            }
+            
+            $cellStyle->getFont()
+                ->getColor()->setARGB($textColor);
+        }
+
+        if (!empty($fillColor) && $fillColor !== 'default') {
+            if (strlen($fillColor) == 6) {
+                // Define 100% opacity by prepending the RGB value with FF
+                $fillColor = 'FF' . $fillColor;
+            }
+            
+            $cellStyle->getFill()
+                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                ->getStartColor()->setARGB($fillColor);
+        }
+
+        if (!empty($textStyle) && $textStyle !== 'default') {
+            if ($textStyle == 'bold') {
+                $cellStyle->getFont()->setBold(true);
+            } else if ($textStyle == 'italic') {
+                $cellStyle->getFont()->setItalic(true);
+            }
+        }
+    }
+    
+    function get_column_name($columnIndex) {
+        $indexValue = $columnIndex;
+        $base26 = null;
+        do {
+            $characterValue = ($indexValue % 26) ?: 26;
+            $indexValue = ($indexValue - $characterValue) / 26;
+            $base26 = chr($characterValue + 64) . ($base26 ?: '');
+        } while ($indexValue > 0);
+        
+        return $base26;
+    }
+    
+    /**
+     * Export a list report to a tab-delimited file
+     * @param type $result
+     * @param type $filename
+     * @param type $col_filter
+     */
     function export_to_tab_delimited_text($result, $filename='tsv_download', $col_filter = array())
     {
-        $cols = array_keys(current($result));
-        if(!empty($col_filter)) {
+        if(empty($col_filter)) {
+            $cols = array_keys(current($result));
+        } else {
             $cols = $col_filter;
         }
 

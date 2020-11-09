@@ -54,6 +54,133 @@ class Cell_presentation {
     }
 
     /**
+     * Look for items in $result that would be colored on by render_hotlink
+     * Add a color code to the start of the cell so that export_to_excel in export_helper.php
+     * can set the background color and text color for the cell
+     * @param type $result
+     * @param type $col_info
+     * @return type
+     */
+    function add_color_codes(&$result, $col_info) {
+        
+        $cols = array_keys(current($result));
+
+        // traverse all the rows in the result
+        for ($i = 0; $i < count($result); $i++) {
+            $row = $result[$i];
+            
+            // traverse all the columns in the current row
+            foreach ($cols as $columnName) {
+                $value = $row[$columnName];
+
+                $colSpec = null;
+                if (array_key_exists($columnName, $this->hotlinks)) {
+                    $colSpec = $this->hotlinks[$columnName];                
+                }
+                
+                if ($colSpec) {
+                    $colorCode = $this->get_color_code($value, $row, $colSpec);
+
+                    if ($colorCode != "") {
+                        $result[$i][$columnName] = $colorCode . $value;
+                    }
+                }
+            }
+        }
+
+    }
+    
+    /**
+     * Get the color code string for the given data item
+     * @param type $value
+     * @param type $colSpec
+     * @return string
+     */
+    private function get_color_code($value, $row, $colSpec) {        
+        $colorCode = "";
+
+        // resolve value to use for hotlink
+        $whichArg = $colSpec["WhichArg"];
+        $ref = $value;
+        if ($whichArg != "") {
+            switch ($whichArg) {
+                case "value":
+                    break;
+                default:
+                    $ref = $row[$whichArg];
+                    break;
+            }
+        }
+
+        if ($colSpec["LinkType"] == "color_label") {
+            if (array_key_exists($ref, $colSpec['cond'])) {
+                $cssClass = $colSpec['cond'][$ref];
+
+                $textColor = "";
+                $fillColor = "";
+                $textStyle = "";
+
+                $black = "000000";
+                $green = "008000";
+                $red =   "FF0000";
+                        
+                switch ($cssClass) {
+                    case "bad_clr":
+                        $textColor = $red;
+                        break;
+                    case "warning_clr":
+                        $textColor = "FF8C00";
+                        break;
+                    case "enabled_clr":
+                        $textColor = $green;
+                        break;
+                    case "clr_30":
+                        $fillColor = "E5FFE5";
+                        break;
+                    case "clr_45":
+                        $fillColor = "CCECFF";
+                        break;
+                    case "clr_60":
+                        $fillColor = "FFFF75";
+                        break;
+                    case "clr_80":
+                        $fillColor = "FF8C00";
+                        $textColor = $black;
+                        break;
+                    case "clr_90":
+                        $fillColor = "FF8C00";
+                        $textColor = $black;
+                        $textStyle = "bold";
+                        break;
+                    case "clr_120":
+                        $fillColor = $red;
+                        $textColor = "FFF5EE";
+                        $textStyle = "bold";
+                        break;
+                }
+                                
+                if ($textColor != "" || $fillColor != "" || $textStyle != "") {
+                    if ($textColor == "") {
+                        $textColor = "default";
+                    }
+                    
+                    if ($fillColor == "") {
+                        $textColor = "default";
+                    }
+                    
+                    if ($textStyle == "") {
+                        $textStyle = "default";
+                    }
+                    
+                    $colorCode = "##FORMAT_[$textColor]_[$fillColor]_[$textStyle]##";
+                }
+            }
+        }
+        
+        return $colorCode;
+    }
+    
+    /**
      * Render a row
      * @param type $row
      * @return string

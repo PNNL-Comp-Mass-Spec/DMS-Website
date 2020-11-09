@@ -435,14 +435,22 @@ class List_report {
 
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
 
+        $CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
+
         $rows = $CI->data_model->get_rows('filtered_and_sorted')->result_array();
 
         $CI->load->library('cell_presentation');
+        $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
+
         $col_info = $CI->data_model->get_column_info();
         $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
+
+        if ($format == 'excel') {
+            $CI->cell_presentation->add_color_codes($rows, $col_info, $col_filter);
+        }
 
         // (someday) list report document export - output helper needs to clean out newlines and so forth.
 
