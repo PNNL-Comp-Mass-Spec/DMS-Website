@@ -11,7 +11,7 @@ class Controller_utility {
         $data['title'] = ($title) ? $title : $heading;
         $data['heading'] = $heading;
         $data['message'] = $message;
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->view('message_box', $data);
     }
 
@@ -24,7 +24,7 @@ class Controller_utility {
      * @return boolean
      */
     function load_lib($lib_name, $config_name, $config_source, $options = FALSE) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         if (property_exists($CI, $lib_name)) {
             return TRUE;
         }
@@ -46,7 +46,7 @@ class Controller_utility {
      * @return boolean
      */
     function load_mod($model_name, $local_name, $config_name, $config_source) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         if (property_exists($CI, $local_name)) {
             return TRUE;
         }
@@ -67,7 +67,7 @@ class Controller_utility {
      * @return boolean
      */
     function check_access($action, $output_message = TRUE) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->helper('user');
         $user = get_user();
 

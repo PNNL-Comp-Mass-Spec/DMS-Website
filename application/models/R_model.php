@@ -105,7 +105,7 @@ class R_model extends CI_Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->library('URL_updater');
 
         if (in_array('list_report_hotlinks', $tbl_list)) {

@@ -24,7 +24,7 @@ class Param_report {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
-        $CI = &get_instance();
+        $CI =& get_instance();
         $this->tag = $CI->my_tag;
         $this->title = $CI->my_title;
     }
@@ -35,7 +35,7 @@ class Param_report {
      * rows in HTML via and AJAX call to the param_data function.
      */
     function param() {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         // general specifications for page family
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
@@ -82,7 +82,7 @@ class Param_report {
      * @category AJAX
      */
     function param_data() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
         $CI->load->helper('user');
 
@@ -125,7 +125,7 @@ class Param_report {
      * @return type
      */
     private function get_filtered_param_report_rows($paging = TRUE) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
         if ($paging) {
             $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
@@ -148,7 +148,7 @@ class Param_report {
      * @throws exception
      */
     private function get_data_rows_from_sproc() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         // get specifications for the entry form
         // used for submission into POST and to be returned as HTML
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
@@ -205,7 +205,7 @@ class Param_report {
      * @category AJAX
      */
     function param_paging() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         $CI->load->helper(array('link_util'));
@@ -238,7 +238,7 @@ class Param_report {
     // --------------------------------------------------------------------
     // AJAX
     function param_filter() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         // call stored procedure
@@ -265,7 +265,7 @@ class Param_report {
      * @return type
      */
     function export_param($format) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
         $CI->load->helper(array('user', 'export'));
 

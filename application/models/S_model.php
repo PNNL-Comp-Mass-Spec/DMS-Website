@@ -140,7 +140,7 @@ class S_model extends CI_Model {
                 throw new Exception("Input parameter object was not supplied to execute_sproc for $this->sprocName");
             }
 
-            $CI = & get_instance();
+            $CI =& get_instance();
 
             // Connect to the database
             // Retry the connection up to 5 times
@@ -272,7 +272,7 @@ class S_model extends CI_Model {
 
     // --------------------------------------------------------------------
     private function cache_total_rows() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         save_to_cache($this->total_rows_storage_name, count($this->result_array));
@@ -280,7 +280,7 @@ class S_model extends CI_Model {
 
     // --------------------------------------------------------------------
     private function cache_column_info() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         save_to_cache($this->col_info_storage_name, $this->column_info);
@@ -295,7 +295,7 @@ class S_model extends CI_Model {
     function get_filtered_rows($sorting_filter, $paging_filter) {
         $rows = $this->result_array;
 
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->library('table_sorter');
         /*
           foreach($sorting_filter as $sort) {
@@ -332,7 +332,7 @@ class S_model extends CI_Model {
      * @return type
      */
     function get_column_info() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         $col_info = array();
@@ -351,7 +351,7 @@ class S_model extends CI_Model {
     function get_total_rows() {
         $working_total = -1;
 
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         // get cached values, if any
@@ -469,7 +469,7 @@ class S_model extends CI_Model {
 
     // --------------------------------------------------------------------
     private function set_my_sproc_handler($hndlr_class) {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->library($hndlr_class, '', 'sprochndlr');
         $this->sproc_handler = $CI->sprochndlr;
     }
@@ -496,7 +496,7 @@ class S_model extends CI_Model {
 
     // --------------------------------------------------------------------
     function clear_cached_state() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);

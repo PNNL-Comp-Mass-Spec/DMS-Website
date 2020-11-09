@@ -23,7 +23,7 @@ require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
  * @return type
  */
 function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names) {
-    $CI = & get_instance();
+    $CI =& get_instance();
 
     $initial_field_values = array();
 
@@ -71,7 +71,7 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
  * @return string
  */
 function load_from_external_source($col_mapping, $source_data) {
-    $CI = & get_instance();
+    $CI =& get_instance();
 
     $a = array();
     // load entry fields from external source

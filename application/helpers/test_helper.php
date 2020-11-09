@@ -130,7 +130,7 @@ function dump_q_model($mod, $option = 'filtered_and_paged', $dump_rows = TRUE) {
     echo '<hr>';
     if ($dump_rows) {
         echo 'Rows: <br>';
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->library('table');
         $CI->table->set_template(
                 array(
@@ -164,7 +164,7 @@ function dump_s_model($mod) {
 
     $total_rows = $mod->get_total_rows();
     echo 'Rows: (' . $total_rows . ')<br>';
-    $CI = & get_instance();
+    $CI =& get_instance();
     $rows = $mod->get_rows();
     if (empty($rows)) {
         echo 'No rows found<br>';

@@ -21,7 +21,7 @@ class List_report {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
-        $CI = &get_instance();
+        $CI =& get_instance();
         $this->tag = $CI->my_tag;
         $this->title = $CI->my_title;
     }
@@ -31,7 +31,7 @@ class List_report {
      * @param type $mode
      */
     function list_report($mode) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
         $CI->load->helper(array('form', 'menu', 'link_util'));
         $CI->load->model('dms_chooser', 'choosers');
@@ -132,7 +132,7 @@ class List_report {
      * @param type $primary_filter_specs
      */
     protected function set_pri_filter_from_url_segments($segs, $primary_filter_specs) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         // primary filter object (we will use it to cache field values)
         $CI->cu->load_lib('primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
@@ -160,7 +160,7 @@ class List_report {
      * @param type $segs
      */
     protected function set_sec_filter_from_url_segments($segs) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         // secondary filter object (we will use it to cache field values)
         $CI->cu->load_lib('secondary_filter', $this->config_name, $this->config_source);
@@ -176,7 +176,7 @@ class List_report {
      * @category AJAX
      */
     function report_filter($filter_display_mode = 'advanced') {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         $CI->load->helper('form');
@@ -220,7 +220,7 @@ class List_report {
      * @category AJAX
      */
     function get_sql_comparison($column_name) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         $CI->cu->load_mod('q_model', 'model', $this->config_name, $this->config_source);
@@ -237,7 +237,7 @@ class List_report {
      * @category AJAX
      */
     function report_data($option = 'rows') {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         $this->set_up_list_query();
@@ -275,7 +275,7 @@ class List_report {
      * @category AJAX
      */
     function report_info($what_info) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
         $this->set_up_list_query();
 
@@ -344,7 +344,7 @@ class List_report {
      * @category AJAX
      */
     function report_paging() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         $CI->load->helper(array('link_util'));
@@ -379,7 +379,7 @@ class List_report {
      * @return array Filter settings
      */
     protected function set_up_list_query() {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         // it all starts with a model
         $CI->cu->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
@@ -427,7 +427,7 @@ class List_report {
      * @param string $format
      */
     function export($format) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
         $CI->load->helper(array('export'));
 

@@ -21,7 +21,7 @@ class Detail_report {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
-        $CI = &get_instance();
+        $CI =& get_instance();
         $this->tag = $CI->my_tag;
         $this->title = $CI->my_title;
     }
@@ -31,7 +31,7 @@ class Detail_report {
      * @param string $id
      */
     function detail_report($id) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
         $data['title'] = $CI->gen_model->get_page_label($this->title, 'show');
@@ -65,7 +65,7 @@ class Detail_report {
      * @category AJAX
      */
     function detail_report_data($id, $show_entry_links = TRUE, $show_create_links = TRUE) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         try {
             // get data
@@ -116,7 +116,7 @@ class Detail_report {
      * @category AJAX
      */
     function detail_sql($id) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         $CI->cu->load_mod('q_model', 'detail_model', $this->config_name, $this->config_source);
@@ -129,7 +129,7 @@ class Detail_report {
      * @category AJAX
      */
     function detail_report_aux_info_controls($id) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
         $aux_info_target = $CI->gen_model->get_detail_report_aux_info_target();
@@ -152,7 +152,7 @@ class Detail_report {
      * @param string $format
      */
     function export_detail($id, $format) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         // get entity data
@@ -189,7 +189,7 @@ class Detail_report {
 
     // --------------------------------------------------------------------
     private function get_aux_info($aux_info_id) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
         $aux_info_target = $CI->gen_model->get_detail_report_aux_info_target();
 
@@ -207,7 +207,7 @@ class Detail_report {
 
     // --------------------------------------------------------------------
     private function get_entry_aux_info($id) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         $aux_info = array();
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
@@ -230,7 +230,7 @@ class Detail_report {
      * @return type
      */
     private function get_entry_tracking_info($id) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         // get definition of fields for entry page
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
@@ -272,7 +272,7 @@ class Detail_report {
      * @param string $format
      */
     function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv") {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         $entity_info = $this->get_entry_tracking_info($id);
@@ -298,7 +298,7 @@ class Detail_report {
      * @param type $config_source
      */
     function dot($scriptName, $config_source) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->helper(array('url', 'string', 'export'));
         $config_name = 'dot';
 

@@ -18,7 +18,7 @@ class List_report_ah extends List_report {
      * @param string $mode
      */
     function list_report($mode) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
         $CI->load->helper(array('form', 'menu', 'link_util'));
         $CI->load->model('dms_chooser', 'choosers');
@@ -66,7 +66,7 @@ class List_report_ah extends List_report {
      * @category AJAX
      */
     function report_data($option = 'rows') {
-        $CI = &get_instance();
+        $CI =& get_instance();
         // preemptively load the hotlinks model from the ad hoc config db
         // to prevent parent from loading it from general_param table,
         // then let parent handle it

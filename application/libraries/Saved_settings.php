@@ -15,7 +15,7 @@ class Saved_settings {
      * @return type
      */
     function defaults($page_type, $config_source) { //'Param_Pages''list_report_sproc'   'list_report'
-        $CI = &get_instance();
+        $CI =& get_instance();
         session_start();
 
         if ($page_type == 'List_Reports') {

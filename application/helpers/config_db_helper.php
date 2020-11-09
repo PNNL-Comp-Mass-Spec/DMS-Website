@@ -140,7 +140,7 @@ function make_operations_sproc_sql($sprocName, $table) {
 
     $data['dt'] = date("m/d/Y");
 
-    $CI = & get_instance();
+    $CI =& get_instance();
     $body = $CI->load->view('config_db/tmplt_ops_sproc', $data, true);
     return $body;
 }
@@ -203,7 +203,7 @@ function make_main_sproc_sql($sprocName, $table, $sa) {
     }
     $data['updts'] = $updts;
 
-    $CI = & get_instance();
+    $CI =& get_instance();
     $body = $CI->load->view('config_db/tmplt_sproc', $data, true);
     return $body;
 }
@@ -247,7 +247,7 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title) {
     $data['tag'] = $page_fam_tag;
     $data['title'] = $title;
 
-    $CI = & get_instance();
+    $CI =& get_instance();
     $body = $CI->load->view('config_db/tmplt_controller', $data, true);
     return "<?php\n" . $body . "\n?>";
 }
@@ -315,7 +315,7 @@ function make_table_dump_display($config_db_table_list) {
  */
 function make_config_nav_links($config_db) {
     $db = $config_db;
-    $CI = &get_instance();
+    $CI =& get_instance();
     $s = '';
     $s .= "<a href='" . $CI->config->item('pwiki') . "DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
     $s .= "<a href='" . site_url() . "config_db/page_families'>Page Family Database List</a> &nbsp; | &nbsp;";

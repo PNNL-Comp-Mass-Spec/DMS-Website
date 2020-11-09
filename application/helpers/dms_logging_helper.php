@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) {
 
 // --------------------------------------------------------------------
 function sproc_log_in($sproc, $user, $parms, $override = FALSE) {
-    $CI = & get_instance();
+    $CI =& get_instance();
     $inhibit_sproc_call = $CI->config->item('inhibit_sproc_call');
     $log_enabled = $CI->config->item('sproc_call_log_enabled');
 
@@ -37,7 +37,7 @@ function sproc_log_in($sproc, $user, $parms, $override = FALSE) {
 
 // --------------------------------------------------------------------
 function sproc_log_out($sproc, $user, $retval, $message) {
-    $CI = & get_instance();
+    $CI =& get_instance();
     $inhibit_sproc_call = $CI->config->item('inhibit_sproc_call');
     $log_enabled = $CI->config->item('sproc_call_log_enabled');
 

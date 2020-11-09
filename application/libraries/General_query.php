@@ -55,7 +55,7 @@ class General_query {
      * @return \General_query_def
      */
     function get_query_values_from_url() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->helper(array('url'));
 
         $p = new General_query_def();
@@ -120,7 +120,7 @@ class General_query {
      * @return \General_query_def
      */
     function setup_query_for_base_controller() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->helper(array('url'));
 
         $input_params = new General_query_def();
@@ -139,7 +139,7 @@ class General_query {
      * @param type $input_params
      */
     function setup_query($input_params) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->cu->load_mod('q_model', 'model', $input_params->q_name, $input_params->config_source);
         $this->add_filter_values_to_model_predicate($input_params->filter_values, $CI->model);
         $this->configure_paging($input_params, $CI->model);
@@ -206,7 +206,7 @@ class General_query {
      * @param type $output_format
      */
     function output_result($output_format) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $model = $CI->model;
 
         $pageTitle = $this->config_source;

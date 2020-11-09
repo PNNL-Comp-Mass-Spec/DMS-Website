@@ -91,7 +91,7 @@ class List_report_pager {
             return '';
         }
 
-        $CI = & get_instance();
+        $CI =& get_instance();
         $mrr = $CI->preferences->get_preference('max_report_rows');
 
         $firstRowForPage = $this->first_row_for_page($this->cur_page); //($this->cur_page - 1) * $this->per_page;

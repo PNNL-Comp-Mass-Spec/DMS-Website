@@ -268,7 +268,7 @@ function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '
  */
 function make_version_banner() {
     $s = '';
-    $CI = & get_instance();
+    $CI =& get_instance();
     $banner = $CI->config->item('version_banner');
     $color = $CI->config->item('version_color_code');
     if ($banner) {
@@ -284,7 +284,7 @@ function make_version_banner() {
  * @return type
  */
 function set_up_nav_bar($page_type) {
-    $CI = & get_instance();
+    $CI =& get_instance();
     $CI->help_page_link = $CI->config->item('pwiki') . $CI->config->item('wikiHelpLinkPrefix');
     $CI->load->helper(array('dms_search'));
     $CI->load->model('dms_menu', 'menu', TRUE);
@@ -297,7 +297,7 @@ function set_up_nav_bar($page_type) {
  * @return type
  */
 function get_nav_bar_menu_items($page_type) {
-    $CI = & get_instance();
+    $CI =& get_instance();
     $menu_context = get_menu_context($page_type);
     $nav_bar_menu_items = $CI->menu->get_menu_def("dms_menu.db", "nav_def");
     convert_context_sensitive_menu_items($nav_bar_menu_items, $menu_context);
@@ -311,7 +311,7 @@ function get_nav_bar_menu_items($page_type) {
  */
 function get_menu_context($page_type) {
     // we get context sensitive values from controller
-    $CI = & get_instance();
+    $CI =& get_instance();
 
     // get array of context-sensitive values
     $menu_context = array();

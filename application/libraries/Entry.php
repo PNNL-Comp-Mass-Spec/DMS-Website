@@ -25,7 +25,7 @@ class Entry {
     function init($config_name, $config_source) {
         $this->config_source = $config_source;
 
-        $CI = &get_instance();
+        $CI =& get_instance();
         $this->tag = $CI->my_tag;
         $this->title = $CI->my_title;
     }
@@ -36,7 +36,7 @@ class Entry {
      * @param string $page_type
      */
     function create_entry_page($page_type) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->helper(array('entry_page'));
 
         // general specifications for page family
@@ -122,7 +122,7 @@ class Entry {
      * @param string $mode Page mode: 'add' or 'update'
      */
     protected function handle_special_field_options($form_def, $mode) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         $CI->entry_form->set_field_enable($form_def->field_enable);
 
@@ -143,7 +143,7 @@ class Entry {
      * @category AJAX
      */
     function submit_entry_form() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->helper(array('entry_page'));
 
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
@@ -216,7 +216,7 @@ class Entry {
      * @param stdClass $form_def
      */
     protected function make_entry_form_HTML($input_params, $form_def) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         // handle special field options for entry form object
         $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
@@ -237,7 +237,7 @@ class Entry {
      * @param stdClass $input_params
      */
     protected function get_post_submission_link($input_params) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $ps_link_specs = $CI->gen_model->get_post_submission_link_specs();
         $actions = $CI->gen_model->get_actions();
         return make_post_submission_links($CI->my_tag, $ps_link_specs, $input_params, $actions);
@@ -250,7 +250,7 @@ class Entry {
      * @param string $msg Message returned by the stored procedure (output)
      */
     protected function call_stored_procedure($input_params, $form_def, &$msg) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         $ok = $CI->cu->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->config_source);
         if (!$ok) {
@@ -273,7 +273,7 @@ class Entry {
      * @param stdClass $input_params
      */
     protected function update_input_params_from_stored_procedure_args($input_params) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $bound_params = $CI->sproc_model->get_parameters();
         foreach ($CI->sproc_model->get_sproc_args() as $arg) {
             if ($arg['dir'] == 'output') {
@@ -295,7 +295,7 @@ class Entry {
      * @return bool
      */
     protected function get_input_field_values($rules) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->helper('form');
         $CI->load->library('form_validation');
         $CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
@@ -312,7 +312,7 @@ class Entry {
      * @return mixed
      */
     protected function make_calling_param_object($input_params, $field_enable) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $calling_params = clone $input_params;
         $calling_params->mode = $CI->input->post('entry_cmd_mode');
         $calling_params->callingUser = get_user();

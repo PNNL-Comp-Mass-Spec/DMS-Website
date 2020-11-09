@@ -31,7 +31,7 @@ class Operation {
      * @throws exception
      */
     function internal_operation($sproc_name) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $config_name = $sproc_name;
         $response = new stdClass();
 
@@ -95,7 +95,7 @@ class Operation {
      * @return type
      */
     function get_params() {
-        $CI = &get_instance();
+        $CI =& get_instance();
         return $CI->sproc_model->get_parameters();
     }
 

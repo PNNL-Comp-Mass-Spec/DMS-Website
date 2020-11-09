@@ -543,7 +543,7 @@ class Cell_presentation {
         // Traverse the array of rows, and fix the datetime column formats
         //
         // Get the date display format from global preferences
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->model('dms_preferences', 'preferences');
         $dateFormat = $CI->preferences->get_date_format_string();
 

@@ -28,7 +28,7 @@ class Primary_filter {
         }
         $this->cur_filter_values = $filter_specs;
 
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         $this->config_name = $config_name;
@@ -139,7 +139,7 @@ class Primary_filter {
      * Clear cached data
      */
     function clear_cached_state() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
         clear_cache($this->storage_name);
     }

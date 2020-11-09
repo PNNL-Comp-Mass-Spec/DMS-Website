@@ -29,7 +29,7 @@ class Column_filter {
      * @param type $config_source
      */
     function init($config_name, $config_source) {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         $this->config_name = $config_name;
@@ -103,7 +103,7 @@ class Column_filter {
 
     // --------------------------------------------------------------------
     function clear_cached_state() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
         clear_cache($this->storage_name);
     }

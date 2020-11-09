@@ -34,7 +34,7 @@ class Entry_form {
      * Set current field values to defaults as defined by specs
      */
     private function set_field_values_to_default() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('user');
 
         foreach ($this->form_field_specs as $fldName => $spc) {
@@ -116,7 +116,7 @@ class Entry_form {
      * @return type
      */
     function build_display($mode) {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->model('dms_chooser', 'choosers');
         $CI->load->helper(array('url', 'string', 'form'));
 
@@ -361,7 +361,7 @@ class Entry_form {
      * @return type
      */
     private function make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq) {
-        $CI = & get_instance();
+        $CI =& get_instance();
         return $CI->choosers->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
     }
 
@@ -516,7 +516,7 @@ class Entry_form {
         if ($this->include_help_link) {
             $file_tag = $this->file_tag;
             $nsLabel = str_replace(" ", "_", $label);
-            $CI = & get_instance();
+            $CI =& get_instance();
             $pwiki = $CI->config->item('pwiki');
             $wiki_helpLink_prefix = $CI->config->item('wikiHelpLinkPrefix');
             $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}#${nsLabel}";

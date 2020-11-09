@@ -223,7 +223,7 @@ class Q_model extends CI_Model {
             return $e->getMessage();
         }
 
-        $CI = & get_instance();
+        $CI =& get_instance();
 
         // Connect to the database
         // Retry the connection up to 5 times
@@ -290,7 +290,7 @@ class Q_model extends CI_Model {
      * @param type $bldr_class
      */
     private function set_my_sql_builder($bldr_class) {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->library($bldr_class, '', 'sqlbldr');
         $this->sql_builder = $CI->sqlbldr;
     }
@@ -493,7 +493,7 @@ class Q_model extends CI_Model {
      * @throws exception Thrown if there is an error or if the SP returns a non-zero value
      */
     function get_data_row_from_sproc($id) {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         $calling_params = new stdClass();
 
@@ -545,7 +545,7 @@ class Q_model extends CI_Model {
      */
     private function get_db_object($dbGroupName) {
 
-        $CI = & get_instance();
+        $CI =& get_instance();
 
         // Connect to the database
         // Retry the connection up to 5 times
@@ -712,14 +712,14 @@ class Q_model extends CI_Model {
 
     // --------------------------------------------------------------------
     function clear_cached_total_rows() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
         clear_cache($this->total_rows_storage_name);
     }
 
     // --------------------------------------------------------------------
     function clear_cached_state() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);
@@ -739,7 +739,7 @@ class Q_model extends CI_Model {
         }
 
         if (!$this->result_column_info || $forceRefresh) {
-            $CI = & get_instance();
+            $CI =& get_instance();
             $CI->load->helper('cache');
             $state = get_from_cache($this->col_info_storage_name);
             if ($state) {
@@ -763,7 +763,7 @@ class Q_model extends CI_Model {
 
     // --------------------------------------------------------------------
     function get_column_info_cache_data() {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         return get_from_cache($this->col_info_storage_name);
@@ -771,7 +771,7 @@ class Q_model extends CI_Model {
 
     // --------------------------------------------------------------------
     private function set_col_info_data($state) {
-        $CI = & get_instance();
+        $CI =& get_instance();
         $CI->load->helper('cache');
 
         $this->result_column_info = $state;

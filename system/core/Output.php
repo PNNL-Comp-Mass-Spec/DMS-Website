@@ -414,7 +414,7 @@ class CI_Output {
 	 */
 	public function _display($output = '')
 	{
-		// Note:  We use load_class() because we can't use $CI =& get_instance()
+		// Note:  We use load_class() because we can't use $CI = &get_instance()
 		// since this function is sometimes called by the caching mechanism,
 		// which happens before the CI super object is available.
 		$BM =& load_class('Benchmark', 'core');

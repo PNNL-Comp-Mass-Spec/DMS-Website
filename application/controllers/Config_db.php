@@ -25,7 +25,7 @@ class Config_db extends CI_Controller {
 
         $this->configDBPath = $this->config->item('model_config_path');
 
-        $CI = &get_instance();
+        $CI =& get_instance();
         $this->mod_enabled = $CI->config->item('modify_config_db_enabled');
 
         $this->load->model('config_db_model', 'config_model');

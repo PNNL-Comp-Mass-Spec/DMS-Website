@@ -644,7 +644,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     // --------------------------------------------------------------------
     function dump_spreadsheet($entity_info, $aux_info)
     {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $CI->load->library('table');
         $CI->table->set_template(array ('table_open'  => '<table class="EPag">'));
         foreach($entity_info as $fld => $val) {

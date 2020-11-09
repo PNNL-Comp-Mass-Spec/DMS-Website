@@ -30,7 +30,7 @@ class Grid_data {
      * @throws exception
      */
     function get_query_data($sql, $paramArray) {
-        $CI = &get_instance();
+        $CI =& get_instance();
         $response = new stdClass();
         try {
             $CI->load->database();
@@ -62,7 +62,7 @@ class Grid_data {
      * @throws exception
      */
     function get_sproc_data($paramArray, $config_name = '') {
-        $CI = &get_instance();
+        $CI =& get_instance();
 
         if (!$config_name) {
             $config_name = $this->config_name;
