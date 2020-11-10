@@ -361,7 +361,11 @@ class Cell_presentation {
                 $str .= "<td>" . "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
                 break;
             case "color_label":
+                // Color this column based on the value in $ref (which either came from this column or from another column, specified by WhichArg)
                 if (array_key_exists($ref, $colSpec['cond'])) {
+                    // The options array contains $ref; use the specified color
+                    // For example, given options array {"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_120"}
+                    // if $ref is "2", $colorStyle will be "class='clr_60'";
                     $colorStyle = "class='" . $colSpec['cond'][$ref] . "'";
                 } else {
                     $colorStyle = "";
