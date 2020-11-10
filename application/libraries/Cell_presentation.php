@@ -69,7 +69,15 @@ class Cell_presentation {
         for ($i = 0; $i < count($result); $i++) {
             $row = $result[$i];
             
-            // traverse all the columns in the current row
+            // Traverse all the columns in the current row
+            // Cache any color codes that need to be applied
+
+            // Keys in this array are column name; values are color code text
+            $colorCodesByColumn = array();
+            
+            // Keys in this array are column name; values are the name of a different column to copy the color from
+            $copyFromByColumn = array();
+            
             foreach ($cols as $columnName) {
                 $value = $row[$columnName];
 
@@ -82,10 +90,50 @@ class Cell_presentation {
                     $colorCode = $this->get_color_code($value, $row, $colSpec);
 
                     if ($colorCode != "") {
-                        $result[$i][$columnName] = $colorCode . $value;
+                        $colorCodesByColumn[$columnName] = $colorCode;
+                    }
+                    
+                    if ($colSpec["LinkType"] == "copy_color_from") {
+                        $whichArg = $colSpec["WhichArg"];
+
+                        if (!empty($whichArg) && $whichArg != 'value') {
+                            $copyFromByColumn[$columnName] = $whichArg;
+                        }
+                    }
+                }
+                
+                // Look for a hotlink name that matches this column name, preceded by a plus sign
+                $colSpec2 = null;
+                if (array_key_exists('+' . $columnName, $this->hotlinks)) {
+                    $colSpec2 = $this->hotlinks['+' . $columnName];                
+                }
+                
+                if ($colSpec2) {
+                    if ($colSpec2["LinkType"] == "copy_color_from") {
+                        $whichArg = $colSpec2["WhichArg"];
+
+                        if (!empty($whichArg) && $whichArg != 'value') {
+                            $copyFromByColumn[$columnName] = $whichArg;
+                        }
                     }
                 }
             }
+            
+            foreach ($cols as $columnName) {
+                if (array_key_exists($columnName, $colorCodesByColumn)) {
+                    $colorCode = $colorCodesByColumn[$columnName];                
+                    $result[$i][$columnName] = $colorCode . $row[$columnName];
+                } else {
+                    if (array_key_exists($columnName, $copyFromByColumn)) {
+                        $copyColorFrom = $copyFromByColumn[$columnName];
+                        
+                        if (array_key_exists($copyColorFrom, $colorCodesByColumn)) {
+                            $colorCode = $colorCodesByColumn[$copyColorFrom];                
+                            $result[$i][$columnName] = $colorCode . $row[$columnName];
+                        }
+                    }
+                }                                
+            }                        
         }
 
     }
@@ -470,6 +518,10 @@ class Cell_presentation {
                 // If Decimals is defined in the options, format with the number of decimal places
                 // If not defined, leave as-is
                 $value = valueToString($value, $colSpec, FALSE);
+                $str .= "<td>" . $value . "</td>";
+                break;
+            case "copy_color_from":
+                // This only affects data export
                 $str .= "<td>" . $value . "</td>";
                 break;
             default:
