@@ -298,13 +298,14 @@ class Cell_presentation {
         // render the hotlink
         switch ($colSpec["LinkType"]) {
             case "invoke_entity":
-                // look for conditions on link
+                // Look for conditions on link
                 // Supported condition is GreaterOrEqual
                 $noLink = $this->evaulate_conditional($colSpec, $value);
                 if ($noLink) {
+                    // The value is too small; do not link to it
                     $str .= "<td>$value</td>";
                 } else {
-                    // place target substitution marker
+                    // Place target substitution marker
                     // (and preserve special primary filter characters)
                     if (strpos($target, '@') === FALSE) {
                         $sep = (substr($target, -1) == '~') ? '' : '/';
@@ -535,7 +536,10 @@ class Cell_presentation {
     }
 
     /**
-     *
+     * Look "GreaterOrEqual" in the options section of this colSpec
+     * If found, compare $value to the specified value, 
+     * returning true if $value is lest than the value defined in the options
+     * Otherwise, return false
      * @param type $colSpec
      * @param type $ref
      * @param type $value

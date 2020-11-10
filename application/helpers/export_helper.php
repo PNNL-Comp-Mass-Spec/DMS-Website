@@ -36,7 +36,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      * Export a list report to an Excel file
      * @param type $result
      * @param type $filename
-     * @param type $col_filter
+     * @param type $col_filter If an empty array, export all columns; otherwise, list of column names to export
      */
     function export_to_excel($result, $filename='excel_download', $col_filter = array())
     {
