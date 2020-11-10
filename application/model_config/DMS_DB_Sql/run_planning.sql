@@ -28,4 +28,8 @@ INSERT INTO "list_report_hotlinks" VALUES(11,'+Run Count','copy_color_from','Req
 INSERT INTO "list_report_hotlinks" VALUES(12,'+Blocked','copy_color_from','Request or Batch Name','','');
 INSERT INTO "list_report_hotlinks" VALUES(13,'+BlkMissing','copy_color_from','Request or Batch Name','','');
 INSERT INTO "list_report_hotlinks" VALUES(14,'+Requester','copy_color_from','Request or Batch Name','','');
+INSERT INTO "list_report_hotlinks" VALUES(15,'#DaysInQueue','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(16,'#WPActivationState','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(17,'#BatchPriority','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(18,'Request Name Code','no_export','value','','');
 COMMIT;
