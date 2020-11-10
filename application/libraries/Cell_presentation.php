@@ -40,7 +40,36 @@ class Cell_presentation {
     function init($cell_presentation_specs) {
         $this->hotlinks = $cell_presentation_specs;
     }
+    
+    /**
+     * Look for a hotlink of the given type; return it if found or null if not found
+     * @param type $columnName
+     * @param type $linkTypeName
+     * @return type
+     */
+    private function get_colspec_with_link_type($columnName, $linkTypeName) {
+        
+        // Look for a hotlink name that matches this column name
+        if (array_key_exists($columnName, $this->hotlinks)) {
+            $colSpec = $this->hotlinks[$columnName];
+            
+            if ($colSpec["LinkType"] == $linkTypeName) {
+                return $colSpec;
+            }
+        }
 
+        // Look for a hotlink name that matches this column name, preceded by a plus sign
+        if (array_key_exists('+' . $columnName, $this->hotlinks)) {
+            $colSpec = $this->hotlinks['+' . $columnName];                
+
+            if ($colSpec["LinkType"] == $linkTypeName) {
+                return $colSpec;
+            }
+        }
+
+        return null;
+    }
+    
     /**
      * Get list of columns to show
      * @param array $cols All columns
@@ -80,40 +109,25 @@ class Cell_presentation {
             foreach ($cols as $columnName) {
                 $value = $row[$columnName];
 
-                $colSpec = null;
                 if (array_key_exists($columnName, $this->hotlinks)) {
-                    $colSpec = $this->hotlinks[$columnName];                
-                }
-                
-                if ($colSpec) {
+                    $colSpec = $this->hotlinks[$columnName];
+                    
                     $colorCode = $this->get_color_code($value, $row, $colSpec);
 
                     if ($colorCode != "") {
                         $colorCodesByColumn[$columnName] = $colorCode;
                     }
-                    
-                    if ($colSpec["LinkType"] == "copy_color_from") {
-                        $whichArg = $colSpec["WhichArg"];
-
-                        if (!empty($whichArg) && $whichArg != 'value') {
-                            $copyFromByColumn[$columnName] = $whichArg;
-                        }
-                    }
                 }
                 
-                // Look for a hotlink name that matches this column name, preceded by a plus sign
-                $colSpec2 = null;
-                if (array_key_exists('+' . $columnName, $this->hotlinks)) {
-                    $colSpec2 = $this->hotlinks['+' . $columnName];                
-                }
+                // Look for an entry in $this->hotlinks that matches either this column name, 
+                // or this column name preceded by a plus sign
+                $colSpec2 = $this->get_colspec_with_link_type($columnName, "copy_color_from");
                 
                 if ($colSpec2) {
-                    if ($colSpec2["LinkType"] == "copy_color_from") {
-                        $whichArg = $colSpec2["WhichArg"];
+                    $whichArg = $colSpec2["WhichArg"];
 
-                        if (!empty($whichArg) && $whichArg != 'value') {
-                            $copyFromByColumn[$columnName] = $whichArg;
-                        }
+                    if (!empty($whichArg) && $whichArg != 'value') {
+                        $copyFromByColumn[$columnName] = $whichArg;
                     }
                 }
             }
