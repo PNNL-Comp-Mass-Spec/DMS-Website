@@ -54,14 +54,13 @@ class Cell_presentation {
     }
 
     /**
-     * Look for items in $result that would be colored on by render_hotlink
+     * Look for items in $result that would be colored by render_hotlink
      * Add a color code to the start of the cell so that export_to_excel in export_helper.php
      * can set the background color and text color for the cell
      * @param type $result
-     * @param type $col_info
      * @return type
      */
-    function add_color_codes(&$result, $col_info) {
+    function add_color_codes(&$result) {
         
         $cols = array_keys(current($result));
 

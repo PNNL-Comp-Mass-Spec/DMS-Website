@@ -449,7 +449,7 @@ class List_report {
         $col_filter = $CI->column_filter->get_current_filter_values();
 
         if ($format == 'excel') {
-            $CI->cell_presentation->add_color_codes($rows, $col_info, $col_filter);
+            $CI->cell_presentation->add_color_codes($rows);
         }
 
         // (someday) list report document export - output helper needs to clean out newlines and so forth.
