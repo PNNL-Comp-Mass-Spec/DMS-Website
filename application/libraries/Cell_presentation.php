@@ -42,6 +42,33 @@ class Cell_presentation {
     }
     
     /**
+     * Get an array of column names to export
+     * @param type $result
+     */
+    function get_columns_to_export(&$result) {
+        
+        // This array tracks all of the column names in $result
+        $cols = array_keys(current($result));
+        
+        // This array tracks columns to include
+        $col_filter = array();
+        
+        foreach ($cols as $columnName) {
+            
+            // Look for an entry in $this->hotlinks that matches either this column name, 
+            // or this column name preceded by a plus sign
+            $colSpec = $this->get_colspec_with_link_type($columnName, "no_export");
+            
+            if (!$colSpec) {
+                // Include this column (since no hotlink of type no_export is defined)
+                $col_filter[] = $columnName;
+            }            
+        }
+        
+        return $col_filter;
+    }
+    
+    /**
      * Look for a hotlink of the given type; return it if found or null if not found
      * @param type $columnName
      * @param type $linkTypeName
@@ -539,7 +566,8 @@ class Cell_presentation {
                 $str .= "<td>" . $value . "</td>";
                 break;
             case "copy_color_from":
-                // This only affects data export
+            case "no_export":
+                // These only affect data export
                 $str .= "<td>" . $value . "</td>";
                 break;
             default:

@@ -448,6 +448,12 @@ class List_report {
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
+        if(empty($col_filter)) {
+            // Examine the list report's hotlinks to look for any columns tagged with no_export
+            // Skip those columns when exporting data
+            $col_filter = $CI->cell_presentation->get_columns_to_export($rows);
+        }
+        
         if ($format == 'excel') {
             $CI->cell_presentation->add_color_codes($rows);
         }
