@@ -23,4 +23,9 @@ INSERT INTO "list_report_hotlinks" VALUES(6,'Proposal','invoke_entity','value','
 INSERT INTO "list_report_hotlinks" VALUES(7,'Batch','invoke_entity','value','requested_run_batch/show','');
 INSERT INTO "list_report_hotlinks" VALUES(8,'Comment','markup','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(9,'Request or Batch Name','color_label','#BatchPriority','','{"High":"clr_80"}');
+INSERT INTO "list_report_hotlinks" VALUES(10,'+Batch','copy_color_from','Request or Batch Name','','');
+INSERT INTO "list_report_hotlinks" VALUES(11,'+Run Count','copy_color_from','Request or Batch Name','','');
+INSERT INTO "list_report_hotlinks" VALUES(12,'+Blocked','copy_color_from','Request or Batch Name','','');
+INSERT INTO "list_report_hotlinks" VALUES(13,'+BlkMissing','copy_color_from','Request or Batch Name','','');
+INSERT INTO "list_report_hotlinks" VALUES(14,'+Requester','copy_color_from','Request or Batch Name','','');
 COMMIT;
