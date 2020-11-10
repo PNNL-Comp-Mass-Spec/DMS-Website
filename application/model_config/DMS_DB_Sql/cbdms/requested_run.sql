@@ -11,7 +11,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Requested_Run_Ent
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','RR_Request');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','RR_Request');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateRequestedRunAssignments');
-INSERT INTO "general_params" VALUES('list_report_data_cols','[Request],[Name],[Status],[Origin],[Acq_Start],[Campaign],[Experiment],[Dataset],[Instrument],[Requestor],[Created],[Days In Queue],[Comment],[Type],[Separation Group],[Vialing Conc],[Vialing Vol],[Cart],[Col],[Dataset Comment],[Request Name Code], [#DaysInQueue]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Request, Name, Status, Origin, Acq_Start, Campaign, Experiment, Dataset, Instrument, Requestor, Created, [Days In Queue], Comment, Type, [Separation Group], [Vialing Conc], [Vialing Vol], Cart, [Dataset Comment], [Request Name Code], [#DaysInQueue]');
 INSERT INTO "general_params" VALUES('detail_report_data_cols','Request,Name,Status,Campaign,Experiment,Dataset,[Staging Location],[Instrument Used],[Instrument Group],Type,[Separation Group],Requestor,Username,Created,[Days In Queue],Origin,[Instrument Settings],[Vialing Concentration],[Vialing Volume],Comment,Factors,Note,[Special Instructions],[#WPActivationState]');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'RR_Request','Request','non-edit','','','','','0','trim');
