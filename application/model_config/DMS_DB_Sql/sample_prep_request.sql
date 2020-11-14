@@ -101,6 +101,8 @@ INSERT INTO "list_report_hotlinks" VALUES(9,'Tissue','invoke_entity','value','ti
 INSERT INTO "list_report_hotlinks" VALUES(10,'Organism','invoke_entity','value','organism/report/~','');
 INSERT INTO "list_report_hotlinks" VALUES(11,'Campaign','invoke_entity','value','campaign/show','');
 INSERT INTO "list_report_hotlinks" VALUES(12,'Containers','min_col_width','value','35','');
+INSERT INTO "list_report_hotlinks" VALUES(13,'#DaysInQueue','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(14,'#WPActivationState','no_export','value','','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Convert Request to Experiment','copy_from','','experiment','Go to experiment entry page and copy information from this sample prep request.','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);

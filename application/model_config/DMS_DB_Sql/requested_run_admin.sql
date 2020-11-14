@@ -29,6 +29,9 @@ INSERT INTO "list_report_hotlinks" VALUES(6,'Days In Queue','color_label','#Days
 INSERT INTO "list_report_hotlinks" VALUES(7,'WP_State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(8,'WPN','invoke_entity','value','charge_code/show','');
 INSERT INTO "list_report_hotlinks" VALUES(9,'Batch','invoke_entity','value','requested_run_batch/show','');
+INSERT INTO "list_report_hotlinks" VALUES(10,'+Sel','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(11,'#DaysInQueue','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(12,'#WPActivationState','no_export','value','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'requestList','requestList','text','input','2147483647','UpdateRequestedRunAdmin');
 INSERT INTO "sproc_args" VALUES(2,'<local>','mode','varchar','input','32','UpdateRequestedRunAdmin');
