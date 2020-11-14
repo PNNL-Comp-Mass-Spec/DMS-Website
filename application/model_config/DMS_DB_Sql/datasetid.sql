@@ -22,6 +22,12 @@ INSERT INTO "list_report_hotlinks" VALUES(3,'QC_Link','masked_link','value','','
 INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Experiment','invoke_entity','value','experiment/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(6,'EMSL Proposal','invoke_entity','value','eus_proposals/show','');
+INSERT INTO "list_report_hotlinks" VALUES(7,'+ID','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(8,'Acq Length','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(9,'Scan Count','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(10,'File Size MB','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(11,'Request','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(12,'Work Package','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(13,'#DateSortKey','no_export','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_id','ID','','','ID','Equals','text','24','','');

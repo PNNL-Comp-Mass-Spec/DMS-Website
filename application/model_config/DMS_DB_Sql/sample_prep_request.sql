@@ -103,6 +103,17 @@ INSERT INTO "list_report_hotlinks" VALUES(11,'Campaign','invoke_entity','value',
 INSERT INTO "list_report_hotlinks" VALUES(12,'Containers','min_col_width','value','35','');
 INSERT INTO "list_report_hotlinks" VALUES(13,'#DaysInQueue','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(14,'#WPActivationState','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(15,'+ID','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(16,'NumSamples','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(17,'MS Runs TBG','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(18,'+Days In Queue','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(19,'WP','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(20,'WP State','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(21,'EUS Proposal','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(22,'Experiments_Last_7Days','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(23,'Experiments_Last_31Days','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(24,'Experiments_Last_180Days','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(25,'Experiments_Total','export_align','value','','{"Align":"Center"}');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Convert Request to Experiment','copy_from','','experiment','Go to experiment entry page and copy information from this sample prep request.','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
