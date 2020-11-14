@@ -110,6 +110,41 @@ class Cell_presentation {
     }
 
     /**
+     * Get an array listing the horizontal alignment mode for each column
+     * @param type $result
+     * @return type
+     */
+    function get_column_alignment(&$result) {
+
+        // This array tracks all of the column names in $result
+        $cols = array_keys(current($result));
+        
+        // This array tracks columns to include
+        $col_alignment = array();
+        
+        foreach ($cols as $columnName) {
+            
+            // Look for an entry in $this->hotlinks that matches either this column name, 
+            // or this column name preceded by a plus sign
+            $colSpec = $this->get_colspec_with_link_type($columnName, "export_align");
+            
+            if ($colSpec && array_key_exists('Options', $colSpec)) {
+                // Examine the Options to determine the alignment
+                $t = $colSpec['Options'];
+                
+                if (array_key_exists('Align', $t)) {
+                    $col_alignment[$columnName] = $t['Align'];
+                    continue;
+                }
+            }
+            
+            $col_alignment[$columnName] = 'default';
+        }
+        
+        return $col_alignment;
+    }
+    
+    /**
      * Look for items in $result that would be colored by render_hotlink
      * Add a color code to the start of the cell so that export_to_excel in export_helper.php
      * can set the background color and text color for the cell
@@ -567,6 +602,7 @@ class Cell_presentation {
                 break;
             case "copy_color_from":
             case "no_export":
+            case "export_align":
                 // These only affect data export
                 $str .= "<td>" . $value . "</td>";
                 break;

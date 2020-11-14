@@ -37,8 +37,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      * @param type $result
      * @param type $filename
      * @param type $col_filter If an empty array, export all columns; otherwise, list of column names to export
+     * @param type $col_alignment Horizontal alignment for each column (keys are column name, values are default, left, right, or center)
      */
-    function export_to_excel($result, $filename='excel_download', $col_filter = array())
+    function export_to_excel($result, $filename='excel_download', $col_filter = array(), $col_alignment = array())
     {
         $startTime = hrtime(true);
         
@@ -61,6 +62,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
             $cell->setValue($header);
             $cell->getStyle()->getFont()->setBold(true);
+            
+            if (array_key_exists($header, $col_alignment)) {
+                set_cell_alignment($cell, $col_alignment[$header]);
+            }
+            
             $colNumber++;
         }
 
@@ -83,6 +89,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                     
                     if ($charCount > 60) {
                         $autoSize[$colNumber - 1] = false;
+                    }
+                    
+                    if (array_key_exists($header, $col_alignment)) {
+                        set_cell_alignment($cell, $col_alignment[$header]);
                     }
                 }
                 
@@ -120,6 +130,29 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
+    }
+    
+    /**
+     * Optionally override the default cell alignment
+     * @param type $cell
+     * @param type $alignment
+     */
+    function set_cell_alignment($cell, $alignment) {
+    
+        switch (strtolower($alignment)) {
+            case 'left':
+                $cell->getStyle()->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                break;
+            case 'center':
+                $cell->getStyle()->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                break;
+            case 'right':
+                $cell->getStyle()->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                break;
+        }
     }
 
     /**

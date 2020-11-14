@@ -456,6 +456,7 @@ class List_report {
         
         if ($format == 'excel') {
             $CI->cell_presentation->add_color_codes($rows);
+            $col_alignment = $CI->cell_presentation->get_column_alignment($rows);
         }
 
         // (someday) list report document export - output helper needs to clean out newlines and so forth.
@@ -465,7 +466,7 @@ class List_report {
         } else {
             switch ($format) {
                 case 'excel':
-                    export_to_excel($rows, $this->tag, $col_filter);
+                    export_to_excel($rows, $this->tag, $col_filter, $col_alignment);
                     break;
                 case 'tsv':
                     export_to_tab_delimited_text($rows, $this->tag, $col_filter);
