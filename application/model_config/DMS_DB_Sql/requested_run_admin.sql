@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Requested_Run_Admin_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Request as Sel, Name, Campaign, Experiment, Dataset, Instrument, [Inst. Group], Type, [Separation Group], Origin, Request, Status, Requester, WPN, WP_State, [Days In Queue], [Queue State], [Queued Instrument], [Queue Date], Pri, Batch, [Dataset Comment], [Request Name Code], #DaysInQueue, #WPActivationState');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Request as Sel, Name, Campaign, Experiment, Dataset, Instrument, [Inst. Group], Type, [Separation Group], Origin, Request, Status, Requester, WPN, WP_State, [Days In Queue], [Queue State], [Queued Instrument], [Queue Date], Pri, Batch, [Block], [Run Order], [Dataset Comment], [Request Name Code], #DaysInQueue, #WPActivationState');
 INSERT INTO "general_params" VALUES('list_report_cmds','requested_run_admin_cmds');
 INSERT INTO "general_params" VALUES('list_report_cmds_url','requested_run_admin/operation');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateRequestedRunAdmin');
