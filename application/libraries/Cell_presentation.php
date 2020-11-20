@@ -457,21 +457,8 @@ class Cell_presentation {
                 break;
                 
             case "doi_link":
-                if (preg_match('/^doi:/', $ref)) {
-                    $url = "https://doi.org/$ref";
-                }
-                else if (preg_match('/^https?:\/\//', $ref)) {
-                    $url = $ref;
-                }
-                else {
-                    $url = "";
-                }
-                
-                if (strlen($url) > 0) {
-                    $str .= "<td><a href='$url' target='External$colIndex'>$ref</a></td>";
-                } else {
-                    $str .= "<td>$ref</td>";
-                }
+                $linkOrValue = $this->url_updater->get_doi_link($ref, $colIndex);
+                $str .= "<td>$linkOrValue</td>";
                 break;
 
             case "bifold_choice":

@@ -124,10 +124,10 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
             }
 
             if ($hotlink_spec['Placement'] == 'labelCol') {
-                $label_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $fieldName, $val);
+                $label_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $fieldName, $val);
             } else {
                 $val = $url_updater->fix_link($val);
-                $val_display = make_detail_report_hotlink($hotlink_spec, $link_id, $colIndex, $val);
+                $val_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $val);
             }
         }
 
@@ -224,6 +224,7 @@ function get_hotlink_specs_for_field($fieldName, $hotlinks) {
 
 /**
  * Construct a detail report hotlink
+ * @param array $url_updater URL_updater instances
  * @param array $colSpec  Key/value pairs from detail_report_hotlinks in the Model Config DB
  *                        LinkType, WhichArg, Target, Placement, id, and Options
  * @param type $link_id   Data value for field specified by WhichArg
@@ -233,7 +234,7 @@ function get_hotlink_specs_for_field($fieldName, $hotlinks) {
  *                        If Name and WhichArg are the same, $link_id and $val will be the same
  * @return type
  */
-function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $val = '') {
+function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $display, $val = '') {
     $str = "";
     $fld_id = $colSpec["id"];
 
@@ -513,23 +514,9 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             break;
        
         case "doi_link":
-                if (preg_match('/^doi:/', $display)) {
-                    $url = "https://doi.org/$display";
-                }
-                else if (preg_match('/^https?:\/\//', $display)) {
-                    $url = $display;
-                }
-                else {
-                    $url = "";
-                }
-                
-                if (strlen($url) > 0) {
-                    $str .= "<a href='$url' target='External$colIndex'>$display</a>";
-                } else {
-                    $str .= "$display";
-                }
-                break;
-
+            $linkOrValue = $url_updater->get_doi_link($display, $colIndex);
+            $str .= $linkOrValue;
+            break;
                 
         case "format_commas":
             $str = valueToString($display, $colSpec, TRUE);

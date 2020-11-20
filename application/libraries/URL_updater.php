@@ -18,6 +18,39 @@ class URL_updater {
         $this->server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
     }
     
+    /**
+     * Transform the value to a URL if it starts with doi: or http, 
+     * or if it matches a standard MassIVE or ProteomeXchange accession
+     * @param type $value
+     * @param type $colIndex
+     * @return type
+     */
+    function get_doi_link($value, $colIndex) {
+        
+        if (preg_match('/^doi:/i', $value)) {
+             // Assure that $value does not have any spaces                    
+            $url = "https://doi.org/" . str_replace(' ', '', $value);
+        }
+        else if (preg_match('/^https?:\/\//', $value)) {
+            $url = $value;
+        }
+        else {
+            $url = "";
+        }
+
+        if (strlen($url) > 0) {
+            return "<a href='$url' target='External$colIndex'>$value</a>";
+        } else {
+            return $value;
+        }
+    }
+                
+    /**
+     * Auto-update the link to change from http to https or vice versa,
+     * depending on the target host name
+     * @param type $link
+     * @return type
+     */
     function fix_link($link) {
         if (stripos($link, "http") !== 0) {
             // Not a "link" that we can deal with.
