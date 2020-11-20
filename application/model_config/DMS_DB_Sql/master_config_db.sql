@@ -1,7 +1,7 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE 'table_edit_col_defs' (id INTEGER PRIMARY KEY,  "config_table" text, "config_col" text, "type" text, "value" text );
-INSERT INTO "table_edit_col_defs" VALUES(1,'detail_report_hotlinks','LinkType','literal_list','{"list":["detail-report","color_label","format_commas","glossary_entry","href-folder","item_list","link_list","link_table","literal_link","markup","monomarkup","masked_link","masked_link_list","tabular_list","tabular_link_list","xml_params"]}');
+INSERT INTO "table_edit_col_defs" VALUES(1,'detail_report_hotlinks','LinkType','literal_list','{"list":["detail-report","color_label","doi_link", "format_commas","glossary_entry","href-folder","item_list","link_list","link_table","literal_link","markup","monomarkup","masked_link","masked_link_list","tabular_list","tabular_link_list","xml_params"]}');
 INSERT INTO "table_edit_col_defs" VALUES(2,'detail_report_hotlinks','Placement','literal_list','{"list":["labelCol", "valueCol"]}');
 INSERT INTO "table_edit_col_defs" VALUES(3,'detail_report_hotlinks','WhichArg','dms_view_cols','{"view":"detail_report_data_table"}');
 INSERT INTO "table_edit_col_defs" VALUES(4,'detail_report_hotlinks','name','dms_view_cols','{"view":"detail_report_data_table"}');
@@ -10,7 +10,7 @@ INSERT INTO "table_edit_col_defs" VALUES(6,'form_field_choosers','field','config
 INSERT INTO "table_edit_col_defs" VALUES(7,'form_field_choosers','type','literal_list','{"list":["picker.replace", "list-report.helper", "picker.append", "picker.prepend", "picker.prevDate", "link.list", "picker.list"]}');
 INSERT INTO "table_edit_col_defs" VALUES(8,'form_field_options','field','config_col_values','{"table":"form_fields", "column":"name"}');
 INSERT INTO "table_edit_col_defs" VALUES(9,'form_field_options','type','literal_list','{"list":["default_function", "section",  "enable",  "auto_format",  "hide",  "load_key_field", "permission"]}');
-INSERT INTO "table_edit_col_defs" VALUES(10,'list_report_hotlinks','LinkType','literal_list','{"list":["invoke_entity","CHECKBOX","color_label","column_tooltip","copy_color_from","export_align", "format_commas","format_date","href-folder","image_link","inplace_edit","invoke_multi_col","link_list","literal_link","markup","masked_href-folder","masked_link", "min_col_width", "no_export", "row_to_json","row_to_url","select_case","update_opener"]}');
+INSERT INTO "table_edit_col_defs" VALUES(10,'list_report_hotlinks','LinkType','literal_list','{"list":["invoke_entity","CHECKBOX","color_label","column_tooltip","copy_color_from", "doi_link", "export_align", "format_commas","format_date","href-folder","image_link","inplace_edit","invoke_multi_col","link_list","literal_link","markup","masked_href-folder","masked_link", "min_col_width", "no_export", "row_to_json","row_to_url","select_case","update_opener"]}');
 INSERT INTO "table_edit_col_defs" VALUES(11,'list_report_hotlinks','WhichArg','default_value','{"value":"value"}');
 INSERT INTO "table_edit_col_defs" VALUES(12,'list_report_hotlinks','name','dms_view_cols','{"view":"list_report_data_table"}');
 INSERT INTO "table_edit_col_defs" VALUES(13,'list_report_primary_filter','cmp','literal_list','{"list":["ContainsText", "DoesNotContainText", "EarlierThan", "Equals", "GreaterThan", "GreaterThanOrEqualTo", "LaterThan", "LessThan", "LessThanOrEqualTo", "MatchesText", "MatchesTextOrBlank", "MostRecentWeeks", "NotEqual", "StartsWithText"]}');
