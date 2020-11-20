@@ -27,22 +27,43 @@ class URL_updater {
      */
     function get_doi_link($value, $colIndex) {
         
+        $urls = [];
+        
         if (preg_match('/^doi:/i', $value)) {
              // Assure that $value does not have any spaces                    
-            $url = "https://doi.org/" . str_replace(' ', '', $value);
+            $urls[$value] = "https://doi.org/" . str_replace(' ', '', $value);
         }
         else if (preg_match('/^https?:\/\//', $value)) {
-            $url = $value;
+            $urls[$value] = $value;
         }
-        else {
-            $url = "";
+        else if (preg_match_all('/MSV\d{9,}|PXD\d{6,}/', $value, $matches)) {
+            // Matched MSV000085977 and/or PXD021009
+            foreach ($matches as $value) {
+                foreach ($value as $accession) {
+                    if (preg_match('/^MSV/', $accession)) {
+                        $urls[$accession] = "https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?accession=$accession";
+                    } else {
+                        $urls[$accession] = "http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=$accession";
+                    }
+                }
+            }
+            
         }
 
-        if (strlen($url) > 0) {
-            return "<a href='$url' target='External$colIndex'>$value</a>";
-        } else {
+        if (count($urls) == 0) {
             return $value;
         }
+        
+        $str = "";
+        foreach ($urls as $key => $url) {
+            if (strlen($str) > 0) {
+                $str .= ' and ';
+            }
+            
+            $str .= "<a href='$url' target='External$colIndex'>$key</a>";
+        }
+        
+        return $str;
     }
                 
     /**
