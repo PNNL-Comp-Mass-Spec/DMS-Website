@@ -262,6 +262,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             $url = make_detail_report_url($target, $link_id, $options);
             $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
             break;
+            
         case "href-folder":
             if ($val) {
                 $lnk = str_replace('\\', '/', $val);
@@ -270,11 +271,13 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                 $str = $display;
             }
             break;
+            
         case "literal_link":
             // Link to the URL specified by $display
             // The link text is the target URL
             $str .= "<a href='$display' target='External$colIndex'>$display</a>";
             break;
+        
         case "masked_link":
             // Link to the URL specified by $display
             // The link text is specified by the label setting in Options, for example {"Label":"Show files"}
@@ -288,6 +291,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
                 $str .= "";
             }
             break;
+            
         case "masked_link_list":
             // Link to each URL listed in a semicolon or comma-separated list of items in $display
             // The link text is specified by the label setting in Options, for example {"Label":"Show files"}
@@ -346,6 +350,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
             $str .= implode($delim . ' ', $links);
             break;
+            
         case "item_list":
             // $f is a vertical bar separated list
             // Create a one-row table using the items in the list
@@ -380,6 +385,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
             $str .= "</tr></table>";
             break;
+            
         case "link_list":
             // Create a separate hotlink for each item in a semicolon or comma-separated list of items in $display
             // The link to use is defined by the target column in the detail_report_hotlinks section of the config DB
@@ -412,6 +418,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
             $str .= implode($delim . ' ', $links);
             break;
+            
         case "link_table":
             // Table with links
             $str .= "<table class='inner_table'>";
@@ -423,6 +430,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
             $str .= "</table>";
             break;
+            
         case "tablular_list":
         case "tabular_list":
             // Parse data separated by colons and vertical bars and create a table
@@ -437,6 +445,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
             $str .= "</table>";
             break;
+            
         case "tabular_link_list":
             // Parse data separated by colons and vertical bars and create a table
             // Values in the second column are linked to the page defined by the target column in the detail_report_hotlinks section of the config DB
@@ -494,6 +503,7 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             $str .= "</table>";
 
             break;
+            
         case "color_label":
             $cx = "";
             if (!empty($options) && array_key_exists($link_id, $options)) {
@@ -504,19 +514,23 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
         case "format_commas":
             $str = valueToString($display, $colSpec, TRUE);
             break;
+        
         case "xml_params":
             $str .= make_table_from_param_xml($display);
             break;
+        
         case "markup":
             // Replace newlines with <br> using nl2br
             $str .= nl2br($display);
             break;
+        
         case "monomarkup":
             // Replace newlines with <br> using nl2br
             // Also surround the entire block with <code></code>
             // CSS formatting in base.css renders the text as monospace; see table.DRep pre
             $str .= '<code>' . nl2br($display) . '</code>';
             break;
+        
         case "glossary_entry":
             $url = make_detail_report_url($target, $wa, $options);
 
@@ -530,8 +544,8 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
 
             // Pop-up option
             // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$display','width=800,height=600')\">$display</a>";
-
             break;
+            
         default:
             $str = "??? $display ???";
             break;

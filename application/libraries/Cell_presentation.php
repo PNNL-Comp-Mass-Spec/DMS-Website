@@ -391,6 +391,7 @@ class Cell_presentation {
                     $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
                 }
                 break;
+                
             case "invoke_multi_col":
                 $cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
                 foreach ($cols as $columnName => $v) {
@@ -404,12 +405,14 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target/$ref");
                 $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
                 break;
+                
             case "literal_link":
                 //$url = $target . $ref;
                 $url = $this->url_updater->fix_link($target . $ref);
                 $value = valueToString($value, $colSpec, FALSE);
                 $str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$value</a></td>";
                 break;
+            
             case "masked_link":
                 //$url = $target . $ref;
                 $url = $this->url_updater->fix_link($target . $ref);
@@ -420,10 +423,12 @@ class Cell_presentation {
                     $str .= "<td></td>";
                 }
                 break;
+                
             case "CHECKBOX":
                 // $str .= "<td>" . form_checkbox('ckbx', $ref, FALSE) . "</td>";
                 $str .= "<td><input type='checkbox' value='$ref' name='ckbx' class='lr_ckbx'></td>";
                 break;
+            
             case "checkbox_json":
                 // This is an old, unused mode
                 $cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
@@ -437,6 +442,7 @@ class Cell_presentation {
             case "update_opener":
                 $str .= "<td>" . "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
                 break;
+            
             case "color_label":
                 // Color this column based on the value in $ref (which either came from this column or from another column, specified by WhichArg)
                 if (array_key_exists($ref, $colSpec['cond'])) {
@@ -456,6 +462,7 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target/show/$value");
                 $str .= "<td><a href='$url'>$value</a></td>";
                 break;
+            
             case "format_date":
                 // Apply a custom date format, using the format code in the options column
                 // For date format codes, see http://php.net/manual/en/function.date.php
@@ -470,10 +477,12 @@ class Cell_presentation {
                 }
                 $str .= "<td>" . $value . "</td>";
                 break;
+                
             case "format_commas":
                 $value = valueToString($value, $colSpec, TRUE);
                 $str .= "<td>" . $value . "</td>";
                 break;
+            
             case "select_case":
                 $t = $colSpec['Options'];
                 $link_item = ($target) ? $row[$target] : $value;
@@ -491,11 +500,13 @@ class Cell_presentation {
                     $str .= "<td>$value</td>";
                 }
                 break;
+                
             case "copy_from":
                 // Old, unused mode; superseded by "row_to_json" and "row_to_url"
                 $url = reduce_double_slashes(site_url() . "$target/$ref");
                 $str .= "<td><a href='$url'>$value</a></td>";
                 break;
+            
             case "row_to_url":
                 $s = "";
                 foreach ($row as $f => $v) {
@@ -505,6 +516,7 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target");
                 $str .= "<td><a href='javascript:void(0)' onclick='submitDynamicForm(\"$url\", \"$s\")'>$value</a></td>";
                 break;
+                
             case "row_to_json":
                 $fsp = "";
                 $rowAction = 'localRowAction';
@@ -523,6 +535,7 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target");
                 $str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";
                 break;
+                
             case "masked_href-folder":
                 $lbl = getOptionValue($colSpec, 'Label', 'Undefined_masked_href-folder');
                 $lnk = str_replace('\\', '/', $ref);
@@ -532,10 +545,12 @@ class Cell_presentation {
                     $str = "<td></td>";
                 }
                 break;
+                
             case "href-folder":
                 $lnk = str_replace('\\', '/', $ref);
                 $str = "<td>" . "<a href='file:///$lnk'>$value</a>" . "</td>";
                 break;
+            
             case "inplace_edit":
                 $className = str_replace(' ', '_', $columnName);
                 $id = $className . '_' . $ref;
@@ -563,6 +578,7 @@ class Cell_presentation {
                 }
                 $str .= "<td>" . implode($delim . ' ', $links) . "</td>";
                 break;
+                
             case "markup":
                 // Display text with carriage returns
                 // Converts newlines to <br>
@@ -572,10 +588,12 @@ class Cell_presentation {
                 // cannot have two hotlinks defined for it; see method get_cell_padding)
                 $str .= "<td>" . nl2br($value) . "</td>";
                 break;
+            
             case "min_col_width":
                 // No special rendering here, though get_cell_padding will pad the cell if the text is too short
                 $str .= "<td>" . $value . "</td>";
                 break;
+                
             case "image_link":
                 //$url = $ref;
                 $url = $this->url_updater->fix_link($ref);
@@ -594,18 +612,21 @@ class Cell_presentation {
                     $str .= "<td></td>";
                 }
                 break;
+                
             case "column_tooltip":
                 // If Decimals is defined in the options, format with the number of decimal places
                 // If not defined, leave as-is
                 $value = valueToString($value, $colSpec, FALSE);
                 $str .= "<td>" . $value . "</td>";
                 break;
+            
             case "copy_color_from":
             case "no_export":
             case "export_align":
                 // These only affect data export
                 $str .= "<td>" . $value . "</td>";
                 break;
+            
             default:
                 $str .= "<td>???" . $colSpec["LinkType"] . "???</td>";
                 break;
