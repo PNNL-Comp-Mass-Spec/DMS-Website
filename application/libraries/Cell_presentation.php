@@ -455,6 +455,25 @@ class Cell_presentation {
                 }
                 $str .= "<td $colorStyle>$value</td>";
                 break;
+                
+            case "doi_link":
+                if (preg_match('/^doi:/', $ref)) {
+                    $url = "https://doi.org/$ref";
+                }
+                else if (preg_match('/^https?:\/\//', $ref)) {
+                    $url = $ref;
+                }
+                else {
+                    $url = "";
+                }
+                
+                if (strlen($url) > 0) {
+                    $str .= "<td><a href='$url' target='External$colIndex'>$ref</a></td>";
+                } else {
+                    $str .= "<td>$ref</td>";
+                }
+                break;
+
             case "bifold_choice":
                 // This mode has been superseded by select_case
                 $t = $colSpec['Options'];

@@ -511,6 +511,26 @@ function make_detail_report_hotlink($colSpec, $link_id, $colIndex, $display, $va
             }
             $str .= "<span $cx>$display</span>";
             break;
+       
+        case "doi_link":
+                if (preg_match('/^doi:/', $display)) {
+                    $url = "https://doi.org/$display";
+                }
+                else if (preg_match('/^https?:\/\//', $display)) {
+                    $url = $display;
+                }
+                else {
+                    $url = "";
+                }
+                
+                if (strlen($url) > 0) {
+                    $str .= "<a href='$url' target='External$colIndex'>$display</a>";
+                } else {
+                    $str .= "$display";
+                }
+                break;
+
+                
         case "format_commas":
             $str = valueToString($display, $colSpec, TRUE);
             break;
