@@ -27,9 +27,10 @@ INSERT INTO "form_fields" VALUES(14,'AutoDefineStoragePath','Auto Define Storage
 INSERT INTO "form_fields" VALUES(16,'AutoSPVolNameClient','Auto Storage VolNameClient','text','50','128','','','','trim');
 INSERT INTO "form_fields" VALUES(17,'AutoSPVolNameServer','Auto Storage VolNameServer','text','50','128','','','','trim');
 INSERT INTO "form_fields" VALUES(18,'AutoSPPathRoot','Auto Storage Path Root','text','50','128','','','','trim');
-INSERT INTO "form_fields" VALUES(19,'AutoSPArchiveServerName','Auto Storage Archive Server Name','text','50','64','','','','trim');
-INSERT INTO "form_fields" VALUES(20,'AutoSPArchivePathRoot','Auto Storage Archive Path Root','text','64','128','','','','trim');
-INSERT INTO "form_fields" VALUES(21,'AutoSPArchiveSharePathRoot','Auto Storage Archive Share Path Root','text','64','128','','','','trim');
+INSERT INTO "form_fields" VALUES(19,'AutoSPUrlDomain','Auto Storage URL Domain','text','50','64','','','pnl.gov','trim');
+INSERT INTO "form_fields" VALUES(20,'AutoSPArchiveServerName','Auto Storage Archive Server Name','text','50','64','','','','trim');
+INSERT INTO "form_fields" VALUES(21,'AutoSPArchivePathRoot','Auto Storage Archive Path Root','text','64','128','','','','trim');
+INSERT INTO "form_fields" VALUES(22,'AutoSPArchiveSharePathRoot','Auto Storage Archive Share Path Root','text','64','128','','','','trim');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'InstrumentClass','picker.replace','instrumentClassPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'CaptureMethod','picker.replace','captureMethodPickList','','',',','');
@@ -73,9 +74,10 @@ INSERT INTO "sproc_args" VALUES(16,'AutoDefineStoragePath','autoDefineStoragePat
 INSERT INTO "sproc_args" VALUES(17,'AutoSPVolNameClient','autoSPVolNameClient','varchar','input','128','AddUpdateInstrument');
 INSERT INTO "sproc_args" VALUES(18,'AutoSPVolNameServer','autoSPVolNameServer','varchar','input','128','AddUpdateInstrument');
 INSERT INTO "sproc_args" VALUES(19,'AutoSPPathRoot','autoSPPathRoot','varchar','input','128','AddUpdateInstrument');
-INSERT INTO "sproc_args" VALUES(20,'AutoSPArchiveServerName','autoSPArchiveServerName','varchar','input','64','AddUpdateInstrument');
-INSERT INTO "sproc_args" VALUES(21,'AutoSPArchivePathRoot','autoSPArchivePathRoot','varchar','input','128','AddUpdateInstrument');
-INSERT INTO "sproc_args" VALUES(22,'AutoSPArchiveSharePathRoot','autoSPArchiveSharePathRoot','varchar','input','128','AddUpdateInstrument');
+INSERT INTO "sproc_args" VALUES(20,'AutoSPUrlDomain','autoSPUrlDomain','varchar','input','64','AddUpdateInstrument');
+INSERT INTO "sproc_args" VALUES(21,'AutoSPArchiveServerName','autoSPArchiveServerName','varchar','input','64','AddUpdateInstrument');
+INSERT INTO "sproc_args" VALUES(22,'AutoSPArchivePathRoot','autoSPArchivePathRoot','varchar','input','128','AddUpdateInstrument');
+INSERT INTO "sproc_args" VALUES(23,'AutoSPArchiveSharePathRoot','autoSPArchiveSharePathRoot','varchar','input','128','AddUpdateInstrument');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Allowed Dataset Types','detail-report','Instrument Group','instrument_allowed_dataset_type/report','labelCol','dl_instrument',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Name','detail-report','Name','instrument_operation_history/report','valueCol','dl_name_operation_history',NULL);
