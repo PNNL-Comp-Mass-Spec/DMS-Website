@@ -65,6 +65,11 @@ class Pipeline_jobs extends Base_controller {
 
     // --------------------------------------------------------------------
     // get list of scripts with parameters defined
+    // This will download data from the view defined by the parameter_scripts utility query in the model config DB
+    //
+    // Relevant DDL for the SQLite database:
+    // INSERT INTO "utility_queries" VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','*','','','');    
+    // That view looks for entries in T_Scripts that are enabled and have a non-null value in the Parameters column
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
