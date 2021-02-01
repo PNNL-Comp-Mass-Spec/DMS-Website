@@ -288,7 +288,7 @@ class Cell_presentation {
                     }
                     
                     if ($fillColor == "") {
-                        $textColor = "default";
+                        $fillColor = "default";
                     }
                     
                     if ($textStyle == "") {
