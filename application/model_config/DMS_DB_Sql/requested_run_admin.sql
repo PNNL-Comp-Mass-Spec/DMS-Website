@@ -12,7 +12,7 @@ INSERT INTO "general_params" VALUES('updatewp_sproc','UpdateRequestedRunWP');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','35!','','Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_request','RequestID','12','','Request','Equals','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','20','','Status','ContainsText','text','24','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','20','','Status','StartsWithText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_batch','Batch','20','','Batch','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_campaign','Campaign','30!','','Campaign','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_dataset','Dataset','40!','','Dataset','ContainsText','text','128','','');
