@@ -154,11 +154,12 @@ class Entry_form {
                 }
                 $help = $this->make_wiki_help_link($spec['label']);
                 $label = $spec['label'];
-                $field = $this->make_entry_field($fldName, $spec, $this->field_values[$fldName], $mode);
+                $nonEditField = false;
+                $field = $this->make_entry_field($fldName, $spec, $this->field_values[$fldName], $mode, $nonEditField);
 
-                $showChooser = true;
+                $showChooser = !$nonEditField;
 
-                if (in_array('text-if-new', $fieldTypes)) {
+                if ($showChooser && in_array('text-if-new', $fieldTypes)) {
                     if (substr($mode, 0, 3) === 'add' || $mode === 'retry') {
                         // Mode is likely add, though for dataset creation it will be add_trigger
                         // Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
@@ -372,10 +373,12 @@ class Entry_form {
      * @param type $f_spec Field spec
      * @param type $cur_value Current value
      * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
+     * @param bool $nonEditField Will be set to true if the field is non-edit
      * @return type
      */
-    private function make_entry_field($field_name, $f_spec, $cur_value, $mode) {
+    private function make_entry_field($field_name, $f_spec, $cur_value, $mode, &$nonEditField) {
         $s = "";
+        $nonEditField = false;
 
         // set up delimiter for lists for the field
         $delimFromSpec = (isset($f_spec['chooser']['Delimiter'])) ? $f_spec['chooser']['Delimiter'] : '';
@@ -389,7 +392,6 @@ class Entry_form {
         $fieldTypes = explode('|', $f_spec['type']);
 
         if (in_array('text-if-new', $fieldTypes)) {
-
             // Replace text-if-new with either 'text' or 'non-edit'
             // First remove 'text-if-new'
             $fieldTypes = array_merge(array_diff($fieldTypes, array('text-if-new')));
@@ -419,6 +421,26 @@ class Entry_form {
                     $fieldTypes[] = 'text';
                 }
             }
+        } else if (in_array('non-edit-if-data-package', $fieldTypes)) {
+            // Possibly make this field 'non-edit'
+            // First remove the field type flag
+            $fieldTypes = array_merge(array_diff($fieldTypes, array('non-edit-if-data-package')));
+            
+            // Make non-edit if a data package is defined
+             foreach ($this->form_field_specs as $comparisonFldName => $comparisonFldSpec) {
+                if ($comparisonFldName != "Data_Package_ID"){
+                    continue;
+                }
+
+                $dataPackageID = intval($this->field_values[$comparisonFldName]);
+
+                if ($dataPackageID > 0){
+                    // Replace 'area' with 'non-edit'
+                    $fieldTypes = array_merge(array_diff($fieldTypes, array('area')));
+                    $fieldTypes[] = 'non-edit';
+                }
+                break;
+            }                
         }
 
         // create HTML according to field type
@@ -459,6 +481,7 @@ class Entry_form {
         } else if (in_array('non-edit', $fieldTypes)) {
             $s .= '<input type="hidden" name="' . $data['name'] . '" value="' . $data['value'] . '" id="' . $data['id'] . '" />';
             $s .= $data['value'];
+            $nonEditField = true;
         } else if (in_array('hidden', $fieldTypes)) {
 
             $s .= "<input type='hidden' id='$field_name' name='$field_name' value='xx'/>";
