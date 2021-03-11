@@ -9,7 +9,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_id_col','Job');
 INSERT INTO "general_params" VALUES('post_submission_link','{"link":"analysis_request_jobs/report/", "label":"Show jobs for request"}');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','AJ_Request');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'AJ_Dataset','Dataset','area','','','12','80','','trim|required');
+INSERT INTO "form_fields" VALUES(1,'AJ_Dataset','Datasets','area|non-edit-if-data-package','','','12','80','','trim|required');
 INSERT INTO "form_fields" VALUES(2,'removeDatasetsWithJobs','Skip Datasets With Existing Jobs','text','12','12','','','Y','trim|max_length[12]');
 INSERT INTO "form_fields" VALUES(3,'AJ_Priority','Priority','text','3','3','','','','trim|default_value[3]|required|max_length[2]|numeric');
 INSERT INTO "form_fields" VALUES(4,'AJ_ToolName','Analysis Tool','text','30','80','','','','trim|required|max_length[64]');
