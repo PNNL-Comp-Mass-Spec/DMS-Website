@@ -24,7 +24,7 @@ INSERT INTO "form_fields" VALUES(12,'AJ_Owner','Owner (PRN)','text','40','80',''
 INSERT INTO "form_fields" VALUES(13,'associatedProcessorGroup','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(14,'AJ_Comment','Comment','area','','','4','50','','trim|max_length[255]');
 INSERT INTO "form_fields" VALUES(15,'specialProcessing','Special Processing','area','','','4','70','','trim|max_length[512]');
-INSERT INTO "form_fields" VALUES(16,'AJ_Request','Request','text','12','12','','','','trim|default_value[0]|max_length[12]');
+INSERT INTO "form_fields" VALUES(16,'AJ_Request','Request','non-edit','12','12','','','','trim|default_value[0]|max_length[12]');
 INSERT INTO "form_fields" VALUES(17,'propagationMode','Export Mode','text','24','24','','','Export','trim|max_length[24]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'AJ_Owner','default_function','GetUser()');
