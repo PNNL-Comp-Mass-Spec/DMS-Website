@@ -97,8 +97,8 @@ INSERT INTO "sproc_args" VALUES(2,'AJ_Priority','priority','int','input','','Add
 INSERT INTO "sproc_args" VALUES(3,'AJ_ToolName','toolName','varchar','input','64','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(4,'AJ_ParmFile','parmFileName','varchar','input','255','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(5,'AJ_SettingsFile','settingsFileName','varchar','input','255','AddAnalysisJobGroup');
-INSERT INTO "sproc_args" VALUES(6,'AJ_OrganismDB','organismDBName','varchar','input','64','AddAnalysisJobGroup');
-INSERT INTO "sproc_args" VALUES(7,'AJ_Organism','organismName','varchar','input','64','AddAnalysisJobGroup');
+INSERT INTO "sproc_args" VALUES(6,'AJ_OrganismDB','organismDBName','varchar','input','128','AddAnalysisJobGroup');
+INSERT INTO "sproc_args" VALUES(7,'AJ_Organism','organismName','varchar','input','128','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(8,'protCollNameList','protCollNameList','varchar','input','4000','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(9,'protCollOptionsList','protCollOptionsList','varchar','input','256','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(10,'AJ_Owner','ownerPRN','varchar','input','32','AddAnalysisJobGroup');
