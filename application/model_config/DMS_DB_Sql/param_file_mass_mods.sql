@@ -13,6 +13,7 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_local_symbol','Symbol','',
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_mass_min','Min Mass','','','Mono_Mass','GreaterThanOrEqualTo','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_mass_max','Max Mass','','','Mono_Mass','LessThanOrEqualTo','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_param_file_name','Param File','50!','','Param_File_Name','ContainsText','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(10,'pf_primary_tool','Tool','','','Primary_Tool','ContainsText','text','','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Original_Source_Name','invoke_entity','value','unimod/report','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Mass_Correction_Tag','invoke_entity','value','mass_correction_factors/report/-/~','');
