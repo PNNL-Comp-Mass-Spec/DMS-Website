@@ -58,12 +58,13 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_request','RequestID','6!',
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_status','Status','6!','','Status','StartsWithText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_batch','Batch','4!','','Batch','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','20!','','Campaign','ContainsText','text','50','','');
-INSERT INTO "list_report_primary_filter" VALUES(6,'pf_requestNameCode','Code','20!','','Request Name Code','StartsWithText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_requestNameCode','Code','10!','','Request Name Code','StartsWithText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_instrument_group','Inst. Group','32','','Inst. Group','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_work_package','Work Pkg','32','','Work Package','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(10,'pf_comment','Comment','20','','Comment','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(11,'pf_queue_state','Queue State','20','','Queue State','StartsWithText','text','32','','');
+INSERT INTO "list_report_primary_filter" VALUES(12,'pf_experiment','Experiment','32','','Experiment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Request','invoke_entity','value','requested_run/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Campaign','invoke_entity','value','campaign/show','');
