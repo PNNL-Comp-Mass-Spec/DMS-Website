@@ -12,7 +12,9 @@
 #
 # The easier method is to set the execution policy to unrestricted:
 #    powershell Set-ExecutionPolicy unrestricted
-
+#
+# This script will look for a secure string file with the user's password
+# To create the file, run create_secure_password_file.ps1 from a Powershell prompt
 
 # Use a local configuration settings file, if one is present
 # Example path: C:\Users\d3l243\AppData\Local\PS_DMS_Scripts\config-def.psm1
