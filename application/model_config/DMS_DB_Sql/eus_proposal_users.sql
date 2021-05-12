@@ -7,6 +7,8 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_eus_proposal_id','EUS Prop
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_eus_person_id','EUS Person ID','20','','EUS Person ID','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_name','Name','20','','Name','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_site_status','Site Status','20','','Site Status','ContainsText','text','64','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_first_name','First Name','20','','First Name','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_last_name','Last Name','20','','Last Name','ContainsText','text','50','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'EUS Person ID','invoke_entity','value','eus_users/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'EUS Proposal ID','invoke_entity','value','/eus_proposals/show','');
