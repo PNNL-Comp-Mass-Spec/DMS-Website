@@ -91,7 +91,7 @@ INSERT INTO "sproc_args" VALUES(13,'EUS_Proposal_ID','eusProposalID','varchar','
 INSERT INTO "sproc_args" VALUES(14,'EUS_User','eusUserID','varchar','input','512','AddRequestedRunFractions');
 INSERT INTO "sproc_args" VALUES(15,'MRM_Attachment','mrmAttachment','varchar','input','128','AddRequestedRunFractions');
 INSERT INTO "sproc_args" VALUES(16,'<local>','mode','varchar','input','12','AddRequestedRunFractions');
-INSERT INTO "sproc_args" VALUES(17,'<local>','message','varchar','output','512','AddRequestedRunFractions');
+INSERT INTO "sproc_args" VALUES(17,'<local>','message','varchar','output','1024','AddRequestedRunFractions');
 INSERT INTO "sproc_args" VALUES(18,'<local>','callingUser','varchar','input','128','AddRequestedRunFractions');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'requested_run','Source_Request_ID','ColName','Request');

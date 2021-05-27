@@ -124,7 +124,7 @@ INSERT INTO "sproc_args" VALUES(14,'RR_EUSUsers','eusUsersList','varchar','input
 INSERT INTO "sproc_args" VALUES(15,'RR_Status','status','varchar','input','24','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(16,'<local>','mode','varchar','input','12','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(17,'RR_Request','request','int','output','','AddUpdateRequestedRun');
-INSERT INTO "sproc_args" VALUES(18,'<local>','message','varchar','output','512','AddUpdateRequestedRun');
+INSERT INTO "sproc_args" VALUES(18,'<local>','message','varchar','output','1024','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(19,'RR_SecSep','secSep','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(20,'MRMAttachment','MRMAttachment','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(21,'<local>','callingUser','varchar','input','128','AddUpdateRequestedRun');
