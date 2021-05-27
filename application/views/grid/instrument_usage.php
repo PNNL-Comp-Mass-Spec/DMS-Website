@@ -36,6 +36,7 @@
         <option>CAP_DEV</option>
         <option>MAINTENANCE</option>
         <option>ONSITE</option>
+        <option>REMOTE</option>
         </select>
     </td>
     <td><span>Proposal</span></td>

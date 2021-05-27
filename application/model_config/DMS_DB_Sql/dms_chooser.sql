@@ -64,7 +64,7 @@ INSERT INTO "chooser_definitions" VALUES(48,'datasetStatePickList','default','sq
 INSERT INTO "chooser_definitions" VALUES(49,'datasetTypePickList','default','sql','SELECT DST_Name + '' ... ['' + DST_Description + '']'' AS val, DST_Name AS ex FROM T_DatasetTypeName WHERE DST_Active = 1 ORDER BY DST_name');
 INSERT INTO "chooser_definitions" VALUES(50,'dnaTabIDPickList','default','sql','SELECT Translation_Table_Name AS val, DNA_Translation_Table_ID AS ex FROM V_DNA_Translation_Tables ORDER BY DNA_Translation_Table_ID');
 INSERT INTO "chooser_definitions" VALUES(51,'enzymePickList','default','sql','SELECT Enzyme_Name as val, '''' as ex FROM T_Enzymes WHERE Enzyme_ID > 0 ORDER BY Enzyme_Name');
-INSERT INTO "chooser_definitions" VALUES(52,'eusUsageTypePickList','default','sql','SELECT [Name] AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0 ORDER BY Name');
+INSERT INTO "chooser_definitions" VALUES(52,'eusUsageTypePickList','default','sql','SELECT Description AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0 ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(53,'experimentUserPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Experiment_User_Picklist ORDER BY [Name]');
 INSERT INTO "chooser_definitions" VALUES(54,'filterSetPickList','default','sql','SELECT distinct Cast(filter_set_ID as varchar(11)) + '' - '' + Filter_Set_Name as val, filter_set_ID as ex FROM V_Filter_Sets ORDER by filter_set_ID');
 INSERT INTO "chooser_definitions" VALUES(55,'instrumentClassPickList','default','sql','SELECT IN_class as val, '''' as ex FROM T_Instrument_Class ORDER BY IN_class ASC');
@@ -87,48 +87,49 @@ INSERT INTO "chooser_definitions" VALUES(74,'prepLCRunTabPickList','default','sq
 INSERT INTO "chooser_definitions" VALUES(75,'protOptSeqDirPickList','default','sql','SELECT * FROM V_Protein_Options_Seq_Direction');
 INSERT INTO "chooser_definitions" VALUES(77,'samplePrepUserPickList','default','sql','SELECT val, ex FROM V_Sample_Prep_Request_User_Picklist ORDER BY [val]');
 INSERT INTO "chooser_definitions" VALUES(78,'sampleRequestStatePickList','default','sql','SELECT val, ex FROM V_Sample_Prep_Request_State_Picklist ORDER BY State_ID');
-INSERT INTO "chooser_definitions" VALUES(80,'secsepPickList','default','sql','SELECT SS_name as val, '''' as ex FROM T_Secondary_Sep ORDER BY SS_Name');
-INSERT INTO "chooser_definitions" VALUES(84,'userNamePickList','default','sql','SELECT Name + '' ('' + [Payroll Num] + '')'' AS val, '''' AS ex FROM V_Active_Users ORDER BY Name');
-INSERT INTO "chooser_definitions" VALUES(85,'userOperationsPickList','default','sql','SELECT Operation as val, '''' as ex FROM T_User_Operations ORDER BY Operation');
-INSERT INTO "chooser_definitions" VALUES(86,'userPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Active_Users ORDER BY [Name]');
-INSERT INTO "chooser_definitions" VALUES(87,'wellplatePickList','default','sql','SELECT val, ex FROM V_Wellplate_Picklist ORDER BY val');
-INSERT INTO "chooser_definitions" VALUES(88,'dataPackageStatePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_Data_Package_State');
-INSERT INTO "chooser_definitions" VALUES(89,'dataPackageTeamPickList','package','sql','SELECT Team_Name AS val, Team_Name AS ex FROM T_Data_Package_Teams');
-INSERT INTO "chooser_definitions" VALUES(90,'dataPackageTypePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_Data_Package_Type');
-INSERT INTO "chooser_definitions" VALUES(91,'captureMultiJobUpdateActionsPickList','default','select','{"Hold":"Hold", "Ignore":"Ignore", "Release":"Release", "Retry":"Retry failed job", "UpdateParameters":"Update Job Parameters from DMS"}');
-INSERT INTO "chooser_definitions" VALUES(92,'itemTypePickList','default','select','{"Batch_ID":"Batch_ID","Requested_Run_ID":"Requested_Run_ID", "Dataset_Name":"Dataset_Name", "Dataset_ID":"Dataset_ID", "Experiment_Name":"Experiment_Name", "Experiment_ID":"Experiment_ID", "Data_Package_ID":"Data_Package_ID"}');
-INSERT INTO "chooser_definitions" VALUES(93,'samplePrepRequestFacilityList','default','select','{"EMSL":"EMSL", "BSF":"BSF"}');
-INSERT INTO "chooser_definitions" VALUES(94,'dataReleaseRestrictionsPicklist','default','sql','SELECT Name AS val, Name AS ex FROM T_Data_Release_Restrictions ORDER BY ID');
-INSERT INTO "chooser_definitions" VALUES(95,'predefTriggerModePickList','default','select','{"0":"Normal", "1":"Before Disposition"}');
-INSERT INTO "chooser_definitions" VALUES(96,'instrumentRuntimeReportOptions','default','select','{"Show All":"Show All", "No Intervals":"No Intervals", "Intervals Only":"Intervals Only", "Long Intervals":"Long Intervals"}');
-INSERT INTO "chooser_definitions" VALUES(97,'percentagePicklist','default','select','{"10":"10", "20":"20",  "30":"30",  "40":"40",  "50":"50",  "60":"60",  "70":"70",  "80":"80",  "90":"90",  "100":"100"}');
-INSERT INTO "chooser_definitions" VALUES(98,'longIntervalUsagePickList','default','select','{ "User[100%], Proposal[xxx], PropUser[xxx]":"User, Proposal, PropUser", "Broken[100%]":"Broken",  "Maintenance[100%]":"Maintenance", "OtherNotAvailable[100%]":"OtherNotAvailable",  "StaffNotAvailable[100%]":"StaffNotAvailable",  "CapDev[100%], Operator[xxx]":"CapDev, Operator",  "InstrumentAvailable[100%]":"InstrumentAvailable"  }');
-INSERT INTO "chooser_definitions" VALUES(99,'instrumentRunUsagePicklist','default','sql','SELECT [Name] + '' ('' + Reporting + '')'' as val, [Name] as ex FROM V_Instrument_Tracked ORDER BY Val');
-INSERT INTO "chooser_definitions" VALUES(100,'monthRunUsagePicklist','default','select','{ "01":"01", "02":"02", "03":"03", "04":"04", "05":"05", "06":"06", "07":"07", "08":"08", "09":"09", "10":"10", "11":"11", "12":"12" }');
-INSERT INTO "chooser_definitions" VALUES(101,'macJobOptionsPicklist','default','select','{ "Include Protein Prophet":"Include Protein Prophet", "Fixed Effect":"Fixed Effect",  "Consolidation Factor":"Consolidation Factor",  "Protein Prophet":"Protein Prophet" }');
-INSERT INTO "chooser_definitions" VALUES(102,'macJobTypePicklist','broker','sql','SELECT Script as val, Script as ex FROM T_Scripts WHERE (Enabled = ''Y'') AND (NOT (Parameters IS NULL))');
-INSERT INTO "chooser_definitions" VALUES(103,'instrumentRunUsageFormatPicklist','default','select','{"report":"report", "details":"details", "rollup":"rollup", "check":"check"}');
-INSERT INTO "chooser_definitions" VALUES(104,'operationsTaskState','default','select','{"New":"New", "Open":"Open", "In Progress":"In Progress", "Completed":"Completed",  "Not Implemented":"Not Implemented"}');
-INSERT INTO "chooser_definitions" VALUES(105,'operationsTaskPriority','default','select','{"Normal":"Normal", "High":"High"}');
-INSERT INTO "chooser_definitions" VALUES(106,'operationsTaskStaff','default','sql','SELECT Name as val, Name as ex FROM V_Operations_Task_Staff_Picklist order by Name');
-INSERT INTO "chooser_definitions" VALUES(107,'separationGroupPickList','default','sql','SELECT Sep_Group AS val, '''' as ex FROM V_Separation_Group_PickList ORDER BY Sep_Group');
-INSERT INTO "chooser_definitions" VALUES(108,'samplePrepSeparationGroupPickList','default','sql','SELECT Sep_Group AS val, '''' as ex FROM V_Separation_Group_PickList WHERE Sample_Prep_Visible > 0 ORDER BY Sep_Group');
-INSERT INTO "chooser_definitions" VALUES(109,'osmPackageStatePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_OSM_Package_State');
-INSERT INTO "chooser_definitions" VALUES(110,'osmPackageTypePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_OSM_Package_Type');
-INSERT INTO "chooser_definitions" VALUES(112,'psmJobTypePicklist','default','sql','SELECT Job_Type_Description AS val, Job_Type_Name AS ex FROM V_Default_PSM_Job_Types ORDER BY Job_Type_ID');
-INSERT INTO "chooser_definitions" VALUES(113,'psmToolNamePicklist','default','sql','SELECT Description AS val, Tool_Name AS ex FROM V_Default_PSM_Job_Tools ORDER BY Tool_Name
+INSERT INTO "chooser_definitions" VALUES(80,'samplePrepEusUsageTypePickList','default','sql','SELECT Description AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0  and Enabled_Prep_Request > 0 ORDER BY Name');
+INSERT INTO "chooser_definitions" VALUES(81,'secsepPickList','default','sql','SELECT SS_name as val, '''' as ex FROM T_Secondary_Sep ORDER BY SS_Name');
+INSERT INTO "chooser_definitions" VALUES(85,'userNamePickList','default','sql','SELECT Name + '' ('' + [Payroll Num] + '')'' AS val, '''' AS ex FROM V_Active_Users ORDER BY Name');
+INSERT INTO "chooser_definitions" VALUES(86,'userOperationsPickList','default','sql','SELECT Operation as val, '''' as ex FROM T_User_Operations ORDER BY Operation');
+INSERT INTO "chooser_definitions" VALUES(87,'userPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Active_Users ORDER BY [Name]');
+INSERT INTO "chooser_definitions" VALUES(88,'wellplatePickList','default','sql','SELECT val, ex FROM V_Wellplate_Picklist ORDER BY val');
+INSERT INTO "chooser_definitions" VALUES(89,'dataPackageStatePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_Data_Package_State');
+INSERT INTO "chooser_definitions" VALUES(90,'dataPackageTeamPickList','package','sql','SELECT Team_Name AS val, Team_Name AS ex FROM T_Data_Package_Teams');
+INSERT INTO "chooser_definitions" VALUES(91,'dataPackageTypePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_Data_Package_Type');
+INSERT INTO "chooser_definitions" VALUES(92,'captureMultiJobUpdateActionsPickList','default','select','{"Hold":"Hold", "Ignore":"Ignore", "Release":"Release", "Retry":"Retry failed job", "UpdateParameters":"Update Job Parameters from DMS"}');
+INSERT INTO "chooser_definitions" VALUES(93,'itemTypePickList','default','select','{"Batch_ID":"Batch_ID","Requested_Run_ID":"Requested_Run_ID", "Dataset_Name":"Dataset_Name", "Dataset_ID":"Dataset_ID", "Experiment_Name":"Experiment_Name", "Experiment_ID":"Experiment_ID", "Data_Package_ID":"Data_Package_ID"}');
+INSERT INTO "chooser_definitions" VALUES(94,'samplePrepRequestFacilityList','default','select','{"EMSL":"EMSL", "BSF":"BSF"}');
+INSERT INTO "chooser_definitions" VALUES(95,'dataReleaseRestrictionsPicklist','default','sql','SELECT Name AS val, Name AS ex FROM T_Data_Release_Restrictions ORDER BY ID');
+INSERT INTO "chooser_definitions" VALUES(96,'predefTriggerModePickList','default','select','{"0":"Normal", "1":"Before Disposition"}');
+INSERT INTO "chooser_definitions" VALUES(97,'instrumentRuntimeReportOptions','default','select','{"Show All":"Show All", "No Intervals":"No Intervals", "Intervals Only":"Intervals Only", "Long Intervals":"Long Intervals"}');
+INSERT INTO "chooser_definitions" VALUES(98,'percentagePicklist','default','select','{"10":"10", "20":"20",  "30":"30",  "40":"40",  "50":"50",  "60":"60",  "70":"70",  "80":"80",  "90":"90",  "100":"100"}');
+INSERT INTO "chooser_definitions" VALUES(99,'longIntervalUsagePickList','default','select','{ "UserOnsite[100%], Proposal[xxx], PropUser[xxx]":"UserOnsite, Proposal, PropUser",  "UserRemote[100%], Proposal[xxx], PropUser[xxx]":"UserRemote, Proposal, PropUser", "Broken[100%]":"Broken",  "Maintenance[100%]":"Maintenance", "OtherNotAvailable[100%]":"OtherNotAvailable",  "StaffNotAvailable[100%]":"StaffNotAvailable",  "CapDev[100%], Operator[xxx]":"CapDev, Operator",  "InstrumentAvailable[100%]":"InstrumentAvailable" }');
+INSERT INTO "chooser_definitions" VALUES(100,'instrumentRunUsagePicklist','default','sql','SELECT [Name] + '' ('' + Reporting + '')'' as val, [Name] as ex FROM V_Instrument_Tracked ORDER BY Val');
+INSERT INTO "chooser_definitions" VALUES(101,'monthRunUsagePicklist','default','select','{ "01":"01", "02":"02", "03":"03", "04":"04", "05":"05", "06":"06", "07":"07", "08":"08", "09":"09", "10":"10", "11":"11", "12":"12" }');
+INSERT INTO "chooser_definitions" VALUES(102,'macJobOptionsPicklist','default','select','{ "Include Protein Prophet":"Include Protein Prophet", "Fixed Effect":"Fixed Effect",  "Consolidation Factor":"Consolidation Factor",  "Protein Prophet":"Protein Prophet" }');
+INSERT INTO "chooser_definitions" VALUES(103,'macJobTypePicklist','broker','sql','SELECT Script as val, Script as ex FROM T_Scripts WHERE (Enabled = ''Y'') AND (NOT (Parameters IS NULL))');
+INSERT INTO "chooser_definitions" VALUES(104,'instrumentRunUsageFormatPicklist','default','select','{"report":"report", "details":"details", "rollup":"rollup", "check":"check"}');
+INSERT INTO "chooser_definitions" VALUES(105,'operationsTaskState','default','select','{"New":"New", "Open":"Open", "In Progress":"In Progress", "Completed":"Completed",  "Not Implemented":"Not Implemented"}');
+INSERT INTO "chooser_definitions" VALUES(106,'operationsTaskPriority','default','select','{"Normal":"Normal", "High":"High"}');
+INSERT INTO "chooser_definitions" VALUES(107,'operationsTaskStaff','default','sql','SELECT Name as val, Name as ex FROM V_Operations_Task_Staff_Picklist order by Name');
+INSERT INTO "chooser_definitions" VALUES(108,'separationGroupPickList','default','sql','SELECT Sep_Group AS val, '''' as ex FROM V_Separation_Group_PickList ORDER BY Sep_Group');
+INSERT INTO "chooser_definitions" VALUES(109,'samplePrepSeparationGroupPickList','default','sql','SELECT Sep_Group AS val, '''' as ex FROM V_Separation_Group_PickList WHERE Sample_Prep_Visible > 0 ORDER BY Sep_Group');
+INSERT INTO "chooser_definitions" VALUES(110,'osmPackageStatePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_OSM_Package_State');
+INSERT INTO "chooser_definitions" VALUES(111,'osmPackageTypePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_OSM_Package_Type');
+INSERT INTO "chooser_definitions" VALUES(113,'psmJobTypePicklist','default','sql','SELECT Job_Type_Description AS val, Job_Type_Name AS ex FROM V_Default_PSM_Job_Types ORDER BY Job_Type_ID');
+INSERT INTO "chooser_definitions" VALUES(114,'psmToolNamePicklist','default','sql','SELECT Description AS val, Tool_Name AS ex FROM V_Default_PSM_Job_Tools ORDER BY Tool_Name
 ');
-INSERT INTO "chooser_definitions" VALUES(114,'amtDBPicklist','default','sql','SELECT DISTINCT MT_DB_Name AS val, MT_DB_Name AS ex FROM V_MTS_MT_DBs WHERE State_ID < 10');
-INSERT INTO "chooser_definitions" VALUES(115,'usageTrackedInstruments','default','sql','SELECT Name + '' ('' + Reporting + '')   '' AS val, Name AS ex FROM V_Instrument_Tracked ORDER BY Reporting, Name');
-INSERT INTO "chooser_definitions" VALUES(116,'multiDatasetRequestCommentTmpl','default','select','{ "Capability Development":"Description of work:|Est. desired start date:|Est. days required:|Production LC needed? (if yes, provide details):", "Triple Quad Usage":"Analysis Type:|Est. desired start date:|Est. days required:|Est. total samples:|Project deadline (date):", "RapidFire":"Cartridge: |Ionization: |Experiment Group: https://dms2.pnl.gov/experiment_group/show/0000|Number of Runs: |Additional Info:" }');
-INSERT INTO "chooser_definitions" VALUES(117,'data_package_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS val, ID AS ex FROM S_V_Data_Package_Export');
-INSERT INTO "chooser_definitions" VALUES(118,'osm_package_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS val, ID AS ex FROM S_V_OSM_Package_Export');
-INSERT INTO "chooser_definitions" VALUES(119,'requested_run_batch_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Batch AS val, ID AS ex FROM T_Requested_Run_Batches');
-INSERT INTO "chooser_definitions" VALUES(120,'yesNoNAPickList','default','select','{"Yes":"Yes", "No":"No", "NA":"NA"}');
-INSERT INTO "chooser_definitions" VALUES(121,'instrumentConfigDescriptionPickList','default','select','{ "Transfer lenses check": "Transfer lenses check", "Transfer lenses cal": "Transfer lenses cal",  "Emult check": "Emult check",  "Mass cal": "Mass cal",  "Full Ion Trap cal": "Full Ion Trap cal",  "Full Instrument cal": "Full Instrument cal",  "Misc Instrument checks": "Misc Instrument checks",  "Cleaned source back to trap": "Cleaned source back to trap",  "Vendor service": "Vendor service",  "Magnet Inspection": "Magnet Inspection" }');
-INSERT INTO "chooser_definitions" VALUES(122,'apeWorkflowPickList','default','select','{"default":"Default (1% FDR)", "5percent":"5% FDR"}');
-INSERT INTO "chooser_definitions" VALUES(123,'instrumentNameRNAPickList','default','sql','SELECT Instrument  As val, '''' As ex FROM V_Instrument_Name_RNA_PickList ORDER BY Instrument');
-INSERT INTO "chooser_definitions" VALUES(124,'rnaPrepReqMethodPickList','default','select','{"PreProcessing Cleanup":"PreProcessing Cleanup",
+INSERT INTO "chooser_definitions" VALUES(115,'amtDBPicklist','default','sql','SELECT DISTINCT MT_DB_Name AS val, MT_DB_Name AS ex FROM V_MTS_MT_DBs WHERE State_ID < 10');
+INSERT INTO "chooser_definitions" VALUES(116,'usageTrackedInstruments','default','sql','SELECT Name + '' ('' + Reporting + '')   '' AS val, Name AS ex FROM V_Instrument_Tracked ORDER BY Reporting, Name');
+INSERT INTO "chooser_definitions" VALUES(117,'multiDatasetRequestCommentTmpl','default','select','{ "Capability Development":"Description of work:|Est. desired start date:|Est. days required:|Production LC needed? (if yes, provide details):", "Triple Quad Usage":"Analysis Type:|Est. desired start date:|Est. days required:|Est. total samples:|Project deadline (date):", "RapidFire":"Cartridge: |Ionization: |Experiment Group: https://dms2.pnl.gov/experiment_group/show/0000|Number of Runs: |Additional Info:" }');
+INSERT INTO "chooser_definitions" VALUES(118,'data_package_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS val, ID AS ex FROM S_V_Data_Package_Export');
+INSERT INTO "chooser_definitions" VALUES(119,'osm_package_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS val, ID AS ex FROM S_V_OSM_Package_Export');
+INSERT INTO "chooser_definitions" VALUES(120,'requested_run_batch_list','default','sql','SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Batch AS val, ID AS ex FROM T_Requested_Run_Batches');
+INSERT INTO "chooser_definitions" VALUES(121,'yesNoNAPickList','default','select','{"Yes":"Yes", "No":"No", "NA":"NA"}');
+INSERT INTO "chooser_definitions" VALUES(122,'instrumentConfigDescriptionPickList','default','select','{ "Transfer lenses check": "Transfer lenses check", "Transfer lenses cal": "Transfer lenses cal",  "Emult check": "Emult check",  "Mass cal": "Mass cal",  "Full Ion Trap cal": "Full Ion Trap cal",  "Full Instrument cal": "Full Instrument cal",  "Misc Instrument checks": "Misc Instrument checks",  "Cleaned source back to trap": "Cleaned source back to trap",  "Vendor service": "Vendor service",  "Magnet Inspection": "Magnet Inspection" }');
+INSERT INTO "chooser_definitions" VALUES(123,'apeWorkflowPickList','default','select','{"default":"Default (1% FDR)", "5percent":"5% FDR"}');
+INSERT INTO "chooser_definitions" VALUES(124,'instrumentNameRNAPickList','default','sql','SELECT Instrument  As val, '''' As ex FROM V_Instrument_Name_RNA_PickList ORDER BY Instrument');
+INSERT INTO "chooser_definitions" VALUES(125,'rnaPrepReqMethodPickList','default','select','{"PreProcessing Cleanup":"PreProcessing Cleanup",
 "PreProcessing RNA Extraction":"PreProcessing RNA Extraction",
 "PreProcessing Gel/Bioanalyzer":"PreProcessing Gel/Bioanalyzer",
 "Phenol/chloroform":"Phenol/chloroform",
@@ -137,12 +138,13 @@ INSERT INTO "chooser_definitions" VALUES(124,'rnaPrepReqMethodPickList','default
 "CTAB":"CTAB",
 "Hot acid phenol":"Hot acid phenol"
 }');
-INSERT INTO "chooser_definitions" VALUES(125,'paramFileTypePickList','default','sql','SELECT Param_File_Type_Ex as val, Param_File_Type as ex FROM V_Param_File_Type_PickList order by Param_File_Type');
-INSERT INTO "chooser_definitions" VALUES(126,'campaignIDPickList','default','sql','SELECT Campaign as val, ID as ex FROM V_Campaign_List_Report_2 WHERE State = ''Active'' ORDER BY campaign');
-INSERT INTO "chooser_definitions" VALUES(127,'compoundTypePickList','default','sql','SELECT Compound_Type_Name  AS val, Compound_Type_Name AS ex FROM T_Reference_Compound_Type_Name');
-INSERT INTO "chooser_definitions" VALUES(128,'experimentPlexChannelTypePickList','default','select','{"Sample":"Sample", "Reference":"Reference", "Boost":"Boost", "Empty":"Empty"}');
-INSERT INTO "chooser_definitions" VALUES(129,'userStatusPickList','default','sql','SELECT Status_Description as val, User_Status as ex FROM T_User_status');
-INSERT INTO "chooser_definitions" VALUES(130,'organismIDPickList','default','sql','SELECT [Name] as val, ID as ex FROM V_Organism_List_Report ORDER BY [Name]');
-INSERT INTO "chooser_definitions" VALUES(131,'sampleTypePickList','default','sql','SELECT Name as val, Name as ex FROM T_Secondary_Sep_SampleType ORDER BY Name');
-INSERT INTO "chooser_definitions" VALUES(132,'separationGroupNoFractionsPickList','default','sql','SELECT Sep_Group AS val, '''' as ex FROM V_Separation_Group_PickList WHERE Fraction_Count = 0 ORDER BY Sep_Group');
+INSERT INTO "chooser_definitions" VALUES(126,'paramFileTypePickList','default','sql','SELECT Param_File_Type_Ex as val, Param_File_Type as ex FROM V_Param_File_Type_PickList order by Param_File_Type');
+INSERT INTO "chooser_definitions" VALUES(127,'campaignIDPickList','default','sql','SELECT Campaign as val, ID as ex FROM V_Campaign_List_Report_2 WHERE State = ''Active'' ORDER BY campaign');
+INSERT INTO "chooser_definitions" VALUES(128,'compoundTypePickList','default','sql','SELECT Compound_Type_Name  AS val, Compound_Type_Name AS ex FROM T_Reference_Compound_Type_Name');
+INSERT INTO "chooser_definitions" VALUES(129,'experimentPlexChannelTypePickList','default','select','{"Sample":"Sample", "Reference":"Reference", "Boost":"Boost", "Empty":"Empty"}');
+INSERT INTO "chooser_definitions" VALUES(130,'userStatusPickList','default','sql','SELECT Status_Description as val, User_Status as ex FROM T_User_status');
+INSERT INTO "chooser_definitions" VALUES(131,'organismIDPickList','default','sql','SELECT [Name] as val, ID as ex FROM V_Organism_List_Report ORDER BY [Name]');
+INSERT INTO "chooser_definitions" VALUES(132,'sampleTypePickList','default','sql','SELECT Name as val, Name as ex FROM T_Secondary_Sep_SampleType ORDER BY Name');
+INSERT INTO "chooser_definitions" VALUES(133,'separationGroupNoFractionsPickList','default','sql','SELECT Sep_Group AS val, '''' as ex FROM V_Separation_Group_PickList WHERE Fraction_Count = 0 ORDER BY Sep_Group');
+INSERT INTO "chooser_definitions" VALUES(134,'campaignEusUsageTypePickList','default','sql','SELECT Description AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0  and Enabled_Campaign > 0 ORDER BY Name');
 COMMIT;

@@ -66,7 +66,7 @@ INSERT INTO "form_field_choosers" VALUES(7,'InstrumentGroup','picker.replace','s
 INSERT INTO "form_field_choosers" VALUES(8,'DatasetType','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','InstrumentGroup',',','');
 INSERT INTO "form_field_choosers" VALUES(10,'SampleType','picker.replace','samplePrepReqTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(11,'PrepMethod','picker.append','samplePrepReqMethodPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(15,'eusUsageType','picker.replace','eusUsageTypePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(15,'eusUsageType','picker.replace','samplePrepEusUsageTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(16,'eusUserID','list-report.helper','','helper_eus_user/report','eusProposalID',',','Select User...');
 INSERT INTO "form_field_choosers" VALUES(17,'RequestedPersonnel','picker.append','samplePrepUserPickList','','','; ','');
 INSERT INTO "form_field_choosers" VALUES(18,'AssignedPersonnel','picker.append','samplePrepUserPickList','','','; ','');
