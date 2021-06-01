@@ -25,8 +25,12 @@ INSERT INTO "form_fields" VALUES(17,'RR_EUSUsers','EMSL Users List','area','',''
 INSERT INTO "form_fields" VALUES(18,'MRMAttachment','MRM Transition List Attachment','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(19,'RR_Internal_Standard','Dataset Internal Standard','hidden','','','','','none','trim|max_length[50]|required');
 INSERT INTO "form_fields" VALUES(20,'experimentList','','hidden','','','','','','trim|max_length[3500]');
+INSERT INTO "form_fields" VALUES(21,'BatchName','Batch Name','text','25','50','','','','trim|max_length[50]');
+INSERT INTO "form_fields" VALUES(22,'BatchDescription','Batch Description','text','','','2','60','','trim|max_length[255]');
+INSERT INTO "form_fields" VALUES(23,'BatchCompletionDate','Batch Completion Date','text','25','32','','','','trim|max_length[32]|valid_date');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'RR_Requestor','default_function','GetUser()');
+INSERT INTO "form_field_options" VALUES(2,'BatchName','section','Batch Information (optional)');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'experimentGroupID','list-report.helper','','helper_experiment_group/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'RR_Instrument','picker.replace','instrumentGroupPickList','','',',','');
@@ -40,6 +44,7 @@ INSERT INTO "form_field_choosers" VALUES(10,'RR_EUSProposalID','list-report.help
 INSERT INTO "form_field_choosers" VALUES(11,'RR_EUSProposalID','list-report.helper','','helper_eus_proposal_ex/report','',',','Select Proposal (by dataset)...');
 INSERT INTO "form_field_choosers" VALUES(12,'RR_WorkPackage','list-report.helper','','helper_charge_code/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(13,'StagingLocation','list-report.helper','','helper_material_location','',',','');
+INSERT INTO "form_field_choosers" VALUES(14,'BatchCompletionDate','picker.prevDate','futureDatePickList','','',',','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'experimentGroupID','experimentGroupID','varchar','input','12','AddRequestedRuns');
 INSERT INTO "sproc_args" VALUES(2,'experimentList','experimentList','varchar','input','3500','AddRequestedRuns');
@@ -62,4 +67,11 @@ INSERT INTO "sproc_args" VALUES(20,'RR_VialingConc','VialingConc','varchar','inp
 INSERT INTO "sproc_args" VALUES(21,'RR_VialingVol','VialingVol','varchar','input','32','AddRequestedRuns');
 INSERT INTO "sproc_args" VALUES(22,'StagingLocation','stagingLocation','varchar','input','64','AddRequestedRuns');
 INSERT INTO "sproc_args" VALUES(23,'<local>','callingUser','varchar','input','128','AddRequestedRuns');
+INSERT INTO "sproc_args" VALUES(24,'BatchName','batchName','varchar','input','50','AddRequestedRuns');
+INSERT INTO "sproc_args" VALUES(25,'BatchDescription','batchDescription','varchar','input','256','AddRequestedRuns');
+INSERT INTO "sproc_args" VALUES(26,'BatchCompletionDate','batchCompletionDate','varchar','input','32','AddRequestedRuns');
+INSERT INTO "sproc_args" VALUES(27,'BatchPriority','batchPriority','varchar','input','24','AddRequestedRuns');
+INSERT INTO "sproc_args" VALUES(28,'BatchInstrumentGroup','batchInstrumentGroup','varchar','input','64','AddRequestedRuns');
+CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
+INSERT INTO "entry_commands" VALUES(1,'PreviewAdd','cmd','Preview Add','Determine if current values are valid, but do not change database.','');
 COMMIT;
