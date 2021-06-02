@@ -177,8 +177,11 @@
 		},
 		blockFromFactor: function(col_name) {
 			col_name = col_name || $('#factor_select_ctl').val();
-			if(!col_name) {
-				alert('"' +  col_name + '" is not a valid name');
+			if (!col_name) {
+				if (col_name === null)
+					alert('Define one or more factors using the Instrument Runs menu at the top or the Experiments menu at the left');
+				else
+					alert('"' +  col_name + '" is not a valid factor name');
 				return;
 			}
 			var blockingObjList = this.getBlockingObjList(this.grid().getData());
