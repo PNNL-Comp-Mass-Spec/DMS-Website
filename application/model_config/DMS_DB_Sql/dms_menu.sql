@@ -476,7 +476,6 @@ INSERT INTO "menu_def" VALUES(405,'Capture Status Checks','link','capture_daily_
 INSERT INTO "menu_def" VALUES(406,'Capture Status Checks','link','capture_daily_check/report/ArchiveUpdate','Archive Update');
 INSERT INTO "menu_def" VALUES(407,'Capture Status Checks','link','capture_daily_check/report/DatasetArchive','Dataset Archive');
 INSERT INTO "menu_def" VALUES(408,'Capture Status Checks','link','capture_daily_check/report/SourceFileRename','Source File Rename');
-INSERT INTO "menu_def" VALUES(409,'Capture Pipeline','link','capture_multi_job_update/create','Multi-Job Update');
 INSERT INTO "menu_def" VALUES(410,'Capture Pipeline','link','capture_log/report','Capture Log');
 CREATE TABLE nav_def (
     "id" INTEGER PRIMARY KEY,

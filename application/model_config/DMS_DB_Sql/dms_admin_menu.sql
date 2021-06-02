@@ -184,7 +184,6 @@ INSERT INTO "home_menu_items" VALUES(164,'Sample_Prep','prep_lc_column/create','
 INSERT INTO "home_menu_items" VALUES(165,'Sample_Prep','submenu','Spreadsheet','');
 INSERT INTO "home_menu_items" VALUES(166,'Sample_Prep','upload/main','Load','sample prep requests from spreadsheet');
 INSERT INTO "home_menu_items" VALUES(167,'Capture_Pipeline','capture_daily_check/report','Display','pending capture jobs');
-INSERT INTO "home_menu_items" VALUES(168,'Capture_Pipeline','capture_multi_job_update/create','Update','multiple capture jobs');
 INSERT INTO "home_menu_items" VALUES(169,'Capture_Pipeline','capture_log/report','Display','capture log');
 INSERT INTO "home_menu_items" VALUES(170,'MTS','submenu','Databases','');
 INSERT INTO "home_menu_items" VALUES(171,'MTS','mts_pt_dbs/report','Display','Peptide databases');
