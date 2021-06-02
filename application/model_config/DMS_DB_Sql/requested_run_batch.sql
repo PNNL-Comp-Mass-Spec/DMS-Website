@@ -17,7 +17,7 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim|max_length[6]');
 INSERT INTO "form_fields" VALUES(2,'Name','Name','text','50','50','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(3,'Description','Description','area','','','2','60','','trim|max_length[256]');
-INSERT INTO "form_fields" VALUES(4,'RequestedRunList','Requests','area','','','4','60','','trim|max_length[4000]');
+INSERT INTO "form_fields" VALUES(4,'RequestedRunList','Requests','area','','','4','60','','trim');
 INSERT INTO "form_fields" VALUES(5,'OwnerPRN','OwnerPRN','text','24','24','','','','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(6,'RequestedBatchPriority','Requested Batch Priority','text','24','24','','','Normal','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(7,'RequestedCompletionDate','Requested Completion Date','text','32','32','','','','trim|required|max_length[32]|valid_date');
@@ -68,7 +68,7 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO "sproc_args" VALUES(1,'ID','id','int','output','','AddUpdateRequestedRunBatch');
 INSERT INTO "sproc_args" VALUES(2,'Name','name','varchar','input','50','AddUpdateRequestedRunBatch');
 INSERT INTO "sproc_args" VALUES(3,'Description','description','varchar','input','256','AddUpdateRequestedRunBatch');
-INSERT INTO "sproc_args" VALUES(4,'RequestedRunList','requestedRunList','varchar','input','4000','AddUpdateRequestedRunBatch');
+INSERT INTO "sproc_args" VALUES(4,'RequestedRunList','requestedRunList','text','input','2147483647','AddUpdateRequestedRunBatch');
 INSERT INTO "sproc_args" VALUES(5,'OwnerPRN','ownerPRN','varchar','input','24','AddUpdateRequestedRunBatch');
 INSERT INTO "sproc_args" VALUES(6,'RequestedBatchPriority','requestedBatchPriority','varchar','input','24','AddUpdateRequestedRunBatch');
 INSERT INTO "sproc_args" VALUES(7,'RequestedCompletionDate','requestedCompletionDate','varchar','input','32','AddUpdateRequestedRunBatch');
