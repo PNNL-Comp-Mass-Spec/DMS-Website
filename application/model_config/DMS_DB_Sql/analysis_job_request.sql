@@ -108,7 +108,7 @@ INSERT INTO "sproc_args" VALUES(9,'AJR_organismDBName','organismDBName','varchar
 INSERT INTO "sproc_args" VALUES(10,'requestor','requestorPRN','varchar','input','32','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(12,'AJR_comment','comment','varchar','input','512','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(13,'AJR_specialProcessing','specialProcessing','varchar','input','512','AddUpdateAnalysisJobRequest');
-INSERT INTO "sproc_args" VALUES(15,'Data_Package_ID','dataPackageID','int','input','32','AddUpdateAnalysisJobRequest');
+INSERT INTO "sproc_args" VALUES(15,'Data_Package_ID','dataPackageID','int','input','','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(16,'State','state','varchar','input','32','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(17,'AJR_requestID','requestID','int','output','','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(18,'<local>','mode','varchar','input','12','AddUpdateAnalysisJobRequest');
