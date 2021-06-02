@@ -36,7 +36,7 @@
 		getUniqueListOfBlockNumbers: function(blockingObjList) {
 			blockNumberList = [];
 			$.each(blockingObjList, function(idx, obj) {
-				if(blockNumberList.indexOf(obj.blockNumber) === -1) {
+				if (blockNumberList.indexOf(obj.blockNumber) === -1) {
 					blockNumberList.push(obj.blockNumber);
 				}
 			});
@@ -46,7 +46,7 @@
 			ftList = [];
 			$.each(blockingObjList, function(idx, obj) {
 				var bfv = obj.row[col_name];
-				if(ftList.indexOf(bfv) === -1) {
+				if (ftList.indexOf(bfv) === -1) {
 					ftList.push(bfv);
 				}
 			});
@@ -55,7 +55,7 @@
 		getBlockingObjListByBlockNumberValue: function(blockingObjList, blk) {
 			var tmplist = [];
 			$.each(blockingObjList, function(idx, obj){
-				if(obj.blockNumber == blk) {
+				if (obj.blockNumber == blk) {
 					tmplist.push(obj);
 				}
 			});
@@ -64,7 +64,7 @@
 		getBlockingObjListByBlockingFactorValue: function(blockingObjList, col_name, bf) {
 			var tmplist = [];
 			$.each(blockingObjList, function(idx, obj){
-				if(obj.row[col_name] == bf) {
+				if (obj.row[col_name] == bf) {
 					tmplist.push(obj);
 				}
 			});
@@ -112,11 +112,11 @@
 		copyBlockingToData: function(blockingObjList) {
 			var context = this;
 			$.each(blockingObjList, function(idx, obj){
-				if(obj.row[context.runOrderFieldName] != obj.runOrder) {
+				if (obj.row[context.runOrderFieldName] != obj.runOrder) {
 					obj.row[context.runOrderFieldName] = obj.runOrder;
 					gridUtil.markChange(obj.row, context.runOrderFieldName);
 				}
-				if(obj.row[context.blockNumberFieldName] != obj.blockNumber) {
+				if (obj.row[context.blockNumberFieldName] != obj.blockNumber) {
 					obj.row[context.blockNumberFieldName] = obj.blockNumber;
 					gridUtil.markChange(obj.row, context.blockNumberFieldName);
 				}
@@ -132,21 +132,21 @@
 		},
 		blockingOperation: function(op, param) {
 			var blockingObjList;
-			if(op == 'global') {
+			if (op == 'global') {
 				blockingObjList = this.globallyRandomize(param);
 			} else
-			if(op == 'block') {
+			if (op == 'block') {
 				blockingObjList = this.randomlyBlock(param);
 			} else
-			if(op == 'factor') {
+			if (op == 'factor') {
 				blockingObjList = this.blockFromFactor(param);
 			} else
-			if(op == 'reorder') {
+			if (op == 'reorder') {
 				blockingObjList = this.reorderBlocks(param);
 			} else {
 				return;
 			}
-			if(this.afterBlockingOperation) this.afterBlockingOperation(blockingObjList);
+			if (this.afterBlockingOperation) this.afterBlockingOperation(blockingObjList);
 		},
 		globallyRandomize: function() {
 			var blockingObjList = this.getBlockingObjList(this.grid().getData());
@@ -155,20 +155,20 @@
 		},
 		randomlyBlock: function(param) {
 			var blkSize = $('#block_size_ctl').val();
-			if(param) {
+			if (param) {
 				var response = prompt('Block Size?', '4');
-				if(response) {
+				if (response) {
 					blkSize = response;
 				} else {
 					return;
 				}
 			}
-			if(blkSize < 2 || blkSize > 15) {
+			if (blkSize < 2 || blkSize > 15) {
 				alert('Block size must be within range 1-15');
 				return;
 			}
 			var blockingObjList = this.getBlockingObjList(this.grid().getData());
-			if(blockingObjList.length < blkSize) {
+			if (blockingObjList.length < blkSize) {
 				alert('Batch is smaller than block size');
 				return
 			}
