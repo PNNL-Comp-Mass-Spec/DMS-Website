@@ -5,7 +5,7 @@ if (!defined('BASEPATH')) {
 }
 
 // --------------------------------------------------------------------
-function sproc_log_in($sproc, $user, $parms, $override = FALSE) {
+function sproc_log_in($sproc, $user, $parms, $override = false) {
     $CI =& get_instance();
     $inhibit_sproc_call = $CI->config->item('inhibit_sproc_call');
     $log_enabled = $CI->config->item('sproc_call_log_enabled');
@@ -17,7 +17,7 @@ function sproc_log_in($sproc, $user, $parms, $override = FALSE) {
 
     // local override forces sproc call inhibit
     if ($override) {
-        $inhibit_sproc_call = TRUE;
+        $inhibit_sproc_call = true;
     }
 
     // message about sproc call

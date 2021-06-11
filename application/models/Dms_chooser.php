@@ -32,7 +32,7 @@ class Dms_chooser extends CI_Model {
             $def['type'] = $type;
             switch ($type) {
                 case 'select';
-                    $def['value'] = json_decode($row['value'], TRUE);
+                    $def['value'] = json_decode($row['value'], true);
                     break;
                 case 'sql';
                     $def['value'] = $row['value'];
@@ -80,7 +80,7 @@ class Dms_chooser extends CI_Model {
                     if (array_key_exists("db", $this->choices[$chooser_name])) {
                         $db = $this->choices[$chooser_name]["db"];
                     }
-                    $my_db = $this->load->database($db, TRUE);
+                    $my_db = $this->load->database($db, true);
                     $result = $my_db->query($this->choices[$chooser_name]["value"]);
                     if ($result) {
                         $options[""] = "-- choices --";
@@ -122,7 +122,7 @@ class Dms_chooser extends CI_Model {
                     if (array_key_exists("db", $this->choices[$chooser_name])) {
                         $db = $this->choices[$chooser_name]["db"];
                     }
-                    $my_db = $this->load->database($db, TRUE);
+                    $my_db = $this->load->database($db, true);
                     $sql = $this->choices[$chooser_name]["value"];
                     if ($filterValueClean) {
                         $sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);
@@ -161,7 +161,7 @@ class Dms_chooser extends CI_Model {
         $str = "";
         $chooser_element_name = $target_field_name . "_chooser" . $seq;
         $js = "id=\"$chooser_element_name\" class=\"sel_chooser\" ";
-        
+
         // Define the onchange function, which is defined in DMS2/javascript/dms2.js
         $js .= " onChange='epsilon.setFieldValueFromSelection(\"$target_field_name\", \"$chooser_element_name\", \"$mode\")'";
         if (!array_key_exists($chooser_name, $this->choices)) {
@@ -200,7 +200,7 @@ class Dms_chooser extends CI_Model {
         $str = "";
         switch ($type) {
             case "picker.prepend":
-            	// Place the selected item at the start of the list, followed by a semicolon by default. 
+            	// Place the selected item at the start of the list, followed by a semicolon by default.
             	// If the delimiter column has a comma or underscore, use that instead
                 if ($delim == ',') {
                     $mode = 'prepend_comma';
@@ -214,7 +214,7 @@ class Dms_chooser extends CI_Model {
                 break;
 
             case "picker.append":
-            	// Append the selected item, separating with a semicolon by default. 
+            	// Append the selected item, separating with a semicolon by default.
             	// If the delimiter column has a comma, use a comma instead (no other delimiters are supported)
                 $mode = ($delim == ',') ? 'append_comma' : 'append';
                 $str .= "$label " . $this->get_chooser($f_name, $pln, $mode, $seq);
@@ -236,21 +236,21 @@ class Dms_chooser extends CI_Model {
                 break;
 
             case "picker.prevDate":
-            	// Show the user a calendar to allow them to select a date. 
+            	// Show the user a calendar to allow them to select a date.
             	// The PickListName was previously either prevDatePickList or futureDatePickList, but now that we're using a calendar, the name doesn't matter.
                 $str .= "$label <a href=\"javascript:epsilon.callDatepicker('$f_name')\"><img src='" . base_url() . "images/date.png' border='0'></a>";
                 break;
 
             case "picker.list":
             	// Show the user a list of item names and descriptions.
-            	// When the user clicks a name, that name is placed in the textbox associated with the picker. 
+            	// When the user clicks a name, that name is placed in the textbox associated with the picker.
             	// Drop-down choosers are defined in dms_chooser.db, as described below for picker.replace
                 $str .= "$label " . $this->get_list_chooser($f_name, $pln);
                 break;
 
             case "link.list":
-            	// Show the user a list of template names. 
-            	// When the user clicks one, pre-canned text is placed in the associated list box. 
+            	// Show the user a list of template names.
+            	// When the user clicks one, pre-canned text is placed in the associated list box.
             	// Templates are defined with the other DMS choosers in dms_chooser.db
                 $str .= "$label " . $this->get_link_chooser($f_name, $pln);
                 break;

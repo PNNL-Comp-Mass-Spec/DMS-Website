@@ -211,8 +211,8 @@ class Base_controller extends CI_Controller {
      */
     function detail_report_data($id)
     {
-        $show_entry_links = $this->cu->check_access('enter', FALSE);
-        $show_create_links = $this->cu->check_access('create', FALSE);
+        $show_entry_links = $this->cu->check_access('enter', false);
+        $show_create_links = $this->cu->check_access('create', false);
 
         $this->cu->load_lib('detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report_data($id, $show_entry_links, $show_create_links);
@@ -430,7 +430,7 @@ class Base_controller extends CI_Controller {
     function get_basic_nav_bar_items()
     {
         $this->load->helper(array('user', 'dms_search', 'menu'));
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         return get_nav_bar_menu_items('');
     }
 
@@ -534,7 +534,7 @@ class Base_controller extends CI_Controller {
                 case "Boolean":
                     $type_color = "#92008d";
                     $type_length = strlen($data);
-                    $type_data = $data ? "TRUE" : "FALSE"; break;
+                    $type_data = $data ? "true" : "false"; break;
 
                 case "NULL":
                     $type_length = 0; break;

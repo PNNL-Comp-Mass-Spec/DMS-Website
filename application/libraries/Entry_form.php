@@ -14,12 +14,12 @@ class Entry_form {
      * Flag for showing the help links on the entry form
      * @var boolean
      */
-    private $include_help_link = TRUE;
+    private $include_help_link = true;
     private $file_tag = '';
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     // --------------------------------------------------------------------
@@ -132,7 +132,7 @@ class Entry_form {
                 continue;
             }
 
-            // The form field type may contain several keywords specified by a vertical bar       
+            // The form field type may contain several keywords specified by a vertical bar
             $fieldTypes = explode('|', $spec['type']);
 
             if (in_array('hidden', $fieldTypes)) {
@@ -388,7 +388,7 @@ class Entry_form {
         $data['id'] = $field_name;
         $data['value'] = $cur_value;
 
-        // The form field type may contain several keywords specified by a vertical bar       
+        // The form field type may contain several keywords specified by a vertical bar
         $fieldTypes = explode('|', $f_spec['type']);
 
         if (in_array('text-if-new', $fieldTypes)) {
@@ -425,7 +425,7 @@ class Entry_form {
             // Possibly make this field 'non-edit'
             // First remove the field type flag
             $fieldTypes = array_merge(array_diff($fieldTypes, array('non-edit-if-data-package')));
-            
+
             // Make non-edit if a data package is defined
              foreach ($this->form_field_specs as $comparisonFldName => $comparisonFldSpec) {
                 if ($comparisonFldName != "Data_Package_ID"){
@@ -440,7 +440,7 @@ class Entry_form {
                     $fieldTypes[] = 'non-edit';
                 }
                 break;
-            }                
+            }
         }
 
         // create HTML according to field type
@@ -581,11 +581,11 @@ class Entry_form {
         foreach ($entry_commands as $command => $spec) {
             switch (strtolower($spec['type'])) {
                 case 'cmd':
-                	if ($command == 'PreviewAdd' And $page_type != 'create') {                	  
+                	if ($command == 'PreviewAdd' And $page_type != 'create') {
                 		// Only show the PreviewAdd button when creating a new item
                 		break;
                 	}
-                	
+
                     $attributes = array();
                     $attributes['id'] = 'cmd_' . strtolower(str_replace(' ', '_', $command));
                     $attributes['content'] = $spec['label'];

@@ -13,7 +13,7 @@ class Detail_report {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     // --------------------------------------------------------------------
@@ -64,7 +64,7 @@ class Detail_report {
      * @throws exception
      * @category AJAX
      */
-    function detail_report_data($id, $show_entry_links = TRUE, $show_create_links = TRUE) {
+    function detail_report_data($id, $show_entry_links = true, $show_create_links = true) {
         $CI =& get_instance();
 
         try {
@@ -85,12 +85,12 @@ class Detail_report {
             $rows = array(&$result_row);
             $CI->cell_presentation->fix_decimal_display($rows, $col_info);
 
-            if (!($CI->cu->check_access('enter', FALSE))) {
-                $show_entry_links = FALSE;
+            if (!($CI->cu->check_access('enter', false))) {
+                $show_entry_links = false;
             }
 
-            if (!($CI->cu->check_access('create', FALSE))) {
-                $show_create_links = FALSE;
+            if (!($CI->cu->check_access('create', false))) {
+                $show_create_links = false;
             }
 
             // render with old detail report helper
@@ -159,7 +159,7 @@ class Detail_report {
         $CI->cu->load_mod('q_model', 'detail_model', $this->config_name, $this->config_source);
         $entity_info = $CI->detail_model->get_item($id);
 
-        $aux_info_id = (array_key_exists('ID', $entity_info)) ? $entity_info['ID'] : FALSE;
+        $aux_info_id = (array_key_exists('ID', $entity_info)) ? $entity_info['ID'] : false;
         $aux_info = array();
         if ($aux_info_id) {
             $aux_info = $this->get_aux_info($aux_info_id);
@@ -245,7 +245,7 @@ class Detail_report {
         // Get entity key field
         $primary_key = $form_def->load_key;
 
-        // The form field type may contain several keywords specified by a vertical bar       
+        // The form field type may contain several keywords specified by a vertical bar
         $primaryKeyFieldTypes = explode('|', $form_def->specs[$primary_key]['type']);
 
         // Get array of field labels associated with field values

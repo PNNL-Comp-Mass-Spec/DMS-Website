@@ -41,7 +41,7 @@ class Gen extends CI_Controller {
     function config()
     {
         echo("<li>Environment:".ENVIRONMENT . "\n");
-//      $this->config->load('database', TRUE);
+//      $this->config->load('database', true);
         $this->load->database();
 
         $version = $this->color_code = $this->config->item('version_label');
@@ -75,7 +75,7 @@ class Gen extends CI_Controller {
                 $menu_item_table = "home_menu_items"
     )
     {
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $this->load->helper(array('form', 'user', 'menu', 'dms_search'));
 
         // labelling information for view
@@ -83,7 +83,7 @@ class Gen extends CI_Controller {
         $data['heading'] = $title;
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('');
 
         // home page menu sections
@@ -146,7 +146,7 @@ class Gen extends CI_Controller {
     function side_menu()
     {
         $this->load->helper(array('menu', 'dms_search'));
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $this->load->view('menu_panel');
     }
 
@@ -157,7 +157,7 @@ class Gen extends CI_Controller {
     function side_menu_objects()
     {
         $this->load->helper(array('menu', 'dms_search'));
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
 
         $menu_def = $this->menu->get_menu_def("dms_menu.db", "menu_def");
         $items = build_side_menu_object_tree($menu_def, '');
@@ -237,11 +237,11 @@ class Gen extends CI_Controller {
      */
     function stats()
     {
-        $this->load->model('dms_statistics', 'model', TRUE);
+        $this->load->model('dms_statistics', 'model', true);
         $this->load->helper(array('form', 'user', 'dms_stats', 'dms_search', 'menu'));
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Statistics');
 
         // labelling information for view

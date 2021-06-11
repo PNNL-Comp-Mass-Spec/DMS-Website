@@ -22,7 +22,7 @@ class Aux_info_copy extends CI_Controller {
         $this->my_edit_action = "aux_info_copy/edit";
 
         $this->load->helper(array('url', 'string', 'form'));
-        $this->load->model($this->my_model, 'model', TRUE);
+        $this->load->model($this->my_model, 'model', true);
 
         $this->load->library('aux_info_support');
     }

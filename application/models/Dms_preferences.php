@@ -138,7 +138,7 @@ class Dms_preferences extends CI_Model {
         if (isset($this->settings[$param])) {
             return $this->settings[$param]['value'];
         } else {
-            return FALSE;
+            return false;
         }
     }
 
@@ -184,12 +184,12 @@ class Dms_preferences extends CI_Model {
     // --------------------------------------------------------------------
     function clear_saved_defaults() {
         $_SESSION[$this->storage_name] = serialize(array());
-        $this->save_user_prefs_to_cookie(FALSE);
+        $this->save_user_prefs_to_cookie(false);
     }
 
     /**
      * Save the user preferences as a cookie
-     * @param type $ser_state Serialized state, or FALSE if deleting the cookie
+     * @param type $ser_state Serialized state, or false if deleting the cookie
      * @param type $cookie_life The number of seconds until expiration
      */
     function save_user_prefs_to_cookie($ser_state, $cookie_life = '2073600') {

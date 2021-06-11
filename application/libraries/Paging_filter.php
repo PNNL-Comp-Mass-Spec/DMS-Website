@@ -7,11 +7,11 @@ class Paging_filter {
     private $config_name = '';
     private $config_source = '';
     private $field_names = array('qf_first_row', 'qf_rows_per_page');
-    private $cur_filter_values = NULL;
+    private $cur_filter_values = null;
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -56,7 +56,7 @@ class Paging_filter {
 
     /**
      * Get current values for secondary filter if present in POST
-     * otherwise return FALSE
+     * otherwise return false
      * @param type $field_names
      * @return boolean
      */
@@ -72,7 +72,7 @@ class Paging_filter {
             }
             return $values;
         } else {
-            return FALSE;
+            return false;
         }
     }
 

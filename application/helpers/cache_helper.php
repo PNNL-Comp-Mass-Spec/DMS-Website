@@ -27,7 +27,7 @@ function get_from_cache($name) {
         $state = unserialize($_SESSION[$name]);
         return $state;
     } else {
-        return FALSE;
+        return false;
     }
 }
 

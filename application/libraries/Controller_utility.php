@@ -23,14 +23,14 @@ class Controller_utility {
      * @param boolean $options Custom options flag
      * @return boolean
      */
-    function load_lib($lib_name, $config_name, $config_source, $options = FALSE) {
+    function load_lib($lib_name, $config_name, $config_source, $options = false) {
         $CI =& get_instance();
         if (property_exists($CI, $lib_name)) {
-            return TRUE;
+            return true;
         }
         // Load then initialize the model
         $CI->load->library($lib_name);
-        if ($options === FALSE) {
+        if ($options === false) {
             return $CI->$lib_name->init($config_name, $config_source);
         } else {
             return $CI->$lib_name->init($config_name, $config_source, $options);
@@ -48,7 +48,7 @@ class Controller_utility {
     function load_mod($model_name, $local_name, $config_name, $config_source) {
         $CI =& get_instance();
         if (property_exists($CI, $local_name)) {
-            return TRUE;
+            return true;
         }
         // Dynamically load and initialize the model
         $CI->load->model($model_name, $local_name);
@@ -66,7 +66,7 @@ class Controller_utility {
      * @param boolean $output_message When true, update the message box with "Access Denied"
      * @return boolean
      */
-    function check_access($action, $output_message = TRUE) {
+    function check_access($action, $output_message = true) {
         $CI =& get_instance();
         $CI->load->helper('user');
         $user = get_user();
@@ -77,18 +77,18 @@ class Controller_utility {
             if ($output_message) {
                 $this->message_box('Error', $CI->gen_model->error_text);
             }
-            return FALSE;
+            return false;
         }
 
         $result = $CI->gen_model->check_permission($user, $action, $CI->my_tag);
 
-        if ($result === TRUE) {
-            return TRUE;
+        if ($result === true) {
+            return true;
         } else {
             if ($output_message) {
                 $this->message_box('Access Denied', $result);
             }
-            return FALSE;
+            return false;
         }
     }
 

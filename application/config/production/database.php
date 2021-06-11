@@ -25,9 +25,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |                odbc, pdo, postgre, sqlite, sqlite3, sqlsrv
 |   ['dbprefix'] You can add an optional prefix, which will be added
 |                to the table name when using the  Query Builder class
-|   ['pconnect'] TRUE/FALSE - Whether to use a persistent connection
-|   ['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
-|   ['cache_on'] TRUE/FALSE - Enables/disables query caching
+|   ['pconnect'] true/false - Whether to use a persistent connection
+|   ['db_debug'] true/false - Whether database errors should be displayed.
+|   ['cache_on'] true/false - Enables/disables query caching
 |   ['cachedir'] The path to the folder where cache files should be stored
 |   ['char_set'] The character set used in communicating with the database
 |   ['dbcollat'] The character collation used in communicating with the database
@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |   ['swap_pre'] A default table prefix that should be swapped with the dbprefix
 |   ['encrypt']  Whether or not to use an encrypted connection.
 |
-|           'mysql' (deprecated), 'sqlsrv' and 'pdo/sqlsrv' drivers accept TRUE/FALSE
+|           'mysql' (deprecated), 'sqlsrv' and 'pdo/sqlsrv' drivers accept true/false
 |           'mysqli' and 'pdo/mysql' drivers accept an array with the following options:
 |
 |               'ssl_key'    - Path to the private key file
@@ -49,17 +49,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |               'ssl_ca'     - Path to the certificate authority file
 |               'ssl_capath' - Path to a directory containing trusted CA certificats in PEM format
 |               'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
-|               'ssl_verify' - TRUE/FALSE; Whether verify the server certificate or not ('mysqli' only)
+|               'ssl_verify' - true/false; Whether verify the server certificate or not ('mysqli' only)
 |
 |   ['compress'] Whether or not to use client compression (MySQL only)
-|   ['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
+|   ['stricton'] true/false - forces 'Strict Mode' connections
 |                           - good for ensuring strict SQL while developing
 |   ['ssl_options'] Used to set various SSL options that can be used when making SSL connections.
 |   ['failover'] array - A array with 0 or more data for connections if the main should fail.
-|   ['save_queries'] TRUE/FALSE - Whether to "save" all executed queries.
+|   ['save_queries'] true/false - Whether to "save" all executed queries.
 |               NOTE: Disabling this will also effectively disable both
 |               $this->db->last_query() and profiling of DB queries.
-|               When you run a query, with this setting set to TRUE (default),
+|               When you run a query, with this setting set to true (default),
 |               CodeIgniter will store the SQL statement for debugging purposes.
 |               However, this may cause high memory usage, especially if you run
 |               a lot of SQL queries ... disable this to avoid that problem.
@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 $active_group = 'default';
-$query_builder = TRUE;
+$query_builder = true;
 
 /*
 $db['default'] = array(
@@ -82,18 +82,18 @@ $db['default'] = array(
     'database' => '',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
-    'pconnect' => FALSE,
+    'pconnect' => false,
     'db_debug' => (ENVIRONMENT !== 'production'),
-    'cache_on' => FALSE,
+    'cache_on' => false,
     'cachedir' => '',
     'char_set' => 'utf8',
     'dbcollat' => 'utf8_general_ci',
     'swap_pre' => '',
-    'encrypt' => FALSE,
-    'compress' => FALSE,
-    'stricton' => FALSE,
+    'encrypt' => false,
+    'compress' => false,
+    'stricton' => false,
     'failover' => array(),
-    'save_queries' => TRUE
+    'save_queries' => true
 );
 */
 
@@ -108,10 +108,10 @@ $db['default']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['default']['database'] = "DMS5";
 $db['default']['dbdriver'] = $mssqlsrvDbDriver;
 $db['default']['dbprefix'] = "";
-$db['default']['active_r'] = TRUE;
-$db['default']['pconnect'] = FALSE;
-$db['default']['db_debug'] = FALSE;
-$db['default']['cache_on'] = FALSE;
+$db['default']['active_r'] = true;
+$db['default']['pconnect'] = false;
+$db['default']['db_debug'] = false;
+$db['default']['cache_on'] = false;
 $db['default']['cachedir'] = "";
 
 $db['broker']['hostname'] = "Gigasax";
@@ -120,10 +120,10 @@ $db['broker']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['broker']['database'] = "DMS_Pipeline";
 $db['broker']['dbdriver'] = $mssqlsrvDbDriver;
 $db['broker']['dbprefix'] = "";
-$db['broker']['active_r'] = TRUE;
-$db['broker']['pconnect'] = FALSE;
-$db['broker']['db_debug'] = FALSE;
-$db['broker']['cache_on'] = FALSE;
+$db['broker']['active_r'] = true;
+$db['broker']['pconnect'] = false;
+$db['broker']['db_debug'] = false;
+$db['broker']['cache_on'] = false;
 $db['broker']['cachedir'] = "";
 
 $db['package']['hostname'] = "Gigasax";
@@ -132,10 +132,10 @@ $db['package']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['package']['database'] = "DMS_Data_Package";
 $db['package']['dbdriver'] = $mssqlsrvDbDriver;
 $db['package']['dbprefix'] = "";
-$db['package']['active_r'] = TRUE;
-$db['package']['pconnect'] = TRUE;
-$db['package']['db_debug'] = FALSE;
-$db['package']['cache_on'] = FALSE;
+$db['package']['active_r'] = true;
+$db['package']['pconnect'] = true;
+$db['package']['db_debug'] = false;
+$db['package']['cache_on'] = false;
 $db['package']['cachedir'] = "";
 
 $db['capture']['hostname'] = "Gigasax";
@@ -144,10 +144,10 @@ $db['capture']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['capture']['database'] = "DMS_Capture";
 $db['capture']['dbdriver'] = $mssqlsrvDbDriver;
 $db['capture']['dbprefix'] = "";
-$db['capture']['active_r'] = TRUE;
-$db['capture']['pconnect'] = TRUE;
-$db['capture']['db_debug'] = FALSE;
-$db['capture']['cache_on'] = FALSE;
+$db['capture']['active_r'] = true;
+$db['capture']['pconnect'] = true;
+$db['capture']['db_debug'] = false;
+$db['capture']['cache_on'] = false;
 $db['capture']['cachedir'] = "";
 
 $db['prism_ifc']['hostname'] = "Pogo";
@@ -156,10 +156,10 @@ $db['prism_ifc']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['prism_ifc']['database'] = "PRISM_IFC";
 $db['prism_ifc']['dbdriver'] = $mssqlsrvDbDriver;
 $db['prism_ifc']['dbprefix'] = "";
-$db['prism_ifc']['active_r'] = TRUE;
-$db['prism_ifc']['pconnect'] = TRUE;
-$db['prism_ifc']['db_debug'] = TRUE;
-$db['prism_ifc']['cache_on'] = FALSE;
+$db['prism_ifc']['active_r'] = true;
+$db['prism_ifc']['pconnect'] = true;
+$db['prism_ifc']['db_debug'] = true;
+$db['prism_ifc']['cache_on'] = false;
 $db['prism_ifc']['cachedir'] = "";
 
 $db['prism_rpt']['hostname'] = "Pogo";
@@ -168,10 +168,10 @@ $db['prism_rpt']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['prism_rpt']['database'] = "PRISM_RPT";
 $db['prism_rpt']['dbdriver'] = $mssqlsrvDbDriver;
 $db['prism_rpt']['dbprefix'] = "";
-$db['prism_rpt']['active_r'] = TRUE;
-$db['prism_rpt']['pconnect'] = TRUE;
-$db['prism_rpt']['db_debug'] = TRUE;
-$db['prism_rpt']['cache_on'] = FALSE;
+$db['prism_rpt']['active_r'] = true;
+$db['prism_rpt']['pconnect'] = true;
+$db['prism_rpt']['db_debug'] = true;
+$db['prism_rpt']['cache_on'] = false;
 $db['prism_rpt']['cachedir'] = "";
 
 $db['ontology']['hostname'] = "Gigasax";
@@ -180,10 +180,10 @@ $db['ontology']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['ontology']['database'] = "Ontology_Lookup";
 $db['ontology']['dbdriver'] = $mssqlsrvDbDriver;
 $db['ontology']['dbprefix'] = "";
-$db['ontology']['active_r'] = TRUE;
-$db['ontology']['pconnect'] = TRUE;
-$db['ontology']['db_debug'] = TRUE;
-$db['ontology']['cache_on'] = FALSE;
+$db['ontology']['active_r'] = true;
+$db['ontology']['pconnect'] = true;
+$db['ontology']['db_debug'] = true;
+$db['ontology']['cache_on'] = false;
 $db['ontology']['cachedir'] = "";
 
 
@@ -200,10 +200,10 @@ $db['manager_control']['schema'] = "mc";
 $db['manager_control']['username'] = "dmswebuser";
 $db['manager_control']['password'] = "see_repo_DMS2_DatabaseConfigFiles";
 $db['manager_control']['dbprefix'] = "";
-$db['manager_control']['active_r'] = TRUE;
-$db['manager_control']['pconnect'] = TRUE;
-$db['manager_control']['db_debug'] = TRUE;
-$db['manager_control']['cache_on'] = FALSE;
+$db['manager_control']['active_r'] = true;
+$db['manager_control']['pconnect'] = true;
+$db['manager_control']['db_debug'] = true;
+$db['manager_control']['cache_on'] = false;
 $db['manager_control']['cachedir'] = "";
 
 ?>

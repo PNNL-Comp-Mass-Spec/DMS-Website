@@ -44,10 +44,10 @@ class E_model extends CI_Model {
             $dbFileName = $config_source . '.db';
 
             $this->get_entry_form_definitions($config_name, $dbFileName);
-            return TRUE;
+            return true;
         } catch (Exception $e) {
             $this->error_text = $e->getMessage();
-            return FALSE;
+            return false;
         }
     }
 
@@ -103,7 +103,7 @@ class E_model extends CI_Model {
         if (array_key_exists($source_name, $this->external_sources)) {
             return $this->external_sources[$source_name];
         } else {
-            return FALSE;
+            return false;
         }
     }
 
@@ -121,7 +121,7 @@ class E_model extends CI_Model {
             }
         }
 
-        // The form field type may contain several keywords specified by a vertical bar       
+        // The form field type may contain several keywords specified by a vertical bar
         $fieldTypes = explode('|', $spec['type']);
 
         // default is first field that is not non-edit or hidden

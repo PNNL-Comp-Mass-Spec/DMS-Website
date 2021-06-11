@@ -56,9 +56,9 @@ class Data extends CI_Controller {
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------
-    function check_access($action, $output_message = TRUE)
+    function check_access($action, $output_message = true)
     {
-        return TRUE;
+        return true;
     }
 
     // --------------------------------------------------------------------
@@ -66,7 +66,7 @@ class Data extends CI_Controller {
     {
         $this->help_page_link = $this->config->item('pwiki') . $this->config->item('wikiHelpLinkPrefix');
         $this->load->helper(array('menu', 'dms_search'));
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         return get_nav_bar_menu_items($page_type);
     }
 

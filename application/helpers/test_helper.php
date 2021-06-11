@@ -85,7 +85,7 @@ function dump_e_model($mod) {
  * @param type $option
  * @param type $dump_rows
  */
-function dump_q_model($mod, $option = 'filtered_and_paged', $dump_rows = TRUE) {
+function dump_q_model($mod, $option = 'filtered_and_paged', $dump_rows = true) {
 
     echo "Test of q_model<br>";
     echo 'q_name: ' . $mod->get_config_name() . '<br>';
@@ -195,7 +195,7 @@ function dump_r_model($mod) {
     echo "<hr>\n";
     echo $jl;
     echo "<hr>\n";
-    $hl_restored = json_decode($jl, TRUE);
+    $hl_restored = json_decode($jl, true);
     echo print_r($hl_restored);
     echo "<hr>\n";
 

@@ -31,7 +31,7 @@ class Preferences extends CI_Controller {
         $data['heading'] = $data['title'];
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences');
 
         $result = '';

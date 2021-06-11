@@ -140,13 +140,13 @@ function make_param_filter($cols, $current_paging_filter_values, $current_sortin
  */
 function big_primary_filter($current_primary_filter_values) {
     if (count($current_primary_filter_values) > 5) {
-        return TRUE;
+        return true;
     }
 
-    $big = FALSE;
+    $big = false;
     foreach ($current_primary_filter_values as $id => $spec) {
         if (array_key_exists("chooser_list", $spec)) {
-            $big = TRUE;
+            $big = true;
             break;
         }
     }

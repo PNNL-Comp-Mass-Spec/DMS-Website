@@ -35,7 +35,7 @@ class Instrument_usage_report extends Grid {
 
         $this->my_tag = "instrument_usage";
         $this->load->database();
-        $this->db->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , Dataset_ID as ID, Validation', FALSE);
+        $this->db->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , Dataset_ID as ID, Validation', false);
         $this->db->from("V_Instrument_Usage_Report_List_Report");
 
         if(IsNotWhitespace($instrument)) $this->db->where("Instrument in ($instrument)");
@@ -69,7 +69,7 @@ class Instrument_usage_report extends Grid {
 
 /*
         // Query method #1
-        
+
         $sql = <<<EOD
 SELECT *
 FROM  V_Instrument_Usage_Report_Export
@@ -91,7 +91,7 @@ EOD;
             order_by('Month', 'ASC')->
             order_by('Start', 'ASC')->
             get("V_Instrument_Usage_Report_Export");
-        
+
         if($query && $query->num_rows() > 0) {
           $result = $query->result_array();
         }
@@ -108,12 +108,12 @@ EOD;
 
         $yearVal = $this->validate_year($year);
         $monthVal = $this->validate_month($month);
-        
+
         $result = $this->get_daily_data($instrument, $yearVal, $monthVal, false);
         $this->export_to_tab_delimited_text($result);
 
     }
-    
+
     // --------------------------------------------------------------------
     function dailydetails()
     {
@@ -123,12 +123,12 @@ EOD;
 
         $yearVal = $this->validate_year($year);
         $monthVal = $this->validate_month($month);
-        
+
         $result = $this->get_daily_data($instrument, $yearVal, $monthVal, true);
         $this->export_to_tab_delimited_text($result);
 
     }
-    
+
     // --------------------------------------------------------------------
     private
     function get_daily_data($instrument, $year, $month, $showDetails)
@@ -137,12 +137,12 @@ EOD;
 
         if ($showDetails) {
         	$udf = "dbo.GetEMSLInstrumentUsageDailyDetails";
-        } else {          
+        } else {
         	$udf = "dbo.GetEMSLInstrumentUsageDaily";
         }
-        
+
         $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start";
-        
+
         $query = $this->db->query($sql);
         $result = $query->result_array();
         return $result;
@@ -226,10 +226,10 @@ EOD;
         } else {
             $yearVal = (int)date('Y');
         }
-        
+
         return $yearVal;
     }
-    
+
     private
     function validate_month($month)
     {
@@ -246,7 +246,7 @@ EOD;
         } else {
             $monthVal = 1;
         }
-        
+
         return $monthVal;
     }
 }

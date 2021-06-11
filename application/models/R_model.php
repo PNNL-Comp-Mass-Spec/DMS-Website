@@ -25,7 +25,7 @@ class R_model extends CI_Model {
     private $configDBFolder = "";
     private $list_report_hotlinks = array();
     private $detail_report_hotlinks = array();
-    private $has_checkboxes = FALSE;
+    private $has_checkboxes = false;
 
     // --------------------------------------------------------------------
     function __construct() {
@@ -54,10 +54,10 @@ class R_model extends CI_Model {
             } else {
                 $this->get_utility_defs($config_name, $dbFileName);
             }
-            return TRUE;
+            return true;
         } catch (Exception $e) {
             $this->error_text = $e->getMessage();
-            return FALSE;
+            return false;
         }
     }
 
@@ -172,17 +172,17 @@ class R_model extends CI_Model {
             $sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
             $sth->execute();
             $obj = $sth->fetch(PDO::FETCH_OBJ);
-            if ($obj === FALSE) {
+            if ($obj === false) {
                 throw new Exception('Could not find query specs');
             }
 
             $i = 1;
-            $hotlinks = (isset($obj->hotlinks) and $obj->hotlinks != '' ) ? json_decode($obj->hotlinks, TRUE) : array();
+            $hotlinks = (isset($obj->hotlinks) and $obj->hotlinks != '' ) ? json_decode($obj->hotlinks, true) : array();
             foreach ($hotlinks as $name => $spec) {
                 $a = array();
                 $a['LinkType'] = $spec['LinkType'];
                 if ($spec['LinkType'] == 'CHECKBOX') {
-                    $this->has_checkboxes = TRUE;
+                    $this->has_checkboxes = true;
                 }
                 $a['WhichArg'] = (array_key_exists('WhichArg', $spec)) ? $spec['WhichArg'] : 'value';
                 $a['Target'] = (array_key_exists('Target', $spec)) ? $spec['Target'] : '';

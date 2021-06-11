@@ -19,7 +19,7 @@ class Column_filter {
      * Constructor
      */
     function __construct() {
-        
+
     }
 
     /**
@@ -40,7 +40,7 @@ class Column_filter {
 
         // try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post();
-        if ($state !== FALSE) {
+        if ($state !== false) {
             $this->cur_filter_values = $state;
             save_to_cache($this->storage_name, $state);
         } else {
@@ -56,7 +56,7 @@ class Column_filter {
 
     /**
      * Get current values for filtering columns if present in POST
-     * Otherwise return FALSE
+     * Otherwise return false
      * @return array
      */
     private function get_current_filter_values_from_post() {
@@ -64,7 +64,7 @@ class Column_filter {
         // (signifying a new page visit) and a post that happens to contain
         // an empty list of columns.  The presence of "cf_column_selection_marker"
         // does that
-        $selected_items = FALSE;
+        $selected_items = false;
         if (array_key_exists('cf_column_selection_marker', $_POST)) {
             if (array_key_exists('cf_column_selection', $_POST)) {
                 $selected_items = filter_input(INPUT_POST, 'cf_column_selection', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);

@@ -38,12 +38,12 @@ class G_model extends CI_Model {
      * @var array
      */
     private $actions = array(
-        'report' => FALSE,
-        'show' => FALSE,
-        'param' => FALSE,
-        'enter' => FALSE,       // Edit an existing entry
-        'operation' => FALSE,
-        'create' => FALSE       // Create a new entry (via New or Copy)
+        'report' => false,
+        'show' => false,
+        'param' => false,
+        'enter' => false,       // Edit an existing entry
+        'operation' => false,
+        'create' => false       // Create a new entry (via New or Copy)
     );
 
     /**
@@ -52,9 +52,9 @@ class G_model extends CI_Model {
      * @var array
      */
     private $the_parameters = array(
-        'has_opener_hotlinks' => FALSE,
-        'is_ms_helper' => FALSE,
-        'has_checkboxes' => FALSE,
+        'has_opener_hotlinks' => false,
+        'is_ms_helper' => false,
+        'has_checkboxes' => false,
     );
 
     /**
@@ -94,10 +94,10 @@ class G_model extends CI_Model {
             } else {
                 $this->get_utility_defs($config_name, $dbFileName);
             }
-            return TRUE;
+            return true;
         } catch (Exception $e) {
             $this->error_text = $e->getMessage();
-            return FALSE;
+            return false;
         }
     }
 
@@ -177,7 +177,7 @@ class G_model extends CI_Model {
             $sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
             $sth->execute();
             $obj = $sth->fetch(PDO::FETCH_OBJ);
-            if($obj === FALSE) {
+            if($obj === false) {
                 throw new Exception('Could not find query specs');
             }
 
@@ -185,12 +185,12 @@ class G_model extends CI_Model {
             $this->titles['report'] = $label;
             $this->titles['search'] = $label;
 
-            $this->actions['report'] = TRUE;
+            $this->actions['report'] = true;
 
-            $this->the_parameters['has_checkboxes'] = !(strpos($obj->hotlinks, 'CHECKBOX') === FALSE);
-            if(!(strpos($obj->hotlinks, 'update_opener') === FALSE)) {
-                $this->the_parameters['has_opener_hotlinks'] = TRUE;
-                $this->the_parameters['is_ms_helper'] = TRUE;
+            $this->the_parameters['has_checkboxes'] = !(strpos($obj->hotlinks, 'CHECKBOX') === false);
+            if(!(strpos($obj->hotlinks, 'update_opener') === false)) {
+                $this->the_parameters['has_opener_hotlinks'] = true;
+                $this->the_parameters['is_ms_helper'] = true;
             }
         }
     }
@@ -226,8 +226,8 @@ class G_model extends CI_Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        $allowCreate = FALSE;
-        $blockCreate = FALSE;
+        $allowCreate = false;
+        $blockCreate = false;
 
         // maybe move this to general model?
         foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
@@ -237,12 +237,12 @@ class G_model extends CI_Model {
             if($row['name'] == 'list_report_helper_multiple_selection') {
                 $this->the_parameters['is_ms_helper'] = ($row['value'] == 'yes');
             } else
-            if(stripos($row['name'], 'post_submission') !== FALSE) {
+            if(stripos($row['name'], 'post_submission') !== false) {
                 // post_submission_link, post_submission_detail_id, or post_submission_link_tag
                 $name = str_replace('post_submission_' , '', $row['name']);
                 $this->post_submission[$name] = $row['value'];
             } else
-            if(stripos($row['name'], 'alternate_title') !== FALSE) {
+            if(stripos($row['name'], 'alternate_title') !== false) {
                 $name = str_replace('alternate_title_' , '', $row['name']);
                 $this->titles[$name] = $row['value'];
             } else
@@ -261,27 +261,27 @@ class G_model extends CI_Model {
                 switch($row['name']) {
                     case 'list_report_data_table':
                         // List report table (or view) is defined
-                        $this->actions['report'] = TRUE;
+                        $this->actions['report'] = true;
                         break;
                     case 'list_report_sproc':
                         // List report table (or view) is defined
-                        $this->actions['param'] = TRUE;
+                        $this->actions['param'] = true;
                         break;
                     case 'detail_report_data_table':
                     case 'detail_report_sproc':
                         // Detail report stored procedure is defined (for editing / creating entities)
-                        $this->actions['show'] = TRUE;
+                        $this->actions['show'] = true;
                         break;
                     case 'entry_sproc':
                         // Only allow this action if it is permitted
                         $this->actions['enter'] = 'P';
-                        $allowCreate = TRUE;
+                        $allowCreate = true;
                         break;
                     case 'entry_block_new':
                         // If this value evaluates to True by PHP, prevent the user
                         // from using the New or Copy buttons to create a new item
                         if ($row['value']) {
-                            $blockCreate = TRUE;
+                            $blockCreate = true;
                         }
                         break;
                     case 'operations_sproc':
@@ -290,9 +290,9 @@ class G_model extends CI_Model {
                         break;
                     default:
                         // add root name of any ad hoc sproc to actions list
-                        if(stripos($row['name'], '_sproc') !== FALSE) {
+                        if(stripos($row['name'], '_sproc') !== false) {
                             $name = str_replace('_sproc' , '', $row['name']);
-                            $this->actions[$name] = TRUE;
+                            $this->actions[$name] = true;
                         }
                         break;
                 }
@@ -306,10 +306,10 @@ class G_model extends CI_Model {
             foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
                 $link_type = $row['LinkType'];
                 if($link_type == 'update_opener') {
-                    $this->the_parameters['has_opener_hotlinks'] = TRUE;
+                    $this->the_parameters['has_opener_hotlinks'] = true;
                 } else
                 if($link_type == 'CHECKBOX') {
-                    $this->the_parameters['has_checkboxes'] = TRUE;
+                    $this->the_parameters['has_checkboxes'] = true;
                 }
             }
         }
@@ -336,7 +336,7 @@ class G_model extends CI_Model {
      */
     function get_param($name)
     {
-        return (array_key_exists($name, $this->the_parameters))?$this->the_parameters[$name]:FALSE;
+        return (array_key_exists($name, $this->the_parameters))?$this->the_parameters[$name]:false;
     }
 
     /**
@@ -362,7 +362,7 @@ class G_model extends CI_Model {
             }
 
             // not all actions are possible for a given page family
-            if($allowed === FALSE) {
+            if($allowed === false) {
                 throw new Exception('That action is not allowed');
             }
 
@@ -386,8 +386,8 @@ class G_model extends CI_Model {
              * Disabled in September 2016 to allow Show and Report permissions to work again
              *
                 // free pass from here if action has no restrictions
-                if($allowed === TRUE) {
-                    return TRUE;
+                if($allowed === true) {
+                    return true;
                 }
             */
 
@@ -396,7 +396,7 @@ class G_model extends CI_Model {
 
             // action has no restrictions, good to go
             if(empty($restrictions)) {
-                return TRUE;
+                return true;
             }
 
             // look for intersection of permissions with restrictions
@@ -417,7 +417,7 @@ class G_model extends CI_Model {
             }
 
             // made it this far, good to go
-            return TRUE;
+            return true;
         } catch (Exception $e) {
             return $e->getMessage();
         }

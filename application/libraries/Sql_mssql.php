@@ -14,7 +14,7 @@ class Sql_mssql {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -234,7 +234,7 @@ class Sql_mssql {
                 $str .= " [$col] > DATEADD(Week, -$val, GETDATE()) ";
                 break;
             default:
-                $str .= "TRUE /* '$cmp' unrecognized */";
+                $str .= "true /* '$cmp' unrecognized */";
                 break;
         }
         return $str;

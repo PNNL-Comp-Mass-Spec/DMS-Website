@@ -31,7 +31,7 @@ class Aux_info extends CI_Controller {
         $this->my_export_action = "aux_info/export";
 
         $this->load->helper(array('url', 'string', 'form'));
-        $this->load->model($this->my_model, 'model', TRUE);
+        $this->load->model($this->my_model, 'model', true);
 
         $this->load->library('aux_info_support');
     }
@@ -60,7 +60,7 @@ class Aux_info extends CI_Controller {
         $this->load->helper('menu');
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info');
 
         $this->load->helper('detail_report_helper');
@@ -93,7 +93,7 @@ class Aux_info extends CI_Controller {
         $data['ais'] = $this->aux_info_support;
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info');
 
         if (IsNullOrWhiteSpace($name)) {

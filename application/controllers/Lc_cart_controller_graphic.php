@@ -32,7 +32,7 @@ class Lc_cart_controller_graphic extends CI_Controller {
         $data['heading'] = "LC Cart Component Maintenance";
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Cart_Graphic');
 
         // cart name

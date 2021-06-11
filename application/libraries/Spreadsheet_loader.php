@@ -20,7 +20,7 @@ class Spreadsheet_loader {
      * Constructor
      */
     function __construct() {
-        
+
     }
 
     /**
@@ -150,7 +150,7 @@ class Spreadsheet_loader {
         $handle = fopen($filePath, "r");
 
         $rowCount = 0;
-        while (($fields = fgetcsv($handle, 0, "\t")) !== FALSE) {
+        while (($fields = fgetcsv($handle, 0, "\t")) !== false) {
             $rowCount++;
             if ($rowCount == 1 && count($fields) > 0 && strlen($fields[0]) > 3) {
                 // Check for a UTF-8 file, which starts with:
@@ -189,16 +189,16 @@ class Spreadsheet_loader {
      */
     private function find_tracking_info_fields() {
         $this->tracking_info_fields = array();
-        $grab_it = FALSE;
+        $grab_it = false;
         if ($this->rowStyle) {
             $headerRow = -1;
             for ($i = 0; $i < count($this->ss_rows); $i++) {
                 if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
                     $headerRow = $i + 1;
-                    $grab_it = TRUE;
+                    $grab_it = true;
                     // find AUXILIARY INFORMATION
                     //if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
-                    //    $end_it = TRUE;
+                    //    $end_it = true;
                     //    break;
                     //}
                     break;
@@ -213,10 +213,10 @@ class Spreadsheet_loader {
                 }
             }
         } else {
-            $end_it = FALSE;
+            $end_it = false;
             for ($i = 0; $i < count($this->ss_rows); $i++) {
                 if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
-                    $end_it = TRUE;
+                    $end_it = true;
                     break;
                 }
                 if ($grab_it) {
@@ -226,7 +226,7 @@ class Spreadsheet_loader {
                     $this->tracking_info_fields[$this->ss_rows[$i][0]] = $i;
                 }
                 if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
-                    $grab_it = TRUE;
+                    $grab_it = true;
                 }
             }
         }
@@ -244,9 +244,9 @@ class Spreadsheet_loader {
      */
     private function find_aux_info_fields() {
         $this->aux_info_fields = array();
-        $in_section = FALSE;
-        $in_data = FALSE;
-        $mark = FALSE;
+        $in_section = false;
+        $in_data = false;
+        $mark = false;
         $category = '';
         $subcategory = '';
         $rowCount = count($this->ss_rows);
@@ -255,7 +255,7 @@ class Spreadsheet_loader {
             $headerRow = -1;
             for ($i = 0; $i < $rowCount; $i++) {
                 if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
-                    $in_section = TRUE;
+                    $in_section = true;
                     $headerRow = $i + 1;
                     // find AUXILIARY INFORMATION
                 }
@@ -264,10 +264,10 @@ class Spreadsheet_loader {
                 $colCount = count($this->ss_rows[$headerRow]);
                 for ($j = $this->auxInfoCol; $j < $colCount; $j++) {
                     $rowCount = count($this->ss_rows);
-                    $colHasData = FALSE;
+                    $colHasData = false;
                     for ($i = $this->headerRow; $i < $rowCount; $i++) {
                         if (trim($this->ss_rows[$i][$j]) != '') {
-                            $colHasData = TRUE;
+                            $colHasData = true;
                             break;
                         }
                     }
@@ -283,7 +283,7 @@ class Spreadsheet_loader {
                         if (!$in_data) {
                             throw new exception("Possible missing category or subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
                         }
-                        $mark = FALSE;
+                        $mark = false;
                         $p = new stdClass();
                         $p->category = $category;
                         $p->subcategory = $subcategory;
@@ -293,8 +293,8 @@ class Spreadsheet_loader {
                     } else
                     if (!$mark) {
                         $category = $name;
-                        $mark = TRUE;
-                        $in_data = FALSE;
+                        $mark = true;
+                        $in_data = false;
                     } else {
                         if ($in_data) {
                             throw new exception("Possible extra subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
@@ -304,7 +304,7 @@ class Spreadsheet_loader {
                         $o->category = $category;
                         $o->subcategory = $subcategory;
                         $this->aux_info_groups[] = $o;
-                        $in_data = TRUE;
+                        $in_data = true;
                     }
                 }
             }
@@ -312,10 +312,10 @@ class Spreadsheet_loader {
             for ($i = 0; $i < $rowCount; $i++) {
                 if ($in_section) {
                     $colCount = count($this->ss_rows[$i]);
-                    $rowHasData = FALSE;
+                    $rowHasData = false;
                     for ($j = 0; $j < $colCount; $j++) {
                         if (trim($this->ss_rows[$i][$j]) != '') {
-                            $rowHasData = TRUE;
+                            $rowHasData = true;
                             break;
                         }
                     }
@@ -331,7 +331,7 @@ class Spreadsheet_loader {
                         if (!$in_data) {
                             throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
                         }
-                        $mark = FALSE;
+                        $mark = false;
                         $p = new stdClass();
                         $p->category = $category;
                         $p->subcategory = $subcategory;
@@ -341,8 +341,8 @@ class Spreadsheet_loader {
                     } else
                     if (!$mark) {
                         $category = $name;
-                        $mark = TRUE;
-                        $in_data = FALSE;
+                        $mark = true;
+                        $in_data = false;
                     } else {
                         if ($in_data) {
                             throw new exception("Possible extra subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
@@ -352,11 +352,11 @@ class Spreadsheet_loader {
                         $o->category = $category;
                         $o->subcategory = $subcategory;
                         $this->aux_info_groups[] = $o;
-                        $in_data = TRUE;
+                        $in_data = true;
                     }
                 }
                 if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
-                    $in_section = TRUE;
+                    $in_section = true;
                 }
             }
         }
@@ -378,7 +378,7 @@ class Spreadsheet_loader {
         $info = array();
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);
-            if (!($row === FALSE)) {
+            if (!($row === false)) {
                 $row = $row + $this->headerRow + 1;
                 foreach ($this->tracking_info_fields as $field => $col) {
                     if (count($this->ss_rows[$row]) <= $col) {
@@ -390,7 +390,7 @@ class Spreadsheet_loader {
             }
         } else {
             $col = array_search($id, $this->entity_list);
-            if (!($col === FALSE)) {
+            if (!($col === false)) {
                 $col++;
                 foreach ($this->tracking_info_fields as $field => $row) {
                     if (count($this->ss_rows[$row]) <= $col) {
@@ -413,7 +413,7 @@ class Spreadsheet_loader {
         $info = array();
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);
-            if (!($row === FALSE)) {
+            if (!($row === false)) {
                 $i = $this->headerRow + 1 + $row;
                 foreach ($this->aux_info_fields as $obj) {
                     $obj->value = $this->ss_rows[$i][$obj->column];
@@ -422,7 +422,7 @@ class Spreadsheet_loader {
             }
         } else {
             $col = array_search($id, $this->entity_list);
-            if (!($col === FALSE)) {
+            if (!($col === false)) {
                 $col++;
                 foreach ($this->aux_info_fields as $obj) {
                     $obj->value = $this->ss_rows[$obj->row][$col];

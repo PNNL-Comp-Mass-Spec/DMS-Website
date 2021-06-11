@@ -20,7 +20,7 @@ class Ers extends CI_Controller {
     function proposals()
     {
         $this->load->library('table');
-        $ersDB = $this->load->database('ers', TRUE);
+        $ersDB = $this->load->database('ers', true);
 
         // get list of proposals from ers
         // PROPOSAL_ID  TITLE   DESCRIPTION
@@ -39,7 +39,7 @@ class Ers extends CI_Controller {
     function users()
     {
         $this->load->library('table');
-        $ersDB = $this->load->database('ers', TRUE);
+        $ersDB = $this->load->database('ers', true);
 
         // get list of users for proposals from ers PROPOSAL_ID, HANFORD_ID
         // PROPOSAL_ID  TITLE   DESCRIPTION HANFORD_ID
@@ -58,7 +58,7 @@ class Ers extends CI_Controller {
     function dms_proposals()
     {
         $this->load->library('table');
-        $dmsDB = $this->load->database('default', TRUE);
+        $dmsDB = $this->load->database('default', true);
 
         // get list of proposals from ers
         $sql = 'SELECT PROPOSAL_ID, TITLE FROM T_EUS_Proposals';
@@ -76,7 +76,7 @@ class Ers extends CI_Controller {
     function dms_users()
     {
         $this->load->library('table');
-        $dmsDB = $this->load->database('default', TRUE);
+        $dmsDB = $this->load->database('default', true);
 
         // get list of proposals from ers
         $sql = 'SELECT  [User ID], [User Name] FROM V_EUS_Users_ID';
@@ -96,7 +96,7 @@ class Ers extends CI_Controller {
         $this->load->library('table');
 
         // get list of proposals from ers
-        $dmsDB = $this->load->database('default', TRUE);
+        $dmsDB = $this->load->database('default', true);
         $sql = 'SELECT PROPOSAL_ID, TITLE FROM T_EUS_Proposals';
         $result = $dmsDB->query($sql);
         //
@@ -111,7 +111,7 @@ class Ers extends CI_Controller {
         }
 
         // get list of proposals from ers
-        $ersDB = $this->load->database('ers', TRUE);
+        $ersDB = $this->load->database('ers', true);
         $sql = 'select PROPOSAL_ID, TITLE, DESCRIPTION from VW_ALL_ACTIVE_PROPOSALS ORDER BY PROPOSAL_ID DESC';
         $result = $ersDB->query($sql);
         //

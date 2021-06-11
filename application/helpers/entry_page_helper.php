@@ -126,7 +126,7 @@ function get_values_from_segs($form_field_names, $segs) {
     $a = array();
     $seg_val = current($segs);
     foreach ($form_field_names as $field) {
-        if ($seg_val === FALSE) {
+        if ($seg_val === false) {
             break;
         }
 

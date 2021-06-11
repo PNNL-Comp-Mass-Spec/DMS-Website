@@ -15,7 +15,7 @@ set_time_limit(0);
  * Override the Default Controller
  * --------------------------------------------------------------------
  */
- 
+
 // Explicit controller class to load
 $routing['controller'] = 'notification';
 
@@ -125,7 +125,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 		chdir(dirname(__FILE__));
 	}
 
-	if (($_temp = realpath($system_path)) !== FALSE)
+	if (($_temp = realpath($system_path)) !== false)
 	{
 		$system_path = $_temp.DIRECTORY_SEPARATOR;
 	}
@@ -142,7 +142,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 	// Is the system path correct?
 	if ( ! is_dir($system_path))
 	{
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		header('HTTP/1.1 503 Service Unavailable.', true, 503);
 		echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.pathinfo(__FILE__, PATHINFO_BASENAME)."\n";
 		exit(3); // EXIT_CONFIG
 	}
@@ -167,7 +167,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 	// The path to the "application" directory
 	if (is_dir($application_folder))
 	{
-		if (($_temp = realpath($application_folder)) !== FALSE)
+		if (($_temp = realpath($application_folder)) !== false)
 		{
 			$application_folder = $_temp;
 		}
@@ -190,7 +190,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 	}
 	else
 	{
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		header('HTTP/1.1 503 Service Unavailable.', true, 503);
 		echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF."\n";
 		exit(3); // EXIT_CONFIG
 	}
@@ -204,7 +204,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 	}
 	elseif (is_dir($view_folder))
 	{
-		if (($_temp = realpath($view_folder)) !== FALSE)
+		if (($_temp = realpath($view_folder)) !== false)
 		{
 			$view_folder = $_temp;
 		}
@@ -227,7 +227,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 	}
 	else
 	{
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		header('HTTP/1.1 503 Service Unavailable.', true, 503);
 		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF."\n";
 		exit(3); // EXIT_CONFIG
 	}
@@ -244,7 +244,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 	echo 'APPPATH: ' . APPPATH . "\n";
 	echo 'VIEWPATH: ' . VIEWPATH . "\n";
 */
-	
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

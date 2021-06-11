@@ -40,34 +40,34 @@ class Cell_presentation {
     function init($cell_presentation_specs) {
         $this->hotlinks = $cell_presentation_specs;
     }
-    
+
     /**
      * Get an array of column names to export
      * @param type $result
      */
     function get_columns_to_export(&$result) {
-        
+
         // This array tracks all of the column names in $result
         $cols = array_keys(current($result));
-        
+
         // This array tracks columns to include
         $col_filter = array();
-        
+
         foreach ($cols as $columnName) {
-            
-            // Look for an entry in $this->hotlinks that matches either this column name, 
+
+            // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by a plus sign
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_export");
-            
+
             if (!$colSpec) {
                 // Include this column (since no hotlink of type no_export is defined)
                 $col_filter[] = $columnName;
-            }            
+            }
         }
-        
+
         return $col_filter;
     }
-    
+
     /**
      * Look for a hotlink of the given type; return it if found or null if not found
      * @param type $columnName
@@ -75,11 +75,11 @@ class Cell_presentation {
      * @return type
      */
     private function get_colspec_with_link_type($columnName, $linkTypeName) {
-        
+
         // Look for a hotlink name that matches this column name
         if (array_key_exists($columnName, $this->hotlinks)) {
             $colSpec = $this->hotlinks[$columnName];
-            
+
             if ($colSpec["LinkType"] == $linkTypeName) {
                 return $colSpec;
             }
@@ -87,7 +87,7 @@ class Cell_presentation {
 
         // Look for a hotlink name that matches this column name, preceded by a plus sign
         if (array_key_exists('+' . $columnName, $this->hotlinks)) {
-            $colSpec = $this->hotlinks['+' . $columnName];                
+            $colSpec = $this->hotlinks['+' . $columnName];
 
             if ($colSpec["LinkType"] == $linkTypeName) {
                 return $colSpec;
@@ -96,7 +96,7 @@ class Cell_presentation {
 
         return null;
     }
-    
+
     /**
      * Get list of columns to show
      * @param array $cols All columns
@@ -118,32 +118,32 @@ class Cell_presentation {
 
         // This array tracks all of the column names in $result
         $cols = array_keys(current($result));
-        
+
         // This array tracks columns to include
         $col_alignment = array();
-        
+
         foreach ($cols as $columnName) {
-            
-            // Look for an entry in $this->hotlinks that matches either this column name, 
+
+            // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by a plus sign
             $colSpec = $this->get_colspec_with_link_type($columnName, "export_align");
-            
+
             if ($colSpec && array_key_exists('Options', $colSpec)) {
                 // Examine the Options to determine the alignment
                 $t = $colSpec['Options'];
-                
+
                 if (array_key_exists('Align', $t)) {
                     $col_alignment[$columnName] = $t['Align'];
                     continue;
                 }
             }
-            
+
             $col_alignment[$columnName] = 'default';
         }
-        
+
         return $col_alignment;
     }
-    
+
     /**
      * Look for items in $result that would be colored by render_hotlink
      * Add a color code to the start of the cell so that export_to_excel in export_helper.php
@@ -152,39 +152,39 @@ class Cell_presentation {
      * @return type
      */
     function add_color_codes(&$result) {
-        
+
         $cols = array_keys(current($result));
 
         // traverse all the rows in the result
         for ($i = 0; $i < count($result); $i++) {
             $row = $result[$i];
-            
+
             // Traverse all the columns in the current row
             // Cache any color codes that need to be applied
 
             // Keys in this array are column name; values are color code text
             $colorCodesByColumn = array();
-            
+
             // Keys in this array are column name; values are the name of a different column to copy the color from
             $copyFromByColumn = array();
-            
+
             foreach ($cols as $columnName) {
                 $value = $row[$columnName];
 
                 if (array_key_exists($columnName, $this->hotlinks)) {
                     $colSpec = $this->hotlinks[$columnName];
-                    
+
                     $colorCode = $this->get_color_code($value, $row, $colSpec);
 
                     if ($colorCode != "") {
                         $colorCodesByColumn[$columnName] = $colorCode;
                     }
                 }
-                
-                // Look for an entry in $this->hotlinks that matches either this column name, 
+
+                // Look for an entry in $this->hotlinks that matches either this column name,
                 // or this column name preceded by a plus sign
                 $colSpec2 = $this->get_colspec_with_link_type($columnName, "copy_color_from");
-                
+
                 if ($colSpec2) {
                     $whichArg = $colSpec2["WhichArg"];
 
@@ -193,33 +193,33 @@ class Cell_presentation {
                     }
                 }
             }
-            
+
             foreach ($cols as $columnName) {
                 if (array_key_exists($columnName, $colorCodesByColumn)) {
-                    $colorCode = $colorCodesByColumn[$columnName];                
+                    $colorCode = $colorCodesByColumn[$columnName];
                     $result[$i][$columnName] = $colorCode . $row[$columnName];
                 } else {
                     if (array_key_exists($columnName, $copyFromByColumn)) {
                         $copyColorFrom = $copyFromByColumn[$columnName];
-                        
+
                         if (array_key_exists($copyColorFrom, $colorCodesByColumn)) {
-                            $colorCode = $colorCodesByColumn[$copyColorFrom];                
+                            $colorCode = $colorCodesByColumn[$copyColorFrom];
                             $result[$i][$columnName] = $colorCode . $row[$columnName];
                         }
                     }
-                }                                
-            }                        
+                }
+            }
         }
 
     }
-    
+
     /**
      * Get the color code string for the given data item
      * @param type $value
      * @param type $colSpec
      * @return string
      */
-    private function get_color_code($value, $row, $colSpec) {        
+    private function get_color_code($value, $row, $colSpec) {
         $colorCode = "";
 
         // resolve value to use for hotlink
@@ -246,7 +246,7 @@ class Cell_presentation {
                 $black = "000000";
                 $green = "008000";
                 $red =   "FF0000";
-                        
+
                 switch ($cssClass) {
                     case "bad_clr":
                         $textColor = $red;
@@ -281,28 +281,28 @@ class Cell_presentation {
                         $textStyle = "bold";
                         break;
                 }
-                                
+
                 if ($textColor != "" || $fillColor != "" || $textStyle != "") {
                     if ($textColor == "") {
                         $textColor = "default";
                     }
-                    
+
                     if ($fillColor == "") {
                         $fillColor = "default";
                     }
-                    
+
                     if ($textStyle == "") {
                         $textStyle = "default";
                     }
-                    
+
                     $colorCode = "##FORMAT_[$textColor]_[$fillColor]_[$textStyle]##";
                 }
             }
         }
-        
+
         return $colorCode;
     }
-    
+
     /**
      * Render a row
      * @param type $row
@@ -383,7 +383,7 @@ class Cell_presentation {
                 } else {
                     // Place target substitution marker
                     // (and preserve special primary filter characters)
-                    if (strpos($target, '@') === FALSE) {
+                    if (strpos($target, '@') === false) {
                         $sep = (substr($target, -1) == '~') ? '' : '/';
                         $target .= $sep . '@';
                     }
@@ -391,7 +391,7 @@ class Cell_presentation {
                     $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
                 }
                 break;
-                
+
             case "invoke_multi_col":
                 $cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
                 foreach ($cols as $columnName => $v) {
@@ -405,14 +405,14 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target/$ref");
                 $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
                 break;
-                
+
             case "literal_link":
                 //$url = $target . $ref;
                 $url = $this->url_updater->fix_link($target . $ref);
-                $value = valueToString($value, $colSpec, FALSE);
+                $value = valueToString($value, $colSpec, false);
                 $str .= "<td><a href='$url' target='External$colIndex' $tool_tip>$value</a></td>";
                 break;
-            
+
             case "masked_link":
                 //$url = $target . $ref;
                 $url = $this->url_updater->fix_link($target . $ref);
@@ -423,12 +423,12 @@ class Cell_presentation {
                     $str .= "<td></td>";
                 }
                 break;
-                
+
             case "CHECKBOX":
-                // $str .= "<td>" . form_checkbox('ckbx', $ref, FALSE) . "</td>";
+                // $str .= "<td>" . form_checkbox('ckbx', $ref, false) . "</td>";
                 $str .= "<td><input type='checkbox' value='$ref' name='ckbx' class='lr_ckbx'></td>";
                 break;
-            
+
             case "checkbox_json":
                 // This is an old, unused mode
                 $cols = (array_key_exists('Options', $colSpec)) ? $colSpec['Options'] : array();
@@ -442,7 +442,7 @@ class Cell_presentation {
             case "update_opener":
                 $str .= "<td>" . "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
                 break;
-            
+
             case "color_label":
                 // Color this column based on the value in $ref (which either came from this column or from another column, specified by WhichArg)
                 if (array_key_exists($ref, $colSpec['cond'])) {
@@ -455,7 +455,7 @@ class Cell_presentation {
                 }
                 $str .= "<td $colorStyle>$value</td>";
                 break;
-                
+
             case "doi_link":
                 $linkOrValue = $this->url_updater->get_doi_link($ref, $colIndex);
                 $str .= "<td>$linkOrValue</td>";
@@ -468,13 +468,13 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target/show/$value");
                 $str .= "<td><a href='$url'>$value</a></td>";
                 break;
-            
+
             case "format_date":
                 // Apply a custom date format, using the format code in the options column
                 // For date format codes, see http://php.net/manual/en/function.date.php
-                // 
-                // If the Target field for this hotlink definition contains an integer, 
-                // that value is used for min_col_width (this behavior is used because a given column 
+                //
+                // If the Target field for this hotlink definition contains an integer,
+                // that value is used for min_col_width (this behavior is used because a given column
                 // cannot have two hotlinks defined for it; see method get_cell_padding)
                 $dateValue = strtotime($value);
                 if ($dateValue) {
@@ -483,18 +483,18 @@ class Cell_presentation {
                 }
                 $str .= "<td>" . $value . "</td>";
                 break;
-                
+
             case "format_commas":
-                $value = valueToString($value, $colSpec, TRUE);
+                $value = valueToString($value, $colSpec, true);
                 $str .= "<td>" . $value . "</td>";
                 break;
-            
+
             case "select_case":
                 $t = $colSpec['Options'];
                 $link_item = ($target) ? $row[$target] : $value;
                 if (array_key_exists($ref, $t)) {
                     $link_base = $t[$ref];
-                    if (strpos($link_base, '/') === FALSE) {
+                    if (strpos($link_base, '/') === false) {
                         // Base link does not contain a forward slash; use /show/
                         $url = reduce_double_slashes(site_url() . "$link_base/show/$link_item");
                     } else {
@@ -506,13 +506,13 @@ class Cell_presentation {
                     $str .= "<td>$value</td>";
                 }
                 break;
-                
+
             case "copy_from":
                 // Old, unused mode; superseded by "row_to_json" and "row_to_url"
                 $url = reduce_double_slashes(site_url() . "$target/$ref");
                 $str .= "<td><a href='$url'>$value</a></td>";
                 break;
-            
+
             case "row_to_url":
                 $s = "";
                 foreach ($row as $f => $v) {
@@ -522,7 +522,7 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target");
                 $str .= "<td><a href='javascript:void(0)' onclick='submitDynamicForm(\"$url\", \"$s\")'>$value</a></td>";
                 break;
-                
+
             case "row_to_json":
                 $fsp = "";
                 $rowAction = 'localRowAction';
@@ -541,7 +541,7 @@ class Cell_presentation {
                 $url = reduce_double_slashes(site_url() . "$target");
                 $str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";
                 break;
-                
+
             case "masked_href-folder":
                 $lbl = getOptionValue($colSpec, 'Label', 'Undefined_masked_href-folder');
                 $lnk = str_replace('\\', '/', $ref);
@@ -551,19 +551,19 @@ class Cell_presentation {
                     $str = "<td></td>";
                 }
                 break;
-                
+
             case "href-folder":
                 $lnk = str_replace('\\', '/', $ref);
                 $str = "<td>" . "<a href='file:///$lnk'>$value</a>" . "</td>";
                 break;
-            
+
             case "inplace_edit":
                 $className = str_replace(' ', '_', $columnName);
                 $id = $className . '_' . $ref;
                 $width = getOptionValue($colSpec, 'width', '0');
 
                 $widthValue = filter_var($width, FILTER_VALIDATE_INT);
-                if ($widthValue !== FALSE) {
+                if ($widthValue !== false) {
                     $customSize = "size='$widthValue'";
                 } else {
                     $customSize = '';
@@ -584,22 +584,22 @@ class Cell_presentation {
                 }
                 $str .= "<td>" . implode($delim . ' ', $links) . "</td>";
                 break;
-                
+
             case "markup":
                 // Display text with carriage returns
                 // Converts newlines to <br>
-                // 
-                // If the Target field for this hotlink definition contains an integer, 
-                // that value is used for min_col_width (this behavior is used because a given column 
+                //
+                // If the Target field for this hotlink definition contains an integer,
+                // that value is used for min_col_width (this behavior is used because a given column
                 // cannot have two hotlinks defined for it; see method get_cell_padding)
                 $str .= "<td>" . nl2br($value) . "</td>";
                 break;
-            
+
             case "min_col_width":
                 // No special rendering here, though get_cell_padding will pad the cell if the text is too short
                 $str .= "<td>" . $value . "</td>";
                 break;
-                
+
             case "image_link":
                 //$url = $ref;
                 $url = $this->url_updater->fix_link($ref);
@@ -608,7 +608,7 @@ class Cell_presentation {
                     $url_parts = explode('/', $ref);
                     $last_seg = count($url_parts) - 1;
                     $url_parts[$last_seg] = $target;
-                    //$link_url = implode("/", $url_parts);                    
+                    //$link_url = implode("/", $url_parts);
                     $link_url = $this->url_updater->fix_link(implode("/", $url_parts));
                 }
                 $width = getOptionValue($colSpec, 'width', '250');
@@ -618,21 +618,21 @@ class Cell_presentation {
                     $str .= "<td></td>";
                 }
                 break;
-                
+
             case "column_tooltip":
                 // If Decimals is defined in the options, format with the number of decimal places
                 // If not defined, leave as-is
-                $value = valueToString($value, $colSpec, FALSE);
+                $value = valueToString($value, $colSpec, false);
                 $str .= "<td>" . $value . "</td>";
                 break;
-            
+
             case "copy_color_from":
             case "no_export":
             case "export_align":
                 // These only affect data export
                 $str .= "<td>" . $value . "</td>";
                 break;
-            
+
             default:
                 $str .= "<td>???" . $colSpec["LinkType"] . "???</td>";
                 break;
@@ -642,7 +642,7 @@ class Cell_presentation {
 
     /**
      * Look "GreaterOrEqual" in the options section of this colSpec
-     * If found, compare $value to the specified value, 
+     * If found, compare $value to the specified value,
      * returning true if $value is lest than the value defined in the options
      * Otherwise, return false
      * @param type $colSpec

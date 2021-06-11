@@ -139,7 +139,7 @@ class Q_model extends CI_Model {
      * Database-specific object to build SQL out of generic query parts
      * @var type
      */
-    private $sql_builder = NULL;
+    private $sql_builder = null;
 
     /**
      * SQL used by main query that returns rows
@@ -152,21 +152,21 @@ class Q_model extends CI_Model {
      * Object of class Query_parts
      * @var type
      */
-    private $query_parts = NULL;
+    private $query_parts = null;
 
     /**
      * Array of objects, one object per column
      * Object has fields: name, type, max_length, primary_key
      * @var type
      */
-    private $result_column_info = NULL;
+    private $result_column_info = null;
 
     /**
      * Unix timestamp when the result column info was cached
      * Data in $result_column_info is updated every 24 hours
      * @var type
      */
-    private $result_column_cachetime = NULL;
+    private $result_column_cachetime = null;
 
     const column_info_refresh_interval_minutes = 1440;
 
@@ -235,17 +235,17 @@ class Q_model extends CI_Model {
 
         while ($connectionRetriesRemaining > 0) {
             try {
-                $my_db = $CI->load->database($this->query_parts->dbn, TRUE, TRUE);
+                $my_db = $CI->load->database($this->query_parts->dbn, true, true);
 
                 if ($my_db === false) {
                     // $CI->load->database() normally returns a database object
-                    // But if an error occurs, it returns FALSE
+                    // But if an error occurs, it returns false
                     // Retry establishing the connection
                     throw new Exception('$CI->load->database returned false in S_model');
                 } else {
                     if ($my_db->conn_id === false) {
                         // $my_db->conn_id is normally an object
-                        // But if an error occurs, it is FALSE
+                        // But if an error occurs, it is false
                         // Retry establishing the connection
                         throw new Exception('$my_db->conn_id returned false in S_model');
                     }
@@ -266,10 +266,10 @@ class Q_model extends CI_Model {
                 }
             }
         }
-        
+
         $this->set_my_sql_builder("sql_" . $my_db->dbdriver);
-        
-        return FALSE;
+
+        return false;
     }
 
     /**
@@ -315,9 +315,9 @@ class Q_model extends CI_Model {
             $match_blank = $p->val == '\b';
             $exact_match = (substr($p->val, 0, 1) == '~');
             $not_match = (substr($p->val, 0, 1) == ':');
-            $regex_all = (strpos($p->val, '*') !== FALSE);
-            $regex_one = (strpos($p->val, '?') !== FALSE);
-            $sql_any = (strpos($p->val, '%') !== FALSE);
+            $regex_all = (strpos($p->val, '*') !== false);
+            $regex_one = (strpos($p->val, '?') !== false);
+            $sql_any = (strpos($p->val, '%') !== false);
 
             if ($match_blank) {
                 // Force match a blank
@@ -526,7 +526,7 @@ class Q_model extends CI_Model {
             if (empty($rows)) {
                 // No results
                 // echo "<div id='data_message' >No rows found</div>";
-                return NULL;
+                return null;
             }
 
             return $rows[0];
@@ -557,17 +557,17 @@ class Q_model extends CI_Model {
 
         while ($connectionRetriesRemaining > 0) {
             try {
-                $my_db = $CI->load->database($dbGroupName, TRUE, TRUE);
+                $my_db = $CI->load->database($dbGroupName, true, true);
 
                 if ($my_db === false) {
                     // $CI->load->database() normally returns a database object
-                    // But if an error occurs, it returns FALSE
+                    // But if an error occurs, it returns false
                     // Retry establishing the connection
                     throw new Exception('$CI->load->database returned false in Q_model');
                 } else {
                     if ($my_db->conn_id === false) {
                         // $my_db->conn_id is normally an object
-                        // But if an error occurs, it is FALSE
+                        // But if an error occurs, it is false
                         // Retry establishing the connection
                         throw new Exception('$my_db->conn_id returned false in Q_model');
                     }
@@ -838,14 +838,14 @@ class Q_model extends CI_Model {
         $sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
         $sth->execute();
         $obj = $sth->fetch(PDO::FETCH_OBJ);
-        if ($obj === FALSE) {
+        if ($obj === false) {
             throw new Exception('Could not find query specs');
         }
 
         $this->query_parts->dbn = $obj->db;
         $this->query_parts->table = $obj->table;
         $this->query_parts->columns = $obj->columns;
-        $filters = (isset($obj->filters) && $obj->filters != '') ? json_decode($obj->filters, TRUE) : array();
+        $filters = (isset($obj->filters) && $obj->filters != '') ? json_decode($obj->filters, true) : array();
         $this->primary_filter_specs = array();
         foreach ($filters as $col => $cmp) {
             $name = "pf_" . str_replace(' ', '_', strtolower($col));
@@ -856,7 +856,7 @@ class Q_model extends CI_Model {
             $a['value'] = '';
             $this->primary_filter_specs[$name] = $a;
         }
-        $sorting = (isset($obj->sorting) && $obj->sorting != '') ? json_decode($obj->sorting, TRUE) : array();
+        $sorting = (isset($obj->sorting) && $obj->sorting != '') ? json_decode($obj->sorting, true) : array();
         if (!empty($sorting)) {
             $this->query_parts->sorting_default = $sorting;
         }

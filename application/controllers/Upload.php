@@ -366,7 +366,7 @@ class Upload extends Base_controller {
     private
     function get_entity_key($id, $entity_type, &$key, &$message)
     {
-        $exists = FALSE;
+        $exists = false;
         try {
             if (!array_key_exists($entity_type, $this->supported_entities)) {
                 throw new exception('Error:Unrecognized entity type');
@@ -381,7 +381,7 @@ class Upload extends Base_controller {
             if($result->num_rows() > 0) {
                 $row = $result->row();
                 $key = ($this->supported_entities[$entity_type]['key'] == 'ID')?$row->ID:$id;
-                $exists = TRUE;
+                $exists = true;
             }
         } catch (Exception $e) {
             $message = $e->getMessage();
@@ -472,7 +472,7 @@ class Upload extends Base_controller {
         $entity_info[$form_def->specs[$primary_key]['label']] = 'key';
         foreach($form_def->specs as $field => $spec) {
 
-	        // The form field type may contain several keywords specified by a vertical bar       
+	        // The form field type may contain several keywords specified by a vertical bar
 	        $fieldTypes = explode('|', $spec['type']);
 
             if($field != $primary_key && !in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
@@ -550,10 +550,10 @@ class Upload extends Base_controller {
 
         $errors = array();
         foreach($tracking_info as $field => $row) {
-            $good = FALSE;
+            $good = false;
             foreach($form_def->specs as $f => $spec) {
                 if($field == trim($spec['label'])) {
-                    $good = TRUE;
+                    $good = true;
                     break;
                 }
             }
@@ -578,10 +578,10 @@ class Upload extends Base_controller {
 
         $errors = array();
         foreach($aux_info as $obj) {
-            $good = FALSE;
+            $good = false;
             foreach($result as $row) {
                 if($obj->category == $row['Category'] && $obj->subcategory == $row['Subcategory'] && $obj->item == $row['Item']) {
-                    $good = TRUE;
+                    $good = true;
                     break;
                 }
             }

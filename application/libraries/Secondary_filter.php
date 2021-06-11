@@ -16,7 +16,7 @@ class Secondary_filter {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -56,7 +56,7 @@ class Secondary_filter {
 
     /**
      * Get current values for secondary filter if present in POST
-     * Otherwise return FALSE
+     * Otherwise return false
      * @return boolean
      */
     private function get_current_filter_values_from_post() {
@@ -72,7 +72,7 @@ class Secondary_filter {
             }
             return $filter_values;
         } else {
-            return FALSE;
+            return false;
         }
     }
 

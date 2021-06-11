@@ -12,7 +12,7 @@ class Data_package_publish extends Base_controller {
         $this->my_tag = "data_package_publish";
         $this->my_title = "Publish Data Package";
 
-        $this->load->model('M_data_package_publish', 'model', TRUE);
+        $this->load->model('M_data_package_publish', 'model', true);
     }
 
     // --------------------------------------------------------------------

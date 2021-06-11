@@ -37,7 +37,7 @@ class General_query {
      * Constructor
      */
     function __construct() {
-        
+
     }
 
     /**
@@ -76,10 +76,10 @@ class General_query {
         //   Sort column:     ID
         //   Sort directtion: Ascending
 
-        $offset = $CI->input->get('Offset', TRUE);
-        $rows = $CI->input->get('Rows', TRUE);
-        $sortCol = $CI->input->get('SortCol', TRUE);
-        $sortDir = $CI->input->get('SortDir', TRUE);
+        $offset = $CI->input->get('Offset', true);
+        $rows = $CI->input->get('Rows', true);
+        $sortCol = $CI->input->get('SortCol', true);
+        $sortDir = $CI->input->get('SortDir', true);
 
         // Validate that the offset is an integer
         if (filter_var($offset, FILTER_VALIDATE_INT) !== false) {

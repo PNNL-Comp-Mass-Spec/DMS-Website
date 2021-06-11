@@ -16,7 +16,7 @@ class Dms_authorization extends CI_Model {
 
     // --------------------------------------------------------------------
     function initialize() {
-        
+
     }
 
     /**
@@ -45,7 +45,7 @@ class Dms_authorization extends CI_Model {
         $dbh = new PDO("sqlite:$dbFilePath");
         $stmt = $dbh->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'", PDO::FETCH_ASSOC);
         $row = $stmt->fetch();
-        if (!(FALSE === $row)) {
+        if (!(false === $row)) {
             $restrictions = preg_split('/, */', $row['required_permisions']);
         }
         return $restrictions;
@@ -77,7 +77,7 @@ FROM V_User_List_Report_2
 WHERE [Username] = '$user_dprn'
 EOD;
 
-        $my_db = $this->load->database('default', TRUE);
+        $my_db = $this->load->database('default', true);
         $query_data = $my_db->query($str);
         if (!$query_data) {
             $currentTimestamp = date("Y-m-d");
@@ -124,10 +124,10 @@ EOD;
         if (isset($_SESSION[$this->storage_name])) {
             $state = $_SESSION[$this->storage_name];
             $this->user_permissions = unserialize($state);
-            return TRUE;
+            return true;
         } else {
             $this->user_permissions = array();
-            return FALSE;
+            return false;
         }
     }
 

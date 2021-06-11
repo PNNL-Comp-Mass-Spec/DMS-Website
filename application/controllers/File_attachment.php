@@ -8,7 +8,7 @@ class Check_result {
     var $ok = true;
     var $message = "";
     var $path = '';
-    var $local_path = NULL;
+    var $local_path = null;
     var $archive_path = '';
 }
 
@@ -27,11 +27,11 @@ class File_attachment extends Base_controller {
         $this->load->helper(array('file_attachment','download'));
         $this->my_tag = "file_attachment";
         $this->my_title = "File Attachments";
-        $this->archive_root_path = $this->config->item('file_attachment_archive_root_path'); // returns NULL if not set
+        $this->archive_root_path = $this->config->item('file_attachment_archive_root_path'); // returns null if not set
         if (!is_null($this->archive_root_path) && !is_dir($this->archive_root_path)) {
-            $this->archive_root_path = NULL;
+            $this->archive_root_path = null;
         }
-        $this->local_root_path = $this->config->item('file_attachment_local_root_path'); // returns NULL if not set
+        $this->local_root_path = $this->config->item('file_attachment_local_root_path'); // returns null if not set
         if (is_null($this->local_root_path) || !is_dir($this->local_root_path)) {
             throw new Exception("configuration item 'file_attachment_local_root_path' is either not set or not a directory!");
         }
@@ -208,16 +208,16 @@ class File_attachment extends Base_controller {
                 }
             }
 
-            $timestamp = microtime(TRUE);
+            $timestamp = microtime(true);
             $config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->input->post("entity_id")."/{$timestamp}/";
             $config['allowed_types'] = '*';
             $config['max_width']  = '3000';
             $config['max_height']  = '3000';
-            $config['overwrite'] = TRUE;
-            $config['remove_spaces'] = TRUE;
-            $config['encrypt_name'] = TRUE;
+            $config['overwrite'] = true;
+            $config['remove_spaces'] = true;
+            $config['encrypt_name'] = true;
             $config['max_size'] = 204800;
-            mkdir($config['upload_path'],0777,TRUE);
+            mkdir($config['upload_path'],0777,true);
 
             $this->load->library('upload', $config);
 
@@ -680,10 +680,10 @@ class File_attachment extends Base_controller {
                 mkdir($local_folder_path,0777,true);
             }
             $handle = fopen($dest_path, 'w+');
-            if($handle === FALSE) {
+            if($handle === false) {
                  throw new Exception("Could not open '$dest_path'");
             }
-            if(fwrite($handle, $contents) === FALSE) {
+            if(fwrite($handle, $contents) === false) {
                  throw new Exception("Could write to '$dest_path'");
             }
             fclose($handle);

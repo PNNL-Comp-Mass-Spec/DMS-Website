@@ -34,7 +34,7 @@ function valueToString($value, $colSpec, $alwaysAddCommas) {
         return $value;
     }
 
-    if ($alwaysAddCommas === TRUE) {
+    if ($alwaysAddCommas === true) {
         $decimals = getOptionValue($colSpec, 'Decimals', '0');
     } else {
         $decimals = getOptionValue($colSpec, 'Decimals', '-1');

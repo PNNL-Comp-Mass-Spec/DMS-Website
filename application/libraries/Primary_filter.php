@@ -7,11 +7,11 @@ class Primary_filter {
     private $config_name = '';
     private $config_source = '';
     private $storage_name = '';
-    private $cur_filter_values = NULL;
+    private $cur_filter_values = null;
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -53,7 +53,7 @@ class Primary_filter {
 
     /**
      * Get current values for secondary filter if present in POST.
-     * Otherwise return FALSE
+     * Otherwise return false
      * @param type $filter_specs
      * @return boolean
      */
@@ -73,7 +73,7 @@ class Primary_filter {
             }
             return $filter_specs;
         } else {
-            return FALSE;
+            return false;
         }
     }
 
@@ -108,7 +108,7 @@ class Primary_filter {
      * Reset (clear) the filter
      */
     private function clear_query_filter() {
-        
+
     }
 
     /**

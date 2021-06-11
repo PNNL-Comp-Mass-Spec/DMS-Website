@@ -230,7 +230,7 @@ function get_hotlink_specs_for_field($fieldName, $hotlinks) {
  * @param type $link_id   Data value for field specified by WhichArg
  * @param type $colIndex  Form field index (0-based)
  * @param type $display   Form field name
- * @param type $val       Data value for this form field from the database.  
+ * @param type $val       Data value for this form field from the database.
  *                        If Name and WhichArg are the same, $link_id and $val will be the same
  * @return type
  */
@@ -263,7 +263,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             $url = make_detail_report_url($target, $link_id, $options);
             $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
             break;
-            
+
         case "href-folder":
             if ($val) {
                 $lnk = str_replace('\\', '/', $val);
@@ -272,13 +272,13 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $str = $display;
             }
             break;
-            
+
         case "literal_link":
             // Link to the URL specified by $display
             // The link text is the target URL
             $str .= "<a href='$display' target='External$colIndex'>$display</a>";
             break;
-        
+
         case "masked_link":
             // Link to the URL specified by $display
             // The link text is specified by the label setting in Options, for example {"Label":"Show files"}
@@ -292,7 +292,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $str .= "";
             }
             break;
-            
+
         case "masked_link_list":
             // Link to each URL listed in a semicolon or comma-separated list of items in $display
             // The link text is specified by the label setting in Options, for example {"Label":"Show files"}
@@ -351,7 +351,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             }
             $str .= implode($delim . ' ', $links);
             break;
-            
+
         case "item_list":
             // $f is a vertical bar separated list
             // Create a one-row table using the items in the list
@@ -376,7 +376,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 }
 
                 $widthValue = filter_var($widthText, FILTER_VALIDATE_INT);
-                if ($widthValue !== FALSE) {
+                if ($widthValue !== false) {
                     $str .= "<td width='$widthValue%'>" . trim($f) . '</td>';
                 } else {
                     $str .= '<td>' . trim($f) . '</td>';
@@ -386,7 +386,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             }
             $str .= "</tr></table>";
             break;
-            
+
         case "link_list":
             // Create a separate hotlink for each item in a semicolon or comma-separated list of items in $display
             // The link to use is defined by the target column in the detail_report_hotlinks section of the config DB
@@ -413,25 +413,25 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                     continue;
                 }
 
-                $renderHTTP = TRUE;
+                $renderHTTP = true;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
                 $links[] = "<a href='$url'>$currentItem</a>";
             }
             $str .= implode($delim . ' ', $links);
             break;
-            
+
         case "link_table":
             // Table with links
             $str .= "<table class='inner_table'>";
             foreach (explode(',', $display) as $currentItem) {
                 $currentItem = trim($currentItem);
-                $renderHTTP = TRUE;
+                $renderHTTP = true;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
                 $str .= "<tr><td><a href='$url'>$currentItem</a></td></tr>";
             }
             $str .= "</table>";
             break;
-            
+
         case "tablular_list":
         case "tabular_list":
             // Parse data separated by colons and vertical bars and create a table
@@ -446,7 +446,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             }
             $str .= "</table>";
             break;
-            
+
         case "tabular_link_list":
             // Parse data separated by colons and vertical bars and create a table
             // Values in the second column are linked to the page defined by the target column in the detail_report_hotlinks section of the config DB
@@ -488,7 +488,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                     if ($headerLine === false && $rowColNum == 2) {
                         // This is the second column, and it's not the header row
                         // Render as a URL
-                        $renderHTTP = TRUE;
+                        $renderHTTP = true;
                         $url = make_detail_report_url($target, $trimmedValue, $options, $renderHTTP);
                         $str .= "<$colTag><a href='$url'>$trimmedValue</a></$colTag>";
                     } else {
@@ -504,7 +504,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             $str .= "</table>";
 
             break;
-            
+
         case "color_label":
             $cx = "";
             if (!empty($options) && array_key_exists($link_id, $options)) {
@@ -512,32 +512,32 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             }
             $str .= "<span $cx>$display</span>";
             break;
-       
+
         case "doi_link":
             $linkOrValue = $url_updater->get_doi_link($display, $colIndex);
             $str .= $linkOrValue;
             break;
-                
+
         case "format_commas":
-            $str = valueToString($display, $colSpec, TRUE);
+            $str = valueToString($display, $colSpec, true);
             break;
-        
+
         case "xml_params":
             $str .= make_table_from_param_xml($display);
             break;
-        
+
         case "markup":
             // Replace newlines with <br> using nl2br
             $str .= nl2br($display);
             break;
-        
+
         case "monomarkup":
             // Replace newlines with <br> using nl2br
             // Also surround the entire block with <code></code>
             // CSS formatting in base.css renders the text as monospace; see table.DRep pre
             $str .= '<code>' . nl2br($display) . '</code>';
             break;
-        
+
         case "glossary_entry":
             $url = make_detail_report_url($target, $wa, $options);
 
@@ -552,7 +552,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             // Pop-up option
             // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$display','width=800,height=600')\">$display</a>";
             break;
-            
+
         default:
             $str = "??? $display ???";
             break;
@@ -715,7 +715,7 @@ function make_detail_report_commands($commands, $tag, $id) {
  * @param type $renderHTTP
  * @return type
  */
-function make_detail_report_url($target, $link_id, $options, $renderHTTP = FALSE) {
+function make_detail_report_url($target, $link_id, $options, $renderHTTP = false) {
 
     if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
         // The field has a URL; link to it
@@ -724,7 +724,7 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP = FALSE
 
         // Insert an @ sign if it is not already present
         // When constructing the URL, we will replace the @ sign in $target with $link_id
-        if (strpos($target, '@') === FALSE) {
+        if (strpos($target, '@') === false) {
             // Need to add the @ sign
             // If $target does not end in ~, then add /
             $sep = (substr($target, -1) == '~') ? '' : '/';

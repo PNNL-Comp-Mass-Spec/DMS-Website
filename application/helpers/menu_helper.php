@@ -230,11 +230,11 @@ function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '
                     $target = '';
                     $url = $name;
                     $click = '';
-                    if (!(stripos($name, 'javascript') === FALSE)) {
+                    if (!(stripos($name, 'javascript') === false)) {
                         $click = "onclick='" . str_replace('javascript:', '', $name) . "'";
                         $url = "javascript:void(0)";
                         $target = '';
-                    } elseif (!(stripos($name, 'http') === FALSE)) {
+                    } elseif (!(stripos($name, 'http') === false)) {
                         $target = "target='_blank'";
                     } else {
                         $url = site_url() . $url;
@@ -287,7 +287,7 @@ function set_up_nav_bar($page_type) {
     $CI =& get_instance();
     $CI->help_page_link = $CI->config->item('pwiki') . $CI->config->item('wikiHelpLinkPrefix');
     $CI->load->helper(array('dms_search'));
-    $CI->load->model('dms_menu', 'menu', TRUE);
+    $CI->load->model('dms_menu', 'menu', true);
     return get_nav_bar_menu_items($page_type);
 }
 

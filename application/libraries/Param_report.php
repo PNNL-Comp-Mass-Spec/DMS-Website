@@ -124,7 +124,7 @@ class Param_report {
      * @param type $paging
      * @return type
      */
-    private function get_filtered_param_report_rows($paging = TRUE) {
+    private function get_filtered_param_report_rows($paging = true) {
         $CI =& get_instance();
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
         if ($paging) {
@@ -158,7 +158,7 @@ class Param_report {
 
         $calling_params = new stdClass();
         if (empty($form_def->fields)) {
-            $valid_fields = TRUE;
+            $valid_fields = true;
         } else {
             // make validation object and use it to
             // get field values from POST and validate them
@@ -279,7 +279,7 @@ class Param_report {
             return;
         }
 
-        $rows = $this->get_filtered_param_report_rows(FALSE);
+        $rows = $this->get_filtered_param_report_rows(false);
 
         // (someday) roll the date fix into a function shareable with param_data
         $CI->load->library('cell_presentation');

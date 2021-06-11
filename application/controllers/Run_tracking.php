@@ -383,7 +383,7 @@ EOD;
     {
         $prefs['day_type'] = 'long';
 
-        $prefs['show_next_prev'] = TRUE;
+        $prefs['show_next_prev'] = true;
         $prefs['next_prev_url'] = site_url($this->my_tag . "/cal/$instrument");
 
         $label = '<span style="font-size:1.5em;" >{day}</span><br>';

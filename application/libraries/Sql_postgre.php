@@ -14,7 +14,7 @@ class Sql_postgre {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -246,7 +246,7 @@ class Sql_postgre {
                 $str .= " $col > DATEADD(Week, -$val, GETDATE()) ";
                 break;
             default:
-                $str .= "TRUE /* '$cmp' unrecognized */";
+                $str .= "true /* '$cmp' unrecognized */";
                 break;
         }
         return $str;

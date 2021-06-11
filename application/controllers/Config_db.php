@@ -265,7 +265,7 @@ class Config_db extends CI_Controller {
      * Get contents of a single table
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return PDOStatement PDOStatement object, or FALSE on failure.
+     * @return PDOStatement PDOStatement object, or false on failure.
      */
     private function _get_table_contents($config_db, $table_name) {
         $dbFilePath = $this->configDBPath . $config_db;
@@ -786,9 +786,9 @@ class Config_db extends CI_Controller {
         }
         // for each parameter in general_params that ends in '_sproc'
         // get arguments from main database and convert to sql
-        $my_db = $this->load->database($db_group, TRUE);
+        $my_db = $this->load->database($db_group, true);
         foreach ($gen_parms as $p => $v) {
-            if (!(FALSE === strpos($p, '_sproc'))) {
+            if (!(false === strpos($p, '_sproc'))) {
                 $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $v);
                 $sqla .= $this->_get_sproc_arg_sql($sa, $v);
             }
@@ -818,7 +818,7 @@ class Config_db extends CI_Controller {
         $mainSproc = (array_key_exists('list_report_sproc', $gen_parms)) ? $gen_parms['list_report_sproc'] : $mainSproc;
 
         if ($mainSproc) {
-            $my_db = $this->load->database($db_group, TRUE);
+            $my_db = $this->load->database($db_group, true);
             $sproc = $mainSproc;
             $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
             $sqlf = $this->_get_form_field_sql($sa);
@@ -989,7 +989,7 @@ class Config_db extends CI_Controller {
                     $pn = $obj->view;
                     $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
                     if ($table) {
-                        $my_db = $this->load->database($db_group, TRUE);
+                        $my_db = $this->load->database($db_group, true);
                         $fields = $my_db->field_data($table);
                         foreach ($fields as $f) {
                             $sx .= "<option>$f->name</option>";
@@ -1047,7 +1047,7 @@ class Config_db extends CI_Controller {
             return;
         }
 
-        $my_db = $this->load->database($db_group, TRUE);
+        $my_db = $this->load->database($db_group, true);
         $fields = $my_db->field_data($table);
 
         $s .= "delete from list_report_hotlinks;\n";
@@ -1088,7 +1088,7 @@ class Config_db extends CI_Controller {
             return;
         }
 
-        $my_db = $this->load->database($db_group, TRUE);
+        $my_db = $this->load->database($db_group, true);
 
         $fields = $my_db->field_data($table);
 
@@ -1130,7 +1130,7 @@ class Config_db extends CI_Controller {
             return;
         }
 
-        $my_db = $this->load->database($db_group, TRUE);
+        $my_db = $this->load->database($db_group, true);
         $fields = $my_db->field_data($table);
 
         $s .= "delete from list_report_primary_filter;\n";
@@ -1325,7 +1325,7 @@ class Config_db extends CI_Controller {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
 
-        $my_db = $this->load->database($db_group, TRUE);
+        $my_db = $this->load->database($db_group, true);
 
         header("Content-type: text/plain");
 
@@ -1343,7 +1343,7 @@ class Config_db extends CI_Controller {
         $db_group = $this->uri->segment(3);
         $sproc = $this->uri->segment(4);
 
-        $my_db = $this->load->database($db_group, TRUE);
+        $my_db = $this->load->database($db_group, true);
         $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
 
         header("Content-type: text/plain");

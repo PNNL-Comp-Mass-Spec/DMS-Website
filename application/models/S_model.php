@@ -48,7 +48,7 @@ class S_model extends CI_Model {
      * Object that contains database-specific code used to actually access the stored procedure
      * @var type
      */
-    private $sproc_handler = NULL;
+    private $sproc_handler = null;
 
     /**
      * Actual name of stored procedure
@@ -73,19 +73,19 @@ class S_model extends CI_Model {
      * Object whose fields are bound to actual arguments used for calling sproc
      * @var Bound_arguments
      */
-    private $bound_calling_parameters = NULL;
+    private $bound_calling_parameters = null;
 
     /**
-     * Rowset returned by the stored procedure (NULL if none returned)
+     * Rowset returned by the stored procedure (null if none returned)
      * @var type
      */
-    private $result_array = NULL;
+    private $result_array = null;
 
     /**
      * Information about data columns in $result_array
      * @var type
      */
-    private $column_info = NULL;
+    private $column_info = null;
     private $error_text = '';
 
     /**
@@ -119,10 +119,10 @@ class S_model extends CI_Model {
             $this->_clear();
 
             $this->get_sproc_arg_defs($config_name, $dbFileName);
-            return TRUE;
+            return true;
         } catch (Exception $e) {
             $this->error_text = $e->getMessage();
-            return FALSE;
+            return false;
         }
     }
 
@@ -152,17 +152,17 @@ class S_model extends CI_Model {
 
             while ($connectionRetriesRemaining > 0) {
                 try {
-                    $my_db = $CI->load->database($this->dbn, TRUE, TRUE);
+                    $my_db = $CI->load->database($this->dbn, true, true);
 
                     if ($my_db === false) {
                         // $CI->load->database() normally returns a database object
-                        // But if an error occurs, it returns FALSE
+                        // But if an error occurs, it returns false
                         // Retry establishing the connection
                         throw new Exception('$CI->load->database returned false in S_model');
                     } else {
                         if ($my_db->conn_id === false) {
                             // $my_db->conn_id is normally an object
-                            // But if an error occurs, it is FALSE
+                            // But if an error occurs, it is false
                             // Retry establishing the connection
                             throw new Exception('$my_db->conn_id returned false in S_model');
                         }
@@ -440,7 +440,7 @@ class S_model extends CI_Model {
             if ($row['name'] == 'my_db_group') {
                 $this->dbn = $row['value'];
             } else
-            if (strpos($row['name'], $config_name) !== FALSE) { // (someday) require exact match for sproc name??
+            if (strpos($row['name'], $config_name) !== false) { // (someday) require exact match for sproc name??
                 // $config_name is alias for actual sproc name - change sproc name
                 $this->sprocName = $row['value'];
             }
@@ -476,7 +476,7 @@ class S_model extends CI_Model {
 
     // --------------------------------------------------------------------
     private function _clear() {
-        
+
     }
 
     // --------------------------------------------------------------------

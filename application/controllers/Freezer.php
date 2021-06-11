@@ -30,7 +30,7 @@ class Freezer extends Base_controller {
     function tree()
     {
         $this->load->helper(array('menu', 'dms_search'));
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
 
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 
@@ -42,7 +42,7 @@ class Freezer extends Base_controller {
     // AJAX
     function get_freezers()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         $frzrs = $this->freezer->get_freezers();
         $items = $this->freezer->build_freezer_location_list('Freezer', $frzrs);
@@ -53,7 +53,7 @@ class Freezer extends Base_controller {
     // AJAX
     function get_locations()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         $Type = $this->input->get_post('Type');
         $Freezer = $this->input->get_post('Freezer');
@@ -72,7 +72,7 @@ class Freezer extends Base_controller {
     // AJAX
     function get_containers()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         $location = $this->input->get_post('Location');
 
@@ -85,7 +85,7 @@ class Freezer extends Base_controller {
     // AJAX
     function find_container()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         $container = $this->input->get_post('Container');
 
@@ -98,7 +98,7 @@ class Freezer extends Base_controller {
     // AJAX
     function find_location()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         $location = $this->input->get_post('Location');
 
@@ -111,7 +111,7 @@ class Freezer extends Base_controller {
     // AJAX
     function find_available_location()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         $location = $this->input->get_post('Location');
 
@@ -124,7 +124,7 @@ class Freezer extends Base_controller {
     // AJAX
     function find_newest_containers()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         //$location = $this->input->get_post('Location');
 
@@ -136,7 +136,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function test()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
         $testLocs = array(
             "80B.na.na.na.na",
             "80B.1.na.na.na",
@@ -162,7 +162,7 @@ class Freezer extends Base_controller {
         $data['heading'] = "Freezer Map";
 
         // navbar support
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Detail_Reports');
 
         // populate array of storage locations
@@ -233,7 +233,7 @@ class Freezer extends Base_controller {
         $data['heading'] = "Freezer";
 
         // navbar support
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report');
 
         // optional limits on what to include
@@ -321,7 +321,7 @@ class Freezer extends Base_controller {
         $data['heading'] = "Freezer $freezer_spec Matrix";
 
         // navbar support
-        $this->load->model('dms_menu', 'menu', TRUE);
+        $this->load->model('dms_menu', 'menu', true);
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report');
 
         // table styling
@@ -365,7 +365,7 @@ class Freezer extends Base_controller {
     private
     function freezer_list()
     {
-        $this->load->model('freezer_model', 'freezer', TRUE);
+        $this->load->model('freezer_model', 'freezer', true);
 
         $frzrs = $this->freezer->get_freezers();
         $lst = array();

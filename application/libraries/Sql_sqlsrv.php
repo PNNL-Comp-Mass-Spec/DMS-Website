@@ -14,7 +14,7 @@ class Sql_sqlsrv {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -234,7 +234,7 @@ class Sql_sqlsrv {
                 $str .= " [$col] > DATEADD(Week, -$val, GETDATE()) ";
                 break;
             default:
-                $str .= "TRUE /* '$cmp' unrecognized */";
+                $str .= "true /* '$cmp' unrecognized */";
                 break;
         }
         return $str;
