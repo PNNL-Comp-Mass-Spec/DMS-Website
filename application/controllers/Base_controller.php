@@ -508,7 +508,7 @@ class Base_controller extends CI_Controller {
                 echo '}</script>'."\n";
             }
 
-            $type = !is_string($data) && is_callable($data) ? "Callable" : ucfirst(gettype($data));
+            $type = !is_string($data) && is_callable($data) ? "Callable" : ucfirst(strtolower(gettype($data)));
             $type_data = null;
             $type_color = null;
             $type_length = null;
@@ -536,7 +536,7 @@ class Base_controller extends CI_Controller {
                     $type_length = strlen($data);
                     $type_data = $data ? "true" : "false"; break;
 
-                case "NULL":
+                case "Null":
                     $type_length = 0; break;
 
                 case "Array":
