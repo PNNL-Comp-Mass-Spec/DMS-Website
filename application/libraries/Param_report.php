@@ -13,7 +13,7 @@ class Param_report {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     // --------------------------------------------------------------------
@@ -133,7 +133,9 @@ class Param_report {
             $current_paging_filter_values = array();
         }
 
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source);
+        $options = array("PersistSortColumns" => true);
+
+        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
         return $CI->sproc_model->get_filtered_rows($current_sorting_filter_values, $current_paging_filter_values);
@@ -247,6 +249,8 @@ class Param_report {
 
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
+
+        $options = array("PersistSortColumns" => true);
 
         $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();

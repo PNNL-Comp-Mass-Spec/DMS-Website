@@ -69,6 +69,8 @@ class G_model extends CI_Model {
 
     private $detail_report_aux_info_target = '';
 
+    private $list_report_sort_persist_enabled = true;
+    
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -141,6 +143,11 @@ class G_model extends CI_Model {
         return $this->actions;
     }
 
+    function get_list_report_sort_persist_enabled()
+    {
+        return $this->list_report_sort_persist_enabled;
+    }
+    
     // --------------------------------------------------------------------
     private function get_utility_defs($config_name, $dbFileName)
     {
@@ -240,10 +247,15 @@ class G_model extends CI_Model {
                 $this->titles[$name] = $row['value'];
             } else
             if($row['name'] == 'detail_report_cmds') {
-                    $this->detail_report_cmds = $row['value'];
+                $this->detail_report_cmds = $row['value'];
             } else
             if($row['name'] == 'detail_report_aux_info_target') {
-                    $this->detail_report_aux_info_target = $row['value'];
+                $this->detail_report_aux_info_target = $row['value'];
+            } else
+            if($row['name'] == 'list_report_disable_sort_persist') {
+                if ($row['value'] !== false) {
+                    $this->list_report_sort_persist_enabled = false;
+            }
             } else
             {
                 switch($row['name']) {

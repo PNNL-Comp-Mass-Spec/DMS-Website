@@ -15,7 +15,7 @@ class Sorting_filter {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -24,7 +24,7 @@ class Sorting_filter {
      * @param type $config_name
      * @param type $config_source
      */
-    function init($config_name, $config_source) {
+    function init($config_name, $config_source, $options) {
         $CI =& get_instance();
         $CI->load->helper('cache');
 
@@ -34,12 +34,16 @@ class Sorting_filter {
 
         $this->clear_query_filter();
 
+        $persistSortColumns = $options['PersistSortColumns'];
+
         // try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post();
         if ($state) {
             $this->cur_filter_values = $state;
-            save_to_cache($this->storage_name, $state);
-        } else {
+            if ($persistSortColumns !== false) {
+                save_to_cache($this->storage_name, $state);
+            }
+        } else if ($persistSortColumns !== false) {
             // try to get current values of filters from cache
             $state = get_from_cache($this->storage_name);
             if ($state) {

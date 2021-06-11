@@ -13,7 +13,7 @@ class List_report {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     // --------------------------------------------------------------------
@@ -188,7 +188,12 @@ class List_report {
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
 
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source);
+        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
+
+        $options = array("PersistSortColumns" => $persistSortColumns);
+
+        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
@@ -397,8 +402,13 @@ class List_report {
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_filter_values = $CI->paging_filter->get_current_filter_values();
 
+        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
+
+        $options = array("PersistSortColumns" => $persistSortColumns);
+
         // sorting filter
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source);
+        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
         // add filter values to data model to set up query
@@ -453,7 +463,7 @@ class List_report {
             // Skip those columns when exporting data
             $col_filter = $CI->cell_presentation->get_columns_to_export($rows);
         }
-        
+
         if ($format == 'excel') {
             $CI->cell_presentation->add_color_codes($rows);
             $col_alignment = $CI->cell_presentation->get_column_alignment($rows);

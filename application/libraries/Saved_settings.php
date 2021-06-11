@@ -4,7 +4,7 @@ class Saved_settings {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -52,8 +52,10 @@ class Saved_settings {
         $CI->cu->load_lib('paging_filter', $config_name, $config_source);
         $CI->paging_filter->clear_cached_state();
 
+        $options = array("PersistSortColumns" => true);
+
         // sorting filter
-        $CI->cu->load_lib('sorting_filter', $config_name, $config_source);
+        $CI->cu->load_lib('sorting_filter', $config_name, $config_source, $options);
         $CI->sorting_filter->clear_cached_state();
 
         // column filter (unused)
