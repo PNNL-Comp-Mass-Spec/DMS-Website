@@ -89,6 +89,7 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_organism','Organism','32',
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','20','','Campaign','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_WP','WP','32','','WP','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_Container','Container','32','','Containers','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(8,'pf_assigned_personnel','Assigned Personnel','32','','AssignedPersonnel','ContainsText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','ID','sample_prep_request/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
@@ -142,6 +143,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(24,'Comment','markup','Comment','','
 INSERT INTO "detail_report_hotlinks" VALUES(25,'Plant/Animal Tissue','detail-report','Plant/Animal Tissue','tissue/report/~','valueCol','dl_tissue','');
 INSERT INTO "detail_report_hotlinks" VALUES(26,'Organism','detail-report','Organism','organism/report/~','valueCol','dl_organism','');
 INSERT INTO "detail_report_hotlinks" VALUES(27,'EUS Proposal State','color_label','EUS Proposal State','','valueCol','dl_eus_proposal_state','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
+INSERT INTO "detail_report_hotlinks" VALUES(28,'State','detail-report','State','sample_prep_request_planning/report/-/-/~','valueCol','dl_prep_request_planning','{"HideLinkIfValueMatch":"Closed"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'RequestName','requestName','varchar','input','128','AddUpdateSamplePrepRequest');
 INSERT INTO "sproc_args" VALUES(2,'RequesterPRN','requesterPRN','varchar','input','32','AddUpdateSamplePrepRequest');
