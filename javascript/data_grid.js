@@ -399,6 +399,9 @@ var mainGrid = {
 	        enableCellNavigation: true,
 	        asyncEditorLoading: false,
 	        autoHeight: true,
+	        autosizeColsMode: Slick.GridAutosizeColsMode.FitViewportToCols,
+	        viewportMinWidthPx: 1920,
+	        viewportMaxWidthPx: 65535,
 	        enableColumnReorder: false,
 	        explicitInitialization: true
 	},
