@@ -252,7 +252,7 @@ class Param_report {
 
         $options = array("PersistSortColumns" => true);
 
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source);
+        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
