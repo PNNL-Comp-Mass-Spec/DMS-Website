@@ -31,11 +31,11 @@ from selected items.
 <?= general_visibility_control('Blocking commands', 'blocking_section', '') ?>
 <div id="blocking_section" style="display:none;">
 <div>
-<input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='runBlocking.randomizeWithinBlocks()' id="btn_test" title=""  />
+<input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='runBlocking.randomizeWithinBlocks()' id="btn_randomize title=""  />
 Randomize run order within blocks
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Set Block" onClick='runBlocking.requested_run_batch_blocking.setBlockForSelectedItems()' id="btn_test" title="Set block"  /> Set block for selected requests to
+<input class='button lst_cmd_btn' type="button" value="Set Block" onClick='runBlocking.requested_run_batch_blocking.setBlockForSelectedItems()' id="btn_set_block" title="Set block"  /> Set block for selected requests to
 <input type='input' size='2' id='block_input_setting' value='1' />
 </div>
 <div>
