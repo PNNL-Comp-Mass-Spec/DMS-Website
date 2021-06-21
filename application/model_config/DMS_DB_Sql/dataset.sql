@@ -30,7 +30,7 @@ INSERT INTO "form_fields" VALUES(9,'DS_well_num','Well Number','text','24','50',
 INSERT INTO "form_fields" VALUES(10,'DS_type_name','Dataset Type','text','25','80','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(11,'DS_Oper_PRN','Operator (PRN)','text','20','80','','','','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(12,'DS_comment','Comment','area','','','4','70','','trim|max_length[512]');
-INSERT INTO "form_fields" VALUES(13,'DS_Rating','Interest Rating','text','25','80','','','Unreviewed','trim|default_value[Unknown]|required|max_length[24]');
+INSERT INTO "form_fields" VALUES(13,'DS_Rating','Interest Rating','text','25','80','','','Unreviewed','trim|default_value[Unknown]|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(14,'DS_Request','Request','text','12','24','','','0','trim|required');
 INSERT INTO "form_fields" VALUES(15,'DS_EUSUsageType','EMSL Usage Type','text','50','50','','','(lookup)','trim|max_length[50]|not_contain[(unknown)]');
 INSERT INTO "form_fields" VALUES(16,'DS_EUSProposalID','EMSL Proposal ID','text','10','10','','','(lookup)','trim|max_length[10]');
