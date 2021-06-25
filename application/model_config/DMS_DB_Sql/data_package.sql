@@ -13,6 +13,7 @@ INSERT INTO "general_params" VALUES('operations_sproc','UpdateDataPackageItems')
 INSERT INTO "general_params" VALUES('my_db_group','package');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 INSERT INTO "general_params" VALUES('detail_report_cmds','data_package_cmds');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'Name','Name','text','128','128','','','','trim|max_length[128]|os_filename|min_length[8]');
