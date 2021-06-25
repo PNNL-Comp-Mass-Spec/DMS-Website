@@ -44,7 +44,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'Experiment_Num','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'DS_Instrument_Name','picker.replace','instrumentNameAdminPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'Dataset_Num','list-report.helper','','helper_inst_source/view','DS_Instrument_Name',',','');
-INSERT INTO "form_field_choosers" VALUES(4,'DS_sec_sep','list-report.helper','','helper_dataset_separation_type/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(4,'DS_sec_sep','list-report.helper','','helper_dataset_separation_type/report/-/-/-/-/-/-/-/1','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'DS_Column','picker.replace','LCColumnPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'DS_wellplate_num','picker.replace','wellplatePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'DS_type_name','list-report.helper','','helper_instrument_dataset_type/report','DS_Instrument_Name',',','');
@@ -134,6 +134,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(37,'Experiment Tissue','detail-repor
 INSERT INTO "detail_report_hotlinks" VALUES(38,'LC Column','detail-report','LC Column','lc_column/report/@/-/-','labelCol','dl_lc_column','');
 INSERT INTO "detail_report_hotlinks" VALUES(39,'MASIC QC Link','detail-report','Dataset','reporter_ion_observation_rate/report/-/~','labelCol','dl_rep_ion_obs_rate_list_report','');
 INSERT INTO "detail_report_hotlinks" VALUES(40,'+MASIC QC Link','literal_link','','','valueCol','dl_masic_data','');
+INSERT INTO "detail_report_hotlinks" VALUES(41,'Separation Type','detail-report','Separation Type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO "entry_commands" VALUES(1,'add_trigger','override','Create','','add');
 INSERT INTO "entry_commands" VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');

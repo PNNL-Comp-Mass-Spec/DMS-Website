@@ -89,6 +89,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(17,'Labelling','detail-report','Labe
 INSERT INTO "detail_report_hotlinks" VALUES(18,'+Labelling','detail-report','ID','experiment_plex_members/report/','labelCol','dl_labelling_plex_id','{"HideLinkIfValueMatch":"none"}');
 INSERT INTO "detail_report_hotlinks" VALUES(19,'Experiment','detail-report','ID','experimentid/show','labelCol','dl_experiment_id','');
 INSERT INTO "detail_report_hotlinks" VALUES(20,'ID','detail-report','ID','experimentid/show','labelCol','dl_experiment_id_from_name','');
+INSERT INTO "detail_report_hotlinks" VALUES(21,'Digestion Enzyme','detail-report','Digestion Enzyme','enzymes/report/-/~','labelCol','dl_enzyme','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'sample_prep_request','experimentNum','ColName','Sample Group Naming Prefix');
 INSERT INTO "external_sources" VALUES(2,'sample_prep_request','campaignNum','ColName','Campaign');

@@ -77,6 +77,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(34,'Dataset','detail-report','Datase
 INSERT INTO "detail_report_hotlinks" VALUES(35,'SHA1 Hash','detail-report','ID','dataset_file/report/','labelCol','dl_dataset_file','');
 INSERT INTO "detail_report_hotlinks" VALUES(36,'Experiment Tissue','detail-report','Experiment Tissue','tissue/report/~','labelCol','dl_experiment_tissue','');
 INSERT INTO "detail_report_hotlinks" VALUES(37,'LC Column','detail-report','LC Column','lc_column/report/@/-/-','labelCol','dl_lc_column','');
+INSERT INTO "detail_report_hotlinks" VALUES(38,'Separation Type','detail-report','Separation Type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO "primary_filter_choosers" VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO "primary_filter_choosers" VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
@@ -135,7 +136,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'Experiment_Num','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'DS_Instrument_Name','picker.replace','instrumentNameAdminPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'Dataset_Num','list-report.helper','','helper_inst_source/view','DS_Instrument_Name',',','');
-INSERT INTO "form_field_choosers" VALUES(4,'DS_sec_sep','list-report.helper','','helper_dataset_separation_type/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(4,'DS_sec_sep','list-report.helper','','helper_dataset_separation_type/report/-/-/-/-/-/-/-/1','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'DS_Column','picker.replace','LCColumnPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'DS_wellplate_num','picker.replace','wellplatePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'DS_type_name','list-report.helper','','helper_instrument_dataset_type/report','DS_Instrument_Name',',','');
