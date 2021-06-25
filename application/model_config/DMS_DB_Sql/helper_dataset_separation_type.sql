@@ -15,4 +15,5 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_sample_type','Sample Type'
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_dataset_usage_last_12_months','Usage (12 Mo)','20','','Usage Last 12 Months','GreaterThanOrEqualTo','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_dataset_usage_all_years','Usage All','20','','Dataset Usage All Years','GreaterThanOrEqualTo','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_use','Most Recent','20','','Most Recent Use','LaterThan','text','20','','');
+INSERT INTO "list_report_primary_filter" VALUES(8,'pf_active','Active','10!','','Active','Equals','text','20','','');
 COMMIT;
