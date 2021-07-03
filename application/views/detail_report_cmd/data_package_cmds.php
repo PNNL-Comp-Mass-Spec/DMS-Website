@@ -51,8 +51,17 @@
     </table>
 
     <div style='margin-top:4px;'>
-    <input class='button lst_cmd_btn' type='button' value='Add items to package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
-    <input class='button lst_cmd_btn' type='button' value='Delete items from package' onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
+    <input class='button lst_cmd_btn' type='button'
+           value='Add items to package'
+           onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "add")' />
+
+    <input class='button lst_cmd_btn' type='button'
+           value='Update package comment for items'
+           onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "comment")' />
+
+    <input class='button lst_cmd_btn' type='button'
+           value='Delete items from package'
+           onclick='packages.updateDataPackageItems("<?= $id ?>", "entry_form", "delete")' />
 
     <label>
         <?php // This should default to unchecked on this page (thus, we leave off the checked attribute) ?>
