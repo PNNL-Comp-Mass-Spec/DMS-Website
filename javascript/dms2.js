@@ -1428,6 +1428,8 @@ var delta = {
      * @returns {undefined}
      */
 	updateShowSQL: function () {
+        // POST a request to a report_info/sql page
+        // For example http://dms2.pnl.gov/dataset_qc/report_info/sql
 		gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL');
 	},
     /**
@@ -1435,11 +1437,10 @@ var delta = {
      * @returns {undefined}
      */
 	updateShowURL: function() {
-
+        // POST a request to a report_info/url page
+        // For example http://dms2.pnl.gov/dataset_qc/report_info/url
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/show/' + gamma.pageContext.Id;
-
 		gamma.updateMessageBoxText(url, 'URL');
-
 	}
 
 };	//delta

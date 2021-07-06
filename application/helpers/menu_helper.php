@@ -344,7 +344,7 @@ function get_menu_context($page_type) {
             $menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
             break;
         case 'Detail_Reports' :
-            // Call function updateMessageBox in dms2.js to obtain the SQL behind the given list report
+            // Call function updateMessageBox in dms2.js to obtain the SQL behind the given detail report
             $menu_context['sql_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowSQL)";
             $menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
             break;
