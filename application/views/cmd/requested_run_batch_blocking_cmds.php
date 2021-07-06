@@ -31,7 +31,7 @@ from selected items.
 <?= general_visibility_control('Blocking commands', 'blocking_section', '') ?>
 <div id="blocking_section" style="display:none;">
 <div>
-<input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='runBlocking.randomizeWithinBlocks()' id="btn_randomize title=""  />
+<input class='button lst_cmd_btn' type="button" value="Randomize Run Order" onClick='runBlocking.randomizeWithinBlocks()' id="btn_randomize_title"  />
 Randomize run order within blocks
 </div>
 <div>
