@@ -19,7 +19,7 @@ INSERT INTO "form_fields" VALUES(3,'researcherPRN','Researcher (PRN)','text','40
 INSERT INTO "form_fields" VALUES(4,'organismName','Organism Name','text','40','80','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(5,'reason','Reason for Experiment','area','','','4','50','','trim|required|max_length[500]');
 INSERT INTO "form_fields" VALUES(6,'tissue','Plant/Animal Tissue','text','50','128','','','','trim|max_length[128]');
-INSERT INTO "form_fields" VALUES(7,'cellCultureList','Cell Culture','area','','','2','40','','trim|max_length[2048]');
+INSERT INTO "form_fields" VALUES(7,'cellCultureList','Biomaterial (Cell Culture)','area','','','2','40','','trim|max_length[2048]');
 INSERT INTO "form_fields" VALUES(8,'referenceCompoundList','Reference Compounds','area','','','3','60','','trim|max_length[2048]');
 INSERT INTO "form_fields" VALUES(9,'sampleConcentration','Smpl. Concentration','text','40','80','','','','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(10,'enzymeName','Digestion Enzyme','text','40','50','','','Trypsin','trim|required|max_length[50]');
