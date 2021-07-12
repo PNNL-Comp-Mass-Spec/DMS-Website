@@ -14,7 +14,15 @@ class Run_op_logs extends Grid {
 
         $this->my_tag = "run_op_logs";
         $this->my_title = "Operation Logs";
+    }
 
+    // --------------------------------------------------------------------
+    // Overrides index() in Grid.php
+    function index()
+    {
+        // Don't show the "Editing Grid Demonstration Pages".
+        // Redirect to the appropriate grid editing page
+        redirect($this->my_tag.'/grid');
     }
 
     // --------------------------------------------------------------------

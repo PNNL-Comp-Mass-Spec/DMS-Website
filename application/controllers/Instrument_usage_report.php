@@ -17,6 +17,15 @@ class Instrument_usage_report extends Grid {
     }
 
     // --------------------------------------------------------------------
+    // Overrides index() in Grid.php
+    function index()
+    {
+        // Don't show the "Editing Grid Demonstration Pages".
+        // Redirect to the appropriate grid editing page
+        redirect($this->my_tag.'/grid');
+    }
+
+    // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     function grid() {
 //      $this->my_tag = "instrument_usage";
