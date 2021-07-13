@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class requested_run_fraction extends Base_controller {
+class Requested_run_fraction extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class requested_run_fraction extends Base_controller {
         $this->my_title = "Requested Run Fraction";
     }
 }
-
-
 ?>

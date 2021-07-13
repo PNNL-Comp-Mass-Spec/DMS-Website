@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Capture_script extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -54,7 +52,5 @@ class Capture_script extends Base_controller {
         echo '<img src="'.base_url().$fo.'" ></img>';
     }
 */
-
-
 }
 ?>

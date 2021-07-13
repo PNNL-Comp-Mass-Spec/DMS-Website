@@ -1,5 +1,5 @@
 <?php
-require("Grid.php");
+namespace App\Controllers;
 
 class Requested_run_batch_blocking extends Grid {
     // --------------------------------------------------------------------
@@ -32,6 +32,5 @@ class Requested_run_batch_blocking extends Grid {
     function grid_data() {
         $this->grid_data_from_sproc('requested_run_data_sproc', $this->my_tag);
     }
-
 }
 ?>

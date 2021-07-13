@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Experiment_fraction extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Experiment_fraction extends Base_controller {
         $this->my_tag = "experiment_fraction";
         $this->my_title = "Experiment Fractions";
     }
-
 }
 ?>

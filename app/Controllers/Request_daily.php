@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Request_daily extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Request_daily extends Base_controller {
         $this->my_tag = "request_daily";
         $this->my_title = "Completed Requested Runs Daily Totals";
     }
-
 }
 ?>

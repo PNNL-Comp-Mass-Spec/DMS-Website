@@ -1,5 +1,5 @@
 <?php
-//require("Base_controller.php");
+namespace App\Controllers;
 
 class Lc_cart_controller_graphic extends CI_Controller {
 

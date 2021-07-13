@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_organism_db extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Helper_organism_db extends Base_controller {
         $this->my_title = "Organism DB Helper";
     }
 }
-
-
 ?>

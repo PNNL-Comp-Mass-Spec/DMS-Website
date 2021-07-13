@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 
 class Chooser extends CI_Controller {
 
@@ -69,5 +70,5 @@ class Chooser extends CI_Controller {
         $x = $this->choosers->get_filtered_choices($chooser_name, $filter_value);
         echo json_encode($x);
     }
-
 }
+?>

@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Experiment_stats extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Experiment_stats extends Base_controller {
         $this->my_tag = "experiment_stats";
         $this->my_title = "Experiment Stats";
     }
-
 }
 ?>

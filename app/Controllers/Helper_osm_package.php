@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_osm_package extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -11,8 +10,6 @@ class Helper_osm_package extends Base_controller {
 
         $this->my_tag = "helper_osm_package";
         $this->my_title = "OSM Package Helper";
-
     }
-
 }
 ?>

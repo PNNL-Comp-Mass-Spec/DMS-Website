@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Capture_local_processors extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Capture_local_processors extends Base_controller {
         $this->my_tag = "capture_local_processors";
         $this->my_title = "Capture Local Processors";
     }
-
 }
 ?>

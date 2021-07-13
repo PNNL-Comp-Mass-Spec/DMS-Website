@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_campaign extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Helper_campaign extends Base_controller {
         $this->my_tag = "helper_campaign";
         $this->my_title = "Campaign Helper";
     }
-
 }
 ?>

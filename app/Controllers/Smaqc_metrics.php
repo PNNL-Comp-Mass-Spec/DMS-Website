@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Smaqc_metrics extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Smaqc_metrics extends Base_controller {
         $this->my_title = "SMAQC Metrics";
     }
 }
-
-
 ?>

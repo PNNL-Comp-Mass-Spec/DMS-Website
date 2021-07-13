@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Analysis_daily_check extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Analysis_daily_check extends Base_controller {
         $this->my_tag = "analysis_daily_check";
         $this->my_title = "Analysis Job Daily Check";
     }
-
 }
 ?>

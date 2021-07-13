@@ -1,5 +1,5 @@
 <?php
-require("Grid.php");
+namespace App\Controllers;
 
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');

@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 
 /**
  * Features related to utility_queries table (mostly developmental at this point)
@@ -270,5 +271,5 @@ class Data extends CI_Controller {
         $this->load->vars($data);
         $this->load->view('basic');
     }
-
 }
+?>

@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_eus_user extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Helper_eus_user extends Base_controller {
         $this->my_title = "EMSL User Helper";
     }
 }
-
-
 ?>

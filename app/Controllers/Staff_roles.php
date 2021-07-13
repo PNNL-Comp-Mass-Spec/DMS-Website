@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Staff_roles extends Base_controller {
     // --------------------------------------------------------------------

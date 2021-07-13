@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class mass_correction_factors extends Base_controller {
+class Mass_correction_factors extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class mass_correction_factors extends Base_controller {
         $this->my_title = "Mass Correction Factors";
     }
 }
-
-
 ?>

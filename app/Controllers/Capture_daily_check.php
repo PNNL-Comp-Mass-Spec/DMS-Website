@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Capture_daily_check extends Base_controller {
     // --------------------------------------------------------------------

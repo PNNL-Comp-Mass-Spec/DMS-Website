@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class sample_prep_request_planning extends Base_controller {
+class Sample_prep_request_planning extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class sample_prep_request_planning extends Base_controller {
         $this->my_title = "Sample Prep Request Planning";
     }
 }
-
-
 ?>

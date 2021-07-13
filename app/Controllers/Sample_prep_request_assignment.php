@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Sample_prep_request_assignment extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +11,5 @@ class Sample_prep_request_assignment extends Base_controller {
         $this->my_tag = "sample_prep_request_assignment";
         $this->my_title = "Sample Prep Request Assignment";
     }
-
 }
 ?>

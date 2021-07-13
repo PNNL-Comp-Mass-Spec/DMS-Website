@@ -1,5 +1,5 @@
 <?php
-require("Grid.php");
+namespace App\Controllers;
 
 class Factors extends Grid {
     // --------------------------------------------------------------------
@@ -32,6 +32,5 @@ class Factors extends Grid {
         $this->my_tag = "factors";
         $this->grid_data_from_sproc('list_report_sproc', 'requested_run_factors');
     }
-
 }
 ?>

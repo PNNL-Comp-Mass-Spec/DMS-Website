@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Instrumentid extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Instrumentid extends Base_controller {
         $this->my_tag = "instrumentid";
         $this->my_title = "Instrument ID";
     }
-
 }
 ?>

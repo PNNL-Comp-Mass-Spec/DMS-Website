@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Data_package_dataset extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {

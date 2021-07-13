@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Eus_proposals extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Eus_proposals extends Base_controller {
         $this->my_tag = "eus_proposals";
         $this->my_title = "EUS Proposals";
     }
-
 }
 ?>

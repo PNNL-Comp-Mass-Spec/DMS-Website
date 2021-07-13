@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Predefined_analysis_preview extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Predefined_analysis_preview extends Base_controller {
         $this->my_tag = "predefined_analysis_preview";
         $this->my_title = "Preview Predefined Analyses";
     }
-
 }
 ?>

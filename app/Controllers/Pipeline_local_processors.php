@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Pipeline_local_processors extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Pipeline_local_processors extends Base_controller {
         $this->my_tag = "pipeline_local_processors";
         $this->my_title = "Pipeline Local Processors";
     }
-
 }
 ?>

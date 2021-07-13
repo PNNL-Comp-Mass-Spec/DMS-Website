@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class residue extends Base_controller {
+class Residue extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class residue extends Base_controller {
         $this->my_title = "Residue";
     }
 }
-
-
 ?>

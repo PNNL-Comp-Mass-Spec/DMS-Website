@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class experimentid extends Base_controller {
+class Experimentid extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class experimentid extends Base_controller {
         $this->my_title = "Experiment ID";
     }
 }
-
-
 ?>

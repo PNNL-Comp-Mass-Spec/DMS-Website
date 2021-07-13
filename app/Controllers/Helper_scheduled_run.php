@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_scheduled_run extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Helper_scheduled_run extends Base_controller {
         $this->my_tag = "helper_scheduled_run";
         $this->my_title = "Scheduled Run Helper";
     }
-
 }
 ?>

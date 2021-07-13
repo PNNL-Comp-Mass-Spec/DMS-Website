@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Gen extends CI_Controller {
 
@@ -255,5 +255,5 @@ class Gen extends CI_Controller {
         $this->load->view('special/statistics');
 
     }
-
 }
+?>

@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Capture_step_tools extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Capture_step_tools extends Base_controller {
         $this->my_tag = "capture_step_tools";
         $this->my_title = "Step Tools";
     }
-
 }
 ?>

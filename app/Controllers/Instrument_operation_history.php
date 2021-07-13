@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Instrument_operation_history extends Base_controller {
     // --------------------------------------------------------------------

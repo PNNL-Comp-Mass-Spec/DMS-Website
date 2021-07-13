@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Lc_cart_request_loading extends Base_controller {
     // --------------------------------------------------------------------

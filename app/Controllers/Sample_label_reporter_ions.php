@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class sample_label_reporter_ions extends Base_controller {
+class Sample_label_reporter_ions extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class sample_label_reporter_ions extends Base_controller {
         $this->my_title = "Sample Label Reporter Ions";
     }
 }
-
-
 ?>

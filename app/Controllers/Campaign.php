@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Campaign extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -11,8 +10,6 @@ class Campaign extends Base_controller {
 
         $this->my_tag = "campaign";
         $this->my_title = "Campaign";
-
     }
-
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Statistics_entities_by_year extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Statistics_entities_by_year extends Base_controller {
         $this->my_title = "Statistics Entities By Year";
     }
 }
-
-
 ?>

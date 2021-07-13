@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_lc_cart_component extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Helper_lc_cart_component extends Base_controller {
         $this->my_tag = "helper_lc_cart_component";
         $this->my_title = "LC Cart Component";
     }
-
 }
 ?>

@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Analysis_job_processor_group_membership extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Analysis_job_processor_group_membership extends Base_controller {
         $this->my_tag = "analysis_job_processor_group_membership";
         $this->my_title = "Analysis Job Processor Group Membership";
     }
-
 }
 ?>

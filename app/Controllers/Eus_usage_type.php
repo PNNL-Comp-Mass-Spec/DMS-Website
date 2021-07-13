@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class eus_usage_type extends Base_controller {
+class Eus_usage_type extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class eus_usage_type extends Base_controller {
         $this->my_title = "EUS Usage Type";
     }
 }
-
-
 ?>

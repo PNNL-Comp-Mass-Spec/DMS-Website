@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class data_package_experiment_plex_members extends Base_controller {
+class Data_package_experiment_plex_members extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class data_package_experiment_plex_members extends Base_controller {
         $this->my_title = "Data Package Experiment Plex Members";
     }
 }
-
-
 ?>

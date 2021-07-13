@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Predefined_analysis_scheduling_rules extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Predefined_analysis_scheduling_rules extends Base_controller {
         $this->my_tag = "predefined_analysis_scheduling_rules";
         $this->my_title = "Predefined Analysis Scheduling Rules";
     }
-
 }
 ?>

@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Production_instrument_stats extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Production_instrument_stats extends Base_controller {
         $this->my_tag = "production_instrument_stats";
         $this->my_title = "Dataset Production Statistics";
     }
-
 }
 ?>

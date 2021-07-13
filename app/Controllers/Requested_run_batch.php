@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Requested_run_batch extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Requested_run_batch extends Base_controller {
         $this->my_tag = "requested_run_batch";
         $this->my_title = "Requested Run Batch";
     }
-
 }
 ?>

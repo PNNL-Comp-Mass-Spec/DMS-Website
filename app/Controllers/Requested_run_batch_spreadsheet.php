@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Requested_run_batch_spreadsheet extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -16,6 +14,5 @@ class Requested_run_batch_spreadsheet extends Base_controller {
         $this->my_create_action = "enter";
         $this->my_edit_action = "enter";
     }
-
 }
 ?>

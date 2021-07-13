@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Pipeline_mac_job_request extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Pipeline_mac_job_request extends Base_controller {
         $this->my_tag = "pipeline_mac_job_request";
         $this->my_title = "Pipeline MAC Job Request";
     }
-
 }
 ?>

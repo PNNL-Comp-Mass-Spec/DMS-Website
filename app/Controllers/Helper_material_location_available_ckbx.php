@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_material_location_available_ckbx extends Base_controller {
     // --------------------------------------------------------------------

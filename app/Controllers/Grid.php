@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
@@ -145,6 +145,5 @@ class Grid extends Base_controller {
         }
         $this->grid_data_from_query();
     }
-
 }
 ?>

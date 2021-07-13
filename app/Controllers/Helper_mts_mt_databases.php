@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_mts_mt_databases extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Helper_mts_mt_databases extends Base_controller {
         $this->my_tag = "helper_mts_mt_databases";
         $this->my_title = "Mass Tag Databases";
     }
-
 }
 ?>

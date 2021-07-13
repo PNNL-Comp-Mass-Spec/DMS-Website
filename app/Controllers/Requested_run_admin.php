@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Requested_run_admin extends Base_controller {
     // --------------------------------------------------------------------

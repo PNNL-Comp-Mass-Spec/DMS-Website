@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class predefined_analysis_scheduling_queue extends Base_controller {
+class Predefined_analysis_scheduling_queue extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class predefined_analysis_scheduling_queue extends Base_controller {
         $this->my_title = "Predefined Analysis Scheduling Queue";
     }
 }
-
-
 ?>

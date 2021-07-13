@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Mts_pt_db_jobs extends Base_controller {
     // --------------------------------------------------------------------

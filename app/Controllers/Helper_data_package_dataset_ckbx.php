@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_data_package_dataset_ckbx extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {

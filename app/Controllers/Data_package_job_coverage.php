@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Data_package_job_coverage extends Base_controller {
     // --------------------------------------------------------------------

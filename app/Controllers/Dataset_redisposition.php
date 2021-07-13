@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Dataset_redisposition extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Dataset_redisposition extends Base_controller {
         $this->my_tag = "dataset_redisposition";
         $this->my_title = "Dataset Redisposition";
     }
-
 }
 ?>

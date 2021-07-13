@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Custom_factors extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Custom_factors extends Base_controller {
         $this->my_title = "Custom Factors";
     }
 }
-
-
 ?>

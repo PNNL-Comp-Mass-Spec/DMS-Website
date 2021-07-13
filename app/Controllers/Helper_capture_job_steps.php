@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_capture_job_steps extends Base_controller {
     // --------------------------------------------------------------------

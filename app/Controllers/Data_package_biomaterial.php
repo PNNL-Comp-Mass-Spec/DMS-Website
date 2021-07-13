@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Data_package_biomaterial extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {

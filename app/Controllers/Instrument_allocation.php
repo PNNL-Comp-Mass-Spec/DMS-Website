@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Instrument_allocation extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +11,5 @@ class Instrument_allocation extends Base_controller {
         $this->my_tag = "instrument_allocation";
         $this->my_title = "Instrument Allocation";
     }
-
 }
 ?>

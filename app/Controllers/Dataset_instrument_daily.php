@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Dataset_instrument_daily extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Dataset_instrument_daily extends Base_controller {
         $this->my_tag = "dataset_instrument_daily";
         $this->my_title = "Dataset Daily Totals By Instrument";
     }
-
 }
 ?>

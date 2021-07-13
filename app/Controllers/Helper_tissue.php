@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class helper_tissue extends Base_controller {
+class Helper_tissue extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class helper_tissue extends Base_controller {
         $this->my_title = "Tissue Helper";
     }
 }
-
-
 ?>

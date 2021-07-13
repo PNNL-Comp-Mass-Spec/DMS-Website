@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class maxquant_mods extends Base_controller {
+class Maxquant_mods extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class maxquant_mods extends Base_controller {
         $this->my_title = "MaxQuant Mods";
     }
 }
-
-
 ?>

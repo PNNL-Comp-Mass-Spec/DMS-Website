@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Mac_jobs extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {

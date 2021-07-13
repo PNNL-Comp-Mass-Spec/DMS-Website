@@ -1,7 +1,7 @@
 <?php
+namespace App\Controllers;
 
 class Unit_Test extends CI_Controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -29,6 +29,5 @@ class Unit_Test extends CI_Controller {
         $this->load->vars($data);
         $this->load->view('unit_tests/test_frame');
     }
-
 }
 ?>

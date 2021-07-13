@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 /**
  * Helper class
@@ -875,5 +875,5 @@ class File_attachment extends Base_controller {
             echo $e->getMessage();
         }
     }
-
 }
+?>

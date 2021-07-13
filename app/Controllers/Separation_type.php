@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class separation_type extends Base_controller {
+class Separation_type extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class separation_type extends Base_controller {
         $this->my_title = "Separation Type";
     }
 }
-
-
 ?>

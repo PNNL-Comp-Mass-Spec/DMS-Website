@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Charge_code extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Charge_code extends Base_controller {
         $this->my_title = "Charge Code";
     }
 }
-
-
 ?>

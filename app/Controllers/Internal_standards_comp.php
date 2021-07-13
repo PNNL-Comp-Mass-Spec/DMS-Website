@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Internal_standards_comp extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Internal_standards_comp extends Base_controller {
         $this->my_tag = "internal_standards_comp";
         $this->my_title = "Internal Standards Composition";
     }
-
 }
 ?>

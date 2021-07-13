@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Update_analysis_jobs extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Update_analysis_jobs extends Base_controller {
         $this->my_tag = "update_analysis_jobs";
         $this->my_title = "Update Analysis Jobs";
     }
-
 }
 ?>

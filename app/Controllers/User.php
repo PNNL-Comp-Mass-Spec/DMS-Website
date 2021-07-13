@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class User extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class User extends Base_controller {
         $this->my_tag = "user";
         $this->my_title = "Users";
     }
-
 }
 ?>

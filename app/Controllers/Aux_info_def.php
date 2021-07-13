@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Aux_info_def extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {

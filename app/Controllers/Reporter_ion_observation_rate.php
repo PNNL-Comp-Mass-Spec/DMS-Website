@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class reporter_ion_observation_rate extends Base_controller {
+class Reporter_ion_observation_rate extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class reporter_ion_observation_rate extends Base_controller {
         $this->my_title = "Reporter Ion Observation Rate";
     }
 }
-
-
 ?>

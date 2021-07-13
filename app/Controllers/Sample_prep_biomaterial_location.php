@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Sample_prep_biomaterial_location extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {

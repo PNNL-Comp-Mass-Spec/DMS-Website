@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_dataset_capture_job_steps_ckbx extends Base_controller {
     // --------------------------------------------------------------------

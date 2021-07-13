@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Prep_lc_capture_job extends Base_controller {
     // --------------------------------------------------------------------

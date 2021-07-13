@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Lc_column extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Lc_column extends Base_controller {
         $this->my_tag = "lc_column";
         $this->my_title = "LC Column";
     }
-
 }
 ?>

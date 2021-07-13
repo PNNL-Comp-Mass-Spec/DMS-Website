@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class reference_compound extends Base_controller {
+class Reference_compound extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class reference_compound extends Base_controller {
         $this->my_title = "Reference Compound";
     }
 }
-
-
 ?>

@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Osm_package extends Base_controller {
     // --------------------------------------------------------------------
@@ -29,6 +29,4 @@ class Osm_package extends Base_controller {
     }
  */
 }
-
-
 ?>

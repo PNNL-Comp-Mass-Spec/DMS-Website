@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Prep_instrument_history extends Base_controller {
     // --------------------------------------------------------------------

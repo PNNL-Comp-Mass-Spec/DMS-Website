@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Dataset extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +11,5 @@ class Dataset extends Base_controller {
         $this->my_tag = "dataset";
         $this->my_title = "Dataset";
     }
-
 }
 ?>

@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Existing_jobs_for_request extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Existing_jobs_for_request extends Base_controller {
         $this->my_tag = "existing_jobs_for_request";
         $this->my_title = "Existing Jobs For Request";
     }
-
 }
 ?>

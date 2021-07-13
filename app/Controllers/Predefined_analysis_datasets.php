@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Predefined_analysis_datasets extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +11,5 @@ class Predefined_analysis_datasets extends Base_controller {
         $this->my_tag = "predefined_analysis_datasets";
         $this->my_title = "Datasets For Predefined Analysis";
     }
-
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Data_package extends Base_controller {
 
@@ -98,6 +98,5 @@ class Data_package extends Base_controller {
         }
         echo "</metadata>\n";
     }
-
 }
 ?>

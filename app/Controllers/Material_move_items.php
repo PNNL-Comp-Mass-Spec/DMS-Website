@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Material_move_items extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Material_move_items extends Base_controller {
         $this->my_tag = "material_move_items";
         $this->my_title = "Move Material Items";
     }
-
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Mc_params extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Mc_params extends Base_controller {
         $this->my_title = "Manager Control Parameters";
     }
 }
-
-
 ?>

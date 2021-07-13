@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Storage_recent_changes extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Storage_recent_changes extends Base_controller {
         $this->my_tag = "storage_recent_changes";
         $this->my_title = "Storage Recent Changes";
     }
-
 }
 ?>

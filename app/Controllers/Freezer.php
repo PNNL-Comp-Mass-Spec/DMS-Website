@@ -1,10 +1,9 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Freezer extends Base_controller {
 
     var $my_tag = "freezer";
-
 
     // --------------------------------------------------------------------
     function __construct()
@@ -378,6 +377,5 @@ class Freezer extends Base_controller {
         }
         return $lst;
     }
-
 }
 ?>

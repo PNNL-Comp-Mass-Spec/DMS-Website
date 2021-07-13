@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Archive extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Archive extends Base_controller {
         $this->my_tag = "archive";
         $this->my_title = "Archive";
     }
-
 }
 ?>

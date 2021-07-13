@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Cell_culture extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Cell_culture extends Base_controller {
         $this->my_tag = "cell_culture";
         $this->my_title = "Cell Culture";
     }
-
 }
 ?>

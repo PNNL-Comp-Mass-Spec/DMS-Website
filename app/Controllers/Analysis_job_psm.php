@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Analysis_job_psm extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Analysis_job_psm extends Base_controller {
         $this->my_title = "Analysis Job PSM";
     }
 }
-
-
 ?>

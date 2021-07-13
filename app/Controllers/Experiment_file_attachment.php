@@ -1,5 +1,5 @@
 <?php
-require("File_attachment.php");
+namespace App\Controllers;
 
 /**
  * This class is only needed for the /experiment_file_attachment report page
@@ -26,6 +26,4 @@ class Experiment_file_attachment extends File_attachment {
      *  returns lc_cart_configuration/spread/101
      */
 }
-
-
 ?>

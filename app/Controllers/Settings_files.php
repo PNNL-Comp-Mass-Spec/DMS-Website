@@ -1,10 +1,7 @@
-
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Settings_files extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -14,6 +11,5 @@ class Settings_files extends Base_controller {
         $this->my_tag = "settings_files";
         $this->my_title = "Settings File";
     }
-
 }
 ?>

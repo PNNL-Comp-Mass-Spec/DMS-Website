@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Lc_cart_config_history extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Lc_cart_config_history extends Base_controller {
         $this->my_title = "LC Cart Service Note";
     }
 }
-
-
 ?>

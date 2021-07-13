@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_internal_standards_postdigest extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Helper_internal_standards_postdigest extends Base_controller {
         $this->my_tag = "helper_internal_standards_postdigest";
         $this->my_title = "Internal standards for postdigest";
     }
-
 }
 ?>

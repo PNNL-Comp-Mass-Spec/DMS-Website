@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Sample_submission extends Base_controller {
     // --------------------------------------------------------------------

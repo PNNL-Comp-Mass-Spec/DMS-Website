@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Analysis_job_request_psm extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,7 +11,6 @@ class Analysis_job_request_psm extends Base_controller {
         $this->my_tag = "analysis_job_request_psm";
         $this->my_title = "PSM Analysis Job Request";
     }
-
 
     // --------------------------------------------------------------------
     private
@@ -95,5 +93,5 @@ class Analysis_job_request_psm extends Base_controller {
 
         return $s;
     }
-
 }
+?>

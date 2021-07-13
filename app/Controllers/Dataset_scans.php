@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Dataset_scans extends Base_controller {
     // --------------------------------------------------------------------

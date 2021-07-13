@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Archive_daily_check extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Archive_daily_check extends Base_controller {
         $this->my_tag = "archive_daily_check";
         $this->my_title = "Archive Daily Check Report";
     }
-
 }
 ?>

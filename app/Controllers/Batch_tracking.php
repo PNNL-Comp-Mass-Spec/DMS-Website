@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Batch_tracking extends Base_controller {
     // --------------------------------------------------------------------

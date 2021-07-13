@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Mrm_list_attachment extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -36,7 +35,5 @@ class Mrm_list_attachment extends Base_controller {
         header("Content-Disposition: attachment; filename=$filename");
         echo $file_info->Contents;
     }
-
-
 }
 ?>

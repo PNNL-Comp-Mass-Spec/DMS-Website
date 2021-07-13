@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class campaign_dataset_stats extends Base_controller {
+class Campaign_dataset_stats extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class campaign_dataset_stats extends Base_controller {
         $this->my_title = "Campaign Dataset Stats";
     }
 }
-
-
 ?>

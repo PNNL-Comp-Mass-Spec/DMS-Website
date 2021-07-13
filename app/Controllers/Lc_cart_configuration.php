@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class lc_cart_configuration extends Base_controller {
+class Lc_cart_configuration extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class lc_cart_configuration extends Base_controller {
         $this->my_title = "LC Cart Configuration";
     }
 }
-
-
 ?>

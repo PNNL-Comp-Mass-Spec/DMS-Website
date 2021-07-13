@@ -1,5 +1,5 @@
 <?php
-//require("Base_controller.php");
+namespace App\Controllers;
 
 class Ers extends CI_Controller {
 
@@ -134,7 +134,6 @@ class Ers extends CI_Controller {
             echo "<tr><td>$id</td><td>$title</td><td>$s</td></tr>\n";
         }
         echo "</table>";
-
     }
-
 }
+?>

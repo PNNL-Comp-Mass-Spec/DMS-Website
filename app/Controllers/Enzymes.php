@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class enzymes extends Base_controller {
+class Enzymes extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class enzymes extends Base_controller {
         $this->my_title = "Enzymes";
     }
 }
-
-
 ?>

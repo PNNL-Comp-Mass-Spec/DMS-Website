@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class datasetid extends Base_controller {
+class Datasetid extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class datasetid extends Base_controller {
         $this->my_title = "Dataset ID";
     }
 }
-
-
 ?>

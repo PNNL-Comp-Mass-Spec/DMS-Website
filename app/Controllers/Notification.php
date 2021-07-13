@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 /**
  * This controller allows users to sign up to be notified of
@@ -209,5 +209,5 @@ class Notification extends Base_controller {
             }
         }
     }
-
 }
+?>

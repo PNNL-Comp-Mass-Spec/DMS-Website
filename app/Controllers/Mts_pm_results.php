@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Mts_pm_results extends Base_controller {
     // --------------------------------------------------------------------

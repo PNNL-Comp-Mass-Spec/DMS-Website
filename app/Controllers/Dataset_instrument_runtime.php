@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Dataset_instrument_runtime extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {

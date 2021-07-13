@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Lc_column_dataset extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Lc_column_dataset extends Base_controller {
         $this->my_tag = "lc_column_dataset";
         $this->my_title = "LC Column Datasets";
     }
-
 }
 ?>

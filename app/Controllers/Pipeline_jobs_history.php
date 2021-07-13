@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Pipeline_jobs_history extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Pipeline_jobs_history extends Base_controller {
         $this->my_title = "Pipeline Jobs History";
     }
 }
-
-
 ?>

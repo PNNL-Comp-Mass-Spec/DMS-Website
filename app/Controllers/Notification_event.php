@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Notification_event extends Base_controller {
     // --------------------------------------------------------------------

@@ -1,8 +1,7 @@
 <?php
+namespace App\Controllers;
 
 class Pipeline extends CI_Controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -27,6 +26,5 @@ class Pipeline extends CI_Controller {
 
         echo ul($links);
     }
-
 }
 ?>

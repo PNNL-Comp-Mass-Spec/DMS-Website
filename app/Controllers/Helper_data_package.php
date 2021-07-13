@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_data_package extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Helper_data_package extends Base_controller {
         $this->my_tag = "helper_data_package";
         $this->my_title = "Data Package Helper";
     }
-
 }
 ?>

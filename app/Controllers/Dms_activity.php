@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Dms_activity extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Dms_activity extends Base_controller {
         $this->my_tag = "dms_activity";
         $this->my_title = "DMS Activity";
     }
-
 }
 ?>

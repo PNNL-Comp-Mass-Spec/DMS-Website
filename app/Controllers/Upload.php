@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
@@ -665,6 +665,5 @@ class Upload extends Base_controller {
         //print_r($def);
         $this->supported_entities = $def;
     }
-
 }
-
+?>

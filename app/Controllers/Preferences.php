@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 
 class Preferences extends CI_Controller {
 
@@ -102,7 +103,7 @@ class Preferences extends CI_Controller {
 
         // generate the column list
         $value = implode(', ', $segs);
-echo $value;
+        echo $value;
         $_SESSION[$name] = $value;
     }
 }

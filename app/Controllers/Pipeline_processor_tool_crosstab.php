@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Pipeline_processor_tool_crosstab extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Pipeline_processor_tool_crosstab extends Base_controller {
         $this->my_tag = "pipeline_processor_tool_crosstab";
         $this->my_title = "Step Tools";
     }
-
 }
 ?>

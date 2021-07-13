@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Main_log extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Main_log extends Base_controller {
         $this->my_tag = "main_log";
         $this->my_title = "Main Log";
     }
-
 }
 ?>

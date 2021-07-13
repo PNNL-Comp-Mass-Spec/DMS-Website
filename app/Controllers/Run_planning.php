@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Run_planning extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -13,6 +11,5 @@ class Run_planning extends Base_controller {
         $this->my_tag = "run_planning";
         $this->my_title = "Run Planning";
     }
-
 }
 ?>

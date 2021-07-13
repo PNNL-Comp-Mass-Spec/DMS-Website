@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 
 /**
  * This class is used to edit model config DBs
@@ -1726,5 +1727,4 @@ class Config_db extends CI_Controller {
       }
      */
 }
-
 ?>

@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Helper_newt_id extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Helper_newt_id extends Base_controller {
         $this->my_title = "NEWT ID Helper";
     }
 }
-
-
 ?>

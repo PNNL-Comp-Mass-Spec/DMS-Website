@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Experiment extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {

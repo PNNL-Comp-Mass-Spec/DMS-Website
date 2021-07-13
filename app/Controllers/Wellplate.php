@@ -1,9 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Wellplate extends Base_controller {
-
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,8 +10,6 @@ class Wellplate extends Base_controller {
 
         $this->my_tag = "wellplate";
         $this->my_title = "Wellplate";
-
     }
-
 }
 ?>

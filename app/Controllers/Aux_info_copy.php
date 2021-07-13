@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 
 /**
  * This class is used to copy Aux info data from one entity to another.
@@ -49,5 +50,5 @@ class Aux_info_copy extends CI_Controller {
             echo "Update was successful";
         }
     }
-
 }
+?>

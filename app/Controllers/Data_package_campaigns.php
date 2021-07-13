@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Data_package_campaigns extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Data_package_campaigns extends Base_controller {
         $this->my_title = "Data Package Campaigns";
     }
 }
-
-
 ?>

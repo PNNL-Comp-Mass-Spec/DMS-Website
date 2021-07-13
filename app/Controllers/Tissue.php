@@ -1,7 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
-class tissue extends Base_controller {
+class Tissue extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +12,4 @@ class tissue extends Base_controller {
         $this->my_title = "Tissue Ontology";
     }
 }
-
-
 ?>

@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Manager_daily_check extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -12,6 +11,5 @@ class Manager_daily_check extends Base_controller {
         $this->my_tag = "manager_daily_check";
         $this->my_title = "Manager Daily Check";
     }
-
 }
 ?>

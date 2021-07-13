@@ -1,5 +1,5 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Ontology extends Base_controller {
     // --------------------------------------------------------------------
@@ -12,6 +12,4 @@ class Ontology extends Base_controller {
         $this->my_title = "Ontology";
     }
 }
-
-
 ?>

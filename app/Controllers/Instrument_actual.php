@@ -1,8 +1,7 @@
 <?php
-require("Base_controller.php");
+namespace App\Controllers;
 
 class Instrument_actual extends Base_controller {
-
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -11,9 +10,6 @@ class Instrument_actual extends Base_controller {
 
         $this->my_tag = "instrument_actual";
         $this->my_title = "Instrument Actual Usage";
-
     }
-
-
 }
 ?>
