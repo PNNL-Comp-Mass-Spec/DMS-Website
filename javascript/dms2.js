@@ -431,7 +431,7 @@ var gamma = {
 						var buttonName = 'copy-url-now';
 
                         // Check for the url containing 'report_info'
-                        if (url.match(/\/report_info\//i)) {
+                        if (url.match(/\/report_info\//i) || url.match(/\/param_info\//i)) {
                             // Replace backtick, colon, and percent signs in the filter values
                             // to instead use wildcard keywords
                             // However, do not replace %20 since that indicates a space

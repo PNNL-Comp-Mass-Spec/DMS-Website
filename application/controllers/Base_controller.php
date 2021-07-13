@@ -317,6 +317,17 @@ class Base_controller extends CI_Controller {
     }
 
     /**
+     * Returns HTML displaying supplemental information about page for inclusion in param report page
+     * @param type $what_info
+     * @category AJAX
+     */
+    function param_info($what_info)
+    {
+        $this->cu->load_lib('param_report', 'param_report', $this->my_tag);
+        $this->param_report->param_info($what_info);
+    }
+
+    /**
      * Returns HTML for defining custom filters
      * @category AJAX
      */

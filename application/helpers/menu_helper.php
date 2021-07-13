@@ -349,6 +349,10 @@ function get_menu_context($page_type) {
             $menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
             break;
         case 'Param_Pages':
+            // Call function updateMessageBox in dms2.js to obtain the URL behind the given param report
+            // That function POSTs a request to a param_info/url or param_info/sql page
+            // For example http://dms2.pnl.gov/requested_run_batch_blocking/param_info/url
+            $menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
             break;
     }
     $version = $CI->config->item('version_label');

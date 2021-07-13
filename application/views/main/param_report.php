@@ -99,6 +99,7 @@ $this->load->view("main/param_report_export");
     gamma.pageContext.responseContainerId =  'update_message';
     gamma.pageContext.cntrlContainerId =  'clear_message';
     gamma.pageContext.ops_url = '<?= $ops_url ?>';
+    gamma.pageContext.updateShowURL = parRep.updateShowURL;
 </script>
 
 </body>

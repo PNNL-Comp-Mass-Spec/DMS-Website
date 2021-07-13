@@ -202,6 +202,116 @@ class Param_report {
     }
 
     /**
+     * Create HTML displaying the SQL behind the data or the URL for deep-linking to the page
+     * @param string $what_info
+     * @category AJAX
+     */
+    function param_info($what_info) {
+        $CI =& get_instance();
+        session_start();
+        $this->get_filter_values();
+
+        switch ($what_info) {
+            case "sql":
+                echo $CI->data_model->get_sql("filtered_and_sorted");
+                break;
+            case "url":
+                $filters = $this->get_filter_values();
+                echo $this->dump_filters($filters, $CI->my_tag);
+                break;
+        }
+    }
+
+    /**
+     * Convert the filters into a string for use by report_info
+     * @param type $filters
+     * @param type $tag
+     * @return string
+     */
+    private function dump_filters($filters, $tag) {
+        $s = "";
+
+        // dump primary filter to segment list
+        // Replace spaces with %20
+        // Trim leading and trailing whitespace
+        $pf = array();
+        foreach ($filters as $f) {
+            $x = "";
+            if (array_key_exists("value", $f)) {
+                $x = $f["value"];
+            } else {
+                $x = $x ? $x : "-";
+            }
+            $pf[] = str_replace(" ", "%20", trim($x));
+        }
+        $s .= site_url() . "$tag/param/" . implode("/", $pf);
+
+        $dateFilters = array("LaterThan", "EarlierThan");
+
+        return $s;
+    }
+
+    /**
+     * Get param report search filters
+     * @return array Filter settings
+     */
+    protected function get_filter_values() {
+        $CI =& get_instance();
+
+        // it all starts with a model
+        $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $form_def = $CI->form_model->get_form_def(array('specs', 'fields'));
+
+        // search filter
+        $current_search_filter_values = array();
+        if (!empty($form_def->specs)) {
+            foreach ($form_def->specs as $field => $spec) {
+                // The form field type may contain several keywords specified by a vertical bar
+                $fieldTypes = explode('|', $spec['type']);
+
+                if (!in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
+                    $current_search_filter_values[] = $spec;
+                }
+            }
+        }
+
+        $filter_values = $this->get_current_filter_values_from_post($current_search_filter_values);
+        if (!$filter_values) {
+            $filter_values = $current_search_filter_values;
+        }
+
+        // return filter settings
+        //return $current_search_filter_values;
+        return $filter_values;
+    }
+
+    /**
+     * Get current values for secondary filter if present in POST.
+     * Otherwise return false
+     * @param type $filter_specs
+     * @return boolean
+     */
+    private function get_current_filter_values_from_post($filter_specs) {
+        // (someday) smarter extraction of primary filter values from POST:
+        // There may be other items in the POST not relevant to primary filter.
+        // Maybe we can check for the presence of any scalars that begin with "pf_"
+        if (!empty($_POST)) {
+            foreach (array_keys($filter_specs) as $id) {
+                $filterVal = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
+                // Check for $filterVal being empty; cannot use empty() since '0' is considered empty
+                if ($filterVal !== '') {
+                    // Check for encoded tabs (introduced by filter_input) and change them back to true tab characters
+                    // Also, trim whitespace
+                    $filter_specs[$id]["value"] = trim(str_replace('&#9;', "	", $filterVal));
+                }
+            }
+            return $filter_specs;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Returns HTML for the paging display and control element
      * for inclusion in param report pages
      * @category AJAX
