@@ -1,9 +1,12 @@
 <?php
+namespace App\Models;
+
+use CodeIgniter\Model;
 
 /**
  * Tracks actions and specifications for hot links and other display cell presentations
  */
-class R_model extends CI_Model {
+class R_model extends Model {
 
     /**
      * Config type, e.g. na for list reports and detail reports;
@@ -201,5 +204,5 @@ class R_model extends CI_Model {
     function get_config_source() {
         return $this->config_source;
     }
-
 }
+?>

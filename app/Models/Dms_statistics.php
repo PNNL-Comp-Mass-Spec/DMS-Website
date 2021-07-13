@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class Dms_statistics extends CI_Model {
+use CodeIgniter\Model;
+
+class Dms_statistics extends Model {
 
     // --------------------------------------------------------------------
     function __construct() {
@@ -118,5 +121,5 @@ class Dms_statistics extends CI_Model {
 
         return $results;
     }
-
 }
+?>

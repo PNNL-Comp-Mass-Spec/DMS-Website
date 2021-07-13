@@ -1,4 +1,7 @@
 <?php
+namespace App\Models;
+
+use CodeIgniter\Model;
 
 class M_data_package_publish extends Model {
 
@@ -170,5 +173,5 @@ EOD;
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-
 }
+?>

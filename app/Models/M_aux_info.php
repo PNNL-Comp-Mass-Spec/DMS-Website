@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class M_aux_info extends CI_Model {
+use CodeIgniter\Model;
+
+class M_aux_info extends Model {
 
     function init_definitions() {
         $this->my_tag = "aux_info";
@@ -411,5 +414,5 @@ EOD;
 
         return $val;
     }
-
 }
+?>

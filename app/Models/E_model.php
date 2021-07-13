@@ -1,9 +1,12 @@
 <?php
+namespace App\Models;
+
+use CodeIgniter\Model;
 
 /**
  * Manages specifications for an entry form
  */
-class E_model extends CI_Model {
+class E_model extends Model {
 
     private $config_name = '';
     private $config_source = '';
@@ -267,5 +270,5 @@ class E_model extends CI_Model {
             }
         }
     }
-
 }
+?>

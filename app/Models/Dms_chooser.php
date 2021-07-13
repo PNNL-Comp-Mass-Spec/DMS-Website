@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class Dms_chooser extends CI_Model {
+use CodeIgniter\Model;
+
+class Dms_chooser extends Model {
 
     /**
      * This array defines the selection list choosers and includes both cases
@@ -302,5 +305,5 @@ class Dms_chooser extends CI_Model {
         $str .= "</table>";
         return $str;
     }
-
 }
+?>

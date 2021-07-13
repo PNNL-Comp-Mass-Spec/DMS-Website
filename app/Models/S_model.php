@@ -1,4 +1,7 @@
 <?php
+namespace App\Models;
+
+use CodeIgniter\Model;
 
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
@@ -30,7 +33,7 @@ class Bound_arguments {
 /**
  * Used to execute a stored procedure against one of the databases defined in the application/config/database file
  */
-class S_model extends CI_Model {
+class S_model extends Model {
 
     // some names used for caching
     const col_info_storage_name_root = "col_info_";
@@ -501,5 +504,5 @@ class S_model extends CI_Model {
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);
     }
-
 }
+?>

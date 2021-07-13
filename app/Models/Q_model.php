@@ -1,4 +1,7 @@
 <?php
+namespace App\Models;
+
+use CodeIgniter\Model;
 
 // The primary function of this class is to build and execute an SQL query
 // against one of the databases defined in the application/config/database file.
@@ -115,7 +118,7 @@ class CachedTotalRows {
  * Class for building and executing an SQL query
  * against one of the databases defined in the application/config/database file
  */
-class Q_model extends CI_Model {
+class Q_model extends Model {
 
     const col_info_storage_name_root = "col_info_";
 
@@ -1082,5 +1085,5 @@ class Q_model extends CI_Model {
     function get_allowed_rel_values() {
         return array("AND" => "AND", "OR" => "OR");
     }
-
 }
+?>

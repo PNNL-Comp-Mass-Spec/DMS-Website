@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class Freezer_model extends CI_Model {
+use CodeIgniter\Model;
+
+class Freezer_model extends Model {
 
     // Freezer name is column Freezer_Tag in tables T_Material_Freezers and T_Material_Locations in the database
     var $hierarchy = array(
@@ -341,5 +344,5 @@ EOD;
         }
         return $query->result_array();
     }
-
 }
+?>

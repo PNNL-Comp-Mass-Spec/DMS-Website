@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class Dms_preferences extends CI_Model {
+use CodeIgniter\Model;
+
+class Dms_preferences extends Model {
 
     const range_sep = '-';
     const list_sep = ', ';
@@ -211,5 +214,5 @@ class Dms_preferences extends CI_Model {
         $user_name = get_user();
         return get_cookie($user_name);
     }
-
 }
+?>

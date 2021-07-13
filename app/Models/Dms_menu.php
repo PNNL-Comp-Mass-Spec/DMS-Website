@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class Dms_menu extends CI_Model {
+use CodeIgniter\Model;
+
+class Dms_menu extends Model {
 
     var $configDBFolder = "";
 
@@ -62,5 +65,5 @@ class Dms_menu extends CI_Model {
         }
         return $mnu;
     }
-
 }
+?>

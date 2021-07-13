@@ -1,9 +1,12 @@
 <?php
+namespace App\Models;
+
+use CodeIgniter\Model;
 
 /**
  * Actions and specifications that apply generally to a page family
  */
-class G_model extends CI_Model {
+class G_model extends Model {
 
     public $error_text = "";
 
@@ -422,5 +425,5 @@ class G_model extends CI_Model {
             return $e->getMessage();
         }
     }
-
 }
+?>

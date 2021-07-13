@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class Config_db_model extends CI_Model {
+use CodeIgniter\Model;
+
+class Config_db_model extends Model {
 
     var $table_defs = array();
     var $table_edit_col_defs = array();
@@ -71,5 +74,5 @@ class Config_db_model extends CI_Model {
         }
         return $obj;
     }
-
 }
+?>

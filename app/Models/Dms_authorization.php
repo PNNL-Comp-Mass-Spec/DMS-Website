@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class Dms_authorization extends CI_Model {
+use CodeIgniter\Model;
+
+class Dms_authorization extends Model {
 
     var $storage_name = 'dms_authorization';
     var $user_permissions = array();
@@ -138,5 +141,5 @@ EOD;
         $this->user_permissions = array();
         unset($_SESSION[$this->storage_name]);
     }
-
 }
+?>
