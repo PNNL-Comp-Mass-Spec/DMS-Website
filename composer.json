@@ -1,5 +1,17 @@
 {
-    "require": {
-        "phpoffice/phpspreadsheet": "^1.16"
-    }
+	"name": "DMS_Website",
+	"type": "project",
+	"description": "PNNL Omics Data Management System",
+	"homepage": "https://dms2.pnl.gov",
+	"license": "MIT",
+	"require": {
+		"php": ">=7.3",
+		"codeigniter4/framework": "^4",
+		"phpoffice/phpspreadsheet": "^1.16"
+	},
+	"scripts": {
+		"post-update-cmd": [
+			"@composer dump-autoload"
+		]
+	}
 }
