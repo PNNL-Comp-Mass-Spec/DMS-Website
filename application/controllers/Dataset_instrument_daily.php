@@ -11,7 +11,7 @@ class Dataset_instrument_daily extends Base_controller {
         parent::__construct();
 
         $this->my_tag = "dataset_instrument_daily";
-        $this->my_title = "Datset Daily Totals By Instrument";
+        $this->my_title = "Dataset Daily Totals By Instrument";
     }
 
 }
