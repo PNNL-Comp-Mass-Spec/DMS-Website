@@ -1,9 +1,6 @@
 <?php
 namespace App\Controllers;
 
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
-
 class Run_op_logs extends Grid {
 
     // --------------------------------------------------------------------
@@ -14,6 +11,9 @@ class Run_op_logs extends Grid {
 
         $this->my_tag = "run_op_logs";
         $this->my_title = "Operation Logs";
+
+        // Include the String operations methods
+        helper('string');
     }
 
     // --------------------------------------------------------------------

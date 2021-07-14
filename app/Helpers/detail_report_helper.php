@@ -1,14 +1,5 @@
 <?php
 
-// Include the Number formatting methods
-require_once(BASEPATH . '../application/libraries/Number_formatting.php');
-
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
-
-// Include the URL updater class
-require_once(BASEPATH . '../application/libraries/URL_updater.php');
-
 /**
  * Create HTML to display detail report fields, including adding hotlinks
  * Also adds the header fields, including the link to the list report and edit/entry buttons
@@ -78,7 +69,9 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
     $pathCopyData = array();
     $pathCopyButtonCount = 0;
 
-    $url_updater = new URL_updater();
+
+    // Include the URL updater class
+    $url_updater = new \App\Libraries\URL_updater();
 
     // make a form field for each field in the field specs
     foreach ($fields as $fieldName => $fieldValue) {
@@ -231,6 +224,11 @@ function get_hotlink_specs_for_field($fieldName, $hotlinks) {
  * @return type
  */
 function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $display, $val = '') {
+
+    // Include the String operations methods
+    // Include the Number formatting methods
+    helper(['string', 'number_formatting']);
+
     $str = "";
     $fld_id = $colSpec["id"];
 

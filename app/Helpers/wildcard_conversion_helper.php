@@ -1,8 +1,4 @@
 <?php
-namespace App\Libraries;
-
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
 
 /**
  * Check for the field either matching a special tag or containing a special tag
@@ -47,6 +43,9 @@ function convert_special_values($value) {
             // Use \b to indicate that the field must be empty
             return "\b";
     }
+
+    // Include the String operations methods
+    helper('string');
 
     // Check for special tags at the start
     if (StartsWith($value, 'StartsWith__')) {

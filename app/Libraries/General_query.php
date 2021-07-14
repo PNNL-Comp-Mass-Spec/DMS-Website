@@ -4,8 +4,6 @@ namespace App\Libraries;
 // --------------------------------------------------------------------
 // general query - return data directly using query model
 // --------------------------------------------------------------------
-// Include application/libraries/Wildcard_conversion.php
-require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
 
 /**
  * Query definition
@@ -38,7 +36,8 @@ class General_query {
      * Constructor
      */
     function __construct() {
-
+        // Include app/helpers/wildcard_conversion_helper.php
+        helper('wildcard_conversion');
     }
 
     /**

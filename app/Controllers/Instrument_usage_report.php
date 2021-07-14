@@ -1,9 +1,6 @@
 <?php
 namespace App\Controllers;
 
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
-
 class Instrument_usage_report extends Grid {
 
     // --------------------------------------------------------------------
@@ -14,6 +11,9 @@ class Instrument_usage_report extends Grid {
 
         $this->my_tag = "instrument_usage_report";
         $this->my_title = "Instrument Usage";
+
+        // Include the String operations methods
+        helper('string');
     }
 
     // --------------------------------------------------------------------

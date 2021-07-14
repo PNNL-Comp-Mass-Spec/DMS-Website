@@ -1,9 +1,6 @@
 <?php
 namespace App\Libraries;
 
-// Include application/libraries/Wildcard_conversion.php
-require_once('Wildcard_conversion.php');
-
 class Secondary_filter {
 
     const storage_name_root = "lr_sec_filter_";
@@ -17,7 +14,8 @@ class Secondary_filter {
 
     // --------------------------------------------------------------------
     function __construct() {
-
+        // Include app/helpers/wildcard_conversion_helper.php
+        helper('wildcard_conversion');
     }
 
     /**

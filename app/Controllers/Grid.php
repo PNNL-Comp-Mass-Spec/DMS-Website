@@ -1,9 +1,6 @@
 <?php
 namespace App\Controllers;
 
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
-
 class Grid extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()
@@ -25,7 +22,8 @@ class Grid extends Base_controller {
     protected
     function grid_page($view_name, $save_url = '', $data_url = '')
     {
-        helper("form");
+        // Include the String operations methods
+        helper(['form', 'string']);
         $this->choosers = model('App\Models\dms_chooser');
         $data = array();
         $data['title'] = $this->my_title;

@@ -4,9 +4,6 @@ namespace App\Models;
 use CodeIgniter\Model;
 use CodeIgniter\Database\SQLite3\Connection;
 
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
-
 // The function of this class is to execute a stored procedure
 // against one of the databases defined in the application/config/database file.
 // It gets the procedure name and arguments from a config db as defined by the
@@ -99,6 +96,9 @@ class S_model extends Model {
         // Call the Model constructor
         parent::__construct();
         $this->configDBFolder = config('App')->model_config_path;
+
+        // Include the String operations methods
+        helper('string');
     }
 
     // (someday) see if we can figure out how to get bound values updated when rowset is returned (mssql_next_result is not working )
@@ -276,7 +276,6 @@ class S_model extends Model {
 
     // --------------------------------------------------------------------
     private function cache_total_rows() {
-        $CI =& get_instance();
         helper('cache');
 
         save_to_cache($this->total_rows_storage_name, count($this->result_array));
@@ -284,7 +283,6 @@ class S_model extends Model {
 
     // --------------------------------------------------------------------
     private function cache_column_info() {
-        $CI =& get_instance();
         helper('cache');
 
         save_to_cache($this->col_info_storage_name, $this->column_info);
@@ -335,7 +333,6 @@ class S_model extends Model {
      * @return type
      */
     function get_column_info() {
-        $CI =& get_instance();
         helper('cache');
 
         $col_info = array();
@@ -354,7 +351,6 @@ class S_model extends Model {
     function get_total_rows() {
         $working_total = -1;
 
-        $CI =& get_instance();
         helper('cache');
 
         // get cached values, if any

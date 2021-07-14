@@ -1,9 +1,6 @@
 <?php
 namespace App\Controllers;
 
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
-
 class Aux_info extends BaseController {
 
     /**
@@ -31,7 +28,8 @@ class Aux_info extends BaseController {
         $this->my_list_action = "aux_info/report";
         $this->my_export_action = "aux_info/export";
 
-        helper(['url', 'text', 'form']);
+        // Include the String operations methods
+        helper(['url', 'text', 'form', 'string']);
         $this->model = model('App\\Models\\'.$this->my_model);
 
         $this->aux_info_support = new \App\Libraries\Aux_info_support();

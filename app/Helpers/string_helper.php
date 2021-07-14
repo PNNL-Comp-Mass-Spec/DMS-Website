@@ -1,5 +1,4 @@
 <?php
-namespace App\Libraries;
 
 /**
  * Return True if the variable is null or empty (aka IsNullOrEmpty)

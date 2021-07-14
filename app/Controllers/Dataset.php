@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 
+use App\Controllers;
+
 class Dataset extends Base_controller {
     // --------------------------------------------------------------------
     function __construct()

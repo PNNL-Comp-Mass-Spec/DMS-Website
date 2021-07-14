@@ -4,9 +4,6 @@
 // Support functions for entry page features of base_controller
 //
 
-// Include application/libraries/Wildcard_conversion.php
-require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
-
 /**
  * Get initial values for entry fields - URL will tell us where to get them
  * - defaults from config db
@@ -119,6 +116,9 @@ function load_from_external_source($col_mapping, $source_data) {
  * @return type
  */
 function get_values_from_segs($form_field_names, $segs) {
+    // Include app/Helpers/wildcard_conversion_helper.php
+    helper('wildcard_conversion');
+
     $a = array();
     $seg_val = current($segs);
     foreach ($form_field_names as $field) {

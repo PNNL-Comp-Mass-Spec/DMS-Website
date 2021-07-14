@@ -3,9 +3,6 @@ namespace App\Controllers;
 
 use CodeIgniter\Database\SQLite3\Connection;
 
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
-
 class Upload extends Base_controller {
 
     // Tracks names of entities currently supported by the spreadsheet loader.
@@ -18,7 +15,11 @@ class Upload extends Base_controller {
         parent::__construct();
         $this->my_tag = 'table_loader'; // Links to the help page; also used by the restricted_actions table in master_authorization
         $this->get_config_info('spreadsheet_loader.db');
+
+        // Include the String operations methods
+        helper('string');
     }
+
     // --------------------------------------------------------------------
     function index()
     {

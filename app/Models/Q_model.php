@@ -11,8 +11,6 @@ use CodeIgniter\Database\SQLite3\Connection;
 // various user inputs in the form of filters (selection, paging, sorting).
 // This class also supplies certain definition information for use in building
 // and using those filters.
-// Include the String operations methods
-require_once(BASEPATH . '../application/libraries/String_operations.php');
 
 /**
  * Track parts of the SQL query
@@ -185,6 +183,9 @@ class Q_model extends Model {
         // Call the Model constructor
         parent::__construct();
         $this->configDBFolder = config('App')->model_config_path;
+
+        // Include the String operations methods
+        helper('string');
     }
 
     /**
@@ -892,7 +893,7 @@ class Q_model extends Model {
         }
 
         //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
-        foreach ($db->query(SELECT * FROM general_params")->getResultArray() as $row) {
+        foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':
                     $this->query_parts->dbn = $row['value'];

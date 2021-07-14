@@ -1,12 +1,6 @@
 <?php
 namespace App\Libraries;
 
-// Include the Number formatting methods
-require_once(BASEPATH . '../application/libraries/Number_formatting.php');
-
-// Include the URL updater class
-require_once(BASEPATH . '../application/libraries/URL_updater.php');
-
 /**
  * This class is used to format data in list reports, including adding hotlinks
  */
@@ -27,7 +21,11 @@ class Cell_presentation {
      * Constructor
      */
     function __construct() {
-        $this->url_updater = new URL_updater();
+        // Include the URL updater class
+        $this->url_updater = new \App\Libraries\URL_updater();
+
+        // Include the Number formatting methods
+        helper('number_formatting');
     }
 
     /**
