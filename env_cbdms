@@ -1,0 +1,209 @@
+#--------------------------------------------------------------------
+# Example Environment Configuration file
+#
+# This file can be used as a starting point for your own
+# custom .env files, and contains most of the possible settings
+# available in a default install.
+#
+# By default, all of the settings are commented out. If you want
+# to override the setting, you must un-comment it by removing the '#'
+# at the beginning of the line.
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
+
+# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = production
+
+#--------------------------------------------------------------------
+# APP
+#--------------------------------------------------------------------
+
+# app.baseURL = ''
+# app.forceGlobalSecureRequests = false
+
+# app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
+# app.sessionCookieName = 'ci_session'
+# app.sessionExpiration = 7200
+# app.sessionSavePath = NULL
+# app.sessionMatchIP = false
+# app.sessionTimeToUpdate = 300
+# app.sessionRegenerateDestroy = false
+
+app.version_color_code = 'black'
+app.version_label = 'Production'
+app.modify_config_db_enabled = false
+# Do not store DMS Attachments in the archive when on CBDMS
+# app.file_attachment_archive_root_path = '/mnt/dms_attachments/'
+app.file_attachment_local_root_path = '/files1/dms_attachments'
+
+app.model_config_path = "application/model_config/cbdms/"
+app.dms_inst_source_url = "http://cbdms.pnl.gov"
+app.page_menu_root = "page_menu_cbdms"
+
+# app.CSPEnabled = false
+
+#--------------------------------------------------------------------
+# DATABASE
+#--------------------------------------------------------------------
+
+# database.default.hostname = localhost
+# database.default.database = ci4
+# database.default.username = root
+# database.default.password = root
+# database.default.DBDriver = MySQLi
+# database.default.DBPrefix =
+
+# database.tests.hostname = localhost
+# database.tests.database = ci4
+# database.tests.username = root
+# database.tests.password = root
+# database.tests.DBDriver = MySQLi
+# database.tests.DBPrefix =
+
+database.default.hostname = CBDMS
+database.default.username = dmswebuser
+database.default.password = see_repo_DMS2_DatabaseConfigFiles
+database.default.database = DMS5
+database.default.DBDriver = SQLSRV
+database.default.DBPrefix =
+database.default.pConnect = false
+database.default.DBDebug = false
+
+database.broker.hostname = CBDMS
+database.broker.username = dmswebuser
+database.broker.password = see_repo_DMS2_DatabaseConfigFiles
+database.broker.database = DMS_Pipeline
+database.broker.DBDriver = SQLSRV
+database.broker.DBPrefix =
+database.broker.pConnect = false
+database.broker.DBDebug = false
+
+database.package.hostname = CBDMS
+database.package.username = dmswebuser
+database.package.password = see_repo_DMS2_DatabaseConfigFiles
+database.package.database = DMS_Data_Package
+database.package.DBDriver = SQLSRV
+database.package.DBPrefix =
+database.package.pConnect = true
+database.package.DBDebug = false
+
+database.capture.hostname = CBDMS
+database.capture.username = dmswebuser
+database.capture.password = see_repo_DMS2_DatabaseConfigFiles
+database.capture.database = DMS_Capture
+database.capture.DBDriver = SQLSRV
+database.capture.DBPrefix =
+database.capture.pConnect = true
+database.capture.DBDebug = false
+
+database.prism_ifc.hostname = Pogo
+database.prism_ifc.username = mtuser
+database.prism_ifc.password = see_repo_DMS2_DatabaseConfigFiles
+database.prism_ifc.database = PRISM_IFC
+database.prism_ifc.DBDriver = SQLSRV
+database.prism_ifc.DBPrefix =
+database.prism_ifc.pConnect = true
+database.prism_ifc.DBDebug = true
+
+database.prism_rpt.hostname = Pogo
+database.prism_rpt.username = mtuser
+database.prism_rpt.password = see_repo_DMS2_DatabaseConfigFiles
+database.prism_rpt.database = PRISM_RPT
+database.prism_rpt.DBDriver = SQLSRV
+database.prism_rpt.DBPrefix =
+database.prism_rpt.pConnect = true
+database.prism_rpt.DBDebug = true
+
+database.ontology.hostname = CBDMS
+database.ontology.username = dmswebuser
+database.ontology.password = see_repo_DMS2_DatabaseConfigFiles
+database.ontology.database = Ontology_Lookup
+database.ontology.DBDriver = SQLSRV
+database.ontology.DBPrefix =
+database.ontology.pConnect = true
+database.ontology.DBDebug = true
+
+database.capture.hostname = CBDMS
+database.capture.username = dmswebuser
+database.capture.password = see_repo_DMS2_DatabaseConfigFiles
+database.capture.database = Manager_Control
+database.capture.DBDriver = SQLSRV
+database.capture.DBPrefix =
+database.capture.pConnect = true
+database.capture.DBDebug = true
+
+#--------------------------------------------------------------------
+# CONTENT SECURITY POLICY
+#--------------------------------------------------------------------
+
+# contentsecuritypolicy.reportOnly = false
+# contentsecuritypolicy.defaultSrc = 'none'
+# contentsecuritypolicy.scriptSrc = 'self'
+# contentsecuritypolicy.styleSrc = 'self'
+# contentsecuritypolicy.imageSrc = 'self'
+# contentsecuritypolicy.base_uri = null
+# contentsecuritypolicy.childSrc = null
+# contentsecuritypolicy.connectSrc = 'self'
+# contentsecuritypolicy.fontSrc = null
+# contentsecuritypolicy.formAction = null
+# contentsecuritypolicy.frameAncestors = null
+# contentsecuritypolicy.frameSrc = null
+# contentsecuritypolicy.mediaSrc = null
+# contentsecuritypolicy.objectSrc = null
+# contentsecuritypolicy.pluginTypes = null
+# contentsecuritypolicy.reportURI = null
+# contentsecuritypolicy.sandbox = false
+# contentsecuritypolicy.upgradeInsecureRequests = false
+
+#--------------------------------------------------------------------
+# COOKIE
+#--------------------------------------------------------------------
+
+# cookie.prefix = ''
+# cookie.expires = 0
+# cookie.path = '/'
+# cookie.domain = ''
+# cookie.secure = false
+# cookie.httponly = false
+# cookie.samesite = 'Lax'
+# cookie.raw = false
+
+#--------------------------------------------------------------------
+# ENCRYPTION
+#--------------------------------------------------------------------
+
+# encryption.key =
+# encryption.driver = OpenSSL
+# encryption.blockSize = 16
+# encryption.digest = SHA512
+
+#--------------------------------------------------------------------
+# HONEYPOT
+#--------------------------------------------------------------------
+
+# honeypot.hidden = 'true'
+# honeypot.label = 'Fill This Field'
+# honeypot.name = 'honeypot'
+# honeypot.template = '<label>{label}</label><input type="text" name="{name}" value=""/>'
+# honeypot.container = '<div style="display:none">{template}</div>'
+
+#--------------------------------------------------------------------
+# SECURITY
+#--------------------------------------------------------------------
+
+# security.tokenName = 'csrf_token_name'
+# security.headerName = 'X-CSRF-TOKEN'
+# security.cookieName = 'csrf_cookie_name'
+# security.expires = 7200
+# security.regenerate = true
+# security.redirect = true
+# security.samesite = 'Lax'
+
+#--------------------------------------------------------------------
+# LOGGER
+#--------------------------------------------------------------------
+
+# logger.threshold = 4
