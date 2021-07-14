@@ -52,7 +52,7 @@ class Controller_utility {
             return true;
         }
         // Dynamically load and initialize the model
-        $CI->load->model($model_name, $local_name);
+        $CI->$local_name = model('App\\Models\\'.$model_name);
         return $CI->$local_name->init($config_name, $config_source);
     }
 

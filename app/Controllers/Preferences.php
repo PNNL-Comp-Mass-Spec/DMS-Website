@@ -14,7 +14,7 @@ class Preferences extends BaseController {
         session_start();
 
         $this->helpers = array_merge($this->helpers, ['url', 'string', 'dms_search', 'cookie', 'user']);
-        $this->load->model($this->my_model, 'model');
+        $this->model = model('App\\Models\\'.$this->my_model);
     }
 
     // --------------------------------------------------------------------
@@ -32,7 +32,7 @@ class Preferences extends BaseController {
         $data['heading'] = $data['title'];
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', true);
+        $this->menu = model('App\Models\dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences', $this);
 
         $result = '';

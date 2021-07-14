@@ -22,7 +22,7 @@ class List_report_ah extends List_report {
         $CI =& get_instance();
         session_start();
         $CI->load->helper(array('form', 'menu', 'link_util'));
-        $CI->load->model('dms_chooser', 'choosers');
+        $CI->choosers = model('App\Models\dms_chooser');
 
         $CI->cu->load_mod('g_model', 'gen_model', $this->config_name, $this->config_source);
         $CI->cu->load_mod('r_model', 'link_model', $this->config_name, $this->config_source);

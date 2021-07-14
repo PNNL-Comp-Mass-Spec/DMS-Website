@@ -466,7 +466,7 @@ class Base_controller extends BaseController
     function get_basic_nav_bar_items()
     {
         $this->load->helper(array('user', 'dms_search', 'menu'));
-        $this->load->model('dms_menu', 'menu', true);
+        $this->menu = model('App\Models\dms_menu');
         return get_nav_bar_menu_items('', $this);
     }
 

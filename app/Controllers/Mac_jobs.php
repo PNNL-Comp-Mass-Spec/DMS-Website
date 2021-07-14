@@ -148,7 +148,7 @@ class Mac_jobs extends Base_controller {
     private
     function build_param_entry_form($params, $script)
     {
-        $this->load->model('dms_chooser', 'choosers');
+        $this->choosers = model('App\Models\dms_chooser');
         $this->load->helper(array('url', 'string', 'form'));
         $str = "";
         $header_style = "font-weight:bold;";

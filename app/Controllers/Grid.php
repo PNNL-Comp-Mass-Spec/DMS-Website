@@ -26,7 +26,7 @@ class Grid extends Base_controller {
     function grid_page($view_name, $save_url = '', $data_url = '')
     {
         $this->load->helper("form");
-        $this->load->model('dms_chooser', 'choosers');
+        $this->choosers = model('App\Models\dms_chooser');
         $data = array();
         $data['title'] = $this->my_title;
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();

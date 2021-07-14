@@ -17,7 +17,7 @@ class Capture_script extends Base_controller {
     function dot($scriptName)
     {
         $this->load->helper(array('url', 'string', 'export'));
-        $this->load->model($this->my_model, 'model');
+        $this->model = model('App\\Models\\'.$this->my_model);
         $this->model->make_db_connection();
 
         // get script XML

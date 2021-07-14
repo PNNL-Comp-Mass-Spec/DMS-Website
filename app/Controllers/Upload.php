@@ -274,7 +274,7 @@ class Upload extends Base_controller {
                 $calling_params = $this->make_tracking_info_params($tracking_info, $config_source, $mode, $current_values);
 
                 // call stored procedure to update tracking info
-                $this->load->model('s_model', 'sproc_model');
+                $this->sproc_model = model('App\Models\s_model');
                 $ok = $this->sproc_model->init('entry_sproc', $config_source);
                 if(!$ok) throw new exception($this->sproc_model->get_error_text());
 
@@ -284,7 +284,7 @@ class Upload extends Base_controller {
 
             //---- aux info update ---------------------------
             if($incAuxinfo && !empty($aux_info)) {
-                $this->load->model('s_model', 'aux_model');
+                $this->aux_model = model('App\Models\s_model');
                 $ok = $this->aux_model->init('operations_sproc', 'aux_info_def');
                 if(!$ok) throw new exception($this->aux_model->get_error_text());
 
@@ -402,7 +402,7 @@ class Upload extends Base_controller {
     {
         // use $entity_type to get definition of field/labels for entry sproc
         // entry form specifications
-        $this->load->model('e_model', 'form_model');
+        $this->form_model = model('App\Models\e_model');
         $this->form_model->init('na', $config_source);
         $form_def = $this->form_model->get_form_def(array('specs'));
 
@@ -460,7 +460,7 @@ class Upload extends Base_controller {
     function template($config_source, $rowStyle = false, $ext = "tsv")
     {
         // tracking info
-        $this->load->model('e_model', 'form_model');
+        $this->form_model = model('App\Models\e_model');
         $this->form_model->init('na', $config_source);
         $form_def = $this->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
@@ -481,7 +481,7 @@ class Upload extends Base_controller {
         $aux_info_target = $this->get_aux_info_target($config_source);
         if($aux_info_target) {
             // get aux info definitions
-            $this->load->model('q_model', 'model');
+            $this->model = model('App\Models\q_model');
             $this->model->init('list_report', 'aux_info_def');
             $this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
             $query = $this->model->get_rows('filtered_only');
@@ -542,7 +542,7 @@ class Upload extends Base_controller {
     private
     function cross_check_tracking_info_fields($config_source, $tracking_info)
     {
-        $this->load->model('e_model', 'form_model');
+        $this->form_model = model('App\Models\e_model');
         $this->form_model->init('na', $config_source);
         $form_def = $this->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
@@ -568,7 +568,7 @@ class Upload extends Base_controller {
     function cross_check_aux_info_fields($aux_info_target, $aux_info)
     {
         // get aux info definitions
-        $this->load->model('q_model', 'model');
+        $this->model = model('App\Models\q_model');
         $this->model->init('list_report', 'aux_info_def');
         $this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
         $query = $this->model->get_rows('filtered_only');

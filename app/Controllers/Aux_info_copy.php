@@ -23,7 +23,7 @@ class Aux_info_copy extends BaseController {
         $this->my_edit_action = "aux_info_copy/edit";
 
         $this->helpers = array_merge($this->helpers, ['url', 'string', 'form']);
-        $this->load->model($this->my_model, 'model', true);
+        $this->model = model('App\\Models\\'.$this->my_model);
 
         $this->load->library('aux_info_support');
     }

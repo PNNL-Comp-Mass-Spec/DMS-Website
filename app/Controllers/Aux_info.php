@@ -17,8 +17,8 @@ class Aux_info extends BaseController {
         $this->helpers = array_merge($this->helpers, ['dms_search', 'cookie', 'user', 'dms_logging']);
 
         session_start();
-        $this->load->model('dms_preferences', 'preferences');
-        $this->load->model('dms_chooser', 'choosers');
+        $this->preferences = model('App\Models\dms_preferences');
+        $this->choosers = model('App\Models\dms_chooser');
 
         $this->help_page_link = $this->config->item('pwiki');
         $this->help_page_link .= $this->config->item('wikiHelpLinkPrefix');
@@ -32,7 +32,7 @@ class Aux_info extends BaseController {
         $this->my_export_action = "aux_info/export";
 
         $this->load->helper(array('url', 'string', 'form'));
-        $this->load->model($this->my_model, 'model', true);
+        $this->model = model('App\\Models\\'.$this->my_model);
 
         $this->load->library('aux_info_support');
     }
@@ -61,7 +61,7 @@ class Aux_info extends BaseController {
         $this->load->helper('menu');
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', true);
+        $this->menu = model('App\Models\dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         $this->load->helper('detail_report_helper');
@@ -94,7 +94,7 @@ class Aux_info extends BaseController {
         $data['ais'] = $this->aux_info_support;
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', true);
+        $this->menu = model('App\Models\dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         if (IsNullOrWhiteSpace($name)) {

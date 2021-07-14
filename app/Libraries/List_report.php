@@ -35,7 +35,7 @@ class List_report {
         $CI =& get_instance();
         session_start();
         $CI->load->helper(array('form', 'menu', 'link_util'));
-        $CI->load->model('dms_chooser', 'choosers');
+        $CI->choosers = model('App\Models\dms_chooser');
 
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
 
@@ -358,7 +358,7 @@ class List_report {
 
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
-        $CI->load->model('dms_preferences', 'preferences');
+        $CI->preferences = model('App\Models\dms_preferences');
         $CI->load->library(array('list_report_pager'));
         try {
             // make HTML using pager

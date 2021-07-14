@@ -237,7 +237,7 @@ function make_primary_filter_in_table($primary_filter_defs) {
     $CI =& get_instance();
     $CI->load->helper('form');
     $CI->load->library('entry_form');
-    $CI->load->model('dms_chooser', 'choosers');
+    $CI->choosers = model('App\Models\dms_chooser');
 
     $str = '';
 

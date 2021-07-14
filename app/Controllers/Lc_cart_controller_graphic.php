@@ -32,7 +32,7 @@ class Lc_cart_controller_graphic extends BaseController {
         $data['heading'] = "LC Cart Component Maintenance";
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', true);
+        $this->menu = model('App\Models\dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Cart_Graphic', $this);
 
         // cart name

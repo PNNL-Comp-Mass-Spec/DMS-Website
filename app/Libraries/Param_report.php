@@ -335,7 +335,7 @@ class Param_report {
         $first_row = $current_paging_filter_values['qf_first_row'];
 
         // make HTML using pager
-        $CI->load->model('dms_preferences', 'preferences');
+        $CI->preferences = model('App\Models\dms_preferences');
         $CI->load->library(array('list_report_pager'));
         $s = '';
         $CI->list_report_pager->set($first_row, $total_rows, $per_page);

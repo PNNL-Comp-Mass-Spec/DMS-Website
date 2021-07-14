@@ -29,7 +29,7 @@ class Config_db extends BaseController {
         $CI =& get_instance();
         $this->mod_enabled = $CI->config->item('modify_config_db_enabled');
 
-        $this->load->model('config_db_model', 'config_model');
+        $this->config_model = model('App\Models\config_db_model');
     }
 
     /**

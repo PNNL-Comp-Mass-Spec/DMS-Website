@@ -371,7 +371,7 @@ class G_model extends Model {
 
             // we are going to have to check further, so load the authorization model
             $CI =& get_instance();
-            $CI->load->model('dms_authorization', 'auth');
+            $CI->auth = model('App\Models\dms_authorization');
 
             // get user permissions
             $permissions = $CI->auth->get_user_permissions($user);
