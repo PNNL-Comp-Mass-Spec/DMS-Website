@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Operations_tasks extends Base_controller {
+class Operations_tasks extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

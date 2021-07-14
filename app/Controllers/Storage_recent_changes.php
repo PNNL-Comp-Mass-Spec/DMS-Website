@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Storage_recent_changes extends Base_controller {
+class Storage_recent_changes extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

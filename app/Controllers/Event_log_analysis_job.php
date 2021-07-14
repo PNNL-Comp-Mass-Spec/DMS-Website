@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Event_log_analysis_job extends Base_controller {
+class Event_log_analysis_job extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

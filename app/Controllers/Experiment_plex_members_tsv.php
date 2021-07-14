@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Experiment_plex_members_tsv extends Base_controller {
+class Experiment_plex_members_tsv extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

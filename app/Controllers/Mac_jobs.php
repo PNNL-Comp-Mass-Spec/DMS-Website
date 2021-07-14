@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Mac_jobs extends Base_controller {
+class Mac_jobs extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

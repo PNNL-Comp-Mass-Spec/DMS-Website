@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Capture_processor_step_tools extends Base_controller {
+class Capture_processor_step_tools extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

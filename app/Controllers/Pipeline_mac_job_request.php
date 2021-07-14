@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Pipeline_mac_job_request extends Base_controller {
+class Pipeline_mac_job_request extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

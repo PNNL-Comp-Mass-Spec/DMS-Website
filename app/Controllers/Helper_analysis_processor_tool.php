@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_analysis_processor_tool extends Base_controller {
+class Helper_analysis_processor_tool extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

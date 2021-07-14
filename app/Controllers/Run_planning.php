@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Run_planning extends Base_controller {
+class Run_planning extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

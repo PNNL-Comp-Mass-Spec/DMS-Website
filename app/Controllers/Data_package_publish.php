@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Data_package_publish extends Base_controller {
+class Data_package_publish extends DmsBase {
 
     // --------------------------------------------------------------------
     function __construct()

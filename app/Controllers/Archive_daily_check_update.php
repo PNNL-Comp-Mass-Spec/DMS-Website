@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Archive_daily_check_update extends Base_controller {
+class Archive_daily_check_update extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_mts_jobs_for_database extends Base_controller {
+class Helper_mts_jobs_for_database extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

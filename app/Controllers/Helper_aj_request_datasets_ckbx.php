@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_aj_request_datasets_ckbx extends Base_controller {
+class Helper_aj_request_datasets_ckbx extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

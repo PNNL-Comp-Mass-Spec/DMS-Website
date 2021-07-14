@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_capture_job_steps extends Base_controller {
+class Helper_capture_job_steps extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

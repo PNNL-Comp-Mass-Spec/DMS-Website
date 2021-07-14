@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Instrument_actual extends Base_controller {
+class Instrument_actual extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

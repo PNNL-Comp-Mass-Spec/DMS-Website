@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Tracking_dataset extends Base_controller {
+class Tracking_dataset extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Sample_prep_request extends Base_controller {
+class Sample_prep_request extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

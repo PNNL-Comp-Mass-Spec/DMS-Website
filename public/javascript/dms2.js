@@ -1349,7 +1349,7 @@ var delta = {
 	 * For example:
 	 * javascript:delta.performCommand("http://dms2.pnl.gov/dataset/command", "QC_Shew_15_02_2_29Oct15_Lynx_15-08-27", "reset", "Are you sure that you want to reset this dataset to New?")
 	 * The performCommand function in turn will post to http://dms2.pnl.gov/dataset/command/QC_Shew_15_02_2_29Oct15_Lynx_15-08-27/reset
-	 * That URL is processed by the base controller for the given page family, specifically function command in Base_controller.php
+	 * That URL is processed by the base controller for the given page family, specifically function command in DmsBase.php
 	 * The command function calls function internal_operation in Operation.php
 	 * The internal_operation function looks up the name of the stored procedure specified by operations_sproc in the general_params table of the model config db
 	 * It then calls the stored procedure, passing on the given command to the @mode parameter

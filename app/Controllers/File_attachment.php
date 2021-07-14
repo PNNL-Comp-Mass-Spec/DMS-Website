@@ -15,7 +15,7 @@ class Check_result {
 /**
  * File attachment uploader class
  */
-class File_attachment extends Base_controller {
+class File_attachment extends DmsBase {
 
     /**
      * Constructor

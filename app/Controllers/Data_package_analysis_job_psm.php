@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Data_package_analysis_job_psm extends Base_controller {
+class Data_package_analysis_job_psm extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

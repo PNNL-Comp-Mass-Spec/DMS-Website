@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Mts_peak_matching_requests extends Base_controller {
+class Mts_peak_matching_requests extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

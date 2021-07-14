@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Analysis_batch extends Base_controller {
+class Analysis_batch extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

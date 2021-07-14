@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Analysis_request_jobs extends Base_controller {
+class Analysis_request_jobs extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

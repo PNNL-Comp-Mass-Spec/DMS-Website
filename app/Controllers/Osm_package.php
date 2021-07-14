@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Osm_package extends Base_controller {
+class Osm_package extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -2,41 +2,39 @@
 namespace App\Controllers;
 
 /**
- * Class Base_Controller, DMS base class for most controllers
+ * Class DmsBase, DMS base class for most controllers
  */
 
-use App\Libraries\Controller_utility;
-
-class Base_controller extends BaseController
+class DmsBase extends BaseController
 {
 
     var $my_tag = "";
 
-	/**
-	 * An array of helpers to be loaded automatically upon
-	 * class instantiation. These helpers will be available
-	 * to all other controllers that extend Base_controller.
-	 *
-	 * @var array
-	 */
-	protected $helpers = ['url'];
+    /**
+     * An array of helpers to be loaded automatically upon
+     * class instantiation. These helpers will be available
+     * to all other controllers that extend DmsBase.
+     *
+     * @var array
+     */
+    protected $helpers = ['url'];
 
-	/**
-	 * Constructor.
-	 */
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
-	{
-		// Do Not Edit This Line
-		parent::initController($request, $response, $logger);
+    /**
+     * Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
 
-		//--------------------------------------------------------------------
-		// Preload any models, libraries, etc, here.
-		//--------------------------------------------------------------------
-		// E.g.:
-		// $this->session = \Config\Services::session();
+        //--------------------------------------------------------------------
+        // Preload any models, libraries, etc, here.
+        //--------------------------------------------------------------------
+        // E.g.:
+        // $this->session = \Config\Services::session();
 
         $this->cu = new Controller_utility();
-	}
+    }
 
     // --------------------------------------------------------------------
     function index()
@@ -478,7 +476,7 @@ class Base_controller extends BaseController
         session_start();
         $this->cu = new \App\Libraries\Controller_utility();
         $this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
-        $input_parms = $this->general_query->setup_query_for_base_controller();
+        $input_parms = $this->general_query->setup_query_for_dmsBase();
         $this->general_query->output_result($input_parms->output_format);
     }
 

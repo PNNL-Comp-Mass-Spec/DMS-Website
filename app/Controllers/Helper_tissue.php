@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_tissue extends Base_controller {
+class Helper_tissue extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

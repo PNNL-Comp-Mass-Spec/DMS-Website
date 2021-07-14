@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Requested_run_batch_order extends Base_controller {
+class Requested_run_batch_order extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

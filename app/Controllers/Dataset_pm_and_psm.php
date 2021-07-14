@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dataset_pm_and_psm extends Base_controller {
+class Dataset_pm_and_psm extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

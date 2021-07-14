@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Sample_label_reporter_ions extends Base_controller {
+class Sample_label_reporter_ions extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

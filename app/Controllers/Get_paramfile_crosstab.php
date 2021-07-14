@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Get_paramfile_crosstab extends Base_controller {
+class Get_paramfile_crosstab extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

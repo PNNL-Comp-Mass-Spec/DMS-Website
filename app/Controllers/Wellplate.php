@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Wellplate extends Base_controller {
+class Wellplate extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

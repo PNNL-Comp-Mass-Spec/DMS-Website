@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Historic_log extends Base_controller {
+class Historic_log extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

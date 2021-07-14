@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_predefined_analysis extends Base_controller {
+class Helper_predefined_analysis extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 
 //
-// Support functions for entry page features of base_controller
+// Support functions for entry page features of DmsBase
 //
 
 /**

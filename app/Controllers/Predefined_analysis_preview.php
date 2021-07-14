@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Predefined_analysis_preview extends Base_controller {
+class Predefined_analysis_preview extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

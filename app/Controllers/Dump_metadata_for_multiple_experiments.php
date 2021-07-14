@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dump_metadata_for_multiple_experiments extends Base_controller {
+class Dump_metadata_for_multiple_experiments extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

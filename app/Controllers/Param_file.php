@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Param_file extends Base_controller {
+class Param_file extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

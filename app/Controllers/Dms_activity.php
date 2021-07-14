@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dms_activity extends Base_controller {
+class Dms_activity extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

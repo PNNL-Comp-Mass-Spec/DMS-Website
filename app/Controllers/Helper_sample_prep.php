@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_sample_prep extends Base_controller {
+class Helper_sample_prep extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

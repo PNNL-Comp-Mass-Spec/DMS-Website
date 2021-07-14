@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Event_log_archive extends Base_controller {
+class Event_log_archive extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

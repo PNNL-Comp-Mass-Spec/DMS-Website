@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Bionet extends Base_controller {
+class Bionet extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

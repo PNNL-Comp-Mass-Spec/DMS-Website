@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Event_log_dataset extends Base_controller {
+class Event_log_dataset extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

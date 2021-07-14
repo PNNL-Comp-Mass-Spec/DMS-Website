@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Data_package_campaigns extends Base_controller {
+class Data_package_campaigns extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

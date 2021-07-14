@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Pipeline_local_processors extends Base_controller {
+class Pipeline_local_processors extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Mass_correction_factors extends Base_controller {
+class Mass_correction_factors extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

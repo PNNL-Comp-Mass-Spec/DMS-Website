@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Ai_user_funded_datasets_list_report extends Base_controller {
+class Ai_user_funded_datasets_list_report extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

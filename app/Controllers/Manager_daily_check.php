@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Manager_daily_check extends Base_controller {
+class Manager_daily_check extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

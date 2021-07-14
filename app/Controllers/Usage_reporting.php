@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Usage_reporting extends Base_controller {
+class Usage_reporting extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

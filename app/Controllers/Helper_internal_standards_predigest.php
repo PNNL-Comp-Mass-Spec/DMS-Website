@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_internal_standards_predigest extends Base_controller {
+class Helper_internal_standards_predigest extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

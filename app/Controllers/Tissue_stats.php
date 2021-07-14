@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Tissue_stats extends Base_controller {
+class Tissue_stats extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

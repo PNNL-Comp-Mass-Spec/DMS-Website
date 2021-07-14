@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Datasetid extends Base_controller {
+class Datasetid extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

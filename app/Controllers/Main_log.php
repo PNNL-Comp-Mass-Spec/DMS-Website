@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Main_log extends Base_controller {
+class Main_log extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

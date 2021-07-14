@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Predefined_analysis_datasets extends Base_controller {
+class Predefined_analysis_datasets extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

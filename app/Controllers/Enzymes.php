@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Enzymes extends Base_controller {
+class Enzymes extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

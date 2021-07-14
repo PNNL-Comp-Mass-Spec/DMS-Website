@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Cell_culture extends Base_controller {
+class Cell_culture extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

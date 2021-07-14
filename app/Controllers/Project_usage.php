@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Project_usage extends Base_controller {
+class Project_usage extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

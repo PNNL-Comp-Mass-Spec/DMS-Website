@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_data_package_dataset_ckbx extends Base_controller {
+class Helper_data_package_dataset_ckbx extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

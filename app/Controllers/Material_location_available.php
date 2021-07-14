@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Material_location_available extends Base_controller {
+class Material_location_available extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

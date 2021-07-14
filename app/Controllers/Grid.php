@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Grid extends Base_controller {
+class Grid extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

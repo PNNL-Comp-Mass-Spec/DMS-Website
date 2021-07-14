@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Mrm_list_attachment extends Base_controller {
+class Mrm_list_attachment extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

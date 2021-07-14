@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dataset_jobs extends Base_controller {
+class Dataset_jobs extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

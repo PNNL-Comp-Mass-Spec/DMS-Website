@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Notification_event extends Base_controller {
+class Notification_event extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

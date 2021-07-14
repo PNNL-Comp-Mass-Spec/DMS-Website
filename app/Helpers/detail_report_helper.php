@@ -4,7 +4,7 @@
  * Create HTML to display detail report fields, including adding hotlinks
  * Also adds the header fields, including the link to the list report and edit/entry buttons
  * This method is called from view application/views/main/detail_report_data.php
- * That view is loaded from method show_data in Base_controller.php
+ * That view is loaded from method show_data in DmsBase.php
  * @param type $columns
  * @param type $fields
  * @param type $hotlinks

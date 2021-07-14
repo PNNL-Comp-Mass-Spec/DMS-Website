@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_mts_peak_matching_param_files extends Base_controller {
+class Helper_mts_peak_matching_param_files extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

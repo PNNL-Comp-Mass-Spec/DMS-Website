@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Internal_standards_comp extends Base_controller {
+class Internal_standards_comp extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

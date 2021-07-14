@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dataset_daily_check extends Base_controller {
+class Dataset_daily_check extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Aux_info_def extends Base_controller {
+class Aux_info_def extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

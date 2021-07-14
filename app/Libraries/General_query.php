@@ -119,7 +119,7 @@ class General_query {
      * Setup the query
      * @return \General_query_def
      */
-    function setup_query_for_base_controller() {
+    function setup_query_for_dmsBase() {
         $CI =& get_instance();
         helper(['url']);
 

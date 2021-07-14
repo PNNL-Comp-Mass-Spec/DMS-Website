@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Data_package_experiment_plex_members extends Base_controller {
+class Data_package_experiment_plex_members extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

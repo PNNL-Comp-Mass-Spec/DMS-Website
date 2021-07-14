@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dump_metadata_for_multiple_datasets extends Base_controller {
+class Dump_metadata_for_multiple_datasets extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

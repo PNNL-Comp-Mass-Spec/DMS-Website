@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Experiment_fraction extends Base_controller {
+class Experiment_fraction extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

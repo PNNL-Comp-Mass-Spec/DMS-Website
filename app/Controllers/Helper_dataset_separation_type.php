@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_dataset_separation_type extends Base_controller {
+class Helper_dataset_separation_type extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

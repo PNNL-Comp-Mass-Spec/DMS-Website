@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Requested_run_fraction extends Base_controller {
+class Requested_run_fraction extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Material_items extends Base_controller {
+class Material_items extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_instrument_dataset_type extends Base_controller {
+class Helper_instrument_dataset_type extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

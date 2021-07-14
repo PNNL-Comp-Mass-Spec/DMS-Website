@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Capture_script extends Base_controller {
+class Capture_script extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_user_name_ckbx extends Base_controller {
+class Helper_user_name_ckbx extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

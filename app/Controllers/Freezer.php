@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Freezer extends Base_controller {
+class Freezer extends DmsBase {
 
     var $my_tag = "freezer";
 

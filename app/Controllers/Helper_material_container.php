@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_material_container extends Base_controller {
+class Helper_material_container extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

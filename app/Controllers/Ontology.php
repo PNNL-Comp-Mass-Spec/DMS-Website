@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Ontology extends Base_controller {
+class Ontology extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

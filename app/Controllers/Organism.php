@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Organism extends Base_controller {
+class Organism extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

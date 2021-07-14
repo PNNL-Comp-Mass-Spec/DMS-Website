@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Mts_pm_results extends Base_controller {
+class Mts_pm_results extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

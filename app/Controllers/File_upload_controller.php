@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class File_upload_controller extends Base_controller {
+class File_upload_controller extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

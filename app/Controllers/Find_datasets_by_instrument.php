@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Find_datasets_by_instrument extends Base_controller {
+class Find_datasets_by_instrument extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

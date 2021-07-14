@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Prep_instrument_history extends Base_controller {
+class Prep_instrument_history extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

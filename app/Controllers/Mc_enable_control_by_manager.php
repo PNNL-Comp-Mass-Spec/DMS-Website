@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Mc_enable_control_by_manager extends Base_controller {
+class Mc_enable_control_by_manager extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

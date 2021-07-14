@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Mc_params extends Base_controller {
+class Mc_params extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

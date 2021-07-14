@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_dataset_capture_job_steps_ckbx extends Base_controller {
+class Helper_dataset_capture_job_steps_ckbx extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

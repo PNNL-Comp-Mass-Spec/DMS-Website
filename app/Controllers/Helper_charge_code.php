@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_charge_code extends Base_controller {
+class Helper_charge_code extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

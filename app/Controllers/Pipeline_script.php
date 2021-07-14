@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Pipeline_script extends Base_controller {
+class Pipeline_script extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

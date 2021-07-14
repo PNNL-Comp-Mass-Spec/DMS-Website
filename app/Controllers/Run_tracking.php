@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Run_tracking extends Base_controller {
+class Run_tracking extends DmsBase {
 
     var $maxNormalInterval = 90;
 

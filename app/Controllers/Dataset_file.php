@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dataset_file extends Base_controller {
+class Dataset_file extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

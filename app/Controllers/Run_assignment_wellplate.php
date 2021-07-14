@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Run_assignment_wellplate extends Base_controller {
+class Run_assignment_wellplate extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

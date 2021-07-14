@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class User extends Base_controller {
+class User extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

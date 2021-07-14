@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Experiment extends Base_controller {
+class Experiment extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

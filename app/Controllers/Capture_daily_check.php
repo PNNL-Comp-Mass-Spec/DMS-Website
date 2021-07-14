@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Capture_daily_check extends Base_controller {
+class Capture_daily_check extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

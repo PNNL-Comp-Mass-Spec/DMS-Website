@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Database\SQLite3\Connection;
 
-class Upload extends Base_controller {
+class Upload extends DmsBase {
 
     // Tracks names of entities currently supported by the spreadsheet loader.
     // Comes from column config_source in table loadable_entities in spreadsheet_loader.db

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Param_file_mass_mods extends Base_controller {
+class Param_file_mass_mods extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

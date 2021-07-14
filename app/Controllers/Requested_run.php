@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Requested_run extends Base_controller {
+class Requested_run extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

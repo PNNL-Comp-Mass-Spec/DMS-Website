@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_data_package extends Base_controller {
+class Helper_data_package extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Rna_prep_request extends Base_controller {
+class Rna_prep_request extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

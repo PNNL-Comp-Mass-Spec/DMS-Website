@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Analysis_tools extends Base_controller {
+class Analysis_tools extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

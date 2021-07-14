@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Archive_path extends Base_controller {
+class Archive_path extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

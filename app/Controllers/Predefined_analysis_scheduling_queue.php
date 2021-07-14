@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Predefined_analysis_scheduling_queue extends Base_controller {
+class Predefined_analysis_scheduling_queue extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

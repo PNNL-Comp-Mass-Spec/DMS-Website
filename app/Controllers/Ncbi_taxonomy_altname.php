@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Ncbi_taxonomy_altname extends Base_controller {
+class Ncbi_taxonomy_altname extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Analysis_job_request_psm extends Base_controller {
+class Analysis_job_request_psm extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

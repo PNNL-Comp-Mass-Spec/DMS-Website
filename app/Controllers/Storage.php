@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Storage extends Base_controller {
+class Storage extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

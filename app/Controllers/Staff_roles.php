@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Staff_roles extends Base_controller {
+class Staff_roles extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

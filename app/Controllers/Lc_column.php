@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Lc_column extends Base_controller {
+class Lc_column extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Maxquant_mods extends Base_controller {
+class Maxquant_mods extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

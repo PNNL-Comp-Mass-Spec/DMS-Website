@@ -25,7 +25,7 @@ namespace App\Controllers;
  * Note that this will also send the daily notification to proteomics@pnnl.gov
  *
  */
-class Notification extends Base_controller {
+class Notification extends DmsBase {
     /**
      * Constructor
      */

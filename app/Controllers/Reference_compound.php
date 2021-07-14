@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Reference_compound extends Base_controller {
+class Reference_compound extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

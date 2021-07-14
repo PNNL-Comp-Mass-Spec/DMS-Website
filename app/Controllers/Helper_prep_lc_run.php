@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_prep_lc_run extends Base_controller {
+class Helper_prep_lc_run extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

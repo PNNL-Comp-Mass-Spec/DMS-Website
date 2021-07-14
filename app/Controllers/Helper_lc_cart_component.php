@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_lc_cart_component extends Base_controller {
+class Helper_lc_cart_component extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

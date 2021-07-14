@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Sample_prep_biomaterial_location extends Base_controller {
+class Sample_prep_biomaterial_location extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

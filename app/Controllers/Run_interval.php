@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Run_interval extends Base_controller {
+class Run_interval extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

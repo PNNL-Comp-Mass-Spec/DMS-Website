@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Batch_tracking extends Base_controller {
+class Batch_tracking extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Capture_local_processors extends Base_controller {
+class Capture_local_processors extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

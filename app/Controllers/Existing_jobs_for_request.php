@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Existing_jobs_for_request extends Base_controller {
+class Existing_jobs_for_request extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

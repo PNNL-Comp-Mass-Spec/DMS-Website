@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_inst_source extends Base_controller {
+class Helper_inst_source extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

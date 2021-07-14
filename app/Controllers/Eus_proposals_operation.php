@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Eus_proposals_operation extends Base_controller {
+class Eus_proposals_operation extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

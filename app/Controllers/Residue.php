@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Residue extends Base_controller {
+class Residue extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

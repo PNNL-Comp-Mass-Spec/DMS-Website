@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Lc_cart_configuration extends Base_controller {
+class Lc_cart_configuration extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_sample_submissions_ckbx extends Base_controller {
+class Helper_sample_submissions_ckbx extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

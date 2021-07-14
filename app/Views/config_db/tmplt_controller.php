@@ -1,6 +1,6 @@
-require("Base_controller.php");
+require("DmsBase.php");
 
-class <?= $tag ?> extends Base_controller {
+class <?= $tag ?> extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_organism_db extends Base_controller {
+class Helper_organism_db extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

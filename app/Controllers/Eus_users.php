@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Eus_users extends Base_controller {
+class Eus_users extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

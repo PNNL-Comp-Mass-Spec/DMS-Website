@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Statistics_entities_by_year extends Base_controller {
+class Statistics_entities_by_year extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

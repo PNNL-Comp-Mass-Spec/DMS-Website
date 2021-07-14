@@ -186,7 +186,7 @@ class Gen extends BaseController
      */
     function show_session()
     {
-        // echo Base_controller::var_dump_ex($_SESSION);
+        // echo DmsBase::var_dump_ex($_SESSION);
 
         echo "Session ID: ". session_id  () . "<hr />";
         echo "SID: ". SID . "<hr />";
@@ -214,7 +214,7 @@ class Gen extends BaseController
 
         echo phpinfo();
 
-        Base_controller::var_dump_ex($_SERVER);
+        DmsBase::var_dump_ex($_SERVER);
 
         if (strlen($savedPassword) > 0) {
             $_SERVER["PHP_AUTH_PW"] = $savedPassword;

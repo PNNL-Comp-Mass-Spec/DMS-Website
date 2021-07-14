@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Separation_type extends Base_controller {
+class Separation_type extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Campaign_dataset_stats extends Base_controller {
+class Campaign_dataset_stats extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

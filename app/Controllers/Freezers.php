@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Freezers extends Base_controller {
+class Freezers extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

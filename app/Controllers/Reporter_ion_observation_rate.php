@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Reporter_ion_observation_rate extends Base_controller {
+class Reporter_ion_observation_rate extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

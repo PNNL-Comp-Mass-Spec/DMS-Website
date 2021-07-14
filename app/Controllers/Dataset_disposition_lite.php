@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Dataset_disposition_lite extends Base_controller {
+class Dataset_disposition_lite extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

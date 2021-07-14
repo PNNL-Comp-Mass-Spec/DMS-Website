@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_scheduled_run extends Base_controller {
+class Helper_scheduled_run extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

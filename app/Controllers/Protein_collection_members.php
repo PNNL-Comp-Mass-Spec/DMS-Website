@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Protein_collection_members extends Base_controller {
+class Protein_collection_members extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

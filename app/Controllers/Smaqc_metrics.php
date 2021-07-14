@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Smaqc_metrics extends Base_controller {
+class Smaqc_metrics extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

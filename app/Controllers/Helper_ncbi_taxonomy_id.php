@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_ncbi_taxonomy_id extends Base_controller {
+class Helper_ncbi_taxonomy_id extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Request_daily extends Base_controller {
+class Request_daily extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

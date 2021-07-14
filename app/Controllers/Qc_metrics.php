@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Qc_metrics extends Base_controller {
+class Qc_metrics extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Unimod extends Base_controller {
+class Unimod extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

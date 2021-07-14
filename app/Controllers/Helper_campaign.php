@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Helper_campaign extends Base_controller {
+class Helper_campaign extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

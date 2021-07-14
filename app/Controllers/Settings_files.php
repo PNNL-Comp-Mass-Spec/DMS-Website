@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Settings_files extends Base_controller {
+class Settings_files extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

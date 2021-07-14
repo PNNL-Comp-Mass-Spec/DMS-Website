@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Pipeline_job_steps extends Base_controller {
+class Pipeline_job_steps extends DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {
