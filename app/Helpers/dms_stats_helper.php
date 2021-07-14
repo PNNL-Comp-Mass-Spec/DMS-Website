@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Create HTML to display overall DMS statistics
  * @param type $results

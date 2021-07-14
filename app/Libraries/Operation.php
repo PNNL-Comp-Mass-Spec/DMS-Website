@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 /**
  *  'operations' style stored procedure functions
@@ -98,5 +99,5 @@ class Operation {
         $CI =& get_instance();
         return $CI->sproc_model->get_parameters();
     }
-
 }
+?>

@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Create the suggested SQL for the general_params table
  * @param type $obj

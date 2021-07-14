@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * Make a menu that dynamically appears on the welcome page (https://dms2.pnl.gov/gen/welcome)
  * @param type $params

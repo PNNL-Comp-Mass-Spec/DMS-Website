@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 class Column_filter {
 
@@ -107,5 +108,5 @@ class Column_filter {
         $CI->load->helper('cache');
         clear_cache($this->storage_name);
     }
-
 }
+?>

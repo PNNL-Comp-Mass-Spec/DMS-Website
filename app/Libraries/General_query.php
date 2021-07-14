@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // --------------------------------------------------------------------
 // general query - return data directly using query model
@@ -351,5 +352,5 @@ class General_query {
 
         echo "</data>\n";
     }
-
 }
+?>

@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 /// -----------------------------------
 // create HTML to display search form for DMS
 //

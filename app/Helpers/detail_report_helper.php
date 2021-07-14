@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 // Include the Number formatting methods
 require_once(BASEPATH . '../application/libraries/Number_formatting.php');
 

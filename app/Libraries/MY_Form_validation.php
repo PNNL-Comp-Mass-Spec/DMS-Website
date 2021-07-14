@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 /**
  * Form validation functions
@@ -102,5 +99,5 @@ class MY_Form_validation extends CI_Form_validation {
             return true;
         }
     }
-
 }
+?>

@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 // --------------------------------------------------------------------
 function sproc_log_in($sproc, $user, $parms, $override = false) {
     $CI =& get_instance();

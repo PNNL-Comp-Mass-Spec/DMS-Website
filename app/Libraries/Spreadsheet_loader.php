@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // Not required because we are telling CodeIgniter to also use the Composer autoload.
 //require 'application/vendor/autoload.php';
@@ -535,5 +536,5 @@ class Spreadsheet_loader {
     function get_entity_list() {
         return $this->entity_list;
     }
-
 }
+?>

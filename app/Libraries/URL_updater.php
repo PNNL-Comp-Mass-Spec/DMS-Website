@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 class URL_updater {
     
@@ -103,3 +100,4 @@ class URL_updater {
         return $val;
     }
 }
+?>

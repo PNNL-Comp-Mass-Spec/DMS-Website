@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 // --------------------------------------------------------------------
 // Methods to remember parameter settings between page visits
 // --------------------------------------------------------------------

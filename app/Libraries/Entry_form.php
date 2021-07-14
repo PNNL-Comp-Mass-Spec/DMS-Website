@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 /**
  * Manages construction of an entry form (in different formats)
@@ -650,5 +651,5 @@ class Entry_form {
             }
         }
     }
-
 }
+?>

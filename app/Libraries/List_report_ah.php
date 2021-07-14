@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 require("List_report.php");
 
@@ -78,5 +79,5 @@ class List_report_ah extends List_report {
     function set_up_data_query() {
         $this->set_up_list_query();
     }
-
 }
+?>

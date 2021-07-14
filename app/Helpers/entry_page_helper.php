@@ -4,10 +4,6 @@
 // Support functions for entry page features of base_controller
 //
 
-    if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 // Include application/libraries/Wildcard_conversion.php
 require_once(BASEPATH . '../application/libraries/Wildcard_conversion.php');
 

@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // --------------------------------------------------------------------
 // entry page section
@@ -348,5 +349,5 @@ class Entry {
         }
         return $field_enable;
     }
-
 }
+?>

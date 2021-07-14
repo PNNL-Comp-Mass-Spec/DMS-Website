@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // --------------------------------------------------------------------
 // misc functions for controllers that use page libraries
@@ -91,5 +92,5 @@ class Controller_utility {
             return false;
         }
     }
-
 }
+?>

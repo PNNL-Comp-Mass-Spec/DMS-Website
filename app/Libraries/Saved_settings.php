@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 class Saved_settings {
 
@@ -64,5 +65,5 @@ class Saved_settings {
 
         echo "Saved preferences were cleared";
     }
-
 }
+?>

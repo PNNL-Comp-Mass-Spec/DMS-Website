@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // --------------------------------------------------------------------
 // detail report page section
@@ -309,5 +310,5 @@ class Detail_report {
 
         export_xml_to_dot($scriptName, $description, $script);
     }
-
 }
+?>

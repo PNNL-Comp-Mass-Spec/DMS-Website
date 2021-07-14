@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 /**
  * Return True if the variable is null or empty (aka IsNullOrEmpty)
@@ -43,3 +44,4 @@ function EndsWith($haystack, $needle) {
     $length = strlen($needle);
     return (substr($haystack, strlen($haystack) - $length, $length) === $needle);
 }
+?>

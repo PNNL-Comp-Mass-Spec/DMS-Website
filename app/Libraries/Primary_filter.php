@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 class Primary_filter {
 
@@ -143,5 +144,5 @@ class Primary_filter {
         $CI->load->helper('cache');
         clear_cache($this->storage_name);
     }
-
 }
+?>

@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 class Sorting_filter {
 
@@ -117,5 +118,5 @@ class Sorting_filter {
         $CI->load->helper('cache');
         clear_cache($this->storage_name);
     }
-
 }
+?>

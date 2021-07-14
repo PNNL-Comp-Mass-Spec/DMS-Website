@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 // Include the Number formatting methods
 require_once(BASEPATH . '../application/libraries/Number_formatting.php');
@@ -934,5 +931,5 @@ class Cell_presentation {
     function set_col_filter($col_filter) {
         $this->col_filter = $col_filter;
     }
-
 }
+?>

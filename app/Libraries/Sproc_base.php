@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 /**
  * Base class for Sproc_mssql and Sproc_sqlsrv
@@ -44,3 +45,4 @@ abstract class Sproc_base {
      */
     abstract function execute($sprocName, $conn_id, $args, $par);
 }
+?>

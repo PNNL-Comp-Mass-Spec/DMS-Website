@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // Include application/libraries/Wildcard_conversion.php
 require_once('Wildcard_conversion.php');
@@ -213,5 +214,5 @@ class Secondary_filter {
         $CI->load->helper('cache');
         clear_cache($this->storage_name);
     }
-
 }
+?>

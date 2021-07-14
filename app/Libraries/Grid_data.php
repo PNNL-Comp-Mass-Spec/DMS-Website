@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 /**
  * Supports editing grid data
@@ -119,5 +120,5 @@ class Grid_data {
         }
         return colSpec;
     }
-
 }
+?>

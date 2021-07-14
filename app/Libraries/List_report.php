@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // --------------------------------------------------------------------
 // list report page section
@@ -488,5 +489,5 @@ class List_report {
             }
         }
     }
-
 }
+?>

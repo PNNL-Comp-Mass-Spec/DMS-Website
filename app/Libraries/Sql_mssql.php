@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 class Sql_mssql {
 
@@ -372,5 +369,5 @@ class Sql_mssql {
         }
         return $cmps;
     }
-
 }
+?>

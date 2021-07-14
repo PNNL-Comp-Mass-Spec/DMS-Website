@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 /**
  * Look for item $itemName in the Options array in $colSpec
@@ -119,3 +120,4 @@ function valueToString($value, $colSpec, $alwaysAddCommas) {
 
     return $formattedValue;
 }
+?>

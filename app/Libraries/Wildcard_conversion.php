@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
@@ -72,3 +73,4 @@ function convert_special_values($value) {
 
     return $finalValue;
 }
+?>

@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 class Paging_filter {
 
@@ -111,5 +112,5 @@ class Paging_filter {
             clear_cache($this->storage_name);
         }
     }
-
 }
+?>

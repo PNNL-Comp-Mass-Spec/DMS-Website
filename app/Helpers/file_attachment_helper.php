@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 function chmodr($path, $filemode) {
     if (!is_dir($path)) {
         return chmod($path, $filemode);

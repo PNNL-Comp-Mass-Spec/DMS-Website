@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 /**
  *
@@ -198,5 +195,5 @@ class List_report_pager {
 
         return $output;
     }
-
 }
+?>

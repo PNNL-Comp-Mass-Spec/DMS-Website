@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 class Aux_info_support {
 
@@ -138,5 +135,5 @@ class Aux_info_support {
 EOD;
         return $str;
     }
-
 }
+?>

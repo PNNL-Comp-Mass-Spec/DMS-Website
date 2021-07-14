@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 class Table_sorter {
 
@@ -105,5 +106,5 @@ class Table_sorter {
 //echo "a:$a[$col], b:$b[$col], col:$col, cmp:$comparison <hr>";
         return $comparison;
     }
-
 }
+?>

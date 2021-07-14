@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 class Sql_postgre {
 
@@ -399,5 +396,5 @@ class Sql_postgre {
         }
         return $cmps;
     }
-
 }
+?>

@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries;
 
 // --------------------------------------------------------------------
 // param report (stored procedure based list report) section
@@ -416,5 +417,5 @@ class Param_report {
             }
         }
     }
-
 }
+?>

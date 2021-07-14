@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
 // --------------------------------------------------------------------
 function dump_e_model($mod) {
     echo '<hr>';

@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 require("Sproc_base.php");
 
@@ -202,5 +199,5 @@ class Sproc_sqlsrv extends Sproc_base {
         }
         return $metadata;
     }
-
 }
+?>

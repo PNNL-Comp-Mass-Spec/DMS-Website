@@ -1,8 +1,5 @@
 <?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Libraries;
 
 require("Sproc_base.php");
 
@@ -116,5 +113,5 @@ class Sproc_mssql extends Sproc_base {
         'smallint' => 'SQLINT2',
         'char' => 'SQLCHAR'
     );
-
 }
+?>
