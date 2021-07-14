@@ -155,7 +155,7 @@ class Entry {
         // get field values from validation object
         $input_params = new stdClass();
         foreach ($form_def->fields as $field) {
-            $input_params->$field = $CI->form_validation->set_value($field);
+            $input_params->$field = $CI->postData[$field];
         }
         try {
             if (!$valid_fields) {
@@ -295,12 +295,13 @@ class Entry {
      * @return bool
      */
     protected function get_input_field_values($rules) {
-        $CI =& get_instance();
         helper('form');
-        $CI->load->library('form_validation');
-        $CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
-        $CI->form_validation->set_rules($rules);
-        return $CI->form_validation->run();
+        $request = \Config\Services::request();
+        $CI->postData = $request->getPost();
+        $validation =  \Config\Services::validation();
+        //$CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
+        $validation->setRules($rules);
+        return $validation->run();
     }
 
     /**

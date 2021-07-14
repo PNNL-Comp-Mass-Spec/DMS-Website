@@ -162,16 +162,18 @@ class Param_report {
             // make validation object and use it to
             // get field values from POST and validate them
             helper('form');
-            $CI->load->library('form_validation');
-            $CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
-            $CI->form_validation->set_rules($form_def->rules);
-            $valid_fields = $CI->form_validation->run();
+            $request = \Config\Services::request();
+            $postData = $request->getPost();
+            $validation =  \Config\Services::validation();
+            //$CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
+            $validation->setRules($form_def->rules);
+            $valid_fields = $validation->run();
 
             // get field values from validation object into an object
             // that will be used for calling stored procedure
             // and also putting values back into entry form HTML
             foreach ($form_def->fields as $field) {
-                $calling_params->$field = $CI->form_validation->set_value($field);
+                $calling_params->$field = $postData[$field];
             }
         }
         // parameters needed by stored procedure that are not in entry form specs
@@ -181,7 +183,7 @@ class Param_report {
         $message = '';
         try {
             if (!$valid_fields) {
-                throw new exception('There were validation errors: ' . validation_errors());
+                throw new exception('There were validation errors: ' . $validation->listErrors('listFmt'));
             }
 
             // call stored procedure

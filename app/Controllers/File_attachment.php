@@ -219,7 +219,7 @@ class File_attachment extends Base_controller {
             $config['max_size'] = 204800;
             mkdir($config['upload_path'],0777,true);
 
-            $this->load->library('upload', $config);
+            $this->upload = new \App\Libraries\Upload($config);
 
             // Upload the file from the user's computer to this server
             // Store below BASEPATH/../attachment_uploads

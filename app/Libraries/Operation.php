@@ -59,10 +59,12 @@ class Operation {
             // For more info, see https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_detail_report_commands#Command_Types
 
             helper('form');
-            $CI->load->library('form_validation');
-            $CI->form_validation->set_error_delimiters('', '');
-            $CI->form_validation->set_rules($rules);
-            $valid_fields = $CI->form_validation->run();
+            $request = \Config\Services::request();
+            $postData = $request->getPost();
+            $validation =  \Config\Services::validation();
+            //$CI->form_validation->set_error_delimiters('', '');
+            $validation->setRules($rules);
+            $valid_fields = $validation->run();
 
             // Get field values from validation object into an object
             // that will be used for calling stored procedure
@@ -70,7 +72,7 @@ class Operation {
             helper('user');
             $calling_params = new stdClass();
             foreach ($fields as $field) {
-                $calling_params->$field = $CI->form_validation->set_value($field);
+                $calling_params->$field = $postData[$field];
             }
             $calling_params->mode = ($CI->input->post('mode')) ? $CI->input->post('mode') : $CI->input->post('command');
             $calling_params->callingUser = get_user();

@@ -78,9 +78,8 @@ class Run_tracking extends Base_controller {
 
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 
-        $this->load->library('calendar', $this->calendar_prefs($instrument));
         $prefs = $this->calendar_prefs($instrument);
-        $this->load->library('calendar', $prefs);
+        $this->calendar = new \App\Libraries\Calendar($prefs);
 
         $days_in_month = $this->calendar->get_total_days($month, $year);
 
