@@ -9,7 +9,7 @@
 </div>
 
 <div id="hdrEnd">
-<form action="<?= site_url()?>gen" method="post" name="OFS" id="OFS">
+<form action="<?= site_url('gen')?>" method="post" name="OFS" id="OFS">
 <input type="hidden" name="page" value="">
 </form>
 <?= make_version_banner() ?>

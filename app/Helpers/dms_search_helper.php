@@ -46,7 +46,7 @@ function _make_search_selector() {
     foreach ($options as $option) {
         $target = $option['target'];
         $search_key = $option['search_key'];
-        $link = site_url() . $option['link'];
+        $link = site_url($option['link']);
         if ($target != $cur_target) {
             if ($cur_target != '') {
                 $str .= "</optgroup>\n";

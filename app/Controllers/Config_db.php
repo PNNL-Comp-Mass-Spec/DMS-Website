@@ -73,7 +73,7 @@ class Config_db extends BaseController {
         $s = "";
         if ($this->mod_enabled) {
             $tip = "Show SQL for making DMS database objects that match general_params names";
-            $link = site_url() . "config_db/code_for_family_sql/" . $config_db;
+            $link = site_url("config_db/code_for_family_sql/" . $config_db);
             $s .= "<a href='$link' title='$tip'>Suggest SQL to make DMS database objects</a>";
         }
         return $s;
@@ -127,7 +127,7 @@ class Config_db extends BaseController {
      * @return string
      */
     private function _make_page_family_contents_link($config_db, $link_title = "Contents") {
-        return '<a href="' . site_url() . "config_db/show_db/" . $config_db . '">' . "$link_title</a>";
+        return '<a href="' . site_url("config_db/show_db/" . $config_db) . '">' . "$link_title</a>";
     }
 
     /**
@@ -241,7 +241,7 @@ class Config_db extends BaseController {
             $s .= $this->_make_wiki_help_link($t);
             if (in_array($t, $tbl_list)) {
                 if ($this->mod_enabled) {
-                    $s .= " &nbsp; <a href='" . site_url() . "config_db/edit_table/$config_db/$t'>Edit</a>";
+                    $s .= " &nbsp; <a href='" . site_url("config_db/edit_table/$config_db/$t") . "'>Edit</a>";
                     $s .= " &nbsp; <a href=\"javascript:ops('remove_table/$config_db/$t')\">Delete</a>";
                     $s .= "<br>\n";
                 }
@@ -312,7 +312,7 @@ class Config_db extends BaseController {
           // table header
           $s .= "<tr><th colspan='$n''>";
           $s .= "$table_name  &nbsp; ";
-          //       $s .= "<a href='".site_url()."config_db/edit_table/$config_db/$table_name'>Edit</a> &nbsp; ";
+          //       $s .= "<a href='".site_url("config_db/edit_table/$config_db/$table_name")."'>Edit</a> &nbsp; ";
           //       $s .= "<a href=\"javascript:ops('remove_table/$config_db/$table_name')\">Delete</a> &nbsp; ";
           //       $s .= "<a href=\"javascript:ops('fill_table/$config_db/$table_name')\">Populate</a> &nbsp; ";
           $s .= "</th></tr>\n";
@@ -1569,24 +1569,24 @@ class Config_db extends BaseController {
         $s = "";
         $s .= "<table class='cfg_tab'>\n";
         $s .= "<tr><th>Config DB System Parameters</th></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/master_config_db.db/table_def_description'>Edit</a>  table_def_description config db</td></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/master_config_db.db/table_def_sql'>Edit</a> table_def_sql config db</td></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/master_config_db.db/table_edit_col_defs'>Edit</a> table_edit_col_defs  config db</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/master_config_db.db/table_def_description") . "'>Edit</a>  table_def_description config db</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/master_config_db.db/table_def_sql") . "'>Edit</a> table_def_sql config db</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/master_config_db.db/table_edit_col_defs") . "'>Edit</a> table_edit_col_defs  config db</td></tr>";
         $s .= "<tr><th>Home Page Menu Sections</th></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/dms_menu.db/home_menu_sections'>Edit</a> menu sections</td></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/dms_menu.db/home_menu_items'>Edit</a> menu items</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/dms_menu.db/home_menu_sections") . "'>Edit</a> menu sections</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/dms_menu.db/home_menu_items") . "'>Edit</a> menu items</td></tr>";
         $s .= "<tr><th>DMS Menus</th></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/dms_menu.db/menu_def'>Edit</a> side menu items</td></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/dms_menu.db/nav_def'>Edit</a> nav bar items</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/dms_menu.db/menu_def") . "'>Edit</a> side menu items</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/dms_menu.db/nav_def") . "'>Edit</a> nav bar items</td></tr>";
         $s .= "<tr><th>Admin Page Menu Sections</th></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/dms_admin_menu.db/home_menu_sections'>Edit</a> menu sections</td></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/dms_admin_menu.db/home_menu_items'>Edit</a> menu items</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/dms_admin_menu.db/home_menu_sections") . "'>Edit</a> menu sections</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/dms_admin_menu.db/home_menu_items") . "'>Edit</a> menu items</td></tr>";
         $s .= "<tr><th>Drop-down Choosers (Pick Lists)</th></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "chooser/get_chooser_list'>Display</a> list of all drop-down style choosers (e.g. datasetTypePickList)</td></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/dms_chooser.db/chooser_definitions'>Edit</a> drop-down chooser definitions config db</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("chooser/get_chooser_list") . "'>Display</a> list of all drop-down style choosers (e.g. datasetTypePickList)</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/dms_chooser.db/chooser_definitions") . "'>Edit</a> drop-down chooser definitions config db</td></tr>";
         $s .= "<tr><th>Definitions for Restricted Actions</th></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "gen/auth'>Display</a> list of restricted actions</td></tr>";
-        $s .= "<tr><td><a href='" . site_url() . "config_db/edit_table/master_authorization.db/restricted_actions'>Edit</a>  master_authorization restricted actions config db</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("gen/auth") . "'>Display</a> list of restricted actions</td></tr>";
+        $s .= "<tr><td><a href='" . site_url("config_db/edit_table/master_authorization.db/restricted_actions") . "'>Edit</a>  master_authorization restricted actions config db</td></tr>";
         $s .= "</table>\n";
 
         $data['contents'] = $s;

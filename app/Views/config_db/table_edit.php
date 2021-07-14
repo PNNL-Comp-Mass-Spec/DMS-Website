@@ -22,7 +22,7 @@ function ops(index, action) {
     if ( !confirm("Are you sure that you want to modify the config db?") )
         return;
     var container = $('#edit_container');
-    var url =  "<?= site_url()?>config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
+    var url =  "<?= site_url()?>/config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
     var fields = $('#edit_form').serializeArray();
     var flds = gamma.reformatFormArray(fields);
     var p = extractRow(flds, index);
@@ -36,7 +36,7 @@ function ops(index, action) {
 // submit sql from entry field and refresh edit table
 function do_sql() {
     if ( !confirm("Are you sure that you want to modify the config db?") ) return;
-    var url =  "<?= site_url()?>config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
+    var url =  "<?= site_url()?>/config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
     var p = $('#sql_text').serialize();
     $.post(url, p, function (data) {
             $('#edit_container').html(data);
@@ -46,7 +46,7 @@ function do_sql() {
 // get suggested sql for enhancing table
 function get_sql(mode){
     var field = $('#sql_text_fld');
-    var url = "<?= site_url()?>config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
+    var url = "<?= site_url()?>/config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
     var p = {};
     p.mode = mode;
     field.val('');
@@ -79,7 +79,7 @@ function get_sql_from_range_move(mode){
     }
     if(!r1_id || !r2_id || !d_id) return;
 
-    var url = "<?= site_url()?>config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
+    var url = "<?= site_url()?>/config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
     var field = $('#sql_text_fld');
     var p = {};
     field.val('');
@@ -90,7 +90,7 @@ function get_sql_from_range_move(mode){
 }
 // get suggested SQL for resequencing id column in table
 function get_sql_for_resequence(){
-    var url = "<?= site_url()?>config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
+    var url = "<?= site_url()?>/config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
     var field = $('#sql_text_fld');
     var p = {};
     field.val('');

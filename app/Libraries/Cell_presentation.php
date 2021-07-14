@@ -384,7 +384,7 @@ class Cell_presentation {
                         $sep = (substr($target, -1) == '~') ? '' : '/';
                         $target .= $sep . '@';
                     }
-                    $url = reduce_double_slashes(site_url() . str_replace('@', $ref, $target));
+                    $url = reduce_double_slashes(site_url(str_replace('@', $ref, $target)));
                     $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
                 }
                 break;
@@ -399,7 +399,7 @@ class Cell_presentation {
                     }
                 }
                 $ref = implode('/', array_values($cols));
-                $url = reduce_double_slashes(site_url() . "$target/$ref");
+                $url = reduce_double_slashes(site_url("$target/$ref"));
                 $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
                 break;
 
@@ -462,7 +462,7 @@ class Cell_presentation {
                 // This mode has been superseded by select_case
                 $t = $colSpec['Options'];
                 $target = ($ref == $target) ? $t[0] : $t[1];
-                $url = reduce_double_slashes(site_url() . "$target/show/$value");
+                $url = reduce_double_slashes(site_url("$target/show/$value"));
                 $str .= "<td><a href='$url'>$value</a></td>";
                 break;
 
@@ -493,10 +493,10 @@ class Cell_presentation {
                     $link_base = $t[$ref];
                     if (strpos($link_base, '/') === false) {
                         // Base link does not contain a forward slash; use /show/
-                        $url = reduce_double_slashes(site_url() . "$link_base/show/$link_item");
+                        $url = reduce_double_slashes(site_url("$link_base/show/$link_item"));
                     } else {
                         // Base link includes a forward slash
-                        $url = reduce_double_slashes(site_url() . "$link_base/$link_item");
+                        $url = reduce_double_slashes(site_url("$link_base/$link_item"));
                     }
                     $str .= "<td><a href='$url'>$value</a></td>";
                 } else {
@@ -506,7 +506,7 @@ class Cell_presentation {
 
             case "copy_from":
                 // Old, unused mode; superseded by "row_to_json" and "row_to_url"
-                $url = reduce_double_slashes(site_url() . "$target/$ref");
+                $url = reduce_double_slashes(site_url("$target/$ref"));
                 $str .= "<td><a href='$url'>$value</a></td>";
                 break;
 
@@ -516,7 +516,7 @@ class Cell_presentation {
                     $s .= ($s) ? '|' : '';
                     $s .= "$f@$v";
                 }
-                $url = reduce_double_slashes(site_url() . "$target");
+                $url = reduce_double_slashes(site_url("$target"));
                 $str .= "<td><a href='javascript:void(0)' onclick='submitDynamicForm(\"$url\", \"$s\")'>$value</a></td>";
                 break;
 
@@ -535,7 +535,7 @@ class Cell_presentation {
                     }
                 }
                 $s = json_encode($row);
-                $url = reduce_double_slashes(site_url() . "$target");
+                $url = reduce_double_slashes(site_url("$target"));
                 $str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";
                 break;
 
@@ -575,7 +575,7 @@ class Cell_presentation {
                 $links = array();
                 foreach ($flds as $ln) {
                     $ln = trim($ln);
-                    $url = strncasecmp($ln, "http", 4) ? site_url() . $target . '/' . $ln : $ln;
+                    $url = strncasecmp($ln, "http", 4) ? site_url($target . '/' . $ln) : $ln;
                     $url_fixed = $this->url_updater->fix_link($url);
                     $links[] = "<a href='$url_fixed'>$ln</a>";
                 }

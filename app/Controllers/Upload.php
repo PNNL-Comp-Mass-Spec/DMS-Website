@@ -130,7 +130,7 @@ class Upload extends Base_controller {
                 $row = array();
                 $row[] = "<input type='checkbox' value='$val' name='ckbx' class='lr_ckbx'>";
                 $row[] = $entity;
-                $url = site_url()."upload/entity/$fname/$entity";
+                $url = site_url("upload/entity/$fname/$entity");
                 $tooltip = 'Show details of this entity from spreadsheet';
                 $row[] = "<a href='javascript:void(0)' onclick='window.open(\"$url\", \"EW\", \"scrollbars,resizable,height=600,width=600,menubar\")' title='$tooltip'>Examine</a>";
                 $row[] = "<span id='$results_container' class='entity_results_container'></span>";
@@ -353,7 +353,7 @@ class Upload extends Base_controller {
         if($result) {
             $this->load->helper(array('url'));
             $cfs = $this->supported_entities[$entity_type]['config_source'];
-            $url = site_url()."$cfs/show/$key";
+            $url = site_url("$cfs/show/$key");
             $lnk = "<a href='javascript:void(0)' onclick='window.open(\"$url\", \"DW\", \"scrollbars,resizable,height=900,width=600,menubar\")' >Details</a>";
 //          $lnk = anchor("$cfs/show/$key", "details");
             echo "$entity_type $id exists ($lnk)";

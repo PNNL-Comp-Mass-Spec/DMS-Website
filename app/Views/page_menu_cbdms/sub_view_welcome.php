@@ -30,7 +30,7 @@
         <p>If you haven't a clue where to start, try <a href='http://prismwiki.pnl.gov/wiki/Data_Management_System' target='#PrismWiki'>Overview...</a></p>
         <p>If want to dig into the basics, try <a href='http://prismwiki.pnl.gov/wiki/DMS_Getting_Started' target='#PrismWiki'>Getting Started...</a></p>
         <p>If you want to learn more about the features that DMS provides, try <a href='http://prismwiki.pnl.gov/wiki/PRISM_QuickStart_Guide' target='#PrismWiki'>DMS Quick start...</a></p>
-        <p>See the <a href='<?= site_url()?>gen/stats'>statistics...</a> page for bulk stats by entity type.</p>
+        <p>See the <a href='<?= site_url("gen/stats") ?>'>statistics...</a> page for bulk stats by entity type.</p>
         </div> <!-- end 'splash_message' -->
     </div> <!-- end 'fly_section' -->
 </div> <!-- end 'diagram_section' -->

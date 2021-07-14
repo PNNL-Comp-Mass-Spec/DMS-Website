@@ -260,7 +260,7 @@ function make_table_dump_display($config_db_table_list) {
         // set of each config db section with distinctive label
         echo "<hr>\n";
         echo "<span class='cfg_hdr'>$db</span>\n";
-        echo "<a href='" . site_url() . "config_db/show_db/$db" . "'>Config DB</a>";
+        echo "<a href='" . site_url("config_db/show_db/$db") . "'>Config DB</a>";
         echo "<br>\n";
 
         // dump contents of each table
@@ -314,17 +314,17 @@ function make_config_nav_links($config_db) {
     $CI =& get_instance();
     $s = '';
     $s .= "<a href='" . $CI->config->item('pwiki') . "DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
-    $s .= "<a href='" . site_url() . "config_db/page_families'>Page Family Database List</a> &nbsp; | &nbsp;";
-    $s .= "<a href='" . site_url() . "config_db/support_config_db_list'>Support Database List</a> &nbsp; | &nbsp;";
+    $s .= "<a href='" . site_url("config_db/page_families") . "'>Page Family Database List</a> &nbsp; | &nbsp;";
+    $s .= "<a href='" . site_url("config_db/support_config_db_list") . "'>Support Database List</a> &nbsp; | &nbsp;";
     if ($config_db) {
-        $s .= "<a href='" . site_url() . "config_db/show_db/$config_db'>Config DB</a> &nbsp; | &nbsp;";
-        $s .= "<a href='" . site_url() . "config_db/vacuum_db/$db/_'>Vacuum</a> &nbsp; | &nbsp;";
+        $s .= "<a href='" . site_url("config_db/show_db/$config_db") . "'>Config DB</a> &nbsp; | &nbsp;";
+        $s .= "<a href='" . site_url("config_db/vacuum_db/$db/_") . "'>Vacuum</a> &nbsp; | &nbsp;";
     } else {
         $s .= "Config DB &nbsp; | &nbsp;";
         $s .= "Vacuum &nbsp; | &nbsp;";
         $db = 'db';
     }
-    $s .= "<a href='" . site_url() . "config_db/search/$db/_'>Search</a> &nbsp; | &nbsp;";
+    $s .= "<a href='" . site_url("config_db/search/$db/_") . "'>Search</a> &nbsp; | &nbsp;";
     return $s;
 }
 
@@ -446,18 +446,18 @@ function make_general_params_dump($config_db_table_list, $config_db_table_name_l
                 if ($c == 'page_family') {
                     $link = '';
                     $title = "Go to the config db page for this page family";
-                    $url = site_url() . 'config_db/show_db/' . $v . '.db';
+                    $url = site_url('config_db/show_db/' . $v . '.db');
                     $v = "<a href='$url' title='$title'>$v</a> &nbsp;";
                 }
                 if ($c == 'list_report_data_table') {
                     $title = "Go to the list report page for this page family (associated view: $v)";
-                    $url = site_url() . $output_row['page_family'] . '/report';
+                    $url = site_url($output_row['page_family'] . '/report');
                     $link = "<a href='$url' title='$title'>list report</a> &nbsp;";
                     $v = '';
                 }
                 if ($c == 'list_report_sproc') {
                     $title = "Go to the param report page for this page family (associated sproc: $v)";
-                    $url = site_url() . $output_row['page_family'] . '/param';
+                    $url = site_url($output_row['page_family'] . '/param');
                     $link = "<a href='$url' title='$title'>param report</a> &nbsp;";
                     $v = '';
                 }
@@ -493,7 +493,7 @@ function make_general_params_dump($config_db_table_list, $config_db_table_name_l
                 }
                 if ($c == 'entry_sproc') {
                     $title = "Go to the entry page for this page family (associated sproc: $v)";
-                    $url = site_url() . $output_row['page_family'] . '/create';
+                    $url = site_url($output_row['page_family'] . '/create');
                     $link = "<a href='$url' title='$title'>entry page</a> &nbsp;";
                     $v = '';
                 }

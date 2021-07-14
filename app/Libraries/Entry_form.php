@@ -562,7 +562,7 @@ class Entry_form {
 
         // Default command button
         $attributes['id'] = 'primary_cmd';
-        $url = site_url() . $this->file_tag . "/submit_entry_form";
+        $url = site_url($this->file_tag . "/submit_entry_form");
         $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$mode')";
         $attributes['content'] = ($page_type == 'create') ? 'Create' : 'Update';
         $attributes['class'] = 'button entry_cmd_button';
@@ -596,7 +596,7 @@ class Entry_form {
                     $str .= form_button($attributes) . "<br>\n";
                     break;
                 case 'retarget':
-                    $target_url = site_url() . $spec['target'];
+                    $target_url = site_url($spec['target']);
                     $attributes = array();
                     $attributes['content'] = $spec['label'];
                     $attributes['onclick'] = "epsilon.submitEntryFormToOtherPage('$target_url', '$command')";

@@ -109,16 +109,16 @@ class Run_tracking extends Base_controller {
         $data['heading'] = $data['title'];
 
         // link to list report
-        $data['tracking_link'] = site_url() . $this->my_tag . "/report/$instrument/$year/$month";
+        $data['tracking_link'] = site_url($this->my_tag . "/report/$instrument/$year/$month");
 
         // link to operations/config logs list report
-        $data['log_link'] = site_url() . "run_op_logs/report/$instrument/$year/$month/-";
+        $data['log_link'] = site_url("run_op_logs/report/$instrument/$year/$month/-");
 
         // link to usage report report
-        $data['report_link'] = site_url() . "usage_reporting/param/$instrument/$year/$month/details";
+        $data['report_link'] = site_url("usage_reporting/param/$instrument/$year/$month/details");
 
         // link to ERS report report
-        $data['ers_link'] = site_url() . "instrument_usage_report/report/$year/$month/$instrument";
+        $data['ers_link'] = site_url("instrument_usage_report/report/$year/$month/$instrument");
 
         $this->load->vars($data);
         $this->load->view('usage_tracking/cal2');
@@ -128,7 +128,7 @@ class Run_tracking extends Base_controller {
     private
     function add_day_log_link(&$calendarData, $instrument, $month, $year, $days_in_month)
     {
-        $logLink = site_url() . "run_op_logs/report/$instrument/$year/$month/";
+        $logLink = site_url("run_op_logs/report/$instrument/$year/$month/");
         foreach(range(1, $days_in_month) as $day) {
             if(array_key_exists($day, $calendarData)) {
                 $link = $logLink . $day;
@@ -188,7 +188,7 @@ EOD;
             foreach($instruments as $item) {
                 $inst = $item['Name'];
                 //$inst = $item;
-                $link = site_url() . $this->my_tag . "/cal/$inst/$year/$month";
+                $link = site_url($this->my_tag . "/cal/$inst/$year/$month");
                 $rpt = $item['Reporting'];
                 switch($rpt[0]) {
                     case 'E':
@@ -211,7 +211,7 @@ EOD;
  */
             }
         }
-        $selected = site_url() . $this->my_tag . "/cal/$instrument/$year/$month";
+        $selected = site_url($this->my_tag . "/cal/$instrument/$year/$month");
         $id = 'instrument_sel';
         $js = "id='$id' onChange='gamma.goToSelectedPage(\"$id\");'";
         ksort($options[$emslLabel]);
@@ -349,7 +349,7 @@ EOD;
         foreach($intervals as $interval) {
             $id = $interval['ID'];
             $tip = "[$id] " . $interval['Comment'];
-            $link = site_url() . "run_interval/edit/" . $interval['ID'];
+            $link = site_url("run_interval/edit/" . $interval['ID']);
             $day = $interval['Day'];
             $int = $interval['Interval'];
             $hour = $interval['Hour'];

@@ -510,7 +510,7 @@ class File_attachment extends Base_controller {
         $icon_delete = table_link_icon('delete');
         $icon_download = table_link_icon('down');
         foreach($resultSet->result() as $row){
-            $url = site_url() . "file_attachment/retrieve/{$type}/{$id}/{$row->Name}";
+            $url = site_url("file_attachment/retrieve/{$type}/{$id}/{$row->Name}");
             $downloadLink = "<a href='javascript:void(0)' onclick=fileAttachment.doDownload('$url') title='Download this file'>$icon_download</span></a> ";
             $deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'>$icon_delete</span></a> ";
             $entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
@@ -853,10 +853,10 @@ class File_attachment extends Base_controller {
 
             // Navigation table
             echo '<table cellpadding="10" style="border: 1px solid"><tr>' . "\n";
-            echo '<td><a href="' . site_url() . 'file_attachment/check_access">Missing files</a></td>' . "\n";
-            echo '<td><a href="' . site_url() . 'file_attachment/check_access/show_all_files">All files</a></td>' . "\n";
-            echo '<td><a href="' . site_url() . 'file_attachment/check_access/xls">Excel files</a></td>' . "\n";
-            echo '<td><a href="' . site_url() . 'file_attachment/check_access/txt">Text files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_access') . '">Missing files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_access/show_all_files') . '">All files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_access/xls') . '">Excel files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_access/txt') . '">Text files</a></td>' . "\n";
             echo '</tr></table>' . "\n";
 
             // Description of the files shown

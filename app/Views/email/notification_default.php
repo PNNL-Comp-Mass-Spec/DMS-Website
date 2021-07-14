@@ -34,7 +34,7 @@ table th {
 
 <?= $items ?>
 
-<p>You are receiving this automatic email from DMS because you registered to do so.  You may change your registration by going to <a href='<?= site_url().'notification/edit/'. $prn ?>'>this page</a> </p>
+<p>You are receiving this automatic email from DMS because you registered to do so.  You may change your registration by going to <a href='<?= site_url('notification/edit/'. $prn) ?>'>this page</a> </p>
 
 </body>
 </html>

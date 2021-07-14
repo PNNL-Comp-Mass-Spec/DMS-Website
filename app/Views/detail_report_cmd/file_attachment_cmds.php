@@ -9,7 +9,7 @@
 
 <div id="attachments_list" ></div>
 
-<form id="upload_form" action="<?= site_url() ?>file_attachment/upload" method="post" enctype="multipart/form-data" target="upload_target" >
+<form id="upload_form" action="<?= site_url('file_attachment/upload') ?>" method="post" enctype="multipart/form-data" target="upload_target" >
 
 <input type="hidden" name="entity_type" id="entity_type" ></input>
 <input type="hidden" name="entity_id" id="entity_id" ></input>

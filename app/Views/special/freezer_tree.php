@@ -296,7 +296,7 @@ $(document).ready(function() {
         selectMode: 2,
         checkbox: true,
         source: {
-            url: '<?= site_url() ?>freezer/get_freezers',
+            url: '<?= site_url("freezer/get_freezers") ?>',
             data: {}
         },
         lazyLoad: Freezer.Display.Left.getLazyReadHandler(),
@@ -313,7 +313,7 @@ $(document).ready(function() {
         selectMode: 2,
         checkbox: false,
         source: {
-            url: '<?= site_url() ?>freezer/get_freezers',
+            url: '<?= site_url("freezer/get_freezers") ?>',
             data: {}
         },
         lazyLoad: Freezer.Display.Right.getLazyReadHandler(),

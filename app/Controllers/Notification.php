@@ -92,7 +92,7 @@ class Notification extends Base_controller {
         $s .= '</tr>';
         foreach($notification->events as $row) {
             $s .= '<tr>';
-            $s .= '<td>' .$row['Event'] . '</td><td>' . $row['Name'] . '</td><td>' . '<a href="' . site_url() . $row['Link'] . '">' . $row['Entity'] . '</a>' . '</td>';
+            $s .= '<td>' .$row['Event'] . '</td><td>' . $row['Name'] . '</td><td>' . '<a href="' . site_url($row['Link']) . '">' . $row['Entity'] . '</a>' . '</td>';
             $s .= '<td>' . $row['Campaign'] . '</td><td>' .  $row['Role'] . '</td>';
             $s .= "</tr>\n";
         }

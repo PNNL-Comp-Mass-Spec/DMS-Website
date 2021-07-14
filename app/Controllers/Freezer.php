@@ -188,7 +188,7 @@ class Freezer extends Base_controller {
 
         $data['content'] = '';
         // show locations map in tables
-        $fc_url = site_url()."freezer/contents";
+        $fc_url = site_url("freezer/contents");
         $tmpl = array (
             'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="EPag">',
             'heading_cell_start' => '<th class="block_header" colspan="7">'
@@ -372,7 +372,7 @@ class Freezer extends Base_controller {
             $r = $frzr["Freezer"];
             $r = preg_split ('/ /', $r);
             $f = (count($r) > 1)?$r[1]:$r[0];
-            $l = site_url() . "freezer/config/$f";
+            $l = site_url("freezer/config/$f");
             $lst[$l] = $f;
         }
         return $lst;

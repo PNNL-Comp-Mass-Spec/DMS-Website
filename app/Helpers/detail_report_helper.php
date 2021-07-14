@@ -595,9 +595,9 @@ function make_table_from_param_xml($xml) {
  */
 function make_detail_report_edit_links($controller_name, $id, $show_create_links) {
     $str = '';
-    $edit_url = site_url() . "$controller_name/edit/$id";
-    $copy_url = site_url() . "$controller_name/create/$id";
-    $new_url = site_url() . "$controller_name/create";
+    $edit_url = site_url("$controller_name/edit/$id");
+    $copy_url = site_url("$controller_name/create/$id");
+    $new_url = site_url("$controller_name/create");
 
     $str .= "<span><a id='btn_goto_edit_main' class='button' title='Edit this item' href='$edit_url'>Edit</a></span>";
     if ($show_create_links) {
@@ -646,14 +646,14 @@ function make_detail_report_aux_info_section($result) {
  * @return string
  */
 function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id) {
-    $js = "javascript:showAuxInfo(\"aux_info_container\", \"" . site_url() . "aux_info/show/" . $aux_info_target . "/" . $aux_info_id . "\")";
+    $js = "javascript:showAuxInfo(\"aux_info_container\", \"" . site_url("aux_info/show/" . $aux_info_target . "/" . $aux_info_id) . "\")";
     $str = '';
     $str .= "Aux Info: |";
     $str .= "<span>";
     $str .= "<a href='$js'>Show...</a>";
     $str .= "</span>|";
     $str .= "<span>";
-    $str .= "<a href='" . site_url() . "aux_info/entry/" . $aux_info_target . "/" . $aux_info_id . "/" . $id . "'>Edit...</a>";
+    $str .= "<a href='" . site_url("aux_info/entry/" . $aux_info_target . "/" . $aux_info_id . "/" . $id) . "'>Edit...</a>";
     $str .= "</span>|";
     return $str;
 }
@@ -680,17 +680,17 @@ function make_detail_report_commands($commands, $tag, $id) {
 
         switch ($spec['Type']) {
             case 'copy_from':
-                $url = site_url() . $target . "/create/$tag/" . $id;
+                $url = site_url($target . "/create/$tag/" . $id);
                 $icon = cmd_link_icon("go");
                 $cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label $icon</a>";
                 break;
             case 'call':
-                $url = site_url() . $target . "/$cmd/" . $id;
+                $url = site_url($target . "/$cmd/" . $id);
                 $icon = cmd_link_icon("go");
                 $cmds[] = "<a class='cmd_link_a' href='$url' title='$tooltip'>$label $icon</a>";
                 break;
             case 'cmd_op':
-                $url = site_url() . $target . "/command";
+                $url = site_url($target . "/command");
                 $icon = cmd_link_icon();
                 $cmds[] = "<a class='cmd_link_a' href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\", \"$prompt\")' title='$tooltip'>$label $icon</a>";
                 break;
@@ -737,7 +737,7 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP = false
             }
         }
 
-        $url = reduce_double_slashes(site_url() . str_replace('@', $link_id, $targetNew));
+        $url = reduce_double_slashes(site_url(str_replace('@', $link_id, $targetNew)));
     }
 
     return $url;
@@ -755,9 +755,9 @@ function make_export_links($entity, $id) {
     // http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/tsv
     // http://dms2.pnl.gov/experiment/export_spreadsheet/QC_Shew_16_01/data/true/xlsx
     $s = '';
-    $excel_lnk = site_url() . $entity . "/export_detail/" . $id . "/excel";
-    $tsv_lnk = site_url() . $entity . "/export_detail/" . $id . "/tsv";
-    $spreadsheet_lnk = site_url() . $entity . "/export_spreadsheet/" . $id . "/data/true/xlsx";
+    $excel_lnk = site_url($entity . "/export_detail/" . $id . "/excel");
+    $tsv_lnk = site_url($entity . "/export_detail/" . $id . "/tsv");
+    $spreadsheet_lnk = site_url($entity . "/export_spreadsheet/" . $id . "/data/true/xlsx");
 
     $s .= "Download in other formats: ";
     $s .= "|<span><a href='$excel_lnk'>Excel</a></span>";

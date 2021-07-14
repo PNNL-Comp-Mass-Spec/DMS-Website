@@ -32,7 +32,7 @@ function label_link_icon($usage = 'plus', $class = '', $label = '') {
 // --------------------------------------------------------------------
 function detail_report_cmd_link($label, $js = '', $tooltip = '', $href = '') {
     $click = ($js) ? "onclick='$js' " : "";
-    $hrefToUse = ($href) ? "href='" . site_url() . "$href' " : "href='javascript:void(0)'";
+    $hrefToUse = ($href) ? "href='" . site_url("$href") . "' " : "href='javascript:void(0)'";
     $title = ($tooltip) ? "title='$tooltip'" : "";
     return "<a class='cmd_link_a'$hrefToUse$click$title >" . label_link_icon('go', '', $label) . "</a>";
 }

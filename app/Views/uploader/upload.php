@@ -66,7 +66,7 @@ function clearSpreadsheetDisplay() {
     // File parsing logic is in file application/controllers/Upload.php
     // which in turn calls load in   application/libraries/Spreadsheet_loader.php" -->
  ?>
-<form action = "<?= site_url() ?>upload/load" method="post" enctype="multipart/form-data" target="upload_target" >
+<form action = "<?= site_url('upload/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" >
 File to upload:
 <input name="myfile" id="myfile" type="file" size="120"/>
 <input type="submit" name="submitBtn" value="Upload" title="Upload local file to DMS" />

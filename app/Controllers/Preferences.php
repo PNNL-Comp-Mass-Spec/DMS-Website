@@ -58,9 +58,9 @@ class Preferences extends BaseController {
     // --------------------------------------------------------------------
     function session()
     {
-        $clear_base_url = site_url()."preferences/clear_session";
+        $clear_base_url = site_url("preferences/clear_session");
         echo "<a href='".site_url()."'>Home</a><br>";
-        echo "<a href='".site_url()."preferences'>Preferences</a><br>";
+        echo "<a href='".site_url("preferences")."'>Preferences</a><br>";
         echo "<hr />";
         echo "Session ID: ". session_id  () . "<hr />";
         echo "SID: ". SID . "<hr />";

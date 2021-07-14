@@ -35,7 +35,7 @@
     </span>
 -->
     <span class='ctls'>
-    From requested runs or batches... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+    From requested runs or batches... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>/helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
     </span>
     </div>
     </td>

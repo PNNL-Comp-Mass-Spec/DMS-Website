@@ -11,7 +11,7 @@
 function ops(submit_url) {
     if ( !confirm("Are you sure that you want to modify the config db?") ) return;
     var container_name = "display_container";
-    var url =  "<?= site_url()?>" + "config_db/" + submit_url;
+    var url =  "<?= site_url('config_db/') ?>" + submit_url;
     $('#' + container_name).load(url); // gamma.loadContainer(url, {}, container_name);
 }
 
@@ -27,7 +27,7 @@ function make_controller() {
     var reply = prompt("Base title for page family", '');
     if (reply)
     {
-        var page = "<?= site_url(); ?>" + "config_db/make_controller/<?= $config_db ?>/" + reply;
+        var page = "<?= site_url('config_db/make_controller/') ?>" + "<?= $config_db ?>/" + reply;
         window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
     }
 }

@@ -88,7 +88,7 @@ class List_report {
         $data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');
+        $data['ops_url'] = site_url($CI->gen_model->get_param('list_report_cmds_url'));
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports');
         $CI->load->vars($data);
@@ -313,7 +313,7 @@ class List_report {
             $x = ($f["value"]) ? $f["value"] : "-";
             $pf[] = str_replace(" ", "%20", trim($x));
         }
-        $s .= site_url() . "$tag/report/" . implode("/", $pf);
+        $s .= site_url("$tag/report/" . implode("/", $pf));
 
         // dump active secondary filters to array of segments
         $sf = array();

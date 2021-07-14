@@ -65,7 +65,7 @@ class Param_report {
         $data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = site_url() . $CI->gen_model->get_param('list_report_cmds_url');
+        $data['ops_url'] = site_url($CI->gen_model->get_param('list_report_cmds_url'));
 
         $CI->load->helper(array('menu', 'link_util'));
         $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages');
@@ -245,7 +245,7 @@ class Param_report {
             }
             $pf[] = str_replace(" ", "%20", trim($x));
         }
-        $s .= site_url() . "$tag/param/" . implode("/", $pf);
+        $s .= site_url("$tag/param/" . implode("/", $pf));
 
         $dateFilters = array("LaterThan", "EarlierThan");
 

@@ -51,7 +51,7 @@ foreach($settings as $setting => $def) {
     $str .= "<tr>";
     $str .= "<td><span style='font-weight:bold;'>".$def['label'] ."</span></td>";
     $str .= "<td>".$def['value']."</td>";
-    $url = site_url()."preferences/set/$setting/";
+    $url = site_url("preferences/set/$setting/");
     $str .= "<td><a href='javascript:setPreference(\"$url\")'>Change</a></td>";
     $str .= "<td>".$def['description']."</td>";
     $str .= "<td>";

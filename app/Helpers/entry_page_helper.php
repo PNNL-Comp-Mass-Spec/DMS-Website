@@ -214,15 +214,15 @@ function make_post_submission_links($tag, $ps_link_specs, $input_params, $action
     // make the HTML
     $links = "";
     if ($lr_tg != '') {
-        $url = site_url() . $lr_tg . "/report";
+        $url = site_url($lr_tg . "/report");
         $links .= "&nbsp; <a href='$url'>Go to list report</a>";
     }
     if ($dr_tag != '' && $id != '') {
-        $url = site_url() . $dr_tag . "/show/" . $id;
+        $url = site_url($dr_tag . "/show/" . $id);
         $links .= "&nbsp; <a href='$url'>Go to detail report</a>";
     }
     if ($x_tag != null) {
-        $url = site_url() . $x_tag["link"] . $id;
+        $url = site_url($x_tag["link"] . $id);
         $links .= "&nbsp; <a href='$url'>" . $x_tag["label"] . "</a>";
     }
     return $links;
