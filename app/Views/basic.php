@@ -3,8 +3,8 @@
 <head>
 <title><?= $title; ?></title>
 
-<?php $this->load->view('resource_links/base2css') ?>
-<?php $this->load->view('resource_links/base2js') ?>
+<?php echo view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2js') ?>
 
 </head>
 <body>

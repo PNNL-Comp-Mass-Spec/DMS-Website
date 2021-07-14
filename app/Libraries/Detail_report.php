@@ -54,7 +54,7 @@ class Detail_report {
         $CI->load->helper(array('detail_report', 'menu', 'link_util'));
         $data['nav_bar_menu_items'] = set_up_nav_bar('Detail_Reports');
         $CI->load->vars($data);
-        $CI->load->view('main/detail_report');
+        echo view('main/detail_report');
     }
 
     /**
@@ -105,7 +105,7 @@ class Detail_report {
 
             $CI->load->helper(array('string', 'detail_report_helper'));
             $CI->load->vars($data);
-            $CI->load->view('main/detail_report_data');
+            echo view('main/detail_report_data');
         } catch (Exception $e) {
             echo "<div class='EPag_message' >" . $e->getMessage() . "</div>";
         }

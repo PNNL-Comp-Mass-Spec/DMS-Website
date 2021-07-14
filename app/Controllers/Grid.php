@@ -19,7 +19,7 @@ class Grid extends Base_controller {
     // --------------------------------------------------------------------
     function index()
     {
-        $this->load->view("grid/demo");
+        echo view("grid/demo");
     }
     // --------------------------------------------------------------------
     protected
@@ -40,7 +40,7 @@ class Grid extends Base_controller {
         $data['save_url'] = ($save_url) ? site_url($save_url) : site_url($this->my_tag  . "operation");
 
         $this->load->vars($data);
-        $this->load->view("grid/".$view_name);
+        echo view("grid/".$view_name);
     }
 
     // --------------------------------------------------------------------

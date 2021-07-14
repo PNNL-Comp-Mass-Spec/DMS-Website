@@ -117,7 +117,7 @@ class Notification extends Base_controller {
         }
         $data['items'] = $items;
         $data['prn'] = '';
-        $msg = $this->load->view('email/notification_default', $data, true);
+        $msg = echo view('email/notification_default', $data, true);
         echo $msg;
     }
 
@@ -137,7 +137,7 @@ class Notification extends Base_controller {
             $data['items'] = $this->_format_events($users[$user]);
             $data['prn'] = $user;
             // Unused: $email = $users[$user]->email;
-            $msg = $this->load->view('email/notification_default', $data, true);
+            $msg = echo view('email/notification_default', $data, true);
             echo $msg;
         }
 
@@ -166,7 +166,7 @@ class Notification extends Base_controller {
             $email = 'proteomics@pnnl.gov';
             // Uncomment to send the e-mail to the user
             // $email = $users[$user]->email;
-            $msg = $this->load->view('email/notification_default', $data, true);
+            $msg = echo view('email/notification_default', $data, true);
             mail($email, "Automatic DMS Event Notification", $msg, $headers);
             echo $msg;
         }
@@ -198,7 +198,7 @@ class Notification extends Base_controller {
             $email = $users[$user]->email;
             // Uncomment to override the destination e-mail
             // $email = 'debug.user@pnnl.gov';
-            $msg = $this->load->view('email/notification_default', $data, true);
+            $msg = echo view('email/notification_default', $data, true);
             mail($email, "Automatic DMS Event Notification", $msg, $headers);
             sleep (1);
 

@@ -3,9 +3,9 @@
 <head>
 <title><?= $title; ?></title>
 
-<?php $this->load->view('resource_links/base2css') ?>
-<?php $this->load->view('resource_links/base2js') ?>
-<?php $this->load->view('resource_links/cfg') ?>
+<?php echo view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2js') ?>
+<?php echo view('resource_links/cfg') ?>
 
 <script type="text/javascript">
 
@@ -110,7 +110,7 @@ function get_sql_for_resequence(){
 <?= make_config_nav_links($config_db)?>
 
 <div id='edit_container'>
-<?php $this->load->view("config_db/sub_table_edit"); ?>
+<?php echo view("config_db/sub_table_edit"); ?>
 </div>
 
 <div style="height:1em;"></div>

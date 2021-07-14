@@ -13,7 +13,7 @@ class Controller_utility {
         $data['heading'] = $heading;
         $data['message'] = $message;
         $CI =& get_instance();
-        $CI->load->view('message_box', $data);
+        echo view('message_box', $data);
     }
 
     /**

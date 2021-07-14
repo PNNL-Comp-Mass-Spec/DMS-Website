@@ -137,7 +137,7 @@ function make_operations_sproc_sql($sprocName, $table) {
     $data['dt'] = date("m/d/Y");
 
     $CI =& get_instance();
-    $body = $CI->load->view('config_db/tmplt_ops_sproc', $data, true);
+    $body = echo view('config_db/tmplt_ops_sproc', $data, true);
     return $body;
 }
 
@@ -200,7 +200,7 @@ function make_main_sproc_sql($sprocName, $table, $sa) {
     $data['updts'] = $updts;
 
     $CI =& get_instance();
-    $body = $CI->load->view('config_db/tmplt_sproc', $data, true);
+    $body = echo view('config_db/tmplt_sproc', $data, true);
     return $body;
 }
 
@@ -244,7 +244,7 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title) {
     $data['title'] = $title;
 
     $CI =& get_instance();
-    $body = $CI->load->view('config_db/tmplt_controller', $data, true);
+    $body = echo view('config_db/tmplt_controller', $data, true);
     return "<?php\n" . $body . "\n?>";
 }
 

@@ -27,7 +27,7 @@ class Unit_Test extends BaseController {
         $data['testFile'] = $testFile;
 
         $this->load->vars($data);
-        $this->load->view('unit_tests/test_frame');
+        echo view('unit_tests/test_frame');
     }
 }
 ?>

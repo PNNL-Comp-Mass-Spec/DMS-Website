@@ -2,13 +2,13 @@
 <html>
 <head>
 <title><?= $title; ?></title>
-<?php $this->load->view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2css') ?>
 </head>
 
 <body>
 <div id="body_container" >
 
-<?php $this->load->view('nav_bar') ?>
+<?php echo view('nav_bar') ?>
 
 <h2 class='page_title'><?= $title; ?></h2>
 
@@ -23,13 +23,13 @@
 </div>
 
 <?php // any submission commands?
-if($entry_submission_cmds != "") $this->load->view("submission_cmd/$entry_submission_cmds");
+if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmds");
 ?>
 
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
 
-<?php $this->load->view('resource_links/base2js') ?>
+<?php echo view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
     gamma.pageContext.site_url = '<?= site_url() ?>';

@@ -203,7 +203,7 @@ class Helper_inst_source extends Base_controller {
 
         // load up data array and call view template
         $this->load->vars($data);
-        $this->load->view('tabular_data');
+        echo view('tabular_data');
     }
 }
 ?>

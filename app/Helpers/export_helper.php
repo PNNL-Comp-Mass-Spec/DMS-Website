@@ -850,7 +850,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $data['title'] = 'Spreadsheet Loader Template Contents';
         $data['content'] = $ti . $ai;
         $CI->load->vars($data);
-        $CI->load->view('basic');
+        echo view('basic');
     }
 
     /**

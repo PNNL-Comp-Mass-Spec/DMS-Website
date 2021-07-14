@@ -58,7 +58,7 @@ class Lc_cart_controller_graphic extends BaseController {
         $data["result"] = $d;
 
         $this->load->vars($data);
-        $this->load->view('special/lc_cart_controller_graphic');
+        echo view('special/lc_cart_controller_graphic');
     }
     // --------------------------------------------------------------------
     // returns content of cart cell at specified location

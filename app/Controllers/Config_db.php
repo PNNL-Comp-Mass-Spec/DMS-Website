@@ -61,7 +61,7 @@ class Config_db extends BaseController {
 
         $data['tables'] = $s;
         $this->load->vars($data);
-        $this->load->view('config_db/show_db');
+        echo view('config_db/show_db');
     }
 
     /**
@@ -116,7 +116,7 @@ class Config_db extends BaseController {
 
         $data['tables'] = $s;
         $this->load->vars($data);
-        $this->load->view('config_db/sub_show_db');
+        echo view('config_db/sub_show_db');
     }
 
     /**
@@ -437,7 +437,7 @@ class Config_db extends BaseController {
         $data['post'] = '';
         $data['posting_message'] = '';
         $this->load->vars($data);
-        $this->load->view('config_db/sub_table_edit');
+        echo view('config_db/sub_table_edit');
     }
 
     /**
@@ -639,7 +639,7 @@ class Config_db extends BaseController {
 
         $data['posting_message'] = '';
         $this->load->vars($data);
-        $this->load->view('config_db/table_edit');
+        echo view('config_db/table_edit');
     }
 
     /**
@@ -718,7 +718,7 @@ class Config_db extends BaseController {
 
         $data['posting_message'] = $s;
         $this->load->vars($data);
-        $this->load->view('config_db/sub_table_edit');
+        echo view('config_db/sub_table_edit');
     }
 
     /**
@@ -1528,7 +1528,7 @@ class Config_db extends BaseController {
         } else {
             $data['config_db_table_list'] = $config_db_table_list;
             $this->load->vars($data);
-            $this->load->view('config_db/dump_db');
+            echo view('config_db/dump_db');
         }
     }
 
@@ -1554,7 +1554,7 @@ class Config_db extends BaseController {
         $data['contents'] = make_general_params_dump($config_db_table_list, $config_db_table_name_list);
 
         $this->load->vars($data);
-        $this->load->view('config_db/main');
+        echo view('config_db/main');
     }
 
     /**
@@ -1592,7 +1592,7 @@ class Config_db extends BaseController {
         $data['contents'] = $s;
 
         $this->load->vars($data);
-        $this->load->view('config_db/main');
+        echo view('config_db/main');
     }
 
     /**
@@ -1623,7 +1623,7 @@ class Config_db extends BaseController {
         $data['title'] = $title;
         $data['heading'] = $data['title'];
         $data['message'] = $msg;
-        $this->load->view('message_box', $data);
+        echo view('message_box', $data);
     }
 
     /**

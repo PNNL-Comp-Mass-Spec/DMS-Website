@@ -43,7 +43,7 @@ class Preferences extends BaseController {
 
         $data['result'] = $result;
         $this->load->vars($data);
-        $this->load->view('special/preferences');
+        echo view('special/preferences');
 
     }
 

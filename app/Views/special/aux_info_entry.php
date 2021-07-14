@@ -2,8 +2,8 @@
 <html>
 <head>
 <title><?= $title; ?></title>
-<?php $this->load->view('resource_links/base2css') ?>
-<?php $this->load->view('resource_links/base2js') ?>
+<?php echo view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2js') ?>
 
 <script src="<?= base_url().'javascript/aux_info.js?version=100' ?>"></script>
 <?= $ais->make_aux_info_global_AJAX_definitions() ?>
@@ -14,7 +14,7 @@ $(document).ready(function () { showAuxInfo("aux_info_container", '<?= $ais->sho
 
 </head>
 <body>
-<?php $this->load->view('nav_bar') ?>
+<?php echo view('nav_bar') ?>
 <h2><?= $heading; ?> for <?= $target; ?>: <?= $id; ?> <span style='font-weight:normal'>(<?= $name ?>)</span></h2>
 
 <div style='font-weight:bold;padding:0 0 4px 0'>Categories and Subcategories</div>

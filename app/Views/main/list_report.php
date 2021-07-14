@@ -3,14 +3,14 @@
 <head>
 <title><?= $title; ?></title>
 
-<?php $this->load->view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2css') ?>
 
 </head>
 
 <body>
 <div id="body_container" >
 
-<?php $this->load->view('nav_bar') ?>
+<?php echo view('nav_bar') ?>
 
 <div class='local_title'><?= $title; ?></div>
 
@@ -65,13 +65,13 @@ Loading...
 </table>
 
 <?php // any checkbox selectors?
-if($has_checkboxes) $this->load->view("main/list_report_checkboxes");
+if($has_checkboxes) echo view("main/list_report_checkboxes");
 ?>
 
 <?php // any list report commands?
 if($list_report_cmds != "") {
-    $this->load->view("main/list_report_cmd_reporting");
-    $this->load->view("cmd/$list_report_cmds");
+    echo view("main/list_report_cmd_reporting");
+    echo view("cmd/$list_report_cmds");
 }
 ?>
 
@@ -85,7 +85,7 @@ Download in other formats (<a href="<?= $this->config->item('pwiki') ?>DMS_Data_
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
 
-<?php $this->load->view('resource_links/base2js') ?>
+<?php echo view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
 <script src="<?= base_url().'javascript/lcmd.js?version=105' ?>"></script>

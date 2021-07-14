@@ -121,7 +121,7 @@ class Run_tracking extends Base_controller {
         $data['ers_link'] = site_url("instrument_usage_report/report/$year/$month/$instrument");
 
         $this->load->vars($data);
-        $this->load->view('usage_tracking/cal2');
+        echo view('usage_tracking/cal2');
     }
 
     // --------------------------------------------------------------------

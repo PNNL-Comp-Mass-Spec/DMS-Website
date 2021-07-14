@@ -3,14 +3,14 @@
 <head>
 <title><?= $title; ?></title>
 
-<?php $this->load->view('resource_links/base2css') ?>
-<?php $this->load->view('resource_links/base2js') ?>
+<?php echo view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2js') ?>
 
 </head>
 <body id='freezer_page'>
 <div id="body_container" >
 
-<?php $this->load->view('nav_bar') ?>
+<?php echo view('nav_bar') ?>
 
 
 <div style="padding:2px 0 2px 0;">

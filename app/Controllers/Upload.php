@@ -53,7 +53,7 @@ class Upload extends Base_controller {
         $this->load->vars($data);
 
         $this->load->helper(array('url'));
-        $this->load->view("uploader/upload");
+        echo view("uploader/upload");
     }
 
     /**
@@ -242,7 +242,7 @@ class Upload extends Base_controller {
         }
 
         $this->load->vars($data);
-        $this->load->view('uploader/upload_supplemental');
+        echo view('uploader/upload_supplemental');
     }
 
     /**

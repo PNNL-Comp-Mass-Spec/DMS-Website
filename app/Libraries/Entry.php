@@ -99,7 +99,7 @@ class Entry {
         $CI->load->helper(array('menu', 'link_util'));
         $data['nav_bar_menu_items'] = set_up_nav_bar('Entry_Pages');
         $CI->load->vars($data);
-        $CI->load->view('main/entry_form');
+        echo view('main/entry_form');
     }
 
     /**

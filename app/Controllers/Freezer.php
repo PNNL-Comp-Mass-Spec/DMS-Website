@@ -34,7 +34,7 @@ class Freezer extends Base_controller {
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 
         $this->load->vars($data);
-        $this->load->view('special/freezer_tree');
+        echo view('special/freezer_tree');
     }
 
     // --------------------------------------------------------------------
@@ -216,7 +216,7 @@ class Freezer extends Base_controller {
             $this->table->clear();
         }
         $this->load->vars($data);
-        $this->load->view('basic');
+        echo view('basic');
 
     }
 
@@ -303,7 +303,7 @@ class Freezer extends Base_controller {
         $data['contents'] = $contents;
 
         $this->load->vars($data);
-        $this->load->view('special/freezer');
+        echo view('special/freezer');
     }
 
     // --------------------------------------------------------------------
@@ -357,7 +357,7 @@ class Freezer extends Base_controller {
 
         $data['tbs'] = $tbs;
         $this->load->vars($data);
-        $this->load->view('special/freezer_matrix');
+        echo view('special/freezer_matrix');
     }
 
     // --------------------------------------------------------------------

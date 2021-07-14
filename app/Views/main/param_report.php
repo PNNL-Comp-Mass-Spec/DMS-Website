@@ -3,14 +3,14 @@
 <head>
 <title><?= $title; ?></title>
 
-<?php $this->load->view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2css') ?>
 
 </head>
 
 <body>
 <div id="body_container" >
 
-<?php $this->load->view('nav_bar') ?>
+<?php echo view('nav_bar') ?>
 
 <div class='local_title'><?= $title; ?></div>
 
@@ -60,24 +60,24 @@ Column <a href="javascript:void(0)" onclick="lambda.toggleFilterVisibility('colu
 </table>
 
 <?php // any checkbox selectors?
-if($has_checkboxes) $this->load->view("main/list_report_checkboxes");
+if($has_checkboxes) echo view("main/list_report_checkboxes");
 ?>
 
 <?php // any list report commands?
 if($list_report_cmds != "") {
-    $this->load->view("main/list_report_cmd_reporting");
-    $this->load->view("cmd/$list_report_cmds");
+    echo view("main/list_report_cmd_reporting");
+    echo view("cmd/$list_report_cmds");
 }
 ?>
 
 <?php // export command panel
-$this->load->view("main/param_report_export");
+echo view("main/param_report_export");
 ?>
 
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
 
-<?php $this->load->view('resource_links/base2js') ?>
+<?php echo view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
     <script src="<?= base_url().'javascript/node_modules/flot/dist/es5/jquery.flot.js' ?>"></script>

@@ -70,7 +70,7 @@ class Param_report {
         $CI->load->helper(array('menu', 'link_util'));
         $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages');
         $CI->load->vars($data);
-        $CI->load->view('main/param_report');
+        echo view('main/param_report');
     }
 
     /**
@@ -116,7 +116,7 @@ class Param_report {
 
             $CI->load->helper(array('string'));
             $CI->load->vars($data);
-            $CI->load->view('main/param_report_data');
+            echo view('main/param_report_data');
         }
     }
 

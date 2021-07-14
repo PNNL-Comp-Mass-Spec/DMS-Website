@@ -263,7 +263,7 @@ class Data extends BaseController {
         $data['title'] = 'Custom List Reports';
         $data['content'] = $edit_link . $this->table->generate();
         $this->load->vars($data);
-        $this->load->view('basic');
+        echo view('basic');
     }
 }
 ?>

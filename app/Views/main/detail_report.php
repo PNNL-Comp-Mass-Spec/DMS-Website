@@ -3,14 +3,14 @@
 <head>
 <title><?= $title; ?></title>
 
-<?php $this->load->view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2css') ?>
 
 </head>
 
 <body>
 <div id="body_container" >
 
-<?php $this->load->view('nav_bar') ?>
+<?php echo view('nav_bar') ?>
 
 <div class='local_title'><?= $title; ?></div>
 
@@ -29,7 +29,7 @@
 <?php if(count($detail_report_cmds) > 0):?>
 <div id='command_box_container'>
 <?php foreach($detail_report_cmds as $cmd): ?>
-<?php $this->load->view("detail_report_cmd/$cmd"); ?>
+<?php echo view("detail_report_cmd/$cmd"); ?>
 <?php endforeach ?>
 </div>
 <?php endif; ?>
@@ -41,13 +41,13 @@
 <?php endif; ?>
 
 <?php // export command panel
-$this->load->view("main/detail_report_export");
+echo view("main/detail_report_export");
 ?>
 
 <div id='end_of_content' style="height:1em;" ></div>
 </div>
 
-<?php $this->load->view('resource_links/base2js') ?>
+<?php echo view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
     //

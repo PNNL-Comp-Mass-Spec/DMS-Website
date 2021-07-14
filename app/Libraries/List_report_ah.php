@@ -56,7 +56,7 @@ class List_report_ah extends List_report {
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports');
         $CI->load->vars($data);
-        $CI->load->view('main/list_report');
+        echo view('main/list_report');
     }
 
     /**
