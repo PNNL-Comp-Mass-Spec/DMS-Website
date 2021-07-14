@@ -517,8 +517,8 @@ class File_attachment extends Base_controller {
         }
         $count = $resultSet->num_rows();
         if($count) {
-            $this->load->library('table');
-            $this->table->set_heading("Action", "Name", "Description");
+            $this->table = new \CodeIgniter\View\Table();
+            $this->table->setHeading("Action", "Name", "Description");
             $tmpl = array(
               'table_open'      => "<table id=\"file_attachments\" style=\"width:100%;\">",
               'row_start'       => '<tr class="ReportEvenRow">',
@@ -526,7 +526,7 @@ class File_attachment extends Base_controller {
               'heading_row_start' => '<thead><tr style="text-align:left;">',
               'heading_row_end' => '</tr></thead>'
             );
-            $this->table->set_template($tmpl);
+            $this->table->setTemplate($tmpl);
             echo $this->table->generate($entries);
         } else {
             echo "<h4>No attachments</h4>";
@@ -821,8 +821,8 @@ class File_attachment extends Base_controller {
             $this->db->where("Active > 0");
             $resultSet = $this->db->get("T_File_Attachment");
 
-            $this->load->library('table');
-            $this->table->set_template(array ('heading_cell_start'  => '<th style="text-align:left;">'));
+            $this->table = new \CodeIgniter\View\Table();
+            $this->table->setTemplate(array ('heading_cell_start'  => '<th style="text-align:left;">'));
 
             $headerColumns = array('File', 'Type', 'ID', 'Path');
 
@@ -830,7 +830,7 @@ class File_attachment extends Base_controller {
                 $headerColumns[] = 'Exists';
             }
 
-            $this->table->set_heading($headerColumns);
+            $this->table->setHeading($headerColumns);
 
             foreach($resultSet->result() as $row) {
                 $full_path = "{$this->archive_root_path}{$row->path}/{$row->filename}";
@@ -843,10 +843,10 @@ class File_attachment extends Base_controller {
                 $fileExists = file_exists($full_path);
 
                 if ($showAll) {
-                    $this->table->add_row($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
+                    $this->table->addRow($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
                 } else {
                     if (!$fileExists) {
-                        $this->table->add_row($row->filename, $row->type, $row->id, $row->path);
+                        $this->table->addRow($row->filename, $row->type, $row->id, $row->path);
                     }
                 }
             }

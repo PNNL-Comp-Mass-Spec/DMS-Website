@@ -104,7 +104,7 @@ class Upload extends Base_controller {
         $fname = $this->input->post('file_name');
 
         try {
-            $this->load->library('spreadsheet_loader');
+            $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
             $this->spreadsheet_loader->load($fname);
 
             $entity_type = $this->spreadsheet_loader->get_entity_type();
@@ -137,10 +137,10 @@ class Upload extends Base_controller {
             }
 
             // table dump
-            $this->load->library('table');
-            $this->table->set_template(array ('table_open'  => '<table class="EPag">'));
+            $this->table = new \CodeIgniter\View\Table();
+            $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
-            $this->table->set_heading('', '<span id="entity_type">'.$entity_type.'</span>', 'Details', 'Results');
+            $this->table->setHeading('', '<span id="entity_type">'.$entity_type.'</span>', 'Details', 'Results');
             echo $this->table->generate($rows);
             echo "<div>Number of entities:$entity_count<div>";
         } catch (Exception $e) {
@@ -160,7 +160,7 @@ class Upload extends Base_controller {
         $fname = $this->input->post('file_name');
 
         try {
-            $this->load->library('spreadsheet_loader');
+            $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
             $this->spreadsheet_loader->load($fname);
 
             $entity_type = $this->spreadsheet_loader->get_entity_type();
@@ -168,8 +168,8 @@ class Upload extends Base_controller {
             $entity_count = count($entity_list);
 
             // table dump
-            $this->load->library('table');
-            $this->table->set_template(array ('table_open'  => '<table class="EPag">'));
+            $this->table = new \CodeIgniter\View\Table();
+            $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
             $rows = $this->spreadsheet_loader->get_extracted_data();
             $i = 0;
@@ -194,7 +194,7 @@ class Upload extends Base_controller {
     {
 //      $fname = $this->input->post('file_name');
 //      $id= $this->input->post('id');
-        $this->load->library('spreadsheet_loader');
+        $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
         $this->spreadsheet_loader->load($fname);
 
         $entity_type = $this->spreadsheet_loader->get_entity_type();
@@ -228,15 +228,15 @@ class Upload extends Base_controller {
         $data['title'] = "Details Of '$id' From Spreadsheet";
         $data['content'] = "File:$fname <br>";
 
-        $this->load->library('table');
-        $this->table->set_template(array ('table_open'  => '<table class="EPag">'));
+        $this->table = new \CodeIgniter\View\Table();
+        $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
-        $this->table->set_heading('Field', 'Value');
+        $this->table->setHeading('Field', 'Value');
         $data['content'] .= $this->table->generate($rows);
 
         if(!empty($aux_info)) {
             $this->table->clear();
-            $this->table->set_heading('Category', 'Subcategory',  'Item', 'Value');
+            $this->table->setHeading('Category', 'Subcategory',  'Item', 'Value');
             $data['content'] .= $this->table->generate($arows);
         }
 
@@ -256,7 +256,7 @@ class Upload extends Base_controller {
         $incAuxinfo = $this->input->post('incAuxinfo') == 'true';
 
         try {
-            $this->load->library('spreadsheet_loader');
+            $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
             $this->spreadsheet_loader->load($fname);
 
             $entity_type = $this->spreadsheet_loader->get_entity_type();
@@ -499,7 +499,7 @@ class Upload extends Base_controller {
     function verify_fields($fname)
     {
         try {
-            $this->load->library('spreadsheet_loader');
+            $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
             $this->spreadsheet_loader->load($fname);
 
             $entity_type = $this->spreadsheet_loader->get_entity_type();
@@ -598,7 +598,7 @@ class Upload extends Base_controller {
     function directory()
     {
         helper(['url']);
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
 
         $style = "width:40em;padding:5px 0 5px 0;";
         echo "<div style='$style'>This is a list of DMS entity types for which you can upload spreadsheet data</div>";
@@ -615,7 +615,7 @@ class Upload extends Base_controller {
             else
                 $entityDescription = ucwords(strtolower($entity));
 
-            $this->table->add_row($entityDescription, $lnkXlsx, $lnk, $lr);
+            $this->table->addRow($entityDescription, $lnkXlsx, $lnk, $lr);
         }
         echo "<div style='$style'>";
         echo $this->table->generate();

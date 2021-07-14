@@ -25,7 +25,7 @@ class Aux_info_copy extends BaseController {
         $this->helpers = array_merge($this->helpers, ['url', 'string', 'form']);
         $this->model = model('App\\Models\\'.$this->my_model);
 
-        $this->load->library('aux_info_support');
+        $this->aux_info_support = new \App\Libraries\Aux_info_support();
     }
 
     /**

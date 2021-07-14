@@ -38,7 +38,7 @@ class Data extends BaseController {
     {
         session_start();
         helper(['url']);
-        $this->load->library('controller_utility', '', 'cu');
+        $this->cu = new \App\Libraries\Controller_utility();
         $this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
 
         $input_parms = $this->general_query->get_query_values_from_url();
@@ -84,7 +84,7 @@ class Data extends BaseController {
      */
     function lz()
     {
-        $this->load->library('controller_utility', '', 'cu');
+        $this->cu = new \App\Libraries\Controller_utility();
         helper(['url', 'user']);
         $segs = array_slice($this->uri->segment_array(), 2);
 //print_r($_POST); echo "\n";
@@ -147,7 +147,7 @@ class Data extends BaseController {
     {
         session_start();
         helper(['url']);
-        $this->load->library('controller_utility', '', 'cu');
+        $this->cu = new \App\Libraries\Controller_utility();
         $this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
 
         $input_parms = new stdClass ();
@@ -180,7 +180,7 @@ class Data extends BaseController {
      */
     function lr()
     {
-        $this->load->library('controller_utility', '', 'cu');
+        $this->cu = new \App\Libraries\Controller_utility();
         helper(['url', 'user']);
         $segs = array_slice($this->uri->segment_array(), 2);
 
@@ -247,16 +247,16 @@ class Data extends BaseController {
         if(!$dbh) throw new Exception('Could not connect to menu config database at '.$dbFilePath);
 
         helper(['url']);
-        $this->load->library('table');
-        $this->table->set_template(array ('table_open'  => '<table class="EPag">'));
-        $this->table->set_heading('Page', 'Table', 'DB');
+        $this->table = new \CodeIgniter\View\Table();
+        $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+        $this->table->setHeading('Page', 'Table', 'DB');
 
         $links = array();
         foreach ($dbh->query("SELECT * FROM $config_name ORDER BY label", PDO::FETCH_OBJ) as $obj) {
             $links['link'] = anchor("data/lr/$config_source/$obj->name/report", $obj->label);
             $links['table'] = $obj->table;
             $links['db'] = $obj->db;
-            $this->table->add_row($links);
+            $this->table->addRow($links);
         }
         $edit_link = "<div style='padding:5px;'>" . anchor("config_db/show_db/$dbFileName", 'Config db') . "</div>";
 

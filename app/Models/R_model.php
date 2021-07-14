@@ -108,8 +108,7 @@ class R_model extends Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        $CI =& get_instance();
-        $CI->load->library('URL_updater');
+        $url_updater = new \App\Libraries\URL_updater();
 
         if (in_array('list_report_hotlinks', $tbl_list)) {
             $this->list_report_hotlinks = array();
@@ -118,7 +117,7 @@ class R_model extends Model {
                 $a = array();
                 $a['LinkType'] = $row['LinkType'];
                 $a['WhichArg'] = $row['WhichArg'];
-                $a['Target'] = $CI->url_updater->fix_link($row['Target']);
+                $a['Target'] = $url_updater->fix_link($row['Target']);
                 $a['hid'] = "name='hot_link" . $i++ . "'"; // $row['hid'];
                 if ($row['LinkType'] == 'color_label') {
                     $a['cond'] = json_decode($row['Options'], true);
@@ -139,7 +138,7 @@ class R_model extends Model {
                 $a = array();
                 $a['LinkType'] = $row['LinkType'];
                 $a['WhichArg'] = $row['WhichArg'];
-                $a['Target'] = $CI->url_updater->fix_link($row['Target']);
+                $a['Target'] = $url_updater->fix_link($row['Target']);
                 $a['Placement'] = $row['Placement'];
                 $a['id'] = $row['id'];
                 $opts = (array_key_exists('options', $row)) ? $row['options'] : '';

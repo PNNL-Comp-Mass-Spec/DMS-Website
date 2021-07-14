@@ -36,7 +36,7 @@ class Saved_settings {
             $CI->data_model->clear_cached_state();
 
             // primary filter
-            $CI->load->library('primary_filter');
+            $CI->primary_filter = new \App\Libraries\Primary_filter();
             $CI->primary_filter->init($config_name, $config_source, $primary_filter_specs);
             $CI->primary_filter->clear_cached_state();
 

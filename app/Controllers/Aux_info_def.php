@@ -15,7 +15,7 @@ class Aux_info_def extends Base_controller {
     // --------------------------------------------------------------------
     function test($config_name = 'aux_info_targets',  $id = '')
     {
-        $this->load->library('controller_utility', '', 'cu');
+        $this->cu = new \App\Libraries\Controller_utility();
 
         $this->cu->load_mod('q_model', 'data_model', $config_name, $this->my_tag);
         $filter_specs = $this->data_model->get_primary_filter_specs();

@@ -293,9 +293,8 @@ class Q_model extends Model {
      * @param type $bldr_class
      */
     private function set_my_sql_builder($bldr_class) {
-        $CI =& get_instance();
-        $CI->load->library($bldr_class, '', 'sqlbldr');
-        $this->sql_builder = $CI->sqlbldr;
+        $sqlBuilder = "\App\Libraries\$bldr_class";
+        $this->sql_builder = new $sqlBuilder();
     }
 
     /**

@@ -252,7 +252,7 @@ class List_report {
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
-        $CI->load->library('cell_presentation');
+        $CI->cell_presentation = new \App\Libraries\Cell_presentation();
         $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
         $CI->cell_presentation->set_col_filter($col_filter);
 
@@ -359,7 +359,7 @@ class List_report {
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
         $CI->preferences = model('App\Models\dms_preferences');
-        $CI->load->library(array('list_report_pager'));
+        $CI->list_report_pager = new \App\Libraries\List_report_pager();
         try {
             // make HTML using pager
             $s = '';
@@ -448,7 +448,7 @@ class List_report {
 
         $rows = $CI->data_model->get_rows('filtered_and_sorted')->result_array();
 
-        $CI->load->library('cell_presentation');
+        $CI->cell_presentation = new \App\Libraries\Cell_presentation();
         $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
 
         $col_info = $CI->data_model->get_column_info();

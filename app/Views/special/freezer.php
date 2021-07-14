@@ -28,12 +28,12 @@
             'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="GridCell">',
             'heading_cell_start' => '<th class="block_header" colspan="4">'
         );
-        $this->table->set_template($tmpl);
+        $this->table->setTemplate($tmpl);
         //
         foreach($storage as $freezer => $f) {
             foreach($f as $shelf => $s) {
                 foreach($s as $rack => $rk) {
-                    $this->table->set_heading("Freezer:$freezer &nbsp; Shelf:$shelf &nbsp; Rack:$rack");
+                    $this->table->setHeading("Freezer:$freezer &nbsp; Shelf:$shelf &nbsp; Rack:$rack");
                     //
                     foreach($rk as $row => $rw) {
                         $tr = array();
@@ -41,7 +41,7 @@
                             $x = render_location_contents($location, $contents);
                             if($x) $tr[] = $x;
                         }
-                        $this->table->add_row($tr);
+                        $this->table->addRow($tr);
                     }
                     //
                     echo $this->table->generate();

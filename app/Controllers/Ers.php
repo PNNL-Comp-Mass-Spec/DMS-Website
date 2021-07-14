@@ -13,7 +13,7 @@ class Ers extends BaseController {
     // --------------------------------------------------------------------
     function proposals()
     {
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
         $ersDB = $this->load->database('ers', true);
 
         // get list of proposals from ers
@@ -32,7 +32,7 @@ class Ers extends BaseController {
     // --------------------------------------------------------------------
     function users()
     {
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
         $ersDB = $this->load->database('ers', true);
 
         // get list of users for proposals from ers PROPOSAL_ID, HANFORD_ID
@@ -51,7 +51,7 @@ class Ers extends BaseController {
     // --------------------------------------------------------------------
     function dms_proposals()
     {
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
         $dmsDB = $this->load->database('default', true);
 
         // get list of proposals from ers
@@ -69,7 +69,7 @@ class Ers extends BaseController {
     // --------------------------------------------------------------------
     function dms_users()
     {
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
         $dmsDB = $this->load->database('default', true);
 
         // get list of proposals from ers
@@ -87,7 +87,7 @@ class Ers extends BaseController {
     // --------------------------------------------------------------------
     function new_proposals()
     {
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
 
         // get list of proposals from ers
         $dmsDB = $this->load->database('default', true);

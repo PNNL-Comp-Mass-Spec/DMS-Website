@@ -152,7 +152,7 @@ class Freezer extends Base_controller {
     function show($id)
     {
         helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
         $this->load->database();
 
         // labelling information for view
@@ -192,11 +192,11 @@ class Freezer extends Base_controller {
             'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="EPag">',
             'heading_cell_start' => '<th class="block_header" colspan="7">'
         );
-        $this->table->set_template($tmpl);
+        $this->table->setTemplate($tmpl);
         //
         foreach($storage as $freezer => $f) {
             $c_url = "<a href='$fc_url/$freezer'>Contents</a>";
-            $this->table->set_heading("Freezer:$freezer $c_url");
+            $this->table->setHeading("Freezer:$freezer $c_url");
             foreach($f as $shelf => $s) {
                 $tr = array();
                 $s_url = "<a href='$fc_url/$freezer/$shelf'>Contents</a>";
@@ -209,7 +209,7 @@ class Freezer extends Base_controller {
                         $tr[] = "Rack:".$rack . " &nbsp; " . $r_url;
                     }
                 }
-                $this->table->add_row($tr);
+                $this->table->addRow($tr);
             }
             $data['content'] .= $this->table->generate() . '<br>';
             $this->table->clear();
@@ -222,7 +222,7 @@ class Freezer extends Base_controller {
     function contents()
     {
         helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
         $this->load->database();
 
         // labelling information for view
@@ -307,7 +307,7 @@ class Freezer extends Base_controller {
     function config()
     {
         helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu', 'form']);
-        $this->load->library('table');
+        $this->table = new \CodeIgniter\View\Table();
         $this->load->database();
 
         $freezer_spec = $this->uri->segment(3);

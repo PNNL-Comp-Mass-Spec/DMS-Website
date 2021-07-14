@@ -30,7 +30,8 @@ class Controller_utility {
             return true;
         }
         // Load then initialize the model
-        $CI->load->library($lib_name);
+        $libPath = "\App\Libraries\$lib_name";
+        $CI->$lib_name = new $libPath();
         if ($options === false) {
             return $CI->$lib_name->init($config_name, $config_source);
         } else {

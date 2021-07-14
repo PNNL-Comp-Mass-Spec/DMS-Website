@@ -126,15 +126,14 @@ function dump_q_model($mod, $option = 'filtered_and_paged', $dump_rows = true) {
     echo '<hr>';
     if ($dump_rows) {
         echo 'Rows: <br>';
-        $CI =& get_instance();
-        $CI->load->library('table');
-        $CI->table->set_template(
+        $table = new \CodeIgniter\View\Table();
+        $table->setTemplate(
                 array(
                     'table_open' => '<table border="1" cellpadding="2" cellspacing="2">'
                 )
         );
-        //      $this->table->set_empty("&nbsp;");
-        echo $CI->table->generate($query);
+        //      $table->setEmpty("&nbsp;");
+        echo $table->generate($query);
     }
 }
 
@@ -160,19 +159,18 @@ function dump_s_model($mod) {
 
     $total_rows = $mod->get_total_rows();
     echo 'Rows: (' . $total_rows . ')<br>';
-    $CI =& get_instance();
     $rows = $mod->get_rows();
     if (empty($rows)) {
         echo 'No rows found<br>';
     } else {
-        $CI->load->library('table');
-        $CI->table->set_template(
+        $table = new \CodeIgniter\View\Table();
+        $table->setTemplate(
                 array(
                     'table_open' => '<table border="1" cellpadding="2" cellspacing="2">'
                 )
         );
-        //      $this->table->set_empty("&nbsp;");
-        echo $CI->table->generate($rows);
+        //      $table->set_empty("&nbsp;");
+        echo $table->generate($rows);
     }
 }
 

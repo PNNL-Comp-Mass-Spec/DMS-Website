@@ -298,14 +298,13 @@ class S_model extends Model {
     function get_filtered_rows($sorting_filter, $paging_filter) {
         $rows = $this->result_array;
 
-        $CI =& get_instance();
-        $CI->load->library('table_sorter');
+        $table_sorter = new \App\Libraries\Table_sorter();
         /*
           foreach($sorting_filter as $sort) {
           $col = $sort['qf_sort_col'];
           $dir = $sort['qf_sort_dir'];
           if($col) {
-          $rows = $CI->table_sorter->sort($rows, $col, $dir);
+          $rows = $table_sorter->sort($rows, $col, $dir);
           }
           }
          */
@@ -315,7 +314,7 @@ class S_model extends Model {
             return null;
         }
 
-        $sortedRows = $CI->table_sorter->sort_multi_col($rows, $sorting_filter);
+        $sortedRows = $table_sorter->sort_multi_col($rows, $sorting_filter);
         if (!empty($paging_filter)) {
             $length = (int) $paging_filter['qf_rows_per_page'];
             $offset = (int) $paging_filter['qf_first_row'] - 1;
@@ -472,9 +471,8 @@ class S_model extends Model {
 
     // --------------------------------------------------------------------
     private function set_my_sproc_handler($hndlr_class) {
-        $CI =& get_instance();
-        $CI->load->library($hndlr_class, '', 'sprochndlr');
-        $this->sproc_handler = $CI->sprochndlr;
+        $sprocHandler = "\App\Libraries\$hndlr_class";
+        $this->sproc_handler = new $sprocHandler();
     }
 
     // --------------------------------------------------------------------

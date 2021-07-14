@@ -81,7 +81,7 @@ class Detail_report {
             $CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
 
             // Fix decimal-as-string display; datetimes are formatted in helpers/detail_report_helper.php
-            $CI->load->library('cell_presentation');
+            $CI->cell_presentation = new \App\Libraries\Cell_presentation();
             $rows = array(&$result_row);
             $CI->cell_presentation->fix_decimal_display($rows, $col_info);
 

@@ -476,7 +476,7 @@ class Base_controller extends BaseController
     function data()
     {
         session_start();
-        $this->load->library('controller_utility', '', 'cu');
+        $this->cu = new \App\Libraries\Controller_utility();
         $this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
         $input_parms = $this->general_query->setup_query_for_base_controller();
         $this->general_query->output_result($input_parms->output_format);
@@ -490,7 +490,7 @@ class Base_controller extends BaseController
      */
     function defaults($page_type) //'Param_Pages''list_report_sproc'   'list_report'
     {
-        $this->load->library('saved_settings');
+        $this->saved_settings = new \App\Libraries\Saved_settings();
         $this->saved_settings->defaults($page_type, $this->my_tag);
     }
 

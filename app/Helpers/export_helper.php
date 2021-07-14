@@ -836,15 +836,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     function dump_spreadsheet($entity_info, $aux_info)
     {
         $CI =& get_instance();
-        $CI->load->library('table');
-        $CI->table->set_template(array ('table_open'  => '<table class="EPag">'));
+        $CI->table = new \CodeIgniter\View\Table();
+        $CI->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
         foreach($entity_info as $fld => $val) {
-            $CI->table->add_row($fld, $val);
+            $CI->table->addRow($fld, $val);
         }
         $ti = $CI->table->generate();
         $CI->table->clear();
         foreach($aux_info as $row) {
-            $CI->table->add_row($row);
+            $CI->table->addRow($row);
         }
         $ai = $CI->table->generate();
         $data['title'] = 'Spreadsheet Loader Template Contents';

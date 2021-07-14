@@ -100,7 +100,7 @@ class Param_report {
             $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
             $col_filter = $CI->column_filter->get_current_filter_values();
 
-            $CI->load->library('cell_presentation');
+            $CI->cell_presentation = new \App\Libraries\Cell_presentation();
             $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
 
             // (someday) roll the date fix into a function shareable with export_param
@@ -336,7 +336,7 @@ class Param_report {
 
         // make HTML using pager
         $CI->preferences = model('App\Models\dms_preferences');
-        $CI->load->library(array('list_report_pager'));
+        $CI->list_report_pager = new \App\Libraries\List_report_pager();
         $s = '';
         $CI->list_report_pager->set($first_row, $total_rows, $per_page);
         $pr = $CI->list_report_pager->create_links();
@@ -391,7 +391,7 @@ class Param_report {
         $rows = $this->get_filtered_param_report_rows(false);
 
         // (someday) roll the date fix into a function shareable with param_data
-        $CI->load->library('cell_presentation');
+        $CI->cell_presentation = new \App\Libraries\Cell_presentation();
         $col_info = $CI->sproc_model->get_column_info();
         $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
