@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\SQLite3\Connection;
 
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
@@ -423,14 +424,16 @@ class S_model extends Model {
     private function get_sproc_arg_defs($config_name, $dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            throw new Exception('Could not connect to config database at ' . $dbFilePath);
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //}
 
         // get list of tables in database
         $tbl_list = array();
-        foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
@@ -438,7 +441,8 @@ class S_model extends Model {
         $this->sprocName = $config_name;
 
         // get parameters of interest from the general table
-        foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             if ($row['name'] == 'my_db_group') {
                 $this->dbn = $row['value'];
             } else
@@ -452,10 +456,11 @@ class S_model extends Model {
         if (in_array('sproc_args', $tbl_list)) {
             $args = array();
             if (in_array('sproc_args', $tbl_list)) {
-                $dbh = new PDO("sqlite:$dbFilePath");
+                //$dbh = new PDO("sqlite:$dbFilePath");
 
                 $sql = "select * from sproc_args where \"procedure\" = '$this->sprocName';";
-                foreach ($dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
+                //foreach ($dbh->query($sql, PDO::FETCH_ASSOC) as $row) {
+                foreach ($db->query($sql)->getResultArray() as $row) {
                     $args[] = array(
                         'field' => $row['field'],
                         'name' => $row['name'],
@@ -467,11 +472,13 @@ class S_model extends Model {
                 $this->sproc_args = $args;
             }
         }
+
+        $db->close();
     }
 
     // --------------------------------------------------------------------
     private function set_my_sproc_handler($hndlr_class) {
-        $sprocHandler = "\App\Libraries\$hndlr_class";
+        $sprocHandler = "\\App\\Libraries\\$hndlr_class";
         $this->sproc_handler = new $sprocHandler();
     }
 

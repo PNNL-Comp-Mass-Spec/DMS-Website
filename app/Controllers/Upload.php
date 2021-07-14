@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 
+use CodeIgniter\Database\SQLite3\Connection;
+
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
 
@@ -638,19 +640,22 @@ class Upload extends Base_controller {
         $configDBFolder = config('App')->model_config_path;
         $dbFilePath = $configDBFolder . $dbFileName;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
 
         // get list of tables in database
         $tbl_list = array();
-        foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
         if(!in_array('loadable_entities', $tbl_list)) throw new exception('Table "loadable_entities" not found in config db');
 
         $def = array();
-        foreach ($dbh->query("SELECT * FROM loadable_entities", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM loadable_entities", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM loadable_entities")->getResultArray() as $row) {
             $spec = array();
             $spec['config_source'] = $row['config_source'];
             if($row['aux_info_target']) {
@@ -660,6 +665,8 @@ class Upload extends Base_controller {
             $spec['key'] = $row['key'];
             $def[$row['entity_type']] = $spec;
         }
+
+        $db->close();
         //print_r($def);
         $this->supported_entities = $def;
     }

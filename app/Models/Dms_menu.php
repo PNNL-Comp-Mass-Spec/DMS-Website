@@ -29,8 +29,7 @@ class Dms_menu extends Model {
     function get_section_menu_def($config_db_name, $section_def_table, $section_item_table) {
         $sections = array();
         $dbFilePath = $this->configDBFolder . $config_db_name;
-        $dbConn = array('database' => $dbFilePath, 'dbdriver' => 'sqlite3');
-        $db = new Connection($dbConn);
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
         //    throw new Exception('Could not connect to menu config database at ' . $dbFilePath);
@@ -47,6 +46,8 @@ class Dms_menu extends Model {
             $section_name = $row['section_name'];
             $sections[$section_name]['section_menu_items'][] = $row;
         }
+
+        $db->close();
         return $sections;
     }
 
@@ -59,8 +60,7 @@ class Dms_menu extends Model {
      */
     function get_menu_def($config_db_name, $menu_def_table) {
         $dbFilePath = $this->configDBFolder . $config_db_name;
-        $dbConn = array('database' => $dbFilePath, 'dbdriver' => 'sqlite3');
-        $db = new Connection($dbConn);
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
         //    throw new Exception('Could not connect to menu config database at ' . $dbFilePath);
@@ -71,6 +71,8 @@ class Dms_menu extends Model {
         foreach ($db->query("SELECT * FROM $menu_def_table")->getResultArray() as $row) {
             $mnu[] = $row;
         }
+
+        $db->close();
         return $mnu;
     }
 }

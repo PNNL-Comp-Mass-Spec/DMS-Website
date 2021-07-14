@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 
+use CodeIgniter\Database\SQLite3\Connection;
+
 /**
  * This class is used to edit model config DBs
  */
@@ -161,15 +163,18 @@ class Config_db extends BaseController {
 
         $s = "";
         $dbFilePath = $this->configDBPath . $config_db;
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            $s .= 'Could not connect to config database at ' . $dbFilePath;
-            return null;
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    $s .= 'Could not connect to config database at ' . $dbFilePath;
+        //    return null;
+        //}
         $sqlWithTransaction = "BEGIN TRANSACTION; $sql COMMIT;";
 
         //echo $sqlWithTransaction;
-        $dbh->exec($sqlWithTransaction);
+        //$dbh->exec($sqlWithTransaction);
+        $db->execute($sqlWithTransaction);
+        $db->close();
 
         $this->_log_sql($sql, $restore, $config_db);
     }
@@ -268,8 +273,11 @@ class Config_db extends BaseController {
      */
     private function _get_table_contents($config_db, $table_name) {
         $dbFilePath = $this->configDBPath . $config_db;
-        $dbh = new PDO("sqlite:$dbFilePath");
-        $r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //$r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        $r = $db->query("SELECT * FROM $table_name")->getResultArray();
+        $db->close();
         return $r;
     }
 
@@ -281,11 +289,13 @@ class Config_db extends BaseController {
      */
     private function _get_table_dump($config_db, $table_name) {
         $dbFilePath = $this->configDBPath . $config_db;
-        $dbh = new PDO("sqlite:$dbFilePath");
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
         $i = 0;
         $n = 1;
         $rs = "";
-        foreach ($dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM $table_name")->getResultArray() as $row) {
             if (!$i++) {
                 $cols = array_keys($row);
                 $n = count($cols);
@@ -303,6 +313,9 @@ class Config_db extends BaseController {
             }
             $rs .= "</tr>\n";
         }
+
+        $db->close();
+
         $s = "";
         $s .= "<div class='block_content' id='block_$table_name'>\n";
         $s .= "<table class='cfg_tab' >\n";
@@ -725,16 +738,20 @@ class Config_db extends BaseController {
     private function _get_config_db_table_data_info($config_db, $table_name) {
         $dbFilePath = $this->configDBPath . $config_db;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
 
         $col_names = array();
-        foreach ($dbh->query("PRAGMA table_info({$table_name});", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("PRAGMA table_info({$table_name});", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("PRAGMA table_info({$table_name});")->getResultArray() as $row) {
             $col_names[] = $row['name'];
         }
         $num_cols = count($col_names);
 
         $data_rows = array();
-        $r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
+        //$r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
+        $r = $db->query("SELECT * FROM $table_name")->getResultArray();
+        $db->close();
         if ($r) {
             foreach ($r as $row) {
                 $data_rows[] = $row;
@@ -1164,14 +1181,18 @@ class Config_db extends BaseController {
         $table_list = array();
         $dbFilePath = $this->configDBPath . $config_db;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            $s .= 'Could not connect to config database at ' . $dbFilePath;
-            return null;
-        }
-        foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    $s .= 'Could not connect to config database at ' . $dbFilePath;
+        //    return null;
+        //}
+        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $table_list[] = $row['tbl_name'];
         }
+
+        $db->close();
 
         // filter table names?
         if ($table_filter) {
@@ -1197,17 +1218,22 @@ class Config_db extends BaseController {
         $gen_parms = array();
         $dbFilePath = $this->configDBPath . $config_db;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            $s .= 'Could not connect to config database at ' . $dbFilePath;
-            return null;
-        }
-        foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    $s .= 'Could not connect to config database at ' . $dbFilePath;
+        //    return null;
+        //}
+        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             $gen_parms[$row['name']] = $row['value'];
             if ($row['name'] == 'my_db_group') {
                 $db_group = $row['value'];
             }
         }
+
+        $db->close();
+
         return $gen_parms;
     }
 
@@ -1636,11 +1662,14 @@ class Config_db extends BaseController {
     function vacuum_db($config_db) {
         $dbFilePath = $this->configDBPath . $config_db;
 //      $before = filesize($dbFilePath);
-        $dbh = new PDO("sqlite:$dbFilePath");
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
 //      $dbh->beginTransaction();
-        $dbh->query("VACUUM;");
+        //$dbh->query("VACUUM;");
+        $db->query("VACUUM;");
 //      $dbh->commit();
-        $dbh = null;
+        //$dbh = null;
+        $db->close();
 //      $after = filesize($dbFilePath);
         echo "Config DB '$config_db' has been vacuumed.";
     }

@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\SQLite3\Connection;
 
 class Dms_chooser extends Model {
 
@@ -26,8 +27,11 @@ class Dms_chooser extends Model {
      */
     function load_choosers() {
         $dbFilePath = config('App')->model_config_path . "/dms_chooser.db";
-        $dbh = new PDO("sqlite:$dbFilePath");
-        $r = $dbh->query("SELECT * FROM chooser_definitions", PDO::FETCH_ASSOC);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //$r = $dbh->query("SELECT * FROM chooser_definitions", PDO::FETCH_ASSOC);
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        $r = $db->query("SELECT * FROM chooser_definitions")->getResultArray();
+        $db->close();
         foreach ($r as $row) {
             $def = array();
             $def['db'] = $row['db'];

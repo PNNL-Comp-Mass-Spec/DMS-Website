@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\SQLite3\Connection;
 
 /**
  * Actions and specifications that apply generally to a page family
@@ -164,23 +165,26 @@ class G_model extends Model {
             }
         }
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) {
-            throw new Exception('Could not connect to config database at '.$dbFilePath);
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if(!$dbh) {
+        //    throw new Exception('Could not connect to config database at '.$dbFilePath);
+        //}
 
         // get list of tables in database
         $tbl_list = array();
-        foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
         if(in_array('utility_queries', $tbl_list)) {
 
-            $sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
-            $sth->execute();
-            $obj = $sth->fetch(PDO::FETCH_OBJ);
-            if($obj === false) {
+            //$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
+            //$sth->execute();
+            //$obj = $sth->fetch(PDO::FETCH_OBJ);
+            $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
+            if($obj === false || is_null($obj)) {
                 throw new Exception('Could not find query specs');
             }
 
@@ -196,6 +200,8 @@ class G_model extends Model {
                 $this->the_parameters['is_ms_helper'] = true;
             }
         }
+
+        $db->close();
     }
 
     /**
@@ -218,14 +224,16 @@ class G_model extends Model {
             }
         }
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) {
-            throw new Exception('Could not connect to config database at '.$dbFilePath);
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if(!$dbh) {
+        //    throw new Exception('Could not connect to config database at '.$dbFilePath);
+        //}
 
         // get list of tables in database
         $tbl_list = array();
-        foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
@@ -233,7 +241,8 @@ class G_model extends Model {
         $blockCreate = false;
 
         // maybe move this to general model?
-        foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
 
             $this->the_parameters[$row['name']] = $row['value'];
 
@@ -258,7 +267,7 @@ class G_model extends Model {
             if($row['name'] == 'list_report_disable_sort_persist') {
                 if ($row['value'] !== false) {
                     $this->list_report_sort_persist_enabled = false;
-            }
+                }
             } else
             {
                 switch($row['name']) {
@@ -306,7 +315,8 @@ class G_model extends Model {
 
         if(in_array('list_report_hotlinks', $tbl_list)) {
             $this->list_report_hotlinks = array();
-            foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
+            //foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
+            foreach ($db->query("SELECT * FROM list_report_hotlinks")->getResultArray() as $row) {
                 $link_type = $row['LinkType'];
                 if($link_type == 'update_opener') {
                     $this->the_parameters['has_opener_hotlinks'] = true;
@@ -319,7 +329,8 @@ class G_model extends Model {
 
         if(in_array('detail_report_commands', $tbl_list)) {
             $this->detail_report_commands = array();
-            foreach ($dbh->query("SELECT * FROM detail_report_commands", PDO::FETCH_ASSOC) as $row) {
+            //foreach ($dbh->query("SELECT * FROM detail_report_commands", PDO::FETCH_ASSOC) as $row) {
+            foreach ($db->query("SELECT * FROM detail_report_commands")->getResultArray() as $row) {
                 $a = array();
                 $a['Type'] = $row['Type'];
                 $a['Command'] = $row['Command'];
@@ -330,6 +341,8 @@ class G_model extends Model {
                 $this->detail_report_commands[$row['name']] = $a;
             }
         }
+
+        $db->close();
     }
 
     /**

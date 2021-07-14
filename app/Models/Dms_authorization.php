@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\SQLite3\Connection;
 
 class Dms_authorization extends Model {
 
@@ -30,8 +31,12 @@ class Dms_authorization extends Model {
         $dbFilePath = $this->dBFolder . "master_authorization.db";
         $table_name = 'restricted_actions';
         $sql = "SELECT * FROM $table_name ORDER BY page_family;";
-        $dbh = new PDO("sqlite:$dbFilePath");
-        return $dbh->query($sql, PDO::FETCH_ASSOC);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //return $dbh->query($sql, PDO::FETCH_ASSOC);
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        $data = $db->query($sql)->getResultArray();
+        $db->close();
+        return $data;
     }
 
     /**
@@ -45,12 +50,16 @@ class Dms_authorization extends Model {
         $dbFilePath = $this->dBFolder . "master_authorization.db";
         $table_name = 'restricted_actions';
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        $stmt = $dbh->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'", PDO::FETCH_ASSOC);
-        $row = $stmt->fetch();
-        if (!(false === $row)) {
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //$stmt = $dbh->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'", PDO::FETCH_ASSOC);
+        //$row = $stmt->fetch();
+        $row = $db->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'")->getRowArray();
+        if (!(false === $row || is_null($row))) {
             $restrictions = preg_split('/, */', $row['required_permisions']);
         }
+
+        $db->close();
         return $restrictions;
     }
 

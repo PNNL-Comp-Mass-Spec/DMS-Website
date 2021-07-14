@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\SQLite3\Connection;
 
 // The primary function of this class is to build and execute an SQL query
 // against one of the databases defined in the application/config/database file.
@@ -832,17 +833,21 @@ class Q_model extends Model {
      */
     private function get_query_specs_from_config_db($config_name, $dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            throw new Exception('Could not connect to config database at ' . $dbFilePath);
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //}
 
-        $sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
-        $sth->execute();
-        $obj = $sth->fetch(PDO::FETCH_OBJ);
-        if ($obj === false) {
+        //$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
+        //$sth->execute();
+        //$obj = $sth->fetch(PDO::FETCH_OBJ);
+        $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
+        if ($obj === false || is_null($obj)) {
             throw new Exception('Could not find query specs');
         }
+
+        $db->close();
 
         $this->query_parts->dbn = $obj->db;
         $this->query_parts->table = $obj->table;
@@ -858,6 +863,7 @@ class Q_model extends Model {
             $a['value'] = '';
             $this->primary_filter_specs[$name] = $a;
         }
+
         $sorting = (isset($obj->sorting) && $obj->sorting != '') ? json_decode($obj->sorting, true) : array();
         if (!empty($sorting)) {
             $this->query_parts->sorting_default = $sorting;
@@ -872,18 +878,21 @@ class Q_model extends Model {
     private function get_list_report_query_specs_from_config_db($dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            throw new Exception('Could not connect to config database at ' . $dbFilePath);
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //}
 
         // get list of tables in database
         $tbl_list = array();
-        foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query(SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':
                     $this->query_parts->dbn = $row['value'];
@@ -910,7 +919,8 @@ class Q_model extends Model {
 
         if (in_array('list_report_primary_filter', $tbl_list)) {
             $this->primary_filter_specs = array();
-            foreach ($dbh->query("SELECT * FROM list_report_primary_filter", PDO::FETCH_ASSOC) as $row) {
+            //foreach ($dbh->query("SELECT * FROM list_report_primary_filter", PDO::FETCH_ASSOC) as $row) {
+            foreach ($db->query("SELECT * FROM list_report_primary_filter")->getResultArray() as $row) {
                 $a = array();
                 $a['label'] = $row['label'];
                 $a['size'] = $row['size'];
@@ -926,7 +936,8 @@ class Q_model extends Model {
         }
         if (in_array('primary_filter_choosers', $tbl_list)) {
             $fl = array();
-            foreach ($dbh->query("SELECT * FROM primary_filter_choosers", PDO::FETCH_ASSOC) as $row) {
+            //foreach ($dbh->query("SELECT * FROM primary_filter_choosers", PDO::FETCH_ASSOC) as $row) {
+            foreach ($db->query("SELECT * FROM primary_filter_choosers")->getResultArray() as $row) {
                 $a = array();
                 $a['type'] = $row['type'];
                 $a['PickListName'] = $row['PickListName'];
@@ -943,6 +954,8 @@ class Q_model extends Model {
                 }
             }
         }
+
+        $db->close();
     }
 
     /**
@@ -953,15 +966,17 @@ class Q_model extends Model {
     private function get_detail_report_query_specs_from_config_db($dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            throw new Exception('Could not connect to config database at ' . $dbFilePath);
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //}
 
         $filterColumn = '';
         $filterComparison = '';
 
-        foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':
                     $this->query_parts->dbn = $row['value'];
@@ -998,6 +1013,8 @@ class Q_model extends Model {
             }
         }
 
+        $db->close();
+
         if (strlen($filterColumn) == 0) {
             throw new Exception('Detail report ID column not defined (get_detail_report_query_specs_from_config_db)');
         }
@@ -1017,12 +1034,14 @@ class Q_model extends Model {
     private function get_entry_page_query_specs_from_config_db($dbFileName) {
         $dbFilePath = $this->configDBFolder . $dbFileName;
 
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if (!$dbh) {
-            throw new Exception('Could not connect to config database at ' . $dbFilePath);
-        }
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if (!$dbh) {
+        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //}
 
-        foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':
                     $this->query_parts->dbn = $row['value'];
@@ -1044,6 +1063,8 @@ class Q_model extends Model {
                     break;
             }
         }
+
+        $db->close();
     }
 
     // --------------------------------------------------------------------

@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\SQLite3\Connection;
 
 class Config_db_model extends Model {
 
@@ -21,21 +22,28 @@ class Config_db_model extends Model {
 
     // --------------------------------------------------------------------
     function initialize_table_defs() {
-        $dbh = new PDO("sqlite:$this->masterConfigDBPath");
-        foreach ($dbh->query("SELECT * FROM table_def_description", PDO::FETCH_ASSOC) as $row) {
+        $db = new Connection(['database' => $this->masterConfigDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->masterConfigDBPath");
+        //foreach ($dbh->query("SELECT * FROM table_def_description", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM table_def_description")->getResultArray() as $row) {
             $t = $row['config_table'];
             $this->table_defs[$t]['description'] = $row['value'];
         }
-        foreach ($dbh->query("SELECT * FROM table_def_sql", PDO::FETCH_ASSOC) as $row) {
+        //foreach ($dbh->query("SELECT * FROM table_def_sql", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM table_def_sql")->getResultArray() as $row) {
             $t = $row['config_table'];
             $this->table_defs[$t]['sql'] = $row['value'];
         }
+
+        $db->close();
     }
 
     // --------------------------------------------------------------------
     function initialize_table_field_defs() {
-        $dbh = new PDO("sqlite:$this->masterConfigDBPath");
-        foreach ($dbh->query("SELECT * FROM table_edit_col_defs", PDO::FETCH_ASSOC) as $row) {
+        $db = new Connection(['database' => $this->masterConfigDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->masterConfigDBPath");
+        //foreach ($dbh->query("SELECT * FROM table_edit_col_defs", PDO::FETCH_ASSOC) as $row) {
+        foreach ($db->query("SELECT * FROM table_edit_col_defs")->getResultArray() as $row) {
             $t = $row['config_table'];
             $c = $row['config_col'];
             $y = array();
@@ -43,6 +51,8 @@ class Config_db_model extends Model {
             $y['value'] = $row['value'];
             $this->table_edit_col_defs[$t][$c] = $y;
         }
+
+        $db->close();
     }
 
     // --------------------------------------------------------------------

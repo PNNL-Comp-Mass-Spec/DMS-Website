@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 
+use CodeIgniter\Database\SQLite3\Connection;
+
 /**
  * Features related to utility_queries table (mostly developmental at this point)
  */
@@ -243,8 +245,9 @@ class Data extends BaseController {
         $dbFileName = $config_source . '.db';
 
         $dbFilePath = $configDBFolder.$dbFileName;
-        $dbh = new PDO("sqlite:$dbFilePath");
-        if(!$dbh) throw new Exception('Could not connect to menu config database at '.$dbFilePath);
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$dbFilePath");
+        //if(!$dbh) throw new Exception('Could not connect to menu config database at '.$dbFilePath);
 
         helper(['url']);
         $this->table = new \CodeIgniter\View\Table();
@@ -252,12 +255,15 @@ class Data extends BaseController {
         $this->table->setHeading('Page', 'Table', 'DB');
 
         $links = array();
-        foreach ($dbh->query("SELECT * FROM $config_name ORDER BY label", PDO::FETCH_OBJ) as $obj) {
+        //foreach ($dbh->query("SELECT * FROM $config_name ORDER BY label", PDO::FETCH_OBJ) as $obj) {
+        foreach ($db->query("SELECT * FROM $config_name ORDER BY label")->getResultObject() as $row) {
             $links['link'] = anchor("data/lr/$config_source/$obj->name/report", $obj->label);
             $links['table'] = $obj->table;
             $links['db'] = $obj->db;
             $this->table->addRow($links);
         }
+
+        $db->close();
         $edit_link = "<div style='padding:5px;'>" . anchor("config_db/show_db/$dbFileName", 'Config db') . "</div>";
 
         $data['title'] = 'Custom List Reports';
