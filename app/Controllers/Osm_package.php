@@ -16,7 +16,7 @@ class Osm_package extends Base_controller {
     // --------------------------------------------------------------------
     // (someday) use q_model
     function suggested_items($id, $mode) {
-        helper(['url', 'string']);
+        helper(['url', 'text']);
 
         $this->db = \Config\Database::connect();
 

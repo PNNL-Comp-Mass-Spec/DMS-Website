@@ -31,7 +31,7 @@ class Aux_info extends BaseController {
         $this->my_list_action = "aux_info/report";
         $this->my_export_action = "aux_info/export";
 
-        helper(['url', 'string', 'form']);
+        helper(['url', 'text', 'form']);
         $this->model = model('App\\Models\\'.$this->my_model);
 
         $this->aux_info_support = new \App\Libraries\Aux_info_support();

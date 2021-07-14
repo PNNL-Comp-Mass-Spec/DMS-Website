@@ -8,7 +8,7 @@ class Chooser extends BaseController {
     {
         // Call the parent constructor
         parent::__construct();
-        $this->helpers = array_merge($this->helpers, ['url', 'string', 'form']);
+        $this->helpers = array_merge($this->helpers, ['url', 'text', 'form']);
     }
 
     // --------------------------------------------------------------------

@@ -16,7 +16,7 @@ class Capture_script extends Base_controller {
     // display contents of given script as graph
     function dot($scriptName)
     {
-        helper(['url', 'string', 'export']);
+        helper(['url', 'text', 'export']);
         $this->model = model('App\\Models\\'.$this->my_model);
         $this->model->make_db_connection();
 

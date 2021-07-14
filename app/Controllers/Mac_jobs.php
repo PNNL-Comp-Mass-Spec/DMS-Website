@@ -149,7 +149,7 @@ class Mac_jobs extends Base_controller {
     function build_param_entry_form($params, $script)
     {
         $this->choosers = model('App\Models\dms_chooser');
-        helper(['url', 'string', 'form']);
+        helper(['url', 'text', 'form']);
         $str = "";
         $header_style = "font-weight:bold;";
         if(!empty($params)) {

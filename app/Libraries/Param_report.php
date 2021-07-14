@@ -113,7 +113,7 @@ class Param_report {
             $data['row_renderer'] = $CI->cell_presentation;
             $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
 
-            helper(['string']);
+            helper(['text']);
             echo view('main/param_report_data', $data);
         }
     }

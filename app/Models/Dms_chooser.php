@@ -236,8 +236,7 @@ class Dms_chooser extends Model {
 
             case "list-report.helper":
             	// Choose an item from a list report
-                $CI =& get_instance();
-                helper(['string']);
+                helper(['text']);
                 $target_url = reduce_double_slashes(site_url($target));
                 $str .= "$label <a href=\"javascript:epsilon.callChooser('$f_name', '$target_url', '$delim', '$xref')\"><img src='" . base_url() . "images/chooser.png' border='0'></a>";
                 break;

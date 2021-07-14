@@ -12,7 +12,7 @@ class Lc_cart_controller_graphic extends BaseController {
         parent::__construct();
 
         session_start();
-        $this->helpers = array_merge($this->helpers, ['url', 'string', 'lc_cart_component', 'user']);
+        $this->helpers = array_merge($this->helpers, ['url', 'text', 'lc_cart_component', 'user']);
 
         $this->color_code = config('App')->version_color_code;
         $this->help_page_link = config('App')->pwiki;

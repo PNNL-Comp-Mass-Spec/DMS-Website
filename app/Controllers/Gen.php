@@ -13,7 +13,7 @@ class Gen extends BaseController
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['url', 'string'];
+	protected $helpers = ['url', 'text'];
 
 	/**
 	 * Constructor.

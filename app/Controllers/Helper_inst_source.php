@@ -19,7 +19,7 @@ class Helper_inst_source extends Base_controller {
     // present file contents with chooser links
     function view($inst = "")
     {
-        helper(['url', 'string']);
+        helper(['url', 'text']);
 
         if (empty($inst)) {
 

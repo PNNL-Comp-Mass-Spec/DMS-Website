@@ -268,7 +268,7 @@ class List_report {
             $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $qp->sorting_items);
             $data['rows'] = $rows;
 
-            helper(['string']);
+            helper(['text']);
             echo view('main/list_report_data', $data);
         }
     }

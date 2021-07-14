@@ -102,7 +102,7 @@ class Detail_report {
             $data['show_entry_links'] = $show_entry_links;
             $data['show_create_links'] = $show_create_links;
 
-            helper(['string', 'detail_report_helper']);
+            helper(['text', 'detail_report_helper']);
             echo view('main/detail_report_data', $data);
         } catch (Exception $e) {
             echo "<div class='EPag_message' >" . $e->getMessage() . "</div>";
@@ -140,7 +140,7 @@ class Detail_report {
         if (!empty($result_row)) {
             $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : $id;
 
-            helper(['string', 'detail_report_helper']);
+            helper(['text', 'detail_report_helper']);
             echo make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id);
         }
     }
@@ -164,7 +164,7 @@ class Detail_report {
             $aux_info = $this->get_aux_info($aux_info_id);
         }
 
-        helper(['string', 'detail_report_helper', 'export']);
+        helper(['text', 'detail_report_helper', 'export']);
         switch ($format) {
             case 'excel':
                 export_detail_to_excel($entity_info, $aux_info, $this->tag . "_detail");
@@ -298,7 +298,7 @@ class Detail_report {
      */
     function dot($scriptName, $config_source) {
         $CI =& get_instance();
-        helper(['url', 'string', 'export']);
+        helper(['url', 'text', 'export']);
         $config_name = 'dot';
 
         $CI->cu->load_mod('q_model', 'detail_model', $config_name, $config_source);

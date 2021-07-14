@@ -24,7 +24,7 @@ class Config_db extends BaseController {
         parent::__construct();
 
         session_start();
-        $this->helpers = array_merge($this->helpers, ['url', 'string']);
+        $this->helpers = array_merge($this->helpers, ['url', 'text']);
 
         $this->configDBPath = config('App')->model_config_path;
 

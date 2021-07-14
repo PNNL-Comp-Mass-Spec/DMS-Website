@@ -13,7 +13,7 @@ class Preferences extends BaseController {
 
         session_start();
 
-        $this->helpers = array_merge($this->helpers, ['url', 'string', 'dms_search', 'cookie', 'user']);
+        $this->helpers = array_merge($this->helpers, ['url', 'text', 'dms_search', 'cookie', 'user']);
         $this->model = model('App\\Models\\'.$this->my_model);
     }
 

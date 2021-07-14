@@ -12,7 +12,7 @@ class Freezer extends Base_controller {
         parent::__construct();
 
         session_start();
-        helper(['url', 'string', 'user']);
+        helper(['url', 'text', 'user']);
 
         $this->color_code = config('App')->version_color_code;
         $this->help_page_link = config('App')->pwiki;
@@ -151,7 +151,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function show($id)
     {
-        helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
+        helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
         $this->db = \Config\Database::connect();
 
@@ -221,7 +221,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function contents()
     {
-        helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
+        helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
         $this->db = \Config\Database::connect();
 
@@ -306,7 +306,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function config()
     {
-        helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu', 'form']);
+        helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu', 'form']);
         $this->table = new \CodeIgniter\View\Table();
         $this->db = \Config\Database::connect();
 
