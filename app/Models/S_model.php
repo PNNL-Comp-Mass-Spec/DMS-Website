@@ -97,7 +97,7 @@ class S_model extends Model {
     function __construct() {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = $this->config->item('model_config_path');
+        $this->configDBFolder = config('App')->model_config_path;
     }
 
     // (someday) see if we can figure out how to get bound values updated when rowset is returned (mssql_next_result is not working )

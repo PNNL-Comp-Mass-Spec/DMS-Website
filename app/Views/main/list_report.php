@@ -76,7 +76,7 @@ if($list_report_cmds != "") {
 ?>
 
 <div class="LRepExport">
-Download in other formats (<a href="<?= $this->config->item('pwiki') ?>DMS_Data_Export" target="_blank">help</a>):
+Download in other formats (<a href="<?= config('App')->pwiki ?>DMS_Data_Export" target="_blank">help</a>):
 |<span><a href='javascript:lambda.download_to_doc("excel")'>Excel</a></span>
 |<span><a href='javascript:lambda.download_to_doc("tsv")'>Tab-Delimited Text</a></span>
 |

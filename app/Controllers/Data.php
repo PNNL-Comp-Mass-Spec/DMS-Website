@@ -59,7 +59,7 @@ class Data extends BaseController {
     // --------------------------------------------------------------------
     function set_up_nav_bar($page_type)
     {
-        $this->help_page_link = $this->config->item('pwiki') . $this->config->item('wikiHelpLinkPrefix');
+        $this->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
         helper(['menu', 'dms_search']);
         $this->menu = model('App\Models\dms_menu');
         return get_nav_bar_menu_items($page_type, $this);
@@ -239,7 +239,7 @@ class Data extends BaseController {
     function lr_menu($config_source = "ad_hoc_query", $config_name = 'utility_queries')
     {
         $CI =& get_instance();
-        $configDBFolder = $CI->config->item('model_config_path');
+        $configDBFolder = config('App')->model_config_path;
         $dbFileName = $config_source . '.db';
 
         $dbFilePath = $configDBFolder.$dbFileName;

@@ -77,7 +77,7 @@ class Helper_inst_source extends Base_controller {
         }
 
         // get source content file from website
-        $cfg = $this->config->item('dms_inst_source_url');
+        $cfg = config('App')->dms_inst_source_url;
         $url = $cfg ? $cfg : "http://gigasax.pnl.gov";
         $file = fopen ($url."/DMS_Inst_Source/".$inst."_source.txt", "r");
         if (!$file) {

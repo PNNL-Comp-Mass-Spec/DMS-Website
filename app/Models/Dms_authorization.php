@@ -13,7 +13,7 @@ class Dms_authorization extends Model {
     function __construct() {
         //Call the Model constructor
         parent::__construct();
-        $this->dBFolder = $this->config->item('model_config_path');
+        $this->dBFolder = config('App')->model_config_path;
 //      $this->initialize();
     }
 

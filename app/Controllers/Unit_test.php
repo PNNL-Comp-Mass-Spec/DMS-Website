@@ -10,7 +10,7 @@ class Unit_Test extends BaseController {
 
         session_start();
         $this->helpers = array_merge($this->helpers, ['url', 'string']);
-        $this->color_code = $this->config->item('version_color_code');
+        $this->color_code = config('App')->version_color_code;
     }
     // --------------------------------------------------------------------
     function index()

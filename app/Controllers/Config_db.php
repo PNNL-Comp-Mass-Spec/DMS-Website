@@ -24,10 +24,10 @@ class Config_db extends BaseController {
         session_start();
         $this->helpers = array_merge($this->helpers, ['url', 'string']);
 
-        $this->configDBPath = $this->config->item('model_config_path');
+        $this->configDBPath = config('App')->model_config_path;
 
         $CI =& get_instance();
-        $this->mod_enabled = $CI->config->item('modify_config_db_enabled');
+        $this->mod_enabled = config('App')->modify_config_db_enabled;
 
         $this->config_model = model('App\Models\config_db_model');
     }
@@ -136,10 +136,10 @@ class Config_db extends BaseController {
     private function _make_wiki_help_link($table_name) {
         $s = "";
         //  $CI =& get_instance();
-        //  $ptrac = $CI->config->item('ptrac');
-        //  $trac_helpLink_prefix = $CI->config->item('tracHelpLinkPrefix');
+        //  $ptrac = config('App')->ptrac;
+        //  $trac_helpLink_prefix = config('App')->tracHelpLinkPrefix;
 
-        $wikiBaseUrl = $this->config->item('pwiki');
+        $wikiBaseUrl = config('App')->pwiki;
         $wiki_helpLink_prefix = "DMS_Config_DB_Help_";
         $href = $wikiBaseUrl . $wiki_helpLink_prefix . $table_name;
         //  $src = base_url(). "/images/help.png";
@@ -1597,7 +1597,7 @@ class Config_db extends BaseController {
         $config_files = $this->_get_config_db_file_list($file_filter);
         asort($config_files);
         echo "<h3>Config DB Files</h3>\n";
-        echo "| &nbsp;<a href='" . $this->config->item('pwiki') . "DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
+        echo "| &nbsp;<a href='" . config('App')->pwiki . "DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
         echo "<ul>\n";
         foreach ($config_files as $config_db) {
             $linkHtml = $this->_make_page_family_contents_link($config_db, $config_db);

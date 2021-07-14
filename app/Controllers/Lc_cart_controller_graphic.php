@@ -14,9 +14,9 @@ class Lc_cart_controller_graphic extends BaseController {
         session_start();
         $this->helpers = array_merge($this->helpers, ['url', 'string', 'lc_cart_component', 'user']);
 
-        $this->color_code = $this->config->item('version_color_code');
-        $this->help_page_link = $this->config->item('pwiki');
-        $this->help_page_link .= $this->config->item('wikiHelpLinkPrefix');
+        $this->color_code = config('App')->version_color_code;
+        $this->help_page_link = config('App')->pwiki;
+        $this->help_page_link .= config('App')->wikiHelpLinkPrefix;
     }
     // --------------------------------------------------------------------
     function index()

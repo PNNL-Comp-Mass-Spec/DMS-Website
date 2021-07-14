@@ -27,11 +27,11 @@ class File_attachment extends Base_controller {
         helper(['file_attachment','download']);
         $this->my_tag = "file_attachment";
         $this->my_title = "File Attachments";
-        $this->archive_root_path = $this->config->item('file_attachment_archive_root_path'); // returns null if not set
+        $this->archive_root_path = config('App')->file_attachment_archive_root_path; // returns null if not set
         if (!is_null($this->archive_root_path) && !is_dir($this->archive_root_path)) {
             $this->archive_root_path = null;
         }
-        $this->local_root_path = $this->config->item('file_attachment_local_root_path'); // returns null if not set
+        $this->local_root_path = config('App')->file_attachment_local_root_path; // returns null if not set
         if (is_null($this->local_root_path) || !is_dir($this->local_root_path)) {
             throw new Exception("configuration item 'file_attachment_local_root_path' is either not set or not a directory!");
         }

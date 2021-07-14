@@ -183,7 +183,7 @@ class Q_model extends Model {
     function __construct() {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = $this->config->item('model_config_path');
+        $this->configDBFolder = config('App')->model_config_path;
     }
 
     /**

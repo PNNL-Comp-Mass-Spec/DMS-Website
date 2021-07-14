@@ -14,9 +14,9 @@ class Freezer extends Base_controller {
         session_start();
         helper(['url', 'string', 'user']);
 
-        $this->color_code = $this->config->item('version_color_code');
-        $this->help_page_link = $this->config->item('pwiki');
-        $this->help_page_link .= $this->config->item('wikiHelpLinkPrefix');
+        $this->color_code = config('App')->version_color_code;
+        $this->help_page_link = config('App')->pwiki;
+        $this->help_page_link .= config('App')->wikiHelpLinkPrefix;
     }
 
     // --------------------------------------------------------------------

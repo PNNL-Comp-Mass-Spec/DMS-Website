@@ -79,7 +79,7 @@ class G_model extends Model {
     {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = $this->config->item('model_config_path');
+        $this->configDBFolder = config('App')->model_config_path;
     }
 
     // --------------------------------------------------------------------

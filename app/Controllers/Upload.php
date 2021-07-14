@@ -635,7 +635,7 @@ class Upload extends Base_controller {
     function get_config_info($dbFileName)
     {
         $CI =& get_instance();
-        $configDBFolder = $CI->config->item('model_config_path');
+        $configDBFolder = config('App')->model_config_path;
         $dbFilePath = $configDBFolder . $dbFileName;
 
         $dbh = new PDO("sqlite:$dbFilePath");
