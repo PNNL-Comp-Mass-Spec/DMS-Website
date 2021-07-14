@@ -16,23 +16,36 @@ class Config_db extends BaseController {
     var $configDBFolder = '';
     var $configDBPath = '';
 
-    /**
-     * Constructor
-     */
-    function __construct() {
-        // Call the parent constructor
-        parent::__construct();
+	/**
+	 * An array of helpers to be loaded automatically upon
+	 * class instantiation. These helpers will be available
+	 * to all other controllers that extend DmsBase.
+	 *
+	 * @var array
+	 */
+	protected $helpers = ['url', 'text'];
 
+	/**
+	 * Constructor.
+	 */
+	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	{
+		// Do Not Edit This Line
+		parent::initController($request, $response, $logger);
+
+		//--------------------------------------------------------------------
+		// Preload any models, libraries, etc, here.
+		//--------------------------------------------------------------------
+		// E.g.:
+		// $this->session = \Config\Services::session();
+        
         session_start();
-        $this->helpers = array_merge($this->helpers, ['url', 'text']);
-
         $this->configDBPath = config('App')->model_config_path;
 
-        $CI =& get_instance();
         $this->mod_enabled = config('App')->modify_config_db_enabled;
 
-        $this->config_model = model('App\Models\config_db_model');
-    }
+        $this->config_model = model('App\Models\Config_db_model');
+	}
 
     /**
      * Redirect http://dms2.pnl.gov/config_db/
