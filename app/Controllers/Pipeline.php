@@ -1,13 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Pipeline extends CI_Controller {
-    // --------------------------------------------------------------------
-    function __construct()
-    {
-        // Call the parent constructor
-        parent::__construct();
-    }
+class Pipeline extends BaseController {
 
     // --------------------------------------------------------------------
     function index()

@@ -6,7 +6,7 @@ namespace App\Controllers;
  * For example, on https://dms2.pnl.gov/aux_info/entry/Experiment/214930/QC_Shew_18_01
  * see the Copy Info textbox and Copy button
  */
-class Aux_info_copy extends CI_Controller {
+class Aux_info_copy extends BaseController {
 
     /**
      * Constructor
@@ -22,7 +22,7 @@ class Aux_info_copy extends CI_Controller {
         $this->my_create_action = "aux_info_copy/create";
         $this->my_edit_action = "aux_info_copy/edit";
 
-        $this->load->helper(array('url', 'string', 'form'));
+        $this->helpers = array_merge($this->helpers, ['url', 'string', 'form']);
         $this->load->model($this->my_model, 'model', true);
 
         $this->load->library('aux_info_support');

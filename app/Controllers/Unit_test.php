@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Unit_Test extends CI_Controller {
+class Unit_Test extends BaseController {
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -9,7 +9,7 @@ class Unit_Test extends CI_Controller {
         parent::__construct();
 
         session_start();
-        $this->load->helper(array('url', 'string'));
+        $this->helpers = array_merge($this->helpers, ['url', 'string']);
         $this->color_code = $this->config->item('version_color_code');
     }
     // --------------------------------------------------------------------

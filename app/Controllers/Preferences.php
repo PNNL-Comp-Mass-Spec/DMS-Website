@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Preferences extends CI_Controller {
+class Preferences extends BaseController {
 
     var $my_model = 'dms_preferences';
 
@@ -13,7 +13,7 @@ class Preferences extends CI_Controller {
 
         session_start();
 
-        $this->load->helper(array('url', 'string', 'dms_search', 'cookie', 'user'));
+        $this->helpers = array_merge($this->helpers, ['url', 'string', 'dms_search', 'cookie', 'user']);
         $this->load->model($this->my_model, 'model');
     }
 

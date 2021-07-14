@@ -4,13 +4,7 @@ namespace App\Controllers;
 /**
  * Features related to utility_queries table (mostly developmental at this point)
  */
-class Data extends CI_Controller {
-
-    // --------------------------------------------------------------------
-    function __construct()
-    {
-        parent::__construct();
-    }
+class Data extends BaseController {
 
     // --------------------------------------------------------------------
     // ad hoc query stuff

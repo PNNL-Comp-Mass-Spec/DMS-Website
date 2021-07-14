@@ -1,16 +1,10 @@
 <?php
 namespace App\Controllers;
 
-class Ers extends CI_Controller {
+class Ers extends BaseController {
 
     var $my_tag = "ers";
 
-    // --------------------------------------------------------------------
-    function __construct()
-    {
-        // Call the parent constructor
-        parent::__construct();
-    }
     // --------------------------------------------------------------------
     function index()
     {

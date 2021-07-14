@@ -1,17 +1,42 @@
 <?php
+namespace App\Controllers;
 
-class Base_controller extends CI_Controller {
+/**
+ * Class Base_Controller, DMS base class for most controllers
+ */
+
+use App\Libraries\Controller_utility;
+
+class Base_controller extends BaseController
+{
 
     var $my_tag = "";
 
-    // --------------------------------------------------------------------
-    function __construct()
-    {
-        // Call the parent constructor
-        parent::__construct();
-        $this->load->helper(array('url'));
-        $this->load->library('controller_utility', '', 'cu');
-    }
+	/**
+	 * An array of helpers to be loaded automatically upon
+	 * class instantiation. These helpers will be available
+	 * to all other controllers that extend Base_controller.
+	 *
+	 * @var array
+	 */
+	protected $helpers = ['url'];
+
+	/**
+	 * Constructor.
+	 */
+	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	{
+		// Do Not Edit This Line
+		parent::initController($request, $response, $logger);
+
+		//--------------------------------------------------------------------
+		// Preload any models, libraries, etc, here.
+		//--------------------------------------------------------------------
+		// E.g.:
+		// $this->session = \Config\Services::session();
+
+        $this->cu = new Controller_utility();
+	}
 
     // --------------------------------------------------------------------
     function index()

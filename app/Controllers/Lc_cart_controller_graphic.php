@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Lc_cart_controller_graphic extends CI_Controller {
+class Lc_cart_controller_graphic extends BaseController {
 
     var $my_tag = "lc_cart_controller_graphic";
 
@@ -12,7 +12,7 @@ class Lc_cart_controller_graphic extends CI_Controller {
         parent::__construct();
 
         session_start();
-        $this->load->helper(array('url', 'string', 'lc_cart_component', 'user'));
+        $this->helpers = array_merge($this->helpers, ['url', 'string', 'lc_cart_component', 'user']);
 
         $this->color_code = $this->config->item('version_color_code');
         $this->help_page_link = $this->config->item('pwiki');

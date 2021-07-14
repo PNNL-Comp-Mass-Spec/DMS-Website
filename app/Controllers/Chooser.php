@@ -1,14 +1,14 @@
 <?php
 namespace App\Controllers;
 
-class Chooser extends CI_Controller {
+class Chooser extends BaseController {
 
     // --------------------------------------------------------------------
     function __construct()
     {
         // Call the parent constructor
         parent::__construct();
-        $this->load->helper(array('url', 'string', 'form'));
+        $this->helpers = array_merge($this->helpers, ['url', 'string', 'form']);
     }
 
     // --------------------------------------------------------------------

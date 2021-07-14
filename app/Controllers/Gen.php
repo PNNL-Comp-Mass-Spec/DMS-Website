@@ -1,21 +1,39 @@
 <?php
 namespace App\Controllers;
 
-class Gen extends CI_Controller {
+use App\Controllers;
 
-    /**
-     * Constructor
-     */
-    function __construct()
-    {
-        // Call the parent constructor
-        parent::__construct();
+class Gen extends BaseController
+{
+
+	/**
+	 * An array of helpers to be loaded automatically upon
+	 * class instantiation. These helpers will be available
+	 * to all other controllers that extend BaseController.
+	 *
+	 * @var array
+	 */
+	protected $helpers = ['url', 'string'];
+
+	/**
+	 * Constructor.
+	 */
+	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	{
+		// Do Not Edit This Line
+		parent::initController($request, $response, $logger);
+
+		//--------------------------------------------------------------------
+		// Preload any models, libraries, etc, here.
+		//--------------------------------------------------------------------
+		// E.g.:
+		// $this->session = \Config\Services::session();
 
         session_start();
-        $this->load->helper(array('url', 'string'));
-        $this->color_code = $this->config->item('version_color_code');
-        $this->page_menu_root = ($this->config->item('page_menu_root')) ? $this->config->item('page_menu_root') : "page_menu" ;
-    }
+        $this->config = config('App');
+        $this->color_code = $this->config->version_color_code;
+        $this->page_menu_root = ($this->config->page_menu_root) ? $this->config->page_menu_root : "page_menu" ;
+	}
 
     /**
      * Display the home page, with the side menu in a frame

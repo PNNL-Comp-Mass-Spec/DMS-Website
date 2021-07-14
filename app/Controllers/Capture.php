@@ -1,14 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Capture extends CI_Controller {
-    // --------------------------------------------------------------------
-    function __construct()
-    {
-        // Call the parent constructor
-        parent::__construct();
-    }
-
+class Capture extends BaseController {
     // --------------------------------------------------------------------
     function index()
     {

@@ -4,7 +4,7 @@ namespace App\Controllers;
 /**
  * This class is used to edit model config DBs
  */
-class Config_db extends CI_Controller {
+class Config_db extends BaseController {
 
     /**
      * Unused, but needed for Generic_Controller
@@ -22,7 +22,7 @@ class Config_db extends CI_Controller {
         parent::__construct();
 
         session_start();
-        $this->load->helper(array('url', 'string'));
+        $this->helpers = array_merge($this->helpers, ['url', 'string']);
 
         $this->configDBPath = $this->config->item('model_config_path');
 

@@ -4,7 +4,7 @@ namespace App\Controllers;
 // Include the String operations methods
 require_once(BASEPATH . '../application/libraries/String_operations.php');
 
-class Aux_info extends CI_Controller {
+class Aux_info extends BaseController {
 
     /**
      * Constructor
@@ -14,7 +14,7 @@ class Aux_info extends CI_Controller {
         // Call the parent constructor
         parent::__construct();
 ///--
-        $this->load->helper(array('dms_search', 'cookie', 'user', 'dms_logging'));
+        $this->helpers = array_merge($this->helpers, ['dms_search', 'cookie', 'user', 'dms_logging']);
 
         session_start();
         $this->load->model('dms_preferences', 'preferences');
