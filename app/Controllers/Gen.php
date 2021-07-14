@@ -42,14 +42,14 @@ class Gen extends BaseController
      */
     function index()
     {
-        $page = $this->input->post('page');
-        $pageToShow = ($page != '')?$page:site_url()."gen/welcome";
+		// TODO: $page = $this->input->post('page');
+        $page = '';
+        $pageToShow = ($page != '')?$page:site_url('gen/welcome');
 
         $data['page_url'] = $pageToShow;
-        $data['side_menu_url'] = site_url()."gen/side_menu";
+        $data['side_menu_url'] = site_url('gen/side_menu');
 
-        $this->load->vars($data);
-        $this->load->view('top_level_frames');
+        echo view('top_level_frames', $data);
     }
 
     /**
@@ -59,13 +59,13 @@ class Gen extends BaseController
     function config()
     {
         echo("<li>Environment:".ENVIRONMENT . "\n");
-//      $this->config->load('database', true);
+//      $this->config->load('database', TRUE);
         $this->load->database();
 
-        $version = $this->color_code = $this->config->item('version_label');
+        $version = $this->color_code = $this->config->version_label;
         echo("<li>version:$version\n");
 
-        $archiveRoot = $this->color_code = $this->config->item('file_attachment_archive_root_path');
+        $archiveRoot = $this->color_code = $this->config->file_attachment_archive_root_path;
         echo("<li>file attachment path:$archiveRoot\n");
 
         $dbName = $this->db->database;
@@ -93,16 +93,15 @@ class Gen extends BaseController
                 $menu_item_table = "home_menu_items"
     )
     {
-        $this->load->model('dms_menu', 'menu', true);
-        $this->load->helper(array('form', 'user', 'menu', 'dms_search'));
+        $this->menu = model('\App\Models\Dms_menu');
+        helper(['form', 'user', 'menu', 'dms_search']);
 
         // labelling information for view
         $data['title'] = $title;
         $data['heading'] = $title;
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('');
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('', $this);
 
         // home page menu sections
         $defs = $this->menu->get_section_menu_def($menu_config_db, $menu_section_table, $menu_item_table);
@@ -113,8 +112,7 @@ class Gen extends BaseController
         $data['splash_view_name'] = ($splash_view_name)?$splash_view_name:'splash_default';
         $data['page_menu_root'] = $this->page_menu_root;
 
-        $this->load->vars($data);
-        $this->load->view($this->page_menu_root . '/page_menu');
+        echo view($this->page_menu_root . '/page_menu', $data);
     }
 
     /**
@@ -135,9 +133,9 @@ class Gen extends BaseController
     // --------------------------------------------------------------------
     function custom()
     {
-        echo "Go <a href='".site_url()."gen/cart/fly'>here</a> for page layout using 'flying' menu sections\n";
+        echo "Go <a href='".site_url("gen/cart/fly")."'>here</a> for page layout using 'flying' menu sections\n";
         echo "<br><br>";
-        echo "Go <a href='".site_url()."gen/cart/sections'>here</a> for page layout using static menu sections \n";
+        echo "Go <a href='".site_url("gen/cart/sections")."'>here</a> for page layout using static menu sections \n";
     }
 
     // --------------------------------------------------------------------
@@ -163,9 +161,9 @@ class Gen extends BaseController
      */
     function side_menu()
     {
-        $this->load->helper(array('menu', 'dms_search'));
-        $this->load->model('dms_menu', 'menu', true);
-        $this->load->view('menu_panel');
+        helper(['menu', 'dms_search']);
+        $this->menu = model('\App\Models\Dms_menu');
+        echo view('menu_panel');
     }
 
     /**
@@ -174,8 +172,8 @@ class Gen extends BaseController
      */
     function side_menu_objects()
     {
-        $this->load->helper(array('menu', 'dms_search'));
-        $this->load->model('dms_menu', 'menu', true);
+        helper(['menu', 'dms_search']);
+        $this->menu = model('\App\Models\Dms_menu');
 
         $menu_def = $this->menu->get_menu_def("dms_menu.db", "menu_def");
         $items = build_side_menu_object_tree($menu_def, '');
@@ -232,10 +230,10 @@ class Gen extends BaseController
     function auth()
     {
         // load the authorization model
-        $this->load->model('dms_authorization', 'auth');
+        $this->auth = model('\App\Models\Dms_authorization');
         $rows = $this->auth->get_master_restriction_list();
 
-        $this->load->library('table');
+        $this->table = new \App\Libraries\Table();
         $tmpl = array ('table_open' => '<table border="1" cellpadding="4" cellspacing="0">');
         $this->table->set_template($tmpl);
 
@@ -255,12 +253,12 @@ class Gen extends BaseController
      */
     function stats()
     {
-        $this->load->model('dms_statistics', 'model', true);
-        $this->load->helper(array('form', 'user', 'dms_stats', 'dms_search', 'menu'));
+        $this->model = model('\App\Models\Dms_statistics');
+        helper(['form', 'user', 'dms_stats', 'dms_search', 'menu']);
 
         // nav_bar setup
-        $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Statistics');
+        $this->menu = new \App\Models\Dms_menu();
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Statistics', $this);
 
         // labelling information for view
         $data['title'] = "DMS Statistics";
@@ -269,8 +267,7 @@ class Gen extends BaseController
         $result = $this->model->get_stats();
         $data['results'] = $result;
 
-        $this->load->vars($data);
-        $this->load->view('special/statistics');
+        echo view('special/statistics', $data);
 
     }
 }

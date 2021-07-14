@@ -6,6 +6,105 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
+    // --------------------------- BEGIN DMS Customizations--------------------
+
+    public $pwiki = "";
+
+    public $wikiHelpLinkPrefix = 'DMS_Help_for_';
+
+    public $version_color_code = 'black';
+    public $version_banner = NULL;
+    public $version_label = 'Production';
+
+    public $inhibit_sproc_call = FALSE;
+    public $sproc_call_log_enabled = FALSE;
+
+    public $modify_config_db_enabled = FALSE;
+
+    public $file_attachment_archive_root_path = "/mnt/dms_attachments/";
+
+    public $file_attachment_local_root_path = "/files2/dms_attachments/";
+
+    // Path relative to index.php, which is inside the 'public' folder.
+    public $model_config_path = "../app/model_config/";
+
+    public $dms_inst_source_url = "http://gigasax.pnl.gov";
+
+    public $page_menu_root = NULL;
+    private $baseURLPrefix = 'dmsdevci4/public/';
+
+    // --------------------------------------------------------------------
+    function __construct()
+    {
+        // Need to set the properties before we call the parent constructor
+        $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+        $this->baseURL = "{$protocol}://".$_SERVER["SERVER_NAME"]."/".$this->baseURLPrefix;
+        $this->uriProtocol = 'PATH_INFO';
+        $this->appTimezone = 'America/Los_Angeles';
+
+        // Is the user accessing DMS from bionet?
+        $server_bionet = stripos($_SERVER["SERVER_NAME"], ".bionet") !== FALSE;
+
+        if ($server_bionet) {
+            $this->pwiki = 'http://prismwiki.bionet/wiki/';
+        }
+        else {
+            $this->pwiki = 'https://prismwiki.pnl.gov/wiki/';
+        }
+
+// TODO: Handle all of the following settings from the .env file!
+
+        //---- Start Development settings
+        $development = true;
+        if (isset($development))
+        {
+            $this->version_color_code = 'LightGreen';
+            $this->version_label = 'Development';
+
+            $this->modify_config_db_enabled = TRUE;
+
+            $this->file_attachment_local_root_path = "/files1/dms_attachments/";
+        }
+        //---- End Development settings
+
+        //---- Start CBDMS settings
+        if (isset($cbdms))
+        {
+            //$this->modify_config_db_enabled = TRUE;
+
+            // Do not store DMS Attachments in the archive when on CBDMSWeb
+            $this->file_attachment_archive_root_path = NULL;
+
+            $this->file_attachment_local_root_path = "/files1/dms_attachments/";
+
+            $this->model_config_path = "application/model_config/cbdms/";
+
+            $this->dms_inst_source_url = "http://cbdms.pnl.gov" ;
+
+            $this->page_menu_root = "page_menu_cbdms" ;
+        }
+        //---- End CBDMS settings
+
+        //---- Start Training settings
+        if (isset($training))
+        {
+            $this->version_color_code = 'Coral';
+            $this->version_banner = "TRAINING VERSION";
+            $this->version_label = 'Training';
+
+            // Disabled for training:
+            $this->file_attachment_archive_root_path = NULL;
+
+            $this->file_attachment_local_root_path = "/files2/dmsbeta_attachments/";
+        }
+        //---- End Training settings
+
+        // Call the parent constructor
+        parent::__construct();
+    }
+
+    // --------------------------- END DMS Customizations----------------------
+    
 	/**
 	 * --------------------------------------------------------------------------
 	 * Base Site URL

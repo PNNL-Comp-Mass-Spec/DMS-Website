@@ -33,7 +33,7 @@ class Preferences extends BaseController {
 
         // nav_bar setup
         $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences');
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences', $this);
 
         $result = '';
         if($param != '' && $value != '') {

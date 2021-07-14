@@ -5,7 +5,7 @@
 <div id='fly_section'>
 <?= make_fly_section_layout($qs_section_defs); ?>
 <div id='splash_message' class='fly_box'>
-<?php $this->load->view("$page_menu_root/$splash_view_name") ?>
+<?php echo view("$page_menu_root/$splash_view_name") ?>
 </div>
 </div> <!-- end 'fly_section' -->
 

@@ -162,7 +162,7 @@ class Freezer extends Base_controller {
 
         // navbar support
         $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Detail_Reports');
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Detail_Reports', $this);
 
         // populate array of storage locations
         $sql = "";
@@ -233,7 +233,7 @@ class Freezer extends Base_controller {
 
         // navbar support
         $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report');
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // optional limits on what to include
         $freezer_spec = $this->uri->segment(3);
@@ -321,7 +321,7 @@ class Freezer extends Base_controller {
 
         // navbar support
         $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report');
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // table styling
         $table_setup = "border='1' cellpadding='2' cellspacing='1' class='mytable'";

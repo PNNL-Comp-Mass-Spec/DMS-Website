@@ -62,7 +62,7 @@ class Aux_info extends BaseController {
 
         // nav_bar setup
         $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info');
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         $this->load->helper('detail_report_helper');
         try {
@@ -95,7 +95,7 @@ class Aux_info extends BaseController {
 
         // nav_bar setup
         $this->load->model('dms_menu', 'menu', true);
-        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info');
+        $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         if (IsNullOrWhiteSpace($name)) {
             $name = "Unknown";

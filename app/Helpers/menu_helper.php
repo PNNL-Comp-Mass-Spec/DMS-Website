@@ -76,7 +76,7 @@ function make_fly_master_list($section_defs) {
 function make_qs_menu_item($params, $i) {
     $s = '';
     $page = $params['section_menu_items'][$i]['page'];
-    $url = strncasecmp($page, "http", 4) ? site_url() . $page : $page;
+    $url = strncasecmp($page, "http", 4) ? site_url($page) : $page;
     $lnk = $params['section_menu_items'][$i]['link'];
     $lbl = $params['section_menu_items'][$i]['label'];
     switch ($page) {
@@ -192,7 +192,7 @@ function build_side_menu_object_tree($menu_items, $mnu_name) {
                 case 'link':
                     $obj = new stdClass();
                     $obj->title = $label;
-                    $obj->href = site_url() . $name;
+                    $obj->href = site_url($name);
                     $items[] = $obj;
                     break;
             }
@@ -233,7 +233,7 @@ function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '
                     } elseif (!(stripos($name, 'http') === false)) {
                         $target = "target='_blank'";
                     } else {
-                        $url = site_url() . $url;
+                        $url = site_url($url);
                     }
                     $help = $entry['item_help'];
                     $title = ($help) ? "title='$help'" : '';
@@ -264,9 +264,8 @@ function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '
  */
 function make_version_banner() {
     $s = '';
-    $CI =& get_instance();
-    $banner = $CI->config->item('version_banner');
-    $color = $CI->config->item('version_color_code');
+    $banner = config('App')->version_banner;
+    $color = config('App')->version_color_code;
     if ($banner) {
         $s .= "<span style='color:$color;font-weight:bold;'>$banner</span>";
         $s = implode(implode(" ", array_fill(0, 5, "&nbsp;")), array_fill(0, 3, $s));
@@ -279,12 +278,11 @@ function make_version_banner() {
  * @param type $page_type
  * @return type
  */
-function set_up_nav_bar($page_type) {
-    $CI =& get_instance();
-    $CI->help_page_link = $CI->config->item('pwiki') . $CI->config->item('wikiHelpLinkPrefix');
-    $CI->load->helper(array('dms_search'));
-    $CI->load->model('dms_menu', 'menu', true);
-    return get_nav_bar_menu_items($page_type);
+function set_up_nav_bar($page_type, $controller) {
+    $controller->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
+    helper(['dms_search']);
+    $controller->menu = model(\App\Models\Dms_menu);
+    return get_nav_bar_menu_items($page_type, $controller);
 }
 
 /**
@@ -292,10 +290,9 @@ function set_up_nav_bar($page_type) {
  * @param type $page_type
  * @return type
  */
-function get_nav_bar_menu_items($page_type) {
-    $CI =& get_instance();
-    $menu_context = get_menu_context($page_type);
-    $nav_bar_menu_items = $CI->menu->get_menu_def("dms_menu.db", "nav_def");
+function get_nav_bar_menu_items($page_type, $controller) {
+    $menu_context = get_menu_context($page_type, $controller);
+    $nav_bar_menu_items = $controller->menu->get_menu_def("dms_menu.db", "nav_def");
     convert_context_sensitive_menu_items($nav_bar_menu_items, $menu_context);
     return $nav_bar_menu_items;
 }
@@ -305,27 +302,26 @@ function get_nav_bar_menu_items($page_type) {
  * @param type $page_type
  * @return string
  */
-function get_menu_context($page_type) {
+function get_menu_context($page_type, $controller) {
     // we get context sensitive values from controller
-    $CI =& get_instance();
 
     // get array of context-sensitive values
     $menu_context = array();
-    if (isset($CI->help_page_link)) {
-        $help_basic_link = $CI->help_page_link . $page_type;
+    if (isset($controller->help_page_link)) {
+        $help_basic_link = $controller->help_page_link . $page_type;
         $menu_context['help_basic_link'] = $help_basic_link;
-        if (isset($CI->my_tag)) {
-            $menu_context['help_page_link'] = $CI->help_page_link . $CI->my_tag;
+        if (isset($controller->my_tag)) {
+            $menu_context['help_page_link'] = $controller->help_page_link . $controller->my_tag;
         }
     }
-    if (isset($CI->my_tag)) {
+    if (isset($controller->my_tag)) {
         switch ($page_type) {
             case 'List_Reports':
             case 'Param_Pages':
                 $menu_context['clear_settings_link'] = "javascript:navBar.invoke(lambda.setListReportDefaults, \"$page_type\")";
                 break;
         }
-        $config_db = (isset($CI->my_config_db)) ? $CI->my_config_db : $CI->my_tag;
+        $config_db = (isset($controller->my_config_db)) ? $controller->my_config_db : $controller->my_tag;
         $menu_context['config_db_link'] = "config_db/show_db/" . $config_db . ".db";
     }
     switch ($page_type) {
@@ -351,12 +347,12 @@ function get_menu_context($page_type) {
             $menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
             break;
     }
-    $version = $CI->config->item('version_label');
-    $color_code = $CI->config->item('version_color_code');
+    $version = config('App')->version_label;
+    $color_code = config('App')->version_color_code;
     $menu_context['side_panel_toggle'] = "<span style='margin:0;'><a title='Show/Hide side menu' href='javascript:gamma.toggle_frames();'><img src='" . base_url() . "/images/layout.png' style='border-style:none'></a></span>";
     $menu_context['server_info'] = "<span style='font-size:9px;color:" . $color_code . "'>" . get_user() . " &nbsp; &nbsp; " . $version . "</span>";
-    $menu_context['home_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to home page' href='" . site_url() . "gen/welcome'><img src='" . base_url() . "/images/house.png' style='border-style:none'></a></span>";
-    $menu_context['admin_page_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to admin menu page' href='" . site_url() . "gen/admin'><img src='" . base_url() . "/images/cog.png' style='border-style:none'></a></span>";
+    $menu_context['home_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to home page' href='" . site_url("gen/welcome") . "'><img src='" . base_url() . "/images/house.png' style='border-style:none'></a></span>";
+    $menu_context['admin_page_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to admin menu page' href='" . site_url("gen/admin") . "'><img src='" . base_url() . "/images/cog.png' style='border-style:none'></a></span>";
 
     $menu_context['user_notification_link'] = "notification/report/-/" . get_user();
     $menu_context['email_notification_link'] = "notification/edit/" . get_user();

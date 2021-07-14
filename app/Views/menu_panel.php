@@ -3,9 +3,9 @@
 <head>
 <title>DMS Main Menu</title>
 
-<?php $this->load->view('resource_links/base2css') ?>
-<?php $this->load->view('resource_links/base2js') ?>
-<?php $this->load->view('resource_links/menu_panel') ?>
+<?php echo view('resource_links/base2css') ?>
+<?php echo view('resource_links/base2js') ?>
+<?php echo view('resource_links/menu_panel') ?>
 
 </head>
 
@@ -16,7 +16,7 @@
 </div>
 
 <div class='ctlPanel'>
-<span class="side_menu_ctl_pnl"><a target="display_side" href="<?= site_url()?>gen/welcome" title="Go to the home page">Home</a></span>
+<span class="side_menu_ctl_pnl"><a target="display_side" href="<?= site_url('gen/welcome')?>" title="Go to the home page">Home</a></span>
 <span class="side_menu_ctl_pnl"><a href="javascript:void(0)" id="btnExpandAll" title="Open all menus">Expand&nbsp;all</a></span>
 <span class="side_menu_ctl_pnl"><a href="javascript:void(0)" id="btnCollapseAll" title="Close all menus">Collapse&nbsp;all</a></span>
 </div>
@@ -48,7 +48,7 @@ $(document).ready(function() {
         minExpandLevel: 1,
         toggleEffect: { effect: "slideToggle", duration: 100 },
         source: {
-            url: '<?= site_url() ?>gen/side_menu_objects', data: {}
+            url: '<?= site_url("gen/side_menu_objects") ?>', data: {}
         },
         icon: false, // Turn off icons
         activate: function(event, data){
