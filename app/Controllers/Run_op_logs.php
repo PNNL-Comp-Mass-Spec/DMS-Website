@@ -47,15 +47,15 @@ class Run_op_logs extends Grid {
         $month = $this->input->post("month");
 
         $this->my_tag = "operation_log_review";
-        $this->load->database();
-        $this->db->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, Minutes, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
-        $this->db->from("V_Ops_Logs_List_Report");
-        if(IsNotWhitespace($instrument)) $this->db->where("Instrument in ($instrument)");
-        if(IsNotWhitespace($usage)) $this->db->where("Usage in ($usage)");
-        if(IsNotWhitespace($type)) $this->db->where("Type in ($type)");
-        if(IsNotWhitespace($year)) $this->db->where("Year", $year);
-        if(IsNotWhitespace($month)) $this->db->where("Month", $month);
-        $this->grid_data_from_query();
+        $this->db = \Config\Database::connect();
+        $builder = $this->db->table("V_Ops_Logs_List_Report");
+        $builder->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, Minutes, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
+        if(IsNotWhitespace($instrument)) $builder->where("Instrument in ($instrument)");
+        if(IsNotWhitespace($usage)) $builder->where("Usage in ($usage)");
+        if(IsNotWhitespace($type)) $builder->where("Type in ($type)");
+        if(IsNotWhitespace($year)) $builder->where("Year", $year);
+        if(IsNotWhitespace($month)) $builder->where("Month", $month);
+        $this->grid_data_from_query($builder);
     }
 }
 ?>

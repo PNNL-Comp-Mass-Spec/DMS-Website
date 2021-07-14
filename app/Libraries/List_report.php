@@ -256,7 +256,7 @@ class List_report {
         $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
         $CI->cell_presentation->set_col_filter($col_filter);
 
-        $rows = $CI->data_model->get_rows()->result_array();
+        $rows = $CI->data_model->get_rows()->getResultArray();
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
@@ -446,7 +446,7 @@ class List_report {
 
         $CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
 
-        $rows = $CI->data_model->get_rows('filtered_and_sorted')->result_array();
+        $rows = $CI->data_model->get_rows('filtered_and_sorted')->getResultArray();
 
         $CI->cell_presentation = new \App\Libraries\Cell_presentation();
         $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());

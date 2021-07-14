@@ -51,7 +51,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for freezers; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -90,7 +90,7 @@ EOD;
         }
         $sql .= " GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------
@@ -105,7 +105,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for containers; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------
@@ -120,7 +120,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for material items; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------
@@ -281,7 +281,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for container; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------
@@ -300,7 +300,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for material location; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------
@@ -323,7 +323,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for available locations; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------
@@ -342,7 +342,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for newest containers; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 }
 ?>

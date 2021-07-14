@@ -153,7 +153,7 @@ class Freezer extends Base_controller {
     {
         helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         // labelling information for view
         $data['title'] = "Freezer Map";
@@ -180,7 +180,7 @@ class Freezer extends Base_controller {
         }
         //
         $storage = array();
-        $rows = $result->result_array();
+        $rows = $result->getResultArray();
         foreach($rows as $r) {
             $storage[$r['Freezer']][$r['Shelf']][$r['Rack']] = '' ;
         }
@@ -223,7 +223,7 @@ class Freezer extends Base_controller {
     {
         helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         // labelling information for view
         $data['title'] = "Freezer";
@@ -263,7 +263,7 @@ class Freezer extends Base_controller {
         }
         //
         $storage = array();
-        $rows = $result->result_array();
+        $rows = $result->getResultArray();
         foreach($rows as $r) {
             $storage[$r['Freezer']][$r['Shelf']][$r['Rack']][$r['Row']][$r['Col']] = array( 'Location' => $r['Location'], 'Available' => $r['Available']) ;
         }
@@ -292,7 +292,7 @@ class Freezer extends Base_controller {
         }
         //
         $contents = array();
-        $rows = $result->result_array();
+        $rows = $result->getResultArray();
         foreach($rows as $r) {
             $contents[$r['Location']][] = array( 'Container' => $r['Container'], 'Comment' => $r['Comment']);
         }
@@ -308,7 +308,7 @@ class Freezer extends Base_controller {
     {
         helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu', 'form']);
         $this->table = new \CodeIgniter\View\Table();
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         $freezer_spec = $this->uri->segment(3);
 
@@ -337,7 +337,7 @@ class Freezer extends Base_controller {
             echo "Error loading container row/column info; see application/logs/log-$currentTimestamp.php";
             return;
         }
-        $locs = $rc_result->result_array();
+        $locs = $rc_result->getResultArray();
 
         // build nested array representation of freezer locations
         $fzr = make_freezer_matrix_array($locs);

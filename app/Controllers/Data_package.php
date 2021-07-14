@@ -33,19 +33,19 @@ class Data_package extends Base_controller {
     function ag($id, $tool, $mode) {
         helper(['url', 'string']);
 
-        $this->load->database('package');
+        $this->db = \Config\Database::connect('package');
 
         $sql = "dbo.CheckDataPackageDatasetJobCoverage($id, '$tool', '$mode')";
-        $this->db->from($sql);
-        $resultSet = $this->db->get();
+        $builder = $this->db->table($sql);
+        $resultSet = $builder->get();
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             return "Error querying database via CheckDataPackageDatasetJobCoverage; see application/logs/log-$currentTimestamp.php";
         }
-        if ($resultSet->num_rows() == 0) {
+        if ($resultSet->getNumRows() == 0) {
             return "No rows found calling CheckDataPackageDatasetJobCoverage";
         }
-        $result = $resultSet->result_array();
+        $result = $resultSet->getResultArray();
         $fields = $resultSet->list_fields();
 
         header("Content-type: text/plain");
@@ -59,7 +59,7 @@ class Data_package extends Base_controller {
     function metadata($id) {
         helper(['url', 'string']);
 
-        $this->load->database('package');
+        $this->db = \Config\Database::connect('package');
         $sqlList = array(
             "EMSL_Proposals" => "SELECT DISTINCT [EMSL Proposal] FROM V_Data_Package_Datasets_List_Report WHERE NOT [EMSL Proposal] IS NULL AND ID = $id",
             "Package" => "SELECT * FROM V_Data_Package_Detail_Report WHERE ID = $id",
@@ -80,8 +80,8 @@ class Data_package extends Base_controller {
             echo "<$section>\n";
             $resultSet = $this->db->query($sql);
             if(!$resultSet) continue;
-            if ($resultSet->num_rows() == 0) continue;
-            $result = $resultSet->result_array();
+            if ($resultSet->getNumRows() == 0) continue;
+            $result = $resultSet->getResultArray();
             $cols = array_keys(current($result));
             foreach($result as $row) {
                 echo "<item ";

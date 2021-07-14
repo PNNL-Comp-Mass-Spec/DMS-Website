@@ -41,7 +41,7 @@ class Lc_cart_controller_graphic extends BaseController {
 
         // get component inventory for given cart
         $sql = "SELECT * FROM V_LC_Cart_Component_Positions WHERE Cart = '". $cart . "'";
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $result = $this->db->query($sql);
         //
         if(!$result) {
@@ -52,7 +52,7 @@ class Lc_cart_controller_graphic extends BaseController {
 
         // package data for view, indexed by position
         $d = array();
-        foreach($result->result_array() as $item) {
+        foreach($result->getResultArray() as $item) {
             $d[$item["Position"]] = $item;
         }
         $data["result"] = $d;
@@ -70,7 +70,7 @@ class Lc_cart_controller_graphic extends BaseController {
 
         // get component inventory for given cart
         $sql = "SELECT * FROM V_LC_Cart_Component_Positions WHERE ID = $posID";
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $result = $this->db->query($sql);
         //
         if(!$result) {
@@ -79,7 +79,7 @@ class Lc_cart_controller_graphic extends BaseController {
             return;
         }
 
-        echo make_installed_position_cell_contents(current($result->result_array()));
+        echo make_installed_position_cell_contents(current($result->getResultArray()));
     }
 
     // --------------------------------------------------------------------
@@ -93,7 +93,7 @@ class Lc_cart_controller_graphic extends BaseController {
 
         // get component information
         $sql = "SELECT ID, Status FROM  V_LC_Cart_Components_Detail_Report WHERE (Type = '$type') AND ([Serial Number] = '$sn') ";
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $result = $this->db->query($sql);
         //
         if(!$result) {
@@ -101,7 +101,7 @@ class Lc_cart_controller_graphic extends BaseController {
             echo "Error querying database for cart component; see application/logs/log-$currentTimestamp.php";
             return;
         }
-        $row = $result->row_array();
+        $row = $result->getRowArray();
         if(count($row)==0) {
             echo 0;
         } else {

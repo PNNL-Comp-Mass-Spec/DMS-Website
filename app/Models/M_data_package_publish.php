@@ -33,7 +33,7 @@ FROM    S_V_Data_Package_Analysis_Jobs_Export AS TDPA
 WHERE TDPA.Data_Package_ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -53,7 +53,7 @@ FROM    S_V_Data_Package_Datasets_Export AS TDPA
 WHERE   TDPA.Data_Package_ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -68,7 +68,7 @@ FROM    S_V_Data_Package_Export AS data_package_path
 WHERE   ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -97,7 +97,7 @@ FROM    S_V_Data_Package_Export AS package
 WHERE   ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -122,7 +122,7 @@ FROM     S_V_Data_Package_Experiments_Export AS TDPA
 WHERE   TDPA.Data_Package_ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -145,7 +145,7 @@ FROM    S_V_Data_Package_Datasets_Export AS TDPA
 WHERE   TDPA.Data_Package_ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -171,7 +171,7 @@ FROM  S_V_Data_Package_Analysis_Jobs_Export AS TPA
 WHERE TPA.Data_Package_ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);
-        return $query->result_array();
+        return $query->getResultArray();
     }
 }
 ?>

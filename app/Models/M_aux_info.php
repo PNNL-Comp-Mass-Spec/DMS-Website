@@ -178,7 +178,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux info item values using V_AuxInfo_Value; see application/logs/log-$currentTimestamp.php");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -226,10 +226,10 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux info item values using V_AuxInfo_Definition; see application/logs/log-$currentTimestamp.php");
         }
-        if ($query->num_rows() == 0) {
+        if ($query->getNumRows() == 0) {
             throw new Exception("No rows found");
         }
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     /**
@@ -251,7 +251,7 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_allowed_values; see application/logs/log-$currentTimestamp.php");
         }
-        return $resultSet->result_array();
+        return $resultSet->getResultArray();
     }
 
     /**
@@ -267,10 +267,10 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_targets; see application/logs/log-$currentTimestamp.php");
         }
-        if ($resultSet->num_rows() == 0) {
+        if ($resultSet->getNumRows() == 0) {
             throw new Exception("No rows found");
         }
-        return $resultSet->result_array();
+        return $resultSet->getResultArray();
     }
 
     /**
@@ -300,11 +300,11 @@ EOD;
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_def; see application/logs/log-$currentTimestamp.php");
         }
-        if ($resultSet->num_rows() == 0) {
+        if ($resultSet->getNumRows() == 0) {
             throw new Exception("No rows found");
         }
         $def = array();
-        foreach ($resultSet->result_array() as $row) {
+        foreach ($resultSet->getResultArray() as $row) {
             $spec = array();
             $spec['Item_ID'] = $row['Item_ID'];
             $spec['DataSize'] = $row['DataSize'];

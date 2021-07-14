@@ -376,10 +376,10 @@ class Upload extends Base_controller {
             if(!$sql) throw new exception('Error:Existence query not defined');
             $sql = str_replace('@@', $id, $sql);
 
-            $this->load->database();
+            $this->db = \Config\Database::connect();
             $result = $this->db->query($sql);
-            if($result->num_rows() > 0) {
-                $row = $result->row();
+            if($result->getNumRows() > 0) {
+                $row = $result->getRow();
                 $key = ($this->supported_entities[$entity_type]['key'] == 'ID')?$row->ID:$id;
                 $exists = true;
             }
@@ -488,7 +488,7 @@ class Upload extends Base_controller {
             $this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
             $query = $this->model->get_rows('filtered_only');
 
-            $aux_info =  $query->result_array();
+            $aux_info =  $query->getResultArray();
             foreach($aux_info as &$row) {
                 $row['Value'] = 'xx';
             }
@@ -574,7 +574,7 @@ class Upload extends Base_controller {
         $this->model->init('list_report', 'aux_info_def');
         $this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
         $query = $this->model->get_rows('filtered_only');
-        $result =  $query->result_array();
+        $result =  $query->getResultArray();
 
         $errors = array();
         foreach($aux_info as $obj) {

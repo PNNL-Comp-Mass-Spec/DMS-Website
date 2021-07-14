@@ -799,7 +799,7 @@ class Config_db extends BaseController {
         }
         // for each parameter in general_params that ends in '_sproc'
         // get arguments from main database and convert to sql
-        $my_db = $this->load->database($db_group, true);
+        $my_db = \Config\Database::connect($db_group);
         foreach ($gen_parms as $p => $v) {
             if (!(false === strpos($p, '_sproc'))) {
                 $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $v);
@@ -831,7 +831,7 @@ class Config_db extends BaseController {
         $mainSproc = (array_key_exists('list_report_sproc', $gen_parms)) ? $gen_parms['list_report_sproc'] : $mainSproc;
 
         if ($mainSproc) {
-            $my_db = $this->load->database($db_group, true);
+            $my_db = \Config\Database::connect($db_group);
             $sproc = $mainSproc;
             $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
             $sqlf = $this->_get_form_field_sql($sa);
@@ -1002,8 +1002,8 @@ class Config_db extends BaseController {
                     $pn = $obj->view;
                     $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
                     if ($table) {
-                        $my_db = $this->load->database($db_group, true);
-                        $fields = $my_db->field_data($table);
+                        $my_db = \Config\Database::connect($db_group);
+                        $fields = $my_db->getFieldData($table);
                         foreach ($fields as $f) {
                             $sx .= "<option>$f->name</option>";
                         }
@@ -1060,8 +1060,8 @@ class Config_db extends BaseController {
             return;
         }
 
-        $my_db = $this->load->database($db_group, true);
-        $fields = $my_db->field_data($table);
+        $my_db = \Config\Database::connect($db_group);
+        $fields = $my_db->getFieldData($table);
 
         $s .= "delete from list_report_hotlinks;\n";
         $s .= "-----------\n";
@@ -1101,9 +1101,9 @@ class Config_db extends BaseController {
             return;
         }
 
-        $my_db = $this->load->database($db_group, true);
+        $my_db = \Config\Database::connect($db_group);
 
-        $fields = $my_db->field_data($table);
+        $fields = $my_db->getFieldData($table);
 
         $s .= "delete from detail_report_hotlinks;\n";
         $s .= "-----------\n";
@@ -1143,8 +1143,8 @@ class Config_db extends BaseController {
             return;
         }
 
-        $my_db = $this->load->database($db_group, true);
-        $fields = $my_db->field_data($table);
+        $my_db = \Config\Database::connect($db_group);
+        $fields = $my_db->getFieldData($table);
 
         $s .= "delete from list_report_primary_filter;\n";
         $s .= "-----------\n";
@@ -1252,7 +1252,7 @@ class Config_db extends BaseController {
         if (!$result) {
             $str = "Couldn't get values from database.";
         } else {
-            foreach ($result->result_array() as $row) {
+            foreach ($result->getResultArray() as $row) {
                 $arg = str_replace('@', '', $row['PARAMETER_NAME']);
                 $typ = $row['DATA_TYPE'];
                 $dir = ($row['PARAMETER_MODE'] == 'INOUT') ? 'output' : 'input';
@@ -1347,7 +1347,7 @@ class Config_db extends BaseController {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
 
-        $my_db = $this->load->database($db_group, true);
+        $my_db = \Config\Database::connect($db_group);
 
         header("Content-type: text/plain");
 
@@ -1365,7 +1365,7 @@ class Config_db extends BaseController {
         $db_group = $this->uri->segment(3);
         $sproc = $this->uri->segment(4);
 
-        $my_db = $this->load->database($db_group, true);
+        $my_db = \Config\Database::connect($db_group);
         $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
 
         header("Content-type: text/plain");

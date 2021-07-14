@@ -18,13 +18,13 @@ class Osm_package extends Base_controller {
     function suggested_items($id, $mode) {
         helper(['url', 'string']);
 
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         $sql = "SELECT dbo.GetOSMItemChooserList($id, '$mode')";
         $query = $this->db->query($sql);
         if(!$query) return "Error querying database";
-        if ($query->num_rows() == 0) return "No rows found";
-        $result = $query->row();
+        if ($query->getNumRows() == 0) return "No rows found";
+        $result = $query->getRow();
         echo $result->computed;
     }
  */

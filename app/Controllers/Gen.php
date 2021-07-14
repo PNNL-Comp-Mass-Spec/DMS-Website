@@ -60,7 +60,7 @@ class Gen extends BaseController
     {
         echo("<li>Environment:".ENVIRONMENT . "\n");
 //      $this->config->load('database', TRUE);
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         $version = $this->color_code = $this->config->version_label;
         echo("<li>version:$version\n");

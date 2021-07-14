@@ -22,7 +22,7 @@ class Aux_info_def extends Base_controller {
         foreach($filter_specs as $spec) {
             $this->data_model->add_predicate_item('AND', $spec['col'], $spec['cmp'], $id);
         }
-        $rows = $this->data_model->get_rows('filtered_and_sorted')->result_array();
+        $rows = $this->data_model->get_rows('filtered_and_sorted')->getResultArray();
 
         $options = array();
         foreach($rows as $row) {

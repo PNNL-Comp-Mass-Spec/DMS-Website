@@ -34,20 +34,20 @@ class Grid_data {
         $CI =& get_instance();
         $response = new stdClass();
         try {
-            $CI->load->database();
+            $this->db = \Config\Database::connect();
             $result = $CI->db->query($sql);
             if (!$result) {
                 $currentTimestamp = date("Y-m-d");
                 throw new exception("Error querying database; see application/logs/log-$currentTimestamp.php");
             }
             $columns = array();
-            foreach ($result->field_data() as $field) {
+            foreach ($result->getFieldData() as $field) {
                 $columns[] = $field->name;
             }
             $response->result = 'ok';
             $response->message = '';
             $response->columns = $columns;
-            $response->rows = $result->result_array();
+            $response->rows = $result->getResultArray();
         } catch (Exception $e) {
             $response->result = 'error';
             $response->message = 'get_query_data: ' . $e->getMessage();

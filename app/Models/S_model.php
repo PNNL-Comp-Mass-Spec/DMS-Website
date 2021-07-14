@@ -156,13 +156,13 @@ class S_model extends Model {
 
             while ($connectionRetriesRemaining > 0) {
                 try {
-                    $my_db = $CI->load->database($this->dbn, true, true);
+                    $my_db = \Config\Database::connect($this->dbn);
 
                     if ($my_db === false) {
-                        // $CI->load->database() normally returns a database object
-                        // But if an error occurs, it returns false
+                        // \Config\Database::connect() normally returns a database object
+                        // But if an error occurs, it returns false?
                         // Retry establishing the connection
-                        throw new Exception('$CI->load->database returned false in S_model');
+                        throw new Exception('\Config\Database::connect returned false in S_model');
                     } else {
                         if ($my_db->conn_id === false) {
                             // $my_db->conn_id is normally an object

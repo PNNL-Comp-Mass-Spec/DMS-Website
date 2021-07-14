@@ -201,7 +201,7 @@ class Detail_report {
         $CI->aux_info_model->add_sorting_item('SC');
         $CI->aux_info_model->add_sorting_item('SS');
         $CI->aux_info_model->add_sorting_item('SI');
-        return $CI->aux_info_model->get_rows('filtered_and_sorted')->result_array();
+        return $CI->aux_info_model->get_rows('filtered_and_sorted')->getResultArray();
     }
 
     // --------------------------------------------------------------------

@@ -87,11 +87,11 @@ class Dms_chooser extends Model {
                     if (array_key_exists("db", $this->choices[$chooser_name])) {
                         $db = $this->choices[$chooser_name]["db"];
                     }
-                    $my_db = $this->load->database($db, true);
+                    $my_db = \Config\Database::connect($db);
                     $result = $my_db->query($this->choices[$chooser_name]["value"]);
                     if ($result) {
                         $options[""] = "-- choices --";
-                        foreach ($result->result_array() as $row) {
+                        foreach ($result->getResultArray() as $row) {
                             $val = $row["val"];
                             $ex = (string) $row["ex"];
                             $ex = ($ex != '') ? $ex : $val;
@@ -129,7 +129,7 @@ class Dms_chooser extends Model {
                     if (array_key_exists("db", $this->choices[$chooser_name])) {
                         $db = $this->choices[$chooser_name]["db"];
                     }
-                    $my_db = $this->load->database($db, true);
+                    $my_db = \Config\Database::connect($db);
                     $sql = $this->choices[$chooser_name]["value"];
                     if ($filterValueClean) {
                         $sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);
@@ -137,7 +137,7 @@ class Dms_chooser extends Model {
                     }
                     $result = $my_db->query($sql);
                     if ($result) {
-                        foreach ($result->result_array() as $row) {
+                        foreach ($result->getResultArray() as $row) {
                             $obj = new stdClass();
                             $label = $row["val"];
                             $value = (string) $row["ex"];

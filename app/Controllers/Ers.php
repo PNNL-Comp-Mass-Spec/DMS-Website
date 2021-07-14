@@ -14,7 +14,7 @@ class Ers extends BaseController {
     function proposals()
     {
         $this->table = new \CodeIgniter\View\Table();
-        $ersDB = $this->load->database('ers', true);
+        $ersDB = \Config\Database::connect('ers');
 
         // get list of proposals from ers
         // PROPOSAL_ID  TITLE   DESCRIPTION
@@ -33,7 +33,7 @@ class Ers extends BaseController {
     function users()
     {
         $this->table = new \CodeIgniter\View\Table();
-        $ersDB = $this->load->database('ers', true);
+        $ersDB = \Config\Database::connect('ers');
 
         // get list of users for proposals from ers PROPOSAL_ID, HANFORD_ID
         // PROPOSAL_ID  TITLE   DESCRIPTION HANFORD_ID
@@ -52,7 +52,7 @@ class Ers extends BaseController {
     function dms_proposals()
     {
         $this->table = new \CodeIgniter\View\Table();
-        $dmsDB = $this->load->database('default', true);
+        $dmsDB = \Config\Database::connect('default');
 
         // get list of proposals from ers
         $sql = 'SELECT PROPOSAL_ID, TITLE FROM T_EUS_Proposals';
@@ -70,7 +70,7 @@ class Ers extends BaseController {
     function dms_users()
     {
         $this->table = new \CodeIgniter\View\Table();
-        $dmsDB = $this->load->database('default', true);
+        $dmsDB = \Config\Database::connect('default');
 
         // get list of proposals from ers
         $sql = 'SELECT  [User ID], [User Name] FROM V_EUS_Users_ID';
@@ -90,7 +90,7 @@ class Ers extends BaseController {
         $this->table = new \CodeIgniter\View\Table();
 
         // get list of proposals from ers
-        $dmsDB = $this->load->database('default', true);
+        $dmsDB = \Config\Database::connect('default');
         $sql = 'SELECT PROPOSAL_ID, TITLE FROM T_EUS_Proposals';
         $result = $dmsDB->query($sql);
         //
@@ -100,12 +100,12 @@ class Ers extends BaseController {
             return;
         }
         $dms_proposals = array();
-        foreach($result->result() as $row) {
+        foreach($result->getResult() as $row) {
             $dms_proposals[$row->PROPOSAL_ID] = $row->TITLE;
         }
 
         // get list of proposals from ers
-        $ersDB = $this->load->database('ers', true);
+        $ersDB = \Config\Database::connect('ers');
         $sql = 'select PROPOSAL_ID, TITLE, DESCRIPTION from VW_ALL_ACTIVE_PROPOSALS ORDER BY PROPOSAL_ID DESC';
         $result = $ersDB->query($sql);
         //
@@ -115,7 +115,7 @@ class Ers extends BaseController {
             return;
         }
         $ers_proposals = array();
-        foreach($result->result() as $row) {
+        foreach($result->getResult() as $row) {
             $ers_proposals[$row->PROPOSAL_ID] = $row->TITLE;
         }
 //      echo $this->table->generate($ers_proposals);

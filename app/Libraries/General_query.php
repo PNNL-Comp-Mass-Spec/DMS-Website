@@ -222,7 +222,7 @@ class General_query {
                 break;
             case 'count':
                 $query = $model->get_rows();
-                $rows = $query->result_array();
+                $rows = $query->getResultArray();
                 echo "rows:" . count($rows);
                 break;
             case 'json':
@@ -231,19 +231,19 @@ class General_query {
                 break;
             case 'tsv':
                 $query = $model->get_rows();
-                $result = $query->result_array();
+                $result = $query->getResultArray();
                 $this->tsv($result);
                 break;
             case 'html':
             case 'table':
                 $query = $model->get_rows();
-                $result = $query->result_array();
+                $result = $query->getResultArray();
                 $this->html_table($result, $pageTitle);
                 break;
             case 'xml':
             case 'xml_dataset':
                 $query = $model->get_rows();
-                $result = $query->result_array();
+                $result = $query->getResultArray();
                 $this->xml_dataset($result, $pageTitle);
                 break;
         }

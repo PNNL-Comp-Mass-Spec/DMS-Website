@@ -73,7 +73,7 @@ class Pipeline_jobs extends Base_controller {
     {
         $this->cu->load_mod('q_model', 'swp_model', $config_name, $config_source);
         $query = $this->swp_model->get_rows('filtered_and_sorted');
-        return $query->result_array();
+        return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------

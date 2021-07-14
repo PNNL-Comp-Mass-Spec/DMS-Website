@@ -43,17 +43,17 @@ class Instrument_usage_report extends Grid {
         $month = $this->input->post("month");
 
         $this->my_tag = "instrument_usage";
-        $this->load->database();
-        $this->db->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , Dataset_ID as ID, Validation', false);
-        $this->db->from("V_Instrument_Usage_Report_List_Report");
+        $this->db = \Config\Database::connect();
+        $builder = $this->db->table("V_Instrument_Usage_Report_List_Report");
+        $builder->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , Dataset_ID as ID, Validation', false);
 
-        if(IsNotWhitespace($instrument)) $this->db->where("Instrument in ($instrument)");
-        if(IsNotWhitespace($usage)) $this->db->where("Usage in ($usage)");
-        if(IsNotWhitespace($proposal)) $this->db->where("Proposal", $proposal);
-        if(IsNotWhitespace($year)) $this->db->where("Year", $year);
-        if(IsNotWhitespace($month)) $this->db->where("Month", $month);
+        if(IsNotWhitespace($instrument)) $builder->where("Instrument in ($instrument)");
+        if(IsNotWhitespace($usage)) $builder->where("Usage in ($usage)");
+        if(IsNotWhitespace($proposal)) $builder->where("Proposal", $proposal);
+        if(IsNotWhitespace($year)) $builder->where("Year", $year);
+        if(IsNotWhitespace($month)) $builder->where("Month", $month);
 
-        $this->grid_data_from_query();
+        $this->grid_data_from_query($builder);
     }
 
     // --------------------------------------------------------------------
@@ -74,7 +74,7 @@ class Instrument_usage_report extends Grid {
     private
     function get_usage_data($instrument, $year, $month)
     {
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
 /*
         // Query method #1
@@ -86,7 +86,7 @@ WHERE [Year] = $year AND [Month] = $month
 ORDER BY [Instrument], [Year], [Month], [Start]
 EOD;
         $query = $this->db->query($sql);
-        $result = $query->result_array();
+        $result = $query->getResultArray();
 */
 
         // Query method #2
@@ -101,8 +101,8 @@ EOD;
             order_by('Start', 'ASC')->
             get("V_Instrument_Usage_Report_Export");
 
-        if($query && $query->num_rows() > 0) {
-          $result = $query->result_array();
+        if($query && $query->getNumRows() > 0) {
+          $result = $query->getResultArray();
         }
 
         return $result;
@@ -142,7 +142,7 @@ EOD;
     private
     function get_daily_data($instrument, $year, $month, $showDetails)
     {
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         if ($showDetails) {
         	$udf = "dbo.GetEMSLInstrumentUsageDailyDetails";
@@ -153,7 +153,7 @@ EOD;
         $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start";
 
         $query = $this->db->query($sql);
-        $result = $query->result_array();
+        $result = $query->getResultArray();
         return $result;
     }
 
@@ -176,11 +176,11 @@ EOD;
     private
     function get_rollup_data($instrument, $year, $month)
     {
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         $sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, [Month], [Day]";
         $query = $this->db->query($sql);
-        $result = $query->result_array();
+        $result = $query->getResultArray();
         return $result;
     }
 

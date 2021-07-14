@@ -89,13 +89,13 @@ FROM V_User_List_Report_2
 WHERE [Username] = '$user_dprn'
 EOD;
 
-        $my_db = $this->load->database('default', true);
+        $my_db = \Config\Database::connect('default');
         $query_data = $my_db->query($str);
         if (!$query_data) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for user permissions; see application/logs/log-$currentTimestamp.php");
         }
-        $rows = $query_data->result_array();
+        $rows = $query_data->getResultArray();
 
         if (count($rows) == 0) {
             // user isn't in table - automatically a guest

@@ -156,21 +156,21 @@ class File_attachment extends Base_controller {
     function get_valid_file_path($entity_type, $entity_id, $filename){
         $result = new Check_result();
         try {
-            $this->load->database();
-            $this->db->select("File_Name AS filename, archive_folder_path as path");
-            $this->db->from("T_File_Attachment");
-            $this->db->where("Entity_Type", $entity_type);
-            $this->db->where("Entity_ID", $entity_id);
-            $this->db->where("File_Name", $filename);
-            $sql = $this->db->get_compiled_select();
+            $this->db = \Config\Database::connect();
+            $builder = $this->db->table("T_File_Attachment");
+            $builder->select("File_Name AS filename, archive_folder_path as path");
+            $builder->where("Entity_Type", $entity_type);
+            $builder->where("Entity_ID", $entity_id);
+            $builder->where("File_Name", $filename);
+            $sql = $builder->getQueryString();
             $resultSet = $this->db->query($sql);
 
-            if($resultSet && $resultSet->num_rows() > 0) {
-                $local_path = "{$this->local_root_path}{$resultSet->row()->path}/{$resultSet->row()->filename}";
+            if($resultSet && $resultSet->getNumRows() > 0) {
+                $local_path = "{$this->local_root_path}{$resultSet->row()->path}/{$resultSet->getRow()->filename}";
                 $result->local_path = $local_path;
                 $result->path = $local_path;
                 if (!is_null($this->archive_root_path)) {
-                    $archive_path = "{$this->archive_root_path}{$resultSet->row()->path}/{$resultSet->row()->filename}";
+                    $archive_path = "{$this->archive_root_path}{$resultSet->row()->path}/{$resultSet->getRow()->filename}";
                     $result->archive_path = $archive_path;
                     if (!file_exists($result->local_path)) {
                         $result->path = $archive_path;
@@ -382,13 +382,13 @@ class File_attachment extends Base_controller {
     {
         $path = "";
         $sql = "SELECT dbo.GetFileAttachmentPath('$entity_type', '$entity_id') AS path";
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $resultSet = $this->db->query($sql);
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             $path = "Error querying database for file attachment storage path; see application/logs/log-$currentTimestamp.php";
         } else {
-            $result = $resultSet->result();
+            $result = $resultSet->getResult();
             $path = $result[0]->path;
         }
         return $path;
@@ -494,13 +494,13 @@ class File_attachment extends Base_controller {
         $id = $this->input->post("entity_id");
         helper(['link_util']);
 
-        $this->load->database();
-        $this->db->select("File_Name AS Name, Description, ID as FID");
-        $this->db->from("T_File_Attachment");
-        $this->db->where("Entity_Type", $type);
-        $this->db->where("Entity_ID", $id);
-        $this->db->where("Active >", 0);
-        $resultSet = $this->db->get();
+        $this->db = \Config\Database::connect();
+        $builder = $this->db->table("T_File_Attachment");
+        $builder->select("File_Name AS Name, Description, ID as FID");
+        $builder->where("Entity_Type", $type);
+        $builder->where("Entity_ID", $id);
+        $builder->where("Active >", 0);
+        $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             return "Error querying database for attachment; see application/logs/log-$currentTimestamp.php";
@@ -509,13 +509,13 @@ class File_attachment extends Base_controller {
         $entries = array();
         $icon_delete = table_link_icon('delete');
         $icon_download = table_link_icon('down');
-        foreach($resultSet->result() as $row){
+        foreach($resultSet->getResult() as $row){
             $url = site_url("file_attachment/retrieve/{$type}/{$id}/{$row->Name}");
             $downloadLink = "<a href='javascript:void(0)' onclick=fileAttachment.doDownload('$url') title='Download this file'>$icon_download</span></a> ";
             $deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'>$icon_delete</span></a> ";
             $entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
         }
-        $count = $resultSet->num_rows();
+        $count = $resultSet->getNumRows();
         if($count) {
             $this->table = new \CodeIgniter\View\Table();
             $this->table->setHeading("Action", "Name", "Description");
@@ -723,7 +723,7 @@ class File_attachment extends Base_controller {
      * @return type
      */
     function auxinfo($expID) {
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         $contents = $this->getExperimentInfo($expID);
         if (empty($contents)) {
@@ -739,10 +739,10 @@ class File_attachment extends Base_controller {
         if (!$resultSet) {
             return;
         }
-        if ($resultSet->num_rows() == 0) {
+        if ($resultSet->getNumRows() == 0) {
             return;
         }
-        $result = $resultSet->result_array();
+        $result = $resultSet->getResultArray();
         $fields = current($result);
         $cols = array_keys($fields);
         $contents .= "\n\n";
@@ -773,11 +773,11 @@ class File_attachment extends Base_controller {
         if (!$resultSet) {
             return;
         }
-        if ($resultSet->num_rows() == 0) {
+        if ($resultSet->getNumRows() == 0) {
             return;
         }
 
-        $result = $resultSet->result_array();
+        $result = $resultSet->getResultArray();
         $fields = current($result);
         $id = $fields["Experiment"];
         $cols = array_keys($fields);
@@ -816,10 +816,11 @@ class File_attachment extends Base_controller {
             }
 
             $full_path = '';
-            $this->load->database();
-            $this->db->select("File_Name AS filename, Entity_Type as type, Entity_ID as id, archive_folder_path as path");
-            $this->db->where("Active > 0");
-            $resultSet = $this->db->get("T_File_Attachment");
+            $this->db = \Config\Database::connect();
+            $builder = $this->db->table("T_File_Attachment");
+            $builder->select("File_Name AS filename, Entity_Type as type, Entity_ID as id, archive_folder_path as path");
+            $builder->where("Active > 0");
+            $resultSet = $builder->get("T_File_Attachment");
 
             $this->table = new \CodeIgniter\View\Table();
             $this->table->setTemplate(array ('heading_cell_start'  => '<th style="text-align:left;">'));
@@ -832,7 +833,7 @@ class File_attachment extends Base_controller {
 
             $this->table->setHeading($headerColumns);
 
-            foreach($resultSet->result() as $row) {
+            foreach($resultSet->getResult() as $row) {
                 $full_path = "{$this->archive_root_path}{$row->path}/{$row->filename}";
 
                 if (strlen($filenameFilter) > 0 && strpos(strtolower($row->filename), $filenameFilter) === false) {

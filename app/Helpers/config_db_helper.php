@@ -55,7 +55,7 @@ function make_family_sql($my_db, $gen_parms) {
     if (!$result) {
         echo "Couldn't get values from database table [" . $table . "]<br>\n";
     } else {
-        foreach ($result->result_array() as $row) {
+        foreach ($result->getResultArray() as $row) {
             $col = $row['COLUMN_NAME'];
             $arg = str_replace('_', '', $row['COLUMN_NAME']);
             $lbl = str_replace('_', ' ', $row['COLUMN_NAME']);

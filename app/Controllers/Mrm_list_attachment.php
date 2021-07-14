@@ -20,7 +20,7 @@ class Mrm_list_attachment extends Base_controller {
     function download($id)
     {
         $sql = "SELECT File_Name, Attachment_Name, Contents FROM T_Attachments WHERE ID = $id";
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $result = $this->db->query($sql);
         //
         if(!$result) {
@@ -28,7 +28,7 @@ class Mrm_list_attachment extends Base_controller {
             echo "No results found for attachment ID $id; see application/logs/log-$currentTimestamp.php";
             return;
         }
-        $file_info = $result->row();
+        $file_info = $result->getRow();
         $filename = str_replace(" ", "_", $file_info->Attachment_Name) . ".txt";
 
         header("Content-type: text/plain");

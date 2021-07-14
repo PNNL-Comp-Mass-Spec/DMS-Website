@@ -239,13 +239,13 @@ class Q_model extends Model {
 
         while ($connectionRetriesRemaining > 0) {
             try {
-                $my_db = $CI->load->database($this->query_parts->dbn, true, true);
+                $my_db = \Config\Database::connect($this->query_parts->dbn);
 
                 if ($my_db === false) {
-                    // $CI->load->database() normally returns a database object
-                    // But if an error occurs, it returns false
+                    // $\Config\Database::connect() normally returns a database object
+                    // But if an error occurs, it returns false?
                     // Retry establishing the connection
-                    throw new Exception('$CI->load->database returned false in S_model');
+                    throw new Exception('\Config\Database::connect returned false in S_model');
                 } else {
                     if ($my_db->conn_id === false) {
                         // $my_db->conn_id is normally an object
@@ -483,9 +483,9 @@ class Q_model extends Model {
         $query = $my_db->query($this->main_sql);
         //      $this->set_col_info_data($query->field_data());
         return $query;
-// $query->result() // array of objects
-// $query->result_array() // array of arrays
-// $query->free_result();
+// $query->getResult() // array of objects
+// $query->getResultArray() // array of arrays
+// $query->freeResult();
     }
 
     /**
@@ -560,13 +560,13 @@ class Q_model extends Model {
 
         while ($connectionRetriesRemaining > 0) {
             try {
-                $my_db = $CI->load->database($dbGroupName, true, true);
+                $my_db = \Config\Database::connect($dbGroupName);
 
                 if ($my_db === false) {
-                    // $CI->load->database() normally returns a database object
+                    // \Config\Database::connect() normally returns a database object
                     // But if an error occurs, it returns false
                     // Retry establishing the connection
-                    throw new Exception('$CI->load->database returned false in Q_model');
+                    throw new Exception('\Config\Database::connect returned false in Q_model');
                 } else {
                     if ($my_db->conn_id === false) {
                         // $my_db->conn_id is normally an object
@@ -690,13 +690,13 @@ class Q_model extends Model {
                 throw new Exception("Error getting total row count from database; see application/logs/log-$currentTimestamp.php");
             }
 
-            if ($query->num_rows() == 0) {
+            if ($query->getNumRows() == 0) {
                 $currentTimestamp = date("Y-m-d");
                 throw new Exception("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
             }
 
             $row = $query->row();
-            $query->free_result();
+            $query->freeResult();
             $working_total = $row->numrows;
 
             // Cache the row count for the given base_sql
@@ -791,7 +791,7 @@ class Q_model extends Model {
         $my_db = $this->get_db_object($this->query_parts->dbn);
         $query = $my_db->query($sql);
         $result_column_info = $query->field_data();
-        // $query->free_result();
+        // $query->freeResult();
         return $result_column_info;
     }
 

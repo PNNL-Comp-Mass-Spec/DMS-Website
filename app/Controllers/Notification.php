@@ -52,14 +52,14 @@ class Notification extends Base_controller {
         $sql .= 'WHERE Entered > DATEADD(HOUR, - 24, GETDATE()) ';
         $sql .= 'ORDER BY [#PRN], [#EntityType], EventTypeID, Entity ';
 
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $result = $this->db->query($sql);
         if(!$result) {
             return $users();
         }
 
         $email = array();
-        $rows = $result->result_array();
+        $rows = $result->getResultArray();
         foreach($rows as $row) {
             $prn = $row['#PRN'];
             if(!array_key_exists($prn, $users)) {

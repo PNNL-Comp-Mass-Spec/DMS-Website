@@ -139,7 +139,7 @@ class Run_tracking extends Base_controller {
     private
     function get_run_info_3($instrument, $year, $month)
     {
-        $this->load->database();
+        $this->db = \Config\Database::connect();
 
         $sql = <<<EOD
 SELECT *
@@ -147,7 +147,7 @@ FROM  dbo.GetRunTrackingMonthlyInfo('$instrument', '$year', '$month', '') AS GT
 EOD;
 // Seq, ID, Dataset, [Day], Duration, Interval, Time_Start, Time_End, Instrument
         $query = $this->db->query($sql);
-        $result = $query->result_array();
+        $result = $query->getResultArray();
         return $result;
     }
 
@@ -155,9 +155,9 @@ EOD;
     private
     function get_long_interval_threshold()
     {
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $query = $this->db->query('SELECT dbo.GetLongIntervalThreshold() AS Threshold');
-        $row = $query->row();
+        $row = $query->getRow();
         return $row->Threshold;
     }
 
@@ -165,10 +165,10 @@ EOD;
     private
     function get_instrument_list()
     {
-        $this->load->database();
+        $this->db = \Config\Database::connect();
         $sql = " SELECT * FROM V_Instrument_Tracked ORDER BY Reporting";
         $query = $this->db->query($sql);
-        $result = $query->result_array();
+        $result = $query->getResultArray();
         return $result;
     }
 

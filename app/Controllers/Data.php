@@ -110,27 +110,27 @@ class Data extends BaseController {
                 echo $this->data_model->get_sql('filtered_and_sorted');
                 break;
             case 'count':
-                $rows = $query->result_array();
+                $rows = $query->getResultArray();
                 echo "rows:".count($rows);
                 break;
             case 'json':
-                $rows = $query->result_array();
+                $rows = $query->getResultArray();
                 echo json_encode($rows);
                 break;
             case 'tsv':
-                $rows = $query->result_array();
+                $rows = $query->getResultArray();
                 $this->cu->load_lib('general_query', '', '');
                 $this->general_query->tsv($rows);
                 break;
             case 'html':
             case 'table':
-                $rows = $query->result_array();
+                $rows = $query->getResultArray();
                 $this->cu->load_lib('general_query', '', '');
                 $this->general_query->html_table($rows, $pageTitle);
                 break;
             case 'xml':
             case 'xml_dataset':
-                $rows = $query->result_array();
+                $rows = $query->getResultArray();
                 $this->cu->load_lib('general_query', '', '');
                 $this->general_query->xml_dataset($rows, $pageTitle);
                 break;
