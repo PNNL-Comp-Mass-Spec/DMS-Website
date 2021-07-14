@@ -69,8 +69,7 @@ class Param_report {
 
         $CI->load->helper(array('menu', 'link_util'));
         $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages');
-        $CI->load->vars($data);
-        echo view('main/param_report');
+        echo view('main/param_report', $data);
     }
 
     /**
@@ -115,8 +114,7 @@ class Param_report {
             $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
 
             $CI->load->helper(array('string'));
-            $CI->load->vars($data);
-            echo view('main/param_report_data');
+            echo view('main/param_report_data', $data);
         }
     }
 

@@ -115,8 +115,7 @@ class Aux_info extends BaseController {
             $data['aux_info_def'] = $this->model->get_aux_info_def($target);
 
             // load up data array and call view template
-            $this->load->vars($data);
-            echo view('special/aux_info_entry');
+            echo view('special/aux_info_entry', $data);
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }

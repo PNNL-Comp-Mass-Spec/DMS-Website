@@ -202,8 +202,7 @@ class Helper_inst_source extends Base_controller {
         $data['result'] = $result;
 
         // load up data array and call view template
-        $this->load->vars($data);
-        echo view('tabular_data');
+        echo view('tabular_data', $data);
     }
 }
 ?>

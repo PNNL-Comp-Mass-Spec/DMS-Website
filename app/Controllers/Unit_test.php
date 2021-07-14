@@ -26,8 +26,7 @@ class Unit_Test extends BaseController {
         $data['title'] = "DMS JavaScript Unit Tests";
         $data['testFile'] = $testFile;
 
-        $this->load->vars($data);
-        echo view('unit_tests/test_frame');
+        echo view('unit_tests/test_frame', $data);
     }
 }
 ?>

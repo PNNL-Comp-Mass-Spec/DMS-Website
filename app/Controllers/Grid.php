@@ -39,8 +39,7 @@ class Grid extends Base_controller {
         // That leads to $data['save_url'] = "https://dms2.pnl.gov/instrument_usage_report/operation"
         $data['save_url'] = ($save_url) ? site_url($save_url) : site_url($this->my_tag  . "operation");
 
-        $this->load->vars($data);
-        echo view("grid/".$view_name);
+        echo view("grid/".$view_name, $data);
     }
 
     // --------------------------------------------------------------------

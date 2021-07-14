@@ -46,8 +46,7 @@ class Aux_info_def extends Base_controller {
     function def()
     {
         $data['title'] = 'Aux Info Definition';
-        $this->load->vars($data);
-        echo view('special/aux_info_def');
+        echo view('special/aux_info_def', $data);
     }
 }
 ?>

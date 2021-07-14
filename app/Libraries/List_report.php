@@ -91,8 +91,7 @@ class List_report {
         $data['ops_url'] = site_url($CI->gen_model->get_param('list_report_cmds_url'));
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports');
-        $CI->load->vars($data);
-        echo view('main/list_report');
+        echo view('main/list_report', $data);
     }
 
     /**
@@ -270,8 +269,7 @@ class List_report {
             $data['rows'] = $rows;
 
             $CI->load->helper(array('string'));
-            $CI->load->vars($data);
-            echo view('main/list_report_data');
+            echo view('main/list_report_data', $data);
         }
     }
 

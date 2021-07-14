@@ -50,10 +50,9 @@ class Upload extends Base_controller {
 
         $this->load->helper(array('menu'));
         $data['nav_bar_menu_items']= set_up_nav_bar('List_Reports', $this);
-        $this->load->vars($data);
 
         $this->load->helper(array('url'));
-        echo view("uploader/upload");
+        echo view("uploader/upload", $data);
     }
 
     /**
@@ -241,8 +240,7 @@ class Upload extends Base_controller {
             $data['content'] .= $this->table->generate($arows);
         }
 
-        $this->load->vars($data);
-        echo view('uploader/upload_supplemental');
+        echo view('uploader/upload_supplemental', $data);
     }
 
     /**

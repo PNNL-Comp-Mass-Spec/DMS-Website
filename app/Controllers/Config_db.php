@@ -60,8 +60,7 @@ class Config_db extends BaseController {
         $s = $this->_get_table_dump_all($config_db, $tbl_list);
 
         $data['tables'] = $s;
-        $this->load->vars($data);
-        echo view('config_db/show_db');
+        echo view('config_db/show_db', $data);
     }
 
     /**
@@ -115,8 +114,7 @@ class Config_db extends BaseController {
         $s = $this->_get_table_dump_all($config_db, $tbl_list);
 
         $data['tables'] = $s;
-        $this->load->vars($data);
-        echo view('config_db/sub_show_db');
+        echo view('config_db/sub_show_db', $data);
     }
 
     /**
@@ -436,8 +434,7 @@ class Config_db extends BaseController {
 
         $data['post'] = '';
         $data['posting_message'] = '';
-        $this->load->vars($data);
-        echo view('config_db/sub_table_edit');
+        echo view('config_db/sub_table_edit', $data);
     }
 
     /**
@@ -638,8 +635,7 @@ class Config_db extends BaseController {
         //       $data['tooltip_events'] = $this->_get_edit_table_form_tooltips($table_name, $data_info);
 
         $data['posting_message'] = '';
-        $this->load->vars($data);
-        echo view('config_db/table_edit');
+        echo view('config_db/table_edit', $data);
     }
 
     /**
@@ -717,8 +713,7 @@ class Config_db extends BaseController {
 //        $data['tooltip_events'] = $this->_get_edit_table_form_tooltips($table_name, $data_info);
 
         $data['posting_message'] = $s;
-        $this->load->vars($data);
-        echo view('config_db/sub_table_edit');
+        echo view('config_db/sub_table_edit', $data);
     }
 
     /**
@@ -1527,8 +1522,7 @@ class Config_db extends BaseController {
             make_table_dump_text($config_db_table_list, $display_mode);
         } else {
             $data['config_db_table_list'] = $config_db_table_list;
-            $this->load->vars($data);
-            echo view('config_db/dump_db');
+            echo view('config_db/dump_db', $data);
         }
     }
 
@@ -1553,8 +1547,7 @@ class Config_db extends BaseController {
         // get crosstab data
         $data['contents'] = make_general_params_dump($config_db_table_list, $config_db_table_name_list);
 
-        $this->load->vars($data);
-        echo view('config_db/main');
+        echo view('config_db/main', $data);
     }
 
     /**
@@ -1591,8 +1584,7 @@ class Config_db extends BaseController {
 
         $data['contents'] = $s;
 
-        $this->load->vars($data);
-        echo view('config_db/main');
+        echo view('config_db/main', $data);
     }
 
     /**

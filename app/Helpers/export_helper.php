@@ -849,8 +849,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $ai = $CI->table->generate();
         $data['title'] = 'Spreadsheet Loader Template Contents';
         $data['content'] = $ti . $ai;
-        $CI->load->vars($data);
-        echo view('basic');
+        echo view('basic', $data);
     }
 
     /**
