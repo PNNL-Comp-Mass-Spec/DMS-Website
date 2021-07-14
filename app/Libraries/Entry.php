@@ -41,14 +41,14 @@ class Entry {
         helper(['entry_page']);
 
         // general specifications for page family
-        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
 
         // make entry form object using form definitions from model
-        $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
-        $CI->cu->load_lib('entry_form', $form_def->specs, $this->config_source);
+        $CI->load_lib('entry_form', $form_def->specs, $this->config_source);
 
         // Determine the page mode ('add' or 'update')
         $mode = $CI->entry_form->get_mode_from_page_type($page_type);
@@ -60,9 +60,9 @@ class Entry {
         if (empty($initial_field_values)) {
             if ($page_type == 'edit') {
                 if (!empty($segs) && sizeof($segs) > 0) {
-                    $CI->cu->message_box('Edit Error', "Entity '$segs[0]' not found");
+                    $CI->message_box('Edit Error', "Entity '$segs[0]' not found");
                 } else {
-                    $CI->cu->message_box('Edit Error', "Entity ID not specified for editing");
+                    $CI->message_box('Edit Error', "Entity ID not specified for editing");
                 }
                 return;
             }
@@ -146,7 +146,7 @@ class Entry {
         $CI =& get_instance();
         helper(['entry_page']);
 
-        $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
 
@@ -194,7 +194,7 @@ class Entry {
         }
 
         // get entry form object and use to to build and return HTML for form
-        $CI->cu->load_lib('entry_form', $form_def->specs, $this->config_source);
+        $CI->load_lib('entry_form', $form_def->specs, $this->config_source);
         $data['form'] = $this->make_entry_form_HTML($input_params, $form_def);
         echo $outcome;
         echo $data['form'];
@@ -252,7 +252,7 @@ class Entry {
     protected function call_stored_procedure($input_params, $form_def, &$msg) {
         $CI =& get_instance();
 
-        $ok = $CI->cu->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->config_source);
+        $ok = $CI->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->config_source);
         if (!$ok) {
             throw new exception($CI->sproc_model->get_error_text());
         }

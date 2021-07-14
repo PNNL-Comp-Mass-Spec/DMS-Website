@@ -18,7 +18,7 @@
 
 <?php
 
-    if (!$this->cu->check_access('operation', true)) {
+    if (!$this->check_access('operation', true)) {
         echo "<p>You do not have permission to update items on this page</p>";
     } else {
         // echo "<p>You DO have permission to update items on this page</p>";

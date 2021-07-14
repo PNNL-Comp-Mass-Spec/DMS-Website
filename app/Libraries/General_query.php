@@ -140,7 +140,7 @@ class General_query {
      */
     function setup_query($input_params) {
         $CI =& get_instance();
-        $CI->cu->load_mod('q_model', 'model', $input_params->q_name, $input_params->config_source);
+        $CI->load_mod('q_model', 'model', $input_params->q_name, $input_params->config_source);
         $this->add_filter_values_to_model_predicate($input_params->filter_values, $CI->model);
         $this->configure_paging($input_params, $CI->model);
 

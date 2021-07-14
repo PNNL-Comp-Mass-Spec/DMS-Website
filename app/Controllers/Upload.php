@@ -327,7 +327,7 @@ class Upload extends DmsBase {
             $result = $this->get_entity_key($id, $entity_type, $key, $message);
             if(!$result) throw new exception($message);
 
-            $this->cu->load_mod('q_model', 'input_model', 'entry_page', $config_source);
+            $this->load_mod('q_model', 'input_model', 'entry_page', $config_source);
             $field_values =  $this->input_model->get_item($key);
             if(empty($field_values)) throw new exception("Could not get field values for $entity_type '$key'");
             foreach($field_values as $fn => $v) {

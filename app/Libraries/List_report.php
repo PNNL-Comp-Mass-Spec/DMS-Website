@@ -37,10 +37,10 @@ class List_report {
         helper(['form', 'menu', 'link_util']);
         $CI->choosers = model('App\Models\dms_chooser');
 
-        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
 
         // clear total rows cache in model to force getting value from database
-        $CI->cu->load_mod('q_model', 'model', $this->config_name, $this->config_source);
+        $CI->load_mod('q_model', 'model', $this->config_name, $this->config_source);
         $CI->model->clear_cached_total_rows();
 
         // if there were extra segments for list report URL,
@@ -135,7 +135,7 @@ class List_report {
         $CI =& get_instance();
 
         // primary filter object (we will use it to cache field values)
-        $CI->cu->load_lib('primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $CI->load_lib('primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
 
         // get list of just the names of primary filter fields
         $form_field_names = array_keys($primary_filter_specs);
@@ -163,7 +163,7 @@ class List_report {
         $CI =& get_instance();
 
         // secondary filter object (we will use it to cache field values)
-        $CI->cu->load_lib('secondary_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('secondary_filter', $this->config_name, $this->config_source);
 
         $filter_state = $CI->secondary_filter->get_filter_from_list($segs);
         $CI->secondary_filter->save_filter_values($filter_state);
@@ -182,28 +182,28 @@ class List_report {
         helper('form');
         helper(['filter', 'link_util']);
 
-        $CI->cu->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
+        $CI->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
         $cols = $CI->data_model->get_col_names();
 
-        $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
 
-        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
         $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
 
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
+        $CI->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
-        $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
         $primary_filter_specs = $CI->data_model->get_primary_filter_specs();
-        $CI->cu->load_lib('primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $CI->load_lib('primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
         $current_primary_filter_values = $CI->primary_filter->get_cur_filter_values();
 
-        $CI->cu->load_lib('secondary_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('secondary_filter', $this->config_name, $this->config_source);
         $sec_filter_display_info = $CI->secondary_filter->collect_information_for_display($CI->data_model, "$this->config_source/get_sql_comparison/");
 
         switch ($filter_display_mode) {
@@ -228,7 +228,7 @@ class List_report {
         $CI =& get_instance();
         session_start();
 
-        $CI->cu->load_mod('q_model', 'model', $this->config_name, $this->config_source);
+        $CI->load_mod('q_model', 'model', $this->config_name, $this->config_source);
         $data_type = $CI->model->get_column_data_type($column_name);
         $cmpSelOpts = $CI->model->get_allowed_comparisons_for_type($data_type);
 
@@ -247,9 +247,9 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
+        $CI->load_mod('r_model', 'link_model', 'na', $this->config_source);
 
-        $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
         $CI->cell_presentation = new \App\Libraries\Cell_presentation();
@@ -386,28 +386,28 @@ class List_report {
         $CI =& get_instance();
 
         // it all starts with a model
-        $CI->cu->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
+        $CI->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
 
         // primary filter
         $primary_filter_specs = $CI->data_model->get_primary_filter_specs();
-        $CI->cu->load_lib('primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $CI->load_lib('primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
         $current_primary_filter_values = $CI->primary_filter->get_cur_filter_values();
 
         // secondary filter
-        $CI->cu->load_lib('secondary_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('secondary_filter', $this->config_name, $this->config_source);
         $current_secondary_filter_values = $CI->secondary_filter->get_current_filter_values();
 
         // paging filter
-        $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_filter_values = $CI->paging_filter->get_current_filter_values();
 
-        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
         $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
 
         // sorting filter
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
+        $CI->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
         // add filter values to data model to set up query
@@ -442,9 +442,9 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
 
-        $CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
+        $CI->load_mod('r_model', 'link_model', 'na', $this->config_source);
 
         $rows = $CI->data_model->get_rows('filtered_and_sorted')->getResultArray();
 
@@ -454,7 +454,7 @@ class List_report {
         $col_info = $CI->data_model->get_column_info();
         $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-        $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
         if(empty($col_filter)) {

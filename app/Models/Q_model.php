@@ -515,7 +515,7 @@ class Q_model extends Model {
 
         try {
             // Call the stored procedure
-            $ok = $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+            $ok = $CI->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }

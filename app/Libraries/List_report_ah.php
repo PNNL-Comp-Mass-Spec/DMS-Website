@@ -24,11 +24,11 @@ class List_report_ah extends List_report {
         helper(['form', 'menu', 'link_util']);
         $CI->choosers = model('App\Models\dms_chooser');
 
-        $CI->cu->load_mod('g_model', 'gen_model', $this->config_name, $this->config_source);
-        $CI->cu->load_mod('r_model', 'link_model', $this->config_name, $this->config_source);
+        $CI->load_mod('g_model', 'gen_model', $this->config_name, $this->config_source);
+        $CI->load_mod('r_model', 'link_model', $this->config_name, $this->config_source);
 
         // clear total rows cache in model to force getting value from database
-        $CI->cu->load_mod('q_model', 'model', $this->config_name, $this->config_source);
+        $CI->load_mod('q_model', 'model', $this->config_name, $this->config_source);
         $CI->model->clear_cached_total_rows();
 
         // if there were extra segments for list report URL,
@@ -70,7 +70,7 @@ class List_report_ah extends List_report {
         // preemptively load the hotlinks model from the ad hoc config db
         // to prevent parent from loading it from general_param table,
         // then let parent handle it
-        $CI->cu->load_mod('r_model', 'link_model', $this->config_name, $this->config_source);
+        $CI->load_mod('r_model', 'link_model', $this->config_name, $this->config_source);
         parent::report_data($option);
     }
 

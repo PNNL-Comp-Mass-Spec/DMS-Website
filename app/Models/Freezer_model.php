@@ -144,7 +144,7 @@ EOD;
     function build_freezer_location_list($Type, $locations) {
         $items = array();
 
-        if (!$this->cu->check_access('operation', false)) {
+        if (!$this->check_access('operation', false)) {
             // User does not have permission to update items on this page
             // Return some dummy values
 

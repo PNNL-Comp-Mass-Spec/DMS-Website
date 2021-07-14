@@ -31,7 +31,7 @@ class Saved_settings {
 
         if ($page_type == 'List_Reports') {
             // it all starts with a model
-            $CI->cu->load_mod('q_model', 'data_model', $config_name, $config_source);
+            $CI->load_mod('q_model', 'data_model', $config_name, $config_source);
             $primary_filter_specs = $CI->data_model->get_primary_filter_specs();
             $CI->data_model->clear_cached_state();
 
@@ -41,26 +41,26 @@ class Saved_settings {
             $CI->primary_filter->clear_cached_state();
 
             // secondary filter
-            $CI->cu->load_lib('secondary_filter', $config_name, $config_source);
+            $CI->load_lib('secondary_filter', $config_name, $config_source);
             $CI->secondary_filter->clear_cached_state();
         } else
         if ($page_type == 'Param_Pages') {
-            $CI->cu->load_mod('s_model', 'sproc_model', $config_name, $config_source);
+            $CI->load_mod('s_model', 'sproc_model', $config_name, $config_source);
             $CI->sproc_model->clear_cached_state();
         }
 
         // paging filter
-        $CI->cu->load_lib('paging_filter', $config_name, $config_source);
+        $CI->load_lib('paging_filter', $config_name, $config_source);
         $CI->paging_filter->clear_cached_state();
 
         $options = array("PersistSortColumns" => true);
 
         // sorting filter
-        $CI->cu->load_lib('sorting_filter', $config_name, $config_source, $options);
+        $CI->load_lib('sorting_filter', $config_name, $config_source, $options);
         $CI->sorting_filter->clear_cached_state();
 
         // column filter (unused)
-        // $CI->cu->load_lib('column_filter', $config_name, $config_source);
+        // $CI->load_lib('column_filter', $config_name, $config_source);
         // $col_filter = $CI->column_filter->clear_cached_state();
 
         echo "Saved preferences were cleared";

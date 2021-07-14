@@ -57,7 +57,7 @@ class Entry_form {
         if (!array_key_exists('default', $f_spec) &&
                 !array_key_exists('default_function', $f_spec) &&
                 array_key_exists('section', $f_spec)) {
-            $CI->cu->message_box('Configuration Error', "In the config DB, form_field_options has a section entry "
+            $CI->message_box('Configuration Error', "In the config DB, form_field_options has a section entry "
                     . "named $fldName, but that is not a valid form field; "
                     . "update it to refer to a valid form field or remove the section");
             return $val;
@@ -126,7 +126,7 @@ class Entry_form {
         $block_number = 0;
         foreach ($this->form_field_specs as $fldName => $spec) {
             if (!array_key_exists('type', $spec)) {
-                $CI->cu->message_box('Configuration Error', "In the config DB, one of the tables refers to $fldName "
+                $CI->message_box('Configuration Error', "In the config DB, one of the tables refers to $fldName "
                         . "but that field is not defined in form_fields; see also "
                         . "the columns returned by the view or table specified by "
                         . "entry_page_data_table in general_params");

@@ -39,13 +39,13 @@ class Param_report {
         $CI =& get_instance();
 
         // general specifications for page family
-        $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
 
         // entry form
-        $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs'));
 
-        $CI->cu->load_lib('entry_form', $form_def->specs, $this->config_source);
+        $CI->load_lib('entry_form', $form_def->specs, $this->config_source);
 
         // get initial field values (from url segments) and merge them with form object
         $segs = array_slice($CI->uri->segment_array(), 2);
@@ -95,9 +95,9 @@ class Param_report {
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
-            $CI->cu->load_mod('r_model', 'link_model', 'na', $this->config_source);
+            $CI->load_mod('r_model', 'link_model', 'na', $this->config_source);
 
-            $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
+            $CI->load_lib('column_filter', $this->config_name, $this->config_source);
             $col_filter = $CI->column_filter->get_current_filter_values();
 
             $CI->cell_presentation = new \App\Libraries\Cell_presentation();
@@ -125,7 +125,7 @@ class Param_report {
      */
     private function get_filtered_param_report_rows($paging = true) {
         $CI =& get_instance();
-        $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('paging_filter', $this->config_name, $this->config_source);
         if ($paging) {
             $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
         } else {
@@ -134,7 +134,7 @@ class Param_report {
 
         $options = array("PersistSortColumns" => true);
 
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
+        $CI->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
         return $CI->sproc_model->get_filtered_rows($current_sorting_filter_values, $current_paging_filter_values);
@@ -152,7 +152,7 @@ class Param_report {
         $CI =& get_instance();
         // get specifications for the entry form
         // used for submission into POST and to be returned as HTML
-        $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'rules'));
 
         $calling_params = new stdClass();
@@ -187,7 +187,7 @@ class Param_report {
             }
 
             // call stored procedure
-            $ok = $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+            $ok = $CI->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
@@ -260,7 +260,7 @@ class Param_report {
         $CI =& get_instance();
 
         // it all starts with a model
-        $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('specs', 'fields'));
 
         // search filter
@@ -324,11 +324,11 @@ class Param_report {
         helper(['link_util']);
 
         // current paging settings
-        $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
 
         // model to get current row info
-        $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+        $CI->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
 
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
@@ -355,18 +355,18 @@ class Param_report {
         session_start();
 
         // call stored procedure
-        $CI->cu->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+        $CI->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
         $cols = $CI->sproc_model->get_col_names();
 
-        $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
 
         $options = array("PersistSortColumns" => true);
 
-        $CI->cu->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
+        $CI->load_lib('sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
 
-        $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
         helper('form');
@@ -397,7 +397,7 @@ class Param_report {
         $col_info = $CI->sproc_model->get_column_info();
         $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-        $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
+        $CI->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
         if (empty($rows)) {

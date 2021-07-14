@@ -45,7 +45,7 @@ class Grid extends DmsBase {
     protected
     function grid_data_from_sproc($sproc_id, $config_db)
     {
-        $this->cu->load_lib('grid_data', $sproc_id, $config_db);
+        $this->load_lib('grid_data', $sproc_id, $config_db);
         $response = $this->grid_data->get_sproc_data($this->input->post());
         echo json_encode($response);
     }

@@ -16,7 +16,7 @@ class Analysis_job_request_psm extends DmsBase {
     private
     function get_defaults_from_db()
     {
-        $this->cu->load_lib('operation', 'na', $this->my_tag);
+        $this->load_lib('operation', 'na', $this->my_tag);
         $response = $this->operation->internal_operation('operations_sproc');
         $response->parms = $this->operation->get_params();
         return $response;
