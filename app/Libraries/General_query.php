@@ -134,13 +134,13 @@ class General_query {
     }
 
     /**
-     * Called by client controller to execute query via q_model and return result in format
+     * Called by client controller to execute query via Q_model and return result in format
      * as specified by the input_params object (of class General_query_def)
      * @param type $input_params
      */
     function setup_query($input_params) {
         $CI =& get_instance();
-        $CI->load_mod('q_model', 'model', $input_params->q_name, $input_params->config_source);
+        $CI->load_mod('Q_model', 'model', $input_params->q_name, $input_params->config_source);
         $this->add_filter_values_to_model_predicate($input_params->filter_values, $CI->model);
         $this->configure_paging($input_params, $CI->model);
 

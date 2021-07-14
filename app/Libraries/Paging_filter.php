@@ -44,7 +44,7 @@ class Paging_filter {
                 $this->cur_filter_values = $state;
             } else {
                 // user global defaults (if any)
-                $CI->preferences = model('App\Models\dms_preferences');
+                $CI->preferences = model('App\Models\Dms_preferences');
                 $x = $CI->preferences->get_preference('list_report_rows');
                 if ($x) {
                     $this->cur_filter_values['qf_rows_per_page'] = $x;

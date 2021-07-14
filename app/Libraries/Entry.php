@@ -41,10 +41,10 @@ class Entry {
         helper(['entry_page']);
 
         // general specifications for page family
-        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
         // make entry form object using form definitions from model
-        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
@@ -146,7 +146,7 @@ class Entry {
         $CI =& get_instance();
         helper(['entry_page']);
 
-        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
 
@@ -252,7 +252,7 @@ class Entry {
     protected function call_stored_procedure($input_params, $form_def, &$msg) {
         $CI =& get_instance();
 
-        $ok = $CI->load_mod('s_model', 'sproc_model', 'entry_sproc', $this->config_source);
+        $ok = $CI->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->config_source);
         if (!$ok) {
             throw new exception($CI->sproc_model->get_error_text());
         }

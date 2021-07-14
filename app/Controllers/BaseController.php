@@ -89,9 +89,9 @@ class BaseController extends Controller
 
     /**
      * Load named model (with given local name) and initialize it with given config info
-     * @param string $model_name Module name, e.g. g_model, q_model
-     * @param string $local_name Local name, e.g. gen_model for g_model; model for q_model
-     * @param string $config_name Config type; typically na for g_model; list_report (or similar) for q_model
+     * @param string $model_name Module name, e.g. G_model, Q_model
+     * @param string $local_name Local name, e.g. gen_model for G_model; model for Q_model
+     * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
      */
@@ -120,7 +120,7 @@ class BaseController extends Controller
         helper('user');
         $user = get_user();
 
-        $this->load_mod('g_model', 'gen_model', 'na', $this->my_tag);
+        $this->load_mod('G_model', 'gen_model', 'na', $this->my_tag);
 
         if ($this->gen_model->error_text) {
             if ($output_message) {

@@ -32,17 +32,17 @@ class Param_report {
 
     /**
      * Sets up a page that contains an entry form defined by the
-     * e_model for the config db which will be used to get data
+     * E_model for the config db which will be used to get data
      * rows in HTML via and AJAX call to the param_data function.
      */
     function param() {
         $CI =& get_instance();
 
         // general specifications for page family
-        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
         // entry form
-        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs'));
 
         $CI->load_lib('entry_form', $form_def->specs, $this->config_source);
@@ -77,7 +77,7 @@ class Param_report {
      * This uses the stored procedure defined by the 'list_report_sproc'
      * parameter in the general_params table of the config db and expects
      * POST data from a form defined by the form_fields table of the config db
-     * (via the e_model).
+     * (via the E_model).
      * @return type
      * @category AJAX
      */
@@ -95,7 +95,7 @@ class Param_report {
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
-            $CI->load_mod('r_model', 'link_model', 'na', $this->config_source);
+            $CI->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
             $CI->load_lib('column_filter', $this->config_name, $this->config_source);
             $col_filter = $CI->column_filter->get_current_filter_values();
@@ -152,7 +152,7 @@ class Param_report {
         $CI =& get_instance();
         // get specifications for the entry form
         // used for submission into POST and to be returned as HTML
-        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'rules'));
 
         $calling_params = new stdClass();
@@ -187,7 +187,7 @@ class Param_report {
             }
 
             // call stored procedure
-            $ok = $CI->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+            $ok = $CI->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }
@@ -260,7 +260,7 @@ class Param_report {
         $CI =& get_instance();
 
         // it all starts with a model
-        $CI->load_mod('e_model', 'form_model', 'na', $this->config_source);
+        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('specs', 'fields'));
 
         // search filter
@@ -328,7 +328,7 @@ class Param_report {
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
 
         // model to get current row info
-        $CI->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+        $CI->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
 
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
@@ -337,7 +337,7 @@ class Param_report {
         $first_row = $current_paging_filter_values['qf_first_row'];
 
         // make HTML using pager
-        $CI->preferences = model('App\Models\dms_preferences');
+        $CI->preferences = model('App\Models\Dms_preferences');
         $CI->list_report_pager = new \App\Libraries\List_report_pager();
         $s = '';
         $CI->list_report_pager->set($first_row, $total_rows, $per_page);
@@ -355,7 +355,7 @@ class Param_report {
         session_start();
 
         // call stored procedure
-        $CI->load_mod('s_model', 'sproc_model', $this->config_name, $this->config_source);
+        $CI->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
         $cols = $CI->sproc_model->get_col_names();
 
         $CI->load_lib('paging_filter', $this->config_name, $this->config_source);

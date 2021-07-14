@@ -3,7 +3,7 @@
 // --------------------------------------------------------------------
 function dump_e_model($mod) {
     echo '<hr>';
-    echo "Test of e_model<br>";
+    echo "Test of E_model<br>";
     echo 'q_name: ' . $mod->get_config_name() . '<br>';
     echo 'config_source: ' . $mod->get_config_source() . '<br>';
     echo '<hr>';
@@ -75,7 +75,7 @@ function dump_e_model($mod) {
 }
 
 /**
- * Display interesting parameters from q_model object
+ * Display interesting parameters from Q_model object
  * and use it to get rows (and display in plain HTML table)
  * @param type $mod
  * @param type $option
@@ -83,7 +83,7 @@ function dump_e_model($mod) {
  */
 function dump_q_model($mod, $option = 'filtered_and_paged', $dump_rows = true) {
 
-    echo "Test of q_model<br>";
+    echo "Test of Q_model<br>";
     echo 'q_name: ' . $mod->get_config_name() . '<br>';
     echo 'config_source: ' . $mod->get_config_source() . '<br>';
     echo '<hr>';
@@ -139,7 +139,7 @@ function dump_q_model($mod, $option = 'filtered_and_paged', $dump_rows = true) {
 
 // --------------------------------------------------------------------
 function dump_s_model($mod) {
-    echo "Test of s_model<br>";
+    echo "Test of S_model<br>";
     echo 's_name: ' . $mod->get_config_name() . '<br>';
     echo 'config_source: ' . $mod->get_config_source() . '<br>';
     echo 'sproc_name: ' . $mod->get_sproc_name() . '<br>';
@@ -177,7 +177,7 @@ function dump_s_model($mod) {
 // --------------------------------------------------------------------
 function dump_r_model($mod) {
     echo '<hr>';
-    echo "Test of r_model<br>";
+    echo "Test of R_model<br>";
     echo 'config_name: ' . $mod->get_config_name() . '<br>';
     echo 'config_source: ' . $mod->get_config_source() . '<br>';
     echo "<hr>\n";

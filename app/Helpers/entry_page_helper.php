@@ -28,7 +28,7 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
     if ($num_segs == 1) {
         // get values from database using source and id that we were given
         $id = $segs[0];
-        $CI->load_mod('q_model', 'input_model', 'entry_page', $config_source);
+        $CI->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
         $initial_field_values = $CI->input_model->get_item($id);
     } else
     if ($num_segs > 1) {
@@ -47,7 +47,7 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
             $col_mapping = $CI->form_model->get_external_source_field_map($source);
             if ($col_mapping) {
                 // get values from database using source and id plucked from url
-                $CI->load_mod('q_model', 'input_model', 'detail_report', $source);
+                $CI->load_mod('Q_model', 'input_model', 'detail_report', $source);
                 $source_data = $CI->input_model->get_item($id);
                 $initial_field_values = load_from_external_source($col_mapping, $source_data);
             }

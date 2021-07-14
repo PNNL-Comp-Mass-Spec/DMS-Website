@@ -830,7 +830,7 @@ class Cell_presentation {
         //
         // Get the date display format from global preferences
         $CI =& get_instance();
-        $CI->preferences = model('App\Models\dms_preferences');
+        $CI->preferences = model('App\Models\Dms_preferences');
         $dateFormat = $CI->preferences->get_date_format_string();
 
         // traverse all the rows in the result

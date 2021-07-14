@@ -118,7 +118,7 @@ class Entry_form {
      */
     function build_display($mode) {
         $CI =& get_instance();
-        $CI->choosers = model('App\Models\dms_chooser');
+        $CI->choosers = model('App\Models\Dms_chooser');
         helper(['url', 'text', 'form']);
 
         $visible_fields = array();

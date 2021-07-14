@@ -31,7 +31,7 @@ class Saved_settings {
 
         if ($page_type == 'List_Reports') {
             // it all starts with a model
-            $CI->load_mod('q_model', 'data_model', $config_name, $config_source);
+            $CI->load_mod('Q_model', 'data_model', $config_name, $config_source);
             $primary_filter_specs = $CI->data_model->get_primary_filter_specs();
             $CI->data_model->clear_cached_state();
 
@@ -45,7 +45,7 @@ class Saved_settings {
             $CI->secondary_filter->clear_cached_state();
         } else
         if ($page_type == 'Param_Pages') {
-            $CI->load_mod('s_model', 'sproc_model', $config_name, $config_source);
+            $CI->load_mod('S_model', 'sproc_model', $config_name, $config_source);
             $CI->sproc_model->clear_cached_state();
         }
 

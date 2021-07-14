@@ -14,7 +14,7 @@ class Osm_package extends DmsBase {
 
 /* OMCS-977
     // --------------------------------------------------------------------
-    // (someday) use q_model
+    // (someday) use Q_model
     function suggested_items($id, $mode) {
         helper(['url', 'text']);
 

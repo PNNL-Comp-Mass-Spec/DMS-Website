@@ -463,7 +463,7 @@ class DmsBase extends BaseController
     function get_basic_nav_bar_items()
     {
         helper(['user', 'dms_search', 'menu']);
-        $this->menu = model('App\Models\dms_menu');
+        $this->menu = model('App\Models\Dms_menu');
         return get_nav_bar_menu_items('', $this);
     }
 

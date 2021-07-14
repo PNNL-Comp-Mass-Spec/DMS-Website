@@ -26,14 +26,14 @@ class Chooser extends BaseController {
      */
     function get_chooser($target_field_name, $chooser_name, $mode)
     {
-        $this->choosers = model('App\Models\dms_chooser');
+        $this->choosers = model('App\Models\Dms_chooser');
         echo $this->choosers->get_chooser($target_field_name, $chooser_name, $mode);
     }
 
     // --------------------------------------------------------------------
     function get_chooser_list()
     {
-        $this->choosers = model('App\Models\dms_chooser');
+        $this->choosers = model('App\Models\Dms_chooser');
         echo "<table>\n";
         foreach($this->choosers->get_chooser_names() as $chooser_name) {
             $url = site_url("chooser/get_chooser/preview/$chooser_name/replace");
@@ -51,7 +51,7 @@ class Chooser extends BaseController {
      */
     function get_choices($chooser_name)
     {
-        $this->choosers = model('App\Models\dms_chooser');
+        $this->choosers = model('App\Models\Dms_chooser');
         $x = array_keys( $this->choosers->get_choices($chooser_name) );
         echo json_encode($x);
     }
@@ -66,7 +66,7 @@ class Chooser extends BaseController {
         if(!$filter_value) {
             $filter_value = $this->input->post('filter_values');
         }
-        $this->choosers = model('App\Models\dms_chooser');
+        $this->choosers = model('App\Models\Dms_chooser');
         $x = $this->choosers->get_filtered_choices($chooser_name, $filter_value);
         echo json_encode($x);
     }

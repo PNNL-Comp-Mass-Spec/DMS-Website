@@ -35,12 +35,12 @@ class List_report {
         $CI =& get_instance();
         session_start();
         helper(['form', 'menu', 'link_util']);
-        $CI->choosers = model('App\Models\dms_chooser');
+        $CI->choosers = model('App\Models\Dms_chooser');
 
-        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
         // clear total rows cache in model to force getting value from database
-        $CI->load_mod('q_model', 'model', $this->config_name, $this->config_source);
+        $CI->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
         $CI->model->clear_cached_total_rows();
 
         // if there were extra segments for list report URL,
@@ -182,13 +182,13 @@ class List_report {
         helper('form');
         helper(['filter', 'link_util']);
 
-        $CI->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
+        $CI->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
         $cols = $CI->data_model->get_col_names();
 
         $CI->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
 
-        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
         $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
@@ -228,7 +228,7 @@ class List_report {
         $CI =& get_instance();
         session_start();
 
-        $CI->load_mod('q_model', 'model', $this->config_name, $this->config_source);
+        $CI->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
         $data_type = $CI->model->get_column_data_type($column_name);
         $cmpSelOpts = $CI->model->get_allowed_comparisons_for_type($data_type);
 
@@ -247,7 +247,7 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $CI->load_mod('r_model', 'link_model', 'na', $this->config_source);
+        $CI->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
         $CI->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
@@ -358,7 +358,7 @@ class List_report {
 
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
-        $CI->preferences = model('App\Models\dms_preferences');
+        $CI->preferences = model('App\Models\Dms_preferences');
         $CI->list_report_pager = new \App\Libraries\List_report_pager();
         try {
             // make HTML using pager
@@ -386,7 +386,7 @@ class List_report {
         $CI =& get_instance();
 
         // it all starts with a model
-        $CI->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
+        $CI->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
 
         // primary filter
         $primary_filter_specs = $CI->data_model->get_primary_filter_specs();
@@ -401,7 +401,7 @@ class List_report {
         $CI->load_lib('paging_filter', $this->config_name, $this->config_source);
         $current_filter_values = $CI->paging_filter->get_current_filter_values();
 
-        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
         $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
@@ -442,9 +442,9 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $CI->load_mod('g_model', 'gen_model', 'na', $this->config_source);
+        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
-        $CI->load_mod('r_model', 'link_model', 'na', $this->config_source);
+        $CI->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
         $rows = $CI->data_model->get_rows('filtered_and_sorted')->getResultArray();
 

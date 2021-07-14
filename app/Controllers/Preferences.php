@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Preferences extends BaseController {
 
-    var $my_model = 'dms_preferences';
+    var $my_model = 'Dms_preferences';
 
     // --------------------------------------------------------------------
     function __construct()
@@ -32,7 +32,7 @@ class Preferences extends BaseController {
         $data['heading'] = $data['title'];
 
         // nav_bar setup
-        $this->menu = model('App\Models\dms_menu');
+        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences', $this);
 
         $result = '';

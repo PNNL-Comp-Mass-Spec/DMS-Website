@@ -38,7 +38,7 @@ class Operation {
 
         try {
             // init sproc model
-            $ok = $CI->load_mod('s_model', 'sproc_model', $config_name, $this->config_source);
+            $ok = $CI->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
             if (!$ok) {
                 throw new exception($CI->sproc_model->get_error_text());
             }

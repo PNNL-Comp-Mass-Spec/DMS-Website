@@ -56,7 +56,7 @@ class Mac_jobs extends DmsBase {
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
-        $this->load_mod('q_model', 'swp_model', $config_name, $config_source);
+        $this->load_mod('Q_model', 'swp_model', $config_name, $config_source);
         $query = $this->swp_model->get_rows('filtered_and_paged');
         return $query->getResultArray();
     }
@@ -89,7 +89,7 @@ class Mac_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('q_model', 'data_model', $config_name, $config_source);
+            $this->load_mod('Q_model', 'data_model', $config_name, $config_source);
             $result_row = $this->data_model->get_item($id);
             $xml = $result_row['params'];
         }
@@ -104,7 +104,7 @@ class Mac_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('q_model', 'def_model', $config_name, $config_source);
+            $this->load_mod('Q_model', 'def_model', $config_name, $config_source);
             $result_row = $this->def_model->get_item($id);
             $xml = $result_row['params'];
         }
@@ -148,7 +148,7 @@ class Mac_jobs extends DmsBase {
     private
     function build_param_entry_form($params, $script)
     {
-        $this->choosers = model('App\Models\dms_chooser');
+        $this->choosers = model('App\Models\Dms_chooser');
         helper(['url', 'text', 'form']);
         $str = "";
         $header_style = "font-weight:bold;";
