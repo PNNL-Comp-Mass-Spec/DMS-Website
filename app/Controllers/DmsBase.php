@@ -54,7 +54,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('create')) {
             return;
         }
-        $this->load_lib('entry', 'na', $this->my_tag);
+        $this->load_lib('Entry', 'na', $this->my_tag);
         $this->entry->create_entry_page($page_type);
     }
 
@@ -73,7 +73,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('enter')) {
             return;
         }
-        $this->load_lib('entry', 'na', $this->my_tag);
+        $this->load_lib('Entry', 'na', $this->my_tag);
         $this->entry->create_entry_page($page_type);
     }
 
@@ -86,7 +86,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('enter')) {
             return;
         }
-        $this->load_lib('entry', 'na', $this->my_tag);
+        $this->load_lib('Entry', 'na', $this->my_tag);
         $this->entry->submit_entry_form();
     }
 
@@ -102,7 +102,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('report')) {
             return;
         }
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->list_report('report');
         return;
     }
@@ -115,7 +115,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('report')) {
             return;
         }
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->list_report('search');
         return;
     }
@@ -128,7 +128,7 @@ class DmsBase extends BaseController
      */
     function report_filter($filter_display_mode = 'advanced')
     {
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->report_filter($filter_display_mode);
     }
 
@@ -139,7 +139,7 @@ class DmsBase extends BaseController
      */
     function get_sql_comparison($column_name)
     {
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->get_sql_comparison($column_name);
     }
 
@@ -150,7 +150,7 @@ class DmsBase extends BaseController
      */
     function report_data($option = 'rows')
     {
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->report_data($option);
     }
 
@@ -161,7 +161,7 @@ class DmsBase extends BaseController
      */
     function report_info($what_info)
     {
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->report_info($what_info);
     }
 
@@ -171,7 +171,7 @@ class DmsBase extends BaseController
      */
     function report_paging()
     {
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->report_paging();
     }
 
@@ -181,7 +181,7 @@ class DmsBase extends BaseController
      */
     function export($format)
     {
-        $this->load_lib('list_report', 'list_report', $this->my_tag);
+        $this->load_lib('List_report', 'list_report', $this->my_tag);
         $this->list_report->export($format);
     }
 
@@ -195,7 +195,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('show')) {
             return;
         }
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report($id);
     }
 
@@ -207,7 +207,7 @@ class DmsBase extends BaseController
      */
     function show_data($id)
     {
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report_data($id);
     }
 
@@ -222,7 +222,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('show')) {
             return;
         }
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report($id);
     }
 
@@ -236,7 +236,7 @@ class DmsBase extends BaseController
         $show_entry_links = $this->check_access('enter', false);
         $show_create_links = $this->check_access('create', false);
 
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report_data($id, $show_entry_links, $show_create_links);
     }
 
@@ -247,7 +247,7 @@ class DmsBase extends BaseController
      */
     function detail_sql($id)
     {
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_sql($id);
     }
 
@@ -258,7 +258,7 @@ class DmsBase extends BaseController
      */
     function detail_report_aux_info_controls($id)
     {
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->detail_report_aux_info_controls($id);
     }
 
@@ -269,7 +269,7 @@ class DmsBase extends BaseController
      */
     function export_detail($id, $format)
     {
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->export_detail($id, $format);
     }
 
@@ -280,7 +280,7 @@ class DmsBase extends BaseController
      */
     function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv")
     {
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->export_spreadsheet($id, $format, $rowStyle, $ext);
     }
 
@@ -290,7 +290,7 @@ class DmsBase extends BaseController
      */
     function dot($scriptName)
     { $this->my_tag;
-        $this->load_lib('detail_report', 'detail_report', $this->my_tag);
+        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->dot($scriptName, $this->my_tag);
     }
 
@@ -309,7 +309,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('param')) {
             return;
         }
-        $this->load_lib('param_report', 'list_report_sproc', $this->my_tag);
+        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
         $this->param_report->param();
     }
 
@@ -323,7 +323,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('param')) {
             return;
         }
-        $this->load_lib('param_report', 'list_report_sproc', $this->my_tag);
+        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
         $this->param_report->param_data();
     }
 
@@ -334,7 +334,7 @@ class DmsBase extends BaseController
      */
     function param_paging()
     {
-        $this->load_lib('param_report', 'list_report_sproc', $this->my_tag);
+        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
         $this->param_report->param_paging();
     }
 
@@ -345,7 +345,7 @@ class DmsBase extends BaseController
      */
     function param_info($what_info)
     {
-        $this->load_lib('param_report', 'param_report', $this->my_tag);
+        $this->load_lib('Param_report', 'param_report', $this->my_tag);
         $this->param_report->param_info($what_info);
     }
 
@@ -355,7 +355,7 @@ class DmsBase extends BaseController
      */
     function param_filter()
     {
-        $this->load_lib('param_report', 'list_report_sproc', $this->my_tag);
+        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
         $this->param_report->param_filter();
     }
     // --------------------------------------------------------------------
@@ -365,7 +365,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('param')) {
             return;
         }
-        $this->load_lib('param_report', 'list_report_sproc', $this->my_tag);
+        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
         $this->param_report->export_param($format);
     }
 
@@ -380,7 +380,7 @@ class DmsBase extends BaseController
      */
     function call($sproc_name = 'operations_sproc')
     {
-        $this->load_lib('operation', 'na', $this->my_tag);
+        $this->load_lib('Operation', 'na', $this->my_tag);
         $response = $this->operation->internal_operation($sproc_name);
 //      $response->parms = $this->operation->get_params();
         echo json_encode($response);
@@ -397,7 +397,7 @@ class DmsBase extends BaseController
     {
 //      if(!$this->check_access('??')) return;
 //      $sproc_name = $this->uri->segment(3, '');
-        $this->load_lib('operation', 'na', $this->my_tag);
+        $this->load_lib('Operation', 'na', $this->my_tag);
         $response = $this->operation->internal_operation($sproc_name);
         if($response->result == 0) {
             if (empty($response->message))
@@ -420,7 +420,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('operation')) {
             return;
         }
-        $this->load_lib('operation', 'na', $this->my_tag);
+        $this->load_lib('Operation', 'na', $this->my_tag);
         $response = $this->operation->internal_operation('operations_sproc');
         if($response->result != 0) {
             echo "Update failed. " . $response->message;
@@ -443,7 +443,7 @@ class DmsBase extends BaseController
         if (!$this->check_access('operation')) {
             return;
         }
-        $this->load_lib('operation', 'na', $this->my_tag);
+        $this->load_lib('Operation', 'na', $this->my_tag);
         $response = $this->operation->internal_operation('operations_sproc');
         if($response->result != 0) {
             echo "Update failed. " . $response->message;
@@ -473,7 +473,7 @@ class DmsBase extends BaseController
     function data()
     {
         session_start();
-        $this->load_lib('general_query', '', ''); // $config_name, $config_source
+        $this->load_lib('General_query', '', ''); // $config_name, $config_source
         $input_parms = $this->general_query->setup_query_for_dmsBase();
         $this->general_query->output_result($input_parms->output_format);
     }

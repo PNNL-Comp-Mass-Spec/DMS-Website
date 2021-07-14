@@ -48,7 +48,7 @@ class Entry {
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
-        $CI->load_lib('entry_form', $form_def->specs, $this->config_source);
+        $CI->load_lib('Entry_form', $form_def->specs, $this->config_source);
 
         // Determine the page mode ('add' or 'update')
         $mode = $CI->entry_form->get_mode_from_page_type($page_type);
@@ -194,7 +194,7 @@ class Entry {
         }
 
         // get entry form object and use to to build and return HTML for form
-        $CI->load_lib('entry_form', $form_def->specs, $this->config_source);
+        $CI->load_lib('Entry_form', $form_def->specs, $this->config_source);
         $data['form'] = $this->make_entry_form_HTML($input_params, $form_def);
         echo $outcome;
         echo $data['form'];

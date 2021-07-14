@@ -235,7 +235,7 @@ class Detail_report {
         $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
-        $CI->load_lib('entry_form', $form_def->specs, $this->config_source);
+        $CI->load_lib('Entry_form', $form_def->specs, $this->config_source);
 
         // Get entry field values for this entity
         $CI->load_mod('Q_model', 'input_model', 'entry_page', $this->config_source);

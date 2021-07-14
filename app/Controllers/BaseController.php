@@ -73,17 +73,18 @@ class BaseController extends Controller
      * @return boolean
      */
     protected function load_lib($lib_name, $config_name, $config_source, $options = false) {
-        if (property_exists($this, $lib_name)) {
+        $localName = lcfirst($lib_name);
+        if (property_exists($this, $localName)) {
             return true;
         }
         // Load then initialize the model
         var_dump($lib_name);
-        $libPath = "\App\Libraries\$lib_name";
-        $this->$lib_name = new $libPath();
+        $libPath = "\\App\\Libraries\\$lib_name";
+        $this->$localName = new $libPath();
         if ($options === false) {
-            return $this->$lib_name->init($config_name, $config_source);
+            return $this->$localName->init($config_name, $config_source);
         } else {
-            return $this->$lib_name->init($config_name, $config_source, $options);
+            return $this->$localName->init($config_name, $config_source, $options);
         }
     }
 

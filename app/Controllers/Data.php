@@ -40,7 +40,7 @@ class Data extends BaseController {
     {
         session_start();
         helper(['url']);
-        $this->load_lib('general_query', '', ''); // $config_name, $config_source
+        $this->load_lib('General_query', '', ''); // $config_name, $config_source
 
         $input_parms = $this->general_query->get_query_values_from_url();
         $this->general_query->setup_query($input_parms);
@@ -96,7 +96,7 @@ class Data extends BaseController {
         $this->my_tag = "data/lz/$output_format/$config_source/$config_name";
         $this->my_title = "";
 
-        $this->load_lib('list_report_ah', $config_name, $config_source);
+        $this->load_lib('List_report_ah', $config_name, $config_source);
 
         $this->list_report_ah->set_up_data_query();
         $query = $this->data_model->get_rows('filtered_and_sorted');
@@ -117,19 +117,19 @@ class Data extends BaseController {
                 break;
             case 'tsv':
                 $rows = $query->getResultArray();
-                $this->load_lib('general_query', '', '');
+                $this->load_lib('General_query', '', '');
                 $this->general_query->tsv($rows);
                 break;
             case 'html':
             case 'table':
                 $rows = $query->getResultArray();
-                $this->load_lib('general_query', '', '');
+                $this->load_lib('General_query', '', '');
                 $this->general_query->html_table($rows, $pageTitle);
                 break;
             case 'xml':
             case 'xml_dataset':
                 $rows = $query->getResultArray();
-                $this->load_lib('general_query', '', '');
+                $this->load_lib('General_query', '', '');
                 $this->general_query->xml_dataset($rows, $pageTitle);
                 break;
         }
@@ -147,7 +147,7 @@ class Data extends BaseController {
     {
         session_start();
         helper(['url']);
-        $this->load_lib('general_query', '', ''); // $config_name, $config_source
+        $this->load_lib('General_query', '', ''); // $config_name, $config_source
 
         $input_parms = new stdClass ();
         $input_parms->output_format = ''; // $this->uri->segment(3);
@@ -194,35 +194,35 @@ class Data extends BaseController {
 
         switch($content_type) {
             case 'report':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->list_report('report');
                 break;
             case 'search':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->list_report('search');
                 break;
             case 'report_filter':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->report_filter($option);
                 break;
             case 'get_sql_comparison':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->get_sql_comparison($column_name);
                 break;
             case 'report_data':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->report_data('rows');
                 break;
             case 'reportinfol':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->report_info("sql");
                 break;
             case 'report_paging':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->report_paging();
                 break;
             case 'export':
-                $this->load_lib('list_report_ah', $config_name, $config_source);
+                $this->load_lib('List_report_ah', $config_name, $config_source);
                 $this->list_report_ah->export($option);
                 break;
         }
