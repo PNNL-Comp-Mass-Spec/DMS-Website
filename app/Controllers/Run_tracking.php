@@ -178,7 +178,7 @@ EOD;
     private
     function make_instrument_selector($instruments, $instrument, $year, $month)
     {
-        $this->load->helper(array('form'));
+        helper(['form']);
         $emslLabel = 'EMSL';
         $dmsLabel = 'DMS';
         $trkdLabel = 'Tracked';

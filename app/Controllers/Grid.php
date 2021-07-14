@@ -13,7 +13,7 @@ class Grid extends Base_controller {
 
         $this->my_tag = "";
         $this->my_title = "";
-        $this->load->helper("link_util");
+        helper("link_util");
     }
 
     // --------------------------------------------------------------------
@@ -25,7 +25,7 @@ class Grid extends Base_controller {
     protected
     function grid_page($view_name, $save_url = '', $data_url = '')
     {
-        $this->load->helper("form");
+        helper("form");
         $this->choosers = model('App\Models\dms_chooser');
         $data = array();
         $data['title'] = $this->my_title;

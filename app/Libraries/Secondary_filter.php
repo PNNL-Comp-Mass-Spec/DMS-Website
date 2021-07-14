@@ -33,7 +33,7 @@ class Secondary_filter {
     // or from cache storage (session)
     function init($config_name, $config_source) {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         $this->config_name = $config_name;
         $this->config_source = $config_source;
@@ -211,7 +211,7 @@ class Secondary_filter {
      */
     function clear_cached_state() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
         clear_cache($this->storage_name);
     }
 }

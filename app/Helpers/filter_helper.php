@@ -173,7 +173,7 @@ function make_intermediate_collapse_control() {
 function make_primary_filter($primary_filter_defs) {
     // get CI instance
     $CI =& get_instance();
-    $CI->load->helper('form');
+    helper('form');
 
     $str = "";
 
@@ -235,7 +235,7 @@ function make_primary_filter($primary_filter_defs) {
 function make_primary_filter_in_table($primary_filter_defs) {
     // get CI instance
     $CI =& get_instance();
-    $CI->load->helper('form');
+    helper('form');
     $CI->load->library('entry_form');
     $CI->choosers = model('App\Models\dms_chooser');
 

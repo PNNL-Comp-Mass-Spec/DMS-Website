@@ -21,7 +21,7 @@ class List_report_ah extends List_report {
     function list_report($mode) {
         $CI =& get_instance();
         session_start();
-        $CI->load->helper(array('form', 'menu', 'link_util'));
+        helper(['form', 'menu', 'link_util']);
         $CI->choosers = model('App\Models\dms_chooser');
 
         $CI->cu->load_mod('g_model', 'gen_model', $this->config_name, $this->config_source);

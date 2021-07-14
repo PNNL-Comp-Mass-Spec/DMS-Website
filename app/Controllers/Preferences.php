@@ -27,7 +27,7 @@ class Preferences extends BaseController {
     // --------------------------------------------------------------------
     function set($param, $value)
     {
-        $this->load->helper('menu');
+        helper('menu');
         $data['title'] = 'User Preferences';
         $data['heading'] = $data['title'];
 

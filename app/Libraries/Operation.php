@@ -58,7 +58,7 @@ class Operation {
             // get field values from POST and validate them
             // For more info, see https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_detail_report_commands#Command_Types
 
-            $CI->load->helper('form');
+            helper('form');
             $CI->load->library('form_validation');
             $CI->form_validation->set_error_delimiters('', '');
             $CI->form_validation->set_rules($rules);
@@ -67,7 +67,7 @@ class Operation {
             // Get field values from validation object into an object
             // that will be used for calling stored procedure
             // and also putting values back into entry form HTML
-            $CI->load->helper('user');
+            helper('user');
             $calling_params = new stdClass();
             foreach ($fields as $field) {
                 $calling_params->$field = $CI->form_validation->set_value($field);

@@ -51,7 +51,7 @@ class Detail_report {
         $data['detail_report_cmds'] = $dcmds;
         $data['aux_info_target'] = $CI->gen_model->get_detail_report_aux_info_target();
 
-        $CI->load->helper(array('detail_report', 'menu', 'link_util'));
+        helper(['detail_report', 'menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Detail_Reports');
         echo view('main/detail_report', $data);
     }
@@ -102,7 +102,7 @@ class Detail_report {
             $data['show_entry_links'] = $show_entry_links;
             $data['show_create_links'] = $show_create_links;
 
-            $CI->load->helper(array('string', 'detail_report_helper'));
+            helper(['string', 'detail_report_helper']);
             echo view('main/detail_report_data', $data);
         } catch (Exception $e) {
             echo "<div class='EPag_message' >" . $e->getMessage() . "</div>";
@@ -140,7 +140,7 @@ class Detail_report {
         if (!empty($result_row)) {
             $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : $id;
 
-            $CI->load->helper(array('string', 'detail_report_helper'));
+            helper(['string', 'detail_report_helper']);
             echo make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id);
         }
     }
@@ -164,7 +164,7 @@ class Detail_report {
             $aux_info = $this->get_aux_info($aux_info_id);
         }
 
-        $CI->load->helper(array('string', 'detail_report_helper', 'export'));
+        helper(['string', 'detail_report_helper', 'export']);
         switch ($format) {
             case 'excel':
                 export_detail_to_excel($entity_info, $aux_info, $this->tag . "_detail");
@@ -277,7 +277,7 @@ class Detail_report {
         $entity_info = $this->get_entry_tracking_info($id);
         $aux_info = $this->get_entry_aux_info($id);
 
-        $CI->load->helper(array('export'));
+        helper(['export']);
         switch ($format) {
             case 'data':
                 export_spreadsheet($this->tag, $entity_info, $aux_info, $rowStyle, $ext, $this->tag . "_template");
@@ -298,7 +298,7 @@ class Detail_report {
      */
     function dot($scriptName, $config_source) {
         $CI =& get_instance();
-        $CI->load->helper(array('url', 'string', 'export'));
+        helper(['url', 'string', 'export']);
         $config_name = 'dot';
 
         $CI->cu->load_mod('q_model', 'detail_model', $config_name, $config_source);

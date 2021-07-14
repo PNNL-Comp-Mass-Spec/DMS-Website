@@ -69,7 +69,7 @@ class Controller_utility {
      */
     function check_access($action, $output_message = true) {
         $CI =& get_instance();
-        $CI->load->helper('user');
+        helper('user');
         $user = get_user();
 
         $this->load_mod('g_model', 'gen_model', 'na', $CI->my_tag);

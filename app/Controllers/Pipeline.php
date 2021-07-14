@@ -6,7 +6,7 @@ class Pipeline extends BaseController {
     // --------------------------------------------------------------------
     function index()
     {
-        $this->load->helper(array('url','html'));
+        helper(['url','html']);
 
         echo heading('Mini-Pipeline Page links', 3);
 

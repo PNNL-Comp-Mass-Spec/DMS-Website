@@ -69,7 +69,7 @@ class Grid_data {
             $config_name = $this->config_name;
         }
 
-        $CI->load->helper(array('user', 'url'));
+        helper(['user', 'url']);
         $response = new stdClass();
         try {
             // init sproc model

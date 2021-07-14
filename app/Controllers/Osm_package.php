@@ -16,7 +16,7 @@ class Osm_package extends Base_controller {
     // --------------------------------------------------------------------
     // (someday) use q_model
     function suggested_items($id, $mode) {
-        $this->load->helper(array('url', 'string'));
+        helper(['url', 'string']);
 
         $this->load->database();
 

@@ -49,7 +49,7 @@ class Param_report {
 
         // get initial field values (from url segments) and merge them with form object
         $segs = array_slice($CI->uri->segment_array(), 2);
-        $CI->load->helper(array('entry_page'));
+        helper(['entry_page']);
         $initial_field_values = get_values_from_segs($form_def->fields, $segs);
         foreach ($initial_field_values as $field => $value) {
             $CI->entry_form->set_field_value($field, $value);
@@ -67,7 +67,7 @@ class Param_report {
         $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
         $data['ops_url'] = site_url($CI->gen_model->get_param('list_report_cmds_url'));
 
-        $CI->load->helper(array('menu', 'link_util'));
+        helper(['menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages');
         echo view('main/param_report', $data);
     }
@@ -84,7 +84,7 @@ class Param_report {
     function param_data() {
         $CI =& get_instance();
         session_start();
-        $CI->load->helper('user');
+        helper('user');
 
         $message = $this->get_data_rows_from_sproc();
         if ($message) {
@@ -113,7 +113,7 @@ class Param_report {
             $data['row_renderer'] = $CI->cell_presentation;
             $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
 
-            $CI->load->helper(array('string'));
+            helper(['string']);
             echo view('main/param_report_data', $data);
         }
     }
@@ -161,7 +161,7 @@ class Param_report {
         } else {
             // make validation object and use it to
             // get field values from POST and validate them
-            $CI->load->helper('form');
+            helper('form');
             $CI->load->library('form_validation');
             $CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
             $CI->form_validation->set_rules($form_def->rules);
@@ -319,7 +319,7 @@ class Param_report {
         $CI =& get_instance();
         session_start();
 
-        $CI->load->helper(array('link_util'));
+        helper(['link_util']);
 
         // current paging settings
         $CI->cu->load_lib('paging_filter', $this->config_name, $this->config_source);
@@ -367,8 +367,8 @@ class Param_report {
         $CI->cu->load_lib('column_filter', $this->config_name, $this->config_source);
         $col_filter = $CI->column_filter->get_current_filter_values();
 
-        $CI->load->helper('form');
-        $CI->load->helper(array('filter', 'link_util'));
+        helper('form');
+        helper(['filter', 'link_util']);
         make_param_filter($cols, $current_paging_filter_values, $current_sorting_filter_values, $col_filter);
     }
 
@@ -380,7 +380,7 @@ class Param_report {
     function export_param($format) {
         $CI =& get_instance();
         session_start();
-        $CI->load->helper(array('user', 'export'));
+        helper(['user', 'export']);
 
         $message = $this->get_data_rows_from_sproc();
         if ($message) {

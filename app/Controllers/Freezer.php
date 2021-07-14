@@ -12,7 +12,7 @@ class Freezer extends Base_controller {
         parent::__construct();
 
         session_start();
-        $this->load->helper(array('url', 'string', 'user'));
+        helper(['url', 'string', 'user']);
 
         $this->color_code = $this->config->item('version_color_code');
         $this->help_page_link = $this->config->item('pwiki');
@@ -28,7 +28,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function tree()
     {
-        $this->load->helper(array('menu', 'dms_search'));
+        helper(['menu', 'dms_search']);
         $this->menu = model('App\Models\dms_menu');
 
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
@@ -151,7 +151,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function show($id)
     {
-        $this->load->helper(array('freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu'));
+        helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
         $this->load->library('table');
         $this->load->database();
 
@@ -221,7 +221,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function contents()
     {
-        $this->load->helper(array('freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu'));
+        helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu']);
         $this->load->library('table');
         $this->load->database();
 
@@ -306,7 +306,7 @@ class Freezer extends Base_controller {
     // --------------------------------------------------------------------
     function config()
     {
-        $this->load->helper(array('freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu', 'form'));
+        helper(['freezer_helper', 'url', 'string', 'user', 'dms_search', 'menu', 'form']);
         $this->load->library('table');
         $this->load->database();
 

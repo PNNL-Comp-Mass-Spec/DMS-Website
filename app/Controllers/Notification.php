@@ -105,7 +105,7 @@ class Notification extends Base_controller {
      */
     function preview()
     {
-        $this->load->helper(array('url'));
+        helper(['url']);
 
         $users = $this->_get_notification_info();
         $ul = array_keys($users);
@@ -127,7 +127,7 @@ class Notification extends Base_controller {
      */
     function user($user)
     {
-        $this->load->helper(array('url'));
+        helper(['url']);
 
         $users = $this->_get_notification_info();
 
@@ -149,7 +149,7 @@ class Notification extends Base_controller {
      */
     function email_user($user)
     {
-        $this->load->helper(array('url'));
+        helper(['url']);
 
         // To send HTML mail, the Content-type header must be set
         $headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -180,7 +180,7 @@ class Notification extends Base_controller {
 //      Uncomment the following to abort sending e-mails if not called via the expected script
 //      if($_SERVER['SCRIPT_FILENAME'] != 'email_daily_notification.php') exit;
 
-        $this->load->helper(array('url'));
+        helper(['url']);
 
         // To send HTML mail, the Content-type header must be set
         $headers  = 'MIME-Version: 1.0' . "\r\n";

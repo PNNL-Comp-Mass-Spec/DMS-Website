@@ -37,7 +37,7 @@ class Config_db extends BaseController {
      * to http://dms2.pnl.gov/config_db/page_families
      */
     function index() {
-        $this->load->helper(array('url'));
+        helper(['url']);
         redirect('config_db/page_families');
     }
 
@@ -46,7 +46,7 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name, including .db
      */
     function show_db($config_db) {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $data['title'] = "$config_db";
         $data['heading'] = "Show Contents of $config_db";
         $data['config_db'] = $config_db;
@@ -181,7 +181,7 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name, including .db
      */
     private function _log_sql($change, $restore, $config_db) {
-        $this->load->helper(array('user'));
+        helper(['user']);
         $usr = get_user();
         $dt = date(DATE_RFC822);
         $file = 'tmpfiles/' . $config_db . '.log';
@@ -372,7 +372,7 @@ class Config_db extends BaseController {
      * @category AJAX
      */
     function move_range($config_db, $table_name, $range_start_id, $range_stop_id, $dest_id) {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $data_info = $this->_get_config_db_table_data_info($config_db, $table_name);
         $id_col = $data_info->col_names[0];
         if (!in_array($id_col, array('id', 'idx'))) {
@@ -380,7 +380,7 @@ class Config_db extends BaseController {
             return;
         }
 
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         echo make_sql_to_move_range_of_items($table_name, $range_start_id, $range_stop_id, $dest_id, $id_col);
     }
 
@@ -392,7 +392,7 @@ class Config_db extends BaseController {
      * @category AJAX
      */
     function resequence_table($config_db, $table_name) {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $data_info = $this->_get_config_db_table_data_info($config_db, $table_name);
         $id_col = $data_info->col_names[0];
         if (!in_array($id_col, array('id', 'idx'))) {
@@ -424,7 +424,7 @@ class Config_db extends BaseController {
             $this->show_not_allowed($config_db);
             return;
         }
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $sql = $this->input->post('sql_text', '');
         if ($sql) {
             $this->_exec_sql($config_db, $sql, $table_name);
@@ -444,7 +444,7 @@ class Config_db extends BaseController {
      * @category AJAX
      */
     function get_suggested_sql($config_db, $table_name) {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
 
         $name = str_replace('.db', '', $config_db);
         $mode = $this->input->post('mode', '');
@@ -621,7 +621,7 @@ class Config_db extends BaseController {
             $this->show_not_allowed($config_db);
             return;
         }
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $data['title'] = "Config DB Table Edit";
         $data['heading'] = "Edit $table_name in $config_db";
         $data['config_db'] = $config_db;
@@ -650,7 +650,7 @@ class Config_db extends BaseController {
             $this->show_not_allowed($config_db);
             return;
         }
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
 
         // show _POST (debug)
         $p = '';
@@ -1315,7 +1315,7 @@ class Config_db extends BaseController {
      * This will include the three views and the AddUpdate sproc
      */
     function code_for_family_sql() {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $config_db = $this->uri->segment(3);
 
         $db_group = 'default';
@@ -1334,7 +1334,7 @@ class Config_db extends BaseController {
      * @param type $sproc
      */
     function code_for_csharp($db_group, $sproc) {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
 
         $db_group = $this->uri->segment(3);
         $sproc = $this->uri->segment(4);
@@ -1377,7 +1377,7 @@ class Config_db extends BaseController {
             return;
         }
 
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
 
         $page_fam_tag = "";
         $file_path = "";
@@ -1496,7 +1496,7 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/search/experiment/_
      */
     function search() {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
 
         // set up name filters
         $raw_filter = $this->uri->segment(3, ".db");
@@ -1531,7 +1531,7 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/page_families
      */
     function page_families() {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $data['title'] = "Page Family Directory";
         $data['heading'] = $data['title'];
 
@@ -1555,7 +1555,7 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/support_config_db_list
      */
     function support_config_db_list() {
-        $this->load->helper(array('config_db'));
+        helper(['config_db']);
         $data['title'] = "Support Config DB Directory";
         $data['heading'] = $data['title'];
 

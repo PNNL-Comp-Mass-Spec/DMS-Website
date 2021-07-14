@@ -38,7 +38,7 @@ class Entry {
      */
     function create_entry_page($page_type) {
         $CI =& get_instance();
-        $CI->load->helper(array('entry_page'));
+        helper(['entry_page']);
 
         // general specifications for page family
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
@@ -96,7 +96,7 @@ class Entry {
         $data['entry_cmds'] = $this->handle_cmd_btns($CI, $form_def->entry_commands, $page_type);
         $data['entry_submission_cmds'] = $CI->gen_model->get_param('entry_submission_cmds');
 
-        $CI->load->helper(array('menu', 'link_util'));
+        helper(['menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Entry_Pages');
         echo view('main/entry_form', $data);
     }
@@ -144,7 +144,7 @@ class Entry {
      */
     function submit_entry_form() {
         $CI =& get_instance();
-        $CI->load->helper(array('entry_page'));
+        helper(['entry_page']);
 
         $CI->cu->load_mod('e_model', 'form_model', 'na', $this->config_source);
         $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
@@ -296,7 +296,7 @@ class Entry {
      */
     protected function get_input_field_values($rules) {
         $CI =& get_instance();
-        $CI->load->helper('form');
+        helper('form');
         $CI->load->library('form_validation');
         $CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
         $CI->form_validation->set_rules($rules);

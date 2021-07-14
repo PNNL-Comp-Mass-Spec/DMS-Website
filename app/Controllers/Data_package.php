@@ -31,7 +31,7 @@ class Data_package extends Base_controller {
      * @return string
      */
     function ag($id, $tool, $mode) {
-        $this->load->helper(array('url', 'string'));
+        helper(['url', 'string']);
 
         $this->load->database('package');
 
@@ -57,7 +57,7 @@ class Data_package extends Base_controller {
 
     // --------------------------------------------------------------------
     function metadata($id) {
-        $this->load->helper(array('url', 'string'));
+        helper(['url', 'string']);
 
         $this->load->database('package');
         $sqlList = array(

@@ -43,15 +43,15 @@ class Upload extends Base_controller {
      */
     function main()
     {
-        $this->load->helper('user');
+        helper('user');
 
         $data['tag'] = 'upload';
         $data['title'] = 'Spreadsheet Loader';
 
-        $this->load->helper(array('menu'));
+        helper(['menu']);
         $data['nav_bar_menu_items']= set_up_nav_bar('List_Reports', $this);
 
-        $this->load->helper(array('url'));
+        helper(['url']);
         echo view("uploader/upload", $data);
     }
 
@@ -349,7 +349,7 @@ class Upload extends Base_controller {
         $result = $this->get_entity_key($id, $entity_type, $key, $message);
 
         if($result) {
-            $this->load->helper(array('url'));
+            helper(['url']);
             $cfs = $this->supported_entities[$entity_type]['config_source'];
             $url = site_url("$cfs/show/$key");
             $lnk = "<a href='javascript:void(0)' onclick='window.open(\"$url\", \"DW\", \"scrollbars,resizable,height=900,width=600,menubar\")' >Details</a>";
@@ -406,7 +406,7 @@ class Upload extends Base_controller {
         $this->form_model->init('na', $config_source);
         $form_def = $this->form_model->get_form_def(array('specs'));
 
-        $this->load->helper('user');
+        helper('user');
         $calling_params = $current_values;
         $calling_params->mode = $mode;
         $calling_params->callingUser = get_user();
@@ -491,7 +491,7 @@ class Upload extends Base_controller {
                 $row['Value'] = 'xx';
             }
         }
-        $this->load->helper(array('export'));
+        helper(['export']);
         export_spreadsheet($config_source, $entity_info, $aux_info, $rowStyle, $ext, $config_source."_template");
     }
 
@@ -527,7 +527,7 @@ class Upload extends Base_controller {
             $ai_errors = $this->cross_check_aux_info_fields($aux_info_target, $aux_info);
         }
 
-        $this->load->helper('html');
+        helper('html');
         $str = '';
         $errors = array_merge($ti_errors, $ai_errors);
         if(!empty($errors)) {
@@ -597,7 +597,7 @@ class Upload extends Base_controller {
     // --------------------------------------------------------------------
     function directory()
     {
-        $this->load->helper(array('url'));
+        helper(['url']);
         $this->load->library('table');
 
         $style = "width:40em;padding:5px 0 5px 0;";

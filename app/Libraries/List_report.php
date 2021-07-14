@@ -34,7 +34,7 @@ class List_report {
     function list_report($mode) {
         $CI =& get_instance();
         session_start();
-        $CI->load->helper(array('form', 'menu', 'link_util'));
+        helper(['form', 'menu', 'link_util']);
         $CI->choosers = model('App\Models\dms_chooser');
 
         $CI->cu->load_mod('g_model', 'gen_model', 'na', $this->config_source);
@@ -141,7 +141,7 @@ class List_report {
         $form_field_names = array_keys($primary_filter_specs);
 
         // use entry page helper mojo to relate segments to filter fields
-        $CI->load->helper(array('entry_page'));
+        helper(['entry_page']);
         $initial_field_values = get_values_from_segs($form_field_names, $segs);
 
         // we are completely replacing filter values, so get rid of any we pulled from cache
@@ -179,8 +179,8 @@ class List_report {
         $CI =& get_instance();
         session_start();
 
-        $CI->load->helper('form');
-        $CI->load->helper(array('filter', 'link_util'));
+        helper('form');
+        helper(['filter', 'link_util']);
 
         $CI->cu->load_mod('q_model', 'data_model', $this->config_name, $this->config_source);
         $cols = $CI->data_model->get_col_names();
@@ -232,7 +232,7 @@ class List_report {
         $data_type = $CI->model->get_column_data_type($column_name);
         $cmpSelOpts = $CI->model->get_allowed_comparisons_for_type($data_type);
 
-        $CI->load->helper('form');
+        helper('form');
         echo form_dropdown('qf_comp_sel[]', $cmpSelOpts);
     }
 
@@ -268,7 +268,7 @@ class List_report {
             $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $qp->sorting_items);
             $data['rows'] = $rows;
 
-            $CI->load->helper(array('string'));
+            helper(['string']);
             echo view('main/list_report_data', $data);
         }
     }
@@ -351,7 +351,7 @@ class List_report {
         $CI =& get_instance();
         session_start();
 
-        $CI->load->helper(array('link_util'));
+        helper(['link_util']);
         $this->set_up_list_query();
 
         $current_filter_values = $CI->paging_filter->get_current_filter_values();
@@ -438,7 +438,7 @@ class List_report {
     function export($format) {
         $CI =& get_instance();
         session_start();
-        $CI->load->helper(array('export'));
+        helper(['export']);
 
         $this->set_up_list_query();
 

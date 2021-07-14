@@ -276,7 +276,7 @@ class S_model extends Model {
     // --------------------------------------------------------------------
     private function cache_total_rows() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         save_to_cache($this->total_rows_storage_name, count($this->result_array));
     }
@@ -284,7 +284,7 @@ class S_model extends Model {
     // --------------------------------------------------------------------
     private function cache_column_info() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         save_to_cache($this->col_info_storage_name, $this->column_info);
     }
@@ -336,7 +336,7 @@ class S_model extends Model {
      */
     function get_column_info() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         $col_info = array();
         // get cached values, if any
@@ -355,7 +355,7 @@ class S_model extends Model {
         $working_total = -1;
 
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         // get cached values, if any
         $state = get_from_cache($this->total_rows_storage_name);
@@ -500,7 +500,7 @@ class S_model extends Model {
     // --------------------------------------------------------------------
     function clear_cached_state() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);
     }

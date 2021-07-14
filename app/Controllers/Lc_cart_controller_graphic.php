@@ -25,7 +25,7 @@ class Lc_cart_controller_graphic extends BaseController {
     // --------------------------------------------------------------------
     function cart()
     {
-        $this->load->helper(array('user', 'dms_search', 'menu'));
+        helper(['user', 'dms_search', 'menu']);
 
         // labelling information for view
         $data['title'] = "LC Cart Configuration";

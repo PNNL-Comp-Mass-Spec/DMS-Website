@@ -57,7 +57,7 @@ class General_query {
      */
     function get_query_values_from_url() {
         $CI =& get_instance();
-        $CI->load->helper(array('url'));
+        helper(['url']);
 
         $p = new General_query_def();
         $p->output_format = $CI->uri->segment(3);
@@ -122,7 +122,7 @@ class General_query {
      */
     function setup_query_for_base_controller() {
         $CI =& get_instance();
-        $CI->load->helper(array('url'));
+        helper(['url']);
 
         $input_params = new General_query_def();
         $input_params->config_source = $CI->my_tag;
@@ -214,7 +214,7 @@ class General_query {
 
         switch (strtolower($output_format)) {
             case 'dump':
-                $CI->load->helper('test');
+                helper('test');
                 dump_q_model($model);
                 break;
             case 'sql':

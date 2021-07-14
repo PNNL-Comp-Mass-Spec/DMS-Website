@@ -23,7 +23,7 @@ class Paging_filter {
      */
     function init($config_name, $config_source) {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         $this->config_name = $config_name;
         $this->config_source = $config_source;
@@ -107,7 +107,7 @@ class Paging_filter {
      */
     function clear_cached_state() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
         if (property_exists($this, "storage_name")) {
             clear_cache($this->storage_name);
         }

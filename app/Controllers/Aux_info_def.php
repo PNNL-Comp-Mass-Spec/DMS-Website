@@ -31,7 +31,7 @@ class Aux_info_def extends Base_controller {
         if(empty($options)) {
             echo "(none)";
         } else {
-            $this->load->helper(array('form'));
+            helper(['form']);
             $fn = "getChildren(\"$config_name\")";
             $sz = count($options);
             echo form_multiselect('bob', $options, '', "size='$sz' id='$config_name' onclick='$fn'");

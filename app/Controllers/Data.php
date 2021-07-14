@@ -37,7 +37,7 @@ class Data extends BaseController {
     function ax()
     {
         session_start();
-        $this->load->helper(array('url'));
+        helper(['url']);
         $this->load->library('controller_utility', '', 'cu');
         $this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
 
@@ -60,7 +60,7 @@ class Data extends BaseController {
     function set_up_nav_bar($page_type)
     {
         $this->help_page_link = $this->config->item('pwiki') . $this->config->item('wikiHelpLinkPrefix');
-        $this->load->helper(array('menu', 'dms_search'));
+        helper(['menu', 'dms_search']);
         $this->menu = model('App\Models\dms_menu');
         return get_nav_bar_menu_items($page_type, $this);
     }
@@ -85,7 +85,7 @@ class Data extends BaseController {
     function lz()
     {
         $this->load->library('controller_utility', '', 'cu');
-        $this->load->helper(array('url', 'user'));
+        helper(['url', 'user']);
         $segs = array_slice($this->uri->segment_array(), 2);
 //print_r($_POST); echo "\n";
         $output_format = $segs[0];
@@ -146,7 +146,7 @@ class Data extends BaseController {
     function json()
     {
         session_start();
-        $this->load->helper(array('url'));
+        helper(['url']);
         $this->load->library('controller_utility', '', 'cu');
         $this->cu->load_lib('general_query', '', ''); // $config_name, $config_source
 
@@ -181,7 +181,7 @@ class Data extends BaseController {
     function lr()
     {
         $this->load->library('controller_utility', '', 'cu');
-        $this->load->helper(array('url', 'user'));
+        helper(['url', 'user']);
         $segs = array_slice($this->uri->segment_array(), 2);
 
         $config_source = $segs[0];
@@ -246,7 +246,7 @@ class Data extends BaseController {
         $dbh = new PDO("sqlite:$dbFilePath");
         if(!$dbh) throw new Exception('Could not connect to menu config database at '.$dbFilePath);
 
-        $this->load->helper(array('url'));
+        helper(['url']);
         $this->load->library('table');
         $this->table->set_template(array ('table_open'  => '<table class="EPag">'));
         $this->table->set_heading('Page', 'Table', 'DB');

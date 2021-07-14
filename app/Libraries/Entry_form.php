@@ -36,7 +36,7 @@ class Entry_form {
      */
     private function set_field_values_to_default() {
         $CI =& get_instance();
-        $CI->load->helper('user');
+        helper('user');
 
         foreach ($this->form_field_specs as $fldName => $spc) {
             $this->field_values[$fldName] = $this->get_default_value($CI, $fldName, $spc);
@@ -119,7 +119,7 @@ class Entry_form {
     function build_display($mode) {
         $CI =& get_instance();
         $CI->choosers = model('App\Models\dms_chooser');
-        $CI->load->helper(array('url', 'string', 'form'));
+        helper(['url', 'string', 'form']);
 
         $visible_fields = array();
         $hidden_fields = array();

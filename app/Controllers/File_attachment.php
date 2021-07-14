@@ -24,7 +24,7 @@ class File_attachment extends Base_controller {
     {
         // Call the parent constructor
         parent::__construct();
-        $this->load->helper(array('file_attachment','download'));
+        helper(['file_attachment','download']);
         $this->my_tag = "file_attachment";
         $this->my_title = "File Attachments";
         $this->archive_root_path = $this->config->item('file_attachment_archive_root_path'); // returns null if not set
@@ -408,7 +408,7 @@ class File_attachment extends Base_controller {
     private
     function make_attachment_tracking_entry($name, $type, $id, $description, $size, $path)
     {
-        $this->load->helper(array('user','url'));
+        helper(['user','url']);
         $response = "OK";
         try {
             // init sproc model
@@ -454,7 +454,7 @@ class File_attachment extends Base_controller {
         $mode = $this->input->post("mode");
         $id = $this->input->post("id");
 
-        $this->load->helper(array('user','url'));
+        helper(['user','url']);
         $response = "OK";
         try {
             // init sproc model
@@ -492,7 +492,7 @@ class File_attachment extends Base_controller {
     function show_attachments() {
         $type = $this->input->post("entity_type");
         $id = $this->input->post("entity_id");
-        $this->load->helper(array('link_util'));
+        helper(['link_util']);
 
         $this->load->database();
         $this->db->select("File_Name AS Name, Description, ID as FID");

@@ -716,14 +716,14 @@ class Q_model extends Model {
     // --------------------------------------------------------------------
     function clear_cached_total_rows() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
         clear_cache($this->total_rows_storage_name);
     }
 
     // --------------------------------------------------------------------
     function clear_cached_state() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);
     }
@@ -743,7 +743,7 @@ class Q_model extends Model {
 
         if (!$this->result_column_info || $forceRefresh) {
             $CI =& get_instance();
-            $CI->load->helper('cache');
+            helper('cache');
             $state = get_from_cache($this->col_info_storage_name);
             if ($state) {
                 $this->result_column_info = $state;
@@ -767,7 +767,7 @@ class Q_model extends Model {
     // --------------------------------------------------------------------
     function get_column_info_cache_data() {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         return get_from_cache($this->col_info_storage_name);
     }
@@ -775,7 +775,7 @@ class Q_model extends Model {
     // --------------------------------------------------------------------
     private function set_col_info_data($state) {
         $CI =& get_instance();
-        $CI->load->helper('cache');
+        helper('cache');
 
         $this->result_column_info = $state;
         save_to_cache($this->col_info_storage_name, $state);

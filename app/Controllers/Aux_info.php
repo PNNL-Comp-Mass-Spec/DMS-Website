@@ -31,7 +31,7 @@ class Aux_info extends BaseController {
         $this->my_list_action = "aux_info/report";
         $this->my_export_action = "aux_info/export";
 
-        $this->load->helper(array('url', 'string', 'form'));
+        helper(['url', 'string', 'form']);
         $this->model = model('App\\Models\\'.$this->my_model);
 
         $this->load->library('aux_info_support');
@@ -58,13 +58,13 @@ class Aux_info extends BaseController {
      */
     function show($target, $id)
     {
-        $this->load->helper('menu');
+        helper('menu');
 
         // nav_bar setup
         $this->menu = model('App\Models\dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
-        $this->load->helper('detail_report_helper');
+        helper('detail_report_helper');
         try {
             $this->model->check_connection();
 
@@ -89,7 +89,7 @@ class Aux_info extends BaseController {
      */
     function entry($target, $id, $name = "")
     {
-        $this->load->helper('menu');
+        helper('menu');
         $this->_set_aux_info_names($target, $id);
         $data['ais'] = $this->aux_info_support;
 
