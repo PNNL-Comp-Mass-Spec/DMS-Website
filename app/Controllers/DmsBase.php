@@ -38,7 +38,7 @@ class DmsBase extends BaseController
     // --------------------------------------------------------------------
     function index()
     {
-        redirect($this->my_tag.'/report');
+        return redirect()->to(site_url($this->my_tag.'/report'));
     }
 
     // --------------------------------------------------------------------

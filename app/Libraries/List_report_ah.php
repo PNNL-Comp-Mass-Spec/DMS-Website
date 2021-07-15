@@ -39,7 +39,7 @@ class List_report_ah extends List_report {
         if (!empty($segs)) {
             $primary_filter_specs = $this->controller->model->get_primary_filter_specs();
             $this->set_pri_filter_from_url_segments($segs, $primary_filter_specs);
-            redirect(implode('/', $root_segs));
+            redirect()->to(site_url(implode('/', $root_segs)));
         }
 
         $data['tag'] = $this->tag;

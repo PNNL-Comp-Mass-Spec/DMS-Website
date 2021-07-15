@@ -17,7 +17,7 @@ class Factors extends Grid {
     {
         // Don't show the "Editing Grid Demonstration Pages".
         // Redirect to the appropriate grid editing page
-        redirect($this->my_tag.'/grid');
+        return redirect()->to(site_url($this->my_tag.'/grid'));
     }
 
     // --------------------------------------------------------------------

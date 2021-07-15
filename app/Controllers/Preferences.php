@@ -78,7 +78,7 @@ class Preferences extends BaseController {
         if(isset($_SESSION[$key])) {
             unset($_SESSION[$key]);
         }
-        redirect('preferences/session');
+        redirect()->to(site_url('preferences/session'));
     }
     // --------------------------------------------------------------------
     function columns()

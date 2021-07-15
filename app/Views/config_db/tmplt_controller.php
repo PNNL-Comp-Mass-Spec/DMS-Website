@@ -1,6 +1,4 @@
-require("DmsBase.php");
-
-class <?= $tag ?> extends DmsBase {
+class <?= $tag ?> extends \App\Controllers\DmsBase {
     // --------------------------------------------------------------------
     function __construct()
     {

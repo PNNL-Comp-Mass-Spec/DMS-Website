@@ -43,7 +43,7 @@ class Run_tracking extends DmsBase {
         $ns = $this->uri->total_segments();
         if($ns < 5) {
             $url = $this->my_tag . "/cal/$instrument/$year/$month";
-            redirect($url);
+            redirect()->to(site_url($url));
         }
         // URL was complete - return URL parameters
         return array(

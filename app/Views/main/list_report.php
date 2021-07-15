@@ -99,7 +99,7 @@ Download in other formats (<a href="<?= config('App')->pwiki ?>DMS_Data_Export" 
     // gamma is defined in dms2.js
     //
     gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+    gamma.pageContext.my_tag = '<?= $my_tag ?>';
     gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
     gamma.pageContext.responseContainerId =  "update_message";
     gamma.pageContext.cntrlContainerId =  "clear_message";

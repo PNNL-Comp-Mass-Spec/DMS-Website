@@ -53,7 +53,7 @@ class Config_db extends BaseController {
      */
     function index() {
         helper(['url']);
-        redirect('config_db/page_families');
+        return redirect()->to(site_url('config_db/page_families'));
     }
 
     /**

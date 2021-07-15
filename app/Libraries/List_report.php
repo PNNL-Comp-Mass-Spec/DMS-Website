@@ -76,10 +76,11 @@ class List_report {
                 // Clear any cached filter values
                 $this->set_sec_filter_from_url_segments($sfSegs);
             }
-            redirect($this->tag . '/' . $mode);
+            redirect()->to(site_url($this->tag . '/' . $mode));
         }
 
         $data['tag'] = $this->tag;
+        $data['my_tag'] = $this->controller->my_tag;
 
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, $mode);
 
