@@ -270,7 +270,7 @@ class Q_model extends Model {
             }
         }
 
-        $this->set_my_sql_builder("sql_" . $my_db->dbdriver);
+        $this->set_my_sql_builder("Sql_" . $my_db->dbdriver);
 
         return false;
     }
@@ -293,7 +293,7 @@ class Q_model extends Model {
      * @param type $bldr_class
      */
     private function set_my_sql_builder($bldr_class) {
-        $sqlBuilder = "\App\Libraries\$bldr_class";
+        $sqlBuilder = "\\App\\Libraries\\$bldr_class";
         $this->sql_builder = new $sqlBuilder();
     }
 

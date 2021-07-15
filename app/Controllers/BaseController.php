@@ -57,7 +57,7 @@ class BaseController extends Controller
 	}
 
     // --------------------------------------------------------------------
-    protected function message_box($heading, $message, $title = '') {
+    public function message_box($heading, $message, $title = '') {
         $data['title'] = ($title) ? $title : $heading;
         $data['heading'] = $heading;
         $data['message'] = $message;
@@ -72,7 +72,7 @@ class BaseController extends Controller
      * @param boolean $options Custom options flag
      * @return boolean
      */
-    protected function load_lib($lib_name, $config_name, $config_source, $options = false) {
+    public function load_lib($lib_name, $config_name, $config_source, $options = false) {
         $localName = lcfirst($lib_name);
         if (property_exists($this, $localName)) {
             return true;
@@ -82,9 +82,9 @@ class BaseController extends Controller
         $libPath = "\\App\\Libraries\\$lib_name";
         $this->$localName = new $libPath();
         if ($options === false) {
-            return $this->$lib_name->init($config_name, $config_source, $this);
+            return $this->$localName->init($config_name, $config_source, $this);
         } else {
-            return $this->$lib_name->init($config_name, $config_source, $this, $options);
+            return $this->$localName->init($config_name, $config_source, $this, $options);
         }
     }
 
@@ -96,7 +96,7 @@ class BaseController extends Controller
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
      */
-    protected function load_mod($model_name, $local_name, $config_name, $config_source) {
+    public function load_mod($model_name, $local_name, $config_name, $config_source) {
         if (property_exists($this, $local_name)) {
             return true;
         }
@@ -117,7 +117,7 @@ class BaseController extends Controller
      * @param boolean $output_message When true, update the message box with "Access Denied"
      * @return boolean
      */
-    protected function check_access($action, $output_message = true) {
+    public function check_access($action, $output_message = true) {
         helper('user');
         $user = get_user();
 

@@ -114,7 +114,7 @@ class M_aux_info_copy extends Model {
         // Use Sproc_mssql  with PHP 5 on Apache 2.2
         // Set this based on the current DB driver
 
-        $sprocHandler = "\App\Libraries\Sproc_" . $my_db->dbdriver;
+        $sprocHandler = "\\App\\Libraries\\Sproc_" . $my_db->dbdriver;
         $sproc_handler = new $sprocHandler();
 
         $sprocName = "CopyAuxInfo";

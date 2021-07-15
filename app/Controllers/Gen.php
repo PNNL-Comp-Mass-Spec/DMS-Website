@@ -92,7 +92,7 @@ class Gen extends BaseController
                 $menu_item_table = "home_menu_items"
     )
     {
-        $this->menu = model('\App\Models\Dms_menu');
+        $this->menu = model('\\App\\Models\\Dms_menu');
         helper(['form', 'user', 'menu', 'dms_search']);
 
         // labelling information for view
@@ -161,7 +161,7 @@ class Gen extends BaseController
     function side_menu()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('\App\Models\Dms_menu');
+        $this->menu = model('\\App\\Models\\Dms_menu');
         echo view('menu_panel');
     }
 
@@ -172,7 +172,7 @@ class Gen extends BaseController
     function side_menu_objects()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('\App\Models\Dms_menu');
+        $this->menu = model('\\App\\Models\\Dms_menu');
 
         $menu_def = $this->menu->get_menu_def("dms_menu.db", "menu_def");
         $items = build_side_menu_object_tree($menu_def, '');
@@ -229,7 +229,7 @@ class Gen extends BaseController
     function auth()
     {
         // load the authorization model
-        $this->auth = model('\App\Models\Dms_authorization');
+        $this->auth = model('\\App\\Models\\Dms_authorization');
         $rows = $this->auth->get_master_restriction_list();
 
         $this->table = new \CodeIgniter\View\Table();
@@ -252,7 +252,7 @@ class Gen extends BaseController
      */
     function stats()
     {
-        $this->model = model('\App\Models\Dms_statistics');
+        $this->model = model('\\App\\Models\\Dms_statistics');
         helper(['form', 'user', 'dms_stats', 'dms_search', 'menu']);
 
         // nav_bar setup
