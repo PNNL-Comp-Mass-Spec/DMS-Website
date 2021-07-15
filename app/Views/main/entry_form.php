@@ -34,7 +34,7 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 <script type='text/javascript'>
     gamma.pageContext.site_url = '<?= site_url() ?>';
     gamma.pageContext.base_url = '<?= base_url() ?>';
-    gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+    gamma.pageContext.my_tag = '<?= $my_tag ?>';
     epsilon.pageContext.containerId = 'form_container';
     epsilon.pageContext.modeFieldId = 'entry_cmd_mode';
     epsilon.pageContext.entryFormId = 'entry_form';
@@ -43,7 +43,7 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 
 <?php if($entry_submission_cmds != ""): ?>
 <script src="<?= base_url().'javascript/entry.js?version=102' ?>"></script>
-<script type='text/javascript'>gamma.pageContext.cmdInit = entry.<?= $this->my_tag ?>.cmdInit;</script>
+<script type='text/javascript'>gamma.pageContext.cmdInit = entry.<?= $my_tag ?>.cmdInit;</script>
 <?php endif; ?>
 
 <script type='text/javascript'>

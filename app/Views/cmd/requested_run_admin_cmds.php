@@ -15,7 +15,7 @@
 <input class="button lst_cmd_btn" type="button" value="Update" 
        onClick='lcmd.requested_run_admin.op("assignedInstrument", "instrument_name_chooser")' />
 Assign the selected requests to instrument
-<span><?= $this->choosers->get_chooser('instrument_name', 'instrumentNamePickList')?></span>
+<span><?= $choosers->get_chooser('instrument_name', 'instrumentNamePickList')?></span>
 </div>
 
 <div>
@@ -36,7 +36,7 @@ Assign the selected requests to instrument
 <input class="button lst_cmd_btn" type="button" value="Update" 
        onClick='lcmd.requested_run_admin.op("instrumentGroupIgnoreType", "instrument_group_chooser")' />
 Change instrument group of selected requests to
-<span><?= $this->choosers->get_chooser('instrument_group', 'instrumentGroupPickList')?></span>
+<span><?= $choosers->get_chooser('instrument_group', 'instrumentGroupPickList')?></span>
 </div>
 
 <div>
@@ -45,7 +45,7 @@ Change instrument group of selected requests to
 <input class="button lst_cmd_btn" type="button" value="Update" 
        onClick='lcmd.requested_run_admin.op("datasetType", "dataset_type_chooser")' />
 Change dataset type of selected requests to
-<span><?= $this->choosers->get_chooser('dataset_type', 'datasetTypePickList')?></span>
+<span><?= $choosers->get_chooser('dataset_type', 'datasetTypePickList')?></span>
 </div>
 
 <div>
@@ -54,7 +54,7 @@ Change dataset type of selected requests to
 <input class="button lst_cmd_btn" type="button" value="Update" 
        onClick='lcmd.requested_run_admin.op("separationGroup", "separation_group_chooser")' />
 Change separation group of selected requests to
-<span><?= $this->choosers->get_chooser('separation_group', 'separationGroupPickList')?></span>
+<span><?= $choosers->get_chooser('separation_group', 'separationGroupPickList')?></span>
 </div>
 
 <hr>

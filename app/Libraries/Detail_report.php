@@ -36,6 +36,7 @@ class Detail_report {
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, 'show');
 
         $data['tag'] = $this->tag;
+        $data['my_tag'] = $this->controller->my_tag;
         $data['id'] = $id;
         $data['commands'] = $this->controller->gen_model->get_detail_report_commands();
         $dcmdp = $this->controller->gen_model->get_detail_report_cmds();

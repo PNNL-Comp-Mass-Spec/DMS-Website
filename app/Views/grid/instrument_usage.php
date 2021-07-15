@@ -20,7 +20,7 @@
 <tr>
     <td><span>Instrument</span></td>
     <td>
-    <?= $this->choosers->get_chooser('instrument_fld', 'usageTrackedInstruments')?>
+    <?= $choosers->get_chooser('instrument_fld', 'usageTrackedInstruments')?>
     </td>
     <td><span>Year</span></td>
     <td>

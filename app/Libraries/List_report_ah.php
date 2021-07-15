@@ -43,6 +43,7 @@ class List_report_ah extends List_report {
         }
 
         $data['tag'] = $this->tag;
+        $data['my_tag'] = $this->controller->my_tag;
         $data['title'] = $this->controller->gen_model->get_page_label('', $mode);
 
         // get stuff related to list report optional features
@@ -51,6 +52,9 @@ class List_report_ah extends List_report {
         $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
         $data['ops_url'] = ''; ///site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
+
+        //$data['check_access'] = [$this->controller, 'check_access'];
+        //$data['choosers'] = $this->controller->choosers;
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports', $this->controller);
         echo view('main/list_report', $data);

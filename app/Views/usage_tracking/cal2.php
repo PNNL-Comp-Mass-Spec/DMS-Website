@@ -16,7 +16,7 @@
 
 <?= $rollup ?>
 
-<?= $this->calendar->generate($year, $month, $calendarData); ?>
+<?= $calendar->generate($year, $month, $calendarData); ?>
 
 <div class='repBox' >
 <table>

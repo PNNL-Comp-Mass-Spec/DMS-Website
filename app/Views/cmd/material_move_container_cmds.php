@@ -19,7 +19,7 @@
 <span><input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.material_move_container.op("move_container", "location_fld")' /></span>
 <span>Move selected containers to location</span>
 <input type='text' name='location_fld' id='location_fld' size='22' maxlength='22' >
-<?= $this->choosers->make_chooser('location_fld', 'list-report.helper', '', '/helper_material_location/report', 'choose...', '', '') ?>
+<?= $choosers->make_chooser('location_fld', 'list-report.helper', '', '/helper_material_location/report', 'choose...', '', '') ?>
 </div>
 
 <div>

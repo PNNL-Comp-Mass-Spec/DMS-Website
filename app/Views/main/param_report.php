@@ -95,7 +95,7 @@ echo view("main/param_report_export");
 
 <script type='text/javascript'>
     gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.my_tag = '<?= $this->my_tag ?>';
+    gamma.pageContext.my_tag = '<?= $my_tag ?>';
     gamma.pageContext.responseContainerId =  'update_message';
     gamma.pageContext.cntrlContainerId =  'clear_message';
     gamma.pageContext.ops_url = '<?= $ops_url ?>';

@@ -92,6 +92,7 @@ class Entry {
 
         // build page display components and load page
         $data['tag'] = $this->tag;
+        $data['my_tag'] = $this->controller->my_tag;
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, $page_type);
         $data['form'] = $this->controller->entry_form->build_display($mode);
         $data['entry_cmds'] = $this->handle_cmd_btns($this->controller, $form_def->entry_commands, $page_type);

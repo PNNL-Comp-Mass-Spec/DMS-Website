@@ -33,6 +33,8 @@ class Grid extends DmsBase {
         // That leads to $data['save_url'] = "https://dms2.pnl.gov/instrument_usage_report/operation"
         $data['save_url'] = ($save_url) ? site_url($save_url) : site_url($this->my_tag  . "operation");
 
+        $data['choosers'] = $this->choosers;
+
         echo view("grid/".$view_name, $data);
     }
 

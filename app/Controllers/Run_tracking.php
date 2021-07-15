@@ -115,6 +115,8 @@ class Run_tracking extends DmsBase {
         // link to ERS report report
         $data['ers_link'] = site_url("instrument_usage_report/report/$year/$month/$instrument");
 
+        $data['calendar'] = $this->calendar;
+
         echo view('usage_tracking/cal2', $data);
     }
 

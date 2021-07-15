@@ -58,6 +58,7 @@ class Param_report {
 
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, 'param');
         $data['tag'] = $this->tag;
+        $data['my_tag'] = $this->controller->my_tag;
 
         // get stuff related to list report optional features
 //      $data['loading'] = ($mode === 'search')?'no_load':'';
@@ -65,6 +66,9 @@ class Param_report {
         $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
         $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
+
+        $data['check_access'] = [$this->controller, 'check_access'];
+        $data['choosers'] = $this->controller->choosers;
 
         helper(['menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages', $this->controller);

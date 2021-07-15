@@ -11,7 +11,7 @@
 <span style="font-weight:bold">Dataset Type:</span>
 <div>
     <input type="text" name='DatasetType' id='dataset_type_fld' ></input>
-    <span><?= $this->choosers->get_chooser('dataset_type_fld', 'datasetTypePickList')?></span>
+    <span><?= $choosers->get_chooser('dataset_type_fld', 'datasetTypePickList')?></span>
 </div>
 </div>
 

@@ -305,6 +305,9 @@ class Freezer extends DmsBase {
         $data['storage'] = $storage;
         $data['contents'] = $contents;
 
+        $data['check_access'] = [$this, 'check_access'];
+        $data['table'] = $this->table;
+
         echo view('special/freezer', $data);
     }
 

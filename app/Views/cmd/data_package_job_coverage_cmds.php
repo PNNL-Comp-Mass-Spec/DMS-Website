@@ -42,7 +42,7 @@ Test
 <div>
 Tool to search for
 <input id='tool_name' value='MSXML_Gen' size='24'></input>
-<span><?= $this->choosers->get_chooser('tool_name', 'analysisToolPickList')?></span>
+<span><?= $choosers->get_chooser('tool_name', 'analysisToolPickList')?></span>
 </div>
 <div>
 <input class='button lst_cmd_btn' type="button" value="Datasets Without Jobs" onClick='lcmd.data_package_job_coverage.getDatasetInfo("NoDMSJobs")' title=""  />

@@ -42,7 +42,7 @@ Processors to be added to this group:
 <textarea name="addList" id='add_list_fld' onChange='epsilon.convertList("add_list_fld", ",")' rows=6 cols=80 ></textarea>
 </div>
 <div>
-<span>(You can add to the list above by picking processors from :<?= $this->choosers->get_chooser('add_list_fld', 'assignedProcessorPickList', 'append_comma')?>)</span>
+<span>(You can add to the list above by picking processors from :<?= $choosers->get_chooser('add_list_fld', 'assignedProcessorPickList', 'append_comma')?>)</span>
 </div>
 <input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_membership.op("add_processors", "", "")' />
 </div>
