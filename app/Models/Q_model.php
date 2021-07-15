@@ -250,6 +250,13 @@ class Q_model extends Model {
                         // $my_db->connID is normally an object
                         // But if an error occurs, it is false
                         // Retry establishing the connection
+                        $my_db->reconnect();
+                    }
+                    
+                    if ($my_db->connID === false) {
+                        // $my_db->connID is normally an object
+                        // But if an error occurs, it is false
+                        // Retry establishing the connection
                         throw new \Exception('$my_db->connID returned false in S_model');
                     }
 
@@ -258,14 +265,14 @@ class Q_model extends Model {
                 }
             } catch (\Exception $ex) {
                 $errorMessage = $ex->getMessage();
-                log_message('error', "Exception connecting to DB group $this->query_parts->dbn (config name $config_name): $errorMessage");
+                log_message('error', "Exception connecting to DB group {$this->query_parts->dbn} (config name $config_name): $errorMessage");
                 $connectionRetriesRemaining--;
                 if ($connectionRetriesRemaining > 0) {
-                    log_message('error', "Retrying connection to $this->query_parts->dbn in $connectionSleepDelayMsec msec");
+                    log_message('error', "Retrying connection to {$this->query_parts->dbn} in $connectionSleepDelayMsec msec");
                     usleep($connectionSleepDelayMsec * 1000);
                     $connectionSleepDelayMsec *= 2;
                 } else {
-                    throw new \Exception("Connection to DB group $this->query_parts->dbn failed: $errorMessage");
+                    throw new \Exception("Connection to DB group {$this->query_parts->dbn} failed: $errorMessage");
                 }
             }
         }
@@ -405,7 +412,7 @@ class Q_model extends Model {
      * @return type
      */
     function get_sql($option = 'filtered_and_paged') {
-        return $this->sqlbldr->build_query_sql($this->query_parts, $option);
+        return $this->sql_builder->build_query_sql($this->query_parts, $option);
     }
 
     // --------------------------------------------------------------------
@@ -413,7 +420,7 @@ class Q_model extends Model {
 //      $id = 'xx';
         $spc = current($this->primary_filter_specs);
         $this->add_predicate_item('AND', $spc['col'], $spc['cmp'], $id);
-        return $this->sqlbldr->build_query_sql($this->query_parts, 'filtered_only');
+        return $this->sql_builder->build_query_sql($this->query_parts, 'filtered_only');
     }
 
     // --------------------------------------------------------------------
@@ -477,7 +484,7 @@ class Q_model extends Model {
     function get_rows($option = 'filtered_and_paged') {
         $this->assure_sorting($option);
 
-        $this->main_sql = $this->sqlbldr->build_query_sql($this->query_parts, $option);
+        $this->main_sql = $this->sql_builder->build_query_sql($this->query_parts, $option);
 
         $my_db = $this->get_db_object($this->query_parts->dbn);
         $query = $my_db->query($this->main_sql);
@@ -662,7 +669,7 @@ class Q_model extends Model {
         $working_total = -1;
 
         // need to get current base sql to compare with cached version
-        $sql = $this->sqlbldr->build_query_sql($this->query_parts, 'count_only');
+        $sql = $this->sql_builder->build_query_sql($this->query_parts, 'count_only');
         $base_sql = $this->get_base_sql();
 
         // Get cached values, if any.
@@ -691,7 +698,7 @@ class Q_model extends Model {
                 throw new \Exception("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
             }
 
-            $row = $query->row();
+            $row = $query->getRow();
             $query->freeResult();
             $working_total = $row->numrows;
 
@@ -777,11 +784,11 @@ class Q_model extends Model {
      * @return type
      */
     private function get_col_data() {
-        $sql = $this->sqlbldr->build_query_sql($this->query_parts, 'column_data_only');
+        $sql = $this->sql_builder->build_query_sql($this->query_parts, 'column_data_only');
 
         $my_db = $this->get_db_object($this->query_parts->dbn);
         $query = $my_db->query($sql);
-        $result_column_info = $query->field_data();
+        $result_column_info = $query->getFieldData();
         // $query->freeResult();
         return $result_column_info;
     }
