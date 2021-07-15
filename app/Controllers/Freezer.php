@@ -48,7 +48,7 @@ class Freezer extends DmsBase {
         $this->freezer = model('App\Models\Freezer_model');
 
         $frzrs = $this->freezer->get_freezers();
-        $items = $this->freezer->build_freezer_location_list('Freezer', $frzrs);
+        $items = $this->freezer->build_freezer_location_list('Freezer', $frzrs, $this);
         echo json_encode($items);
     }
 
@@ -67,7 +67,7 @@ class Freezer extends DmsBase {
 
         $sub_type = $this->freezer->get_sub_location_type($Type);
         $frzrs = $this->freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row);
-        $items = $this->freezer->build_freezer_location_list($sub_type, $frzrs);
+        $items = $this->freezer->build_freezer_location_list($sub_type, $frzrs, $this);
         echo json_encode($items);
     }
 
@@ -106,7 +106,7 @@ class Freezer extends DmsBase {
         $location = $this->request->getPost('Location');
 
         $locations = $this->freezer->find_location($location);
-        $items = $this->freezer->build_freezer_location_list('', $locations);
+        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -119,7 +119,7 @@ class Freezer extends DmsBase {
         $location = $this->request->getPost('Location');
 
         $locations = $this->freezer->find_available_location($location);
-        $items = $this->freezer->build_freezer_location_list('', $locations);
+        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -132,7 +132,7 @@ class Freezer extends DmsBase {
         //$location = $this->request->getPost('Location');
 
         $locations = $this->freezer->find_newest_containers();
-        $items = $this->freezer->build_freezer_location_list('', $locations);
+        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
