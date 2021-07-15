@@ -712,7 +712,7 @@ class Cell_presentation {
         $marker = '';
         if (array_key_exists($columnName, $col_sort)) {
             $arrow = 'arrow_' . $col_sort[$columnName]->dir . $col_sort[$columnName]->precedence . '.png';
-            $marker = "<img src='" . base_url('/images/$arrow') . "' border='0' >";
+            $marker = "<img src='" . base_url("/images/$arrow") . "' border='0' >";
         }
         return $marker;
     }
