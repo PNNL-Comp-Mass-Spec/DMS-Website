@@ -228,7 +228,7 @@ class General_query {
                 break;
             case 'json':
                 $query = $model->get_rows();
-                echo json_encode($query->result());
+                echo json_encode($query->getResult());
                 break;
             case 'tsv':
                 $query = $model->get_rows();

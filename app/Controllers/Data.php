@@ -165,7 +165,7 @@ class Data extends BaseController {
         $this->general_query->setup_query($input_parms);
 
         $query = $this->model->get_rows('filtered_and_sorted'); // filtered_only  filtered_and_sorted
-        echo json_encode($query->result());
+        echo json_encode($query->getResult());
 //      echo $this->model->get_sql('filtered_and_sorted');
     }
 

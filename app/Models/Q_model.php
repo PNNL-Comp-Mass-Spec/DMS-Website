@@ -471,7 +471,7 @@ class Q_model extends Model {
             $query = $this->get_rows('filtered_only');
 
             // get single row from results
-            return $query->row_array();
+            return $query->getRowArray();
         }
     }
 
@@ -488,7 +488,7 @@ class Q_model extends Model {
 
         $my_db = $this->get_db_object($this->query_parts->dbn);
         $query = $my_db->query($this->main_sql);
-        //      $this->set_col_info_data($query->field_data());
+        //      $this->set_col_info_data($query->getFieldData());
         return $query;
 // $query->getResult() // array of objects
 // $query->getResultArray() // array of arrays
