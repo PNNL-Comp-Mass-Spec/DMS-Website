@@ -123,7 +123,7 @@ class Aux_info_support {
      * that contains information necessary to make AJAX calls
      */
     function make_aux_info_global_AJAX_definitions() {
-        $throb = base_url() . "images/throbber.gif";
+        $throb = base_url("images/throbber.gif");
         $str = '';
         $str .= <<<EOD
 <script type="text/javascript">

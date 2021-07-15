@@ -33,4 +33,4 @@
 </form>
 </div>
 
-<script src="<?= base_url().'javascript/packages.js?version=101' ?>"></script>
+<script src="<?= base_url('javascript/packages.js?version=101') ?>"></script>

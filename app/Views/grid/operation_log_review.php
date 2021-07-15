@@ -4,7 +4,7 @@
 <title><?= $title; ?></title>
 <?php echo view('resource_links/base2css') ?>
 <?php echo view('resource_links/slickgrid2css') ?>
-<link rel="stylesheet" type="text/css" href="<?= base_url().'css/grid_data.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?= base_url('css/grid_data.css') ?>" />
 </head>
 
 <body>
@@ -63,7 +63,7 @@
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/slickgrid2js') ?>
 
-<script src="<?= base_url().'javascript/data_grid.js?version=100' ?>"></script>
+<script src="<?= base_url('javascript/data_grid.js?version=100') ?>"></script>
 
 <script>
     gamma.pageContext.site_url = '<?= site_url() ?>';

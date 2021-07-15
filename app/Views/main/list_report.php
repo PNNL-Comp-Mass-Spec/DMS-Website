@@ -88,11 +88,11 @@ Download in other formats (<a href="<?= config('App')->pwiki ?>DMS_Data_Export" 
 <?php echo view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
-<script src="<?= base_url().'javascript/lcmd.js?version=105' ?>"></script>
+<script src="<?= base_url('javascript/lcmd.js?version=105') ?>"></script>
 <?php endif; ?>
 
 <?php // Increment version number here to force clients to reload lstRep.js ?>
-<script src="<?= base_url().'javascript/lstRep.js?version=100' ?>"></script>
+<script src="<?= base_url('javascript/lstRep.js?version=100') ?>"></script>
 
 <script type='text/javascript'>
     //

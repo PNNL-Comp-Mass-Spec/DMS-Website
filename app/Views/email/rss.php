@@ -22,7 +22,7 @@
     <item>
     <title><?php echo $entry['post_title']; ?></title>
     <guid><?php echo $file_tag . '_' . $entry['guid'] ?></guid>
-    <?php echo ($entry['url_title'])?'<link>'.base_url().$entry['url_title'].'</link>':''; ?>
+    <?php echo ($entry['url_title'])?'<link>'.base_url($entry['url_title']).'</link>':''; ?>
 
     <description><![CDATA[<?= $entry['post_body']; ?>]]>
     </description>

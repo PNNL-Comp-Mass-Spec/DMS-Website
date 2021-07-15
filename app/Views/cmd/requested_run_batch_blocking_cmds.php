@@ -72,5 +72,5 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 </form>
 </div>
 
-<script src="<?= base_url()?>javascript/factors.js"></script>
-<script src="<?= base_url()?>javascript/run_blocking.js"></script>
+<script src="<?= base_url('javascript/factors.js')?>"></script>
+<script src="<?= base_url('javascript/run_blocking.js')?>"></script>

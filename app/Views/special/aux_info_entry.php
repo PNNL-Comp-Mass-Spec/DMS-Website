@@ -5,7 +5,7 @@
 <?php echo view('resource_links/base2css') ?>
 <?php echo view('resource_links/base2js') ?>
 
-<script src="<?= base_url().'javascript/aux_info.js?version=100' ?>"></script>
+<script src="<?= base_url('javascript/aux_info.js?version=100') ?>"></script>
 <?= $ais->make_aux_info_global_AJAX_definitions() ?>
 
 <script type='text/javascript'>

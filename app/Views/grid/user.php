@@ -5,9 +5,9 @@
 
 <?php echo view('resource_links/base2css') ?>
 <?php echo view('resource_links/slickgrid2css') ?>
-<link rel="stylesheet" type="text/css" href="<?= base_url().'css/grid_data.css' ?>" />
+<link rel="stylesheet" type="text/css" href="<?= base_url('css/grid_data.css') ?>" />
 
-<?php $chimg = base_url()."images/chooser.png"; ?>
+<?php $chimg = base_url("images/chooser.png"); ?>
 
 </head>
 
@@ -44,7 +44,7 @@
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/slickgrid2js') ?>
 
-<script src="<?= base_url().'javascript/data_grid.js?version=100' ?>"></script>
+<script src="<?= base_url('javascript/data_grid.js?version=100') ?>"></script>
 
 <script>
     gamma.pageContext.save_changes_url = '<?= $save_url ?>';

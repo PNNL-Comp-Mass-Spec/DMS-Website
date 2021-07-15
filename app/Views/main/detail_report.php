@@ -62,8 +62,8 @@ echo view("main/detail_report_export");
     gamma.pageContext.updateShowURL = delta.updateShowURL;
 </script>
 
-<script src="<?= base_url().'javascript/file_attachment.js?version=100' ?>"></script>
-<script src="<?= base_url().'javascript/aux_info.js?version=100' ?>"></script>
+<script src="<?= base_url('javascript/file_attachment.js?version=100') ?>"></script>
+<script src="<?= base_url('javascript/aux_info.js?version=100') ?>"></script>
 
 <script type='text/javascript'>
     function updateAuxIntoControls() {

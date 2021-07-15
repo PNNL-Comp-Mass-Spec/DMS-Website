@@ -238,13 +238,13 @@ class Dms_chooser extends Model {
             	// Choose an item from a list report
                 helper(['text']);
                 $target_url = reduce_double_slashes(site_url($target));
-                $str .= "$label <a href=\"javascript:epsilon.callChooser('$f_name', '$target_url', '$delim', '$xref')\"><img src='" . base_url() . "images/chooser.png' border='0'></a>";
+                $str .= "$label <a href=\"javascript:epsilon.callChooser('$f_name', '$target_url', '$delim', '$xref')\"><img src='" . base_url('images/chooser.png') . "' border='0'></a>";
                 break;
 
             case "picker.prevDate":
             	// Show the user a calendar to allow them to select a date.
             	// The PickListName was previously either prevDatePickList or futureDatePickList, but now that we're using a calendar, the name doesn't matter.
-                $str .= "$label <a href=\"javascript:epsilon.callDatepicker('$f_name')\"><img src='" . base_url() . "images/date.png' border='0'></a>";
+                $str .= "$label <a href=\"javascript:epsilon.callDatepicker('$f_name')\"><img src='" . base_url('images/date.png') . "' border='0'></a>";
                 break;
 
             case "picker.list":

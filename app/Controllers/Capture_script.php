@@ -45,7 +45,7 @@ class Capture_script extends DmsBase {
 
         // display graph image
         echo "<h2>Diagram of $scriptName Script</h2>";
-        echo '<img src="'.base_url().$fo.'" ></img>';
+        echo '<img src="'.base_url($fo).'" ></img>';
     }
 */
 }

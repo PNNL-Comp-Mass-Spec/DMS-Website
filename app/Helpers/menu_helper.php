@@ -349,10 +349,10 @@ function get_menu_context($page_type, $controller) {
     }
     $version = config('App')->version_label;
     $color_code = config('App')->version_color_code;
-    $menu_context['side_panel_toggle'] = "<span style='margin:0;'><a title='Show/Hide side menu' href='javascript:gamma.toggle_frames();'><img src='" . base_url() . "/images/layout.png' style='border-style:none'></a></span>";
+    $menu_context['side_panel_toggle'] = "<span style='margin:0;'><a title='Show/Hide side menu' href='javascript:gamma.toggle_frames();'><img src='" . base_url('/images/layout.png') . "' style='border-style:none'></a></span>";
     $menu_context['server_info'] = "<span style='font-size:9px;color:" . $color_code . "'>" . get_user() . " &nbsp; &nbsp; " . $version . "</span>";
-    $menu_context['home_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to home page' href='" . site_url("gen/welcome") . "'><img src='" . base_url() . "/images/house.png' style='border-style:none'></a></span>";
-    $menu_context['admin_page_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to admin menu page' href='" . site_url("gen/admin") . "'><img src='" . base_url() . "/images/cog.png' style='border-style:none'></a></span>";
+    $menu_context['home_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to home page' href='" . site_url("gen/welcome") . "'><img src='" . base_url('/images/house.png') . "' style='border-style:none'></a></span>";
+    $menu_context['admin_page_link'] = "<span style='margin:0 0 0 5px;'><a title='Go to admin menu page' href='" . site_url("gen/admin") . "'><img src='" . base_url('/images/cog.png') . "' style='border-style:none'></a></span>";
 
     $menu_context['user_notification_link'] = "notification/report/-/" . get_user();
     $menu_context['email_notification_link'] = "notification/edit/" . get_user();

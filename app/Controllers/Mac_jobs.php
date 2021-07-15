@@ -192,7 +192,7 @@ class Mac_jobs extends DmsBase {
         $pwiki = config('App')->pwiki;
         $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
         $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}_${script}#${nsLabel}";
-        $s .= "<a class=help_link target = '_blank' title='Click to bring up PRISM Wiki help page' href='".$href."'><img src='" . base_url(). "/images/help.png' border='0' ></a>";
+        $s .= "<a class=help_link target = '_blank' title='Click to bring up PRISM Wiki help page' href='".$href."'><img src='" . base_url('images/help.png') . "' border='0' ></a>";
         return $s;
     }
 }

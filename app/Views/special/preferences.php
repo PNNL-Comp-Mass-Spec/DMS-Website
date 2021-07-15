@@ -85,7 +85,7 @@ foreach($settings as $setting => $def) {
 </table>
 
 
-<a href='<?= base_url()?>preferences/session'>Session</a>
+<a href='<?= base_url("preferences/session")?>'>Session</a>
 </div>
 </body>
 </html>

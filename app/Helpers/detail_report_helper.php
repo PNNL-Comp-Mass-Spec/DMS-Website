@@ -21,7 +21,7 @@ function make_detail_report_section($columns, $fields, $hotlinks, $controller_na
 
     $str .= "<tr>";
     $str .= "<th align='left'>";
-    $str .= "<a title='Back to the list report' href='../report'><img src='" . base_url() . "/images/page_white_get.png' border='0' ></img></a>";
+    $str .= "<a title='Back to the list report' href='../report'><img src='" . base_url('/images/page_white_get.png') . "' border='0' ></img></a>";
     $str .= "</th>";
     $str .= "<th>";
 
@@ -772,7 +772,7 @@ function make_export_links($entity, $id) {
  * @return string
  */
 function make_message_box($message) {
-    //$style_sheet = base_url().'css/base.css';
+    //$style_sheet = base_url('css/base.css');
     $class = (strripos($message, 'error') === false) ? 'EPag_message' : 'EPag_error';
     $s = '';
     $s .= "<div class='$class' style='width:40em;margin:20px;'>";

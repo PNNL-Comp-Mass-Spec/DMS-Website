@@ -397,7 +397,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo "<h2>Workflow for $scriptName Script</h2>";
         echo "<div style='width:60em;'>$description</div>";
         echo "<div style='height:1em;'></div>";
-        echo '<img src="'.base_url().$fo.'" ></img>';
+        echo '<img src="'.base_url($fo).'" ></img>';
     }
 
     /**

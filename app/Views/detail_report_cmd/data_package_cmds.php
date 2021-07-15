@@ -1,5 +1,5 @@
 
-<?php $chimg = base_url()."images/chooser.png"; ?>
+<?php $chimg = base_url("images/chooser.png"); ?>
 
 <?php
 // These controls are used on web page data_package/show/1234
@@ -76,5 +76,5 @@
 <div id='entry_update_status'></div>
 </div>
 
-<script src="<?= base_url().'javascript/packages.js?version=101' ?>"></script>
+<script src="<?= base_url('javascript/packages.js?version=101') ?>"></script>
 

@@ -156,7 +156,7 @@ class Config_db extends BaseController {
         $wikiBaseUrl = config('App')->pwiki;
         $wiki_helpLink_prefix = "DMS_Config_DB_Help_";
         $href = $wikiBaseUrl . $wiki_helpLink_prefix . $table_name;
-        //  $src = base_url(). "/images/help.png";
+        //  $src = base_url("/images/help.png");
         $s .= "<a class='help_link' target='_blank' title='Click for help with table' href='$href'>Help</a>";
         return $s;
     }
@@ -867,9 +867,9 @@ class Config_db extends BaseController {
             $max_width = 400;
         }
 
-        $accept_img = "<img src='" . base_url() . "images/accept.png' border='0'  alt='accept' />";
-        $delete_img = "<img src='" . base_url() . "images/delete.png' border='0'  alt='delete' />";
-        $add_img = "<img src='" . base_url() . "images/add.png' border='0' alt='add' />";
+        $accept_img = "<img src='" . base_url('images/accept.png') . "' border='0'  alt='accept' />";
+        $delete_img = "<img src='" . base_url('images/delete.png') . "' border='0'  alt='delete' />";
+        $add_img = "<img src='" . base_url('images/add.png') . "' border='0' alt='add' />";
         $attip = "Update this row in the table";
         $dttip = "Delete this row from the table";
 

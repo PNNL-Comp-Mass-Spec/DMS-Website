@@ -18,7 +18,7 @@
 <div id='diagram_section' style='position:relative;margin-left:15px;'>
     <div style='height:15px;'></div>
     <div>
-    <img src='<?= base_url()."images/cbdms_hierarchy_2.gif" ?>' border='0' USEMAP="#visImageMap">
+    <img src='<?= base_url("images/cbdms_hierarchy_2.gif") ?>' border='0' USEMAP="#visImageMap">
     </div>
 
     <div id='fly_section' style='position:absolute;top:2em;left:700px;width:25em;'>
