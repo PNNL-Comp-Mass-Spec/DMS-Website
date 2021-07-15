@@ -50,7 +50,7 @@ class Detail_report {
         $data['aux_info_target'] = $this->controller->gen_model->get_detail_report_aux_info_target();
 
         helper(['detail_report', 'menu', 'link_util']);
-        $data['nav_bar_menu_items'] = set_up_nav_bar('Detail_Reports');
+        $data['nav_bar_menu_items'] = set_up_nav_bar('Detail_Reports', $this->controller);
         echo view('main/detail_report', $data);
     }
 

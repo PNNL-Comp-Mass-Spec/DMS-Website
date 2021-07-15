@@ -1,8 +1,6 @@
 <?php
 namespace App\Libraries;
 
-require("Sproc_base.php");
-
 class Sproc_sqlsrv extends Sproc_base {
 
     /**

@@ -1,8 +1,6 @@
 <?php
 namespace App\Libraries;
 
-require("Sproc_base.php");
-
 class Sproc_postgre extends Sproc_base {
 
     /**

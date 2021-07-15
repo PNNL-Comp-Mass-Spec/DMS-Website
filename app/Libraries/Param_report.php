@@ -67,7 +67,7 @@ class Param_report {
         $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
 
         helper(['menu', 'link_util']);
-        $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages');
+        $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages', $this->controller);
         echo view('main/param_report', $data);
     }
 

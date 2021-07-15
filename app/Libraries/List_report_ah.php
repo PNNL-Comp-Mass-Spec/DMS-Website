@@ -1,8 +1,6 @@
 <?php
 namespace App\Libraries;
 
-require("List_report.php");
-
 /**
  * Generate a list report from queries defined in the utility_queries table
  */
@@ -54,7 +52,7 @@ class List_report_ah extends List_report {
         $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
         $data['ops_url'] = ''; ///site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
 
-        $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports');
+        $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports', $this->controller);
         echo view('main/list_report', $data);
     }
 

@@ -90,7 +90,7 @@ class List_report {
         $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
         $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
 
-        $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports');
+        $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports', $this->controller);
         echo view('main/list_report', $data);
     }
 

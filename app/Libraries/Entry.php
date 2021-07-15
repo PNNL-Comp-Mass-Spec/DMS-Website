@@ -98,7 +98,7 @@ class Entry {
         $data['entry_submission_cmds'] = $this->controller->gen_model->get_param('entry_submission_cmds');
 
         helper(['menu', 'link_util']);
-        $data['nav_bar_menu_items'] = set_up_nav_bar('Entry_Pages');
+        $data['nav_bar_menu_items'] = set_up_nav_bar('Entry_Pages', $this->controller);
         echo view('main/entry_form', $data);
     }
 
