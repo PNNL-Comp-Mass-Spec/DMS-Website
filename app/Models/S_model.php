@@ -162,11 +162,11 @@ class S_model extends Model {
                         // Retry establishing the connection
                         throw new Exception('\Config\Database::connect returned false in S_model');
                     } else {
-                        if ($my_db->conn_id === false) {
-                            // $my_db->conn_id is normally an object
+                        if ($my_db->connID === false) {
+                            // $my_db->connID is normally an object
                             // But if an error occurs, it is false
                             // Retry establishing the connection
-                            throw new Exception('$my_db->conn_id returned false in S_model');
+                            throw new Exception('$my_db->connID returned false in S_model');
                         }
 
                         // Exit the while loop
@@ -190,7 +190,7 @@ class S_model extends Model {
             // Use Sproc_mssql  with PHP 5 on Apache 2.2
             // Set this based on the current DB driver
 
-            $this->set_my_sproc_handler("Sproc_" . $my_db->dbdriver);
+            $this->set_my_sproc_handler("Sproc_" . strtolower($my_db->DBDriver));
 
             // bind arguments to object
             // - create fields in local param object and bind sproc args to them
@@ -216,7 +216,7 @@ class S_model extends Model {
 
             while ($execRetriesRemaining > 0) {
                 try {
-                    $this->sproc_handler->execute($this->sprocName, $my_db->conn_id, $this->sproc_args, $this->bound_calling_parameters);
+                    $this->sproc_handler->execute($this->sprocName, $my_db->connID, $this->sproc_args, $this->bound_calling_parameters);
                     // Exit the while loop
                     break;
                 } catch (Exception $ex) {

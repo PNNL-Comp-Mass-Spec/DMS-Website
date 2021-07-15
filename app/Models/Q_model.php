@@ -246,11 +246,11 @@ class Q_model extends Model {
                     // Retry establishing the connection
                     throw new Exception('\Config\Database::connect returned false in S_model');
                 } else {
-                    if ($my_db->conn_id === false) {
-                        // $my_db->conn_id is normally an object
+                    if ($my_db->connID === false) {
+                        // $my_db->connID is normally an object
                         // But if an error occurs, it is false
                         // Retry establishing the connection
-                        throw new Exception('$my_db->conn_id returned false in S_model');
+                        throw new Exception('$my_db->connID returned false in S_model');
                     }
 
                     // Exit the while loop
@@ -270,7 +270,7 @@ class Q_model extends Model {
             }
         }
 
-        $this->set_my_sql_builder("Sql_" . $my_db->dbdriver);
+        $this->set_my_sql_builder("Sql_" . strtolower($my_db->DBDriver));
 
         return false;
     }
@@ -564,11 +564,11 @@ class Q_model extends Model {
                     // Retry establishing the connection
                     throw new Exception('\Config\Database::connect returned false in Q_model');
                 } else {
-                    if ($my_db->conn_id === false) {
-                        // $my_db->conn_id is normally an object
+                    if ($my_db->connID === false) {
+                        // $my_db->connID is normally an object
                         // But if an error occurs, it is false
                         // Retry establishing the connection
-                        throw new Exception('$my_db->conn_id returned false in Q_model');
+                        throw new Exception('$my_db->connID returned false in Q_model');
                     }
                 }
 

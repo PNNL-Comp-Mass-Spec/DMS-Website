@@ -8,7 +8,7 @@ class Sproc_postgre extends Sproc_base {
      * binding arguments to fields in $input_params as defined by specifications in $args.
      * Returns results as fields in $input_params
      * @param string $sprocName Stored procedure name
-     * @param resource $conn_id Database connection ID, from  $this->db->conn_id
+     * @param resource $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @throws Exception

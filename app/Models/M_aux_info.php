@@ -241,12 +241,12 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_allowed_values($target, $category, $subcategory) {
-        $this->db->select('Item, AllowedValue');
-        $this->db->from('V_Aux_Info_Allowed_Values');
-        $this->db->where('Target', $target);
-        $this->db->where('Category', $category);
-        $this->db->where('Subcategory', $subcategory);
-        $resultSet = $this->db->get();
+        $builder = $this->db->table('V_Aux_Info_Allowed_Values');
+        $builder->select('Item, AllowedValue');
+        $builder->where('Target', $target);
+        $builder->where('Category', $category);
+        $builder->where('Subcategory', $subcategory);
+        $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_allowed_values; see application/logs/log-$currentTimestamp.php");
@@ -261,8 +261,8 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_targets() {
-        $this->db->from('T_AuxInfo_Target');
-        $resultSet = $this->db->get();
+        $builder = $this->db->table('T_AuxInfo_Target');
+        $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_targets; see application/logs/log-$currentTimestamp.php");
@@ -293,9 +293,9 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_def($target) {
-        $this->db->from('V_AuxInfo_Definition');
-        $this->db->where('Target', $target);
-        $resultSet = $this->db->get();
+        $builder = $this->db->table('V_AuxInfo_Definition');
+        $builder->where('Target', $target);
+        $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             throw new Exception("Error querying database for aux_info_def; see application/logs/log-$currentTimestamp.php");
@@ -364,7 +364,7 @@ EOD;
         // Use Sproc_mssql  with PHP 5 on Apache 2.2
         // Set this based on the current DB driver
 
-        $sprocHandler = "\\App\\Libraries\\Sproc_" . $my_db->dbdriver;
+        $sprocHandler = "\\App\\Libraries\\Sproc_" . strtolower($my_db->DBDriver);
         $sproc_handler = new $sprocHandler();
 
         $sprocName = "AddUpdateAuxInfo";
@@ -396,7 +396,7 @@ EOD;
           return;
          */
 
-        $sproc_handler->execute($sprocName, $my_db->conn_id, $args, $input_params);
+        $sproc_handler->execute($sprocName, $my_db->connID, $args, $input_params);
 
         // Examine the result code
         $result = $input_params->exec_result;

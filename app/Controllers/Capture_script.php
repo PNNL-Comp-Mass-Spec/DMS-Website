@@ -17,12 +17,12 @@ class Capture_script extends DmsBase {
         $this->model->make_db_connection();
 
         // get script XML
-        $this->db->select('Contents');
-        $this->db->from('T_Scripts');
-        $this->db->where('Script', $scriptName);
-        $query = $this->db->get();
+        $builder = $this->db->table('T_Scripts');
+        $builder->select('Contents');
+        $builder->where('Script', $scriptName);
+        $query = $builder->get();
 
-        $result = $query->row();
+        $result = $query->getRow();
         $script = $result->Contents;
 
         // build contents of dot file
