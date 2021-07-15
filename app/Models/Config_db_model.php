@@ -73,7 +73,7 @@ class Config_db_model extends Model {
 
     // --------------------------------------------------------------------
     function get_edit_table_entry_field_def($table_name, $col_name) {
-        $obj = new stdClass();
+        $obj = new \stdClass();
         $obj->type = "empty";
         if (array_key_exists($table_name, $this->table_edit_col_defs)) {
             if (array_key_exists($col_name, $this->table_edit_col_defs[$table_name])) {

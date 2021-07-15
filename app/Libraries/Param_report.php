@@ -151,7 +151,7 @@ class Param_report {
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'rules'));
 
-        $calling_params = new stdClass();
+        $calling_params = new \stdClass();
         if (empty($form_def->fields)) {
             $valid_fields = true;
         } else {

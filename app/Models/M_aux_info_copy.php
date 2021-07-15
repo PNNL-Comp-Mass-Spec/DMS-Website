@@ -121,7 +121,7 @@ class M_aux_info_copy extends Model {
 
         $sa_message = "";
 
-        $input_params = new stdClass();
+        $input_params = new \stdClass();
 
         $args = array();
 

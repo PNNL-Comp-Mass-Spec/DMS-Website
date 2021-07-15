@@ -421,7 +421,7 @@ class File_attachment extends DmsBase {
                 throw new exception($this->sproc_model->get_error_text());
             }
 
-            $calling_params = new stdClass();
+            $calling_params = new \stdClass();
 
             $calling_params->ID = '0';
             $calling_params->FileName = $name;
@@ -467,7 +467,7 @@ class File_attachment extends DmsBase {
                 throw new exception($this->sproc_model->get_error_text());
             }
 
-            $calling_params = new stdClass();
+            $calling_params = new \stdClass();
 
             $calling_params->ID = $id;
             $calling_params->mode = $mode;

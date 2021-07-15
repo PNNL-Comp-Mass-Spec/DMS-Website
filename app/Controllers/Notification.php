@@ -57,7 +57,7 @@ class Notification extends DmsBase {
         foreach($rows as $row) {
             $prn = $row['#PRN'];
             if(!array_key_exists($prn, $users)) {
-                $obj = new stdClass();
+                $obj = new \stdClass();
                 $obj->user = $prn;
                 $obj->user_name = $row['User'];
                 $obj->email = $row['Email'];

@@ -151,7 +151,7 @@ class Entry {
         $valid_fields = $this->get_input_field_values($form_def->rules);
 
         // get field values from validation object
-        $input_params = new stdClass();
+        $input_params = new \stdClass();
         foreach ($form_def->fields as $field) {
             $input_params->$field = $this->controller->postData[$field];
         }

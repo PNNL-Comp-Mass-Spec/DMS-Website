@@ -36,7 +36,7 @@ class Operation {
      */
     function internal_operation($sproc_name) {
         $config_name = $sproc_name;
-        $response = new stdClass();
+        $response = new \stdClass();
 
         try {
             // init sproc model
@@ -72,7 +72,7 @@ class Operation {
             // that will be used for calling stored procedure
             // and also putting values back into entry form HTML
             helper('user');
-            $calling_params = new stdClass();
+            $calling_params = new \stdClass();
             foreach ($fields as $field) {
                 $calling_params->$field = $postData[$field];
             }

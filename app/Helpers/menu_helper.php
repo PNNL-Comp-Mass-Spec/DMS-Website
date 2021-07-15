@@ -183,14 +183,14 @@ function build_side_menu_object_tree($menu_items, $mnu_name) {
             $label = $entry['item_label'];
             switch ($entry['item_type']) {
                 case 'submenu':
-                    $obj = new stdClass();
+                    $obj = new \stdClass();
                     $obj->title = $label;
                     $obj->folder = true;
                     $obj->children = build_side_menu_object_tree($menu_items, $name);
                     $items[] = $obj;
                     break;
                 case 'link':
-                    $obj = new stdClass();
+                    $obj = new \stdClass();
                     $obj->title = $label;
                     $obj->href = site_url($name);
                     $items[] = $obj;

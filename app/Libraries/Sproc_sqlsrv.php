@@ -103,7 +103,7 @@ class Sproc_sqlsrv extends Sproc_base {
         }
 
         // Process the results here, before we call sqlsrv_free_stmt()
-        $input_params->exec_result = new stdclass();
+        $input_params->exec_result = new \stdClass();
         $input_params->exec_result->hasRows = false;
         if (sqlsrv_has_rows($result)) {
             $input_params->exec_result->hasRows = true;
@@ -181,7 +181,7 @@ class Sproc_sqlsrv extends Sproc_base {
         $metadata = array();
         foreach (sqlsrv_field_metadata($result) as $field) {
             $sqlType = $tpconvSql[$field['Type']];
-            $F = new stdClass();
+            $F = new \stdClass();
             $F->name = $field['Name'];
             if (array_key_exists($sqlType, $tpconv)) {
                 $F->type = $tpconv[$sqlType];

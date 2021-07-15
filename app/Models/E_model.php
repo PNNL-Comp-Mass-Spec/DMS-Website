@@ -64,7 +64,7 @@ class E_model extends Model {
      * @return \stdClass
      */
     function get_form_def($which_ones) {
-        $form_def = new stdClass();
+        $form_def = new \stdClass();
 
         if (in_array('fields', $which_ones)) {
             $form_def->fields = array_keys($this->form_fields);

@@ -379,7 +379,7 @@ class Q_model extends Model {
      */
     function add_sorting_item($col, $dir = '') {
         if ($col) { // don't take malformed items
-            $o = new stdClass();
+            $o = new \stdClass();
             $o->col = $col;
             $d = strtoupper($dir);
             $o->dir = ($d == 'DESC') ? $d : 'ASC';
@@ -497,7 +497,7 @@ class Q_model extends Model {
      * @throws exception Thrown if there is an error or if the SP returns a non-zero value
      */
     function get_data_row_from_sproc($id, $controller) {
-        $calling_params = new stdClass();
+        $calling_params = new \stdClass();
 
         // When calling a stored procedure from a detail report, we do not allow for passing custom values for stored procedure parameters
         // If you want to do that, use a list-report that is backed by a stored procedure

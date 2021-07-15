@@ -148,13 +148,13 @@ EOD;
             // User does not have permission to update items on this page
             // Return some dummy values
 
-            $obj = new stdClass();
+            $obj = new \stdClass();
             $obj->title = "Access denied: cannot update";
             $obj->folder = true;
             $obj->lazy = true;
             $obj->key = "000";
 
-            $info = new stdClass();
+            $info = new \stdClass();
             $info->Name = "Access denied: cannot update";
             $info->Type = "Shelf";
             $info->ID = "000";
@@ -181,13 +181,13 @@ EOD;
                     $Type = $this->get_location_type($entry);
                 }
                 $name = $entry[$Type];
-                $obj = new stdClass();
+                $obj = new \stdClass();
                 $obj->title = "$Type $name";
                 $obj->folder = true;
                 $obj->lazy = true;
                 $obj->key = $entry['Tag'];
 
-                $info = new stdClass();
+                $info = new \stdClass();
                 $info->Name = $name;
                 $info->Type = $Type;
                 $info->ID = $entry['ID'];
@@ -216,7 +216,7 @@ EOD;
         $items = array();
         foreach ($containers as $entry) {
             $name = $entry["Container"];
-            $obj = new stdClass();
+            $obj = new \stdClass();
             $obj->title = $name;
             $obj->folder = false;
             $obj->lazy = true;
@@ -224,7 +224,7 @@ EOD;
             $obj->children = [];
             //          $obj->hideCheckbox = true;
 
-            $info = new stdClass();
+            $info = new \stdClass();
             $info->Name = $name;
             $info->Type = "Container";
             $info->Container = $entry['Container'];
@@ -250,13 +250,13 @@ EOD;
         $items = array();
         foreach ($material_items as $entry) {
             $name = "${entry['Item_Type']} ${entry['Item']}";
-            $obj = new stdClass();
+            $obj = new \stdClass();
             $obj->title = $name;
             $obj->folder = false;
             $obj->lazy = false;
             $obj->hideCheckbox = true;
 
-            $info = new stdClass();
+            $info = new \stdClass();
             $info->Name = $name;
             $info->Type = "Material";
             $info->Item_Type = $entry['Item_Type'];

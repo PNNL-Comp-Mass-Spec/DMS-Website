@@ -104,7 +104,7 @@ class Secondary_filter {
         $relSelOpts = $model->get_allowed_rel_values();
         for ($i = 0; $i < $this->qf_num_filters; $i++) {
             // get current values for each field of current filter row
-            $a = new stdClass();
+            $a = new \stdClass();
             $a->relSelOpts = $relSelOpts;
             if ($i < count($this->cur_qf_vals)) {
                 $a->curRel = $this->cur_qf_vals[$i]['qf_rel_sel'];

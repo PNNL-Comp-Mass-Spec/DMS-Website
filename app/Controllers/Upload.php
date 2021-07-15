@@ -133,7 +133,7 @@ class Upload extends DmsBase {
             foreach($entity_list as $entity) {
                 $base_name = preg_replace ('/[!"#$%&()*+, .\/:;<=>?@^`{|}~]/', '_', strtolower($entity));
                 $results_container = $base_name . '_results';
-                $obj = new stdClass();
+                $obj = new \stdClass();
                 $obj->entity = $entity;
                 $obj->container = $results_container;
                 $val = json_encode($obj);
@@ -326,7 +326,7 @@ class Upload extends DmsBase {
     private
     function get_current_field_values($id, $entity_type, $config_source, $mode)
     {
-        $current_values = new stdClass();
+        $current_values = new \stdClass();
 
         // only look for current values in update mode
         if($mode === 'update' || $mode === 'check_update') {
@@ -435,7 +435,7 @@ class Upload extends DmsBase {
     private
     function make_aux_info_params($id, $entity_type, $ai, $mode)
     {
-        $obj = new stdClass();
+        $obj = new \stdClass();
         $obj->targetName = $entity_type;
         $obj->targetEntityName = $id;
         $obj->categoryName = $ai->category;

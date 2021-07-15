@@ -117,7 +117,7 @@ class Dms_chooser extends Model {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
                     foreach ($this->choices[$chooser_name]["value"] as $k => $v) {
-                        $obj = new stdClass();
+                        $obj = new \stdClass();
                         $obj->label = $v;
                         $obj->value = $k;
                         $options[] = $obj;
@@ -138,7 +138,7 @@ class Dms_chooser extends Model {
                     $result = $my_db->query($sql);
                     if ($result) {
                         foreach ($result->getResultArray() as $row) {
-                            $obj = new stdClass();
+                            $obj = new \stdClass();
                             $label = $row["val"];
                             $value = (string) $row["ex"];
                             $obj->label = $label;

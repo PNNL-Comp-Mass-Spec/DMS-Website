@@ -157,7 +157,7 @@ class Aux_info extends BaseController {
         $fields = $this->model->get_field_validation_fields();
 
         // Get expected field values from POST
-        $parmObj = new stdClass();
+        $parmObj = new \stdClass();
         foreach(array_keys($fields) as $name) {
             $parmObj->$name = isset($_POST[$name])?$_POST[$name]:'';
         }

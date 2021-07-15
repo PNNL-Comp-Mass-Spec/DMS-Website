@@ -730,13 +730,13 @@ class Cell_presentation {
         $sorting_precedence = 1;
         foreach ($sorting_cols as $obj) {
             if (is_object($obj)) { // query parts sorting spec format
-                $sort_marker = new stdClass();
+                $sort_marker = new \stdClass();
                 $sort_marker->precedence = $sorting_precedence++;
                 $sort_marker->dir = ($obj->dir == 'ASC') ? 'up' : 'down';
                 $col_sort[$obj->col] = $sort_marker;
             } else
             if (is_array($obj)) { // raw sorting filter format
-                $sort_marker = new stdClass();
+                $sort_marker = new \stdClass();
                 $sort_marker->precedence = $sorting_precedence++;
                 $sort_marker->dir = ($obj['qf_sort_dir'] == 'ASC') ? 'up' : 'down';
                 $col_sort[$obj['qf_sort_col']] = $sort_marker;

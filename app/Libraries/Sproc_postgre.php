@@ -57,7 +57,7 @@ class Sproc_postgre extends Sproc_base {
         $result = pg_send_query_params($conn_id, $sql, $params);
 
         // Process the results here, before we call pg_free_result()
-        $input_params->exec_result = new stdclass();
+        $input_params->exec_result = new \stdClass();
         $input_params->exec_result->hasRows = false;
 
         if (!$result) {
@@ -270,7 +270,7 @@ class Sproc_postgre extends Sproc_base {
         $metadata = array();
         $fields = pg_num_fields($result);
         for ($i = 0; $i < $fields; $i++) {
-            $fieldData = new stdClass();
+            $fieldData = new \stdClass();
             $fieldData->name = pg_field_name($result, $i);
             $fieldData->sqlType = pg_field_type($result, $i);
             $fieldData->type = $pg_to_php[$fieldData->sqlType];

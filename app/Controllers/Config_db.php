@@ -784,7 +784,7 @@ class Config_db extends BaseController {
                 }
             }
         }
-        $data_obj = new stdClass ();
+        $data_obj = new \stdClass ();
         $data_obj->data_rows = $data_rows;
         $data_obj->num_cols = $num_cols;
         $data_obj->col_names = $col_names;
@@ -1448,7 +1448,7 @@ class Config_db extends BaseController {
         $baseViewName = str_replace(" ", "_", $baseName);
         $baseProcName = str_replace(" ", "", $baseName);
 
-        $obj = new stdClass ();
+        $obj = new \stdClass ();
         $obj->lrn = "V_" . $baseViewName . "_List_Report";
         $obj->drn = "V_" . $baseViewName . "_Detail_Report";
         $obj->ern = "V_" . $baseViewName . "_Entry";

@@ -285,7 +285,7 @@ class Spreadsheet_loader {
                             throw new exception("Possible missing category or subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $mark = false;
-                        $p = new stdClass();
+                        $p = new \stdClass();
                         $p->category = $category;
                         $p->subcategory = $subcategory;
                         $p->item = $name;
@@ -301,7 +301,7 @@ class Spreadsheet_loader {
                             throw new exception("Possible extra subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $subcategory = $name;
-                        $o = new stdClass();
+                        $o = new \stdClass();
                         $o->category = $category;
                         $o->subcategory = $subcategory;
                         $this->aux_info_groups[] = $o;
@@ -333,7 +333,7 @@ class Spreadsheet_loader {
                             throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $mark = false;
-                        $p = new stdClass();
+                        $p = new \stdClass();
                         $p->category = $category;
                         $p->subcategory = $subcategory;
                         $p->item = $name;
@@ -349,7 +349,7 @@ class Spreadsheet_loader {
                             throw new exception("Possible extra subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $subcategory = $name;
-                        $o = new stdClass();
+                        $o = new \stdClass();
                         $o->category = $category;
                         $o->subcategory = $subcategory;
                         $this->aux_info_groups[] = $o;

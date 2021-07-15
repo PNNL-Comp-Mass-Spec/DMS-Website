@@ -149,7 +149,7 @@ class Data extends BaseController {
         helper(['url']);
         $this->load_lib('General_query', '', ''); // $config_name, $config_source
 
-        $input_parms = new stdClass ();
+        $input_parms = new \stdClass ();
         $input_parms->output_format = ''; // $this->uri->segment(3);
         $input_parms->q_name = $this->uri->segment(4);
         $input_parms->config_source = $this->uri->segment(3);;

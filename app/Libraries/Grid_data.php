@@ -34,7 +34,7 @@ class Grid_data {
      * @throws exception
      */
     function get_query_data($sql, $paramArray) {
-        $response = new stdClass();
+        $response = new \stdClass();
         try {
             $this->controller->db = \Config\Database::connect();
             $result = $this->controller->db->query($sql);
@@ -70,7 +70,7 @@ class Grid_data {
         }
 
         helper(['user', 'url']);
-        $response = new stdClass();
+        $response = new \stdClass();
         try {
             // init sproc model
             $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
@@ -104,7 +104,7 @@ class Grid_data {
         if ($paramArray === false) {
             $paramArray = array();
         }
-        $paramObj = new stdClass();
+        $paramObj = new \stdClass();
         foreach ($fields as $field) {
             $paramObj->$field = (array_key_exists($field, $paramArray)) ? $paramArray[$field] : '';
         }
@@ -115,7 +115,7 @@ class Grid_data {
     private function make_col_specs($colNames) {
         $colSpec = array();
         foreach ($colNames as $colName) {
-            $spec = new stdClass();
+            $spec = new \stdClass();
             $colSpec[] = $spec;
         }
         return colSpec;

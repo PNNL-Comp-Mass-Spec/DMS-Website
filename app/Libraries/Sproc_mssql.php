@@ -55,7 +55,7 @@ class Sproc_mssql extends Sproc_base {
         // Process the results here, before we call mssql_free_statement()
         $result = $input_params->exec_result;
 
-        $input_params->exec_result = new stdclass();
+        $input_params->exec_result = new \stdClass();
         $input_params->exec_result->hasRows = false;
         if (is_resource($result)) {
             $input_params->exec_result->hasRows = true;
@@ -90,7 +90,7 @@ class Sproc_mssql extends Sproc_base {
     private function extract_field_metadata($result) {
         $metadata = array();
         while ($field = mssql_fetch_field($result)) {
-            $F = new stdClass();
+            $F = new \stdClass();
             $F->name = $field->name;
             $F->type = $field->type;
             $F->max_length = $field->max_length;

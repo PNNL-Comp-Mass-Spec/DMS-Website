@@ -50,7 +50,7 @@ class Aux_info_copy extends BaseController {
         $fields = $this->model->get_field_validation_fields();
 
         // get expected field values from POST
-        $parmObj = new stdClass();
+        $parmObj = new \stdClass();
         foreach(array_keys($fields) as $name) {
             $parmObj->$name = isset($_POST[$name])?$_POST[$name]:'';
         }

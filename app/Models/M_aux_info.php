@@ -371,7 +371,7 @@ EOD;
 
         $sa_message = "";
 
-        $input_params = new stdClass();
+        $input_params = new \stdClass();
 
         $args = array();
 

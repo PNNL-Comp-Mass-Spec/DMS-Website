@@ -49,7 +49,7 @@ class Grid extends DmsBase {
     // --------------------------------------------------------------------
     protected
     function grid_data_from_query($builder) {
-        $response = new stdClass();
+        $response = new \stdClass();
         try {
             $result = $builder->get();
             if(!$result) {
