@@ -46,7 +46,7 @@ class Param_report {
         $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
 
         // get initial field values (from url segments) and merge them with form object
-        $uri = current_url(true);
+        $uri = current_uri(true);
         $segs = array_slice($uri->getSegments(), 2);
         helper(['entry_page']);
         $initial_field_values = get_values_from_segs($form_def->fields, $segs);

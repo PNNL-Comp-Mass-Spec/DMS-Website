@@ -45,7 +45,7 @@ class List_report {
         // if there were extra segments for list report URL,
         // convert them to primary and secondary filter field values and cache those
         // and redirect back to ourselves without the trailing URL segments
-        $uri = current_url(true);
+        $uri = current_uri(true);
         $segs = array_slice($uri->getSegments(), 2);
 
         // Initially assume all items in $segs are primary filter items

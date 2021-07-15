@@ -31,7 +31,7 @@ class List_report_ah extends List_report {
         // if there were extra segments for list report URL,
         // convert them to primary filter field values and cache those
         // and redirect back to ourselves without the trailing URL segments
-        $uri = current_url(true);
+        $uri = current_uri(true);
         $all_segs = $uri->getSegments();
         $end_of_root_segs = array_search($mode, $all_segs);
         $root_segs = array_slice($all_segs, 0, $end_of_root_segs);
