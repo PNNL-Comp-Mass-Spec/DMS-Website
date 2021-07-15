@@ -2,15 +2,11 @@
 namespace App\Controllers;
 
 class Grid extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "";
         $this->my_title = "";
-        helper("link_util");
+        $this->helpers = array_merge($this->helpers, ['link_util']);
     }
 
     // --------------------------------------------------------------------

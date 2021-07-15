@@ -2,12 +2,8 @@
 namespace App\Controllers;
 
 class Archive extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "archive";
         $this->my_title = "Archive";
     }

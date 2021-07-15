@@ -2,18 +2,16 @@
 namespace App\Controllers;
 
 class Run_op_logs extends Grid {
-
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
+        // Call the parent (Grid) constructor
         parent::__construct();
 
         $this->my_tag = "run_op_logs";
         $this->my_title = "Operation Logs";
 
         // Include the String operations methods
-        helper('string');
+        $this->helpers = array_merge($this->helpers, ['string']);
     }
 
     // --------------------------------------------------------------------

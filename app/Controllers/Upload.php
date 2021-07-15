@@ -9,15 +9,23 @@ class Upload extends DmsBase {
     // Comes from column config_source in table loadable_entities in spreadsheet_loader.db
     private $supported_entities = array ();
 
-    // --------------------------------------------------------------------
     function __construct()
     {
-        parent::__construct();
         $this->my_tag = 'table_loader'; // Links to the help page; also used by the restricted_actions table in master_authorization
-        $this->get_config_info('spreadsheet_loader.db');
 
         // Include the String operations methods
-        helper('string');
+        $this->helpers = array_merge($this->helpers, ['string']);
+    }
+
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
+
+        $this->get_config_info('spreadsheet_loader.db');
     }
 
     // --------------------------------------------------------------------

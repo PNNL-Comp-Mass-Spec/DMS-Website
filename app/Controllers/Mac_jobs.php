@@ -2,12 +2,8 @@
 namespace App\Controllers;
 
 class Mac_jobs extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "mac_jobs";
         $this->my_title = "MAC Job";
     }

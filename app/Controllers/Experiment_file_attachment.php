@@ -6,14 +6,11 @@ namespace App\Controllers;
  * all other needed functionality is in File_attachment
  */
 class Experiment_file_attachment extends File_attachment {
-
-    /**
-     * Constructor
-     */
     function __construct()
     {
-        // Call the parent constructor
+        // Call the parent (File_attachment) constructor
         parent::__construct();
+
         $this->my_tag = "experiment_file_attachment";
         $this->my_title = "Experiment File Attachments";
     }

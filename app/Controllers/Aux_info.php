@@ -4,14 +4,27 @@ namespace App\Controllers;
 class Aux_info extends BaseController {
 
     /**
-     * Constructor
+     * An array of helpers to be loaded automatically upon
+     * class instantiation. These helpers will be available
+     * to all other controllers that extend BaseController.
+     *
+     * @var array
      */
-    function __construct()
+    protected $helpers = ['dms_search', 'cookie', 'user', 'dms_logging', 'url', 'text', 'form', 'string'];
+    
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
-        // Call the parent constructor
-        parent::__construct();
-///--
-        $this->helpers = array_merge($this->helpers, ['dms_search', 'cookie', 'user', 'dms_logging']);
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
+
+        //--------------------------------------------------------------------
+        // Preload any models, libraries, etc, here.
+        //--------------------------------------------------------------------
+        // E.g.:
+        // $this->session = \Config\Services::session();
 
         session_start();
         $this->preferences = model('App\Models\Dms_preferences');
@@ -28,8 +41,6 @@ class Aux_info extends BaseController {
         $this->my_list_action = "aux_info/report";
         $this->my_export_action = "aux_info/export";
 
-        // Include the String operations methods
-        helper(['url', 'text', 'form', 'string']);
         $this->model = model('App\\Models\\'.$this->my_model);
 
         $this->aux_info_support = new \App\Libraries\Aux_info_support();

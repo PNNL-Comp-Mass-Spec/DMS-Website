@@ -2,16 +2,20 @@
 namespace App\Controllers;
 
 class Data_package_publish extends DmsBase {
-
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "data_package_publish";
         $this->my_title = "Publish Data Package";
-
+    }
+    
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
+        
         $this->model = model('App\Models\M_data_package_publish');
     }
 

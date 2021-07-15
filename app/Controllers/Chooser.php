@@ -3,13 +3,14 @@ namespace App\Controllers;
 
 class Chooser extends BaseController {
 
-    // --------------------------------------------------------------------
-    function __construct()
-    {
-        // Call the parent constructor
-        parent::__construct();
-        $this->helpers = array_merge($this->helpers, ['url', 'text', 'form']);
-    }
+    /**
+     * An array of helpers to be loaded automatically upon
+     * class instantiation. These helpers will be available
+     * to all other controllers that extend DmsBase.
+     *
+     * @var array
+     */
+    protected $helpers = ['url', 'text', 'form'];
 
     // --------------------------------------------------------------------
     function index()

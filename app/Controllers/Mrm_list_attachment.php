@@ -2,12 +2,8 @@
 namespace App\Controllers;
 
 class Mrm_list_attachment extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "mrm_list_attachment";
         $this->my_title = "MRM Transition List Attachment";
         $this->my_create_action = "enter";

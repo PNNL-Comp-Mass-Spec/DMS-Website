@@ -2,10 +2,9 @@
 namespace App\Controllers;
 
 class Factors extends Grid {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
+        // Call the parent (Grid) constructor
         parent::__construct();
 
         $this->my_tag = "factors";

@@ -5,7 +5,6 @@ use App\Controllers;
 
 class Gen extends BaseController
 {
-
 	/**
 	 * An array of helpers to be loaded automatically upon
 	 * class instantiation. These helpers will be available

@@ -5,12 +5,8 @@ class Run_tracking extends DmsBase {
 
     var $maxNormalInterval = 90;
 
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "run_tracking";
         $this->my_title = "Run Tracking";
     }

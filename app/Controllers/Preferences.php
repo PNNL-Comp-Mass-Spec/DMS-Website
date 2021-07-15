@@ -2,18 +2,22 @@
 namespace App\Controllers;
 
 class Preferences extends BaseController {
-
-    var $my_model = 'Dms_preferences';
-
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
+        $this->my_model = 'Dms_preferences';
+        $this->helpers = array_merge($this->helpers, ['url', 'text', 'dms_search', 'cookie', 'user']);
+    }
+
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
 
         session_start();
 
-        $this->helpers = array_merge($this->helpers, ['url', 'text', 'dms_search', 'cookie', 'user']);
         $this->model = model('App\\Models\\'.$this->my_model);
     }
 

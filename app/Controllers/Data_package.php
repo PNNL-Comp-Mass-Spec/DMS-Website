@@ -3,12 +3,8 @@ namespace App\Controllers;
 
 class Data_package extends DmsBase {
 
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "data_package";
         $this->my_title = "DMS Data Package";
         $this->my_create_action = "enter";

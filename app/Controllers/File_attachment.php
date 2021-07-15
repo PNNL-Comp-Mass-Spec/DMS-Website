@@ -16,17 +16,21 @@ class Check_result {
  * File attachment uploader class
  */
 class File_attachment extends DmsBase {
-
-    /**
-     * Constructor
-     */
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-        helper(['file_attachment','download']);
         $this->my_tag = "file_attachment";
         $this->my_title = "File Attachments";
+        $this->helpers = array_merge($this->helpers, ['file_attachment', 'download']);
+    }
+
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
+        
         $this->archive_root_path = config('App')->file_attachment_archive_root_path; // returns null if not set
         if (!is_null($this->archive_root_path) && !is_dir($this->archive_root_path)) {
             $this->archive_root_path = null;

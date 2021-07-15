@@ -2,17 +2,22 @@
 namespace App\Controllers;
 
 class Freezer extends DmsBase {
-
-    var $my_tag = "freezer";
-
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
+        $this->my_tag = "freezer";
+        $this->my_title = "Freezer";
+        $this->helpers = array_merge($this->helpers, ['url', 'text', 'user']);
+    }
+
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
 
         session_start();
-        helper(['url', 'text', 'user']);
 
         $this->color_code = config('App')->version_color_code;
         $this->help_page_link = config('App')->pwiki;

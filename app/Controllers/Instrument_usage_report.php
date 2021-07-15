@@ -2,18 +2,16 @@
 namespace App\Controllers;
 
 class Instrument_usage_report extends Grid {
-
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
+        // Call the parent (Grid) constructor
         parent::__construct();
 
         $this->my_tag = "instrument_usage_report";
         $this->my_title = "Instrument Usage";
 
         // Include the String operations methods
-        helper('string');
+        $this->helpers = array_merge($this->helpers, ['string']);
     }
 
     // --------------------------------------------------------------------

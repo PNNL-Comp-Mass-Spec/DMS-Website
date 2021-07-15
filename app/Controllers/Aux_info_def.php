@@ -2,12 +2,8 @@
 namespace App\Controllers;
 
 class Aux_info_def extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "aux_info_def";
         $this->my_title = "Aux Info Definition";
     }

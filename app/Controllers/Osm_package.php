@@ -2,12 +2,8 @@
 namespace App\Controllers;
 
 class Osm_package extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "osm_package";
         $this->my_title = "OSM Package";
     }

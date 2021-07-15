@@ -2,12 +2,8 @@
 namespace App\Controllers;
 
 class Capture_local_processors extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "capture_local_processors";
         $this->my_title = "Capture Local Processors";
     }

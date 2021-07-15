@@ -9,12 +9,27 @@ namespace App\Controllers;
 class Aux_info_copy extends BaseController {
 
     /**
-     * Constructor
+     * An array of helpers to be loaded automatically upon
+     * class instantiation. These helpers will be available
+     * to all other controllers that extend BaseController.
+     *
+     * @var array
      */
-    function __construct()
+    protected $helpers = ['url', 'text', 'form'];
+
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
-        // Call the parent constructor
-        parent::__construct();
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
+
+        //--------------------------------------------------------------------
+        // Preload any models, libraries, etc, here.
+        //--------------------------------------------------------------------
+        // E.g.:
+        // $this->session = \Config\Services::session();
 
         $this->my_tag = "aux_info_copy";
         $this->my_model = "M_aux_info_copy";
@@ -22,7 +37,6 @@ class Aux_info_copy extends BaseController {
         $this->my_create_action = "aux_info_copy/create";
         $this->my_edit_action = "aux_info_copy/edit";
 
-        $this->helpers = array_merge($this->helpers, ['url', 'text', 'form']);
         $this->model = model('App\\Models\\'.$this->my_model);
 
         $this->aux_info_support = new \App\Libraries\Aux_info_support();

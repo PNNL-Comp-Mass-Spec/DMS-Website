@@ -2,12 +2,8 @@
 namespace App\Controllers;
 
 class Sample_prep_biomaterial_location extends DmsBase {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
-
         $this->my_tag = "sample_prep_biomaterial_location";
         $this->my_title = "Sample Prep Biomaterial Location";
     }

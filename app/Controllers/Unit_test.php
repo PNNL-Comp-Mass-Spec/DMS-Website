@@ -2,16 +2,23 @@
 namespace App\Controllers;
 
 class Unit_Test extends BaseController {
-    // --------------------------------------------------------------------
     function __construct()
     {
-        // Call the parent constructor
-        parent::__construct();
+        $this->helpers = array_merge($this->helpers, ['url', 'text']);
+    }
+
+    /**
+     * CodeIgniter 4 Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
 
         session_start();
-        $this->helpers = array_merge($this->helpers, ['url', 'text']);
         $this->color_code = config('App')->version_color_code;
     }
+
     // --------------------------------------------------------------------
     function index()
     {
