@@ -56,7 +56,7 @@ class Grid extends DmsBase {
             $result = $builder->get();
             if(!$result) {
                 $currentTimestamp = date("Y-m-d");
-                throw new exception("Error querying database for grid data; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Error querying database for grid data; see application/logs/log-$currentTimestamp.php");
             }
             $columns = array();
             foreach($result->field_data() as $field) {
@@ -66,7 +66,7 @@ class Grid extends DmsBase {
             $response->message = '';
             $response->columns = $columns;
             $response->rows = $result->getResultArray();;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $response->result = 'error';
             $response->message = 'grid_data_from_query: ' . $e->getMessage();
         }

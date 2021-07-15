@@ -54,7 +54,7 @@ class Spreadsheet_loader {
 
         if (strpos($mimeType, 'spreadsheetml') > 0 || strpos($mimeType, 'ms-excel')) {
             // Excel file (either .xls or .xlsx)
-//            throw new exception(
+//            throw new \Exception(
 //                "Save the Excel file as a tab-delimited text file: "
 //                . "Choose File, then Save As, then for Type select Text");
             $isSpreadsheet = true;
@@ -62,7 +62,7 @@ class Spreadsheet_loader {
 
         if (strpos($mimeType, 'opendocument.spreadsheet') > 0) {
             // OpenOffice .ODS file
-//            throw new exception(
+//            throw new \Exception(
 //                "Save the spreadsheet as a tab-delimited text file: "
 //                . "Choose File, then Save As, then for Type select Text CSV; "
 //                . "for the Field Delimiter select {TAB}");
@@ -71,12 +71,12 @@ class Spreadsheet_loader {
 
         if (!$isSpreadsheet && strpos($mimeType, 'octet-stream') > 0) {
             // Likely a unicode text file
-            throw new exception(
+            throw new \Exception(
             "Unicode text files are not supported. Save as a plain text file with ASCII or UTF-8 encoding");
         }
 
         if (!$isSpreadsheet && $mimeType !== 'text/plain') {
-            throw new exception("Upload a plain text file, not a file of type: $mimeType");
+            throw new \Exception("Upload a plain text file, not a file of type: $mimeType");
         }
 
         if ($isSpreadsheet) {
@@ -208,7 +208,7 @@ class Spreadsheet_loader {
             if ($grab_it) {
                 for ($j = 0; $j < $this->auxInfoCol; $j++) {
                     if ($this->ss_rows[$headerRow][$j] == '') {
-                        throw new exception("Blanks are not permitted in the header row in the tracking info section (column $j)");
+                        throw new \Exception("Blanks are not permitted in the header row in the tracking info section (column $j)");
                     }
                     $this->tracking_info_fields[$this->ss_rows[$headerRow][$j]] = $j;
                 }
@@ -222,7 +222,7 @@ class Spreadsheet_loader {
                 }
                 if ($grab_it) {
                     if ($this->ss_rows[$i][0] == '') {
-                        throw new exception("Blanks are not permitted in the first column in the tracking info section (row $i)");
+                        throw new \Exception("Blanks are not permitted in the first column in the tracking info section (row $i)");
                     }
                     $this->tracking_info_fields[$this->ss_rows[$i][0]] = $i;
                 }
@@ -232,7 +232,7 @@ class Spreadsheet_loader {
             }
         }
         if (!$grab_it) {
-            throw new exception('"TRACKING INFORMATION" header not found');
+            throw new \Exception('"TRACKING INFORMATION" header not found');
         }
     }
 
@@ -282,7 +282,7 @@ class Spreadsheet_loader {
                     $has_data = ($rowCount > 1 && $this->ss_rows[$headerRow + 1][$j] != '');
                     if ($has_data) {
                         if (!$in_data) {
-                            throw new exception("Possible missing category or subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
+                            throw new \Exception("Possible missing category or subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $mark = false;
                         $p = new \stdClass();
@@ -298,7 +298,7 @@ class Spreadsheet_loader {
                         $in_data = false;
                     } else {
                         if ($in_data) {
-                            throw new exception("Possible extra subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
+                            throw new \Exception("Possible extra subcategory ('$name' near column $j)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $subcategory = $name;
                         $o = new \stdClass();
@@ -330,7 +330,7 @@ class Spreadsheet_loader {
                     $has_data = ($colCount > 1 && $this->ss_rows[$i][1] != '');
                     if ($has_data) {
                         if (!$in_data) {
-                            throw new exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
+                            throw new \Exception("Possible missing category or subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $mark = false;
                         $p = new \stdClass();
@@ -346,7 +346,7 @@ class Spreadsheet_loader {
                         $in_data = false;
                     } else {
                         if ($in_data) {
-                            throw new exception("Possible extra subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
+                            throw new \Exception("Possible extra subcategory ('$name' near row $i)" . "<br><br>" . $this->sup_mes['header']);
                         }
                         $subcategory = $name;
                         $o = new \stdClass();
@@ -465,17 +465,17 @@ class Spreadsheet_loader {
             $s = $row[0];
             if ($s != '') {
                 if ($s == 'TRACKING INFORMATION') {
-                    throw new exception("Entity type is missing");
+                    throw new \Exception("Entity type is missing");
                 }
                 $this->entity_type = $s;
                 break;
             }
         }
         if ($this->entity_type == '') {
-            throw new exception("Entity type is not defined");
+            throw new \Exception("Entity type is not defined");
         }
         if ($this->entity_type != strtoupper($this->entity_type)) {
-            throw new exception("Entity type '$this->entity_type' must be upper case");
+            throw new \Exception("Entity type '$this->entity_type' must be upper case");
         }
     }
 

@@ -93,7 +93,7 @@ class Sproc_postgre extends Sproc_base {
             }
 
             pg_free_result($result);
-            throw new Exception($msg);
+            throw new \Exception($msg);
         }
 
         if (pg_num_rows($result) == 0) {

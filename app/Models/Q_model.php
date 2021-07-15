@@ -224,7 +224,7 @@ class Q_model extends Model {
                     $this->get_query_specs_from_config_db($config_name, $dbFileName);
                     break;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
 
@@ -244,19 +244,19 @@ class Q_model extends Model {
                     // $\Config\Database::connect() normally returns a database object
                     // But if an error occurs, it returns false?
                     // Retry establishing the connection
-                    throw new Exception('\Config\Database::connect returned false in S_model');
+                    throw new \Exception('\Config\Database::connect returned false in S_model');
                 } else {
                     if ($my_db->connID === false) {
                         // $my_db->connID is normally an object
                         // But if an error occurs, it is false
                         // Retry establishing the connection
-                        throw new Exception('$my_db->connID returned false in S_model');
+                        throw new \Exception('$my_db->connID returned false in S_model');
                     }
 
                     // Exit the while loop
                     break;
                 }
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $errorMessage = $ex->getMessage();
                 log_message('error', "Exception connecting to DB group $this->query_parts->dbn (config name $config_name): $errorMessage");
                 $connectionRetriesRemaining--;
@@ -265,7 +265,7 @@ class Q_model extends Model {
                     usleep($connectionSleepDelayMsec * 1000);
                     $connectionSleepDelayMsec *= 2;
                 } else {
-                    throw new Exception("Connection to DB group $this->query_parts->dbn failed: $errorMessage");
+                    throw new \Exception("Connection to DB group $this->query_parts->dbn failed: $errorMessage");
                 }
             }
         }
@@ -451,7 +451,7 @@ class Q_model extends Model {
      */
     function get_item($id, $controller) {
         if (empty($this->primary_filter_specs)) {
-            throw new exception('no primary id column defined; update general_params to include detail_report_data_id_col');
+            throw new \Exception('no primary id column defined; update general_params to include detail_report_data_id_col');
         }
 
         if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc)) {
@@ -515,12 +515,12 @@ class Q_model extends Model {
             // Call the stored procedure
             $ok = $controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($controller->sproc_model->get_error_text());
+                throw new \Exception($controller->sproc_model->get_error_text());
             }
 
             $success = $controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($controller->sproc_model->get_error_text());
+                throw new \Exception($controller->sproc_model->get_error_text());
             }
 
             $rows = $controller->sproc_model->get_rows();
@@ -532,9 +532,9 @@ class Q_model extends Model {
             }
 
             return $rows[0];
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
-            throw new exception($message);
+            throw new \Exception($message);
         }
     }
 
@@ -562,19 +562,19 @@ class Q_model extends Model {
                     // \Config\Database::connect() normally returns a database object
                     // But if an error occurs, it returns false
                     // Retry establishing the connection
-                    throw new Exception('\Config\Database::connect returned false in Q_model');
+                    throw new \Exception('\Config\Database::connect returned false in Q_model');
                 } else {
                     if ($my_db->connID === false) {
                         // $my_db->connID is normally an object
                         // But if an error occurs, it is false
                         // Retry establishing the connection
-                        throw new Exception('$my_db->connID returned false in Q_model');
+                        throw new \Exception('$my_db->connID returned false in Q_model');
                     }
                 }
 
                 // Exit the while loop
                 break;
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $errorMessage = $ex->getMessage();
 
                 $groupNameForLog = 'default';
@@ -591,7 +591,7 @@ class Q_model extends Model {
                     usleep($connectionSleepDelayMsec * 1000);
                     $connectionSleepDelayMsec *= 2;
                 } else {
-                    throw new Exception("Connection to the $groupNameForLog DB failed: $errorMessage");
+                    throw new \Exception("Connection to the $groupNameForLog DB failed: $errorMessage");
                 }
             }
         }
@@ -639,7 +639,7 @@ class Q_model extends Model {
                     if ($col_info) {
                         $col = $col_info[0]->name;
                     } else {
-                        throw new exception('cannot find default sorting row for "filitered_and_paged" ');
+                        throw new \Exception('cannot find default sorting row for "filitered_and_paged" ');
                     }
                     $this->add_sorting_item($col, $dir);
                 }
@@ -683,12 +683,12 @@ class Q_model extends Model {
             $query = $my_db->query($sql);
             if (!$query) {
                 $currentTimestamp = date("Y-m-d");
-                throw new Exception("Error getting total row count from database; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Error getting total row count from database; see application/logs/log-$currentTimestamp.php");
             }
 
             if ($query->getNumRows() == 0) {
                 $currentTimestamp = date("Y-m-d");
-                throw new Exception("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
             }
 
             $row = $query->row();
@@ -827,7 +827,7 @@ class Q_model extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         //$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
@@ -835,7 +835,7 @@ class Q_model extends Model {
         //$obj = $sth->fetch(PDO::FETCH_OBJ);
         $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
         if ($obj === false || is_null($obj)) {
-            throw new Exception('Could not find query specs');
+            throw new \Exception('Could not find query specs');
         }
 
         $db->close();
@@ -872,7 +872,7 @@ class Q_model extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         // get list of tables in database
@@ -960,7 +960,7 @@ class Q_model extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         $filterColumn = '';
@@ -1007,7 +1007,7 @@ class Q_model extends Model {
         $db->close();
 
         if (strlen($filterColumn) == 0) {
-            throw new Exception('Detail report ID column not defined (get_detail_report_query_specs_from_config_db)');
+            throw new \Exception('Detail report ID column not defined (get_detail_report_query_specs_from_config_db)');
         }
 
         $a = array();
@@ -1028,7 +1028,7 @@ class Q_model extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {

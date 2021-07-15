@@ -368,7 +368,7 @@ class List_report {
             $s .= "<span class='LRepPager'>$ps</span>";
             $s .= "<span class='LRepPager'>$pr</span>";
             echo $s;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo "Paging controls could not be built.  " . $e->getMessage();
         }
     }

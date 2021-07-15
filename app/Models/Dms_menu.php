@@ -32,7 +32,7 @@ class Dms_menu extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to menu config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to menu config database at ' . $dbFilePath);
         //}
 
         //foreach ($dbh->query("SELECT * FROM $section_def_table", PDO::FETCH_ASSOC) as $row) {
@@ -63,7 +63,7 @@ class Dms_menu extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to menu config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to menu config database at ' . $dbFilePath);
         //}
 
         $mnu = array();

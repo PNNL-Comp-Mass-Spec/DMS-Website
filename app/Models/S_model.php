@@ -124,7 +124,7 @@ class S_model extends Model {
 
             $this->get_sproc_arg_defs($config_name, $dbFileName);
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error_text = $e->getMessage();
             return false;
         }
@@ -141,7 +141,7 @@ class S_model extends Model {
         $this->error_text = '';
         try {
             if (!isset($parmObj)) {
-                throw new Exception("Input parameter object was not supplied to execute_sproc for $this->sprocName");
+                throw new \Exception("Input parameter object was not supplied to execute_sproc for $this->sprocName");
             }
 
             // Connect to the database
@@ -160,19 +160,19 @@ class S_model extends Model {
                         // \Config\Database::connect() normally returns a database object
                         // But if an error occurs, it returns false?
                         // Retry establishing the connection
-                        throw new Exception('\Config\Database::connect returned false in S_model');
+                        throw new \Exception('\Config\Database::connect returned false in S_model');
                     } else {
                         if ($my_db->connID === false) {
                             // $my_db->connID is normally an object
                             // But if an error occurs, it is false
                             // Retry establishing the connection
-                            throw new Exception('$my_db->connID returned false in S_model');
+                            throw new \Exception('$my_db->connID returned false in S_model');
                         }
 
                         // Exit the while loop
                         break;
                     }
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     $errorMessage = $ex->getMessage();
                     log_message('error', "Exception connecting to DB group $this->dbn (calling sproc $this->sprocName): $errorMessage");
                     $connectionRetriesRemaining--;
@@ -181,7 +181,7 @@ class S_model extends Model {
                         usleep($connectionSleepDelayMsec * 1000);
                         $connectionSleepDelayMsec *= 2;
                     } else {
-                        throw new Exception("Connection to DB group $this->dbn failed: $errorMessage");
+                        throw new \Exception("Connection to DB group $this->dbn failed: $errorMessage");
                     }
                 }
             }
@@ -219,7 +219,7 @@ class S_model extends Model {
                     $this->sproc_handler->execute($this->sprocName, $my_db->connID, $this->sproc_args, $this->bound_calling_parameters);
                     // Exit the while loop
                     break;
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     $errorMessage = $ex->getMessage();
                     log_message('error', "Exception calling stored procedure $this->sprocName: $errorMessage");
                     $execRetriesRemaining--;
@@ -228,7 +228,7 @@ class S_model extends Model {
                         usleep($execSleepDelayMsec * 1000);
                         $execSleepDelayMsec *= 2;
                     } else {
-                        throw new Exception("Call to stored procedure $this->sprocName failed: $errorMessage");
+                        throw new \Exception("Call to stored procedure $this->sprocName failed: $errorMessage");
                     }
                 }
             }
@@ -237,7 +237,7 @@ class S_model extends Model {
             $result = $this->bound_calling_parameters->exec_result;
 
             if (!$result) {
-                throw new Exception("Execution failed for $this->sprocName");
+                throw new \Exception("Execution failed for $this->sprocName");
             }
 
             // Figure out what kind of result we got, and handle it
@@ -259,12 +259,12 @@ class S_model extends Model {
                     } else {
                         $errorMessage = $this->bound_calling_parameters->message . " (return code $sproc_return_value for $this->sprocName)";
                     }
-                    throw new Exception($errorMessage);
+                    throw new \Exception($errorMessage);
                 }
             }
 
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $errorMessage = $e->getMessage();
             log_message('error', "Error in execute_sproc for $this->sprocName: $errorMessage");
             $this->error_text = $errorMessage;
@@ -421,7 +421,7 @@ class S_model extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         // get list of tables in database

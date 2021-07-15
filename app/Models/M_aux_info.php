@@ -176,7 +176,7 @@ EOD;
 
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new Exception("Error querying database for aux info item values using V_AuxInfo_Value; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for aux info item values using V_AuxInfo_Value; see application/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -224,10 +224,10 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new Exception("Error querying database for aux info item values using V_AuxInfo_Definition; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for aux info item values using V_AuxInfo_Definition; see application/logs/log-$currentTimestamp.php");
         }
         if ($query->getNumRows() == 0) {
-            throw new Exception("No rows found");
+            throw new \Exception("No rows found");
         }
         return $query->getResultArray();
     }
@@ -249,7 +249,7 @@ EOD;
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            throw new Exception("Error querying database for aux_info_allowed_values; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for aux_info_allowed_values; see application/logs/log-$currentTimestamp.php");
         }
         return $resultSet->getResultArray();
     }
@@ -265,10 +265,10 @@ EOD;
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            throw new Exception("Error querying database for aux_info_targets; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for aux_info_targets; see application/logs/log-$currentTimestamp.php");
         }
         if ($resultSet->getNumRows() == 0) {
-            throw new Exception("No rows found");
+            throw new \Exception("No rows found");
         }
         return $resultSet->getResultArray();
     }
@@ -298,10 +298,10 @@ EOD;
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            throw new Exception("Error querying database for aux_info_def; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for aux_info_def; see application/logs/log-$currentTimestamp.php");
         }
         if ($resultSet->getNumRows() == 0) {
-            throw new Exception("No rows found");
+            throw new \Exception("No rows found");
         }
         $def = array();
         foreach ($resultSet->getResultArray() as $row) {

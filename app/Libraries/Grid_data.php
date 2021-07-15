@@ -40,7 +40,7 @@ class Grid_data {
             $result = $this->controller->db->query($sql);
             if (!$result) {
                 $currentTimestamp = date("Y-m-d");
-                throw new exception("Error querying database; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Error querying database; see application/logs/log-$currentTimestamp.php");
             }
             $columns = array();
             foreach ($result->getFieldData() as $field) {
@@ -50,7 +50,7 @@ class Grid_data {
             $response->message = '';
             $response->columns = $columns;
             $response->rows = $result->getResultArray();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $response->result = 'error';
             $response->message = 'get_query_data: ' . $e->getMessage();
         }
@@ -75,7 +75,7 @@ class Grid_data {
             // init sproc model
             $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($this->controller->sproc_model->get_error_text());
+                throw new \Exception($this->controller->sproc_model->get_error_text());
             }
 
             $fields = $this->controller->sproc_model->get_sproc_fields();
@@ -84,7 +84,7 @@ class Grid_data {
 
             $success = $this->controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($this->controller->sproc_model->get_error_text());
+                throw new \Exception($this->controller->sproc_model->get_error_text());
             }
 
             $response->result = 'ok';
@@ -92,7 +92,7 @@ class Grid_data {
 
             $response->columns = $this->controller->sproc_model->get_col_names();
             $response->rows = $this->controller->sproc_model->get_rows();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $response->result = 'error';
             $response->message = 'get_sproc_data: ' . $e->getMessage();
         }

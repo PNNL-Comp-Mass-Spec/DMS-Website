@@ -97,7 +97,7 @@ class Sproc_sqlsrv extends Sproc_base {
                     $msg = $msg . ")";
                 }
             }
-            throw new Exception($msg);
+            throw new \Exception($msg);
         }
 
         // Process the results here, before we call sqlsrv_free_stmt()

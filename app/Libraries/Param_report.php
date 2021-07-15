@@ -183,20 +183,20 @@ class Param_report {
         $message = '';
         try {
             if (!$valid_fields) {
-                throw new exception('There were validation errors: ' . $validation->listErrors('listFmt'));
+                throw new \Exception('There were validation errors: ' . $validation->listErrors('listFmt'));
             }
 
             // call stored procedure
             $ok = $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($this->controller->sproc_model->get_error_text());
+                throw new \Exception($this->controller->sproc_model->get_error_text());
             }
 
             $success = $this->controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($this->controller->sproc_model->get_error_text());
+                throw new \Exception($this->controller->sproc_model->get_error_text());
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
         return $message;

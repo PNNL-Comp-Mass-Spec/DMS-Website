@@ -42,7 +42,7 @@ class Operation {
             // init sproc model
             $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($this->controller->sproc_model->get_error_text());
+                throw new \Exception($this->controller->sproc_model->get_error_text());
             }
 
             // get sproc fields and use them to make validation field definitions
@@ -85,12 +85,12 @@ class Operation {
             // Call the stored procedure
             $success = $this->controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($this->controller->sproc_model->get_error_text());
+                throw new \Exception($this->controller->sproc_model->get_error_text());
             }
 
             $response->result = $this->controller->sproc_model->get_parameters()->retval;
             $response->message = $this->controller->sproc_model->get_parameters()->message;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $response->result = -1;
             $response->message = $e->getMessage();
         }

@@ -84,7 +84,7 @@ class Aux_info extends BaseController {
                 $str = make_detail_report_aux_info_section($result);
             }
             echo $str;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }
@@ -125,7 +125,7 @@ class Aux_info extends BaseController {
 
             // load up data array and call view template
             echo view('special/aux_info_entry', $data);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }
@@ -144,7 +144,7 @@ class Aux_info extends BaseController {
             $this->model->check_connection();
             list($ai_items, $ai_choices) = $this->model->get_aux_info($target, $category, $subcategory, $id);
             echo $this->aux_info_support->make_item_entry_form($ai_items, $ai_choices);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }

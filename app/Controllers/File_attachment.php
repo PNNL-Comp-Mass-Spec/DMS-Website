@@ -37,7 +37,7 @@ class File_attachment extends DmsBase {
         }
         $this->local_root_path = config('App')->file_attachment_local_root_path; // returns null if not set
         if (is_null($this->local_root_path) || !is_dir($this->local_root_path)) {
-            throw new Exception("configuration item 'file_attachment_local_root_path' is either not set or not a directory!");
+            throw new \Exception("configuration item 'file_attachment_local_root_path' is either not set or not a directory!");
         }
     }
 
@@ -67,21 +67,21 @@ class File_attachment extends DmsBase {
 
             $dir_ok = is_dir($mnt_path);
             if (!$dir_ok) {
-                throw new Exception("'$mnt_path' is not a directory");
+                throw new \Exception("'$mnt_path' is not a directory");
             }
 
             $remote_sentinal = $mnt_path . "sentinel-remote.txt";
             $remote_ok = file_exists($remote_sentinal);
             if (!$remote_ok) {
-                throw new Exception("Remote sentinal '$remote_sentinal' was unexpectedly not visible");
+                throw new \Exception("Remote sentinal '$remote_sentinal' was unexpectedly not visible");
             }
 
             $local_sentinal = $mnt_path . "sentinel-local.txt";
             $local_ok = !file_exists($local_sentinal);
             if (!$local_ok) {
-                throw new Exception("Local sentinal '$local_sentinal' was unexpectedly visible");
+                throw new \Exception("Local sentinal '$local_sentinal' was unexpectedly visible");
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $result->message = $e->getMessage();
             $result->ok = false;
         }
@@ -107,9 +107,9 @@ class File_attachment extends DmsBase {
 
             $dir_ok = is_dir($mnt_path);
             if (!$dir_ok) {
-                throw new Exception("'$mnt_path' is not a directory");
+                throw new \Exception("'$mnt_path' is not a directory");
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $result->message = $e->getMessage();
             $result->ok = false;
         }
@@ -182,9 +182,9 @@ class File_attachment extends DmsBase {
                 }
             } else {
                 $currentTimestamp = date("Y-m-d");
-                throw new Exception("Could not find entry for file attachment in database; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Could not find entry for file attachment in database; see application/logs/log-$currentTimestamp.php");
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $result->message = $e->getMessage();
             $result->ok = false;
         }
@@ -203,12 +203,12 @@ class File_attachment extends DmsBase {
         try {
             $local = $this->validate_local_path();
             if (!$local->ok) {
-                throw new Exception($local->message);
+                throw new \Exception($local->message);
             }
             if (!is_null($this->archive_root_path)) {
                 $remote = $this->validate_remote_mount();
                 if (!$remote->ok) {
-                    throw new Exception($remote->message);
+                    throw new \Exception($remote->message);
                 }
             }
 
@@ -258,11 +258,11 @@ class File_attachment extends DmsBase {
                 if (strtolower(substr($orig_name, 0, 8)) !== 'testfile') {
                     $msg = $this->make_attachment_tracking_entry($orig_name, $type, $id, $description, $size, $entity_folder_path);
                     if ($msg) {
-                        throw new Exception($msg);
+                        throw new \Exception($msg);
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $resultMsg = $e->getMessage();
         }
         // output is headed for an iframe
@@ -309,7 +309,7 @@ class File_attachment extends DmsBase {
 
             if (!copy($dest_path, $backup_path)) {
                 // Error occurred during copy, raise an exception
-                throw new Exception("Could not backup copy '$dest_path' to '$backup_path'");
+                throw new \Exception("Could not backup copy '$dest_path' to '$backup_path'");
             }
         }
 
@@ -320,7 +320,7 @@ class File_attachment extends DmsBase {
 
         if(!copy($src_path, $dest_path)) {
             // Error occurred during copy, raise an exception
-            throw new Exception("Could not copy '$src_path' to '$dest_path'");
+            throw new \Exception("Could not copy '$src_path' to '$dest_path'");
         } else {
             // Copy succeeded
             // Confirm that the file size of the remote file matches the source file size
@@ -329,7 +329,7 @@ class File_attachment extends DmsBase {
 
             if (!$sourceFileSize == $destFileSize) {
                 // File sizes to not match
-                throw new Exception("Length of the archived file ($destFileSize) "
+                throw new \Exception("Length of the archived file ($destFileSize) "
                     . "does not match the source file ($sourceFileSize): '$src_path' to '$dest_path'");
                 }
 
@@ -348,7 +348,7 @@ class File_attachment extends DmsBase {
                         log_message('error', "sha1_file returned false for $destSHA1");
                     } else {
                         if (strcmp($sourceSHA1, $destSHA1) !== 0) {
-                            throw new Exception("Checksums do not match for file attachment: "
+                            throw new \Exception("Checksums do not match for file attachment: "
                                 . "'$src_path' and '$dest_path' have $sourceSHA1 and $destSHA1");
                         }
                     }
@@ -418,7 +418,7 @@ class File_attachment extends DmsBase {
             // init sproc model
             $ok = $this->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->my_tag);
             if (!$ok) {
-                throw new exception($this->sproc_model->get_error_text());
+                throw new \Exception($this->sproc_model->get_error_text());
             }
 
             $calling_params = new \stdClass();
@@ -436,12 +436,12 @@ class File_attachment extends DmsBase {
 
             $ok = $this->sproc_model->execute_sproc($calling_params);
             if (!$ok) {
-                throw new exception($this->sproc_model->get_error_text());
+                throw new \Exception($this->sproc_model->get_error_text());
             }
 
             $ret = $this->sproc_model->get_parameters()->retval;
             $response = $this->sproc_model->get_parameters()->message;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $response = $e->getMessage();
         }
         return $response;
@@ -464,7 +464,7 @@ class File_attachment extends DmsBase {
             // init sproc model
             $ok = $this->load_mod('S_model', 'sproc_model', 'operations_sproc', $this->my_tag);
             if (!$ok) {
-                throw new exception($this->sproc_model->get_error_text());
+                throw new \Exception($this->sproc_model->get_error_text());
             }
 
             $calling_params = new \stdClass();
@@ -476,12 +476,12 @@ class File_attachment extends DmsBase {
 
             $ok = $this->sproc_model->execute_sproc($calling_params);
             if (!$ok) {
-                throw new exception($this->sproc_model->get_error_text());
+                throw new \Exception($this->sproc_model->get_error_text());
             }
 
             $ret = $this->sproc_model->get_parameters()->retval;
             $response = $this->sproc_model->get_parameters()->message;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $response = $e->getMessage();
         }
         return $response;
@@ -580,7 +580,7 @@ class File_attachment extends DmsBase {
         try {
             $local = $this->validate_local_path();
             if (!$local->ok) {
-                throw new Exception($local->message);
+                throw new \Exception($local->message);
             }
 
             $result = $this->get_valid_file_path($entity_type, $entity_id, $filename);
@@ -588,19 +588,19 @@ class File_attachment extends DmsBase {
             if (!is_null($this->archive_root_path) && $result->path === $result->archive_path) {
                 $remote = $this->validate_remote_mount();
                 if (!$remote->ok) {
-                    throw new Exception($remote->message);
+                    throw new \Exception($remote->message);
                 }
             }
 
             //echo "-->" . $result ."<--";
 
             if (!$result->ok) {
-                throw new Exception($result->message);
+                throw new \Exception($result->message);
             }
             $full_path = $result->path;
 
             if (!file_exists($full_path)) {
-                throw new Exception('File could not be found on server');
+                throw new \Exception('File could not be found on server');
             }
 
             // copy file locally...
@@ -643,7 +643,7 @@ class File_attachment extends DmsBase {
             header("Content-Disposition: attachment; filename=\"{$filename}\"");
             header("X-Sendfile: {$full_path}");
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $error = $e->getMessage();
             echo $error;
         }
@@ -685,10 +685,10 @@ class File_attachment extends DmsBase {
             }
             $handle = fopen($dest_path, 'w+');
             if($handle === false) {
-                 throw new Exception("Could not open '$dest_path'");
+                 throw new \Exception("Could not open '$dest_path'");
             }
             if(fwrite($handle, $contents) === false) {
-                 throw new Exception("Could write to '$dest_path'");
+                 throw new \Exception("Could write to '$dest_path'");
             }
             fclose($handle);
 
@@ -700,7 +700,7 @@ class File_attachment extends DmsBase {
                 $msg = "<br>Created file $dest_path <br>and called make_attachment_tracking_entry";
             }
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $msg = $e->getMessage();
         }
 
@@ -876,7 +876,7 @@ class File_attachment extends DmsBase {
 
             echo $this->table->generate();
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }

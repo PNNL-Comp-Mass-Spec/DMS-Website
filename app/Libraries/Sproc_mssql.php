@@ -16,7 +16,7 @@ class Sproc_mssql extends Sproc_base {
     function execute($sprocName, $conn_id, $args, $input_params) {
         $stmt = mssql_init($sprocName, $conn_id);
         if (!$stmt) {
-            throw new Exception("Statement initialization failed for $sprocName");
+            throw new \Exception("Statement initialization failed for $sprocName");
         }
 
         reset($args);
@@ -38,7 +38,7 @@ class Sproc_mssql extends Sproc_base {
 
             $ok = mssql_bind($stmt, $paramName, $input_params->$fieldName, $paramType, $isOutput, false, $size);
             if (!$ok) {
-                throw new Exception("Error trying to bind field '$fieldName'");
+                throw new \Exception("Error trying to bind field '$fieldName'");
             }
         }
         mssql_bind($stmt, "RETVAL", $input_params->retval, SQLINT2);  // always bind to return value from sproc
@@ -47,7 +47,7 @@ class Sproc_mssql extends Sproc_base {
 
         if (!$input_params->exec_result) {
             $ra_msg = mssql_get_last_message();
-            throw new Exception($ra_msg);
+            throw new \Exception($ra_msg);
         }
 
         // Process the results here, before we call mssql_free_statement()

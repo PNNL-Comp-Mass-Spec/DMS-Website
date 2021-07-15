@@ -59,7 +59,7 @@ class R_model extends Model {
                 $this->get_utility_defs($config_name, $dbFileName);
             }
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error_text = $e->getMessage();
             return false;
         }
@@ -92,16 +92,16 @@ class R_model extends Model {
 
         if (!file_exists($dbFilePath)) {
             if ($this->configDBFolder) {
-                throw new Exception("The config database file '$dbFileName' does not exist in folder '$this->configDBFolder'");
+                throw new \Exception("The config database file '$dbFileName' does not exist in folder '$this->configDBFolder'");
             } else {
-                throw new Exception("The config database file '$dbFileName' does not exist");
+                throw new \Exception("The config database file '$dbFileName' does not exist");
             }
         }
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         // get list of tables in database
@@ -168,7 +168,7 @@ class R_model extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         // get list of tables in database
@@ -185,7 +185,7 @@ class R_model extends Model {
             //$obj = $sth->fetch(PDO::FETCH_OBJ);            
             $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
             if ($obj === false || is_null($obj)) {
-                throw new Exception('Could not find query specs');
+                throw new \Exception('Could not find query specs');
             }
 
             $i = 1;

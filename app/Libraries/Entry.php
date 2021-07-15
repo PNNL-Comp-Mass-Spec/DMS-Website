@@ -158,7 +158,7 @@ class Entry {
         }
         try {
             if (!$valid_fields) {
-                throw new exception('There were validation errors');
+                throw new \Exception('There were validation errors');
             }
 
             // $msg is an output parameter of call_stored_procedure
@@ -175,7 +175,7 @@ class Entry {
                 $outcome = $this->outcome_msg($message . ": " . $msg, 'normal');
             }
             $supplement = $this->supplement_msg($message . $ps_links, 'normal');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // something broke - compose expressions of regret
             $message = $e->getMessage();     // . " (page family: $this->tag)";
             $outcome = $this->outcome_msg($message, 'failure');
@@ -248,13 +248,13 @@ class Entry {
     protected function call_stored_procedure($input_params, $form_def, &$msg) {
         $ok = $this->controller->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->config_source);
         if (!$ok) {
-            throw new exception($this->controller->sproc_model->get_error_text());
+            throw new \Exception($this->controller->sproc_model->get_error_text());
         }
 
         $calling_params = $this->make_calling_param_object($input_params, $form_def->field_enable);
         $success = $this->controller->sproc_model->execute_sproc($calling_params);
         if (!$success) {
-            throw new exception($this->controller->sproc_model->get_error_text());
+            throw new \Exception($this->controller->sproc_model->get_error_text());
         }
 
         $msg = $this->controller->sproc_model->get_parameters()->message;

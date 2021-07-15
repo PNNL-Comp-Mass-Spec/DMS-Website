@@ -120,10 +120,10 @@ class Upload extends DmsBase {
 
             $entity_type = $this->spreadsheet_loader->get_entity_type();
             $config_source = $this->get_config_source($entity_type);
-            if(!$config_source) throw new exception("'$entity_type' is not currently supported");
+            if(!$config_source) throw new \Exception("'$entity_type' is not currently supported");
 
             $err = $this->cross_check_fields_with_entity($entity_type, $config_source);
-            if($err) throw new exception($err);
+            if($err) throw new \Exception($err);
 
             $entity_list = $this->spreadsheet_loader->get_entity_list();
             $entity_count = count($entity_list);
@@ -154,7 +154,7 @@ class Upload extends DmsBase {
             $this->table->setHeading('', '<span id="entity_type">'.$entity_type.'</span>', 'Details', 'Results');
             echo $this->table->generate($rows);
             echo "<div>Number of entities:$entity_count<div>";
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
             echo "<div class='EPag_message'>$message</div>";
         }
@@ -188,7 +188,7 @@ class Upload extends DmsBase {
                 array_unshift($row, $i++);
             }
             echo $this->table->generate($rows);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
             echo "<div class='EPag_message'>$message</div>";
         }
@@ -279,7 +279,7 @@ class Upload extends DmsBase {
             //---- tracking info update ---------------------------
             if($incTrackinfo) {
                 $config_source = $this->get_config_source($entity_type);
-                if(!$config_source) throw new exception("'$entity_type' is not currently supported");
+                if(!$config_source) throw new \Exception("'$entity_type' is not currently supported");
 
                 $current_values = $this->get_current_field_values($id, $entity_type, $config_source, $mode);
                 $calling_params = $this->make_tracking_info_params($tracking_info, $config_source, $mode, $current_values);
@@ -287,27 +287,27 @@ class Upload extends DmsBase {
                 // call stored procedure to update tracking info
                 $this->sproc_model = model('App\Models\S_model');
                 $ok = $this->sproc_model->init('entry_sproc', $config_source);
-                if(!$ok) throw new exception($this->sproc_model->get_error_text());
+                if(!$ok) throw new \Exception($this->sproc_model->get_error_text());
 
                 $ok = $this->sproc_model->execute_sproc($calling_params);
-                if(!$ok) throw new exception($this->sproc_model->get_error_text());
+                if(!$ok) throw new \Exception($this->sproc_model->get_error_text());
             }
 
             //---- aux info update ---------------------------
             if($incAuxinfo && !empty($aux_info)) {
                 $this->aux_model = model('App\Models\S_model');
                 $ok = $this->aux_model->init('operations_sproc', 'aux_info_def');
-                if(!$ok) throw new exception($this->aux_model->get_error_text());
+                if(!$ok) throw new \Exception($this->aux_model->get_error_text());
 
                 foreach($grouped_aux_info as $ai) {
                     $obj = $this->make_aux_info_params($id, $entity_type, $ai, $mode);
                     $ok = $this->aux_model->execute_sproc($obj);
-                    if(!$ok) throw new exception($this->aux_model->get_error_text());
+                    if(!$ok) throw new \Exception($this->aux_model->get_error_text());
                 }
             }
 
             $message = "Operation '$mode' was successful. ";
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
         echo $message;
@@ -333,11 +333,11 @@ class Upload extends DmsBase {
             $key = 0;
             $message = '';
             $result = $this->get_entity_key($id, $entity_type, $key, $message);
-            if(!$result) throw new exception($message);
+            if(!$result) throw new \Exception($message);
 
             $this->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
             $field_values =  $this->input_model->get_item($key, $this);
-            if(empty($field_values)) throw new exception("Could not get field values for $entity_type '$key'");
+            if(empty($field_values)) throw new \Exception("Could not get field values for $entity_type '$key'");
             foreach($field_values as $fn => $v) {
                 $current_values->$fn = $v;
             }
@@ -378,11 +378,11 @@ class Upload extends DmsBase {
         $exists = false;
         try {
             if (!array_key_exists($entity_type, $this->supported_entities)) {
-                throw new exception('Error:Unrecognized entity type');
+                throw new \Exception('Error:Unrecognized entity type');
             }
 
             $sql = $this->supported_entities[$entity_type]['existence_check_sql'];
-            if(!$sql) throw new exception('Error:Existence query not defined');
+            if(!$sql) throw new \Exception('Error:Existence query not defined');
             $sql = str_replace('@@', $id, $sql);
 
             $this->db = \Config\Database::connect();
@@ -392,7 +392,7 @@ class Upload extends DmsBase {
                 $key = ($this->supported_entities[$entity_type]['key'] == 'ID')?$row->ID:$id;
                 $exists = true;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
         return $exists;
@@ -518,7 +518,7 @@ class Upload extends DmsBase {
             if(!$config_source) return "Not supported";
 
             echo $this->cross_check_fields_with_entity($entity_type, $config_source);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             if($e->getMessage()) echo $e->getMessage();
         }
     }
@@ -650,7 +650,7 @@ class Upload extends DmsBase {
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
-        //if(!$dbh) throw new Exception('Could not connect to config database at '.$dbFilePath);
+        //if(!$dbh) throw new \Exception('Could not connect to config database at '.$dbFilePath);
 
         // get list of tables in database
         $tbl_list = array();
@@ -659,7 +659,7 @@ class Upload extends DmsBase {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        if(!in_array('loadable_entities', $tbl_list)) throw new exception('Table "loadable_entities" not found in config db');
+        if(!in_array('loadable_entities', $tbl_list)) throw new \Exception('Table "loadable_entities" not found in config db');
 
         $def = array();
         //foreach ($dbh->query("SELECT * FROM loadable_entities", PDO::FETCH_ASSOC) as $row) {

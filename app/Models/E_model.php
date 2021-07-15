@@ -49,7 +49,7 @@ class E_model extends Model {
 
             $this->get_entry_form_definitions($config_name, $dbFileName);
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error_text = $e->getMessage();
             return false;
         }
@@ -176,7 +176,7 @@ class E_model extends Model {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
-        //    throw new Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
         //}
 
         // get list of tables in database

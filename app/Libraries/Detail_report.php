@@ -69,7 +69,7 @@ class Detail_report {
             $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
             $result_row = $this->controller->detail_model->get_item($id, $this->controller);
             if (empty($result_row)) {
-                throw new exception("Details for entity '$id' could not be found");
+                throw new \Exception("Details for entity '$id' could not be found");
             }
 
             $col_info = $this->controller->detail_model->get_column_info();
@@ -101,7 +101,7 @@ class Detail_report {
 
             helper(['text', 'detail_report_helper']);
             echo view('main/detail_report_data', $data);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo "<div class='EPag_message' >" . $e->getMessage() . "</div>";
         }
     }

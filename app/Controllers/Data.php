@@ -242,7 +242,7 @@ class Data extends BaseController {
         $dbFilePath = $configDBFolder.$dbFileName;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
-        //if(!$dbh) throw new Exception('Could not connect to menu config database at '.$dbFilePath);
+        //if(!$dbh) throw new \Exception('Could not connect to menu config database at '.$dbFilePath);
 
         helper(['url']);
         $this->table = new \CodeIgniter\View\Table();

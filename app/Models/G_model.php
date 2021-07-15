@@ -99,7 +99,7 @@ class G_model extends Model {
                 $this->get_utility_defs($config_name, $dbFileName);
             }
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error_text = $e->getMessage();
             return false;
         }
@@ -159,16 +159,16 @@ class G_model extends Model {
 
         if(!file_exists($dbFilePath)) {
             if ($this->configDBFolder) {
-                throw new Exception($this->missing_page_family . " (see $this->configDBFolder)");
+                throw new \Exception($this->missing_page_family . " (see $this->configDBFolder)");
             } else {
-                throw new Exception($this->missing_page_family);
+                throw new \Exception($this->missing_page_family);
             }
         }
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if(!$dbh) {
-        //    throw new Exception('Could not connect to config database at '.$dbFilePath);
+        //    throw new \Exception('Could not connect to config database at '.$dbFilePath);
         //}
 
         // get list of tables in database
@@ -185,7 +185,7 @@ class G_model extends Model {
             //$obj = $sth->fetch(PDO::FETCH_OBJ);
             $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
             if($obj === false || is_null($obj)) {
-                throw new Exception('Could not find query specs');
+                throw new \Exception('Could not find query specs');
             }
 
             $label = (isset($obj->label))?$obj->label:'Page';
@@ -218,16 +218,16 @@ class G_model extends Model {
 
         if(!file_exists($dbFilePath)) {
             if ($this->configDBFolder) {
-                throw new Exception($this->missing_page_family . " (see $this->configDBFolder)");
+                throw new \Exception($this->missing_page_family . " (see $this->configDBFolder)");
             } else {
-                throw new Exception($this->missing_page_family);
+                throw new \Exception($this->missing_page_family);
             }
         }
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if(!$dbh) {
-        //    throw new Exception('Could not connect to config database at '.$dbFilePath);
+        //    throw new \Exception('Could not connect to config database at '.$dbFilePath);
         //}
 
         // get list of tables in database
@@ -375,12 +375,12 @@ class G_model extends Model {
             if(array_key_exists($action, $this->actions)) {
                 $allowed = $this->actions[$action];
             } else {
-                throw new exception("Action '$action' is not recognized");
+                throw new \Exception("Action '$action' is not recognized");
             }
 
             // not all actions are possible for a given page family
             if($allowed === false) {
-                throw new Exception('That action is not allowed');
+                throw new \Exception('That action is not allowed');
             }
 
             // we are going to have to check further, so load the authorization model
@@ -429,12 +429,12 @@ class G_model extends Model {
                 $msg .= "'</code> permissions.<br /><br /> ";
                 $msg .= 'To request additional access, e-mail Matthew Monroe<br /> ';
                 $msg .= 'or use the Proteomics Queue link on the <a href="/">DMS home page</a>.';
-                throw new Exception($msg);
+                throw new \Exception($msg);
             }
 
             // made it this far, good to go
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
