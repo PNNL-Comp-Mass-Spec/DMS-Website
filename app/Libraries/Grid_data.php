@@ -18,10 +18,13 @@ class Grid_data {
      * Initialize the grid data
      * @param type $config_name
      * @param type $config_source
+     * @param type $controller
      */
-    function init($config_name, $config_source) {
+    function init($config_name, $config_source, $controller) {
         $this->config_source = $config_source;
         $this->config_name = $config_name;
+
+        $this->controller = $controller;
     }
 
     /**
@@ -31,11 +34,10 @@ class Grid_data {
      * @throws exception
      */
     function get_query_data($sql, $paramArray) {
-        $CI =& get_instance();
         $response = new stdClass();
         try {
-            $this->db = \Config\Database::connect();
-            $result = $CI->db->query($sql);
+            $this->controller->db = \Config\Database::connect();
+            $result = $this->controller->db->query($sql);
             if (!$result) {
                 $currentTimestamp = date("Y-m-d");
                 throw new exception("Error querying database; see application/logs/log-$currentTimestamp.php");
@@ -63,8 +65,6 @@ class Grid_data {
      * @throws exception
      */
     function get_sproc_data($paramArray, $config_name = '') {
-        $CI =& get_instance();
-
         if (!$config_name) {
             $config_name = $this->config_name;
         }
@@ -73,25 +73,25 @@ class Grid_data {
         $response = new stdClass();
         try {
             // init sproc model
-            $ok = $CI->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
+            $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($this->controller->sproc_model->get_error_text());
             }
 
-            $fields = $CI->sproc_model->get_sproc_fields();
+            $fields = $this->controller->sproc_model->get_sproc_fields();
             $paramObj = $this->get_input_values($fields, $paramArray);
-            $calling_params = $CI->sproc_model->get_calling_args($paramObj);
+            $calling_params = $this->controller->sproc_model->get_calling_args($paramObj);
 
-            $success = $CI->sproc_model->execute_sproc($calling_params);
+            $success = $this->controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($this->controller->sproc_model->get_error_text());
             }
 
             $response->result = 'ok';
-            $response->message = $CI->sproc_model->get_parameters()->message;
+            $response->message = $this->controller->sproc_model->get_parameters()->message;
 
-            $response->columns = $CI->sproc_model->get_col_names();
-            $response->rows = $CI->sproc_model->get_rows();
+            $response->columns = $this->controller->sproc_model->get_col_names();
+            $response->rows = $this->controller->sproc_model->get_rows();
         } catch (Exception $e) {
             $response->result = 'error';
             $response->message = 'get_sproc_data: ' . $e->getMessage();

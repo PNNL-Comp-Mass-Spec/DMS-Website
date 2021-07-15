@@ -144,8 +144,6 @@ class S_model extends Model {
                 throw new Exception("Input parameter object was not supplied to execute_sproc for $this->sprocName");
             }
 
-            $CI =& get_instance();
-
             // Connect to the database
             // Retry the connection up to 5 times
             $connectionRetriesRemaining = 5;
@@ -500,7 +498,6 @@ class S_model extends Model {
 
     // --------------------------------------------------------------------
     function clear_cached_state() {
-        $CI =& get_instance();
         helper('cache');
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);

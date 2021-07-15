@@ -414,7 +414,7 @@ class File_attachment extends DmsBase {
             // init sproc model
             $ok = $this->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->my_tag);
             if (!$ok) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($this->sproc_model->get_error_text());
             }
 
             $calling_params = new stdClass();

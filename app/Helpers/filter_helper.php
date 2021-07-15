@@ -38,6 +38,7 @@ function make_search_filter_minimal($cols, $current_paging_filter_values, $curre
 /**
  * Make expanded search filter
  * @param type $cols
+ * @param type $controller
  * @param type $current_paging_filter_values
  * @param type $current_primary_filter_values
  * @param type $sec_filter_display_info
@@ -45,14 +46,14 @@ function make_search_filter_minimal($cols, $current_paging_filter_values, $curre
  * @param type $col_filter
  * @param type $filter_display_mode
  */
-function make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode = "") {
+function make_search_filter_expanded($cols, $controller, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode = "") {
     $big_primary_filter = big_primary_filter($current_primary_filter_values);
 //      $col_filter_size = ($big_primary_filter)?14:7;
     $default_col_filter_size = 5;
     $col_filter_size = (count($cols) < $default_col_filter_size) ? count($cols) : $default_col_filter_size;
 
     $g = make_paging_filter($current_paging_filter_values);
-    $p = make_primary_filter_in_table($current_primary_filter_values);
+    $p = make_primary_filter_in_table($current_primary_filter_values, $controller);
     $s = make_secondary_filter($sec_filter_display_info);
     $r = make_sorting_filter($current_sorting_filter_values, $cols);
     $c = make_column_filter($cols, $col_filter, $col_filter_size);
@@ -171,8 +172,6 @@ function make_intermediate_collapse_control() {
  * @return type
  */
 function make_primary_filter($primary_filter_defs) {
-    // get CI instance
-    $CI =& get_instance();
     helper('form');
 
     $str = "";
@@ -230,14 +229,13 @@ function make_primary_filter($primary_filter_defs) {
 /**
  * Construct the primary filter table
  * @param type $primary_filter_defs
+ * @param type $controller
  * @return string
  */
-function make_primary_filter_in_table($primary_filter_defs) {
-    // get CI instance
-    $CI =& get_instance();
+function make_primary_filter_in_table($primary_filter_defs, $controller) {
     helper('form');
-    $CI->entry_form = new \All\Libraries\Entry_form();
-    $CI->choosers = model('App\Models\Dms_chooser');
+    $controller->entry_form = new \All\Libraries\Entry_form();
+    $controller->choosers = model('App\Models\Dms_chooser');
 
     $str = '';
 
@@ -285,7 +283,7 @@ function make_primary_filter_in_table($primary_filter_defs) {
         }
 
         $data['value'] = $spec["value"];
-        $choosers = $CI->entry_form->make_choosers($id, $spec, " &nbsp; ", "");
+        $choosers = $controller->entry_form->make_choosers($id, $spec, " &nbsp; ", "");
         $str .= $row_s . $cell_s . $spec["label"] . $cell_f . $cell_s . form_input($data) . $choosers . $cell_f . $row_f;
     }
     $str .= "</table>\n";

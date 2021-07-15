@@ -116,7 +116,6 @@ class Dms_preferences extends Model {
 
     // --------------------------------------------------------------------
     function initialize() {
-        $CI =& get_instance();
         helper('cookie');
         helper('user');
 

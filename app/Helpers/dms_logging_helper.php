@@ -2,7 +2,6 @@
 
 // --------------------------------------------------------------------
 function sproc_log_in($sproc, $user, $parms, $override = false) {
-    $CI =& get_instance();
     $inhibit_sproc_call = config('App')->inhibit_sproc_call;
     $log_enabled = config('App')->sproc_call_log_enabled;
 
@@ -33,7 +32,6 @@ function sproc_log_in($sproc, $user, $parms, $override = false) {
 
 // --------------------------------------------------------------------
 function sproc_log_out($sproc, $user, $retval, $message) {
-    $CI =& get_instance();
     $inhibit_sproc_call = config('App')->inhibit_sproc_call;
     $log_enabled = config('App')->sproc_call_log_enabled;
 

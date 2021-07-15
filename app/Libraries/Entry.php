@@ -22,13 +22,14 @@ class Entry {
      * Initialize this class
      * @param string $config_name Not used
      * @param string $config_source Configuration source
+     * @param type $controller
      */
-    function init($config_name, $config_source) {
+    function init($config_name, $config_source, $controller) {
         $this->config_source = $config_source;
 
-        $CI =& get_instance();
-        $this->tag = $CI->my_tag;
-        $this->title = $CI->my_title;
+        $this->controller = $controller;
+        $this->tag = $this->controller->my_tag;
+        $this->title = $this->controller->my_title;
     }
 
     /**
@@ -37,32 +38,32 @@ class Entry {
      * @param string $page_type
      */
     function create_entry_page($page_type) {
-        $CI =& get_instance();
-        helper(['entry_page']);
+        helper(['entry_page', 'url']);
 
         // general specifications for page family
-        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
         // make entry form object using form definitions from model
-        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
-        $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
+        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
-        $CI->load_lib('Entry_form', $form_def->specs, $this->config_source);
+        $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
 
         // Determine the page mode ('add' or 'update')
-        $mode = $CI->entry_form->get_mode_from_page_type($page_type);
+        $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
 
         // get initial field values and merge them with form object
-        $segs = array_slice($CI->uri->segment_array(), 2); // remove controller and function segments
-        $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields);
+        $uri = current_url(true);
+        $segs = array_slice($uri->getSegments(), 2); // remove controller and function segments
+        $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields, $this->controller);
 
         if (empty($initial_field_values)) {
             if ($page_type == 'edit') {
                 if (!empty($segs) && sizeof($segs) > 0) {
-                    $CI->message_box('Edit Error', "Entity '$segs[0]' not found");
+                    $this->controller->message_box('Edit Error', "Entity '$segs[0]' not found");
                 } else {
-                    $CI->message_box('Edit Error', "Entity ID not specified for editing");
+                    $this->controller->message_box('Edit Error', "Entity ID not specified for editing");
                 }
                 return;
             }
@@ -82,7 +83,7 @@ class Entry {
                     }
                 }
 
-                $CI->entry_form->set_field_value($field, $value);
+                $this->controller->entry_form->set_field_value($field, $value);
             }
         }
 
@@ -91,10 +92,10 @@ class Entry {
 
         // build page display components and load page
         $data['tag'] = $this->tag;
-        $data['title'] = $CI->gen_model->get_page_label($this->title, $page_type);
-        $data['form'] = $CI->entry_form->build_display($mode);
-        $data['entry_cmds'] = $this->handle_cmd_btns($CI, $form_def->entry_commands, $page_type);
-        $data['entry_submission_cmds'] = $CI->gen_model->get_param('entry_submission_cmds');
+        $data['title'] = $this->controller->gen_model->get_page_label($this->title, $page_type);
+        $data['form'] = $this->controller->entry_form->build_display($mode);
+        $data['entry_cmds'] = $this->handle_cmd_btns($this->controller, $form_def->entry_commands, $page_type);
+        $data['entry_submission_cmds'] = $this->controller->gen_model->get_param('entry_submission_cmds');
 
         helper(['menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Entry_Pages');
@@ -122,16 +123,14 @@ class Entry {
      * @param string $mode Page mode: 'add' or 'update'
      */
     protected function handle_special_field_options($form_def, $mode) {
-        $CI =& get_instance();
-
-        $CI->entry_form->set_field_enable($form_def->field_enable);
+        $this->controller->entry_form->set_field_enable($form_def->field_enable);
 
         if ($mode) {
-            $CI->entry_form->adjust_field_visibility($mode);
+            $this->controller->entry_form->adjust_field_visibility($mode);
         }
 
-        $userPermissions = $CI->auth->get_user_permissions(get_user());
-        $CI->entry_form->adjust_field_permissions($userPermissions);
+        $userPermissions = $this->controller->auth->get_user_permissions(get_user());
+        $this->controller->entry_form->adjust_field_permissions($userPermissions);
     }
 
     /**
@@ -143,11 +142,10 @@ class Entry {
      * @category AJAX
      */
     function submit_entry_form() {
-        $CI =& get_instance();
         helper(['entry_page']);
 
-        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
-        $form_def = $CI->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
+        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
 
         $valid_fields = $this->get_input_field_values($form_def->rules);
@@ -155,7 +153,7 @@ class Entry {
         // get field values from validation object
         $input_params = new stdClass();
         foreach ($form_def->fields as $field) {
-            $input_params->$field = $CI->postData[$field];
+            $input_params->$field = $this->controller->postData[$field];
         }
         try {
             if (!$valid_fields) {
@@ -194,7 +192,7 @@ class Entry {
         }
 
         // get entry form object and use to to build and return HTML for form
-        $CI->load_lib('Entry_form', $form_def->specs, $this->config_source);
+        $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
         $data['form'] = $this->make_entry_form_HTML($input_params, $form_def);
         echo $outcome;
         echo $data['form'];
@@ -216,8 +214,6 @@ class Entry {
      * @param stdClass $form_def
      */
     protected function make_entry_form_HTML($input_params, $form_def) {
-        $CI =& get_instance();
-
         // handle special field options for entry form object
         $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
         $this->handle_special_field_options($form_def, $mode);
@@ -225,11 +221,11 @@ class Entry {
         // update entry form object with field values
         // and any field validation errors
         foreach ($form_def->fields as $field) {
-            $CI->entry_form->set_field_value($field, $input_params->$field);
-            $CI->entry_form->set_field_error($field, form_error($field));
+            $this->controller->entry_form->set_field_value($field, $input_params->$field);
+            $this->controller->entry_form->set_field_error($field, form_error($field));
         }
         // build HTML and return it
-        return $CI->entry_form->build_display($mode);
+        return $this->controller->entry_form->build_display($mode);
     }
 
     /**
@@ -237,10 +233,9 @@ class Entry {
      * @param stdClass $input_params
      */
     protected function get_post_submission_link($input_params) {
-        $CI =& get_instance();
-        $ps_link_specs = $CI->gen_model->get_post_submission_link_specs();
-        $actions = $CI->gen_model->get_actions();
-        return make_post_submission_links($CI->my_tag, $ps_link_specs, $input_params, $actions);
+        $ps_link_specs = $this->controller->gen_model->get_post_submission_link_specs();
+        $actions = $this->controller->gen_model->get_actions();
+        return make_post_submission_links($this->controller->my_tag, $ps_link_specs, $input_params, $actions);
     }
 
     /**
@@ -250,20 +245,18 @@ class Entry {
      * @param string $msg Message returned by the stored procedure (output)
      */
     protected function call_stored_procedure($input_params, $form_def, &$msg) {
-        $CI =& get_instance();
-
-        $ok = $CI->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->config_source);
+        $ok = $this->controller->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->config_source);
         if (!$ok) {
-            throw new exception($CI->sproc_model->get_error_text());
+            throw new exception($this->controller->sproc_model->get_error_text());
         }
 
         $calling_params = $this->make_calling_param_object($input_params, $form_def->field_enable);
-        $success = $CI->sproc_model->execute_sproc($calling_params);
+        $success = $this->controller->sproc_model->execute_sproc($calling_params);
         if (!$success) {
-            throw new exception($CI->sproc_model->get_error_text());
+            throw new exception($this->controller->sproc_model->get_error_text());
         }
 
-        $msg = $CI->sproc_model->get_parameters()->message;
+        $msg = $this->controller->sproc_model->get_parameters()->message;
         $this->update_input_params_from_stored_procedure_args($input_params);
     }
 
@@ -273,9 +266,8 @@ class Entry {
      * @param stdClass $input_params
      */
     protected function update_input_params_from_stored_procedure_args($input_params) {
-        $CI =& get_instance();
-        $bound_params = $CI->sproc_model->get_parameters();
-        foreach ($CI->sproc_model->get_sproc_args() as $arg) {
+        $bound_params = $this->controller->sproc_model->get_parameters();
+        foreach ($this->controller->sproc_model->get_sproc_args() as $arg) {
             if ($arg['dir'] == 'output') {
                 $fn = ($arg['field'] == '<local>') ? $arg['name'] : $arg['field'];
                 if (isset($input_params->$fn) && $bound_params->$fn != '[no change]') {
@@ -297,9 +289,9 @@ class Entry {
     protected function get_input_field_values($rules) {
         helper('form');
         $request = \Config\Services::request();
-        $CI->postData = $request->getPost();
+        $this->controller->postData = $request->getPost();
         $validation =  \Config\Services::validation();
-        //$CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
+        //$validation->set_error_delimiters('<span class="bad_clr">', '</span>');
         $validation->setRules($rules);
         return $validation->run();
     }
@@ -313,9 +305,8 @@ class Entry {
      * @return mixed
      */
     protected function make_calling_param_object($input_params, $field_enable) {
-        $CI =& get_instance();
         $calling_params = clone $input_params;
-        $calling_params->mode = $CI->input->post('entry_cmd_mode');
+        $calling_params->mode = $this->controller->request->getPost('entry_cmd_mode');
         $calling_params->callingUser = get_user();
 
         // adjust calling parameters for any disabled fields

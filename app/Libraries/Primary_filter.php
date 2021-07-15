@@ -22,14 +22,13 @@ class Primary_filter {
      * @param type $config_source
      * @param type $filter_specs
      */
-    function init($config_name, $config_source, $filter_specs) {
+    function init($config_name, $config_source, $controller, $filter_specs) {
         foreach (array_keys($filter_specs) as $id) {
             $filter_specs[$id]["value"] = '';
             $filter_specs[$id]['rel'] = ($filter_specs[$id]['cmp'] == 'Rp') ? 'ARG' : 'AND';
         }
         $this->cur_filter_values = $filter_specs;
 
-        $CI =& get_instance();
         helper('cache');
 
         $this->config_name = $config_name;
@@ -140,7 +139,6 @@ class Primary_filter {
      * Clear cached data
      */
     function clear_cached_state() {
-        $CI =& get_instance();
         helper('cache');
         clear_cache($this->storage_name);
     }

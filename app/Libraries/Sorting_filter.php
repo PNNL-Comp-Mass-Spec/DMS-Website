@@ -25,8 +25,7 @@ class Sorting_filter {
      * @param type $config_name
      * @param type $config_source
      */
-    function init($config_name, $config_source, $options) {
-        $CI =& get_instance();
+    function init($config_name, $config_source, $controller, $options) {
         helper('cache');
 
         $this->config_name = $config_name;
@@ -59,12 +58,12 @@ class Sorting_filter {
      * @return boolean
      */
     private function get_current_filter_values_from_post() {
-        $CI =& get_instance();
+        $request = \Config\Services::request();
 
-        if ($CI->input->post('qf_sort_col')) {
+        if ($request->getPost('qf_sort_col')) {
             $filter_values = array();
             foreach ($this->field_names as $name) {
-                $xar = $CI->input->post($name);
+                $xar = $request->getPost($name);
                 for ($i = 0; $i < count($xar); $i++) {
                     $filter_values[$i][$name] = trim($xar[$i]);
                 }
@@ -114,7 +113,6 @@ class Sorting_filter {
      * Clear cached data
      */
     function clear_cached_state() {
-        $CI =& get_instance();
         helper('cache');
         clear_cache($this->storage_name);
     }

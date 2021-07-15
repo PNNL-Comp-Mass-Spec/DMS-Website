@@ -228,8 +228,6 @@ class Q_model extends Model {
             return $e->getMessage();
         }
 
-        $CI =& get_instance();
-
         // Connect to the database
         // Retry the connection up to 5 times
         $connectionRetriesRemaining = 5;
@@ -447,16 +445,17 @@ class Q_model extends Model {
      * Return single row for given ID using first defined filter
      * Used to retrieve data for a detail report
      * @param string $id
+     * @param object $controller
      * @return type
      * @throws exception
      */
-    function get_item($id) {
+    function get_item($id, $controller) {
         if (empty($this->primary_filter_specs)) {
             throw new exception('no primary id column defined; update general_params to include detail_report_data_id_col');
         }
 
         if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc)) {
-            return $this->get_data_row_from_sproc($id);
+            return $this->get_data_row_from_sproc($id, $controller);
         } else {
             // primary_filter_specs is populated in get_detail_report_query_specs_from_config_db
             $spc = current($this->primary_filter_specs);
@@ -493,12 +492,11 @@ class Q_model extends Model {
      * Ported from get_data_rows_from_sproc in Param_report.php
      * Returns the first row of data returned by the stored procedure
      * @param type $id
+     * @param type $controller
      * @return type
      * @throws exception Thrown if there is an error or if the SP returns a non-zero value
      */
-    function get_data_row_from_sproc($id) {
-        $CI =& get_instance();
-
+    function get_data_row_from_sproc($id, $controller) {
         $calling_params = new stdClass();
 
         // When calling a stored procedure from a detail report, we do not allow for passing custom values for stored procedure parameters
@@ -515,17 +513,17 @@ class Q_model extends Model {
 
         try {
             // Call the stored procedure
-            $ok = $CI->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+            $ok = $controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($controller->sproc_model->get_error_text());
             }
 
-            $success = $CI->sproc_model->execute_sproc($calling_params);
+            $success = $controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($controller->sproc_model->get_error_text());
             }
 
-            $rows = $CI->sproc_model->get_rows();
+            $rows = $controller->sproc_model->get_rows();
 
             if (empty($rows)) {
                 // No results
@@ -548,9 +546,6 @@ class Q_model extends Model {
      * @throws Exception
      */
     private function get_db_object($dbGroupName) {
-
-        $CI =& get_instance();
-
         // Connect to the database
         // Retry the connection up to 5 times
         $connectionRetriesRemaining = 5;
@@ -716,14 +711,12 @@ class Q_model extends Model {
 
     // --------------------------------------------------------------------
     function clear_cached_total_rows() {
-        $CI =& get_instance();
         helper('cache');
         clear_cache($this->total_rows_storage_name);
     }
 
     // --------------------------------------------------------------------
     function clear_cached_state() {
-        $CI =& get_instance();
         helper('cache');
         clear_cache($this->total_rows_storage_name);
         clear_cache($this->col_info_storage_name);
@@ -743,7 +736,6 @@ class Q_model extends Model {
         }
 
         if (!$this->result_column_info || $forceRefresh) {
-            $CI =& get_instance();
             helper('cache');
             $state = get_from_cache($this->col_info_storage_name);
             if ($state) {
@@ -767,7 +759,6 @@ class Q_model extends Model {
 
     // --------------------------------------------------------------------
     function get_column_info_cache_data() {
-        $CI =& get_instance();
         helper('cache');
 
         return get_from_cache($this->col_info_storage_name);
@@ -775,7 +766,6 @@ class Q_model extends Model {
 
     // --------------------------------------------------------------------
     private function set_col_info_data($state) {
-        $CI =& get_instance();
         helper('cache');
 
         $this->result_column_info = $state;

@@ -18,13 +18,13 @@ class List_report {
     }
 
     // --------------------------------------------------------------------
-    function init($config_name, $config_source) {
+    function init($config_name, $config_source, $controller) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
-        $CI =& get_instance();
-        $this->tag = $CI->my_tag;
-        $this->title = $CI->my_title;
+        $this->controller = $controller;
+        $this->tag = $this->controller->my_tag;
+        $this->title = $this->controller->my_title;
     }
 
     /**
@@ -32,21 +32,21 @@ class List_report {
      * @param type $mode
      */
     function list_report($mode) {
-        $CI =& get_instance();
         session_start();
         helper(['form', 'menu', 'link_util']);
-        $CI->choosers = model('App\Models\Dms_chooser');
+        $this->controller->choosers = model('App\Models\Dms_chooser');
 
-        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
         // clear total rows cache in model to force getting value from database
-        $CI->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
-        $CI->model->clear_cached_total_rows();
+        $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
+        $this->controller->model->clear_cached_total_rows();
 
         // if there were extra segments for list report URL,
         // convert them to primary and secondary filter field values and cache those
         // and redirect back to ourselves without the trailing URL segments
-        $segs = array_slice($CI->uri->segment_array(), 2);
+        $uri = current_url(true);
+        $segs = array_slice($uri->getSegments(), 2);
 
         // Initially assume all items in $segs are primary filter items
         $pfSegs = $segs;
@@ -67,7 +67,7 @@ class List_report {
 
         if (!empty($segs)) {
             // Retrieve the primary filters
-            $primary_filter_specs = $CI->model->get_primary_filter_specs();
+            $primary_filter_specs = $this->controller->model->get_primary_filter_specs();
 
             $this->set_pri_filter_from_url_segments($pfSegs, $primary_filter_specs);
 
@@ -81,14 +81,14 @@ class List_report {
 
         $data['tag'] = $this->tag;
 
-        $data['title'] = $CI->gen_model->get_page_label($this->title, $mode);
+        $data['title'] = $this->controller->gen_model->get_page_label($this->title, $mode);
 
         // get stuff related to list report optional features
         $data['loading'] = ($mode === 'search') ? 'no_load' : '';
-        $data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
-        $data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
-        $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = site_url($CI->gen_model->get_param('list_report_cmds_url'));
+        $data['list_report_cmds'] = $this->controller->gen_model->get_param('list_report_cmds');
+        $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
+        $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
+        $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports');
         echo view('main/list_report', $data);
@@ -132,10 +132,8 @@ class List_report {
      * @param type $primary_filter_specs
      */
     protected function set_pri_filter_from_url_segments($segs, $primary_filter_specs) {
-        $CI =& get_instance();
-
         // primary filter object (we will use it to cache field values)
-        $CI->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
 
         // get list of just the names of primary filter fields
         $form_field_names = array_keys($primary_filter_specs);
@@ -145,14 +143,14 @@ class List_report {
         $initial_field_values = get_values_from_segs($form_field_names, $segs);
 
         // we are completely replacing filter values, so get rid of any we pulled from cache
-        $CI->primary_filter->clear_current_filter_values();
+        $this->controller->primary_filter->clear_current_filter_values();
 
         // update values in primary filter object
         foreach ($initial_field_values as $field => $value) {
-            $CI->primary_filter->set_current_filter_value($field, $value);
+            $this->controller->primary_filter->set_current_filter_value($field, $value);
         }
         // and cache the values we got from the segments
-        $CI->primary_filter->save_current_filter_values();
+        $this->controller->primary_filter->save_current_filter_values();
     }
 
     /**
@@ -160,13 +158,11 @@ class List_report {
      * @param type $segs
      */
     protected function set_sec_filter_from_url_segments($segs) {
-        $CI =& get_instance();
-
         // secondary filter object (we will use it to cache field values)
-        $CI->load_lib('Secondary_filter', $this->config_name, $this->config_source);
+        $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
 
-        $filter_state = $CI->secondary_filter->get_filter_from_list($segs);
-        $CI->secondary_filter->save_filter_values($filter_state);
+        $filter_state = $this->controller->secondary_filter->get_filter_from_list($segs);
+        $this->controller->secondary_filter->save_filter_values($filter_state);
     }
 
     /**
@@ -176,45 +172,44 @@ class List_report {
      * @category AJAX
      */
     function report_filter($filter_display_mode = 'advanced') {
-        $CI =& get_instance();
         session_start();
 
         helper('form');
         helper(['filter', 'link_util']);
 
-        $CI->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
-        $cols = $CI->data_model->get_col_names();
+        $this->controller->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
+        $cols = $this->controller->data_model->get_col_names();
 
-        $CI->load_lib('Paging_filter', $this->config_name, $this->config_source);
-        $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
+        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
-        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
-        $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
+        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $persistSortColumns = $this->controller->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
 
-        $CI->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
+        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
 
-        $CI->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $CI->column_filter->get_current_filter_values();
+        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $this->controller->column_filter->get_current_filter_values();
 
-        $primary_filter_specs = $CI->data_model->get_primary_filter_specs();
-        $CI->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
-        $current_primary_filter_values = $CI->primary_filter->get_cur_filter_values();
+        $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
+        $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $current_primary_filter_values = $this->controller->primary_filter->get_cur_filter_values();
 
-        $CI->load_lib('Secondary_filter', $this->config_name, $this->config_source);
-        $sec_filter_display_info = $CI->secondary_filter->collect_information_for_display($CI->data_model, "$this->config_source/get_sql_comparison/");
+        $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
+        $sec_filter_display_info = $this->controller->secondary_filter->collect_information_for_display($this->controller->data_model, "$this->config_source/get_sql_comparison/");
 
         switch ($filter_display_mode) {
             case 'minimal':
                 make_search_filter_minimal($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter);
                 break;
             case 'maximal':
-                make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter);
+                make_search_filter_expanded($cols, $this->controller, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter);
                 break;
             case 'intermediate':
-                make_search_filter_expanded($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode);
+                make_search_filter_expanded($cols, $this->controller, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode);
                 break;
         }
     }
@@ -225,12 +220,11 @@ class List_report {
      * @category AJAX
      */
     function get_sql_comparison($column_name) {
-        $CI =& get_instance();
         session_start();
 
-        $CI->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
-        $data_type = $CI->model->get_column_data_type($column_name);
-        $cmpSelOpts = $CI->model->get_allowed_comparisons_for_type($data_type);
+        $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
+        $data_type = $this->controller->model->get_column_data_type($column_name);
+        $cmpSelOpts = $this->controller->model->get_allowed_comparisons_for_type($data_type);
 
         helper('form');
         echo form_dropdown('qf_comp_sel[]', $cmpSelOpts);
@@ -242,30 +236,29 @@ class List_report {
      * @category AJAX
      */
     function report_data($option = 'rows') {
-        $CI =& get_instance();
         session_start();
 
         $this->set_up_list_query();
 
-        $CI->load_mod('R_model', 'link_model', 'na', $this->config_source);
+        $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
-        $CI->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $CI->column_filter->get_current_filter_values();
+        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $this->controller->column_filter->get_current_filter_values();
 
-        $CI->cell_presentation = new \App\Libraries\Cell_presentation();
-        $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
-        $CI->cell_presentation->set_col_filter($col_filter);
+        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
+        $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
+        $this->controller->cell_presentation->set_col_filter($col_filter);
 
-        $rows = $CI->data_model->get_rows()->getResultArray();
+        $rows = $this->controller->data_model->get_rows()->getResultArray();
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
-            $col_info = $CI->data_model->get_column_info();
-            $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+            $col_info = $this->controller->data_model->get_column_info();
+            $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-            $qp = $CI->data_model->get_query_parts();
-            $data['row_renderer'] = $CI->cell_presentation;
-            $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $qp->sorting_items);
+            $qp = $this->controller->data_model->get_query_parts();
+            $data['row_renderer'] = $this->controller->cell_presentation;
+            $data['column_header'] = $this->controller->cell_presentation->make_column_header($rows, $qp->sorting_items);
             $data['rows'] = $rows;
 
             helper(['text']);
@@ -279,17 +272,16 @@ class List_report {
      * @category AJAX
      */
     function report_info($what_info) {
-        $CI =& get_instance();
         session_start();
         $this->set_up_list_query();
 
         switch ($what_info) {
             case "sql":
-                echo $CI->data_model->get_sql("filtered_and_sorted");
+                echo $this->controller->data_model->get_sql("filtered_and_sorted");
                 break;
             case "url":
                 $filters = $this->set_up_list_query();
-                echo $this->dump_filters($filters, $CI->my_tag);
+                echo $this->dump_filters($filters, $this->controller->my_tag);
                 break;
         }
     }
@@ -348,27 +340,26 @@ class List_report {
      * @category AJAX
      */
     function report_paging() {
-        $CI =& get_instance();
         session_start();
 
         helper(['link_util']);
         $this->set_up_list_query();
 
-        $current_filter_values = $CI->paging_filter->get_current_filter_values();
+        $current_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
-        $CI->preferences = model('App\Models\Dms_preferences');
-        $CI->list_report_pager = new \App\Libraries\List_report_pager();
+        $this->controller->preferences = model('App\Models\Dms_preferences');
+        $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
         try {
             // make HTML using pager
             $s = '';
-            $total_rows = $CI->data_model->get_total_rows();
+            $total_rows = $this->controller->data_model->get_total_rows();
             $per_page = $current_filter_values['qf_rows_per_page'];
             $first_row = $current_filter_values['qf_first_row'];
-            $CI->list_report_pager->set($first_row, $total_rows, $per_page);
-            $pr = $CI->list_report_pager->create_links();
-            $ps = $CI->list_report_pager->create_stats();
+            $this->controller->list_report_pager->set($first_row, $total_rows, $per_page);
+            $pr = $this->controller->list_report_pager->create_links();
+            $ps = $this->controller->list_report_pager->create_stats($this->controller);
 
             $s .= "<span class='LRepPager'>$ps</span>";
             $s .= "<span class='LRepPager'>$pr</span>";
@@ -383,46 +374,44 @@ class List_report {
      * @return array Filter settings
      */
     protected function set_up_list_query() {
-        $CI =& get_instance();
-
         // it all starts with a model
-        $CI->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
+        $this->controller->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
 
         // primary filter
-        $primary_filter_specs = $CI->data_model->get_primary_filter_specs();
-        $CI->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
-        $current_primary_filter_values = $CI->primary_filter->get_cur_filter_values();
+        $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
+        $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $current_primary_filter_values = $this->controller->primary_filter->get_cur_filter_values();
 
         // secondary filter
-        $CI->load_lib('Secondary_filter', $this->config_name, $this->config_source);
-        $current_secondary_filter_values = $CI->secondary_filter->get_current_filter_values();
+        $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
+        $current_secondary_filter_values = $this->controller->secondary_filter->get_current_filter_values();
 
         // paging filter
-        $CI->load_lib('Paging_filter', $this->config_name, $this->config_source);
-        $current_filter_values = $CI->paging_filter->get_current_filter_values();
+        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $current_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
-        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
-        $persistSortColumns = $CI->gen_model->get_list_report_sort_persist_enabled();
+        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $persistSortColumns = $this->controller->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
 
         // sorting filter
-        $CI->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
+        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
 
         // add filter values to data model to set up query
         foreach (array_values($current_primary_filter_values) as $pi) {
-            $CI->data_model->add_predicate_item($pi['rel'], $pi['col'], $pi['cmp'], $pi['value']);
+            $this->controller->data_model->add_predicate_item($pi['rel'], $pi['col'], $pi['cmp'], $pi['value']);
         }
         foreach ($current_secondary_filter_values as $pi) {
-            $CI->data_model->add_predicate_item($pi['qf_rel_sel'], $pi['qf_col_sel'], $pi['qf_comp_sel'], $pi['qf_comp_val']);
+            $this->controller->data_model->add_predicate_item($pi['qf_rel_sel'], $pi['qf_col_sel'], $pi['qf_comp_sel'], $pi['qf_comp_val']);
         }
         foreach ($current_sorting_filter_values as $item) {
-            $CI->data_model->add_sorting_item($item['qf_sort_col'], $item['qf_sort_dir']);
+            $this->controller->data_model->add_sorting_item($item['qf_sort_col'], $item['qf_sort_dir']);
         }
-        $CI->data_model->add_paging_item($current_filter_values['qf_first_row'], $current_filter_values['qf_rows_per_page']);
+        $this->controller->data_model->add_paging_item($current_filter_values['qf_first_row'], $current_filter_values['qf_rows_per_page']);
 
-        $CI->data_model->convert_wildcards();
+        $this->controller->data_model->convert_wildcards();
 
         // return filter settings
         return array(
@@ -436,36 +425,35 @@ class List_report {
      * @param string $format
      */
     function export($format) {
-        $CI =& get_instance();
         session_start();
         helper(['export']);
 
         $this->set_up_list_query();
 
-        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
-        $CI->load_mod('R_model', 'link_model', 'na', $this->config_source);
+        $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
-        $rows = $CI->data_model->get_rows('filtered_and_sorted')->getResultArray();
+        $rows = $this->controller->data_model->get_rows('filtered_and_sorted')->getResultArray();
 
-        $CI->cell_presentation = new \App\Libraries\Cell_presentation();
-        $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
+        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
+        $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
 
-        $col_info = $CI->data_model->get_column_info();
-        $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+        $col_info = $this->controller->data_model->get_column_info();
+        $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-        $CI->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $CI->column_filter->get_current_filter_values();
+        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $this->controller->column_filter->get_current_filter_values();
 
         if(empty($col_filter)) {
             // Examine the list report's hotlinks to look for any columns tagged with no_export
             // Skip those columns when exporting data
-            $col_filter = $CI->cell_presentation->get_columns_to_export($rows);
+            $col_filter = $this->controller->cell_presentation->get_columns_to_export($rows);
         }
 
         if ($format == 'excel') {
-            $CI->cell_presentation->add_color_codes($rows);
-            $col_alignment = $CI->cell_presentation->get_column_alignment($rows);
+            $this->controller->cell_presentation->add_color_codes($rows);
+            $col_alignment = $this->controller->cell_presentation->get_column_alignment($rows);
         }
 
         // (someday) list report document export - output helper needs to clean out newlines and so forth.

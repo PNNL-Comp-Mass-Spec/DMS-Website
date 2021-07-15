@@ -20,14 +20,16 @@ class Paging_filter {
      * or from cache storage (session)
      * @param type $config_name
      * @param type $config_source
+     * @param type $controller
      */
-    function init($config_name, $config_source) {
-        $CI =& get_instance();
+    function init($config_name, $config_source, $controller) {
         helper('cache');
 
         $this->config_name = $config_name;
         $this->config_source = $config_source;
         $storage_name = self::storage_name_root . $this->config_name . '_' . $this->config_source;
+
+        $this->controller = $controller;
 
         $this->clear_filter();
 
@@ -44,8 +46,8 @@ class Paging_filter {
                 $this->cur_filter_values = $state;
             } else {
                 // user global defaults (if any)
-                $CI->preferences = model('App\Models\Dms_preferences');
-                $x = $CI->preferences->get_preference('list_report_rows');
+                $this->controller->preferences = model('App\Models\Dms_preferences');
+                $x = $this->controller->preferences->get_preference('list_report_rows');
                 if ($x) {
                     $this->cur_filter_values['qf_rows_per_page'] = $x;
                     $state = $this->cur_filter_values;
@@ -106,7 +108,6 @@ class Paging_filter {
      * Clear cached data
      */
     function clear_cached_state() {
-        $CI =& get_instance();
         helper('cache');
         if (property_exists($this, "storage_name")) {
             clear_cache($this->storage_name);

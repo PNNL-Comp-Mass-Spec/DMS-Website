@@ -328,7 +328,7 @@ class Upload extends DmsBase {
             if(!$result) throw new exception($message);
 
             $this->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
-            $field_values =  $this->input_model->get_item($key);
+            $field_values =  $this->input_model->get_item($key, $this);
             if(empty($field_values)) throw new exception("Could not get field values for $entity_type '$key'");
             foreach($field_values as $fn => $v) {
                 $current_values->$fn = $v;
@@ -637,7 +637,6 @@ class Upload extends DmsBase {
     private
     function get_config_info($dbFileName)
     {
-        $CI =& get_instance();
         $configDBFolder = config('App')->model_config_path;
         $dbFilePath = $configDBFolder . $dbFileName;
 

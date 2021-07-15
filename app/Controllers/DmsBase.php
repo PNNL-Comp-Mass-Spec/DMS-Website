@@ -486,7 +486,7 @@ class DmsBase extends BaseController
      */
     function defaults($page_type) //'Param_Pages''list_report_sproc'   'list_report'
     {
-        $this->saved_settings = new \App\Libraries\Saved_settings();
+        $this->saved_settings = new \App\Libraries\Saved_settings($this);
         $this->saved_settings->defaults($page_type, $this->my_tag);
     }
 

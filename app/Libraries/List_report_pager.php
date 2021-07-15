@@ -82,14 +82,13 @@ class List_report_pager {
      * Return a description of paging, for example Rows 251 through 375 of 2249
      * @return string
      */
-    function create_stats() {
+    function create_stats($controller) {
         // If our item count or per-page total is zero there is no need to continue.
         if ($this->total_rows <= 0 || $this->per_page == 0) {
             return '';
         }
 
-        $CI =& get_instance();
-        $mrr = $CI->preferences->get_preference('max_report_rows');
+        $mrr = $controller->preferences->get_preference('max_report_rows');
 
         $firstRowForPage = $this->first_row_for_page($this->cur_page); //($this->cur_page - 1) * $this->per_page;
 

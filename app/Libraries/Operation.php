@@ -17,9 +17,12 @@ class Operation {
      * Define $config_source
      * @param type $config_name
      * @param type $config_source
+     * @param type $controller
      */
-    function init($config_name, $config_source) {
+    function init($config_name, $config_source, $controller) {
         $this->config_source = $config_source;
+
+        $this->controller = $controller;
     }
 
     /**
@@ -32,19 +35,18 @@ class Operation {
      * @throws exception
      */
     function internal_operation($sproc_name) {
-        $CI =& get_instance();
         $config_name = $sproc_name;
         $response = new stdClass();
 
         try {
             // init sproc model
-            $ok = $CI->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
+            $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($this->controller->sproc_model->get_error_text());
             }
 
             // get sproc fields and use them to make validation field definitions
-            $fields = $CI->sproc_model->get_sproc_fields();
+            $fields = $this->controller->sproc_model->get_sproc_fields();
             $rules = array();
             foreach ($fields as $field) {
                 $rule = array();
@@ -62,7 +64,7 @@ class Operation {
             $request = \Config\Services::request();
             $postData = $request->getPost();
             $validation =  \Config\Services::validation();
-            //$CI->form_validation->set_error_delimiters('', '');
+            //$validation->set_error_delimiters('', '');
             $validation->setRules($rules);
             $valid_fields = $validation->run();
 
@@ -74,18 +76,20 @@ class Operation {
             foreach ($fields as $field) {
                 $calling_params->$field = $postData[$field];
             }
-            $calling_params->mode = ($CI->input->post('mode')) ? $CI->input->post('mode') : $CI->input->post('command');
+
+            $request = $this->controller->request;
+            $calling_params->mode = ($request->getPost('mode')) ? $request->getPost('mode') : $request->getPost('command');
             $calling_params->callingUser = get_user();
             $calling_params->message = '';
 
             // Call the stored procedure
-            $success = $CI->sproc_model->execute_sproc($calling_params);
+            $success = $this->controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($this->controller->sproc_model->get_error_text());
             }
 
-            $response->result = $CI->sproc_model->get_parameters()->retval;
-            $response->message = $CI->sproc_model->get_parameters()->message;
+            $response->result = $this->controller->sproc_model->get_parameters()->retval;
+            $response->message = $this->controller->sproc_model->get_parameters()->message;
         } catch (Exception $e) {
             $response->result = -1;
             $response->message = $e->getMessage();
@@ -98,8 +102,7 @@ class Operation {
      * @return type
      */
     function get_params() {
-        $CI =& get_instance();
-        return $CI->sproc_model->get_parameters();
+        return $this->controller->sproc_model->get_parameters();
     }
 }
 ?>

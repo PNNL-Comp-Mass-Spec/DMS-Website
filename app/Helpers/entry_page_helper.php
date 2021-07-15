@@ -13,11 +13,10 @@
  * @param type $segs
  * @param type $config_source
  * @param type $form_field_names
+ * @param type $controller
  * @return type
  */
-function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names) {
-    $CI =& get_instance();
-
+function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names, $controller) {
     $initial_field_values = array();
 
     $num_segs = count($segs);
@@ -28,8 +27,8 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
     if ($num_segs == 1) {
         // get values from database using source and id that we were given
         $id = $segs[0];
-        $CI->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
-        $initial_field_values = $CI->input_model->get_item($id);
+        $controller->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
+        $initial_field_values = $controller->input_model->get_item($id, $controller);
     } else
     if ($num_segs > 1) {
         // get values from an external source
@@ -44,11 +43,11 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
             // (someday) get values from POST
         } else {
             // get external source mapping
-            $col_mapping = $CI->form_model->get_external_source_field_map($source);
+            $col_mapping = $controller->form_model->get_external_source_field_map($source);
             if ($col_mapping) {
                 // get values from database using source and id plucked from url
-                $CI->load_mod('Q_model', 'input_model', 'detail_report', $source);
-                $source_data = $CI->input_model->get_item($id);
+                $controller->load_mod('Q_model', 'input_model', 'detail_report', $source);
+                $source_data = $controller->input_model->get_item($id, $controller);
                 $initial_field_values = load_from_external_source($col_mapping, $source_data);
             }
         }
@@ -64,8 +63,6 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
  * @return string
  */
 function load_from_external_source($col_mapping, $source_data) {
-    $CI =& get_instance();
-
     $a = array();
     // load entry fields from external source
     foreach ($col_mapping as $fld => $spec) {
@@ -74,7 +71,8 @@ function load_from_external_source($col_mapping, $source_data) {
                 $a[$fld] = $source_data[$spec['value']];
                 break;
             case 'PostName':
-                $pv = $CI->input->post($spec['value']);
+                $request = \Config\Services::request();
+                $pv = $request->getPost($spec['value']);
                 $a[$fld] = $pv;
                 break;
             case 'Literal':

@@ -21,13 +21,13 @@ class Param_report {
     // list report page section
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
-    function init($config_name, $config_source) {
+    function init($config_name, $config_source, $controller) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
-        $CI =& get_instance();
-        $this->tag = $CI->my_tag;
-        $this->title = $CI->my_title;
+        $this->controller = $controller;
+        $this->tag = $this->controller->my_tag;
+        $this->title = $this->controller->my_title;
     }
 
     /**
@@ -36,36 +36,35 @@ class Param_report {
      * rows in HTML via and AJAX call to the param_data function.
      */
     function param() {
-        $CI =& get_instance();
-
         // general specifications for page family
-        $CI->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
         // entry form
-        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
-        $form_def = $CI->form_model->get_form_def(array('fields', 'specs'));
+        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs'));
 
-        $CI->load_lib('Entry_form', $form_def->specs, $this->config_source);
+        $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
 
         // get initial field values (from url segments) and merge them with form object
-        $segs = array_slice($CI->uri->segment_array(), 2);
+        $uri = current_url(true);
+        $segs = array_slice($uri->getSegments(), 2);
         helper(['entry_page']);
         $initial_field_values = get_values_from_segs($form_def->fields, $segs);
         foreach ($initial_field_values as $field => $value) {
-            $CI->entry_form->set_field_value($field, $value);
+            $this->controller->entry_form->set_field_value($field, $value);
         }
         $hdr = (empty($form_def->specs)) ? '' : "<span class='filter_label'>Search Parameters</span>\n";
-        $data['form'] = $hdr . $CI->entry_form->build_display("add");
+        $data['form'] = $hdr . $this->controller->entry_form->build_display("add");
 
-        $data['title'] = $CI->gen_model->get_page_label($this->title, 'param');
+        $data['title'] = $this->controller->gen_model->get_page_label($this->title, 'param');
         $data['tag'] = $this->tag;
 
         // get stuff related to list report optional features
 //      $data['loading'] = ($mode === 'search')?'no_load':'';
-        $data['list_report_cmds'] = $CI->gen_model->get_param('list_report_cmds');
-        $data['is_ms_helper'] = $CI->gen_model->get_param('is_ms_helper');
-        $data['has_checkboxes'] = $CI->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = site_url($CI->gen_model->get_param('list_report_cmds_url'));
+        $data['list_report_cmds'] = $this->controller->gen_model->get_param('list_report_cmds');
+        $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
+        $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
+        $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
 
         helper(['menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Param_Pages');
@@ -82,7 +81,6 @@ class Param_report {
      * @category AJAX
      */
     function param_data() {
-        $CI =& get_instance();
         session_start();
         helper('user');
 
@@ -95,23 +93,23 @@ class Param_report {
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
-            $CI->load_mod('R_model', 'link_model', 'na', $this->config_source);
+            $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
-            $CI->load_lib('Column_filter', $this->config_name, $this->config_source);
-            $col_filter = $CI->column_filter->get_current_filter_values();
+            $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+            $col_filter = $this->controller->column_filter->get_current_filter_values();
 
-            $CI->cell_presentation = new \App\Libraries\Cell_presentation();
-            $CI->cell_presentation->init($CI->link_model->get_list_report_hotlinks());
+            $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
+            $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
 
             // (someday) roll the date fix into a function shareable with export_param
-            $col_info = $CI->sproc_model->get_column_info();
-            $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
-            $CI->cell_presentation->set_col_filter($col_filter);
+            $col_info = $this->controller->sproc_model->get_column_info();
+            $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+            $this->controller->cell_presentation->set_col_filter($col_filter);
 
-            $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
+            $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
             $data['rows'] = $rows;
-            $data['row_renderer'] = $CI->cell_presentation;
-            $data['column_header'] = $CI->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
+            $data['row_renderer'] = $this->controller->cell_presentation;
+            $data['column_header'] = $this->controller->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
 
             helper(['text']);
             echo view('main/param_report_data', $data);
@@ -124,36 +122,34 @@ class Param_report {
      * @return type
      */
     private function get_filtered_param_report_rows($paging = true) {
-        $CI =& get_instance();
-        $CI->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
         if ($paging) {
-            $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
+            $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
         } else {
             $current_paging_filter_values = array();
         }
 
         $options = array("PersistSortColumns" => true);
 
-        $CI->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
+        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
 
-        return $CI->sproc_model->get_filtered_rows($current_sorting_filter_values, $current_paging_filter_values);
+        return $this->controller->sproc_model->get_filtered_rows($current_sorting_filter_values, $current_paging_filter_values);
     }
 
     /**
      * Get rowset from sproc specified by config_name/config_source
      * using parameters delivered from the entry form specified
      * by config_name/config_source, and set up controller for
-     * call to $CI->sproc_model->get_rows();
+     * call to $this->controller->sproc_model->get_rows();
      * @return type
      * @throws exception
      */
     private function get_data_rows_from_sproc() {
-        $CI =& get_instance();
         // get specifications for the entry form
         // used for submission into POST and to be returned as HTML
-        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
-        $form_def = $CI->form_model->get_form_def(array('fields', 'rules'));
+        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'rules'));
 
         $calling_params = new stdClass();
         if (empty($form_def->fields)) {
@@ -165,7 +161,7 @@ class Param_report {
             $request = \Config\Services::request();
             $postData = $request->getPost();
             $validation =  \Config\Services::validation();
-            //$CI->form_validation->set_error_delimiters('<span class="bad_clr">', '</span>');
+            //$validation->set_error_delimiters('<span class="bad_clr">', '</span>');
             $validation->setRules($form_def->rules);
             $valid_fields = $validation->run();
 
@@ -177,7 +173,7 @@ class Param_report {
             }
         }
         // parameters needed by stored procedure that are not in entry form specs
-        $calling_params->mode = $CI->input->post('entry_cmd_mode');
+        $calling_params->mode = $this->controller->request->getPost('entry_cmd_mode');
         $calling_params->callingUser = get_user();
 
         $message = '';
@@ -187,14 +183,14 @@ class Param_report {
             }
 
             // call stored procedure
-            $ok = $CI->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+            $ok = $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($this->controller->sproc_model->get_error_text());
             }
 
-            $success = $CI->sproc_model->execute_sproc($calling_params);
+            $success = $this->controller->sproc_model->execute_sproc($calling_params);
             if (!$success) {
-                throw new exception($CI->sproc_model->get_error_text());
+                throw new exception($this->controller->sproc_model->get_error_text());
             }
         } catch (Exception $e) {
             $message = $e->getMessage();
@@ -208,17 +204,16 @@ class Param_report {
      * @category AJAX
      */
     function param_info($what_info) {
-        $CI =& get_instance();
         session_start();
         $this->get_filter_values();
 
         switch ($what_info) {
             case "sql":
-                echo $CI->data_model->get_sql("filtered_and_sorted");
+                echo $this->controller->data_model->get_sql("filtered_and_sorted");
                 break;
             case "url":
                 $filters = $this->get_filter_values();
-                echo $this->dump_filters($filters, $CI->my_tag);
+                echo $this->dump_filters($filters, $this->controller->my_tag);
                 break;
         }
     }
@@ -257,11 +252,9 @@ class Param_report {
      * @return array Filter settings
      */
     protected function get_filter_values() {
-        $CI =& get_instance();
-
         // it all starts with a model
-        $CI->load_mod('E_model', 'form_model', 'na', $this->config_source);
-        $form_def = $CI->form_model->get_form_def(array('specs', 'fields'));
+        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('specs', 'fields'));
 
         // search filter
         $current_search_filter_values = array();
@@ -318,31 +311,30 @@ class Param_report {
      * @category AJAX
      */
     function param_paging() {
-        $CI =& get_instance();
         session_start();
 
         helper(['link_util']);
 
         // current paging settings
-        $CI->load_lib('Paging_filter', $this->config_name, $this->config_source);
-        $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
+        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
         // model to get current row info
-        $CI->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+        $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
 
         // pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
-        $total_rows = $CI->sproc_model->get_total_rows();
+        $total_rows = $this->controller->sproc_model->get_total_rows();
         $per_page = $current_paging_filter_values['qf_rows_per_page'];
         $first_row = $current_paging_filter_values['qf_first_row'];
 
         // make HTML using pager
-        $CI->preferences = model('App\Models\Dms_preferences');
-        $CI->list_report_pager = new \App\Libraries\List_report_pager();
+        $this->controller->preferences = model('App\Models\Dms_preferences');
+        $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
         $s = '';
-        $CI->list_report_pager->set($first_row, $total_rows, $per_page);
-        $pr = $CI->list_report_pager->create_links();
-        $ps = $CI->list_report_pager->create_stats();
+        $this->controller->list_report_pager->set($first_row, $total_rows, $per_page);
+        $pr = $this->controller->list_report_pager->create_links();
+        $ps = $this->controller->list_report_pager->create_stats($this->controller);
         $s .= "<span class='LRepPager'>$ps</span>";
         $s .= "<span class='LRepPager'>$pr</span>";
         echo $s;
@@ -351,23 +343,22 @@ class Param_report {
     // --------------------------------------------------------------------
     // AJAX
     function param_filter() {
-        $CI =& get_instance();
         session_start();
 
         // call stored procedure
-        $CI->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
-        $cols = $CI->sproc_model->get_col_names();
+        $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+        $cols = $this->controller->sproc_model->get_col_names();
 
-        $CI->load_lib('Paging_filter', $this->config_name, $this->config_source);
-        $current_paging_filter_values = $CI->paging_filter->get_current_filter_values();
+        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
         $options = array("PersistSortColumns" => true);
 
-        $CI->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $CI->sorting_filter->get_current_filter_values();
+        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
 
-        $CI->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $CI->column_filter->get_current_filter_values();
+        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $this->controller->column_filter->get_current_filter_values();
 
         helper('form');
         helper(['filter', 'link_util']);
@@ -380,7 +371,6 @@ class Param_report {
      * @return type
      */
     function export_param($format) {
-        $CI =& get_instance();
         session_start();
         helper(['user', 'export']);
 
@@ -393,12 +383,12 @@ class Param_report {
         $rows = $this->get_filtered_param_report_rows(false);
 
         // (someday) roll the date fix into a function shareable with param_data
-        $CI->cell_presentation = new \App\Libraries\Cell_presentation();
-        $col_info = $CI->sproc_model->get_column_info();
-        $CI->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
+        $col_info = $this->controller->sproc_model->get_column_info();
+        $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-        $CI->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $CI->column_filter->get_current_filter_values();
+        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $this->controller->column_filter->get_current_filter_values();
 
         if (empty($rows)) {
             echo '<p>The table appears to have no data.</p>';

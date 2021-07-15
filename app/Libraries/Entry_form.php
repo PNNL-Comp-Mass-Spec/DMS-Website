@@ -24,10 +24,11 @@ class Entry_form {
     }
 
     // --------------------------------------------------------------------
-    function init($form_field_specs, $file_tag) {
+    function init($form_field_specs, $file_tag, $controller) {
         $this->form_field_specs = $form_field_specs;
         $this->file_tag = $file_tag;
 
+        $this->controller = $controller;
         $this->set_field_values_to_default();
     }
 
@@ -35,29 +36,28 @@ class Entry_form {
      * Set current field values to defaults as defined by specs
      */
     private function set_field_values_to_default() {
-        $CI =& get_instance();
         helper('user');
 
         foreach ($this->form_field_specs as $fldName => $spc) {
-            $this->field_values[$fldName] = $this->get_default_value($CI, $fldName, $spc);
+            $this->field_values[$fldName] = $this->get_default_value($this->controller, $fldName, $spc);
             $this->field_errors[$fldName] = '';
         }
     }
 
     /**
      * Get default value for field from spec
-     * @param type $CI
+     * @param type $controller
      * @param string $fldName
      * @param type $f_spec
      * @return type
      */
-    private function get_default_value($CI, $fldName, $f_spec) {
+    private function get_default_value($controller, $fldName, $f_spec) {
         $val = '';
 
         if (!array_key_exists('default', $f_spec) &&
                 !array_key_exists('default_function', $f_spec) &&
                 array_key_exists('section', $f_spec)) {
-            $CI->message_box('Configuration Error', "In the config DB, form_field_options has a section entry "
+            $controller->message_box('Configuration Error', "In the config DB, form_field_options has a section entry "
                     . "named $fldName, but that is not a valid form field; "
                     . "update it to refer to a valid form field or remove the section");
             return $val;
@@ -117,8 +117,7 @@ class Entry_form {
      * @return type
      */
     function build_display($mode) {
-        $CI =& get_instance();
-        $CI->choosers = model('App\Models\Dms_chooser');
+        $this->controller->choosers = model('App\Models\Dms_chooser');
         helper(['url', 'text', 'form']);
 
         $visible_fields = array();
@@ -126,7 +125,7 @@ class Entry_form {
         $block_number = 0;
         foreach ($this->form_field_specs as $fldName => $spec) {
             if (!array_key_exists('type', $spec)) {
-                $CI->message_box('Configuration Error', "In the config DB, one of the tables refers to $fldName "
+                $this->controller->message_box('Configuration Error', "In the config DB, one of the tables refers to $fldName "
                         . "but that field is not defined in form_fields; see also "
                         . "the columns returned by the view or table specified by "
                         . "entry_page_data_table in general_params");
@@ -363,8 +362,7 @@ class Entry_form {
      * @return type
      */
     private function make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq) {
-        $CI =& get_instance();
-        return $CI->choosers->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
+        return $this->controller->choosers->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
     }
 
     /**
@@ -540,7 +538,6 @@ class Entry_form {
         if ($this->include_help_link) {
             $file_tag = $this->file_tag;
             $nsLabel = str_replace(" ", "_", $label);
-            $CI =& get_instance();
             $pwiki = config('App')->pwiki;
             $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
             $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}#${nsLabel}";

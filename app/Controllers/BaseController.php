@@ -82,9 +82,9 @@ class BaseController extends Controller
         $libPath = "\\App\\Libraries\\$lib_name";
         $this->$localName = new $libPath();
         if ($options === false) {
-            return $this->$localName->init($config_name, $config_source);
+            return $this->$lib_name->init($config_name, $config_source, $this);
         } else {
-            return $this->$localName->init($config_name, $config_source, $options);
+            return $this->$lib_name->init($config_name, $config_source, $this, $options);
         }
     }
 
@@ -130,7 +130,7 @@ class BaseController extends Controller
             return false;
         }
 
-        $result = $this->gen_model->check_permission($user, $action, $this->my_tag);
+        $result = $this->gen_model->check_permission($user, $action, $this->my_tag, $this);
 
         if ($result === true) {
             return true;

@@ -236,7 +236,6 @@ class Data extends BaseController {
      */
     function lr_menu($config_source = "ad_hoc_query", $config_name = 'utility_queries')
     {
-        $CI =& get_instance();
         $configDBFolder = config('App')->model_config_path;
         $dbFileName = $config_source . '.db';
 

@@ -829,9 +829,8 @@ class Cell_presentation {
         // Traverse the array of rows, and fix the datetime column formats
         //
         // Get the date display format from global preferences
-        $CI =& get_instance();
-        $CI->preferences = model('App\Models\Dms_preferences');
-        $dateFormat = $CI->preferences->get_date_format_string();
+        $preferences = model('App\Models\Dms_preferences');
+        $dateFormat = $preferences->get_date_format_string();
 
         // traverse all the rows in the result
         for ($i = 0; $i < count($result); $i++) {

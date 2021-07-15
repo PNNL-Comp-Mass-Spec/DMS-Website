@@ -30,7 +30,6 @@ class Secondary_filter {
     // get current secondary filter values either from POST
     // or from cache storage (session)
     function init($config_name, $config_source) {
-        $CI =& get_instance();
         helper('cache');
 
         $this->config_name = $config_name;
@@ -59,12 +58,11 @@ class Secondary_filter {
      * @return boolean
      */
     private function get_current_filter_values_from_post() {
-        $CI =& get_instance();
-
-        if ($CI->input->post('qf_rel_sel')) {
+        $request = \Config\Services::request();
+        if ($request->getPost('qf_rel_sel')) {
             $filter_values = array();
             foreach ($this->qf_field_names as $name) {
-                $xar = $CI->input->post($name);
+                $xar = $request->getPost($name);
                 for ($i = 0; $i < count($xar); $i++) {
                     $filter_values[$i][$name] = trim($xar[$i]);
                 }
@@ -208,7 +206,6 @@ class Secondary_filter {
      * Clear cached data
      */
     function clear_cached_state() {
-        $CI =& get_instance();
         helper('cache');
         clear_cache($this->storage_name);
     }

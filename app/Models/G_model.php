@@ -364,11 +364,12 @@ class G_model extends Model {
      * @param string $user
      * @param string $action
      * @param string $page_family
+     * @param object $controller
      * @return boolean
      * @throws exception
      * @throws Exception
      */
-    function check_permission($user, $action, $page_family)
+    function check_permission($user, $action, $page_family, $controller)
     {
         try {
             if(array_key_exists($action, $this->actions)) {
@@ -383,11 +384,10 @@ class G_model extends Model {
             }
 
             // we are going to have to check further, so load the authorization model
-            $CI =& get_instance();
-            $CI->auth = model('App\Models\Dms_authorization');
+            $controller->auth = model('App\Models\Dms_authorization');
 
             // get user permissions
-            $permissions = $CI->auth->get_user_permissions($user);
+            $permissions = $controller->auth->get_user_permissions($user);
             if(empty($permissions)) {
                 return "User '$user' does not have any access to the website";
             }
@@ -408,7 +408,7 @@ class G_model extends Model {
             */
 
             // get list of authorizations required for the action
-            $restrictions = $CI->auth->get_controller_action_restrictions($page_family, $action);
+            $restrictions = $controller->auth->get_controller_action_restrictions($page_family, $action);
 
             // action has no restrictions, good to go
             if(empty($restrictions)) {

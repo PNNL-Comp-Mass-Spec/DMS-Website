@@ -44,10 +44,13 @@ class General_query {
      * Initialize the class
      * @param type $config_name
      * @param type $config_source
+     * @param type $controller
      */
-    function init($config_name, $config_source) {
+    function init($config_name, $config_source, $controller) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
+
+        $this->controller = $controller;
     }
 
     /**
@@ -55,14 +58,14 @@ class General_query {
      * @return \General_query_def
      */
     function get_query_values_from_url() {
-        $CI =& get_instance();
         helper(['url']);
+        $uri = current_url(true);
 
         $p = new General_query_def();
-        $p->output_format = $CI->uri->segment(3);
-        $p->q_name = $CI->uri->segment(4);
-        $p->config_source = $CI->uri->segment(5);
-        $p->filter_values = array_slice($CI->uri->segment_array(), 5);
+        $p->output_format = $uri->getSegment(3);
+        $p->q_name = $uri->getSegment(4);
+        $p->config_source = $uri->getSegment(5);
+        $p->filter_values = array_slice($uri->getSegments(), 5);
 
         // Look for custom paging values specified after the question mark
         //
@@ -76,10 +79,11 @@ class General_query {
         //   Sort column:     ID
         //   Sort directtion: Ascending
 
-        $offset = $CI->input->get('Offset', true);
-        $rows = $CI->input->get('Rows', true);
-        $sortCol = $CI->input->get('SortCol', true);
-        $sortDir = $CI->input->get('SortDir', true);
+        $request = \Config\Services::request();
+        $offset = $request->getGet('Offset' /* , TODO: xss_clean */);
+        $rows = $request->getGet('Rows' /* , TODO: xss_clean */);
+        $sortCol = $request->getGet('SortCol' /* , TODO: xss_clean */);
+        $sortDir = $request->getGet('SortDir' /* , TODO: xss_clean */);
 
         // Validate that the offset is an integer
         if (filter_var($offset, FILTER_VALIDATE_INT) !== false) {
@@ -120,14 +124,14 @@ class General_query {
      * @return \General_query_def
      */
     function setup_query_for_dmsBase() {
-        $CI =& get_instance();
         helper(['url']);
+        $uri = current_url(true);
 
         $input_params = new General_query_def();
-        $input_params->config_source = $CI->my_tag;
-        $input_params->output_format = $CI->uri->segment(3);
-        $input_params->q_name = $CI->uri->segment(4);
-        $input_params->filter_values = array_slice($CI->uri->segment_array(), 4);
+        $input_params->config_source = $this->controller->my_tag;
+        $input_params->output_format = $uri->getSegment(3);
+        $input_params->q_name = $uri->getSegment(4);
+        $input_params->filter_values = array_slice($uri->getSegments(), 4);
 
         $this->setup_query($input_params);
         return $input_params;
@@ -139,12 +143,11 @@ class General_query {
      * @param type $input_params
      */
     function setup_query($input_params) {
-        $CI =& get_instance();
-        $CI->load_mod('Q_model', 'model', $input_params->q_name, $input_params->config_source);
-        $this->add_filter_values_to_model_predicate($input_params->filter_values, $CI->model);
-        $this->configure_paging($input_params, $CI->model);
+        $this->controller->load_mod('Q_model', 'model', $input_params->q_name, $input_params->config_source);
+        $this->add_filter_values_to_model_predicate($input_params->filter_values, $this->controller->model);
+        $this->configure_paging($input_params, $this->controller->model);
 
-        $CI->model->convert_wildcards();
+        $this->controller->model->convert_wildcards();
     }
 
     /**
@@ -206,8 +209,7 @@ class General_query {
      * @param type $output_format
      */
     function output_result($output_format) {
-        $CI =& get_instance();
-        $model = $CI->model;
+        $model = $this->controller->model;
 
         $pageTitle = $this->config_source;
 

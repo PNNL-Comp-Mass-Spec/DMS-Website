@@ -150,7 +150,6 @@ class Config_db extends BaseController {
      */
     private function _make_wiki_help_link($table_name) {
         $s = "";
-        //  $CI =& get_instance();
         //  $ptrac = config('App')->ptrac;
         //  $trac_helpLink_prefix = config('App')->tracHelpLinkPrefix;
 

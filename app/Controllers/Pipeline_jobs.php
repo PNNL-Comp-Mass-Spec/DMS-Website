@@ -113,7 +113,7 @@ class Pipeline_jobs extends DmsBase {
         $xml = '';
         if($id) {
             $this->load_mod('Q_model', 'data_model', $config_name, $config_source);
-            $result_row = $this->data_model->get_item($id);
+            $result_row = $this->data_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
@@ -128,7 +128,7 @@ class Pipeline_jobs extends DmsBase {
         $xml = '';
         if($id) {
             $this->load_mod('Q_model', 'def_model', $config_name, $config_source);
-            $result_row = $this->def_model->get_item($id);
+            $result_row = $this->def_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
@@ -245,7 +245,6 @@ class Pipeline_jobs extends DmsBase {
         $s = "";
         $file_tag = $this->my_tag;
         $nsLabel = str_replace(" ", "_", $label);
-        $CI =& get_instance();
         $pwiki = config('App')->pwiki;
         $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
         $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}_${script}#${nsLabel}";
