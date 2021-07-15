@@ -799,11 +799,11 @@ class File_attachment extends DmsBase {
      * Append any other text to only show files that contain that text in the name
      *
      * Example URLs:
-     * http://dms2.pnl.gov/file_attachment/check_access
-     * http://dms2.pnl.gov/file_attachment/check_access/show_all_files
-     * http://dms2.pnl.gov/file_attachment/check_access/txt
+     * http://dms2.pnl.gov/file_attachment/check_file_access
+     * http://dms2.pnl.gov/file_attachment/check_file_access/show_all_files
+     * http://dms2.pnl.gov/file_attachment/check_file_access/txt
      */
-    function check_access(){
+    function check_file_access(){
         try {
             $filterOption = $this->uri->segment(3, "");
             $filenameFilter = "";
@@ -858,10 +858,10 @@ class File_attachment extends DmsBase {
 
             // Navigation table
             echo '<table cellpadding="10" style="border: 1px solid"><tr>' . "\n";
-            echo '<td><a href="' . site_url('file_attachment/check_access') . '">Missing files</a></td>' . "\n";
-            echo '<td><a href="' . site_url('file_attachment/check_access/show_all_files') . '">All files</a></td>' . "\n";
-            echo '<td><a href="' . site_url('file_attachment/check_access/xls') . '">Excel files</a></td>' . "\n";
-            echo '<td><a href="' . site_url('file_attachment/check_access/txt') . '">Text files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_file_access') . '">Missing files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_file_access/show_all_files') . '">All files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_file_access/xls') . '">Excel files</a></td>' . "\n";
+            echo '<td><a href="' . site_url('file_attachment/check_file_access/txt') . '">Text files</a></td>' . "\n";
             echo '</tr></table>' . "\n";
 
             // Description of the files shown
