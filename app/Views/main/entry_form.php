@@ -32,8 +32,8 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 <?php echo view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
-    gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.base_url = '<?= base_url() ?>';
+    gamma.pageContext.site_url = '<?= site_url()."/" ?>';
+    gamma.pageContext.base_url = '<?= base_url()."/" ?>';
     gamma.pageContext.my_tag = '<?= $my_tag ?>';
     epsilon.pageContext.containerId = 'form_container';
     epsilon.pageContext.modeFieldId = 'entry_cmd_mode';

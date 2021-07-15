@@ -8,7 +8,7 @@
 
 <script type='text/javascript'>
 gamma.pageContext = {};
-gamma.pageContext.site_url = '<?= site_url() ?>';
+gamma.pageContext.site_url = '<?= site_url()."/" ?>';
 
 $(document).ready(function () {
     $('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // gamma.loadContainer(url, {}, ss_entity_list_container)

@@ -66,7 +66,7 @@
 <script src="<?= base_url('javascript/data_grid.js?version=100') ?>"></script>
 
 <script>
-    gamma.pageContext.site_url = '<?= site_url() ?>';
+    gamma.pageContext.site_url = '<?= site_url()."/" ?>';
     gamma.pageContext.save_changes_url = '<?= $save_url ?>';
     gamma.pageContext.data_url = '<?= $data_url ?>';
 

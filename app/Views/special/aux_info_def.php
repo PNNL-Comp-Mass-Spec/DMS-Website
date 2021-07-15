@@ -15,7 +15,7 @@
 
 <script type='text/javascript'>
 gamma.pageContext = {};
-gamma.pageContext.site_url = '<?= site_url() ?>';
+gamma.pageContext.site_url = '<?= site_url()."/" ?>';
 gamma.pageContext.my_tag = '<?= $my_tag ?>';
 gamma.pageContext.hierarchy = {
         "top":"aux_info_targets",
