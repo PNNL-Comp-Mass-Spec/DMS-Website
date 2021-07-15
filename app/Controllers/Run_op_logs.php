@@ -38,11 +38,11 @@ class Run_op_logs extends Grid {
     // get data for grid editing page (JSON)
     // --------------------------------------------------------------------
         function grid_data() {
-        $instrument = $this->input->post("instrument");
-        $usage = $this->input->post("usage");
-        $type = $this->input->post("type");
-        $year = $this->input->post("year");
-        $month = $this->input->post("month");
+        $instrument = $this->request->getPost("instrument");
+        $usage = $this->request->getPost("usage");
+        $type = $this->request->getPost("type");
+        $year = $this->request->getPost("year");
+        $month = $this->request->getPost("month");
 
         $this->my_tag = "operation_log_review";
         $this->db = \Config\Database::connect();

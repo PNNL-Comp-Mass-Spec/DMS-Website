@@ -136,9 +136,9 @@ class Aux_info extends BaseController {
      */
     function item_values($target)
     {
-        $category = $this->input->post('category');
-        $subcategory = $this->input->post('subcategory');
-        $id = $this->input->post('id');
+        $category = $this->request->getPost('category');
+        $subcategory = $this->request->getPost('subcategory');
+        $id = $this->request->getPost('id');
         $this->_set_aux_info_names($target, $id);
         try {
             $this->model->check_connection();

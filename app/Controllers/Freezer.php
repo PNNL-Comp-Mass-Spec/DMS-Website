@@ -58,12 +58,12 @@ class Freezer extends DmsBase {
     {
         $this->freezer = model('App\Models\Freezer_model');
 
-        $Type = $this->input->get_post('Type');
-        $Freezer = $this->input->get_post('Freezer');
-        $Shelf = $this->input->get_post('Shelf');
-        $Rack = $this->input->get_post('Rack');
-        $Row = $this->input->get_post('Row');
-        // $Col = $this->input->get_post('Col');
+        $Type = $this->request->getPost('Type');
+        $Freezer = $this->request->getPost('Freezer');
+        $Shelf = $this->request->getPost('Shelf');
+        $Rack = $this->request->getPost('Rack');
+        $Row = $this->request->getPost('Row');
+        // $Col = $this->request->getPost('Col');
 
         $sub_type = $this->freezer->get_sub_location_type($Type);
         $frzrs = $this->freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row);
@@ -77,7 +77,7 @@ class Freezer extends DmsBase {
     {
         $this->freezer = model('App\Models\Freezer_model');
 
-        $location = $this->input->get_post('Location');
+        $location = $this->request->getPost('Location');
 
         $containers = $this->freezer->get_containers($location);
         $items = $this->freezer->build_container_list($containers);
@@ -90,7 +90,7 @@ class Freezer extends DmsBase {
     {
         $this->freezer = model('App\Models\Freezer_model');
 
-        $container = $this->input->get_post('Container');
+        $container = $this->request->getPost('Container');
 
         $containers = $this->freezer->find_container($container);
         $items = $this->freezer->build_container_list($containers);
@@ -103,7 +103,7 @@ class Freezer extends DmsBase {
     {
         $this->freezer = model('App\Models\Freezer_model');
 
-        $location = $this->input->get_post('Location');
+        $location = $this->request->getPost('Location');
 
         $locations = $this->freezer->find_location($location);
         $items = $this->freezer->build_freezer_location_list('', $locations);
@@ -116,7 +116,7 @@ class Freezer extends DmsBase {
     {
         $this->freezer = model('App\Models\Freezer_model');
 
-        $location = $this->input->get_post('Location');
+        $location = $this->request->getPost('Location');
 
         $locations = $this->freezer->find_available_location($location);
         $items = $this->freezer->build_freezer_location_list('', $locations);
@@ -129,7 +129,7 @@ class Freezer extends DmsBase {
     {
         $this->freezer = model('App\Models\Freezer_model');
 
-        //$location = $this->input->get_post('Location');
+        //$location = $this->request->getPost('Location');
 
         $locations = $this->freezer->find_newest_containers();
         $items = $this->freezer->build_freezer_location_list('', $locations);

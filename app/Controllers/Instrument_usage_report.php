@@ -34,11 +34,11 @@ class Instrument_usage_report extends Grid {
     }
     // --------------------------------------------------------------------
     function grid_data() {
-        $instrument = $this->input->post("instrument");
-        $usage = $this->input->post("usage");
-        $proposal = $this->input->post("proposal");
-        $year = $this->input->post("year");
-        $month = $this->input->post("month");
+        $instrument = $this->request->getPost("instrument");
+        $usage = $this->request->getPost("usage");
+        $proposal = $this->request->getPost("proposal");
+        $year = $this->request->getPost("year");
+        $month = $this->request->getPost("month");
 
         $this->my_tag = "instrument_usage";
         $this->db = \Config\Database::connect();

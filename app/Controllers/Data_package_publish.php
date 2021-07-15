@@ -23,7 +23,7 @@ class Data_package_publish extends DmsBase {
     // receive manifest of files (via POST) and send to download server
     function submit()
     {
-        $manifest = $this->input->post('manifest');
+        $manifest = $this->request->getPost('manifest');
         send_manifest_to_download_server($manifest);
     }
 

@@ -44,7 +44,7 @@ class Grid extends DmsBase {
     function grid_data_from_sproc($sproc_id, $config_db)
     {
         $this->load_lib('Grid_data', $sproc_id, $config_db);
-        $response = $this->grid_data->get_sproc_data($this->input->post());
+        $response = $this->grid_data->get_sproc_data($this->request->getPost());
         echo json_encode($response);
     }
 
@@ -130,11 +130,11 @@ class Grid extends DmsBase {
         $this->db = \Config\Database::connect();
         $builder = $this->db->table("T_Users");
         $builder->select('ID, U_PRN AS PRN, U_Name AS Name, U_HID AS HID, U_Status AS Status, U_Access_Lists AS Access, U_email AS Email, U_domain AS Domain, U_netid AS NetID, U_comment AS Comment, CONVERT(VARCHAR(12), U_created, 101) AS Created');
-        $userName = $this->input->post("userName");
+        $userName = $this->request->getPost("userName");
         if(IsNotWhitespace($userName)) {
             $builder->like('U_Name', $userName);
         }
-        $allUsers = $this->input->post("allUsers");
+        $allUsers = $this->request->getPost("allUsers");
         if($allUsers == 'false') {
             $builder->where('U_Status', 'Active');
         }

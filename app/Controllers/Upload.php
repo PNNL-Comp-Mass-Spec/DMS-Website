@@ -112,7 +112,7 @@ class Upload extends DmsBase {
      */
     function extract_data()
     {
-        $fname = $this->input->post('file_name');
+        $fname = $this->request->getPost('file_name');
 
         try {
             $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
@@ -168,7 +168,7 @@ class Upload extends DmsBase {
      */
     function extract_table()
     {
-        $fname = $this->input->post('file_name');
+        $fname = $this->request->getPost('file_name');
 
         try {
             $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
@@ -203,8 +203,8 @@ class Upload extends DmsBase {
      */
     function entity($fname, $id)
     {
-//      $fname = $this->input->post('file_name');
-//      $id= $this->input->post('id');
+//      $fname = $this->request->getPost('file_name');
+//      $id= $this->request->getPost('id');
         $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
         $this->spreadsheet_loader->load($fname);
 
@@ -260,11 +260,11 @@ class Upload extends DmsBase {
      */
     function update() ///$fname, $id, $mode
     {
-        $fname = $this->input->post('file_name');
-        $id= $this->input->post('id');
-        $mode =  $this->input->post('mode');
-        $incTrackinfo = $this->input->post('incTrackinfo') == 'true';
-        $incAuxinfo = $this->input->post('incAuxinfo') == 'true';
+        $fname = $this->request->getPost('file_name');
+        $id= $this->request->getPost('id');
+        $mode =  $this->request->getPost('mode');
+        $incTrackinfo = $this->request->getPost('incTrackinfo') == 'true';
+        $incAuxinfo = $this->request->getPost('incAuxinfo') == 'true';
 
         try {
             $this->spreadsheet_loader = new \App\Libraries\Spreadsheet_loader();
@@ -350,10 +350,10 @@ class Upload extends DmsBase {
      */
     function exists()
     {
-        $fname = $this->input->post('file_name');
-        $id= $this->input->post('id');
-        $mode = $this->input->post('mode');
-        $entity_type= $this->input->post('entity_type');
+        $fname = $this->request->getPost('file_name');
+        $id= $this->request->getPost('id');
+        $mode = $this->request->getPost('mode');
+        $entity_type= $this->request->getPost('entity_type');
 
         $key = 0;
         $message = '';

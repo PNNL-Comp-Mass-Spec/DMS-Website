@@ -54,7 +54,7 @@ class Aux_info_copy extends BaseController {
         foreach(array_keys($fields) as $name) {
             $parmObj->$name = isset($_POST[$name])?$_POST[$name]:'';
         }
-        $command = $this->input->post('CopyMode');
+        $command = $this->request->getPost('CopyMode');
 
         $message = "";
         $result = $this->model->add_or_update($parmObj, $command, $message);

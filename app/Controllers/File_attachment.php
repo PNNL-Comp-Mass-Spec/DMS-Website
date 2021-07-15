@@ -213,7 +213,7 @@ class File_attachment extends DmsBase {
             }
 
             $timestamp = microtime(true);
-            $config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->input->post("entity_id")."/{$timestamp}/";
+            $config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->request->getPost("entity_id")."/{$timestamp}/";
             $config['allowed_types'] = '*';
             $config['max_width']  = '3000';
             $config['max_height']  = '3000';
@@ -234,9 +234,9 @@ class File_attachment extends DmsBase {
                 $orig_name = $data["orig_name"];
                 $name = $data["file_name"];
                 $size = $data["file_size"];
-                $type = $this->input->post("entity_type");
-                $id = $this->input->post("entity_id");
-                $description = $this->input->post("description");
+                $type = $this->request->getPost("entity_type");
+                $id = $this->request->getPost("entity_id");
+                $description = $this->request->getPost("description");
                 $entity_folder_path = $this->get_path($type, $id);
 
                 $src_path = "{$config['upload_path']}{$name}";
@@ -455,8 +455,8 @@ class File_attachment extends DmsBase {
      */
     function perform_operation()
     {
-        $mode = $this->input->post("mode");
-        $id = $this->input->post("id");
+        $mode = $this->request->getPost("mode");
+        $id = $this->request->getPost("id");
 
         helper(['user','url']);
         $response = "OK";
@@ -494,8 +494,8 @@ class File_attachment extends DmsBase {
      * @category AJAX
      */
     function show_attachments() {
-        $type = $this->input->post("entity_type");
-        $id = $this->input->post("entity_id");
+        $type = $this->request->getPost("entity_type");
+        $id = $this->request->getPost("entity_id");
         helper(['link_util']);
 
         $this->db = \Config\Database::connect();

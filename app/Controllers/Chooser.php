@@ -65,7 +65,7 @@ class Chooser extends BaseController {
     function json($chooser_name, $filter_value = '')
     {
         if(!$filter_value) {
-            $filter_value = $this->input->post('filter_values');
+            $filter_value = $this->request->getPost('filter_values');
         }
         $this->choosers = model('App\Models\Dms_chooser');
         $x = $this->choosers->get_filtered_choices($chooser_name, $filter_value);

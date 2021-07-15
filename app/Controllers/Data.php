@@ -155,7 +155,7 @@ class Data extends BaseController {
         $input_parms->config_source = $this->uri->segment(3);;
         $input_parms->filter_values = array_slice($this->uri->segment_array(), 4);
 
-        $pfv = $this->input->post('filter_values');
+        $pfv = $this->request->getPost('filter_values');
         if($pfv) {
             $input_parms->filter_values = explode(',', $pfv);
         } else {
