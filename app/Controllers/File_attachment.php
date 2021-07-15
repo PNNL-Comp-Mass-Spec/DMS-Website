@@ -213,7 +213,7 @@ class File_attachment extends DmsBase {
             }
 
             $timestamp = microtime(true);
-            $config['upload_path'] = BASEPATH.'../attachment_uploads/'.$this->request->getPost("entity_id")."/{$timestamp}/";
+            $config['upload_path'] = ROOTPATH.'/attachment_uploads/'.$this->request->getPost("entity_id")."/{$timestamp}/";
             $config['allowed_types'] = '*';
             $config['max_width']  = '3000';
             $config['max_height']  = '3000';
@@ -226,7 +226,7 @@ class File_attachment extends DmsBase {
             $this->upload = new \App\Libraries\Upload($config);
 
             // Upload the file from the user's computer to this server
-            // Store below BASEPATH/../attachment_uploads
+            // Store below ROOTPATH/attachment_uploads
             if ( ! $this->upload->do_upload()) {
                 $resultMsg = $this->upload->display_errors();
             } else {
@@ -252,7 +252,7 @@ class File_attachment extends DmsBase {
                     // Delete the local file
                     unlink($src_path);
 
-                    rmdir(BASEPATH."../attachment_uploads/{$id}/{$timestamp}");
+                    rmdir(ROOTPATH."/attachment_uploads/{$id}/{$timestamp}");
                 }
 
                 if (strtolower(substr($orig_name, 0, 8)) !== 'testfile') {
