@@ -53,7 +53,7 @@ echo view("main/detail_report_export");
     //
     // gamma and delta are defined in dms2.js
     //
-    gamma.pageContext.site_url = '<?= site_url()."/" ?>';
+    gamma.pageContext.site_url = '<?= site_url() ?>';
     gamma.pageContext.my_tag = '<?= $my_tag ?>';
     gamma.pageContext.responseContainerId = 'update_message';
     gamma.pageContext.Id = '<?= $id ?>';

@@ -55,7 +55,7 @@
 </table>
 
 <script type='text/javascript'>
-gamma.pageContext.site_url = '<?= site_url()."/" ?>';
+gamma.pageContext.site_url = '<?= site_url() ?>';
 
 Freezer.Display = {
     Model: null,

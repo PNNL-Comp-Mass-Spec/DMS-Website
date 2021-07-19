@@ -1,4 +1,4 @@
-<?php $url = base_url()."/"; ?>
+<?php $url = base_url(); ?>
 
 <h2>This is the CB version</h2>
 
