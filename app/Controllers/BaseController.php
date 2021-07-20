@@ -78,9 +78,12 @@ class BaseController extends Controller
             return true;
         }
         // Load then initialize the model
-        //var_dump($lib_name);
         $libPath = "\\App\\Libraries\\$lib_name";
         $this->$localName = new $libPath();
+        if (!method_exists($this->$localName, 'init')) {
+            return true;
+        }
+
         if ($options === false) {
             return $this->$localName->init($config_name, $config_source, $this);
         } else {
@@ -101,9 +104,12 @@ class BaseController extends Controller
             return true;
         }
         // Dynamically load and initialize the model
-        //var_dump($model_name);
         $this->$local_name = model('App\\Models\\'.$model_name);
-        return $this->$local_name->init($config_name, $config_source);
+        if (method_exists($this->$local_name, 'init')) {
+            return $this->$local_name->init($config_name, $config_source);
+        } else {
+            return true;
+        }
     }
 
     /**
