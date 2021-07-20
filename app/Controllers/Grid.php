@@ -59,7 +59,7 @@ class Grid extends DmsBase {
                 throw new \Exception("Error querying database for grid data; see application/logs/log-$currentTimestamp.php");
             }
             $columns = array();
-            foreach($result->field_data() as $field) {
+            foreach($result->getFieldData() as $field) {
                 $columns[] = $field->name;
             }
             $response->result = 'ok';
