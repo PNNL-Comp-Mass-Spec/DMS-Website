@@ -301,7 +301,7 @@ EOD;
             $interval = $row["Interval"];
             $comState = $row['CommentState'];
             $comment = $row['Comment'];
-            $dt = new DateTime();
+            $dt = new \DateTime();
             if (is_string($row['Time_End'])) {
                 $dt = strtotime($row['Time_End']);
             }

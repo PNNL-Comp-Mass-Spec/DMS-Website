@@ -110,15 +110,6 @@ class Calendar {
 	// --------------------------------------------------------------------
 
 	/**
-	 * CI Singleton
-	 *
-	 * @var object
-	 */
-	protected $CI;
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Class constructor
 	 *
 	 * Loads the calendar language file and sets the default time reference.
@@ -130,9 +121,6 @@ class Calendar {
 	 */
 	public function __construct($config = array())
 	{
-		$this->CI =& get_instance();
-		$this->CI->lang->load('calendar');
-
 		empty($config) OR $this->initialize($config);
 
 		log_message('info', 'Calendar Class Initialized');
@@ -150,6 +138,7 @@ class Calendar {
 	 */
 	public function initialize($config = array())
 	{
+		helper(['url']);
 		foreach ($config as $key => $val)
 		{
 			if (isset($this->$key))
@@ -161,7 +150,7 @@ class Calendar {
 		// Set the next_prev_url to the controller if required but not defined
 		if ($this->show_next_prev === TRUE && empty($this->next_prev_url))
 		{
-			$this->next_prev_url = $this->CI->config->site_url($this->CI->router->class.'/'.$this->CI->router->method);
+			$this->next_prev_url = site_url(current_uri());
 		}
 
 		return $this;
@@ -362,9 +351,9 @@ class Calendar {
 			$month_names = array('01' => 'cal_january', '02' => 'cal_february', '03' => 'cal_march', '04' => 'cal_april', '05' => 'cal_mayl', '06' => 'cal_june', '07' => 'cal_july', '08' => 'cal_august', '09' => 'cal_september', '10' => 'cal_october', '11' => 'cal_november', '12' => 'cal_december');
 		}
 
-		return ($this->CI->lang->line($month_names[$month]) === FALSE)
+		return (lang("Calendar.".$month_names[$month]) === FALSE)
 			? ucfirst(substr($month_names[$month], 4))
-			: $this->CI->lang->line($month_names[$month]);
+			: lang("Calendar.".$month_names[$month]);
 	}
 
 	// --------------------------------------------------------------------
@@ -401,7 +390,7 @@ class Calendar {
 		$days = array();
 		for ($i = 0, $c = count($day_names); $i < $c; $i++)
 		{
-			$days[] = ($this->CI->lang->line('cal_'.$day_names[$i]) === FALSE) ? ucfirst($day_names[$i]) : $this->CI->lang->line('cal_'.$day_names[$i]);
+			$days[] = (lang('Calendar.cal_'.$day_names[$i]) === FALSE) ? ucfirst($day_names[$i]) : lang('Calendar.cal_'.$day_names[$i]);
 		}
 
 		return $days;
