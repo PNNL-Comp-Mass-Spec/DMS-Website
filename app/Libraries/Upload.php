@@ -275,13 +275,6 @@ class Upload {
 	 */
 	protected $_mimes = array();
 
-	/**
-	 * CI Singleton
-	 *
-	 * @var	object
-	 */
-	protected $_CI;
-
 	// --------------------------------------------------------------------
 
 	/**
@@ -295,7 +288,6 @@ class Upload {
 		empty($config) OR $this->initialize($config, FALSE);
 
 		$this->_mimes =& get_mimes();
-		$this->_CI =& get_instance();
 
 		log_message('info', 'Upload Class Initialized');
 	}
@@ -307,7 +299,7 @@ class Upload {
 	 *
 	 * @param	array	$config
 	 * @param	bool	$reset
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function initialize(array $config = array(), $reset = TRUE)
 	{
@@ -513,7 +505,8 @@ class Upload {
 		}
 
 		// Sanitize the file name for security
-		$this->file_name = $this->_CI->security->sanitize_filename($this->file_name);
+		helper(['security'])
+		$this->file_name = sanitize_filename($this->file_name);
 
 		// Truncate the file name if it's too long
 		if ($this->max_filename > 0)
@@ -1136,7 +1129,8 @@ class Upload {
 			return FALSE;
 		}
 
-		return $this->_CI->security->xss_clean($data, TRUE);
+		helper(['security']);
+		return xss_clean($data, TRUE);
 	}
 
 	// --------------------------------------------------------------------
@@ -1149,12 +1143,10 @@ class Upload {
 	 */
 	public function set_error($msg, $log_level = 'error')
 	{
-		$this->_CI->lang->load('upload');
-
 		is_array($msg) OR $msg = array($msg);
 		foreach ($msg as $val)
 		{
-			$msg = ($this->_CI->lang->line($val) === FALSE) ? $val : $this->_CI->lang->line($val);
+			$msg = (lang("Upload.".$val) === FALSE) ? $val : lang("Upload.".$val);
 			$this->error_msg[] = $msg;
 			log_message($log_level, $msg);
 		}
