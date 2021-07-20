@@ -57,9 +57,12 @@ class Instrument_usage_report extends Grid {
     // --------------------------------------------------------------------
     function ws()
     {
-        $year = $this->uri->segment(3, date(''));
-        $month = $this->uri->segment(4, date(''));
-        $instrument = $this->uri->segment(5, '');
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $year = $uri->getSegment(3, date(''));
+        $month = $uri->getSegment(4, date(''));
+        $instrument = $uri->getSegment(5, '');
 
         $yearVal = $this->validate_year($year);
         $monthVal = $this->validate_month($month);
@@ -109,9 +112,12 @@ EOD;
     // --------------------------------------------------------------------
     function daily()
     {
-        $year = $this->uri->segment(3, date(''));
-        $month = $this->uri->segment(4, date(''));
-        $instrument = $this->uri->segment(5, '');
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $year = $uri->getSegment(3, date(''));
+        $month = $uri->getSegment(4, date(''));
+        $instrument = $uri->getSegment(5, '');
 
         $yearVal = $this->validate_year($year);
         $monthVal = $this->validate_month($month);
@@ -124,9 +130,12 @@ EOD;
     // --------------------------------------------------------------------
     function dailydetails()
     {
-        $year = $this->uri->segment(3, date(''));
-        $month = $this->uri->segment(4, date(''));
-        $instrument = $this->uri->segment(5, '');
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $year = $uri->getSegment(3, date(''));
+        $month = $uri->getSegment(4, date(''));
+        $instrument = $uri->getSegment(5, '');
 
         $yearVal = $this->validate_year($year);
         $monthVal = $this->validate_month($month);
@@ -158,9 +167,12 @@ EOD;
     // --------------------------------------------------------------------
     function rollup()
     {
-        $year = $this->uri->segment(3, date(''));
-        $month = $this->uri->segment(4, date(''));
-        $instrument = $this->uri->segment(5, '');
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $year = $uri->getSegment(3, date(''));
+        $month = $uri->getSegment(4, date(''));
+        $instrument = $uri->getSegment(5, '');
 
         $yearVal = $this->validate_year($year);
         $monthVal = $this->validate_month($month);

@@ -86,7 +86,7 @@ class Data extends BaseController {
     function lz()
     {
         helper(['url', 'user']);
-        $segs = array_slice($this->uri->segment_array(), 2);
+        $segs = array_slice($this->request->uri->getSegments(), 2);
 //print_r($_POST); echo "\n";
         $output_format = $segs[0];
         $config_source = $segs[1];
@@ -150,16 +150,19 @@ class Data extends BaseController {
         $this->load_lib('General_query', '', ''); // $config_name, $config_source
 
         $input_parms = new \stdClass ();
-        $input_parms->output_format = ''; // $this->uri->segment(3);
-        $input_parms->q_name = $this->uri->segment(4);
-        $input_parms->config_source = $this->uri->segment(3);;
-        $input_parms->filter_values = array_slice($this->uri->segment_array(), 4);
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $input_parms->output_format = ''; // $uri->getSegment(3);
+        $input_parms->q_name = $uri->getSegment(4);
+        $input_parms->config_source = $uri->getSegment(3);;
+        $input_parms->filter_values = array_slice($uri->getSegments(), 4);
 
         $pfv = $this->request->getPost('filter_values');
         if($pfv) {
             $input_parms->filter_values = explode(',', $pfv);
         } else {
-            $input_parms->filter_values = array_slice($this->uri->segment_array(), 4);
+            $input_parms->filter_values = array_slice($uri->getSegments(), 4);
         }
 
         $this->general_query->setup_query($input_parms);
@@ -180,7 +183,7 @@ class Data extends BaseController {
     function lr()
     {
         helper(['url', 'user']);
-        $segs = array_slice($this->uri->segment_array(), 2);
+        $segs = array_slice($this->request->uri->getSegments(), 2);
 
         $config_source = $segs[0];
         $config_name = $segs[1];

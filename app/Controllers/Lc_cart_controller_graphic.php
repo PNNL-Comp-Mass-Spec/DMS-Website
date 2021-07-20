@@ -41,9 +41,13 @@ class Lc_cart_controller_graphic extends BaseController {
         $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Cart_Graphic', $this);
 
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        
         // cart name
-        $cart = $this->uri->segment(3); // "Owl"
-        $data["cart_name"] = $cart; //$this->uri->segment(3)
+        $cart = $uri->getSegment(3); // "Owl"
+        $data["cart_name"] = $cart; //$uri->getSegment(3)
 
         // get component inventory for given cart
         $sql = "SELECT * FROM V_LC_Cart_Component_Positions WHERE Cart = '". $cart . "'";
@@ -70,9 +74,12 @@ class Lc_cart_controller_graphic extends BaseController {
     // (AJAX call)
     function cell()
     {
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
 
         // cart name
-        $posID = $this->uri->segment(3);
+        $posID = $uri->getSegment(3);
 
         // get component inventory for given cart
         $sql = "SELECT * FROM V_LC_Cart_Component_Positions WHERE ID = $posID";
@@ -93,9 +100,13 @@ class Lc_cart_controller_graphic extends BaseController {
     // (AJAX call)
     function component_check()
     {
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        
         // type and serial number of component
-        $type = $this->uri->segment(3);
-        $sn = $this->uri->segment(4);
+        $type = $uri->getSegment(3);
+        $sn = $uri->getSegment(4);
 
         // get component information
         $sql = "SELECT ID, Status FROM  V_LC_Cart_Components_Detail_Report WHERE (Type = '$type') AND ([Serial Number] = '$sn') ";

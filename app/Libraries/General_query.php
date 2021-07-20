@@ -60,6 +60,8 @@ class General_query {
     function get_query_values_from_url() {
         helper(['url']);
         $uri = current_uri(true);
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
 
         $p = new General_query_def();
         $p->output_format = $uri->getSegment(3);
@@ -126,6 +128,8 @@ class General_query {
     function setup_query_for_dmsBase() {
         helper(['url']);
         $uri = current_uri(true);
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
 
         $input_params = new General_query_def();
         $input_params->config_source = $this->controller->my_tag;

@@ -27,7 +27,7 @@ class Unit_Test extends BaseController {
     // --------------------------------------------------------------------
     function run()
     {
-        $segs = array_slice($this->uri->segment_array(), 2);
+        $segs = array_slice($this->request->uri->getSegments(), 2);
         $testFile = (count($segs) == 0)? 'test' : $segs[0] . '_test';
 
         $data['title'] = "DMS JavaScript Unit Tests";

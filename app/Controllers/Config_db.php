@@ -1354,7 +1354,10 @@ class Config_db extends BaseController {
      */
     function code_for_family_sql() {
         helper(['config_db']);
-        $config_db = $this->uri->segment(3);
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $config_db = $uri->getSegment(3);
 
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
@@ -1374,8 +1377,11 @@ class Config_db extends BaseController {
     function code_for_csharp($db_group, $sproc) {
         helper(['config_db']);
 
-        $db_group = $this->uri->segment(3);
-        $sproc = $this->uri->segment(4);
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $db_group = $uri->getSegment(3);
+        $sproc = $uri->getSegment(4);
 
         $my_db = \Config\Database::connect($db_group);
         $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
@@ -1537,18 +1543,21 @@ class Config_db extends BaseController {
         helper(['config_db']);
 
         // set up name filters
-        $raw_filter = $this->uri->segment(3, ".db");
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $raw_filter = $uri->getSegment(3, ".db");
         $file_filter = "/" . $raw_filter . "/";
-        $table_filter = $this->uri->segment(4, "");
+        $table_filter = $uri->getSegment(4, "");
 
         $data['raw_filter'] = $raw_filter;
         $data['file_filter'] = $file_filter;
         $data['table_filter'] = $table_filter;
 
         // different output format
-        $display_format = $this->uri->segment(5, 'table_dump');
+        $display_format = $uri->getSegment(5, 'table_dump');
         $data['display_format'] = $display_format;
-        $display_mode = $this->uri->segment(6, '');
+        $display_mode = $uri->getSegment(6, '');
         $data['display_mode'] = $display_mode;
 
         $data['title'] = "Search config files";

@@ -17,9 +17,12 @@ class Run_tracking extends DmsBase {
     private function check_initial_conditions()
     {
         // get what we can from URL
-        $instrument = $this->uri->segment(3, '');
-        $year = $this->uri->segment(4, date('Y'));
-        $month = $this->uri->segment(5, date('n'));
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $instrument = $uri->getSegment(3, '');
+        $year = $uri->getSegment(4, date('Y'));
+        $month = $uri->getSegment(5, date('n'));
 
         // URL did not contain an instrument parameter
         // so choose the first instrument in the list
@@ -40,7 +43,7 @@ class Run_tracking extends DmsBase {
         }
 
         // URL was incomplete - construct one and redirect to it
-        $ns = $this->uri->total_segments();
+        $ns = $this->request->uri->getTotalSegments();
         if($ns < 5) {
             $url = $this->my_tag . "/cal/$instrument/$year/$month";
             redirect()->to(site_url($url));

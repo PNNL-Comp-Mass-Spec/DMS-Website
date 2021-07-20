@@ -239,9 +239,12 @@ class Freezer extends DmsBase {
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // optional limits on what to include
-        $freezer_spec = $this->uri->segment(3);
-        $shelf_spec = $this->uri->segment(4);
-        $rack_spec = $this->uri->segment(5);
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $freezer_spec = $uri->getSegment(3);
+        $shelf_spec = $uri->getSegment(4);
+        $rack_spec = $uri->getSegment(5);
 
         // populate array of storage locations
         $sql = "";
@@ -318,7 +321,10 @@ class Freezer extends DmsBase {
         $this->table = new \CodeIgniter\View\Table();
         $this->db = \Config\Database::connect();
 
-        $freezer_spec = $this->uri->segment(3);
+        $uri = $this->request->uri;
+        // Don't trigger an exception if the segment index is too large
+        $uri->setSilent();
+        $freezer_spec = $uri->getSegment(3);
 
         // labelling information for view
         $data['title'] = "Freezer Matrix";
