@@ -31,12 +31,16 @@ class App extends BaseConfig
     public $dms_inst_source_url = "http://gigasax.pnl.gov";
 
     public $page_menu_root = NULL;
+
     // Include trailing '/', if provided
     private $baseURLPrefix = '';
+
+    // --------------------------- END DMS Customizations----------------------
 
     // --------------------------------------------------------------------
     function __construct()
     {
+        // --------------------------- BEGIN DMS Customizations--------------------
         // Need to set the properties before we call the parent constructor
         $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
         $this->baseURL = "{$protocol}://".$_SERVER["SERVER_NAME"].$this->baseURLPrefix;
@@ -52,59 +56,15 @@ class App extends BaseConfig
         else {
             $this->pwiki = 'https://prismwiki.pnl.gov/wiki/';
         }
-
-// TODO: Handle all of the following settings from the .env file!
-
-        //---- Start Development settings
-        $development = true;
-        if (isset($development))
-        {
-            $this->version_color_code = 'LightGreen';
-            $this->version_label = 'Development';
-
-            $this->modify_config_db_enabled = TRUE;
-
-            $this->file_attachment_local_root_path = "/files1/dms_attachments/";
-        }
-        //---- End Development settings
-
-        //---- Start CBDMS settings
-        if (isset($cbdms))
-        {
-            //$this->modify_config_db_enabled = TRUE;
-
-            // Do not store DMS Attachments in the archive when on CBDMSWeb
-            $this->file_attachment_archive_root_path = NULL;
-
-            $this->file_attachment_local_root_path = "/files1/dms_attachments/";
-
-            $this->model_config_path = "application/model_config/cbdms/";
-
-            $this->dms_inst_source_url = "http://cbdms.pnl.gov" ;
-
-            $this->page_menu_root = "page_menu_cbdms" ;
-        }
-        //---- End CBDMS settings
-
-        //---- Start Training settings
-        if (isset($training))
-        {
-            $this->version_color_code = 'Coral';
-            $this->version_banner = "TRAINING VERSION";
-            $this->version_label = 'Training';
-
-            // Disabled for training:
-            $this->file_attachment_archive_root_path = NULL;
-
-            $this->file_attachment_local_root_path = "/files2/dmsbeta_attachments/";
-        }
-        //---- End Training settings
+        // --------------------------- END DMS Customizations----------------------
 
         // Call the parent constructor
         parent::__construct();
-    }
 
-    // --------------------------- END DMS Customizations----------------------
+        // --------------------------- BEGIN DMS Customizations--------------------
+        ConfigFromEnvironmentFile::getConfigFromEnvironmentSpecificFile($this);
+        // --------------------------- END DMS Customizations----------------------
+    }
     
 	/**
 	 * --------------------------------------------------------------------------

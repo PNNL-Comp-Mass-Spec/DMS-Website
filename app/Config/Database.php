@@ -89,6 +89,8 @@ class Database extends Config
 		{
 			$this->defaultGroup = 'tests';
 		}
+
+        ConfigFromEnvironmentFile::getConfigFromEnvironmentSpecificFile($this);
 	}
 
 	//--------------------------------------------------------------------
