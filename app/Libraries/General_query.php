@@ -58,7 +58,7 @@ class General_query {
      * @return \General_query_def
      */
     function get_query_values_from_url() {
-        helper(['url']);
+        helper(['url', 'security']);
         $uri = current_uri(true);
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
@@ -82,10 +82,10 @@ class General_query {
         //   Sort directtion: Ascending
 
         $request = \Config\Services::request();
-        $offset = $request->getGet('Offset' /* , TODO: xss_clean */);
-        $rows = $request->getGet('Rows' /* , TODO: xss_clean */);
-        $sortCol = $request->getGet('SortCol' /* , TODO: xss_clean */);
-        $sortDir = $request->getGet('SortDir' /* , TODO: xss_clean */);
+        $offset = xss_clean($request->getGet('Offset'));
+        $rows = xss_clean($request->getGet('Rows'));
+        $sortCol = xss_clean($request->getGet('SortCol'));
+        $sortDir = xss_clean($request->getGet('SortDir'));
 
         // Validate that the offset is an integer
         if (filter_var($offset, FILTER_VALIDATE_INT) !== false) {
