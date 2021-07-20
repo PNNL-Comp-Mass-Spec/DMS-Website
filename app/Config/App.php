@@ -31,14 +31,15 @@ class App extends BaseConfig
     public $dms_inst_source_url = "http://gigasax.pnl.gov";
 
     public $page_menu_root = NULL;
-    private $baseURLPrefix = 'dmsdevci4/public/';
+    // Include trailing '/', if provided
+    private $baseURLPrefix = '';
 
     // --------------------------------------------------------------------
     function __construct()
     {
         // Need to set the properties before we call the parent constructor
         $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
-        $this->baseURL = "{$protocol}://".$_SERVER["SERVER_NAME"]."/".$this->baseURLPrefix;
+        $this->baseURL = "{$protocol}://".$_SERVER["SERVER_NAME"].$this->baseURLPrefix;
         $this->uriProtocol = 'PATH_INFO';
         $this->appTimezone = 'America/Los_Angeles';
 
