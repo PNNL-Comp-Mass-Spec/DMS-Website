@@ -38,6 +38,8 @@ namespace App\Libraries;
  * @filesource
  */
 
+use Config\Mimes;
+
 /**
  * File Uploading Class
  *
@@ -287,7 +289,7 @@ class Upload {
 	{
 		empty($config) OR $this->initialize($config, FALSE);
 
-		$this->_mimes =& get_mimes();
+		$this->_mimes = Mimes::$mimes;
 
 		log_message('info', 'Upload Class Initialized');
 	}
@@ -303,7 +305,7 @@ class Upload {
 	 */
 	public function initialize(array $config = array(), $reset = TRUE)
 	{
-		$reflection = new ReflectionClass($this);
+		$reflection = new \ReflectionClass($this);
 
 		if ($reset === TRUE)
 		{
@@ -505,7 +507,7 @@ class Upload {
 		}
 
 		// Sanitize the file name for security
-		helper(['security'])
+		helper(['security']);
 		$this->file_name = sanitize_filename($this->file_name);
 
 		// Truncate the file name if it's too long
