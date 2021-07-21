@@ -248,11 +248,11 @@ class Q_model extends Model {
                 } else {
                     if ($my_db->connID === false) {
                         // $my_db->connID is normally an object
-                        // But if an error occurs, it is false
-                        // Retry establishing the connection
+                        // But if an error occurs or it disconnects, it is false
+                        // Try re-connecting first
                         $my_db->reconnect();
                     }
-                    
+
                     if ($my_db->connID === false) {
                         // $my_db->connID is normally an object
                         // But if an error occurs, it is false
