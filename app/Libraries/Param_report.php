@@ -150,6 +150,8 @@ class Param_report {
      * @throws exception
      */
     private function get_data_rows_from_sproc() {
+        helper('form');
+
         // get specifications for the entry form
         // used for submission into POST and to be returned as HTML
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
@@ -161,13 +163,14 @@ class Param_report {
         } else {
             // make validation object and use it to
             // get field values from POST and validate them
-            helper('form');
             $request = \Config\Services::request();
             $postData = $request->getPost();
+            $preformat = new \App\Libraries\ValidationPreformat();
+            $postData = $preformat->run($postData, $form_def->rules);
+
             $validation =  \Config\Services::validation();
-            //$validation->set_error_delimiters('<span class="bad_clr">', '</span>');
             $validation->setRules($form_def->rules);
-            $valid_fields = $validation->run();
+            $valid_fields = $validation->run($postData);
 
             // get field values from validation object into an object
             // that will be used for calling stored procedure
@@ -176,14 +179,15 @@ class Param_report {
                 $calling_params->$field = $postData[$field];
             }
         }
+
         // parameters needed by stored procedure that are not in entry form specs
-        $calling_params->mode = $this->controller->request->getPost('entry_cmd_mode');
+        $calling_params->mode = \Config\Services::request()->getPost('entry_cmd_mode');
         $calling_params->callingUser = get_user();
 
         $message = '';
         try {
             if (!$valid_fields) {
-                throw new \Exception('There were validation errors: ' . $validation->listErrors('listFmt'));
+                throw new \Exception('There were validation errors: ' . validation_errors($validation, '<span class="bad_clr">', '</span>'));
             }
 
             // call stored procedure

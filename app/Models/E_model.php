@@ -164,7 +164,7 @@ class E_model extends Model {
             $rule['field'] = $f_name;
             $rule['label'] = $f_spec['label'];
             $rule['rules'] = $f_spec['rules'];
-            $rules[] = $rule;
+            $rules[$f_name] = $rule;
         }
         return $rules;
     }

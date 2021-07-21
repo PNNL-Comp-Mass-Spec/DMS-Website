@@ -4,7 +4,7 @@ namespace App\Validation;
 /**
  * Validation preformatting methods.
  * Each method specified here must also exist as a method in DmsRules, but simply return 'true'.
- * This is to allow avoid validation failures.
+ * This is to avoid validation failures.
  */
 class DmsValidationPreformat {
 
@@ -14,7 +14,7 @@ class DmsValidationPreformat {
      * @param type $str
      * @return type
      */
-    function trim($str) : $string {
+    function trim($str) : string {
         $scrubbed = trim(iconv("utf-8", "ASCII//TRANSLIT", $str));
 //      $_POST[$this->_current_field] = $str;
         return $scrubbed;

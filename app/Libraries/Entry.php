@@ -15,7 +15,7 @@ class Entry {
      * Constructor
      */
     function __construct() {
-        
+
     }
 
     /**
@@ -149,12 +149,19 @@ class Entry {
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
 
-        $valid_fields = $this->get_input_field_values($form_def->rules);
+        $request = \Config\Services::request();
+        $postData = $request->getPost();
+        $preformat = new \App\Libraries\ValidationPreformat();
+        $postData = $preformat->run($postData, $form_def->rules);
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($form_def->rules);
+        $valid_fields = $validation->run($postData);
 
         // get field values from validation object
         $input_params = new \stdClass();
         foreach ($form_def->fields as $field) {
-            $input_params->$field = $this->controller->postData[$field];
+            $input_params->$field = $postData[$field];
         }
         try {
             if (!$valid_fields) {
@@ -194,7 +201,7 @@ class Entry {
 
         // get entry form object and use to to build and return HTML for form
         $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
-        $data['form'] = $this->make_entry_form_HTML($input_params, $form_def);
+        $data['form'] = $this->make_entry_form_HTML($input_params, $form_def, $validation);
         echo $outcome;
         echo $data['form'];
         echo $supplement;
@@ -213,8 +220,10 @@ class Entry {
      * Get entry form builder object and use it to make HTML
      * @param stdClass $input_params
      * @param stdClass $form_def
+     * @param stdClass $validation
      */
-    protected function make_entry_form_HTML($input_params, $form_def) {
+    protected function make_entry_form_HTML($input_params, $form_def, $validation) {
+        helper('form');
         // handle special field options for entry form object
         $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
         $this->handle_special_field_options($form_def, $mode);
@@ -223,7 +232,8 @@ class Entry {
         // and any field validation errors
         foreach ($form_def->fields as $field) {
             $this->controller->entry_form->set_field_value($field, $input_params->$field);
-            $this->controller->entry_form->set_field_error($field, form_error($field));
+            $fieldError = validation_error($validation, $field, '<span class="bad_clr">', '</span>');
+            $this->controller->entry_form->set_field_error($field, $fieldError);
         }
         // build HTML and return it
         return $this->controller->entry_form->build_display($mode);
@@ -282,22 +292,6 @@ class Entry {
     }
 
     /**
-     * Make validation object and use it to
-     * get field values from POST and validate them
-     * @param mixed $rules
-     * @return bool
-     */
-    protected function get_input_field_values($rules) {
-        helper('form');
-        $request = \Config\Services::request();
-        $this->controller->postData = $request->getPost();
-        $validation =  \Config\Services::validation();
-        //$validation->set_error_delimiters('<span class="bad_clr">', '</span>');
-        $validation->setRules($rules);
-        return $validation->run();
-    }
-
-    /**
      * Copy (shallow) input param object to proxy object
      * for actually supplying values to call stored procedure
      * Returns a copy of $input_params, with disabled fields changed to [no change]
@@ -307,7 +301,7 @@ class Entry {
      */
     protected function make_calling_param_object($input_params, $field_enable) {
         $calling_params = clone $input_params;
-        $calling_params->mode = $this->controller->request->getPost('entry_cmd_mode');
+        $calling_params->mode = \Config\Services::request()->getPost('entry_cmd_mode');
         $calling_params->callingUser = get_user();
 
         // adjust calling parameters for any disabled fields

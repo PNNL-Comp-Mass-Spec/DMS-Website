@@ -10,7 +10,7 @@ class Operation {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -63,10 +63,12 @@ class Operation {
             helper('form');
             $request = \Config\Services::request();
             $postData = $request->getPost();
+            $preformat = new \App\Libraries\ValidationPreformat();
+            $postData = $preformat->run($postData, $form_def->rules);
+
             $validation =  \Config\Services::validation();
-            //$validation->set_error_delimiters('', '');
             $validation->setRules($rules);
-            $valid_fields = $validation->run();
+            $valid_fields = $validation->run($postData);
 
             // Get field values from validation object into an object
             // that will be used for calling stored procedure
@@ -77,7 +79,7 @@ class Operation {
                 $calling_params->$field = $postData[$field];
             }
 
-            $request = $this->controller->request;
+            $request = \Config\Services::request();
             $calling_params->mode = ($request->getPost('mode')) ? $request->getPost('mode') : $request->getPost('command');
             $calling_params->callingUser = get_user();
             $calling_params->message = '';
