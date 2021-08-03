@@ -18,7 +18,7 @@ class Migrations extends BaseConfig
 	 *
 	 * @var boolean
 	 */
-	public $enabled = true;
+	public $enabled = false;
 
 	/**
 	 * --------------------------------------------------------------------------
