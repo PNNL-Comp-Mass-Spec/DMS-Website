@@ -1,0 +1,11 @@
+<?php
+namespace App\Controllers;
+
+class Prep_instrument_history extends DmsBase {
+    function __construct()
+    {
+        $this->my_tag = "prep_instrument_history";
+        $this->my_title = "Sample Prep Instrument Maintenance Note";
+    }
+}
+?>

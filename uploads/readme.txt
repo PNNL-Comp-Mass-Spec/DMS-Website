@@ -1,1 +1,0 @@
-This folder receives uploaded files from the spreadsheet loader page
