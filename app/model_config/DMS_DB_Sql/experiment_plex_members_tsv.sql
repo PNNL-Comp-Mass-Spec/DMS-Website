@@ -91,7 +91,7 @@ INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','15!'
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_organism','Organism','15!','','Organism','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_tissue','Tissue','10','','Tissue','ContainsText','text','128','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'Exp_ID','plexExperimentId','int','input','','AddUpdateExperimentPlexMembers');
+INSERT INTO "sproc_args" VALUES(1,'Exp_ID','plexExperimentIdOrName','varchar','input','130','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(2,'Plex_Members','plexMembers','varchar','input','4000','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(3,'Channel1_ExpID','expIdChannel1','varchar','input','130','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(4,'Channel2_ExpID','expIdChannel2','varchar','input','130','AddUpdateExperimentPlexMembers');
