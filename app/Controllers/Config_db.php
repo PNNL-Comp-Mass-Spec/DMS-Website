@@ -181,11 +181,13 @@ class Config_db extends BaseController {
         //    $s .= 'Could not connect to config database at ' . $dbFilePath;
         //    return null;
         //}
-        $sqlWithTransaction = "BEGIN TRANSACTION; $sql COMMIT;";
+        //$sqlWithTransaction = "BEGIN TRANSACTION; $sql COMMIT;";
 
         //echo $sqlWithTransaction;
         //$dbh->exec($sqlWithTransaction);
-        $db->execute($sqlWithTransaction);
+        $db->transStart();
+        $db->execute($sql);
+        $db->transComplete();
         $db->close();
 
         $this->_log_sql($sql, $restore, $config_db);
@@ -450,7 +452,7 @@ class Config_db extends BaseController {
             return;
         }
         helper(['config_db']);
-        $sql = $this->request->getPost('sql_text', '');
+        $sql = $this->request->getPost('sql_text');
         if ($sql) {
             $this->_exec_sql($config_db, $sql, $table_name);
         }
@@ -472,7 +474,7 @@ class Config_db extends BaseController {
         helper(['config_db']);
 
         $name = str_replace('.db', '', $config_db);
-        $mode = $this->request->getPost('mode', '');
+        $mode = $this->request->getPost('mode');
         $sql = "";
         switch ($mode) {
             case 'suggest':
