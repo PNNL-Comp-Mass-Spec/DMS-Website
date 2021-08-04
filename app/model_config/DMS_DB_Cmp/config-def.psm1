@@ -11,8 +11,8 @@ $global:settings = @{
 $global:defaults = @{
     "localDbFileFolderPath" = "C:\Data\Junk";
     "localDumpFileFolderPath" = "C:\Data\Junk";
-    "dmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config\DMS_DB_Sql";
-    "cbdmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config\DMS_DB_Sql\cbdms";
+    "dmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config\DMS_DB_Sql";
+    "cbdmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config\DMS_DB_Sql\cbdms";
 }
 
 $global:sources = @(
@@ -36,10 +36,10 @@ $global:sources = @(
     },
     @{
         "version" = "code";
-        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config";
+        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config";
     },
     @{
         "version" = "cbdmsCode";
-        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\application\model_config\cbdms";
+        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config\cbdms";
     }
 )
