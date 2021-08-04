@@ -194,7 +194,7 @@ class E_model extends Model {
                 $a['label'] = $row['label'];
                 $a['type'] = $row['type'];
                 $a['size'] = $row['size'];
-                $a['rules'] = $row['rules'];
+                $a['rules'] = $row['rules'] . "|permit_empty";
                 $a['maxlength'] = $row['maxlength'];
                 $a['rows'] = $row['rows'];
                 $a['cols'] = $row['cols'];
