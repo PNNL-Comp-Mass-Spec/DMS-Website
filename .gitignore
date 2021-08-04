@@ -133,3 +133,5 @@ nb-configuration.xml
 app/config/production/*.lnk
 app/model_config/DMS_DB_Sql/cbdms/DB_Updating_Readme.txt
 chosen/*.zip
+
+/app/model_config/DMS_DB_Cmp/cred_*.txt
