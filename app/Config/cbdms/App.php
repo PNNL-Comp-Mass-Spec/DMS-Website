@@ -31,7 +31,7 @@ $appConfig['modify_config_db_enabled'] = true;
 
 $appConfig['file_attachment_local_root_path'] = "/files1/dms_attachments/";
 
-$appConfig['model_config_path'] = "../app/model_config/cbdms/" ;
+$appConfig['model_config_path'] = "./model_config/cbdms/" ;
 
 $appConfig['dms_inst_source_url'] = "http://cbdms.pnl.gov" ;
 

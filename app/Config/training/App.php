@@ -32,7 +32,7 @@ $appConfig['modify_config_db_enabled'] = false;
 
 $appConfig['file_attachment_local_root_path'] = "/files2/dmsbeta_attachments/";
 
-$appConfig['model_config_path'] = "../app/model_config/" ;
+$appConfig['model_config_path'] = "./model_config/" ;
 
 $appConfig['dms_inst_source_url'] = "http://gigasax.pnl.gov" ;
 

@@ -26,7 +26,7 @@ class App extends BaseConfig
     public $file_attachment_local_root_path = "/files2/dms_attachments/";
 
     // Path relative to index.php, which is inside the 'public' folder.
-    public $model_config_path = "../app/model_config/";
+    public $model_config_path = "./model_config/";
 
     public $dms_inst_source_url = "http://gigasax.pnl.gov";
 
