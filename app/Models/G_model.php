@@ -380,7 +380,7 @@ class G_model extends Model {
 
             // not all actions are possible for a given page family
             if($allowed === false) {
-                throw new \Exception('That action is not allowed');
+                throw new \Exception("Action '$action' is not allowed for this page");
             }
 
             // we are going to have to check further, so load the authorization model
