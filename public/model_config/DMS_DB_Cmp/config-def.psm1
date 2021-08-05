@@ -11,8 +11,8 @@ $global:settings = @{
 $global:defaults = @{
     "localDbFileFolderPath" = "C:\Data\Junk";
     "localDumpFileFolderPath" = "C:\Data\Junk";
-    "dmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config\DMS_DB_Sql";
-    "cbdmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config\DMS_DB_Sql\cbdms";
+    "dmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\public\model_config\DMS_DB_Sql";
+    "cbdmsDbSqlPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\public\model_config\DMS_DB_Sql\cbdms";
 }
 
 $global:sources = @(
@@ -20,26 +20,26 @@ $global:sources = @(
         "version" = "dev";
         "sftpHost" = "prismweb2.pnl.gov";
         "userName" = "d3l243";
-        "remoteDir" = "/files1/www/html/dmsdev/application/model_config";
+        "remoteDir" = "/files1/www/html/dmsdev/public/model_config";
     },
     @{
         "version" = "prod";
         "sftpHost" = "prismweb3.pnl.gov";
         "userName" = "d3l243";
-        "remoteDir" = "/files1/www/html/dms/application/model_config";
+        "remoteDir" = "/files1/www/html/dms/public/model_config";
     },
     @{
         "version" = "cbdmsOnline";
         "sftpHost" = "cbdmsweb.emsl.pnl.gov";
         "userName" = "d3l243";
-        "remoteDir" = "/files1/www/html/dms/application/model_config/cbdms";
+        "remoteDir" = "/files1/www/html/dms/public/model_config/cbdms";
     },
     @{
         "version" = "code";
-        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config";
+        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\public\model_config";
     },
     @{
         "version" = "cbdmsCode";
-        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\app\model_config\cbdms";
+        "sourceFileFolderPath" = "F:\Documents\Projects\DataMining\PRISM_Web_Pages\PrismWeb\DMS2\public\model_config\cbdms";
     }
 )
