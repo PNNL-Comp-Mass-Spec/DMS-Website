@@ -59,6 +59,9 @@ writable/session/*
 
 writable/uploads/*
 !writable/uploads/index.html
+!writable/uploads/readme.txt
+
+writable/tmpfiles/*
 
 writable/debugbar/*
 
