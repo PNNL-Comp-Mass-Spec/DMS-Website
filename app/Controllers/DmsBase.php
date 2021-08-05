@@ -38,6 +38,28 @@ class DmsBase extends BaseController
     // --------------------------------------------------------------------
     function index()
     {
+        $this->load_mod('G_model', 'gen_model', 'na', $this->my_tag);
+
+        if ($this->gen_model->error_text) {
+            if ($output_message) {
+                $this->message_box('Error', $this->gen_model->error_text);
+            }
+
+            // Failed to load G_model for page; just do the original action
+            return redirect()->to(site_url($this->my_tag.'/report'));
+        }
+
+        $actions = $this->gen_model->get_actions();
+
+        if ($actions['report']) {
+            return redirect()->to(site_url($this->my_tag.'/report'));
+        } else if ($actions['param']) {
+            return redirect()->to(site_url($this->my_tag.'/param'));
+        } else if ($actions['create']) {
+            return redirect()->to(site_url($this->my_tag.'/create'));
+        }
+
+        // None of the above exist: just do the original action
         return redirect()->to(site_url($this->my_tag.'/report'));
     }
 
