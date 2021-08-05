@@ -76,7 +76,7 @@ class Upload extends DmsBase {
     {
         $fieldName = 'myfile';
 
-        $destination_path = './uploads/';
+        $destination_path = WRITEPATH . 'uploads/';
         $file_name = basename($_FILES[$fieldName]['name']);
         $target_path = $destination_path . $file_name;
 

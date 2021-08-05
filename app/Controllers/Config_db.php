@@ -203,7 +203,7 @@ class Config_db extends BaseController {
         helper(['user']);
         $usr = get_user();
         $dt = date(DATE_RFC822);
-        $file = 'tmpfiles/' . $config_db . '.log';
+        $file = WRITEPATH . 'tmpfiles/' . $config_db . '.log';
 
         $header = "$dt  $usr";
 

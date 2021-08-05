@@ -47,7 +47,7 @@ class Spreadsheet_loader {
      * @category AJAX
      */
     function load($fname) {
-        $filePath = "./uploads/$fname";
+        $filePath = WRITEPATH . "uploads/$fname";
 
         $mimeType = mime_content_type($filePath);
         $isSpreadsheet = false;
