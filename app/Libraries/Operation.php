@@ -64,7 +64,7 @@ class Operation {
             $request = \Config\Services::request();
             $postData = $request->getPost();
             $preformat = new \App\Libraries\ValidationPreformat();
-            $postData = $preformat->run($postData, $form_def->rules);
+            $postData = $preformat->run($postData, $rules);
 
             $validation =  \Config\Services::validation();
             $validation->setRules($rules);
@@ -79,7 +79,6 @@ class Operation {
                 $calling_params->$field = $postData[$field];
             }
 
-            $request = \Config\Services::request();
             $calling_params->mode = ($request->getPost('mode')) ? $request->getPost('mode') : $request->getPost('command');
             $calling_params->callingUser = get_user();
             $calling_params->message = '';
