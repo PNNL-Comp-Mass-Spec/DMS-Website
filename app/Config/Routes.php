@@ -34,6 +34,20 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Gen::index');
 
+
+// Define aliases that redirect to list reports
+
+$routes->get('biomaterial', 'Cell_culture::index');
+
+$routes->get('mc', 'Mc_enable_control_by_manager::index');
+$routes->get('manager_control', 'Mc_enable_control_by_manager::index');
+
+$routes->get('residues', 'Residue::index');
+
+$routes->get('charge_codes', 'Charge_code::index');
+$routes->get('work_package', 'Charge_code::index');
+$routes->get('work_packages', 'Charge_code::index');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
