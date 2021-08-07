@@ -171,17 +171,18 @@ return [
         'DBPrefix' => "",
         'pConnect' => true,
         'DBDebug'  => true,
+    ],
 
-/**/
+    'manager_control' => [
         'hostname' => "Proteinseqs",
         'database' => "Manager_Control_T3",
         'DBDriver' => "SQLSRV",
-/*/
+/*
         'hostname' => "prismweb3",
         'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
-/**/
+*/
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
