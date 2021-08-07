@@ -170,11 +170,11 @@ class File_attachment extends DmsBase {
             $resultSet = $this->db->query($sql);
 
             if($resultSet && $resultSet->getNumRows() > 0) {
-                $local_path = "{$this->local_root_path}{$resultSet->row()->path}/{$resultSet->getRow()->filename}";
+                $local_path = "{$this->local_root_path}{$resultSet->getRow()->path}/{$resultSet->getRow()->filename}";
                 $result->local_path = $local_path;
                 $result->path = $local_path;
                 if (!is_null($this->archive_root_path)) {
-                    $archive_path = "{$this->archive_root_path}{$resultSet->row()->path}/{$resultSet->getRow()->filename}";
+                    $archive_path = "{$this->archive_root_path}{$resultSet->getRow()->path}/{$resultSet->getRow()->filename}";
                     $result->archive_path = $archive_path;
                     if (!file_exists($result->local_path)) {
                         $result->path = $archive_path;
