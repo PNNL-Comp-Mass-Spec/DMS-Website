@@ -234,7 +234,7 @@ function make_primary_filter($primary_filter_defs) {
  */
 function make_primary_filter_in_table($primary_filter_defs, $controller) {
     helper('form');
-    $controller->entry_form = new \All\Libraries\Entry_form();
+    $controller->entry_form = new \App\Libraries\Entry_form();
     $controller->choosers = model('App\Models\Dms_chooser');
 
     $str = '';
