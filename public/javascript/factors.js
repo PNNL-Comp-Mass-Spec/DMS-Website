@@ -151,9 +151,11 @@ var tau = {
 			var p = {};
 			p.requestList = xml;
 			p.command = command;
-			// gamma.pageContext and lambda.submitOperation are defined in dms2.js
-			var url = gamma.pageContext.ops_url;
-			lambda.submitOperation(url, p);
+			// gamma.pageContext is defined in dms2.js
+			// POST to requested_run_admin/call/admin_sproc
+			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag +  "/call/admin_sproc";
+			// lambda.submitCall is defined in dms2.js
+			lambda.submitCall(url, p);
 		},
 		setRequestStatus: function(command) {
 			var iList = lambda.getSelectedItemList();

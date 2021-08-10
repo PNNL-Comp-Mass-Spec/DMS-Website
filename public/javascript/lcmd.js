@@ -238,7 +238,7 @@ var lcmd = {
 			if (!confirm("Are you sure that you want to update the database?")) return;
 			// URL will point to the operations_sproc value defined in requested_run.db: UpdateRequestedRunAssignments
 			// See: http://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/general_params
-			var url = gamma.pageContext.site_url + 'requested_run/operation/';
+			var url = gamma.pageContext.ops_url;
 			var p = {};
 			
 			// This is auto-mapped to the @mode parameter of the stored procedure
