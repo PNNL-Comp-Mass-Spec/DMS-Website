@@ -192,6 +192,33 @@ class Dms_chooser extends Model {
     }
 
     /**
+     * Create a set of choosers from the list in the given field spec
+     * @param type $field_name
+     * @param type $f_spec
+     * @param type $element_start
+     * @param type $element_end
+     * @return string
+     */
+    function make_choosers($field_name, $f_spec, $element_start = "<div style='margin-bottom:5px;'>", $element_end = "</div>") {
+        $s = "";
+        $seq = 0;
+        if (array_key_exists("chooser_list", $f_spec)) {
+            foreach ($f_spec['chooser_list'] as $chsr) {
+                $seq++;
+                $pln = $chsr["PickListName"];
+                $delim = $chsr['Delimiter'];
+                $type = $chsr["type"];
+                $target = $chsr['Target'];
+                $xref = $chsr['XRef'];
+                $label = (array_key_exists('Label', $chsr)) ? $chsr['Label'] : 'Choose from:';
+                $ch = $this->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
+                $s .= $element_start . $ch . $element_end;
+            }
+        }
+        return $s;
+    }
+
+    /**
      * Create a chooser from the given parameters
      * @param type $f_name Field Name
      * @param type $type Chooser type
