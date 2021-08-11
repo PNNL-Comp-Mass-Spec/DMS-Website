@@ -7,6 +7,8 @@
  * @return type
  */
 function convert_special_values($value) {
+    // Replace any 'URL encoded' characters
+    $value = rawurldecode($value);
     // Check the field fully matching a special tag
     switch ($value) {
         // Year only

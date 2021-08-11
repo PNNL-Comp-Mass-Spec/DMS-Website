@@ -307,7 +307,7 @@ class List_report {
             $x = ($f["value"]) ? $f["value"] : "-";
             $pf[] = str_replace(" ", "%20", trim($x));
         }
-        $s .= site_url("$tag/report/" . implode("/", $pf));
+        $s .= rtrim(site_url(), "/") . "/$tag/report/" . implode("/", $pf);
 
         // dump active secondary filters to array of segments
         $sf = array();
