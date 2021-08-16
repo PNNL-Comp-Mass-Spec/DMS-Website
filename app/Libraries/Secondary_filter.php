@@ -177,7 +177,8 @@ class Secondary_filter {
                     // Check for special wildcard text
                     $valueToStore = convert_special_values($items[$itemIdx]);
                 } else {
-                    $valueToStore = $items[$itemIdx];
+                    // Replace any 'URL encoded' characters
+                    $valueToStore = rawurldecode($items[$itemIdx]);
                 }
                 $filter_state[$filterIdx][$name] = $valueToStore;
                 $itemIdx++;
