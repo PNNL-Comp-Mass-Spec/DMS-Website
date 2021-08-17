@@ -36,5 +36,10 @@ table th {
 
 <p>You are receiving this automatic email from DMS because you registered to do so.  You may change your registration by going to <a href='<?= site_url('notification/edit/'. $prn) ?>'>this page</a> </p>
 
+<?php if ($isTest ?? false) : ?>
+<p>This is a test email sent via <?= site_url('notification/email_user/'. $prn) ?><br>
+Actual notification emails will be sent to <?= $userEmail ?>
+</p>
+<?php endif ?>
 </body>
 </html>

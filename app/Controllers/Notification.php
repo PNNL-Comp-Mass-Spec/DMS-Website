@@ -111,8 +111,7 @@ class Notification extends DmsBase {
         }
         $data['items'] = $items;
         $data['prn'] = '';
-        $msg = echo view('email/notification_default', $data, true);
-        echo $msg;
+        echo view('email/notification_default', $data);
     }
 
     /**
@@ -131,8 +130,7 @@ class Notification extends DmsBase {
             $data['items'] = $this->_format_events($users[$user]);
             $data['prn'] = $user;
             // Unused: $email = $users[$user]->email;
-            $msg = echo view('email/notification_default', $data, true);
-            echo $msg;
+            echo view('email/notification_default', $data);
         }
 
     }
@@ -158,9 +156,12 @@ class Notification extends DmsBase {
             $data['items'] = $this->_format_events($users[$user]);
             $data['prn'] = $user;
             $email = 'proteomics@pnnl.gov';
+            $data['userEmail'] = $users[$user]->email;
+            $data['isTest'] = true;
             // Uncomment to send the e-mail to the user
             // $email = $users[$user]->email;
-            $msg = echo view('email/notification_default', $data, true);
+            // $data['isTest'] = false;
+            $msg = view('email/notification_default', $data);
             mail($email, "Automatic DMS Event Notification", $msg, $headers);
             echo $msg;
         }
@@ -185,14 +186,13 @@ class Notification extends DmsBase {
         $ul = array_keys($users);
         sort($ul);
         foreach($ul as $user) {
-            // Pass true to log_message to force the message to be logged even if the log threshold is Error only
-            log_message('info', 'notification/email sent to ' . $user, true);
+            log_message('info', 'notification/email sent to ' . $user);
             $data['items'] = $this->_format_events($users[$user]);
             $data['prn'] = $user;
             $email = $users[$user]->email;
             // Uncomment to override the destination e-mail
             // $email = 'debug.user@pnnl.gov';
-            $msg = echo view('email/notification_default', $data, true);
+            $msg = view('email/notification_default', $data);
             mail($email, "Automatic DMS Event Notification", $msg, $headers);
             sleep (1);
 
