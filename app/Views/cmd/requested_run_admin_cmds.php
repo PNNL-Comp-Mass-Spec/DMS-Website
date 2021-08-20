@@ -3,9 +3,9 @@
 <form name="DBG" action="">
 
 <!-- 
-  lcmd.requested_run_admin.op will POST to requested_run/operation/ , 
+  lcmd.requested_run_admin.op will POST to requested_run_admin/call/admin_sproc , 
   which in turn will call UpdateRequestedRunAssignments, 
-  as defined in https://dms2.pnl.gov/config_db/show_db/requested_run.db
+  as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
 -->
 
 <hr>

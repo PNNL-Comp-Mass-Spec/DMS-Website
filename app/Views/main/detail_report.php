@@ -58,6 +58,7 @@ echo view("main/detail_report_export");
     gamma.pageContext.responseContainerId = 'update_message';
     gamma.pageContext.Id = '<?= $id ?>';
     gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';
+    gamma.pageContext.ops_url = '<?= $ops_url ?>';
     gamma.pageContext.updateShowSQL = delta.updateShowSQL;
     gamma.pageContext.updateShowURL = delta.updateShowURL;
 </script>

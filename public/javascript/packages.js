@@ -6,7 +6,7 @@ var packages = {
 	},
 	updateDataPackageItems: function(id, form_id, mode) {
 		if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
-		var url = gamma.pageContext.site_url + "data_package/operation/";
+		var url = gamma.pageContext.site_url + "data_package/operation";
 
 		var removeParents = 0;
 		if (document.getElementById('removeParentsCheckbox').checked)
@@ -79,7 +79,7 @@ var packages = {
 	},
 	updateOSMPackageItems_1: function(id, form_id, mode) {
 		if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
-		var url = gamma.pageContext.site_url + "osm_package/operation/";
+		var url = gamma.pageContext.site_url + "osm_package/operation";
 		$('#entry_cmd_mode').val(mode);
 		gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
 			delta.processResults(data, container);
@@ -87,7 +87,7 @@ var packages = {
 	},
 	updateOSMPackageItems_2: function(form_id, mode) {
 		if ( !confirm("Are you sure that you want to " + mode + " this entity to the OSM package?") ) return;
-		var url = gamma.pageContext.site_url + "osm_package/operation/";
+		var url = gamma.pageContext.site_url + "osm_package/operation";
 		var id = gamma.pageContext.Id;
 		$('#entry_cmd_mode').val(mode);
 		$('#itemTypeSelector').val(this.codeMap[gamma.pageContext.my_tag]);
@@ -116,7 +116,7 @@ var packages = {
 		if (document.getElementById('removeParentsCheckbox').checked)
 			removeParents=1;
 
-		var url =  gamma.pageContext.site_url + 'data_package_items/operation/';
+		var url =  gamma.pageContext.site_url + 'data_package_items/operation';
 		$('#paramListXML').val(list);
 		$('#entry_cmd_mode').val(mode);
 		$('#removeParents').val(removeParents);

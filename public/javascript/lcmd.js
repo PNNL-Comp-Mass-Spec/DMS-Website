@@ -211,7 +211,7 @@ var lcmd = {
 			if ( !confirm("Are you sure that you want to update the database?") )
 				return;
 			// URL will point to the operations_sproc value defined in osm_package_items.db, typically UpdateOSMPackageItemsXML
-			var url = gamma.pageContext.site_url + 'osm_package_items/operation/';
+			var url = gamma.pageContext.site_url + 'osm_package_items/operation';
 			$('#paramListXML').val(list);
 			$('#entry_cmd_mode').val(mode);
 			var p = $('#operation_form').serialize();

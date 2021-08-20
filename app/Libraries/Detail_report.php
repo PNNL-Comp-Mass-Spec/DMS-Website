@@ -48,6 +48,7 @@ class Detail_report {
             }
         }
         $data['detail_report_cmds'] = $dcmds;
+        $data['ops_url'] = site_url($this->controller->my_tag . '/operation');
         $data['aux_info_target'] = $this->controller->gen_model->get_detail_report_aux_info_target();
 
         helper(['detail_report', 'menu', 'link_util']);
