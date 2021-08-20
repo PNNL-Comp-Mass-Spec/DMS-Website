@@ -43,13 +43,14 @@ class ValidationPreformat {
         {
             // Blast $setup apart, unless it's already an array.
             $fieldRules = $setup['rules'] ?? $setup;
+            $fieldName = $setup['label'] ?? $setup;
 
             if (is_string($fieldRules))
             {
                 $fieldRules = $this->splitRules($fieldRules);
             }
 
-            $values = dot_array_search($field, $data);
+            $values = dot_array_search($fieldName, $data);
 
             if (is_array($values))
             {
@@ -72,7 +73,7 @@ class ValidationPreformat {
                 $values = $this->processRules($field, $setup['label'] ?? $field, $values, $fieldRules, $data);
             }
 
-            $data[$field] = $values;
+            $data[$fieldName] = $values;
         }
 
         return $data;

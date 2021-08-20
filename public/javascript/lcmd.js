@@ -82,7 +82,7 @@ var lcmd = {
 			if (document.getElementById('removeParentsCheckbox').checked)
 				removeParents=1;
 
-			var url = gamma.pageContext.site_url + "data_package_items/exec/";
+			var url = gamma.pageContext.site_url + "data_package_items/exec";
 
 			console.log("Contacting " + url);
 			console.log("with p.paramListXML = " + list);
