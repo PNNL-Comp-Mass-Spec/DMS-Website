@@ -31,7 +31,7 @@ class Capture_script extends DmsBase {
 //      echo "<pre>$s</pre>";
 
         // set up file names
-        $dir = WRITEPATH . "tmpfiles/";
+        $dir = "generated/";
         $fn = $dir.$scriptName.'.dot';
         $typ = "png";
         $fo = $dir.$scriptName.'.'.$typ;

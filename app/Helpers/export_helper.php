@@ -381,7 +381,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $s = convert_script_to_dot($script);
 
         // set up file names
-        $dir = WRITEPATH . "tmpfiles/";
+        $dir = "generated/";
         $fn = $dir.$scriptName.'.dot';
         $typ = "png";
         $fo = $dir.$scriptName.'.'.$typ;
