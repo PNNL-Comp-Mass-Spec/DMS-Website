@@ -194,7 +194,7 @@ class Config_db extends BaseController {
     }
 
     /**
-     * Log the changes to a file in the tmpfiles directory
+     * Log the changes to a file in the logs/model_config directory
      * @param string $change SQL that was applied
      * @param string $restore Old table contents before applying the change
      * @param string $config_db Config DB name, including .db
@@ -203,7 +203,7 @@ class Config_db extends BaseController {
         helper(['user']);
         $usr = get_user();
         $dt = date(DATE_RFC822);
-        $file = WRITEPATH . 'tmpfiles/' . $config_db . '.log';
+        $file = WRITEPATH . 'logs/model_config/' . $config_db . '.log';
 
         $header = "$dt  $usr";
 
