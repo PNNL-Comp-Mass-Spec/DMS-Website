@@ -562,9 +562,9 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
  * @return string
  */
 function make_table_from_param_xml($xml) {
-    $dom = new DomDocument();
+    $dom = new \DOMDocument();
     $dom->loadXML('<root>' . $xml . '</root>');
-    $xp = new domxpath($dom);
+    $xp = new \DOMXPath($dom);
     $params = $xp->query("//Param");
 
     $s = '';

@@ -406,9 +406,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      * @return string
      */
     function convert_script_to_dot($script) {
-        $dom = new DomDocument();
+        $dom = new \DOMDocument();
         $dom->loadXML($script);
-        $xp = new domxpath($dom);
+        $xp = new \DOMXPath($dom);
 
         $dot_cmds = "digraph graphname {\n";
         $dot_cmds .= 'node [ shape = "record"  color=black fontname = "Verdana" fontsize = 10 ]';

@@ -139,9 +139,9 @@ class Pipeline_jobs extends DmsBase {
     {
         $result = array();
         if($xml) {
-            $dom = new DomDocument();
+            $dom = new \DOMDocument();
             $dom->loadXML('<root>'.$xml.'</root>');
-            $xp = new domxpath($dom);
+            $xp = new \DOMXPath($dom);
             $params = $xp->query("//Param");
 
             foreach ($params as $param) {
