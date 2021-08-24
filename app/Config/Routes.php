@@ -38,6 +38,14 @@ $routes->get('/', 'Gen::index');
 // Define aliases that redirect to list reports
 
 $routes->get('biomaterial', 'Cell_culture::index');
+$routes->get('biomaterial/report/(:any)', 'Cell_culture::report/$1');
+$routes->get('biomaterial/show/(:any)', 'Cell_culture::show/$1');
+
+$routes->get('data_package_datasets', 'Data_package_dataset::index');
+$routes->get('data_package_datasets/report/(:any)', 'Data_package_dataset::report/$1');
+
+$routes->get('data_package_analysis_job', 'Data_package_analysis_jobs::index');
+$routes->get('data_package_analysis_job/report/(:any)', 'Data_package_analysis_jobs::report/$1');
 
 $routes->get('mc', 'Mc_enable_control_by_manager::index');
 $routes->get('manager_control', 'Mc_enable_control_by_manager::index');
