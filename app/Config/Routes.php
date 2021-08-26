@@ -37,24 +37,20 @@ $routes->get('/', 'Gen::index');
 
 // Define aliases that redirect to list reports
 
-$routes->get('biomaterial', 'Cell_culture::index');
-$routes->get('biomaterial/report/(:any)', 'Cell_culture::report/$1');
-$routes->get('biomaterial/show/(:any)', 'Cell_culture::show/$1');
+$routes->getAlias('biomaterial', 'Cell_culture');
 
-$routes->get('data_package_datasets', 'Data_package_dataset::index');
-$routes->get('data_package_datasets/report/(:any)', 'Data_package_dataset::report/$1');
+$routes->getAlias('data_package_datasets', 'Data_package_dataset');
 
-$routes->get('data_package_analysis_job', 'Data_package_analysis_jobs::index');
-$routes->get('data_package_analysis_job/report/(:any)', 'Data_package_analysis_jobs::report/$1');
+$routes->getAlias('data_package_analysis_job', 'Data_package_analysis_jobs');
 
-$routes->get('mc', 'Mc_enable_control_by_manager::index');
-$routes->get('manager_control', 'Mc_enable_control_by_manager::index');
+$routes->getAlias('mc', 'Mc_enable_control_by_manager');
+$routes->getAlias('manager_control', 'Mc_enable_control_by_manager');
 
-$routes->get('residues', 'Residue::index');
+$routes->getAlias('residues', 'Residue');
 
-$routes->get('charge_codes', 'Charge_code::index');
-$routes->get('work_package', 'Charge_code::index');
-$routes->get('work_packages', 'Charge_code::index');
+$routes->getAlias('charge_codes', 'Charge_code');
+$routes->getAlias('work_package', 'Charge_code');
+$routes->getAlias('work_packages', 'Charge_code');
 
 /*
  * --------------------------------------------------------------------
