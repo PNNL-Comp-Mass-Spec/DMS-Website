@@ -3,6 +3,9 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+// \App\Config\Services::routes() overrides the default Services::routes()
+// to return an instance of \App\Services\RouteCollection, which provides
+// additional route-adding functions
 $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
@@ -36,6 +39,12 @@ $routes->get('/', 'Gen::index');
 
 
 // Define aliases that redirect to list reports
+// getAlias() is defined in app/Services/RouteCollection.php. It provides a single-line method
+// for creating an alias that allows a user to supply an old or potentially shortened URL,
+// and go to the correct controller. addAlias() and matchAlias() are also available.
+// Compared to get(), add(), and match(), the ...alias() function only needs the
+// alias name and the target class name; regex matching is used to convert everything after
+// the alias name to the respective function (with data) in the target class.
 
 $routes->getAlias('biomaterial', 'Cell_culture');
 

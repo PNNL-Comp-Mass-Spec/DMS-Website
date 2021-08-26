@@ -2,7 +2,6 @@
 
 namespace Config;
 
-use App\Services\RouteCollection;
 use CodeIgniter\Config\BaseService;
 use CodeIgniter\Config\Services as AppServices;
 
@@ -34,8 +33,8 @@ class Services extends BaseService
 	//--------------------------------------------------------------------
 
 	/**
-	 * The Routes service is a class that allows for easily building
-	 * a collection of routes.
+	 * Override the default RouteCollection with our extended RouteCollection
+     * at app/Services/RouteCollection.php
 	 *
 	 * @param boolean $getShared
 	 *
@@ -48,7 +47,7 @@ class Services extends BaseService
 			return static::getSharedInstance('routes');
 		}
 
-		return new RouteCollection(AppServices::locator(), config('Modules'));
+		return new \App\Services\RouteCollection(AppServices::locator(), config('Modules'));
 	}
 
 	public static function xss_security($getShared = true)

@@ -34,6 +34,7 @@ class RouteCollection extends BaseRouteCollection
     {
         parent::__construct($locator, $moduleConfig);
 
+        // Placeholder to allow a single entry for a page alias: match either a single slash or end of string.
         $this->placeholders['slashOrEnd'] = '/|$';
     }
 
@@ -53,6 +54,10 @@ class RouteCollection extends BaseRouteCollection
 	 */
     public function matchAlias(array $verbs = [], string $from = '', $to = '', array $options = null): RouteCollectionInterface
     {
+        // Match either just '[alias name]', or '[alias name]/[function and data?]'
+        // converting to '[target class]::[function and data?]'.
+        // If [function and data?] is blank, '[target class]::' just directs to
+        // '[target class]::index', which is the expected behavior.
         $this->match($verbs, $from . '(:slashOrEnd)(:any)', $to . '::$2', $options);
 
         return $this;
@@ -73,6 +78,10 @@ class RouteCollection extends BaseRouteCollection
 	 */
     public function getAlias(string $from, $to, array $options = null): RouteCollectionInterface
     {
+        // Match either just '[alias name]', or '[alias name]/[function and data?]'
+        // converting to '[target class]::[function and data?]'.
+        // If [function and data?] is blank, '[target class]::' just directs to
+        // '[target class]::index', which is the expected behavior.
         $this->create('get', $from . '(:slashOrEnd)(:any)', $to . '::$2', $options);
 
         return $this;
@@ -93,6 +102,10 @@ class RouteCollection extends BaseRouteCollection
 	 */
     public function addAlias(string $from, $to, array $options = null)
     {
+        // Match either just '[alias name]', or '[alias name]/[function and data?]'
+        // converting to '[target class]::[function and data?]'.
+        // If [function and data?] is blank, '[target class]::' just directs to
+        // '[target class]::index', which is the expected behavior.
         $this->create('*', $from . '(:slashOrEnd)(:any)', $to . '::$2', $options);
 
         return $this;
