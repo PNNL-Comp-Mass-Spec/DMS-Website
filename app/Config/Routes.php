@@ -55,6 +55,8 @@ $routes->getAlias('data_package_analysis_job', 'Data_package_analysis_jobs');
 $routes->getAlias('mc', 'Mc_enable_control_by_manager');
 $routes->getAlias('manager_control', 'Mc_enable_control_by_manager');
 
+$routes->getAlias('protein_collections', 'Protein_collection');
+
 $routes->getAlias('residues', 'Residue');
 
 $routes->getAlias('charge_codes', 'Charge_code');
