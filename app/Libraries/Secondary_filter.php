@@ -175,7 +175,7 @@ class Secondary_filter {
             foreach ($this->qf_field_names as $name) {
                 if ($itemIdx == 3) {
                     // Check for special wildcard text
-                    $valueToStore = convert_special_values($items[$itemIdx]);
+                    $valueToStore = decode_special_values($items[$itemIdx]);
                 } else {
                     // Replace any 'URL encoded' characters
                     $valueToStore = rawurldecode($items[$itemIdx]);

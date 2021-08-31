@@ -298,13 +298,14 @@ class List_report {
      */
     private function dump_filters($filters, $tag) {
         $s = "";
+        helper(['wildcard_conversion']);
 
         // dump primary filter to segment list
         // Replace spaces with %20
         // Trim leading and trailing whitespace
         $pf = array();
         foreach ($filters["primary"] as $f) {
-            $x = ($f["value"]) ? $f["value"] : "-";
+            $x = ($f["value"]) ? encode_special_values($f["value"]) : "-";
             $pf[] = str_replace(" ", "%20", trim($x));
         }
         $s .= rtrim(site_url(), "/") . "/$tag/report/" . implode("/", $pf);
@@ -327,7 +328,7 @@ class List_report {
                     $y .= "/" . $f["qf_comp_val"];
                 }
 
-                $sf[] = str_replace(" ", "%20", trim($y));
+                $sf[] = str_replace(" ", "%20", encode_special_values(trim($y)));
             }
         }
 

@@ -181,7 +181,7 @@ class General_query {
                 $cmp = $pi['cmp'];
 
                 // Value to filter on
-                $val = convert_special_values($val);
+                $val = decode_special_values($val);
 
                 $model->add_predicate_item($rel, $col, $cmp, $val);
             }

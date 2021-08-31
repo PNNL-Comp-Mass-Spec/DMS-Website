@@ -8,4 +8,4 @@
 <script src="<?= base_url('javascript/clipboard-polyfill/clipboard-polyfill.js?version=100') ?>"></script>
 
 <?php // Increment version number here to force clients to reload dms2.js ?>
-<script src="<?= base_url('javascript/dms2.js?version=119') ?>"></script>
+<script src="<?= base_url('javascript/dms2.js?version=120') ?>"></script>

@@ -430,38 +430,14 @@ var gamma = {
 					} else {
 						var buttonName = 'copy-url-now';
 
-                        // Check for the url containing 'report_info'
-                        if (url.match(/\/report_info\//i) || url.match(/\/param_info\//i)) {
-                            // Replace backtick, colon, and percent signs in the filter values
-                            // to instead use wildcard keywords
-                            // However, do not replace %20 since that indicates a space
-                            // To skip %20 we use negative lookahead via (?!20)
-
-                            data = data.replace(/`/g, "StartsWith__");
-                            data = data.replace(/%(?!20)/g, "__Wildcard__");
-                            data = data.replace(/\\b/g, "IsBlank__")
-                            
-                            // Square brackets
-                            data = data.replace(/\[/g, "__LeftBracket__")
-                            data = data.replace(/\]/g, "__RightBracket__")
-
-                            // Also replace colons, but do not replace the colon in http://
-                            var urlParts = data.split("://", 2);
-
-                            if (urlParts.length > 1) {
-                                data = urlParts[0] + "://" + urlParts[1].replace(/\:/g, "NoMatch__");
-                            }
-
-                        }
-
-                        data = data.replace(/\n/g, ' ').trim()
+                        data = data.replace(/\n/g, ' ').trim();
 
 						maxTextLength = data.length;
 
 						dataForClipboard = data;
 						htmlForClipboard = data;
 
-						data += '<br>'
+						data += '<br>';
 					}
 
 					var width = gamma.getDialogWidth(maxTextLength);

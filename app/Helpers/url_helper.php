@@ -31,6 +31,7 @@ if (! function_exists('current_uri'))
 		$request = $request ?? Services::request();
 		$uri     = $request->getUri();
 
+		// NOTE: May need to call rawurldecode() on the returned value to replace HTML-encoded characters. wildcard_conversion_helper's decode_special_values also does this.
 		return $returnObject ? $uri : URI::createURIString($uri->getScheme(), $uri->getAuthority(), $uri->getPath());
 	}
 }

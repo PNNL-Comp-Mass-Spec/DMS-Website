@@ -234,6 +234,7 @@ class Param_report {
      */
     private function dump_filters($filters, $tag) {
         $s = "";
+        helper(['wildcard_conversion']);
 
         // dump primary filter to segment list
         // Replace spaces with %20
@@ -246,7 +247,7 @@ class Param_report {
             } else {
                 $x = $x ? $x : "-";
             }
-            $pf[] = str_replace(" ", "%20", trim($x));
+            $pf[] = str_replace(" ", "%20", encode_special_values(trim($x)));
         }
         $s .= site_url("$tag/param/" . implode("/", $pf));
 

@@ -125,7 +125,7 @@ function get_values_from_segs($form_field_names, $segs) {
         }
 
         if ($seg_val != '-') {
-            $a[$field] = convert_special_values($seg_val);
+            $a[$field] = decode_special_values($seg_val);
         }
         $seg_val = next($segs);
     }

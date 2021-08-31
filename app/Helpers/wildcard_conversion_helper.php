@@ -3,12 +3,13 @@
 /**
  * Check for the field either matching a special tag or containing a special tag
  * String comparisons are case sensitive
- * @param type $value
+ * @param type $input
  * @return type
  */
-function convert_special_values($value) {
+function decode_special_values($input) {
     // Replace any 'URL encoded' characters
-    $value = rawurldecode($value);
+    $value = rawurldecode($input);
+
     // Check the field fully matching a special tag
     switch ($value) {
         // Year only
@@ -67,11 +68,57 @@ function convert_special_values($value) {
     // Replace the special tags with the corresponding character: %, [, or ]
     // % signifies a wildcard match
     // Square brackets are used to define a range of characters, e.g. [5-8]
-    
+
     $newValue2 = str_ireplace('__Wildcard__', '%', $newValue);
     $newValue3 = str_ireplace('__LeftBracket__', '[', $newValue2);
     $finalValue = str_ireplace('__RightBracket__', ']', $newValue3);
 
     return $finalValue;
+}
+
+/**
+ * Check for the field either matching a special character or containing a special character
+ * String comparisons are case sensitive
+ * @param type $value
+ * @return type
+ */
+function encode_special_values($value) {
+    // Check the field fully matching a special tag
+    switch ($value) {
+        case '\b':
+            // Use \b to indicate that the field must be empty
+            return "IsBlank__";
+    }
+
+    // Include the String operations methods
+    helper('string');
+
+    // Check for special tags at the start
+    if (StartsWith($value, '`')) {
+        // Use a backtick to signify that the value must start with the value
+        $newValue = preg_replace('/^`/', 'StartsWith__', $value);
+    } else if (StartsWith($value, '~')) {
+        // Use a tilde to signify that the value must exactly match the value
+        $newValue = preg_replace('/^~/', 'ExactMatch__', $value);
+    } else if (StartsWith($value, ':')) {
+        // Use a colon to signify that the value cannot contain the value
+        $newValue = preg_replace('/^:/', 'NoMatch__', $value);
+    } else {
+        $newValue = $value;
+    }
+
+    // Check for special tags in the middle (case insensitive matching)
+    // Replace the special tags with the corresponding character: %, [, or ]
+    // % signifies a wildcard match
+    // Square brackets are used to define a range of characters, e.g. [5-8]
+
+    $newValue2 = str_ireplace('%', '__Wildcard__', $newValue);
+    $newValue3 = str_ireplace('[', '__LeftBracket__', $newValue2);
+    $finalValue = str_ireplace(']', '__RightBracket__', $newValue3);
+
+    // Replace any other characters that should be 'URL encoded'
+    $encodedValue = rawurlencode($finalValue);
+
+    return $encodedValue;
 }
 ?>
