@@ -317,18 +317,18 @@ class List_report {
 
         foreach ($filters["secondary"] as $f) {
             if ($f["qf_comp_val"]) {
-                $y = "/" . $f["qf_rel_sel"];
-                $y .= "/" . $f["qf_col_sel"];
-                $y .= "/" . $f["qf_comp_sel"];
+                $y = "/" . encode_special_values($f["qf_rel_sel"]);
+                $y .= "/" . encode_special_values($f["qf_col_sel"]);
+                $y .= "/" . encode_special_values($f["qf_comp_sel"]);
 
                 if (in_array($f["qf_comp_sel"], $dateFilters)) {
                     // Replace forward slashes with dashes
-                    $y .= "/" . str_replace("/", "-", $f["qf_comp_val"]);
+                    $y .= "/" . str_replace("/", "-", encode_special_values($f["qf_comp_val"]));
                 } else {
-                    $y .= "/" . $f["qf_comp_val"];
+                    $y .= "/" . encode_special_values($f["qf_comp_val"]);
                 }
 
-                $sf[] = str_replace(" ", "%20", encode_special_values(trim($y)));
+                $sf[] = str_replace(" ", "%20", trim($y));
             }
         }
 
