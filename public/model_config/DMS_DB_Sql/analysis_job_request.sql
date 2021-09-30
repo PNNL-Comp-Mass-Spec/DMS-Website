@@ -46,7 +46,7 @@ INSERT INTO "form_field_choosers" VALUES(8,'protCollOptionsList','picker.replace
 INSERT INTO "form_field_choosers" VALUES(9,'requestor','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(10,'State','picker.replace','analysisRequestPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(12,'AJR_organismDBName','list-report.helper','','helper_organism_db/report/-/~','AJR_organismName',',','');
-INSERT INTO "form_field_choosers" VALUES(13,'Data_Package_ID','list-report.helper','','helper_data_package/report/-/','Data_Package_ID',',','Choose from (only applicable for MaxQuant):');
+INSERT INTO "form_field_choosers" VALUES(13,'Data_Package_ID','list-report.helper','','helper_data_package/report/-/','Data_Package_ID',',','Choose from (only for MaxQuant or MSFragger):');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_state','State','6!','','State','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_requestID','RequestID','6!','','Request','Equals','text','80','','');
