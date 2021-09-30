@@ -65,7 +65,6 @@ INSERT INTO "chooser_definitions" VALUES(49,'datasetTypePickList','default','sql
 INSERT INTO "chooser_definitions" VALUES(50,'dnaTabIDPickList','default','sql','SELECT Translation_Table_Name AS val, DNA_Translation_Table_ID AS ex FROM V_DNA_Translation_Tables ORDER BY DNA_Translation_Table_ID');
 INSERT INTO "chooser_definitions" VALUES(51,'enzymePickList','default','sql','SELECT Enzyme_Name as val, '''' as ex FROM T_Enzymes WHERE Enzyme_ID > 0 ORDER BY Enzyme_Name');
 INSERT INTO "chooser_definitions" VALUES(52,'eusUsageTypePickList','default','sql','SELECT Description AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0 ORDER BY Name');
-INSERT INTO "chooser_definitions" VALUES(53,'experimentUserPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Experiment_User_Picklist ORDER BY [Name]');
 INSERT INTO "chooser_definitions" VALUES(54,'filterSetPickList','default','sql','SELECT distinct Cast(filter_set_ID as varchar(11)) + '' - '' + Filter_Set_Name as val, filter_set_ID as ex FROM V_Filter_Sets ORDER by filter_set_ID');
 INSERT INTO "chooser_definitions" VALUES(55,'instrumentClassPickList','default','sql','SELECT IN_class as val, '''' as ex FROM T_Instrument_Class ORDER BY IN_class ASC');
 INSERT INTO "chooser_definitions" VALUES(57,'instrumentNameAdminPickList','default','sql','SELECT val, ex FROM V_Instrument_Admin_Picklist ORDER BY val');
@@ -89,6 +88,8 @@ INSERT INTO "chooser_definitions" VALUES(77,'samplePrepUserPickList','default','
 INSERT INTO "chooser_definitions" VALUES(78,'sampleRequestStatePickList','default','sql','SELECT val, ex FROM V_Sample_Prep_Request_State_Picklist ORDER BY State_ID');
 INSERT INTO "chooser_definitions" VALUES(80,'samplePrepEusUsageTypePickList','default','sql','SELECT Description AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0  and Enabled_Prep_Request > 0 ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(81,'secsepPickList','default','sql','SELECT SS_name as val, '''' as ex FROM T_Secondary_Sep ORDER BY SS_Name');
+INSERT INTO "chooser_definitions" VALUES(83,'experimentUserPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Experiment_User_Picklist ORDER BY [Name]');
+INSERT INTO "chooser_definitions" VALUES(84,'instrumentUserPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Active_Instrument_Users ORDER BY [Name]');
 INSERT INTO "chooser_definitions" VALUES(85,'userNamePickList','default','sql','SELECT Name + '' ('' + [Payroll Num] + '')'' AS val, '''' AS ex FROM V_Active_Users ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(86,'userOperationsPickList','default','sql','SELECT Operation as val, '''' as ex FROM T_User_Operations ORDER BY Operation');
 INSERT INTO "chooser_definitions" VALUES(87,'userPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Active_Users ORDER BY [Name]');

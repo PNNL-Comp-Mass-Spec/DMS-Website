@@ -48,7 +48,7 @@ INSERT INTO "form_field_choosers" VALUES(4,'DS_sec_sep','list-report.helper','',
 INSERT INTO "form_field_choosers" VALUES(5,'DS_Column','picker.replace','LCColumnPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'DS_wellplate_num','picker.replace','wellplatePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'DS_type_name','list-report.helper','','helper_instrument_dataset_type/report','DS_Instrument_Name',',','');
-INSERT INTO "form_field_choosers" VALUES(8,'DS_Oper_PRN','picker.replace','userPRNPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(8,'DS_Oper_PRN','picker.replace','instrumentUserPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(9,'DS_Rating','picker.replace','datasetRatingPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(10,'DS_Request','list-report.helper','','helper_scheduled_run/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(11,'DS_LCCartName','picker.replace','lcCartPickList','','',',','');
