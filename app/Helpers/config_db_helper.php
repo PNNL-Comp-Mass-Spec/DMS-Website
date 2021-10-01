@@ -520,7 +520,6 @@ function make_general_params_dump($config_db_table_list, $config_db_table_name_l
  */
 function make_sql_to_move_range_of_items($table_name, $range_start_id, $range_stop_id, $dest_id, $id_col) {
     $ceiling_id = 5000;
-    $roof_id = $ceiling_id * 2;
     $range_size = $range_stop_id - $range_start_id;
     if ($range_size < 0) {
         return "Bad range";
@@ -531,22 +530,47 @@ function make_sql_to_move_range_of_items($table_name, $range_start_id, $range_st
     if (count(array_intersect($rs, $rd)) > 0) {
         return "Source and destination ranges overlap";
     }
+    
+    if ($range_start_id == $range_stop_id && abs($dest_id - $range_start_id) == 1) {
+        // Swap 2 adjacent values
+        $lowerId = min($range_start_id, $dest_id);
+        $upperId = max($range_start_id, $dest_id);
+        
+        $s = "-- swap IDs $lowerId and $upperId\n";
+        $s .= "-- move one item out of range, move the other item, then move the first item to final id\n";
+        $s .= "update $table_name set $id_col = $ceiling_id where $id_col = $lowerId;\n";
+        $s .= "update $table_name set $id_col = $lowerId where $id_col = $upperId;\n";
+        $s .= "update $table_name set $id_col = $upperId where $id_col = $ceiling_id;\n";
+        
+        return $s;
+    }
+
+    // Determine the final ID for $range_start_id, and also which IDs outside of the range need to be changed and by how much.
+    // Base case: $dest_id < $range_start_id
+    $finalDestIdStart = $dest_id;
+    $moveRangeStart = $dest_id;
+    $moveRangeStop = $range_stop_id;
+    $moveAmount = $range_size + 1;
+
+    // Alternate case: $dest_id > $range_stop_id
+    if ($dest_id > $range_stop_id) {
+        $finalDestIdStart = $dest_id - ($range_size + 1);
+        $moveRangeStart = $range_start_id;
+        $moveRangeStop = $dest_id - 1;
+        $moveAmount = -$moveAmount;
+    }
 
     $r = ($range_start_id == $range_stop_id) ? "item '$range_start_id'" : "items with $id_col between '$range_start_id' and '$range_stop_id'";
     $s = "-- move $r in front of item '$dest_id'\n";
 
-    $s .= "update $table_name set $id_col = ($id_col - $range_start_id) + $roof_id where $id_col >= $range_start_id and $id_col <= $range_stop_id;";
-    $s .= " --move items in range out of main sequence\n";
+    $s .= "update $table_name set $id_col = ($id_col - $range_start_id) + $ceiling_id + $finalDestIdStart where $id_col >= $range_start_id and $id_col <= $range_stop_id;";
+    $s .= " -- move items in range out of main sequence\n";
 
-    $s .= "update $table_name set $id_col = $id_col - ($range_size + 1) where $id_col >=  $range_stop_id and $id_col < $roof_id;";
-    $s .= " --close gap left by items in range\n";
+    $s .= "update $table_name set $id_col = $id_col + $moveAmount + $ceiling_id where $id_col >= $moveRangeStart and $id_col <= $moveRangeStop;";
+    $s .= " -- shift gap by moving other items out of main sequence\n";
 
-    $s .= "update $table_name set $id_col =  $id_col + $range_size + $ceiling_id  where $id_col >= $dest_id and $id_col < $roof_id;\n";
-    $s .= "update $table_name set $id_col = $id_col - ($ceiling_id - 1) where $id_col > $ceiling_id and $id_col < $roof_id;";
-    $s .= " --open gap at destination\n";
-
-    $s .= "update $table_name set $id_col = ($id_col - $roof_id) + $dest_id where $id_col >= $roof_id;";
-    $s .= " --put moved items back in main sequence\n";
+    $s .= "update $table_name set $id_col = $id_col - $ceiling_id where $id_col > $ceiling_id;";
+    $s .= " -- put moved items back in main sequence\n";
 
     return $s;
 }

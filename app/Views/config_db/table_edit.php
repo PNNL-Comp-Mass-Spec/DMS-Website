@@ -68,7 +68,7 @@ function set_id(id) {
 
 // get suggested SQL for moving item(s)
 function get_sql_from_range_move(mode){
-    if(mode == 'range') {
+    if(mode === 'range') {
         var r1_id = $('#range_start_id').html();
         var r2_id = $('#range_stop_id').html();
         var d_id = $('#range_dest_id').html();

@@ -186,7 +186,17 @@ class Config_db extends BaseController {
         //echo $sqlWithTransaction;
         //$dbh->exec($sqlWithTransaction);
         $db->transStart();
-        $db->execute($sql);
+        // Check for "WriteType" to determine if "->query()" or "->exec()" should be used 
+        // fails to work properly when there are multiple lines or comments
+        // It only supports leading spaces, optional leading double-quote, 
+        // and then a dictionary of write-statement commands.
+        // Anything that doesn't match is treated as a query, and multi-line queries don't work.
+        //$db->execute($sql);
+		try {
+			$db->connID->exec($sql);
+		} catch (ErrorException $e) {
+			log_message('error', $e);
+		}
         $db->transComplete();
         $db->close();
 
