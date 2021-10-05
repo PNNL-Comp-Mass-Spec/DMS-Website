@@ -166,7 +166,7 @@ class File_attachment extends DmsBase {
             $builder->where("Entity_Type", $entity_type);
             $builder->where("Entity_ID", $entity_id);
             $builder->where("File_Name", $filename);
-            $sql = $builder->getQueryString();
+            $sql = $builder->getCompiledSelect();
             $resultSet = $this->db->query($sql);
 
             if($resultSet && $resultSet->getNumRows() > 0) {
