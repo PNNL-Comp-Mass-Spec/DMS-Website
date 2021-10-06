@@ -33,7 +33,7 @@ class Filters extends BaseConfig
 			// 'csrf',
 		],
 		'after'  => [
-			'toolbar',
+			'toolbar' => ['except' => ['*/export/*', '*/export_detail/*', '*/export_spreadsheet/*', '*/export_param/*', '*/export_to_tab_delimited_text/*']],
 			// 'honeypot',
 		],
 	];
