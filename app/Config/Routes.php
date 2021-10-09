@@ -59,6 +59,8 @@ $routes->getAlias('protein_collections', 'Protein_collection');
 
 $routes->getAlias('residues', 'Residue');
 
+$routes->getAlias('reporter_ions', 'Sample_label_reporter_ions');
+
 $routes->getAlias('charge_codes', 'Charge_code');
 $routes->getAlias('work_package', 'Charge_code');
 $routes->getAlias('work_packages', 'Charge_code');
