@@ -46,11 +46,15 @@ $routes->get('/', 'Gen::index');
 // alias name and the target class name; regex matching is used to convert everything after
 // the alias name to the respective function (with data) in the target class.
 
+$routes->getAlias('analysis_jobs', 'Analysis_job');
+
 $routes->getAlias('biomaterial', 'Cell_culture');
 
 $routes->getAlias('data_package_datasets', 'Data_package_dataset');
 
 $routes->getAlias('data_package_analysis_job', 'Data_package_analysis_jobs');
+
+$routes->getAlias('datasets', 'Dataset');
 
 $routes->getAlias('mc', 'Mc_enable_control_by_manager');
 $routes->getAlias('manager_control', 'Mc_enable_control_by_manager');
