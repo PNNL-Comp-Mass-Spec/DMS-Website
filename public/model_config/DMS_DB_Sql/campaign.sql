@@ -23,7 +23,7 @@ INSERT INTO "form_fields" VALUES(9,'SamplePreparationStaff','Sample Preparation 
 INSERT INTO "form_fields" VALUES(10,'DatasetAcquisitionStaff','Dataset Acquisition Staff','area','','','2','70','','trim|max_length[256]');
 INSERT INTO "form_fields" VALUES(11,'InformaticsStaff','Informatics Staff','area','','','2','70','','trim|max_length[256]');
 INSERT INTO "form_fields" VALUES(12,'Collaborators','Collaborators','area','','','2','70','','trim|max_length[256]');
-INSERT INTO "form_fields" VALUES(13,'comment','Comment','area','','','2','70','','trim|max_length[500]');
+INSERT INTO "form_fields" VALUES(13,'Comment','Comment','area','','','2','70','','trim|max_length[500]');
 INSERT INTO "form_fields" VALUES(14,'ExternalLinks','External Links','area','','','2','70','','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(15,'EPRList','EPRList','area','','','1','70','','trim|max_length[256]');
 INSERT INTO "form_fields" VALUES(16,'EUSProposalList','EUSProposal List','area','','','1','70','','trim|max_length[256]');
@@ -35,7 +35,7 @@ CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" 
 INSERT INTO "form_field_options" VALUES(1,'progmgrPRN','default_function','GetUser()');
 INSERT INTO "form_field_options" VALUES(2,'campaignNum','section','General');
 INSERT INTO "form_field_options" VALUES(3,'progmgrPRN','section','Team Membership');
-INSERT INTO "form_field_options" VALUES(4,'comment','section','Details');
+INSERT INTO "form_field_options" VALUES(4,'Comment','section','Details');
 INSERT INTO "form_field_options" VALUES(5,'DataReleaseRestrictions','permission','DMS_Infrastructure_Administration');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'progmgrPRN','picker.replace','userPRNPickList','','',',','');
@@ -74,7 +74,7 @@ INSERT INTO "sproc_args" VALUES(6,'SamplePreparationStaff','samplePreparationSta
 INSERT INTO "sproc_args" VALUES(7,'DatasetAcquisitionStaff','datasetAcquisitionStaff','varchar','input','256','AddUpdateCampaign');
 INSERT INTO "sproc_args" VALUES(8,'InformaticsStaff','informaticsStaff','varchar','input','256','AddUpdateCampaign');
 INSERT INTO "sproc_args" VALUES(9,'Collaborators','collaborators','varchar','input','256','AddUpdateCampaign');
-INSERT INTO "sproc_args" VALUES(10,'comment','comment','varchar','input','500','AddUpdateCampaign');
+INSERT INTO "sproc_args" VALUES(10,'Comment','comment','varchar','input','500','AddUpdateCampaign');
 INSERT INTO "sproc_args" VALUES(11,'State','state','varchar','input','24','AddUpdateCampaign');
 INSERT INTO "sproc_args" VALUES(12,'Description','description','varchar','input','512','AddUpdateCampaign');
 INSERT INTO "sproc_args" VALUES(13,'ExternalLinks','externalLinks','varchar','input','512','AddUpdateCampaign');
