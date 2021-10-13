@@ -56,6 +56,8 @@ $routes->getAlias('data_package_analysis_job', 'Data_package_analysis_jobs');
 
 $routes->getAlias('datasets', 'Dataset');
 
+$routes->getAlias('eus_user', 'Eus_users');
+
 $routes->getAlias('mc', 'Mc_enable_control_by_manager');
 $routes->getAlias('manager_control', 'Mc_enable_control_by_manager');
 
