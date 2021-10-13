@@ -36,7 +36,7 @@ INSERT INTO "form_field_choosers" VALUES(5,'Work_Package','list-report.helper','
 INSERT INTO "form_field_choosers" VALUES(6,'EUS_Usage_Type','picker.replace','eusUsageTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'EUS_Proposal_ID','list-report.helper','','helper_eus_proposal/report','',',','Select Proposal...');
 INSERT INTO "form_field_choosers" VALUES(8,'EUS_Proposal_ID','list-report.helper','','helper_eus_proposal_ex/report','',',','Select Proposal (by dataset)...');
-INSERT INTO "form_field_choosers" VALUES(9,'EUS_User','list-report.helper','','helper_eus_user/report','RR_EUSProposalID',',','Select User...');
+INSERT INTO "form_field_choosers" VALUES(9,'EUS_User','list-report.helper','','helper_eus_user/report','EUS_Proposal_ID',',','Select User...');
 INSERT INTO "form_field_choosers" VALUES(10,'MRM_Attachment','list-report.helper','','helper_mrm_attachment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(11,'Comment','link.list','multiDatasetRequestCommentTmpl','','',',','Use Template:');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
