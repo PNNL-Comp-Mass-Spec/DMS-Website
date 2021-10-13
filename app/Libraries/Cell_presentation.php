@@ -692,9 +692,14 @@ class Cell_presentation {
                     $str .= '<th>';
                 }
 
+                $clickToSort = " onclick='lambda.setColSort(\"$columnName\")'";
+                if ($columnName == 'Sel') { // Do not allow sorting by the check box column
+                    $clickToSort = "";
+                }
+
                 // make header label
                 $str .= $marker;
-                $str .= "<a href='javascript:void(0)' onclick='lambda.setColSort(\"$columnName\")'  class='col_header' " . $toolTip . ">$columnName</a>";
+                $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">$columnName</a>";
                 $str .= $this->get_cell_padding($columnName);
                 $str .= "</th>";
             }
