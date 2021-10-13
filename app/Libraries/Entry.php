@@ -54,8 +54,7 @@ class Entry {
         $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
 
         // get initial field values and merge them with form object
-        $uri = current_uri(true);
-        $segs = array_slice($uri->getSegments(), 2); // remove controller and function segments
+        $segs = array_slice(getCurrentUriDecodedSegments(), 2); // remove controller and function segments
         $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields, $this->controller);
 
         if (empty($initial_field_values)) {

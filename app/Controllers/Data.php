@@ -86,7 +86,7 @@ class Data extends BaseController {
     function lz()
     {
         helper(['url', 'user']);
-        $segs = array_slice($this->request->uri->getSegments(), 2);
+        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
 //print_r($_POST); echo "\n";
         $output_format = $segs[0];
         $config_source = $segs[1];
@@ -147,22 +147,24 @@ class Data extends BaseController {
     {
         session_start();
         helper(['url']);
-        $this->load_lib('General_query', '', ''); // $config_name, $config_source
-
-        $input_parms = new \stdClass ();
         $uri = $this->request->uri;
+        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
+
+        $this->load_lib('General_query', $segs[2], $segs[1]); // $config_name, $config_source
+
+        $input_parms = new \App\Libraries\General_query_def ();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $input_parms->output_format = ''; // $uri->getSegment(3);
-        $input_parms->q_name = $uri->getSegment(4);
-        $input_parms->config_source = $uri->getSegment(3);;
-        $input_parms->filter_values = array_slice($uri->getSegments(), 4);
+        $input_parms->q_name = $segs[2];
+        $input_parms->config_source = $segs[1];
+        $input_parms->filter_values = array_slice($segs, 2);
 
         $pfv = $this->request->getPost('filter_values');
         if($pfv) {
             $input_parms->filter_values = explode(',', $pfv);
         } else {
-            $input_parms->filter_values = array_slice($uri->getSegments(), 4);
+            $input_parms->filter_values = array_slice($segs, 2);
         }
 
         $this->general_query->setup_query($input_parms);
@@ -183,7 +185,7 @@ class Data extends BaseController {
     function lr()
     {
         helper(['url', 'user']);
-        $segs = array_slice($this->request->uri->getSegments(), 2);
+        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
 
         $config_source = $segs[0];
         $config_name = $segs[1];

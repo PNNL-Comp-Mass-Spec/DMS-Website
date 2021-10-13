@@ -35,3 +35,42 @@ if (! function_exists('current_uri'))
 		return $returnObject ? $uri : URI::createURIString($uri->getScheme(), $uri->getAuthority(), $uri->getPath());
 	}
 }
+
+if (! function_exists('decodeSegments'))
+{
+	/**
+	 * Performs URL Decoding on all entries in $segments, returning them in a new array
+	 *
+	 * @param array  $segments     URI segments, usually from URI->getSegments()
+	 *
+	 * @return string|URI
+	 */
+	function decodeSegments(array $segments)
+	{
+        helper('wildcard_conversion');
+        $outSegments = array();
+
+        foreach ($segments as $i => $value)
+        {
+            $outSegments[$i] = decode_special_values($value);
+        }
+
+		return $outSegments;
+	}
+}
+
+if (! function_exists('getCurrentUriDecodedSegments'))
+{
+	/**
+	 * Performs URL Decoding on all entries in current_uri(true)->getSegments, returning them in an array
+	 *
+	 * @return array
+	 */
+	function getCurrentUriDecodedSegments()
+	{
+        $uri = current_uri(true);
+        $segments = $uri->getSegments();
+
+		return decodeSegments($segments);
+	}
+}

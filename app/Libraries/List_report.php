@@ -33,7 +33,7 @@ class List_report {
      */
     function list_report($mode) {
         session_start();
-        helper(['form', 'menu', 'link_util']);
+        helper(['form', 'menu', 'link_util', 'url']);
         $this->controller->choosers = model('App\Models\Dms_chooser');
 
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
@@ -45,8 +45,7 @@ class List_report {
         // if there were extra segments for list report URL,
         // convert them to primary and secondary filter field values and cache those
         // and redirect back to ourselves without the trailing URL segments
-        $uri = current_uri(true);
-        $segs = array_slice($uri->getSegments(), 2);
+        $segs = array_slice(getCurrentUriDecodedSegments(), 2);
 
         // Initially assume all items in $segs are primary filter items
         $pfSegs = $segs;

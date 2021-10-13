@@ -83,7 +83,8 @@ class Preferences extends BaseController {
     // --------------------------------------------------------------------
     function columns()
     {
-        $segs = array_slice($this->request->uri->getSegments(), 2);
+        helper(['url']);
+        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
         $tag = array_shift($segs);
         $name = "display_cols_".$tag;
 

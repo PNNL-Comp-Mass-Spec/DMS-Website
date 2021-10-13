@@ -67,7 +67,7 @@ class General_query {
         $p->output_format = $uri->getSegment(3);
         $p->q_name = $uri->getSegment(4);
         $p->config_source = $uri->getSegment(5);
-        $p->filter_values = array_slice($uri->getSegments(), 5);
+        $p->filter_values = decodeSegments(array_slice($uri->getSegments(), 5));
 
         // Look for custom paging values specified after the question mark
         //
@@ -135,7 +135,7 @@ class General_query {
         $input_params->config_source = $this->controller->my_tag;
         $input_params->output_format = $uri->getSegment(3);
         $input_params->q_name = $uri->getSegment(4);
-        $input_params->filter_values = array_slice($uri->getSegments(), 4);
+        $input_params->filter_values = decodeSegments(array_slice($uri->getSegments(), 4));
 
         $this->setup_query($input_params);
         return $input_params;
