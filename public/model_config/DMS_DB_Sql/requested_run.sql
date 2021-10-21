@@ -39,6 +39,7 @@ INSERT INTO "form_fields" VALUES(24,'RR_Status','Status','text','24','24','','',
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'RR_Requestor','default_function','GetUser()');
 INSERT INTO "form_field_options" VALUES(2,'RR_Comment','auto_format','none');
+INSERT INTO "form_field_options" VALUES(3,'RR_Name','load_key_field','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'RR_Experiment','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'RR_Instrument','picker.replace','requestedRunInstrumentGroupPickList','','',',','');
