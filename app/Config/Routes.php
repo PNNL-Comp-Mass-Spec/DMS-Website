@@ -53,6 +53,7 @@ $routes->getAlias('biomaterial', 'Cell_culture');
 $routes->getAlias('data_package_datasets', 'Data_package_dataset');
 
 $routes->getAlias('data_package_analysis_job', 'Data_package_analysis_jobs');
+$routes->getAlias('data_package_jobs', 'Data_package_analysis_jobs');
 
 $routes->getAlias('datasets', 'Dataset');
 
