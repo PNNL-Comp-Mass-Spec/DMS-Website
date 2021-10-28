@@ -48,6 +48,8 @@ $routes->get('/', 'Gen::index');
 
 $routes->getAlias('analysis_jobs', 'Analysis_job');
 
+$routes->getAlias('analysis_request', 'Analysis_job_request');
+
 $routes->getAlias('biomaterial', 'Cell_culture');
 
 $routes->getAlias('data_package_datasets', 'Data_package_dataset');
