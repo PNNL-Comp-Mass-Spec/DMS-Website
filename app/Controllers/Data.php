@@ -148,23 +148,21 @@ class Data extends BaseController {
         session_start();
         helper(['url']);
         $uri = $this->request->uri;
-        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
 
-        $this->load_lib('General_query', $segs[2], $segs[1]); // $config_name, $config_source
+        $this->load_lib('General_query', '', ''); // $config_name, $config_source
 
         $input_parms = new \App\Libraries\General_query_def ();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $input_parms->output_format = ''; // $uri->getSegment(3);
-        $input_parms->q_name = $segs[2];
-        $input_parms->config_source = $segs[1];
-        $input_parms->filter_values = array_slice($segs, 2);
+        $input_parms->q_name = decode_special_values($uri->getSegment(4));
+        $input_parms->config_source = decode_special_values($uri->getSegment(3));
 
         $pfv = $this->request->getPost('filter_values');
         if($pfv) {
             $input_parms->filter_values = explode(',', $pfv);
         } else {
-            $input_parms->filter_values = array_slice($segs, 2);
+            $input_parms->filter_values = decodeSegments(array_slice($uri->getSegments(), 4));
         }
 
         $this->general_query->setup_query($input_parms);
