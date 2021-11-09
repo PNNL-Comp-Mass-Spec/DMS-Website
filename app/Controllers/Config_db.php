@@ -16,28 +16,28 @@ class Config_db extends BaseController {
     var $configDBFolder = '';
     var $configDBPath = '';
 
-	/**
-	 * An array of helpers to be loaded automatically upon
-	 * class instantiation. These helpers will be available
-	 * to all other controllers that extend DmsBase.
-	 *
-	 * @var array
-	 */
-	protected $helpers = ['url', 'text'];
+    /**
+     * An array of helpers to be loaded automatically upon
+     * class instantiation. These helpers will be available
+     * to all other controllers that extend DmsBase.
+     *
+     * @var array
+     */
+    protected $helpers = ['url', 'text'];
 
-	/**
-	 * Constructor.
-	 */
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
-	{
-		// Do Not Edit This Line
-		parent::initController($request, $response, $logger);
+    /**
+     * Constructor.
+     */
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+    {
+        // Do Not Edit This Line
+        parent::initController($request, $response, $logger);
 
-		//--------------------------------------------------------------------
-		// Preload any models, libraries, etc, here.
-		//--------------------------------------------------------------------
-		// E.g.:
-		// $this->session = \Config\Services::session();
+        //--------------------------------------------------------------------
+        // Preload any models, libraries, etc, here.
+        //--------------------------------------------------------------------
+        // E.g.:
+        // $this->session = \Config\Services::session();
         
         session_start();
         $this->configDBPath = config('App')->model_config_path;
@@ -45,7 +45,7 @@ class Config_db extends BaseController {
         $this->mod_enabled = config('App')->modify_config_db_enabled;
 
         $this->config_model = model('App\Models\Config_db_model');
-	}
+    }
 
     /**
      * Redirect http://dms2.pnl.gov/config_db/
@@ -192,11 +192,11 @@ class Config_db extends BaseController {
         // and then a dictionary of write-statement commands.
         // Anything that doesn't match is treated as a query, and multi-line queries don't work.
         //$db->execute($sql);
-		try {
-			$db->connID->exec($sql);
-		} catch (ErrorException $e) {
-			log_message('error', $e);
-		}
+        try {
+            $db->connID->exec($sql);
+        } catch (ErrorException $e) {
+            log_message('error', $e);
+        }
         $db->transComplete();
         $db->close();
 
@@ -300,8 +300,22 @@ class Config_db extends BaseController {
         //$dbh = new PDO("sqlite:$dbFilePath");
         //$r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        $r = $db->query("SELECT * FROM $table_name")->getResultArray();
+        $r = $this->_getQueryResultArray($db->query("SELECT * FROM $table_name"));
         $db->close();
+        return $r;
+    }
+
+    /**
+     * Get contents of a single table
+     * @param string $queryResult Query result, e.g. from $db->query("SELECT * FROM ...")
+     * @return false|array Array of results, or false on failure.
+     */
+    private function _getQueryResultArray($queryResult) {
+        $r = $queryResult;
+        // Must check $r before calling $r->getResultArray() to avoid exceptions
+        if ($r) {
+            $r = $r->getResultArray();
+        }
         return $r;
     }
 
@@ -319,7 +333,7 @@ class Config_db extends BaseController {
         $n = 1;
         $rs = "";
         //foreach ($dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC) as $row) {
-        foreach ($db->query("SELECT * FROM $table_name")->getResultArray() as $row) {
+        foreach ($this->_getQueryResultArray($db->query("SELECT * FROM $table_name")) as $row) {
             if (!$i++) {
                 $cols = array_keys($row);
                 $n = count($cols);
@@ -767,20 +781,20 @@ class Config_db extends BaseController {
 
         $col_names = array();
         //foreach ($dbh->query("PRAGMA table_info({$table_name});", PDO::FETCH_ASSOC) as $row) {
-        foreach ($db->query("PRAGMA table_info({$table_name});")->getResultArray() as $row) {
+        foreach ($this->_getQueryResultArray($db->query("PRAGMA table_info({$table_name});")) as $row) {
             $col_names[] = $row['name'];
         }
         $num_cols = count($col_names);
 
         $data_rows = array();
         //$r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
-        $r = $db->query("SELECT * FROM $table_name")->getResultArray();
-        $db->close();
+        $r = $this->_getQueryResultArray($db->query("SELECT * FROM $table_name"));
         if ($r) {
             foreach ($r as $row) {
                 $data_rows[] = $row;
             }
         }
+        $db->close();
 
         // max width for each col
         $col_widths = array();
@@ -1212,7 +1226,7 @@ class Config_db extends BaseController {
         //    return null;
         //}
         //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
-        foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
+        foreach ($this->_getQueryResultArray($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")) as $row) {
             $table_list[] = $row['tbl_name'];
         }
 
@@ -1249,7 +1263,7 @@ class Config_db extends BaseController {
         //    return null;
         //}
         //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
-        foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
+        foreach ($this->_getQueryResultArray($db->query("SELECT * FROM general_params")) as $row) {
             $gen_parms[$row['name']] = $row['value'];
             if ($row['name'] == 'my_db_group') {
                 $db_group = $row['value'];
@@ -1272,11 +1286,11 @@ class Config_db extends BaseController {
     private function _get_sproc_arg_defs_from_main_db($dbObj, $sproc) {
         $sa = array();
         $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_NAME = '" . $sproc . "'";
-        $result = $dbObj->query($sql);
+        $result = $this->_getQueryResultArray($dbObj->query($sql));
         if (!$result) {
             $str = "Couldn't get values from database.";
         } else {
-            foreach ($result->getResultArray() as $row) {
+            foreach ($result as $row) {
                 $arg = str_replace('@', '', $row['PARAMETER_NAME']);
                 $typ = $row['DATA_TYPE'];
                 $dir = ($row['PARAMETER_MODE'] == 'INOUT') ? 'output' : 'input';
