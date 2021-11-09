@@ -178,4 +178,6 @@ INSERT INTO "form_field_choosers" VALUES(30,'Channel13_Type','picker.replace','e
 INSERT INTO "form_field_choosers" VALUES(31,'Channel14_Type','picker.replace','experimentPlexChannelTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(32,'Channel15_Type','picker.replace','experimentPlexChannelTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(33,'Channel16_Type','picker.replace','experimentPlexChannelTypePickList','','',',','');
+CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Validate items in the Plex Member textbox and preview changes that would be made.','');
 COMMIT;

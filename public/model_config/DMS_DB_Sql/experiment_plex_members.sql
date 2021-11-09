@@ -51,4 +51,6 @@ INSERT INTO "sproc_args" VALUES(2,'Plex_Members','plexMembers','varchar','input'
 INSERT INTO "sproc_args" VALUES(3,'<local>','mode','varchar','input','12','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(4,'<local>','message','varchar','output','512','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(5,'<local>','callingUser','varchar','input','128','AddUpdateExperimentPlexMembers');
+CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Validate items in the Plex Member textbox and preview changes that would be made.','');
 COMMIT;
