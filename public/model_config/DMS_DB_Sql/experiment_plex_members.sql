@@ -11,6 +11,8 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Experiment_Plex_M
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Exp_ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateExperimentPlexMembers');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','Exp_ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Plex_Exp_ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Plex_Exp_ID','invoke_entity','value','experiment_plex_members/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Channels','invoke_entity','Plex_Exp_ID','experiment_plex_members_tsv/report/','');
