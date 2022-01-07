@@ -87,6 +87,6 @@ INSERT INTO "detail_report_hotlinks" VALUES(5,'Assigned Storage','detail-report'
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Archive Share Path','href-folder','Archive Share Path','','labelCol','dl_archive_share_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Class','detail-report','Class','instrumentclass/show/','labelCol','dl_instrument_class',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(8,'+Name','detail-report','Name','instrument_config_history/report','labelCol','dl_name_config_history',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(9,'Allocation_Tag','detail-report','Instrument Group','instrument_group/show/','labelCol','dl_allocation_tag','');
+INSERT INTO "detail_report_hotlinks" VALUES(9,'Allocation Tag','detail-report','Instrument Group','instrument_group/show/','labelCol','dl_allocation_tag','');
 INSERT INTO "detail_report_hotlinks" VALUES(10,'ID','detail-report','ID','instrumentid/show/','labelCol','dl_instrumentid','');
 COMMIT;
