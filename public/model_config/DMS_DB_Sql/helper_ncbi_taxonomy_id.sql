@@ -12,9 +12,9 @@ INSERT INTO "list_report_hotlinks" VALUES(2,'Parent_Tax_ID','invoke_entity','val
 INSERT INTO "list_report_hotlinks" VALUES(3,'Children','invoke_entity','Tax_ID','helper_ncbi_taxonomy_id/report/-/-/-/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_taxonomy_id','Tax_ID','20','','Tax_ID','Equals','text','24','','');
-INSERT INTO "list_report_primary_filter" VALUES(2,'pf_taxonomy_name','Name','20','','Name','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_taxonomy_name','Name','40!','','Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_rank','Rank','20','','Rank','ContainsText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_parent_tax_id','Parent Tax_ID','','','Parent_Tax_ID','Equals','text','24','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parent_name','Parent Name','20','','Parent_Name','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parent_name','Parent Name','40!','','Parent_Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_division','Division','20','','Division','ContainsText','text','128','','');
 COMMIT;
