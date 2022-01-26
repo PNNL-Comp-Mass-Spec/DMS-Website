@@ -37,8 +37,8 @@ INSERT INTO "list_report_hotlinks" VALUES(13,'PctTryptic','column_tooltip','valu
 INSERT INTO "list_report_hotlinks" VALUES(14,'PctMissedClvg','column_tooltip','value','Percent of unique peptides with a missed cleavage (internal K or R)','');
 INSERT INTO "list_report_hotlinks" VALUES(15,'KeratinPep','column_tooltip','value','Number of unique peptides that come from Keratin proteins','');
 INSERT INTO "list_report_hotlinks" VALUES(16,'TrypsinPep','column_tooltip','value','Number of unique peptides that come from Trypsin proteins','');
-INSERT INTO "list_report_hotlinks" VALUES(17,'Pct Missing NTermRepIon','column_tooltip','value','Percent of filter-passing PSMs that are missing a reporter ion on the peptide N-terminus','');
-INSERT INTO "list_report_hotlinks" VALUES(18,'Pct Missing RepIon','column_tooltip','value','Percent of filter-passing PSMs that are missing a reporter ion','');
+INSERT INTO "list_report_hotlinks" VALUES(17,'Pct Missing NTermRepIon','column_tooltip','value','Percent of filter-passing PSMs that are missing a reporter ion on the peptide N-terminus (only applicable if TMT or iTRAQ was a dynamic mod)','');
+INSERT INTO "list_report_hotlinks" VALUES(18,'Pct Missing RepIon','column_tooltip','value','Percent of FDR filter-passing PSMs that are missing a reporter ion from any of the lysine residues or from the peptide N-terminus (only applicable if TMT or iTRAQ was a dynamic mod)','');
 INSERT INTO "list_report_hotlinks" VALUES(19,'PhosphoPep','column_tooltip','value','Unique phosphopeptides passing the FDR threshold (any S, T, or Y with phospho)','');
 INSERT INTO "list_report_hotlinks" VALUES(20,'CTermK PhosphoPep','column_tooltip','value','Number of distinct phosphopeptides with K on the C-terminus','');
 INSERT INTO "list_report_hotlinks" VALUES(21,'CTermR PhosphoPep','column_tooltip','value','Number of distinct phosphopeptides with R on the C-terminus','');
