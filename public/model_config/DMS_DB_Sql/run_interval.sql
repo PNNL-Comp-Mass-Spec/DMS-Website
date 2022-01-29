@@ -9,6 +9,8 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Run_Interval_Entr
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateRunInterval');
 INSERT INTO "general_params" VALUES('entry_submission_cmds','run_interval_cmds');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Start');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument','Instrument','20','','Instrument','ContainsText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_start','Start','20','','Start','LaterThan','text','20','','');
