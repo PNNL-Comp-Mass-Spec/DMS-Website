@@ -20,6 +20,7 @@
 # Example path: C:\Users\d3l243\AppData\Local\PS_DMS_Scripts\config-def.psm1
 #
 $configDefFilePath = Join-Path $PSScriptRoot "config-def.psm1"
+
 if($env:LOCALAPPDATA) { 
     # Look for config file C:\Users\<username>\AppData\Local\PS_DMS_Scripts\config-def.psm1
     $cfp = Join-Path $env:LOCALAPPDATA (Join-Path "PS_DMS_Scripts" "config-def.psm1")
@@ -46,7 +47,7 @@ Import-Module $configDefFilePath
 Import-Module .\dump_db.psm1
 Import-Module .\compare_directories.psm1
 Import-Module .\compare_files_to_master.psm1
-
+        
 # create timestamp-based root name for local folder names
 if ($timestampOverride) {
     $rootName = $timestampOverride
@@ -86,7 +87,7 @@ $downloads = @{}
 $devSqlPath = ""
 $prodSqlPath = ""
 $cbdmsSqlPath = ""
-
+    
 foreach($source in $sources) {
     #set up local folders to receive downloaded and copied config db files and dump files
     $localDbFileFolderPath = Join-Path $defaults["localDbFileFolderPath"] ("{0}{1}" -f $source["version"], $rootName)
@@ -181,7 +182,7 @@ foreach($source in $sources) {
 }
 
 if (!($code)) {
-    Write-Output '$code is undefined; cannot continue'
+    Write-Output '$code is undefined as one of the sources in config-def.psm1; cannot continue'
     exit
 }
 
