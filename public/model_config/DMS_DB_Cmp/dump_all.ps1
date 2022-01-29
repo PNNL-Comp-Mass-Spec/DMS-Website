@@ -40,6 +40,9 @@ Import-Module Posh-SSH
 Write-Output "Loading config options from $configDefFilePath"
 Import-Module $configDefFilePath
 
+# To manually load the local file, use this:
+# Import-Module .\config-def.psm1
+
 Import-Module .\dump_db.psm1
 Import-Module .\compare_directories.psm1
 Import-Module .\compare_files_to_master.psm1
