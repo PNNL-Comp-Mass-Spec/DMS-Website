@@ -32,7 +32,7 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
     $credentials = New-Object System.Management.Automation.PSCredential ($userName, $sftpPassword)
 
     # This works, but it also retrieves files from subdirectories, which we don't want
-    #Get-SCPFolder -ComputerName $sftpHost -Credential $credentials -RemoteFolder $remoteDir -LocalFolder $localDbFileFolderPath -NoProgress
+    # Get-SCPFolder -ComputerName $sftpHost -Credential $credentials -RemoteFolder $remoteDir -LocalFolder $localDbFileFolderPath -NoProgress
 
     # Open the SFTP connection (for more info, use -Verbose)
     # If the RSA key of the remote host changes, delete the old entry in the registry at HKCU\Software\PoshSSH
@@ -81,8 +81,8 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
 
     Write-Progress -CurrentOperation "Downloading .db files" -Completed "Done"
 
-    #Close the SFTP connection
-    Get-SFTPSession | % { Remove-SFTPSession -SessionId ($_.SessionId) }  | Out-Null
-
+    # Close the SFTP connection
+    Remove-SFTPSession -SessionId $sftpSession.SessionId
+    
     return $filesDownloaded 
 }
