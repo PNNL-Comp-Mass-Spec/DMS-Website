@@ -8,7 +8,10 @@
 # To manually load and test, use
 # Set-ExecutionPolicy RemoteSigned -Scope Process -force
 # Import-Module Posh-SSH
-
+#
+# List commands:
+# Get-Command -Module Posh-SSH
+#
 #########################################
 # Download files from the given host
 # Returns the number of files downloaded
@@ -61,7 +64,12 @@ function DownloadSftpFiles($sftpHost, $userName, $userPassword, $remoteDir, $loc
             if (test-path $localFilePath) {
                 Remove-item $localFilePath
             }
-            Get-SFTPFile -SessionId ($sftpSession).SessionId -RemoteFile $file.FullName -LocalPath $localDbFileFolderPath
+            
+            # Format for Posh-SSH 2.3.0
+            # Get-SFTPFile -SessionId ($sftpSession).SessionId -RemoteFile $file.FullName -LocalPath $localDbFileFolderPath
+
+            # Format for Posh-SSH 3.0.0            
+            Get-SFTPItem -SessionId ($sftpSession).SessionId -Path $file.FullName -Destination $localDbFileFolderPath
 
             $filesDownloaded = $filesDownloaded + 1
 
