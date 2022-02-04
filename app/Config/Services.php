@@ -20,43 +20,44 @@ use CodeIgniter\Config\Services as AppServices;
  */
 class Services extends BaseService
 {
-	// public static function example($getShared = true)
-	// {
-	//     if ($getShared)
-	//     {
-	//         return static::getSharedInstance('example');
-	//     }
-	//
-	//     return new \CodeIgniter\Example();
-	// }
+    /*
+     * public static function example($getShared = true)
+     * {
+     *     if ($getShared) {
+     *         return static::getSharedInstance('example');
+     *     }
+     *
+     *     return new \CodeIgniter\Example();
+     * }
+     */
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
 
-	/**
-	 * Override the default RouteCollection with our extended RouteCollection
+    /**
+     * Override the default RouteCollection with our extended RouteCollection
      * at app/Services/RouteCollection.php
-	 *
-	 * @param boolean $getShared
-	 *
-	 * @return RouteCollection
-	 */
-	public static function routes(bool $getShared = true)
-	{
-		if ($getShared)
-		{
-			return static::getSharedInstance('routes');
-		}
+     *
+     * @param boolean $getShared
+     *
+     * @return RouteCollection
+     */
+    public static function routes(bool $getShared = true)
+    {
+        if ($getShared)
+        {
+            return static::getSharedInstance('routes');
+        }
 
-		return new \App\Services\RouteCollection(AppServices::locator(), config('Modules'));
-	}
+        return new \App\Services\RouteCollection(AppServices::locator(), config('Modules'));
+    }
 
-	public static function xss_security($getShared = true)
-	{
-		if ($getShared)
-		{
-			return static::getSharedInstance('xss_security');
-		}
+    public static function xss_security($getShared = true)
+    {
+        if ($getShared)
+        {
+            return static::getSharedInstance('xss_security');
+        }
 
-		return new \App\Services\XssSecurity();
-	}
+        return new \App\Services\XssSecurity();
+    }
 }
