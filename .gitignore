@@ -129,12 +129,12 @@ nb-configuration.xml
 /.phpunit.*.cache
 
 .hg/*
-/app/model_config/Sql_DMS2_on_PrismWeb2*
-/app/model_config/__Compare_Config_DBs_to_Remote__.bat.lnk
-/app/resources.lnk
+/public/model_config/Sql_DMS2_on_PrismWeb2*
+/public/model_config/__Compare_Config_DBs_to_Remote__.bat.lnk
+/public/resources.lnk
 /nbproject/private/
 app/config/production/*.lnk
-app/model_config/DMS_DB_Sql/cbdms/DB_Updating_Readme.txt
+public/model_config/DMS_DB_Sql/cbdms/DB_Updating_Readme.txt
 chosen/*.zip
 
 /public/model_config/DMS_DB_Cmp/cred_*.txt
