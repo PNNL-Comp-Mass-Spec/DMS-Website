@@ -1,5 +1,5 @@
 {
-	"name": "DMS_Website",
+	"name": "pnnl-comp-mass-spec/dms_website",
 	"type": "project",
 	"description": "PNNL Omics Data Management System",
 	"homepage": "https://dms2.pnl.gov",

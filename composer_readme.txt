@@ -22,3 +22,7 @@ To restore dependencies (requires composer.lock file)
 
 To fix permissions:
   * sudo chown -R apache:apache vendor/*
+
+To update composer:
+  * php composer.phar self-update
+
