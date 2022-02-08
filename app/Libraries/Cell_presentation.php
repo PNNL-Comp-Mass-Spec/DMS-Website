@@ -143,6 +143,9 @@ class Cell_presentation {
      * Look for items in $result that would be colored by render_hotlink
      * Add a color code to the start of the cell so that export_to_excel in export_helper.php
      * can set the background color and text color for the cell
+     *
+     * Note: this method is only called when data is exported to an Excel file
+     *
      * @param type $result
      * @return type
      */
@@ -210,6 +213,10 @@ class Cell_presentation {
 
     /**
      * Get the color code string for the given data item
+     * Color names are defined in CSS file base.css
+     *
+     * Note: this method is only called when data is exported to an Excel file
+     *
      * @param type $value
      * @param type $colSpec
      * @return string
@@ -242,35 +249,46 @@ class Cell_presentation {
                 $green = "008000";
                 $red =   "FF0000";
 
+                # Color names are defined in CSS file base.css
+
                 switch ($cssClass) {
                     case "bad_clr":
+                        # Red text (FF0000)
                         $textColor = $red;
                         break;
                     case "warning_clr":
+                        # Orange text
                         $textColor = "FF8C00";
                         break;
                     case "enabled_clr":
+                        # Green text
                         $textColor = $green;
                         break;
                     case "clr_30":
+                        # Light green background
                         $fillColor = "E5FFE5";
                         break;
                     case "clr_45":
+                        # Light blue background
                         $fillColor = "CCECFF";
                         break;
                     case "clr_60":
+                        # Light yellow background
                         $fillColor = "FFFF75";
                         break;
                     case "clr_80":
+                        # Orange background with black text
                         $fillColor = "FF8C00";
                         $textColor = $black;
                         break;
                     case "clr_90":
+                        # Orange  background with bold black text
                         $fillColor = "FF8C00";
                         $textColor = $black;
                         $textStyle = "bold";
                         break;
                     case "clr_120":
+                        # Red background (FF0000) with bold white text
                         $fillColor = $red;
                         $textColor = "FFF5EE";
                         $textStyle = "bold";
