@@ -30,26 +30,29 @@ h1,h2,h3{
 .enabled_clr {
 	color: green;
 }
+.violet_background {
+	background-color: #D9CCFF;
+}
 .clr_30 {
-	background-color:#E5FFE5;
+	background-color: #E5FFE5;
 }
 .clr_45 {
-	background-color:#CCECFF;
+	background-color: #CCECFF;
 }
 .clr_60 {
-	background-color:#FFFF75;
+	background-color: #FFFF75;
 }
 .clr_80 {
-	background-color:#FF8C00;
+	background-color: #FF8C00;
 	color: Black ;
 }
 .clr_90 {
-	background-color:#FF8C00;
+	background-color: #FF8C00;
 	color: Black ;
 	font-weight: bold;
 }
 .clr_120 {
-	background-color:red;
+	background-color: red;
 	color: #FFF5EE;
 	font-weight: bold;
 }
@@ -235,7 +238,7 @@ table.EPag span.ePhelper {
 	min-width: 8em;
 }
 .section_block_header_all {
-	background-color:#E1E7EA !important;
+	background-color: #E1E7EA !important;
 }
 
 /* 
@@ -392,7 +395,7 @@ table.LRep td.rht{
 	padding:0px 5px 0px 5px;
 }
 .primary_filter_field {
-	color:#DC143C;
+	color: #DC143C;
 }
 div.primary_filter_inline {
 	display: inline-block; 
@@ -433,7 +436,7 @@ div.primary_filter_inline {
 .LRepProgress {
 	font-weight:bold;
 	letter-spacing: 0.25em;
-	color:#00008B;
+	color: #00008B;
 }
 #search_controls_container {
 	padding-bottom:0px;

@@ -264,6 +264,10 @@ class Cell_presentation {
                         # Green text
                         $textColor = $green;
                         break;
+                    case "violet_background":
+                        # Violet background
+                        $fillColor = "D9CCFF";
+                        break;
                     case "clr_30":
                         # Light green background
                         $fillColor = "E5FFE5";
@@ -282,7 +286,7 @@ class Cell_presentation {
                         $textColor = $black;
                         break;
                     case "clr_90":
-                        # Orange  background with bold black text
+                        # Orange background with bold black text
                         $fillColor = "FF8C00";
                         $textColor = $black;
                         $textStyle = "bold";
