@@ -326,6 +326,27 @@ class Cell_presentation {
     }
 
     /**
+     * Determine the color style to use based on the condition for the column spec and the given reference value
+     *   Requires an exact match to the value
+     * Color styles are defined in file base.css
+     * @param type $colSpec
+     * @param type $ref
+     * @return string
+     */
+    private function get_color_style($colSpec, $ref) {
+        if (array_key_exists($ref, $colSpec['cond'])) {
+            // The options array contains $ref; use the specified color
+            // For example, given options array {"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_120"}
+            // if $ref is "2", $colorStyle will be "class='clr_60'";
+            $colorStyle = "class='" . $colSpec['cond'][$ref] . "'";
+        } else {
+            $colorStyle = "";
+        }
+
+        return $colorStyle;
+    }
+
+    /**
      * Render a row
      * @param type $row
      * @return string
@@ -467,14 +488,8 @@ class Cell_presentation {
 
             case "color_label":
                 // Color this column based on the value in $ref (which either came from this column or from another column, specified by WhichArg)
-                if (array_key_exists($ref, $colSpec['cond'])) {
-                    // The options array contains $ref; use the specified color
-                    // For example, given options array {"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_120"}
-                    // if $ref is "2", $colorStyle will be "class='clr_60'";
-                    $colorStyle = "class='" . $colSpec['cond'][$ref] . "'";
-                } else {
-                    $colorStyle = "";
-                }
+                $colorStyle = $this->get_color_style($colSpec, $ref);
+
                 $str .= "<td $colorStyle>$value</td>";
                 break;
 
