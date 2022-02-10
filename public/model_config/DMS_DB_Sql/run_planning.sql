@@ -8,7 +8,7 @@ INSERT INTO "general_params" VALUES('list_report_disable_sort_persist','true');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument','Inst. Group','32','','Inst. Group','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_queued_instrument','Queued Inst.','32','','Queued Instrument','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(3,'pf_min_request','Min Request','32','','Min Request','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_min_request','Min Request','32','','Min Request','GreaterThan','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_request_or_batch_name','Request/Batch Name','32','','Request or Batch Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_requester','Requester','32','','Requester','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_batch_id','Batch','16','','Batch','Equals','text','16','','');
