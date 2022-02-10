@@ -37,4 +37,12 @@ INSERT INTO "list_report_hotlinks" VALUES(19,'#WPActivationState','no_export','v
 INSERT INTO "list_report_hotlinks" VALUES(20,'#BatchPriority','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(21,'Request Name Code','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(22,'#FractionColorMode','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(23,'++Run Count','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(24,'++Blocked','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(25,'++BlkMissing','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(26,'++Batch','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(27,'+Days in Queue','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(28,'+Days in Prep Queue','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(29,'+Min Request','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(30,'+Proposal','export_align','value','','{"Align":"Center"}');
 COMMIT;
