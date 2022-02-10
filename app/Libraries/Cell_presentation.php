@@ -215,7 +215,11 @@ class Cell_presentation {
      * Get the color code string for the given data item
      * Color names are defined in CSS file base.css
      *
-     * Note: this method is only called when data is exported to an Excel file
+     * This method is only called when data is exported to an Excel file
+     *
+     * Method export_to_excel in file export_helper.php looks for a format string
+     * that starts with ##FORMAT and, if found, uses the text color, fill color,
+     * and text style to format the cell
      *
      * @param type $value
      * @param type $colSpec
@@ -312,6 +316,7 @@ class Cell_presentation {
                         $textStyle = "default";
                     }
 
+                    # Method export_to_excel in file export_helper.php looks for this string to determine if a cell should be colored
                     $colorCode = "##FORMAT_[$textColor]_[$fillColor]_[$textStyle]##";
                 }
             }
