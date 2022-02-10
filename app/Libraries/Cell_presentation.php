@@ -65,6 +65,7 @@ class Cell_presentation {
 
     /**
      * Look for a hotlink of the given type; return it if found or null if not found
+     * Matches both $columnName and hotlinks named with one or more plus signs followed by $columnName
      * @param type $columnName
      * @param type $linkTypeName
      * @return type
@@ -80,16 +81,24 @@ class Cell_presentation {
             }
         }
 
-        // Look for a hotlink name that matches this column name, preceded by a plus sign
-        if (array_key_exists('+' . $columnName, $this->hotlinks)) {
-            $colSpec = $this->hotlinks['+' . $columnName];
+        // Look for a hotlink name that matches this column name, preceded by one or more plus signs
+        $columnNameWithPlusSigns = '+' . $columnName;
 
-            if ($colSpec["LinkType"] == $linkTypeName) {
-                return $colSpec;
+        while (true) {
+            if (array_key_exists($columnNameWithPlusSigns, $this->hotlinks)) {
+                $colSpec = $this->hotlinks[$columnNameWithPlusSigns];
+
+                if ($colSpec["LinkType"] == $linkTypeName) {
+                    return $colSpec;
+                }
+            } else {
+                return null;
             }
-        }
 
-        return null;
+            // The key was found, but the LinkType was not $linkTypeName
+            // Add another plus sign
+            $columnNameWithPlusSigns = '+' . $columnNameWithPlusSigns;
+        }
     }
 
     /**
@@ -120,7 +129,7 @@ class Cell_presentation {
         foreach ($cols as $columnName) {
 
             // Look for an entry in $this->hotlinks that matches either this column name,
-            // or this column name preceded by a plus sign
+            // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "export_align");
 
             if ($colSpec && array_key_exists('Options', $colSpec)) {
@@ -171,20 +180,31 @@ class Cell_presentation {
 
                 if (array_key_exists($columnName, $this->hotlinks)) {
                     $colSpec = $this->hotlinks[$columnName];
-
                     $colorCode = $this->get_color_code($value, $row, $colSpec);
+                } else {
+                    $colorCode = "";
+                }
 
-                    if ($colorCode != "") {
-                        $colorCodesByColumn[$columnName] = $colorCode;
+                if (empty($colorCode)) {
+                    // Look for an entry in $this->hotlinks that matches either this column name,
+                    // or this column name preceded by a plus sign, and is of type "color_label"
+                    $colSpec2 = $this->get_colspec_with_link_type($columnName, "color_label");
+
+                    if ($colSpec2) {
+                        $colorCode = $this->get_color_code($value, $row, $colSpec2);
                     }
                 }
 
-                // Look for an entry in $this->hotlinks that matches either this column name,
-                // or this column name preceded by a plus sign
-                $colSpec2 = $this->get_colspec_with_link_type($columnName, "copy_color_from");
+                if ($colorCode != "") {
+                    $colorCodesByColumn[$columnName] = $colorCode;
+                }
 
-                if ($colSpec2) {
-                    $whichArg = $colSpec2["WhichArg"];
+                // Look for an entry in $this->hotlinks that matches either this column name,
+                // or this column name preceded by a plus sign, and is of type "copy_color_from"
+                $colSpec3 = $this->get_colspec_with_link_type($columnName, "copy_color_from");
+
+                if ($colSpec3) {
+                    $whichArg = $colSpec3["WhichArg"];
 
                     if (!empty($whichArg) && $whichArg != 'value') {
                         $copyFromByColumn[$columnName] = $whichArg;
@@ -347,6 +367,48 @@ class Cell_presentation {
     }
 
     /**
+     * Get the color style for a hot link; return an empty string if no color
+     * Color styles are defined in file base.css
+     * @param type $row
+     * @param type $columnName
+     * @param type $value
+     */
+    private function get_hotlink_color_style($row, $columnName, $value) {
+
+        // Look for a hotlink name that matches this column name, preceded by one or more plus signs
+        $columnNameWithPlusSigns = '+' . $columnName;
+
+        while (true) {
+            if (array_key_exists($columnNameWithPlusSigns, $this->hotlinks)) {
+                $colSpec = $this->hotlinks[$columnNameWithPlusSigns];
+
+                if ($colSpec["LinkType"] == 'color_label') {
+                    $whichArg = $colSpec["WhichArg"];
+
+                    $ref = $value;
+                    if ($whichArg != "") {
+                        switch ($whichArg) {
+                            case "value":
+                                break;
+                            default:
+                                $ref = $row[$whichArg];
+                                break;
+                        }
+                    }
+
+                    return ' ' . $this->get_color_style($colSpec, $ref);
+                }
+
+                // The key was found, but the LinkType was not 'color_label'
+                // Add another plus sign
+                $columnNameWithPlusSigns = '+' . $columnNameWithPlusSigns;
+            } else {
+                return "";
+            }
+        }
+    }
+
+    /**
      * Render a row
      * @param type $row
      * @return string
@@ -355,6 +417,7 @@ class Cell_presentation {
         $str = "";
         $display_cols = $this->get_display_cols(array_keys($row));
         $colIndex = 0;
+
         foreach ($display_cols as $columnName) {
             // don't display columns that begin with hash character
             if ($columnName[0] == '#') {
@@ -363,6 +426,7 @@ class Cell_presentation {
 
             $value = $row[$columnName];
             $colSpec = null;
+
             if (array_key_exists($columnName, $this->hotlinks)) {
                 $colSpec = $this->hotlinks[$columnName];
             } elseif (array_key_exists('@exclude', $this->hotlinks)) {
@@ -370,8 +434,15 @@ class Cell_presentation {
                     $colSpec = $this->hotlinks['@exclude'];
                 }
             }
+
             if ($colSpec) {
-                $str .= $this->render_hotlink($value, $row, $colSpec, $columnName, $colIndex);
+                # $colSpec includes information for either creating an HTML link to another page or for formatting the cell
+                # For details, see https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_list_report_hotlinks
+
+                # Look for another hotlink that defines a color style for this cell
+                $colorStyle = $this->get_hotlink_color_style($row, $columnName, $value);
+
+                $str .= $this->render_hotlink($value, $row, $colSpec, $columnName, $colIndex, $colorStyle);
             } else {
                 $str .= "<td>" . $value . "</td>";
             }
@@ -386,10 +457,11 @@ class Cell_presentation {
      * @param mixed  $row       Array of row data
      * @param mixed  $colSpec
      * @param string $columnName  Column name
-     * @param int    $colIndex  Column index
+     * @param int    $colIndex    Column index
+     * @param string $colorStyle  Color style (preceded by a space), or an empty string
      * @return string
      */
-    private function render_hotlink($value, $row, $colSpec, $columnName = '', $colIndex) {
+    private function render_hotlink($value, $row, $colSpec, $columnName = '', $colIndex, $colorStyle) {
 
         $str = "";
         // resolve target for hotlink
@@ -431,7 +503,8 @@ class Cell_presentation {
                         $target .= $sep . '@';
                     }
                     $url = reduce_double_slashes(site_url(str_replace('@', $ref, $target)));
-                    $str .= "<td><a href='$url' $tool_tip>$value</a></td>";
+
+                    $str .= "<td$colorStyle><a href='$url' $tool_tip>$value</a></td>";
                 }
                 break;
 
