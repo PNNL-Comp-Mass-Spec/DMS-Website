@@ -29,7 +29,7 @@ INSERT INTO "form_fields" VALUES(2,'NameContains',' Name Contains','text','48','
 INSERT INTO "form_fields" VALUES(4,'infoOnly','Info Only','hidden','12','12','','','0','trim|max_length[12]');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','Request','','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'@exclude','inplace_edit','Request','ajax','["Sel","BatchID", "Name", "Status", "Dataset_ID", "Request","Experiment"]');
+INSERT INTO "list_report_hotlinks" VALUES(2,'@exclude','inplace_edit','Request','ajax','["Sel", "BatchID", "Name", "Status", "Dataset_ID", "Request", "Experiment"]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'BatchID','list-report.helper','','helper_requested_run_batch/report','',',','');
 COMMIT;
