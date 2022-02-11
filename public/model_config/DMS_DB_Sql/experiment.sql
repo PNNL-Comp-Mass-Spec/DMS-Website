@@ -16,7 +16,7 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO "form_fields" VALUES(1,'ID','Experiment ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'Experiment','Experiment Name','text','40','80','','','','trim|required|max_length[50]|alpha_dash|min_length[6]');
 INSERT INTO "form_fields" VALUES(3,'Campaign','Campaign Name','text','40','80','','','','trim|required|max_length[64]|not_contain[Placeholder]');
-INSERT INTO "form_fields" VALUES(4,'researcherPRN','Researcher (PRN)','text','40','80','','','','trim|required|max_length[50]');
+INSERT INTO "form_fields" VALUES(4,'researcherPRN','Researcher','text','40','80','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(5,'organismName','Organism Name','text','40','80','','','','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(6,'reason','Reason for Experiment','area','','','4','50','','trim|required|max_length[500]');
 INSERT INTO "form_fields" VALUES(7,'tissue','Plant/Animal Tissue','text','50','128','','','','trim|max_length[128]');

@@ -23,7 +23,7 @@ INSERT INTO "form_fields" VALUES(7,'AJ_Organism','Organism','text','60','128',''
 INSERT INTO "form_fields" VALUES(8,'AJ_OrganismDB','Organism DB File','text','100','128','','','na','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(9,'protCollNameList','Protein Collection List','area','','','3','60','na','trim|max_length[4000]');
 INSERT INTO "form_fields" VALUES(10,'protCollOptionsList','Protein Options List','area','','','2','60','seq_direction=forward','trim|max_length[256]');
-INSERT INTO "form_fields" VALUES(11,'AJ_owner','Owner (PRN)','text','40','80','','','','trim|required|max_length[32]');
+INSERT INTO "form_fields" VALUES(11,'AJ_owner','Owner','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(12,'associatedProcessorGroup','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(13,'propagationMode','Export Mode','text','24','24','','','Export','trim|max_length[24]');
 INSERT INTO "form_fields" VALUES(14,'stateName','State','text','32','32','','','','trim|max_length[32]');

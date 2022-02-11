@@ -16,7 +16,7 @@ INSERT INTO "general_params" VALUES('base_table','T_Sample_Prep_Request');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'RequestName','Request Name','text','60','128','','','','trim|max_length[128]|required');
-INSERT INTO "form_fields" VALUES(3,'RequesterPRN','Requester PRN','text','32','32','','','','trim|max_length[32]|required');
+INSERT INTO "form_fields" VALUES(3,'RequesterPRN','Requester','text','32','32','','','','trim|max_length[32]|required');
 INSERT INTO "form_fields" VALUES(4,'Campaign','Campaign','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO "form_fields" VALUES(5,'Reason','Reason For Experiment','area','','','3','60','','trim|max_length[512]|required');
 INSERT INTO "form_fields" VALUES(7,'MaterialContainerList','Material Container List','area','','','2','70','','trim|max_length[2048]');

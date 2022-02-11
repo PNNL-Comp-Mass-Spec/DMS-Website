@@ -18,7 +18,7 @@ INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim|ma
 INSERT INTO "form_fields" VALUES(2,'Name','Name','text','50','50','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(3,'Description','Description','area','','','2','60','','trim|max_length[256]');
 INSERT INTO "form_fields" VALUES(4,'RequestedRunList','Requests','area','','','4','60','','trim');
-INSERT INTO "form_fields" VALUES(5,'OwnerPRN','OwnerPRN','text','24','24','','','','trim|required|max_length[24]');
+INSERT INTO "form_fields" VALUES(5,'OwnerPRN','Owner','text','24','24','','','','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(6,'RequestedBatchPriority','Requested Batch Priority','text','24','24','','','Normal','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(7,'RequestedCompletionDate','Requested Completion Date','text','32','32','','','','trim|required|max_length[32]|valid_date');
 INSERT INTO "form_fields" VALUES(8,'JustificationHighPriority','Justification High Priority','area','','','4','60','','trim|max_length[512]');

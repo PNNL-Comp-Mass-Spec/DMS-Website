@@ -27,7 +27,7 @@ INSERT INTO "form_fields" VALUES(9,'AJR_organismName','Organism','text','60','12
 INSERT INTO "form_fields" VALUES(10,'protCollNameList','Protein Collection List','area','','','3','60','','trim|max_length[4000]');
 INSERT INTO "form_fields" VALUES(11,'protCollOptionsList','Protein Options List','area','','','2','40','seq_direction=forward','trim|max_length[256]');
 INSERT INTO "form_fields" VALUES(12,'AJR_organismDBName','Legacy Fasta (typically na)','text','100','128','','','','trim|max_length[128]');
-INSERT INTO "form_fields" VALUES(13,'requestor','Requested by (PRN)','text','40','80','','','','trim|required|max_length[32]');
+INSERT INTO "form_fields" VALUES(13,'requestor','Requested by','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(15,'State','State','text','24','24','','','New','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(16,'AJR_comment','Comment','area','','','4','50','','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(17,'AJR_specialProcessing','Special Processing','area','','','4','80','','trim|max_length[512]');
