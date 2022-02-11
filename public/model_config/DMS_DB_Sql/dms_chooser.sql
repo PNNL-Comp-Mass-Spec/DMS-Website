@@ -88,11 +88,11 @@ INSERT INTO "chooser_definitions" VALUES(77,'samplePrepUserPickList','default','
 INSERT INTO "chooser_definitions" VALUES(78,'sampleRequestStatePickList','default','sql','SELECT val, ex FROM V_Sample_Prep_Request_State_Picklist ORDER BY State_ID');
 INSERT INTO "chooser_definitions" VALUES(80,'samplePrepEusUsageTypePickList','default','sql','SELECT Description AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0  and Enabled_Prep_Request > 0 ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(81,'secsepPickList','default','sql','SELECT SS_name as val, '''' as ex FROM T_Secondary_Sep ORDER BY SS_Name');
-INSERT INTO "chooser_definitions" VALUES(83,'experimentUserPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Experiment_User_Picklist ORDER BY [Name]');
-INSERT INTO "chooser_definitions" VALUES(84,'instrumentUserPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Active_Instrument_Users ORDER BY [Name]');
-INSERT INTO "chooser_definitions" VALUES(85,'userNamePickList','default','sql','SELECT Name + '' ('' + [Payroll Num] + '')'' AS val, '''' AS ex FROM V_Active_Users ORDER BY Name');
+INSERT INTO "chooser_definitions" VALUES(83,'experimentUserPRNPickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Experiment_User_Picklist ORDER BY [Name]');
+INSERT INTO "chooser_definitions" VALUES(84,'instrumentUserPRNPickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Active_Instrument_Users ORDER BY [Name]');
+INSERT INTO "chooser_definitions" VALUES(85,'userNamePickList','default','sql','SELECT Name + '' ('' + Username + '')'' AS val, '''' AS ex FROM V_Active_Users ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(86,'userOperationsPickList','default','sql','SELECT Operation as val, '''' as ex FROM T_User_Operations ORDER BY Operation');
-INSERT INTO "chooser_definitions" VALUES(87,'userPRNPickList','default','sql','SELECT Name AS val, [Payroll Num] AS ex FROM V_Active_Users ORDER BY [Name]');
+INSERT INTO "chooser_definitions" VALUES(87,'userPRNPickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Active_Users ORDER BY [Name]');
 INSERT INTO "chooser_definitions" VALUES(88,'wellplatePickList','default','sql','SELECT val, ex FROM V_Wellplate_Picklist ORDER BY val');
 INSERT INTO "chooser_definitions" VALUES(89,'dataPackageStatePickList','package','sql','SELECT Name AS val, Name AS ex FROM T_Data_Package_State');
 INSERT INTO "chooser_definitions" VALUES(90,'dataPackageTeamPickList','package','sql','SELECT Team_Name AS val, Team_Name AS ex FROM T_Data_Package_Teams');
