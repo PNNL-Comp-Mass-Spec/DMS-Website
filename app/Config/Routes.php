@@ -62,6 +62,8 @@ $routes->getAlias('datasets', 'Dataset');
 
 $routes->getAlias('eus_user', 'Eus_users');
 
+$routes->getAlias('mass_correction_factor', 'Mass_correction_factors');
+
 $routes->getAlias('material_locations', 'Material_location');
 
 $routes->getAlias('mc', 'Mc_enable_control_by_manager');
