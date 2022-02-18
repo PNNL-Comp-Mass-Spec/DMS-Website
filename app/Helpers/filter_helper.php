@@ -208,10 +208,10 @@ function make_primary_filter($primary_filter_defs) {
             $maxLength = '';
         }
 
-        if (!empty($maxLength) && $maxLength < 100) {
+        if (!empty($maxLength) && $maxLength < 256) {
             $data['maxlength'] = $maxLength;
         } else {
-            $data['maxlength'] = '100';
+            $data['maxlength'] = '256';
         }
 
         $data['value'] = $spec["value"];
@@ -275,10 +275,10 @@ function make_primary_filter_in_table($primary_filter_defs, $controller) {
         }
 
         $maxLength = $spec["maxlength"];
-        if (!empty($maxLength) && $maxLength < 100) {
+        if (!empty($maxLength) && $maxLength < 256) {
             $data['maxlength'] = $maxLength;
         } else {
-            $data['maxlength'] = '100';
+            $data['maxlength'] = '256';
         }
 
         $data['value'] = $spec["value"];
