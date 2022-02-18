@@ -8,6 +8,8 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','Dataset');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Tracking_Dataset_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','datasetNum');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateTrackingDataset');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Start');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'datasetNum','datasetNum','varchar','input','128','AddUpdateTrackingDataset');
 INSERT INTO "sproc_args" VALUES(2,'experimentNum','experimentNum','varchar','input','64','AddUpdateTrackingDataset');
