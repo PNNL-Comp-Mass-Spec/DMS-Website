@@ -75,7 +75,7 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument_class','Instrum
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_analysis_tool','Analysis Tool','6','','Analysis Tool','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_campaign','Campaign','20!','','Campaign Crit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instrument','Instrument','6','','Instrument Crit.','ContainsText','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Param File','30!','','Parm File','ContainsText','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Param File','45!','','Parm File','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_experiment','Experiment','25!','','Experiment Crit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_dataset','Dataset','20!','','DatasetCrit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_enabled','Enabled','2!','','Enabled','Equals','text','','','');

@@ -14,7 +14,7 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_step_state','Step_State','
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_step','Step','3!','','Step','Equals','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_processor','Processor','6','','Processor','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_dataset','Dataset','40!','','Dataset','ContainsText','text','80','','');
-INSERT INTO "list_report_primary_filter" VALUES(8,'pf_param_file','Param File','15!','','Parameter_File','ContainsText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(8,'pf_param_file','Param File','45!','','Parameter_File','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_start','Start','6','','Start','LaterThan','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','pipeline_jobs/show','');
