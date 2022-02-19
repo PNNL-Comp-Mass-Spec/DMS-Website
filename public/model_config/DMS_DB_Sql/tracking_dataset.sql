@@ -54,4 +54,6 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_emsl_proposal_id','EMSL_Pr
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_month','Month','20','','Month','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_day','Day','20','','Day','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_operator','Operator','20','','Operator','ContainsText','text','103','','');
+CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Dataset','detail-report','Dataset','dataset/show/','labelCol','dataset','');
 COMMIT;
