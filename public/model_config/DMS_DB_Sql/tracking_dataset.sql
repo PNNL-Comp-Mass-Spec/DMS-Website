@@ -26,7 +26,7 @@ INSERT INTO "sproc_args" VALUES(12,'<local>','message','varchar','output','512',
 INSERT INTO "sproc_args" VALUES(13,'<local>','callingUser','varchar','input','128','AddUpdateTrackingDataset');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'datasetNum','Dataset','text-if-new','50','128','','','','trim|max_length[128]');
-INSERT INTO "form_fields" VALUES(2,'experimentNum','Experiment','text','50','64','','','','trim|max_length[64]');
+INSERT INTO "form_fields" VALUES(2,'experimentNum','Experiment','text','50','64','','','Tracking','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(3,'operPRN','User','text','50','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(4,'instrumentName','Instrument','text','50','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(5,'runStart','Run Start','text','32','32','','','','trim|max_length[32]');
