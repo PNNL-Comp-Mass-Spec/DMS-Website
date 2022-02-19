@@ -32,9 +32,9 @@ INSERT INTO "form_fields" VALUES(4,'instrumentName','Instrument','text','50','64
 INSERT INTO "form_fields" VALUES(5,'runStart','Run Start','text','32','32','','','','trim|max_length[32]');
 INSERT INTO "form_fields" VALUES(6,'runDuration','Run Duration','text','32','32','','','10','trim|max_length[16]');
 INSERT INTO "form_fields" VALUES(7,'comment','Comment','area','','','4','70','','trim|max_length[512]');
-INSERT INTO "form_fields" VALUES(8,'eusProposalID','Eus Proposal ID','text','10','10','','','','trim|max_length[10]');
-INSERT INTO "form_fields" VALUES(9,'eusUsageType','Eus Usage Type','text','50','50','','','','trim|max_length[50]');
-INSERT INTO "form_fields" VALUES(10,'eusUsersList','Eus Users List','area','','','4','70','','trim|max_length[1024]');
+INSERT INTO "form_fields" VALUES(8,'eusUsageType','EMSL Usage Type','text','50','50','','','','trim|max_length[50]');
+INSERT INTO "form_fields" VALUES(9,'eusProposalID','EMSL Proposal ID','text','10','10','','','','trim|max_length[10]');
+INSERT INTO "form_fields" VALUES(10,'eusUsersList','EMSL Proposal User','area','','','4','70','','trim|max_length[1024]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'experimentNum','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'instrumentName','picker.replace','instrumentNameAdminPickList','','',',','');
