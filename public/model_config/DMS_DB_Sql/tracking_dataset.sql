@@ -40,7 +40,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'experimentNum','list-report.helper',
 INSERT INTO "form_field_choosers" VALUES(2,'instrumentName','picker.replace','instrumentNameAdminPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'operPRN','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'eusUsageType','picker.replace','eusUsageTypePickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(5,'eusUsersList','list-report.helper','','helper_eus_user_ckbx/report','DS_EUSProposalID',',','');
+INSERT INTO "form_field_choosers" VALUES(5,'eusUsersList','list-report.helper','','helper_eus_user_ckbx/report','eusProposalID',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'eusProposalID','list-report.helper','','helper_eus_proposal/report','',',','Select Proposal...');
 INSERT INTO "form_field_choosers" VALUES(7,'eusProposalID','list-report.helper','','helper_eus_proposal_ex/report','',',','Select Proposal (by dataset)...');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
