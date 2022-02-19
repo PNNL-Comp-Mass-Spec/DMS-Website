@@ -58,6 +58,8 @@ $routes->getAlias('data_package_jobs', 'Data_package_analysis_jobs');
 
 $routes->getAlias('dataset_files', 'Dataset_file');
 
+$routes->getAlias('dataset_tracking', 'Tracking_dataset');
+
 $routes->getAlias('datasets', 'Dataset');
 
 $routes->getAlias('eus_user', 'Eus_users');
