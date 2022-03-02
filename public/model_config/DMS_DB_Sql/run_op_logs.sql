@@ -4,6 +4,8 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Ops_Logs_List_Report');
 INSERT INTO "general_params" VALUES('operations_sproc','Junk_GRK_Test');
 INSERT INTO "general_params" VALUES('update_sproc','UpdateRunOpLog');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Year');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument','Instrument','20','','Instrument','ContainsText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_year','Year','20','','Year','Equals','text','20','','');
