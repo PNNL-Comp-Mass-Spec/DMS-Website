@@ -9,7 +9,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_name','Name','','','Mass_C
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_description','Description','','','Description','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_mono_mass_min','Min Mass','','','Monoisotopic_Mass','GreaterThanOrEqualTo','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_mono_mass_max','Max Mass','','','Monoisotopic_Mass','LessThanOrEqualTo','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(6,'pf_original_source_name','Source Name','','','Original_Source_Name','ContainsText','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_original_source_name','Source Name','35!','','Original_Source_Name','ContainsText','text','','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Mass_Correction_ID','invoke_entity','value','param_file_mass_mods/report/-/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Original_Source_Name','invoke_entity','value','unimod/report/~','');

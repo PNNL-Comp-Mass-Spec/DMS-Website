@@ -5,7 +5,6 @@ INSERT INTO "general_params" VALUES('list_report_data_table','V_Dataset_QC_List_
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Dataset','invoke_entity','value','dataset/show','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'State','color_label','','','{"Capture Failed":"bad_clr"}');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Instrument','invoke_entity','value','instrument_operation_history/report','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'QC_Link','image_link','value','index.html','{"width":"400"}');

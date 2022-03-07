@@ -40,9 +40,10 @@ INSERT INTO "detail_report_hotlinks" VALUES(2,'Primary Tool','detail-report','Pr
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Mass_Mods','detail-report','ID','param_file_mass_mods/report/@','labelCol','dl_mass_mods',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'+Primary Tool','detail-report','Primary Tool','analysis_tools/report','valueCol','dl_primary_tool_2',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(5,'+Mass_Mods','monomarkup','Mass_Mods','','valueCol','dl_mass_mods_markup',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(6,'MaxQuant_Mods','tabular_link_list','MaxQuant_Mods','maxquant_mods/report/@/-','valueCol','dl_maxquant_mods','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_param_file_id','ID','5!','','Param_File_ID','Equals','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(2,'pf_param_file_name','Name','50!','','Param_File_Name','ContainsText','text','255','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_param_file_name','Name','50!','','Param_File_Name','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_param_file_type','Type','20','','Param_File_Type','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_param_file_description','Description','20!','','Param_File_Description','ContainsText','text','1024','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_valid','Valid','5!','','Valid','Equals','text','20','','');

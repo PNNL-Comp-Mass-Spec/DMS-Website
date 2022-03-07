@@ -12,8 +12,8 @@ INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','','trim');
-INSERT INTO "form_fields" VALUES(2,'orgName','Name','text','50','50','','','','trim|max_length[50]');
-INSERT INTO "form_fields" VALUES(3,'orgDescription','Description','area','','','2','60','','trim|max_length[256]');
+INSERT INTO "form_fields" VALUES(2,'orgName','Name','text','50','128','','','','trim|max_length[128]');
+INSERT INTO "form_fields" VALUES(3,'orgDescription','Description','area','','','2','60','','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(4,'orgShortName','Short Name','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(5,'NCBITaxonomyID','NCBI_Taxonomy_ID','text','12','12','','','','trim');
 INSERT INTO "form_fields" VALUES(6,'AutoDefineTaxonomy','Auto Define Taxonomy','text','12','12','','','Yes','trim');
@@ -54,7 +54,7 @@ INSERT INTO "sproc_args" VALUES(1,'orgName','orgName','varchar','input','128','A
 INSERT INTO "sproc_args" VALUES(2,'orgShortName','orgShortName','varchar','input','128','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(5,'orgStorageLocation','orgStorageLocation','varchar','input','256','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(6,'orgDBName','orgDBName','varchar','input','128','AddUpdateOrganisms');
-INSERT INTO "sproc_args" VALUES(7,'orgDescription','orgDescription','varchar','input','256','AddUpdateOrganisms');
+INSERT INTO "sproc_args" VALUES(7,'orgDescription','orgDescription','varchar','input','512','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(8,'orgDomain','orgDomain','varchar','input','64','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(9,'orgKingdom','orgKingdom','varchar','input','64','AddUpdateOrganisms');
 INSERT INTO "sproc_args" VALUES(10,'orgPhylum','orgPhylum','varchar','input','64','AddUpdateOrganisms');
@@ -84,4 +84,5 @@ INSERT INTO "detail_report_hotlinks" VALUES(8,'NCBI Synonyms','detail-report','N
 INSERT INTO "detail_report_hotlinks" VALUES(10,'Taxonomy List','tabular_list','Taxonomy List','','valueCol','dl_taxonomy_list','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Default Protein Collection','detail-report','Default Protein Collection','protein_collection/report/~','labelCol','dl_default_protein_collection','');
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Legacy FASTA Files','detail-report','Name','helper_organism_db/report/-/~','labelCol','dl_legacy_fasta_files','');
+INSERT INTO "detail_report_hotlinks" VALUES(13,'Organism Storage Link','literal_link','Organism Storage Link','','valueCol','dl_organism_storage_link','');
 COMMIT;

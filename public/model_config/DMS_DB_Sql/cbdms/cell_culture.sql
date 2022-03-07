@@ -50,6 +50,7 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_contact','Contact','32',''
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_pi','PI','32','','PI','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_comment','Comment','32','','Comment','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_organism','Organism(s)','30!','','Organisms','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(8,'pf_id','ID','20','','ID','Equals','text','24','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Name','invoke_entity','value','cell_culture/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Reason','min_col_width','value','60','');

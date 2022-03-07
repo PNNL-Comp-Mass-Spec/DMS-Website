@@ -38,8 +38,6 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_cart','Cart','20','','Cart','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_description','Description','20','','Description','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_note','Note','20','','Note','ContainsText','text','2147483647','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_primary_instrument','Primary Instrument','20','','Primary Instrument','ContainsText','text','24','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_secondary_instrument','Secondary Instrument','20','','Secondary Instrument','ContainsText','text','24','','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'DateOfChange','default_function','CurrentDate');
 INSERT INTO "form_field_options" VALUES(2,'Note','auto_format','None');

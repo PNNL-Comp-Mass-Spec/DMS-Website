@@ -11,9 +11,9 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateAnalysisJob');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Analysis_Job_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Job');
 INSERT INTO "general_params" VALUES('operations_sproc','DoAnalysisJobOperation');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Job');
 INSERT INTO "general_params" VALUES('list_report_data_cols','[Job],[Pri],[State],[Tool],[Dataset],[Campaign],[Experiment],[Instrument],[Parm File],[Settings_File],[Organism],[Organism DB],[Protein Collection List],[Protein Options],[Comment],[Created],[Started],[Finished],[Runtime],[Job Request],[Results Folder],[Results Folder Path],[Last_Affected],[Rating]');
 INSERT INTO "general_params" VALUES('detail_report_data_cols','JobNum,Dataset,Experiment,[Dataset Folder],[Dataset Folder Path],Instrument,[Tool Name],[Parm File],[Parm File Storage Path],[Settings File],Organism,[Organism DB],[Organism DB Storage Path],[Protein Collection List],[Protein Options List],State,[Runtime Minutes],Owner,Comment,[Special Processing],[Results Folder Path],[Data Folder Link],[PSM Stats],Created,Started,Finished,Request,Priority,[Assigned Processor],[AM Code],[DEM Code],[Export Mode],[Dataset Unreviewed] ');
-INSERT INTO "general_params" VALUES('post_submission_detail_id','Job');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Job','Job','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'AJ_Dataset','Dataset','text','80','128','','','','trim|required|max_length[128]');
@@ -25,7 +25,7 @@ INSERT INTO "form_fields" VALUES(7,'AJ_Organism','Organism','text','60','128',''
 INSERT INTO "form_fields" VALUES(8,'AJ_OrganismDB','Organism DB File','text','100','128','','','na','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(9,'protCollNameList','Protein Collection List','area','','','3','60','na','trim|max_length[4000]');
 INSERT INTO "form_fields" VALUES(10,'protCollOptionsList','Protein Options List','area','','','2','60','seq_direction=forward','trim|max_length[256]');
-INSERT INTO "form_fields" VALUES(11,'AJ_owner','Owner (PRN)','text','40','80','','','','trim|required|max_length[32]');
+INSERT INTO "form_fields" VALUES(11,'AJ_owner','Owner','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(12,'associatedProcessorGroup','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(13,'propagationMode','Export Mode','text','24','24','','','Export','trim|max_length[24]');
 INSERT INTO "form_fields" VALUES(14,'stateName','State','text','32','32','','','','trim|max_length[32]');
@@ -65,6 +65,7 @@ INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analy
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Job Request','invoke_entity','value','analysis_job_request/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
+INSERT INTO "list_report_hotlinks" VALUES(5,'Results URL','masked_link','value','','{"Label":"Browse"}');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(2,'Make new request from this job......','copy_from','','analysis_job_request','Go to job request entry page and copy values from this page.','');
 INSERT INTO "detail_report_commands" VALUES(3,'Delete this job','cmd_op','delete','analysis_job','Delete an analysis job if it is still in the "new" state','Are you sure that you want to delete this job?');

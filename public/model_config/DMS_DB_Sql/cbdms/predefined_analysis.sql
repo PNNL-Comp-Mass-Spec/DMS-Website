@@ -9,7 +9,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdatePredefinedAnalysis');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Predefined_Analysis_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
-INSERT INTO "general_params" VALUES('list_report_data_order_by','[Instrument Class], Level, [Seq.], ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Instrument Class, Level, Seq., ID');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim');
@@ -75,7 +75,7 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument_class','Instrum
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_analysis_tool','Analysis Tool','6','','Analysis Tool','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_campaign','Campaign','20!','','Campaign Crit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instrument','Instrument','6','','Instrument Crit.','ContainsText','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Param File','30!','','Parm File','ContainsText','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Param File','45!','','Parm File','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_experiment','Experiment','25!','','Experiment Crit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_dataset','Dataset','20!','','DatasetCrit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_enabled','Enabled','2!','','Enabled','Equals','text','','','');
@@ -85,6 +85,7 @@ INSERT INTO "list_report_primary_filter" VALUES(11,'pf_sequence_end','Seq End','
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','predefined_analysis/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Last_Affected','format_date','value','','{"Format":"Y-m-d"}');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Description','min_col_width','value','30','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Show datasets that satisy this rule...','call','param','predefined_analysis_datasets','Show existing datasets that meet criteria.','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);

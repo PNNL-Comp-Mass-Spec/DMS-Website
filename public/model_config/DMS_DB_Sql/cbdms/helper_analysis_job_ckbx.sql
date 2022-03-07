@@ -15,7 +15,7 @@ INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Parm File','32
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_protein_collection_list','Protein Collection List','32','','Protein Collection List','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_protein_options','Protein Options','32','','Protein Options','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_comment','Comment','32','','Comment','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(9,'pf_cpu','CPU','32','','CPU','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(9,'pf_request','Request','32','','Request','Equals','text','24','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','Job','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Job','update_opener','value','','');

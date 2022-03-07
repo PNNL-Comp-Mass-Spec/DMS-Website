@@ -80,13 +80,13 @@ INSERT INTO "sproc_args" VALUES(22,'AutoSPArchivePathRoot','autoSPArchivePathRoo
 INSERT INTO "sproc_args" VALUES(23,'AutoSPArchiveSharePathRoot','autoSPArchiveSharePathRoot','varchar','input','128','AddUpdateInstrument');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Allowed Dataset Types','detail-report','Instrument Group','instrument_allowed_dataset_type/report','labelCol','dl_instrument',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(2,'Name','detail-report','Name','instrument_operation_history/report','valueCol','dl_name_operation_history',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Name','detail-report','Name','helper_inst_source/view/','valueCol','dl_name_inst_source','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Instrument Group','detail-report','Instrument Group','instrument_group/show/','labelCol','dl_instrument_group',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Assigned Archive Path','detail-report','Name','archive_path/report','labelCol','dl_archive_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Assigned Storage','detail-report','Name','storage/report/-/~','labelCol','dl_assigned_storage',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Archive Share Path','href-folder','Archive Share Path','','labelCol','dl_archive_share_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Class','detail-report','Class','instrumentclass/show/','labelCol','dl_instrument_class',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(8,'+Name','detail-report','Name','instrument_config_history/report','labelCol','dl_name_config_history',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(9,'Allocation_Tag','detail-report','Instrument Group','instrument_group/show/','labelCol','dl_allocation_tag','');
+INSERT INTO "detail_report_hotlinks" VALUES(9,'Allocation Tag','detail-report','Instrument Group','instrument_group/show/','labelCol','dl_allocation_tag','');
 INSERT INTO "detail_report_hotlinks" VALUES(10,'ID','detail-report','ID','instrumentid/show/','labelCol','dl_instrumentid','');
 COMMIT;

@@ -9,6 +9,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(1,'Proposal_ID','invoke_entity','value','eus_proposals/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Title','min_col_width','value','70','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'ID','invoke_entity','value','data_package/show','');
+INSERT INTO "list_report_hotlinks" VALUES(4,'State','color_label','value','','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_id','ID','5!','','ID','Equals','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_proposal','Proposal','12','','Proposal_ID','ContainsText','text','12','','');

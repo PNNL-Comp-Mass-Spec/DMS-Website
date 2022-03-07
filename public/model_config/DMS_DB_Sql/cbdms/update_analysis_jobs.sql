@@ -3,8 +3,8 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('entry_sproc','UpdateAnalysisJobs');
-INSERT INTO "general_params" VALUES('entry_page_data_table','V_Update_Analysis_Jobs_Entry');
-INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
+INSERT INTO "general_params" VALUES('entry_page_data_table','T_Analysis_Job');
+INSERT INTO "general_params" VALUES('entry_page_data_id_col','AJ_JobID');
 INSERT INTO "general_params" VALUES('alternate_title_create','Update Multiple Analysis Jobs');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'JobList','Job List','area','','','4','60','','trim|required|max_length[6000]');
@@ -18,7 +18,7 @@ INSERT INTO "form_fields" VALUES(8,'associatedProcessorGroup','Associated Proces
 INSERT INTO "form_fields" VALUES(9,'propagationMode','Export Mode','text','24','24','','','','trim|max_length[24]');
 INSERT INTO "form_fields" VALUES(10,'AJ_ParmFile','Parameter File','text','60','255','','','','trim|max_length[255]');
 INSERT INTO "form_fields" VALUES(11,'AJ_SettingsFile','Settings File','text','60','80','','','','trim|default_value[LCQDefSettings.txt]|max_length[80]');
-INSERT INTO "form_fields" VALUES(12,'AJ_Organism','Organism','text','30','80','','','','trim|max_length[50]');
+INSERT INTO "form_fields" VALUES(12,'AJ_Organism','Organism','text','30','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(13,'protCollNameList','Protein Collection List','area','','','3','60','na','trim|max_length[2000]');
 INSERT INTO "form_fields" VALUES(14,'protCollOptionsList','Protein Options List','area','','','2','60','seq_direction=forward','trim|max_length[256]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
@@ -64,7 +64,7 @@ INSERT INTO "sproc_args" VALUES(8,'associatedProcessorGroup','associatedProcesso
 INSERT INTO "sproc_args" VALUES(9,'propagationMode','propagationMode','varchar','input','24','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(10,'AJ_ParmFile','parmFileName','varchar','input','255','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(11,'AJ_SettingsFile','settingsFileName','varchar','input','255','UpdateAnalysisJobs');
-INSERT INTO "sproc_args" VALUES(12,'AJ_Organism','organismName','varchar','input','64','UpdateAnalysisJobs');
+INSERT INTO "sproc_args" VALUES(12,'AJ_Organism','organismName','varchar','input','128','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(13,'protCollNameList','protCollNameList','varchar','input','4000','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(14,'protCollOptionsList','protCollOptionsList','varchar','input','256','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(15,'<local>','mode','varchar','input','12','UpdateAnalysisJobs');

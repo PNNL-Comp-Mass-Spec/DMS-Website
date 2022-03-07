@@ -11,6 +11,8 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Experiment_Plex_M
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Exp_ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateExperimentPlexMembers');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','Exp_ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Plex_Exp_ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Plex_Exp_ID','invoke_entity','value','experiment_plex_members/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Channels','invoke_entity','Plex_Exp_ID','experiment_plex_members_tsv/report/','');
@@ -46,9 +48,11 @@ INSERT INTO "form_field_choosers" VALUES(1,'Exp_ID','list-report.helper','','hel
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'Plex_Members','auto_format','none');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'Exp_ID','plexExperimentId','int','output','','AddUpdateExperimentPlexMembers');
+INSERT INTO "sproc_args" VALUES(1,'Exp_ID','plexExperimentIdOrName','varchar','output','130','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(2,'Plex_Members','plexMembers','varchar','input','4000','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(3,'<local>','mode','varchar','input','12','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(4,'<local>','message','varchar','output','512','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(5,'<local>','callingUser','varchar','input','128','AddUpdateExperimentPlexMembers');
+CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
+INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Validate items in the Plex Member textbox and preview changes that would be made.','');
 COMMIT;
