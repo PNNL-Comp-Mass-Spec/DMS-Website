@@ -254,7 +254,7 @@ class Data extends BaseController {
 
         $links = array();
         //foreach ($dbh->query("SELECT * FROM $config_name ORDER BY label", PDO::FETCH_OBJ) as $obj) {
-        foreach ($db->query("SELECT * FROM $config_name ORDER BY label")->getResultObject() as $row) {
+        foreach ($db->query("SELECT * FROM $config_name ORDER BY label")->getResultObject() as $obj) {
             $links['link'] = anchor("data/lr/$config_source/$obj->name/report", $obj->label);
             $links['table'] = $obj->table;
             $links['db'] = $obj->db;
