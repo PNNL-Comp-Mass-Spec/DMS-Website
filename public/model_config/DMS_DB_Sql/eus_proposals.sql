@@ -9,6 +9,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_EUS_Proposals_Ent
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Import Date');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','text','10','10','','','','trim|max_length[10]');
 INSERT INTO "form_fields" VALUES(2,'State','State','text','32','32','','','','trim|required|max_length[2]|numeric');

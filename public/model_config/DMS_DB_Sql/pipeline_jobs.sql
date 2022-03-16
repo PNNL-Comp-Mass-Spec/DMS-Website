@@ -12,6 +12,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_id_col','Job');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateLocalJobInBroker');
 INSERT INTO "general_params" VALUES('entry_submission_cmds','pipeline_jobs_cmds');
 INSERT INTO "general_params" VALUES('detail_report_cmds','pipeline_jobs_cmds');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Job');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_job','Job','6','','Job','Equals','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_job_state_b','Job_State_B','6','','Job_State_B','ContainsText','text','80','','');

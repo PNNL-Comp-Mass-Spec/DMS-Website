@@ -9,6 +9,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateStorage');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Storage_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','SP_ID');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','SP_ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'SP_ID','ID','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(2,'SP_path','Path','text','40','255','','','','trim|required|max_length[255]');

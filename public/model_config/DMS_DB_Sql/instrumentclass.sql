@@ -9,6 +9,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateInstrumentClass');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Instrument_Class_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','InstrumentClass');
 INSERT INTO "general_params" VALUES('entry_block_new','True');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','InstrumentClass');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'InstrumentClass','Instrument Class','non-edit','32','32','','','','trim|required|max_length[32]');
 INSERT INTO "form_fields" VALUES(2,'IsPurgable','Is Purgable','text','1','1','','','','trim|required|max_length[1]');

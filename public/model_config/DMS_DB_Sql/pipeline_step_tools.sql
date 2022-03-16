@@ -9,6 +9,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateStepTools');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Pipeline_Step_Tools_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Name');
 INSERT INTO "general_params" VALUES('my_db_group','broker');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Name');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Name','Name','text-if-new','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(2,'Type','Type','text','60','128','','','','trim|max_length[128]');

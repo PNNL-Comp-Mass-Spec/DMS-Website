@@ -11,6 +11,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Separation_Type_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateSeparationType');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_separation_type','Type','25!','','Separation Type','ContainsText','text','75','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_separation_type_comment','Comment','20','','Separation Type Comment','ContainsText','text','256','','');

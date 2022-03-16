@@ -8,6 +8,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','Username');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateUser');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_User_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Username');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Username');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Username','Username','text-if-new','20','50','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(2,'HanfordIDNum','Hanford ID','text','20','50','','','','trim|required|max_length[50]');

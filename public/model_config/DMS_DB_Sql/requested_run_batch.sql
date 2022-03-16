@@ -13,6 +13,7 @@ INSERT INTO "general_params" VALUES('rss_data_table','V_Requested_Run_Batch_RSS'
 INSERT INTO "general_params" VALUES('rss_description','Requested run batches with all requests satisfied by datasets (completed within last 30 days).');
 INSERT INTO "general_params" VALUES('rss_item_link','requested_run_batch/show');
 INSERT INTO "general_params" VALUES('operations_sproc','DoRequestedRunBatchOperation');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','0','trim|max_length[6]');
 INSERT INTO "form_fields" VALUES(2,'Name','Name','text','50','50','','','','trim|required|max_length[50]');

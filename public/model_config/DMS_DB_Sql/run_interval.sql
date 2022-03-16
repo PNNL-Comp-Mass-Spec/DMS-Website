@@ -13,6 +13,7 @@ INSERT INTO "general_params" VALUES('list_report_data_sort_col','Start');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 INSERT INTO "general_params" VALUES('entry_block_new','True');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateRunIntervalInstrumentUsage');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument','Instrument','20','','Instrument','ContainsText','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_start','Start','20','','Start','LaterThan','text','20','','');

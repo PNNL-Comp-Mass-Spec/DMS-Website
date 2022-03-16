@@ -9,6 +9,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateScripts');
 INSERT INTO "general_params" VALUES('entry_page_data_table','V_Capture_Script_Entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Script');
 INSERT INTO "general_params" VALUES('my_db_group','capture');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Script');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Script','Script','text-if-new','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(2,'Description','Description','area','','','3','60','This script...','trim|max_length[512]');

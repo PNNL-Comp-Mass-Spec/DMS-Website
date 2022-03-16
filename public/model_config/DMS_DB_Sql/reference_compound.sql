@@ -11,6 +11,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_id_col','Compound_ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateReferenceCompound');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Compound_ID');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_Name','Name','35!','','Name','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_PubChemID','PubChem ID','','','PubChem CID','Equals','text','','','');

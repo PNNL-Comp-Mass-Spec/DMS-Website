@@ -10,6 +10,7 @@ INSERT INTO "general_params" VALUES('list_report_data_cols','*, ''Download'' as 
 INSERT INTO "general_params" VALUES('detail_report_data_table','V_MRM_List_Attachment_Detail_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'AttachmentName','Name','text','80','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(2,'AttachmentDescription','Description','area','','','4','60','','trim|max_length[1024]');

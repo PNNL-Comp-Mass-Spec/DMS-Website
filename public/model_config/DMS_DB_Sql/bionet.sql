@@ -8,6 +8,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','Host');
 INSERT INTO "general_params" VALUES('entry_page_data_table','T_Bionet_Hosts');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateBionetHost');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Host');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','Host');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Host','invoke_entity','Host','bionet/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Instruments','link_list','Instruments','helper_inst_source/view','');

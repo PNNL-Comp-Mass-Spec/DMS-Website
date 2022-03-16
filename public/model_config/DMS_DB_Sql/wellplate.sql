@@ -9,6 +9,7 @@ INSERT INTO "general_params" VALUES('entry_page_data_id_col','wellplateNum');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateWellplate');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','wellplateNum');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'wellplateNum','Wellplate Number','text','50','64','','','(generate name)','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(2,'description','Description','area','','','4','70','','trim|max_length[512]');
