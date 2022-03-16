@@ -74,7 +74,6 @@ INSERT INTO "restricted_actions" VALUES(70,'material_move_items','operation','DM
 INSERT INTO "restricted_actions" VALUES(71,'mc_enable_control_by_manager','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO "restricted_actions" VALUES(72,'mc_enable_control_by_manager_type','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO "restricted_actions" VALUES(73,'mrm_list_attachment','enter','DMS_User');
-INSERT INTO "restricted_actions" VALUES(74,'mts_peak_matching_requests','enter','DMS_User');
 INSERT INTO "restricted_actions" VALUES(75,'new_instrument','enter','DMS_Infrastructure_Administration');
 INSERT INTO "restricted_actions" VALUES(76,'new_instrumentclass','enter','DMS_Infrastructure_Administration');
 INSERT INTO "restricted_actions" VALUES(77,'operations_tasks','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation');
@@ -82,7 +81,6 @@ INSERT INTO "restricted_actions" VALUES(78,'organism','enter','DMS_User');
 INSERT INTO "restricted_actions" VALUES(79,'osm_package','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation');
 INSERT INTO "restricted_actions" VALUES(80,'param_file','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO "restricted_actions" VALUES(81,'pipeline_jobs','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Analysis_Job_Administration, DMS_User');
-INSERT INTO "restricted_actions" VALUES(82,'pipeline_mac_job_request','enter','DMS_User');
 INSERT INTO "restricted_actions" VALUES(83,'pipeline_script','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO "restricted_actions" VALUES(84,'pipeline_step_tools','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO "restricted_actions" VALUES(85,'predefined_analysis','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');

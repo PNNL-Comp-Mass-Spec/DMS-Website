@@ -58,9 +58,6 @@ INSERT INTO "home_menu_items" VALUES(30,'Analysis_Pipeline','pipeline_local_proc
 INSERT INTO "home_menu_items" VALUES(31,'Analysis_Pipeline','pipeline_step_tools/report','Display','list of step tools');
 INSERT INTO "home_menu_items" VALUES(32,'Analysis_Pipeline','pipeline_processor_tool_crosstab/report','Display','processor tool crosstab report');
 INSERT INTO "home_menu_items" VALUES(33,'Analysis_Pipeline','pipeline_processor_step_tools/report','Display','processor step tools report');
-INSERT INTO "home_menu_items" VALUES(34,'Analysis_Pipeline','submenu','MAC Job Requests','');
-INSERT INTO "home_menu_items" VALUES(35,'Analysis_Pipeline','pipeline_mac_job_request/report','Display','list of Mac job requests');
-INSERT INTO "home_menu_items" VALUES(36,'Analysis_Pipeline','pipeline_mac_job_request/create','Create','new MAC job request');
 INSERT INTO "home_menu_items" VALUES(37,'Analysis','submenu','Jobs and Param Files','');
 INSERT INTO "home_menu_items" VALUES(38,'Analysis','get_paramfile_crosstab/param','Display','get paramfile crosstab');
 INSERT INTO "home_menu_items" VALUES(39,'Analysis','update_analysis_jobs/create','Update','multiple analysis jobs');
@@ -190,7 +187,6 @@ INSERT INTO "home_menu_items" VALUES(171,'MTS','mts_pt_dbs/report','Display','Pe
 INSERT INTO "home_menu_items" VALUES(172,'MTS','mts_mt_dbs/report','Display','AMT Tag databases');
 INSERT INTO "home_menu_items" VALUES(173,'MTS','submenu','Results','');
 INSERT INTO "home_menu_items" VALUES(174,'MTS','mts_pm_results/report','Display','peak matching results');
-INSERT INTO "home_menu_items" VALUES(175,'MTS','mts_peak_matching_requests/create','Create','peak matching request');
 INSERT INTO "home_menu_items" VALUES(176,'Miscelleneous','submenu','Notification','');
 INSERT INTO "home_menu_items" VALUES(177,'Miscelleneous','notification/report','Display','list of user notifications according to research team membership');
 INSERT INTO "home_menu_items" VALUES(178,'Miscelleneous','notification_event/report','Display','list of notification events');
