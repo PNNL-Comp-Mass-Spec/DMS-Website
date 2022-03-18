@@ -84,7 +84,7 @@ class Instrument_usage_report extends Grid {
 SELECT *
 FROM  V_Instrument_Usage_Report_Export
 WHERE [Year] = $year AND [Month] = $month
-ORDER BY [Instrument], [Year], [Month], [Start]
+ORDER BY [Instrument], [Year], [Month], [Start], [Type], [Seq]
 EOD;
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
@@ -100,6 +100,8 @@ EOD;
             order_by('Year', 'ASC')->
             order_by('Month', 'ASC')->
             order_by('Start', 'ASC')->
+            order_by('Type', 'ASC')->
+            order_by('Seq', 'ASC')->
             get("V_Instrument_Usage_Report_Export");
 
         if($query && $query->getNumRows() > 0) {
@@ -157,7 +159,7 @@ EOD;
         	$udf = "dbo.GetEMSLInstrumentUsageDaily";
         }
 
-        $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start";
+        $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start, Type, [Seq]";
 
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
@@ -188,7 +190,7 @@ EOD;
     {
         $this->db = \Config\Database::connect();
 
-        $sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, [Month], [Day]";
+        $sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, [Month], [Day], [Usage]";
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
         return $result;
