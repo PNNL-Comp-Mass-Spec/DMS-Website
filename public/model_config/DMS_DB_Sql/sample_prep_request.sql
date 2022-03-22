@@ -125,7 +125,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(4,'Campaign','detail-report','Campai
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Instrument Group','detail-report','Instrument Group','instrument_group/show','valueCol','dl_instrumentGroup',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Dataset Type','detail-report','Instrument Group','instrument_allowed_dataset_type/report','valueCol','dl_DatasetType',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(8,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_EUS_Proposal',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(9,'Work Package Number','detail-report','Work Package Number','charge_code/show','labelCol','dl_Work_Package',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(9,'Work Package','detail-report','Work Package','charge_code/show','labelCol','dl_Work_Package','');
 INSERT INTO "detail_report_hotlinks" VALUES(10,'Wiki Page Link','literal_link','Wiki Page Link','','valueCol','dl_wiki_page_link',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Material Containers Item Count','detail-report','ID','sample_prep_request_items/report/material_container','labelCol','dl_material_containers_item_count',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Experiment Group Item Count','detail-report','ID','sample_prep_request_items/report/experiment_group','labelCol','dl_experiment_group_item_count',NULL);
