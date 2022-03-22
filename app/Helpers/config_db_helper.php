@@ -241,7 +241,7 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title) {
     $data['tag'] = $page_fam_tag;
     $data['title'] = $title;
 
-    $body = view('config_db/tmplt_controller', $data, true);
+    $body = view('config_db/tmplt_controller', $data);
     return "<?php\n" . $body . "\n?>";
 }
 
@@ -530,18 +530,18 @@ function make_sql_to_move_range_of_items($table_name, $range_start_id, $range_st
     if (count(array_intersect($rs, $rd)) > 0) {
         return "Source and destination ranges overlap";
     }
-    
+
     if ($range_start_id == $range_stop_id && abs($dest_id - $range_start_id) == 1) {
         // Swap 2 adjacent values
         $lowerId = min($range_start_id, $dest_id);
         $upperId = max($range_start_id, $dest_id);
-        
+
         $s = "-- swap IDs $lowerId and $upperId\n";
         $s .= "-- move one item out of range, move the other item, then move the first item to final id\n";
         $s .= "update $table_name set $id_col = $ceiling_id where $id_col = $lowerId;\n";
         $s .= "update $table_name set $id_col = $lowerId where $id_col = $upperId;\n";
         $s .= "update $table_name set $id_col = $upperId where $id_col = $ceiling_id;\n";
-        
+
         return $s;
     }
 
