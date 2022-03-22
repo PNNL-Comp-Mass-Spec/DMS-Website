@@ -2,7 +2,7 @@
 namespace App\Libraries;
 
 // Not required because we are telling CodeIgniter to also use the Composer autoload.
-//require 'application/vendor/autoload.php';
+//require 'vendor/autoload.php';
 //use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Spreadsheet_loader {
