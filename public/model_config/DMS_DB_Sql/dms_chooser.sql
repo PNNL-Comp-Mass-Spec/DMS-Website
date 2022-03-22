@@ -148,4 +148,7 @@ INSERT INTO "chooser_definitions" VALUES(131,'organismIDPickList','default','sql
 INSERT INTO "chooser_definitions" VALUES(132,'sampleTypePickList','default','sql','SELECT Name as val, Name as ex FROM T_Secondary_Sep_SampleType ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(133,'separationGroupNoFractionsPickList','default','sql','SELECT Sep_Group AS val, '''' as ex FROM V_Separation_Group_PickList WHERE Fraction_Count = 0 ORDER BY Sep_Group');
 INSERT INTO "chooser_definitions" VALUES(134,'campaignEusUsageTypePickList','default','sql','SELECT Description AS val, [Name] AS ex FROM T_EUS_UsageType WHERE ID > 1 AND Enabled > 0  and Enabled_Campaign > 0 ORDER BY Name');
+INSERT INTO "chooser_definitions" VALUES(135,'dataAnalysisTypePickList','default','select','{"Proteomics":"Proteomics", "Metabolomics":"Metabolomics", "Lipidomics":"Lipidomics"}');
+INSERT INTO "chooser_definitions" VALUES(136,'dataAnalysisRequestStatePickList','default','sql','SELECT val, ex FROM V_Data_Analysis_Request_State_Picklist ORDER BY State_ID');
+INSERT INTO "chooser_definitions" VALUES(137,'dataAnalysisRequestUserPickList','default','sql','SELECT val, ex FROM V_Data_Analysis_Request_User_Picklist ORDER BY [val]');
 COMMIT;
