@@ -38,7 +38,7 @@ class Config_db extends BaseController {
         //--------------------------------------------------------------------
         // E.g.:
         // $this->session = \Config\Services::session();
-        
+
         session_start();
         $this->configDBPath = config('App')->model_config_path;
 
@@ -186,9 +186,9 @@ class Config_db extends BaseController {
         //echo $sqlWithTransaction;
         //$dbh->exec($sqlWithTransaction);
         $db->transStart();
-        // Check for "WriteType" to determine if "->query()" or "->exec()" should be used 
+        // Check for "WriteType" to determine if "->query()" or "->exec()" should be used
         // fails to work properly when there are multiple lines or comments
-        // It only supports leading spaces, optional leading double-quote, 
+        // It only supports leading spaces, optional leading double-quote,
         // and then a dictionary of write-statement commands.
         // Anything that doesn't match is treated as a query, and multi-line queries don't work.
         //$db->execute($sql);
@@ -1427,7 +1427,7 @@ class Config_db extends BaseController {
         // set up file names
         // Assure that the page family name is all lowercase
         $page_fam_tag = strtolower(str_replace('.db', '', $config_db));
-        $dir = "application/controllers/";
+        $dir = "../app/Controllers/";
 
         // The controller filename must start with a capital letter then be all lowercase
         $file_path = $dir . ucfirst($page_fam_tag) . '.php';
