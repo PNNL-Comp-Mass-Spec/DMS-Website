@@ -23,7 +23,7 @@ class Ers extends BaseController {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "No results found for active EUS proposals; see application/logs/log-$currentTimestamp.php";
+            echo "No results found for active EUS proposals; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         echo $this->table->generate($result);
@@ -42,7 +42,7 @@ class Ers extends BaseController {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "No results found for active EUS users; see application/logs/log-$currentTimestamp.php";
+            echo "No results found for active EUS users; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         echo $this->table->generate($result);
@@ -60,7 +60,7 @@ class Ers extends BaseController {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "No results found for EUS proposals; see application/logs/log-$currentTimestamp.php";
+            echo "No results found for EUS proposals; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         echo $this->table->generate($result);
@@ -78,7 +78,7 @@ class Ers extends BaseController {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "No results found for EUS users; see application/logs/log-$currentTimestamp.php";
+            echo "No results found for EUS users; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         echo $this->table->generate($result);
@@ -96,7 +96,7 @@ class Ers extends BaseController {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "No results found for EUS proposals; see application/logs/log-$currentTimestamp.php";
+            echo "No results found for EUS proposals; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         $dms_proposals = array();
@@ -111,7 +111,7 @@ class Ers extends BaseController {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "No ERS results found; see application/logs/log-$currentTimestamp.php";
+            echo "No ERS results found; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         $ers_proposals = array();

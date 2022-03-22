@@ -93,7 +93,7 @@ EOD;
         $query_data = $my_db->query($str);
         if (!$query_data) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for user permissions; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for user permissions; see writable/logs/log-$currentTimestamp.php");
         }
         $rows = $query_data->getResultArray();
 

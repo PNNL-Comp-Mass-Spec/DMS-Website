@@ -49,7 +49,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for freezers; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for freezers; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -103,7 +103,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for containers; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for containers; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -118,7 +118,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for material items; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for material items; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -279,7 +279,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for container; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for container; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -298,7 +298,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for material location; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for material location; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -321,7 +321,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for available locations; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for available locations; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -340,7 +340,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for newest containers; see application/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for newest containers; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }

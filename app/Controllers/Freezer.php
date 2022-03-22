@@ -179,7 +179,7 @@ class Freezer extends DmsBase {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "Error loading active freezer locations; see application/logs/log-$currentTimestamp.php";
+            echo "Error loading active freezer locations; see writable/logs/log-$currentTimestamp.php";
             return;
 
         }
@@ -266,7 +266,7 @@ class Freezer extends DmsBase {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "Error loading freezer locations; see application/logs/log-$currentTimestamp.php";
+            echo "Error loading freezer locations; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         //
@@ -295,7 +295,7 @@ class Freezer extends DmsBase {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "Error loading containers; see application/logs/log-$currentTimestamp.php";
+            echo "Error loading containers; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         //
@@ -348,7 +348,7 @@ class Freezer extends DmsBase {
         $rc_result = $this->db->query($sql);
         if(!$rc_result) {
             $currentTimestamp = date("Y-m-d");
-            echo "Error loading container row/column info; see application/logs/log-$currentTimestamp.php";
+            echo "Error loading container row/column info; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         $locs = $rc_result->getResultArray();

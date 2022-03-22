@@ -11,7 +11,7 @@ class Grid_data {
 
     // --------------------------------------------------------------------
     function __construct() {
-        
+
     }
 
     /**
@@ -40,7 +40,7 @@ class Grid_data {
             $result = $this->controller->db->query($sql);
             if (!$result) {
                 $currentTimestamp = date("Y-m-d");
-                throw new \Exception("Error querying database; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Error querying database; see writable/logs/log-$currentTimestamp.php");
             }
             $columns = array();
             foreach ($result->getFieldData() as $field) {

@@ -30,7 +30,7 @@ class File_attachment extends DmsBase {
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-        
+
         $this->archive_root_path = config('App')->file_attachment_archive_root_path; // returns null if not set
         if (!is_null($this->archive_root_path) && !is_dir($this->archive_root_path)) {
             $this->archive_root_path = null;
@@ -182,7 +182,7 @@ class File_attachment extends DmsBase {
                 }
             } else {
                 $currentTimestamp = date("Y-m-d");
-                throw new \Exception("Could not find entry for file attachment in database; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Could not find entry for file attachment in database; see writable/logs/log-$currentTimestamp.php");
             }
         } catch (\Exception $e) {
             $result->message = $e->getMessage();
@@ -390,7 +390,7 @@ class File_attachment extends DmsBase {
         $resultSet = $this->db->query($sql);
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            $path = "Error querying database for file attachment storage path; see application/logs/log-$currentTimestamp.php";
+            $path = "Error querying database for file attachment storage path; see writable/logs/log-$currentTimestamp.php";
         } else {
             $result = $resultSet->getResult();
             $path = $result[0]->path;
@@ -507,7 +507,7 @@ class File_attachment extends DmsBase {
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            return "Error querying database for attachment; see application/logs/log-$currentTimestamp.php";
+            return "Error querying database for attachment; see writable/logs/log-$currentTimestamp.php";
         }
 
         $entries = array();

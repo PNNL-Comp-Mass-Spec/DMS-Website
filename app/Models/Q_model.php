@@ -690,12 +690,12 @@ class Q_model extends Model {
             $query = $my_db->query($sql);
             if (!$query) {
                 $currentTimestamp = date("Y-m-d");
-                throw new \Exception("Error getting total row count from database; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Error getting total row count from database; see writable/logs/log-$currentTimestamp.php");
             }
 
             if ($query->getNumRows() == 0) {
                 $currentTimestamp = date("Y-m-d");
-                throw new \Exception("Total count row was not returned; see application/logs/log-$currentTimestamp.php");
+                throw new \Exception("Total count row was not returned; see writable/logs/log-$currentTimestamp.php");
             }
 
             $row = $query->getRow();

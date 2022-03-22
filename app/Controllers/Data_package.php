@@ -36,7 +36,7 @@ class Data_package extends DmsBase {
         $resultSet = $builder->get();
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            return "Error querying database via CheckDataPackageDatasetJobCoverage; see application/logs/log-$currentTimestamp.php";
+            return "Error querying database via CheckDataPackageDatasetJobCoverage; see writable/logs/log-$currentTimestamp.php";
         }
         if ($resultSet->getNumRows() == 0) {
             return "No rows found calling CheckDataPackageDatasetJobCoverage";

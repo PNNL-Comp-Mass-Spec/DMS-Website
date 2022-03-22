@@ -21,7 +21,7 @@ class Mrm_list_attachment extends DmsBase {
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
-            echo "No results found for attachment ID $id; see application/logs/log-$currentTimestamp.php";
+            echo "No results found for attachment ID $id; see writable/logs/log-$currentTimestamp.php";
             return;
         }
         $file_info = $result->getRow();
