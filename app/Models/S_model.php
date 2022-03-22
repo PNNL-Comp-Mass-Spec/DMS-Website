@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 use CodeIgniter\Database\SQLite3\Connection;
 
 // The function of this class is to execute a stored procedure
-// against one of the databases defined in the application/config/database file.
+// against one of the databases defined in the app/Config/database file.
 // It gets the procedure name and arguments from a config db as defined by the
 // config_name and config_source. If the stored procedure returns a rowset,
 // it is automatically saved and made accessible to external code.
@@ -29,7 +29,7 @@ class Bound_arguments {
 }
 
 /**
- * Used to execute a stored procedure against one of the databases defined in the application/config/database file
+ * Used to execute a stored procedure against one of the databases defined in the app/Config/database file
  */
 class S_model extends Model {
 

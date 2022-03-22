@@ -63,8 +63,8 @@ function clearSpreadsheetDisplay() {
 <div style='padding:5px 0 0 0;' >
 
 <?php
-    // File parsing logic is in file application/controllers/Upload.php
-    // which in turn calls load in   application/libraries/Spreadsheet_loader.php" -->
+    // File parsing logic is in file app/Controllers/Upload.php
+    // which in turn calls load in   app/Libraries/Spreadsheet_loader.php" -->
  ?>
 <form action = "<?= site_url('upload/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" >
 File to upload:

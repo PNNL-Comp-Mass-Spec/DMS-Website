@@ -208,7 +208,7 @@ class Gen extends BaseController
 
         if (array_key_exists ('PHP_AUTH_PW' , $serverVars )) {
             $savedPassword = $serverVars["PHP_AUTH_PW"];
-            $_SERVER["PHP_AUTH_PW"] = "******** (masked by application/controllers/Gen.php)";
+            $_SERVER["PHP_AUTH_PW"] = "******** (masked by app/Controllers/Gen.php)";
         }
 
         echo phpinfo();

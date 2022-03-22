@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 use CodeIgniter\Database\SQLite3\Connection;
 
 // The primary function of this class is to build and execute an SQL query
-// against one of the databases defined in the application/config/database file.
+// against one of the databases defined in the app/Config/database file.
 // It gets the basic components of the query from a config db as defined by the
 // config_name and config_source.  It can then be augmented with values taken from
 // various user inputs in the form of filters (selection, paging, sorting).
@@ -115,7 +115,7 @@ class CachedTotalRows {
 
 /**
  * Class for building and executing an SQL query
- * against one of the databases defined in the application/config/database file
+ * against one of the databases defined in the app/Config/database file
  */
 class Q_model extends Model {
 

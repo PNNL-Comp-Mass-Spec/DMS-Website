@@ -20,7 +20,7 @@ class Helper_inst_source extends DmsBase {
         if (empty($inst)) {
 
             echo "<p>Commonly used DMS Instruments</p>\n";
-            echo "<!-- To edit this list, see file DMS2/application/controllers/helper_inst_source.php -->\n";
+            echo "<!-- To edit this list, see file DMS2/app/Controllers/helper_inst_source.php -->\n";
 
             echo "<ul>\n";
             $instruments = array();
@@ -79,7 +79,7 @@ class Helper_inst_source extends DmsBase {
         if (!$file) {
             echo "<p>Unable to open source file.</p>\n";
             echo "<p>See the list of <a href=\"/helper_inst_source/view/\">commonly used DMS instruments</a></li>\n";
-            echo "<!-- To edit the list, see file DMS2/application/controllers/helper_inst_source.php -->\n";
+            echo "<!-- To edit the list, see file DMS2/app/Controllers/helper_inst_source.php -->\n";
             exit;
         }
 
