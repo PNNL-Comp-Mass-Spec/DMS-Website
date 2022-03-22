@@ -241,7 +241,7 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title) {
     $data['tag'] = $page_fam_tag;
     $data['title'] = $title;
 
-    $body = view('config_db/tmplt_controller', $data);
+    $body = view('config_db/tmplt_controller', $data, ['debug' => false]);
     return "<?php\n" . $body . "\n?>";
 }
 
