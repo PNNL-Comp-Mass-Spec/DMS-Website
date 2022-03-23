@@ -118,7 +118,6 @@ INSERT INTO "home_menu_items" VALUES(98,'Instruments','new_instrumentclass/creat
 INSERT INTO "home_menu_items" VALUES(99,'Instruments','submenu','File Storage','');
 INSERT INTO "home_menu_items" VALUES(100,'Instruments','storage/report','Display','storage');
 INSERT INTO "home_menu_items" VALUES(101,'Instruments','storage/create','Create','storage');
-INSERT INTO "home_menu_items" VALUES(102,'Instruments','storage_recent_changes/report','Display','storage recent changes');
 INSERT INTO "home_menu_items" VALUES(103,'Miscelleneous','submenu','Organisms','');
 INSERT INTO "home_menu_items" VALUES(104,'Miscelleneous','organism/report','Display','organism');
 INSERT INTO "home_menu_items" VALUES(105,'Miscelleneous','organism/create','Create','organism');

@@ -470,7 +470,6 @@ INSERT INTO "menu_def" VALUES(400,'Organisms Admin','link','helper_organism_db/r
 INSERT INTO "menu_def" VALUES(401,'Admin','submenu','File Storage','Storage');
 INSERT INTO "menu_def" VALUES(402,'File Storage','link','storage/report','Report');
 INSERT INTO "menu_def" VALUES(403,'File Storage','link','storage/create','Entry');
-INSERT INTO "menu_def" VALUES(404,'File Storage','link','storage_recent_changes/report','Most recent changes');
 INSERT INTO "menu_def" VALUES(405,'Admin','submenu','User Admin','Users');
 INSERT INTO "menu_def" VALUES(406,'User Admin','link','user/report','Report');
 INSERT INTO "menu_def" VALUES(407,'User Admin','link','user/create','Entry');
