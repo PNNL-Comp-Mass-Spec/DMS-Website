@@ -128,14 +128,14 @@ INSERT INTO "detail_report_hotlinks" VALUES(7,'Dataset Type','detail-report','In
 INSERT INTO "detail_report_hotlinks" VALUES(8,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_EUS_Proposal',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(9,'Work Package','detail-report','Work Package','charge_code/show','labelCol','dl_Work_Package','');
 INSERT INTO "detail_report_hotlinks" VALUES(10,'Wiki Page Link','literal_link','Wiki Page Link','','valueCol','dl_wiki_page_link',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(12,'Material Containers Item Count','detail-report','ID','sample_prep_request_items/report/material_container','labelCol','dl_material_containers_item_count',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(14,'Experiment Group Item Count','detail-report','ID','sample_prep_request_items/report/experiment_group','labelCol','dl_experiment_group_item_count',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(15,'Experiment Item Count','detail-report','ID','sample_prep_request_items/report/experiment','labelCol','dl_experiment_item_count',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(16,'HPLC Runs Item Count','detail-report','ID','sample_prep_request_items/report/prep_lc_run','labelCol','dl_hplc_runs_item_count',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(17,'Biomaterial Item Count','detail-report','ID','sample_prep_request_items/report/biomaterial','labelCol','dl_biomaterial_item_count',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(18,'Total_Item_Count','detail-report','ID','sample_prep_request_items/report/-','labelCol','dl_total_item_count',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(19,'Requested Run Item Count','detail-report','ID','sample_prep_request_items/report/requested_run','labelCol','dl_requested_run_item_count',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(20,'Dataset Item Count','detail-report','ID','sample_prep_request_items/report/dataset','labelCol','dl_dataset_item_count',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(12,'Material Containers Item Count','detail-report','ID','sample_prep_request_items/report/material_container/','labelCol','dl_material_containers_item_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(14,'Experiment Group Item Count','detail-report','ID','sample_prep_request_items/report/experiment_group/','labelCol','dl_experiment_group_item_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(15,'Experiment Item Count','detail-report','ID','sample_prep_request_items/report/experiment/','labelCol','dl_experiment_item_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(16,'HPLC Runs Item Count','detail-report','ID','sample_prep_request_items/report/prep_lc_run/','labelCol','dl_hplc_runs_item_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(17,'Biomaterial Item Count','detail-report','ID','sample_prep_request_items/report/biomaterial/','labelCol','dl_biomaterial_item_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(18,'Total_Item_Count','detail-report','ID','sample_prep_request_items/report/-/','labelCol','dl_total_item_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(19,'Requested Run Item Count','detail-report','ID','sample_prep_request_items/report/requested_run/','labelCol','dl_requested_run_item_count','');
+INSERT INTO "detail_report_hotlinks" VALUES(20,'Dataset Item Count','detail-report','ID','sample_prep_request_items/report/dataset/','labelCol','dl_dataset_item_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(21,'Work Package State','color_label','#WPActivationState','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120",
 "5":"clr_120","10":"clr_120"}');
 INSERT INTO "detail_report_hotlinks" VALUES(22,'Material Containers','link_list','Material Containers','material_container/show','valueCol','dl_material_containers','');
