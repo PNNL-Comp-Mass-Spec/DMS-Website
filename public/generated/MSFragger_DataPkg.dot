@@ -1,0 +1,9 @@
+digraph graphname {
+node [ shape = "record"  color=black fontname = "Verdana" fontsize = 10 ]edge [ color=black fontname = "Verdana" fontsize = 10 ]
+1 [label = "{ 1 MSXML_Gen|  }"]2 [label = "{ 2 MSFragger|  }"]3 [label = "{ 3 PepProtProphet|  }"]4 [label = "{ 4 DataExtractor|  }"]5 [label = "{ 5 Results_Transfer|  }"]6 [label = "{ 6 Results_Transfer|  }"]1 -> 2  
+2 -> 3  
+3 -> 4  
+1 -> 5 [label="Skip if:Target_Skipped"] 
+4 -> 5   [style=dotted]
+4 -> 6  
+}

@@ -1,0 +1,11 @@
+digraph graphname {
+node [ shape = "record"  color=black fontname = "Verdana" fontsize = 10 ]edge [ color=black fontname = "Verdana" fontsize = 10 ]
+1 [label = "{ 1 DTA_Gen|  }"]2 [label = "{ 2 MSMSSpectraPreprocessor|  }"]3 [label = "{ 3 MSGFPlus|  }"]4 [label = "{ 4 DataExtractor|  }"]5 [label = "{ 5 MSGF|  }"]6 [label = "{ 6 IDPicker|  }"]7 [label = "{ 7 Results_Transfer|  }"]8 [label = "{ 8 Results_Transfer|  }"]1 -> 2 [label="Skip if:No_Parameters"] 
+2 -> 3  
+3 -> 4  
+4 -> 5  
+5 -> 6  
+1 -> 7 [label="Skip if:Target_Skipped"] 
+6 -> 7   [style=dotted]
+6 -> 8  
+}

@@ -1,0 +1,4 @@
+digraph graphname {
+node [ shape = "record"  color=black fontname = "Verdana" fontsize = 10 ]edge [ color=black fontname = "Verdana" fontsize = 10 ]
+1 [label = "{ 1 MASIC_Finnigan|  }"]2 [label = "{ 2 Results_Transfer|  }"]1 -> 2  
+}
