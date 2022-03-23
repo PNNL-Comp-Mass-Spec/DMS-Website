@@ -110,4 +110,10 @@ INSERT INTO "form_field_choosers" VALUES(7,'Assigned_Personnel','picker.append',
 INSERT INTO "form_field_choosers" VALUES(8,'State_Name','picker.replace','dataAnalysisRequestStatePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(9,'Priority','picker.replace','operationsTaskPriority','','',',','');
 INSERT INTO "form_field_choosers" VALUES(10,'Work_Package','list-report.helper','','helper_charge_code/report','',',','');
+CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
+INSERT INTO "form_field_options" VALUES(1,'ID','section','Basic Information');
+INSERT INTO "form_field_options" VALUES(2,'Batch_ID','section','Source Data');
+INSERT INTO "form_field_options" VALUES(3,'Requested_Personnel','section','Assignment and Scheduling');
+INSERT INTO "form_field_options" VALUES(4,'Work_Package','section','Project Tracking Information');
+INSERT INTO "form_field_options" VALUES(5,'Estimated_Analysis_Time_Days','section','Staff Notes');
 COMMIT;
