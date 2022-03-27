@@ -35,6 +35,7 @@ INSERT INTO "list_report_hotlinks" VALUES(18,'+Days In Queue','export_align','va
 INSERT INTO "list_report_hotlinks" VALUES(19,'WP','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(20,'WP State','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(21,'EUS Proposal','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(22,'Files','invoke_entity','ID','file_attachment/report/-/StartsWith__data_analysis_request/@','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_state','State','32','','State','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_request_name','Request Name','32','','Request Name','ContainsText','text','128','','');

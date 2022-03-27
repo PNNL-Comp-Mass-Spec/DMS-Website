@@ -117,6 +117,7 @@ INSERT INTO "list_report_hotlinks" VALUES(22,'Experiments_Last_7Days','export_al
 INSERT INTO "list_report_hotlinks" VALUES(23,'Experiments_Last_31Days','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(24,'Experiments_Last_180Days','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(25,'Experiments_Total','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(26,'Files','invoke_entity','ID','file_attachment/report/-/StartsWith__sample_prep_request/@','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Convert Request to Experiment','copy_from','','experiment','Go to experiment entry page and copy information from this sample prep request.','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
