@@ -12,6 +12,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateDataAnalysisRequest'
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
+INSERT INTO "general_params" VALUES('detail_report_cmds','file_attachment_cmds');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','ID','data_analysis_request/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
