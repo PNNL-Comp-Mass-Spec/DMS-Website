@@ -496,6 +496,12 @@ INSERT INTO "menu_def" VALUES(427,'Capture Status Checks','link','capture_daily_
 INSERT INTO "menu_def" VALUES(428,'Capture Status Checks','link','capture_daily_check/report/DatasetArchive','Dataset Archive');
 INSERT INTO "menu_def" VALUES(429,'Capture Status Checks','link','capture_daily_check/report/SourceFileRename','Source File Rename');
 INSERT INTO "menu_def" VALUES(431,'Capture Pipeline','link','capture_log/report','Capture Log');
+INSERT INTO "menu_def" VALUES(432,'Data Analysis Requests','submenu','Data Analysis Requests Active','Active (by staff)');
+INSERT INTO "menu_def" VALUES(433,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Couvillion/-/-/-/-','Couvillion');
+INSERT INTO "menu_def" VALUES(434,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Hixson/-/-/-/-','Hixson');
+INSERT INTO "menu_def" VALUES(435,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kim/-/-/-/-','Kim');
+INSERT INTO "menu_def" VALUES(436,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Munoz/-/-/-/-','Munoz');
+INSERT INTO "menu_def" VALUES(437,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Nakayasu/-/-/-/-','Nakayasu');
 CREATE TABLE nav_def (
     "id" INTEGER PRIMARY KEY,
     "owner_menu" TEXT,
