@@ -8,7 +8,7 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_state','State','32','','St
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_requestname','RequestName','32','','RequestName','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_requester','Requester','32','','Requester','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_organism','Organism','32','','Organism','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_WP','WP','32','','Work Package','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_WorkPackage','WP','32','','Work Package','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_requested_personnel','Req. Personnel','32','','RequestedPersonnel','ContainsText','text','32','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_assigned_personnel','Assigned Personnel','32','','AssignedPersonnel','ContainsText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
