@@ -98,7 +98,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(1,'Experiment','detail-report','Expe
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','dataset_folder_path','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Archive Folder Path','href-folder','Archive Folder Path','','labelCol','archive_folder_path','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'MyEMSL URL','masked_link','MyEMSL URL','','valueCol','dl_myemsl_url','{"Label":"Show files in MyEMSL"}');
-INSERT INTO "detail_report_hotlinks" VALUES(5,'MyEMSL Transaction IDs','masked_link_list','MyEMSL Transaction IDs','','valueCol','','{"Label":"UrlSegment3"}');
+INSERT INTO "detail_report_hotlinks" VALUES(5,'MyEMSL Upload IDs','masked_link_list','MyEMSL Upload IDs','','valueCol','myemsl_upload_IDs','{"Label":"UrlSegment3"}');
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Request','detail-report','Request','requested_run/show','labelCol','request','');
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Batch','detail-report','Batch','requested_run_batch/show','labelCol','dl_batch_id','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Jobs','detail-report','Dataset','analysis_job/report/-/-/-/~@/-/-/-/-/-','labelCol','jobs','');
