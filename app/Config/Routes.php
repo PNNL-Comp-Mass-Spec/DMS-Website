@@ -37,7 +37,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Gen::index');
 
 
-// Define aliases that redirect to list reports
+// Define aliases (synonyms) that redirect to list reports
 // getAlias() is defined in app/Services/RouteCollection.php. It provides a single-line method
 // for creating an alias that allows a user to supply an old or potentially shortened URL,
 // and go to the correct controller. addAlias() and matchAlias() are also available.
@@ -63,6 +63,8 @@ $routes->getAlias('dataset_tracking', 'Tracking_dataset');
 $routes->getAlias('datasets', 'Dataset');
 
 $routes->getAlias('eus_user', 'Eus_users');
+
+$routes->getAlias('file_attachments', 'File_attachment');
 
 $routes->getAlias('mass_correction_factor', 'Mass_correction_factors');
 
