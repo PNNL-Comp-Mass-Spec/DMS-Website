@@ -7,6 +7,8 @@ INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO "general_params" VALUES('alternate_title_report','Choose Material Container');
 INSERT INTO "general_params" VALUES('list_report_data_cols','Container AS Sel, *');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','#SortKey');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','Container','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Container','update_opener','Container','','');
