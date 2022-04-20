@@ -11,6 +11,8 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','V_Experiment_Plex_M
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','Exp_ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateExperimentPlexMembers');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','Exp_ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','Plex_Exp_ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'Exp_ID','Exp_ID','text-if-new','10','80','','','','trim|required|numeric');
 INSERT INTO "form_fields" VALUES(2,'Experiment','Experiment','non-edit|text-nocopy','40','80','','','','trim');
