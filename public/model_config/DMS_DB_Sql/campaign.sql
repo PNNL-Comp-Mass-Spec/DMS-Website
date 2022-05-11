@@ -15,7 +15,7 @@ INSERT INTO "form_fields" VALUES(1,'campaignNum','Campaign','text-if-new','50','
 INSERT INTO "form_fields" VALUES(2,'projectNum','Project','text','50','64','','','','trim|required|max_length[64]');
 INSERT INTO "form_fields" VALUES(3,'Description','Description','area','','','4','70','','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(4,'State','State','text','24','24','','','Active','trim|required|max_length[24]');
-INSERT INTO "form_fields" VALUES(5,'DataReleaseRestrictions',' Data Release Restrictions','text','50','128','','','Not yet approved for release','trim|required|max_length[128]');
+INSERT INTO "form_fields" VALUES(5,'DataReleaseRestrictions','Data Release Restrictions','text','50','128','','','Not yet approved for release','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(6,'progmgrPRN','Project Manager','text','50','64','','','','trim|required|max_length[64]');
 INSERT INTO "form_fields" VALUES(7,'piPRN','Principal Investigator','text','50','64','','','','trim|required|max_length[64]');
 INSERT INTO "form_fields" VALUES(8,'TechnicalLead','Technical Lead','area','','','2','70','','trim|max_length[256]');

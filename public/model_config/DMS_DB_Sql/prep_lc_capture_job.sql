@@ -17,11 +17,11 @@ INSERT INTO "sproc_args" VALUES(6,'<local>','mode','varchar','input','12','MakeP
 INSERT INTO "sproc_args" VALUES(7,'<local>','message','varchar','output','512','MakePrepLCCaptureJob');
 INSERT INTO "sproc_args" VALUES(8,'<local>','callingUser','varchar','input','128','MakePrepLCCaptureJob');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'ID',' Prep LC Run','non-edit','','','','','','trim|NoBlank');
-INSERT INTO "form_fields" VALUES(2,'Instrument',' Instrument','non-edit','50','128','','','','trim|max_length[128]');
-INSERT INTO "form_fields" VALUES(3,'SourceFolderName',' Source Folder Name','text','100','128','','','','trim|max_length[128]|NoBlank');
-INSERT INTO "form_fields" VALUES(4,'Comment',' Comment','area','','','4','70','','trim|max_length[512]');
-INSERT INTO "form_fields" VALUES(5,'Job',' Capture Job','non-edit','12','12','','','','trim|max_length[12]');
+INSERT INTO "form_fields" VALUES(1,'ID','Prep LC Run','non-edit','','','','','','trim|NoBlank');
+INSERT INTO "form_fields" VALUES(2,'Instrument','Instrument','non-edit','50','128','','','','trim|max_length[128]');
+INSERT INTO "form_fields" VALUES(3,'SourceFolderName','Source Folder Name','text','100','128','','','','trim|max_length[128]|NoBlank');
+INSERT INTO "form_fields" VALUES(4,'Comment','Comment','area','','','4','70','','trim|max_length[512]');
+INSERT INTO "form_fields" VALUES(5,'Job','Capture Job','non-edit','12','12','','','','trim|max_length[12]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'SourceFolderName','list-report.helper','','helper_inst_source/view','Instrument',',','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );

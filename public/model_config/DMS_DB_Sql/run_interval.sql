@@ -30,11 +30,11 @@ INSERT INTO "sproc_args" VALUES(7,'ID','runIntervalId','int','input','','UpdateR
 INSERT INTO "sproc_args" VALUES(8,'<local>','message','varchar','output','512','UpdateRunIntervalInstrumentUsage');
 INSERT INTO "sproc_args" VALUES(9,'<local>','callingUser','varchar','input','128','UpdateRunIntervalInstrumentUsage');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'ID',' ID','non-edit','','','','','0','trim');
+INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'Instrument','Instrument','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(5,'Start','Start','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(6,'Interval','Interval','non-edit','','','','','','trim');
-INSERT INTO "form_fields" VALUES(7,'Comment',' Comment','area','','','10','70','','trim|max_length[2147483647]');
+INSERT INTO "form_fields" VALUES(7,'Comment','Comment','area','','','10','70','','trim|max_length[2147483647]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(6,'Comment','picker.append','longIntervalUsagePickList','','',',','Usage Category');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);

@@ -17,7 +17,7 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO "form_fields" VALUES(1,'Container','Container','non-edit','','','','','(generate name)','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(2,'Type','Type','text','32','32','','','Box','trim|max_length[32]');
 INSERT INTO "form_fields" VALUES(3,'Location','Location','text','24','24','','','','trim|max_length[24]');
-INSERT INTO "form_fields" VALUES(4,'Researcher',' Researcher','text','50','128','','','','trim|required|max_length[128]');
+INSERT INTO "form_fields" VALUES(4,'Researcher','Researcher','text','50','128','','','','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(5,'Comment','Comment','area','','','4','60','','trim|max_length[1024]');
 INSERT INTO "form_fields" VALUES(6,'Barcode','Barcode','text','32','32','','','','trim|max_length[32]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);

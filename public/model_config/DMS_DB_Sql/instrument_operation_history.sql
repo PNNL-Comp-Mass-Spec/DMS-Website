@@ -25,10 +25,10 @@ INSERT INTO "sproc_args" VALUES(5,'<local>','mode','varchar','input','12','AddUp
 INSERT INTO "sproc_args" VALUES(6,'<local>','message','varchar','output','512','AddUpdateInstrumentOperationHistory');
 INSERT INTO "sproc_args" VALUES(7,'<local>','callingUser','varchar','input','128','AddUpdateInstrumentOperationHistory');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'ID',' ID','non-edit','','','','','0','trim');
-INSERT INTO "form_fields" VALUES(2,'Instrument',' Instrument','text','24','24','','','','trim|required|max_length[24]');
+INSERT INTO "form_fields" VALUES(1,'ID','ID','non-edit','','','','','','trim');
+INSERT INTO "form_fields" VALUES(2,'Instrument','Instrument','text','24','24','','','','trim|required|max_length[24]');
 INSERT INTO "form_fields" VALUES(3,'postedBy','Posted By','text','50','64','','','','trim|required|max_length[64]');
-INSERT INTO "form_fields" VALUES(4,'Note',' Note','area','','','20','100','','trim|required');
+INSERT INTO "form_fields" VALUES(4,'Note','Note','area','','','20','100','','trim|required');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','instrument_operation_history/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Note','markup','value','','');

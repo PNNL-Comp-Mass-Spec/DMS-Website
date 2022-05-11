@@ -24,8 +24,8 @@ INSERT INTO "sproc_args" VALUES(17,'itemList','itemList','text','input','2147483
 INSERT INTO "sproc_args" VALUES(18,'infoOnly','infoOnly','tinyint','input','','GetRequestedRunParametersAndFactors');
 INSERT INTO "sproc_args" VALUES(19,'<local>','message','varchar','output','512','GetRequestedRunParametersAndFactors');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'BatchID',' Batch ID','text','12','12','','','','trim|max_length[12]');
-INSERT INTO "form_fields" VALUES(2,'NameContains',' Name Contains','text','48','48','','','','trim|max_length[48]');
+INSERT INTO "form_fields" VALUES(1,'BatchID','Batch ID','text','12','12','','','','trim|max_length[12]');
+INSERT INTO "form_fields" VALUES(2,'NameContains','Name Contains','text','48','48','','','','trim|max_length[48]');
 INSERT INTO "form_fields" VALUES(4,'infoOnly','Info Only','hidden','12','12','','','0','trim|max_length[12]');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','Request','','');
