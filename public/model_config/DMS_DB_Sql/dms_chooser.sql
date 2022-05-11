@@ -151,4 +151,6 @@ INSERT INTO "chooser_definitions" VALUES(134,'campaignEusUsageTypePickList','def
 INSERT INTO "chooser_definitions" VALUES(135,'dataAnalysisTypePickList','default','select','{"Proteomics":"Proteomics", "Metabolomics":"Metabolomics", "Lipidomics":"Lipidomics"}');
 INSERT INTO "chooser_definitions" VALUES(136,'dataAnalysisRequestStatePickList','default','sql','SELECT val, ex FROM V_Data_Analysis_Request_State_Picklist ORDER BY State_ID');
 INSERT INTO "chooser_definitions" VALUES(137,'dataAnalysisRequestUserPickList','default','sql','SELECT val, ex FROM V_Data_Analysis_Request_User_Picklist ORDER BY [val]');
+INSERT INTO "chooser_definitions" VALUES(138,'labLocationPickList','default','sql','SELECT Lab_Name as val, Lab_Name  as ex FROM V_Lab_Locations ORDER BY Sort_Weight, Lab_Name');
+INSERT INTO "chooser_definitions" VALUES(139,'operationTaskTypePickList','default','sql','SELECT Task_Type_Name as val, Task_Type_Name  as ex FROM V_Operations_Task_Types ORDER BY Task_Type_Name');
 COMMIT;
