@@ -64,12 +64,12 @@ var entry = {
 		// get supplemental form fields via an AJAX call
 		load_param_form: function () {
 			var caller = this;
-			var script = $('#scriptName').val();
+			var script = $('#script_name').val();
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + script;
 			epsilon.load_suplemental_form(url, {}, 'param_container', function() { caller.revealControls(script); });
 		},
 		choose_template: function (template_name) {
-			$('#scriptName').val(template_name);
+			$('#script_name').val(template_name);
 			this.load_param_form();
 		},
 		set_param_row_visibility: function (class_name, visibility) {
@@ -98,13 +98,13 @@ var entry = {
 	}, // mac_jobs
 	pipeline_jobs: {
 		load_param_form: function () {
-			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#scriptName').val();
+			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#script_name').val();
 			epsilon.load_suplemental_form(url, {}, 'param_container', function() {
 				entry.pipeline_jobs.set_param_row_visibility("hide_input", "none");
 			});
 		},
 		choose_script: function (script) {
-			$('#scriptName').val(script);
+			$('#script_name').val(script);
 			this.load_param_form();
 		},
 		set_param_row_visibility: function (class_name, visibility) {
