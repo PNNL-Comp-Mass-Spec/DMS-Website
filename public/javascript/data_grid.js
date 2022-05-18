@@ -844,8 +844,7 @@ var sourceListUtil = {
 		if(!id) { alert('Filter field cannot be blank'); return; }
 		var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName;
 		var p = { filter_values:id };
-		gamma.getObjectFromJSON(url, p, filterEl.attr('id'), function(json) {
-			var obj = $.parseJSON(json);
+		gamma.getObjectFromJSON(url, p, filterEl.attr('id'), function(obj) {
 			if(!typeof obj == 'array') return;
 			if(obj.length == 0) return;
 			var d = $.map(obj, function(item) {

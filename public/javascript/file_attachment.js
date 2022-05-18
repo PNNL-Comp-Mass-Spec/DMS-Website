@@ -40,8 +40,7 @@ var fileAttachment = {
 	},
 	doDownload: function(url) {
 		var cUrl = url.replace('/retrieve/', '/check_retrieve/');
-		gamma.getObjectFromJSON(cUrl, {}, '', function(json) {
-			var response = $.parseJSON(json);
+		gamma.getObjectFromJSON(cUrl, {}, '', function(response) {
 			if(response.ok) {
 				var ufrm = 	$('#download_form').get(0);
 				ufrm.action = url;

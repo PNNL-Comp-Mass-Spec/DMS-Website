@@ -684,9 +684,13 @@ var gamma = {
 		}
 		if(abort) return;
 		if(container) container.spin('small');
-		$.post(url, p, function (data) {
+		$.post(url, p, function (json) {
 				if(container) container.spin(false);
-//				var data = $.parseJSON(json);
+				// Safety - if empty JSON response, return an empty array
+				var data = [];
+				if(json.length > 0) {
+					data = $.parseJSON(json);
+				}
 				if(afterAction) {
 					afterAction(data);
 				}
@@ -836,8 +840,7 @@ var gamma = {
 			 					var f = (appendVal) ? request.term.split(/,\s*/).pop() : request.term ;
 								if(f && (f.length > 1 || f == '*')) {
 									var p = { filter_values:f };
-									gamma.getObjectFromJSON(url, p, null, function(json) {
-										var obj = $.parseJSON(json);
+									gamma.getObjectFromJSON(url, p, null, function(obj) {
 										response( obj );
 									})
 								} else {
