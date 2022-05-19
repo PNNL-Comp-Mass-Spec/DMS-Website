@@ -35,7 +35,7 @@ CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" 
 INSERT INTO "form_field_options" VALUES(1,'RR_Requestor','default_function','GetUser()');
 INSERT INTO "form_field_options" VALUES(2,'BatchName','section','Batch Information (optional)');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO "form_field_choosers" VALUES(1,'experimentGroupID','list-report.helper','','helper_experiment_group/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(1,'experimentGroupID','list-report.helper','','helper_experiment_group/report','experimentGroupID',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'RR_Instrument_Group','picker.replace','instrumentGroupPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'RR_Type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','RR_Instrument_Group',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'SeparationGroup','picker.replace','separationGroupPickList','','',',','');

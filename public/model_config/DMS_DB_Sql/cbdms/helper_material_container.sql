@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Material_Containers_Picklist');
-INSERT INTO "general_params" VALUES('list_report_data_sort_col','Container');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','#SortKey');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','no');
 INSERT INTO "general_params" VALUES('alternate_title_report','Choose Material Container');

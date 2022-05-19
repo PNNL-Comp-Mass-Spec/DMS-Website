@@ -9,4 +9,5 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdate@@@');
 INSERT INTO "general_params" VALUES('operations_sproc','Update@@@');
+INSERT INTO "general_params" VALUES('post_submission_detail_id','ID');
 COMMIT;

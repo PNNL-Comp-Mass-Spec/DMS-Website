@@ -13,10 +13,10 @@ INSERT INTO "list_report_hotlinks" VALUES(5,'Source','invoke_entity','Source','o
 INSERT INTO "list_report_hotlinks" VALUES(6,'Term_Name','invoke_entity','Term_Name','ontology/report/-/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_source','Source','20','','Source','ContainsText','text','20','','');
-INSERT INTO "list_report_primary_filter" VALUES(2,'pf_term_name','Term','20','','Term_Name','ContainsText','text','255','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_term_name','Term','30!','','Term_Name','ContainsText','text','255','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_identifier','Identifier','20','','identifier','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_parent_term_name','Parent','20','','Parent_term_name','StartsWithText','text','255','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_grandparent_term_name','Grandparent','20','','GrandParent_term_name','StartsWithText','text','255','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_parent_term_name','Parent','30!','','Parent_term_name','StartsWithText','text','255','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_grandparent_term_name','Grandparent','30!','','GrandParent_term_name','StartsWithText','text','255','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_term_pk','Term_PK','20','','Term_PK','StartsWithText','text','128','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Parent_term_pk','detail-report','Parent_term_pk','ontology/show','valueCol','',NULL);

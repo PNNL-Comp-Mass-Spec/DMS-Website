@@ -6,7 +6,7 @@ INSERT INTO "general_params" VALUES('list_report_sproc','GetJobDetailsForDB');
 INSERT INTO "general_params" VALUES('my_db_group','prism_ifc');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'DBName',' DBName','text','50','128','','','','trim|max_length[128]');
+INSERT INTO "form_fields" VALUES(1,'DBName','DBName','text','50','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(2,'criteriaSql','Criteria Sql','area','','','4','70','','trim|max_length[6000]');
 INSERT INTO "form_fields" VALUES(3,'returnRowCount','Return Row Count','text','32','32','','','','trim|max_length[32]');
 INSERT INTO "form_fields" VALUES(4,'pepIdentMethod','Pep Ident Method','text','32','32','','','UMCPeakMatch(MS-FTICR)','trim|max_length[32]');

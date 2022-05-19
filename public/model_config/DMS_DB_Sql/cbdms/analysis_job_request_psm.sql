@@ -40,9 +40,9 @@ INSERT INTO "form_fields" VALUES(9,'protCollNameList','Protein Collection List',
 INSERT INTO "form_fields" VALUES(10,'protCollOptionsList','Protein Options List','area','','','2','70','seq_direction=decoy','trim|max_length[256]|required');
 INSERT INTO "form_fields" VALUES(11,'toolName','Tool Name','text','50','64','','','','trim|max_length[64]|required');
 INSERT INTO "form_fields" VALUES(12,'jobTypeName','Job Type Name','text','50','64','','','','trim|max_length[64]|required');
-INSERT INTO "form_fields" VALUES(14,'ModificationDynMetOx',' DynMetOx','checkbox','','','','','','trim|max_length[24]');
-INSERT INTO "form_fields" VALUES(15,'ModificationStatCysAlk',' StatCysAlk','checkbox','','','','','','trim|max_length[24]');
-INSERT INTO "form_fields" VALUES(16,'ModificationDynSTYPhos',' DynSTYPhos','checkbox','','','','','','trim|max_length[24]');
+INSERT INTO "form_fields" VALUES(14,'ModificationDynMetOx','DynMetOx','checkbox','','','','','','trim|max_length[24]');
+INSERT INTO "form_fields" VALUES(15,'ModificationStatCysAlk','StatCysAlk','checkbox','','','','','','trim|max_length[24]');
+INSERT INTO "form_fields" VALUES(16,'ModificationDynSTYPhos','DynSTYPhos','checkbox','','','','','','trim|max_length[24]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'ownerPRN','default_function','GetUser()');
 INSERT INTO "form_field_options" VALUES(2,'ModificationDynMetOx','section','Modifications');

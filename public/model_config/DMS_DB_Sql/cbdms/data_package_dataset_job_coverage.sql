@@ -11,5 +11,5 @@ INSERT INTO "sproc_args" VALUES(1,'DataPackageID','DataPackageID','int','input',
 INSERT INTO "sproc_args" VALUES(2,'<local>','message','varchar','output','512','GetPackageDatasetJobToolCrosstab');
 INSERT INTO "sproc_args" VALUES(3,'<local>','callingUser','varchar','input','128','GetPackageDatasetJobToolCrosstab');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO "form_fields" VALUES(1,'DataPackageID',' Data Package ID','text','12','12','','','','trim|max_length[12]');
+INSERT INTO "form_fields" VALUES(1,'DataPackageID','Data Package ID','text','12','12','','','','trim|max_length[12]');
 COMMIT;

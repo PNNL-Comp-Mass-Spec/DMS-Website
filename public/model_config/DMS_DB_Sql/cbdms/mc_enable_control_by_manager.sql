@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Manager_List_By_Type');
-INSERT INTO "general_params" VALUES('list_report_data_cols','ID as Sel, ID, [Manager_Name], [Manager_Type], Mgr_Type_ID as TypeID, [Active], [State_Last_Changed], [Changed_By], [Comment]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID as Sel, ID, Manager_Name, Manager_Type, Mgr_Type_ID as TypeID, Active, State_Last_Changed, Changed_By, Comment');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Manager_Name');
 INSERT INTO "general_params" VALUES('my_db_group','manager_control');
 INSERT INTO "general_params" VALUES('list_report_cmds','mc_enable_control_by_manager_cmds');
@@ -13,7 +13,7 @@ INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','ID','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Manager_Name','invoke_entity','value','mc_params/report','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Manager_Type','invoke_entity','value','mc_enable_control_by_manager_type/report','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO "list_report_primary_filter" VALUES(1,'pf_m_typeid','M_TypeID','2!','','Mgr_Type_ID','Equals','text','20','','');
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_m_typeid','Mgr_Type_ID','2!','','Mgr_Type_ID','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_manager_name','Manager Name','10!','','Manager_Name','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_manager_type','Manager Type','20!','','Manager_Type','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_active','Active','6!','','Active','ContainsText','text','128','','');

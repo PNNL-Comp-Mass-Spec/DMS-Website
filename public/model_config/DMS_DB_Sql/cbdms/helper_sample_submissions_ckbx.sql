@@ -6,6 +6,7 @@ INSERT INTO "general_params" VALUES('list_report_data_table','V_Sample_Submissio
 INSERT INTO "general_params" VALUES('list_report_data_cols','ID as Sel, *');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','ID','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

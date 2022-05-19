@@ -18,9 +18,9 @@ INSERT INTO "detail_report_hotlinks" VALUES(4,'Children','detail-report','Tax_ID
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Taxonomy_List','tabular_list','Taxonomy_List','','valueCol','',NULL);
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_tax_id','Tax ID','20','','Tax_ID','Equals','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(2,'pf_name','Name','','','Name','ContainsText','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_name','Name','30!','','Name','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_parent_tax_id','Parent Tax ID','20','','Parent_Tax_ID','Equals','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_parent_name','Parent Name','20','','Parent_Name','ContainsText','text','','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_parent_name','Parent Name','30!','','Parent_Name','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_rank','Rank','20','','Rank','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_division','Division','20','','Division','ContainsText','text','','','');
 COMMIT;
