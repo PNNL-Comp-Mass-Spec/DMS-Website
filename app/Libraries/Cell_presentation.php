@@ -51,7 +51,7 @@ class Cell_presentation {
         foreach ($cols as $columnName) {
 
             // Look for an entry in $this->hotlinks that matches either this column name,
-            // or this column name preceded by a plus sign
+            // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_export");
 
             if (!$colSpec) {
