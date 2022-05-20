@@ -313,8 +313,8 @@ function make_secondary_filter($sec_filter_display_info) {
         $inputSpec = array(
             'name' => 'qf_comp_val[]',
             'value' => $sfdi[$i]->curVal,
-            'maxlength' => '80',
-            'size' => '20',
+            'maxlength' => '256',
+            'size' => '40',
             'class' => 'secondary_filter_input filter_input_field',
         );
         $r = array();
