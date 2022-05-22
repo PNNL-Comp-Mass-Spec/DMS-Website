@@ -42,7 +42,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'experiment','list-report.helper','',
 INSERT INTO "form_field_choosers" VALUES(2,'campaign','list-report.helper','','helper_campaign/report','campaign',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'researcher_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'organism_name','picker.replace','orgPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(5,'biomaterial_list','list-report.helper','','helper_cell_culture/report','cell_culture_list',';','');
+INSERT INTO "form_field_choosers" VALUES(5,'biomaterial_list','list-report.helper','','helper_cell_culture/report','biomaterial_list',';','');
 INSERT INTO "form_field_choosers" VALUES(6,'reference_compound_list','list-report.helper','','helper_reference_compound/report/-/-/-/-/-/','reference_compound_list',';','');
 INSERT INTO "form_field_choosers" VALUES(7,'enzyme_name','picker.replace','enzymePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'labelling','picker.replace','labellingPickList','','',',','');

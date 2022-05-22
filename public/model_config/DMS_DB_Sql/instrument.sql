@@ -23,7 +23,7 @@ INSERT INTO "form_fields" VALUES(9,'usage','Usage','text','50','50','','','','tr
 INSERT INTO "form_fields" VALUES(10,'operations_role','OperationsRole','text','50','50','','','Production','trim');
 INSERT INTO "form_fields" VALUES(11,'track_usage_when_inactive','Track Usage When Inactive','text','32','32','','','Y','trim|required|max_length[12]');
 INSERT INTO "form_fields" VALUES(12,'scan_source_dir','Scan Source Directory','text','32','32','','','Y','trim|required|max_length[12]');
-INSERT INTO "form_fields" VALUES(13,'percent_emslowned','Percent EMSL Owned','text','50','50','','','0','trim');
+INSERT INTO "form_fields" VALUES(13,'percent_emsl_owned','Percent EMSL Owned','text','50','50','','','','trim');
 INSERT INTO "form_fields" VALUES(14,'auto_define_storage_path','Auto Define Storage Path','text','32','32','','','Y','trim|required|max_length[12]');
 INSERT INTO "form_fields" VALUES(16,'auto_sp_vol_name_client','Auto Storage VolNameClient','text','50','128','','','','trim');
 INSERT INTO "form_fields" VALUES(17,'auto_sp_vol_name_server','Auto Storage VolNameServer','text','50','128','','','','trim');
@@ -68,7 +68,7 @@ INSERT INTO "sproc_args" VALUES(9,'usage','usage','varchar','input','50','AddUpd
 INSERT INTO "sproc_args" VALUES(10,'operations_role','operationsRole','varchar','input','50','AddUpdateInstrument');
 INSERT INTO "sproc_args" VALUES(11,'track_usage_when_inactive','trackUsageWhenInactive','varchar','input','12','AddUpdateInstrument');
 INSERT INTO "sproc_args" VALUES(12,'scan_source_dir','scanSourceDir','varchar','input','32','AddUpdateInstrument');
-INSERT INTO "sproc_args" VALUES(13,'percent_emslowned','percentEMSLOwned','varchar','input','24','AddUpdateInstrument');
+INSERT INTO "sproc_args" VALUES(13,'percent_emsl_owned','percentEMSLOwned','varchar','input','24','AddUpdateInstrument');
 INSERT INTO "sproc_args" VALUES(14,'<local>','mode','varchar','input','12','AddUpdateInstrument');
 INSERT INTO "sproc_args" VALUES(15,'<local>','message','varchar','output','512','AddUpdateInstrument');
 INSERT INTO "sproc_args" VALUES(16,'auto_define_storage_path','autoDefineStoragePath','varchar','input','32','AddUpdateInstrument');
@@ -84,7 +84,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(1,'Allowed Dataset Types','detail-re
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Name','detail-report','Name','helper_inst_source/view/','valueCol','dl_name_inst_source','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Instrument Group','detail-report','Instrument Group','instrument_group/show/','labelCol','dl_instrument_group',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Assigned Archive Path','detail-report','Name','archive_path/report','labelCol','dl_archive_path',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(5,'Assigned Storage','detail-report','Name','storage/report/-/~','labelCol','dl_assigned_storage',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(5,'Assigned Storage','detail-report','Name','storage/report/-/~','valueCol','dl_assigned_storage','');
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Archive Share Path','href-folder','Archive Share Path','','labelCol','dl_archive_share_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Class','detail-report','Class','instrumentclass/show/','labelCol','dl_instrument_class',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(8,'+Name','detail-report','Name','instrument_config_history/report','labelCol','dl_name_config_history',NULL);

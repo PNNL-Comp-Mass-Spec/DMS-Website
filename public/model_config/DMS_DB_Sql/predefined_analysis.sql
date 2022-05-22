@@ -37,7 +37,7 @@ INSERT INTO "form_fields" VALUES(22,'analysis_tool_name','Analysis Tool','text',
 INSERT INTO "form_fields" VALUES(23,'parm_file_name','Parm File','area','','','2','60','','trim|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(24,'settings_file_name','Settings File','area','','','2','60','','trim|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(25,'organism_name','Organism','text','60','128','','','','trim|required|max_length[128]');
-INSERT INTO "form_fields" VALUES(26,'organism_dbname','Organism DB File','text','60','128','','','na','trim|required|max_length[128]');
+INSERT INTO "form_fields" VALUES(26,'organism_db_name','Organism DB File','text','60','128','','','na','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(27,'prot_coll_name_list','Protein Collection List','area','','','3','60','na','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(28,'prot_coll_options_list','Protein Options List','area','','','2','60','seq_direction=forward','trim|max_length[256]');
 INSERT INTO "form_fields" VALUES(29,'special_processing','Special Processing','area','','','3','110','','trim|max_length[512]');
@@ -105,7 +105,7 @@ INSERT INTO "sproc_args" VALUES(13,'analysis_tool_name','analysisToolName','varc
 INSERT INTO "sproc_args" VALUES(14,'parm_file_name','parmFileName','varchar','input','255','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(15,'settings_file_name','settingsFileName','varchar','input','255','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(16,'organism_name','organismName','varchar','input','128','AddUpdatePredefinedAnalysis');
-INSERT INTO "sproc_args" VALUES(17,'organism_dbname','organismDBName','varchar','input','128','AddUpdatePredefinedAnalysis');
+INSERT INTO "sproc_args" VALUES(17,'organism_db_name','organismDBName','varchar','input','128','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(18,'prot_coll_name_list','protCollNameList','varchar','input','512','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(19,'prot_coll_options_list','protCollOptionsList','varchar','input','256','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(20,'priority','priority','int','input','','AddUpdatePredefinedAnalysis');

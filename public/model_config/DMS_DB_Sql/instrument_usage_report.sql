@@ -25,7 +25,7 @@ INSERT INTO "sproc_args" VALUES(5,'start','Start','varchar','input','32','AddUpd
 INSERT INTO "sproc_args" VALUES(6,'minutes','Minutes','int','input','','AddUpdateInstrumentUsageReport');
 INSERT INTO "sproc_args" VALUES(7,'year','Year','int','input','','AddUpdateInstrumentUsageReport');
 INSERT INTO "sproc_args" VALUES(8,'month','Month','int','input','','AddUpdateInstrumentUsageReport');
-INSERT INTO "sproc_args" VALUES(9,'id','ID','int','input','','AddUpdateInstrumentUsageReport');
+INSERT INTO "sproc_args" VALUES(9,'dataset_id','ID','int','input','','AddUpdateInstrumentUsageReport');
 INSERT INTO "sproc_args" VALUES(10,'proposal','Proposal','varchar','input','32','AddUpdateInstrumentUsageReport');
 INSERT INTO "sproc_args" VALUES(11,'usage','Usage','varchar','input','32','AddUpdateInstrumentUsageReport');
 INSERT INTO "sproc_args" VALUES(12,'users','Users','varchar','input','1024','AddUpdateInstrumentUsageReport');
@@ -50,7 +50,7 @@ INSERT INTO "form_fields" VALUES(5,'start','Start','non-edit','','','','','','tr
 INSERT INTO "form_fields" VALUES(6,'minutes','Minutes','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(7,'year','Year','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(8,'month','Month','non-edit','','','','','','trim');
-INSERT INTO "form_fields" VALUES(9,'id','ID','non-edit','','','','','','trim');
+INSERT INTO "form_fields" VALUES(9,'dataset_id','ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(10,'proposal','Proposal','text','32','32','','','','trim|max_length[32]');
 INSERT INTO "form_fields" VALUES(11,'usage','Usage','text','32','32','','','','trim|max_length[32]');
 INSERT INTO "form_fields" VALUES(12,'users','Users','area','','','4','70','','trim|max_length[1024]');

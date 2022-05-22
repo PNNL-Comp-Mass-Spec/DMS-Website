@@ -17,7 +17,7 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO "sproc_args" VALUES(1,'id','ID','int','input','','AddUpdateLCCartConfigHistory');
 INSERT INTO "sproc_args" VALUES(2,'cart','Cart','varchar','input','128','AddUpdateLCCartConfigHistory');
 INSERT INTO "sproc_args" VALUES(3,'date_of_change','DateOfChange','varchar','input','32','AddUpdateLCCartConfigHistory');
-INSERT INTO "sproc_args" VALUES(4,'posted_by','PostedBy','varchar','input','64','AddUpdateLCCartConfigHistory');
+INSERT INTO "sproc_args" VALUES(4,'entered_by','PostedBy','varchar','input','64','AddUpdateLCCartConfigHistory');
 INSERT INTO "sproc_args" VALUES(5,'description','Description','varchar','input','128','AddUpdateLCCartConfigHistory');
 INSERT INTO "sproc_args" VALUES(6,'note','Note','text','input','2147483647','AddUpdateLCCartConfigHistory');
 INSERT INTO "sproc_args" VALUES(7,'<local>','mode','varchar','input','12','AddUpdateLCCartConfigHistory');
@@ -27,14 +27,14 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO "form_fields" VALUES(1,'id','ID','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'cart','Cart','text','50','128','','','','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(3,'date_of_change','Date Of Change','text','32','32','','','','trim|required|max_length[32]');
-INSERT INTO "form_fields" VALUES(4,'posted_by','Posted By','text','50','64','','','','trim|required|max_length[64]');
+INSERT INTO "form_fields" VALUES(4,'entered_by','Entered By','text','50','64','','','','trim|required|max_length[64]');
 INSERT INTO "form_fields" VALUES(5,'description','Description','text','90','128','','','','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(6,'note','Note','area','','','20','70','','trim|max_length[2147483647]');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','lc_cart_config_history/show/','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'cart','picker.replace','lcCartPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'posted_by','picker.replace','userPRNPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'entered_by','picker.replace','userPRNPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_cart','Cart','20','','Cart','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_description','Description','20','','Description','ContainsText','text','128','','');
@@ -42,7 +42,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_note','Note','20','','Note
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'date_of_change','default_function','CurrentDate');
 INSERT INTO "form_field_options" VALUES(2,'note','auto_format','None');
-INSERT INTO "form_field_options" VALUES(3,'posted_by','default_function','GetUser()');
+INSERT INTO "form_field_options" VALUES(3,'entered_by','default_function','GetUser()');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Note','markup','Note','','valueCol','dl_note','');
 COMMIT;

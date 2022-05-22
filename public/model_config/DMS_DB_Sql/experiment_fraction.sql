@@ -24,7 +24,7 @@ INSERT INTO "form_fields" VALUES(14,'researcher','Researcher','text','50','50','
 INSERT INTO "form_fields" VALUES(15,'container','Container','text','60','128','','','parent','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(16,'wellplate','Wellplate Number','text','50','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(17,'well','Well Number','text','8','8','','','','trim|max_length[8]');
-INSERT INTO "form_fields" VALUES(18,'prep_lcrun_id','Prep LC Run','text','12','12','','','0','trim|max_length[12]');
+INSERT INTO "form_fields" VALUES(18,'prep_lc_run_id','Prep LC Run','text','12','12','','','','trim|max_length[12]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'parent_experiment','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'request_override','list-report.helper','','helper_sample_prep/report','',',','');
@@ -32,7 +32,7 @@ INSERT INTO "form_field_choosers" VALUES(3,'internal_standard','list-report.help
 INSERT INTO "form_field_choosers" VALUES(4,'postdigest_int_std','list-report.helper','','helper_internal_standards_postdigest/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'researcher','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'container','list-report.helper','','helper_material_container/report','',',','');
-INSERT INTO "form_field_choosers" VALUES(7,'prep_lcrun_id','list-report.helper','','helper_prep_lc_run/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(7,'prep_lc_run_id','list-report.helper','','helper_prep_lc_run/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'add_underscore_before_fraction_num','picker.replace','yesNoPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(9,'wellplate','picker.replace','wellplatePickList','','',',','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
@@ -53,7 +53,7 @@ INSERT INTO "sproc_args" VALUES(14,'researcher','researcher','varchar','input','
 INSERT INTO "sproc_args" VALUES(15,'wellplate','wellplateNum','varchar','output','64','AddExperimentFractions');
 INSERT INTO "sproc_args" VALUES(16,'well','wellNum','varchar','output','8','AddExperimentFractions');
 INSERT INTO "sproc_args" VALUES(17,'container','container','varchar','input','128','AddExperimentFractions');
-INSERT INTO "sproc_args" VALUES(18,'prep_lcrun_id','prepLCRunID','int','input','','AddExperimentFractions');
+INSERT INTO "sproc_args" VALUES(18,'prep_lc_run_id','prepLCRunID','int','input','','AddExperimentFractions');
 INSERT INTO "sproc_args" VALUES(19,'<local>','mode','varchar','input','12','AddExperimentFractions');
 INSERT INTO "sproc_args" VALUES(20,'<local>','message','varchar','output','512','AddExperimentFractions');
 INSERT INTO "sproc_args" VALUES(21,'<local>','callingUser','varchar','input','128','AddExperimentFractions');
