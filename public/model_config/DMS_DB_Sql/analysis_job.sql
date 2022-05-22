@@ -107,7 +107,6 @@ INSERT INTO "external_sources" VALUES(10,'predefined_analysis_preview_mds','prot
 INSERT INTO "external_sources" VALUES(11,'predefined_analysis_preview_mds','owner','ColName','Owner');
 INSERT INTO "external_sources" VALUES(12,'predefined_analysis_preview_mds','associated_processor_group','ColName','Processor_Group');
 INSERT INTO "external_sources" VALUES(13,'predefined_analysis_preview_mds','comment','ColName','Comment');
-INSERT INTO "external_sources" VALUES(14,'predefined_analysis_preview_mds','AJ_Request','ColName','');
 INSERT INTO "external_sources" VALUES(15,'predefined_analysis_preview','job','Literal','0');
 INSERT INTO "external_sources" VALUES(16,'predefined_analysis_preview','dataset','ColName','Dataset');
 INSERT INTO "external_sources" VALUES(17,'predefined_analysis_preview','priority','ColName','Pri');
@@ -121,7 +120,6 @@ INSERT INTO "external_sources" VALUES(24,'predefined_analysis_preview','prot_col
 INSERT INTO "external_sources" VALUES(25,'predefined_analysis_preview','owner','ColName','Owner');
 INSERT INTO "external_sources" VALUES(26,'predefined_analysis_preview','associated_processor_group','ColName','Processor_Group');
 INSERT INTO "external_sources" VALUES(27,'predefined_analysis_preview','comment','ColName','Comment');
-INSERT INTO "external_sources" VALUES(28,'predefined_analysis_preview','AJ_Request','ColName','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'dataset','datasetNum','varchar','input','128','AddUpdateAnalysisJob');
 INSERT INTO "sproc_args" VALUES(2,'priority','priority','int','input','','AddUpdateAnalysisJob');
