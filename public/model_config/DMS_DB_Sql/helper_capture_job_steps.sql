@@ -18,6 +18,4 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_job_state_b','Job_State (N
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_job','Job','6','','Job','Equals','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_step','Step','6','','Step','Equals','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_processor','Processor','6','','Processor','ContainsText','text','80','','');
-CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO "form_field_choosers" VALUES(1,'JobList','list-report.helper','','helper_capture_job_steps/report','',',','Job steps...');
 COMMIT;
