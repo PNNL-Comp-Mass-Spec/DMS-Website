@@ -90,4 +90,6 @@ INSERT INTO "detail_report_hotlinks" VALUES(7,'Class','detail-report','Class','i
 INSERT INTO "detail_report_hotlinks" VALUES(8,'+Name','detail-report','Name','instrument_config_history/report','labelCol','dl_name_config_history',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(9,'Allocation Tag','detail-report','Instrument Group','instrument_group/show/','labelCol','dl_allocation_tag','');
 INSERT INTO "detail_report_hotlinks" VALUES(10,'ID','detail-report','ID','instrumentid/show/','labelCol','dl_instrumentid','');
+INSERT INTO "detail_report_hotlinks" VALUES(11,'Storage Path ID','detail-report','Storage Path ID','storage/show/','valueCol','dl_storage_path_id','');
+INSERT INTO "detail_report_hotlinks" VALUES(12,'Source Path ID','detail-report','Source Path ID','storage/show/','valueCol','dl_source_path_id','');
 COMMIT;
