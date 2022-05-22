@@ -9,6 +9,8 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateUser');
 INSERT INTO "general_params" VALUES('entry_page_data_table','v_user_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','username');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','username');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID,Username,[Hanford ID],Name,Status,[Operations List],Comment,Created_DMS,EMail');
+INSERT INTO "general_params" VALUES('detail_report_data_cols','Username,[Hanford ID],Name,Email,[User Status],[User Update],[Operations List],Comment,ID,Created_DMS');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'username','Username','text-if-new','20','50','','','','trim|required|max_length[50]');
 INSERT INTO "form_fields" VALUES(2,'hanford_id','Hanford ID','text','20','50','','','','trim|required|max_length[50]');
