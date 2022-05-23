@@ -70,6 +70,7 @@ INSERT INTO "form_fields" VALUES(53,'channel15_comment','Channel 15 Comment','te
 INSERT INTO "form_fields" VALUES(54,'channel16_comment','Channel 16 Comment','text','60','512','','','','trim');
 INSERT INTO "form_fields" VALUES(55,'channel17_comment','Channel 17 Comment','text','60','512','','','','trim');
 INSERT INTO "form_fields" VALUES(56,'channel18_comment','Channel 18 Comment','text','60','512','','','','trim');
+INSERT INTO "form_fields" VALUES(57,'plex_members','Plex Members','hidden','','','','','','trim');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Plex_Exp_ID','invoke_entity','value','experiment_plex_members_tsv/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Exp_ID','invoke_entity','value','experimentid/show','');
@@ -100,7 +101,7 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_organism','Organism','15!'
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_tissue','Tissue','10','','Tissue','ContainsText','text','128','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'exp_id','plexExperimentIdOrName','varchar','input','130','AddUpdateExperimentPlexMembers');
-INSERT INTO "sproc_args" VALUES(2,'Plex_Members','plexMembers','varchar','input','4000','AddUpdateExperimentPlexMembers');
+INSERT INTO "sproc_args" VALUES(2,'plex_members','plexMembers','varchar','input','4000','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(3,'channel1_exp_id','expIdChannel1','varchar','input','130','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(4,'channel2_exp_id','expIdChannel2','varchar','input','130','AddUpdateExperimentPlexMembers');
 INSERT INTO "sproc_args" VALUES(5,'channel3_exp_id','expIdChannel3','varchar','input','130','AddUpdateExperimentPlexMembers');

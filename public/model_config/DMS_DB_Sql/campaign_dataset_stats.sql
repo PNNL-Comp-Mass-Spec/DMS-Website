@@ -18,8 +18,8 @@ INSERT INTO "sproc_args" VALUES(6,'excludeAllQCAndBlank','excludeAllQCAndBlank',
 INSERT INTO "sproc_args" VALUES(7,'campaignNameFilter','campaignNameFilter','varchar','input','128','GetDatasetStatsByCampaign');
 INSERT INTO "sproc_args" VALUES(8,'campaignNameExclude','campaignNameExclude','varchar','input','128','GetDatasetStatsByCampaign');
 INSERT INTO "sproc_args" VALUES(9,'instrumentBuilding','instrumentBuilding','varchar','input','64','GetDatasetStatsByCampaign');
-INSERT INTO "sproc_args" VALUES(10,'','previewSql','tinyint','input','','GetDatasetStatsByCampaign');
-INSERT INTO "sproc_args" VALUES(11,'','message','varchar','output','512','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(10,'previewSql','previewSql','tinyint','input','','GetDatasetStatsByCampaign');
+INSERT INTO "sproc_args" VALUES(11,'message','message','varchar','output','512','GetDatasetStatsByCampaign');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'campaignNameFilter','Campaign Name Filter','text','24','128','','','EMSL','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(2,'campaignNameExclude','Campaign Exclusion Filter','text','24','128','','','','trim|max_length[128]');
@@ -31,6 +31,7 @@ INSERT INTO "form_fields" VALUES(7,'includeInstrument','Include Instrument?','te
 INSERT INTO "form_fields" VALUES(8,'excludeQCAndBlankWithoutWP','Exclude QC/Blank Without WP','text','10','32','','','1','trim|Numeric');
 INSERT INTO "form_fields" VALUES(9,'excludeAllQCAndBlank','Exclude All QC/Blank','text','10','32','','','0','trim|Numeric');
 INSERT INTO "form_fields" VALUES(10,'previewSql','Preview SQL','hidden','','','','','','trim');
+INSERT INTO "form_fields" VALUES(11,'message','Message','hidden','','','','','','trim');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'startDate','picker.prevDate','','','',',','Start Date');
 INSERT INTO "form_field_choosers" VALUES(2,'endDate','picker.prevDate','','','',',','End Date');
