@@ -41,7 +41,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(11,'Runtime_Minutes','format_commas'
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'job','job','int','output','','AddUpdateLocalJobInBroker');
 INSERT INTO "sproc_args" VALUES(2,'script_name','scriptName','varchar','input','64','AddUpdateLocalJobInBroker');
-INSERT INTO "sproc_args" VALUES(3,'dataset_num','datasetNum','varchar','input','128','AddUpdateLocalJobInBroker');
+INSERT INTO "sproc_args" VALUES(3,'dataset','datasetNum','varchar','input','128','AddUpdateLocalJobInBroker');
 INSERT INTO "sproc_args" VALUES(4,'priority','priority','int','input','','AddUpdateLocalJobInBroker');
 INSERT INTO "sproc_args" VALUES(5,'job_param','jobParam','varchar','input','8000','AddUpdateLocalJobInBroker');
 INSERT INTO "sproc_args" VALUES(6,'comment','comment','varchar','input','512','AddUpdateLocalJobInBroker');
@@ -54,7 +54,7 @@ INSERT INTO "sproc_args" VALUES(12,'<local>','callingUser','varchar','input','12
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'job','Job','non-edit','','','','','0','trim|max_length[12]');
 INSERT INTO "form_fields" VALUES(2,'script_name','Script Name','text','50','64','','','','trim|max_length[64]');
-INSERT INTO "form_fields" VALUES(3,'dataset_num','Dataset Num','text','50','128','','','Aggregation','trim|max_length[128]');
+INSERT INTO "form_fields" VALUES(3,'dataset','Dataset','text','50','128','','','Aggregation','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(4,'priority','Priority','text','12','12','','','3','trim|max_length[12]');
 INSERT INTO "form_fields" VALUES(5,'job_param','Job Param','hidden','','','','','','trim|max_length[8000]');
 INSERT INTO "form_fields" VALUES(6,'comment','Comment','area','','','4','120','','trim|max_length[512]');

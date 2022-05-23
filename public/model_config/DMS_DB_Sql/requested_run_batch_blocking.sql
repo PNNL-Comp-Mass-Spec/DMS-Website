@@ -16,7 +16,7 @@ INSERT INTO "sproc_args" VALUES(9,'blockingList','blockingList','text','input','
 INSERT INTO "sproc_args" VALUES(10,'factorList','factorList','text','input','2147483647','UpdateRequestedRunBlockingAndFactors');
 INSERT INTO "sproc_args" VALUES(11,'<local>','message','varchar','output','512','UpdateRequestedRunBlockingAndFactors');
 INSERT INTO "sproc_args" VALUES(12,'<local>','callingUser','varchar','input','128','UpdateRequestedRunBlockingAndFactors');
-INSERT INTO "sproc_args" VALUES(13,'batchID','batchID','int','input','','MakeAutomaticRequestedRunFactors');
+INSERT INTO "sproc_args" VALUES(13,'BatchID','batchID','int','input','','MakeAutomaticRequestedRunFactors');
 INSERT INTO "sproc_args" VALUES(14,'<local>','mode','varchar','input','32','MakeAutomaticRequestedRunFactors');
 INSERT INTO "sproc_args" VALUES(15,'<local>','message','varchar','output','512','MakeAutomaticRequestedRunFactors');
 INSERT INTO "sproc_args" VALUES(16,'<local>','callingUser','varchar','input','128','MakeAutomaticRequestedRunFactors');
@@ -26,7 +26,6 @@ INSERT INTO "sproc_args" VALUES(19,'<local>','message','varchar','output','512',
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'BatchID','Batch ID','text','12','12','','','','trim|max_length[12]');
 INSERT INTO "form_fields" VALUES(2,'NameContains','Name Contains','text','48','48','','','','trim|max_length[48]');
-INSERT INTO "form_fields" VALUES(4,'infoOnly','Info Only','hidden','12','12','','','0','trim|max_length[12]');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','Request','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'@exclude','inplace_edit','Request','ajax','["Sel", "BatchID", "Name", "Status", "Dataset_ID", "Request", "Experiment"]');

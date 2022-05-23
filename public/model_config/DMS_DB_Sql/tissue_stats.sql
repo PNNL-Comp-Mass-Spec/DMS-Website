@@ -15,7 +15,7 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO "form_fields" VALUES(1,'Start_Date','Starting Date','text','24','80','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'End_Date','Ending Date','text','24','80','','','','trim');
 INSERT INTO "form_fields" VALUES(3,'Campaign_ID_Filter_List','Campaign ID List','text','24','2000','','','','trim');
-INSERT INTO "form_fields" VALUES(4,'Organism_Filter_List','Organism Filter List','text','24','2000','','','','trim');
+INSERT INTO "form_fields" VALUES(4,'Organism_ID_Filter_List','Organism Filter List','text','24','2000','','','','trim');
 INSERT INTO "form_fields" VALUES(5,'Instrument_Filter_List','Instrument Filter List','text','24','2000','','','','trim');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Experiments','invoke_entity','Tissue','experiment/report/-/-/-/-/@','');
@@ -25,5 +25,5 @@ INSERT INTO "form_field_options" VALUES(2,'End_Date','default_function','Current
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'Instrument_Filter_List','picker.append','instrumentNamePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'Campaign_ID_Filter_List','picker.append','campaignIDPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(3,'Organism_Filter_List','picker.append','organismIDPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(3,'Organism_ID_Filter_List','picker.append','organismIDPickList','','',',','');
 COMMIT;
