@@ -11,8 +11,8 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','v_requested_run_ent
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','request_id');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','request_id');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateRequestedRunAssignments');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Request, Name, Status, Origin, Acq_Start, Campaign, Experiment, Dataset, Instrument, Requestor, Created, [Days In Queue], Comment, Type, [Separation Group], [Vialing Conc], [Vialing Vol], Cart, [Dataset Comment], [Request Name Code], [#DaysInQueue]');
-INSERT INTO "general_params" VALUES('detail_report_data_cols','Request,Name,Status,Campaign,Experiment,Dataset,[Staging Location],[Instrument Used],[Instrument Group],Type,[Separation Group],Requestor,Username,Created,[Days In Queue],Origin,[Instrument Settings],[Vialing Concentration],[Vialing Volume],Comment,Factors,Note,[Special Instructions],[#WPActivationState]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Request, Name, Status, Origin, Acq_Start, Campaign, Experiment, Dataset, Instrument, Requester, Created, [Days In Queue], Comment, Type, [Separation Group], [Vialing Conc], [Vialing Vol], Cart, [Dataset Comment], [Request Name Code], [#DaysInQueue]');
+INSERT INTO "general_params" VALUES('detail_report_data_cols','Request,Name,Status,Campaign,Experiment,Dataset,[Staging Location],[Instrument Used],[Instrument Group],Type,[Separation Group],Requester,Username,Created,[Days In Queue],Origin,[Instrument Settings],[Vialing Concentration],[Vialing Volume],Comment,Factors,Note,[Special Instructions],[#WPActivationState]');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'request_id','Request','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(2,'request_name','Request Name','text','60','80','','','','trim|required|max_length[90]|alpha_dash|min_length[8]');
@@ -103,7 +103,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(9,'Instrument Used','detail-report',
 INSERT INTO "detail_report_hotlinks" VALUES(10,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_eus_proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Work Package','detail-report','Work Package','charge_code/show','labelCol','dl_Work_Package',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Work Package State','color_label','#WPActivationState','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120", "5":"clr_120","10":"clr_120"}');
-INSERT INTO "detail_report_hotlinks" VALUES(13,'Requestor','detail-report','Requestor','user/report/-/~','labelCol','dl_Requestor','{"RemoveRegEx":" [(].*[)]"}');
+INSERT INTO "detail_report_hotlinks" VALUES(13,'Requester','detail-report','Username','user/show/','labelCol','dl_Requester','');
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Separation Group','detail-report','Separation Group','separation_group/show','labelCol','dl_separation_group','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Staging Location','detail-report','Staging Location','material_location/report/~@','valueCol','dl_staging_location','');
 INSERT INTO "detail_report_hotlinks" VALUES(16,'Comment','markup','Comment','','valueCol','dl_comment','');
@@ -115,7 +115,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(19,'Days In Queue','detail-report','
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'request_name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(2,'experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
-INSERT INTO "sproc_args" VALUES(3,'requester_prn','requestorPRN','varchar','input','64','AddUpdateRequestedRun');
+INSERT INTO "sproc_args" VALUES(3,'requester_prn','requesterPRN','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(4,'instrument_group','instrumentName','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(5,'work_package','workPackage','varchar','input','50','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(6,'dataset_type','msType','varchar','input','20','AddUpdateRequestedRun');

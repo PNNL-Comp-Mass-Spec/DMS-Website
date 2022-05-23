@@ -64,7 +64,7 @@ INSERT INTO "external_sources" VALUES(5,'analysis_job_request','organism','ColNa
 INSERT INTO "external_sources" VALUES(6,'analysis_job_request','prot_coll_name_list','ColName','Protein Collection List');
 INSERT INTO "external_sources" VALUES(7,'analysis_job_request','prot_coll_options_list','ColName','Protein Options');
 INSERT INTO "external_sources" VALUES(8,'analysis_job_request','organism_db','ColName','Legacy Fasta');
-INSERT INTO "external_sources" VALUES(9,'analysis_job_request','owner','ColName','Requestor');
+INSERT INTO "external_sources" VALUES(9,'analysis_job_request','owner','ColName','Requester');
 INSERT INTO "external_sources" VALUES(10,'analysis_job_request','comment','ColName.action.Scrub','Comment');
 INSERT INTO "external_sources" VALUES(11,'analysis_job_request','request','ColName','Request');
 INSERT INTO "external_sources" VALUES(12,'analysis_job_request','priority','Literal','3');

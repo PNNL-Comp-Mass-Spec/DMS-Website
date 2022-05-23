@@ -8,7 +8,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_dataset','Dataset','45!','','Dataset','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_experiment','Experiment','32','','Experiment','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_requestor','Requestor','32','','Requestor','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_requester','Requester','32','','Requester','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Dataset','invoke_entity','value','dataset/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Experiment','invoke_entity','value','experiment/show','');

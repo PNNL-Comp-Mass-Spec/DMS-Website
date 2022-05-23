@@ -14,7 +14,7 @@ INSERT INTO "form_fields" VALUES(4,'instrument_group','Instrument Group','non-ed
 INSERT INTO "form_fields" VALUES(5,'run_type','Run Type','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(6,'source_separation_group','Source Separation Group','non-edit','','','','','','trim');
 INSERT INTO "form_fields" VALUES(7,'separation_group','Separation Group','text','25','80','','','','trim|required|max_length[64]');
-INSERT INTO "form_fields" VALUES(8,'requestor','Requestor (Username)','text','35','80','','','','trim|required|max_length[80]');
+INSERT INTO "form_fields" VALUES(8,'requester','Requester (Username)','text','35','80','','','','trim|required|max_length[80]');
 INSERT INTO "form_fields" VALUES(9,'instrument_settings','Instrument Settings','area','','','6','60','','trim|max_length[512]');
 INSERT INTO "form_fields" VALUES(10,'staging_location','Staging Location','text','40','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(11,'wellplate','Wellplate','text','40','80','','','(lookup)','trim|max_length[64]');
@@ -29,7 +29,7 @@ INSERT INTO "form_fields" VALUES(19,'eus_user','EMSL Proposal User','text','25',
 INSERT INTO "form_fields" VALUES(20,'mrm_attachment','MRM Transition List Attachment','text','60','128','','','','trim|max_length[128]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'separation_group','picker.replace','separationGroupNoFractionsPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'requestor','picker.replace','userPRNPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'requester','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'staging_location','list-report.helper','','helper_material_location','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'wellplate','picker.replace','wellplatePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'work_package','list-report.helper','','helper_charge_code/report','',',','');
@@ -65,7 +65,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(9,'Instrument Used','detail-report',
 INSERT INTO "detail_report_hotlinks" VALUES(10,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_eus_proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Work Package','detail-report','Work Package','charge_code/show','labelCol','dl_Work_Package','');
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Work Package State','color_label','#WPActivationState','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120", "5":"clr_120","10":"clr_120"}');
-INSERT INTO "detail_report_hotlinks" VALUES(13,'Requestor','detail-report','Requestor','user/report/-/~','labelCol','dl_Requestor','{"RemoveRegEx":" [(].*[)]"}');
+INSERT INTO "detail_report_hotlinks" VALUES(13,'Requester','detail-report','Requester','user/report/-/~','labelCol','dl_Requester','{"RemoveRegEx":" [(].*[)]"}');
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Separation Group','detail-report','Separation Group','separation_group/show','labelCol','dl_separation_group','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Staging Location','detail-report','Staging Location','material_location/report/~@','valueCol','dl_staging_location','');
 INSERT INTO "detail_report_hotlinks" VALUES(16,'Comment','markup','Comment','','valueCol','dl_comment','');
@@ -77,7 +77,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(19,'Days In Queue','detail-report','
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'source_request_id','sourceRequestID','int','input','','AddRequestedRunFractions');
 INSERT INTO "sproc_args" VALUES(2,'separation_group','separationGroup','varchar','input','64','AddRequestedRunFractions');
-INSERT INTO "sproc_args" VALUES(3,'requestor','requestorPRN','varchar','input','80','AddRequestedRunFractions');
+INSERT INTO "sproc_args" VALUES(3,'requester','requesterPRN','varchar','input','80','AddRequestedRunFractions');
 INSERT INTO "sproc_args" VALUES(4,'instrument_settings','instrumentSettings','varchar','input','512','AddRequestedRunFractions');
 INSERT INTO "sproc_args" VALUES(5,'staging_location','stagingLocation','varchar','input','64','AddRequestedRunFractions');
 INSERT INTO "sproc_args" VALUES(6,'wellplate','wellplateName','varchar','input','64','AddRequestedRunFractions');
@@ -100,7 +100,7 @@ INSERT INTO "external_sources" VALUES(3,'requested_run','experiment','ColName','
 INSERT INTO "external_sources" VALUES(4,'requested_run','instrument_group','ColName','Instrument Group');
 INSERT INTO "external_sources" VALUES(5,'requested_run','run_type','ColName','Type');
 INSERT INTO "external_sources" VALUES(6,'requested_run','source_separation_group','ColName','Separation Group');
-INSERT INTO "external_sources" VALUES(7,'requested_run','requestor','ColName','Requestor');
+INSERT INTO "external_sources" VALUES(7,'requested_run','requester','ColName','Requester');
 INSERT INTO "external_sources" VALUES(8,'requested_run','instrument_settings','ColName','Instrument Settings');
 INSERT INTO "external_sources" VALUES(9,'requested_run','staging_location','ColName','Staging Location');
 INSERT INTO "external_sources" VALUES(10,'requested_run','wellplate','ColName','Well Plate');
