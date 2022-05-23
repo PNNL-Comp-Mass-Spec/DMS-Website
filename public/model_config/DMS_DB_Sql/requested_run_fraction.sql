@@ -112,7 +112,7 @@ INSERT INTO "external_sources" VALUES(15,'requested_run','work_package','ColName
 INSERT INTO "external_sources" VALUES(16,'requested_run','eus_usage_type','ColName','EUS Usage Type');
 INSERT INTO "external_sources" VALUES(17,'requested_run','eus_proposal_id','ColName','EUS Proposal');
 INSERT INTO "external_sources" VALUES(18,'requested_run','eus_user','ColName','EUS User');
-INSERT INTO "external_sources" VALUES(19,'requested_run','mrm_attachment','ColName','MRM Transistion List');
+INSERT INTO "external_sources" VALUES(19,'requested_run','mrm_attachment','ColName','MRM Transition List');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Validate options and show the requested runs that would be created','');
 COMMIT;
