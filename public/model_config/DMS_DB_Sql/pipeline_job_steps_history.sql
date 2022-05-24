@@ -1,7 +1,7 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('list_report_data_table','V_Pipeline_Job_Steps_History_List_Report ');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Pipeline_Job_Steps_History_List_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('detail_report_data_table','V_Pipeline_Job_Steps_History_Detail_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
@@ -24,7 +24,6 @@ INSERT INTO "detail_report_hotlinks" VALUES(2,'Dataset','detail-report','Dataset
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Script','detail-report','Script','pipeline_script/show','labelCol','script',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Tool','detail-report','Tool','pipeline_step_tools/show','labelCol','tool',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','dataset_folder_path',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(6,'Transfer Folder Path','href-folder','Transfer Folder Path','','labelCol','transfer_folder_path',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(7,'Log File Path','href-folder','Log File Path','','labelCol','log_file_path',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(6,'Transfer_Folder_Path','href-folder','Transfer_Folder_Path','','labelCol','transfer_folder_path','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'StateID','detail-report','Job','pipeline_job_steps/report','labelCol','StateID',NULL);
 COMMIT;

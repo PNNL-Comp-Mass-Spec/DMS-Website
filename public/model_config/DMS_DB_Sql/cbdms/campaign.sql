@@ -91,7 +91,7 @@ INSERT INTO "sproc_args" VALUES(21,'<local>','mode','varchar','input','12','AddU
 INSERT INTO "sproc_args" VALUES(22,'<local>','message','varchar','output','512','AddUpdateCampaign');
 INSERT INTO "sproc_args" VALUES(23,'<local>','callingUser','varchar','input','128','AddUpdateCampaign');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO "detail_report_hotlinks" VALUES(1,'Cell Cultures','detail-report','Campaign','cell_culture/report/-/~','valueCol','dl_cell_cultures','');
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Biomaterial','detail-report','Campaign','cell_culture/report/-/~','valueCol','dl_biomaterial','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Experiments','detail-report','Campaign','experiment/report/-/~','valueCol','dl_experiments','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Datasets','detail-report','Campaign','dataset/report/-/-/-/-/-/~','valueCol','dl_datasets','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Sample Prep Requests','detail-report','Campaign','sample_prep_request/report/-/-/-/-/~','valueCol','dl_sample_prep_req','');

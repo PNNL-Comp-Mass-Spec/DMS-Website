@@ -21,7 +21,7 @@ INSERT INTO "list_report_hotlinks" VALUES(2,'Rating','color_label','','','{"Unre
 INSERT INTO "list_report_hotlinks" VALUES(3,'QC_Link','masked_link','value','','{"Label":"QC_Link"}');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Experiment','invoke_entity','value','experiment/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(6,'EMSL Proposal','invoke_entity','value','eus_proposals/show','');
+INSERT INTO "list_report_hotlinks" VALUES(6,'Proposal','invoke_entity','value','eus_proposals/show','');
 INSERT INTO "list_report_hotlinks" VALUES(7,'+ID','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(8,'Acq Length','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(9,'Scan Count','export_align','value','','{"Align":"Center"}');
@@ -44,7 +44,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(1,'Experiment','detail-report','Expe
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','dataset_folder_path','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Archive Folder Path','href-folder','Archive Folder Path','','labelCol','archive_folder_path','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'MyEMSL URL','masked_link','MyEMSL URL','','valueCol','dl_myemsl_url','{"Label":"Show files in MyEMSL"}');
-INSERT INTO "detail_report_hotlinks" VALUES(5,'MyEMSL Transaction IDs','masked_link_list','MyEMSL Transaction IDs','','valueCol','','{"Label":"UrlSegment3"}');
+INSERT INTO "detail_report_hotlinks" VALUES(5,'MyEMSL Upload IDs','masked_link_list','MyEMSL Upload IDs','','valueCol','dl_myemsl_upload_IDs','{"Label":"UrlSegment3"}');
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Request','detail-report','Request','requested_run/show','labelCol','request','');
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Batch','detail-report','Batch','requested_run_batch/show','labelCol','dl_batch_id','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Jobs','detail-report','Dataset','analysis_job/report/-/-/-/~@/-/-/-/-/-','labelCol','jobs','');

@@ -23,7 +23,5 @@ INSERT INTO "detail_report_hotlinks" VALUES(1,'Job','detail-report','Job','analy
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Dataset','detail-report','Dataset','dataset/show','labelCol','dataset',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Script','detail-report','Script','capture_script/show','labelCol','script',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Tool','detail-report','Tool','capture_step_tools/show','labelCol','tool',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(5,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','dataset_folder_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Transfer Folder Path','href-folder','Transfer Folder Path','','labelCol','transfer_folder_path',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(7,'Log File Path','href-folder','Log File Path','','labelCol','log_file_path',NULL);
 COMMIT;

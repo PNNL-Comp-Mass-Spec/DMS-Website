@@ -14,7 +14,7 @@ INSERT INTO "general_params" VALUES('detail_report_cmds','file_attachment_cmds')
 INSERT INTO "general_params" VALUES('post_submission_detail_id','id');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','lc_cart_configuration/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Cart_Name','invoke_entity','value','lc_cart/report/','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Cart','invoke_entity','value','lc_cart/report/','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Dataset Usage','invoke_entity','Config Name','dataset/report/-/-/-/-/-/-/-/-/-/sfx/AND/Cart%20Config/MatchesText/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_cart_config','Cart Config','','','Config Name','ContainsText','text','128','','');
@@ -97,8 +97,8 @@ CREATE TABLE "detail_report_hotlinks" (
 	`options`	TEXT,
 	PRIMARY KEY(`idx`)
 );
-INSERT INTO "detail_report_hotlinks" VALUES(1,'Entered_By','detail-report','Entered_By','user/report/-/~','labelCol','','{"RemoveRegEx":" [(].*[)]"}');
-INSERT INTO "detail_report_hotlinks" VALUES(2,'Updated_By','detail-report','Updated_By','user/report/-/~','labelCol','','{"RemoveRegEx":" [(].*[)]"}');
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Entered By','detail-report','Entered By','user/report/-/~','labelCol','','{"RemoveRegEx":" [(].*[)]"}');
+INSERT INTO "detail_report_hotlinks" VALUES(2,'Updated By','detail-report','Updated By','user/report/-/~','labelCol','','{"RemoveRegEx":" [(].*[)]"}');
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Primary Gradient','monomarkup','Primary Gradient','','valueCol','dl_primary_gradient','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Upstream Fractionation Details','monomarkup','Upstream Fractionation Details','','valueCol','dl_upstream_fractionation_Details','');
 INSERT INTO "detail_report_hotlinks" VALUES(9,'Description','markup','Description','','valueCol','dl_description','');

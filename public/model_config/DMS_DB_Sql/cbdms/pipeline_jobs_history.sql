@@ -1,9 +1,9 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('list_report_data_table','V_Pipeline_Jobs_History_List_Report ');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Pipeline_Jobs_History_List_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('detail_report_data_table','V_Pipeline_Jobs_History_Detail_Report ');
+INSERT INTO "general_params" VALUES('detail_report_data_table','V_Pipeline_Jobs_History_Detail_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','Job');
 INSERT INTO "general_params" VALUES('my_db_group','broker');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

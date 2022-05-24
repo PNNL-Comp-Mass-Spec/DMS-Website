@@ -60,7 +60,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO "list_report_hotlinks" VALUES(1,'Seq','invoke_entity','value','instrument_usage_report/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset_ID','invoke_entity','value','datasetid/show','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO "detail_report_hotlinks" VALUES(1,'ID','detail-report','ID','datasetid/show','valueCol','dl_dataset_id','');
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Dataset_ID','detail-report','Dataset_ID','datasetid/show','valueCol','dl_dataset_id','');
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Instrument','detail-report','Instrument','instrument/show/','valueCol','dl_instrument','');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Operator','detail-report','Operator','eus_users/show/','valueCol','dl_operator','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Proposal','detail-report','Proposal','eus_proposals/show/','valueCol','dl_proposal','');

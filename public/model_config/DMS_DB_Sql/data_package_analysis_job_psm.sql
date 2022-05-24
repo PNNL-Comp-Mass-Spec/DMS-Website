@@ -25,7 +25,7 @@ INSERT INTO "primary_filter_choosers" VALUES(2,'pf_tool','picker.replace','analy
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analysis_job_psm/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
-INSERT INTO "list_report_hotlinks" VALUES(3,'Request','invoke_entity','value','analysis_job_request/show','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Job Request','invoke_entity','value','analysis_job_request/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Data Pkg','invoke_entity','value','data_package/show/','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);

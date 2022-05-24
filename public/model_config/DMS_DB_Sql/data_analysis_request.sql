@@ -16,7 +16,7 @@ INSERT INTO "general_params" VALUES('detail_report_cmds','file_attachment_cmds')
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','ID','data_analysis_request/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
-INSERT INTO "list_report_hotlinks" VALUES(3,'WP','invoke_entity','value','charge_code/show','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Work Package','invoke_entity','value','charge_code/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(5,'State Comment','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Description','min_col_width','value','60','');
@@ -30,11 +30,11 @@ INSERT INTO "list_report_hotlinks" VALUES(13,'Analysis Type','invoke_entity','va
 INSERT INTO "list_report_hotlinks" VALUES(14,'#DaysInQueue','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(15,'#WPActivationState','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(16,'+ID','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(17,'Dataset Count','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(17,'+Dataset Count','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(18,'+Days In Queue','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(19,'WP','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(20,'WP State','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(21,'EUS Proposal','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(19,'+Work Package','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(20,'+WP State','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(21,'+EUS Proposal','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(22,'Files','invoke_entity','ID','file_attachment/report/-/StartsWith__data_analysis_request/@','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_state','State','32','','State','ContainsText','text','128','','');
@@ -58,7 +58,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(6,'Data Package','detail-report','Da
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Experiment Group','detail-report','Experiment Group','experiment_group/show','valueCol','dl_Experiment_Group','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Campaign','detail-report','Campaign','campaign/show','valueCol','dl_Campaign','');
 INSERT INTO "detail_report_hotlinks" VALUES(9,'Organism','detail-report','Organism','organism/report/~','valueCol','dl_Organism','');
-INSERT INTO "detail_report_hotlinks" VALUES(10,'Work Package Number','detail-report','Work Package Number','charge_code/show','labelCol','dl_Work_Package','');
+INSERT INTO "detail_report_hotlinks" VALUES(10,'Work Package','detail-report','Work Package','charge_code/show','labelCol','dl_Work_Package','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_EUS_Proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Updates','detail-report','ID','data_analysis_request_updates/report','labelCol','dl_Updates','');
 INSERT INTO "detail_report_hotlinks" VALUES(13,'Work Package State','color_label','#WPActivationState','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');

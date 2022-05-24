@@ -22,10 +22,10 @@ INSERT INTO "list_report_hotlinks" VALUES(14,'+Mass_Error_PPM','column_tooltip',
 INSERT INTO "list_report_hotlinks" VALUES(15,'+AMTs_10pct_FDR','column_tooltip','value','Number of LC-MS features','');
 INSERT INTO "list_report_hotlinks" VALUES(16,'PctTryptic','column_tooltip','value','Ratio of unique fully tryptic peptides / total unique peptides','');
 INSERT INTO "list_report_hotlinks" VALUES(17,'PctMissedClvg','column_tooltip','value','Ratio of total missed cleavages (among unique peptides) / total unique peptides (P_4B)','');
-INSERT INTO "list_report_hotlinks" VALUES(18,'TrypticPSMs','column_tooltip','value','Number of tryptic peptides; total spectra count','');
-INSERT INTO "list_report_hotlinks" VALUES(19,'KeratinPSMs','column_tooltip','value','Number of keratin peptides (full or partial trypsin); total spectra count (Keratin_2A)','');
+INSERT INTO "list_report_hotlinks" VALUES(18,'PSMs','column_tooltip','value','Number of tryptic peptides; total spectra count','');
+INSERT INTO "list_report_hotlinks" VALUES(19,'KeratinPep','column_tooltip','value','Number of keratin peptides (full or partial trypsin); total spectra count (Keratin_2A)','');
 INSERT INTO "list_report_hotlinks" VALUES(20,'+PhosphoPep','column_tooltip','value','Number of tryptic phosphopeptides; unique peptide count','');
-INSERT INTO "list_report_hotlinks" VALUES(21,'TrypsinPSMs','column_tooltip','value','Number of peptides from trypsin; total spectra count','');
+INSERT INTO "list_report_hotlinks" VALUES(21,'TrypsinPep','column_tooltip','value','Number of peptides from trypsin; total spectra count','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_most_recent_weeks','Most recent weeks','3!','','Acq Start','MostRecentWeeks','text','32','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_psm_tool','PSM_Tool','20','','PSM_Tool','ContainsText','text','64','','');

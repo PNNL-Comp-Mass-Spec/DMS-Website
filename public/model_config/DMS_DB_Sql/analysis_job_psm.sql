@@ -24,7 +24,7 @@ INSERT INTO "primary_filter_choosers" VALUES(2,'pf_tool','picker.replace','analy
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analysis_job_psm/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
-INSERT INTO "list_report_hotlinks" VALUES(3,'Request','invoke_entity','value','analysis_job_request/show','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Job Request','invoke_entity','value','analysis_job_request/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Comment','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Unique Peptides MSGF','column_tooltip','value','Unique peptide count passing the MS-GF SpecProb threshold','');
 INSERT INTO "list_report_hotlinks" VALUES(7,'Total PSMs MSGF','column_tooltip','value','Total peptides passing the MS-GF SpecProb threshold','');
@@ -46,9 +46,6 @@ INSERT INTO "list_report_hotlinks" VALUES(22,'Phospho PctMissedClvg','column_too
 INSERT INTO "list_report_hotlinks" VALUES(23,'AcetylPep','column_tooltip','value','Unique acetylated peptides passing the FDR threshold (any K with acetyl)','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Dataset','detail-report','Dataset','dataset/show','labelCol','dataset',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(2,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','dataset_folder_path',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(3,'Archive Results Folder Path','href-folder','Archive Results Folder Path','','labelCol','archive_results_folder_path',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(4,'Archive Folder Path','href-folder','Archive Folder Path','','labelCol','archive_folder_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Results Folder Path','href-folder','Results Folder Path','','labelCol','results_folder_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Request','detail-report','Request','analysis_job_request/show','labelCol','request',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(7,'State','detail-report','Job','pipeline_job_steps/report','labelCol','state',NULL);
@@ -60,8 +57,9 @@ INSERT INTO "detail_report_hotlinks" VALUES(12,'Peak Matching Results','detail-r
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Data Folder Link','literal_link','Data Folder Link','','valueCol','dl_data_folder',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Job','detail-report','Job','analysis_job/show','labelCol','job_steps',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(16,'Owner','detail-report','Owner','user/show','labelCol','owner',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(17,'Total PSMs','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','labelCol','dl_analysis_job_psm',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(18,'Experiment','detail-report','Experiment','experiment/show','labelCol','dl_experiment',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(19,'+Dataset','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','valueCol','dl_analysis_job_psm_ds',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(20,'+Experiment','detail-report','Experiment','analysis_job_psm/report/-/-/-/-/~','valueCol','dl_analysis_job_psm_exp',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(17,'Total PSMs (MSGF-filtered)','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','labelCol','dl_analysis_job_psm_ds1','');
+INSERT INTO "detail_report_hotlinks" VALUES(18,'Total PSMs (FDR-filtered)','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','labelCol','dl_analysis_job_psm_ds2','');
+INSERT INTO "detail_report_hotlinks" VALUES(19,'+Dataset','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','valueCol','dl_analysis_job_psm_ds3','');
+INSERT INTO "detail_report_hotlinks" VALUES(20,'Experiment','detail-report','Experiment','experiment/show','labelCol','dl_experiment',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(21,'+Experiment','detail-report','Experiment','analysis_job_psm/report/-/-/-/-/~','valueCol','dl_analysis_job_psm_exp',NULL);
 COMMIT;
