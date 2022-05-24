@@ -2,7 +2,6 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_autoload','1');
 INSERT INTO "general_params" VALUES('list_report_sproc','GetCurrentMangerActivity');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'When','color_label','#Alert','','{"ALERT":"bad_clr"}');
