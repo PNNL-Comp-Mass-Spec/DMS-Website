@@ -74,12 +74,10 @@ INSERT INTO "sproc_args" VALUES(26,'<local>','message','varchar','output','512',
 INSERT INTO "sproc_args" VALUES(27,'<local>','callingUser','varchar','input','128','AddUpdateOrganisms');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Protein Collections','detail-report','Name','protein_collection/report/-/~','labelCol','protein_collections','');
-INSERT INTO "detail_report_hotlinks" VALUES(2,'NEWT ID','detail-report','NEWT ID','ontology/show/@NEWT1','valueCol','newt_ID','');
-INSERT INTO "detail_report_hotlinks" VALUES(3,'+NEWT ID','detail-report','NEWT ID','ontology/report/NEWT/-/-/-/-/','labelCol','newt_List_Report','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'NEWT ID List','link_list','NEWT ID List','ontology/show/@NEWT1','valueCol','newt_ID_List','');
-INSERT INTO "detail_report_hotlinks" VALUES(5,'NCBI Taxonomy ID','detail-report','NCBI Taxonomy ID','ncbi_taxonomy/show/','valueCol','ncbi_taxonomy_ID_Detail','');
-INSERT INTO "detail_report_hotlinks" VALUES(6,'+NCBI Taxonomy ID','detail-report','NCBI Taxonomy ID','ncbi_taxonomy/report/','labelCol','ncbi_taxonomy_ID_List','');
-INSERT INTO "detail_report_hotlinks" VALUES(7,'NCBI Taxonomy','detail-report','NCBI Taxonomy','ncbi_taxonomy/report/-/StartsWith__@','labelCol','ncbi_taxonomy_Name_List','');
+INSERT INTO "detail_report_hotlinks" VALUES(5,'NCBI Taxonomy ID','detail-report','NCBI Taxonomy ID','ncbi_taxonomy/show/','valueCol','ncbi_taxonomy_detail _report','');
+INSERT INTO "detail_report_hotlinks" VALUES(6,'+NCBI Taxonomy ID','detail-report','NCBI Taxonomy ID','ncbi_taxonomy/report/','labelCol','ncbi_taxonomy_list_report_id','');
+INSERT INTO "detail_report_hotlinks" VALUES(7,'NCBI Taxonomy','detail-report','NCBI Taxonomy','ncbi_taxonomy/report/-/~','labelCol','ncbi_taxonomy_list_report_name','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'NCBI Synonyms','detail-report','NCBI Taxonomy ID','ncbi_taxonomy_altname/report/','labelCol','ncbi_taxonomy_Synomys','');
 INSERT INTO "detail_report_hotlinks" VALUES(10,'Taxonomy List','tabular_list','Taxonomy List','','valueCol','dl_taxonomy_list','');
 INSERT INTO "detail_report_hotlinks" VALUES(11,'Default Protein Collection','detail-report','Default Protein Collection','protein_collection/report/~','valueCol','dl_default_protein_collection','');

@@ -29,7 +29,6 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_users','Users','10','','Us
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_title','Title','50!','','Title','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_proposalType','Type','10','','Proposal Type','ContainsText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','ID','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','eus_proposals/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Users','invoke_entity','ID','eus_proposal_users/report','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Import Date','format_date','value','15','{"Format":"Y-m-d"}');
