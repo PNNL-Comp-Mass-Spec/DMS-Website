@@ -3,7 +3,6 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Dataset_Check_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_cols','*, ''Log'' as Log');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_dataset','Dataset','60','','Dataset','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_created_most_recent_weeks','Created (Most recent weeks)','22','','Created','MostRecentWeeks','text','32','','');
@@ -15,5 +14,4 @@ INSERT INTO "list_report_primary_filter" VALUES(7,'pf_dataset_id','Dataset_ID','
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_storage','Storage','60','','Storage','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Dataset','invoke_entity','value','dataset/show','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Log','invoke_entity','Dataset','main_log/report/-','');
 COMMIT;
