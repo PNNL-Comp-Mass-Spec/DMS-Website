@@ -123,12 +123,6 @@ INSERT INTO "detail_report_hotlinks" VALUES(1,'SMAQC_Job','detail-report','SMAQC
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Dataset','detail-report','Dataset','dataset/show','labelCol','dataset',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Dataset Folder Path','href-folder','Dataset Folder Path','','labelCol','dataset_folder_path',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(6,'QC Metric Stats','literal_link','QC Metric Stats','','valueCol','smaqc_data',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(7,'Chromatography Plots','link_table','Chromatography Plots','','valueCol','smaqc_chrom_plots',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(8,'Data Sampling Plots','link_table','Data Sampling Plots','','valueCol','smaqc_datasampling_plots',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(9,'Ion Related Plots','link_table','Ion Related Plots','','valueCol','smaqc_ionrelated_plots',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(10,'MS1 Plots','link_table','MS1 Plots','','valueCol','smaqc_MS1_plots',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(11,'MS2 Plots','link_table','MS2 Plots','','valueCol','smaqc_MS2_plots',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(12,'Peptide ID Plots','link_table','Peptide ID Plots','','valueCol','smaqc_peptideid_plots',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(13,'XIC_WideFrac','glossary_entry','XIC_WideFrac','smaqc_metrics/show/','labelCol','smaqc_xic_widefrac','{"Label":"Fraction of precursor ions accounting for the top half of all peak width"}');
 INSERT INTO "detail_report_hotlinks" VALUES(14,'XIC_FWHM_Q1','glossary_entry','XIC_FWHM_Q1','smaqc_metrics/show/','labelCol','smaqc_xic_fwhm_q1','{"Label":"25%ile of peak widths for the wide XICs"}');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'AMTs_10pct_FDR','glossary_entry','AMTs_10pct_FDR','smaqc_metrics/show/','labelCol','smaqc_AMTs_10pct_FDR','{"Label":"Number of LC-MS features"}');
