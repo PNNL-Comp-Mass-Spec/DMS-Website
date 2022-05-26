@@ -100,7 +100,6 @@ INSERT INTO "restricted_actions" VALUES(98,'rna_prep_request','enter','DMS_User'
 INSERT INTO "restricted_actions" VALUES(99,'run_assignment','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation');
 INSERT INTO "restricted_actions" VALUES(100,'run_interval','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation, DMS_Dataset_Operation');
 INSERT INTO "restricted_actions" VALUES(101,'run_op_logs','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration');
-INSERT INTO "restricted_actions" VALUES(102,'sample_prep_biomaterial_location','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation');
 INSERT INTO "restricted_actions" VALUES(103,'sample_prep_request','enter','DMS_User');
 INSERT INTO "restricted_actions" VALUES(104,'sample_prep_request_assignment','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation');
 INSERT INTO "restricted_actions" VALUES(105,'sample_submission','enter','DMS_User');
