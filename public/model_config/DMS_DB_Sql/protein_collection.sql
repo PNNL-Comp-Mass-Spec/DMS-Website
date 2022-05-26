@@ -12,7 +12,7 @@ INSERT INTO "list_report_hotlinks" VALUES(2,'Usage Last 12 Months','invoke_entit
 INSERT INTO "list_report_hotlinks" VALUES(3,'Usage All Years','invoke_entity','Name','analysis_job/report/-/-/-/-/-/-/@','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'ID','invoke_entity','value','/protein_collection/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Entries','invoke_entity','ID','protein_collection_members/report/@','');
-INSERT INTO "list_report_hotlinks" VALUES(6,'Entries','format_commas','value','','{"Decimals":"0"}');
+INSERT INTO "list_report_hotlinks" VALUES(6,'+Entries','format_commas','value','','{"Decimals":"0"}');
 INSERT INTO "list_report_hotlinks" VALUES(7,'Residues','format_commas','value','','{"Decimals":"0"}');
 INSERT INTO "list_report_hotlinks" VALUES(8,'Description','min_col_width','value','60','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

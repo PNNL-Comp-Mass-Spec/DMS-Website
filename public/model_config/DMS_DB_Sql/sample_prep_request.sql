@@ -110,9 +110,9 @@ INSERT INTO "list_report_hotlinks" VALUES(15,'+ID','export_align','value','','{"
 INSERT INTO "list_report_hotlinks" VALUES(16,'NumSamples','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(17,'MS Runs TBG','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(18,'+Days In Queue','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(19,'Work Package','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(20,'WP State','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(21,'EUS Proposal','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(19,'+Work Package','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(20,'+WP State','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(21,'+EUS Proposal','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(22,'Experiments_Last_7Days','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(23,'Experiments_Last_31Days','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(24,'Experiments_Last_180Days','export_align','value','','{"Align":"Center"}');
@@ -128,7 +128,6 @@ INSERT INTO "detail_report_hotlinks" VALUES(6,'Instrument Group','detail-report'
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Dataset Type','detail-report','Instrument Group','instrument_allowed_dataset_type/report','valueCol','dl_DatasetType',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(8,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_EUS_Proposal',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(9,'Work Package','detail-report','Work Package','charge_code/show','labelCol','dl_Work_Package','');
-INSERT INTO "detail_report_hotlinks" VALUES(10,'Wiki Page Link','literal_link','Wiki Page Link','','valueCol','dl_wiki_page_link',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(12,'Material Containers Item Count','detail-report','ID','sample_prep_request_items/report/material_container/','labelCol','dl_material_containers_item_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(14,'Experiment Group Item Count','detail-report','ID','sample_prep_request_items/report/experiment_group/','labelCol','dl_experiment_group_item_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(15,'Experiment Item Count','detail-report','ID','sample_prep_request_items/report/experiment/','labelCol','dl_experiment_item_count','');

@@ -24,6 +24,6 @@ INSERT INTO "list_report_hotlinks" VALUES(8,'+ID','export_align','value','','{"A
 INSERT INTO "list_report_hotlinks" VALUES(9,'Num Samples','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(10,'MS Runs TBG','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(11,'+Days In Queue','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(12,'WP','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(13,'WP State','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(12,'+WP','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(13,'+WP State','export_align','value','','{"Align":"Center"}');
 COMMIT;

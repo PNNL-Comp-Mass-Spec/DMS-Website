@@ -34,7 +34,7 @@ INSERT INTO "list_report_hotlinks" VALUES(10,'+Sel','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(11,'#DaysInQueue','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(12,'#WPActivationState','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(13,'Pri','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(14,'Batch','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(14,'+Batch','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(15,'Block','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(16,'Run Order','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(17,'+Days In Queue','export_align','value','','{"Align":"Center"}');

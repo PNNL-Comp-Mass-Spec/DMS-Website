@@ -23,15 +23,14 @@ INSERT INTO "list_report_hotlinks" VALUES(8,'EUS Proposal','invoke_entity','valu
 INSERT INTO "list_report_hotlinks" VALUES(9,'Tissue','invoke_entity','value','tissue/report/~','');
 INSERT INTO "list_report_hotlinks" VALUES(10,'Organism','invoke_entity','value','organism/report/~','');
 INSERT INTO "list_report_hotlinks" VALUES(11,'Campaign','invoke_entity','value','campaign/show','');
-INSERT INTO "list_report_hotlinks" VALUES(12,'Containers','min_col_width','value','35','');
 INSERT INTO "list_report_hotlinks" VALUES(13,'#DaysInQueue','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(14,'#WPActivationState','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(15,'+ID','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(16,'NumSamples','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(17,'MS Runs TBG','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(18,'+Days In Queue','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(19,'Work Package','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(20,'WP State','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(21,'EUS Proposal','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(19,'+Work Package','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(20,'+WP State','export_align','value','','{"Align":"Center"}');
+INSERT INTO "list_report_hotlinks" VALUES(21,'+EUS Proposal','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(22,'Files','invoke_entity','ID','file_attachment/report/-/StartsWith__sample_prep_request/@','');
 COMMIT;

@@ -17,8 +17,8 @@ INSERT INTO "list_report_primary_filter" VALUES(8,'pf_experiment_id','Experiment
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Batch','invoke_entity','value','requested_run_batch/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Request','invoke_entity','value','requested_run/show','');
-INSERT INTO "list_report_hotlinks" VALUES(3,'Value','min_col_width','value','35','');
-INSERT INTO "list_report_hotlinks" VALUES(4,'Value','invoke_entity','Batch','requested_run_factors/param','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Value','invoke_entity','Batch','requested_run_factors/param','');
+INSERT INTO "list_report_hotlinks" VALUES(4,'+Value','min_col_width','value','35','');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Experiment','invoke_entity','value','experiment/show','');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Dataset','invoke_entity','value','dataset/show','');
 COMMIT;
