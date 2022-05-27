@@ -37,12 +37,10 @@ INSERT INTO "form_field_options" VALUES(2,'requester','default_function','GetUse
 INSERT INTO "form_field_options" VALUES(3,'owner','default_function','GetUser()');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'package_type','picker.replace','dataPackageTypePickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'owner','autocomplete.replace','userPRNPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(3,'requester','autocomplete.replace','userPRNPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'owner','picker.replace','userPRNPickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(3,'requester','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'team','picker.replace','dataPackageTeamPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'state','picker.replace','dataPackageStatePickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(6,'owner','picker.replace','userPRNPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(7,'requester','picker.replace','userPRNPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','25!','','Name','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_ID','ID','6','','ID','Equals','text','80','','');
