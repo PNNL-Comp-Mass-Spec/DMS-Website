@@ -79,7 +79,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'contact_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'campaign','list-report.helper','','helper_campaign/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'container','list-report.helper','','helper_material_container/report','',',','');
-INSERT INTO "form_field_choosers" VALUES(4,'purchase_date','picker.prevDate','futureDatePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(4,'purchase_date','picker.prevDate','','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'active','picker.replace','yesNoPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'compound_type_name','picker.replace','compoundTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'organism_name','list-report.helper','','helper_organism/report','',',','');
