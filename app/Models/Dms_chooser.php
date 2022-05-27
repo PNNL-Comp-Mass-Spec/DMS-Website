@@ -287,11 +287,6 @@ class Dms_chooser extends Model {
             	// Templates are defined with the other DMS choosers in dms_chooser.db
                 $str .= "$label " . $this->get_link_chooser($f_name, $pln);
                 break;
-
-            case "autocomplete":
-            case "autocomplete.append":
-                $str .= "(choices will appear when you start typing)";
-                break;
         }
         return $str;
     }
