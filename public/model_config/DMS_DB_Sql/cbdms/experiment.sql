@@ -107,7 +107,7 @@ INSERT INTO "external_sources" VALUES(12,'rna_prep_request','experiment','ColNam
 INSERT INTO "external_sources" VALUES(13,'rna_prep_request','campaign','ColName','Campaign');
 INSERT INTO "external_sources" VALUES(14,'rna_prep_request','organism_name','ColName','Organism');
 INSERT INTO "external_sources" VALUES(15,'rna_prep_request','reason','ColName','Reason');
-INSERT INTO "external_sources" VALUES(16,'rna_prep_request','biomaterial_list','ColName','Biomaterial List');
+INSERT INTO "external_sources" VALUES(16,'rna_prep_request','biomaterial_list','Literal','');
 INSERT INTO "external_sources" VALUES(17,'rna_prep_request','enzyme_name','Literal','Trypsin');
 INSERT INTO "external_sources" VALUES(19,'rna_prep_request','sample_prep_request','ColName','ID');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
