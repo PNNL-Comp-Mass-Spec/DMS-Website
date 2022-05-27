@@ -93,7 +93,7 @@ INSERT INTO "form_field_choosers" VALUES(12,'state','picker.replace','sampleRequ
 INSERT INTO "form_field_choosers" VALUES(13,'eus_proposal_id','list-report.helper','','helper_eus_proposal/report','',',','Select Proposal...');
 INSERT INTO "form_field_choosers" VALUES(14,'eus_proposal_id','list-report.helper','','helper_eus_proposal_ex/report','',',','Select Proposal (by dataset)...');
 INSERT INTO "form_field_choosers" VALUES(15,'work_package_number','list-report.helper','','helper_charge_code/report','',',','');
-INSERT INTO "form_field_choosers" VALUES(16,'estimated_completion','picker.prevDate','futureDatePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(16,'estimated_completion','picker.prevDate','','','',',','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'id','section','Basic Information');
 INSERT INTO "form_field_options" VALUES(2,'requester_prn','default_function','GetUser()');

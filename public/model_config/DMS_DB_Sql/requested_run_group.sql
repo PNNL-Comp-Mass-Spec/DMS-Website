@@ -47,7 +47,7 @@ INSERT INTO "form_field_choosers" VALUES(10,'eus_proposal_id','list-report.helpe
 INSERT INTO "form_field_choosers" VALUES(11,'eus_proposal_id','list-report.helper','','helper_eus_proposal_ex/report','',',','Select Proposal (by dataset)...');
 INSERT INTO "form_field_choosers" VALUES(12,'work_package','list-report.helper','','helper_charge_code/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(13,'staging_location','list-report.helper','','helper_material_location','',',','');
-INSERT INTO "form_field_choosers" VALUES(14,'batch_completion_date','picker.prevDate','futureDatePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(14,'batch_completion_date','picker.prevDate','','','',',','');
 INSERT INTO "form_field_choosers" VALUES(15,'batch_priority','picker.replace','batchPriorityPickList','','',',','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'experiment_group_id','experimentGroupID','varchar','input','12','AddRequestedRuns');

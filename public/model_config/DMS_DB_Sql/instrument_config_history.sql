@@ -26,7 +26,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'instrument','picker.replace','instrumentNamePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'posted_by','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'description','picker.replace','instrumentConfigDescriptionPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(4,'date_of_change','picker.prevDate','futureDatePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(4,'date_of_change','picker.prevDate','','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument','Instrument','20','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_description','Description','60','','Description','ContainsText','text','128','','');

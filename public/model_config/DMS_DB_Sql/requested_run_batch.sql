@@ -28,7 +28,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'requested_run_list','list-report.hel
 INSERT INTO "form_field_choosers" VALUES(2,'owner_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'requested_batch_priority','picker.replace','batchPriorityPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'requested_instrument','picker.replace','instrumentGroupPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(5,'requested_completion_date','picker.prevDate','futureDatePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(5,'requested_completion_date','picker.prevDate','','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','32','','Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_instrument','Inst. Group','32','','Inst. Group','ContainsText','text','128','','');

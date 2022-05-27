@@ -9,7 +9,7 @@ INSERT INTO "form_fields" VALUES(2,'instOpsRoles','Instrument Ops Roles','text',
 INSERT INTO "form_fields" VALUES(3,'Created_After','Created After','text','32','32','','','','trim|max_length[32]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'instOpsRoles','picker.append','instrumentOpsRolePickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'Created_After','picker.prevDate','prevDatePickList','','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'Created_After','picker.prevDate','','','',',','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'numberOfDatasets','numberOfDatasets','varchar','input','20','FindDatasetsByInstrument');
 INSERT INTO "sproc_args" VALUES(2,'instOpsRoles','instOpsRoles','varchar','input','128','FindDatasetsByInstrument');
