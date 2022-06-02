@@ -6,7 +6,9 @@ class Home extends BaseController
 {
     public function index()
     {
-        //return view('welcome_message');
+        // Uncomment the following line to access the CodeIgniter welcome page at https://dmsdev.pnl.gov/home
+        // return view('welcome_message');
+
         return redirect()->to(site_url('gen/index'));
     }
 }
