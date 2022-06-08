@@ -15,7 +15,7 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_protein_collection_list','
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','','','Finished','MostRecentWeeks','text','32','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_settings_file','Settings File','15!','','Settings_File','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_job_comment','Job Comment','','','Comment','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(10,'pf_pkg_comment','Package Comment','','','Package Comment','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(10,'pf_pkg_comment','Package Comment','','','Package_Comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','analysis_job/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','data_package/show','');
