@@ -55,9 +55,10 @@ INSERT INTO "list_report_hotlinks" VALUES(3,'LC Column','invoke_entity','value',
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Sample Prep Request','link_list','Sample Prep Request','sample_prep_request/show','valueCol','dl_sample_prep_request',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Experiment Groups','link_list','Experiment Groups','experiment_group/show','valueCol','dl_experiment_groups',NULL);
-INSERT INTO "detail_report_hotlinks" VALUES(4,'Instrument','detail-report','Instrument','instrument/show','labelCol','dl_instrument','');
+INSERT INTO "detail_report_hotlinks" VALUES(4,'Instrument','detail-report','Instrument','instrument/show','valueCol','dl_instrument','');
 INSERT INTO "detail_report_hotlinks" VALUES(5,'Datasets','link_list','Datasets','dataset/show','valueCol','dl_datasets',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(6,'LC Column','detail-report','LC Column','prep_lc_column/show','valueCol','dl_lc_column','');
+INSERT INTO "detail_report_hotlinks" VALUES(7,'OperatorPRN','detail-report','OperatorPRN','user/show','valueCol','dl_operator','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'id','ID','int','output','','AddUpdatePrepLCRun');
 INSERT INTO "sproc_args" VALUES(2,'tab','Tab','varchar','input','128','AddUpdatePrepLCRun');
