@@ -35,6 +35,7 @@ INSERT INTO "form_field_choosers" VALUES(3,'active','picker.replace','yesNoAsOne
 INSERT INTO "form_field_choosers" VALUES(5,'ncbi_taxonomy_id','list-report.helper','','helper_ncbi_taxonomy_id/report/','ncbi_taxonomy_id',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'auto_define_taxonomy','picker.replace','yesNoPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'default_protein_collection','list-report.helper','','helper_protein_collection/report/','organism',',','');
+INSERT INTO "form_field_choosers" VALUES(8,'newt_id_list','list-report.helper','','helper_newt_id/report','newt_id_list',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_name','Name','30!','','Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_description','Description','15!','','Description','ContainsText','text','128','','');
