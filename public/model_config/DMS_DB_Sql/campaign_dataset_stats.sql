@@ -36,8 +36,8 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'startDate','picker.prevDate','','','',',','Start Date');
 INSERT INTO "form_field_choosers" VALUES(2,'endDate','picker.prevDate','','','',',','End Date');
 INSERT INTO "form_field_choosers" VALUES(3,'includeInstrument','picker.replace','yesNoAsOneZeroPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(4,'campaignNameFilter','list-report.helper','	','helper_campaign/report','campaignNameFilter',',','');
-INSERT INTO "form_field_choosers" VALUES(5,'campaignNameExclude','list-report.helper','','helper_campaign/report','campaignNameFilter',',','');
+INSERT INTO "form_field_choosers" VALUES(4,'campaignNameFilter','list-report.helper','	','helper_campaign/report/Active/','campaignNameFilter',',','');
+INSERT INTO "form_field_choosers" VALUES(5,'campaignNameExclude','list-report.helper','','helper_campaign/report/Active/','campaignNameFilter',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'excludeQCAndBlankWithoutWP','picker.replace','yesNoAsOneZeroPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'excludeAllQCAndBlank','picker.replace','yesNoAsOneZeroPickList','','',',','');
 COMMIT;

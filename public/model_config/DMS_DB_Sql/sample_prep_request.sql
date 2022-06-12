@@ -63,7 +63,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'requester_prn','picker.replace','use
 INSERT INTO "form_field_choosers" VALUES(3,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'tissue','list-report.helper','','helper_tissue/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'biohazard_level','picker.replace','samplePrepReqBiohazardPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(6,'campaign','list-report.helper','','helper_campaign/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(6,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'instrument_group','picker.replace','samplePrepInstrumentGroupPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'dataset_type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','instrument_group',',','');
 INSERT INTO "form_field_choosers" VALUES(10,'sample_type','picker.replace','samplePrepReqTypePickList','','',',','');

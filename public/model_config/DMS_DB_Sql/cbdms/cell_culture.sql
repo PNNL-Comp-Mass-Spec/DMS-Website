@@ -38,7 +38,7 @@ INSERT INTO "form_fields" VALUES(13,'cell_line','Cell Line','text','60','80','',
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'culture_type_name','picker.replace','cellCultureTypePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'contact_prn','picker.replace','userPRNPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(3,'campaign','list-report.helper','','helper_campaign/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(3,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'pi_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'container','list-report.helper','','helper_material_container/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'organism_list','picker.append','orgPickList','','',',','');

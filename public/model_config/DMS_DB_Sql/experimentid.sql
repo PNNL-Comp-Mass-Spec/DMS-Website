@@ -101,8 +101,8 @@ INSERT INTO "form_fields" VALUES(20,'wellplate','Wellplate','text','50','64','',
 INSERT INTO "form_fields" VALUES(21,'well','Well Number','text','8','8','','','','trim|max_length[8]');
 INSERT INTO "form_fields" VALUES(22,'barcode','Barcode','text','40','64','','','','trim|max_length[64]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO "form_field_choosers" VALUES(1,'experiment','list-report.helper','','helper_experiment/report','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'campaign','list-report.helper','','helper_campaign/report','campaign',',','');
+INSERT INTO "form_field_choosers" VALUES(1,'experiment','list-report.helper','','helper_experiment/report','experiment',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'researcher_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'organism_name','picker.replace','orgPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'biomaterial_list','list-report.helper','','helper_cell_culture/report','biomaterial_list',';','');

@@ -77,7 +77,7 @@ INSERT INTO "form_fields" VALUES(20,'mass','Mass','text','30','30','','','','tri
 INSERT INTO "form_fields" VALUES(21,'active','Active','text','30','30','','','Yes','trim|max_length[3]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'contact_prn','picker.replace','userPRNPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'campaign','list-report.helper','','helper_campaign/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'container','list-report.helper','','helper_material_container/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'purchase_date','picker.prevDate','','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'active','picker.replace','yesNoPickList','','',',','');

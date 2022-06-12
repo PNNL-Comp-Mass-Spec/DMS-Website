@@ -82,7 +82,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'requester_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'biohazard_level','picker.replace','samplePrepReqBiohazardPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(5,'campaign','list-report.helper','','helper_campaign/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(5,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'instrument_name','picker.replace','instrumentNameRNAPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'dataset_type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_name_dstype/report','instrument_name',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'sample_type','picker.replace','samplePrepReqTypePickList','','',',','');

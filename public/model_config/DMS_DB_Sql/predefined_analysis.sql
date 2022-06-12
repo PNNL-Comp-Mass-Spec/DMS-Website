@@ -51,8 +51,8 @@ INSERT INTO "form_field_options" VALUES(2,'campaign_name_criteria','section','Ev
 INSERT INTO "form_field_options" VALUES(3,'analysis_tool_name','section','Job Presets');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'instrument_class_criteria','picker.replace','instrumentClassPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'campaign_name_criteria','list-report.helper','','helper_campaign/report','',',','');
-INSERT INTO "form_field_choosers" VALUES(3,'campaign_excl_criteria','list-report.helper','','helper_campaign/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'campaign_name_criteria','list-report.helper','','helper_campaign/report/Active/','campaign_name_criteria',',','');
+INSERT INTO "form_field_choosers" VALUES(3,'campaign_excl_criteria','list-report.helper','','helper_campaign/report/Active/','campaign_excl_criteria',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'experiment_name_criteria','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'experiment_excl_criteria','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'instrument_name_criteria','picker.replace','instrumentNamePickList','','',',','');
