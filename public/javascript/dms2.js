@@ -677,7 +677,7 @@ var gamma = {
      * @returns {undefined}
      */
 	getObjectFromJSON: function (url, p, containerId, afterAction, beforeAction) {
-		var container = (containerId)?$('#' + containerId):null;
+		var container = (containerId) ? $('#' + containerId) : null;
 		var abort = false;
 		if(beforeAction) {
 			abort = beforeAction();
@@ -1042,7 +1042,7 @@ var lambda = {
 		var curDir = $('#qf_sort_dir_0').val();
 		$(".sorting_filter_input").each(function(idx, obj) {obj.value = ''} );
 		var dir = 'ASC';
-		if(colName == curCol) {dir = (curDir == 'ASC')?'DESC':'ASC'; };
+		if(colName == curCol) {dir = (curDir == 'ASC') ? 'DESC' : 'ASC'; };
 		$('#qf_sort_col_0').val(colName);
 		$('#qf_sort_dir_0').val(dir);
 		if(!noUpdate) {
@@ -1084,14 +1084,14 @@ var lambda = {
 	getPageSizeFromUser: function(curPageSize, totalRows, max) {
 		var reply = null;
 		if (curPageSize == 'all') {
-			return (totalRows > max)?max:totalRows;
+			return (totalRows > max) ? max : totalRows;
 		}
 		var reply = prompt("Please enter a value for number \n of rows to display on each page \n (1 to " + max + ")", curPageSize);
 		if (reply == null || reply == "") {
 			return null;
 		}
 		if (reply == 'all') {
-			return (totalRows > max)?max:totalRows;
+			return (totalRows > max) ? max : totalRows;
 		}
 		if(isNaN(reply)) {
 			alert("Sorry, '" + reply + "' is not a number");
@@ -1100,7 +1100,7 @@ var lambda = {
 		if (reply > totalRows) {
 			reply = totalRows;
 		}
-		return (reply > max)?max:reply;
+		return (reply > max) ? max : reply;
 	},
     /**
      * Validate and store the user-specified page size
@@ -1586,7 +1586,7 @@ var epsilon = {
      */
 	callChooser: function(fieldName, chooserPage, delimiter, xref) {
 		// resolve cross-reference to other field, if one exists
-		var xrefValue = (xref != '')?$('#' + xref).val():'';
+		var xrefValue = (xref != '') ? $('#' + xref).val() : '';
 		if(xref != '' && xrefValue == ''){
 			// Previously showed an error if the cross referenced field was empty
 			// We now allow this for cases where a field starts off as blank but the user needs to choose a value from a list
@@ -1810,7 +1810,7 @@ var epsilon = {
 					name = nm[1];
 				}
 				var s = '<Param ';
-				s += (section)?'Section="' + section + '" ':'';
+				s += (section) ? 'Section="' + section + '" ' : '';
 				s += 'Name="' + name + '" ';
 				s += 'Value="' + value + '" ';
 				s += '/>';

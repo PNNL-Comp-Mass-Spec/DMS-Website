@@ -464,6 +464,7 @@ class Cell_presentation {
     private function render_hotlink($value, $row, $colSpec, $columnName = '', $colIndex, $colorStyle) {
 
         $str = "";
+
         // resolve target for hotlink
         $target = $colSpec["Target"];
 
