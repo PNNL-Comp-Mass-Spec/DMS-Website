@@ -716,11 +716,13 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP = false
         $url = $link_id;
     } else {
 
-        // Insert an @ sign if it is not already present
-        // When constructing the URL, we will replace the @ sign in $target with $link_id
+        // Insert an at sign (@) if it is not already present
+        // When populating $url in this method, we will replace the @ sign in $target with $link_id
+
         if (strpos($target, '@') === false) {
             // Need to add the @ sign
-            // If $target does not end in ~, then add /
+
+            // If $target does not end in ~, add /
             $sep = (substr($target, -1) == '~') ? '' : '/';
             $targetNew = $target . $sep . '@';
         } else {
