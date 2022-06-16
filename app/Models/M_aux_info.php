@@ -206,6 +206,11 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_item_values($target, $category, $subcategory, $id) {
+
+    /*
+     * When switching to Postgres, update this query to reference v_aux_info_definition and t_aux_info_value
+     */
+
         $sql = <<<EOD
 SELECT
        AD.Item,
