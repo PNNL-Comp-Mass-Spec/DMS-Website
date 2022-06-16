@@ -8,7 +8,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','Name');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateCellCulture');
 INSERT INTO "general_params" VALUES('entry_page_data_table','v_cell_culture_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','name');
-INSERT INTO "general_params" VALUES('detail_report_aux_info_target','Cell Culture');
+INSERT INTO "general_params" VALUES('detail_report_aux_info_target','Biomaterial');
 INSERT INTO "general_params" VALUES('operations_sproc','DoMaterialItemOperation');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','name');
 INSERT INTO "general_params" VALUES('alternate_title_report','Biomaterial (Cell Culture) Report');
