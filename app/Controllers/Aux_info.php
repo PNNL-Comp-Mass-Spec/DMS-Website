@@ -11,7 +11,7 @@ class Aux_info extends BaseController {
      * @var array
      */
     protected $helpers = ['dms_search', 'cookie', 'user', 'dms_logging', 'url', 'text', 'form', 'string'];
-    
+
     /**
      * CodeIgniter 4 Constructor.
      */
@@ -91,7 +91,7 @@ class Aux_info extends BaseController {
 
     /**
      * Presents the aux info entry page, for example
-     * https://dms2.pnl.gov/aux_info/entry/Cell%20Culture/8875/Shew_QC_110415
+     * https://dms2.pnl.gov/aux_info/entry/Biomaterial/8875/Shew_QC_110415
      * @param type $target
      * @param type $id
      * @param type $name
