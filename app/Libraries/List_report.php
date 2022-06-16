@@ -202,7 +202,7 @@ class List_report {
         $current_primary_filter_values = $this->controller->primary_filter->get_cur_filter_values();
 
         $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
-        $sec_filter_display_info = $this->controller->secondary_filter->collect_information_for_display($this->controller->data_model, "$this->config_source/get_sql_comparison/");
+        $sec_filter_display_info = $this->controller->secondary_filter->collect_information_for_display($this->controller->data_model, "$this->config_source/get_sql_comparison");
 
         switch ($filter_display_mode) {
             case 'minimal':

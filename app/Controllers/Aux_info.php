@@ -53,8 +53,8 @@ class Aux_info extends BaseController {
      */
     private function _set_aux_info_names($target, $id='')
     {
-        $this->aux_info_support->item_entry_url = site_url('aux_info/item_values/'.$target.'/');
-        $this->aux_info_support->copy_info_url =  site_url('aux_info_copy/update/');
+        $this->aux_info_support->item_entry_url = site_url('aux_info/item_values/'.$target);
+        $this->aux_info_support->copy_info_url =  site_url('aux_info_copy/update');
         $this->aux_info_support->update_info_url = site_url("aux_info/update");
         $this->aux_info_support->show_url = site_url("aux_info/show/".$target."/".$id);
     }
