@@ -7,9 +7,10 @@ INSERT INTO "general_params" VALUES('list_report_data_cols','Target, Category, S
 INSERT INTO "general_params" VALUES('list_report_data_order_by','SC, SS, SI');
 INSERT INTO "general_params" VALUES('operations_sproc','AddUpdateAuxInfo');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO "list_report_primary_filter" VALUES(1,'pf_target','Target','10','','Target','MatchesText','text','80','','');
-INSERT INTO "list_report_primary_filter" VALUES(2,'pf_category','Category','12','','Category','MatchesText','text','80','','');
-INSERT INTO "list_report_primary_filter" VALUES(3,'pf_subcategory','Subcategory','12','','Subcategory','MatchesText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_target','Target','10','','Target','StartsWithText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_category','Category','12','','Category','StartsWithText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(3,'pf_subcategory','Subcategory','12','','Subcategory','StartsWithText','text','80','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_item','Item','12','','Item','StartsWithText','text','80','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'targetName','targetName','varchar','input','128','AddUpdateAuxInfo');
 INSERT INTO "sproc_args" VALUES(2,'targetEntityName','targetEntityName','varchar','input','128','AddUpdateAuxInfo');
