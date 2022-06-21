@@ -50,6 +50,7 @@ class Detail_report {
         $data['detail_report_cmds'] = $dcmds;
         $data['ops_url'] = site_url($this->controller->my_tag . '/operation');
         $data['aux_info_target'] = $this->controller->gen_model->get_detail_report_aux_info_target();
+        $data['check_access'] = [$this->controller, 'check_access'];
 
         helper(['detail_report', 'menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Detail_Reports', $this->controller);
