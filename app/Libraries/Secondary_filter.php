@@ -92,7 +92,7 @@ class Secondary_filter {
      * @param type $url
      * @return \stdClass
      */
-    function collect_information_for_display($model, $url = "data/get_sql_comparison") {
+    function collect_information_for_display($model, $url = "data/get_sql_comparison/") {
         // get array of column names from model
         // and make paired array suitable for selector option list
         // and get name of first column in case there is no current value for column name
