@@ -1,3 +1,6 @@
+// After updating this page, increment the version ID defined on the base_url line in file app/Views/main/entry_form.php
+// This is required to force browsers to update the cached version of this file
+
 var entry = {
 
 	analysis_job_request_psm: {
@@ -90,7 +93,7 @@ var entry = {
 			// define action to capture contents of param form
 			// as xml copied to main form field
 			epsilon.actions.before = function() {
-				epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam');
+				epsilon.copy_param_form_to_xml_param_field('param_form', 'job_param');
 				return true;
 			}
 			entry.mac_jobs.load_param_form();
@@ -114,7 +117,7 @@ var entry = {
 		},
 		cmdInit: function () {
 			epsilon.actions.before = function() {
-				epsilon.copy_param_form_to_xml_param_field('param_form', 'jobParam', true);
+				epsilon.copy_param_form_to_xml_param_field('param_form', 'job_param', true);
 				return true;
 			}
 			entry.pipeline_jobs.load_param_form();
