@@ -1,7 +1,7 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('list_report_data_table','V_Data_Package_AllItems_List_Report');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Data_Package_All_Items_List_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','ASC');
 INSERT INTO "general_params" VALUES('list_report_cmds','data_package_cmds');
 INSERT INTO "general_params" VALUES('list_report_cmds_url','/data_package_items/operation');
