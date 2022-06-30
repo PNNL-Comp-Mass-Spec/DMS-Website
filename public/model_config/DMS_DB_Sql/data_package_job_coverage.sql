@@ -9,7 +9,7 @@ INSERT INTO "general_params" VALUES('list_report_cmds_url','/xxx/operation');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Dataset');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Sel.','CHECKBOX','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Job','invoke_entity','Job','analysis_job/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Data_Package_ID','invoke_entity','value','data_package/show','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

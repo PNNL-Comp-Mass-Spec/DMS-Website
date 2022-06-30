@@ -18,7 +18,7 @@ INSERT INTO "primary_filter_choosers" VALUES(1,'pf_instrument','picker.replace',
 INSERT INTO "primary_filter_choosers" VALUES(2,'pf_lc_cart','picker.replace','lcCartPickList','','',',');
 INSERT INTO "primary_filter_choosers" VALUES(3,'pf_state','picker.replace','datasetStatePickList','','',',');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Sel.','CHECKBOX','ID','','');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','ID','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Dataset','invoke_entity','value','dataset/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'State','color_label','','','{"Capture Failed":"bad_clr"}');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Instrument','invoke_entity','value','instrument_operation_history/report','');

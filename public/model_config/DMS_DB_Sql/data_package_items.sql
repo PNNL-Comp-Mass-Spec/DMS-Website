@@ -14,7 +14,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_item_type','Item_Type','32
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_item','Item','25!','','Item','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_parent_entity','Parent_Entity','32','','Parent_Entity','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Sel.','CHECKBOX','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Sel','CHECKBOX','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','data_package/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'paramListXML','paramListXML','text','input','2147483647','UpdateDataPackageItemsXML');
