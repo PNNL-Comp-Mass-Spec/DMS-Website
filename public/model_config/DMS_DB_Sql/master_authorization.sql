@@ -85,7 +85,6 @@ INSERT INTO "restricted_actions" VALUES(83,'pipeline_script','enter','DMS_Infras
 INSERT INTO "restricted_actions" VALUES(84,'pipeline_step_tools','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO "restricted_actions" VALUES(85,'predefined_analysis','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO "restricted_actions" VALUES(86,'predefined_analysis_scheduling_rules','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
-INSERT INTO "restricted_actions" VALUES(87,'prep_lc_capture_job','enter','DMS_Infrastructure_Administration');
 INSERT INTO "restricted_actions" VALUES(88,'prep_lc_column','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation');
 INSERT INTO "restricted_actions" VALUES(89,'prep_lc_run','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation');
 INSERT INTO "restricted_actions" VALUES(90,'requested_run','enter','DMS_User');
