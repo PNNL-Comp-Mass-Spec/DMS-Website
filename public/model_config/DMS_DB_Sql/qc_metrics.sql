@@ -8,7 +8,7 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_dataset','Dataset','40!','
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_file_size_mb','File Size MB','20','','File Size MB','ContainsText','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_amts_10pct_fdr','AMTs 10pct FDR','20','','AMTs 10pct FDR','Equals','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_task_database','Task_Database','20','','Task_Database','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Parm File','40!','','Parm File','ContainsText','text','255','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_param_file','Param File','40!','','Param File','ContainsText','text','255','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_settings_file','Settings_File','15!','','Settings_File','ContainsText','text','255','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_ini_file','Ini_File_Name','20','','Ini_File_Name','ContainsText','text','255','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

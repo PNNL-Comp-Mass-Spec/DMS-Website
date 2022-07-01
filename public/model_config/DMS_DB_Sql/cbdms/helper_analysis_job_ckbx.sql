@@ -11,7 +11,7 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_state','State','6','','Sta
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_tool_name','Tool Name','32','','Tool Name','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_dataset','Dataset','25!','','Dataset','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Parm File','32','','Parm File','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_param_file','Param File','32','','Param File','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_protein_collection_list','Protein Collection List','32','','Protein Collection List','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_protein_options','Protein Options','32','','Protein Options','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_comment','Comment','32','','Comment','ContainsText','text','128','','');

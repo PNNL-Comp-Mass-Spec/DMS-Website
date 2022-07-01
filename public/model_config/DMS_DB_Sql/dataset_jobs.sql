@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Analysis_Job_List_Report_2');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Dataset_ID, Job');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Dataset_ID, Dataset, Job, Pri, State, Tool, Campaign, Experiment, Instrument, "Parm File", Settings_File, Organism, Tissue, "Job Organism", "Organism DB", "Protein Collection List", "Protein Options", Comment, Created, Started, Finished, Runtime, Progress, ETA_Minutes, "Job Request", "Results Folder", "Results Folder Path", Last_Affected, Rating');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Dataset_ID, Dataset, Job, Pri, State, Tool, Campaign, Experiment, Instrument, "Param File", Settings_File, Organism, Tissue, "Job Organism", "Organism DB", "Protein Collection List", "Protein Options", Comment, Created, Started, Finished, Runtime, Progress, ETA_Minutes, "Job Request", "Results Folder", "Results Folder Path", Last_Affected, Rating');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_datasetid','Dataset ID','6!','','Dataset_ID','Equals','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_dataset','Dataset','60!','','Dataset','ContainsText','text','128','','');
@@ -12,7 +12,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_job','Job','6!','','Job','
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_state','State','','','State','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_tool','Tool','','','Tool','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','','','Campaign','ContainsText','text','50','','');
-INSERT INTO "list_report_primary_filter" VALUES(7,'pf_parm_file','Parm File','25!','','Parm File','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(7,'pf_param_file','Param File','25!','','Param File','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_protein_collection_list','Protein Collection List','25!','','Protein Collection List','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_comment','Comment','','','Comment','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(10,'pf_most_recent_weeks','Most recent weeks','3!','','Last_Affected','MostRecentWeeks','text','32','','');

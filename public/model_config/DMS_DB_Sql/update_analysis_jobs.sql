@@ -16,7 +16,7 @@ INSERT INTO "form_fields" VALUES(6,'replace_text','Replace In Comment','area',''
 INSERT INTO "form_fields" VALUES(7,'assigned_processor','Assigned Processor','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(8,'associated_processor_group','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(9,'propagation_mode','Export Mode','text','24','24','','','','trim|max_length[24]');
-INSERT INTO "form_fields" VALUES(10,'parm_file','Parameter File','text','60','255','','','','trim|max_length[255]');
+INSERT INTO "form_fields" VALUES(10,'param_file','Parameter File','text','60','255','','','','trim|max_length[255]');
 INSERT INTO "form_fields" VALUES(11,'settings_file','Settings File','text','60','80','','','','trim|default_value[LCQDefSettings.txt]|max_length[80]');
 INSERT INTO "form_fields" VALUES(12,'organism','Organism','text','30','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(13,'prot_coll_name_list','Protein Collection List','area','','','3','60','na','trim|max_length[2000]');
@@ -31,7 +31,7 @@ INSERT INTO "form_field_options" VALUES(6,'replace_text','enable','ckbx');
 INSERT INTO "form_field_options" VALUES(7,'assigned_processor','enable','ckbx');
 INSERT INTO "form_field_options" VALUES(8,'associated_processor_group','enable','ckbx');
 INSERT INTO "form_field_options" VALUES(9,'propagation_mode','enable','ckbx');
-INSERT INTO "form_field_options" VALUES(10,'parm_file','enable','ckbx');
+INSERT INTO "form_field_options" VALUES(10,'param_file','enable','ckbx');
 INSERT INTO "form_field_options" VALUES(11,'settings_file','enable','ckbx');
 INSERT INTO "form_field_options" VALUES(12,'organism','enable','ckbx');
 INSERT INTO "form_field_options" VALUES(13,'prot_coll_name_list','enable','ckbx');
@@ -43,7 +43,7 @@ INSERT INTO "form_field_choosers" VALUES(3,'priority','picker.replace','analysis
 INSERT INTO "form_field_choosers" VALUES(4,'assigned_processor','picker.replace','assignedProcessorPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'associated_processor_group','list-report.helper','','helper_analysis_processor_group/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'propagation_mode','picker.replace','jobPropagationModePickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(7,'parm_file','list-report.helper','','helper_aj_param_file/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(7,'param_file','list-report.helper','','helper_aj_param_file/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'settings_file','list-report.helper','','helper_aj_settings_file/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(9,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(10,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism',',','');
@@ -62,7 +62,7 @@ INSERT INTO "sproc_args" VALUES(6,'replace_text','replaceText','varchar','input'
 INSERT INTO "sproc_args" VALUES(7,'assigned_processor','assignedProcessor','varchar','input','64','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(8,'associated_processor_group','associatedProcessorGroup','varchar','input','64','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(9,'propagation_mode','propagationMode','varchar','input','24','UpdateAnalysisJobs');
-INSERT INTO "sproc_args" VALUES(10,'parm_file','parmFileName','varchar','input','255','UpdateAnalysisJobs');
+INSERT INTO "sproc_args" VALUES(10,'param_file','paramFileName','varchar','input','255','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(11,'settings_file','settingsFileName','varchar','input','255','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(12,'organism','organismName','varchar','input','128','UpdateAnalysisJobs');
 INSERT INTO "sproc_args" VALUES(13,'prot_coll_name_list','protCollNameList','varchar','input','4000','UpdateAnalysisJobs');

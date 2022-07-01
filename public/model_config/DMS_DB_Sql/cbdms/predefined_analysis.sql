@@ -34,7 +34,7 @@ INSERT INTO "form_fields" VALUES(19,'labelling_excl_criteria','Experiment Labell
 INSERT INTO "form_fields" VALUES(20,'exp_comment_criteria','Experiment Comment Criteria','text','60','128','','','','trim|max_length[128]');
 INSERT INTO "form_fields" VALUES(21,'separation_type_criteria','Separation Type Criteria','text','60','64','','','','trim|max_length[64]');
 INSERT INTO "form_fields" VALUES(22,'analysis_tool_name','Analysis Tool','text','60','64','','','','trim|required|max_length[64]');
-INSERT INTO "form_fields" VALUES(23,'parm_file_name','Parm File','area','','','2','60','','trim|required|max_length[255]');
+INSERT INTO "form_fields" VALUES(23,'param_file_name','Param File','area','','','2','60','','trim|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(24,'settings_file_name','Settings File','area','','','2','60','','trim|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(25,'organism_name','Organism','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(26,'organism_db_name','Organism DB File','text','60','128','','','na','trim|required|max_length[128]');
@@ -51,15 +51,15 @@ INSERT INTO "form_field_options" VALUES(2,'campaign_name_criteria','section','Ev
 INSERT INTO "form_field_options" VALUES(3,'analysis_tool_name','section','Job Presets');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'instrument_class_criteria','picker.replace','instrumentClassPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(2,'campaign_name_criteria','list-report.helper','','helper_campaign/report','',',','');
-INSERT INTO "form_field_choosers" VALUES(3,'campaign_excl_criteria','list-report.helper','','helper_campaign/report','',',','');
+INSERT INTO "form_field_choosers" VALUES(2,'campaign_name_criteria','list-report.helper','','helper_campaign/report/Active/','campaign_name_criteria',',','');
+INSERT INTO "form_field_choosers" VALUES(3,'campaign_excl_criteria','list-report.helper','','helper_campaign/report/Active/','campaign_excl_criteria',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'experiment_name_criteria','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'experiment_excl_criteria','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'instrument_name_criteria','picker.replace','instrumentNamePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'organism_name_criteria','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'labelling_incl_criteria','picker.replace','labellingPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(9,'analysis_tool_name','picker.replace','analysisToolPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(10,'parm_file_name','list-report.helper','','helper_aj_param_file/report','analysis_tool_name',',','');
+INSERT INTO "form_field_choosers" VALUES(10,'param_file_name','list-report.helper','','helper_aj_param_file/report','analysis_tool_name',',','');
 INSERT INTO "form_field_choosers" VALUES(11,'settings_file_name','list-report.helper','','helper_aj_settings_file/report/~','analysis_tool_name',',','');
 INSERT INTO "form_field_choosers" VALUES(12,'organism_name','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(13,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism_name',',','');
@@ -75,7 +75,7 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument_class','Instrum
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_analysis_tool','Analysis Tool','6','','Analysis Tool','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_campaign','Campaign','20!','','Campaign Crit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instrument','Instrument','6','','Instrument Crit.','ContainsText','text','','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Param File','45!','','Parm File','ContainsText','text','256','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_param_file','Param File','45!','','Param File','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_experiment','Experiment','25!','','Experiment Crit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_dataset','Dataset','20!','','DatasetCrit.','ContainsText','text','','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_enabled','Enabled','2!','','Enabled','Equals','text','','','');
@@ -102,7 +102,7 @@ INSERT INTO "sproc_args" VALUES(10,'exp_comment_criteria','expCommentCriteria','
 INSERT INTO "sproc_args" VALUES(11,'labelling_incl_criteria','labellingInclCriteria','varchar','input','64','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(12,'labelling_excl_criteria','labellingExclCriteria','varchar','input','64','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(13,'analysis_tool_name','analysisToolName','varchar','input','64','AddUpdatePredefinedAnalysis');
-INSERT INTO "sproc_args" VALUES(14,'parm_file_name','parmFileName','varchar','input','255','AddUpdatePredefinedAnalysis');
+INSERT INTO "sproc_args" VALUES(14,'param_file_name','paramFileName','varchar','input','255','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(15,'settings_file_name','settingsFileName','varchar','input','255','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(16,'organism_name','organismName','varchar','input','128','AddUpdatePredefinedAnalysis');
 INSERT INTO "sproc_args" VALUES(17,'organism_db_name','organismDBName','varchar','input','128','AddUpdatePredefinedAnalysis');
@@ -129,7 +129,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(1,'Settings File Name','detail-repor
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Instrument Class Criteria','detail-report','Instrument Class Criteria','instrumentclass/show','labelCol','instrument_class',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(3,'ID','detail-report','ID','predefined_analysis_datasets/param','labelCol','preview_datasets_matching_predefine','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Dataset Criteria','detail-report','Dataset Criteria','predefined_analysis_preview/param','labelCol','preview_predefines_by_dataset','');
-INSERT INTO "detail_report_hotlinks" VALUES(5,'Parmfile Name','detail-report','Parmfile Name','param_file/report/-/~','labelCol','parameter_file','');
+INSERT INTO "detail_report_hotlinks" VALUES(5,'Param File Name','detail-report','Param File Name','param_file/report/-/~','labelCol','parameter_file','');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
 INSERT INTO "utility_queries" VALUES(1,'queue','Datasets Predefined Analysis Queue','','V_Predefined_Analysis_Scheduling_Queue_List_Report','*','{"col":"Item", "dir":"DESC"}','{"Dataset":"CTx", "ID":"Equals", "State":"CTx", "Message":"CTx", "User":"CTx", "Entered":"LTd"}','{"Dataset":{"LinkType":"invoke_entity","Target":"dataset\/show\/"},"Message":{"LinkType":"min_col_width", "Target":"40"}}');
 COMMIT;

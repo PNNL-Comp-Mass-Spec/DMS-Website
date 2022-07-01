@@ -10,7 +10,7 @@ INSERT INTO "list_report_primary_filter" VALUES(1,'pf_id','ID','','','ID','Equal
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_tool','Tool','','','Tool','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_job','Job','','','Job','Equals','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_dataset','Dataset','45!','','Dataset','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(5,'pf_parm_file','Parm File','25!','','Parm File','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(5,'pf_param_file','Param File','25!','','Param File','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_protein_collection_list','Protein Collection List','25!','','Protein Collection List','ContainsText','text','255','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','','','Finished','MostRecentWeeks','text','32','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_settings_file','Settings File','15!','','Settings_File','ContainsText','text','128','','');

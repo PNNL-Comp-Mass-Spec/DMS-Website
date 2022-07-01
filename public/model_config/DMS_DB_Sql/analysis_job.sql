@@ -17,7 +17,7 @@ INSERT INTO "form_fields" VALUES(1,'job','Job','non-edit','','','','','0','trim'
 INSERT INTO "form_fields" VALUES(2,'dataset','Dataset','text','80','128','','','','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(3,'priority','Priority','text','3','3','','','','trim|default_value[3]|required|max_length[2]|numeric');
 INSERT INTO "form_fields" VALUES(4,'tool_name','Analysis Tool','text','30','80','','','','trim|required|max_length[64]');
-INSERT INTO "form_fields" VALUES(5,'parm_file','Parameter File','text','100','255','','','','trim|required|max_length[255]');
+INSERT INTO "form_fields" VALUES(5,'param_file','Parameter File','text','100','255','','','','trim|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(6,'settings_file','Settings File','text','100','255','','','','trim|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(7,'organism','Organism','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO "form_fields" VALUES(8,'organism_db','Organism DB File','text','100','128','','','na','trim|max_length[128]');
@@ -35,7 +35,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'dataset','list-report.helper','','helper_dataset/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'priority','picker.replace','analysisJobPriPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'tool_name','picker.replace','analysisToolPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(4,'parm_file','list-report.helper','','helper_aj_param_file/report','tool_name',',','');
+INSERT INTO "form_field_choosers" VALUES(4,'param_file','list-report.helper','','helper_aj_param_file/report','tool_name',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'settings_file','list-report.helper','','helper_aj_settings_file/report/~','tool_name',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(7,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism',',','');
@@ -50,7 +50,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_state','State','','','Stat
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_tool','Tool','','','Tool','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_dataset','Dataset','30!','','Dataset','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_campaign','Campaign','','','Campaign','ContainsText','text','50','','');
-INSERT INTO "list_report_primary_filter" VALUES(6,'pf_parm_file','Parm File','25!','','Parm File','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_param_file','Param File','25!','','Param File','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_protein_collection_list','Protein Collection List','25!','','Protein Collection List','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_comment','Comment','','','Comment','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_most_recent_weeks','Most recent weeks','3!','','Last_Affected','MostRecentWeeks','text','32','','');
@@ -87,7 +87,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(18,'Owner','detail-report','Owner','
 INSERT INTO "detail_report_hotlinks" VALUES(19,'Experiment','detail-report','Experiment','experiment/show','labelCol','dl_experiment',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(20,'PSM Stats','detail-report','Dataset','analysis_job_psm/report/-/-/-/~','labelCol','dl_analysis_job_psm',NULL);
 INSERT INTO "detail_report_hotlinks" VALUES(21,'Protein Collection List','link_table','Protein Collection List','protein_collection/report/~','valueCol','dl_protein_collection','');
-INSERT INTO "detail_report_hotlinks" VALUES(22,'Parm File','detail-report','Parm File','param_file/report/-/~@','labelCol','dl_param_file','');
+INSERT INTO "detail_report_hotlinks" VALUES(22,'Param File','detail-report','Param File','param_file/report/-/~@','labelCol','dl_param_file','');
 INSERT INTO "detail_report_hotlinks" VALUES(23,'Organism','detail-report','Organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO "detail_report_hotlinks" VALUES(24,'Organism DB','detail-report','Organism DB','helper_organism_db/report/~','labelCol','dl_organism_db','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
@@ -98,7 +98,7 @@ INSERT INTO "external_sources" VALUES(1,'predefined_analysis_preview_mds','job',
 INSERT INTO "external_sources" VALUES(2,'predefined_analysis_preview_mds','dataset','ColName','Dataset');
 INSERT INTO "external_sources" VALUES(3,'predefined_analysis_preview_mds','priority','ColName','Pri');
 INSERT INTO "external_sources" VALUES(4,'predefined_analysis_preview_mds','tool_name','ColName','Tool');
-INSERT INTO "external_sources" VALUES(5,'predefined_analysis_preview_mds','parm_file','ColName','Param_File');
+INSERT INTO "external_sources" VALUES(5,'predefined_analysis_preview_mds','param_file','ColName','Param_File');
 INSERT INTO "external_sources" VALUES(6,'predefined_analysis_preview_mds','settings_file','ColName','Settings_File');
 INSERT INTO "external_sources" VALUES(7,'predefined_analysis_preview_mds','organism','ColName','Organism');
 INSERT INTO "external_sources" VALUES(8,'predefined_analysis_preview_mds','organism_db','ColName','OrganismDB_File');
@@ -111,7 +111,7 @@ INSERT INTO "external_sources" VALUES(15,'predefined_analysis_preview','job','Li
 INSERT INTO "external_sources" VALUES(16,'predefined_analysis_preview','dataset','ColName','Dataset');
 INSERT INTO "external_sources" VALUES(17,'predefined_analysis_preview','priority','ColName','Pri');
 INSERT INTO "external_sources" VALUES(18,'predefined_analysis_preview','tool_name','ColName','Tool');
-INSERT INTO "external_sources" VALUES(19,'predefined_analysis_preview','parm_file','ColName','Param_File');
+INSERT INTO "external_sources" VALUES(19,'predefined_analysis_preview','param_file','ColName','Param_File');
 INSERT INTO "external_sources" VALUES(20,'predefined_analysis_preview','settings_file','ColName','Settings_File');
 INSERT INTO "external_sources" VALUES(21,'predefined_analysis_preview','organism','ColName','Organism');
 INSERT INTO "external_sources" VALUES(22,'predefined_analysis_preview','organism_db','ColName','OrganismDB_File');
@@ -124,7 +124,7 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO "sproc_args" VALUES(1,'dataset','datasetNum','varchar','input','128','AddUpdateAnalysisJob');
 INSERT INTO "sproc_args" VALUES(2,'priority','priority','int','input','','AddUpdateAnalysisJob');
 INSERT INTO "sproc_args" VALUES(3,'tool_name','toolName','varchar','input','64','AddUpdateAnalysisJob');
-INSERT INTO "sproc_args" VALUES(4,'parm_file','parmFileName','varchar','input','255','AddUpdateAnalysisJob');
+INSERT INTO "sproc_args" VALUES(4,'param_file','paramFileName','varchar','input','255','AddUpdateAnalysisJob');
 INSERT INTO "sproc_args" VALUES(5,'settings_file','settingsFileName','varchar','input','255','AddUpdateAnalysisJob');
 INSERT INTO "sproc_args" VALUES(6,'organism','organismName','varchar','input','128','AddUpdateAnalysisJob');
 INSERT INTO "sproc_args" VALUES(7,'prot_coll_name_list','protCollNameList','varchar','input','4000','AddUpdateAnalysisJob');

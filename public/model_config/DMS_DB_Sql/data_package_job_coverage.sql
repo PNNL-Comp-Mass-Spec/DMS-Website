@@ -18,7 +18,7 @@ INSERT INTO "list_report_primary_filter" VALUES(2,'pf_dataset','Dataset','30!','
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_tool','Tool','','','Tool','ContainsText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_in_package','In_Package','3!','','In_Package','ContainsText','text','3','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_state','State','','','State','ContainsText','text','32','','');
-INSERT INTO "list_report_primary_filter" VALUES(6,'pf_param_file','Param_File','45!','','Parm File','ContainsText','text','256','','');
+INSERT INTO "list_report_primary_filter" VALUES(6,'pf_param_file','Param_File','45!','','Param File','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_settings_file','Settings_File','','','Settings_File','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_protein_collection','Protein_Col','45!','','Protein Collection List','ContainsText','text','256','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_job','Job','','','Job','Equals','text','20','','');

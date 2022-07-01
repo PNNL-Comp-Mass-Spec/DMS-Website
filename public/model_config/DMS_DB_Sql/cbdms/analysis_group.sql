@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('entry_sproc','AddAnalysisJobGroup');
-INSERT INTO "general_params" VALUES('entry_page_data_cols','job, priority, tool_name, dataset, parm_file, settings_file, organism, organism_db, owner, comment, batch_id, ''0'' AS request');
+INSERT INTO "general_params" VALUES('entry_page_data_cols','job, priority, tool_name, dataset, param_file, settings_file, organism, organism_db, owner, comment, batch_id, ''0'' AS request');
 INSERT INTO "general_params" VALUES('entry_page_data_table','v_analysis_job_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','job');
 INSERT INTO "general_params" VALUES('post_submission_link','{"link":"analysis_request_jobs/report/", "label":"Show jobs for request"}');
@@ -13,7 +13,7 @@ INSERT INTO "form_fields" VALUES(1,'dataset','Datasets','area|non-edit-if-data-p
 INSERT INTO "form_fields" VALUES(2,'remove_datasets_with_jobs','Skip Datasets With Existing Jobs','text','12','12','','','Y','trim|max_length[12]');
 INSERT INTO "form_fields" VALUES(3,'priority','Priority','text','3','3','','','','trim|default_value[3]|required|max_length[2]|numeric');
 INSERT INTO "form_fields" VALUES(4,'tool_name','Analysis Tool','text','30','80','','','','trim|required|max_length[64]');
-INSERT INTO "form_fields" VALUES(5,'parm_file','Parameter File','area','','','2','60','','trim|required|max_length[255]');
+INSERT INTO "form_fields" VALUES(5,'param_file','Parameter File','area','','','2','60','','trim|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(6,'settings_file','Settings File','text','80','255','','','','trim|default_value[LCQDefSettings.txt]|required|max_length[255]');
 INSERT INTO "form_fields" VALUES(7,'data_package_id','Data Package ID','non-edit','','','','','0','trim');
 INSERT INTO "form_fields" VALUES(8,'organism','Organism','text','30','80','','','','trim|required|max_length[64]');
@@ -32,7 +32,7 @@ INSERT INTO "form_field_options" VALUES(2,'dataset','permission','DMS_Infrastruc
 INSERT INTO "form_field_options" VALUES(3,'remove_datasets_with_jobs','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration,DMS_Analysis_Job_Administration');
 INSERT INTO "form_field_options" VALUES(4,'priority','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration');
 INSERT INTO "form_field_options" VALUES(5,'tool_name','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration');
-INSERT INTO "form_field_options" VALUES(6,'parm_file','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration');
+INSERT INTO "form_field_options" VALUES(6,'param_file','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration');
 INSERT INTO "form_field_options" VALUES(7,'settings_file','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration');
 INSERT INTO "form_field_options" VALUES(12,'owner','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration');
 INSERT INTO "form_field_options" VALUES(13,'associated_processor_group','permission','DMS_Infrastructure_Administration,DMS_Ops_Administration');
@@ -41,7 +41,7 @@ INSERT INTO "form_field_options" VALUES(15,'propagation_mode','permission','DMS_
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO "form_field_choosers" VALUES(1,'priority','picker.replace','analysisJobPriPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'tool_name','picker.replace','analysisToolPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(3,'parm_file','list-report.helper','','helper_aj_param_file/report','tool_name',',','');
+INSERT INTO "form_field_choosers" VALUES(3,'param_file','list-report.helper','','helper_aj_param_file/report','tool_name',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'settings_file','list-report.helper','','helper_aj_settings_file/report/~','tool_name',',','');
 INSERT INTO "form_field_choosers" VALUES(5,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO "form_field_choosers" VALUES(6,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism',',','');
@@ -58,7 +58,7 @@ INSERT INTO "entry_commands" VALUES(1,'preview','cmd','Preview','Determine if cu
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO "external_sources" VALUES(1,'analysis_job_request','dataset','ColName','Datasets');
 INSERT INTO "external_sources" VALUES(2,'analysis_job_request','tool_name','ColName','Tool');
-INSERT INTO "external_sources" VALUES(3,'analysis_job_request','parm_file','ColName','Parameter File');
+INSERT INTO "external_sources" VALUES(3,'analysis_job_request','param_file','ColName','Parameter File');
 INSERT INTO "external_sources" VALUES(4,'analysis_job_request','settings_file','ColName','Settings File');
 INSERT INTO "external_sources" VALUES(5,'analysis_job_request','organism','ColName','Organism');
 INSERT INTO "external_sources" VALUES(6,'analysis_job_request','prot_coll_name_list','ColName','Protein Collection List');
@@ -73,7 +73,7 @@ INSERT INTO "external_sources" VALUES(15,'analysis_job_request','data_package_id
 INSERT INTO "external_sources" VALUES(16,'analysis_job','dataset','ColName','Dataset');
 INSERT INTO "external_sources" VALUES(17,'analysis_job','priority','Literal','2');
 INSERT INTO "external_sources" VALUES(18,'analysis_job','tool_name','ColName','Tool Name');
-INSERT INTO "external_sources" VALUES(19,'analysis_job','parm_file','ColName','Parm File');
+INSERT INTO "external_sources" VALUES(19,'analysis_job','param_file','ColName','Param File');
 INSERT INTO "external_sources" VALUES(20,'analysis_job','settings_file','ColName','Settings File');
 INSERT INTO "external_sources" VALUES(21,'analysis_job','organism','ColName','Organism');
 INSERT INTO "external_sources" VALUES(22,'analysis_job','organism_db','ColName','Organism DB');
@@ -85,7 +85,7 @@ INSERT INTO "external_sources" VALUES(27,'analysis_job','request','Literal','0')
 INSERT INTO "external_sources" VALUES(28,'predefined_analysis_preview','dataset','PostName','Dataset');
 INSERT INTO "external_sources" VALUES(29,'predefined_analysis_preview','priority','PostName','Pri');
 INSERT INTO "external_sources" VALUES(30,'predefined_analysis_preview','tool_name','PostName','Tool');
-INSERT INTO "external_sources" VALUES(31,'predefined_analysis_preview','parm_file','PostName','Param_File');
+INSERT INTO "external_sources" VALUES(31,'predefined_analysis_preview','param_file','PostName','Param_File');
 INSERT INTO "external_sources" VALUES(32,'predefined_analysis_preview','settings_file','PostName','Settings_File');
 INSERT INTO "external_sources" VALUES(33,'predefined_analysis_preview','organism','PostName','Organism');
 INSERT INTO "external_sources" VALUES(34,'predefined_analysis_preview','organism_db','PostName','OrganismDB_File');
@@ -95,7 +95,7 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO "sproc_args" VALUES(1,'dataset','datasetList','text','input','2147483647','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(2,'priority','priority','int','input','','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(3,'tool_name','toolName','varchar','input','64','AddAnalysisJobGroup');
-INSERT INTO "sproc_args" VALUES(4,'parm_file','parmFileName','varchar','input','255','AddAnalysisJobGroup');
+INSERT INTO "sproc_args" VALUES(4,'param_file','paramFileName','varchar','input','255','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(5,'settings_file','settingsFileName','varchar','input','255','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(6,'organism_db','organismDBName','varchar','input','128','AddAnalysisJobGroup');
 INSERT INTO "sproc_args" VALUES(7,'organism','organismName','varchar','input','128','AddAnalysisJobGroup');

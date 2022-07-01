@@ -81,7 +81,7 @@ INSERT INTO "external_sources" VALUES(1,'analysis_job','request_id','Literal','0
 INSERT INTO "external_sources" VALUES(2,'analysis_job','request_name','Literal','New Request');
 INSERT INTO "external_sources" VALUES(3,'analysis_job','datasets','ColName','Dataset');
 INSERT INTO "external_sources" VALUES(4,'analysis_job','analysis_tool','ColName','Tool Name');
-INSERT INTO "external_sources" VALUES(5,'analysis_job','param_file_name','ColName','Parm File');
+INSERT INTO "external_sources" VALUES(5,'analysis_job','param_file_name','ColName','Param File');
 INSERT INTO "external_sources" VALUES(6,'analysis_job','settings_file_name','ColName','Settings File');
 INSERT INTO "external_sources" VALUES(7,'analysis_job','organism_name','ColName','Organism');
 INSERT INTO "external_sources" VALUES(8,'analysis_job','prot_coll_name_list','ColName','Protein Collection List');
@@ -97,7 +97,7 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO "sproc_args" VALUES(1,'datasets','datasets','text','input','2147483647','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(2,'request_name','requestName','varchar','input','64','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(3,'analysis_tool','toolName','varchar','input','64','AddUpdateAnalysisJobRequest');
-INSERT INTO "sproc_args" VALUES(4,'param_file_name','parmFileName','varchar','input','255','AddUpdateAnalysisJobRequest');
+INSERT INTO "sproc_args" VALUES(4,'param_file_name','paramFileName','varchar','input','255','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(5,'settings_file_name','settingsFileName','varchar','input','255','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(6,'prot_coll_name_list','protCollNameList','varchar','input','4000','AddUpdateAnalysisJobRequest');
 INSERT INTO "sproc_args" VALUES(7,'prot_coll_options_list','protCollOptionsList','varchar','input','256','AddUpdateAnalysisJobRequest');
