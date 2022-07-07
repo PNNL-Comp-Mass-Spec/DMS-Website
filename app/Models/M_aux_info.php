@@ -10,7 +10,7 @@ class M_aux_info extends Model {
 
         // initialize parameters for query for list report
         $this->list_report_data_cols = "Category, Subcategory, Item, Value";
-        $this->list_report_data_table = 'V_AuxInfo_Value';
+        $this->list_report_data_table = 'V_Aux_Info_Value';
         $this->list_report_data_sort_col = 'SC, SS, SI';
 
         // initialize primary filter specs
@@ -168,7 +168,7 @@ class M_aux_info extends Model {
         }
         $sql = <<<EOD
         SELECT Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI
-        FROM V_AuxInfo_Value
+        FROM V_Aux_Info_Value
         WHERE (Target = '$target') AND (Target_ID = $id)
         ORDER BY SC, SS, SI
 EOD;
@@ -176,7 +176,7 @@ EOD;
 
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for aux info item values using V_AuxInfo_Value; see writable/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for aux info item values using V_Aux_Info_Value; see writable/logs/log-$currentTimestamp.php");
         }
         return $query->getResultArray();
     }
@@ -218,7 +218,7 @@ SELECT
        AD.DataSize,
        AD.HelperAppend,
        AV.Value
-FROM V_AuxInfo_Definition AD
+FROM V_Aux_Info_Definition AD
      LEFT OUTER JOIN dbo.T_AuxInfo_Value AV
        ON AD.Item_ID = AV.AuxInfo_ID AND AV.Target_ID = $id
 WHERE (AD.Target = '$target') AND
@@ -229,7 +229,7 @@ EOD;
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for aux info item values using V_AuxInfo_Definition; see writable/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database for aux info item values using V_Aux_Info_Definition; see writable/logs/log-$currentTimestamp.php");
         }
         if ($query->getNumRows() == 0) {
             throw new \Exception("No rows found");
@@ -298,7 +298,7 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_def($target) {
-        $builder = $this->db->table('V_AuxInfo_Definition');
+        $builder = $this->db->table('V_Aux_Info_Definition');
         $builder->where('Target', $target);
         $resultSet = $builder->get();
         if (!$resultSet) {

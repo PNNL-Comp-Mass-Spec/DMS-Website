@@ -189,7 +189,7 @@ class Detail_report {
         // get aux into data
         $this->controller->load_mod('Q_model', 'aux_info_model', '', '');
         $this->controller->aux_info_model->set_columns('Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI');
-        $this->controller->aux_info_model->set_table('V_AuxInfo_Value');
+        $this->controller->aux_info_model->set_table('V_Aux_Info_Value');
         $this->controller->aux_info_model->add_predicate_item('AND', 'Target', 'Equals', $aux_info_target);
         $this->controller->aux_info_model->add_predicate_item('AND', 'Target_ID', 'Equals', $aux_info_id);
         $this->controller->aux_info_model->add_sorting_item('SC');

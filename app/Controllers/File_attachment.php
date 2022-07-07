@@ -722,7 +722,7 @@ class File_attachment extends DmsBase {
     }
 
     /**
-     * Retrieve data from V_Experiment_Detail_Report_Ex and V_Auxinfo_Experiment_Values for Experiment $expID
+     * Retrieve data from V_Experiment_Detail_Report_Ex and V_Aux_Info_Experiment_Values for Experiment $expID
      * @param type $expID
      * @return type
      */
@@ -735,7 +735,7 @@ class File_attachment extends DmsBase {
         }
 
         $sql = "SELECT Category, Subcategory, Item, Value "
-             . "FROM V_Auxinfo_Experiment_Values "
+             . "FROM V_Aux_Info_Experiment_Values "
              . "WHERE ID = $expID "
              . "ORDER BY Category, Subcategory, Item";
 
