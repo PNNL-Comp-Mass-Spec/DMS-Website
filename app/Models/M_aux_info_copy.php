@@ -144,6 +144,12 @@ class M_aux_info_copy extends Model {
           return;
          */
 
+        if ($my_db->connID === false) {
+            // $my_db->connID is normally an object
+            // But if an error occurs or it disconnects, it is false
+            // Try re-connecting first
+            $my_db->reconnect();
+        }
         $sproc_handler->execute($sprocName, $my_db->connID, $args, $input_params);
 
         // Examine the result code
