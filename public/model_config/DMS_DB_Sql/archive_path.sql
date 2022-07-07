@@ -21,13 +21,13 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO "form_field_choosers" VALUES(1,'instrument_name','picker.replace','instrumentNamePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(2,'archive_path_function','picker.replace','archiveFunctionPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument_name','Instrument Name','60','','Instrument Name','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(2,'pf_archive_path','Archive Path','60','','Archive Path','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_instrument_name','Instrument Name','60','','Instrument_Name','ContainsText','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_archive_path','Archive Path','60','','Archive_Path','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_description','Description','60','','Description','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(4,'pf_path_id','Path ID','12','','Path ID','Equals','text','128','','');
+INSERT INTO "list_report_primary_filter" VALUES(4,'pf_path_id','Path ID','12','','Path_ID','Equals','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Path ID','invoke_entity','value','archive_path/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Instrument Name','invoke_entity','value','instrument/show/','');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Path_ID','invoke_entity','value','archive_path/show/','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Instrument_Name','invoke_entity','value','instrument/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'archive_path_id','ArchiveID','varchar','output','32','AddUpdateArchivePath');
 INSERT INTO "sproc_args" VALUES(2,'archive_path','ArchivePath','varchar','input','128','AddUpdateArchivePath');
@@ -39,5 +39,5 @@ INSERT INTO "sproc_args" VALUES(7,'archive_path_function','ArchiveFunction','var
 INSERT INTO "sproc_args" VALUES(8,'<local>','mode','varchar','input','12','AddUpdateArchivePath');
 INSERT INTO "sproc_args" VALUES(9,'<local>','message','varchar','output','512','AddUpdateArchivePath');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO "detail_report_hotlinks" VALUES(1,'Instrument Name','detail-report','Instrument Name','instrument/report/~','labelCol','dl_Instrument',NULL);
+INSERT INTO "detail_report_hotlinks" VALUES(1,'Instrument_Name','detail-report','Instrument_Name','instrument/report/~','labelCol','dl_Instrument','');
 COMMIT;
