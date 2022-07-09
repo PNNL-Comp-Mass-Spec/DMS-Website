@@ -1,7 +1,7 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('list_report_data_table','V_AuxInfo_Definition');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Aux_Info_Definition');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('list_report_data_cols','Target, Category, Subcategory, Item, Item_ID AS ID,  dbo.GetAuxInfoAllowedValues(Item_ID) AS Allowed_Values');
 INSERT INTO "general_params" VALUES('list_report_data_order_by','SC, SS, SI');
@@ -21,10 +21,10 @@ INSERT INTO "sproc_args" VALUES(6,'itemValueList','itemValueList','varchar','inp
 INSERT INTO "sproc_args" VALUES(7,'<local>','mode','varchar','input','12','AddUpdateAuxInfo');
 INSERT INTO "sproc_args" VALUES(8,'<local>','message','varchar','output','512','AddUpdateAuxInfo');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
-INSERT INTO "utility_queries" VALUES(1,'definitions','Aux Info Definition Details','','V_Aux_Info_Definition_wID','*,  dbo.GetAuxInfoAllowedValues(Item_ID) AS Allowed_Values','{"col":"Target", "dir":"ASC"}','{"Target":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
-INSERT INTO "utility_queries" VALUES(2,'experiment_values','Aux Info Values for Experiments','','V_Auxinfo_Experiment_Values','*','{"col":"ID", "dir":"DESC"}','{"Experiment":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
-INSERT INTO "utility_queries" VALUES(3,'biomaterial_values','Aux Info Values for Biomaterial','','V_Auxinfo_Biomaterial_Values','*','{"col":"ID", "dir":"DESC"}','{"Biomaterial":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
-INSERT INTO "utility_queries" VALUES(4,'prep_request_values','Aux Info Values for Sample Prep Request','','V_Auxinfo_SamplePrepRequest_Values','*','{"col":"ID", "dir":"DESC"}','{"Request":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
+INSERT INTO "utility_queries" VALUES(1,'definitions','Aux Info Definition Details','','V_Aux_Info_Definition_with_ID','*,  dbo.GetAuxInfoAllowedValues(Item_ID) AS Allowed_Values','{"col":"Target", "dir":"ASC"}','{"Target":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
+INSERT INTO "utility_queries" VALUES(2,'experiment_values','Aux Info Values for Experiments','','V_Aux_Info_Experiment_Values','*','{"col":"ID", "dir":"DESC"}','{"Experiment":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
+INSERT INTO "utility_queries" VALUES(3,'biomaterial_values','Aux Info Values for Biomaterial','','V_Aux_Info_Biomaterial_Values','*','{"col":"ID", "dir":"DESC"}','{"Biomaterial":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
+INSERT INTO "utility_queries" VALUES(4,'prep_request_values','Aux Info Values for Sample Prep Request','','V_Aux_Info_Sample_Prep_Request_Values','*','{"col":"ID", "dir":"DESC"}','{"Request":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
 INSERT INTO "utility_queries" VALUES(5,'aux_info_targets','(internal)','','T_AuxInfo_Target','*','','','');
 INSERT INTO "utility_queries" VALUES(6,'aux_info_categories','(internal)','','T_AuxInfo_Category','*','{"col":"Sequence", "dir":"ASC"}','{"Target_Type_ID":"EQn"}','');
 INSERT INTO "utility_queries" VALUES(7,'aux_info_subcategories','(internal)','','T_AuxInfo_Subcategory','*','{"col":"Sequence", "dir":"ASC"}','{"Parent_ID":"EQn"}','');
