@@ -13,13 +13,13 @@ use CodeIgniter\Router\RouteCollection as BaseRouteCollection;
  *
  * The functions and changes added in this class allow us to replace:
  * $routes->addPlaceholder('slashOrEnd', '/|$');
- * $routes->get('biomaterial(:slashOrEnd)(:any)', 'Cell_culture::$2');
+ * $routes->get('datasets(:slashOrEnd)(:any)', 'Dataset::$2');
  *
  * With:
- * $routes->getAlias('biomaterial', 'Cell_culture');
+ * $routes->getAlias('datasets', 'Dataset');
  *
  * To remove this class, the lines this class allows need to be replaced
- * in app/Config/Routes.php, and the 'routes' function in 
+ * in app/Config/Routes.php, and the 'routes' function in
  * app/Config/Services.php needs to also be removed.
  */
 class RouteCollection extends BaseRouteCollection
