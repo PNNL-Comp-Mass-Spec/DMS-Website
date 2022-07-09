@@ -10,6 +10,6 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_id','ID','5!','','ID','Equals','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_biomaterial','Biomaterial','20!','','Biomaterial','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Biomaterial','invoke_entity','value','cell_culture/show','');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Biomaterial','invoke_entity','value','biomaterial/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'ID','invoke_entity','value','data_package/show','');
 COMMIT;

@@ -34,13 +34,13 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaigns','Campaigns','15
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Container','invoke_entity','value','material_container/show/','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Items','invoke_entity','Container','material_items/report/~@','');
-INSERT INTO "list_report_hotlinks" VALUES(3,'Action','invoke_entity','Container','cell_culture/create/init/-/-/-/-/-/-/-/','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Action','invoke_entity','Container','biomaterial/create/init/-/-/-/-/-/-/-/','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Location','invoke_entity','Location','material_location/report/~@','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Retire this container','cmd_op','retire_container','material_container','Make this container inactive and move it to null location','Are you sure that you want to retire this container?');
 INSERT INTO "detail_report_commands" VALUES(2,'Retire this container (and its contents)','cmd_op','retire_container_and_contents','material_container','Make this container inactive and move it to null location, and also the material items it contains','Are you sure that you want to retire this container and all its contents?');
 INSERT INTO "detail_report_commands" VALUES(3,'Unretire this container (make active)','cmd_op','unretire_container','material_container','Make this container active again','Are you sure that you want to make this container active again?');
-INSERT INTO "detail_report_commands" VALUES(4,'New Biomaterial','call','create/init/-/-/-/-/-/-/-','cell_culture','Create new biomaterial item in this container','');
+INSERT INTO "detail_report_commands" VALUES(4,'New Biomaterial','call','create/init/-/-/-/-/-/-/-','biomaterial','Create new biomaterial item in this container','');
 INSERT INTO "detail_report_commands" VALUES(5,'New Experiment','call','create/init/-/-/-/-/-/-/-/-/-/-/-/-/-/-','experiment','Create new experiment  in this container','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Items','detail-report','Container','material_items/report/~','labelCol','dh_items','');

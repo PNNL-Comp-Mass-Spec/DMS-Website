@@ -131,7 +131,7 @@ INSERT INTO "home_menu_items" VALUES(112,'Miscelleneous','submenu','Metadata Dum
 INSERT INTO "home_menu_items" VALUES(113,'Miscelleneous','dump_metadata_for_multiple_experiments/param','Display','dump metadata for multiple experiments');
 INSERT INTO "home_menu_items" VALUES(114,'Miscelleneous','dump_metadata_for_multiple_datasets/param','Display','dump metadata for multiple datasets');
 INSERT INTO "home_menu_items" VALUES(115,'Miscelleneous','submenu','Aux Info Definition','');
-INSERT INTO "home_menu_items" VALUES(116,'Miscelleneous','aux_info_def/report/Cell Culture','Display','Cell Culture aux info def');
+INSERT INTO "home_menu_items" VALUES(116,'Miscelleneous','aux_info_def/report/Biomaterial','Display','Biomaterial aux info def');
 INSERT INTO "home_menu_items" VALUES(117,'Miscelleneous','aux_info_def/report/Experiment','Display','Experiment aux info def');
 INSERT INTO "home_menu_items" VALUES(118,'Miscelleneous','aux_info_def/report/Dataset','Display','Dataset aux info def');
 INSERT INTO "home_menu_items" VALUES(119,'Miscelleneous','aux_info_def/report/SamplePrepRequest','Display','Sample Prep aux info def');
@@ -171,7 +171,7 @@ INSERT INTO "home_menu_items" VALUES(155,'Sample_Prep','sample_prep_request_assi
 INSERT INTO "home_menu_items" VALUES(156,'Sample_Prep','submenu','Material Storage','');
 INSERT INTO "home_menu_items" VALUES(157,'Sample_Prep','freezer/tree','Manage','freezer contents and status (tree)');
 INSERT INTO "home_menu_items" VALUES(158,'Sample_Prep','material_move_container/report/-/-/-','Move','containers between locations');
-INSERT INTO "home_menu_items" VALUES(159,'Sample_Prep','material_move_items/report/-/-/-','Move','material (Cell Culture, Experiments) between containers');
+INSERT INTO "home_menu_items" VALUES(159,'Sample_Prep','material_move_items/report/-/-/-','Move','material (Biomaterial, Experiments) between containers');
 INSERT INTO "home_menu_items" VALUES(160,'Sample_Prep','submenu','Prep LC','');
 INSERT INTO "home_menu_items" VALUES(161,'Sample_Prep','prep_lc_run/report','Display','a list of all prep LC runs');
 INSERT INTO "home_menu_items" VALUES(162,'Sample_Prep','prep_lc_run/create','Create','a new prep LC run');

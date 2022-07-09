@@ -44,7 +44,7 @@ INSERT INTO "form_field_choosers" VALUES(1,'experiment','list-report.helper','',
 INSERT INTO "form_field_choosers" VALUES(2,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
 INSERT INTO "form_field_choosers" VALUES(3,'researcher_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(4,'organism_name','picker.replace','orgPickList','','',',','');
-INSERT INTO "form_field_choosers" VALUES(5,'biomaterial_list','list-report.helper','','helper_cell_culture/report','biomaterial_list',';','');
+INSERT INTO "form_field_choosers" VALUES(5,'biomaterial_list','list-report.helper','','helper_biomaterial/report','biomaterial_list',';','');
 INSERT INTO "form_field_choosers" VALUES(6,'reference_compound_list','list-report.helper','','helper_reference_compound/report/-/-/-/-/-/','reference_compound_list',';','');
 INSERT INTO "form_field_choosers" VALUES(7,'enzyme_name','picker.replace','enzymePickList','','',',','');
 INSERT INTO "form_field_choosers" VALUES(8,'labelling','picker.replace','labellingPickList','','',',','');
@@ -77,7 +77,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(1,'Campaign','detail-report','Campai
 INSERT INTO "detail_report_hotlinks" VALUES(2,'Experiment Groups','link_list','Experiment Groups','experiment_group/show','valueCol','experiment_groups','{"HideLinkIfValueMatch":"(none)"}');
 INSERT INTO "detail_report_hotlinks" VALUES(3,'Request','detail-report','Request','sample_prep_request/show','labelCol','request','');
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Datasets','detail-report','Experiment','dataset/report/-/-/-/-/~','labelCol','datasets','');
-INSERT INTO "detail_report_hotlinks" VALUES(5,'Cell Cultures','link_list','Cell Cultures','cell_culture/show','valueCol','dl_cell_cultures','');
+INSERT INTO "detail_report_hotlinks" VALUES(5,'Cell Cultures','link_list','Cell Cultures','biomaterial/show','valueCol','dl_biomaterial','');
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Reference Compounds','link_list','Reference Compounds','reference_compound/report/-/-/-/-/@','valueCol','dl_reference_compounds','');
 INSERT INTO "detail_report_hotlinks" VALUES(7,'Factors','detail-report','Experiment','custom_factors/report/-/-/-/~','labelCol','dl_custom_factors','');
 INSERT INTO "detail_report_hotlinks" VALUES(8,'Experiment Files','detail-report','Experiment','file_attachment/report/-/experiment/','labelCol','dl_experiment_files','');

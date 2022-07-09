@@ -24,9 +24,9 @@ CREATE TABLE home_menu_items (
     "link" TEXT,
     "label" TEXT
 );
-INSERT INTO "home_menu_items" VALUES(1,'Biomaterial','cell_culture/report','Display','a list of existing biomaterial items');
-INSERT INTO "home_menu_items" VALUES(2,'Biomaterial','cell_culture/create','Create','a new biomaterial item');
-INSERT INTO "home_menu_items" VALUES(4,'Biomaterial','cell_culture/search','Search','for existing biomaterial items');
+INSERT INTO "home_menu_items" VALUES(1,'Biomaterial','biomaterial/report','Display','a list of existing biomaterial items');
+INSERT INTO "home_menu_items" VALUES(2,'Biomaterial','biomaterial/create','Create','a new biomaterial item');
+INSERT INTO "home_menu_items" VALUES(4,'Biomaterial','biomaterial/search','Search','for existing biomaterial items');
 INSERT INTO "home_menu_items" VALUES(5,'Biomaterial','organism/report','Display','a list of existing organisms');
 INSERT INTO "home_menu_items" VALUES(6,'Biomaterial','organism/create','Create','a new organism');
 INSERT INTO "home_menu_items" VALUES(7,'Biomaterial','upload/main','Load','biomaterial from spreadsheet tsv file');
@@ -75,7 +75,7 @@ INSERT INTO "home_menu_items" VALUES(50,'Material Storage','material_container/c
 INSERT INTO "home_menu_items" VALUES(51,'Material Storage','material_items/report/-/-/-','Display','list of active material items');
 INSERT INTO "home_menu_items" VALUES(52,'Material Storage','material_location/report/-/-/-','Display','a list of active material locations');
 INSERT INTO "home_menu_items" VALUES(53,'Material Storage','material_move_container/report/-/-/-','Move','containers between locations');
-INSERT INTO "home_menu_items" VALUES(54,'Material Storage','material_move_items/report/-/-/-','Move','material (Cell Culture, Experiments) between containers');
+INSERT INTO "home_menu_items" VALUES(54,'Material Storage','material_move_items/report/-/-/-','Move','material (Biomaterial, Experiments) between containers');
 INSERT INTO "home_menu_items" VALUES(55,'Material Storage','material_log/report/-/-/-','Display','material movement and status log');
 INSERT INTO "home_menu_items" VALUES(56,'Material Storage','wellplate/report/-/-/-','Display','a list of existing wellplates');
 INSERT INTO "home_menu_items" VALUES(57,'Material Storage','wellplate/create','Create','a new wellplate');
@@ -134,10 +134,10 @@ INSERT INTO "menu_def" VALUES(37,'Experiments','submenu','Experiment Organisms',
 INSERT INTO "menu_def" VALUES(38,'Experiment Organisms','link','organism/report','Report');
 INSERT INTO "menu_def" VALUES(39,'Experiment Organisms','link','organism/create','Entry');
 INSERT INTO "menu_def" VALUES(40,'Experiments','separator','','');
-INSERT INTO "menu_def" VALUES(41,'','submenu','Cell Culture','Biomaterial');
-INSERT INTO "menu_def" VALUES(42,'Cell Culture','link','cell_culture/report','Report');
-INSERT INTO "menu_def" VALUES(43,'Cell Culture','link','cell_culture/search','Search');
-INSERT INTO "menu_def" VALUES(44,'Cell Culture','link','cell_culture/create','Entry');
+INSERT INTO "menu_def" VALUES(41,'','submenu','Biomaterial','Biomaterial');
+INSERT INTO "menu_def" VALUES(42,'Biomaterial','link','biomaterial/report','Report');
+INSERT INTO "menu_def" VALUES(43,'Biomaterial','link','biomaterial/search','Search');
+INSERT INTO "menu_def" VALUES(44,'Biomaterial','link','biomaterial/create','Entry');
 INSERT INTO "menu_def" VALUES(45,'','submenu','Campaigns','Campaigns');
 INSERT INTO "menu_def" VALUES(46,'Campaigns','link','campaign/report','Report');
 INSERT INTO "menu_def" VALUES(47,'Campaigns','link','campaign/search','Search');
@@ -485,7 +485,7 @@ INSERT INTO "menu_def" VALUES(429,'Admin','submenu','Metadata Dump','Metadata Du
 INSERT INTO "menu_def" VALUES(430,'Metadata Dump','link','dump_metadata_for_multiple_experiments/param','Experiment Metadata');
 INSERT INTO "menu_def" VALUES(431,'Metadata Dump','link','dump_metadata_for_multiple_datasets/param','Dataset Metadata');
 INSERT INTO "menu_def" VALUES(432,'Admin','submenu','Aux Info Definition','Aux Info Definition');
-INSERT INTO "menu_def" VALUES(433,'Aux Info Definition','link','aux_info_def/report/Cell Culture','Cell Culture');
+INSERT INTO "menu_def" VALUES(433,'Aux Info Definition','link','aux_info_def/report/Biomaterial','Biomaterial');
 INSERT INTO "menu_def" VALUES(434,'Aux Info Definition','link','aux_info_def/report/Experiment','Experiment');
 INSERT INTO "menu_def" VALUES(435,'Aux Info Definition','link','aux_info_def/report/Dataset','Dataset');
 INSERT INTO "menu_def" VALUES(436,'Aux Info Definition','link','aux_info_def/report/SamplePrepRequest','Sample Prep Request');
@@ -561,8 +561,8 @@ INSERT INTO "nav_def" VALUES(48,'Samples','link','experiment_group/report','Repo
 INSERT INTO "nav_def" VALUES(49,'Samples','link','experiment_fraction/create','Entry - Fractions','Create a new experiment fractionation group');
 INSERT INTO "nav_def" VALUES(50,'Samples','link','experiment_group/create','Entry - General','Create a new general experiment group');
 INSERT INTO "nav_def" VALUES(51,'Samples','separator','','Biomaterial and Ref Comp','');
-INSERT INTO "nav_def" VALUES(52,'Samples','link','cell_culture/report','Biomaterial Report','Display list of biomaterial items');
-INSERT INTO "nav_def" VALUES(53,'Samples','link','cell_culture/create','Biomaterial Entry','Create a new biomaterial item');
+INSERT INTO "nav_def" VALUES(52,'Samples','link','biomaterial/report','Biomaterial Report','Display list of biomaterial items');
+INSERT INTO "nav_def" VALUES(53,'Samples','link','biomaterial/create','Biomaterial Entry','Create a new biomaterial item');
 INSERT INTO "nav_def" VALUES(54,'Samples','link','reference_compound/report','Reference Compounds','Show list of reference compounds');
 INSERT INTO "nav_def" VALUES(55,'','submenu','Instrument Runs','Instrument Runs','');
 INSERT INTO "nav_def" VALUES(56,'Instrument Runs','separator','','Requested Runs','');

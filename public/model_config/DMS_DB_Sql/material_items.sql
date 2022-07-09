@@ -14,7 +14,7 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_item_type','Item Type','6'
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_container_status','Container Status','6','','Container Status','StartsWithText','text','32','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_prep_request_id','Prep Request','6','','Prep Request','Equals','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Item','select_case','Item_Type','','{"Biomaterial":"cell_culture","Experiment":"experiment","RefCompound":"reference_compound/report"}');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Item','select_case','Item_Type','','{"Biomaterial":"biomaterial","Experiment":"experiment","RefCompound":"reference_compound/report"}');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Container','invoke_entity','value','material_container/show','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Location','invoke_entity','value','material_location/report/~@','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Prep Request','invoke_entity','value','sample_prep_request/show/','');

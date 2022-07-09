@@ -55,5 +55,5 @@ INSERT INTO "list_report_primary_filter" VALUES(5,'pf_id','ID','20','','ID','Equ
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO "form_field_options" VALUES(1,'new_container_comment','hide','update');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
-INSERT INTO "detail_report_commands" VALUES(1,'Create Biomaterial','copy_from','','cell_culture','Go to biomaterial entry page and copy information from this sample submission.','');
+INSERT INTO "detail_report_commands" VALUES(1,'Create Biomaterial','copy_from','','biomaterial','Go to biomaterial entry page and copy information from this sample submission.','');
 COMMIT;

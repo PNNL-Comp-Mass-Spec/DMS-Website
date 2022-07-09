@@ -17,7 +17,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_item','Item','6','','Item'
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_item_type','Item Type','6','','Item_Type','ContainsText','text','80','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_container_status','Container Status','6','','Container Status','StartsWithText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Item','select_case','Item_Type','','{"Biomaterial":"cell_culture","Experiment":"experiment","RefCompound":"reference_compound/report"}');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Item','select_case','Item_Type','','{"Biomaterial":"biomaterial","Experiment":"experiment","RefCompound":"reference_compound/report"}');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Sel','CHECKBOX','#I_ID','','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Container','invoke_entity','value','material_container/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);

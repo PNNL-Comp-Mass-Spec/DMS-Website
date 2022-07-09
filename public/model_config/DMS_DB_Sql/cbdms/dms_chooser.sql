@@ -59,7 +59,7 @@ INSERT INTO "chooser_definitions" VALUES(43,'assignedProcessorPickList','default
 INSERT INTO "chooser_definitions" VALUES(44,'associatedProcessorGroupPickList','default','sql','SELECT Name_With_ID AS val, Group_Name as ex FROM V_Analysis_Job_Processor_Group_Picklist');
 INSERT INTO "chooser_definitions" VALUES(45,'batchPriorityPickList','default','sql','SELECT ''Normal'' as val, '''' as ex union Select ''High'' as val, '''' as ex ');
 INSERT INTO "chooser_definitions" VALUES(46,'captureMethodPickList','default','sql','SELECT val, '''' as ex FROM V_Capture_Method_Picklist ORDER BY val');
-INSERT INTO "chooser_definitions" VALUES(47,'cellCultureTypePickList','default','sql','SELECT Name as val, '''' as ex FROM V_Biomaterial_Type_Picklist ORDER BY Name');
+INSERT INTO "chooser_definitions" VALUES(47,'biomaterialTypePickList','default','sql','SELECT Name as val, '''' as ex FROM V_Biomaterial_Type_Picklist ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(48,'datasetStatePickList','default','sql','SELECT Name as val, '''' as ex FROM V_Dataset_State_Name_Picklist ORDER BY ID');
 INSERT INTO "chooser_definitions" VALUES(49,'datasetTypePickList','default','sql','SELECT Name_with_Description AS val, Name AS ex FROM V_Dataset_Type_Name_Picklist ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(50,'dnaTabIDPickList','default','sql','SELECT Translation_Table_Name AS val, DNA_Translation_Table_ID AS ex FROM V_DNA_Translation_Tables ORDER BY DNA_Translation_Table_ID');
