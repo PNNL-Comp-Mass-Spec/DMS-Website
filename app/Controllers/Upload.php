@@ -621,7 +621,7 @@ class Upload extends DmsBase {
             $lnk = anchor("upload/template/".$pf, "Blank TSV Template");
             $lr = anchor("$pf/report", "List Report");
 
-            if(strtolower($entity) == 'cell culture')
+            if(strtolower($entity) == 'biomaterial')
                 $entityDescription = 'Biomaterial (cell culture)';
             else
                 $entityDescription = ucwords(strtolower($entity));
