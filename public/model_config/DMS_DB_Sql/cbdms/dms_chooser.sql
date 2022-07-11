@@ -62,7 +62,6 @@ INSERT INTO "chooser_definitions" VALUES(46,'captureMethodPickList','default','s
 INSERT INTO "chooser_definitions" VALUES(47,'biomaterialTypePickList','default','sql','SELECT Name as val, '''' as ex FROM V_Biomaterial_Type_Picklist ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(48,'datasetStatePickList','default','sql','SELECT Name as val, '''' as ex FROM V_Dataset_State_Name_Picklist ORDER BY ID');
 INSERT INTO "chooser_definitions" VALUES(49,'datasetTypePickList','default','sql','SELECT Name_with_Description AS val, Name AS ex FROM V_Dataset_Type_Name_Picklist ORDER BY Name');
-INSERT INTO "chooser_definitions" VALUES(50,'dnaTabIDPickList','default','sql','SELECT Translation_Table_Name AS val, DNA_Translation_Table_ID AS ex FROM V_DNA_Translation_Tables ORDER BY DNA_Translation_Table_ID');
 INSERT INTO "chooser_definitions" VALUES(51,'enzymePickList','default','sql','SELECT Name as val, '''' as ex FROM V_Enzyme_Picklist ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(52,'eusUsageTypePickList','default','sql','SELECT Description AS val, Name AS ex FROM V_EUS_Usage_Type_Picklist ORDER BY Name');
 INSERT INTO "chooser_definitions" VALUES(54,'filterSetPickList','default','sql','SELECT distinct Cast(filter_set_ID as varchar(11)) + '' - '' + Filter_Set_Name as val, filter_set_ID as ex FROM V_Filter_Sets ORDER by filter_set_ID');
