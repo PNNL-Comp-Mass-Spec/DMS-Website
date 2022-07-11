@@ -12,7 +12,7 @@ function make_stats_display($results) {
     $str .= "<th> &nbsp; </th>";
     $str .= "<th><a href='" . site_url("dataset/report") . "'>Datasets</a></th>";
     $str .= "<th><a href='" . site_url("experiment/report") . "'>Experiments</a></th>";
-    $str .= "<th><a href='" . site_url("cell_culture/report") . "'>Biomaterial</a></th>";
+    $str .= "<th><a href='" . site_url("biomaterial/report") . "'>Biomaterial</a></th>";
     $str .= "<th><a href='" . site_url("campaign/report") . "'>Campaigns</a></th>";
     $str .= "<th><a href='" . site_url("analysis_job/report") . "'>Analyses</a></th>";
     $str .= "<th><a href='" . site_url("organism/report") . "'>Organisms</a></th>";
