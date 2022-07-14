@@ -106,7 +106,6 @@ INSERT INTO "menu_def" VALUES(8,'Datasets','submenu','Special Reports','Special 
 INSERT INTO "menu_def" VALUES(9,'Special Reports','link','ai_user_funded_datasets_list_report/report/-/-/-/-/12','User funded');
 INSERT INTO "menu_def" VALUES(10,'Special Reports','link','dataset_funding/report/-/-/-/-/12','All funded');
 INSERT INTO "menu_def" VALUES(11,'Special Reports','link','dataset_instrument/report','Instrument Usage');
-INSERT INTO "menu_def" VALUES(12,'Special Reports','link','find_datasets_by_instrument/param','Most Recent Datasets by Instrument');
 INSERT INTO "menu_def" VALUES(13,'Special Reports','link','production_instrument_stats/param','Dataset Production Statistics');
 INSERT INTO "menu_def" VALUES(14,'Special Reports','link','dataset_qc/search','Dataset QC report');
 INSERT INTO "menu_def" VALUES(15,'Special Reports','link','reporter_ion_observation_rate/search','Rep Ion Obs Rate Report');
