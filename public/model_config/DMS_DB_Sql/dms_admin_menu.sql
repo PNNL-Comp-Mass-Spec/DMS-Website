@@ -100,7 +100,6 @@ INSERT INTO "home_menu_items" VALUES(80,'Capture','requested_run_factors/param',
 INSERT INTO "home_menu_items" VALUES(81,'Capture','custom_factors/report','Search','requested run factors');
 INSERT INTO "home_menu_items" VALUES(82,'Capture','requested_run_batch_order/report','Display','requested run blocks');
 INSERT INTO "home_menu_items" VALUES(83,'Capture','requested_run_batch_blocking/param','Define','requested run blocks (multiple factors)');
-INSERT INTO "home_menu_items" VALUES(84,'Capture','lc_cart_block_loading/report','Assign','requested run blocks to cart and col');
 INSERT INTO "home_menu_items" VALUES(85,'Capture','batch_tracking/report/-/-/-/-','Display','requested run batch tracking report');
 INSERT INTO "home_menu_items" VALUES(86,'Capture','requested_run_admin/report','Administer','requested runs');
 INSERT INTO "home_menu_items" VALUES(87,'Capture_Pipeline','submenu','Archive','');
