@@ -23,7 +23,6 @@ CREATE TABLE home_menu_items (
     "label" TEXT
 );
 INSERT INTO "home_menu_items" VALUES(1,'Report','submenu','Activity Reports','');
-INSERT INTO "home_menu_items" VALUES(2,'Report','dataset_daily/param','Display','analysis job daily report');
 INSERT INTO "home_menu_items" VALUES(5,'Report','production_instrument_stats/param','Display','production instrument statistics');
 INSERT INTO "home_menu_items" VALUES(6,'Report','submenu','Display','daily status checks');
 INSERT INTO "home_menu_items" VALUES(7,'Report','dataset_daily_check/report','Display','daily dataset check report');
