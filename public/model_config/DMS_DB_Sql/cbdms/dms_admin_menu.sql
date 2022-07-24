@@ -24,8 +24,6 @@ CREATE TABLE home_menu_items (
 );
 INSERT INTO "home_menu_items" VALUES(1,'Report','submenu','Activity Reports','');
 INSERT INTO "home_menu_items" VALUES(2,'Report','dataset_daily/param','Display','analysis job daily report');
-INSERT INTO "home_menu_items" VALUES(3,'Report','dataset_instrument_daily/param','Display','daily dataset totals by instrument');
-INSERT INTO "home_menu_items" VALUES(4,'Report','request_daily/param','Display','daily requested run totals');
 INSERT INTO "home_menu_items" VALUES(5,'Report','production_instrument_stats/param','Display','production instrument statistics');
 INSERT INTO "home_menu_items" VALUES(6,'Report','submenu','Display','daily status checks');
 INSERT INTO "home_menu_items" VALUES(7,'Report','dataset_daily_check/report','Display','daily dataset check report');

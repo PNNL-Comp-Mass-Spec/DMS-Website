@@ -339,8 +339,6 @@ INSERT INTO "menu_def" VALUES(272,'Search','link','campaign/search','Campaigns')
 INSERT INTO "menu_def" VALUES(273,'Search','separator','','');
 INSERT INTO "menu_def" VALUES(274,'','submenu','Admin','Admin');
 INSERT INTO "menu_def" VALUES(275,'Admin','submenu','Activity Reports','Activity Reports');
-INSERT INTO "menu_def" VALUES(277,'Activity Reports','link','dataset_instrument_daily/param','Daily Dataset By Instrument');
-INSERT INTO "menu_def" VALUES(278,'Activity Reports','link','request_daily/param','Daily Requests');
 INSERT INTO "menu_def" VALUES(279,'Activity Reports','link','production_instrument_stats/param','Prod. Inst. Stats.');
 INSERT INTO "menu_def" VALUES(280,'Activity Reports','link','dataset_instrument_runtime/param','Dataset Inst. Runtime');
 INSERT INTO "menu_def" VALUES(281,'Activity Reports','link','campaign_dataset_stats/param','Campaign Dataset Stats');
