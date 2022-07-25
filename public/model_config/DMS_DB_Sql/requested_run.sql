@@ -110,6 +110,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(17,'EUS Proposal State','color_label
 ');
 INSERT INTO "detail_report_hotlinks" VALUES(18,'Queue State','detail-report','Campaign','requested_run_admin/report/-/-/-/-/~@/-/-/-','labelCol','dl_requested_run_admin','');
 INSERT INTO "detail_report_hotlinks" VALUES(19,'Days In Queue','detail-report','Instrument Group','run_planning/report/~@/-/-/-/-/-/-/-','labelCol','dl_run_planning','');
+INSERT INTO "detail_report_hotlinks" VALUES(20,'Column Name','detail-report','Column Name','lc_column/show','valueCol','dl_column_name','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'request_name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO "sproc_args" VALUES(2,'experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
