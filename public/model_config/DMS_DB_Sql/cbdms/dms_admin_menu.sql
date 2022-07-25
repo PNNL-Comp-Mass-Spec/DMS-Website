@@ -52,9 +52,6 @@ INSERT INTO "home_menu_items" VALUES(30,'Analysis_Pipeline','pipeline_local_proc
 INSERT INTO "home_menu_items" VALUES(31,'Analysis_Pipeline','pipeline_step_tools/report','Display','list of step tools');
 INSERT INTO "home_menu_items" VALUES(32,'Analysis_Pipeline','pipeline_processor_tool_crosstab/report','Display','processor tool crosstab report');
 INSERT INTO "home_menu_items" VALUES(33,'Analysis_Pipeline','pipeline_processor_step_tools/report','Display','processor step tools report');
-INSERT INTO "home_menu_items" VALUES(34,'Analysis_Pipeline','submenu','MAC Job Requests','');
-INSERT INTO "home_menu_items" VALUES(35,'Analysis_Pipeline','pipeline_mac_job_request/report','Display','list of Mac job requests');
-INSERT INTO "home_menu_items" VALUES(36,'Analysis_Pipeline','pipeline_mac_job_request/create','Create','new MAC job request');
 INSERT INTO "home_menu_items" VALUES(37,'Analysis','submenu','Jobs and Param Files','');
 INSERT INTO "home_menu_items" VALUES(38,'Analysis','get_paramfile_crosstab/param','Display','get paramfile crosstab');
 INSERT INTO "home_menu_items" VALUES(39,'Analysis','update_analysis_jobs/create','Update','multiple analysis jobs');
@@ -97,7 +94,6 @@ INSERT INTO "home_menu_items" VALUES(80,'Capture','requested_run_factors/param',
 INSERT INTO "home_menu_items" VALUES(81,'Capture','custom_factors/report','Search','requested run factors');
 INSERT INTO "home_menu_items" VALUES(82,'Capture','requested_run_batch_order/report','Display','requested run blocks');
 INSERT INTO "home_menu_items" VALUES(83,'Capture','requested_run_batch_blocking/param','Define','requested run blocks (multiple factors)');
-INSERT INTO "home_menu_items" VALUES(84,'Capture','lc_cart_block_loading/report','Assign','requested run blocks to cart and col');
 INSERT INTO "home_menu_items" VALUES(85,'Capture','batch_tracking/report/-/-/-/-','Display','requested run batch tracking report');
 INSERT INTO "home_menu_items" VALUES(86,'Capture','requested_run_admin/report','Administer','requested runs');
 INSERT INTO "home_menu_items" VALUES(87,'Capture_Pipeline','submenu','Archive','');
@@ -115,7 +111,6 @@ INSERT INTO "home_menu_items" VALUES(98,'Instruments','new_instrumentclass/creat
 INSERT INTO "home_menu_items" VALUES(99,'Instruments','submenu','File Storage','');
 INSERT INTO "home_menu_items" VALUES(100,'Instruments','storage/report','Display','storage');
 INSERT INTO "home_menu_items" VALUES(101,'Instruments','storage/create','Create','storage');
-INSERT INTO "home_menu_items" VALUES(102,'Instruments','storage_recent_changes/report','Display','storage recent changes');
 INSERT INTO "home_menu_items" VALUES(103,'Miscelleneous','submenu','Organisms','');
 INSERT INTO "home_menu_items" VALUES(104,'Miscelleneous','organism/report','Display','organism');
 INSERT INTO "home_menu_items" VALUES(105,'Miscelleneous','organism/create','Create','organism');
@@ -147,6 +142,5 @@ INSERT INTO "home_menu_items" VALUES(149,'Configuration','config_db/edit_table/m
 INSERT INTO "home_menu_items" VALUES(150,'Configuration','config_db/edit_table/master_config_db.db/table_def_sql','Edit','SQL that creates standard config db tables');
 INSERT INTO "home_menu_items" VALUES(151,'Configuration','config_db/edit_table/master_config_db.db/table_edit_col_defs','Edit','column definitions for standard config db tables');
 INSERT INTO "home_menu_items" VALUES(167,'Capture_Pipeline','capture_daily_check/report','Display','pending capture jobs');
-INSERT INTO "home_menu_items" VALUES(168,'Capture_Pipeline','capture_multi_job_update/create','Update','multiple capture jobs');
 INSERT INTO "home_menu_items" VALUES(169,'Capture_Pipeline','capture_log/report','Display','capture log');
 COMMIT;
