@@ -1,10 +1,10 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('list_report_data_table','V_Aux_Info_Definition');
-INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Target, Category, Subcategory, Item, Item_ID AS ID,  dbo.GetAuxInfoAllowedValues(Item_ID) AS Allowed_Values');
-INSERT INTO "general_params" VALUES('list_report_data_order_by','SC, SS, SI');
+INSERT INTO "general_params" VALUES('list_report_data_table','V_Aux_Info_Definition_with_Allowed_Values');
+INSERT INTO "general_params" VALUES('list_report_data_sort_dir','ASC');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Target, Category, Subcategory, Item, Item_ID, Allowed_Values');
+INSERT INTO "general_params" VALUES('list_report_data_order_by','Target, Category, Subcategory');
 INSERT INTO "general_params" VALUES('operations_sproc','AddUpdateAuxInfo');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_target','Target','10','','Target','StartsWithText','text','80','','');
