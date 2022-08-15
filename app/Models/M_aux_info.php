@@ -220,7 +220,7 @@ SELECT
        AV.Value
 FROM V_Aux_Info_Definition AD
      LEFT OUTER JOIN dbo.T_AuxInfo_Value AV
-       ON AD.Item_ID = AV.AuxInfo_ID AND AV.Target_ID = $id
+       ON AD.Item_ID = AV.Aux_Description_ID AND AV.Target_ID = $id
 WHERE (AD.Target = '$target') AND
        AD.Category = '$category' AND
        AD.Subcategory = '$subcategory'
