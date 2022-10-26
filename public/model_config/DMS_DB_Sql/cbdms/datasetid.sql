@@ -7,12 +7,12 @@ INSERT INTO "general_params" VALUES('detail_report_data_table','V_Dataset_Detail
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_sort_col','#DateSortKey');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','#date_sort_key');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateDataset');
 INSERT INTO "general_params" VALUES('entry_page_data_table','v_dataset_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','dataset_id');
 INSERT INTO "general_params" VALUES('alternate_title_create','Create Dataset Trigger File');
-INSERT INTO "general_params" VALUES('list_report_data_cols','ID,Dataset,Experiment,Campaign,State,Instrument,Created,Comment,Rating,[Dataset Type],Operator,[Dataset Folder Path],QC_Link,[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],Request,Usage,Proposal,[Work Package],Organism,Tissue,[#DateSortKey]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID,Dataset,Experiment,Campaign,State,Instrument,Created,Comment,Rating,[Dataset Type],Operator,[Dataset Folder Path],QC_Link,[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],Request,Usage,Proposal,[Work Package],Organism,Tissue,[#date_sort_key]');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','dataset_id');
 INSERT INTO "general_params" VALUES('operations_sproc','DoDatasetOperation');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
@@ -28,7 +28,7 @@ INSERT INTO "list_report_hotlinks" VALUES(9,'Scan Count','export_align','value',
 INSERT INTO "list_report_hotlinks" VALUES(10,'File Size MB','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(11,'Request','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(12,'Work Package','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(13,'#DateSortKey','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(13,'#date_sort_key','no_export','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_id','ID','','','ID','Equals','text','24','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_dataset','Dataset','40!','','Dataset','ContainsText','text','128','','');
@@ -36,7 +36,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_state','State','32','','St
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_experiment','Experiment','20!','','Experiment','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','32','','Campaign','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','#DateSortKey','MostRecentWeeks','text','4','','');
+INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','#date_sort_key','MostRecentWeeks','text','4','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_created_after','Created After','8','','Created','LaterThan','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_rating','Rating','12','','Rating','StartsWithText','text','64','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );

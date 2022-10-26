@@ -10,8 +10,8 @@ INSERT INTO "general_params" VALUES('entry_page_data_table','v_dataset_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','dataset');
 INSERT INTO "general_params" VALUES('alternate_title_create','Create Dataset Trigger File');
 INSERT INTO "general_params" VALUES('operations_sproc','DoDatasetOperation');
-INSERT INTO "general_params" VALUES('list_report_data_sort_col','#DateSortKey');
-INSERT INTO "general_params" VALUES('list_report_data_cols','ID,Dataset,Experiment,Campaign,State,Instrument,Created,Comment,Rating,[Dataset Type],Operator,[Dataset Folder Path],QC_Link,[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[LC Column],[Separation Type],Request,Organism,Tissue,[#DateSortKey]');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','#date_sort_key');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID,Dataset,Experiment,Campaign,State,Instrument,Created,Comment,Rating,[Dataset Type],Operator,[Dataset Folder Path],QC_Link,[Acq Start],[Acq End],[Acq Length],[Scan Count],[File Size MB],[LC Column],[Separation Type],Request,Organism,Tissue,[#date_sort_key]');
 INSERT INTO "general_params" VALUES('base_table','T_Dataset');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','dataset');
 INSERT INTO "general_params" VALUES('detail_report_data_cols','Dataset,Experiment,State,Organism,Instrument,[Separation Type],[LC Cart],[LC Column],Type,Operator,Comment,Rating,State,ID,Created,Request,[Dataset Folder Path],[Data Folder Link],[QC Link],[QC 2D],[QC Metric Stats],Jobs,Factors,[Predefines Triggered],[Acquisition Start],[Acquisition End],[Run Start],[Run Finish],[Scan Count],[Scan Types],[Acq Length],[File Size (MB)],[File Info Updated],[Folder Name],[Capture Subfolder]');
@@ -62,7 +62,7 @@ INSERT INTO "list_report_primary_filter" VALUES(3,'pf_state','State','32','','St
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_instrument','Instrument','32','','Instrument','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_experiment','Experiment','20!','','Experiment','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(6,'pf_campaign','Campaign','32!','','Campaign','ContainsText','text','128','','');
-INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','#DateSortKey','MostRecentWeeks','text','4','','');
+INSERT INTO "list_report_primary_filter" VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','#date_sort_key','MostRecentWeeks','text','4','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_created_after','Created After','8','','Created','LaterThan','text','20','','');
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_rating','Rating','12','','Rating','StartsWithText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(10,'pf_work_package','Work Pkg','12','','Work Package','StartsWithText','text','20','','');
@@ -85,7 +85,7 @@ INSERT INTO "list_report_hotlinks" VALUES(8,'Scan Count','export_align','value',
 INSERT INTO "list_report_hotlinks" VALUES(9,'File Size MB','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(10,'Request','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(11,'Work Package','export_align','value','','{"Align":"Center"}');
-INSERT INTO "list_report_hotlinks" VALUES(12,'#DateSortKey','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(12,'#date_sort_key','no_export','value','','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO "detail_report_commands" VALUES(1,'Retry Capture','cmd_op','reset','dataset','Retry copying the instrument data from the instrument to the storage server.  This can only be used if the dataset folder on the storage server is empty or if it only contains a single corrupt .raw file.','Are you sure that you want to reset this dataset to New?');
 INSERT INTO "detail_report_commands" VALUES(2,'Create Data Analysis Request...','copy_from','','analysis_job_request','Open the entry form to create a new data analysis request for this dataset','');
