@@ -53,8 +53,9 @@ class Cell_presentation {
             // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_export");
+            $colSpec2 = $this->get_colspec_with_link_type($columnName, "no_display");
 
-            if (!$colSpec) {
+            if (!$colSpec && !$colSpec2) {
                 // Include this column (since no hotlink of type no_export is defined)
                 $col_filter[] = $columnName;
             }
@@ -424,6 +425,15 @@ class Cell_presentation {
                 continue;
             }
 
+            // Look for an entry in $this->hotlinks that matches either this column name,
+            // or this column name preceded by one or more plus signs
+            $colSpec = $this->get_colspec_with_link_type($columnName, "no_display");
+
+            if ($colSpec) {
+                // Skip this column (since a hotlink of type no_display is defined)
+                continue;
+            }
+
             $value = $row[$columnName];
             $colSpec = null;
 
@@ -743,6 +753,9 @@ class Cell_presentation {
                 // These only affect data export
                 $str .= "<td>" . $value . "</td>";
                 break;
+            case "no_display":
+                // Not displayed, just ignore it (this is a safety catch, we shouldn't even enter this function for no_display columns)
+                break;
 
             default:
                 $str .= "<td>???" . $colSpec["LinkType"] . "???</td>";
@@ -794,31 +807,42 @@ class Cell_presentation {
         $col_sort = $this->get_column_sort_markers($sorting_cols);
 
         foreach ($display_cols as $columnName) {
-            if ($columnName[0] != '#') { // do not show columns with names that begin with hash
-                // sorting marker
-                $marker = $this->get_column_sort_marker($columnName, $col_sort);
-
-                // Check for a column header tooltip
-                $toolTip = $this->get_column_tooltip($columnName);
-                if ($toolTip) {
-                    $toolTip = 'title="' . $toolTip . '"';
-                    $str .= '<th style="background-color:#C2E7F6;">';
-                } else {
-                    $toolTip = '';
-                    $str .= '<th>';
-                }
-
-                $clickToSort = " onclick='lambda.setColSort(\"$columnName\")'";
-                if ($columnName == 'Sel') { // Do not allow sorting by the check box column
-                    $clickToSort = "";
-                }
-
-                // make header label
-                $str .= $marker;
-                $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">$columnName</a>";
-                $str .= $this->get_cell_padding($columnName);
-                $str .= "</th>";
+            if ($columnName[0] == '#') { // do not show columns with names that begin with hash
+                continue;
             }
+
+            // Look for an entry in $this->hotlinks that matches either this column name,
+            // or this column name preceded by one or more plus signs
+            $colSpec = $this->get_colspec_with_link_type($columnName, "no_display");
+
+            if ($colSpec) {
+                // Skip this column (since a hotlink of type no_display is defined)
+                continue;
+            }
+
+            // sorting marker
+            $marker = $this->get_column_sort_marker($columnName, $col_sort);
+
+            // Check for a column header tooltip
+            $toolTip = $this->get_column_tooltip($columnName);
+            if ($toolTip) {
+                $toolTip = 'title="' . $toolTip . '"';
+                $str .= '<th style="background-color:#C2E7F6;">';
+            } else {
+                $toolTip = '';
+                $str .= '<th>';
+            }
+
+            $clickToSort = " onclick='lambda.setColSort(\"$columnName\")'";
+            if ($columnName == 'Sel') { // Do not allow sorting by the check box column
+                $clickToSort = "";
+            }
+
+            // make header label
+            $str .= $marker;
+            $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">$columnName</a>";
+            $str .= $this->get_cell_padding($columnName);
+            $str .= "</th>";
         }
         return "<tr>" . $str . "</tr>";
     }
