@@ -73,9 +73,16 @@ class Sql_postgre {
         $baseSql = str_replace("[_]", "\_", $baseSql);
 
         //columns to display
-        $display_cols = $query_parts->columns;
-        // Replace '[' and ']' with '"'
-        $display_cols = str_replace(array("[", "]"), "\"", $display_cols);
+        //$display_cols = $query_parts->columns; // TODO: handle '#..." columns, [], spaces
+        // convert [#sortkey] to "#sortkey"
+        $wrapHash = preg_replace("/\[(#[^\]]*)\]/", "\"$1\"", $query_parts->columns);
+        // convert #sortkey (no quotes) to "#sortkey"; NOTE: will break a column that has '#' anywhere but the start of the name
+        $wrapHash2 = preg_replace("/(#[^,]*)/", "\"$1\"", $wrapHash);
+        // remove square brackets, and replace spaces on the matches with '_'
+        $replaceSpace = preg_replace_callback("/\[([^\]]*)\]/", function($matches) { return str_replace(" ", "_", $matches[1]); }, $wrapHash2);
+
+        // Replace '[' and ']' with ''
+        $display_cols = str_replace(array("[", "]"), "", $replaceSpace);
 
         // construct final query according to its intended use
         $sql = "";
@@ -131,8 +138,8 @@ class Sql_postgre {
     private function make_order_by($sort_items) {
         $a = array();
         foreach ($sort_items as $item) {
-            $col = $item->col;
-            if (strpos($col, " ")) {
+            $col = str_replace(" ", "_", $item->col);
+            if (strpos($col, "#") !== false) {
                 $col = "\"" . $col . "\"";
             }
             $a[] = $col . " " . $item->dir;
@@ -148,10 +155,11 @@ class Sql_postgre {
      * @return type
      */
     private function make_where_item($predicate) {
-        $col = $predicate->col;
-        if (strpos($col, " ")) {
+        $col = str_replace(" ", "_", $predicate->col);
+        if (strpos($col, "#") !== false) {
             $col = "\"" . $col . "\"";
         }
+
         $cmp = $predicate->cmp;
         $val = trim($predicate->val);
 
@@ -240,7 +248,7 @@ class Sql_postgre {
                 break;
             case "MostRecentWeeks":
             case "MRWd":
-                $str .= " $col > DATEADD(Week, -$val, GETDATE()) ";
+                $str .= " $col > CURRENT_TIMESTAMP - Interval '$val weeks' ";
                 break;
             default:
                 $str .= "true /* '$cmp' unrecognized */";
@@ -327,15 +335,29 @@ class Sql_postgre {
      * @return mixed
      */
     function get_allowed_comparisons_for_type($data_type) {
-        // The sqlsrv_driver returns data types as integers
-        // See // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
+        // The postgres_driver returns data types as integers
+        // pgsql: See https://github.com/postgres/postgres/blob/master/src/include/catalog/pg_type.dat for type codes
+        // pgsql: See https://www.postgresql.org/docs/current/datatype.html for type names
+        // pgsql: can also reference https://github.com/postgres/postgres/blob/master/src/backend/catalog/information_schema.sql for some.
+        // Some type codes are not part of that because they are extensions/modules
+        /*
+        114 JSON stored as text
+        142 XML content
+        790 money/'cash'
+        829 MAC address/774 for 8-byte
+        869 IP address/netmask (also 650? for cidr - network lowest address)
+        */
 
         $cmps = array();
         switch ($data_type) {
             case 'text':
+            case 25: // pgsql text
             case 'char':
+            case 1042: // pgsql char
             case 'varchar':
+            case 1043: // pgsql varchar
             case 'citext':
+            case 16385: // pgsql citext
             case 1:     // char
             case -8:    // nchar
             case -10:   // ntext
@@ -351,8 +373,11 @@ class Sql_postgre {
             case 'int':
             case 'money':
             case 'numeric':
+            case 1700: // pgsql numeric
             case 'real':
             case 'float':
+            case 700: // pgsql float
+            case 16: // pgsql boolean
             case -5:    // bigint
             case -7:    // bit
             case 3:     // decimal
@@ -364,14 +389,21 @@ class Sql_postgre {
             case -6:    // tinyint
             case 'float4':
             case 'bit':
+            case 1560: // pgsql bit
+            case 1562: // pgsql varbit
             case 'int2':
+            case 21: // pgsql int2
             case 'smallint':
             case 'int4':
+            case 23: // pgsql int4
             case 'integer':
+            case 23: // pgsql integer
             case 'int8':
             case 'bigint':
+            case 20: // pgsql bigint/int8
             case 'decimal':
             case 'double precision':
+            case 701: // pgsql double precision
                 foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('numeric', $def['type'])) {
                         $cmps[$n] = $def['label'];
@@ -379,11 +411,17 @@ class Sql_postgre {
                 }
                 break;
             case 'datetime':
+            case 1082: // pgsql date
+            case 1083: // pgsql time of day
             case 'timestamp':
+            case 1114: // pgsql date and time/'timestamp without time zone'
             case 'timestamptz':
+            case 1184: // pgsql timestamptz
+            case 1266: // pgsql 'time of day with time zone'?
             case 91:    // date
             case 93:    // datetime
             case -154:  // time
+            case 1186: // pgsql interval
                 foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('datetime', $def['type'])) {
                         $cmps[$n] = $def['label'];
