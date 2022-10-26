@@ -144,11 +144,13 @@ class M_aux_info_copy extends Model {
           return;
          */
 
-        if ($my_db->connID === false) {
+        // Many functions check for and initialize the DB connection if not there,
+        // but that leaves connection issues popping up in random places
+        if (empty($my_db->connID)) {
             // $my_db->connID is normally an object
-            // But if an error occurs or it disconnects, it is false
-            // Try re-connecting first
-            $my_db->reconnect();
+            // But if an error occurs or it disconnects, it is false/empty
+            // Try initializing first
+            $my_db->initialize();
         }
         $sproc_handler->execute($sprocName, $my_db->connID, $args, $input_params);
 
