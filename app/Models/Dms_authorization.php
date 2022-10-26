@@ -65,11 +65,11 @@ class Dms_authorization extends Model {
 
     /**
      * Lookup permissions for the user
-     * @param type $user_dprn
+     * @param type $username
      * @return string
      * @throws Exception
      */
-    function get_user_permissions($user_dprn) {
+    function get_user_permissions($username) {
         // is there a local cache of permissions?
         if (count($this->user_permissions) > 0) {
             return $this->user_permissions;
@@ -84,9 +84,9 @@ class Dms_authorization extends Model {
         $p = array();
         $str = '';
         $str .= <<<EOD
-SELECT Status, [Operations List], ID
-FROM V_User_List_Report_2
-WHERE [Username] = '$user_dprn'
+SELECT status, operations_list, id
+FROM V_User_Operation_Export
+WHERE username = '$username'
 EOD;
 
         $my_db = \Config\Database::connect('default');
@@ -101,12 +101,12 @@ EOD;
             // user isn't in table - automatically a guest
             $p[] = 'DMS_Guest';
         } else
-        if ($rows[0]['Status'] != 'Active') {
+        if ($rows[0]['status'] != 'Active') {
             // user is inactive - automatically a guest
             $p[] = 'DMS_Guest';
         } else {
             // user is in list and active, get their permissions
-            $p = preg_split('/, */', $rows[0]['Operations List']);
+            $p = preg_split('/, */', $rows[0]['operations_list']);
 
             // each user gets to have "DMS_User" permission automatically
             // unless they have "DMS_Guest"
