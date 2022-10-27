@@ -13,7 +13,7 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_day','Day','20','','Day','
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_dataset','Dataset','40','','Dataset','ContainsText','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(2,'Interval','invoke_entity','ID','run_interval/edit','{"GreaterOrEqual":"180"}');
-INSERT INTO "list_report_hotlinks" VALUES(3,'Dataset','select_case','#DSType','','{"Regular":"dataset","Tracking":"tracking_dataset"}');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Dataset','select_case','#dataset_type','','{"Regular":"dataset","Tracking":"tracking_dataset"}');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO "primary_filter_choosers" VALUES(1,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
 COMMIT;

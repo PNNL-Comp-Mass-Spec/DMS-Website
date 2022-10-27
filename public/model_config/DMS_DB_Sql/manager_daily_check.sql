@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('list_report_sproc','GetCurrentMangerActivity');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'When','color_label','#Alert','','{"ALERT":"bad_clr"}');
+INSERT INTO "list_report_hotlinks" VALUES(1,'When','color_label','#alert','','{"ALERT":"bad_clr"}');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 COMMIT;
