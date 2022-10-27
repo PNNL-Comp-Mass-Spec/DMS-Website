@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('base_table','T_Sample_Submission');
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Sample_Submission_List_Report');
-INSERT INTO "general_params" VALUES('list_report_data_cols','ID as Sel, *');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID AS Sel, *');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');

@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Requested_Run_Batch_List_Report');
-INSERT INTO "general_params" VALUES('list_report_data_cols','[ID], [Name], [Requests], [Req. Priority], [Instrument], [Description], [Owner], [Created], [Comment]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID, Name, Requests, [Req. Priority], Instrument, Description, Owner, Created, Comment');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

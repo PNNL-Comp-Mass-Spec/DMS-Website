@@ -14,7 +14,7 @@ INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','id');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','value','operations_tasks/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Days_In_Queue','color_label','#Age_Bracket','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Days_In_Queue','color_label','#age_bracket','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'id','id','int','output','','AddUpdateOperationsTasks');
 INSERT INTO "sproc_args" VALUES(2,'task_type_name','taskType','varchar','input','50','AddUpdateOperationsTasks');

@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Helper_Dataset_Type');
-INSERT INTO "general_params" VALUES('list_report_data_cols',' ''x'' AS Sel, *');
+INSERT INTO "general_params" VALUES('list_report_data_cols','''x'' AS Sel, *');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Dataset_Type');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','ASC');

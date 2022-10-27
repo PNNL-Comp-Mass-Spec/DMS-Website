@@ -19,8 +19,8 @@ INSERT INTO "general_params" VALUES('alternate_title_edit','Edit Biomaterial (Ce
 INSERT INTO "general_params" VALUES('alternate_title_param','Biomaterial (Cell Culture)');
 INSERT INTO "general_params" VALUES('alternate_title_export','Biomaterial (Cell Culture)');
 INSERT INTO "general_params" VALUES('detail_report_cmds','file_attachment_cmds');
-INSERT INTO "general_params" VALUES('list_report_data_cols','ID,Name,Source,Contact,Type,Created,PI,Comment,Campaign,Organisms,[Material Status]');
-INSERT INTO "general_params" VALUES('detail_report_data_cols','Name,Supplier,[Contact (usually PNNL Staff)],Type,Comment,Campaign,ID,Organism_List');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID, Name, Source, Contact, Type, Created, PI, Comment, Campaign, Organisms, [Material Status]');
+INSERT INTO "general_params" VALUES('detail_report_data_cols','Name, Supplier, [Contact (usually PNNL Staff)], Type, Comment, Campaign, ID, Organism_List');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO "form_fields" VALUES(1,'name','Name','text-if-new','60','80','','','','trim|required|max_length[64]|alpha_dash|min_length[8]');
 INSERT INTO "form_fields" VALUES(2,'culture_type_name','Type','text','60','80','','','','trim|required|max_length[32]');

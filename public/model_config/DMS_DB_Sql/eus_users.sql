@@ -7,7 +7,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateEUSUsers');
 INSERT INTO "general_params" VALUES('entry_page_data_table','v_eus_users_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','id');
-INSERT INTO "general_params" VALUES('list_report_data_cols','''x'' as Sel, *');
+INSERT INTO "general_params" VALUES('list_report_data_cols','''x'' AS Sel, *');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','id');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);

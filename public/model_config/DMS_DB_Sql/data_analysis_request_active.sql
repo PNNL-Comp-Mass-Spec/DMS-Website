@@ -6,7 +6,7 @@ INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','ID','data_analysis_request/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#days_in_queue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Work Package','invoke_entity','value','charge_code/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(5,'State Comment','min_col_width','value','60','');
@@ -18,7 +18,7 @@ INSERT INTO "list_report_hotlinks" VALUES(10,'EUS Proposal','invoke_entity','val
 INSERT INTO "list_report_hotlinks" VALUES(11,'Organism','invoke_entity','value','organism/report/~','');
 INSERT INTO "list_report_hotlinks" VALUES(12,'Campaign','invoke_entity','value','campaign/show','');
 INSERT INTO "list_report_hotlinks" VALUES(13,'Analysis Type','invoke_entity','value','data_analysis_request/report/-/-/~','');
-INSERT INTO "list_report_hotlinks" VALUES(14,'#DaysInQueue','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(14,'#days_in_queue','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(15,'#WPActivationState','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(16,'+ID','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(17,'+Dataset Count','export_align','value','','{"Align":"Center"}');

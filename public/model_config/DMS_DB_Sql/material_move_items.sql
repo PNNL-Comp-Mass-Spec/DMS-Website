@@ -7,7 +7,7 @@ INSERT INTO "general_params" VALUES('detail_report_data_table','V_Material_Move_
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('list_report_cmds','material_move_items_cmds');
 INSERT INTO "general_params" VALUES('list_report_cmds_url','/material_move_items/operation');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Item, ID, '''' AS Sel, Item_Type, Container, [Type], [Location], [Container Status], #ItemID');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Item, ID, '''' AS Sel, Item_Type, Container, Type, Location, [Container Status], [#item_id]');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Item');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateMaterialItems');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
@@ -18,7 +18,7 @@ INSERT INTO "list_report_primary_filter" VALUES(4,'pf_item_type','Item Type','6'
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_container_status','Container Status','6','','Container Status','StartsWithText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Item','select_case','Item_Type','','{"Biomaterial":"biomaterial","Experiment":"experiment","RefCompound":"reference_compound/report"}');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Sel','CHECKBOX','#ItemID','','');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Sel','CHECKBOX','#item_id','','');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Container','invoke_entity','value','material_container/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'<local>','mode','varchar','input','32','UpdateMaterialItems');

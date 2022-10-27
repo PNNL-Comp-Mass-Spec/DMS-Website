@@ -9,7 +9,7 @@ INSERT INTO "general_params" VALUES('alternate_title_edit','EMail Notification S
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateResearchTeamObserver');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_user','User','20','','User','ContainsText','text','50','','');
-INSERT INTO "list_report_primary_filter" VALUES(2,'pf_prn','PRN','20','','#PRN','ContainsText','text','50','','');
+INSERT INTO "list_report_primary_filter" VALUES(2,'pf_prn','PRN','20','','#prn','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(3,'pf_event','Event','20','','Event','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(4,'pf_campaign','Campaign','20','','Campaign','ContainsText','text','64','','');
 INSERT INTO "list_report_primary_filter" VALUES(5,'pf_role','Role','20','','Role','ContainsText','text','64','','');
@@ -17,10 +17,10 @@ INSERT INTO "list_report_primary_filter" VALUES(6,'pf_batch','Entity','20','','E
 INSERT INTO "list_report_primary_filter" VALUES(7,'pf_name','Name','20','','Name','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(8,'pf_entered','Entered','20','','Entered','LaterThan','text','20','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO "list_report_hotlinks" VALUES(1,'Entity','select_case','#EntityType','','{"1":"requested_run_batch","2":"analysis_job_request", "3":"sample_prep_request"}');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Name','select_case','#EntityType','','{"4":"dataset","5":"dataset"}');
+INSERT INTO "list_report_hotlinks" VALUES(1,'Entity','select_case','#entity_type','','{"1":"requested_run_batch","2":"analysis_job_request", "3":"sample_prep_request"}');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Name','select_case','#entity_type','','{"4":"dataset","5":"dataset"}');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Campaign','invoke_entity','Campaign','campaign/show','');
-INSERT INTO "list_report_hotlinks" VALUES(4,'User','invoke_entity','#PRN','user/show','');
+INSERT INTO "list_report_hotlinks" VALUES(4,'User','invoke_entity','#prn','user/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'prn','PRN','varchar','input','15','UpdateNotificationUserRegistration');
 INSERT INTO "sproc_args" VALUES(2,'name','Name','varchar','input','64','UpdateNotificationUserRegistration');

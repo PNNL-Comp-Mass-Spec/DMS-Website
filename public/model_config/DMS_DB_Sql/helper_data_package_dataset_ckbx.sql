@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Data_Package_Datasets_List_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('my_db_group','package');
-INSERT INTO "general_params" VALUES('list_report_data_cols','ID as Sel, ID, Dataset, Dataset_ID, Experiment, Instrument, Campaign, State, Created, Rating, Request');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID AS Sel, ID, Dataset, Dataset_ID, Experiment, Instrument, Campaign, State, Created, Rating, Request');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','ID');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

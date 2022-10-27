@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Requested_Run_Unified_List');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Request as Sel, Request, Name, BatchID, [Batch Name], Dataset, Experiment ');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Request AS Sel, Request, Name, BatchID, [Batch Name], Dataset, Experiment');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Request');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');

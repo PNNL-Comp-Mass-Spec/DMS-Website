@@ -12,7 +12,7 @@ INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateDataset');
 INSERT INTO "general_params" VALUES('entry_page_data_table','v_dataset_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','dataset_id');
 INSERT INTO "general_params" VALUES('alternate_title_create','Create Dataset Trigger File');
-INSERT INTO "general_params" VALUES('list_report_data_cols','ID,Dataset,Experiment,Campaign,State,Instrument,Created,Comment,Rating,[Dataset Type],Operator,[Dataset Folder Path],QC_Link,[Acq Start],[Acq. End],[Acq Length],[Scan Count],[File Size MB],[Cart Config],[LC Column],[Separation Type],Request,Usage,Proposal,[Work Package],Organism,Tissue,[#date_sort_key]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','ID, Dataset, Experiment, Campaign, State, Instrument, Created, Comment, Rating, [Dataset Type], Operator, [Dataset Folder Path], QC_Link, [Acq Start], [Acq. End], [Acq Length], [Scan Count], [File Size MB], [Cart Config], [LC Column], [Separation Type], Request, Usage, Proposal, [Work Package], Organism, Tissue, [#date_sort_key]');
 INSERT INTO "general_params" VALUES('post_submission_detail_id','dataset_id');
 INSERT INTO "general_params" VALUES('operations_sproc','DoDatasetOperation');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_MTS_MT_DB_Jobs');
 INSERT INTO "general_params" VALUES('detail_report_data_table','V_MTS_MT_DBs_Detail_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','MT_DB_Name');
-INSERT INTO "general_params" VALUES('list_report_data_sort_col','#SortKey');
+INSERT INTO "general_params" VALUES('list_report_data_sort_col','#sort_key');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','desc');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_job','Job','20','','Job','Equals','text','20','','');

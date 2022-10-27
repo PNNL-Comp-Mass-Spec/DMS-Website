@@ -93,9 +93,9 @@ INSERT INTO "list_report_primary_filter" VALUES(8,'pf_Container','Container','32
 INSERT INTO "list_report_primary_filter" VALUES(9,'pf_assigned_personnel','Assigned Personnel','32','','AssignedPersonnel','ContainsText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','ID','sample_prep_request/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#days_in_queue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(3,'Work Package','invoke_entity','value','charge_code/show','');
-INSERT INTO "list_report_hotlinks" VALUES(4,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
+INSERT INTO "list_report_hotlinks" VALUES(4,'WP State','color_label','#wp_activation_state','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(5,'Reason','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(6,'Comment','min_col_width','value','60','');
 INSERT INTO "list_report_hotlinks" VALUES(7,'Inst. Analysis','min_col_width','value','60','');
@@ -104,8 +104,8 @@ INSERT INTO "list_report_hotlinks" VALUES(9,'Tissue','invoke_entity','value','ti
 INSERT INTO "list_report_hotlinks" VALUES(10,'Organism','invoke_entity','value','organism/report/~','');
 INSERT INTO "list_report_hotlinks" VALUES(11,'Campaign','invoke_entity','value','campaign/show','');
 INSERT INTO "list_report_hotlinks" VALUES(12,'Containers','min_col_width','value','35','');
-INSERT INTO "list_report_hotlinks" VALUES(13,'#DaysInQueue','no_export','value','','');
-INSERT INTO "list_report_hotlinks" VALUES(14,'#WPActivationState','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(13,'#days_in_queue','no_export','value','','');
+INSERT INTO "list_report_hotlinks" VALUES(14,'#wp_activation_state','no_export','value','','');
 INSERT INTO "list_report_hotlinks" VALUES(15,'+ID','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(16,'NumSamples','export_align','value','','{"Align":"Center"}');
 INSERT INTO "list_report_hotlinks" VALUES(17,'MS Runs TBG','export_align','value','','{"Align":"Center"}');
@@ -136,7 +136,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(17,'Biomaterial Item Count','detail-
 INSERT INTO "detail_report_hotlinks" VALUES(18,'Total_Item_Count','detail-report','ID','sample_prep_request_items/report/-/','labelCol','dl_total_item_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(19,'Requested Run Item Count','detail-report','ID','sample_prep_request_items/report/requested_run/','labelCol','dl_requested_run_item_count','');
 INSERT INTO "detail_report_hotlinks" VALUES(20,'Dataset Item Count','detail-report','ID','sample_prep_request_items/report/dataset/','labelCol','dl_dataset_item_count','');
-INSERT INTO "detail_report_hotlinks" VALUES(21,'Work Package State','color_label','#WPActivationState','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120",
+INSERT INTO "detail_report_hotlinks" VALUES(21,'Work Package State','color_label','#wp_activation_state','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120",
 "5":"clr_120","10":"clr_120"}');
 INSERT INTO "detail_report_hotlinks" VALUES(22,'Material Containers','link_list','Material Containers','material_container/show','valueCol','dl_material_containers','');
 INSERT INTO "detail_report_hotlinks" VALUES(23,'Requester','detail-report','Requester','user/report/-/~','labelCol','dl_researcher','{"RemoveRegEx":" [(].*[)]"}');

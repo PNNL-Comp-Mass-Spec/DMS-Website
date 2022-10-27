@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('base_table','V_Param_Value');
 INSERT INTO "general_params" VALUES('my_db_group','manager_control');
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Param_Value');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Mgr_Name as [Mgr_Name], Param_Name as [Param_Name], Entry_ID as [Entry_ID], Type_ID as [Type_ID], Value as [Value], Mgr_ID as [Mgr_ID], Comment as [Comment], Last_Affected as [Last_Affected], Entered_By as [Entered_By], Mgr_Type_ID as [Mgr_Type_ID]');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Mgr_Name AS [Mgr_Name], Param_Name AS [Param_Name], Entry_ID AS [Entry_ID], Type_ID AS [Type_ID], Value AS [Value], Mgr_ID AS [Mgr_ID], Comment AS [Comment], Last_Affected AS [Last_Affected], Entered_By AS [Entered_By], Mgr_Type_ID AS [Mgr_Type_ID]');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_m_name','Mgr_Name','20','','Mgr_Name','ContainsText','text','50','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_paramname','Param_Name','30!','','Param_Name','ContainsText','text','128','','');

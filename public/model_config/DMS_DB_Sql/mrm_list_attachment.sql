@@ -6,7 +6,7 @@ INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('entry_sproc','AddUpdateAttachments');
 INSERT INTO "general_params" VALUES('entry_page_data_table','v_mrm_list_attachment_entry');
 INSERT INTO "general_params" VALUES('entry_page_data_id_col','id');
-INSERT INTO "general_params" VALUES('list_report_data_cols','*, ''Download'' as Download');
+INSERT INTO "general_params" VALUES('list_report_data_cols','*, ''Download'' AS Download');
 INSERT INTO "general_params" VALUES('detail_report_data_table','V_MRM_List_Attachment_Detail_Report');
 INSERT INTO "general_params" VALUES('detail_report_data_id_col','ID');
 INSERT INTO "general_params" VALUES('detail_report_data_id_type','integer');

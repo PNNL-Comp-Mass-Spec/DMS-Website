@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Analysis_Job_List_Report_2');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Dataset_ID, Job');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Dataset_ID, Dataset, Job, Pri, State, Tool, Campaign, Experiment, Instrument, "Param File", Settings_File, Organism, Tissue, "Job Organism", "Organism DB", "Protein Collection List", "Protein Options", Comment, Created, Started, Finished, Runtime, Progress, ETA_Minutes, "Job Request", "Results Folder", "Results Folder Path", Last_Affected, Rating');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Dataset_ID, Dataset, Job, Pri, State, Tool, Campaign, Experiment, Instrument, [Param File], Settings_File, Organism, Tissue, [Job Organism], [Organism DB], [Protein Collection List], [Protein Options], Comment, Created, Started, Finished, Runtime, Progress, ETA_Minutes, [Job Request], [Results Folder], [Results Folder Path], Last_Affected, Rating');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_datasetid','Dataset ID','6!','','Dataset_ID','Equals','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_dataset','Dataset','60!','','Dataset','ContainsText','text','128','','');

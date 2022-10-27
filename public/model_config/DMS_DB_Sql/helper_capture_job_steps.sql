@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Capture_Job_Steps_List_Report');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_cols',' ''x'' AS Sel, *');
+INSERT INTO "general_params" VALUES('list_report_data_cols','''x'' AS Sel, *');
 INSERT INTO "general_params" VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO "general_params" VALUES('my_db_group','capture');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Job');

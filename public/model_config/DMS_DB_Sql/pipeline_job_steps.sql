@@ -19,7 +19,7 @@ INSERT INTO "list_report_primary_filter" VALUES(9,'pf_start','Start','6','','Sta
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Job','invoke_entity','value','pipeline_jobs/show','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Tool','invoke_entity','value','pipeline_step_tools/show','');
-INSERT INTO "list_report_hotlinks" VALUES(3,'Step','invoke_entity','#ID','pipeline_job_steps/show','');
+INSERT INTO "list_report_hotlinks" VALUES(3,'Step','invoke_entity','#id','pipeline_job_steps/show','');
 INSERT INTO "list_report_hotlinks" VALUES(4,'Processor','invoke_entity','value','pipeline_processor_step_tools/report/@','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO "detail_report_hotlinks" VALUES(1,'Job','detail-report','Job','analysis_job/show','labelCol','dms_job_detail',NULL);

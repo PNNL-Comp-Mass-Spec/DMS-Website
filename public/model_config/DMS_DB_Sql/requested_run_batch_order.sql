@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO "general_params" VALUES('list_report_data_table','V_Requested_Run_List_Report_2');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Created');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Request, Name, Batch, Block, [Run Order], Cart, Col, Experiment, Wellplate, Well');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Request, Name, Batch, Block, [Run Order], Cart, Experiment, Wellplate, Well');
 INSERT INTO "general_params" VALUES('alternate_title_report','Requested Run Batch Block');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Request','invoke_entity','value','requested_run/show','');

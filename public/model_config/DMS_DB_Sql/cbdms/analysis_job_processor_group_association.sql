@@ -5,12 +5,12 @@ INSERT INTO "general_params" VALUES('list_report_data_table','V_Analysis_Job_Pro
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO "general_params" VALUES('list_report_cmds','analysis_job_processor_group_association_cmds');
 INSERT INTO "general_params" VALUES('list_report_cmds_url','/analysis_job_processor_group_association/operation');
-INSERT INTO "general_params" VALUES('list_report_data_cols',''''' as [Sel.], *');
+INSERT INTO "general_params" VALUES('list_report_data_cols',''''' AS [Sel.], *');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateAnalysisJobProcessorGroupAssociations');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Job');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO "list_report_primary_filter" VALUES(1,'pf_groupid','#GroupID','10','','#GroupID','Equals','text','32','','');
+INSERT INTO "list_report_primary_filter" VALUES(1,'pf_groupid','#GroupID','10','','#group_id','Equals','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'Sel.','CHECKBOX','Job','','');
 INSERT INTO "list_report_hotlinks" VALUES(2,'Job','invoke_entity','value','analysis_job/show','');

@@ -14,9 +14,9 @@ INSERT INTO "general_params" VALUES('detail_report_cmds','file_attachment_cmds')
 INSERT INTO "general_params" VALUES('base_table','T_Sample_Prep_Request');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO "list_report_hotlinks" VALUES(1,'ID','invoke_entity','ID','rna_prep_request/show/','');
-INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#DaysInQueue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
+INSERT INTO "list_report_hotlinks" VALUES(2,'Days In Queue','color_label','#days_in_queue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO "list_report_hotlinks" VALUES(3,'WP','invoke_entity','value','charge_code/show','');
-INSERT INTO "list_report_hotlinks" VALUES(4,'WP State','color_label','#WPActivationState','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
+INSERT INTO "list_report_hotlinks" VALUES(4,'WP State','color_label','#wp_activation_state','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO "list_report_primary_filter" VALUES(1,'pf_state','State','32','','State','ContainsText','text','128','','');
 INSERT INTO "list_report_primary_filter" VALUES(2,'pf_requestname','RequestName','32','','RequestName','ContainsText','text','128','','');
@@ -30,7 +30,7 @@ INSERT INTO "detail_report_hotlinks" VALUES(3,'Instrument Name','detail-report',
 INSERT INTO "detail_report_hotlinks" VALUES(4,'Dataset Type','detail-report','Instrument Name','helper_instrument_dataset_type/report','valueCol','dl_DatasetType','');
 INSERT INTO "detail_report_hotlinks" VALUES(5,'EUS Proposal','detail-report','EUS Proposal','eus_proposals/show','valueCol','dl_EUS_Proposal','');
 INSERT INTO "detail_report_hotlinks" VALUES(6,'Work Package Number','detail-report','Work Package Number','charge_code/show','labelCol','dl_Work_Package','');
-INSERT INTO "detail_report_hotlinks" VALUES(7,'Work Package State','color_label','#WPActivationState','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
+INSERT INTO "detail_report_hotlinks" VALUES(7,'Work Package State','color_label','#wp_activation_state','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120","5":"clr_120","10":"clr_120"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO "sproc_args" VALUES(1,'request_name','RequestName','varchar','input','128','AddUpdateRNAPrepRequest');
 INSERT INTO "sproc_args" VALUES(2,'requester_prn','RequesterPRN','varchar','input','32','AddUpdateRNAPrepRequest');

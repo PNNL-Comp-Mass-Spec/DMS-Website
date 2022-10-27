@@ -6,7 +6,7 @@ INSERT INTO "general_params" VALUES('alternate_title_report','LC Cart Request As
 INSERT INTO "general_params" VALUES('list_report_cmds','lc_cart_request_loading_cmds');
 INSERT INTO "general_params" VALUES('operations_sproc','UpdateLCCartRequestAssignments');
 INSERT INTO "general_params" VALUES('list_report_cmds_url','lc_cart_request_loading/operation');
-INSERT INTO "general_params" VALUES('list_report_data_cols','Request as Sel, *');
+INSERT INTO "general_params" VALUES('list_report_data_cols','Request AS Sel, *');
 INSERT INTO "general_params" VALUES('list_report_data_sort_col','Request');
 INSERT INTO "general_params" VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
