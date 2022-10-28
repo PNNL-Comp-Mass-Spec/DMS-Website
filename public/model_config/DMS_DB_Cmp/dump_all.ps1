@@ -47,7 +47,7 @@ Import-Module $configDefFilePath
 Import-Module .\dump_db.psm1
 Import-Module .\compare_directories.psm1
 Import-Module .\compare_files_to_master.psm1
-        
+
 # create timestamp-based root name for local folder names
 if ($timestampOverride) {
     $rootName = $timestampOverride
@@ -87,7 +87,7 @@ $downloads = @{}
 $devSqlPath = ""
 $prodSqlPath = ""
 $cbdmsSqlPath = ""
-    
+
 foreach($source in $sources) {
     #set up local folders to receive downloaded and copied config db files and dump files
     $localDbFileFolderPath = Join-Path $defaults["localDbFileFolderPath"] ("{0}{1}" -f $source["version"], $rootName)
