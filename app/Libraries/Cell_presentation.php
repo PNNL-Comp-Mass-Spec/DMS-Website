@@ -964,6 +964,12 @@ class Cell_presentation {
             if ($f->type === 'datetime' || $f->type === 93) {
                 $dateTimeColumns[] = $f->name;
             }
+
+            // postgres driver: types 'timestamp' and 'timestamptz'
+            // Could possibly add others (see Sql_postgre.php for type codes)
+            if ($f->type === 1114 || $f->type === 1184) {
+                $dateTimeColumns[] = $f->name;
+            }
         }
 
         if (count($dateTimeColumns) == 0) {
