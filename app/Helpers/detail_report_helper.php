@@ -80,6 +80,16 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
             continue;
         }
 
+        $hotlink_specs = get_hotlink_specs_for_field($fieldName, $hotlinks);
+
+        // Look for an entry in $hotlinks that matches either this field name,
+        // or this field name preceded by one or more plus signs
+        $fieldSpec = get_fieldspec_with_link_type($hotlink_specs, "no_display");
+        if ($fieldSpec) {
+            // Skip this column (since a hotlink of type no_display is defined)
+            continue;
+        }
+
         // default field display for table
         $label = $fieldName;
         $val = $fieldValue;
@@ -104,7 +114,6 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
         $val_display = "<td>$val";
 
         // override default field display with hotlinks
-        $hotlink_specs = get_hotlink_specs_for_field($fieldName, $hotlinks);
         foreach ($hotlink_specs as $hotlink_spec) {
             if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0) {
                 $link_id = $fields[$hotlink_spec["WhichArg"]];
@@ -209,6 +218,23 @@ function get_hotlink_specs_for_field($fieldName, $hotlinks) {
     }
 
     return $hotlink_specs;
+}
+
+/**
+ * Look for a hotlink of the given type; return it if found or null if not found
+ * @param type $hotlinks hotlink info for a specific field
+ * @param type $linkTypeName
+ * @return type
+ */
+function get_fieldspec_with_link_type($hotlinks, $linkTypeName) {
+    // Look for a hotlink name that matches this field name
+    foreach ($hotlinks as $hotlink_spec) {
+        if ($hotlink_spec["LinkType"] == $linkTypeName) {
+            return $hotlink_spec;
+        }
+    }
+
+    return null;
 }
 
 /**
