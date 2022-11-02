@@ -136,8 +136,7 @@ INSERT INTO detail_report_hotlinks VALUES(17,'Biomaterial Item Count','detail-re
 INSERT INTO detail_report_hotlinks VALUES(18,'Total_Item_Count','detail-report','ID','sample_prep_request_items/report/-/','labelCol','dl_total_item_count','');
 INSERT INTO detail_report_hotlinks VALUES(19,'Requested Run Item Count','detail-report','ID','sample_prep_request_items/report/requested_run/','labelCol','dl_requested_run_item_count','');
 INSERT INTO detail_report_hotlinks VALUES(20,'Dataset Item Count','detail-report','ID','sample_prep_request_items/report/dataset/','labelCol','dl_dataset_item_count','');
-INSERT INTO detail_report_hotlinks VALUES(21,'Work Package State','color_label','#wp_activation_state','','valueCol','dl_Work_Package_State','{"3":"clr_90","4":"clr_120",
-"5":"clr_120","10":"clr_120"}');
+INSERT INTO detail_report_hotlinks VALUES(21,'Work Package State','color_label','wp_activation_state','','valueCol','dl_Work_Package_State',replace('{"3":"clr_90","4":"clr_120",\n"5":"clr_120","10":"clr_120"}','\n',char(10)));
 INSERT INTO detail_report_hotlinks VALUES(22,'Material Containers','link_list','Material Containers','material_container/show','valueCol','dl_material_containers','');
 INSERT INTO detail_report_hotlinks VALUES(23,'Requester','detail-report','Requester','user/report/-/~','labelCol','dl_researcher','{"RemoveRegEx":" [(].*[)]"}');
 INSERT INTO detail_report_hotlinks VALUES(24,'Comment','markup','Comment','','valueCol','dl_Comment','');

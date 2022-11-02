@@ -86,7 +86,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO form_field_choosers VALUES(1,'config_name','picker.prepend','lcCartPickList','','','_','');
 INSERT INTO form_field_choosers VALUES(2,'cart_config_state','picker.replace','activeInactiveInvalidPickList','','','','');
 INSERT INTO form_field_choosers VALUES(3,'entered_by','picker.replace','userPRNPickList','','',',','');
-CREATE TABLE "detail_report_hotlinks" (
+CREATE TABLE IF NOT EXISTS "detail_report_hotlinks" (
 	`idx`	INTEGER,
 	`name`	text,
 	`LinkType`	text,

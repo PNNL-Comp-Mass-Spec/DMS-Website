@@ -43,16 +43,8 @@ INSERT INTO utility_queries VALUES(19,'emsl_instrument_allocation','EMSL Instrum
 INSERT INTO utility_queries VALUES(20,'emsl_instruments','EMSL Instruments','','T_EMSL_Instruments','*','','{ "EUS_Display_Name":"CTx", "EUS_Instrument_Name":"CTx", "EUS_Available_Hours":"CTx", "Local_Category_Name":"CTx", "Local_Instrument_Name":"CTx" }','');
 INSERT INTO utility_queries VALUES(21,'emsl_allocated_usage_by_category','EMSL Allocated Usage By Category','','V_EMSL_Allocated_Usage_By_Category','*','{"col":"FY", "dir":"DESC"}','{ "FY":"CTx", "Proposal_ID":"CTx", "Category":"CTx" }','');
 INSERT INTO utility_queries VALUES(22,'emsl_actual_usage_by_category','EMSL Actual Usage By Category','','V_EMSL_Actual_Usage_By_Category','*','{"col":"FY", "dir":"DESC"}','{ "FY":"CTx", "Proposal_ID":"CTx", "Category":"CTx" }','');
-INSERT INTO utility_queries VALUES(23,'ron_plan1','Ron Moore Run Planning Std Datasets','','V_Run_Planning_Report_StdSep','*','{"col":"Request Name Code", "dir":"ASC"}','{ "Inst Group":"CTx", "Batch or Experiment":"CTx", "Requester":"CTx", "Comment":"CTx"}','{"Min Request":  {"LinkType":"invoke_entity",                               "Target":"requested_run\/show\/"},
- "Run Count":    {"LinkType":"invoke_entity","WhichArg":"Request Name Code","Target":"requested_run\/report\/-\/-\/~active\/-\/-\/~"}
-}');
-INSERT INTO utility_queries VALUES(24,'dms_emsl_inst','DMS To EMSL Instrument Mapping','','T_Instrument_Name TIN
-INNER JOIN T_EMSL_DMS_Instrument_Mapping TEDIM ON TIN.Instrument_ID = TEDIM.DMS_Instrument_ID
-INNER JOIN T_EMSL_Instruments TEI ON TEDIM.EUS_Instrument_ID = TEI.EUS_Instrument_ID','TIN.IN_name as DMS_Instrument_Name,
-TEI.EUS_Instrument_Name,
-TEI.EUS_Display_Name,
-TEI.Local_Category_Name','','{ "DMS_Instrument_Name":"CTx",
-"EUS_Instrument_Name":"CTx", "EUS_Display_Name":"CTx", "Local_Category_Name":"CTx" }','');
+INSERT INTO utility_queries VALUES(23,'ron_plan1','Ron Moore Run Planning Std Datasets','','V_Run_Planning_Report_StdSep','*','{"col":"Request Name Code", "dir":"ASC"}','{ "Inst Group":"CTx", "Batch or Experiment":"CTx", "Requester":"CTx", "Comment":"CTx"}',replace('{"Min Request":  {"LinkType":"invoke_entity",                               "Target":"requested_run\/show\/"},\n "Run Count":    {"LinkType":"invoke_entity","WhichArg":"Request Name Code","Target":"requested_run\/report\/-\/-\/~active\/-\/-\/~"}\n}','\n',char(10)));
+INSERT INTO utility_queries VALUES(24,'dms_emsl_inst','DMS To EMSL Instrument Mapping','',replace('T_Instrument_Name TIN \nINNER JOIN T_EMSL_DMS_Instrument_Mapping TEDIM ON TIN.Instrument_ID = TEDIM.DMS_Instrument_ID \nINNER JOIN T_EMSL_Instruments TEI ON TEDIM.EUS_Instrument_ID = TEI.EUS_Instrument_ID','\n',char(10)),replace('TIN.IN_name as DMS_Instrument_Name,\nTEI.EUS_Instrument_Name, \nTEI.EUS_Display_Name, \nTEI.Local_Category_Name','\n',char(10)),'',replace('{ "DMS_Instrument_Name":"CTx",\n"EUS_Instrument_Name":"CTx", "EUS_Display_Name":"CTx", "Local_Category_Name":"CTx" }','\n',char(10)),'');
 INSERT INTO utility_queries VALUES(25,'instrument_tracked','EMSL To DMS Instrument','','V_Instrument_Tracked','*','','','');
 INSERT INTO utility_queries VALUES(26,'run_planning_1','Run Planning','','V_Run_Planning_Report_1','*',NULL,NULL,NULL);
 INSERT INTO utility_queries VALUES(27,'osm_package_requests','OSM Package Requested Runs','','(SELECT Item_ID AS id, OSM_Package_ID FROM S_V_OSM_Package_Items_Export WHERE  Item_Type = ''Requested_Runs'') TX','*','{"col":"id", "dir":"ASC"}','{"OSM_Package_ID":"EQn"}','');
