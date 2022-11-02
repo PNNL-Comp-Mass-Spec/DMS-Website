@@ -13,7 +13,7 @@ INSERT INTO general_params VALUES('operations_sproc','DoRequestedRunBatchOperati
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 INSERT INTO general_params VALUES('detail_report_cmds','file_attachment_cmds');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim|max_length[6]');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|max_length[6]');
 INSERT INTO form_fields VALUES(2,'name','Name','text','50','50','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(3,'description','Description','area','','','2','60','','trim|max_length[256]');
 INSERT INTO form_fields VALUES(4,'requested_run_list','Requests','area','','','4','60','','trim');
@@ -44,11 +44,12 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'ID','invoke_entity','value','requested_run_batch/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'Requests','invoke_entity','ID','requested_run/report/-/-/Active','');
 INSERT INTO list_report_hotlinks VALUES(3,'Runs','invoke_entity','ID','requested_run/report/-/-/Completed/','');
-INSERT INTO list_report_hotlinks VALUES(4,'Days In Queue','color_label','#days_in_queue','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
+INSERT INTO list_report_hotlinks VALUES(4,'Days In Queue','color_label','days_in_queue_bin','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO list_report_hotlinks VALUES(6,'First Request','invoke_entity','First Request','requested_run/show/','');
 INSERT INTO list_report_hotlinks VALUES(7,'Last Request','invoke_entity','Last Request','requested_run/show/','');
 INSERT INTO list_report_hotlinks VALUES(8,'Comment','min_col_width','value','40','');
 INSERT INTO list_report_hotlinks VALUES(9,'Blocked','invoke_entity','ID','requested_run_batch_blocking/param/@','');
+INSERT INTO list_report_hotlinks VALUES(10,'days_in_queue_bin','no_display','value','','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO detail_report_commands VALUES(1,'Lock batch','cmd_op','LockBatch','requested_run_batch','Lock batch to prevent changes to run order or membership','Are you sure that you want to lock this batch?');
 INSERT INTO detail_report_commands VALUES(2,'Unlock batch','cmd_op','UnlockBatch','requested_run_batch','Unlock batch to permit changes to run order or membership','Are you sure that you want to unlock this batch?');

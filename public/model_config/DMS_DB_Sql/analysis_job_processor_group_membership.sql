@@ -9,9 +9,10 @@ INSERT INTO general_params VALUES('list_report_cmds_url','/analysis_job_processo
 INSERT INTO general_params VALUES('list_report_data_cols',''''' AS [Sel.], *');
 INSERT INTO general_params VALUES('operations_sproc','UpdateAnalysisJobProcessorGroupMembership');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_groupid','#GroupID','10','','#group_id','Equals','text','32','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_groupid','Group_ID','10','','group_id','Equals','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'Sel.','CHECKBOX','Name','','');
+INSERT INTO list_report_hotlinks VALUES(2,'group_id','no_display','value','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'processorNameList','processorNameList','varchar','input','6000','UpdateAnalysisJobProcessorGroupMembership');
 INSERT INTO sproc_args VALUES(2,'processorGroupID','processorGroupID','varchar','input','32','UpdateAnalysisJobProcessorGroupMembership');

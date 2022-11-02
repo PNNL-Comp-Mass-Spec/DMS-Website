@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','V_Archive_List_Report_2');
 INSERT INTO general_params VALUES('list_report_data_sort_col','Dataset');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
-INSERT INTO general_params VALUES('list_report_data_cols','ID, ''x'' AS Sel, Dataset, Instrument, State, Update, [State Last Affected], [Update State Last Affected], [Archive Path], [Archive Server], [Storage Server]');
+INSERT INTO general_params VALUES('list_report_data_cols','ID, ''x'' AS Sel, Dataset, Instrument, State, [Update State], [State Last Affected], [Update State Last Affected], [Archive Path], [Archive Server], [Storage Server]');
 INSERT INTO general_params VALUES('list_report_helper_multiple_selection','yes');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','Dataset','ContainsText','text','128','','');

@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','V_MTS_PT_DB_Jobs');
 INSERT INTO general_params VALUES('detail_report_data_table','V_MTS_PT_DBs_Detail_Report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','Peptide_DB_Name');
-INSERT INTO general_params VALUES('list_report_data_sort_col','#sort_key');
+INSERT INTO general_params VALUES('list_report_data_sort_col','sort_key');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','20','','Job','Equals','text','20','','');
@@ -19,6 +19,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'Dataset','invoke_entity','Dataset','dataset/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'Job','invoke_entity','Job','analysis_job/show','');
 INSERT INTO list_report_hotlinks VALUES(3,'Peptide_DB_Name','invoke_entity','Peptide_DB_Name','mts_pt_db_jobs/show','');
+INSERT INTO list_report_hotlinks VALUES(4,'sort_key','no_display','value','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'MSMS_Jobs','detail-report','Peptide_DB_Name','mts_pt_db_jobs/report/-/-/Peptide_Hit/~','labelCol','Peptide_DB',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'Organism','detail-report','Organism','organism/report/~','labelCol','Organism',NULL);

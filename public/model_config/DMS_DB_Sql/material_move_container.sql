@@ -16,7 +16,8 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_comment','Comment','15!','',
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'Container','invoke_entity','value','material_container/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'Items','invoke_entity','Container','material_items/report/~@','');
-INSERT INTO list_report_hotlinks VALUES(3,'Sel','CHECKBOX','#id','','');
+INSERT INTO list_report_hotlinks VALUES(3,'Sel','CHECKBOX','id','','');
+INSERT INTO list_report_hotlinks VALUES(4,'id','no_display','value','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'<local>','mode','varchar','input','32','UpdateMaterialContainers');
 INSERT INTO sproc_args VALUES(2,'containerList','containerList','varchar','input','4096','UpdateMaterialContainers');
