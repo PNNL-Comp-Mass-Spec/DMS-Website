@@ -1,10 +1,10 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO "general_params" VALUES('operations_sproc','UpdateMaterialLocations');
+INSERT INTO general_params VALUES('operations_sproc','UpdateMaterialLocations');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO "sproc_args" VALUES(1,'locationList','locationList','text','input','2147483647','UpdateMaterialLocations');
-INSERT INTO "sproc_args" VALUES(2,'<local>','message','varchar','output','512','UpdateMaterialLocations');
-INSERT INTO "sproc_args" VALUES(3,'<local>','callingUser','varchar','input','128','UpdateMaterialLocations');
-INSERT INTO "sproc_args" VALUES(4,'infoOnly','infoOnly','tinyint','input','','UpdateMaterialLocations');
+INSERT INTO sproc_args VALUES(1,'locationList','locationList','text','input','2147483647','UpdateMaterialLocations');
+INSERT INTO sproc_args VALUES(2,'<local>','message','varchar','output','512','UpdateMaterialLocations');
+INSERT INTO sproc_args VALUES(3,'<local>','callingUser','varchar','input','128','UpdateMaterialLocations');
+INSERT INTO sproc_args VALUES(4,'infoOnly','infoOnly','tinyint','input','','UpdateMaterialLocations');
 COMMIT;
