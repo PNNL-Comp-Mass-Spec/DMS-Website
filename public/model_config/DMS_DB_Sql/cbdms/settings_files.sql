@@ -18,21 +18,7 @@ INSERT INTO form_fields VALUES(4,'description','Description','area','','','4','8
 INSERT INTO form_fields VALUES(5,'active','Active','text','1','1','','','1','trim|max_length[1]');
 INSERT INTO form_fields VALUES(6,'auto_centroid','AutoCentroid','area','','','1','80','','trim|max_length[255]');
 INSERT INTO form_fields VALUES(7,'hms_auto_supersede','HMS_AutoSupersede','area','','','1','80','','trim|max_length[255]');
-INSERT INTO form_fields VALUES(8,'contents','Contents','area','','','18','80','<section name="AAA" tool="">
-
-	<item key="xxx" value=""></item>
-
-	<item key="yyy" value=""></item>
-
-</section>
-
-<section name="BBB" tool="">
-
-	<item key="xxx" value=""></item>
-
-	<item key="yyy" value=""></item>
-
-</section>','trim|max_length[2147483647]');
+INSERT INTO form_fields VALUES(8,'contents','Contents','area','','','18','80',replace(replace('<section name="AAA" tool="">\r\n	<item key="xxx" value=""></item>\r\n	<item key="yyy" value=""></item>\r\n</section>\r\n<section name="BBB" tool="">\r\n	<item key="xxx" value=""></item>\r\n	<item key="yyy" value=""></item>\r\n</section>','\r',char(13)),'\n',char(10)),'trim|max_length[2147483647]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'contents','auto_format','xml');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);

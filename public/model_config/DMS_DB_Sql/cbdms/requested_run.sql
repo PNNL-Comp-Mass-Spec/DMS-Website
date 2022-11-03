@@ -107,9 +107,7 @@ INSERT INTO detail_report_hotlinks VALUES(13,'Requester','detail-report','Userna
 INSERT INTO detail_report_hotlinks VALUES(14,'Separation Group','detail-report','Separation Group','separation_group/show','labelCol','dl_separation_group','');
 INSERT INTO detail_report_hotlinks VALUES(15,'Staging Location','detail-report','Staging Location','material_location/report/~@','valueCol','dl_staging_location','');
 INSERT INTO detail_report_hotlinks VALUES(16,'Comment','markup','Comment','','valueCol','dl_comment','');
-INSERT INTO detail_report_hotlinks VALUES(17,'EUS Proposal State','color_label','EUS Proposal State','','valueCol','dl_eus_proposal_state','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}
-
-');
+INSERT INTO detail_report_hotlinks VALUES(17,'EUS Proposal State','color_label','EUS Proposal State','','valueCol','dl_eus_proposal_state',replace(replace('{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}\r\n','\r',char(13)),'\n',char(10)));
 INSERT INTO detail_report_hotlinks VALUES(18,'Queue State','detail-report','Campaign','requested_run_admin/report/-/-/-/-/~@/-/-/-','labelCol','dl_requested_run_admin','');
 INSERT INTO detail_report_hotlinks VALUES(19,'Days In Queue','detail-report','Instrument Group','run_planning/report/~@/-/-/-/-/-/-/-','labelCol','dl_run_planning','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);

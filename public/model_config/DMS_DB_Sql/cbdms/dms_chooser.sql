@@ -1,6 +1,6 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
-CREATE TABLE 'chooser_definitions' (
+CREATE TABLE IF NOT EXISTS 'chooser_definitions' (
 
     "id" INTEGER PRIMARY KEY,
 
@@ -128,15 +128,7 @@ INSERT INTO chooser_definitions VALUES(121,'yesNoNAPickList','default','select',
 INSERT INTO chooser_definitions VALUES(122,'instrumentConfigDescriptionPickList','default','select','{ "Cleaned source": "Cleaned source", "Cleaned source back to trap": "Cleaned source back to trap", "Deep clean": "Deep clean", "FT Mass cal": "FT Mass cal", "Full Instrument cal": "Full Instrument cal", "General configuration note": "General configuration note", "Liquid Nitrogen Fill....": "Liquid Nitrogen Fill....", "Mass cal": "Mass cal", "Mass cal and checks - Negative mode": "Mass cal and checks - Negative mode", "Mass cal and checks - Positive mode": "Mass cal and checks - Positive mode", "Misc Instrument checks": "Misc Instrument checks" }');
 INSERT INTO chooser_definitions VALUES(123,'apeWorkflowPickList','default','select','{"default":"Default (1% FDR)", "5percent":"5% FDR"}');
 INSERT INTO chooser_definitions VALUES(124,'instrumentNameRNAPickList','default','sql','SELECT Instrument  As val, '''' As ex FROM V_Instrument_Name_RNA_PickList ORDER BY Instrument');
-INSERT INTO chooser_definitions VALUES(125,'rnaPrepReqMethodPickList','default','select','{"PreProcessing Cleanup":"PreProcessing Cleanup",
-"PreProcessing RNA Extraction":"PreProcessing RNA Extraction",
-"PreProcessing Gel/Bioanalyzer":"PreProcessing Gel/Bioanalyzer",
-"Phenol/chloroform":"Phenol/chloroform",
-"Trizol/Qiagen column":"Trizol/Qiagen column",
-"Trizol/zymo column":"Trizol/zymo column",
-"CTAB":"CTAB",
-"Hot acid phenol":"Hot acid phenol"
-}');
+INSERT INTO chooser_definitions VALUES(125,'rnaPrepReqMethodPickList','default','select',replace('{"PreProcessing Cleanup":"PreProcessing Cleanup",\n"PreProcessing RNA Extraction":"PreProcessing RNA Extraction",\n"PreProcessing Gel/Bioanalyzer":"PreProcessing Gel/Bioanalyzer",\n"Phenol/chloroform":"Phenol/chloroform",\n"Trizol/Qiagen column":"Trizol/Qiagen column",\n"Trizol/zymo column":"Trizol/zymo column",\n"CTAB":"CTAB",\n"Hot acid phenol":"Hot acid phenol"\n}','\n',char(10)));
 INSERT INTO chooser_definitions VALUES(126,'paramFileTypePickList','default','sql','SELECT Param_File_Type_Ex as val, Param_File_Type as ex FROM V_Param_File_Type_PickList order by Param_File_Type');
 INSERT INTO chooser_definitions VALUES(127,'campaignIDPickList','default','sql','SELECT Campaign as val, ID as ex FROM V_Campaign_List_Report_2 WHERE State = ''Active'' ORDER BY campaign');
 INSERT INTO chooser_definitions VALUES(128,'compoundTypePickList','default','sql','SELECT Name AS val, Name AS ex FROM V_Reference_Compound_Type_Name_Picklist ORDER BY ID');

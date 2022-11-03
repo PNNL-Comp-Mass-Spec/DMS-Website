@@ -1,6 +1,6 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
-CREATE TABLE 'restricted_actions' ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "page_family" TEXT, "action" TEXT, "required_permisions" TEXT );
+CREATE TABLE IF NOT EXISTS 'restricted_actions' ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "page_family" TEXT, "action" TEXT, "required_permisions" TEXT );
 INSERT INTO restricted_actions VALUES(1,'analysis_group','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(2,'analysis_job','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Analysis_Job_Administration');
 INSERT INTO restricted_actions VALUES(3,'analysis_job','operation','DMS_User');
