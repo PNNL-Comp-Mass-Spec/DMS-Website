@@ -12,12 +12,12 @@ namespace App\Controllers;
  * http://dms2.pnl.gov/notification/edit/D3L243
  *
  * The daily e-mails are sent via a cron job that runs email_daily_notification.php
- * which instantiates this controller. 
+ * which instantiates this controller.
  *
  * To manually send the e-mails, go to the following URL, which will *immediately* send e-mails to all users
  * http://dms2.pnl.gov/notification/email
- * 
- * To preview all of the e-mails that would be sent, go to 
+ *
+ * To preview all of the e-mails that would be sent, go to
  * http://dms2.pnl.gov/notification/preview
  *
  * To preview the e-mail that would be sent to a specific user, go to:
@@ -41,10 +41,10 @@ class Notification extends DmsBase {
         $users = array();
         // Query the database
         $sql = '';
-        $sql .= 'SELECT Event, Name, Link, Campaign, Role, EventTypeID, [#EntityType], [#PRN], [User], User_ID, Entity,  Email ';
+        $sql .= 'SELECT Event, Name, Link, Campaign, Role, EventTypeID, entity_type, prn, User, User_ID, Entity, Email ';
         $sql .= 'FROM V_Notification_Message_By_Registered_Users ';
         $sql .= 'WHERE Entered > DATEADD(HOUR, - 24, GETDATE()) ';
-        $sql .= 'ORDER BY [#PRN], [#EntityType], EventTypeID, Entity ';
+        $sql .= 'ORDER BY prn, entity_type, EventTypeID, Entity';
 
         $this->db = \Config\Database::connect();
         $result = $this->db->query($sql);
