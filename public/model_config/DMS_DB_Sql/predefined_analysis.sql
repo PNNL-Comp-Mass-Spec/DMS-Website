@@ -128,8 +128,9 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO detail_report_hotlinks VALUES(1,'Settings File Name','detail-report','Settings File Name','settings_files/report/-/~','labelCol','settings_file',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'Instrument Class Criteria','detail-report','Instrument Class Criteria','instrumentclass/show','labelCol','instrument_class',NULL);
 INSERT INTO detail_report_hotlinks VALUES(3,'ID','detail-report','ID','predefined_analysis_datasets/param','labelCol','preview_datasets_matching_predefine','');
-INSERT INTO detail_report_hotlinks VALUES(4,'Dataset Criteria','detail-report','Dataset Criteria','predefined_analysis_preview/param','labelCol','preview_predefines_by_dataset','');
-INSERT INTO detail_report_hotlinks VALUES(5,'Param File Name','detail-report','Param File Name','param_file/report/-/~','labelCol','parameter_file','');
+INSERT INTO detail_report_hotlinks VALUES(4,'Dataset Criteria','detail-report','Dataset Criteria','predefined_analysis_jobs_preview/param','labelCol','preview_predefine_jobs_by_dataset','');
+INSERT INTO detail_report_hotlinks VALUES(5,'Dataset Exclusion','detail-report','Dataset Criteria','predefined_analysis_rules_preview/param','labelCol','preview_predefine_job_rules_by_dataset','');
+INSERT INTO detail_report_hotlinks VALUES(6,'Param File Name','detail-report','Param File Name','param_file/report/-/~','labelCol','parameter_file','');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
 INSERT INTO utility_queries VALUES(1,'queue','Datasets Predefined Analysis Queue','','V_Predefined_Analysis_Scheduling_Queue_List_Report','*','{"col":"Item", "dir":"DESC"}','{"Dataset":"CTx", "ID":"Equals", "State":"CTx", "Message":"CTx", "User":"CTx", "Entered":"LTd"}','{"Dataset":{"LinkType":"invoke_entity","Target":"dataset\/show\/"},"Message":{"LinkType":"min_col_width", "Target":"40"}}');
 COMMIT;
