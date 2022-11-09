@@ -36,8 +36,8 @@ class Gen extends BaseController
 
     /**
      * Display the home page, with the side menu in a frame
-     * http://dms2.pnl.gov/gen/
-     * http://dms2.pnl.gov/gen/index
+     * https://dms2.pnl.gov/gen/
+     * https://dms2.pnl.gov/gen/index
      */
     function index()
     {
@@ -53,7 +53,7 @@ class Gen extends BaseController
 
     /**
      * Display the current configuration
-     * http://dms2.pnl.gov/gen/config
+     * https://dms2.pnl.gov/gen/config
      */
     function config()
     {
@@ -146,7 +146,7 @@ class Gen extends BaseController
 
     /**
      * Display the home page
-     * http://dms2.pnl.gov/gen/welcome
+     * https://dms2.pnl.gov/gen/welcome
      */
     function welcome()
     {
@@ -156,7 +156,7 @@ class Gen extends BaseController
 
     /**
      * Construct the side menu
-     * http://dms2.pnl.gov/gen/side_menu
+     * https://dms2.pnl.gov/gen/side_menu
      */
     function side_menu()
     {
@@ -166,8 +166,8 @@ class Gen extends BaseController
     }
 
     /**
-     * Return the side menu items a json
-     * http://dms2.pnl.gov/gen/side_menu_objects
+     * Return the side menu items as JSON
+     * https://dms2.pnl.gov/gen/side_menu_objects
      */
     function side_menu_objects()
     {
@@ -181,7 +181,7 @@ class Gen extends BaseController
 
     /**
      * Show session information
-     * http://dms2.pnl.gov/gen/show_session
+     * https://dms2.pnl.gov/gen/show_session
      */
     function show_session()
     {
@@ -197,7 +197,7 @@ class Gen extends BaseController
 
     /**
      * Show configuration info
-     * http://dms2.pnl.gov/gen/info
+     * https://dms2.pnl.gov/gen/info
      */
     function info()
     {
@@ -224,7 +224,7 @@ class Gen extends BaseController
     /**
      * Read the restricted actions defined in the master_authorization SQLite database
      * Display the results in an HTML table
-     * http://dms2.pnl.gov/gen/auth
+     * https://dms2.pnl.gov/gen/auth
      */
     function auth()
     {
@@ -248,7 +248,7 @@ class Gen extends BaseController
 
     /**
      * Show statistics on datasets, experiments, etc.
-     * http://dms2.pnl.gov/gen/stats
+     * https://dms2.pnl.gov/gen/stats
      */
     function stats()
     {

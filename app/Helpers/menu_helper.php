@@ -171,8 +171,9 @@ function make_qs_layout($section_defs) {
 
 /**
  * Build the side menu object tree
- * @param type $menu_items
- * @param type $mnu_name
+ * Called recursively, starting with function side_menu_objects in Gen.php calling this function with $mnu_name = ''
+ * @param type $menu_items  Menu items for the current menu
+ * @param type $mnu_name    Current menu's name (empty string for the top level)
  * @return \stdClass
  */
 function build_side_menu_object_tree($menu_items, $mnu_name) {
@@ -183,6 +184,8 @@ function build_side_menu_object_tree($menu_items, $mnu_name) {
             $label = $entry['item_label'];
             switch ($entry['item_type']) {
                 case 'submenu':
+                    // Create a top-level menu if $mnu_name = ''
+                    // Create a submenu of a top-level menu if $mnu_name is a top-level menu name
                     $obj = new \stdClass();
                     $obj->title = $label;
                     $obj->folder = true;
@@ -190,12 +193,16 @@ function build_side_menu_object_tree($menu_items, $mnu_name) {
                     $items[] = $obj;
                     break;
                 case 'link':
+                    // Link to a page family
+                    // For example, when $name = 'dataset/report',     $obj->href will be https://dms2.pnl.gov/dataset/report
+                    // When $name = 'requested_run/report/-/-/Active', $obj->href will be https://dms2.pnl.gov/requested_run/report/-/-/Active
                     $obj = new \stdClass();
                     $obj->title = $label;
                     $obj->href = site_url($name);
                     $items[] = $obj;
                     break;
                 case 'url_link':
+                    // Link to a specific URL (typically an external website)
                     $obj = new \stdClass();
                     $obj->title = $label;
                     $obj->href = $name;
