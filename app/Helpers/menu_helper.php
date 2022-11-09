@@ -195,6 +195,12 @@ function build_side_menu_object_tree($menu_items, $mnu_name) {
                     $obj->href = site_url($name);
                     $items[] = $obj;
                     break;
+                case 'url_link':
+                    $obj = new \stdClass();
+                    $obj->title = $label;
+                    $obj->href = $name;
+                    $items[] = $obj;
+                    break;
             }
         }
     }
