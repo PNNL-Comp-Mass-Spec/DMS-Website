@@ -29,13 +29,14 @@ INSERT INTO form_field_choosers VALUES(3,'description','picker.replace','instrum
 INSERT INTO form_field_choosers VALUES(4,'date_of_change','picker.prevDate','','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument','Instrument','20','','Instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','60','','Description','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_note','Note','60','','#note_full','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','60!','','Description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_note','Note','60!','','note_full','ContainsText','text','128','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_instrument','picker.replace','instrumentNameExPickList','','',',');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'ID','invoke_entity','value','instrument_config_history/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'Note','markup','value','','');
+INSERT INTO list_report_hotlinks VALUES(3,'note_full','no_display','value','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateInstrumentConfigHistory');
 INSERT INTO sproc_args VALUES(2,'instrument','Instrument','varchar','input','24','AddUpdateInstrumentConfigHistory');
