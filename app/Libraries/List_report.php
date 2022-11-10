@@ -33,7 +33,18 @@ class List_report {
      */
     function list_report($mode) {
         session_start();
+
+        // Include several helper methods
+
+        // Description         | Helper File
+        // --------------------|------------------------------------------
+        // Error validation    | app/Helpers/form.php
+        // Menu creation       | app/Helpers/menu.php
+        // Link creation tools | app/Helpers/link_util.php
+        // URI segment parsing | app/Helpers/url.php
+
         helper(['form', 'menu', 'link_util', 'url']);
+
         $this->controller->choosers = model('App\Models\Dms_chooser');
 
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);

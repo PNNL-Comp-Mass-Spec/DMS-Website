@@ -738,11 +738,11 @@ function make_detail_report_commands($commands, $tag, $id) {
 
 /**
  * Construct a URL to include as a hotlink on a detail report page
- * @param type $target
- * @param type $link_id
- * @param type $options
- * @param type $renderHTTP
- * @return type
+ * @param type $target      Target page family, optionally including filters, e.g. 'param_file/report/-/~'
+ * @param type $link_id     Data value for field specified by WhichArg
+ * @param type $options     Link processing options
+ * @param type $renderHTTP  If true, and if $link_id starts with http, simply link to that URL
+ * @return string
  */
 function make_detail_report_url($target, $link_id, $options, $renderHTTP = false) {
 
