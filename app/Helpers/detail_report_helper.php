@@ -251,9 +251,15 @@ function get_fieldspec_with_link_type($hotlinks, $linkTypeName) {
  */
 function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $display, $val = '') {
 
-    // Include the String operations methods
-    // Include the Number formatting methods
-    helper(['string', 'number_formatting']);
+    // Include several helper methods
+
+    // Description         | Helper File
+    // --------------------|------------------------------------------
+    // String operations   | app/Helpers/string_helper.php
+    // Number formatting   | app/Helpers/number_formatting_helper.php
+    // Wildcard conversion | app/Helpers/wildcard_conversion_helper.php
+
+    helper(['string', 'number_formatting', 'wildcard_conversion']);
 
     $str = "";
     $fld_id = $colSpec["id"];
@@ -279,6 +285,9 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                     break;
                 }
             }
+
+            // Replace %, [, and ] in $link_id with placeholders
+            $link_id = encode_special_values($link_id);
 
             $url = make_detail_report_url($target, $link_id, $options);
             $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
