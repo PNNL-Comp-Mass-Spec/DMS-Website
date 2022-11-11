@@ -165,10 +165,9 @@ INSERT INTO menu_def VALUES(69,'Sample Prep Report Active','link','sample_prep_r
 INSERT INTO menu_def VALUES(70,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Paurus','Paurus');
 INSERT INTO menu_def VALUES(71,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Olson','Olson');
 INSERT INTO menu_def VALUES(72,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Schepmoes','Schepmoes');
-INSERT INTO menu_def VALUES(74,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Smith','Smith');
 INSERT INTO menu_def VALUES(75,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Tate','Tate');
 INSERT INTO menu_def VALUES(76,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Trejo','Trejo');
-INSERT INTO menu_def VALUES(77,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Winkler','Winkler');
+INSERT INTO menu_def VALUES(77,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/StartsWith__Williams','Williams');
 INSERT INTO menu_def VALUES(78,'Sample Prep','submenu','OSM Packages','OSM Packages');
 INSERT INTO menu_def VALUES(79,'OSM Packages','link','osm_package/report','Report');
 INSERT INTO menu_def VALUES(80,'OSM Packages','link','osm_package/create','Entry');
