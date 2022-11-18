@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('detail_report_data_id_col','ID');
 INSERT INTO general_params VALUES('entry_sproc','AddUpdateEUSProposals');
 INSERT INTO general_params VALUES('entry_page_data_table','v_eus_proposals_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
-INSERT INTO general_params VALUES('list_report_data_sort_col','Import Date');
+INSERT INTO general_params VALUES('list_report_data_sort_col','Import_Date');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
@@ -27,7 +27,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','10','','Stat
 INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','10','','ID','MatchesText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_users','Users','10','','Users','ContainsText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_title','Title','50!','','Title','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_proposalType','Type','10','','Proposal Type','ContainsText','text','32','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_proposalType','Type','10','','Proposal_Type','ContainsText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(2,'ID','invoke_entity','value','eus_proposals/show/','');
 INSERT INTO list_report_hotlinks VALUES(3,'Users','invoke_entity','ID','eus_proposal_users/report','');
