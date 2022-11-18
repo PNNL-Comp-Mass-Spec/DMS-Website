@@ -81,7 +81,7 @@ INSERT INTO chooser_definitions VALUES(70,'lcCartStatePickList','default','sql',
 INSERT INTO chooser_definitions VALUES(71,'orgDefPickList','default','sql','SELECT Name as val, '''' as ex FROM V_Organism_Picklist ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(72,'orgPickList','default','sql','SELECT Name as val, '''' as ex FROM V_Organism_Picklist ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(73,'prepInstrumentPickList','default','sql','SELECT Name AS val, Name AS ex FROM V_Prep_Instrument_Picklist ORDER BY Name');
-INSERT INTO chooser_definitions VALUES(74,'prepLCRunTabPickList','default','sql','SELECT val, '''' as ex FROM V_Helper_Prep_Lc_Run_Tab_List_Report ORDER BY val');
+INSERT INTO chooser_definitions VALUES(74,'prepLCRunNamePickList','default','sql','SELECT val, '''' as ex FROM V_Helper_Prep_LC_Run_Name_List_Report ORDER BY val');
 INSERT INTO chooser_definitions VALUES(75,'protOptSeqDirPickList','default','sql','SELECT val, ex FROM V_Protein_Options_Seq_Direction');
 INSERT INTO chooser_definitions VALUES(77,'samplePrepUserPickList','default','sql','SELECT val, ex FROM V_Sample_Prep_Request_User_Picklist ORDER BY val');
 INSERT INTO chooser_definitions VALUES(78,'sampleRequestStatePickList','default','sql','SELECT val, ex FROM V_Sample_Prep_Request_State_Picklist ORDER BY State_ID');
