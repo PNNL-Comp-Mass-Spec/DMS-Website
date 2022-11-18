@@ -19,7 +19,7 @@ INSERT INTO list_report_hotlinks VALUES(3,'age_bracket','no_display','value','',
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateOperationsTasks');
 INSERT INTO sproc_args VALUES(2,'task_type_name','taskType','varchar','input','50','AddUpdateOperationsTasks');
-INSERT INTO sproc_args VALUES(3,'tab','tab','varchar','input','64','AddUpdateOperationsTasks');
+INSERT INTO sproc_args VALUES(3,'task','task','varchar','input','64','AddUpdateOperationsTasks');
 INSERT INTO sproc_args VALUES(4,'requester','requester','varchar','input','64','AddUpdateOperationsTasks');
 INSERT INTO sproc_args VALUES(5,'requested_personnel','requestedPersonnel','varchar','input','256','AddUpdateOperationsTasks');
 INSERT INTO sproc_args VALUES(6,'assigned_personnel','assignedPersonnel','varchar','input','256','AddUpdateOperationsTasks');
@@ -35,7 +35,7 @@ INSERT INTO sproc_args VALUES(16,'<local>','callingUser','varchar','input','128'
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(2,'task_type_name','Task Type','text','32','50','','','','trim|max_length[50]');
-INSERT INTO form_fields VALUES(3,'tab','Tab','text','50','64','','','','trim|max_length[64]');
+INSERT INTO form_fields VALUES(3,'task','Task','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(4,'description','Description','area','','','4','70','','trim|max_length[5132]');
 INSERT INTO form_fields VALUES(5,'requester','Requester','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(6,'requested_personnel','Requested Personnel','area','','','4','70','','trim|max_length[256]');
@@ -48,8 +48,8 @@ INSERT INTO form_fields VALUES(12,'work_package','Work Package','text','32','32'
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'requester','default_function','GetUser()');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_tab','Tab','20','','Tab','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','20','','Description','ContainsText','text','5132','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_task','Task','30!','','Task','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','30!','','Description','ContainsText','text','5132','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_assigned_personnel','Assigned','20','','Assigned Personnel','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_comments','Comments','20','','Comments','ContainsText','text','2147483647','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_status','Status','20','','Status','ContainsText','text','32','','');

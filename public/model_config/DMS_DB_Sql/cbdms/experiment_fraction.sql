@@ -13,7 +13,7 @@ INSERT INTO form_fields VALUES(3,'group_type','Group Type','non-edit','','','','
 INSERT INTO form_fields VALUES(4,'suffix','Suffix','text','20','20','','','','trim|alpha_dash');
 INSERT INTO form_fields VALUES(5,'name_search','Search','text','20','80','','','','trim|alpha_dash');
 INSERT INTO form_fields VALUES(6,'name_replace','Replace','text','20','80','','','','trim|alpha_dash');
-INSERT INTO form_fields VALUES(7,'tab','Tab (group title)','text','80','128','','','','trim|max_length[128]');
+INSERT INTO form_fields VALUES(7,'group_name','Fraction Group Name','text','40','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(8,'description','Description','area','','','3','60','','trim');
 INSERT INTO form_fields VALUES(9,'total_count','Number of fractions to add','text','4','4','','','24','trim');
 INSERT INTO form_fields VALUES(10,'add_underscore_before_fraction_num','Add underscore before fraction number','text','4','4','','','Yes','trim|max_length[4]');
@@ -41,7 +41,7 @@ INSERT INTO sproc_args VALUES(2,'group_type','groupType','varchar','input','20',
 INSERT INTO sproc_args VALUES(3,'suffix','suffix','varchar','intput','20','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(4,'name_search','nameSearch','varchar','intput','128','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(5,'name_replace','nameReplace','varchar','input','128','AddExperimentFractions');
-INSERT INTO sproc_args VALUES(6,'tab','tab','varchar','input','128','AddExperimentFractions');
+INSERT INTO sproc_args VALUES(6,'group_name','groupName','varchar','input','128','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(7,'description','description','varchar','input','512','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(8,'total_count','totalCount','int','input','','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(9,'add_underscore_before_fraction_num','addUnderscore','varchar','input','12','AddExperimentFractions');
