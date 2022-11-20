@@ -108,7 +108,8 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
             }
         }
 
-        $label_display = "<td>$label</td>\n";
+        // Capitalize ID, then replace underscores with spaces
+        $label_display = "<td>" . ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $label))) . "</td>\n";
 
         // We will append </td> below
         $val_display = "<td>$val";
@@ -116,7 +117,12 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
         // override default field display with hotlinks
         foreach ($hotlink_specs as $hotlink_spec) {
             if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0) {
-                $link_id = $fields[$hotlink_spec["WhichArg"]];
+                if (array_key_exists($hotlink_spec["WhichArg"], $fields)) {
+                    $link_id = $fields[$hotlink_spec["WhichArg"]];
+                } else {
+                    // Target field for hot link not found; try replacing spaces with underscores and changing to lowercase
+                    $link_id = $fields[str_replace(" ", "_", strtolower($hotlink_spec["WhichArg"]))];
+                }                
             } else {
                 $link_id = "";
             }
@@ -205,16 +211,26 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
 function get_hotlink_specs_for_field($fieldName, $hotlinks) {
     // List of any hotlink spec(s) for the field
     $hotlink_specs = array();
+    
+    // Define an alternate name to look for
+    // Capitalize ID, then replace underscores with spaces
+    $altName = ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $fieldName)));
 
     // Is a primary hotlink defined for the field?
     if (array_key_exists($fieldName, $hotlinks)) {
         $hotlink_specs[] = $hotlinks[$fieldName];
+    } else if (array_key_exists($altName, $hotlinks)) {
+        // Check the alternate name
+        $hotlink_specs[] = $hotlinks[$altName];
     }
 
     // Is a secondary hotlink defined for field?
     // Secondary keys have a plus sign ahead of the field name
     if (array_key_exists('+' . $fieldName, $hotlinks)) {
         $hotlink_specs[] = $hotlinks['+' . $fieldName];
+    } else if (array_key_exists('+' . $altName, $hotlinks)) {
+        // Check the alternate name
+        $hotlink_specs[] = $hotlinks['+' . $altName];
     }
 
     return $hotlink_specs;
@@ -273,6 +289,9 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
     $target = $colSpec['Target'];
     $options = $colSpec['Options'];
     $cell_class = "";
+   
+    // Format display to capitalize ID and replace underscores with spaces
+    $displayFmt = ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $display)));
 
     switch ($type) {
         case "detail-report":
@@ -281,7 +300,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $hideLinkMatchText = $options['HideLinkIfValueMatch'];
                 if (empty($val) && $link_id === $hideLinkMatchText ||
                         !empty($val) && $val === $hideLinkMatchText) {
-                    $str = $display;
+                    $str = $displayFmt;
                     break;
                 }
             }
@@ -290,15 +309,15 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             $link_id = encode_special_values($link_id);
 
             $url = make_detail_report_url($target, $link_id, $options);
-            $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
+            $str = "<a id='lnk_${fld_id}' href='$url'>$displayFmt</a>";
             break;
 
         case "href-folder":
             if ($val) {
                 $lnk = str_replace('\\', '/', $val);
-                $str = "<a href='file:///$lnk'>$display</a>";
+                $str = "<a href='file:///$lnk'>$displayFmt</a>";
             } else {
-                $str = $display;
+                $str = $displayFmt;
             }
             break;
 
@@ -539,7 +558,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             if (!empty($options) && array_key_exists($link_id, $options)) {
                 $cx = "class='" . $options[$link_id] . "' style='padding: 1px 5px 1px 5px;'";
             }
-            $str .= "<span $cx>$display</span>";
+            $str .= "<span $cx>$displayFmt</span>";
             break;
 
         case "doi_link":
