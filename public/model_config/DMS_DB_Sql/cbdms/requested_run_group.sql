@@ -25,8 +25,8 @@ INSERT INTO form_fields VALUES(17,'eus_users','EMSL Users List','area','','','4'
 INSERT INTO form_fields VALUES(18,'mrm_attachment','MRM Transition List Attachment','text','60','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(19,'internal_standard','Dataset Internal Standard','hidden','','','','','none','trim|max_length[50]|required');
 INSERT INTO form_fields VALUES(20,'experiment_list','','hidden','','','','','','trim|max_length[3500]');
-INSERT INTO form_fields VALUES(21,'batch_name','Batch Name','text','25','50','','','','trim|max_length[50]');
-INSERT INTO form_fields VALUES(22,'batch_description','Batch Description','text','','','2','60','','trim|max_length[255]');
+INSERT INTO form_fields VALUES(21,'batch_name','Batch Name','text','30!','50','','','','trim|max_length[50]');
+INSERT INTO form_fields VALUES(22,'batch_description','Batch Description','text','30!','','2','60','','trim|max_length[255]');
 INSERT INTO form_fields VALUES(23,'batch_completion_date','Batch Completion Date','text','25','32','','','','trim|max_length[32]|valid_date');
 INSERT INTO form_fields VALUES(24,'batch_priority','Requested Batch Priority','text','24','','','','Normal','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(25,'batch_priority_justification','Justification High Priority','area','','','4','60','','trim|max_length[512]');
@@ -49,6 +49,7 @@ INSERT INTO form_field_choosers VALUES(12,'work_package','list-report.helper',''
 INSERT INTO form_field_choosers VALUES(13,'staging_location','list-report.helper','','helper_material_location','',',','');
 INSERT INTO form_field_choosers VALUES(14,'batch_completion_date','picker.prevDate','','','',',','');
 INSERT INTO form_field_choosers VALUES(15,'batch_priority','picker.replace','batchPriorityPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(16,'batch_name','list-report.helper','','helper_experiment_group_name/report','experiment_group_id',',','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'experiment_group_id','experimentGroupID','varchar','input','12','AddRequestedRuns');
 INSERT INTO sproc_args VALUES(2,'experiment_list','experimentList','varchar','input','3500','AddRequestedRuns');
@@ -79,4 +80,18 @@ INSERT INTO sproc_args VALUES(28,'batch_priority_justification','batchPriorityJu
 INSERT INTO sproc_args VALUES(29,'batch_comment','batchComment','varchar','input','512','AddRequestedRuns');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO entry_commands VALUES(1,'PreviewAdd','cmd','Preview Add','Determine if current values are valid, but do not change database.','');
+CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
+INSERT INTO external_sources VALUES(1,'requested_run','instrument_group','ColName','Instrument_Group');
+INSERT INTO external_sources VALUES(2,'requested_run','type','ColName','Run_Type');
+INSERT INTO external_sources VALUES(3,'requested_run','separation_group','ColName','Separation_Group');
+INSERT INTO external_sources VALUES(4,'requested_run','requester','ColName.action.ExtractUsername','Requester');
+INSERT INTO external_sources VALUES(5,'requested_run','instrument_settings','ColName','Instrument_Settings');
+INSERT INTO external_sources VALUES(6,'requested_run','staging_location','ColName','Staging_Location');
+INSERT INTO external_sources VALUES(7,'requested_run','vialing_conc','ColName','Vialing_Concentration');
+INSERT INTO external_sources VALUES(8,'requested_run','vialing_vol','ColName','Vialing_Volume');
+INSERT INTO external_sources VALUES(9,'requested_run','work_package','ColName','Work_Package');
+INSERT INTO external_sources VALUES(10,'requested_run','eus_usage_type','ColName','EUS_Usage_Type');
+INSERT INTO external_sources VALUES(11,'requested_run','eus_proposal_id','ColName','EUS_Proposal');
+INSERT INTO external_sources VALUES(12,'requested_run','eus_users','ColName.action.ExtractEUSId','EUS_User');
+INSERT INTO external_sources VALUES(13,'requested_run','mrm_attachment','ColName','MRM_Transition_List');
 COMMIT;
