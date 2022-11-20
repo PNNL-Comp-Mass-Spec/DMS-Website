@@ -33,7 +33,8 @@ class Cell_presentation {
      * @param mixed $cell_presentation_specs
      */
     function init($cell_presentation_specs) {
-        $this->hotlinks = $cell_presentation_specs;
+        //$this->hotlinks = $cell_presentation_specs;
+        $this->hotlinks = array_change_key_case($cell_presentation_specs, CASE_LOWER);
     }
 
     /**
@@ -74,8 +75,8 @@ class Cell_presentation {
     private function get_colspec_with_link_type($columnName, $linkTypeName) {
 
         // Look for a hotlink name that matches this column name
-        if (array_key_exists($columnName, $this->hotlinks)) {
-            $colSpec = $this->hotlinks[$columnName];
+        if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
+            $colSpec = $this->hotlinks[strtolower($columnName)];
 
             if ($colSpec["LinkType"] == $linkTypeName) {
                 return $colSpec;
@@ -86,8 +87,8 @@ class Cell_presentation {
         $columnNameWithPlusSigns = '+' . $columnName;
 
         while (true) {
-            if (array_key_exists($columnNameWithPlusSigns, $this->hotlinks)) {
-                $colSpec = $this->hotlinks[$columnNameWithPlusSigns];
+            if (array_key_exists(strtolower($columnNameWithPlusSigns), $this->hotlinks)) {
+                $colSpec = $this->hotlinks[strtolower($columnNameWithPlusSigns)];
 
                 if ($colSpec["LinkType"] == $linkTypeName) {
                     return $colSpec;
@@ -179,8 +180,8 @@ class Cell_presentation {
             foreach ($cols as $columnName) {
                 $value = $row[$columnName];
 
-                if (array_key_exists($columnName, $this->hotlinks)) {
-                    $colSpec = $this->hotlinks[$columnName];
+                if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
+                    $colSpec = $this->hotlinks[strtolower($columnName)];
                     $colorCode = $this->get_color_code($value, $row, $colSpec);
                 } else {
                     $colorCode = "";
@@ -380,8 +381,8 @@ class Cell_presentation {
         $columnNameWithPlusSigns = '+' . $columnName;
 
         while (true) {
-            if (array_key_exists($columnNameWithPlusSigns, $this->hotlinks)) {
-                $colSpec = $this->hotlinks[$columnNameWithPlusSigns];
+            if (array_key_exists(strtolower($columnNameWithPlusSigns), $this->hotlinks)) {
+                $colSpec = $this->hotlinks[strtolower($columnNameWithPlusSigns)];
 
                 if ($colSpec["LinkType"] == 'color_label') {
                     $whichArg = $colSpec["WhichArg"];
@@ -437,8 +438,8 @@ class Cell_presentation {
             $value = $row[$columnName];
             $colSpec = null;
 
-            if (array_key_exists($columnName, $this->hotlinks)) {
-                $colSpec = $this->hotlinks[$columnName];
+            if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
+                $colSpec = $this->hotlinks[strtolower($columnName)];
             } elseif (array_key_exists('@exclude', $this->hotlinks)) {
                 if (!in_array($columnName, $this->hotlinks['@exclude']['Options'])) {
                     $colSpec = $this->hotlinks['@exclude'];
@@ -486,6 +487,9 @@ class Cell_presentation {
                 case "value":
                     break;
                 default:
+                    if (array_key_exists(strtolower($whichArg), $row)) {
+                        $whichArg = strtolower($whichArg);
+                    }
                     $ref = $row[$whichArg];
                     break;
             }
@@ -834,13 +838,15 @@ class Cell_presentation {
             }
 
             $clickToSort = " onclick='lambda.setColSort(\"$columnName\")'";
-            if ($columnName == 'Sel') { // Do not allow sorting by the check box column
+            if ($columnName == 'Sel' || $columnName == 'sel') { // Do not allow sorting by the check box column
                 $clickToSort = "";
             }
 
             // make header label
             $str .= $marker;
-            $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">$columnName</a>";
+            
+            // Capitalize ID and replace underscores with spaces
+            $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">" . ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $columnName))) . "</a>";
             $str .= $this->get_cell_padding($columnName);
             $str .= "</th>";
         }
@@ -897,8 +903,8 @@ class Cell_presentation {
      */
     private function get_cell_padding($columnName) {
         $padding = '';
-        if (array_key_exists($columnName, $this->hotlinks)) {
-            $colSpec = $this->hotlinks[$columnName];
+        if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
+            $colSpec = $this->hotlinks[strtolower($columnName)];
             if ($colSpec["LinkType"] == 'min_col_width' ||
                     $colSpec["LinkType"] == 'format_date' ||
                     $colSpec["LinkType"] == 'markup') {
@@ -941,8 +947,8 @@ class Cell_presentation {
      */
     private function get_column_tooltip_work($columnNameToFind) {
         $toolTip = '';
-        if (array_key_exists($columnNameToFind, $this->hotlinks)) {
-            $colSpec = $this->hotlinks[$columnNameToFind];
+        if (array_key_exists(strtolower($columnNameToFind), $this->hotlinks)) {
+            $colSpec = $this->hotlinks[strtolower($columnNameToFind)];
             if ($colSpec["LinkType"] == 'column_tooltip') {
                 $toolTip = $colSpec["Target"];
             }
