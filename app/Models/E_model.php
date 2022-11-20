@@ -270,10 +270,15 @@ class E_model extends Model {
             //foreach ($dbh->query("SELECT * FROM external_sources", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM external_sources")->getResultArray() as $row) {
                 $a = array();
+                // Split the type name on periods
+                // This is done to match text of the form "ColName.action.ExtractUsername"
                 $tx = explode(".", $row['type']);
                 $a['type'] = $tx[0];
                 $a['value'] = $row['value'];
+                
                 if (count($tx) > 1) {
+                    // If the type name is "ColName.action.ExtractUsername"
+                    // this adds a new field named 'action' with value 'ExtractUsername'
                     $a[$tx[1]] = $tx[2];
                 }
                 $this->external_sources[$row['source_page']][$row['field']] = $a;

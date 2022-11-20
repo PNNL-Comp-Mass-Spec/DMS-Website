@@ -64,40 +64,119 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
  */
 function load_from_external_source($col_mapping, $source_data) {
     $a = array();
+
     // load entry fields from external source
     foreach ($col_mapping as $fld => $spec) {
+
+        // $spec['type'] will typically be ColName, PostName, or Literal
+        // However, it might have a suffix in the form '.action.ActionName'
+
+        // Method get_entry_form_definitions() E_model.php looks for text 
+        // in the form 'ColName.action.ActionName'
+        // and will add an 'action' item to the field spec
+       
         switch ($spec['type']) {
             case 'ColName':
+                // Copy the text in the specified column of the detail report for the source page family
+                //  . " (field = " . $spec['value'] . ", action = $action)"
                 $a[$fld] = $source_data[$spec['value']];
                 break;
+
             case 'PostName':
+                // Retrieve the named POST value
                 $request = \Config\Services::request();
                 $pv = $request->getPost($spec['value']);
                 $a[$fld] = $pv;
                 break;
+
             case 'Literal':
+                // Store a literal string
                 $a[$fld] = $spec['value'];
                 break;
         }
+
         // any further actions?
         if (isset($spec['action'])) {
             switch ($spec['action']) {
+                case 'ExtractUsername':
+                    // Look for username in text of the form "Person Name (Username)"
+                    // This Regex matches any text between two parentheses
+
+                    $patUsername = '/\(([^)]+)\)/i';
+                    $matches = array();
+
+                    preg_match_all($patUsername, $a[$fld], $matches);
+
+                    // The $matches array returned by preg_match_all is a 2D array
+                    // Any matches to the first capture are in the array at $matches[0]
+
+                    if (count($matches[1]) > 0) {
+                        // Update $a[$fld] to be the last match found (excluding the parentheses)
+
+                        $a[$fld] = $matches[1][count($matches[1]) - 1];
+                    }
+
+                    break;
+
+                case 'ExtractEUSId':
+                    // Look for EUS ID in text of the form "LastName, FirstName (12345)"
+                    // This Regex matches any series of numbers between two parentheses
+
+                    $patEUSId = '/\(( *\d+ *)\)/i';
+                    $matches = array();
+
+                    preg_match($patEUSId, $a[$fld], $matches);
+
+                    // $matches is now a 1D array
+                    // $matches[0] is the full match
+                    // $matches[1] is the captured group
+
+                    if (count($matches) > 1) {
+                        // Update $a[$fld] to be the first match found (excluding the parentheses)
+
+                        $a[$fld] = $matches[1];
+                    }
+
+                    break;
+
                 case 'Scrub':
+                    // Only copy certain text from the comment field of the source analysis job
+
+                    // Look for text in the form '[Req:Username]'
+                    // If found, put the last one found in $s
+                    // For example, given '[Job:D3M580] [Req:D3M578] [Req:D3L243]', set $s to '[Req:D3L243]'
+                    // This is a legacy comment text that was last used in 2010
+
                     $s = "";
                     $field = $a[$fld];
 
                     $patReq = '/(\[Req:[^\]]*\])/';
                     $matches = array();
                     preg_match_all($patReq, $field, $matches);
+
+                    // The $matches array returned by preg_match_all is a 2D array
+                    // Any matches to the first capture are in the array at $matches[0]
+
                     if (count($matches[0]) != 0) {
                         $s .= $matches[0][count($matches[0]) - 1];
                     }
 
+                    // Also look for 'DTA:' followed by letters, numbers, and certain symbols
+                    // For example, given '[Job:D3L243] [Req:D3L243] DTA:DTA_Manual_02', look for 'DTA:DTA_Manual_02'
+                    // If found, append the text to $s
+                    // This is a legacy comment text that was last used in 2010
+
                     $patDTA = '/(DTA:[a-zA-Z0-9_#\-]*)/';
                     preg_match($patDTA, $field, $matches);
+
+                    // $matches is now a 1D array
+                    // $matches[0] is the full match
+                    // $matches[1] is the captured group
+
                     if (count($matches) > 1) {
                         $s .= " " . $matches[1];
                     }
+
                     $a[$fld] = $s;
                     break;
             }
