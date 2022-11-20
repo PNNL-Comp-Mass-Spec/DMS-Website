@@ -601,6 +601,11 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$display','width=800,height=600')\">$display</a>";
             break;
 
+        case "no_display":
+            // Hide no_display fields
+            return "";
+            break;
+
         default:
             $str = "??? $display ???";
             break;
