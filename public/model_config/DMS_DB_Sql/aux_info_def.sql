@@ -25,9 +25,9 @@ INSERT INTO utility_queries VALUES(1,'definitions','Aux Info Definition Details'
 INSERT INTO utility_queries VALUES(2,'experiment_values','Aux Info Values for Experiments','','V_Aux_Info_Experiment_Values','*','{"col":"ID", "dir":"DESC"}','{"Experiment":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
 INSERT INTO utility_queries VALUES(3,'biomaterial_values','Aux Info Values for Biomaterial','','V_Aux_Info_Biomaterial_Values','*','{"col":"ID", "dir":"DESC"}','{"Biomaterial":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
 INSERT INTO utility_queries VALUES(4,'prep_request_values','Aux Info Values for Sample Prep Request','','V_Aux_Info_Sample_Prep_Request_Values','*','{"col":"ID", "dir":"DESC"}','{"Request":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
-INSERT INTO utility_queries VALUES(5,'aux_info_targets','(internal)','','T_AuxInfo_Target','*','','','');
-INSERT INTO utility_queries VALUES(6,'aux_info_categories','(internal)','','T_AuxInfo_Category','*','{"col":"Sequence", "dir":"ASC"}','{"Target_Type_ID":"EQn"}','');
-INSERT INTO utility_queries VALUES(7,'aux_info_subcategories','(internal)','','T_AuxInfo_Subcategory','*','{"col":"Sequence", "dir":"ASC"}','{"Aux_Category_ID":"EQn"}','');
-INSERT INTO utility_queries VALUES(8,'aux_info_items','(internal)','','T_AuxInfo_Description','*','{"col":"Sequence", "dir":"ASC"}','{"Aux_Subcategory_ID":"EQn"}','');
-INSERT INTO utility_queries VALUES(9,'aux_info_allowed_values','(internal)','','T_AuxInfo_Allowed_Values','Value as ID, Value as Name','{"col":"Value", "dir":"ASC"}','{"Aux_Description_ID":"EQn"}','');
+INSERT INTO utility_queries VALUES(5,'aux_info_targets','(internal)','','T_Aux_Info_Target','*','','','');
+INSERT INTO utility_queries VALUES(6,'aux_info_categories','(internal)','','T_Aux_Info_Category','*','{"col":"Sequence", "dir":"ASC"}','{"Target_Type_ID":"EQn"}','');
+INSERT INTO utility_queries VALUES(7,'aux_info_subcategories','(internal)','','T_Aux_Info_Subcategory','*','{"col":"Sequence", "dir":"ASC"}','{"Aux_Category_ID":"EQn"}','');
+INSERT INTO utility_queries VALUES(8,'aux_info_items','(internal)','','T_Aux_Info_Description','*','{"col":"Sequence", "dir":"ASC"}','{"Aux_Subcategory_ID":"EQn"}','');
+INSERT INTO utility_queries VALUES(9,'aux_info_allowed_values','(internal)','','T_Aux_Info_Allowed_Values','Value as ID, Value as Name','{"col":"Value", "dir":"ASC"}','{"Aux_Description_ID":"EQn"}','');
 COMMIT;

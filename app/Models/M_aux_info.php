@@ -219,7 +219,7 @@ SELECT
        AD.HelperAppend,
        AV.Value
 FROM V_Aux_Info_Definition AD
-     LEFT OUTER JOIN dbo.T_AuxInfo_Value AV
+     LEFT OUTER JOIN dbo.T_Aux_Info_Value AV
        ON AD.Item_ID = AV.Aux_Description_ID AND AV.Target_ID = $id
 WHERE (AD.Target = '$target') AND
        AD.Category = '$category' AND
@@ -254,7 +254,7 @@ EOD;
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for aux_info_allowed_values; see writable/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database view V_Aux_Info_Allowed_Values for allowed values; see writable/logs/log-$currentTimestamp.php");
         }
         return $resultSet->getResultArray();
     }
@@ -266,11 +266,11 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_targets() {
-        $builder = $this->db->table('T_AuxInfo_Target');
+        $builder = $this->db->table('T_Aux_Info_Target');
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database for aux_info_targets; see writable/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database table T_Aux_Info_Target for target types; see writable/logs/log-$currentTimestamp.php");
         }
         if ($resultSet->getNumRows() == 0) {
             throw new \Exception("No rows found");
@@ -286,7 +286,7 @@ EOD;
         $result = $this->get_aux_info_targets();
         $targets = array();
         foreach ($result as $row) {
-            $targets[] = $row['Name'];
+            $targets[] = $row['Target_Type_Name'];
         }
         return $targets;
     }
