@@ -278,11 +278,10 @@ class Freezer extends DmsBase {
 
         // populate array of location contents
         $sql = "";
-        $sql .= "SELECT T_Material_Containers.Tag AS Container, T_Material_Locations.Tag AS Location, T_Material_Containers.Comment ";
-        $sql .= "FROM T_Material_Containers ";
-        $sql .= "  INNER JOIN T_Material_Locations ON T_Material_Containers.Location_ID = T_Material_Locations.ID ";
+        $sql .= "SELECT Container, Location, Comment ";
+        $sql .= "FROM V_Material_Container_Locations ";
         if($freezer_spec) {
-            $sql .= "WHERE Freezer LIKE '%$freezer_spec%' ";
+            $sql .= "WHERE Freezer_Tag LIKE '%$freezer_spec%' ";
         }
         if($shelf_spec) {
             $sql .= "AND (Shelf = '$shelf_spec') ";
@@ -340,11 +339,11 @@ class Freezer extends DmsBase {
 
         // get list of rows and columns for given freezer
         $sql = "";
-        $sql .= "SELECT  [ID] ,[Tag] ,[Shelf] ,[Rack] ,[Row] ,[Col] ,[Status] ";
-        $sql .= "FROM [T_Material_Locations] ";
-        $sql .= "WHERE Freezer LIKE '%$freezer_spec%' ";
-        $sql .= "AND NOT [Row] = 'na' AND NOT [Col] = 'na' ";
-        $sql .= "ORDER BY Shelf, Rack, [Row], Col ";
+        $sql .= "SELECT Location_ID AS ID, Location, Shelf, Rack, Row, Col, Status ";
+        $sql .= "FROM V_Material_Locations ";
+        $sql .= "WHERE Freezer_Tag LIKE '%$freezer_spec%' ";
+        $sql .= "AND NOT Row = 'na' AND NOT Col = 'na' ";
+        $sql .= "ORDER BY Shelf, Rack, Row, Col ";
         $rc_result = $this->db->query($sql);
         if(!$rc_result) {
             $currentTimestamp = date("Y-m-d");

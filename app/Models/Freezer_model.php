@@ -38,13 +38,14 @@ class Freezer_model extends Model {
      */
     function get_freezers() {
         $sql = <<<EOD
-SELECT
-    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit,
-    COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
-FROM dbo.T_Material_Locations ML
-    LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
-WHERE (Shelf = 'na') AND NOT Freezer_Tag = 'na'
-GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit
+SELECT RankQ.tag, RankQ.freezer, RankQ.shelf, RankQ.rack, RankQ.row, RankQ.col, RankQ.comment,
+       RankQ.limit, RankQ.containers, RankQ.available, RankQ.status, RankQ.id
+FROM ( SELECT Location As tag, Freezer_Tag As freezer, shelf, rack, row, col, comment,
+              Container_Limit As limit, containers, available, status, id,
+              Row_Number() Over (Partition By Freezer Order By Case When Shelf= 'na' Then 0 Else 1 End, Shelf, Rack) As RankValue
+       FROM V_Material_Location_List_Report
+    ) RankQ
+WHERE RankQ.RankValue = 1
 EOD;
         $query = $this->db->query($sql);
         if (!$query) {
@@ -55,9 +56,8 @@ EOD;
     }
 
     /**
-     * https://dms2.pnl.gov/freezer/get_locations/Tag/1206C.3.2.1.1
      * @param type $Type Location type: Shelf, Rack, Row, Col, or Tag
-     * @param type $Freezer Freezer name
+     * @param type $Freezer Freezer name, but if $Type = 'Tag', this is location name
      * @param type $Shelf Shelf number (ignored if $Type is Shelf or Tag
      * @param type $Rack Rack number (ignored if $Type is Shelf, Rack, or Tag
      * @param type $Row Row number (only used if $Type is Col)
@@ -65,11 +65,9 @@ EOD;
      */
     function get_locations($Type, $Freezer, $Shelf, $Rack, $Row) {
         $sql = <<<EOD
-SELECT
-    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit,
-    COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
-FROM dbo.T_Material_Locations ML
-    LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
+SELECT Location As tag, Freezer_Tag As freezer, shelf, rack, row, col, comment,
+       Container_Limit As limit, containers, available, status, id
+FROM V_Material_Location_List_Report
 EOD;
         switch ($Type) {
             case 'Shelf':
@@ -96,7 +94,7 @@ EOD;
     // --------------------------------------------------------------------
     function get_containers($location) {
         $sql = <<<EOD
-SELECT  Container, Type, Location, Items, Files, Comment, Action, Created, Campaigns, Researcher, #ID AS ID
+SELECT container, type, location, items, files, comment, action, created, campaigns, researcher, id
 FROM V_Material_Containers_List_Report
 EOD;
         $sql .= " WHERE Location = '$location'";
@@ -111,8 +109,8 @@ EOD;
     // --------------------------------------------------------------------
     function get_material($container) {
         $sql = <<<EOD
-SELECT Item_Type, Item, ID
-FROM [DMS5_T3].[dbo].[V_Material_Items_List_Report]
+SELECT item_type, item, id
+FROM V_Material_Items_List_Report
 EOD;
         $sql .= " WHERE Container = '$container'";
         $query = $this->db->query($sql);
@@ -270,9 +268,13 @@ EOD;
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/find_container/MC-4581
+    //
+    // Bug: web page does not show results
+    //
     function find_container($container) {
         $sql = <<<EOD
-SELECT  Container, Type, Location, Items, Files, Comment, Action, Created, Campaigns, Researcher, #ID AS ID
+SELECT container, type, location, items, files, comment, action, created, campaigns, researcher, id
 FROM V_Material_Containers_List_Report
 EOD;
         $sql .= " WHERE Container = '$container'";
@@ -285,16 +287,17 @@ EOD;
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/find_location/1206C.3.2.1.1
+    //
+    // Bug: web page does not show results
+    //
     function find_location($location) {
         $sql = <<<EOD
-SELECT
-    ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit,
-    COUNT(MC.ID) AS Containers, ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
-FROM dbo.T_Material_Locations ML
-    LEFT OUTER JOIN dbo.T_Material_Containers MC ON ML.ID = MC.Location_ID
+SELECT Location As tag, Freezer_Tag As freezer, shelf, rack, row, col, comment,
+       Container_Limit As limit, containers, available, status, id
+FROM V_Material_Location_List_Report
 EOD;
-        $sql .= " WHERE ML.Tag = '$location'";
-        $sql .= " GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
+        $sql .= " WHERE Location = '$location'";
         $query = $this->db->query($sql);
         if (!$query) {
             $currentTimestamp = date("Y-m-d");
@@ -304,18 +307,20 @@ EOD;
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/find_available_location/1206C.3.2.1.1
+    // https://dmsdev.pnl.gov/freezer/find_available_location/1206C.3.2.1.1
     function find_available_location($location) {
         $tmpl = <<<EOD
-SELECT TOP (10)
-ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, ML.Container_Limit AS Limit, COUNT(MC.ID) AS Containers,
-ML.Container_Limit - COUNT(MC.ID) AS Available, ML.Status, ML.ID
-FROM
-T_Material_Locations AS ML LEFT OUTER JOIN
-T_Material_Containers AS MC ON ML.ID = MC.Location_ID
-WHERE (ML.Tag LIKE '@LOC@%')
-GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag, ML.Col, ML.Status, ML.Container_Limit
-HAVING (ML.Container_Limit - COUNT(MC.ID) > 0) AND (ML.Status = 'Active')
-ORDER BY ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Col
+SELECT Location As tag, freezer, shelf, rack, row, col, comment,
+       Container_Limit As limit, containers, available, status, id
+FROM (
+    SELECT Location, Freezer_Tag As Freezer, Shelf, Rack, Row, Col, Comment, Container_Limit, Containers,
+           Available, Status, ID, Row_Number() Over (ORDER BY Freezer_Tag, Shelf, Rack, Row, Col) As RankValue
+    FROM V_Material_Location_List_Report
+    WHERE Location LIKE '@LOC@%' AND
+          Available > 0 AND Status = 'Active'
+    ) LookupQ
+WHERE RankValue <= 10
 EOD;
         $sql = str_replace("@LOC@", $location, $tmpl);
         $query = $this->db->query($sql);
@@ -327,15 +332,22 @@ EOD;
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/find_newest_containers
+    // https://dmsdev.pnl.gov/freezer/find_newest_containers
     function find_newest_containers() {
         $sql = <<<EOD
-SELECT TOP(10)
-ML.Tag, ML.Freezer_Tag AS Freezer, ML.Shelf, ML.Rack, ML.Row, ML.Col, ML.Barcode, ML.Comment, 0 AS Limit, 0 AS Containers,
-0 AS Available, ML.Status, ML.ID, MC.Created
-FROM T_Material_Containers AS MC
-INNER JOIN T_Material_Locations AS ML ON ML.ID = MC.Location_ID
-WHERE MC.Status = 'Active'
-ORDER BY MC.Created DESC
+SELECT Location As tag, freezer, shelf, rack, row, col, comment,
+       Container_Limit As limit, containers, available, status, location_id As id, container, created
+FROM (
+    Select Location, Freezer_Tag AS Freezer, Shelf, Rack, Row, Col, Comment, 0 AS Container_Limit, 0 AS Containers,
+           0 AS Available, Status, Location_ID,
+           Container,
+           Created, -- Container created
+           Row_Number() Over (ORDER BY Created DESC) As RankValue
+    FROM V_Material_Container_Locations
+    WHERE Status = 'Active'         -- Container status
+    ) LookupQ
+WHERE RankValue <= 10
 EOD;
         $query = $this->db->query($sql);
         if (!$query) {
