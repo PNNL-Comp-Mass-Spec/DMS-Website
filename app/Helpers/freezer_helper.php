@@ -110,23 +110,30 @@ function render_matrix_table($otr, $table_setup) {
     // make header row
     $thdr = "<thead><tr>";
     $thdr .= "<th></th>";
-    for ($i = 1; $i <= count($otr[1]); $i++) {
-        $thdr .= "<th>Rack $i</th>";
+
+    if (sizeof($otr) > 0) {
+        for ($i = 1; $i <= count($otr[1]); $i++) {
+            $thdr .= "<th>Rack $i</th>";
+        }
     }
     $thdr .= "</tr></thead>\n";
     $tbs .= $thdr;
-    //
-    // make row for each shelf
-    for ($shelf = 1; $shelf <= count($otr); $shelf++) {
-        $tbs .= "<tr>";
-        $tbs .= "<th>Shelf $shelf</th>";
-        for ($rack = 1; $rack <= count($otr[$shelf]); $rack++) {
-            $tbs .= "<td>";
-            $tbs .= $otr[$shelf][$rack];
-            $tbs .= "</td>";
+
+    if (sizeof($otr) > 0) {
+        //
+        // make row for each shelf
+        for ($shelf = 1; $shelf <= count($otr); $shelf++) {
+            $tbs .= "<tr>";
+            $tbs .= "<th>Shelf $shelf</th>";
+            for ($rack = 1; $rack <= count($otr[$shelf]); $rack++) {
+                $tbs .= "<td>";
+                $tbs .= $otr[$shelf][$rack];
+                $tbs .= "</td>";
+            }
+            $tbs .= "</tr>";
         }
-        $tbs .= "</tr>";
     }
+
     $tbs .= "</table>";
     return $tbs;
 }
