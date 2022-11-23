@@ -5,14 +5,15 @@ use CodeIgniter\Model;
 
 class Freezer_model extends Model {
 
-    // Freezer name is column Freezer_Tag in tables T_Material_Freezers and T_Material_Locations in the database
+    // Freezer name is column Freezer_Tag in tables T_Material_Freezers and T_Material_Locations, and in views V_Material_Container_Locations and V_Material_Locations
+    // Freezer name is column ? in views
     var $hierarchy = array(
-        "Freezer" => "Shelf",
-        "Shelf" => "Rack",
-        "Rack" => "Row",
-        "Row" => "Col",
-        "Col" => "",
-        "Tag" => "Tag"
+        "freezer" => "shelf",
+        "shelf" => "rack",
+        "rack" => "row",
+        "row" => "col",
+        "col" => "",
+        "tag" => "tag"
     );
 
     // --------------------------------------------------------------------
@@ -69,29 +70,32 @@ SELECT Location As tag, Freezer_Tag As freezer, shelf, rack, row, col, comment,
        Container_Limit As limit, containers, available, status, id
 FROM V_Material_Location_List_Report
 EOD;
-        switch ($Type) {
-            case 'Shelf':
+        switch (strtolower($Type)) {
+            case 'shelf':
                 $sql .= " WHERE Freezer_Tag = '$Freezer' AND Rack = 'na' AND NOT Shelf = 'na' ";
                 break;
-            case 'Rack':
+            case 'rack':
                 $sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Row = 'na' AND NOT Rack = 'na'";
                 break;
-            case 'Row':
-                $sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Col = 'na' AND NOT ROW = 'na'";
+            case 'row':
+                $sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Col = 'na' AND NOT Row = 'na'";
                 break;
-            case 'Col':
+            case 'col':
                 $sql .= " WHERE Freezer_Tag = '$Freezer' AND Shelf = '$Shelf' AND Rack = '$Rack'  AND  Row = '$Row' AND NOT Col = 'na'";
                 break;
-            case 'Tag':
-                $sql .= "  WHERE ML.Tag IN ($Freezer)";
+            case 'tag':
+                $sql .= " WHERE Location IN ($Freezer)";
                 break;
         }
-        $sql .= " GROUP BY ML.ID, ML.Freezer_Tag, ML.Shelf, ML.Rack, ML.Row, ML.Barcode, ML.Comment, ML.Tag,  ML.Col, ML.Status, ML.Container_Limit";
         $query = $this->db->query($sql);
         return $query->getResultArray();
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/get_containers/1206C.3.2.1.1
+    //
+    // Bug: web page does not show results
+    //
     function get_containers($location) {
         $sql = <<<EOD
 SELECT container, type, location, items, files, comment, action, created, campaigns, researcher, id
@@ -123,7 +127,7 @@ EOD;
 
     // --------------------------------------------------------------------
     function get_location_type($location) {
-        $type = "Freezer";
+        $type = "freezer";
         $locs = array_keys($this->hierarchy);
         array_pop($locs);
         foreach ($locs as $loc) {
@@ -163,7 +167,7 @@ EOD;
             $info->Row = "0";
             $info->Col = "0";
             $info->Status = "Undefined";
-            $info->Barcode = "";
+            // $info->Barcode = "";
             $info->Comment = "";
             $info->Limit = 0;
             $info->Containers = 0;
@@ -178,29 +182,29 @@ EOD;
                 if (!$Type) {
                     $Type = $this->get_location_type($entry);
                 }
-                $name = $entry[$Type];
+                $name = $entry[strtolower($Type)];
                 $obj = new \stdClass();
                 $obj->title = "$Type $name";
                 $obj->folder = true;
                 $obj->lazy = true;
-                $obj->key = $entry['Tag'];
+                $obj->key = $entry['tag'];
 
                 $info = new \stdClass();
                 $info->Name = $name;
                 $info->Type = $Type;
-                $info->ID = $entry['ID'];
-                $info->Tag = $entry['Tag'];
-                $info->Freezer = $entry['Freezer'];
-                $info->Shelf = $entry['Shelf'];
-                $info->Rack = $entry['Rack'];
-                $info->Row = $entry['Row'];
-                $info->Col = $entry['Col'];
-                $info->Status = $entry['Status'];
-                $info->Barcode = $entry['Barcode'];
-                $info->Comment = $entry['Comment'];
-                $info->Limit = $entry['Limit'];
-                $info->Containers = $entry['Containers'];
-                $info->Available = $entry['Available'];
+                $info->ID = $entry['id'];
+                $info->Tag = $entry['tag'];
+                $info->Freezer = $entry['freezer'];
+                $info->Shelf = $entry['shelf'];
+                $info->Rack = $entry['rack'];
+                $info->Row = $entry['row'];
+                $info->Col = $entry['col'];
+                $info->Status = $entry['status'];
+                // $info->Barcode = $entry['barcode'];
+                $info->Comment = $entry['comment'];
+                $info->Limit = $entry['limit'];
+                $info->Containers = $entry['containers'];
+                $info->Available = $entry['available'];
                 $obj->info = $info;
 
                 $items[] = $obj;
@@ -225,17 +229,17 @@ EOD;
             $info = new \stdClass();
             $info->Name = $name;
             $info->Type = "Container";
-            $info->Container = $entry['Container'];
-            $info->ContainerType = $entry['Type'];
-            $info->Location = $entry['Location'];
-            $info->Items = $entry['Items'];
-            $info->Files = $entry['Files'];
-            $info->Comment = $entry['Comment'];
-            //$info->Barcode = $entry['Barcode'];
-            $info->Created = $entry['Created'];
-            $info->Campaigns = $entry['Campaigns'];
-            $info->Researcher = $entry['Researcher'];
-            $info->ID = $entry['ID'];
+            $info->Container = $entry['container'];
+            $info->ContainerType = $entry['type'];
+            $info->Location = $entry['location'];
+            $info->Items = $entry['items'];
+            $info->Files = $entry['files'];
+            $info->Comment = $entry['comment'];
+            //$info->Barcode = $entry['barcode'];
+            $info->Created = $entry['created'];
+            $info->Campaigns = $entry['campaigns'];
+            $info->Researcher = $entry['researcher'];
+            $info->ID = $entry['id'];
             $obj->info = $info;
 
             $items[] = $obj;
@@ -247,7 +251,7 @@ EOD;
     function build_material_item_list($material_items) {
         $items = array();
         foreach ($material_items as $entry) {
-            $name = "${entry['Item_Type']} ${entry['Item']}";
+            $name = "${entry['item_type']} ${entry['item']}";
             $obj = new \stdClass();
             $obj->title = $name;
             $obj->folder = false;
@@ -257,9 +261,9 @@ EOD;
             $info = new \stdClass();
             $info->Name = $name;
             $info->Type = "Material";
-            $info->Item_Type = $entry['Item_Type'];
-            $info->Item = $entry['Item'];
-            $info->ID = $entry['ID'];
+            $info->Item_Type = $entry['item_type'];
+            $info->Item = $entry['item'];
+            $info->ID = $entry['id'];
             $obj->info = $info;
 
             $items[] = $obj;

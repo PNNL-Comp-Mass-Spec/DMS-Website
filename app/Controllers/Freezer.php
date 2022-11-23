@@ -378,7 +378,7 @@ class Freezer extends DmsBase {
         $frzrs = $this->freezer->get_freezers();
         $lst = array();
         foreach($frzrs as $frzr) {
-            $r = $frzr["Freezer"];
+            $r = $frzr["freezer"];
             $r = preg_split ('/ /', $r);
             $f = (count($r) > 1)?$r[1]:$r[0];
             $l = site_url("freezer/config/$f");
