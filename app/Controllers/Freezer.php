@@ -31,6 +31,8 @@ class Freezer extends DmsBase {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/tree
+    // https://dmsdev.pnl.gov/freezer/tree
     function tree()
     {
         helper(['menu', 'dms_search']);
@@ -43,6 +45,8 @@ class Freezer extends DmsBase {
 
     // --------------------------------------------------------------------
     // AJAX
+    // https://dms2.pnl.gov/freezer/get_freezers
+    // https://dmsdev.pnl.gov/freezer/get_freezers
     function get_freezers()
     {
         $this->freezer = model('App\Models\Freezer_model');
@@ -54,6 +58,8 @@ class Freezer extends DmsBase {
 
     // --------------------------------------------------------------------
     // AJAX
+    // https://dms2.pnl.gov/freezer/get_locations
+    // https://dmsdev.pnl.gov/freezer/get_locations
     function get_locations()
     {
         $this->freezer = model('App\Models\Freezer_model');
@@ -112,6 +118,7 @@ class Freezer extends DmsBase {
 
     // --------------------------------------------------------------------
     // AJAX
+    // https://dms2.pnl.gov/freezer/find_available_location
     function find_available_location()
     {
         $this->freezer = model('App\Models\Freezer_model');
@@ -125,6 +132,7 @@ class Freezer extends DmsBase {
 
     // --------------------------------------------------------------------
     // AJAX
+    // https://dms2.pnl.gov/freezer/find_newest_containers
     function find_newest_containers()
     {
         $this->freezer = model('App\Models\Freezer_model');
@@ -137,6 +145,7 @@ class Freezer extends DmsBase {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/test
     function test()
     {
         $this->freezer = model('App\Models\Freezer_model');
@@ -154,6 +163,11 @@ class Freezer extends DmsBase {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/show/-20_Staging
+    // https://dms2.pnl.gov/freezer/show/1208C
+    //
+    // https://dmsdev.pnl.gov/freezer/show/-20_Staging
+    // https://dmsdev.pnl.gov/freezer/show/1208C
     function show($id)
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
@@ -170,8 +184,8 @@ class Freezer extends DmsBase {
 
         // populate array of storage locations
         $sql = "";
-        $sql .= "SELECT DISTINCT Location, Freezer, CASE WHEN CHARINDEX('20Met.D', Location) = 0 THEN Shelf ELSE 'D-' + Shelf END AS Shelf, Rack ";
-        $sql .= "FROM V_Material_Locations_List_Report ";
+        $sql .= "SELECT DISTINCT Location, Freezer, Shelf, Rack ";
+        $sql .= "FROM V_Material_Location_List_Report ";
         $sql .= "WHERE Status = 'Active' ";
         $sql .= "ORDER BY Location, Freezer, Shelf, Rack";
         //
@@ -224,6 +238,12 @@ class Freezer extends DmsBase {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/contents/-20_Staging
+    // https://dms2.pnl.gov/freezer/contents/1208B
+    //
+    // https://dmsdev.pnl.gov/freezer/contents/-20_Staging
+    // https://dmsdev.pnl.gov/freezer/contents/1208B
+    // https://dmsdev.pnl.gov/freezer/contents/2240C
     function contents()
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
@@ -249,7 +269,7 @@ class Freezer extends DmsBase {
         // populate array of storage locations
         $sql = "";
         $sql .= "SELECT Freezer, Shelf, Rack, Row, Col, Location, Available ";
-        $sql .= "FROM V_Material_Locations_List_Report ";
+        $sql .= "FROM V_Material_Location_List_Report ";
         $sql .= "WHERE Status = 'Active' ";
         if($freezer_spec) {
             $sql .= "AND Freezer LIKE '%$freezer_spec%' ";
@@ -314,6 +334,8 @@ class Freezer extends DmsBase {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/freezer/config
+    // https://dmsdev.pnl.gov/freezer/config
     function config()
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu', 'form']);
@@ -366,6 +388,7 @@ class Freezer extends DmsBase {
         $data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), null, $js);
 
         $data['tbs'] = $tbs;
+
         echo view('special/freezer_matrix', $data);
     }
 
