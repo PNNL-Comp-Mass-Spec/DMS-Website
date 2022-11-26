@@ -10,6 +10,7 @@ INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('list_report_data_cols','''x'' AS Sel, *');
 INSERT INTO general_params VALUES('list_report_data_sort_col','ID');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','text','32','32','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(2,'name','Name','text','50','50','','','','trim|required|max_length[32]');
