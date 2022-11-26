@@ -22,6 +22,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'Containers','invoke_entity','Location','material_container/report/-/~@','');
 INSERT INTO list_report_hotlinks VALUES(2,'Freezer','invoke_entity','value','material_location/report/-/~@/-/-/-/-/Active','');
 INSERT INTO list_report_hotlinks VALUES(3,'Location','invoke_entity','value','material_location/show/','');
+INSERT INTO list_report_hotlinks VALUES(4,'Freezer_Tag','no_display','value','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO detail_report_hotlinks VALUES(1,'Location','detail-report','Location','material_container/report/-/~','labelCol','dl_location','');
 INSERT INTO detail_report_hotlinks VALUES(2,'Freezer','detail-report','Freezer','freezers/report/~','labelCol','dl_freezer','');
