@@ -113,6 +113,7 @@ INSERT INTO detail_report_hotlinks VALUES(18,'Queue_State','detail-report','Camp
 INSERT INTO detail_report_hotlinks VALUES(19,'Days_In_Queue','detail-report','Instrument_Group','run_planning/report/~@/-/-/-/-/-/-/-','labelCol','dl_run_planning','');
 INSERT INTO detail_report_hotlinks VALUES(20,'Column_Name','detail-report','Column_Name','lc_column/show','valueCol','dl_column_name','');
 INSERT INTO detail_report_hotlinks VALUES(21,'wp_activation_state','no_display','','',NULL,NULL,'');
+INSERT INTO detail_report_hotlinks VALUES(22,'Wellplate','detail-report','Wellplate','wellplate/show','valueCol','dl_wellplate','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
@@ -121,7 +122,7 @@ INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentName','varchar','i
 INSERT INTO sproc_args VALUES(5,'work_package','workPackage','varchar','input','50','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(6,'dataset_type','msType','varchar','input','20','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(7,'instrument_settings','instrumentSettings','varchar','input','512','AddUpdateRequestedRun');
-INSERT INTO sproc_args VALUES(8,'wellplate','wellplateNum','varchar','input','64','AddUpdateRequestedRun');
+INSERT INTO sproc_args VALUES(8,'wellplate','wellplate','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(9,'well','wellNum','varchar','input','24','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(10,'internal_standard','internalStandard','varchar','input','50','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(11,'comment','comment','varchar','input','1024','AddUpdateRequestedRun');

@@ -22,7 +22,7 @@ INSERT INTO form_fields VALUES(12,'internal_standard','Predigest Int Std','text'
 INSERT INTO form_fields VALUES(13,'postdigest_int_std','Postdigest Int Std','text','50','50','','','parent','trim|max_length[50]');
 INSERT INTO form_fields VALUES(14,'researcher','Researcher','text','50','50','','','parent','trim|max_length[50]');
 INSERT INTO form_fields VALUES(15,'container','Container','text','60','128','','','parent','trim|required|max_length[128]');
-INSERT INTO form_fields VALUES(16,'wellplate','Wellplate Number','text','50','64','','','','trim|max_length[64]');
+INSERT INTO form_fields VALUES(16,'wellplate','Wellplate Name','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(17,'well','Well Number','text','8','8','','','','trim|max_length[8]');
 INSERT INTO form_fields VALUES(18,'prep_lc_run_id','Prep LC Run','text','12','12','','','','trim|max_length[12]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
@@ -50,7 +50,7 @@ INSERT INTO sproc_args VALUES(11,'request_override','requestOverride','varchar',
 INSERT INTO sproc_args VALUES(12,'internal_standard','internalStandard','varchar','input','50','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(13,'postdigest_int_std','postdigestIntStd','varchar','input','50','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(14,'researcher','researcher','varchar','input','50','AddExperimentFractions');
-INSERT INTO sproc_args VALUES(15,'wellplate','wellplateNum','varchar','output','64','AddExperimentFractions');
+INSERT INTO sproc_args VALUES(15,'wellplate','wellplate','varchar','output','64','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(16,'well','wellNum','varchar','output','8','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(17,'container','container','varchar','input','128','AddExperimentFractions');
 INSERT INTO sproc_args VALUES(18,'prep_lc_run_id','prepLCRunID','int','input','','AddExperimentFractions');

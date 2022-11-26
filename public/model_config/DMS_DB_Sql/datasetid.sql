@@ -77,6 +77,7 @@ INSERT INTO detail_report_hotlinks VALUES(35,'SHA1 Hash','detail-report','ID','d
 INSERT INTO detail_report_hotlinks VALUES(36,'Experiment Tissue','detail-report','Experiment Tissue','tissue/report/~','labelCol','dl_experiment_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(37,'LC Column','detail-report','LC Column','lc_column/report/@/-/-','labelCol','dl_lc_column','');
 INSERT INTO detail_report_hotlinks VALUES(38,'Separation Type','detail-report','Separation Type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
+INSERT INTO detail_report_hotlinks VALUES(39,'Wellplate_Name','detail-report','Wellplate_Name','wellplate/show','valueCol','dl_wellplate','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
@@ -90,7 +91,7 @@ INSERT INTO sproc_args VALUES(3,'operator_prn','operPRN','varchar','input','64',
 INSERT INTO sproc_args VALUES(4,'instrument_name','instrumentName','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(5,'dataset_type','msType','varchar','input','20','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(6,'lc_column','LCColumnNum','varchar','input','64','AddUpdateDataset');
-INSERT INTO sproc_args VALUES(7,'wellplate','wellplateNum','varchar','input','64','AddUpdateDataset');
+INSERT INTO sproc_args VALUES(7,'wellplate','wellplate','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(8,'well','wellNum','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(9,'separation_type','secSep','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(10,'internal_standard','internalStandards','varchar','input','64','AddUpdateDataset');
@@ -119,7 +120,7 @@ INSERT INTO form_fields VALUES(5,'separation_type','Separation Type','text','25'
 INSERT INTO form_fields VALUES(6,'lc_cart_name','LC Cart Name','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(7,'lc_cart_config','LC Cart Config','text','40','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(8,'lc_column','LC Column','text','40','50','','','','trim|max_length[64]');
-INSERT INTO form_fields VALUES(9,'wellplate','Wellplate Number','text','40','50','','','na','trim|max_length[50]');
+INSERT INTO form_fields VALUES(9,'wellplate','Wellplate Name','text','40','50','','','na','trim|max_length[50]');
 INSERT INTO form_fields VALUES(10,'well','Well Number','text','24','50','','','na','trim|max_length[50]');
 INSERT INTO form_fields VALUES(11,'dataset_type','Dataset Type','text','25','80','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(12,'operator_prn','Operator (PRN)','text','20','80','','','','trim|required|max_length[24]');

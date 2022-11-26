@@ -21,7 +21,7 @@ INSERT INTO form_fields VALUES(4,'separation_type','Separation Type','text','25'
 INSERT INTO form_fields VALUES(5,'lc_cart_name','LC Cart Name','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(6,'lc_cart_config','LC Cart Config','text','40','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(7,'lc_column','LC Column','text','40','50','','','','trim|max_length[64]');
-INSERT INTO form_fields VALUES(8,'wellplate','Wellplate Number','text','40','50','','','na','trim|max_length[50]');
+INSERT INTO form_fields VALUES(8,'wellplate','Wellplate Name','text','40','50','','','na','trim|max_length[50]');
 INSERT INTO form_fields VALUES(9,'well','Well Number','text','24','50','','','na','trim|max_length[50]');
 INSERT INTO form_fields VALUES(10,'dataset_type','Dataset Type','text','25','80','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(11,'operator_prn','Operator','text','20','80','','','','trim|required|max_length[24]');
@@ -132,6 +132,7 @@ INSERT INTO detail_report_hotlinks VALUES(38,'LC Column','detail-report','LC Col
 INSERT INTO detail_report_hotlinks VALUES(39,'MASIC QC Link','detail-report','Dataset','reporter_ion_observation_rate/report/-/~','labelCol','dl_rep_ion_obs_rate_list_report','');
 INSERT INTO detail_report_hotlinks VALUES(40,'+MASIC QC Link','literal_link','','','valueCol','dl_masic_data','');
 INSERT INTO detail_report_hotlinks VALUES(41,'Separation Type','detail-report','Separation Type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
+INSERT INTO detail_report_hotlinks VALUES(42,'Wellplate_Name','detail-report','Wellplate_Name','wellplate/show','valueCol','dl_wellplate','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO entry_commands VALUES(1,'add_trigger','override','Create','','add');
 INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');
@@ -160,7 +161,7 @@ INSERT INTO sproc_args VALUES(3,'operator_prn','operPRN','varchar','input','64',
 INSERT INTO sproc_args VALUES(4,'instrument_name','instrumentName','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(5,'dataset_type','msType','varchar','input','20','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(6,'lc_column','LCColumnNum','varchar','input','64','AddUpdateDataset');
-INSERT INTO sproc_args VALUES(7,'wellplate','wellplateNum','varchar','input','64','AddUpdateDataset');
+INSERT INTO sproc_args VALUES(7,'wellplate','wellplate','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(8,'well','wellNum','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(9,'separation_type','secSep','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(10,'internal_standard','internalStandards','varchar','input','64','AddUpdateDataset');
