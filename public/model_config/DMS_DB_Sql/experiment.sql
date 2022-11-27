@@ -124,7 +124,7 @@ INSERT INTO sproc_args VALUES(12,'sample_concentration','sampleConcentration','v
 INSERT INTO sproc_args VALUES(13,'enzyme_name','enzymeName','varchar','input','50','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(14,'lab_notebook_ref','labNotebookRef','varchar','input','128','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(15,'labelling','labelling','varchar','input','64','AddUpdateExperiment');
-INSERT INTO sproc_args VALUES(16,'biomaterial_list','cellCultureList','varchar','input','2048','AddUpdateExperiment');
+INSERT INTO sproc_args VALUES(16,'biomaterial_list','biomaterialList','varchar','input','2048','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(17,'reference_compound_list','referenceCompoundList','varchar','input','2048','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(18,'sample_prep_request','samplePrepRequest','int','input','','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(19,'internal_standard','internalStandard','varchar','input','50','AddUpdateExperiment');
