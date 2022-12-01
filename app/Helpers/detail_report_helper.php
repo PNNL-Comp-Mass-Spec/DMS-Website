@@ -122,16 +122,21 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
                 } else {
                     // Target field for hot link not found; try replacing spaces with underscores and changing to lowercase
                     $link_id = $fields[str_replace(" ", "_", strtolower($hotlink_spec["WhichArg"]))];
-                }                
+                }
             } else {
                 $link_id = "";
             }
 
             if ($hotlink_spec['Placement'] == 'labelCol') {
-                $label_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $fieldName, $val);
+                // Place the hotlink on the field label
+                // Replace underscores with spaces and capitalize each word
+                $label_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $fieldName, $val, true);
             } else {
+                // Assume 'valueCol'
+                // Place the hotlink on the field value
+                // Leave underscores and case as-is
                 $val = $url_updater->fix_link($val);
-                $val_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $val);
+                $val_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $val, '', false);
             }
         }
 
@@ -211,7 +216,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
 function get_hotlink_specs_for_field($fieldName, $hotlinks) {
     // List of any hotlink spec(s) for the field
     $hotlink_specs = array();
-    
+
     // Define an alternate name to look for
     // Capitalize ID, then replace underscores with spaces
     $altName = ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $fieldName)));
@@ -255,17 +260,19 @@ function get_fieldspec_with_link_type($hotlinks, $linkTypeName) {
 
 /**
  * Construct a detail report hotlink
- * @param array $url_updater URL_updater instances
- * @param array $colSpec  Key/value pairs from detail_report_hotlinks in the Model Config DB
- *                        LinkType, WhichArg, Target, Placement, id, and Options
- * @param type $link_id   Data value for field specified by WhichArg
- * @param type $colIndex  Form field index (0-based)
- * @param type $display   Form field name
- * @param type $val       Data value for this form field from the database.
- *                        If Name and WhichArg are the same, $link_id and $val will be the same
+ * @param array $url_updater   URL_updater instance
+ * @param array $colSpec       Key/value pairs from detail_report_hotlinks in the Model Config DB
+ *                             LinkType, WhichArg, Target, Placement, id, and Options
+ * @param type $link_id        Data value for field specified by WhichArg
+ * @param type $colIndex       Form field index (0-based)
+ * @param type $display        Form field name
+ * @param type $val            Data value for this form field from the database.
+ *                             If Name and WhichArg are the same, $link_id and $val will be the same
+ *                             For hotlinks that have 'valueCol' for the hotlink placement, $val will be an empty string
+ * @param type $formatAsTitle  When true, replace underscores with spaces, then capitalize each word; also changes "id" to "ID"
  * @return type
  */
-function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $display, $val = '') {
+function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $display, $val, $formatAsTitle) {
 
     // Include several helper methods
 
@@ -289,9 +296,13 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
     $target = $colSpec['Target'];
     $options = $colSpec['Options'];
     $cell_class = "";
-   
+
     // Format display to capitalize ID and replace underscores with spaces
-    $displayFmt = ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $display)));
+    if ($formatAsTitle) {
+        $displayFmt = ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $display)));
+    } else {
+        $displayFmt = $display;
+    }
 
     switch ($type) {
         case "detail-report":
