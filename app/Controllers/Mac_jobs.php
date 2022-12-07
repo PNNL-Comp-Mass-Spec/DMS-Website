@@ -93,8 +93,10 @@ class Mac_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // get definition of parameters for key
-    // TODO: move this to some other module
+    // Get definition of parameters for key
+    // Retrieves the value in the Fields column in table T_Scripts in the DMS_Pipeline database, for the given script (as specified by $id)
+    // $id could be MAC_iTRAQ, MAC_TMT10Plex, etc.
+    // See below for the corresponding XML for these two scripts
     private
     function get_param_definitions($id, $config_source, $config_name = 'parameter_definitions')
     {
@@ -108,9 +110,17 @@ class Mac_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // get array of parameters from given XML
+    // Get array of parameters from given XML
     // with section/name/value properties for each parameter
-    // TODO: move this to some other module
+    //
+    // The XML in $xml comes from the Fields column in table T_Scripts in the DMS_Pipeline database (aka sw.t_scripts)
+    // Example XML:
+    //
+    // MAC_iTRAQ
+    //   <Param Label="Experiment Labelling" Name="Experiment_Labelling" Value="8plex" Chooser="experimentLabellingPickList" /><Param Label="Ape Workflow FDR" Name="Ape_Workflow_FDR" Value="default" Chooser="apeWorkflowPickList" />
+    //
+    // MAC_TMT10Plex
+    //   <Param Label="Experiment Labelling" Name="Experiment_Labelling" Value="8plex" Chooser="experimentLabellingPickList" /><Param Label="Ape Workflow FDR" Name="Ape_Workflow_FDR" Value="default" Chooser="apeWorkflowPickList" />
     private
     function extract_params_from_xml($xml)
     {
