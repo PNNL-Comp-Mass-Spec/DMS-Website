@@ -121,6 +121,10 @@ class Mac_jobs extends DmsBase {
     //
     // MAC_TMT10Plex
     //   <Param Label="Experiment Labelling" Name="Experiment_Labelling" Value="8plex" Chooser="experimentLabellingPickList" /><Param Label="Ape Workflow FDR" Name="Ape_Workflow_FDR" Value="default" Chooser="apeWorkflowPickList" />
+    //
+    // experimentLabellingPickList chooser def:
+    //   INSERT INTO "chooser_definitions" VALUES(110,'experimentLabellingPickList','default','select','{"4plex":"4-plex iTRAQ", "6plex":"6-plex TMT", "8plex":"8-plex iTRAQ", "TMT10Plex":"10-plex TMT"}');
+    //
     private
     function extract_params_from_xml($xml)
     {
