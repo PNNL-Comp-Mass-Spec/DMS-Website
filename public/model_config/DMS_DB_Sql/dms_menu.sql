@@ -222,7 +222,6 @@ INSERT INTO menu_def VALUES(151,'Analysis Job Requests','link','pipeline_job_ste
 INSERT INTO menu_def VALUES(152,'Data Analysis','submenu','MAC Jobs','MAC Jobs');
 INSERT INTO menu_def VALUES(153,'MAC Jobs','link','pipeline_jobs/report/-/-/~Aggregation','Report');
 INSERT INTO menu_def VALUES(154,'MAC Jobs','link','pipeline_jobs_history/report/-/-/~Aggregation','Report (older jobs)');
-INSERT INTO menu_def VALUES(155,'MAC Jobs','link','mac_jobs/create','MAC Job Wizard');
 INSERT INTO menu_def VALUES(156,'MAC Jobs','link','pipeline_jobs/create','Create generic MAC Job');
 INSERT INTO menu_def VALUES(157,'Data Analysis','link','protein_collection/report','Protein Collections');
 INSERT INTO menu_def VALUES(158,'Data Analysis','submenu','Analysis Job PSM Stats','PSM Stats');
