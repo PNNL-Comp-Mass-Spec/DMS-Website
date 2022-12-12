@@ -118,7 +118,7 @@ SELECT
 FROM     S_V_Data_Package_Experiments_Export AS TDPA
     INNER JOIN T_Experiments TEX ON TDPA.Experiment_ID = TEX.Exp_ID
     INNER JOIN T_Campaign TC ON TC.Campaign_ID = TEX.EX_campaign_ID
-    INNER JOIN dbo.T_Organisms TRG ON TRG.Organism_ID = TEX.EX_organism_ID
+    INNER JOIN T_Organisms TRG ON TRG.Organism_ID = TEX.EX_organism_ID
 WHERE   TDPA.Data_Package_ID = $data_package_ID
 EOD;
         $query = $this->db->query($sql);

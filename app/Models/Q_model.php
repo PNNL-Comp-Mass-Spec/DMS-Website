@@ -687,7 +687,7 @@ class Q_model extends Model {
         // $state object has properties base_sql and total.
         // Example base_sql:
         // " FROM V_Dataset_List_Report_2" or
-        // " FROM V_Data_Package_Aggregation_List_Report WHERE [Data_Package_ID] = 194'
+        // " FROM V_Data_Package_Aggregation_List_Report WHERE Data_Package_ID = 194'
         $state = get_from_cache($this->total_rows_storage_name);
         if ($state) {
             if ($state->base_sql == $base_sql) {

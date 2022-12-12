@@ -83,8 +83,8 @@ class Instrument_usage_report extends Grid {
         $sql = <<<EOD
 SELECT *
 FROM  V_Instrument_Usage_Report_Export
-WHERE [Year] = $year AND [Month] = $month
-ORDER BY [Instrument], [Year], [Month], [Start], [Type], [Seq]
+WHERE Year = $year AND Month = $month
+ORDER BY Instrument, Year, Month, Start, Type, Seq
 EOD;
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
@@ -159,7 +159,7 @@ EOD;
         	$udf = "dbo.GetEMSLInstrumentUsageDaily";
         }
 
-        $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start, Type, [Seq]";
+        $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start, Type, Seq";
 
         $query = $this->db->query($sql);
         $result = $query->getResultArray();

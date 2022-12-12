@@ -57,7 +57,7 @@ class Data_package extends DmsBase {
 
         $this->db = \Config\Database::connect('package');
         $sqlList = array(
-            "EMSL_Proposals" => "SELECT DISTINCT [EMSL Proposal] FROM V_Data_Package_Datasets_List_Report WHERE NOT [EMSL Proposal] IS NULL AND ID = $id",
+            "EMSL_Proposals" => "SELECT DISTINCT Proposal FROM V_Data_Package_Datasets_List_Report WHERE NOT Proposal IS NULL AND ID = $id",
             "Package" => "SELECT * FROM V_Data_Package_Detail_Report WHERE ID = $id",
             "Jobs" => "SELECT * FROM V_Data_Package_Analysis_Jobs_List_Report WHERE ID = $id",
             "Datasets" => "SELECT * FROM V_Data_Package_Datasets_List_Report WHERE ID = $id",
