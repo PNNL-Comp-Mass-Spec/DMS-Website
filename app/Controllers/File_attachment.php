@@ -150,7 +150,7 @@ class File_attachment extends DmsBase {
     }
 
     /**
-     * Get the file path for the given item by querying T_File_Attachment
+     * Get the file path for the given item by querying V_File_Attachment_Export
      * @param type $entity_type
      * @param type $entity_id
      * @param type $filename
@@ -161,11 +161,11 @@ class File_attachment extends DmsBase {
         $result = new Check_result();
         try {
             $this->db = \Config\Database::connect();
-            $builder = $this->db->table("T_File_Attachment");
-            $builder->select("File_Name AS filename, archive_folder_path as path");
-            $builder->where("Entity_Type", $entity_type);
-            $builder->where("Entity_ID", $entity_id);
-            $builder->where("File_Name", $filename);
+            $builder = $this->db->table('v_file_attachment_export');
+            $builder->select("file_name AS filename, archive_folder_path as path");
+            $builder->where("entity_type", $entity_type);
+            $builder->where("entity_id", $entity_id);
+            $builder->where("file_name", $filename);
             $sql = $builder->getCompiledSelect();
             $resultSet = $this->db->query($sql);
 
@@ -499,11 +499,11 @@ class File_attachment extends DmsBase {
         helper(['link_util']);
 
         $this->db = \Config\Database::connect();
-        $builder = $this->db->table("T_File_Attachment");
-        $builder->select("File_Name AS Name, Description, ID as FID");
-        $builder->where("Entity_Type", $type);
-        $builder->where("Entity_ID", $id);
-        $builder->where("Active >", 0);
+        $builder = $this->db->table("v_file_attachment_export");
+        $builder->select("file_name AS name, description, attachment_id AS fid");
+        $builder->where("entity_type", $type);
+        $builder->where("entity_id", $id);
+        $builder->where("active >", 0);
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
@@ -514,10 +514,10 @@ class File_attachment extends DmsBase {
         $icon_delete = table_link_icon('delete');
         $icon_download = table_link_icon('down');
         foreach($resultSet->getResult() as $row){
-            $url = site_url("file_attachment/retrieve/{$type}/{$id}/{$row->Name}");
+            $url = site_url("file_attachment/retrieve/{$type}/{$id}/{$row->name}");
             $downloadLink = "<a href='javascript:void(0)' onclick=fileAttachment.doDownload('$url') title='Download this file'>$icon_download</span></a> ";
-            $deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->FID}','delete') title='Delete this file'>$icon_delete</span></a> ";
-            $entries[] = array($downloadLink . ' ' . $deleteLink , $row->Name, $row->Description);
+            $deleteLink = "<a href='javascript:void(0)' onclick=fileAttachment.doOperation('{$row->fid}','delete') title='Delete this file'>$icon_delete</span></a> ";
+            $entries[] = array($downloadLink . ' ' . $deleteLink , $row->name, $row->description);
         }
         $count = $resultSet->getNumRows();
         if($count) {
@@ -824,10 +824,10 @@ class File_attachment extends DmsBase {
 
             $full_path = '';
             $this->db = \Config\Database::connect();
-            $builder = $this->db->table("T_File_Attachment");
-            $builder->select("File_Name AS filename, Entity_Type as type, Entity_ID as id, archive_folder_path as path");
-            $builder->where("Active > 0");
-            $resultSet = $builder->get("T_File_Attachment");
+            $builder = $this->db->table("v_file_attachment_export");
+            $builder->select("file_name AS filename, entity_type as type, entity_id as id, archive_folder_path as path");
+            $builder->where("active > 0");
+            $resultSet = $builder->get();
 
             $this->table = new \CodeIgniter\View\Table();
             $this->table->setTemplate(array ('heading_cell_start'  => '<th style="text-align:left;">'));
