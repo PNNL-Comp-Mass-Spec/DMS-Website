@@ -51,8 +51,8 @@ INSERT INTO utility_queries VALUES(27,'osm_package_requests','OSM Package Reques
 INSERT INTO utility_queries VALUES(28,'osm_package_datasets','OSM Package Datasets','','(SELECT Item AS id, OSM_Package_ID FROM S_V_OSM_Package_Items_Export WHERE  Item_Type = ''Requested_Runs'') TX','*','{"col":"id", "dir":"ASC"}','{"OSM_Package_ID":"EQn"}','');
 INSERT INTO utility_queries VALUES(29,'data_package_datasets','Data Package Datasets','','S_V_Data_Package_Datasets_Export','Dataset as id','{"col":"id", "dir":"ASC"}','{"Data_Package_ID":"EQn"}','');
 INSERT INTO utility_queries VALUES(30,'batch_requests','Batch Requests','','T_Requested_Run','ID as id','{"col":"id", "dir":"ASC"}','{"RDS_BatchID":"EQn"}','');
-INSERT INTO utility_queries VALUES(31,'data_package_list','Data Package List','','(SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS label, ID AS value FROM S_V_Data_Package_Export) TX','*','','{"label":"CTx"}','');
-INSERT INTO utility_queries VALUES(32,'osm_package_list','OSM Package List','','(SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Name AS label, ID AS value FROM S_V_OSM_Package_Export) TX','*','','{"label":"CTx"}','');
-INSERT INTO utility_queries VALUES(33,'requested_run_batch_list','Requested Run Batch List','','(SELECT CONVERT(VARCHAR(12), ID) + CHAR(32) +  Batch AS label, ID AS value FROM T_Requested_Run_Batches) TX','*','','{"label":"CTx"}','');
+INSERT INTO utility_queries VALUES(31,'data_package_list','Data Package List','package','(SELECT label, value FROM V_Data_Package_Picklist) TX','*','','{"label":"CTx"}','');
+INSERT INTO utility_queries VALUES(32,'osm_package_list','OSM Package List','package','(SELECT label, value FROM V_OSM_Package_Picklist) TX','*','','{"label":"CTx"}','');
+INSERT INTO utility_queries VALUES(33,'requested_run_batch_list','Requested Run Batch List','','(SELECT ID_with_Batch As label, ID AS value FROM V_Requested_Run_Batch_PickList) TX','*','','{"label":"CTx"}','');
 INSERT INTO utility_queries VALUES(34,'helper_inst_name_dstype','Instrument Dataset Type Chooser','','V_Instrument_Allowed_Dataset_Type','*','{"col":"Dataset Count", "dir":"DESC"}','{"Instrument":"MTx"}','{"Dataset Type":{"LinkType":"update_opener"}}');
 COMMIT;

@@ -6,7 +6,7 @@ class Grid extends DmsBase {
     {
         $this->my_tag = "";
         $this->my_title = "";
-        $this->helpers = array_merge($this->helpers, ['link_util']);
+        $this->helpers = array_merge($this->helpers, ['link_util','string']);
     }
 
     // --------------------------------------------------------------------
@@ -124,19 +124,20 @@ class Grid extends DmsBase {
         $save_url = 'xxx/operation';
         $this->grid_page('user', $save_url);
     }
+
     // --------------------------------------------------------------------
     function user_data() {
         $this->my_tag = "user";
         $this->db = \Config\Database::connect();
-        $builder = $this->db->table("T_Users");
-        $builder->select('ID, U_PRN AS PRN, U_Name AS Name, U_HID AS HID, U_Status AS Status, U_Access_Lists AS Access, U_email AS Email, U_domain AS Domain, U_netid AS NetID, U_comment AS Comment, CONVERT(VARCHAR(12), U_created, 101) AS Created');
+        $builder = $this->db->table("V_Users_Export");
+        $builder->select('ID, Username as PRN, Name, Hanford_ID As HID, Status, Email, Comment, Created_DMS as Created');
         $userName = $this->request->getPost("userName");
         if(IsNotWhitespace($userName)) {
-            $builder->like('U_Name', $userName);
+            $builder->like('Username', $userName);
         }
         $allUsers = $this->request->getPost("allUsers");
         if($allUsers == 'false') {
-            $builder->where('U_Status', 'Active');
+            $builder->where('Status', 'Active');
         }
         $this->grid_data_from_query($builder);
     }
