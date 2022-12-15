@@ -12,6 +12,8 @@ class Dms_statistics extends Model {
     }
 
     // --------------------------------------------------------------------
+    // This function is used by function stats() in Gen.php
+    // See https://dms2.pnl.gov/gen/stats
     function get_stats() {
         $results = array();
 
