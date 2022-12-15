@@ -2,11 +2,10 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','V_Sample_Prep_Request_List_Report');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO general_params VALUES('list_report_data_cols','ID,RequestName,Created,Priority,State, CONVERT(char(42),Reason) as Reason,NumSamples,PrepMethod,AssignedPersonnel,Organism,Campaign');
-INSERT INTO general_params VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO general_params VALUES('list_report_data_cols','ID AS Sel, *');
+INSERT INTO general_params VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO general_params VALUES('list_report_data_sort_col','ID');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','State','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_requestname','RequestName','32','','RequestName','ContainsText','text','128','','');
