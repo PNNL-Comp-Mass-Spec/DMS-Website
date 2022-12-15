@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * Helpers for creating/editing/maintaining model config database files
+ */
+
+/**
  * Create the suggested SQL for the general_params table
  * @param type $obj
  * @return type

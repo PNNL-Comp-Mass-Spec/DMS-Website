@@ -61,7 +61,7 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name, including .db
      */
     function show_db($config_db) {
-        helper(['config_db']);
+        helper(['config_db_edit']);
         $data['title'] = "$config_db";
         $data['heading'] = "Show Contents of $config_db";
         $data['config_db'] = $config_db;
@@ -423,7 +423,6 @@ class Config_db extends BaseController {
      * @category AJAX
      */
     function move_range($config_db, $table_name, $range_start_id, $range_stop_id, $dest_id) {
-        helper(['config_db']);
         $data_info = $this->_get_config_db_table_data_info($config_db, $table_name);
         $id_col = $data_info->col_names[0];
         if (!in_array($id_col, array('id', 'idx'))) {
@@ -431,7 +430,7 @@ class Config_db extends BaseController {
             return;
         }
 
-        helper(['config_db']);
+        helper(['config_db_edit']);
         echo make_sql_to_move_range_of_items($table_name, $range_start_id, $range_stop_id, $dest_id, $id_col);
     }
 
@@ -443,7 +442,7 @@ class Config_db extends BaseController {
      * @category AJAX
      */
     function resequence_table($config_db, $table_name) {
-        helper(['config_db']);
+        helper(['config_db_edit']); // TODO: this helper load probably isn't needed
         $data_info = $this->_get_config_db_table_data_info($config_db, $table_name);
         $id_col = $data_info->col_names[0];
         if (!in_array($id_col, array('id', 'idx'))) {
@@ -475,7 +474,7 @@ class Config_db extends BaseController {
             $this->show_not_allowed($config_db);
             return;
         }
-        helper(['config_db']);
+        helper(['config_db_edit']);
         $sql = $this->request->getPost('sql_text');
         if ($sql) {
             $this->_exec_sql($config_db, $sql, $table_name);
@@ -495,7 +494,7 @@ class Config_db extends BaseController {
      * @category AJAX
      */
     function get_suggested_sql($config_db, $table_name) {
-        helper(['config_db']);
+        helper(['config_db_edit']);
 
         $name = str_replace('.db', '', $config_db);
         $mode = $this->request->getPost('mode');
@@ -518,6 +517,7 @@ class Config_db extends BaseController {
 
     /**
      * Get suggested entry commands
+     * Used (with name specified via POST request) by $this->get_suggested_sql(,)
      * @param string $config_db Config DB name, including .db
      * @return string
      */
@@ -529,6 +529,7 @@ class Config_db extends BaseController {
 
     /**
      * Get suggested external sources
+     * Used (with name specified via POST request) by $this->get_suggested_sql(,)
      * @param string $config_db Config DB name, including .db
      * @return string
      */
@@ -540,10 +541,12 @@ class Config_db extends BaseController {
 
     /**
      * Get suggested general params
+     * Used (with name specified via POST request) by $this->get_suggested_sql(,)
      * @param string $config_db Config DB name, including .db
      * @return string
      */
     private function _get_suggested_general_params($config_db) {
+        helper(['config_db_edit']);
         $sql = "";
         $name = str_replace('.db', '', $config_db);
         $obj = $this->_get_standard_names($name);
@@ -553,6 +556,7 @@ class Config_db extends BaseController {
 
     /**
      * Get suggested detail report commands
+     * Used (with name specified via POST request) by $this->get_suggested_sql(,)
      * @param string $config_db Config DB name, including .db
      * @return string
      */
@@ -564,6 +568,7 @@ class Config_db extends BaseController {
 
     /**
      * Get suggested primary filter choosers
+     * Used (with name specified via POST request) by $this->get_suggested_sql(,)
      * @param string $config_db Config DB name, including .db
      * @return string
      */
@@ -583,6 +588,7 @@ class Config_db extends BaseController {
 
     /**
      * Get suggested form field choosers
+     * Used (with name specified via POST request) by $this->get_suggested_sql(,)
      * @param string $config_db Config DB name, including .db
      * @return string
      */
@@ -602,6 +608,7 @@ class Config_db extends BaseController {
 
     /**
      * Get suggested form field options
+     * Used (with name specified via POST request) by $this->get_suggested_sql(,)
      * @param string $config_db Config DB name, including .db
      * @return string
      */
@@ -672,7 +679,7 @@ class Config_db extends BaseController {
             $this->show_not_allowed($config_db);
             return;
         }
-        helper(['config_db']);
+        helper(['config_db_edit']);
         $data['title'] = "Config DB Table Edit";
         $data['heading'] = "Edit $table_name in $config_db";
         $data['config_db'] = $config_db;
@@ -701,7 +708,7 @@ class Config_db extends BaseController {
             $this->show_not_allowed($config_db);
             return;
         }
-        helper(['config_db']);
+        helper(['config_db_edit']);
 
         // show _POST (debug)
         $p = '';
@@ -1379,7 +1386,7 @@ class Config_db extends BaseController {
      * This will include the three views and the AddUpdate sproc
      */
     function code_for_family_sql() {
-        helper(['config_db']);
+        helper(['config_db_edit']);
         $uri = $this->request->uri;
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
@@ -1401,7 +1408,7 @@ class Config_db extends BaseController {
      * @param type $sproc
      */
     function code_for_csharp($db_group, $sproc) {
-        helper(['config_db']);
+        helper(['config_db_edit']);
 
         $uri = $this->request->uri;
         // Don't trigger an exception if the segment index is too large
@@ -1447,7 +1454,7 @@ class Config_db extends BaseController {
             return;
         }
 
-        helper(['config_db']);
+        helper(['config_db_edit']);
 
         $page_fam_tag = "";
         $file_path = "";
@@ -1566,7 +1573,7 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/search/experiment/_
      */
     function search() {
-        helper(['config_db']);
+        helper(['config_db_edit']);
 
         // set up name filters
         $uri = $this->request->uri;
@@ -1604,7 +1611,7 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/page_families
      */
     function page_families() {
-        helper(['config_db']);
+        helper(['config_db_edit']);
         $data['title'] = "Page Family Directory";
         $data['heading'] = $data['title'];
 
@@ -1628,7 +1635,7 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/support_config_db_list
      */
     function support_config_db_list() {
-        helper(['config_db']);
+        helper(['config_db_edit']);
         $data['title'] = "Support Config DB Directory";
         $data['heading'] = $data['title'];
 
