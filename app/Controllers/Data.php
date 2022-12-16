@@ -244,8 +244,6 @@ class Data extends BaseController {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($dbFileName)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //if(!$dbh) throw new \Exception('Could not connect to menu config database at '.$dbFilePath);
 
         helper(['url']);
         $this->table = new \CodeIgniter\View\Table();
@@ -253,7 +251,6 @@ class Data extends BaseController {
         $this->table->setHeading('Page', 'Table', 'DB');
 
         $links = array();
-        //foreach ($dbh->query("SELECT * FROM $config_name ORDER BY label", PDO::FETCH_OBJ) as $obj) {
         foreach ($db->query("SELECT * FROM $config_name ORDER BY label")->getResultObject() as $obj) {
             $links['link'] = anchor("data/lr/$config_source/$obj->name/report", $obj->label);
             $links['table'] = $obj->table;

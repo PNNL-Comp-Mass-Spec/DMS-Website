@@ -170,19 +170,10 @@ class Config_db extends BaseController {
         // Script out the existing table contents
         $restore = $this->_get_table_contents_sql($config_db, $table_name);
 
-        $s = "";
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //if (!$dbh) {
-        //    $s .= 'Could not connect to config database at ' . $dbFilePath;
-        //    return null;
-        //}
-        //$sqlWithTransaction = "BEGIN TRANSACTION; $sql COMMIT;";
 
-        //echo $sqlWithTransaction;
-        //$dbh->exec($sqlWithTransaction);
         $db->transStart();
         // Check for "WriteType" to determine if "->query()" or "->exec()" should be used
         // fails to work properly when there are multiple lines or comments
@@ -291,13 +282,11 @@ class Config_db extends BaseController {
      * Get contents of a single table
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return PDOStatement PDOStatement object, or false on failure.
+     * @return SQLite Query Result Array object, or false on failure.
      */
     private function _get_table_contents($config_db, $table_name) {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //$r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         $r = $this->_getQueryResultArray($db->query("SELECT * FROM $table_name"));
         $db->close();
@@ -328,11 +317,9 @@ class Config_db extends BaseController {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
         $i = 0;
         $n = 1;
         $rs = "";
-        //foreach ($dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC) as $row) {
         foreach ($this->_getQueryResultArray($db->query("SELECT * FROM $table_name")) as $row) {
             if (!$i++) {
                 $cols = array_keys($row);
@@ -785,17 +772,14 @@ class Config_db extends BaseController {
         $dbFilePath = get_model_config_db_path($config_db)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
 
         $col_names = array();
-        //foreach ($dbh->query("PRAGMA table_info({$table_name});", PDO::FETCH_ASSOC) as $row) {
         foreach ($this->_getQueryResultArray($db->query("PRAGMA table_info({$table_name});")) as $row) {
             $col_names[] = $row['name'];
         }
         $num_cols = count($col_names);
 
         $data_rows = array();
-        //$r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
         $r = $this->_getQueryResultArray($db->query("SELECT * FROM $table_name"));
         if ($r) {
             foreach ($r as $row) {
@@ -1229,12 +1213,6 @@ class Config_db extends BaseController {
         $dbFilePath = get_model_config_db_path($config_db)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //if (!$dbh) {
-        //    $s .= 'Could not connect to config database at ' . $dbFilePath;
-        //    return null;
-        //}
-        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
         foreach ($this->_getQueryResultArray($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")) as $row) {
             $table_list[] = $row['tbl_name'];
         }
@@ -1267,12 +1245,6 @@ class Config_db extends BaseController {
         $dbFilePath = get_model_config_db_path($config_db)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //if (!$dbh) {
-        //    $s .= 'Could not connect to config database at ' . $dbFilePath;
-        //    return null;
-        //}
-        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
         foreach ($this->_getQueryResultArray($db->query("SELECT * FROM general_params")) as $row) {
             $gen_parms[$row['name']] = $row['value'];
             if ($row['name'] == 'my_db_group') {
@@ -1705,12 +1677,7 @@ class Config_db extends BaseController {
         $dbFilePath = get_model_config_db_path($config_db)->path;
 //      $before = filesize($dbFilePath);
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-//      $dbh->beginTransaction();
-        //$dbh->query("VACUUM;");
         $db->query("VACUUM;");
-//      $dbh->commit();
-        //$dbh = null;
         $db->close();
 //      $after = filesize($dbFilePath);
         echo "Config DB '$config_db' has been vacuumed.";

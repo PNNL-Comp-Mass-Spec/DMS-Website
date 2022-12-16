@@ -174,21 +174,15 @@ class E_model extends Model {
     // --------------------------------------------------------------------
     private function get_entry_form_definitions($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$this->configDBPath");
-        //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
-        //}
 
         // get list of tables in database
         $tbl_list = array();
-        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
         if (in_array('form_fields', $tbl_list)) {
             $this->form_fields = array();
-            //foreach ($dbh->query("SELECT * FROM form_fields", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM form_fields")->getResultArray() as $row) {
                 $a = array();
                 $a['label'] = $row['label'];
@@ -206,7 +200,6 @@ class E_model extends Model {
             }
         }
         if (in_array('form_field_options', $tbl_list)) {
-            //foreach ($dbh->query("SELECT * FROM form_field_options", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM form_field_options")->getResultArray() as $row) {
                 $this->form_fields[$row['field']][$row['type']] = $row['parameter'];
             }
@@ -214,7 +207,6 @@ class E_model extends Model {
 
         if (in_array('form_field_choosers', $tbl_list)) {
             $fl = array();
-            //foreach ($dbh->query("SELECT * FROM form_field_choosers", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM form_field_choosers")->getResultArray() as $row) {
                 $a = array();
                 $a['type'] = $row['type'];
@@ -238,7 +230,6 @@ class E_model extends Model {
 
         if (in_array('operations_fields', $tbl_list)) {
             $this->operations_fields = array();
-            //foreach ($dbh->query("SELECT * FROM operations_fields", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM operations_fields")->getResultArray() as $row) {
                 $a = array();
                 $a['label'] = $row['label'];
@@ -249,7 +240,6 @@ class E_model extends Model {
 
         if (in_array('entry_commands', $tbl_list)) {
             $this->entry_commands = array();
-            //foreach ($dbh->query("SELECT * FROM entry_commands", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM entry_commands")->getResultArray() as $row) {
                 $a = array();
                 $a['type'] = $row['type'];
@@ -263,11 +253,9 @@ class E_model extends Model {
 
         if (in_array('external_sources', $tbl_list)) {
             $this->external_sources = array();
-            //foreach ($dbh->query("SELECT DISTINCT * FROM external_sources", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT DISTINCT * FROM external_sources")->getResultArray() as $row) {
                 $this->external_sources[$row['source_page']] = array();
             }
-            //foreach ($dbh->query("SELECT * FROM external_sources", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM external_sources")->getResultArray() as $row) {
                 $a = array();
                 // Split the type name on periods

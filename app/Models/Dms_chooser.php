@@ -28,8 +28,6 @@ class Dms_chooser extends Model {
     function load_choosers() {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path("dms_chooser.db")->path;
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //$r = $dbh->query("SELECT * FROM chooser_definitions", PDO::FETCH_ASSOC);
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         $r = $db->query("SELECT * FROM chooser_definitions")->getResultArray();
         $db->close();

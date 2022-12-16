@@ -649,12 +649,9 @@ class Upload extends DmsBase {
         $dbFilePath = get_model_config_db_path($dbFileName)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //if(!$dbh) throw new \Exception('Could not connect to config database at '.$dbFilePath);
 
         // get list of tables in database
         $tbl_list = array();
-        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
@@ -662,7 +659,6 @@ class Upload extends DmsBase {
         if(!in_array('loadable_entities', $tbl_list)) throw new \Exception('Table "loadable_entities" not found in config db');
 
         $def = array();
-        //foreach ($dbh->query("SELECT * FROM loadable_entities", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM loadable_entities")->getResultArray() as $row) {
             $spec = array();
             $spec['config_source'] = $row['config_source'];

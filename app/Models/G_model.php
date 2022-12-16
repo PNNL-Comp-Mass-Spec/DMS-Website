@@ -170,23 +170,15 @@ class G_model extends Model {
     private function get_utility_defs($config_name)
     {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$this->configDBPath");
-        //if(!$dbh) {
-        //    throw new \Exception('Could not connect to config database at '.$this->configDBPath);
-        //}
 
         // get list of tables in database
         $tbl_list = array();
-        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
         if(in_array('utility_queries', $tbl_list)) {
 
-            //$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
-            //$sth->execute();
-            //$obj = $sth->fetch(PDO::FETCH_OBJ);
             $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
             if($obj === false || is_null($obj)) {
                 throw new \Exception('Could not find query specs');
@@ -218,14 +210,9 @@ class G_model extends Model {
     private function get_general_defs($config_name)
     {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$this->configDBPath");
-        //if(!$dbh) {
-        //    throw new \Exception('Could not connect to config database at '.$this->configDBPath);
-        //}
 
         // get list of tables in database
         $tbl_list = array();
-        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
@@ -234,7 +221,6 @@ class G_model extends Model {
         $blockCreate = false;
 
         // maybe move this to general model?
-        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
 
             $this->the_parameters[$row['name']] = $row['value'];
@@ -308,7 +294,6 @@ class G_model extends Model {
 
         if(in_array('list_report_hotlinks', $tbl_list)) {
             $this->list_report_hotlinks = array();
-            //foreach ($dbh->query("SELECT * FROM list_report_hotlinks", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM list_report_hotlinks")->getResultArray() as $row) {
                 $link_type = $row['LinkType'];
                 if($link_type == 'update_opener') {
@@ -322,7 +307,6 @@ class G_model extends Model {
 
         if(in_array('detail_report_commands', $tbl_list)) {
             $this->detail_report_commands = array();
-            //foreach ($dbh->query("SELECT * FROM detail_report_commands", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM detail_report_commands")->getResultArray() as $row) {
                 $a = array();
                 $a['Type'] = $row['Type'];

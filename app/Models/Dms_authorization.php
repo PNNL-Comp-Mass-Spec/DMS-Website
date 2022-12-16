@@ -32,8 +32,6 @@ class Dms_authorization extends Model {
     function get_master_restriction_list() {
         $table_name = 'restricted_actions';
         $sql = "SELECT * FROM $table_name ORDER BY page_family;";
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //return $dbh->query($sql, PDO::FETCH_ASSOC);
         $db = new Connection(['database' => $this->masterAuthDBPath, 'dbdriver' => 'sqlite3']);
         $data = $db->query($sql)->getResultArray();
         $db->close();
@@ -51,9 +49,6 @@ class Dms_authorization extends Model {
         $table_name = 'restricted_actions';
 
         $db = new Connection(['database' => $this->masterAuthDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //$stmt = $dbh->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'", PDO::FETCH_ASSOC);
-        //$row = $stmt->fetch();
         $row = $db->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'")->getRowArray();
         if (!(false === $row || is_null($row))) {
             $restrictions = preg_split('/, */', $row['required_permisions']);

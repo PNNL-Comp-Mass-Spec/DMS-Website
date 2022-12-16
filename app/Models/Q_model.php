@@ -844,14 +844,7 @@ class Q_model extends Model {
     private function get_query_specs_from_config_db($config_name) {
 
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$this->configDBPath");
-        //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
-        //}
 
-        //$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
-        //$sth->execute();
-        //$obj = $sth->fetch(PDO::FETCH_OBJ);
         $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
         if ($obj === false || is_null($obj)) {
             throw new \Exception('Could not find query specs');
@@ -886,19 +879,13 @@ class Q_model extends Model {
      */
     private function get_list_report_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$this->configDBPath");
-        //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
-        //}
 
         // get list of tables in database
         $tbl_list = array();
-        //foreach ($dbh->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':
@@ -926,7 +913,6 @@ class Q_model extends Model {
 
         if (in_array('list_report_primary_filter', $tbl_list)) {
             $this->primary_filter_specs = array();
-            //foreach ($dbh->query("SELECT * FROM list_report_primary_filter", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM list_report_primary_filter")->getResultArray() as $row) {
                 $a = array();
                 $a['label'] = $row['label'];
@@ -943,7 +929,6 @@ class Q_model extends Model {
         }
         if (in_array('primary_filter_choosers', $tbl_list)) {
             $fl = array();
-            //foreach ($dbh->query("SELECT * FROM primary_filter_choosers", PDO::FETCH_ASSOC) as $row) {
             foreach ($db->query("SELECT * FROM primary_filter_choosers")->getResultArray() as $row) {
                 $a = array();
                 $a['type'] = $row['type'];
@@ -971,15 +956,10 @@ class Q_model extends Model {
      */
     private function get_detail_report_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$this->configDBPath");
-        //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
-        //}
 
         $filterColumn = '';
         $filterComparison = '';
 
-        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':
@@ -1036,12 +1016,7 @@ class Q_model extends Model {
      */
     private function get_entry_page_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$this->configDBPath");
-        //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
-        //}
 
-        //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':

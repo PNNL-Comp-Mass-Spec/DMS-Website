@@ -28,18 +28,12 @@ class Dms_menu extends Model {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db_name)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //if (!$dbh) {
-        //    throw new \Exception('Could not connect to menu config database at ' . $dbFilePath);
-        //}
 
-        //foreach ($dbh->query("SELECT * FROM $section_def_table", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM $section_def_table")->getResultArray() as $row) {
             $section_name = $row['section_name'];
             $sections[$section_name] = $row;
             $sections[$section_name]['section_menu_items'] = array();
         }
-        //foreach ($dbh->query("SELECT * FROM $section_item_table", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM $section_item_table")->getResultArray() as $row) {
             $section_name = $row['section_name'];
             $sections[$section_name]['section_menu_items'][] = $row;
@@ -60,13 +54,8 @@ class Dms_menu extends Model {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db_name)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
-        //if (!$dbh) {
-        //    throw new \Exception('Could not connect to menu config database at ' . $dbFilePath);
-        //}
 
         $mnu = array();
-        //foreach ($dbh->query("SELECT * FROM $menu_def_table", PDO::FETCH_ASSOC) as $row) {
         foreach ($db->query("SELECT * FROM $menu_def_table")->getResultArray() as $row) {
             $mnu[] = $row;
         }
