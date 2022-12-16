@@ -645,8 +645,8 @@ class Upload extends DmsBase {
     private
     function get_config_info($dbFileName)
     {
-        $configDBFolder = config('App')->model_config_path;
-        $dbFilePath = $configDBFolder . $dbFileName;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($dbFileName)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");

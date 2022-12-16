@@ -12,10 +12,11 @@ class G_model extends Model {
     public $error_text = "";
 
     private $missing_page_family = 'Undefined page family.  Contact the system administrators if this URL should resolve to a valid results page.';
+    private $disabled_page_family = 'Disabled page family.  Contact the system administrators if this URL should resolve to a valid results page.';
 
     private $config_name = '';
     private $config_source = '';
-    private $configDBFolder = "";
+    private $configDBPath = "";
 
     /**
      * Title templates
@@ -80,7 +81,6 @@ class G_model extends Model {
     {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = config('App')->model_config_path;
     }
 
     // --------------------------------------------------------------------
@@ -92,11 +92,25 @@ class G_model extends Model {
             $this->config_source = $config_source;
 
             $dbFileName = $config_source . '.db';
+            
+            helper(['config_db']);
+            $dbFileData = get_model_config_db_path($dbFileName);
+            $this->configDBPath = $dbFileData->path;
+
+            if (!$dbFileData->exists) {
+                if ($dbFileData->disabled) {
+                    throw new \Exception($this->disabled_page_family . " (see '$dbFileData->dirPath')");
+                } elseif ($dbFileData->dirPath) {
+                    throw new \Exception($this->missing_page_family . " (see '$dbFileData->dirPath')");
+                } else {
+                    throw new \Exception($this->missing_page_family);
+                }
+            }
 
             if($config_name == 'na' || $config_name == '') {
-                $this->get_general_defs($config_name, $dbFileName);
+                $this->get_general_defs($config_name);
             } else {
-                $this->get_utility_defs($config_name, $dbFileName);
+                $this->get_utility_defs($config_name);
             }
             return true;
         } catch (\Exception $e) {
@@ -153,22 +167,12 @@ class G_model extends Model {
     }
     
     // --------------------------------------------------------------------
-    private function get_utility_defs($config_name, $dbFileName)
+    private function get_utility_defs($config_name)
     {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        if(!file_exists($dbFilePath)) {
-            if ($this->configDBFolder) {
-                throw new \Exception($this->missing_page_family . " (see $this->configDBFolder)");
-            } else {
-                throw new \Exception($this->missing_page_family);
-            }
-        }
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if(!$dbh) {
-        //    throw new \Exception('Could not connect to config database at '.$dbFilePath);
+        //    throw new \Exception('Could not connect to config database at '.$this->configDBPath);
         //}
 
         // get list of tables in database
@@ -209,25 +213,14 @@ class G_model extends Model {
      * Read list_report_hotlinks and update has_opener_hotlinks and has_checkboxes in $this->the_parameters
      * Read detail_report_commands and store in $this->detail_report_commands
      * @param type $config_name
-     * @param type $dbFileName
      * @throws Exception
      */
-    private function get_general_defs($config_name, $dbFileName)
+    private function get_general_defs($config_name)
     {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        if(!file_exists($dbFilePath)) {
-            if ($this->configDBFolder) {
-                throw new \Exception($this->missing_page_family . " (see $this->configDBFolder)");
-            } else {
-                throw new \Exception($this->missing_page_family);
-            }
-        }
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if(!$dbh) {
-        //    throw new \Exception('Could not connect to config database at '.$dbFilePath);
+        //    throw new \Exception('Could not connect to config database at '.$this->configDBPath);
         //}
 
         // get list of tables in database

@@ -15,7 +15,8 @@ class Config_db_model extends Model {
         //Call the Model constructor
         parent::__construct();
 
-        $this->masterConfigDBPath = config('App')->model_config_path . "master_config_db.db";
+        helper(['config_db']);
+        $this->masterConfigDBPath = get_model_config_db_path("master_config_db.db")->path;
         $this->initialize_table_defs();
         $this->initialize_table_field_defs();
     }

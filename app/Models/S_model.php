@@ -43,7 +43,7 @@ class S_model extends Model {
     private $total_rows_storage_name = "";
     private $config_name = '';
     private $config_source = '';
-    private $configDBFolder = '';
+    private $configDBPath = "";
 
     /**
      * Object that contains database-specific code used to actually access the stored procedure
@@ -95,7 +95,6 @@ class S_model extends Model {
     function __construct() {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = config('App')->model_config_path;
 
         // Include the String operations methods
         helper('string');
@@ -120,9 +119,12 @@ class S_model extends Model {
 
             $dbFileName = $config_source . '.db';
 
+            helper(['config_db']);
+            $this->configDBPath = get_model_config_db_path($dbFileName)->path;
+
             $this->_clear();
 
-            $this->get_sproc_arg_defs($config_name, $dbFileName);
+            $this->get_sproc_arg_defs($config_name);
             return true;
         } catch (\Exception $e) {
             $this->error_text = $e->getMessage();
@@ -424,13 +426,11 @@ class S_model extends Model {
     }
 
     // --------------------------------------------------------------------
-    private function get_sproc_arg_defs($config_name, $dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_sproc_arg_defs($config_name) {
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         // get list of tables in database

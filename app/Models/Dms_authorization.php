@@ -8,13 +8,15 @@ class Dms_authorization extends Model {
 
     var $storage_name = 'dms_authorization';
     var $user_permissions = array();
-    var $dBFolder = "";
+    var $masterAuthDBPath = "";
 
     // --------------------------------------------------------------------
     function __construct() {
         //Call the Model constructor
         parent::__construct();
-        $this->dBFolder = config('App')->model_config_path;
+
+        helper(['config_db']);
+        $this->masterAuthDBPath = get_model_config_db_path("master_authorization.db")->path;
 //      $this->initialize();
     }
 
@@ -28,12 +30,11 @@ class Dms_authorization extends Model {
      * @return mixed Rows of data
      */
     function get_master_restriction_list() {
-        $dbFilePath = $this->dBFolder . "master_authorization.db";
         $table_name = 'restricted_actions';
         $sql = "SELECT * FROM $table_name ORDER BY page_family;";
         //$dbh = new PDO("sqlite:$dbFilePath");
         //return $dbh->query($sql, PDO::FETCH_ASSOC);
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        $db = new Connection(['database' => $this->masterAuthDBPath, 'dbdriver' => 'sqlite3']);
         $data = $db->query($sql)->getResultArray();
         $db->close();
         return $data;
@@ -47,10 +48,9 @@ class Dms_authorization extends Model {
      */
     function get_controller_action_restrictions($controller, $action) {
         $restrictions = array();
-        $dbFilePath = $this->dBFolder . "master_authorization.db";
         $table_name = 'restricted_actions';
 
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        $db = new Connection(['database' => $this->masterAuthDBPath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //$stmt = $dbh->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'", PDO::FETCH_ASSOC);
         //$row = $stmt->fetch();

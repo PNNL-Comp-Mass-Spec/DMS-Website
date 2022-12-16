@@ -6,15 +6,12 @@ use CodeIgniter\Database\SQLite3\Connection;
 
 class Dms_menu extends Model {
 
-    var $configDBFolder = "";
-
     /**
      * Constructor
      */
     function __construct() {
         //Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = config('App')->model_config_path;
     }
 
     /**
@@ -28,7 +25,8 @@ class Dms_menu extends Model {
      */
     function get_section_menu_def($config_db_name, $section_def_table, $section_item_table) {
         $sections = array();
-        $dbFilePath = $this->configDBFolder . $config_db_name;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db_name)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
@@ -59,7 +57,8 @@ class Dms_menu extends Model {
      * @throws Exception
      */
     function get_menu_def($config_db_name, $menu_def_table) {
-        $dbFilePath = $this->configDBFolder . $config_db_name;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db_name)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {

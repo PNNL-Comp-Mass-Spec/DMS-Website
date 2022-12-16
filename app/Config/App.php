@@ -28,6 +28,11 @@ class App extends BaseConfig
     // Path relative to index.php, which is inside the 'public' folder.
     public $model_config_path = "./model_config/";
 
+    // Path to directory containing model_config DBs or flag files specific to the site instance
+    // Files located here override those in the path specified by $model_config_path
+    // Path relative to index.php, which is inside the 'public' folder; empty string (default) means there are no overrides.
+    public $model_config_instance_path = "";
+
     public $dms_inst_source_url = "http://gigasax.pnl.gov";
 
     public $page_menu_root = NULL;

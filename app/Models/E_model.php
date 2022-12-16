@@ -11,7 +11,7 @@ class E_model extends Model {
 
     private $config_name = '';
     private $config_source = '';
-    private $configDBFolder = "";
+    private $configDBPath = '';
 
     /**
      * Definitions of fields for entry form
@@ -35,7 +35,6 @@ class E_model extends Model {
     function __construct() {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = config('App')->model_config_path;
     }
 
     // --------------------------------------------------------------------
@@ -47,7 +46,10 @@ class E_model extends Model {
 
             $dbFileName = $config_source . '.db';
 
-            $this->get_entry_form_definitions($config_name, $dbFileName);
+            helper(['config_db']);
+            $this->configDBPath = get_model_config_db_path($dbFileName)->path;
+
+            $this->get_entry_form_definitions($config_name);
             return true;
         } catch (\Exception $e) {
             $this->error_text = $e->getMessage();
@@ -170,13 +172,11 @@ class E_model extends Model {
     }
 
     // --------------------------------------------------------------------
-    private function get_entry_form_definitions($config_name, $dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_entry_form_definitions($config_name) {
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         // get list of tables in database

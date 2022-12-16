@@ -239,10 +239,10 @@ class Data extends BaseController {
      */
     function lr_menu($config_source = "ad_hoc_query", $config_name = 'utility_queries')
     {
-        $configDBFolder = config('App')->model_config_path;
         $dbFileName = $config_source . '.db';
 
-        $dbFilePath = $configDBFolder.$dbFileName;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($dbFileName)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if(!$dbh) throw new \Exception('Could not connect to menu config database at '.$dbFilePath);

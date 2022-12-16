@@ -13,8 +13,6 @@ class Config_db extends BaseController {
      * @var string
      */
     var $my_tag = "";
-    var $configDBFolder = '';
-    var $configDBPath = '';
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -40,7 +38,6 @@ class Config_db extends BaseController {
         // $this->session = \Config\Services::session();
 
         session_start();
-        $this->configDBPath = config('App')->model_config_path;
 
         $this->mod_enabled = config('App')->modify_config_db_enabled;
 
@@ -174,7 +171,8 @@ class Config_db extends BaseController {
         $restore = $this->_get_table_contents_sql($config_db, $table_name);
 
         $s = "";
-        $dbFilePath = $this->configDBPath . $config_db;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         //if (!$dbh) {
@@ -296,7 +294,8 @@ class Config_db extends BaseController {
      * @return PDOStatement PDOStatement object, or false on failure.
      */
     private function _get_table_contents($config_db, $table_name) {
-        $dbFilePath = $this->configDBPath . $config_db;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
         //$dbh = new PDO("sqlite:$dbFilePath");
         //$r = $dbh->query("SELECT * FROM $table_name", PDO::FETCH_ASSOC);
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
@@ -326,7 +325,8 @@ class Config_db extends BaseController {
      * @return string
      */
     private function _get_table_dump($config_db, $table_name) {
-        $dbFilePath = $this->configDBPath . $config_db;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
         $i = 0;
@@ -781,7 +781,8 @@ class Config_db extends BaseController {
      * @return \stdClass
      */
     private function _get_config_db_table_data_info($config_db, $table_name) {
-        $dbFilePath = $this->configDBPath . $config_db;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
@@ -1224,7 +1225,8 @@ class Config_db extends BaseController {
     private function _get_db_table_list($config_db, $table_filter = '') {
         $s = "";
         $table_list = array();
-        $dbFilePath = $this->configDBPath . $config_db;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
@@ -1261,7 +1263,8 @@ class Config_db extends BaseController {
     private function _get_general_params($config_db, &$db_group) {
         $s = "";
         $gen_parms = array();
-        $dbFilePath = $this->configDBPath . $config_db;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
@@ -1498,25 +1501,6 @@ class Config_db extends BaseController {
     }
 
     /**
-     * Return array of config files in the config folder
-     * @param string $file_filter
-     * @return type
-     */
-    private function _get_config_db_file_list($file_filter = '') {
-        $config_files = array();
-        $handle = opendir($this->configDBPath);
-        if ($handle) {
-            while (false !== ($file = readdir($handle))) {
-                if (preg_match($file_filter, $file)) {
-                    $config_files[] = $file;
-                }
-            }
-            closedir($handle);
-        }
-        return $config_files;
-    }
-
-    /**
      * Return array of table names for all the config dbs where the config db
      * file names satisfy the $file_filter and the table names satisfy the $table_filter
      * @param type $file_filter
@@ -1525,7 +1509,8 @@ class Config_db extends BaseController {
      */
     private function _get_filtered_config_table_name_list($file_filter, $table_filter) {
         // get list of config files from config folder
-        $config_files = $this->_get_config_db_file_list($file_filter);
+        helper(['config_db']);
+        $config_files = get_model_config_db_list($file_filter);
         asort($config_files);
 
         // get list of tables for each config db
@@ -1547,7 +1532,8 @@ class Config_db extends BaseController {
      */
     private function _get_filtered_config_table_list($file_filter, $table_filter) {
         // get list of config files from config folder
-        $config_files = $this->_get_config_db_file_list($file_filter);
+        helper(['config_db']);
+        $config_files = get_model_config_db_list($file_filter);
         asort($config_files);
 
         // get list of tables for each config db
@@ -1674,7 +1660,8 @@ class Config_db extends BaseController {
     function dir() {
         // get list of config files from config folder
         $file_filter = "/db/";
-        $config_files = $this->_get_config_db_file_list($file_filter);
+        helper(['config_db']);
+        $config_files = get_model_config_db_list($file_filter);
         asort($config_files);
         echo "<h3>Config DB Files</h3>\n";
         echo "| &nbsp;<a href='" . config('App')->pwiki . "DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
@@ -1714,7 +1701,8 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name, including .db
      */
     function vacuum_db($config_db) {
-        $dbFilePath = $this->configDBPath . $config_db;
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
 //      $before = filesize($dbFilePath);
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
         //$dbh = new PDO("sqlite:$dbFilePath");
@@ -1742,7 +1730,8 @@ class Config_db extends BaseController {
         $sql = "ALTER TABLE detail_report_hotlinks ADD options text;";
 
         // get list of config files from config folder
-        $config_files = $this->_get_config_db_file_list($file_filter);
+        helper(['config_db']);
+        $config_files = get_model_config_db_list($file_filter);
         asort($config_files);
 
         echo "Finding Config DBs with table " . $table_name . '<br><br>';

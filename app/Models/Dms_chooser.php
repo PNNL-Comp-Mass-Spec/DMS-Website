@@ -26,7 +26,8 @@ class Dms_chooser extends Model {
      * Initialize the list of choosers from the config db file
      */
     function load_choosers() {
-        $dbFilePath = config('App')->model_config_path . "/dms_chooser.db";
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path("dms_chooser.db")->path;
         //$dbh = new PDO("sqlite:$dbFilePath");
         //$r = $dbh->query("SELECT * FROM chooser_definitions", PDO::FETCH_ASSOC);
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);

@@ -26,7 +26,8 @@ class R_model extends Model {
      * Path to the model config database file
      * @var type
      */
-    private $configDBFolder = "";
+    private $configDBPath = "";
+
     private $list_report_hotlinks = array();
     private $detail_report_hotlinks = array();
     private $has_checkboxes = false;
@@ -35,7 +36,6 @@ class R_model extends Model {
     function __construct() {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = config('App')->model_config_path;
     }
 
     // --------------------------------------------------------------------
@@ -53,10 +53,24 @@ class R_model extends Model {
 
             $dbFileName = $config_source . '.db';
 
+            helper(['config_db']);
+            $dbFileData = get_model_config_db_path($dbFileName);
+            $this->configDBPath = $dbFileData->path;
+
+            if (!$dbFileData->exists) {
+                if ($dbFileData->disabled) {
+                    throw new \Exception("The config database file '$dbFileName' is disabled in folder '$dbFileData->dirPath'");
+                } elseif ($dbFileData->dirPath) {
+                    throw new \Exception("The config database file '$dbFileName' does not exist in folder '$dbFileData->dirPath'");
+                } else {
+                    throw new \Exception("The config database file '$dbFileName' does not exist");
+                }
+            }
+
             if ($config_name == 'na' || $config_name == '') {
-                $this->get_general_defs($config_name, $dbFileName);
+                $this->get_general_defs($config_name);
             } else {
-                $this->get_utility_defs($config_name, $dbFileName);
+                $this->get_utility_defs($config_name);
             }
             return true;
         } catch (\Exception $e) {
@@ -84,24 +98,13 @@ class R_model extends Model {
      * Read data from tables list_report_hotlinks and detail_report_hotlinks
      * in a model config database
      * @param string $config_name
-     * @param string $dbFileName
      * @throws Exception
      */
-    private function get_general_defs($config_name, $dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        if (!file_exists($dbFilePath)) {
-            if ($this->configDBFolder) {
-                throw new \Exception("The config database file '$dbFileName' does not exist in folder '$this->configDBFolder'");
-            } else {
-                throw new \Exception("The config database file '$dbFileName' does not exist");
-            }
-        }
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_general_defs($config_name) {
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         // get list of tables in database
@@ -159,16 +162,13 @@ class R_model extends Model {
     /**
      * Read data from table utility_queries, for example, with the ad_hoc_query page family
      * @param string $config_name
-     * @param string $dbFileName
      * @throws Exception
      */
-    private function get_utility_defs($config_name, $dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_utility_defs($config_name) {
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         // get list of tables in database

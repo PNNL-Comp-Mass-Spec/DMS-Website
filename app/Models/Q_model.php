@@ -135,7 +135,7 @@ class Q_model extends Model {
 
     private $config_name = '';
     private $config_source = '';
-    private $configDBFolder = "";
+    private $configDBPath = "";
 
     /**
      * Database-specific object to build SQL out of generic query parts
@@ -182,7 +182,6 @@ class Q_model extends Model {
     function __construct() {
         // Call the Model constructor
         parent::__construct();
-        $this->configDBFolder = config('App')->model_config_path;
 
         // Include the String operations methods
         helper('string');
@@ -205,6 +204,9 @@ class Q_model extends Model {
 
         $dbFileName = $config_source . '.db';
 
+        helper(['config_db']);
+        $this->configDBPath = get_model_config_db_path($dbFileName)->path;
+
         $this->_clear();
 
         try {
@@ -212,16 +214,16 @@ class Q_model extends Model {
                 case '':
                     break;
                 case 'list_report':
-                    $this->get_list_report_query_specs_from_config_db($dbFileName);
+                    $this->get_list_report_query_specs_from_config_db();
                     break;
                 case 'detail_report':
-                    $this->get_detail_report_query_specs_from_config_db($dbFileName);
+                    $this->get_detail_report_query_specs_from_config_db();
                     break;
                 case 'entry_page':
-                    $this->get_entry_page_query_specs_from_config_db($dbFileName);
+                    $this->get_entry_page_query_specs_from_config_db();
                     break;
                 default:
-                    $this->get_query_specs_from_config_db($config_name, $dbFileName);
+                    $this->get_query_specs_from_config_db($config_name);
                     break;
             }
         } catch (\Exception $e) {
@@ -837,15 +839,14 @@ class Q_model extends Model {
     /**
      * Load the query specs from table utility_queries in the config DB
      * @param string $config_name
-     * @param string $dbFileName
      * @throws Exception
      */
-    private function get_query_specs_from_config_db($config_name, $dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_query_specs_from_config_db($config_name) {
+
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         //$sth = $dbh->prepare("SELECT * FROM utility_queries WHERE name='$config_name'");
@@ -881,16 +882,13 @@ class Q_model extends Model {
 
     /**
      * Get the list report query specs from tables general_params, list_report_primary_filter, and primary_filter_choosers
-     * @param type $dbFileName
      * @throws Exception
      */
-    private function get_list_report_query_specs_from_config_db($dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_list_report_query_specs_from_config_db() {
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         // get list of tables in database
@@ -969,16 +967,13 @@ class Q_model extends Model {
 
     /**
      * Get the detail report query specs from the general_params table
-     * @param type $dbFileName
      * @throws Exception
      */
-    private function get_detail_report_query_specs_from_config_db($dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_detail_report_query_specs_from_config_db() {
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         $filterColumn = '';
@@ -1037,16 +1032,13 @@ class Q_model extends Model {
 
     /**
      * Get the entry page query specs from tables the general_params table
-     * @param type $dbFileName
      * @throws Exception
      */
-    private function get_entry_page_query_specs_from_config_db($dbFileName) {
-        $dbFilePath = $this->configDBFolder . $dbFileName;
-
-        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        //$dbh = new PDO("sqlite:$dbFilePath");
+    private function get_entry_page_query_specs_from_config_db() {
+        $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
+        //$dbh = new PDO("sqlite:$this->configDBPath");
         //if (!$dbh) {
-        //    throw new \Exception('Could not connect to config database at ' . $dbFilePath);
+        //    throw new \Exception('Could not connect to config database at ' . $this->configDBPath);
         //}
 
         //foreach ($dbh->query("SELECT * FROM general_params", PDO::FETCH_ASSOC) as $row) {
