@@ -10,7 +10,7 @@ $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
+if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
@@ -24,6 +24,13 @@ $routes->setDefaultController('Gen');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
+// The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
+// where controller filters or CSRF protection are bypassed.
+// If you don't want to define all routes, please use the Auto Routing (Improved).
+// Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
+// See https://codeigniter4.github.io/CodeIgniter4/changelogs/v4.2.0.html#new-improved-auto-routing
+// See https://codeigniter4.github.io/CodeIgniter4/incoming/routing.html#auto-routing-improved
+// See https://codeigniter4.github.io/CodeIgniter4/incoming/controllers.html#controller-auto-routing-improved
 $routes->setAutoRoute(true);
 
 /*
@@ -98,6 +105,6 @@ $routes->getAlias('work_packages', 'Charge_code');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
