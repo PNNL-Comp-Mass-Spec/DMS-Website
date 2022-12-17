@@ -185,14 +185,14 @@ class S_model extends Model {
                     }
                 } catch (\Exception $ex) {
                     $errorMessage = $ex->getMessage();
-                    log_message('error', "Exception connecting to DB group $this->dbn (calling sproc $this->sprocName): $errorMessage");
+                    log_message('error', "Exception connecting to DB group '$this->dbn' (calling sproc $this->sprocName): $errorMessage");
                     $connectionRetriesRemaining--;
                     if ($connectionRetriesRemaining > 0) {
-                        log_message('error', "Retrying connection to $this->dbn in $connectionSleepDelayMsec msec");
+                        log_message('error', "Retrying connection to '$this->dbn' in $connectionSleepDelayMsec msec");
                         usleep($connectionSleepDelayMsec * 1000);
                         $connectionSleepDelayMsec *= 2;
                     } else {
-                        throw new \Exception("Connection to DB group $this->dbn failed: $errorMessage");
+                        throw new \Exception("Connection to DB group '$this->dbn' failed: $errorMessage");
                     }
                 }
             }

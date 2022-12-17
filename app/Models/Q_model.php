@@ -269,14 +269,14 @@ class Q_model extends Model {
                 }
             } catch (\Exception $ex) {
                 $errorMessage = $ex->getMessage();
-                log_message('error', "Exception connecting to DB group {$this->query_parts->dbn} (config name $config_name): $errorMessage");
+                log_message('error', "Exception connecting to DB group '{$this->query_parts->dbn}' (config name $config_name): $errorMessage");
                 $connectionRetriesRemaining--;
                 if ($connectionRetriesRemaining > 0) {
-                    log_message('error', "Retrying connection to {$this->query_parts->dbn} in $connectionSleepDelayMsec msec");
+                    log_message('error', "Retrying connection to '{$this->query_parts->dbn}' in $connectionSleepDelayMsec msec");
                     usleep($connectionSleepDelayMsec * 1000);
                     $connectionSleepDelayMsec *= 2;
                 } else {
-                    throw new \Exception("Connection to DB group {$this->query_parts->dbn} failed: $errorMessage");
+                    throw new \Exception("Connection to DB group '{$this->query_parts->dbn}' failed: $errorMessage");
                 }
             }
         }
@@ -602,16 +602,16 @@ class Q_model extends Model {
                     $groupNameForLog = $dbGroupName;
                 }
 
-                $logMessage = "Exception connecting to the $groupNameForLog DB: $errorMessage";
+                $logMessage = "Exception connecting to the '$groupNameForLog' DB: $errorMessage";
 
                 log_message('error', $logMessage);
                 $connectionRetriesRemaining--;
                 if ($connectionRetriesRemaining > 0) {
-                    log_message('error', "Retrying connection to the $groupNameForLog DB in $connectionSleepDelayMsec msec");
+                    log_message('error', "Retrying connection to the '$groupNameForLog' DB in $connectionSleepDelayMsec msec");
                     usleep($connectionSleepDelayMsec * 1000);
                     $connectionSleepDelayMsec *= 2;
                 } else {
-                    throw new \Exception("Connection to the $groupNameForLog DB failed: $errorMessage");
+                    throw new \Exception("Connection to the '$groupNameForLog' DB failed: $errorMessage");
                 }
             }
         }
