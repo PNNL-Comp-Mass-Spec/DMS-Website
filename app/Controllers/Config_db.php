@@ -1383,7 +1383,7 @@ class Config_db extends BaseController {
      * @param type $sproc
      */
     function code_for_csharp($db_group, $sproc) {
-        helper(['config_db_edit']);
+        helper(['config_db_edit','string']);
 
         $uri = $this->request->uri;
         // Don't trigger an exception if the segment index is too large
@@ -1391,7 +1391,7 @@ class Config_db extends BaseController {
         $db_group = $uri->getSegment(3);
         $sproc = $uri->getSegment(4);
 
-        $my_db = \Config\Database::connect($db_group);
+        $my_db = \Config\Database::connect(GetNullIfBlank($db_group));
         $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
 
         header("Content-type: text/plain");

@@ -24,6 +24,22 @@ if (! function_exists('IsNotWhitespace'))
     }
 }
 
+if (! function_exists('GetNullIfBlank'))
+{
+    /**
+     * Return null if the variable is not defined or is whitespace
+     * @param type $variable
+     * @return type
+     */
+    function GetNullIfBlank($variable) {
+        if (IsNotWhitespace($variable)) {
+            return $variable;
+        }
+
+        return null;
+    }
+}
+
 if (! function_exists('StartsWith'))
 {
     /**

@@ -73,6 +73,7 @@ class Dms_chooser extends Model {
      */
     function get_choices($chooser_name) {
         $options = array();
+        helper(['string']);
         if (array_key_exists($chooser_name, $this->choices)) {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
@@ -86,7 +87,7 @@ class Dms_chooser extends Model {
                     if (array_key_exists("db", $this->choices[$chooser_name])) {
                         $db = $this->choices[$chooser_name]["db"];
                     }
-                    $my_db = \Config\Database::connect($db);
+                    $my_db = \Config\Database::connect(GetNullIfBlank($db));
                     $result = $my_db->query($this->choices[$chooser_name]["value"]);
                     if ($result) {
                         $options[""] = "-- choices --";
@@ -112,6 +113,7 @@ class Dms_chooser extends Model {
     function get_filtered_choices($chooser_name, $filter_value) {
         $filterValueClean = str_ireplace('*', '', $filter_value);
         $options = array();
+        helper(['string']);
         if (array_key_exists($chooser_name, $this->choices)) {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
@@ -128,7 +130,7 @@ class Dms_chooser extends Model {
                     if (array_key_exists("db", $this->choices[$chooser_name])) {
                         $db = $this->choices[$chooser_name]["db"];
                     }
-                    $my_db = \Config\Database::connect($db);
+                    $my_db = \Config\Database::connect(GetNullIfBlank($db));
                     $sql = $this->choices[$chooser_name]["value"];
                     if ($filterValueClean) {
                         $sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);

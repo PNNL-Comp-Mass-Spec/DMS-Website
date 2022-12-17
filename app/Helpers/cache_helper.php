@@ -28,7 +28,7 @@ function get_from_cache($name) {
 }
 
 /**
- * Clear the cace
+ * Clear the cache
  * @param type $name
  */
 function clear_cache($name) {

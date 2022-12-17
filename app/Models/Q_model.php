@@ -204,7 +204,7 @@ class Q_model extends Model {
 
         $dbFileName = $config_source . '.db';
 
-        helper(['config_db']);
+        helper(['config_db','string']);
         $this->configDBPath = get_model_config_db_path($dbFileName)->path;
 
         $this->_clear();
@@ -240,7 +240,7 @@ class Q_model extends Model {
 
         while ($connectionRetriesRemaining > 0) {
             try {
-                $my_db = \Config\Database::connect($this->query_parts->dbn);
+                $my_db = \Config\Database::connect(GetNullIfBlank($this->query_parts->dbn));
 
                 if ($my_db === false) {
                     // $\Config\Database::connect() normally returns a database object
@@ -291,7 +291,7 @@ class Q_model extends Model {
      */
     private function _clear() {
         $this->query_parts = new Query_parts();
-        $this->query_parts->dbn = '';
+        $this->query_parts->dbn = 'default';
         $this->query_parts->table = '';
         $this->query_parts->columns = '*';
         $this->query_parts->predicates = array();
@@ -565,9 +565,11 @@ class Q_model extends Model {
         // This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
         $connectionSleepDelayMsec = 250;
 
+        helper(['string']);
+
         while ($connectionRetriesRemaining > 0) {
             try {
-                $my_db = \Config\Database::connect($dbGroupName);
+                $my_db = \Config\Database::connect(GetNullIfBlank($dbGroupName));
 
                 if ($my_db === false) {
                     // \Config\Database::connect() normally returns a database object

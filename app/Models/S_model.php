@@ -141,6 +141,7 @@ class S_model extends Model {
      */
     function execute_sproc($parmObj) {
         $this->error_text = '';
+        helper(['string']);
         try {
             if (!isset($parmObj)) {
                 throw new \Exception("Input parameter object was not supplied to execute_sproc for $this->sprocName");
@@ -156,7 +157,7 @@ class S_model extends Model {
 
             while ($connectionRetriesRemaining > 0) {
                 try {
-                    $my_db = \Config\Database::connect($this->dbn);
+                    $my_db = \Config\Database::connect(GetNullIfBlank($this->dbn));
 
                     if ($my_db === false) {
                         // \Config\Database::connect() normally returns a database object
