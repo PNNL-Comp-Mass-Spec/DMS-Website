@@ -593,14 +593,14 @@ var gridImportExport = {
 	init: function(wrapper, config) {
 		var obj = $.extend({}, gridImportExport, config);
 		obj.myMainGrid = wrapper;
-		$('#export_grid_btn').click(function() {
+		$('#export_grid_btn').on("click", function() {
 			obj.exportDelimitedData(obj);
 		});
-		$('#import_grid_btn').click(function() {
+		$('#import_grid_btn').on("click", function() {
 		    obj.myMainGrid.buildGrid();
 			obj.importDelimitedData(obj);
 		});
-		$('#update_grid_btn').click(function() {
+		$('#update_grid_btn').on("click", function() {
 			obj.updateFromDelimitedData(obj);
 		});
 		return obj;
@@ -661,16 +661,16 @@ var commonGridControls = {
 	init: function(wrapper) {
 		var obj =  $.extend({}, commonGridControls);
 		obj.myMainGrid = (wrapper) ? wrapper : obj.myMainGrid;
-		$('#reload_btn').click(function() {
+		$('#reload_btn').on("click", function() {
 			if(obj.myMainGrid.grid && gridUtil.hasChanged(obj.myMainGrid.grid.getData())) {
 				if(!confirm("Reloading will destroy your unsaved changes: Do you wish to continue?")) return;
 			}
 			obj.reload();
 		});
-		$('#save_btn').click(function() {
+		$('#save_btn').on("click", function() {
 			obj.myMainGrid.saveGrid();
 		});
-		$('#add_column_btn').click(function() {
+		$('#add_column_btn').on("click", function() {
 			var name = $('#add_column_name').val();
 			var ok = true;
 			if(obj.beforeAddCol) {
@@ -758,7 +758,7 @@ var contextMenuManager = {
 	setMenuClickHandler: function() {
 		var theMenu = this.menuObj;
 		var me = this;
-		theMenu.click(function(e) {
+		theMenu.on("click", function(e) {
 			if (!$(e.target).is("li")) return;
 			if (!me.myMainGrid.grid.getEditorLock().commitCurrentEdit()) return;
 			var action = $(e.target).data('action');
@@ -828,7 +828,7 @@ var sourceListUtil = {
 		// wire up click handlers to filter buttons
 		// that have appropriate spec
 		var context = this;
-		$('.ctls_grp a.button').click(function(event) {
+		$('.ctls_grp a.button').on("click", function(event) {
 			context.getItemsFromSource(event.target);
 		});
 	},

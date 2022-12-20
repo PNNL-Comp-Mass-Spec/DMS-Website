@@ -151,7 +151,7 @@
         setup: function() {
             var context = this;
             $( "#source_selector" ).buttonset();
-            $('#source_selector input:radio').click(function() {
+            $('#source_selector input:radio').on("click", function() {
                 context.setItemSource(this.value);
             });
         },

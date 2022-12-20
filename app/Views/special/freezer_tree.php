@@ -253,37 +253,37 @@ $(document).ready(function() {
     Freezer.Display.Right = Freezer.Display.create("tree2");
 
     /*----- bind controls -----*/
-    $("#btnCollapseAll1").click(function(){
+    $("#btnCollapseAll1").on("click", function(){
         return Freezer.Display.Left.collapseTree();
     });
-    $("#btnCollapseAll2").click(function(){
+    $("#btnCollapseAll2").on("click", function(){
         return Freezer.Display.Right.collapseTree();
     });
-    $("#btnClearSelections1").click(function(){
+    $("#btnClearSelections1").on("click", function(){
         return Freezer.Display.Left.clearSelection();
     });
-    $("#find_location_btn1").click(function(){
+    $("#find_location_btn1").on("click", function(){
         return Freezer.Display.Left.findLocationOrContainer();
     });
-    $("#find_location_btn2").click(function(){
+    $("#find_location_btn2").on("click", function(){
         return Freezer.Display.Right.findLocationOrContainer();
     });
-    $("#find_available_location_btn1").click(function(){
+    $("#find_available_location_btn1").on("click", function(){
         return Freezer.Display.Left.findAvailableLocation();
     });
-    $("#find_available_location_btn2").click(function(){
+    $("#find_available_location_btn2").on("click", function(){
         return Freezer.Display.Right.findAvailableLocation();
     });
 
-    $("#set_active_btn1, #set_inactive_btn1").click(function(event){
+    $("#set_active_btn1, #set_inactive_btn1").on("click", function(event){
         Freezer.Display.Left.updateLocations();
         return false;
     });
 
-    $("#show_newest_container_btn1").click(function(){
+    $("#show_newest_container_btn1").on("click", function(){
         return Freezer.Display.Left.showNewestContainer();
     });
-    $("#show_newest_container_btn2").click(function(){
+    $("#show_newest_container_btn2").on("click", function(){
         return Freezer.Display.Right.showNewestContainer();
     });
     Freezer.Display.Left.setControls(false);

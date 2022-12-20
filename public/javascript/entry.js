@@ -173,12 +173,12 @@ var entry = {
 								$('#State').val('Closed (containers and material)');
 				                $( this ).dialog( "close" );
 				                proceed = true;
-				           		$('#primary_cmd').click(); // retrigger the submit
+				           		$('#primary_cmd').trigger("click"); // retrigger the submit
 				            },
 				            "No, just close the request": function() {
 				                $( this ).dialog( "close" );
 				                proceed = true;
-				            	$('#primary_cmd').click(); // retrigger the submit
+				            	$('#primary_cmd').trigger("click"); // retrigger the submit
 				           },
 				            Cancel: function() {
 				            	proceed = false;

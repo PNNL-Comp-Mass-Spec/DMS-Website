@@ -71,7 +71,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#btnCollapseAll").click(function(){
+    $("#btnCollapseAll").on("click", function(){
       $.ui.fancytree.getTree("#tree").expandAll(false);
       //$.ui.fancytree.getTree("#tree").getRootNode().visit(function(node){
       //  node.setExpanded(false);
@@ -79,7 +79,7 @@ $(document).ready(function() {
       return false;
     });
 
-    $("#btnExpandAll").click(function(){
+    $("#btnExpandAll").on("click", function(){
       if ($.ui.fancytree.getTree("#tree").getOption("autoCollapse") === true)
           $.ui.fancytree.getTree("#tree").setOption("autoCollapse", false);
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
       return false;
     });
 
-    $("#btnToggleAutoCollapse").click(function(){
+    $("#btnToggleAutoCollapse").on("click", function(){
       if ($.ui.fancytree.getTree("#tree").getOption("autoCollapse") === false)
           $.ui.fancytree.getTree("#tree").setOption("autoCollapse", true);
       else

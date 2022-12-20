@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 // set listener for nav-bar related clicks
 $(document).ready(function () {
-	$(document.body).click(navBar.hide_exposed_menus);
+	$(document.body).on("click", navBar.hide_exposed_menus);
 });
 
 var navBar = {
@@ -154,17 +154,17 @@ var gamma = {
 		var val = panel.find('input');
 		var go = panel.find('a');
 
-		val.keypress(function(e) {
+		val.on("keypress", function(e) {
 			if(e.keyCode === 13) {
 				gamma.dms_search(sel.val(), val.val());
 				return false;
 			}
 		   return true;
 		});
-		sel.change(function(e) {
+		sel.on("change", function(e) {
 			gamma.dms_search(sel.val(), val.val());
 		});
-		go.click(function(e) {
+		go.on("click", function(e) {
 			gamma.dms_search(sel.val(), val.val());
 		});
 	},
@@ -1129,13 +1129,13 @@ var lambda = {
 		var that = this;
 		var pFields = $('#filter_form').find(".primary_filter_field");
 		pFields.each(function(idx, f) {
-				$(this).keyup(that.filter_key);
-				$(this).keyup(that.is_filter_active);
+				$(this).on("keypress", that.filter_key);
+				$(this).on("keypress", that.is_filter_active);
 			});
 		var sFields = $(".secondary_filter_input");
 		sFields.each(function(idx, f) {
-				$(this).keyup(that.filter_key);
-				$(this).keyup(that.is_filter_active);
+				$(this).on("keypress", that.filter_key);
+				$(this).on("keypress", that.is_filter_active);
 			});
 	},
     /**
@@ -1673,7 +1673,7 @@ var epsilon = {
 		if(!fld.data().datepicker) {
 					fld.datepicker();
 		}
-		fld.focus();
+		fld.trigger("focus");
 	},
 	//------------------------------------------
 	// used for entry page submission
