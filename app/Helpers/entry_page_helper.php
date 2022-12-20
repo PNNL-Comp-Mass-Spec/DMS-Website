@@ -194,7 +194,9 @@ function load_from_external_source($col_mapping, $source_data) {
  */
 function get_values_from_segs($form_field_names, $segs) {
     // Include app/Helpers/wildcard_conversion_helper.php
-    helper('wildcard_conversion');
+    //helper('wildcard_conversion');
+    // NOTE: As of Dec. 19, 2022, all calling methods are already doing URL/special value decoding
+    //    Performing that again here ends up incorrectly converting '%xx' (from '__Wildcard__xx') into HTML entities
 
     $a = array();
     $seg_val = current($segs);
@@ -204,7 +206,8 @@ function get_values_from_segs($form_field_names, $segs) {
         }
 
         if ($seg_val != '-') {
-            $a[$field] = decode_special_values($seg_val);
+            //$a[$field] = decode_special_values($seg_val); // see NOTE above
+            $a[$field] = $seg_val;
         }
         $seg_val = next($segs);
     }
