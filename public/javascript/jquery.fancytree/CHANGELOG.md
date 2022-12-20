@@ -1,7 +1,42 @@
-# 2.36.2 / Unreleased
+# 2.38.3-0 / Unreleased
+  * #1113 Update jQuery UI to 1.13.2
+
+# 2.38.2-0 / 2022-06-30
+  * [Fixed] #1097 Removed incorrect set-function for jQuery cookie
+  * [Fixed] #1108 minExpandLevel: 2 together with table extension does not work
+
+# 2.38.1 / 2022-01-14
+  * Replace deprecated jQuery functions: `$.isArray()`, `$.isFunction()`,
+    `$.trim()`, `$().click()`
+  * Update to jQuery 3.6.0 and jQuery UI 1.13.0
+  * Update formatter to [Prettier 2.0](https://prettier.io/blog/2020/03/21/2.0.0.html)
+
+# 2.38.0 / 2021-02-09
+  * [Added] #1041 Make assertions more debuggable
+  * [Added] #1051 ext-filter Fuzzy matched title segment is not highlighted
+  * [Added] #1053 ext-dnd5 new option `dnd5.sourceCopyHook` (optional callback
+    passed to `toDict` on dragStart)
+  * [Added] #1054 ext-filter tree.updateFilter()
+  * [Fixed] #700 ext-filter Doing fuzzy filtering doesn't escape regex characters like the non fuzzy case
+  * [Fixed] #1042 Don't scroll while clicking an embedded link
+  * [Fixed] #1045 re-init exception (grid-ext)
+
+# 2.37.0 / 2020-09-11
+  * [Changed] #871, #1032 ext-glyph:
+    * Support for SVG tags as used by fontawesome 5 with `all.js` library
+    * Improved padding and alignment for skin-awesome icons
+    * Allow to pass a callback() as `glyph.map<TYPE>` option
+    * Update Fontwesome demos to v5.0.13
+  * [Changed] #1025 ext-dnd5: changed behavior when `dndOpts.multiSource` is
+    true. Now dragging an unselected node will only drag that single node (while
+    keeping the other nodes selected). You have to drag one of the *selected*
+    nodes in order to drag the whole group.
+  * [Fixed] #1022 ext-persist: Handle 'Access is denied for this document'
+  * [Fixed] #1028 Uncaught TypeError: apply is not a function (regression of #1019)
+  * [Fixed] #1029 Fast expand/collapse of folder leads to inconsistent state
 
 # 2.36.1 / 2020-07-25
-  * [Fixed] #1021 ext-dnd5 Regression in drop marker
+  * [Fixed] #1021 ext-dnd5 Regression (#1012) in drop marker
 
 # 2.36.0 / 2020-07-15
   * [Changed] #1005 Cast key to string in getNodeByKey()
