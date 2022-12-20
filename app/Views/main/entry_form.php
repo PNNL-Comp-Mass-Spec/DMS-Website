@@ -48,11 +48,11 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 
 <script type='text/javascript'>
     $(document).ready(function () {
-        $('.sel_chooser').chosen({search_contains: true});
+        $('.sel_chooser').select2();
         gamma.autocompleteChooser.setup();
     });
     epsilon.actions.after = function() {
-        $('.sel_chooser').chosen({search_contains: true});
+        $('.sel_chooser').select2();
     };
     if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();
 </script>

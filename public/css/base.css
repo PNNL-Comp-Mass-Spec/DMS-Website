@@ -586,13 +586,13 @@ div.block_content {
 	text-decoration:none;
 	color:black;
 }
-.chosen-container {
+.select2-container {
 	min-width: 150px !important;
 }
-.chosen-search input {
+.select2-search input {
 	min-width: 110px !important;
 }
-.chosen-drop {
+.select2-dropdown {
 	min-width: 148px !important;
 }
 .sel_chooser {

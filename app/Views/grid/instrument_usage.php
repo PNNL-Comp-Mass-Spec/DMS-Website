@@ -150,12 +150,12 @@
         $('#instrument_fld_chooser').prop('multiple', 'multiple').css('width', '300px');
         $('#instrument_fld_chooser').attr('data-placeholder', 'Select instruments (optional)');
         $("#instrument_fld_chooser option[value='']").remove();
-        $('#instrument_fld_chooser').chosen({search_contains: true});
+        $('#instrument_fld_chooser').select2();
 
         $('#usage_selector').css('width', '300px');
-        $('#usage_selector').chosen({search_contains: true});
+        $('#usage_selector').select2();
 
-        $('.sel_chooser').chosen({search_contains: true});
+        $('.sel_chooser').select2();
     });
 
 </script>

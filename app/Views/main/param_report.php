@@ -85,7 +85,7 @@ echo view("main/param_report_export");
 <?php else: ?>
     <script type='text/javascript'>
         $(document).ready(function () {
-            $('.sel_chooser').chosen({search_contains: true});
+            $('.sel_chooser').select2();
         });
     </script>
 <?php endif; ?>

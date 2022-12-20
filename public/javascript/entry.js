@@ -83,7 +83,7 @@ var entry = {
 		revealControls: function (script) {
 			this.set_param_row_visibility("hide_input", "none");
 			if(script) $('#cmd_buttons').show();
-			$('.sel_chooser').chosen({search_contains: true});
+			$('.sel_chooser').select2();
 		},
 		cmdInit: function () {
 			// relocate standard family command buttons
