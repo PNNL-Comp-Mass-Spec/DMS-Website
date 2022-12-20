@@ -241,7 +241,7 @@ var gridUtil = {
 	    $.post(
 	        url, p, function (response) {
 	        	cntr.spin(false);
-	        	obj = $.parseJSON(response);
+	        	obj = JSON.parse(response);
 	            if (obj.result == "error") {
 	                alert(obj.message);
 	            } else {

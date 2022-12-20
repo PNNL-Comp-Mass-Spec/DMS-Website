@@ -71,7 +71,7 @@ var upld = {
     update_next_entity_in_list: function() {
         var x = gamma.pageContext.entityList.shift();
         if(x && gamma.pageContext.update_in_progress) {
-            var obj = $.parseJSON(x);
+            var obj = JSON.parse(x);
             if(obj) {
                 $('#process_progress').html(gamma.pageContext.entityList.length);
                 upld.update_entity(obj.entity, obj.container);
@@ -115,7 +115,7 @@ var upld = {
     },
     markUnprocessedEntities: function() {
         $('.lr_ckbx').each(function(){
-            var obj = $.parseJSON(this.value);
+            var obj = JSON.parse(this.value);
             if(obj && !$('#' + obj.container).html()) {
                 this.checked = true;
             } else {

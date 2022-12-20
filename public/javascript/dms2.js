@@ -689,7 +689,7 @@ var gamma = {
 				// Safety - if empty JSON response, return an empty array
 				var data = [];
 				if(json.length > 0) {
-					data = $.parseJSON(json);
+					data = JSON.parse(json);
 				}
 				if(afterAction) {
 					afterAction(data);
