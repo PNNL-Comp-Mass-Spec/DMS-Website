@@ -79,9 +79,18 @@
     function destroy() {
       _grid.onHeaderContextMenu.unsubscribe(handleHeaderContextMenu);
       _grid.onColumnsReordered.unsubscribe(updateColumnOrder);
+      if ($list) {
+        $list.remove();
+      }
+      if ($menu) {
+        $menu.off("click").remove();
+      }
       $(document.body).off("mousedown", handleBodyMouseDown);
-      $("div.slick-columnpicker").hide(_options && _options.columnPicker && _options.columnPicker.fadeSpeed);
-      $menu.remove();
+      $(".slick-columnpicker." + _gridUid).hide(_options && _options.columnPicker && _options.columnPicker.fadeSpeed);
+      $columnTitleElm = null;
+      $list = null;
+      $menu = null;
+      $(window).off("beforeunload");
     }
 
     function handleBodyMouseDown(e) {
@@ -110,9 +119,9 @@
         }
 
         if (_options && _options.columnPicker && _options.columnPicker.headerColumnValueExtractor) {
-          columnLabel = _options.columnPicker.headerColumnValueExtractor(columns[i]);
+          columnLabel = _options.columnPicker.headerColumnValueExtractor(columns[i], _options);
         } else {
-          columnLabel = defaults.headerColumnValueExtractor(columns[i]);
+          columnLabel = defaults.headerColumnValueExtractor(columns[i], _options);
         }
 
         $("<label for='" + _gridUid + "colpicker-" + columnId + "' />")
@@ -151,6 +160,8 @@
         .fadeIn(_options && _options.columnPicker && _options.columnPicker.fadeSpeed);
 
       $list.appendTo($menu);
+      $li = null;
+      $input = null;
     }
 
     function updateColumnOrder() {
@@ -185,7 +196,7 @@
     function updateColumn(e) {
       if ($(e.target).data("option") == "autoresize") {
         // when calling setOptions, it will resize with ALL Columns (even the hidden ones)
-        // we can avoid this problem by keeping a reference to the visibleColumns before setOptions and then setColumns after 
+        // we can avoid this problem by keeping a reference to the visibleColumns before setOptions and then setColumns after
         var previousVisibleColumns = getVisibleColumns();
         var isChecked = e.target.checked;
         _grid.setOptions({ forceFitColumns: isChecked });
@@ -203,6 +214,8 @@
       }
 
       if ($(e.target).is(":checkbox")) {
+        var isChecked = e.target.checked;
+        var columnId = $(e.target).data("column-id") || "";
         var visibleColumns = [];
         $.each(columnCheckboxes, function (i) {
           if ($(this).is(":checked")) {
@@ -216,7 +229,7 @@
         }
 
         _grid.setColumns(visibleColumns);
-        onColumnsChanged.notify({ allColumns: columns, columns: visibleColumns, grid: _grid });
+        onColumnsChanged.notify({ columnId: columnId, showing: isChecked, allColumns: columns, columns: visibleColumns, grid: _grid });
       }
     }
 

@@ -72,7 +72,8 @@
    *    option:                     An option to be passed to the onOptionSelected event handlers (when using "optionItems").
    *    title:                      Menu item text label.
    *    divider:                    Boolean which tells if the current item is a divider, not an actual command. You could also pass "divider" instead of an object
-   *    disabled:                   Whether the item is disabled.
+   *    disabled:                   Whether the item/command is disabled.
+   *    hidden:                     Whether the item/command is hidden.
    *    tooltip:                    Item tooltip.
    *    cssClass:                   A CSS class to be added to the menu item container.
    *    iconCssClass:               A CSS class to be added to the menu item icon.
@@ -89,7 +90,7 @@
    *            cell:         Cell or column index
    *            row:          Row index
    *            grid:         Reference to the grid.
-   * 
+   *
    *    onBeforeMenuShow: Fired before the menu is shown.  You can customize the menu or dismiss it by returning false.
    *        Event args:
    *            cell:         Cell or column index
@@ -176,6 +177,9 @@
       if ($menu && $menu.remove) {
         $menu.remove();
       }
+      $commandTitleElm = null;
+      $optionTitleElm = null;
+      $menu = null;
     }
 
     function createMenu(e) {
@@ -189,7 +193,7 @@
       var optionItems = _cellMenuProperties.optionItems || [];
 
       // make sure there's at least something to show before creating the Cell Menu
-      if (!columnDef || !columnDef.cellMenu || (!commandItems.length && optionItems.length)) {
+      if (!columnDef || !columnDef.cellMenu || (!commandItems.length && !optionItems.length)) {
         return;
       }
 
@@ -222,7 +226,7 @@
       if (!_cellMenuProperties.hideOptionSection && optionItems.length > 0) {
         var $optionMenu = $('<div class="slick-cell-menu-option-list" />');
         if (!_cellMenuProperties.hideCloseButton) {
-          $(closeButtonHtml).on("click", destroyMenu).appendTo(menu);
+          $(closeButtonHtml).on("click", handleCloseButtonClicked).appendTo(menu);
         }
         $optionMenu.appendTo(menu);
         populateOptionItems(
@@ -237,7 +241,7 @@
       if (!_cellMenuProperties.hideCommandSection && commandItems.length > 0) {
         var $commandMenu = $('<div class="slick-cell-menu-command-list" />');
         if (!_cellMenuProperties.hideCloseButton && (optionItems.length === 0 || _cellMenuProperties.hideOptionSection)) {
-          $(closeButtonHtml).on("click", destroyMenu).appendTo(menu);
+          $(closeButtonHtml).on("click", handleCloseButtonClicked).appendTo(menu);
         }
         $commandMenu.appendTo(menu);
         populateCommandItems(
@@ -279,6 +283,12 @@
         return elementOffsetTop - pageScroll;
       }
       return 0;
+    }
+
+    function handleCloseButtonClicked(e) {
+      if(!e.isDefaultPrevented()) {
+        destroyMenu(e);
+      }
     }
 
     function destroyMenu(e, args) {
@@ -395,7 +405,9 @@
 
     function handleBodyMouseDown(e) {
       if ($menu && $menu[0] != e.target && !$.contains($menu[0], e.target)) {
-        closeMenu(e, { cell: _currentCell, row: _currentRow });
+        if(!e.isDefaultPrevented()) {
+          closeMenu(e, { cell: _currentCell, row: _currentRow });
+        }
       }
     }
 
@@ -447,7 +459,7 @@
         }
 
         var $li = $('<div class="slick-cell-menu-item"></div>')
-          .data("option", item.option || "")
+          .data("option", item.option !== undefined ? item.option : "")
           .data("item", item)
           .on("click", handleMenuItemOptionClick)
           .appendTo(optionMenuElm);
@@ -460,6 +472,11 @@
         // if the item is disabled then add the disabled css class
         if (item.disabled || !isItemUsable) {
           $li.addClass("slick-cell-menu-item-disabled");
+        }
+
+        // if the item is hidden then add the hidden css class
+        if (item.hidden) {
+          $li.addClass("slick-cell-menu-item-hidden");
         }
 
         if (item.cssClass) {
@@ -522,7 +539,7 @@
         }
 
         var $li = $('<div class="slick-cell-menu-item"></div>')
-          .data("command", item.command || "")
+          .data("command", item.command !== undefined ? item.command : "")
           .data("item", item)
           .on("click", handleMenuItemCommandClick)
           .appendTo(commandMenuElm);
@@ -535,6 +552,11 @@
         // if the item is disabled then add the disabled css class
         if (item.disabled || !isItemUsable) {
           $li.addClass("slick-cell-menu-item-disabled");
+        }
+
+        // if the item is hidden then add the hidden css class
+        if (item.hidden) {
+          $li.addClass("slick-cell-menu-item-hidden");
         }
 
         if (item.cssClass) {
@@ -581,8 +603,6 @@
       var dataContext = _grid.getDataItem(row);
 
       if (command !== null && command !== "") {
-        closeMenu(e, { cell: cell, row: row });
-
         // user could execute a callback through 2 ways
         // via the onCommand event and/or an action callback
         var callbackArgs = {
@@ -599,6 +619,10 @@
         // execute action callback when defined
         if (typeof item.action === "function") {
           item.action.call(this, e, callbackArgs);
+        }
+
+        if(!e.isDefaultPrevented()) {
+          closeMenu(e, { cell: cell, row: row });
         }
       }
     }
@@ -621,8 +645,6 @@
       var dataContext = _grid.getDataItem(row);
 
       if (option !== undefined) {
-        closeMenu(e, { cell: cell, row: row });
-
         // user could execute a callback through 2 ways
         // via the onOptionSelected event and/or an action callback
         var callbackArgs = {
@@ -639,6 +661,10 @@
         // execute action callback when defined
         if (typeof item.action === "function") {
           item.action.call(this, e, callbackArgs);
+        }
+
+        if(!e.isDefaultPrevented()) {
+          closeMenu(e, { cell: cell, row: row });
         }
       }
     }

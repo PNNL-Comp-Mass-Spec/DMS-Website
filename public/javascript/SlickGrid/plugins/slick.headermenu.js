@@ -52,7 +52,8 @@
    *    action:                   Optionally define a callback function that gets executed when item is chosen (and/or use the onCommand event)
    *    title:                    Menu item text.
    *    divider:                  Whether the current item is a divider, not an actual command.
-   *    disabled:                 Whether the item is disabled.
+   *    disabled:                 Whether the item/command is disabled.
+   *    hidden:                   Whether the item/command is hidden.
    *    tooltip:                  Item tooltip.
    *    command:                  A command identifier to be passed to the onCommand event handlers.
    *    cssClass:                 A CSS class to be added to the menu item container.
@@ -70,7 +71,7 @@
    *            grid:     Reference to the grid.
    *            column:   Column definition.
    *            menu:     Menu options.  Note that you can change the menu items here.
-   * 
+   *
    *    onBeforeMenuShow:   Fired before the menu is shown.  You can customize the menu or dismiss it by returning false.
    *        Event args:
    *            grid:     Reference to the grid.
@@ -131,6 +132,12 @@
     function destroy() {
       _handler.unsubscribeAll();
       $(document.body).off("mousedown", handleBodyMouseDown);
+      if ($menu) {
+        $menu.remove();
+      }
+      $menu = null;
+      $activeHeaderColumn = null;
+      $menu = null;
     }
 
 
@@ -173,13 +180,14 @@
           $el.css("background-image", "url(" + options.buttonImage + ")");
         }
 
-        if (menu.tooltip) {
-          $el.attr("title", menu.tooltip);
+        if (options.tooltip) {
+          $el.attr("title", options.tooltip);
         }
 
         $el
           .on("click", showMenu)
           .appendTo(args.node);
+		    $el = null;
       }
     }
 
@@ -237,7 +245,7 @@
         }
 
         var $li = $("<div class='slick-header-menuitem'></div>")
-          .data("command", item.command || '')
+          .data("command", item.command !== undefined ? item.command : "")
           .data("column", columnDef)
           .data("item", item)
           .on("click", handleMenuItemClick)
@@ -250,6 +258,10 @@
 
         if (item.disabled) {
           $li.addClass("slick-header-menuitem-disabled");
+        }
+
+        if (item.hidden) {
+          $li.addClass("slick-header-menuitem-hidden");
         }
 
         if (item.cssClass) {
@@ -278,6 +290,9 @@
         if (item.textCssClass) {
           $text.addClass(item.textCssClass);
         }
+        $icon = null;
+        $text = null;
+        $li = null;
       }
 
       var leftPos = $(this).offset().left;
@@ -287,8 +302,8 @@
       // to simulate an align left, we actually need to know the width of the drop menu
       if (options.autoAlign) {
         var gridPos = _grid.getGridPosition();
-        if ((leftPos + options.minWidth) >= gridPos.width) {
-          leftPos = leftPos - options.minWidth + options.autoAlignOffset;
+        if ((leftPos + $menu.width()) >= gridPos.width) {
+          leftPos = leftPos + $menuButton.outerWidth() - $menu.outerWidth() + options.autoAlignOffset;
         }
       }
 
@@ -308,6 +323,7 @@
       // Stop propagation so that it doesn't register as a header click event.
       e.preventDefault();
       e.stopPropagation();
+	    $menuButton = null;
     }
 
 
@@ -319,8 +335,6 @@
       if (item.disabled || item.divider || item === "divider") {
         return;
       }
-
-      hideMenu();
 
       if (command != null && command !== '') {
         var callbackArgs = {
@@ -335,6 +349,10 @@
         if (typeof item.action === "function") {
           item.action.call(this, e, callbackArgs);
         }
+      }
+
+      if(!e.isDefaultPrevented()) {
+        hideMenu();
       }
 
       // Stop propagation so that it doesn't register as a header click event.

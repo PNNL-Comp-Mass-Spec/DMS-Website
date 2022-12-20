@@ -1,4 +1,6 @@
+<script  src="<?= base_url('javascript/sortablejs/Sortable.min.js') ?>"></script>
 <script  src="<?= base_url('javascript/SlickGrid/slick.core.js') ?>"></script>
+<script  src="<?= base_url('javascript/SlickGrid/slick.interactions.js') ?>"></script>
 <script  src="<?= base_url('javascript/SlickGrid/slick.grid.js') ?>"></script>
 <script  src="<?= base_url('javascript/SlickGrid/plugins/slick.cellrangedecorator.js') ?>"></script>
 <script  src="<?= base_url('javascript/SlickGrid/plugins/slick.cellrangeselector.js') ?>"></script>

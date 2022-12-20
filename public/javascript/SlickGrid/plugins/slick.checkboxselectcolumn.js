@@ -137,7 +137,7 @@
           var remIdx = selectedRows.indexOf(removeList[i]);
           selectedRows.splice(remIdx, 1);
         }
-        _grid.setSelectedRows(selectedRows);
+        _grid.setSelectedRows(selectedRows, "click.cleanup");
       }
     }
 
@@ -179,9 +179,9 @@
       if (_selectedRowsLookup[row]) {
         _grid.setSelectedRows($.grep(_grid.getSelectedRows(), function (n) {
           return n != row;
-        }));
+        }), "click.toggle");
       } else {
-        _grid.setSelectedRows(_grid.getSelectedRows().concat(row));
+        _grid.setSelectedRows(_grid.getSelectedRows().concat(row), "click.toggle");
       }
       _grid.setActiveCell(row, getCheckboxColumnCellIndex());
     }
@@ -193,7 +193,7 @@
           addRows[addRows.length] = rowArray[i];
         }
       }
-      _grid.setSelectedRows(_grid.getSelectedRows().concat(addRows));
+      _grid.setSelectedRows(_grid.getSelectedRows().concat(addRows), "SlickCheckboxSelectColumn.selectRows");
     }
 
     function deSelectRows(rowArray) {
@@ -205,7 +205,7 @@
       }
       _grid.setSelectedRows($.grep(_grid.getSelectedRows(), function (n) {
         return removeRows.indexOf(n) < 0;
-      }));
+      }), "SlickCheckboxSelectColumn.deSelectRows");
     }
 
     function handleHeaderClick(e, args) {
@@ -221,14 +221,14 @@
           var rows = [];
           for (var i = 0; i < _grid.getDataLength(); i++) {
             // Get the row and check it's a selectable row before pushing it onto the stack
-            var rowItem = _grid.getDataItem(i);            
-            if (checkSelectableOverride(i, rowItem, _grid)) {
+            var rowItem = _grid.getDataItem(i);
+            if (!rowItem.__group && !rowItem.__groupTotals && checkSelectableOverride(i, rowItem, _grid)) {
               rows.push(i);
             }
           }
-          _grid.setSelectedRows(rows);
+          _grid.setSelectedRows(rows, "click.selectAll");
         } else {
-          _grid.setSelectedRows([]);
+          _grid.setSelectedRows([], "click.selectAll");
         }
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -266,7 +266,7 @@
     }
 
     function addCheckboxToFilterHeaderRow(grid) {
-      grid.onHeaderRowCellRendered.subscribe(function (e, args) {
+      _handler.subscribe(grid.onHeaderRowCellRendered, function (e, args) {
         if (args.column.field === "sel") {
           $(args.node).empty();
           $("<span id='filter-checkbox-selectall-container'><input id='header-filter-selector" + _selectAll_UID + "' type='checkbox'><label for='header-filter-selector" + _selectAll_UID + "'></label></span>")

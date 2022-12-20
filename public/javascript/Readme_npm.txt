@@ -19,6 +19,7 @@ This downloads the .tgz package, which can be extracted with 'tar -xvf flot*.tgz
 Packages and sources:
 jquery.fancytree: github.com/mar10/fancytree; npm pack jquery.fancytree
 slickgrid: slickgrid.net, github.com/6pac/SlickGrid; npm pack slickgrid
+sortablejs: (dependency of SlickGrid) npm pack sortablejs
 jqueryui: jqueryui.com; download from jqueryui.com/download (use the quick downloads at the top of the page, for the stable release and themes)
 jquery: jquery.com, download the individual files from jquery.com/download
 clipboard-polyfill: (deprecated, used only for supporting old browser versions) github.com/lgarron/clipboard-polyfill; npm pack clipboard-polyfill

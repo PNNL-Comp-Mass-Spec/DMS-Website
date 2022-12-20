@@ -1,20 +1,4 @@
 (function ($) {
-  $.extend(true, window, {
-    Slick: {
-      Data: {
-        DataView: DataView,
-        Aggregators: {
-          Avg: AvgAggregator,
-          Min: MinAggregator,
-          Max: MaxAggregator,
-          Sum: SumAggregator,
-          Count: CountAggregator
-        }
-      }
-    }
-  });
-
-
   /***
    * A sample Model implementation.
    * Provides a filtered view of the underlying data.
@@ -29,16 +13,19 @@
       inlineFilters: false
     };
 
-
     // private
-    var idProperty = "id";  // property holding a unique row id
-    var items = [];         // data by index
-    var rows = [];          // data by row
-    var idxById = {};       // indexes by id
-    var rowsById = null;    // rows by id; lazy-calculated
-    var filter = null;      // filter function
-    var updated = null;     // updated item ids
-    var suspend = false;    // suspends the recalculation
+    var idProperty = "id";          // property holding a unique row id
+    var items = [];                 // data by index
+    var rows = [];                  // data by row
+    var idxById = new Slick.Map();   // indexes by id
+    var rowsById = null;            // rows by id; lazy-calculated
+    var filter = null;              // filter function
+    var updated = null;             // updated item ids
+    var suspend = false;            // suspends the recalculation
+    var isBulkSuspend = false;      // delays various operations like the
+                                    // index update and delete to efficient
+                                    // versions at endUpdate
+    var bulkDeleteIds = new Slick.Map();
     var sortAsc = true;
     var fastSortField;
     var sortComparer;
@@ -49,6 +36,7 @@
     var compiledFilter;
     var compiledFilterWithCaching;
     var filterCache = [];
+    var _grid = null;
 
     // grouping
     var groupingInfoDefaults = {
@@ -72,6 +60,7 @@
     var groups = [];
     var toggledGroupsByLevel = [];
     var groupingDelimiter = ':|:';
+    var selectedRowIds = null;
 
     var pagesize = 0;
     var pagenum = 0;
@@ -89,14 +78,48 @@
 
     options = $.extend(true, {}, defaults, options);
 
-
-    function beginUpdate() {
+    /***
+     * Begins a bached update of the items in the data view.
+     * @param bulkUpdate {Boolean} if set to true, most data view modifications
+     * including deletes and the related events are postponed to the endUpdate call.
+     * As certain operations are postponed during this update, some methods might not
+     * deliver fully consistent information.
+     */
+    function beginUpdate(bulkUpdate) {
       suspend = true;
+      isBulkSuspend = bulkUpdate === true;
     }
 
     function endUpdate() {
+      var wasBulkSuspend = isBulkSuspend;
+      isBulkSuspend = false;
       suspend = false;
+      if (wasBulkSuspend) {
+        processBulkDelete();
+        ensureIdUniqueness();
+      }
       refresh();
+    }
+
+    function destroy() {
+      items = [];
+      idxById = null;
+      rowsById = null;
+      filter = null;
+      updated = null;
+      sortComparer = null;
+      filterCache = [];
+      filteredItems = [];
+      compiledFilter = null;
+      compiledFilterWithCaching = null;
+
+      if (_grid && _grid.onSelectedRowsChanged && _grid.onCellCssStylesChanged) {
+        _grid.onSelectedRowsChanged.unsubscribe();
+        _grid.onCellCssStylesChanged.unsubscribe();
+      }
+      if (self.onRowsOrCountChanged) {
+        self.onRowsOrCountChanged.unsubscribe();
+      }
     }
 
     function setRefreshHints(hints) {
@@ -107,24 +130,70 @@
       filterArgs = args;
     }
 
+    /***
+     * Processes all delete requests placed during bulk update
+     * by recomputing the items and idxById members.
+     */
+    function processBulkDelete() {
+      // the bulk update is processed by
+      // recomputing the whole items array and the index lookup in one go.
+      // this is done by placing the not-deleted items
+      // from left to right into the array and shrink the array the the new
+      // size afterwards.
+      // see https://github.com/6pac/SlickGrid/issues/571 for further details.
+
+      var id, item, newIdx = 0;
+      for (var i = 0, l = items.length; i < l; i++) {
+        item = items[i];
+        id = item[idProperty];
+        if (id === undefined) {
+          throw new Error("[SlickGrid DataView] Each data element must implement a unique 'id' property");
+        }
+
+        // if items have been marked as deleted we skip them for the new final items array
+        // and we remove them from the lookup table.
+        if(bulkDeleteIds.has(id)) {
+          idxById.delete(id);
+        } else {
+          // for items which are not deleted, we add them to the
+          // next free position in the array and register the index in the lookup.
+          items[newIdx] = item;
+          idxById.set(id, newIdx);
+          ++newIdx;
+        }
+      }
+
+      // here we shrink down the full item array to the ones actually
+      // inserted in the cleanup loop above.
+      items.length = newIdx;
+      // and finally cleanup the deleted ids to start cleanly on the next update.
+      bulkDeleteIds = new Slick.Map();
+    }
+
     function updateIdxById(startingIndex) {
+      if (isBulkSuspend) { // during bulk update we do not reorganize
+        return;
+      }
       startingIndex = startingIndex || 0;
       var id;
       for (var i = startingIndex, l = items.length; i < l; i++) {
         id = items[i][idProperty];
         if (id === undefined) {
-          throw new Error("Each data element must implement a unique 'id' property");
+          throw new Error("[SlickGrid DataView] Each data element must implement a unique 'id' property");
         }
-        idxById[id] = i;
+        idxById.set(id, i);
       }
     }
 
     function ensureIdUniqueness() {
+      if (isBulkSuspend) { // during bulk update we do not reorganize
+        return;
+      }
       var id;
       for (var i = 0, l = items.length; i < l; i++) {
         id = items[i][idProperty];
-        if (id === undefined || idxById[id] !== i) {
-          throw new Error("Each data element must implement a unique 'id' property");
+        if (id === undefined || idxById.get(id) !== i) {
+          throw new Error("[SlickGrid DataView] Each data element must implement a unique 'id' property");
         }
       }
     }
@@ -142,28 +211,28 @@
         idProperty = objectIdProperty;
       }
       items = filteredItems = data;
-      idxById = {};
+      onSetItemsCalled.notify({ idProperty: objectIdProperty, itemCount: items.length }, null, self);
+      idxById = new Slick.Map();
       updateIdxById();
       ensureIdUniqueness();
       refresh();
-      onSetItemsCalled.notify({ idProperty: objectIdProperty }, null, self);
     }
 
     function setPagingOptions(args) {
-      onBeforePagingInfoChanged.notify(getPagingInfo(), null, self);
+      if (onBeforePagingInfoChanged.notify(getPagingInfo(), null, self) !== false) {
+        if (args.pageSize != undefined) {
+          pagesize = args.pageSize;
+          pagenum = pagesize ? Math.min(pagenum, Math.max(0, Math.ceil(totalRows / pagesize) - 1)) : 0;
+        }
 
-      if (args.pageSize != undefined) {
-        pagesize = args.pageSize;
-        pagenum = pagesize ? Math.min(pagenum, Math.max(0, Math.ceil(totalRows / pagesize) - 1)) : 0;
+        if (args.pageNum != undefined) {
+          pagenum = Math.min(args.pageNum, Math.max(0, Math.ceil(totalRows / pagesize) - 1));
+        }
+
+        onPagingInfoChanged.notify(getPagingInfo(), null, self);
+
+        refresh();
       }
-
-      if (args.pageNum != undefined) {
-        pagenum = Math.min(args.pageNum, Math.max(0, Math.ceil(totalRows / pagesize) - 1));
-      }
-
-      onPagingInfoChanged.notify(getPagingInfo(), null, self);
-
-      refresh();
     }
 
     function getPagingInfo() {
@@ -182,7 +251,7 @@
       if (ascending === false) {
         items.reverse();
       }
-      idxById = {};
+      idxById = new Slick.Map();
       updateIdxById();
       refresh();
     }
@@ -210,7 +279,7 @@
       if (ascending === false) {
         items.reverse();
       }
-      idxById = {};
+      idxById = new Slick.Map();
       updateIdxById();
       refresh();
     }
@@ -227,6 +296,9 @@
       return filteredItems;
     }
 
+    function getFilteredItemCount() {
+      return filteredItems.length;
+    }
 
     function getFilter() {
       return filter;
@@ -293,7 +365,7 @@
      */
     function setAggregators(groupAggregators, includeCollapsed) {
       if (!groupingInfos.length) {
-        throw new Error("At least one grouping must be specified before calling setAggregators().");
+        throw new Error("[SlickGrid DataView] At least one grouping must be specified before calling setAggregators().");
       }
 
       groupingInfos[0].aggregators = groupAggregators;
@@ -307,7 +379,7 @@
     }
 
     function getIdxById(id) {
-      return idxById[id];
+      return idxById.get(id);
     }
 
     function ensureRowsByIdCache() {
@@ -330,7 +402,7 @@
     }
 
     function getItemById(id) {
-      return items[idxById[id]];
+      return items[idxById.get(id)];
     }
 
     function mapItemsToRows(itemArray) {
@@ -367,10 +439,16 @@
       return ids;
     }
 
-    function updateItem(id, item) {
+    /***
+     * Performs the update operations of a single item by id without
+     * triggering any events or refresh operations.
+     * @param id The new id of the item.
+     * @param item The item which should be the new value for the given id.
+     */
+    function updateSingleItem(id, item) {
       // see also https://github.com/mleibman/SlickGrid/issues/1082
-      if (idxById[id] === undefined) {
-        throw new Error("Invalid id");
+      if (!idxById.has(id)) {
+        throw new Error("[SlickGrid DataView] Invalid id");
       }
 
       // What if the specified item also has an updated idProperty?
@@ -379,13 +457,13 @@
         // make sure the new id is unique:
         var newId = item[idProperty];
         if (newId == null) {
-          throw new Error("Cannot update item to associate with a null id");
+          throw new Error("[SlickGrid DataView] Cannot update item to associate with a null id");
         }
-        if (idxById[newId] !== undefined) {
-          throw new Error("Cannot update item to associate with a non-unique id");
+        if (idxById.has(newId)) {
+          throw new Error("[SlickGrid DataView] Cannot update item to associate with a non-unique id");
         }
-        idxById[newId] = idxById[id];
-        delete idxById[id];
+        idxById.set(newId, idxById.get(id));
+        idxById.delete(id);
 
         // Also update the `updated` hashtable/markercache? Yes, `recalc()` inside `refresh()` needs that one!
         if (updated && updated[id]) {
@@ -396,7 +474,7 @@
 
         id = newId;
       }
-      items[idxById[id]] = item;
+      items[idxById.get(id)] = item;
 
       // Also update the rows? no need since the `refresh()`, further down, blows away the `rows[]` cache and recalculates it via `recalc()`!
 
@@ -404,45 +482,150 @@
         updated = {};
       }
       updated[id] = true;
+    }
+
+    /***
+     * Updates a single item in the data view given the id and new value.
+     * @param id The new id of the item.
+     * @param item The item which should be the new value for the given id.
+     */
+    function updateItem(id, item) {
+      updateSingleItem(id, item);
       refresh();
     }
 
+    /***
+     * Updates multiple items in the data view given the new ids and new values.
+     * @param id {Array} The array of new ids which is in the same order as the items.
+     * @param newItems {Array} The new items that should be set in the data view for the given ids.
+     */
+    function updateItems(ids, newItems) {
+      if(ids.length !== newItems.length) {
+        throw new Error("[SlickGrid DataView] Mismatch on the length of ids and items provided to update");
+      }
+      for (var i = 0, l = newItems.length; i < l; i++) {
+        updateSingleItem(ids[i], newItems[i]);
+      }
+      refresh();
+    }
+
+    /***
+     * Inserts a single item into the data view at the given position.
+     * @param insertBefore {Number} The 0-based index before which the item should be inserted.
+     * @param item The item to insert.
+     */
     function insertItem(insertBefore, item) {
       items.splice(insertBefore, 0, item);
       updateIdxById(insertBefore);
       refresh();
     }
 
+    /***
+     * Inserts multiple items into the data view at the given position.
+     * @param insertBefore {Number} The 0-based index before which the items should be inserted.
+     * @param newItems {Array}  The items to insert.
+     */
+    function insertItems(insertBefore, newItems) {
+      Array.prototype.splice.apply(items, [insertBefore, 0].concat(newItems));
+      updateIdxById(insertBefore);
+      refresh();
+    }
+
+    /***
+     * Adds a single item at the end of the data view.
+     * @param item The item to add at the end.
+     */
     function addItem(item) {
       items.push(item);
       updateIdxById(items.length - 1);
       refresh();
     }
 
-    function deleteItem(id) {
-      var idx = idxById[id];
-      if (idx === undefined) {
-        throw new Error("Invalid id");
-      }
-      delete idxById[id];
-      items.splice(idx, 1);
-      updateIdxById(idx);
+    /***
+     * Adds multiple items at the end of the data view.
+     * @param newItems {Array} The items to add at the end.
+     */
+    function addItems(newItems) {
+      items = items.concat(newItems);
+      updateIdxById(items.length - newItems.length);
       refresh();
+    }
+
+    /***
+     * Deletes a single item identified by the given id from the data view.
+     * @param id The id identifying the object to delete.
+     */
+    function deleteItem(id) {
+      if (isBulkSuspend) {
+        bulkDeleteIds.set(id, true);
+      } else {
+        var idx = idxById.get(id);
+        if (idx === undefined) {
+          throw new Error("[SlickGrid DataView] Invalid id");
+        }
+        idxById.delete(id);
+        items.splice(idx, 1);
+        updateIdxById(idx);
+        refresh();
+      }
+    }
+
+    /***
+     * Deletes multiple item identified by the given ids from the data view.
+     * @param ids {Array} The ids of the items to delete.
+     */
+    function deleteItems(ids) {
+      if (ids.length === 0) {
+        return;
+      }
+
+      if (isBulkSuspend) {
+        for (var i = 0, l = ids.length; i < l; i++) {
+          var id = ids[i];
+          var idx = idxById.get(id);
+          if (idx === undefined) {
+            throw new Error("[SlickGrid DataView] Invalid id");
+          }
+          bulkDeleteIds.set(id, true);
+        }
+      } else {
+        // collect all indexes
+        var indexesToDelete = [];
+        for (var i = 0, l = ids.length; i < l; i++) {
+          var id = ids[i];
+          var idx = idxById.get(id);
+          if (idx === undefined) {
+            throw new Error("[SlickGrid DataView] Invalid id");
+          }
+          idxById.delete(id);
+          indexesToDelete.push(idx);
+        }
+
+        // Remove from back to front
+        indexesToDelete.sort();
+        for (var i = indexesToDelete.length - 1; i >= 0; --i) {
+          items.splice(indexesToDelete[i], 1);
+        }
+
+        // update lookup from front to back
+        updateIdxById(indexesToDelete[0]);
+        refresh();
+      }
     }
 
     function sortedAddItem(item) {
       if (!sortComparer) {
-        throw new Error("sortedAddItem() requires a sort comparer, use sort()");
+        throw new Error("[SlickGrid DataView] sortedAddItem() requires a sort comparer, use sort()");
       }
       insertItem(sortedIndex(item), item);
     }
 
     function sortedUpdateItem(id, item) {
-      if (idxById[id] === undefined || id !== item[idProperty]) {
-        throw new Error("Invalid or non-matching id " + idxById[id]);
+      if (!idxById.has(id) || id !== item[idProperty]) {
+        throw new Error("[SlickGrid DataView] Invalid or non-matching id " + idxById.get(id));
       }
       if (!sortComparer) {
-        throw new Error("sortedUpdateItem() requires a sort comparer, use sort()");
+        throw new Error("[SlickGrid DataView] sortedUpdateItem() requires a sort comparer, use sort()");
       }
       var oldItem = getItemById(id);
       if (sortComparer(oldItem, item) !== 0) {
@@ -468,6 +651,10 @@
         }
       }
       return low;
+    }
+
+    function getItemCount() {
+      return items.length;
     }
 
     function getLength() {
@@ -1036,23 +1223,24 @@
       refreshHints = {};
 
       if (totalRowsBefore !== totalRows) {
-        onBeforePagingInfoChanged.notify(previousPagingInfo, null, self); // use the previously saved paging info
-        onPagingInfoChanged.notify(getPagingInfo(), null, self);
+        // use the previously saved paging info
+        if (onBeforePagingInfoChanged.notify(previousPagingInfo, null, self) !== false) {
+          onPagingInfoChanged.notify(getPagingInfo(), null, self);
+        }
       }
       if (countBefore !== rows.length) {
-        onRowCountChanged.notify({ previous: countBefore, current: rows.length, dataView: self, callingOnRowsChanged: (diff.length > 0) }, null, self);
+        onRowCountChanged.notify({ previous: countBefore, current: rows.length, itemCount: items.length, dataView: self, callingOnRowsChanged: (diff.length > 0) }, null, self);
       }
       if (diff.length > 0) {
-        onRowsChanged.notify({ rows: diff, dataView: self, calledOnRowCountChanged: (countBefore !== rows.length) }, null, self);
+        onRowsChanged.notify({ rows: diff, itemCount: items.length, dataView: self, calledOnRowCountChanged: (countBefore !== rows.length) }, null, self);
       }
       if (countBefore !== rows.length || diff.length > 0) {
         onRowsOrCountChanged.notify({
-          rowsDiff: diff, previousRowCount: countBefore, currentRowCount: rows.length,
+          rowsDiff: diff, previousRowCount: countBefore, currentRowCount: rows.length, itemCount: items.length,
           rowCountChanged: countBefore !== rows.length, rowsChanged: diff.length > 0, dataView: self
         }, null, self);
       }
     }
-
     /***
      * Wires the grid and the DataView together to keep row selection tied to item ids.
      * This is useful since, without it, the grid only knows about rows, so if the items
@@ -1074,8 +1262,9 @@
      */
     function syncGridSelection(grid, preserveHidden, preserveHiddenOnSelectionChange) {
       var self = this;
+      _grid = grid;
       var inHandler;
-      var selectedRowIds = self.mapRowsToIds(grid.getSelectedRows());
+      selectedRowIds = self.mapRowsToIds(grid.getSelectedRows());
       var onSelectedRowIdsChanged = new Slick.Event();
 
       function setSelectedRowIds(rowIds) {
@@ -1120,6 +1309,21 @@
       this.onRowsOrCountChanged.subscribe(update);
 
       return onSelectedRowIdsChanged;
+    }
+
+    /** Get all selected IDs */
+    function getAllSelectedIds(){
+      return selectedRowIds;
+    }
+
+    /** Get all selected dataContext items */
+    function getAllSelectedItems() {
+      var selectedData = [];
+      var selectedIds = getAllSelectedIds();
+      selectedIds.forEach(function (id) {
+          selectedData.push(self.getItemById(id));
+      });
+      return selectedData;
     }
 
     function syncGridCellCssStyles(grid, key) {
@@ -1172,6 +1376,7 @@
       // methods
       "beginUpdate": beginUpdate,
       "endUpdate": endUpdate,
+      "destroy": destroy,
       "setPagingOptions": setPagingOptions,
       "getPagingInfo": getPagingInfo,
       "getIdPropertyName": getIdPropertyName,
@@ -1180,6 +1385,7 @@
       "setFilter": setFilter,
       "getFilter": getFilter,
       "getFilteredItems": getFilteredItems,
+      "getFilteredItemCount": getFilteredItemCount,
       "sort": sort,
       "fastSort": fastSort,
       "reSort": reSort,
@@ -1192,6 +1398,8 @@
       "collapseGroup": collapseGroup,
       "expandGroup": expandGroup,
       "getGroups": getGroups,
+      "getAllSelectedIds": getAllSelectedIds,
+      "getAllSelectedItems": getAllSelectedItems,
       "getIdxById": getIdxById,
       "getRowByItem": getRowByItem,
       "getRowById": getRowById,
@@ -1204,15 +1412,20 @@
       "setFilterArgs": setFilterArgs,
       "refresh": refresh,
       "updateItem": updateItem,
+      "updateItems": updateItems,
       "insertItem": insertItem,
+      "insertItems": insertItems,
       "addItem": addItem,
+      "addItems": addItems,
       "deleteItem": deleteItem,
+      "deleteItems": deleteItems,
       "sortedAddItem": sortedAddItem,
       "sortedUpdateItem": sortedUpdateItem,
       "syncGridSelection": syncGridSelection,
       "syncGridCellCssStyles": syncGridCellCssStyles,
 
       // data provider methods
+      "getItemCount": getItemCount,
       "getLength": getLength,
       "getItem": getItem,
       "getItemMetadata": getItemMetadata,
@@ -1225,7 +1438,7 @@
       "onBeforePagingInfoChanged": onBeforePagingInfoChanged,
       "onPagingInfoChanged": onPagingInfoChanged,
       "onGroupExpanded": onGroupExpanded,
-      "onGroupCollapsed": onGroupCollapsed
+      "onGroupCollapsed": onGroupCollapsed,
     });
   }
 
@@ -1344,4 +1557,19 @@
   // TODO:  add more built-in aggregators
   // TODO:  merge common aggregators in one to prevent needles iterating
 
+  // exports
+  $.extend(true, window, {
+    Slick: {
+      Data: {
+        DataView: DataView,
+        Aggregators: {
+          Avg: AvgAggregator,
+          Min: MinAggregator,
+          Max: MaxAggregator,
+          Sum: SumAggregator,
+          Count: CountAggregator
+        }
+      }
+    }
+  });
 })(jQuery);

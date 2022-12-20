@@ -1,7 +1,7 @@
 /***
  * A Resizer plugin that can be used to auto-resize a grid and/or resize with fixed dimensions.
  * When fixed height is defined, it will auto-resize only the width and vice versa with the width defined.
- * You can also choose to use the flag "enableAutoSizeColumns" if you want to the plugin to 
+ * You can also choose to use the flag "enableAutoSizeColumns" if you want to the plugin to
  * automatically call the grid "autosizeColumns()" method after each resize.
  *
  * USAGE:
@@ -18,14 +18,14 @@
  * });
  * grid.registerPlugin(resizer);
  *
- * 
+ *
  * The plugin exposes the following events:
  *
  *    onGridAfterResize:  Fired after the grid got resized.  You can customize the menu or dismiss it by returning false.
  *        Event args:
  *            grid:       Reference to the grid.
  *            dimensions: Resized grid dimensions used
- * 
+ *
  *    onGridBeforeResize:   Fired before the grid gets resized.  You can customize the menu or dismiss it by returning false.
  *        Event args:
  *            grid:     Reference to the grid.
@@ -34,6 +34,7 @@
  * @param {Object} options available plugin options that can be passed in the constructor:
  *   container:      (REQUIRED) DOM element selector of the page container, basically what element in the page will be used to calculate the available space
  *   gridContainer:             DOM element selector of the grid container, optional but when provided it will be resized with same size as the grid (typically a container holding the grid and extra custom footer/pagination)
+ *   applyResizeToContainer:    Defaults to false, do we want to apply the resized dimentions to the grid container as well?
  *   rightPadding:              Defaults to 0, right side padding to remove from the total dimension
  *   bottomPadding:             Defaults to 20, bottom padding to remove from the total dimension
  *   minHeight:                 Defaults to 180, minimum height of the grid
@@ -58,7 +59,7 @@
     }
   });
 
-  function Resizer(options, fixedDimensions) {
+  function Resizer(_options, fixedDimensions) {
     // global variables, height/width are in pixels
     var DATAGRID_MIN_HEIGHT = 180;
     var DATAGRID_MIN_WIDTH = 300;
@@ -78,13 +79,20 @@
     var _gridContainerElm;
     var _defaults = {
       bottomPadding: 20,
+      applyResizeToContainer: false,
       minHeight: 180,
       minWidth: 300,
       rightPadding: 0
     };
 
+    var options = {};
+
+    function setOptions(_newOptions){
+      options = $.extend(true, {}, _defaults, options, _newOptions);
+    }
+
     function init(grid) {
-      options = $.extend(true, {}, _defaults, options);
+      setOptions(_options);
       _grid = grid;
       _gridOptions = _grid.getOptions();
       _gridUid = _grid.getUID();
@@ -121,7 +129,7 @@
 
           // unless the resizer is paused, let's go and resize the grid
           if (!_resizePaused) {
-            // for some yet unknown reason, calling the resize twice removes any stuttering/flickering 
+            // for some yet unknown reason, calling the resize twice removes any stuttering/flickering
             // when changing the height and makes it much smoother experience
             resizeGrid(0, newSizes, event);
             resizeGrid(0, newSizes, event);
@@ -202,15 +210,15 @@
       return _lastDimensions;
     }
 
-    /** 
-     * Provide the possibility to pause the resizer for some time, until user decides to re-enabled it later if he wish to. 
+    /**
+     * Provide the possibility to pause the resizer for some time, until user decides to re-enabled it later if he wish to.
      * @param {boolean} isResizePaused are we pausing the resizer?
      */
     function pauseResizer(isResizePaused) {
       _resizePaused = isResizePaused;
     }
 
-    /** 
+    /**
      * Resize the datagrid to fit the browser height & width.
      * @param {number} delay to wait before resizing, defaults to 0 (in milliseconds)
      * @param {object} newSizes can optionally be passed (height: number, width: number)
@@ -257,45 +265,49 @@
       var availableDimensions = calculateGridNewDimensions();
 
       if ((newSizes || availableDimensions) && _gridDomElm && _gridDomElm.length > 0) {
-        // get the new sizes, if new sizes are passed (not 0), we will use them else use available space
-        // basically if user passes 1 of the dimension, let say he passes just the height,
-        // we will use the height as a fixed height but the width will be resized by it's available space
-        var newHeight = (newSizes && newSizes.height) ? newSizes.height : availableDimensions.height;
-        var newWidth = (newSizes && newSizes.width) ? newSizes.width : availableDimensions.width;
+        try {
+          // get the new sizes, if new sizes are passed (not 0), we will use them else use available space
+          // basically if user passes 1 of the dimension, let say he passes just the height,
+          // we will use the height as a fixed height but the width will be resized by it's available space
+          var newHeight = (newSizes && newSizes.height) ? newSizes.height : availableDimensions.height;
+          var newWidth = (newSizes && newSizes.width) ? newSizes.width : availableDimensions.width;
 
-        // apply these new height/width to the datagrid
-        if (!_gridOptions.autoHeight) {
-          _gridDomElm.height(newHeight);
-          if (options.gridContainer) {
-            _gridContainerElm.height(newHeight);
+          // apply these new height/width to the datagrid
+          if (!_gridOptions.autoHeight) {
+            _gridDomElm.height(newHeight);
+            if (options.gridContainer && options.applyResizeToContainer) {
+              _gridContainerElm.height(newHeight);
+            }
           }
-        }
 
-        _gridDomElm.width(newWidth);
-        if (options.gridContainer) {
-          _gridContainerElm.width(newWidth);
-        }
-
-        // resize the slickgrid canvas on all browser except some IE versions
-        // exclude all IE below IE11
-        // IE11 wants to be a better standard (W3C) follower (finally) they even changed their appName output to also have 'Netscape'
-        if (new RegExp('MSIE [6-8]').exec(navigator.userAgent) === null && _grid && _grid.resizeCanvas) {
-          _grid.resizeCanvas();
-        }
-
-        // also call the grid auto-size columns so that it takes available when going bigger
-        if (_gridOptions && _gridOptions.enableAutoSizeColumns && _grid.autosizeColumns) {
-          // make sure that the grid still exist (by looking if the Grid UID is found in the DOM tree) to avoid SlickGrid error "missing stylesheet"
-          if (_gridUid && ($('.' + _gridUid).length > 0 || $(_gridDomElm).length > 0)) {
-            _grid.autosizeColumns();
+          _gridDomElm.width(newWidth);
+          if (options.gridContainer && options.applyResizeToContainer) {
+            _gridContainerElm.width(newWidth);
           }
-        }
 
-        // keep last resized dimensions & resolve them to the Promise
-        _lastDimensions = {
-          height: newHeight,
-          width: newWidth
-        };
+          // resize the slickgrid canvas on all browser except some IE versions
+          // exclude all IE below IE11
+          // IE11 wants to be a better standard (W3C) follower (finally) they even changed their appName output to also have 'Netscape'
+          if (new RegExp('MSIE [6-8]').exec(navigator.userAgent) === null && _grid && _grid.resizeCanvas) {
+            _grid.resizeCanvas();
+          }
+
+          // also call the grid auto-size columns so that it takes available when going bigger
+          if (_gridOptions && _gridOptions.enableAutoSizeColumns && _grid.autosizeColumns) {
+            // make sure that the grid still exist (by looking if the Grid UID is found in the DOM tree) to avoid SlickGrid error "missing stylesheet"
+            if (_gridUid && ($('.' + _gridUid).length > 0 || $(_gridDomElm).length > 0)) {
+              _grid.autosizeColumns();
+            }
+          }
+
+          // keep last resized dimensions & resolve them to the Promise
+          _lastDimensions = {
+            height: newHeight,
+            width: newWidth
+          };
+        } catch (e) {
+          destroy();
+        }
       }
 
       return _lastDimensions;
@@ -309,6 +321,7 @@
       "getLastResizeDimensions": getLastResizeDimensions,
       "pauseResizer": pauseResizer,
       "resizeGrid": resizeGrid,
+      "setOptions": setOptions,
 
       "onGridAfterResize": new Slick.Event(),
       "onGridBeforeResize": new Slick.Event()

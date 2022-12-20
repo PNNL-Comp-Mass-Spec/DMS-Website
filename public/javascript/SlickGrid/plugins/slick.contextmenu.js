@@ -79,7 +79,8 @@
    *    option:                     An option to be passed to the onOptionSelected event handlers (when using "optionItems").
    *    title:                      Menu item text.
    *    divider:                    Boolean which tell if the current item is a divider, not an actual command. You could also pass "divider" instead of an object
-   *    disabled:                   Whether the item is disabled.
+   *    disabled:                   Whether the item/command is disabled.
+   *    hidden:                     Whether the item/command is hidden.
    *    tooltip:                    Item tooltip.
    *    cssClass:                   A CSS class to be added to the menu item container.
    *    iconCssClass:               A CSS class to be added to the menu item icon.
@@ -193,9 +194,13 @@
       if ($menu && $menu.remove) {
         $menu.remove();
       }
+      $commandTitleElm = null;
+      $optionTitleElm = null;
+      $menu = null;
     }
 
     function createMenu(e) {
+      var targetEvent = e.touches ? e.touches[0] : e;
       var cell = _grid.getCellFromEvent(e);
       _currentCell = cell && cell.cell;
       _currentRow = cell && cell.row;
@@ -208,7 +213,7 @@
       var optionItems = _contextMenuProperties.optionItems || [];
 
       // make sure there's at least something to show before creating the Context Menu
-      if (!columnDef || (!isColumnCommandAllowed && !isColumnOptionAllowed) || (!commandItems.length && optionItems.length)) {
+      if (!columnDef || (!isColumnCommandAllowed && !isColumnOptionAllowed) || (!commandItems.length && !optionItems.length)) {
         return;
       }
 
@@ -230,8 +235,8 @@
       var width = isNaN(_contextMenuProperties.width) ? _contextMenuProperties.width : _contextMenuProperties.width + "px";
       var menuStyle = "width: " + width + "; max-height: " + maxHeight;
       var menu = $('<div class="slick-context-menu ' + _gridUid + '" style="' + menuStyle + '" />')
-        .css("top", e.pageY)
-        .css("left", e.pageX)
+        .css("top", targetEvent.pageY)
+        .css("left", targetEvent.pageX)
         .css("display", "none");
 
       var closeButtonHtml = '<button type="button" class="close" data-dismiss="slick-context-menu" aria-label="Close">'
@@ -241,7 +246,7 @@
       if (!_contextMenuProperties.hideOptionSection && isColumnOptionAllowed && optionItems.length > 0) {
         var $optionMenu = $('<div class="slick-context-menu-option-list" />');
         if (!_contextMenuProperties.hideCloseButton) {
-          $(closeButtonHtml).on("click", destroyMenu).appendTo(menu);
+          $(closeButtonHtml).on("click", handleCloseButtonClicked).appendTo(menu);
         }
         $optionMenu.appendTo(menu);
         populateOptionItems(
@@ -256,7 +261,7 @@
       if (!_contextMenuProperties.hideCommandSection && isColumnCommandAllowed && commandItems.length > 0) {
         var $commandMenu = $('<div class="slick-context-menu-command-list" />');
         if (!_contextMenuProperties.hideCloseButton && (!isColumnOptionAllowed || optionItems.length === 0 || _contextMenuProperties.hideOptionSection)) {
-          $(closeButtonHtml).on("click", destroyMenu).appendTo(menu);
+          $(closeButtonHtml).on("click", handleCloseButtonClicked).appendTo(menu);
         }
         $commandMenu.appendTo(menu);
         populateCommandItems(
@@ -279,6 +284,12 @@
       }
 
       return menu;
+    }
+
+    function handleCloseButtonClicked(e) {
+      if(!e.isDefaultPrevented()) {
+        destroyMenu(e);
+      }
     }
 
     function destroyMenu(e, args) {
@@ -368,7 +379,9 @@
       }
 
       $("body").one("click", function (e) {
-        destroyMenu(e, { cell: _currentCell, row: _currentRow });
+        if(!e.isDefaultPrevented()) {
+          destroyMenu(e, { cell: _currentCell, row: _currentRow });
+        }
       });
     }
 
@@ -403,7 +416,7 @@
         }
 
         var $li = $('<div class="slick-context-menu-item"></div>')
-          .data("option", item.option || "")
+          .data("option", item.option !== undefined ? item.option : "")
           .data("item", item)
           .on("click", handleMenuItemOptionClick)
           .appendTo(optionMenuElm);
@@ -416,6 +429,11 @@
         // if the item is disabled then add the disabled css class
         if (item.disabled || !isItemUsable) {
           $li.addClass("slick-context-menu-item-disabled");
+        }
+
+        // if the item is hidden then add the hidden css class
+        if (item.hidden) {
+          $li.addClass("slick-context-menu-item-hidden");
         }
 
         if (item.cssClass) {
@@ -478,7 +496,7 @@
         }
 
         var $li = $('<div class="slick-context-menu-item"></div>')
-          .data("command", item.command || "")
+          .data("command", item.command !== undefined ? item.command : "")
           .data("item", item)
           .on("click", handleMenuItemCommandClick)
           .appendTo(commandMenuElm);
@@ -491,6 +509,11 @@
         // if the item is disabled then add the disabled css class
         if (item.disabled || !isItemUsable) {
           $li.addClass("slick-context-menu-item-disabled");
+        }
+
+        // if the item is hidden then add the hidden css class
+        if (item.hidden) {
+          $li.addClass("slick-context-menu-item-hidden");
         }
 
         if (item.cssClass) {
@@ -605,9 +628,10 @@
      * @param {*} event
      */
     function repositionMenu(e) {
+      var targetEvent = e.touches ? e.touches[0] : e;
       var $parent = $(e.target).closest(".slick-cell");
-      var menuOffsetLeft = e.pageX;
-      var menuOffsetTop = $parent ? $parent.offset().top : e.pageY;
+      var menuOffsetLeft = targetEvent.pageX;
+      var menuOffsetTop = $parent ? $parent.offset().top : targetEvent.pageY;
       var menuHeight = $menu.outerHeight() || 0;
       var menuWidth = $menu.outerWidth() || _contextMenuProperties.width || 0;
       var rowHeight = _gridOptions.rowHeight;
