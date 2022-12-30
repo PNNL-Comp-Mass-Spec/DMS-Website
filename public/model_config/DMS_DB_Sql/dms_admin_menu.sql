@@ -39,7 +39,6 @@ INSERT INTO home_menu_items VALUES(11,'Report','submenu','Event Log','');
 INSERT INTO home_menu_items VALUES(12,'Report','event_log_dataset/report','Display','dataset event log');
 INSERT INTO home_menu_items VALUES(13,'Report','event_log_analysis_job/report','Display','analysis job event log');
 INSERT INTO home_menu_items VALUES(14,'Report','event_log_archive/report','Display','archive event log');
-INSERT INTO home_menu_items VALUES(15,'Report','historic_log/report','Display','historic log');
 INSERT INTO home_menu_items VALUES(16,'Analysis_Pipeline','submenu','Settings files and Scripts','');
 INSERT INTO home_menu_items VALUES(17,'Analysis_Pipeline','settings_files/report','Display','list of settings files');
 INSERT INTO home_menu_items VALUES(18,'Analysis_Pipeline','pipeline_script/report','Display','list of analysis job scripts');
