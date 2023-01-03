@@ -16,7 +16,7 @@ class Osm_package extends DmsBase {
 
         $this->db = \Config\Database::connect();
 
-        $sql = "SELECT dbo.GetOSMItemChooserList($id, '$mode')";
+        $sql = "SELECT GetOSMItemChooserList($id, '$mode')";
         $query = $this->db->query($sql);
         if(!$query) return "Error querying database";
         if ($query->getNumRows() == 0) return "No rows found";

@@ -31,7 +31,7 @@ class Data_package extends DmsBase {
 
         $this->db = \Config\Database::connect('package');
 
-        $sql = "dbo.CheckDataPackageDatasetJobCoverage($id, '$tool', '$mode')";
+        $sql = "CheckDataPackageDatasetJobCoverage($id, '$tool', '$mode')";
         $builder = $this->db->table($sql);
         $resultSet = $builder->get();
         if(!$resultSet) {

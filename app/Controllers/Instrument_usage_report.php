@@ -154,9 +154,9 @@ EOD;
         $this->db = \Config\Database::connect();
 
         if ($showDetails) {
-        	$udf = "dbo.GetEMSLInstrumentUsageDailyDetails";
+            $udf = "GetEMSLInstrumentUsageDailyDetails";
         } else {
-        	$udf = "dbo.GetEMSLInstrumentUsageDaily";
+            $udf = "GetEMSLInstrumentUsageDaily";
         }
 
         $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start, Type, Seq";
@@ -190,7 +190,7 @@ EOD;
     {
         $this->db = \Config\Database::connect();
 
-        $sql = "SELECT * FROM dbo.GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, [Month], [Day], [Usage]";
+        $sql = "SELECT * FROM GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, [Month], [Day], [Usage]";
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
         return $result;

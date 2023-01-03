@@ -21,7 +21,7 @@ INSERT INTO sproc_args VALUES(6,'itemValueList','itemValueList','varchar','input
 INSERT INTO sproc_args VALUES(7,'<local>','mode','varchar','input','12','AddUpdateAuxInfo');
 INSERT INTO sproc_args VALUES(8,'<local>','message','varchar','output','512','AddUpdateAuxInfo');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
-INSERT INTO utility_queries VALUES(1,'definitions','Aux Info Definition Details','','V_Aux_Info_Definition_with_ID','*,  dbo.GetAuxInfoAllowedValues(Item_ID) AS Allowed_Values','{"col":"Target", "dir":"ASC"}','{"Target":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
+INSERT INTO utility_queries VALUES(1,'definitions','Aux Info Definition Details','','V_Aux_Info_Definition_with_ID','*,  GetAuxInfoAllowedValues(Item_ID) AS Allowed_Values','{"col":"Target", "dir":"ASC"}','{"Target":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
 INSERT INTO utility_queries VALUES(2,'experiment_values','Aux Info Values for Experiments','','V_Aux_Info_Experiment_Values','*','{"col":"ID", "dir":"DESC"}','{"Experiment":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
 INSERT INTO utility_queries VALUES(3,'biomaterial_values','Aux Info Values for Biomaterial','','V_Aux_Info_Biomaterial_Values','*','{"col":"ID", "dir":"DESC"}','{"Biomaterial":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');
 INSERT INTO utility_queries VALUES(4,'prep_request_values','Aux Info Values for Sample Prep Request','','V_Aux_Info_Sample_Prep_Request_Values','*','{"col":"ID", "dir":"DESC"}','{"Request":"CTx", "Category":"CTx",  "Subcategory":"CTx",  "Item":"CTx"}','');

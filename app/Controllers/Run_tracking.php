@@ -144,7 +144,7 @@ class Run_tracking extends DmsBase {
 
         $sql = <<<EOD
 SELECT *
-FROM  dbo.GetRunTrackingMonthlyInfo('$instrument', '$year', '$month', '') AS GT
+FROM  GetRunTrackingMonthlyInfo('$instrument', '$year', '$month', '') AS GT
 EOD;
 // Seq, ID, Dataset, Day, Duration, Interval, Time_Start, Time_End, Instrument
         $query = $this->db->query($sql);
@@ -157,7 +157,7 @@ EOD;
     function get_long_interval_threshold()
     {
         $this->db = \Config\Database::connect();
-        $query = $this->db->query('SELECT dbo.GetLongIntervalThreshold() AS Threshold');
+        $query = $this->db->query('SELECT GetLongIntervalThreshold() AS Threshold');
         $row = $query->getRow();
         return $row->Threshold;
     }

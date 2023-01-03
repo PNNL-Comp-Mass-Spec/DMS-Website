@@ -219,7 +219,7 @@ SELECT
        AD.HelperAppend,
        AV.Value
 FROM V_Aux_Info_Definition AD
-     LEFT OUTER JOIN dbo.T_Aux_Info_Value AV
+     LEFT OUTER JOIN T_Aux_Info_Value AV
        ON AD.Item_ID = AV.Aux_Description_ID AND AV.Target_ID = $id
 WHERE (AD.Target = '$target') AND
        AD.Category = '$category' AND
