@@ -46,19 +46,26 @@ function make_detail_report_section($columns, $fields, $hotlinks, $controller_na
  * Convert the rows of data into html, including formatting datetime values and adding hotlinks
  * @param type $columns
  * @param type $fields
- * @param type $hotlinks
+ * @param type $hotlinks_in
  * @return string
  */
-function make_detail_table_data_rows($columns, $fields, $hotlinks) {
+function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
     $str = "";
     $colIndex = 0;
 
     $datetimeColumns = array();
+    $label_formatter = new \App\Libraries\Label_formatter();
 
     // Look for any datetime columns
     foreach ($columns as $column) {
         // mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
         if ($column->type == 'datetime' || $column->type == 93) {
+            $datetimeColumns[] = $column->name;
+        }
+
+        // postgres driver: types 'timestamp' and 'timestamptz'
+        // Could possibly add others (see Sql_postgre.php for type codes)
+        if ($column->type == 1114 || $column->type == 1184) {
             $datetimeColumns[] = $column->name;
         }
     }
@@ -69,6 +76,8 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
     $pathCopyData = array();
     $pathCopyButtonCount = 0;
 
+    // (usually) Capitalize ID, then replace underscores with spaces
+    $hotlinks = array_change_key_case($hotlinks_in, CASE_LOWER);
 
     // Include the URL updater class
     $url_updater = new \App\Libraries\URL_updater();
@@ -80,7 +89,9 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
             continue;
         }
 
-        $hotlink_specs = get_hotlink_specs_for_field($fieldName, $hotlinks);
+        $labelFormatted = $label_formatter->format($fieldName);
+
+        $hotlink_specs = get_hotlink_specs_for_field(strtolower($fieldName), strtolower($labelFormatted), $hotlinks);
 
         // Look for an entry in $hotlinks that matches either this field name,
         // or this field name preceded by one or more plus signs
@@ -108,8 +119,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
             }
         }
 
-        // Capitalize ID, then replace underscores with spaces
-        $label_display = "<td>" . ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $label))) . "</td>\n";
+        $label_display = "<td>$labelFormatted</td>\n";
 
         // We will append </td> below
         $val_display = "<td>$val";
@@ -117,11 +127,19 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
         // override default field display with hotlinks
         foreach ($hotlink_specs as $hotlink_spec) {
             if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0) {
-                if (array_key_exists($hotlink_spec["WhichArg"], $fields)) {
-                    $link_id = $fields[$hotlink_spec["WhichArg"]];
+                $wa = $hotlink_spec["WhichArg"];
+                $wa_fmt = $label_formatter->format($wa);
+                $wa_defmt = $label_formatter->deformat($wa);
+                if (array_key_exists($wa, $fields)) {
+                    $link_id = $fields[$wa];
+                } elseif (array_key_exists($wa_fmt, $fields)) {
+                    // Target field for hot link not found; try using the display-formatted target field
+                    $link_id = $fields[$wa_fmt];
+                } elseif (array_key_exists($wa_defmt, $fields)) {
+                    // Target field for hot link not found; try using the display-deformatted target field
+                    $link_id = $fields[$wa_defmt];
                 } else {
-                    // Target field for hot link not found; try replacing spaces with underscores and changing to lowercase
-                    $link_id = $fields[str_replace(" ", "_", strtolower($hotlink_spec["WhichArg"]))];
+                    // TODO: Trigger a warning message of some kind?
                 }
             } else {
                 $link_id = "";
@@ -129,14 +147,14 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
 
             if ($hotlink_spec['Placement'] == 'labelCol') {
                 // Place the hotlink on the field label
-                // Replace underscores with spaces and capitalize each word
-                $label_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $fieldName, $val, true);
+                // Display the display-formatted field name
+                $label_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $fieldName, $labelFormatted, $val);
             } else {
                 // Assume 'valueCol'
                 // Place the hotlink on the field value
-                // Leave underscores and case as-is
+                // Display the value as-is
                 $val = $url_updater->fix_link($val);
-                $val_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $val, '', false);
+                $val_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $val, $val);
             }
         }
 
@@ -213,29 +231,25 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks) {
  * @param type $hotlinks hotlink info
  * @return type Array of hotlink info
  */
-function get_hotlink_specs_for_field($fieldName, $hotlinks) {
+function get_hotlink_specs_for_field($fieldName, $fieldNameFormatted, $hotlinks) {
     // List of any hotlink spec(s) for the field
     $hotlink_specs = array();
-
-    // Define an alternate name to look for
-    // Capitalize ID, then replace underscores with spaces
-    $altName = ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $fieldName)));
 
     // Is a primary hotlink defined for the field?
     if (array_key_exists($fieldName, $hotlinks)) {
         $hotlink_specs[] = $hotlinks[$fieldName];
-    } else if (array_key_exists($altName, $hotlinks)) {
-        // Check the alternate name
-        $hotlink_specs[] = $hotlinks[$altName];
+    } else if (array_key_exists($fieldNameFormatted, $hotlinks)) {
+        // Check the display-formatted name
+        $hotlink_specs[] = $hotlinks[$fieldNameFormatted];
     }
 
     // Is a secondary hotlink defined for field?
     // Secondary keys have a plus sign ahead of the field name
     if (array_key_exists('+' . $fieldName, $hotlinks)) {
         $hotlink_specs[] = $hotlinks['+' . $fieldName];
-    } else if (array_key_exists('+' . $altName, $hotlinks)) {
-        // Check the alternate name
-        $hotlink_specs[] = $hotlinks['+' . $altName];
+    } else if (array_key_exists('+' . $fieldNameFormatted, $hotlinks)) {
+        // Check the display-formatted name
+        $hotlink_specs[] = $hotlinks['+' . $fieldNameFormatted];
     }
 
     return $hotlink_specs;
@@ -260,19 +274,19 @@ function get_fieldspec_with_link_type($hotlinks, $linkTypeName) {
 
 /**
  * Construct a detail report hotlink
- * @param array $url_updater   URL_updater instance
- * @param array $colSpec       Key/value pairs from detail_report_hotlinks in the Model Config DB
- *                             LinkType, WhichArg, Target, Placement, id, and Options
- * @param type $link_id        Data value for field specified by WhichArg
- * @param type $colIndex       Form field index (0-based)
- * @param type $display        Form field name
- * @param type $val            Data value for this form field from the database.
- *                             If Name and WhichArg are the same, $link_id and $val will be the same
- *                             For hotlinks that have 'valueCol' for the hotlink placement, $val will be an empty string
- * @param type $formatAsTitle  When true, replace underscores with spaces, then capitalize each word; also changes "id" to "ID"
+ * @param array $url_updater URL_updater instances
+ * @param array $colSpec  Key/value pairs from detail_report_hotlinks in the Model Config DB
+ *                        LinkType, WhichArg, Target, Placement, id, and Options
+ * @param type $link_id   Data value for field specified by WhichArg
+ * @param type $colIndex  Form field index (0-based)
+ * @param type $text      Form field text
+ * @param type $display   Form field displayed text
+ * @param type $val       Data value for this form field from the database.
+ *                        If Name and WhichArg are the same, $link_id and $val will be the same
+ *                        For hotlinks that have 'valueCol' for the hotlink placement, $val will be an empty string
  * @return type
  */
-function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $display, $val, $formatAsTitle) {
+function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $text, $display, $val = '') {
 
     // Include several helper methods
 
@@ -297,13 +311,6 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
     $options = $colSpec['Options'];
     $cell_class = "";
 
-    // Format display to capitalize ID and replace underscores with spaces
-    if ($formatAsTitle) {
-        $displayFmt = ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $display)));
-    } else {
-        $displayFmt = $display;
-    }
-
     switch ($type) {
         case "detail-report":
             // Link to another DMS page, including both list reports and detail reports
@@ -311,7 +318,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $hideLinkMatchText = $options['HideLinkIfValueMatch'];
                 if (empty($val) && $link_id === $hideLinkMatchText ||
                         !empty($val) && $val === $hideLinkMatchText) {
-                    $str = $displayFmt;
+                    $str = $display;
                     break;
                 }
             }
@@ -320,40 +327,40 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             $link_id = encode_special_values($link_id);
 
             $url = make_detail_report_url($target, $link_id, $options);
-            $str = "<a id='lnk_${fld_id}' href='$url'>$displayFmt</a>";
+            $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
             break;
 
         case "href-folder":
             if ($val) {
                 $lnk = str_replace('\\', '/', $val);
-                $str = "<a href='file:///$lnk'>$displayFmt</a>";
+                $str = "<a href='file:///$lnk'>$display</a>";
             } else {
-                $str = $displayFmt;
+                $str = $display;
             }
             break;
 
         case "literal_link":
-            // Link to the URL specified by $display
+            // Link to the URL specified by $text
             // The link text is the target URL
-            $str .= "<a href='$display' target='External$colIndex'>$display</a>";
+            $str .= "<a href='$text' target='External$colIndex'>$text</a>";
             break;
 
         case "masked_link":
-            // Link to the URL specified by $display
+            // Link to the URL specified by $text
             // The link text is specified by the label setting in Options, for example {"Label":"Show files"}
-            if ($display) {
+            if ($text) {
                 $lbl = "(label is not defined)";
                 if (!empty($options) && array_key_exists('Label', $options)) {
                     $lbl = $options['Label'];
                 }
-                $str .= "<a href='$display' target='External$colIndex'>$lbl</a>";
+                $str .= "<a href='$text' target='External$colIndex'>$lbl</a>";
             } else {
                 $str .= "";
             }
             break;
 
         case "masked_link_list":
-            // Link to each URL listed in a semicolon or comma-separated list of items in $display
+            // Link to each URL listed in a semicolon or comma-separated list of items in $text
             // The link text is specified by the label setting in Options, for example {"Label":"Show files"}
             // If the Label setting is the keyword UrlSegment#, for the link text use the given segment from the URL
             // For example, if Label is UrlSegment4, and the URL is https://status.my.emsl.pnl.gov/view/t/337916
@@ -361,8 +368,8 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             $matches = array();
 
             // Determine the delimiter by looking for the first comma or semicolon
-            $delim = (preg_match('/[,;]/', $display, $matches)) ? $matches[0] : '';
-            $flds = ($delim == '') ? array($display) : explode($delim, $display);
+            $delim = (preg_match('/[,;]/', $text, $matches)) ? $matches[0] : '';
+            $flds = ($delim == '') ? array($text) : explode($delim, $text);
 
             $lbl = "";
             $urlSegmentForLabel = 0;
@@ -423,7 +430,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
 
             $str .= "<table class='item_list_table' width='100%'><tr>";
             $i = 0;
-            foreach (explode('|', $display) as $f) {
+            foreach (explode('|', $text) as $f) {
                 if ($i < count($colWidths)) {
                     $widthText = trim($colWidths[$i]);
                     if (substr($widthText, -1) == '%') {
@@ -447,13 +454,13 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             break;
 
         case "link_list":
-            // Create a separate hotlink for each item in a semicolon or comma-separated list of items in $display
+            // Create a separate hotlink for each item in a semicolon or comma-separated list of items in $text
             // The link to use is defined by the target column in the detail_report_hotlinks section of the config DB
             $matches = array();
 
             // Determine the delimiter by looking for the first comma or semicolon
-            $delim = (preg_match('/[,;]/', $display, $matches)) ? $matches[0] : '';
-            $flds = ($delim == '') ? array($display) : explode($delim, $display);
+            $delim = (preg_match('/[,;]/', $text, $matches)) ? $matches[0] : '';
+            $flds = ($delim == '') ? array($text) : explode($delim, $text);
 
             if (!empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
                 $hideLinkMatchText = $options['HideLinkIfValueMatch'];
@@ -482,7 +489,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
         case "link_table":
             // Table with links
             $str .= "<table class='inner_table'>";
-            foreach (explode(',', $display) as $currentItem) {
+            foreach (explode(',', $text) as $currentItem) {
                 $currentItem = trim($currentItem);
                 $renderHTTP = true;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
@@ -496,7 +503,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             // Parse data separated by colons and vertical bars and create a table
             // Row1_Name:Row1_Value|Row2_Name:Row2_Value|
             $str .= "<table class='inner_table'>";
-            foreach (explode('|', $display) as $currentItem) {
+            foreach (explode('|', $text) as $currentItem) {
                 $str .= '<tr>';
                 foreach (explode(':', $currentItem) as $itemField) {
                     $str .= '<td>' . trim($itemField) . '</td>';
@@ -522,7 +529,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
 
             $str .= "<table class='inner_table'>";
             $headerCount = 0;
-            foreach (explode('|', $display) as $currentItem) {
+            foreach (explode('|', $text) as $currentItem) {
                 if (StartsWith(strtolower($currentItem), '!headers!')) {
                     $colTag = 'th';
                     $currentItem = substr($currentItem, strlen('!headers!'));
@@ -569,32 +576,32 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             if (!empty($options) && array_key_exists($link_id, $options)) {
                 $cx = "class='" . $options[$link_id] . "' style='padding: 1px 5px 1px 5px;'";
             }
-            $str .= "<span $cx>$displayFmt</span>";
+            $str .= "<span $cx>$display</span>";
             break;
 
         case "doi_link":
-            $linkOrValue = $url_updater->get_doi_link($display, $colIndex);
+            $linkOrValue = $url_updater->get_doi_link($text, $colIndex);
             $str .= $linkOrValue;
             break;
 
         case "format_commas":
-            $str = valueToString($display, $colSpec, true);
+            $str = valueToString($text, $colSpec, true);
             break;
 
         case "xml_params":
-            $str .= make_table_from_param_xml($display);
+            $str .= make_table_from_param_xml($text);
             break;
 
         case "markup":
             // Replace newlines with <br> using nl2br
-            $str .= nl2br($display);
+            $str .= nl2br($text);
             break;
 
         case "monomarkup":
             // Replace newlines with <br> using nl2br
             // Also surround the entire block with <code></code>
             // CSS formatting in base.css renders the text as monospace; see table.DRep pre
-            $str .= '<code>' . nl2br($display) . '</code>';
+            $str .= '<code>' . nl2br($text) . '</code>';
             break;
 
         case "glossary_entry":
@@ -606,10 +613,10 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $linkTitle = "";
             }
 
-            $str = "<a id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$display</a>";
+            $str = "<a id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$text</a>";
 
             // Pop-up option
-            // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$display','width=800,height=600')\">$display</a>";
+            // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$text','width=800,height=600')\">$text</a>";
             break;
 
         case "no_display":
@@ -618,7 +625,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             break;
 
         default:
-            $str = "??? $display ???";
+            $str = "??? $text ???";
             break;
     }
 

@@ -16,6 +16,7 @@ class Cell_presentation {
     var $col_filter = array();
 
     var $url_updater;
+    var $label_formatter;
 
     /**
      * Constructor
@@ -23,6 +24,7 @@ class Cell_presentation {
     function __construct() {
         // Include the URL updater class
         $this->url_updater = new \App\Libraries\URL_updater();
+        $this->label_formatter = new \App\Libraries\Label_formatter();
 
         // Include the Number formatting methods
         helper('number_formatting');
@@ -55,6 +57,11 @@ class Cell_presentation {
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_export");
             $colSpec2 = $this->get_colspec_with_link_type($columnName, "no_display");
+            if (!$colSpec && !$colSpec2) {
+                $formatted = $this->label_formatter->format($columnName);
+                $colSpec = $this->get_colspec_with_link_type($formatted, "no_export");
+                $colSpec2 = $this->get_colspec_with_link_type($formatted, "no_display");
+            }
 
             if (!$colSpec && !$colSpec2) {
                 // Include this column (since no hotlink of type no_export is defined)
@@ -133,6 +140,10 @@ class Cell_presentation {
             // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "export_align");
+            if (!$colSpec) {
+                $formatted = $this->label_formatter->format($columnName);
+                $colSpec = $this->get_colspec_with_link_type($formatted, "export_align");
+            }
 
             if ($colSpec && array_key_exists('Options', $colSpec)) {
                 // Examine the Options to determine the alignment
@@ -179,9 +190,13 @@ class Cell_presentation {
 
             foreach ($cols as $columnName) {
                 $value = $row[$columnName];
+                $formatted = $this->label_formatter->format($columnName);
 
                 if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
                     $colSpec = $this->hotlinks[strtolower($columnName)];
+                    $colorCode = $this->get_color_code($value, $row, $colSpec);
+                } elseif (array_key_exists(strtolower($formatted), $this->hotlinks)) {
+                    $colSpec = $this->hotlinks[strtolower($formatted)];
                     $colorCode = $this->get_color_code($value, $row, $colSpec);
                 } else {
                     $colorCode = "";
@@ -191,6 +206,9 @@ class Cell_presentation {
                     // Look for an entry in $this->hotlinks that matches either this column name,
                     // or this column name preceded by a plus sign, and is of type "color_label"
                     $colSpec2 = $this->get_colspec_with_link_type($columnName, "color_label");
+                    if (!$colSpec2) {
+                        $colSpec2 = $this->get_colspec_with_link_type($formatted, "color_label");
+                    }
 
                     if ($colSpec2) {
                         $colorCode = $this->get_color_code($value, $row, $colSpec2);
@@ -204,6 +222,9 @@ class Cell_presentation {
                 // Look for an entry in $this->hotlinks that matches either this column name,
                 // or this column name preceded by a plus sign, and is of type "copy_color_from"
                 $colSpec3 = $this->get_colspec_with_link_type($columnName, "copy_color_from");
+                if (!$colSpec3) {
+                    $colSpec3 = $this->get_colspec_with_link_type($formatted, "copy_color_from");
+                }
 
                 if ($colSpec3) {
                     $whichArg = $colSpec3["WhichArg"];
@@ -426,9 +447,14 @@ class Cell_presentation {
                 continue;
             }
 
+            $formatted = $this->label_formatter->format($columnName);
+
             // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_display");
+            if (!$colSpec) {
+                $colSpec = $this->get_colspec_with_link_type($formatted, "no_display");
+            }
 
             if ($colSpec) {
                 // Skip this column (since a hotlink of type no_display is defined)
@@ -440,6 +466,8 @@ class Cell_presentation {
 
             if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
                 $colSpec = $this->hotlinks[strtolower($columnName)];
+            } elseif (array_key_exists(strtolower($formatted), $this->hotlinks)) {
+                $colSpec = $this->hotlinks[strtolower($formatted)];
             } elseif (array_key_exists('@exclude', $this->hotlinks)) {
                 if (!in_array($columnName, $this->hotlinks['@exclude']['Options'])) {
                     $colSpec = $this->hotlinks['@exclude'];
@@ -452,6 +480,9 @@ class Cell_presentation {
 
                 # Look for another hotlink that defines a color style for this cell
                 $colorStyle = $this->get_hotlink_color_style($row, $columnName, $value);
+                if ($colorStyle === "") {
+                    $colorStyle = $this->get_hotlink_color_style($row, $formatted, $value);
+                }
 
                 $str .= $this->render_hotlink($value, $row, $colSpec, $columnName, $colIndex, $colorStyle);
             } else {
@@ -529,7 +560,11 @@ class Cell_presentation {
                     if ($v) {
                         $cols[$columnName] = $columnName;
                     } else {
-                        $cols[$columnName] = $row[$columnName];
+                        if (array_key_exists($columnName, $row)) {
+                            $cols[$columnName] = $row[$columnName];
+                        } else {
+                            $cols[$columnName] = $row[$this->label_formatter->deformat($columnName)];
+                        }
                     }
                 }
                 $ref = implode('/', array_values($cols));
@@ -815,9 +850,13 @@ class Cell_presentation {
                 continue;
             }
 
+            $formatted = $this->label_formatter->format($columnName);
             // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_display");
+            if (!$colSpec) {
+                $colSpec = $this->get_colspec_with_link_type($formatted, "no_display");
+            }
 
             if ($colSpec) {
                 // Skip this column (since a hotlink of type no_display is defined)
@@ -844,10 +883,12 @@ class Cell_presentation {
 
             // make header label
             $str .= $marker;
-            
-            // Capitalize ID and replace underscores with spaces
-            $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">" . ucwords(preg_replace("/^id$/i", "ID", str_replace("_", " ", $columnName))) . "</a>";
-            $str .= $this->get_cell_padding($columnName);
+            $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">$formatted</a>";
+            $padding = $this->get_cell_padding($columnName);
+            if ($padding === '') {
+                $padding = $this->get_cell_padding($formatted);
+            }
+            $str .= $padding;
             $str .= "</th>";
         }
         return "<tr>" . $str . "</tr>";
@@ -947,8 +988,14 @@ class Cell_presentation {
      */
     private function get_column_tooltip_work($columnNameToFind) {
         $toolTip = '';
+        $formatted = $this->label_formatter->format($columnNameToFind);
         if (array_key_exists(strtolower($columnNameToFind), $this->hotlinks)) {
             $colSpec = $this->hotlinks[strtolower($columnNameToFind)];
+            if ($colSpec["LinkType"] == 'column_tooltip') {
+                $toolTip = $colSpec["Target"];
+            }
+        } elseif (array_key_exists(strtolower($formatted), $this->hotlinks)) {
+            $colSpec = $this->hotlinks[strtolower($formatted)];
             if ($colSpec["LinkType"] == 'column_tooltip') {
                 $toolTip = $colSpec["Target"];
             }

@@ -100,6 +100,7 @@ class Detail_report {
             $data["hotlinks"] = $this->controller->link_model->get_detail_report_hotlinks();
             $data['show_entry_links'] = $show_entry_links;
             $data['show_create_links'] = $show_create_links;
+            //$data['label_formatter'] = new \App\Libraries\Label_formatter();
 
             helper(['text', 'detail_report_helper']);
             echo view('main/detail_report_data', $data);
@@ -132,9 +133,9 @@ class Detail_report {
         // aux_info always needs numeric ID, and sometimes ID for detail report is string
         // this is a bit of a hack to always get the number
         $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
-        $result_row = $this->controller->detail_model->get_item($id, $this->controller);
+        $result_row = array_change_key_case($this->controller->detail_model->get_item($id, $this->controller), CASE_LOWER);
         if (!empty($result_row)) {
-            $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : $id;
+            $aux_info_id = (array_key_exists('id', $result_row)) ? $result_row['id'] : $id;
 
             helper(['text', 'detail_report_helper']);
             echo make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id);
@@ -153,7 +154,7 @@ class Detail_report {
         $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
         $entity_info = $this->controller->detail_model->get_item($id, $this->controller);
 
-        $aux_info_id = (array_key_exists('ID', $entity_info)) ? $entity_info['ID'] : false;
+        $aux_info_id = (array_key_exists('ID', $entity_info)) ? $entity_info['ID'] : ((array_key_exists('id', $entity_info)) ? $entity_info['id'] : false);
         $aux_info = array();
         if ($aux_info_id) {
             $aux_info = $this->get_aux_info($aux_info_id);
@@ -208,7 +209,7 @@ class Detail_report {
             $this->controller->load_mod('Q_model', 'detail_model', 'detail_report', $this->config_source);
             $result_row = $this->controller->detail_model->get_item($id, $this->controller);
             // get aux info data
-            $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : $id;
+            $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : ((array_key_exists('id', $result_row)) ? $result_row['id'] : $id);
             $aux_info = $this->get_aux_info($aux_info_id);
         }
         return $aux_info;
@@ -290,9 +291,9 @@ class Detail_report {
         $config_name = 'dot';
 
         $this->controller->load_mod('Q_model', 'detail_model', $config_name, $config_source);
-        $result_row = $this->controller->detail_model->get_item($scriptName, $this->controller);
-        $script = $result_row['Contents'];
-        $description = $result_row['Description'];
+        $result_row = array_change_key_case($this->controller->detail_model->get_item($scriptName, $this->controller), CASE_LOWER);
+        $script = $result_row['contents'];
+        $description = $result_row['description'];
 
         export_xml_to_dot($scriptName, $description, $script);
     }
