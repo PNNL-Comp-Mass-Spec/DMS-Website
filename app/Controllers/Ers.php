@@ -72,8 +72,8 @@ class Ers extends BaseController {
         $this->table = new \CodeIgniter\View\Table();
         $dmsDB = \Config\Database::connect('default');
 
-        // get list of proposals from ers
-        $sql = 'SELECT  User_ID, User_Name FROM V_EUS_Users_ID';
+        // Get list of proposals from EUS (Nexus)
+        $sql = 'SELECT User_ID, User_Name FROM V_EUS_Users_ID';
         $result = $dmsDB->query($sql);
         //
         if(!$result) {
