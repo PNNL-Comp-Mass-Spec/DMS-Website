@@ -247,7 +247,7 @@ EOD;
      */
     function get_aux_info_allowed_values($target, $category, $subcategory) {
         $builder = $this->db->table('V_Aux_Info_Allowed_Values');
-        $builder->select('Item, AllowedValue');
+        $builder->select('Item, Allowed_Value');
         $builder->where('Target', $target);
         $builder->where('Category', $category);
         $builder->where('Subcategory', $subcategory);
@@ -312,8 +312,8 @@ EOD;
         foreach ($resultSet->getResultArray() as $row) {
             $spec = array();
             $spec['Item_ID'] = $row['Item_ID'];
-            $spec['DataSize'] = $row['DataSize'];
-            $spec['HelperAppend'] = $row['HelperAppend'];
+            $spec['Data_Size'] = $row['Data_Size'];
+            $spec['Helper_Append'] = $row['Helper_Append'];
             $spec['SC'] = $row['SC'];
             $spec['SS'] = $row['SS'];
             $spec['SI'] = $row['SI'];
