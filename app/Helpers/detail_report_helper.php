@@ -140,6 +140,8 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
                     $link_id = $fields[$wa_defmt];
                 } else {
                     // TODO: Trigger a warning message of some kind?
+                    // Return an invalid link id to not break the page entirely; it's harder to see that there's a problem, but much easier to see the exact cause
+                    $link_id = "COLUMN_NAME_MISMATCH";
                 }
             } else {
                 $link_id = "";
@@ -300,6 +302,11 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
 
     $str = "";
     $fld_id = $colSpec["id"];
+    $link_class = "";
+
+    if ($link_id == "COLUMN_NAME_MISMATCH") {
+        $link_class = " class=\"broken\"";
+    }
 
     if (array_key_exists("WhichArg", $colSpec)) {
         $wa = $colSpec["WhichArg"];
@@ -327,13 +334,13 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             $link_id = encode_special_values($link_id);
 
             $url = make_detail_report_url($target, $link_id, $options);
-            $str = "<a id='lnk_${fld_id}' href='$url'>$display</a>";
+            $str = "<a$link_class id='lnk_${fld_id}' href='$url'>$display</a>";
             break;
 
         case "href-folder":
             if ($val) {
                 $lnk = str_replace('\\', '/', $val);
-                $str = "<a href='file:///$lnk'>$display</a>";
+                $str = "<a$link_class href='file:///$lnk'>$display</a>";
             } else {
                 $str = $display;
             }
@@ -342,7 +349,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
         case "literal_link":
             // Link to the URL specified by $text
             // The link text is the target URL
-            $str .= "<a href='$text' target='External$colIndex'>$text</a>";
+            $str .= "<a$link_class href='$text' target='External$colIndex'>$text</a>";
             break;
 
         case "masked_link":
@@ -353,7 +360,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 if (!empty($options) && array_key_exists('Label', $options)) {
                     $lbl = $options['Label'];
                 }
-                $str .= "<a href='$text' target='External$colIndex'>$lbl</a>";
+                $str .= "<a$link_class href='$text' target='External$colIndex'>$lbl</a>";
             } else {
                 $str .= "";
             }
@@ -413,7 +420,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                     $lblToUse = $targetUrl;
                 }
 
-                $links[] = "<a href='$targetUrl' target='External$colIndex'>$lblToUse</a>";
+                $links[] = "<a$link_class href='$targetUrl' target='External$colIndex'>$lblToUse</a>";
             }
             $str .= implode($delim . ' ', $links);
             break;
@@ -481,7 +488,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
 
                 $renderHTTP = true;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
-                $links[] = "<a href='$url'>$currentItem</a>";
+                $links[] = "<a$link_class href='$url'>$currentItem</a>";
             }
             $str .= implode($delim . ' ', $links);
             break;
@@ -493,7 +500,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $currentItem = trim($currentItem);
                 $renderHTTP = true;
                 $url = make_detail_report_url($target, $currentItem, $options, $renderHTTP);
-                $str .= "<tr><td><a href='$url'>$currentItem</a></td></tr>";
+                $str .= "<tr><td><a$link_class href='$url'>$currentItem</a></td></tr>";
             }
             $str .= "</table>";
             break;
@@ -556,7 +563,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                         // Render as a URL
                         $renderHTTP = true;
                         $url = make_detail_report_url($target, $trimmedValue, $options, $renderHTTP);
-                        $str .= "<$colTag><a href='$url'>$trimmedValue</a></$colTag>";
+                        $str .= "<$colTag><a$link_class href='$url'>$trimmedValue</a></$colTag>";
                     } else {
                         if ($headerLine) {
                             $headerCount++;
@@ -613,7 +620,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $linkTitle = "";
             }
 
-            $str = "<a id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$text</a>";
+            $str = "<a$link_class id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$text</a>";
 
             // Pop-up option
             // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$text','width=800,height=600')\">$text</a>";
