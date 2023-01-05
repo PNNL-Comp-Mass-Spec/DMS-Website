@@ -80,7 +80,14 @@ class Label_Formatter {
         "ms2_rep_ion_1missing" => "MS2_RepIon_1Missing",
         "ms2_rep_ion_2missing" => "MS2_RepIon_2Missing",
         "ms2_rep_ion_3missing" => "MS2_RepIon_3Missing",
-        "inst_group" => "Inst. Group"
+        "inst_group" => "Inst. Group",
+        "total_psms_msgf_filtered" => "Total PSMs (MSGF-filtered)",
+        "unique_peptides_msgf_filtered" => "Unique Peptides (MSGF-filtered)",
+        "unique_proteins_msgf_filtered" => "Unique Proteins (MSGF-filtered)",
+        "total_psms_fdr_filtered" => "Total PSMs (FDR-filtered)",
+        "unique_peptides_fdr_filtered" => "Unique Peptides (FDR-filtered)",
+        "unique_proteins_fdr_filtered" => "Unique Proteins (FDR-filtered)",
+        "fdr_threshold_pct" => "FDR Threshold (%)"
     );
 
     /**
@@ -90,6 +97,7 @@ class Label_Formatter {
         "2d" => "2D",
         "am" => "AM",
         "amt" => "AMT",
+        "cpu" => "CPU",
         "db" => "DB",
         "dem" => "DEM",
         "doi" => "DOI",
@@ -102,18 +110,24 @@ class Label_Formatter {
         "id" => "ID",
         "lc" => "LC",
         "masic" => "MASIC",
+        "maxquant" => "MaxQuant",
         "mb" => "MB",
         "mrm" => "MRM",
         "ms" => "MS",
         "ms1" => "MS1",
         "ms2" => "MS2",
+        "msfragger" => "MSFragger",
         "msms" => "MSMS",
+        "mt" => "MT",
         "myesml" => "MyEMSL",
         "pi" => "PI",
+        "pm" => "PM",
         "pnnl" => "PNNL",
         "ppm" => "PPM",
         "prism" => "PRISM",
+        "prn" => "PRN",
         "psm" => "PSM",
+        "pt" => "PT",
         "qc" => "QC",
         "qcart" => "QCART",
         "qcdm" => "QCDM",
@@ -124,6 +138,7 @@ class Label_Formatter {
         "url" => "URL",
         "viper" => "VIPER",
         "wp" => "WP",
+        "wpn" => "WPN",
         "xic" => "XIC"
     );
 
