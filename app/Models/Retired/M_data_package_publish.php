@@ -85,14 +85,14 @@ SELECT
     Owner,
     Team,
     State,
-    Package_Type AS PackageType,
+    Package_Type,
     Requester,
     Total,
     Jobs,
     Datasets,
     Experiments,
     Biomaterial,
-    CONVERT(VARCHAR(24), Created, 101) AS Created
+    Created
 FROM    S_V_Data_Package_Export AS package
 WHERE   ID = $data_package_ID
 EOD;
@@ -112,7 +112,7 @@ SELECT
     Experiment,
     TRG.OG_name AS Organism,
     TC.Campaign_Num AS Campaign,
-    CONVERT(VARCHAR(24), Created, 101) AS Created,
+    Created,
     TEX.EX_reason AS Reason,
     Package_Comment
 FROM     S_V_Data_Package_Experiments_Export AS TDPA
@@ -138,7 +138,7 @@ SELECT
     -- Experiment,
     DS.Exp_ID as Experiment_ID,
     Instrument,
-    CONVERT(VARCHAR(24), Created, 101) AS Created,
+    Created,
     Package_Comment
 FROM    S_V_Data_Package_Datasets_Export AS TDPA
     INNER JOIN T_Dataset AS DS ON DS.Dataset_ID = TDPA.Dataset_ID

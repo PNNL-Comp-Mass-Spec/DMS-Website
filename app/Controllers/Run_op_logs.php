@@ -47,7 +47,7 @@ class Run_op_logs extends Grid {
         $this->my_tag = "operation_log_review";
         $this->db = \Config\Database::connect();
         $builder = $this->db->table("V_Ops_Logs_List_Report");
-        $builder->select("CONVERT(VARCHAR(16), Entered, 101) AS Entered, EnteredBy, Instrument, Type, Minutes, ID, Log, Request, Usage, Proposal, EMSL_User, Note");
+        $builder->select("entered, entered_by, instrument, type, minutes, id, log, request, usage, proposal, emsl_user, note");
         if(IsNotWhitespace($instrument)) $builder->where("Instrument in ($instrument)");
         if(IsNotWhitespace($usage)) $builder->where("Usage in ($usage)");
         if(IsNotWhitespace($type)) $builder->where("Type in ($type)");
