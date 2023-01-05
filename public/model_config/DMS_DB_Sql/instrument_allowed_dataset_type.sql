@@ -1,12 +1,12 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO general_params VALUES('list_report_data_table','V_Instrument_Allowed_Dataset_Type_List_Report');
+INSERT INTO general_params VALUES('list_report_data_table','v_instrument_allowed_dataset_type_list_report');
 INSERT INTO general_params VALUES('list_report_cmds','instrument_allowed_dataset_type_cmds');
 INSERT INTO general_params VALUES('list_report_cmds_url','/instrument_allowed_dataset_type/operation');
 INSERT INTO general_params VALUES('operations_sproc','UpdateInstrumentGroupAllowedDatasetType');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'Sel','row_to_json','Sel','','{ "rowAction":"lcmd.instrument_allowed_dataset_type.localRowAction" }');
+INSERT INTO list_report_hotlinks VALUES(1,'sel','row_to_json','sel','','{ "rowAction":"lcmd.instrument_allowed_dataset_type.localRowAction" }');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'InstrumentGroup','InstrumentGroup','varchar','input','64','UpdateInstrumentGroupAllowedDatasetType');
 INSERT INTO sproc_args VALUES(2,'DatasetType','DatasetType','varchar','input','50','UpdateInstrumentGroupAllowedDatasetType');
@@ -15,8 +15,8 @@ INSERT INTO sproc_args VALUES(4,'<local>','mode','varchar','input','12','UpdateI
 INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','UpdateInstrumentGroupAllowedDatasetType');
 INSERT INTO sproc_args VALUES(6,'<local>','callingUser','varchar','input','128','UpdateInstrumentGroupAllowedDatasetType');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument_group','Instrument Group','20','','Instrument Group','MatchesText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_type','Dataset Type','20','','Dataset Type','ContainsText','text','50','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_type_description','Type Description','20','','Type Description','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_usage_for_this_group','Usage For This Group','20','','Usage For This Group','ContainsText','text','1024','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument_group','Instrument Group','20','','instrument_group','MatchesText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_type','Dataset Type','20','','dataset_type','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_type_description','Type Description','20','','type_description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_usage_for_this_group','Usage For This Group','20','','usage_for_this_group','ContainsText','text','1024','','');
 COMMIT;

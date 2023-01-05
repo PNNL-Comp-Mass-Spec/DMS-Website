@@ -1,10 +1,10 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO general_params VALUES('list_report_data_table','V_Analysis_Job_Processors_List_Report');
+INSERT INTO general_params VALUES('list_report_data_table','v_analysis_job_processors_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO general_params VALUES('detail_report_data_table','V_Analysis_Job_Processors_Detail_Report');
-INSERT INTO general_params VALUES('detail_report_data_id_col','ID');
+INSERT INTO general_params VALUES('detail_report_data_table','v_analysis_job_processors_detail_report');
+INSERT INTO general_params VALUES('detail_report_data_id_col','id');
 INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 INSERT INTO general_params VALUES('entry_sproc','AddUpdateAnalysisJobProcessors');
 INSERT INTO general_params VALUES('entry_page_data_table','v_analysis_job_processors_entry');
@@ -19,9 +19,9 @@ INSERT INTO form_fields VALUES(6,'analysis_tools_list','AnalysisToolsList','area
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'analysis_tools_list','list-report.helper','','helper_analysis_processor_tool/report','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','32','','Name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','32','','name','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'ID','invoke_entity','value','analysis_job_processors/show/','');
+INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','analysis_job_processors/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateAnalysisJobProcessors');
 INSERT INTO sproc_args VALUES(2,'state','State','char','input','1','AddUpdateAnalysisJobProcessors');

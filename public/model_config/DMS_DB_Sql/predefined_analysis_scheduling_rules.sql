@@ -1,11 +1,11 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO general_params VALUES('list_report_data_table','V_Predefined_Analysis_Scheduling_Rules_List_Report');
-INSERT INTO general_params VALUES('list_report_data_sort_col','Evaluation Order');
+INSERT INTO general_params VALUES('list_report_data_table','v_predefined_analysis_scheduling_rules_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_col','evaluation_order');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
-INSERT INTO general_params VALUES('detail_report_data_table','V_Predefined_Analysis_Scheduling_Rules_Detail_Report');
-INSERT INTO general_params VALUES('detail_report_data_id_col','ID');
+INSERT INTO general_params VALUES('detail_report_data_table','v_predefined_analysis_scheduling_rules_detail_report');
+INSERT INTO general_params VALUES('detail_report_data_id_col','id');
 INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 INSERT INTO general_params VALUES('entry_sproc','AddUpdatePredefinedAnalysisSchedulingRules');
 INSERT INTO general_params VALUES('entry_page_data_table','v_predefined_analysis_scheduling_rules_entry');
@@ -29,7 +29,7 @@ INSERT INTO form_field_choosers VALUES(4,'analysis_tool_name','picker.replace','
 INSERT INTO form_field_choosers VALUES(5,'priority','picker.replace','analysisJobPriPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'processor_group','picker.replace','associatedProcessorGroupPickList','','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'ID','invoke_entity','value','predefined_analysis_scheduling_rules/show/','');
+INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','predefined_analysis_scheduling_rules/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'evaluation_order','evaluationOrder','smallint','input','','AddUpdatePredefinedAnalysisSchedulingRules');
 INSERT INTO sproc_args VALUES(2,'instrument_class','instrumentClass','varchar','input','32','AddUpdatePredefinedAnalysisSchedulingRules');

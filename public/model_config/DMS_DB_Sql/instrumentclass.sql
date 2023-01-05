@@ -1,10 +1,10 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO general_params VALUES('list_report_data_table','V_Instrument_Class_List_Report');
+INSERT INTO general_params VALUES('list_report_data_table','v_instrument_class_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO general_params VALUES('detail_report_data_table','V_Instrument_Class_Detail_Report');
-INSERT INTO general_params VALUES('detail_report_data_id_col','Instrument Class');
+INSERT INTO general_params VALUES('detail_report_data_table','v_instrument_class_detail_report');
+INSERT INTO general_params VALUES('detail_report_data_id_col','instrument_class');
 INSERT INTO general_params VALUES('entry_sproc','AddUpdateInstrumentClass');
 INSERT INTO general_params VALUES('entry_page_data_table','v_instrument_class_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','instrument_class');
@@ -22,7 +22,7 @@ INSERT INTO form_field_choosers VALUES(1,'is_purgable','picker.replace','yesNoAs
 INSERT INTO form_field_choosers VALUES(2,'raw_data_type','picker.replace','rawDataTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'requires_preparation','picker.replace','yesNoAsOneZeroPickList','','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'Instrument Class','invoke_entity','value','instrumentclass/show/','');
+INSERT INTO list_report_hotlinks VALUES(1,'instrument_class','invoke_entity','value','instrumentclass/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'instrument_class','instrumentClass','varchar','input','32','AddUpdateInstrumentClass');
 INSERT INTO sproc_args VALUES(2,'is_purgable','isPurgable','varchar','input','1','AddUpdateInstrumentClass');
@@ -35,7 +35,7 @@ INSERT INTO sproc_args VALUES(9,'<local>','message','varchar','output','512','Ad
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'params','auto_format','xml');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_class','Class','10','','Instrument Class','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_raw_data_type','Raw Data Type','10','','Raw Data Type','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_comment','Comment','10','','Comment','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_class','Class','10','','instrument_class','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_raw_data_type','Raw Data Type','10','','raw_data_type','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_comment','Comment','10','','comment','ContainsText','text','80','','');
 COMMIT;

@@ -2,12 +2,12 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('base_table','T_@@@');
-INSERT INTO general_params VALUES('list_report_data_table','V_@@@_List_Report');
-INSERT INTO general_params VALUES('detail_report_data_table','V_@@@_Detail_Report');
-INSERT INTO general_params VALUES('entry_page_data_table','V_@@@_Entry');
-INSERT INTO general_params VALUES('detail_report_data_id_col','ID');
-INSERT INTO general_params VALUES('entry_page_data_id_col','ID');
+INSERT INTO general_params VALUES('list_report_data_table','v_@@@_list_report');
+INSERT INTO general_params VALUES('detail_report_data_table','v_@@@_detail_report');
+INSERT INTO general_params VALUES('entry_page_data_table','v_@@@_entry');
+INSERT INTO general_params VALUES('detail_report_data_id_col','id');
+INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('entry_sproc','AddUpdate@@@');
 INSERT INTO general_params VALUES('operations_sproc','Update@@@');
-INSERT INTO general_params VALUES('post_submission_detail_id','ID');
+INSERT INTO general_params VALUES('post_submission_detail_id','id');
 COMMIT;
