@@ -131,6 +131,6 @@ As
 GO
 
 -------------------------------------------------
-GRANT  EXECUTE  ON <?= $sprocName ?> TO [DMS2_SP_User]
+GRANT  EXECUTE  ON <?= $sprocName ?> TO DMS2_SP_User
 -------------------------------------------------
 

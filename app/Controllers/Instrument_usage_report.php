@@ -43,7 +43,7 @@ class Instrument_usage_report extends Grid {
         $this->my_tag = "instrument_usage";
         $this->db = \Config\Database::connect();
         $builder = $this->db->table("V_Instrument_Usage_Report_List_Report");
-        $builder->select('Seq , [EMSL Inst ID], Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , Dataset_ID as ID, Validation', false);
+        $builder->select('Seq , EMSL_Inst_ID, Instrument , Type , CONVERT(VARCHAR(16), Start, 101) AS Start , Minutes , Proposal , Usage , Users , Operator , Comment , Dataset_ID as ID, Validation', false);
 
         if(IsNotWhitespace($instrument)) $builder->where("Instrument in ($instrument)");
         if(IsNotWhitespace($usage)) $builder->where("Usage in ($usage)");
@@ -190,7 +190,7 @@ EOD;
     {
         $this->db = \Config\Database::connect();
 
-        $sql = "SELECT * FROM GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, [Month], [Day], [Usage]";
+        $sql = "SELECT * FROM GetEMSLInstrumentUsageRollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, Month, Day, Usage";
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
         return $result;

@@ -1,7 +1,7 @@
 
 
 -------------------------------------------------
-GRANT  EXECUTE  ON <?= $sprocName ?> TO [DMS_SP_User]
+GRANT  EXECUTE  ON <?= $sprocName ?> TO DMS_SP_User
 -------------------------------------------------
 
 

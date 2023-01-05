@@ -73,7 +73,7 @@ class Ers extends BaseController {
         $dmsDB = \Config\Database::connect('default');
 
         // get list of proposals from ers
-        $sql = 'SELECT  [User ID], [User Name] FROM V_EUS_Users_ID';
+        $sql = 'SELECT  User_ID, User_Name FROM V_EUS_Users_ID';
         $result = $dmsDB->query($sql);
         //
         if(!$result) {
