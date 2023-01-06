@@ -95,14 +95,15 @@ EOD;
 
         $where_array = array("year" => (int)$year, "month" => (int)$month);
         $query = $this->db->
+            table("v_instrument_usage_report_export")->
             where($where_array)->
-            order_by('instrument', 'ASC')->
-            order_by('year', 'ASC')->
-            order_by('month', 'ASC')->
-            order_by('start', 'ASC')->
-            order_by('type', 'ASC')->
-            order_by('seq', 'ASC')->
-            get("v_instrument_usage_report_export");
+            orderBy('instrument', 'ASC')->
+            orderBy('year', 'ASC')->
+            orderBy('month', 'ASC')->
+            orderBy('start', 'ASC')->
+            orderBy('type', 'ASC')->
+            orderBy('seq', 'ASC')->
+            get();
 
         if($query && $query->getNumRows() > 0) {
           $result = $query->getResultArray();
