@@ -46,13 +46,13 @@ class Run_op_logs extends Grid {
 
         $this->my_tag = "operation_log_review";
         $this->db = \Config\Database::connect();
-        $builder = $this->db->table("V_Ops_Logs_List_Report");
+        $builder = $this->db->table("v_ops_logs_list_report");
         $builder->select("entered, entered_by, instrument, type, minutes, id, log, request, usage, proposal, emsl_user, note");
-        if(IsNotWhitespace($instrument)) $builder->where("Instrument in ($instrument)");
-        if(IsNotWhitespace($usage)) $builder->where("Usage in ($usage)");
-        if(IsNotWhitespace($type)) $builder->where("Type in ($type)");
-        if(IsNotWhitespace($year)) $builder->where("Year", $year);
-        if(IsNotWhitespace($month)) $builder->where("Month", $month);
+        if(IsNotWhitespace($instrument)) $builder->where("instrument in ($instrument)");
+        if(IsNotWhitespace($usage)) $builder->where("usage in ($usage)");
+        if(IsNotWhitespace($type)) $builder->where("type in ($type)");
+        if(IsNotWhitespace($year)) $builder->where("year", $year);
+        if(IsNotWhitespace($month)) $builder->where("month", $month);
         $this->grid_data_from_query($builder);
     }
 }

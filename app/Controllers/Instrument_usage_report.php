@@ -42,14 +42,14 @@ class Instrument_usage_report extends Grid {
 
         $this->my_tag = "instrument_usage";
         $this->db = \Config\Database::connect();
-        $builder = $this->db->table("V_Instrument_Usage_Report_List_Report");
-        $builder->select('Seq, EMSL_Inst_ID, Instrument, Type, Start, Minutes, Proposal, Usage, Users, Operator, Comment, Dataset_ID AS ID, Validation', false);
+        $builder = $this->db->table("v_instrument_usage_report_list_report");
+        $builder->select('seq, emsl_inst_id, instrument, type, start, minutes, proposal, usage, users, operator, comment, dataset_id as id, validation', false);
 
-        if(IsNotWhitespace($instrument)) $builder->where("Instrument in ($instrument)");
-        if(IsNotWhitespace($usage)) $builder->where("Usage in ($usage)");
-        if(IsNotWhitespace($proposal)) $builder->where("Proposal", $proposal);
-        if(IsNotWhitespace($year)) $builder->where("Year", $year);
-        if(IsNotWhitespace($month)) $builder->where("Month", $month);
+        if(IsNotWhitespace($instrument)) $builder->where("instrument in ($instrument)");
+        if(IsNotWhitespace($usage)) $builder->where("usage in ($usage)");
+        if(IsNotWhitespace($proposal)) $builder->where("proposal", $proposal);
+        if(IsNotWhitespace($year)) $builder->where("year", $year);
+        if(IsNotWhitespace($month)) $builder->where("month", $month);
 
         $this->grid_data_from_query($builder);
     }
@@ -93,16 +93,16 @@ EOD;
         // Query method #2
         $result = array();
 
-        $where_array = array("Year" => (int)$year, "Month" => (int)$month);
+        $where_array = array("year" => (int)$year, "month" => (int)$month);
         $query = $this->db->
             where($where_array)->
-            order_by('Instrument', 'ASC')->
-            order_by('Year', 'ASC')->
-            order_by('Month', 'ASC')->
-            order_by('Start', 'ASC')->
-            order_by('Type', 'ASC')->
-            order_by('Seq', 'ASC')->
-            get("V_Instrument_Usage_Report_Export");
+            order_by('instrument', 'ASC')->
+            order_by('year', 'ASC')->
+            order_by('month', 'ASC')->
+            order_by('start', 'ASC')->
+            order_by('type', 'ASC')->
+            order_by('seq', 'ASC')->
+            get("v_instrument_usage_report_export");
 
         if($query && $query->getNumRows() > 0) {
           $result = $query->getResultArray();

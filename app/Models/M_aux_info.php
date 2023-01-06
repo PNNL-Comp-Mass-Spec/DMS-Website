@@ -9,9 +9,9 @@ class M_aux_info extends Model {
         $this->my_tag = "aux_info";
 
         // initialize parameters for query for list report
-        $this->list_report_data_cols = "Category, Subcategory, Item, Value";
-        $this->list_report_data_table = 'V_Aux_Info_Value';
-        $this->list_report_data_sort_col = 'SC, SS, SI';
+        $this->list_report_data_cols = "category, subcategory, item, value";
+        $this->list_report_data_table = 'v_aux_info_value';
+        $this->list_report_data_sort_col = 'sc, ss, si';
 
         // initialize primary filter specs
         $this->list_report_primary_filter = array(
@@ -19,28 +19,28 @@ class M_aux_info extends Model {
                 'label' => 'Target',
                 'size' => '10',
                 'value' => '',
-                'col' => 'Target',
+                'col' => 'target',
                 'cmp' => 'MatchesText',
             ),
             'pf_id' => array(
                 'label' => 'ID',
                 'size' => '6',
                 'value' => '',
-                'col' => 'Target_ID',
+                'col' => 'target_id',
                 'cmp' => 'Equals',
             ),
             'pf_category' => array(
                 'label' => 'Category',
                 'size' => '12',
                 'value' => '',
-                'col' => 'Category',
+                'col' => 'category',
                 'cmp' => 'MatchesText',
             ),
             'pf_subcategory' => array(
                 'label' => 'Subcategory',
                 'size' => '12',
                 'value' => '',
-                'col' => 'Subcategory',
+                'col' => 'subcategory',
                 'cmp' => 'MatchesText',
             ),
         );
@@ -167,10 +167,10 @@ class M_aux_info extends Model {
             return array();
         }
         $sql = <<<EOD
-        SELECT Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI
-        FROM V_Aux_Info_Value
-        WHERE (Target = '$target') AND (Target_ID = $id)
-        ORDER BY SC, SS, SI
+        SELECT target, target_id, category, subcategory, item, value, sc, ss, si
+        FROM v_aux_info_value
+        WHERE (target = '$target') AND (target_id = $id)
+        ORDER BY sc, ss, si
 EOD;
         $query = $this->db->query($sql);
 
@@ -246,15 +246,15 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_allowed_values($target, $category, $subcategory) {
-        $builder = $this->db->table('V_Aux_Info_Allowed_Values');
-        $builder->select('Item, Allowed_Value');
-        $builder->where('Target', $target);
-        $builder->where('Category', $category);
-        $builder->where('Subcategory', $subcategory);
+        $builder = $this->db->table('v_aux_info_allowed_values');
+        $builder->select('item, allowed_value');
+        $builder->where('target', $target);
+        $builder->where('category', $category);
+        $builder->where('subcategory', $subcategory);
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database view V_Aux_Info_Allowed_Values for allowed values; see writable/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database view v_aux_info_allowed_values for allowed values; see writable/logs/log-$currentTimestamp.php");
         }
         return $resultSet->getResultArray();
     }
@@ -266,11 +266,12 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_targets() {
-        $builder = $this->db->table('T_Aux_Info_Target');
+        $builder = $this->db->table('t_aux_info_target');
+        $builder->select('target_type_id, target_type_name, target_table, target_id_col, target_name_col');
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            throw new \Exception("Error querying database table T_Aux_Info_Target for target types; see writable/logs/log-$currentTimestamp.php");
+            throw new \Exception("Error querying database table t_aux_info_target for target types; see writable/logs/log-$currentTimestamp.php");
         }
         if ($resultSet->getNumRows() == 0) {
             throw new \Exception("No rows found");
@@ -285,8 +286,10 @@ EOD;
     function get_aux_info_target_names() {
         $result = $this->get_aux_info_targets();
         $targets = array();
-        foreach ($result as $row) {
-            $targets[] = $row['Target_Type_Name'];
+        foreach ($result as $row1) {
+            // SQL Server compatibility:
+            $row = array_change_key_case($row1, CASE_LOWER);
+            $targets[] = $row['target_type_name'];
         }
         return $targets;
     }
@@ -298,8 +301,9 @@ EOD;
      * @throws Exception
      */
     function get_aux_info_def($target) {
-        $builder = $this->db->table('V_Aux_Info_Definition');
-        $builder->where('Target', $target);
+        $builder = $this->db->table('v_aux_info_definition');
+        $builder->select('target, category, subcategory, item, item_id, sc, ss, si, data_size, helper_append');
+        $builder->where('target', $target);
         $resultSet = $builder->get();
         if (!$resultSet) {
             $currentTimestamp = date("Y-m-d");
@@ -309,15 +313,17 @@ EOD;
             throw new \Exception("No rows found");
         }
         $def = array();
-        foreach ($resultSet->getResultArray() as $row) {
+        foreach ($resultSet->getResultArray() as $row1) {
+            // SQL Server compatibility:
+            $row = array_change_key_case($row1, CASE_LOWER);
             $spec = array();
-            $spec['Item_ID'] = $row['Item_ID'];
-            $spec['Data_Size'] = $row['Data_Size'];
-            $spec['Helper_Append'] = $row['Helper_Append'];
-            $spec['SC'] = $row['SC'];
-            $spec['SS'] = $row['SS'];
-            $spec['SI'] = $row['SI'];
-            $def[$row['Category']][$row['Subcategory']][$row['Item']] = $spec;
+            $spec['Item_ID'] = $row['item_id'];
+            $spec['Data_Size'] = $row['data_size'];
+            $spec['Helper_Append'] = $row['helper_append'];
+            $spec['SC'] = $row['sc'];
+            $spec['SS'] = $row['ss'];
+            $spec['SI'] = $row['si'];
+            $def[$row['category']][$row['subcategory']][$row['item']] = $spec;
         }
         return $def;
     }
