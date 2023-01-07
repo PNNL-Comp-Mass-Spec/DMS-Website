@@ -87,15 +87,15 @@
     var gridConfig = {
         maxColumnChars: 50,
         hiddenColumns: ['Year', 'Month', 'Day'],
-        staticColumns: ['Entered', 'EnteredBy', 'Instrument', 'Type',
-        {id:'Minutes', ned:true },
-        {id:'ID', formatter:myFormatterFactory.makeFor('interval'), ned:true },
-        {id:'Log', formatter:myFormatterFactory.makeFor('log'), ned:true },
-        {id:'Request', formatter:myFormatterFactory.makeFor('request'), ned:true },
-        {id:'Usage'},
-        {id:'Proposal'},
-        {id:'EMSL_User'},
-        {id:'Note', editor:Slick.Editors.LongText}],
+        staticColumns: ['entered', 'entered_by', 'instrument', 'type',
+        {id:'minutes', ned:true },
+        {id:'id', formatter:myFormatterFactory.makeFor('interval'), ned:true },
+        {id:'log', formatter:myFormatterFactory.makeFor('log'), ned:true },
+        {id:'request', formatter:myFormatterFactory.makeFor('request'), ned:true },
+        {id:'usage'},
+        {id:'proposal'},
+        {id:'emsl_user'},
+        {id:'note', editor:Slick.Editors.LongText}],
         getLoadParameters: function() {
             var p = {};
             var instruments = $('#instrument_fld_chooser').val();
@@ -162,12 +162,12 @@
         },
         getRequestChangeXml: function(dataRows) {
             var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
-            var mapP2A = [{p:'Request', a:'request'}, {p:'Usage', a:'usage'}, {p:'Proposal', a:'proposal'}, {p:'EMSL_User', a:'user'}];
+            var mapP2A = [{p:'request', a:'request'}, {p:'usage', a:'usage'}, {p:'proposal', a:'proposal'}, {p:'emsl_user', a:'user'}];
             return gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);
         },
         getIntervalChangeXml: function(dataRows) {
             var changes = myUtil.getChangedRows(dataRows, myUtil.isInterval);
-            var mapP2A = [{p:'ID', a:'id'}, {p:'Note', a:'note'}];
+            var mapP2A = [{p:'id', a:'id'}, {p:'note', a:'note'}];
             return gamma.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);
         },
         /// move to gridUtil
@@ -181,17 +181,17 @@
             return changes;
         },
         isDataset: function(row) {
-            return (typeof row.Type != 'undefined') && (row.Type === 'Dataset');
+            return (typeof row.type != 'undefined') && (row.type === 'Dataset');
         },
         isInterval: function(row) {
-            return (typeof row.Type != 'undefined') && (row.Type === 'Long Interval');
+            return (typeof row.type != 'undefined') && (row.type === 'Long Interval');
         },
         adjustCapitalization: function(args) {
             if(!args) return;
             var field = args.grid.getColumns()[args.cell].field;
             var row = args.grid.getData()[args.row];
             if(myUtil.isDataset(row) && field === 'Usage') {
-                row.Usage = row.Usage.toUpperCase();
+                row.usage = row.usage.toUpperCase();
                 args.grid.invalidateRows([args.row]);
                 args.grid.render();
             }
@@ -200,8 +200,8 @@
             var message = '';
             var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
             $.each(changes, function(idx, row) {
-                if(row.Usage === 'USER' && !(row.Proposal) ){
-                    message = "No proposal for USER for " + row.Note;
+                if(row.usage === 'USER' && !(row.proposal) ){
+                    message = "No proposal for USER for " + row.note;
                     return false;
                 }
             });
