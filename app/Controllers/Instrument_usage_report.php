@@ -43,7 +43,7 @@ class Instrument_usage_report extends Grid {
         $this->my_tag = "instrument_usage";
         $this->db = \Config\Database::connect();
         $builder = $this->db->table("v_instrument_usage_report_list_report");
-        $builder->select('seq, emsl_inst_id, instrument, type, start, minutes, proposal, usage, users, operator, comment, dataset_id as id, validation', false);
+        $builder->select('seq, emsl_inst_id, instrument, type, start, minutes, proposal, usage, users, operator, comment, dataset_id AS id, validation', false);
 
         if(IsNotWhitespace($instrument)) $builder->where("instrument in ($instrument)");
         if(IsNotWhitespace($usage)) $builder->where("usage in ($usage)");
