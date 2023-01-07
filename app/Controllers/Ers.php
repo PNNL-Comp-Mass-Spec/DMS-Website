@@ -14,6 +14,7 @@ class Ers extends BaseController {
     }
 
     // --------------------------------------------------------------------
+    // This method is obsolete (it refers to the "ers" database connection, which is no longer valid)
     function proposals()
     {
         $this->table = new \CodeIgniter\View\Table();
@@ -33,6 +34,7 @@ class Ers extends BaseController {
     }
 
     // --------------------------------------------------------------------
+    // This method is obsolete (it refers to the "ers" database connection, which is no longer valid)
     function users()
     {
         $this->table = new \CodeIgniter\View\Table();
@@ -92,6 +94,7 @@ class Ers extends BaseController {
     }
 
     // --------------------------------------------------------------------
+    // This method is obsolete (it refers to the "ers" database connection, which is no longer valid)
     function new_proposals()
     {
         $this->table = new \CodeIgniter\View\Table();
