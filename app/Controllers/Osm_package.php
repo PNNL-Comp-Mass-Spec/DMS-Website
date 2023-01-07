@@ -16,6 +16,7 @@ class Osm_package extends DmsBase {
 
         $this->db = \Config\Database::connect();
 
+        // TODO: postgresfix!
         $sql = "SELECT GetOSMItemChooserList($id, '$mode')";
         $query = $this->db->query($sql);
         if(!$query) return "Error querying database";

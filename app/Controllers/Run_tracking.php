@@ -142,6 +142,7 @@ class Run_tracking extends DmsBase {
     {
         $this->db = \Config\Database::connect();
 
+        // TODO: postgresfix!
         $sql = <<<EOD
 SELECT *
 FROM  GetRunTrackingMonthlyInfo('$instrument', '$year', '$month', '') AS GT
@@ -157,6 +158,7 @@ EOD;
     function get_long_interval_threshold()
     {
         $this->db = \Config\Database::connect();
+        // TODO: postgresfix!
         $query = $this->db->query('SELECT GetLongIntervalThreshold() AS Threshold');
         $row = $query->getRow();
         return $row->Threshold;

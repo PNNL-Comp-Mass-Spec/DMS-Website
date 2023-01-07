@@ -31,6 +31,7 @@ class Data_package extends DmsBase {
 
         $this->db = \Config\Database::connect('package');
 
+        // TODO: postgresfix!
         $sql = "CheckDataPackageDatasetJobCoverage($id, '$tool', '$mode')";
         $builder = $this->db->table($sql);
         $resultSet = $builder->get();

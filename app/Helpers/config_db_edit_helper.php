@@ -353,6 +353,7 @@ function make_table_dump_text($config_db_table_list, $display_mode) {
                         echo implode($sep, $row);
                         echo "\n";
                         break;
+                    // TODO: postgresfix!
                     case 'dbo':
                         if (stripos($row['name'], 'data_table') || stripos($row['name'], 'sproc')) {
                             echo implode($sep, array_merge(array($db), $row));
