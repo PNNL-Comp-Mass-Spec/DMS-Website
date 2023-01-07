@@ -6,6 +6,9 @@ class Ers extends BaseController {
     var $my_tag = "ers";
 
     // --------------------------------------------------------------------
+    // Show an empty page
+    //
+    // https://dms2.pnl.gov/ers
     function index()
     {
     }
@@ -49,6 +52,8 @@ class Ers extends BaseController {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/ers/dms_proposals
+    // https://dmsdev.pnl.gov/ers/dms_proposals
     function dms_proposals()
     {
         $this->table = new \CodeIgniter\View\Table();
@@ -67,6 +72,8 @@ class Ers extends BaseController {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/ers/dms_users
+    // https://dmsdev.pnl.gov/ers/dms_users
     function dms_users()
     {
         $this->table = new \CodeIgniter\View\Table();

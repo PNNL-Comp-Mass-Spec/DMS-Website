@@ -55,6 +55,8 @@ class Instrument_usage_report extends Grid {
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/instrument_usage_report/ws/2019/3
+    // https://dmsdev.pnl.gov/instrument_usage_report/ws/2019/3
     function ws()
     {
         $uri = $this->request->uri;
@@ -113,6 +115,8 @@ EOD;
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/instrument_usage_report/daily/2019/3
+    // https://dmsdev.pnl.gov/instrument_usage_report/daily/2012/3
     function daily()
     {
         $uri = $this->request->uri;
@@ -131,6 +135,8 @@ EOD;
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/instrument_usage_report/dailydetails/2019/3
+    // https://dmsdev.pnl.gov/instrument_usage_report/dailydetails/2012/3
     function dailydetails()
     {
         $uri = $this->request->uri;
@@ -168,6 +174,8 @@ EOD;
     }
 
     // --------------------------------------------------------------------
+    // https://dms2.pnl.gov/instrument_usage_report/rollup/2019/3
+    // https://dmsdev.pnl.gov/instrument_usage_report/rollup/2012/3
     function rollup()
     {
         $uri = $this->request->uri;
