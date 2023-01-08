@@ -158,10 +158,9 @@ EOD;
     function get_long_interval_threshold()
     {
         $this->db = \Config\Database::connect();
-        // TODO: postgresfix!
-        $query = $this->db->query('SELECT GetLongIntervalThreshold() AS Threshold');
+        $query = $this->db->query('SELECT threshold_minutes as threshold FROM V_Long_Interval_Threshold');
         $row = $query->getRow();
-        return $row->Threshold;
+        return $row->threshold;
     }
 
     // --------------------------------------------------------------------
