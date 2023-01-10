@@ -304,7 +304,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
     $fld_id = $colSpec["id"];
     $link_class = "";
 
-    if ($link_id == "COLUMN_NAME_MISMATCH") {
+    if ($link_id === "COLUMN_NAME_MISMATCH") {
         $link_class = " class=\"broken\"";
     }
 
