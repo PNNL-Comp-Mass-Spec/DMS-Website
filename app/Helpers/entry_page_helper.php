@@ -64,6 +64,7 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
  */
 function load_from_external_source($col_mapping, $source_data) {
     $a = array();
+    $label_formatter = new \App\Libraries\Label_formatter();
 
     // load entry fields from external source
     foreach ($col_mapping as $fld => $spec) {
@@ -79,7 +80,24 @@ function load_from_external_source($col_mapping, $source_data) {
             case 'ColName':
                 // Copy the text in the specified column of the detail report for the source page family
                 //  . " (field = " . $spec['value'] . ", action = $action)"
-                $a[$fld] = $source_data[$spec['value']];
+                $col = $spec['value'];
+                $col_fmt = $label_formatter->format($col);
+                $col_defmt = $label_formatter->deformat($col);
+                $val = "";
+                if (array_key_exists($col, $source_data)) {
+                    $val = $source_data[$col];
+                } elseif (array_key_exists($col_fmt, $source_data)) {
+                    // Target column for column name not found; try using the display-formatted target field
+                    $val = $source_data[$col_fmt];
+                } elseif (array_key_exists($col_defmt, $source_data)) {
+                    // Target column for column name not found; try using the display-deformatted target field
+                    $val = $source_data[$col_defmt];
+                } else {
+                    // TODO: Trigger a warning message of some kind?
+                    // Return an invalid link id to not break the page entirely; it's harder to see that there's a problem, but much easier to see the exact cause
+                    $val = "COLUMN_NAME_MISMATCH";
+                }
+                $a[$fld] = $val;
                 break;
 
             case 'PostName':
