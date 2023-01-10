@@ -140,7 +140,7 @@ INSERT INTO detail_report_hotlinks VALUES(21,'work_package_state','color_label',
 INSERT INTO detail_report_hotlinks VALUES(22,'material_containers','link_list','material_containers','material_container/show','valueCol','dl_material_containers','');
 INSERT INTO detail_report_hotlinks VALUES(23,'requester','detail-report','requester','user/report/-/~','labelCol','dl_researcher','{"RemoveRegEx":" [(].*[)]"}');
 INSERT INTO detail_report_hotlinks VALUES(24,'comment','markup','comment','','valueCol','dl_Comment','');
-INSERT INTO detail_report_hotlinks VALUES(25,'"plant/animal_tissue"','detail-report','"plant/animal_tissue"','tissue/report/~','valueCol','dl_tissue','');
+INSERT INTO detail_report_hotlinks VALUES(25,'plant_or_animal_tissue','detail-report','plant_or_animal_tissue','tissue/report/~','valueCol','dl_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(26,'organism','detail-report','organism','organism/report/~','valueCol','dl_organism','');
 INSERT INTO detail_report_hotlinks VALUES(27,'eus_proposal_state','color_label','eus_proposal_state','','valueCol','dl_eus_proposal_state','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
 INSERT INTO detail_report_hotlinks VALUES(28,'state_id','detail-report','state_id','sample_prep_request_planning/report/-/-/~','valueCol','dl_prep_request_planning','{"HideLinkIfValueMatch":"Closed"}');

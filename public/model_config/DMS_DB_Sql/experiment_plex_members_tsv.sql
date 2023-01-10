@@ -89,7 +89,7 @@ INSERT INTO detail_report_hotlinks VALUES(10,'location','detail-report','locatio
 INSERT INTO detail_report_hotlinks VALUES(11,'+location','detail-report','location','material_move_items/report/-/','valueCol','dl_location_move','');
 INSERT INTO detail_report_hotlinks VALUES(12,'organism','detail-report','organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO detail_report_hotlinks VALUES(13,'researcher','detail-report','researcher','user/report/-/~','labelCol','dl_researcher','{"RemoveRegEx":" [(].*[)]"}');
-INSERT INTO detail_report_hotlinks VALUES(14,'"plant/animal_tissue"','detail-report','"plant/animal_tissue"','tissue/report/~','valueCol','dl_tissue','');
+INSERT INTO detail_report_hotlinks VALUES(14,'plant_or_animal_tissue','detail-report','plant_or_animal_tissue','tissue/report/~','valueCol','dl_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(15,'labelling','detail-report','labelling','sample_label_reporter_ions/report/~','valueCol','dl_labelling','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_plex_exp_id','Plex Exp ID','6!','','plex_exp_id','Equals','text','22','','');

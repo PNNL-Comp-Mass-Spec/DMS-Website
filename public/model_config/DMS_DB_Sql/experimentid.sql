@@ -43,7 +43,7 @@ INSERT INTO detail_report_hotlinks VALUES(12,'location','detail-report','locatio
 INSERT INTO detail_report_hotlinks VALUES(13,'+location','detail-report','location','material_move_items/report/-/','valueCol','dl_location_move','');
 INSERT INTO detail_report_hotlinks VALUES(14,'organism','detail-report','organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO detail_report_hotlinks VALUES(15,'researcher','detail-report','researcher','user/report/-/~','labelCol','dl_researcher','{"RemoveRegEx":" [(].*[)]"}');
-INSERT INTO detail_report_hotlinks VALUES(16,'"plant/animal_tissue"','detail-report','"plant/animal_tissue"','tissue/report/~','valueCol','dl_tissue','');
+INSERT INTO detail_report_hotlinks VALUES(16,'plant_or_animal_tissue','detail-report','plant_or_animal_tissue','tissue/report/~','valueCol','dl_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(17,'labelling','detail-report','labelling','sample_label_reporter_ions/report/~','valueCol','dl_labelling_reporter_ions','{"HideLinkIfValueMatch":"none"}');
 INSERT INTO detail_report_hotlinks VALUES(18,'+labelling','detail-report','id','experiment_plex_members/report/','labelCol','dl_labelling_plex_id','{"HideLinkIfValueMatch":"none"}');
 INSERT INTO detail_report_hotlinks VALUES(19,'experiment','detail-report','experiment','experiment/show/','labelCol','dl_experiment','');

@@ -37,7 +37,7 @@ INSERT INTO detail_report_hotlinks VALUES(10,'location','detail-report','locatio
 INSERT INTO detail_report_hotlinks VALUES(11,'+location','detail-report','location','material_move_items/report/-/','valueCol','dl_location_move','');
 INSERT INTO detail_report_hotlinks VALUES(12,'organism','detail-report','organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO detail_report_hotlinks VALUES(13,'researcher','detail-report','researcher','user/report/-/~','labelCol','dl_researcher','{"RemoveRegEx":" [(].*[)]"}');
-INSERT INTO detail_report_hotlinks VALUES(14,'"plant/animal_tissue"','detail-report','"plant/animal_tissue"','tissue/report/~','valueCol','dl_tissue','');
+INSERT INTO detail_report_hotlinks VALUES(14,'plant_or_animal_tissue','detail-report','plant_or_animal_tissue','tissue/report/~','valueCol','dl_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(15,'labelling','detail-report','labelling','sample_label_reporter_ions/report/~','valueCol','dl_labelling','');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'exp_id','Exp_ID','text-if-new','10','80','','','','trim|required|numeric');

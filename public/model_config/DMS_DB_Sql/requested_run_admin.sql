@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_requested_run_admin_report');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO general_params VALUES('list_report_data_cols','request AS Sel, name, campaign, experiment, dataset, instrument, inst_group, type, separation_group, origin, request, status, requester, wpn, wp_state, days_in_queue, queue_state, queued_instrument, queue_date, pri, batch, block, run_order, dataset_comment, request_name_code, days_in_queue_bin, wp_activation_state');
+INSERT INTO general_params VALUES('list_report_data_cols','request AS Sel, name, campaign, experiment, dataset, instrument, inst_group, type, separation_group, origin, request, status, requester, wpn, wp_state, days_in_queue, queue_state, queued_instrument, queue_date, priority, batch, block, run_order, dataset_comment, request_name_code, days_in_queue_bin, wp_activation_state');
 INSERT INTO general_params VALUES('list_report_cmds','requested_run_admin_cmds');
 INSERT INTO general_params VALUES('list_report_cmds_url','requested_run_admin/operation');
 INSERT INTO general_params VALUES('operations_sproc','UpdateRequestedRunAssignments');
@@ -33,7 +33,7 @@ INSERT INTO list_report_hotlinks VALUES(9,'batch','invoke_entity','value','reque
 INSERT INTO list_report_hotlinks VALUES(10,'+sel','no_export','value','','');
 INSERT INTO list_report_hotlinks VALUES(11,'days_in_queue_bin','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(12,'wp_activation_state','no_display','value','','');
-INSERT INTO list_report_hotlinks VALUES(13,'pri','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(13,'priority','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(14,'+batch','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(15,'block','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(16,'run_order','export_align','value','','{"Align":"Center"}');

@@ -84,8 +84,8 @@ INSERT INTO sproc_args VALUES(18,'<local>','mode','varchar','input','32','DoMate
 INSERT INTO sproc_args VALUES(19,'<local>','message','varchar','output','512','DoMaterialItemOperation');
 INSERT INTO sproc_args VALUES(20,'<local>','callingUser','varchar','input','128','DoMaterialItemOperation');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
-INSERT INTO external_sources VALUES(1,'sample_submission','campaign','ColName','Campaign');
-INSERT INTO external_sources VALUES(2,'sample_submission','container','ColName','Container List');
-INSERT INTO external_sources VALUES(3,'sample_submission','contact_prn','ColName','Received By');
-INSERT INTO external_sources VALUES(4,'sample_submission','reason','ColName','Description');
+INSERT INTO external_sources VALUES(1,'sample_submission','campaign','ColName','campaign');
+INSERT INTO external_sources VALUES(2,'sample_submission','container','ColName','container_list');
+INSERT INTO external_sources VALUES(3,'sample_submission','contact_prn','ColName','received_by');
+INSERT INTO external_sources VALUES(4,'sample_submission','reason','ColName','description');
 COMMIT;
