@@ -19,25 +19,25 @@
 </div>
 
 <?php if(!empty($commands)):?>
-<div id='update_message' class="RepCmdsResponse" ></div>
-<div class='DrepCmds'>
-<?= make_detail_report_commands($commands, $tag, $id) ?>
-</div>
-<div style="height:1em;" ></div>
+    <div id='update_message' class="RepCmdsResponse" ></div>
+    <div class='DrepCmds'>
+    <?= make_detail_report_commands($commands, $tag, $id) ?>
+    </div>
+    <div style="height:1em;" ></div>
 <?php endif; ?>
 
 <?php if(count($detail_report_cmds) > 0):?>
-<div id='command_box_container'>
-<?php foreach($detail_report_cmds as $cmd): ?>
-<?php echo view("detail_report_cmd/$cmd"); ?>
-<?php endforeach ?>
-</div>
+    <div id='command_box_container'>
+    <?php foreach($detail_report_cmds as $cmd): ?>
+    <?php echo view("detail_report_cmd/$cmd"); ?>
+    <?php endforeach ?>
+    </div>
 <?php endif; ?>
 
 <?php if($aux_info_target):?>
-<div id= 'aux_info_controls_container' class='DrepAuxInfo'></div>
-<div id= 'aux_info_container'></div>
-<div style="height:1em;" ></div>
+    <div id= 'aux_info_controls_container' class='DrepAuxInfo'></div>
+    <div id= 'aux_info_container'></div>
+    <div style="height:1em;" ></div>
 <?php endif; ?>
 
 <?php // export command panel
