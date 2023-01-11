@@ -27,7 +27,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','lc_cart/
 INSERT INTO list_report_hotlinks VALUES(2,'state','min_col_width','value','20','');
 INSERT INTO list_report_hotlinks VALUES(3,'created','format_date','value','20','{"Format":"Y-m-d"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateLCCart');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateLCCart');
 INSERT INTO sproc_args VALUES(2,'cart_name','CartName','varchar','input','128','AddUpdateLCCart');
 INSERT INTO sproc_args VALUES(3,'cart_description','CartDescription','varchar','input','1024','AddUpdateLCCart');
 INSERT INTO sproc_args VALUES(4,'cart_state','CartState','varchar','input','50','AddUpdateLCCart');

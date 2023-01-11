@@ -33,7 +33,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'download','invoke_entity','id','mrm_list_attachment/download','');
 INSERT INTO list_report_hotlinks VALUES(2,'id','invoke_entity','value','mrm_list_attachment/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateAttachments');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateAttachments');
 INSERT INTO sproc_args VALUES(2,'attachment_type','AttachmentType','varchar','input','24','AddUpdateAttachments');
 INSERT INTO sproc_args VALUES(3,'attachment_name','AttachmentName','varchar','input','128','AddUpdateAttachments');
 INSERT INTO sproc_args VALUES(4,'attachment_description','AttachmentDescription','varchar','input','1024','AddUpdateAttachments');

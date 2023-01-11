@@ -1326,7 +1326,8 @@ var delta = {
 	 * Button definitions are in table detail_report_commands in the model config DB
 	 * Function make_detail_report_commands in detail_report_helper.php creates the hyperlink via the cmd_op option
 	 * For example:
-	 * javascript:delta.performCommand("http://dms2.pnl.gov/dataset/command", "QC_Shew_15_02_2_29Oct15_Lynx_15-08-27", "reset", "Are you sure that you want to reset this dataset to New?")
+	 *   javascript:delta.performCommand("http://dms2.pnl.gov/dataset/command", "QC_Shew_15_02_2_29Oct15_Lynx_15-08-27", "reset", "Are you sure that you want to reset this dataset to New?")
+	 *
 	 * The performCommand function in turn will post to http://dms2.pnl.gov/dataset/command/QC_Shew_15_02_2_29Oct15_Lynx_15-08-27/reset
 	 * That URL is processed by the base controller for the given page family, specifically function command in DmsBase.php
 	 * The command function calls function internal_operation in Operation.php
@@ -1345,11 +1346,17 @@ var delta = {
 			promptMsg = "Are you sure that you want to update the database?";
 		}
 		if( !confirm(promptMsg) ) return;
+
+		// p.id corresponds to the field name defined in the sproc_args table for a page family
+		// For example, https://dmsdev.pnl.gov/config_db/edit_table/requested_run_batch.db/sproc_args
+		// Since "id" is lowercase in "p.id", the field name must also be lowercase
 		var p = {};
-		p.ID = id;
+		p.id = id;
 		p.command = mode;
+		
 		var container = $('#' + gamma.pageContext.responseContainerId);
 		container.spin('small');
+		
 		$.post(url, p, function (data) {
 				container.spin(false);
 			    container.html(data);

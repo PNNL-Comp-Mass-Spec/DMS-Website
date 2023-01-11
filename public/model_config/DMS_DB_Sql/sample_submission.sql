@@ -18,7 +18,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','sample_s
 INSERT INTO list_report_hotlinks VALUES(2,'campaign','invoke_entity','campaign','campaign/show','');
 INSERT INTO list_report_hotlinks VALUES(3,'container_list','link_list','value','material_container/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateSampleSubmission');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateSampleSubmission');
 INSERT INTO sproc_args VALUES(2,'campaign','Campaign','varchar','input','64','AddUpdateSampleSubmission');
 INSERT INTO sproc_args VALUES(3,'received_by','ReceivedBy','varchar','input','64','AddUpdateSampleSubmission');
 INSERT INTO sproc_args VALUES(4,'container_list','ContainerList','varchar','output','1024','AddUpdateSampleSubmission');
@@ -27,7 +27,7 @@ INSERT INTO sproc_args VALUES(6,'description','Description','varchar','input','4
 INSERT INTO sproc_args VALUES(7,'<local>','mode','varchar','input','12','AddUpdateSampleSubmission');
 INSERT INTO sproc_args VALUES(8,'<local>','message','varchar','output','512','AddUpdateSampleSubmission');
 INSERT INTO sproc_args VALUES(9,'<local>','callingUser','varchar','input','128','AddUpdateSampleSubmission');
-INSERT INTO sproc_args VALUES(10,'id','ID','int','input','','DoSampleSubmissonOperation');
+INSERT INTO sproc_args VALUES(10,'id','id','int','input','','DoSampleSubmissonOperation');
 INSERT INTO sproc_args VALUES(11,'<local>','mode','varchar','input','12','DoSampleSubmissonOperation');
 INSERT INTO sproc_args VALUES(12,'<local>','message','varchar','output','512','DoSampleSubmissonOperation');
 INSERT INTO sproc_args VALUES(13,'<local>','callingUser','varchar','input','128','DoSampleSubmissonOperation');

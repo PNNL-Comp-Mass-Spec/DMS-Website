@@ -38,7 +38,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','instrume
 INSERT INTO list_report_hotlinks VALUES(2,'note','markup','value','','');
 INSERT INTO list_report_hotlinks VALUES(3,'note_full','no_display','value','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateInstrumentConfigHistory');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateInstrumentConfigHistory');
 INSERT INTO sproc_args VALUES(2,'instrument','Instrument','varchar','input','24','AddUpdateInstrumentConfigHistory');
 INSERT INTO sproc_args VALUES(3,'date_of_change','DateOfChange','varchar','input','24','AddUpdateInstrumentConfigHistory');
 INSERT INTO sproc_args VALUES(4,'posted_by','PostedBy','varchar','input','64','AddUpdateInstrumentConfigHistory');

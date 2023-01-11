@@ -17,7 +17,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('detail_report_cmds','file_attachment_cmds');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','input','','AddUpdateInstrumentOperationHistory');
+INSERT INTO sproc_args VALUES(1,'id','id','int','input','','AddUpdateInstrumentOperationHistory');
 INSERT INTO sproc_args VALUES(2,'instrument','Instrument','varchar','input','24','AddUpdateInstrumentOperationHistory');
 INSERT INTO sproc_args VALUES(3,'posted_by','postedBy','varchar','input','64','AddUpdateInstrumentOperationHistory');
 INSERT INTO sproc_args VALUES(4,'note','Note','text','input','2147483647','AddUpdateInstrumentOperationHistory');

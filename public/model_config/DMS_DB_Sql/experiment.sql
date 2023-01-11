@@ -109,7 +109,7 @@ INSERT INTO external_sources VALUES(16,'rna_prep_request','biomaterial_list','Li
 INSERT INTO external_sources VALUES(17,'rna_prep_request','enzyme_name','Literal','Trypsin');
 INSERT INTO external_sources VALUES(19,'rna_prep_request','sample_prep_request','ColName','id');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'ID','name','varchar','input','128','DoMaterialItemOperation');
+INSERT INTO sproc_args VALUES(1,'id','name','varchar','input','128','DoMaterialItemOperation');
 INSERT INTO sproc_args VALUES(2,'<local>','mode','varchar','input','32','DoMaterialItemOperation');
 INSERT INTO sproc_args VALUES(3,'<local>','message','varchar','output','512','DoMaterialItemOperation');
 INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128','DoMaterialItemOperation');

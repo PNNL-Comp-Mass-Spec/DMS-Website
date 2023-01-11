@@ -41,7 +41,7 @@ INSERT INTO primary_filter_choosers VALUES(1,'pf_cart','picker.replace','lcCartP
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','lc_cart_settings_history/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','input','','AddUpdateLCCartSettingsHistory');
+INSERT INTO sproc_args VALUES(1,'id','id','int','input','','AddUpdateLCCartSettingsHistory');
 INSERT INTO sproc_args VALUES(2,'cart_name','CartName','varchar','input','128','AddUpdateLCCartSettingsHistory');
 INSERT INTO sproc_args VALUES(3,'valve_to_column_extension','ValveToColumnExtension','varchar','input','128','AddUpdateLCCartSettingsHistory');
 INSERT INTO sproc_args VALUES(4,'operating_pressure','OperatingPressure','varchar','input','128','AddUpdateLCCartSettingsHistory');

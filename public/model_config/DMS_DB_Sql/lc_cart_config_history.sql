@@ -14,7 +14,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('detail_report_cmds','file_attachment_cmds');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','input','','AddUpdateLCCartConfigHistory');
+INSERT INTO sproc_args VALUES(1,'id','id','int','input','','AddUpdateLCCartConfigHistory');
 INSERT INTO sproc_args VALUES(2,'cart','Cart','varchar','input','128','AddUpdateLCCartConfigHistory');
 INSERT INTO sproc_args VALUES(3,'date_of_change','DateOfChange','varchar','input','32','AddUpdateLCCartConfigHistory');
 INSERT INTO sproc_args VALUES(4,'entered_by','PostedBy','varchar','input','64','AddUpdateLCCartConfigHistory');

@@ -41,7 +41,7 @@ INSERT INTO form_field_choosers VALUES(3,'state','picker.replace','activeInactiv
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'comment','auto_format','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','input','','AddUpdateSeparationType');
+INSERT INTO sproc_args VALUES(1,'id','id','int','input','','AddUpdateSeparationType');
 INSERT INTO sproc_args VALUES(2,'separation_name','sepTypeName','varchar','input','50','AddUpdateSeparationType');
 INSERT INTO sproc_args VALUES(3,'separation_group','sepGroupName','varchar','input','64','AddUpdateSeparationType');
 INSERT INTO sproc_args VALUES(4,'comment','comment','varchar','input','256','AddUpdateSeparationType');

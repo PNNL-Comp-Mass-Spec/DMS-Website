@@ -244,11 +244,14 @@ var lcmd = {
 			// This is auto-mapped to the @mode parameter of the stored procedure
 			p.command = mode;
 			
-			// The following two form fields are defined at https://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/sproc_args
-			// Param maps to the @newValue parameter
-			// ID maps to the @reqRunIDList parameter
-			p.Param = (value)?$('#' + value).val():'';
-			p.ID = list;
+			// The following two form fields are defined in the sproc_args table for page family https://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/sproc_arg
+			//   param maps to the @newValue parameter
+			//   id    maps to the @reqRunIDList parameter
+			// Since "id" is lowercase in "p.id", the field name must also be lowercase
+			
+			p.param = (value)?$('#' + value).val():'';
+			p.id = list;
+			
 			lambda.submitOperation(url, p);
 		}
 	},

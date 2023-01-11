@@ -22,7 +22,7 @@ INSERT INTO detail_report_hotlinks VALUES(1,'dataset','detail-report','dataset',
 INSERT INTO detail_report_hotlinks VALUES(2,'network_share_path','href-folder','network_share_path','','labelCol','dl_network_share_path',NULL);
 INSERT INTO detail_report_hotlinks VALUES(3,'archive_url','literal_link','archive_url','','valueCol','dl_archive_url',NULL);
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'ID','datasetNum','varchar','input','128','DoArchiveOperation');
+INSERT INTO sproc_args VALUES(1,'id','datasetNum','varchar','input','128','DoArchiveOperation');
 INSERT INTO sproc_args VALUES(2,'<local>','mode','varchar','input','12','DoArchiveOperation');
 INSERT INTO sproc_args VALUES(3,'<local>','message','varchar','output','512','DoArchiveOperation');
 INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128','DoArchiveOperation');

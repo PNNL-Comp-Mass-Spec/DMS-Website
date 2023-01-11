@@ -78,7 +78,7 @@ INSERT INTO sproc_args VALUES(12,'organism_list','organismList','varchar','input
 INSERT INTO sproc_args VALUES(13,'mutation','mutation','varchar','input','64','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(14,'plasmid','plasmid','varchar','input','64','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(15,'cell_line','cellLine','varchar','varchar','64','AddUpdateBiomaterial');
-INSERT INTO sproc_args VALUES(16,'ID','name','varchar','input','128','DoMaterialItemOperation');
+INSERT INTO sproc_args VALUES(16,'id','name','varchar','input','128','DoMaterialItemOperation');
 INSERT INTO sproc_args VALUES(17,'<local>','callingUser','varchar','input','128','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(18,'<local>','mode','varchar','input','32','DoMaterialItemOperation');
 INSERT INTO sproc_args VALUES(19,'<local>','message','varchar','output','512','DoMaterialItemOperation');

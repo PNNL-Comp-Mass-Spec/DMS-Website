@@ -31,7 +31,7 @@ INSERT INTO sproc_args VALUES(3,'vol_name_server','volNameServer','varchar','inp
 INSERT INTO sproc_args VALUES(4,'storage_path_function','storFunction','varchar','input','50','AddUpdateStorage');
 INSERT INTO sproc_args VALUES(5,'instrument','instrumentName','varchar','input','50','AddUpdateStorage');
 INSERT INTO sproc_args VALUES(6,'description','description','varchar','input','255','AddUpdateStorage');
-INSERT INTO sproc_args VALUES(7,'storage_path_id','ID','varchar','output','32','AddUpdateStorage');
+INSERT INTO sproc_args VALUES(7,'storage_path_id','id','varchar','output','32','AddUpdateStorage');
 INSERT INTO sproc_args VALUES(8,'<local>','mode','varchar','input','12','AddUpdateStorage');
 INSERT INTO sproc_args VALUES(9,'<local>','message','varchar','output','512','AddUpdateStorage');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

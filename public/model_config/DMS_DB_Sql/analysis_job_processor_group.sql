@@ -24,7 +24,7 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO detail_report_hotlinks VALUES(1,'members','detail-report','id','analysis_job_processor_group_membership/report','labelCol','members',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'associated_jobs','detail-report','id','analysis_job_processor_group_association/report','labelCol','associated_jobs',NULL);
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateAnalysisJobProcessorGroup');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateAnalysisJobProcessorGroup');
 INSERT INTO sproc_args VALUES(2,'group_name','GroupName','varchar','input','64','AddUpdateAnalysisJobProcessorGroup');
 INSERT INTO sproc_args VALUES(3,'group_description','GroupDescription','varchar','input','512','AddUpdateAnalysisJobProcessorGroup');
 INSERT INTO sproc_args VALUES(4,'group_enabled','GroupEnabled','char','input','1','AddUpdateAnalysisJobProcessorGroup');

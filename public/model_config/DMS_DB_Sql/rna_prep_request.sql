@@ -55,7 +55,7 @@ INSERT INTO sproc_args VALUES(19,'instrument_name','InstrumentName','varchar','i
 INSERT INTO sproc_args VALUES(20,'dataset_type','DatasetType','varchar','input','50','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(21,'instrument_analysis_specifications','InstrumentAnalysisSpecifications','varchar','input','512','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(22,'state','State','varchar','input','32','AddUpdateRNAPrepRequest');
-INSERT INTO sproc_args VALUES(23,'id','ID','int','output','','AddUpdateRNAPrepRequest');
+INSERT INTO sproc_args VALUES(23,'id','id','int','output','','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(25,'<local>','mode','varchar','input','12','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(26,'<local>','message','varchar','output','512','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(27,'<local>','callingUser','varchar','input','128','AddUpdateRNAPrepRequest');

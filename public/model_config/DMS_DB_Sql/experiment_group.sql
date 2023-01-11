@@ -33,7 +33,7 @@ INSERT INTO detail_report_hotlinks VALUES(2,'members','detail-report','id','expe
 INSERT INTO detail_report_hotlinks VALUES(3,'prep_lc_run','detail-report','prep_lc_run','prep_lc_run/show','labelCol','prep_lc_run',NULL);
 INSERT INTO detail_report_hotlinks VALUES(4,'experiment_group_files','detail-report','id','file_attachment/report/-/experiment_group/','labelCol','dl_experiment_group_files',NULL);
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateExperimentGroup');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateExperimentGroup');
 INSERT INTO sproc_args VALUES(2,'group_type','GroupType','varchar','input','50','AddUpdateExperimentGroup');
 INSERT INTO sproc_args VALUES(3,'group_name','groupName','varchar','input','128','AddUpdateExperimentGroup');
 INSERT INTO sproc_args VALUES(4,'description','Description','varchar','input','512','AddUpdateExperimentGroup');

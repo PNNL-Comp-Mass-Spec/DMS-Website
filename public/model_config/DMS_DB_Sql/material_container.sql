@@ -52,7 +52,7 @@ INSERT INTO detail_report_hotlinks VALUES(6,'freezer','detail-report','freezer',
 INSERT INTO detail_report_hotlinks VALUES(7,'status','detail-report','container','material_log/report/-/~','labelCol','dh_log1','');
 INSERT INTO detail_report_hotlinks VALUES(8,'+status','detail-report','container','material_log/report/-/-/-/~','valueCol','dh_log2','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(9,'ID','name','varchar','input','128','DoMaterialContainerOperation');
+INSERT INTO sproc_args VALUES(9,'id','name','varchar','input','128','DoMaterialContainerOperation');
 INSERT INTO sproc_args VALUES(10,'<local>','mode','varchar','input','32','DoMaterialContainerOperation');
 INSERT INTO sproc_args VALUES(11,'<local>','message','varchar','output','512','DoMaterialContainerOperation');
 INSERT INTO sproc_args VALUES(12,'<local>','callingUser','varchar','input','128','DoMaterialContainerOperation');

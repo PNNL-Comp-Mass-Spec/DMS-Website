@@ -140,7 +140,7 @@ INSERT INTO sproc_args VALUES(16,'job','jobNum','varchar','output','32','AddUpda
 INSERT INTO sproc_args VALUES(17,'<local>','mode','varchar','input','12','AddUpdateAnalysisJob');
 INSERT INTO sproc_args VALUES(18,'<local>','message','varchar','output','512','AddUpdateAnalysisJob');
 INSERT INTO sproc_args VALUES(19,'<local>','callingUser','varchar','input','128','AddUpdateAnalysisJob');
-INSERT INTO sproc_args VALUES(20,'ID','jobNum','varchar','input','32','DoAnalysisJobOperation');
+INSERT INTO sproc_args VALUES(20,'id','jobNum','varchar','input','32','DoAnalysisJobOperation');
 INSERT INTO sproc_args VALUES(21,'<local>','mode','varchar','input','12','DoAnalysisJobOperation');
 INSERT INTO sproc_args VALUES(22,'<local>','message','varchar','output','512','DoAnalysisJobOperation');
 INSERT INTO sproc_args VALUES(23,'<local>','callingUser','varchar','input','128','DoAnalysisJobOperation');

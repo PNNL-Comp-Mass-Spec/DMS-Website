@@ -22,7 +22,7 @@ INSERT INTO list_report_primary_filter VALUES(2,'pf_cart','Cart','','','cart','C
 INSERT INTO list_report_primary_filter VALUES(3,'pf_pumps','Pumps','','','pumps','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_state','State','','','state','StartsWithText','text','12','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','input','','AddUpdateLCCartConfiguration');
+INSERT INTO sproc_args VALUES(1,'id','id','int','input','','AddUpdateLCCartConfiguration');
 INSERT INTO sproc_args VALUES(2,'config_name','configName','varchar','input','128','AddUpdateLCCartConfiguration');
 INSERT INTO sproc_args VALUES(4,'description','description','varchar','input','512','AddUpdateLCCartConfiguration');
 INSERT INTO sproc_args VALUES(5,'autosampler','autosampler','varchar','input','128','AddUpdateLCCartConfiguration');

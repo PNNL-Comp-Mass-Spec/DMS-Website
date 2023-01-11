@@ -69,7 +69,7 @@ INSERT INTO sproc_args VALUES(19,'active','orgActive','varchar','input','3','Add
 INSERT INTO sproc_args VALUES(21,'newt_id_list','NEWTIDList','varchar','intput','255','AddUpdateOrganisms');
 INSERT INTO sproc_args VALUES(22,'ncbi_taxonomy_id','NCBITaxonomyID','int','intput','12','AddUpdateOrganisms');
 INSERT INTO sproc_args VALUES(23,'auto_define_taxonomy','AutoDefineTaxonomy','varchar','input','12','AddUpdateOrganisms');
-INSERT INTO sproc_args VALUES(24,'id','ID','int','output','','AddUpdateOrganisms');
+INSERT INTO sproc_args VALUES(24,'id','id','int','output','','AddUpdateOrganisms');
 INSERT INTO sproc_args VALUES(25,'<local>','mode','varchar','input','12','AddUpdateOrganisms');
 INSERT INTO sproc_args VALUES(26,'<local>','message','varchar','output','512','AddUpdateOrganisms');
 INSERT INTO sproc_args VALUES(27,'<local>','callingUser','varchar','input','128','AddUpdateOrganisms');

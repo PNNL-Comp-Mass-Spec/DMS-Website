@@ -23,7 +23,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','32','','name',
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','analysis_job_processors/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdateAnalysisJobProcessors');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateAnalysisJobProcessors');
 INSERT INTO sproc_args VALUES(2,'state','State','char','input','1','AddUpdateAnalysisJobProcessors');
 INSERT INTO sproc_args VALUES(3,'processor_name','ProcessorName','varchar','input','64','AddUpdateAnalysisJobProcessors');
 INSERT INTO sproc_args VALUES(4,'machine','Machine','varchar','input','64','AddUpdateAnalysisJobProcessors');

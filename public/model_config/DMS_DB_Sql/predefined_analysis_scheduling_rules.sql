@@ -39,7 +39,7 @@ INSERT INTO sproc_args VALUES(5,'analysis_tool_name','analysisToolName','varchar
 INSERT INTO sproc_args VALUES(6,'priority','priority','int','input','','AddUpdatePredefinedAnalysisSchedulingRules');
 INSERT INTO sproc_args VALUES(7,'processor_group','processorGroup','varchar','input','64','AddUpdatePredefinedAnalysisSchedulingRules');
 INSERT INTO sproc_args VALUES(8,'enabled','enabled','tinyint','input','','AddUpdatePredefinedAnalysisSchedulingRules');
-INSERT INTO sproc_args VALUES(9,'id','ID','int','output','','AddUpdatePredefinedAnalysisSchedulingRules');
+INSERT INTO sproc_args VALUES(9,'id','id','int','output','','AddUpdatePredefinedAnalysisSchedulingRules');
 INSERT INTO sproc_args VALUES(10,'<local>','mode','varchar','input','12','AddUpdatePredefinedAnalysisSchedulingRules');
 INSERT INTO sproc_args VALUES(11,'<local>','message','varchar','output','512','AddUpdatePredefinedAnalysisSchedulingRules');
 COMMIT;

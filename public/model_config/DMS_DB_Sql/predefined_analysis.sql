@@ -113,7 +113,7 @@ INSERT INTO sproc_args VALUES(21,'enabled','enabled','tinyint','input','','AddUp
 INSERT INTO sproc_args VALUES(22,'description','description','varchar','input','512','AddUpdatePredefinedAnalysis');
 INSERT INTO sproc_args VALUES(23,'creator','creator','varchar','input','50','AddUpdatePredefinedAnalysis');
 INSERT INTO sproc_args VALUES(24,'next_level','nextLevel','varchar','input','12','AddUpdatePredefinedAnalysis');
-INSERT INTO sproc_args VALUES(25,'id','ID','int','output','','AddUpdatePredefinedAnalysis');
+INSERT INTO sproc_args VALUES(25,'id','id','int','output','','AddUpdatePredefinedAnalysis');
 INSERT INTO sproc_args VALUES(26,'<local>','mode','varchar','input','12','AddUpdatePredefinedAnalysis');
 INSERT INTO sproc_args VALUES(27,'<local>','message','varchar','output','512','AddUpdatePredefinedAnalysis');
 INSERT INTO sproc_args VALUES(28,'separation_type_criteria','separationTypeCriteria','varchar','input','64','AddUpdatePredefinedAnalysis');

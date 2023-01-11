@@ -34,7 +34,7 @@ INSERT INTO sproc_args VALUES(7,'dataset_released','DatasetReleased','varchar','
 INSERT INTO sproc_args VALUES(8,'<local>','mode','varchar','input','12','UpdateNotificationUserRegistration');
 INSERT INTO sproc_args VALUES(9,'<local>','message','varchar','output','512','UpdateNotificationUserRegistration');
 INSERT INTO sproc_args VALUES(10,'<local>','callingUser','varchar','input','128','UpdateNotificationUserRegistration');
-INSERT INTO sproc_args VALUES(11,'ID','campaignNum','varchar','input','64','UpdateResearchTeamObserver');
+INSERT INTO sproc_args VALUES(11,'id','campaignNum','varchar','input','64','UpdateResearchTeamObserver');
 INSERT INTO sproc_args VALUES(12,'<local>','mode','varchar','input','12','UpdateResearchTeamObserver');
 INSERT INTO sproc_args VALUES(13,'<local>','message','varchar','output','512','UpdateResearchTeamObserver');
 INSERT INTO sproc_args VALUES(14,'<local>','callingUser','varchar','input','128','UpdateResearchTeamObserver');

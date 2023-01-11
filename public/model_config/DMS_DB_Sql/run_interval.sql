@@ -22,7 +22,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','run_interval/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'instrument','invoke_entity','value','instrument/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','input','','AddUpdateRunInterval');
+INSERT INTO sproc_args VALUES(1,'id','id','int','input','','AddUpdateRunInterval');
 INSERT INTO sproc_args VALUES(2,'comment','comment','varchar','input','2147483647','AddUpdateRunInterval');
 INSERT INTO sproc_args VALUES(4,'<local>','mode','varchar','input','12','AddUpdateRunInterval');
 INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','AddUpdateRunInterval');

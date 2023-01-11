@@ -60,7 +60,7 @@ INSERT INTO detail_report_hotlinks VALUES(5,'datasets','link_list','datasets','d
 INSERT INTO detail_report_hotlinks VALUES(6,'lc_column','detail-report','lc_column','prep_lc_column/show','valueCol','dl_lc_column','');
 INSERT INTO detail_report_hotlinks VALUES(7,'operator_prn','detail-report','operator_prn','user/show','valueCol','dl_operator','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','ID','int','output','','AddUpdatePrepLCRun');
+INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(2,'prep_run_name','prepRunName','varchar','input','128','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(3,'instrument','Instrument','varchar','input','128','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(4,'type','Type','varchar','input','64','AddUpdatePrepLCRun');

@@ -112,7 +112,7 @@ INSERT INTO sproc_args VALUES(17,'request_id','requestID','int','output','','Add
 INSERT INTO sproc_args VALUES(18,'<local>','mode','varchar','input','12','AddUpdateAnalysisJobRequest');
 INSERT INTO sproc_args VALUES(19,'<local>','message','varchar','output','512','AddUpdateAnalysisJobRequest');
 INSERT INTO sproc_args VALUES(20,'<local>','callingUser','varchar','input','128','AddUpdateAnalysisJobRequest');
-INSERT INTO sproc_args VALUES(21,'ID','request','varchar','input','32','DoAnalysisRequestOperation');
+INSERT INTO sproc_args VALUES(21,'id','request','varchar','input','32','DoAnalysisRequestOperation');
 INSERT INTO sproc_args VALUES(22,'<local>','mode','varchar','input','12','DoAnalysisRequestOperation');
 INSERT INTO sproc_args VALUES(23,'<local>','message','varchar','output','512','DoAnalysisRequestOperation');
 COMMIT;

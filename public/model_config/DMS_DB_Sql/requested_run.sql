@@ -142,8 +142,8 @@ INSERT INTO sproc_args VALUES(26,'vialing_vol','VialingVol','varchar','input','3
 INSERT INTO sproc_args VALUES(27,'staging_location','stagingLocation','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(28,'request_id','requestIDForUpdate','int','input','','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(29,'<local>','mode','varchar','input','32','UpdateRequestedRunAssignments');
-INSERT INTO sproc_args VALUES(30,'Param','newValue','varchar','input','512','UpdateRequestedRunAssignments');
-INSERT INTO sproc_args VALUES(31,'ID','reqRunIDList','varchar','input','64000','UpdateRequestedRunAssignments');
+INSERT INTO sproc_args VALUES(30,'param','newValue','varchar','input','512','UpdateRequestedRunAssignments');
+INSERT INTO sproc_args VALUES(31,'id','reqRunIDList','varchar','input','64000','UpdateRequestedRunAssignments');
 INSERT INTO sproc_args VALUES(32,'<local>','message','varchar','output','512','UpdateRequestedRunAssignments');
 INSERT INTO sproc_args VALUES(33,'<local>','callingUser','varchar','input','128','UpdateRequestedRunAssignments');
 COMMIT;

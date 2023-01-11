@@ -17,7 +17,7 @@ INSERT INTO general_params VALUES('operations_sproc','UpdateOSMPackage');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','osm_package/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(20,'id','ID','int','output','','AddUpdateOSMPackage');
+INSERT INTO sproc_args VALUES(20,'id','id','int','output','','AddUpdateOSMPackage');
 INSERT INTO sproc_args VALUES(21,'name','Name','varchar','input','128','AddUpdateOSMPackage');
 INSERT INTO sproc_args VALUES(22,'package_type','PackageType','varchar','input','128','AddUpdateOSMPackage');
 INSERT INTO sproc_args VALUES(23,'description','Description','varchar','input','2048','AddUpdateOSMPackage');
