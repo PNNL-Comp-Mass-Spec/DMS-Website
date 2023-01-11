@@ -423,13 +423,13 @@ class File_attachment extends DmsBase {
 
             $calling_params = new \stdClass();
 
-            $calling_params->ID = '0';
-            $calling_params->FileName = $name;
-            $calling_params->Description = $description;
-            $calling_params->EntityType = $type;
-            $calling_params->EntityID = $id;
-            $calling_params->FileSizeBytes = $size;
-            $calling_params->ArchiveFolderPath = $path;
+            $calling_params->id = '0';
+            $calling_params->fileName = $name;
+            $calling_params->description = $description;
+            $calling_params->entityType = $type;
+            $calling_params->entityID = $id;
+            $calling_params->fileSizeBytes = $size;
+            $calling_params->archiveFolderPath = $path;
             $calling_params->mode = 'add';
             $calling_params->callingUser = get_user();
             $calling_params->message = '';
