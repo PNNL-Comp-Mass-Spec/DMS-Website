@@ -69,11 +69,14 @@
     var myCommonControls;
     var myImportExport;
     var myGrid;
+
     // meant to be extended with mainGrid object
+    // The column names in the staticColumns array correspond to https://dmsdev.pnl.gov/instrument_usage_report/grid
+    // They must match the data returned by view V_Instrument_Usage_Report_List_Report
     var gridConfig = {
         maxColumnChars: 50,
         hiddenColumns: [],
-        staticColumns: ['Seq', 'EMSL Inst ID', 'Instrument', 'Type', 'Start', 'Minutes', {id:"Users"}, 'ID', {id:"Proposal"}, {id:"Usage"},  {id:"Operator"},  {id:"Comment"}, 'Validation'],
+        staticColumns: ['seq', 'emsl_inst_id', 'instrument', 'type', 'start', 'minutes', {id:"users"}, 'ID', {id:"proposal"}, {id:"usage"},  {id:"operator"},  {id:"comment"}, 'validation'],
         getLoadParameters: function() {
             var p = {};
             var instruments = $('#instrument_fld_chooser').val();
