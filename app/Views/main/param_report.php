@@ -81,7 +81,10 @@ echo view("main/param_report_export");
 
 <?php if($list_report_cmds != ""): ?>
     <script src="<?= base_url('javascript/node_modules/flot/dist/es5/jquery.flot.js') ?>"></script>
+
+    <?php // When updating the version for lcmd.js, update both param_report.php and list_report.php ?>
     <script src="<?= base_url('javascript/lcmd.js?version=107') ?>"></script>
+
 <?php else: ?>
     <script type='text/javascript'>
         $(document).ready(function () {

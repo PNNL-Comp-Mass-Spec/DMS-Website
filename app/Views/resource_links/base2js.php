@@ -10,3 +10,6 @@
 
 <?php // Increment version number here to force clients to reload dms2.js ?>
 <script src="<?= base_url('javascript/dms2.js?version=121') ?>"></script>
+
+<?php // To force the reload of lcmd.js, update the version in app/Views/main/list_report.php ?>
+<?php // Several  other .js files have version numbers defined for them in various .php files ?>
