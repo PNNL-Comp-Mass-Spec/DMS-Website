@@ -100,6 +100,7 @@ class Label_Formatter {
         "cpu"    => "CPU",
         "db"     => "DB",
         "dem"    => "DEM",
+        "dms"    => "DMS",
         "doi"    => "DOI",
         "ds"     => "DS",
         "emsl"   => "EMSL",
