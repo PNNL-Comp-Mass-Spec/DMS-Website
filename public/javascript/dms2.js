@@ -317,8 +317,11 @@ var gamma = {
      */
 	removeItems: function(target, remove) {
 		var output = [];
+		// change all of the items in 'remove' to lowercase in a new array
+		var removeLower = remove.map(r => r.toLowerCase());
 		$.each(target, function(idx, item){
-			if(remove.indexOf(item) === -1) {
+			// check 'removeLower' for the item (in lowercase)
+			if(removeLower.indexOf(item.toLowerCase()) === -1) {
 				output.push(item);
 			}
 		});
