@@ -5,7 +5,6 @@
 
 <?php echo view('resource_links/base2css') ?>
 <?php echo view('resource_links/slickgrid2css') ?>
-<link rel="stylesheet" type="text/css" href="<?= base_url('css/grid_data.css') ?>" />
 
 </head>
 
@@ -58,9 +57,6 @@
 
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/slickgrid2js') ?>
-
-<?php // When updating the version for data_grid.js, search for other .php files that also define the version ?>
-<script src="<?= base_url('javascript/data_grid.js?version=101') ?>"></script>
 
 <script>
     gamma.pageContext.save_changes_url = '<?= $save_url ?>';

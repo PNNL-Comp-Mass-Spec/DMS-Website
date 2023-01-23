@@ -5,7 +5,6 @@
     <title>Grid Demo Pages</title>
 <?php echo view('resource_links/base2css') ?>
 <?php echo view('resource_links/slickgrid2css') ?>
-<link rel="stylesheet" type="text/css" href="<?= base_url('css/grid_data.css') ?>" />
 
 <style>
 
