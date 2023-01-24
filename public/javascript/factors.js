@@ -12,15 +12,17 @@ var theta = {
 	},
 	getListReportColumnList: function() {
 		var col_list = [];
-		$('.col_header').each(function(){
-			col_list.push(gamma.trim($(this).html()));
+		$('.col_header').each(function(idx, col){
+			col_list.push(gamma.trim(col.name));
 		});
 		return col_list;
 	},
 	getFactorFieldList: function(factor_cols) {
 		var idlist = [];
 		$('.lr_ckbx').each(function(idx, obj){
-			idlist.push(obj.value);
+			if(obj.checked) {
+				idlist.push(obj.value);
+			}
 		});
 		var flist = [];
 		$.each(factor_cols, function(idx, col){
@@ -127,7 +129,7 @@ var tau = {
 		},
 		saveChangesToDatabase: function() {
 			var cols = theta.getListReportColumnList();
-			var col_list = gamma.removeItems(cols, ['Sel', 'BatchID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
+			var col_list = gamma.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
 			var flist = theta.getFactorFieldList(col_list);
 			this.updateDatabaseFromList(flist, 'Request');
 		},
@@ -136,7 +138,7 @@ var tau = {
 			// gamma.parseDelimitedText is defined in dms2.js
 			var parsed_data = gamma.parseDelimitedText('delimited_text_input');
 			var id_type = parsed_data.header[0];
-			var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order']);
+			var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order', 'Run_Order']);
 			var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
 			this.updateDatabaseFromList(flist, id_type);
 		}
