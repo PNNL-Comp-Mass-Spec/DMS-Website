@@ -19,7 +19,7 @@ INSERT INTO form_fields VALUES(2,'item_type','Item Type','text','32','32','','',
 INSERT INTO form_fields VALUES(3,'info_only','Info Only','hidden','','','','','0','trim|max_length[12]');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'Sel','CHECKBOX','Request','','');
-INSERT INTO list_report_hotlinks VALUES(2,'@exclude','inplace_edit','Request','ajax','["sel","batch_id","name","status","request","experiment","dataset"]');
+INSERT INTO list_report_hotlinks VALUES(2,'@exclude','inplace_edit','Request','ajax','["sel","batch_id", "name", "status", "request", "experiment", "dataset"]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'item_type','picker.replace','itemTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'item_list','list-report.helper','','helper_requested_run_batch_ckbx/report','',',','Choose Batches');
