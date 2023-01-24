@@ -36,7 +36,7 @@ h3 {
 <div class='item' ><a  class='button my_link' href='<?= site_url("run_op_logs/grid") ?>' >Instrument Operation Log Review</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url("requested_run_batch_blocking/grid") ?>' >Requested Runs</a></div>
 <div class='item' ><a  class='button my_link' href='<?= site_url("grid/user") ?>' >User</a></div>
-<div class='item' ><a  class='button my_link' href='<?= site_url("grid/instrument_allocation") ?>' >Instrument Allocation</a></div>
+<!--<div class='item' ><a  class='button my_link' href='<?= site_url("grid/instrument_allocation") ?>' >Instrument Allocation</a></div>__.
 </div>
 
 </body>

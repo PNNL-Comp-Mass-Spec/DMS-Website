@@ -72,7 +72,7 @@ class Grid extends DmsBase {
         }
         echo json_encode($response);
     }
-
+/*
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     function instrument_allocation() {
@@ -86,7 +86,7 @@ class Grid extends DmsBase {
         $this->my_tag = "instrument_allocation";
         $this->grid_data_from_sproc('instrument_allocation_data_sproc', 'grid');
     }
-
+*/
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
     function factors() {
