@@ -130,14 +130,14 @@ class Grid extends DmsBase {
         $this->my_tag = "user";
         $this->db = \Config\Database::connect();
         $builder = $this->db->table("V_Users_Export");
-        $builder->select('ID, Username as PRN, Name, Hanford_ID As HID, Status, Email, Comment, Created_DMS as Created');
+        $builder->select('id, username, name, hanford_id, status, email, comment, created_dms as created');
         $userName = $this->request->getPost("userName");
         if(IsNotWhitespace($userName)) {
-            $builder->like('Username', $userName);
+            $builder->like('username', $userName);
         }
         $allUsers = $this->request->getPost("allUsers");
         if($allUsers == 'false') {
-            $builder->where('Status', 'Active');
+            $builder->where('status', 'Active');
         }
         $this->grid_data_from_query($builder);
     }

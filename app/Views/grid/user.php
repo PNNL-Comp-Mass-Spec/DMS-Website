@@ -51,8 +51,10 @@
     var myImportExport;
     var myGrid;
     var gridConfig = {
+
+        // Columns are from Controllers/Grid.php::user_data(), and must be exact matches
         hiddenColumns: [],
-        staticColumns: ['ID'],
+        staticColumns: ['id'],
 
         getLoadParameters: function() {
             return { userName: $('#userName').val(), allUsers:$('#allUsers').is(':checked') };
@@ -62,7 +64,7 @@
         },
         getSaveParameters: function() {
             var dataRows = myGrid.grid.getData();
-            var changes = gridUtil.getChanges(dataRows, 'ID');
+            var changes = gridUtil.getChanges(dataRows, 'id');
             var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
             var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 //          factorXML = '<id type="Request" />' + factorXML;

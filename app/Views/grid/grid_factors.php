@@ -95,9 +95,8 @@
     var myImportExport;
     var myGrid;
     var gridConfig = {
-        hiddenColumns: ['Sel', 'BatchID', 'Experiment'],
-        staticColumns: ['Request', 'Name', 'Dataset', 'Status' ],
-
+        hiddenColumns: ['sel', 'batch_id', 'experiment'],
+        staticColumns: ['request', 'name', 'dataset', 'status' ],
         getLoadParameters: function() {
             return sourceListSectionsUtil.getSourceList();
         },
@@ -107,7 +106,7 @@
         },
         getSaveParameters: function() {
             var dataRows = myGrid.grid.getData();
-            var changes = gridUtil.getChanges(dataRows, 'Request');
+            var changes = gridUtil.getChanges(dataRows, 'request');
             var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
             var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
             factorXML = '<id type="Request" />' + factorXML;
@@ -128,13 +127,13 @@
     }
     var myUtil = {
         preImportAction: function(inputData) {
-            if($.inArray('Request', inputData.columns) === -1) {
-                alert('Imported data must contain the Request column');
+            if($.inArray('request', inputData.columns) === -1) {
+                alert('Imported data must contain the "request" column');
                 return false;
             }
         },
         postImportAction: function() {
-                var requests = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
+                var requests = $.map(myGrid.grid.getData(), function(row) {return row['request']; });
                 sourceListSectionsUtil.setRequestSource(requests);
                 myCommonControls.enableAddColumn(true);
                 myCommonControls.enableSave(true);
@@ -177,7 +176,7 @@
         getSourceList: function() {
             var sourceType = $("#source_selector input[type='radio']:checked").val();
             var itemList = (sourceType == 'Dataset_Name') ? $('#datasetItemList').val() : $('#requestItemList').val() ;
-            return { itemList:itemList, itemType:sourceType };
+            return { item_list:itemList, item_type:sourceType };
         }
     }
 

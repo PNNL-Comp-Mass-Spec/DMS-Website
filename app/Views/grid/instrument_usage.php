@@ -68,11 +68,11 @@
 
     // meant to be extended with mainGrid object
     // The column names in the staticColumns array correspond to https://dmsdev.pnl.gov/instrument_usage_report/grid
-    // They must match the data returned by view V_Instrument_Usage_Report_List_Report
+    // They must match the data returned by view V_Instrument_Usage_Report_List_Report (see also Controllers/Instrument_Usage_Report.php::grid_data())
     var gridConfig = {
         maxColumnChars: 50,
         hiddenColumns: [],
-        staticColumns: ['seq', 'emsl_inst_id', 'instrument', 'type', 'start', 'minutes', {id:"users"}, 'ID', {id:"proposal"}, {id:"usage"},  {id:"operator"},  {id:"comment"}, 'validation'],
+        staticColumns: ['seq', 'emsl_inst_id', 'instrument', 'type', 'start', 'minutes', 'id', {id:"users"}, {id:"proposal"}, {id:"usage"},  {id:"operator"},  {id:"comment"}, 'validation'],
         getLoadParameters: function() {
             var p = {};
             var instruments = $('#instrument_fld_chooser').val();
@@ -93,7 +93,7 @@
         },
         getSaveParameters: function() {
             var dataRows = myGrid.grid.getData();
-            var changes = gridUtil.getChanges(dataRows, 'Seq');
+            var changes = gridUtil.getChanges(dataRows, 'seq');
             var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
             var paramXml = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
             paramXml = '<id type="Seq" />' + paramXml;

@@ -88,8 +88,10 @@
     var myGrid;
 
     var gridConfig = {
+
+        // Columns are from stored procedure GetRequestedRunParametersAndFactors, and must be exact matches
         hiddenColumns: [],
-        staticColumns: ['Request', 'Name', 'Status', 'Batch', 'Experiment', 'Dataset', 'LC_Col', {id:"Instrument"}, {id:"Cart"}, {id:"Block"}, {id:"Run_Order"}],
+        staticColumns: ['request', 'name', 'status', 'batch', 'experiment', 'dataset', 'lc_col', {id:"instrument"}, {id:"cart"}, {id:"block"}, {id:"run_Order"}],
         getLoadParameters: function() {
             var itemList = $('#requestItemList').val();
             return { itemList:itemList };
@@ -102,9 +104,9 @@
         },
         getSaveParameters: function() {
             var mapP2A;
-            var runParmColNameList = ['Status', 'Instrument', 'Cart', 'Block', 'Run_Order'];
+            var runParmColNameList = ['status', 'instrument', 'cart', 'block', 'run_order'];
             var dataRows = myGrid.grid.getData();
-            var changes = gridUtil.getChanges(dataRows, 'Request');
+            var changes = gridUtil.getChanges(dataRows, 'request');
 
             var runParamChanges = [];
             var factorChanges = [];
@@ -140,7 +142,7 @@
     }
 
     var myUtil = {
-        lastNonFactorColumnName: 'Run_Order',
+        lastNonFactorColumnName: 'run_order',
         initEntryFields: function() {
             this.initializeBlockingControlPanel();
         },
@@ -158,13 +160,13 @@
             }
         },
         preImportAction: function(inputData) {
-            if($.inArray('Request', inputData.columns) === -1) {
-                alert('Imported data must contain the Request column');
+            if($.inArray('request', inputData.columns) === -1) {
+                alert('Imported data must contain the "request" column');
                 return false;
             }
         },
         postImportAction: function() {
-            var x = $.map(myGrid.grid.getData(), function(row) {return row['Request']; });
+            var x = $.map(myGrid.grid.getData(), function(row) {return row['request']; });
             $('#requestItemList').val(x.join(', '));
             myCommonControls.enableSave(true);
             myCommonControls.enableAddColumn(true);
