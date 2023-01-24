@@ -883,7 +883,7 @@ class Cell_presentation {
 
             // make header label
             $str .= $marker;
-            $str .= "<a href='javascript:void(0)'" . $clickToSort . " class='col_header' " . $toolTip . ">$formatted</a>";
+            $str .= "<a href='javascript:void(0)'" . $clickToSort . " name='$columnName'" . " class='col_header' " . $toolTip . ">$formatted</a>";
             $padding = $this->get_cell_padding($columnName);
             if ($padding === '') {
                 $padding = $this->get_cell_padding($formatted);
