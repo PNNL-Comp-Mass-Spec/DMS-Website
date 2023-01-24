@@ -91,7 +91,7 @@
 
         // Columns are from stored procedure GetRequestedRunParametersAndFactors, and must be exact matches
         hiddenColumns: [],
-        staticColumns: ['request', 'name', 'status', 'batch', 'experiment', 'dataset', 'lc_col', {id:"instrument"}, {id:"cart"}, {id:"block"}, {id:"run_Order"}],
+        staticColumns: ['request', 'name', 'status', 'batch', 'experiment', 'dataset', 'lc_col', {id:"instrument"}, {id:"cart"}, {id:"block"}, {id:"run_order"}],
         getLoadParameters: function() {
             var itemList = $('#requestItemList').val();
             return { itemList:itemList };
