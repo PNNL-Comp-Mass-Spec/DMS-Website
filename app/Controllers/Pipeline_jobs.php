@@ -46,7 +46,7 @@ class Pipeline_jobs extends DmsBase {
                 echo "<div>Click one of the scripts below to show form for entering parameters:</div>";
                 echo "<ul>";
                 foreach($scripts as $dt) {
-                    $script = $dt['Script'];
+                    $script = $dt['script'];
                     echo "<li><a href='javascript:void(0)' onclick='entry.pipeline_jobs.choose_script(\"$script\")'>$script</a></li>";
                 }
                 echo "</ul>";
@@ -62,7 +62,7 @@ class Pipeline_jobs extends DmsBase {
     // This will download data from the view defined by the parameter_scripts utility query in the model config DB
     //
     // Relevant DDL for the SQLite database:
-    // INSERT INTO "utility_queries" VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','*','','','');    
+    // INSERT INTO "utility_queries" VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','*','','','');
     // That view looks for entries in T_Scripts that are enabled and have a non-null value in the Parameters column
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')

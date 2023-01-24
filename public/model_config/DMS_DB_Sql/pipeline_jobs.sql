@@ -67,8 +67,8 @@ CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text,
 INSERT INTO entry_commands VALUES(1,'reset','cmd','Reset Failed Steps or Rerun Job','','');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
 INSERT INTO utility_queries VALUES(1,'parameter_values','','broker','T_Job_Parameters','Parameters as params','','{"Job":"EQn"}','');
-INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','T_Scripts','Parameters as params','','{"Script":"MTx"}','');
-INSERT INTO utility_queries VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','*','','','');
+INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','V_Pipeline_Script_Parameters','Parameters as params','','{"Script":"MTx"}','');
+INSERT INTO utility_queries VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','script','','','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'owner_prn','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'data_package_id','list-report.helper','','helper_data_package/report','',',','');
