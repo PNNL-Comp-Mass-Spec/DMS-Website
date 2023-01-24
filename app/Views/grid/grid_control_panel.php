@@ -7,7 +7,7 @@
 <div id='ctl_panel' class='ctl_panel'>
 
 <span class='ctls'>
-    <a id='reload_btn' title='Load data into editing grid'class='button' href='javascript:void(0)' >Reload</a>
+    <a id='reload_btn' title='Load data into editing grid' class='button' href='javascript:void(0)' >Reload</a>
 </span>
 
 <span class='ctls' id='add_col_ctl_panel'>

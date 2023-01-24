@@ -134,7 +134,7 @@
             myUtil.adjustCapitalization(args);
         },
         editPermissionFilter: function(e,args) {
-            return myUtil.isEditable(args.column.field, args.item.Type);
+            return myUtil.isEditable(args.column.field, args.item.type);
         },
         getContextMenuHandler: function() {
             var ctx = contextMenuManager.init(this).buildBasicMenu(myUtil.cellProtectionChecker);
@@ -187,7 +187,7 @@
             if(!args) return;
             var field = args.grid.getColumns()[args.cell].field;
             var row = args.grid.getData()[args.row];
-            if(myUtil.isDataset(row) && field === 'Usage') {
+            if(myUtil.isDataset(row) && field === 'usage') {
                 row.usage = row.usage.toUpperCase();
                 args.grid.invalidateRows([args.row]);
                 args.grid.render();
@@ -197,7 +197,7 @@
             var message = '';
             var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
             $.each(changes, function(idx, row) {
-                if(row.usage === 'USER' && !(row.proposal) ){
+                if((row.usage === 'USER' || row.usage === 'USER_ONSITE' || row.usage === 'USER_OFFSITE') && !(row.proposal) ){
                     message = "No proposal for USER for " + row.note;
                     return false;
                 }
@@ -205,13 +205,13 @@
             return message;
         },
         isEditable: function(field, type) {
-            if((field == 'Usage' || field == 'Proposal') && !(type == 'Dataset' || type == 'Long Interval')) return false;
-            if(field == 'Note' && type != 'Long Interval') return false;
+            if((field == 'usage' || field == 'proposal' || field == 'emsl_user') && !(type == 'Dataset' || type == 'Long Interval')) return false;
+            if(field == 'note' && type != 'Long Interval') return false;
             if(type == 'Operation' || type == 'Configuration') return false;
             return true;
         },
         cellProtectionChecker: function(field, rowData) {
-            return myUtil.isEditable(field, rowData.Type);
+            return myUtil.isEditable(field, rowData.type);
         }
     }
 

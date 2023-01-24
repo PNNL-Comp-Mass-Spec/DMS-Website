@@ -700,7 +700,7 @@ var commonGridControls = {
 		$('#add_column_legend').html(legend);
 	},
 	reload: function() {
-	    this.myMainGrid.buildGrid();
+		this.myMainGrid.buildGrid();
 		this.myMainGrid.loadGrid();
 	}
 } // commonGridControls
