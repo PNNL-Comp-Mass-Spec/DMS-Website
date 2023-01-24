@@ -33,6 +33,6 @@
 </form>
 </div>
 
-<?php // When updating the version for factors.js, search for other .php files that also define the version ?>
-<script src="<?= base_url('javascript/factors.js?version=101') ?>"></script>
+<?php echo view('resource_links/factors_js') ?>
+
 <script src="<?= base_url('javascript/tracking.js?version=100') ?>"></script>
