@@ -85,6 +85,8 @@
 <?php echo view('resource_links/slickgrid2js') ?>
 
 <script>
+    // This code is used by https://dms2.pnl.gov/factors/grid
+
     gamma.pageContext.site_url = '<?= site_url() ?>';
     gamma.pageContext.save_changes_url = '<?= $save_url ?>';
     gamma.pageContext.data_url = '<?= $data_url ?>';
@@ -95,6 +97,7 @@
     var gridConfig = {
         hiddenColumns: ['Sel', 'BatchID', 'Experiment'],
         staticColumns: ['Request', 'Name', 'Dataset', 'Status' ],
+
         getLoadParameters: function() {
             return sourceListSectionsUtil.getSourceList();
         },
