@@ -1,6 +1,6 @@
 	var runBlockingGridUtil = {
-		runOrderFieldName: 'Run_Order',
-		blockNumberFieldName: 'Block',
+		runOrderFieldName: 'run_order',
+		blockNumberFieldName: 'block',
 		grid: null,
 		init: function(wrapper) {
 			var obj = $.extend({}, this);
@@ -29,8 +29,8 @@
 		},
 		loadBlockingObjectList: function(blockingObjList) {
 			$.each(blockingObjList, function(idx, obj) {
-				obj.blockNumber = obj.row['Block'];
-				obj.runOrder = obj.row['Run_Order'];
+				obj.blockNumber = obj.row['block'];
+				obj.runOrder = obj.row['run_order'];
 			});
 		},
 		getUniqueListOfBlockNumbers: function(blockingObjList) {

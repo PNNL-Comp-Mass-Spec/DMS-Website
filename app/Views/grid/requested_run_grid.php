@@ -75,7 +75,7 @@
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/slickgrid2js') ?>
 
-<script src="<?= base_url('javascript/run_blocking_grid.js?version=103') ?>"></script>
+<script src="<?= base_url('javascript/run_blocking_grid.js?version=104') ?>"></script>
 
 <script>
     gamma.pageContext.site_url = '<?= site_url() ?>';

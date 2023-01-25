@@ -12,7 +12,7 @@ var runBlocking = {
 		$('.Block').each(function(idx, bk) {
 			var obj = {};
 			obj.bk = bk;
-			obj.ro = $('#Run_Order_' + bk.name).get(0);
+			obj.ro = $('#run_order_' + bk.name).get(0);
 			obj.bf = $('#' + col_name + '_' + bk.name).get(0);
 			rlist.push(obj);
 		});
@@ -129,7 +129,7 @@ var runBlocking = {
 	requested_run_batch_blocking: {
 		getFactorCols: function() {
 			var cols = theta.getListReportColumnList();
-			var factor_cols = gamma.removeItems(cols, ['Sel', 'BatchID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order']);
+			var factor_cols = gamma.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order',  'Run_Order']);
 
 			return factor_cols;
 		},
@@ -166,20 +166,20 @@ var runBlocking = {
 		saveChangesToDatabase: function() {
 			var factor_cols = this.getFactorCols();
 			var flist = theta.getFactorFieldList(factor_cols);
-			var blocking_cols = ['Block',  'Run Order'];
+			var blocking_cols = ['block',  'run_order'];
 			var blist = theta.getFactorFieldList(blocking_cols);
 			this.updateDatabaseFromList(flist, blist);
 		},
 		load_delimited_text: function() {
 			var parsed_data = gamma.parseDelimitedText('delimited_text_input');
-			if(parsed_data.header[0] != 'Request') {
-				alert('Header line does not begin with "Request"');
+			if(parsed_data.header[0] != 'request') {
+				alert('Header line does not begin with "request"');
 				// (someday) more extensive validation
 				return;
 			}
-			var col_list = gamma.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order']);
+			var col_list = gamma.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order', 'Run_Order']);
 			var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
-			var blist = theta.getFieldListFromParsedData(parsed_data, ['Block', 'Run Order']);
+			var blist = theta.getFieldListFromParsedData(parsed_data, ['block', 'run_order']);
 			this.updateDatabaseFromList(flist, blist);
 		},
 		setBlockForSelectedItems: function() {
@@ -206,7 +206,7 @@ var runBlocking = {
 			var url =  gamma.pageContext.site_url + "requested_run_batch_blocking/exec/batch/";
 			var p = {};
 			p.command = mode;
-			p.batchID = $('#BatchID').val();
+			p.batchID = $('#batch_id').val();
 			if(p.batchID == '') {
 				alert("No batch ID");
 				return;
