@@ -82,7 +82,7 @@ INSERT INTO form_field_choosers VALUES(27,'priority','picker.replace','operation
 INSERT INTO form_field_choosers VALUES(28,'work_package','list-report.helper','','helper_charge_code/report','',',','');
 INSERT INTO form_field_choosers VALUES(29,'material_container_list','list-report.helper','','helper_material_container_ckbx/report','',',','Select Container...');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','state_id','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_requestname','Request Name','32','','request_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_organism','Organism','32','','organism','ContainsText','text','128','','');
