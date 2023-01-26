@@ -1314,7 +1314,22 @@ var lambda = {
 		}
 		var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/' + format
 		gamma.export_to_doc(url, "filter_form");
-	}
+	},
+    /**
+     * Create a dynamic form with JSON data to submit to a URL and load the new page
+     * @param {type} url
+     * @param {type} jsonObj
+     * @returns {undefined}
+     */
+    submitDynamicForm: function(url, jsonObj) {
+        var keys = Object.getOwnPropertyNames(jsonObj);
+        var inputs = "";
+        keys.forEach(function(item){
+            inputs += '<input type="hidden" name="' + item + '" value="' + jsonObj[item] + '" />'
+        });
+        $("body").append('<form action="' + url + '" method="post" id="dynamicForm">' + inputs + '</form>');
+        $("#dynamicForm").submit();
+    }
 
 }; // lambda
 

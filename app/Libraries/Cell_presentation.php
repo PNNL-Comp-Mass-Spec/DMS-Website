@@ -676,11 +676,12 @@ class Cell_presentation {
             case "row_to_url":
                 $s = "";
                 foreach ($row as $f => $v) {
-                    $s .= ($s) ? '|' : '';
-                    $s .= "$f@$v";
+                    $s .= ($s) ? ', ' : '';
+                    $s .= "\"$f\": \"$v\"";
                 }
                 $url = reduce_double_slashes(site_url("$target"));
-                $str .= "<td><a href='javascript:void(0)' onclick='submitDynamicForm(\"$url\", \"$s\")'>$value</a></td>";
+                // Javascript automatically converts the JSON-formatted string to an object because it's not separately surrounded by quotes
+                $str .= "<td><a href='javascript:void(0)' onclick='lambda.submitDynamicForm(\"$url\", { $s })'>$value</a></td>";
                 break;
 
             case "row_to_json":

@@ -23,14 +23,12 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
     //
     if ($num_segs == 0) {
         // just accept defaults
-    } else
-    if ($num_segs == 1) {
+    } else if ($num_segs == 1) {
         // get values from database using source and id that we were given
         $id = $segs[0];
         $controller->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
         $initial_field_values = $controller->input_model->get_item($id, $controller);
-    } else
-    if ($num_segs > 1) {
+    } else if ($num_segs > 1) {
         // get values from an external source
         $source = $segs[0];
         $id = $segs[1];
@@ -38,9 +36,15 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
             $segs = array_slice($segs, 1);
             // get values from url segments:
             $initial_field_values = get_values_from_segs($form_field_names, $segs);
-        } else
-        if ($source == 'post') {
-            // (someday) get values from POST
+        } else if ($id == 'post') {
+            // get external source mapping
+            $col_mapping = $controller->form_model->get_external_source_field_map($source);
+            if ($col_mapping) {
+                // get values from POST data
+                $request = \Config\Services::request();
+                $postData = $request->getPost();
+                $initial_field_values = load_from_external_source($col_mapping, $postData);
+            }
         } else {
             // get external source mapping
             $col_mapping = $controller->form_model->get_external_source_field_map($source);
@@ -65,6 +69,7 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
 function load_from_external_source($col_mapping, $source_data) {
     $a = array();
     $label_formatter = new \App\Libraries\Label_formatter();
+    $source_data2 = array_change_key_case($source_data, CASE_LOWER);
 
     // load entry fields from external source
     foreach ($col_mapping as $fld => $spec) {
@@ -102,8 +107,13 @@ function load_from_external_source($col_mapping, $source_data) {
 
             case 'PostName':
                 // Retrieve the named POST value
-                $request = \Config\Services::request();
-                $pv = $request->getPost($spec['value']);
+                //$request = \Config\Services::request();
+                //$pv = $request->getPost($spec['value']);
+                $col = $spec['value'];
+                $pv = "";
+                if (array_key_exists($col, $source_data2)) {
+                    $pv = $source_data2[$col];
+                }
                 $a[$fld] = $pv;
                 break;
 
