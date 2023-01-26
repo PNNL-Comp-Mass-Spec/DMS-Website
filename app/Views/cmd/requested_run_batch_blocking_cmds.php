@@ -74,4 +74,4 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 
 <?php echo view('resource_links/factors_js') ?>
 
-<script src="<?= base_url('javascript/run_blocking.js?version=102')?>"></script>
+<script src="<?= base_url('javascript/run_blocking.js?version=103')?>"></script>

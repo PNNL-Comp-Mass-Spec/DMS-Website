@@ -63,6 +63,7 @@ class Operation {
             helper('form');
             $request = \Config\Services::request();
             $postData = $request->getPost();
+            // NOTE: if $postData is empty, check the URL; if the URL ends with '/', POST data is dropped.
             $preformat = new \App\Libraries\ValidationPreformat();
             $postData = $preformat->run($postData, $rules);
 

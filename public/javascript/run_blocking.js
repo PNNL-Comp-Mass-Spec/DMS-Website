@@ -9,7 +9,7 @@ var runBlocking = {
 		// where each object references the edit fields for
 		// one requested run
 		var rlist = [];
-		$('.Block').each(function(idx, bk) {
+		$('.block').each(function(idx, bk) {
 			var obj = {};
 			obj.bk = bk;
 			obj.ro = $('#run_order_' + bk.name).get(0);
@@ -43,7 +43,7 @@ var runBlocking = {
 		// run through request list and get
 		// unique list of block numbers
 		bklist = [];
-		$('.Block').each(function(idx, bk) {
+		$('.block').each(function(idx, bk) {
 			var blk = bk.value;
 			if(bklist.indexOf(blk) === -1) {
 				bklist.push(blk);
@@ -199,11 +199,11 @@ var runBlocking = {
 				return;
 			}
 			$.each(iList, function(idx, req) {
-				$('#Block_' + req).val(block);
+				$('#block_' + req).val(block);
 			});
 		},
 		performBatchOperation: function(mode) {
-			var url =  gamma.pageContext.site_url + "requested_run_batch_blocking/exec/batch/";
+			var url =  gamma.pageContext.site_url + "requested_run_batch_blocking/exec/batch";
 			var p = {};
 			p.command = mode;
 			p.batchID = $('#batch_id').val();
