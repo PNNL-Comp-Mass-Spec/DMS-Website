@@ -69,7 +69,7 @@ var entry = {
 			var caller = this;
 			var script = $('#script_name').val();
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + script;
-			epsilon.load_suplemental_form(url, {}, 'param_container', function() { caller.revealControls(script); });
+			epsilon.load_supplemental_form(url, {}, 'param_container', function() { caller.revealControls(script); });
 		},
 		choose_template: function (template_name) {
 			$('#script_name').val(template_name);
@@ -102,7 +102,7 @@ var entry = {
 	pipeline_jobs: {
 		load_param_form: function () {
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#script_name').val();
-			epsilon.load_suplemental_form(url, {}, 'param_container', function() {
+			epsilon.load_supplemental_form(url, {}, 'param_container', function() {
 				entry.pipeline_jobs.set_param_row_visibility("hide_input", "none");
 			});
 		},

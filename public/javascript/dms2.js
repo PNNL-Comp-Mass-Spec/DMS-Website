@@ -1778,7 +1778,7 @@ var epsilon = {
      * @param {type} beforeAction
      * @returns {undefined}
      */
-	load_suplemental_form: function(url, p, containerId, afterAction, beforeAction) {
+	load_supplemental_form: function(url, p, containerId, afterAction, beforeAction) {
 		var container = $('#' + containerId);
 		var abort = false;
 		if(beforeAction) {

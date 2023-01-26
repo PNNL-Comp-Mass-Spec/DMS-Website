@@ -536,10 +536,10 @@ class Entry_form {
         foreach ($entry_commands as $command => $spec) {
             switch (strtolower($spec['type'])) {
                 case 'cmd':
-                	if ($command == 'PreviewAdd' And $page_type != 'create') {
-                		// Only show the PreviewAdd button when creating a new item
-                		break;
-                	}
+                    if ($command == 'PreviewAdd' And $page_type != 'create') {
+                        // Only show the PreviewAdd button when creating a new item
+                        break;
+                    }
 
                     $attributes = array();
                     $attributes['id'] = 'cmd_' . strtolower(str_replace(' ', '_', $command));
