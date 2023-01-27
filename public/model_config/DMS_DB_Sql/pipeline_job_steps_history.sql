@@ -26,5 +26,5 @@ INSERT INTO detail_report_hotlinks VALUES(3,'script','detail-report','script','p
 INSERT INTO detail_report_hotlinks VALUES(4,'tool','detail-report','tool','pipeline_step_tools/show','labelCol','tool',NULL);
 INSERT INTO detail_report_hotlinks VALUES(5,'dataset_folder_path','href-folder','dataset_folder_path','','labelCol','dataset_folder_path',NULL);
 INSERT INTO detail_report_hotlinks VALUES(6,'transfer_folder_path','href-folder','transfer_folder_path','','labelCol','transfer_folder_path','');
-INSERT INTO detail_report_hotlinks VALUES(8,'stateid','detail-report','job','pipeline_job_steps/report','labelCol','StateID',NULL);
+INSERT INTO detail_report_hotlinks VALUES(8,'state_id','detail-report','job','pipeline_job_steps/report','labelCol','state_id','');
 COMMIT;

@@ -15,9 +15,9 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO form_fields VALUES(1,'id','ID','text','32','32','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(2,'name','Name','text','50','50','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(3,'hanford_id','HanfordID','text','32','32','','','','trim|max_length[32]');
-INSERT INTO form_fields VALUES(4,'site_status_id','Site Status','text','32','32','','','','trim|required|max_length[32]');
+INSERT INTO form_fields VALUES(4,'site_status','Site Status','text','32','32','','','','trim|required|max_length[32]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'site_status_id','picker.replace','EUSUserSiteStatusPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'site_status','picker.replace','EUSUserSiteStatusPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','12','','id','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','60','','name','ContainsText','text','128','','');
@@ -30,7 +30,7 @@ INSERT INTO list_report_hotlinks VALUES(3,'proposals','invoke_entity','name','eu
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','EUSPersonID','varchar','input','32','AddUpdateEUSUsers');
 INSERT INTO sproc_args VALUES(2,'name','EUSNameFm','varchar','input','50','AddUpdateEUSUsers');
-INSERT INTO sproc_args VALUES(3,'site_status_id','EUSSiteStatus','varchar','input','32','AddUpdateEUSUsers');
+INSERT INTO sproc_args VALUES(3,'site_status','EUSSiteStatus','varchar','input','32','AddUpdateEUSUsers');
 INSERT INTO sproc_args VALUES(4,'hanford_id','HanfordID','varchar','input','50','AddUpdateEUSUsers');
 INSERT INTO sproc_args VALUES(5,'<local>','mode','varchar','input','12','AddUpdateEUSUsers');
 INSERT INTO sproc_args VALUES(6,'<local>','message','varchar','output','512','AddUpdateEUSUsers');

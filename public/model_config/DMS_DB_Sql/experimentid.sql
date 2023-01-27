@@ -32,7 +32,7 @@ INSERT INTO detail_report_hotlinks VALUES(1,'campaign','detail-report','campaign
 INSERT INTO detail_report_hotlinks VALUES(2,'experiment_groups','link_list','experiment_groups','experiment_group/show','valueCol','experiment_groups','{"HideLinkIfValueMatch":"(none)"}');
 INSERT INTO detail_report_hotlinks VALUES(3,'request','detail-report','request','sample_prep_request/show','labelCol','request','');
 INSERT INTO detail_report_hotlinks VALUES(4,'datasets','detail-report','experiment','dataset/report/-/-/-/-/~','labelCol','datasets','');
-INSERT INTO detail_report_hotlinks VALUES(5,'cell_cultures','link_list','cell_cultures','biomaterial/show','valueCol','dl_biomaterial','');
+INSERT INTO detail_report_hotlinks VALUES(5,'biomaterial_list','link_list','biomaterial_list','biomaterial/show','valueCol','dl_biomaterial','');
 INSERT INTO detail_report_hotlinks VALUES(6,'reference_compounds','link_list','reference_compounds','reference_compound/report/-/-/-/-/@','valueCol','dl_reference_compounds','');
 INSERT INTO detail_report_hotlinks VALUES(7,'factors','detail-report','experiment','custom_factors/report/-/-/-/~','labelCol','dl_custom_factors','');
 INSERT INTO detail_report_hotlinks VALUES(8,'experiment_files','detail-report','experiment','file_attachment/report/-/experiment/','labelCol','dl_experiment_files','');

@@ -22,7 +22,7 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO detail_report_hotlinks VALUES(1,'parent_term_pk','detail-report','parent_term_pk','ontology/show','valueCol','',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'grandparent_term_pk','detail-report','grandparent_term_pk','ontology/show','valueCol','',NULL);
 INSERT INTO detail_report_hotlinks VALUES(3,'term_name','detail-report','term_name','ontology/report/-/','valueCol','',NULL);
-INSERT INTO detail_report_hotlinks VALUES(4,'ontology_shortname','detail-report','ontology_shortname','ontology/report/','valueCol','',NULL);
+INSERT INTO detail_report_hotlinks VALUES(4,'ontology_short_name','detail-report','ontology_short_name','ontology/report/','valueCol','','');
 INSERT INTO detail_report_hotlinks VALUES(5,'parent_term_name','detail-report','parent_term_name','ontology/report/-/','valueCol','',NULL);
 INSERT INTO detail_report_hotlinks VALUES(6,'grandparent_term_name','detail-report','grandparent_term_name','ontology/report/-/','valueCol','',NULL);
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);

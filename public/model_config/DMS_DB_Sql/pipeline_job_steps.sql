@@ -30,7 +30,7 @@ INSERT INTO detail_report_hotlinks VALUES(4,'tool','detail-report','tool','pipel
 INSERT INTO detail_report_hotlinks VALUES(5,'dataset_folder_path','href-folder','dataset_folder_path','','labelCol','dataset_folder_path',NULL);
 INSERT INTO detail_report_hotlinks VALUES(6,'transfer_folder_path','href-folder','transfer_folder_path','','labelCol','transfer_folder_path',NULL);
 INSERT INTO detail_report_hotlinks VALUES(7,'log_file_path','href-folder','log_file_path','','labelCol','log_file_path',NULL);
-INSERT INTO detail_report_hotlinks VALUES(8,'stateid','detail-report','job','pipeline_job_steps/report','labelCol','StateID',NULL);
+INSERT INTO detail_report_hotlinks VALUES(8,'state_id','detail-report','job','pipeline_job_steps/report','labelCol','state_id','');
 INSERT INTO detail_report_hotlinks VALUES(9,'+job','detail-report','job','pipeline_jobs/show','valueCol','pipeline_job_detail',NULL);
 INSERT INTO detail_report_hotlinks VALUES(10,'processor','detail-report','processor','pipeline_processor_step_tools/report/@','valueCol','dl_processor','');
 COMMIT;

@@ -9,7 +9,7 @@ INSERT INTO list_report_hotlinks VALUES(3,'state','color_label','','','{"Capture
 INSERT INTO list_report_hotlinks VALUES(4,'instrument','invoke_entity','value','instrument_operation_history/report','');
 INSERT INTO list_report_hotlinks VALUES(5,'qc_link','image_link','value','index.html','{"width":"400"}');
 INSERT INTO list_report_hotlinks VALUES(6,'qc_2d','image_link','value','index.html','{"width":"340"}');
-INSERT INTO list_report_hotlinks VALUES(7,'qc_decon_tools','image_link','value','index.html','{"width":"340"}');
+INSERT INTO list_report_hotlinks VALUES(7,'qc_decontools','image_link','value','index.html','{"width":"340"}');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','6!','','id','Equals','text','24','','');

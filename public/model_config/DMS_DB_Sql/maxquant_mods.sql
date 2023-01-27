@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('base_table','T_MaxQuant_Mod_Residues');
-INSERT INTO general_params VALUES('list_report_data_table','v_max_quant_mods_list_report');
+INSERT INTO general_params VALUES('list_report_data_table','v_maxquant_mods_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

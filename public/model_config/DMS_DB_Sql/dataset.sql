@@ -132,7 +132,7 @@ INSERT INTO detail_report_hotlinks VALUES(38,'lc_column','detail-report','lc_col
 INSERT INTO detail_report_hotlinks VALUES(39,'masic_qc_link','detail-report','dataset','reporter_ion_observation_rate/report/-/~','labelCol','dl_rep_ion_obs_rate_list_report','');
 INSERT INTO detail_report_hotlinks VALUES(40,'+masic_qc_link','literal_link','','','valueCol','dl_masic_data','');
 INSERT INTO detail_report_hotlinks VALUES(41,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
-INSERT INTO detail_report_hotlinks VALUES(42,'wellplate_name','detail-report','wellplate_name','wellplate/show','valueCol','dl_wellplate','');
+INSERT INTO detail_report_hotlinks VALUES(42,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO entry_commands VALUES(1,'add_trigger','override','Create','','add');
 INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');

@@ -69,7 +69,6 @@ INSERT INTO detail_report_hotlinks VALUES(7,'+dataset_count','detail-report','id
 INSERT INTO detail_report_hotlinks VALUES(8,'analysis_job_count','detail-report','id','data_package_analysis_jobs/report','labelCol','analysis_job_count','');
 INSERT INTO detail_report_hotlinks VALUES(9,'total_item_count','detail-report','id','data_package_items/report','labelCol','total_item_count','');
 INSERT INTO detail_report_hotlinks VALUES(10,'prism_wiki','literal_link','prism_wiki','','valueCol','prism_wiki','');
-INSERT INTO detail_report_hotlinks VALUES(11,'myemsl_url','masked_link','myemsl_url','','valueCol','myemsl_url','{"Label":"Show files in MyEMSL"}');
 INSERT INTO detail_report_hotlinks VALUES(12,'campaign_count','detail-report','id','data_package_campaigns/report','labelCol','campaign_count','');
 INSERT INTO detail_report_hotlinks VALUES(13,'eus_proposal_count','detail-report','id','data_package_proposals/report','labelCol','eus_proposal_count','');
 INSERT INTO detail_report_hotlinks VALUES(14,'eus_user_id','detail-report','eus_user_id','eus_users/show','labelCol','eus_user_id','');

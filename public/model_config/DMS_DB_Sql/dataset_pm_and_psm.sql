@@ -21,10 +21,10 @@ INSERT INTO list_report_hotlinks VALUES(6,'xic_fwhm_q3','literal_link','instrume
 INSERT INTO list_report_hotlinks VALUES(7,'mass_error_ppm','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/masserrorppm/filterds/qc/inst/','{"Decimals":"3"}');
 INSERT INTO list_report_hotlinks VALUES(8,'mass_error_amts','column_tooltip','value','median_of_precursor_mass_error_(ppm),_from_amt_peak_matching','{"Decimals":"3"}');
 INSERT INTO list_report_hotlinks VALUES(9,'amts_10pct_fdr','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/amts_10pct_fdr/filterds/qc/inst/','');
-INSERT INTO list_report_hotlinks VALUES(11,'phosphopep','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/phos_2c/filterds/qc/inst/','');
+INSERT INTO list_report_hotlinks VALUES(11,'phospho_pep','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/phos_2c/filterds/qc/inst/','');
 INSERT INTO list_report_hotlinks VALUES(12,'+unique_peptides','column_tooltip','value','number_of_tryptic_peptides;_unique_peptide_count','');
 INSERT INTO list_report_hotlinks VALUES(13,'+xic_fwhm_q3','column_tooltip','value','75%ile_of_peak_widths_for_the_wide_xics','');
 INSERT INTO list_report_hotlinks VALUES(14,'+mass_error_ppm','column_tooltip','value','median_of_precursor_mass_error_(ppm),_from_ms/ms_id','');
 INSERT INTO list_report_hotlinks VALUES(15,'+amts_10pct_fdr','column_tooltip','value','number_of_lc-ms_features','');
-INSERT INTO list_report_hotlinks VALUES(16,'+phosphopep','column_tooltip','value','number_of_phosphopeptides;_unique_peptide_count','');
+INSERT INTO list_report_hotlinks VALUES(16,'+phospho_pep','column_tooltip','value','number_of_phosphopeptides;_unique_peptide_count','');
 COMMIT;

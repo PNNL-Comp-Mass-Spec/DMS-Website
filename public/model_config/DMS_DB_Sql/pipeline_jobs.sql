@@ -22,7 +22,7 @@ INSERT INTO list_report_primary_filter VALUES(5,'pf_DataPkgID','DataPkgID','6','
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'job','invoke_entity','value','pipeline_jobs/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'steps','invoke_entity','job','pipeline_job_steps/report','');
-INSERT INTO list_report_hotlinks VALUES(3,'datapkgid','invoke_entity','value','data_package/show/','');
+INSERT INTO list_report_hotlinks VALUES(3,'data_pkg_id','invoke_entity','value','data_package/show/','');
 INSERT INTO list_report_hotlinks VALUES(4,'owner','invoke_entity','value','user/show','');
 INSERT INTO list_report_hotlinks VALUES(5,'comment','min_col_width','value','120','');
 INSERT INTO list_report_hotlinks VALUES(6,'runtime_minutes','format_commas','value','','{"Decimals":"1"}');

@@ -20,7 +20,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'entity','select_case','entity_type','','{"1":"requested_run_batch","2":"analysis_job_request", "3":"sample_prep_request"}');
 INSERT INTO list_report_hotlinks VALUES(2,'name','select_case','entity_type','','{"4":"dataset","5":"dataset"}');
 INSERT INTO list_report_hotlinks VALUES(3,'campaign','invoke_entity','campaign','campaign/show','');
-INSERT INTO list_report_hotlinks VALUES(4,'user','invoke_entity','prn','user/show','');
+INSERT INTO list_report_hotlinks VALUES(4,'person','invoke_entity','prn','user/show','');
 INSERT INTO list_report_hotlinks VALUES(5,'prn','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(6,'entity_type','no_display','value','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
