@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('base_table','T_Bionet_Hosts');
 INSERT INTO general_params VALUES('list_report_data_table','v_bionet_list_report');
 INSERT INTO general_params VALUES('detail_report_data_table','v_bionet_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','host');
-INSERT INTO general_params VALUES('entry_page_data_table','t_bionet_hosts');
+INSERT INTO general_params VALUES('entry_page_data_table','v_bionet_entry');
 INSERT INTO general_params VALUES('entry_sproc','AddUpdateBionetHost');
 INSERT INTO general_params VALUES('entry_page_data_id_col','host');
 INSERT INTO general_params VALUES('post_submission_detail_id','host');
