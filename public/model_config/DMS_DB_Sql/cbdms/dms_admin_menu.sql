@@ -30,7 +30,6 @@ INSERT INTO home_menu_items VALUES(5,'Report','main_log/report/Warning','Display
 INSERT INTO home_menu_items VALUES(6,'Report','archive_daily_check/report','Display','archive daily check report');
 INSERT INTO home_menu_items VALUES(7,'Report','archive_daily_check_update/report','Display','archive update daily check report');
 INSERT INTO home_menu_items VALUES(8,'Report','analysis_daily_check/report','Display','analysis job daily check report');
-INSERT INTO home_menu_items VALUES(9,'Report','manager_daily_check/param/72','Display','managers daily check report');
 INSERT INTO home_menu_items VALUES(10,'Report','dms_activity/report','Display','DMS activity report');
 INSERT INTO home_menu_items VALUES(11,'Report','submenu','Event Log','');
 INSERT INTO home_menu_items VALUES(12,'Report','event_log_dataset/report','Display','dataset event log');

@@ -419,7 +419,6 @@ INSERT INTO menu_def VALUES(362,'Daily Status Checks','link','main_log/report/Wa
 INSERT INTO menu_def VALUES(363,'Daily Status Checks','link','archive_daily_check/report','Archive');
 INSERT INTO menu_def VALUES(364,'Daily Status Checks','link','archive_daily_check_update/report','Archive Update');
 INSERT INTO menu_def VALUES(365,'Daily Status Checks','link','analysis_daily_check/report','Analysis');
-INSERT INTO menu_def VALUES(366,'Daily Status Checks','link','manager_daily_check/param/72','Managers');
 INSERT INTO menu_def VALUES(367,'Daily Status Checks','link','dms_activity/report','DMS Activity');
 INSERT INTO menu_def VALUES(368,'Daily Status Checks','separator','','');
 INSERT INTO menu_def VALUES(369,'Admin','submenu','Event Log','Event Log');
