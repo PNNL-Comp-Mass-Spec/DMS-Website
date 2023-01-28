@@ -10,9 +10,9 @@ INSERT INTO form_fields VALUES(4,'exclude_datasets_not_released','Exclude Datase
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'dataset_name','list-report.helper','','helper_dataset/report','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'Jobs','invoke_entity','Dataset','analysis_job/report/-/-/-/~','');
-INSERT INTO list_report_hotlinks VALUES(2,'Job','row_to_url','Dataset','analysis_group/create/predefined_analysis_jobs_preview/post','');
-INSERT INTO list_report_hotlinks VALUES(3,'Predefine_ID','invoke_entity','Predefine_ID','predefined_analysis/show','');
+INSERT INTO list_report_hotlinks VALUES(1,'jobs','invoke_entity','dataset','analysis_job/report/-/-/-/~','');
+INSERT INTO list_report_hotlinks VALUES(2,'job','row_to_url','dataset','analysis_group/create/predefined_analysis_jobs_preview/post','');
+INSERT INTO list_report_hotlinks VALUES(3,'predefine_id','invoke_entity','value','predefined_analysis/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'dataset_name','datasetName','varchar','input','128','predefined_analysis_jobs_proc');
 INSERT INTO sproc_args VALUES(3,'<local>','message','varchar','output','512','predefined_analysis_jobs_proc');

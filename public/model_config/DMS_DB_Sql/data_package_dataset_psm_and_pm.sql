@@ -23,7 +23,7 @@ INSERT INTO list_report_hotlinks VALUES(15,'+amts_10pct_fdr','column_tooltip','v
 INSERT INTO list_report_hotlinks VALUES(16,'pct_tryptic','column_tooltip','value','ratio_of_unique_fully_tryptic_peptides_/_total_unique_peptides','');
 INSERT INTO list_report_hotlinks VALUES(17,'pct_missed_clvg','column_tooltip','value','ratio_of_total_missed_cleavages_(among_unique_peptides)_/_total_unique_peptides_(p_4b)','');
 INSERT INTO list_report_hotlinks VALUES(18,'psms','column_tooltip','value','number_of_tryptic_peptides;_total_spectra_count','');
-INSERT INTO list_report_hotlinks VALUES(19,'keratin_pep_','column_tooltip','value','number_of_keratin_peptides_(full_or_partial_trypsin);_total_spectra_count_(keratin_2a)','');
+INSERT INTO list_report_hotlinks VALUES(19,'keratin_pep','column_tooltip','value','number_of_keratin_peptides_(full_or_partial_trypsin);_total_spectra_count_(keratin_2a)','');
 INSERT INTO list_report_hotlinks VALUES(20,'+phospho_pep','column_tooltip','value','number_of_tryptic_phosphopeptides;_unique_peptide_count','');
 INSERT INTO list_report_hotlinks VALUES(21,'trypsin_pep','column_tooltip','value','number_of_peptides_from_trypsin;_total_spectra_count','');
 INSERT INTO list_report_hotlinks VALUES(22,'data_pkg','invoke_entity','value','data_package/show','');

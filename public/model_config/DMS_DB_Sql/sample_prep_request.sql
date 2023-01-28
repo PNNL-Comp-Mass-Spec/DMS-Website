@@ -143,7 +143,7 @@ INSERT INTO detail_report_hotlinks VALUES(24,'comment','markup','comment','','va
 INSERT INTO detail_report_hotlinks VALUES(25,'plant_or_animal_tissue','detail-report','plant_or_animal_tissue','tissue/report/~','valueCol','dl_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(26,'organism','detail-report','organism','organism/report/~','valueCol','dl_organism','');
 INSERT INTO detail_report_hotlinks VALUES(27,'eus_proposal_state','color_label','eus_proposal_state','','valueCol','dl_eus_proposal_state','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
-INSERT INTO detail_report_hotlinks VALUES(28,'state_id','detail-report','state_id','sample_prep_request_planning/report/-/-/~','valueCol','dl_prep_request_planning','{"HideLinkIfValueMatch":"Closed"}');
+INSERT INTO detail_report_hotlinks VALUES(28,'state','detail-report','state','sample_prep_request_planning/report/-/-/~','valueCol','dl_prep_request_planning','{"HideLinkIfValueMatch":"Closed"}');
 INSERT INTO detail_report_hotlinks VALUES(29,'wp_activation_state','no_display','value','',NULL,NULL,'');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','AddUpdateSamplePrepRequest');

@@ -30,7 +30,7 @@ INSERT INTO list_report_hotlinks VALUES(11,'separation_group','color_label','fra
 INSERT INTO list_report_hotlinks VALUES(13,'+batch','copy_color_from','request_or_batch_name','','');
 INSERT INTO list_report_hotlinks VALUES(14,'+run_count','copy_color_from','request_or_batch_name','','');
 INSERT INTO list_report_hotlinks VALUES(15,'+blocked','copy_color_from','request_or_batch_name','','');
-INSERT INTO list_report_hotlinks VALUES(16,'+blkmissing','copy_color_from','request_or_batch_name','','');
+INSERT INTO list_report_hotlinks VALUES(16,'+block_missing','copy_color_from','request_or_batch_name','','');
 INSERT INTO list_report_hotlinks VALUES(17,'+requester','copy_color_from','request_or_batch_name','','');
 INSERT INTO list_report_hotlinks VALUES(18,'days_in_queue_bin','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(19,'wp_activation_state','no_display','value','','');
@@ -39,7 +39,7 @@ INSERT INTO list_report_hotlinks VALUES(21,'request_name_code','no_export','valu
 INSERT INTO list_report_hotlinks VALUES(22,'fraction_color_mode','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(23,'++run_count','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(24,'++blocked','export_align','value','','{"Align":"Center"}');
-INSERT INTO list_report_hotlinks VALUES(25,'++blkmissing','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(25,'++block_missing','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(26,'++batch','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(27,'+days_in_queue','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(28,'+days_in_prep_queue','export_align','value','','{"Align":"Center"}');

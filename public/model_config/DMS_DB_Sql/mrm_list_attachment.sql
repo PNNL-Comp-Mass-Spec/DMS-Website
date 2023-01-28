@@ -6,7 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('entry_sproc','AddUpdateAttachments');
 INSERT INTO general_params VALUES('entry_page_data_table','v_mrm_list_attachment_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
-INSERT INTO general_params VALUES('list_report_data_cols','*, ''Download'' AS Download');
+INSERT INTO general_params VALUES('list_report_data_cols','*, ''Download'' AS download');
 INSERT INTO general_params VALUES('detail_report_data_table','v_mrm_list_attachment_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','id');
 INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
@@ -45,5 +45,5 @@ INSERT INTO sproc_args VALUES(9,'<local>','mode','varchar','input','12','AddUpda
 INSERT INTO sproc_args VALUES(10,'<local>','message','varchar','output','512','AddUpdateAttachments');
 INSERT INTO sproc_args VALUES(11,'<local>','callingUser','varchar','input','128','AddUpdateAttachments');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO detail_report_hotlinks VALUES(1,'contents','markup','contents','','valueCol','dl_contents',NULL);
+INSERT INTO detail_report_hotlinks VALUES(1,'contents','markup','contents','','valueCol','dl_contents','');
 COMMIT;

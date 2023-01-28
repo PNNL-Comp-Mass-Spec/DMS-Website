@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_sproc','predefined_analysis_rules_proc');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'Predefine_ID','invoke_entity','Predefine_ID','predefined_analysis/show','');
+INSERT INTO list_report_hotlinks VALUES(1,'predefine_id','invoke_entity','value','predefined_analysis/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'dataset_name','datasetName','varchar','input','128','predefined_analysis_rules_proc');
 INSERT INTO sproc_args VALUES(2,'<local>','message','varchar','output','512','predefined_analysis_rules_proc');

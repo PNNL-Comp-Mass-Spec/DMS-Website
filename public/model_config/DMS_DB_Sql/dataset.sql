@@ -142,7 +142,7 @@ INSERT INTO external_sources VALUES(2,'requested_run','dataset','ColName','exper
 INSERT INTO external_sources VALUES(4,'requested_run','separation_type','ColName','separation_group');
 INSERT INTO external_sources VALUES(5,'requested_run','lc_column','Literal','');
 INSERT INTO external_sources VALUES(6,'requested_run','internal_standard','Literal','none');
-INSERT INTO external_sources VALUES(7,'requested_run','dataset_type','ColName','type');
+INSERT INTO external_sources VALUES(7,'requested_run','dataset_type','ColName','run_type');
 INSERT INTO external_sources VALUES(8,'requested_run','operator_prn','Literal','');
 INSERT INTO external_sources VALUES(9,'requested_run','comment','ColName','comment');
 INSERT INTO external_sources VALUES(10,'requested_run','dataset_rating','Literal','Unknown');
