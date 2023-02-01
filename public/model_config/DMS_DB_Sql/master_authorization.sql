@@ -55,7 +55,7 @@ INSERT INTO restricted_actions VALUES(51,'instrument_group','enter','DMS_Infrast
 INSERT INTO restricted_actions VALUES(52,'instrument_operation_history','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(53,'instrument_operation_history','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(54,'instrument_usage_report','operation','DMS_Infrastructure_Administration, DMS_Instrument_Tracking');
-INSERT INTO restricted_actions VALUES(55,'instrumentclass','enter','DMS_Infrastructure_Administration');
+INSERT INTO restricted_actions VALUES(55,'instrument_class','enter','DMS_Infrastructure_Administration');
 INSERT INTO restricted_actions VALUES(56,'instrumentid','enter','DMS_Infrastructure_Administration');
 INSERT INTO restricted_actions VALUES(57,'lc_cart','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(58,'lc_cart_config_history','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
@@ -75,7 +75,7 @@ INSERT INTO restricted_actions VALUES(71,'mc_enable_control_by_manager','operati
 INSERT INTO restricted_actions VALUES(72,'mc_enable_control_by_manager_type','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO restricted_actions VALUES(73,'mrm_list_attachment','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(75,'new_instrument','enter','DMS_Infrastructure_Administration');
-INSERT INTO restricted_actions VALUES(76,'new_instrumentclass','enter','DMS_Infrastructure_Administration');
+INSERT INTO restricted_actions VALUES(76,'new_instrument_class','enter','DMS_Infrastructure_Administration');
 INSERT INTO restricted_actions VALUES(77,'operations_tasks','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Sample_Prep_Request_State, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(78,'organism','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(79,'osm_package','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation');

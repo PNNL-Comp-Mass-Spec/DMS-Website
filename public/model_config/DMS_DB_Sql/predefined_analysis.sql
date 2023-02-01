@@ -126,7 +126,7 @@ INSERT INTO sproc_args VALUES(34,'propagation_mode','PropagationMode','varchar',
 INSERT INTO sproc_args VALUES(35,'special_processing','specialProcessing','varchar','input','512','AddUpdatePredefinedAnalysis');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'settings_file_name','detail-report','settings_file_name','settings_files/report/-/~','labelCol','settings_file',NULL);
-INSERT INTO detail_report_hotlinks VALUES(2,'instrument_class_criteria','detail-report','instrument_class_criteria','instrumentclass/show','labelCol','instrument_class',NULL);
+INSERT INTO detail_report_hotlinks VALUES(2,'instrument_class_criteria','detail-report','instrument_class_criteria','instrument_class/show','labelCol','instrument_class','');
 INSERT INTO detail_report_hotlinks VALUES(3,'id','detail-report','id','predefined_analysis_datasets/param','labelCol','preview_datasets_matching_predefine','');
 INSERT INTO detail_report_hotlinks VALUES(4,'dataset_criteria','detail-report','dataset_criteria','predefined_analysis_jobs_preview/param','labelCol','preview_predefine_jobs_by_dataset','');
 INSERT INTO detail_report_hotlinks VALUES(5,'dataset_exclusion','detail-report','dataset_criteria','predefined_analysis_rules_preview/param','labelCol','preview_predefine_job_rules_by_dataset','');

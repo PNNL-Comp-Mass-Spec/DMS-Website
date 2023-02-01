@@ -242,8 +242,8 @@ INSERT INTO menu_def VALUES(302,'Instruments Admin','link','instrument/report','
 INSERT INTO menu_def VALUES(303,'Instruments Admin','link','new_instrument/create','New');
 INSERT INTO menu_def VALUES(304,'Instruments Admin','link','run_op_logs/grid','Operation Log Grid');
 INSERT INTO menu_def VALUES(305,'Admin','submenu','Instrument Class','Instrument Class');
-INSERT INTO menu_def VALUES(306,'Instrument Class','link','instrumentclass/report','Report');
-INSERT INTO menu_def VALUES(307,'Instrument Class','link','new_instrumentclass/create','Entry');
+INSERT INTO menu_def VALUES(306,'Instrument Class','link','instrument_class/report','Report');
+INSERT INTO menu_def VALUES(307,'Instrument Class','link','new_instrument_class/create','Entry');
 INSERT INTO menu_def VALUES(330,'EMSL Admin Instrument Usage','linke','project_usage/report/__ThisYear__/__ThisWeek__/user','Weekly usage by project');
 INSERT INTO menu_def VALUES(331,'Admin','submenu','Ontology','Ontology / Unimod');
 INSERT INTO menu_def VALUES(332,'Ontology','link','ncbi_taxonomy/report','NCBI Taxonomy Names');

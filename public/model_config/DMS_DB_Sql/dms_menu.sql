@@ -431,8 +431,8 @@ INSERT INTO menu_def VALUES(375,'Instruments Admin','link','new_instrument/creat
 INSERT INTO menu_def VALUES(376,'Instruments Admin','link','run_op_logs/grid','Operation Log Grid');
 INSERT INTO menu_def VALUES(377,'Instruments Admin','link','bionet/report','Bionet Hosts and IPs');
 INSERT INTO menu_def VALUES(378,'Admin','submenu','Instrument Class','Instrument Class');
-INSERT INTO menu_def VALUES(379,'Instrument Class','link','instrumentclass/report','Report');
-INSERT INTO menu_def VALUES(380,'Instrument Class','link','new_instrumentclass/create','Entry');
+INSERT INTO menu_def VALUES(379,'Instrument Class','link','instrument_class/report','Report');
+INSERT INTO menu_def VALUES(380,'Instrument Class','link','new_instrument_class/create','Entry');
 INSERT INTO menu_def VALUES(381,'Admin','submenu','Material Storage Admin','Material Storage');
 INSERT INTO menu_def VALUES(382,'Material Storage Admin','link','material_location/report','Material Locations');
 INSERT INTO menu_def VALUES(383,'Material Storage Admin','link','material_log/report','Material Log');

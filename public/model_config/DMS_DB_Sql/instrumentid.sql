@@ -53,7 +53,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','instrumentid/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'allowed_dataset_types','min_col_width','value','60','');
 INSERT INTO list_report_hotlinks VALUES(3,'group','invoke_entity','value','instrument_group/show/','');
-INSERT INTO list_report_hotlinks VALUES(4,'class','invoke_entity','value','instrumentclass/show/','');
+INSERT INTO list_report_hotlinks VALUES(4,'class','invoke_entity','value','instrument_class/show/','');
 INSERT INTO list_report_hotlinks VALUES(5,'name','invoke_entity','value','helper_inst_source/view/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','instrumentID','int','output','','AddUpdateInstrument');
@@ -86,7 +86,7 @@ INSERT INTO detail_report_hotlinks VALUES(3,'instrument_group','detail-report','
 INSERT INTO detail_report_hotlinks VALUES(4,'assigned_archive_path','detail-report','name','archive_path/report','labelCol','dl_archive_path','');
 INSERT INTO detail_report_hotlinks VALUES(5,'assigned_storage','detail-report','name','storage/report/-/~','valueCol','dl_assigned_storage','');
 INSERT INTO detail_report_hotlinks VALUES(6,'archive_share_path','href-folder','archive_share_path','','labelCol','dl_archive_share_path','');
-INSERT INTO detail_report_hotlinks VALUES(7,'class','detail-report','class','instrumentclass/show/','labelCol','dl_instrument_class','');
+INSERT INTO detail_report_hotlinks VALUES(7,'class','detail-report','class','instrument_class/show/','labelCol','dl_instrument_class','');
 INSERT INTO detail_report_hotlinks VALUES(8,'+name','detail-report','name','instrument_config_history/report','labelCol','dl_name_config_history','');
 INSERT INTO detail_report_hotlinks VALUES(9,'allocation_tag','detail-report','instrument_group','instrument_group/show/','labelCol','dl_allocation_tag','');
 INSERT INTO detail_report_hotlinks VALUES(10,'id','detail-report','id','instrumentid/show/','labelCol','dl_instrumentid','');
