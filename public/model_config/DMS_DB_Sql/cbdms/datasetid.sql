@@ -78,7 +78,7 @@ INSERT INTO detail_report_hotlinks VALUES(35,'sha1_hash','detail-report','id','d
 INSERT INTO detail_report_hotlinks VALUES(36,'experiment_tissue','detail-report','experiment_tissue','tissue/report/~','labelCol','dl_experiment_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(37,'lc_column','detail-report','lc_column','lc_column/report/@/-/-','labelCol','dl_lc_column','');
 INSERT INTO detail_report_hotlinks VALUES(38,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
-INSERT INTO detail_report_hotlinks VALUES(39,'wellplate_name','detail-report','wellplate_name','wellplate/show','valueCol','dl_wellplate','');
+INSERT INTO detail_report_hotlinks VALUES(39,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
