@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_manager_type_report');
-INSERT INTO general_params VALUES('list_report_data_cols','id AS [Sel], id, manager_type, manager_count_active, manager_count_inactive');
+INSERT INTO general_params VALUES('list_report_data_cols','id AS sel, id, manager_type, manager_count_active, manager_count_inactive');
 INSERT INTO general_params VALUES('my_db_group','manager_control');
 INSERT INTO general_params VALUES('list_report_data_sort_col','manager_type');
 INSERT INTO general_params VALUES('list_report_cmds','mc_enable_control_by_manager_type_cmds');

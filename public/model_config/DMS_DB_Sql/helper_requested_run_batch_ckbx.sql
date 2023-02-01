@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_requested_run_batch_list_report');
-INSERT INTO general_params VALUES('list_report_data_cols','id AS [Sel], id, name, requests, req_priority, instrument, description, owner, created, comment');
+INSERT INTO general_params VALUES('list_report_data_cols','id AS sel, id, name, requests, req_priority, instrument, description, owner, created, comment');
 INSERT INTO general_params VALUES('list_report_helper_multiple_selection','yes');
 INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
