@@ -37,7 +37,7 @@ INSERT INTO form_field_options VALUES(2,'batch_name','section','Batch Informatio
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'experiment_group_id','list-report.helper','','helper_experiment_group/report','experiment_group_id',',','');
 INSERT INTO form_field_choosers VALUES(2,'instrument_group','picker.replace','instrumentGroupPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(3,'type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','instrument_group',',','');
+INSERT INTO form_field_choosers VALUES(3,'type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','instrument_group|required',',','');
 INSERT INTO form_field_choosers VALUES(4,'separation_group','picker.replace','separationGroupPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'requester','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'eus_usage_type','picker.replace','eusUsageTypePickList','','',',','');

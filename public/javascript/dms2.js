@@ -1611,13 +1611,19 @@ var epsilon = {
      */
 	callChooser: function(fieldName, chooserPage, delimiter, xref) {
 		// resolve cross-reference to other field, if one exists
-		var xrefValue = (xref != '') ? $('#' + xref).val() : '';
-		if(xref != '' && xrefValue == ''){
-			// Previously showed an error if the cross referenced field was empty
-			// We now allow this for cases where a field starts off as blank but the user needs to choose a value from a list
-			//alert (xref + ' must be selected first.');
-			//return;
-			xrefValue = ' ';
+		var xrefValue = '';
+		if (xref != '') {
+			// Split xref to see if there is '|required', meaning that a popup should be shown saying the xref value must be populated first
+			var xrefSplit = xref.split('|');
+			var xrefName = xrefSplit[0];
+			var valueRequired = (xrefSplit.length > 1) ? xrefSplit[1] === 'required' : false;
+			xrefValue = (xref != '') ? $('#' + xrefName).val() : '';
+			if(xrefName != '' && valueRequired && (xrefValue == '' || xrefValue === '(lookup)')){
+				// Previously showed an error if the cross referenced field was empty
+				// We now allow this for cases where a field starts off as blank but the user needs to choose a value from a list
+				alert (xrefName + ' must be selected first.');
+				return;
+			}
 		}
 		// check if chooserPage URL needs separator
 		var sep = '/';
@@ -1630,6 +1636,9 @@ var epsilon = {
 			var delimPos = xrefValue.indexOf(delimiter);
 			if (delimPos > 0) {
 				xrefValue = xrefValue.slice(0, delimPos);
+			}
+			if (xrefValue === '(lookup)') {
+				xrefValue = ' ';
 			}
 			chooserPage += sep + xrefValue;
 		}
