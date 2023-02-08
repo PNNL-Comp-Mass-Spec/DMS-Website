@@ -5,7 +5,7 @@ class Requested_run_group extends DmsBase {
     function __construct()
     {
         $this->my_tag = "requested_run_group";
-        $this->my_title = "Requested Run Group";
+        $this->my_title = "Requested Runs from Experiment Group";
     }
 }
 ?>

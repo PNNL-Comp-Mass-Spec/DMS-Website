@@ -252,7 +252,7 @@ INSERT INTO menu_def VALUES(183,'Requested Run Reports','link','dataset_instrume
 INSERT INTO menu_def VALUES(184,'Requested Run Reports','url_link','https://protoapps.pnl.gov/datapkgs/Public/2022/4458_Instrument_Scheduling/','Instrument Scheduling');
 INSERT INTO menu_def VALUES(185,'MS Scheduling','submenu','MS Scheduling Entry','Entry');
 INSERT INTO menu_def VALUES(186,'MS Scheduling Entry','link','requested_run/create','Single Entry');
-INSERT INTO menu_def VALUES(187,'MS Scheduling Entry','link','requested_run_group/create','Group Entry');
+INSERT INTO menu_def VALUES(187,'MS Scheduling Entry','link','requested_run_group/create','From Experiment Group');
 INSERT INTO menu_def VALUES(188,'','submenu','Task Queues','Task Queues');
 INSERT INTO menu_def VALUES(189,'Task Queues','submenu','Ops Tasks','Ops Tasks');
 INSERT INTO menu_def VALUES(190,'Ops Tasks','link','operations_tasks/report','Report');
