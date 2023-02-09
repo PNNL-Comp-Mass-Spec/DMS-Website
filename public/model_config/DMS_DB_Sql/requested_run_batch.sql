@@ -17,7 +17,7 @@ INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|max_l
 INSERT INTO form_fields VALUES(2,'name','Name','text','50','50','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(3,'description','Description','area','','','2','60','','trim|max_length[256]');
 INSERT INTO form_fields VALUES(4,'requested_run_list','Requests','area','','','4','60','','trim');
-INSERT INTO form_fields VALUES(5,'owner_prn','Owner','text','24','24','','','','trim|required|max_length[24]');
+INSERT INTO form_fields VALUES(5,'owner_username','Owner','text','24','24','','','','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(6,'requested_batch_priority','Requested Batch Priority','text','24','24','','','Normal','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(7,'requested_completion_date','Requested Completion Date','text','32','32','','','','trim|required|max_length[32]|valid_date');
 INSERT INTO form_fields VALUES(8,'justification_high_priority','Justification High Priority','area','','','4','60','','trim|max_length[512]');
@@ -25,7 +25,7 @@ INSERT INTO form_fields VALUES(9,'requested_instrument','Instrument Group','text
 INSERT INTO form_fields VALUES(10,'comment','Comment','area','','','4','60','','trim|max_length[512]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'requested_run_list','list-report.helper','','helper_requested_run/report','',',','');
-INSERT INTO form_field_choosers VALUES(2,'owner_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'owner_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'requested_batch_priority','picker.replace','batchPriorityPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'requested_instrument','picker.replace','instrumentGroupPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'requested_completion_date','picker.prevDate','','','',',','');
@@ -68,7 +68,7 @@ INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdateRequestedR
 INSERT INTO sproc_args VALUES(2,'name','name','varchar','input','50','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(3,'description','description','varchar','input','256','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(4,'requested_run_list','requestedRunList','text','input','2147483647','AddUpdateRequestedRunBatch');
-INSERT INTO sproc_args VALUES(5,'owner_prn','ownerPRN','varchar','input','24','AddUpdateRequestedRunBatch');
+INSERT INTO sproc_args VALUES(5,'owner_username','ownerPRN','varchar','input','24','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(6,'requested_batch_priority','requestedBatchPriority','varchar','input','24','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(7,'requested_completion_date','requestedCompletionDate','varchar','input','32','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(8,'justification_high_priority','justificationHighPriority','varchar','input','512','AddUpdateRequestedRunBatch');

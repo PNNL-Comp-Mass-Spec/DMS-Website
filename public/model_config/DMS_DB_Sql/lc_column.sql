@@ -20,14 +20,14 @@ INSERT INTO form_fields VALUES(6,'column_inner_dia','Column Inner Dia','text','2
 INSERT INTO form_fields VALUES(7,'column_outer_dia','Column Outer Dia','text','20','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(8,'column_length','Length','text','20','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(9,'column_state','State','text','30','64','','','Active','trim|max_length[64]');
-INSERT INTO form_fields VALUES(10,'operator_prn','Operator (PRN)','text','30','50','','','','trim|required|max_length[24]');
+INSERT INTO form_fields VALUES(10,'operator_username','Operator (Username)','text','30','50','','','','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(11,'comment','Comment','area','','','4','60','','trim|max_length[60]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
-INSERT INTO form_field_options VALUES(1,'operator_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(1,'operator_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(2,'column_state','hide','add');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'column_state','picker.replace','LCColumnStatePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'operator_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'operator_username','picker.replace','userPRNPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_column_name','Column Name','6','','column_name','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_comment','Comment','20','','comment','ContainsText','text','128','','');
@@ -45,7 +45,7 @@ INSERT INTO sproc_args VALUES(6,'column_inner_dia','columnInnerDia','varchar','i
 INSERT INTO sproc_args VALUES(7,'column_outer_dia','columnOuterDia','varchar','input','64','AddUpdateLCColumn');
 INSERT INTO sproc_args VALUES(8,'column_length','length','varchar','input','64','AddUpdateLCColumn');
 INSERT INTO sproc_args VALUES(9,'column_state','state','varchar','input','32','AddUpdateLCColumn');
-INSERT INTO sproc_args VALUES(10,'operator_prn','operator_prn','varchar','input','50','AddUpdateLCColumn');
+INSERT INTO sproc_args VALUES(10,'operator_username','operator_prn','varchar','input','50','AddUpdateLCColumn');
 INSERT INTO sproc_args VALUES(11,'comment','comment','varchar','input','244','AddUpdateLCColumn');
 INSERT INTO sproc_args VALUES(12,'<local>','mode','varchar','input','12','AddUpdateLCColumn');
 INSERT INTO sproc_args VALUES(13,'<local>','message','varchar','output','512','AddUpdateLCColumn');

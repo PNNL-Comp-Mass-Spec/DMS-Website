@@ -16,7 +16,7 @@ INSERT INTO general_params VALUES('base_table','T_Sample_Prep_Request');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
 INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','60','128','','','','trim|max_length[128]|required');
-INSERT INTO form_fields VALUES(3,'requester_prn','Requester','text','32','32','','','','trim|max_length[32]|required');
+INSERT INTO form_fields VALUES(3,'requester_username','Requester','text','32','32','','','','trim|max_length[32]|required');
 INSERT INTO form_fields VALUES(4,'campaign','Campaign','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(5,'reason','Reason for Experiment','area','','','3','60','','trim|max_length[512]|required');
 INSERT INTO form_fields VALUES(7,'material_container_list','Material Container List','area','','','2','70','','trim|max_length[2048]');
@@ -49,7 +49,7 @@ INSERT INTO form_fields VALUES(42,'state','State','text','32','32','','','New','
 INSERT INTO form_fields VALUES(43,'state_comment','State Comment','area','','','3','60','','trim|max_length[512]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'id','section','Basic Information');
-INSERT INTO form_field_options VALUES(2,'requester_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(2,'requester_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(3,'material_container_list','section','Biomaterial Information');
 INSERT INTO form_field_options VALUES(4,'estimated_ms_runs','section','Instrument Run Information');
 INSERT INTO form_field_options VALUES(5,'number_of_samples','section','Preparation Information');
@@ -59,7 +59,7 @@ INSERT INTO form_field_options VALUES(10,'state','permission','DMS_Infrastructur
 INSERT INTO form_field_options VALUES(11,'comment','auto_format','none');
 INSERT INTO form_field_options VALUES(12,'estimated_prep_time_days','section','Staff Notes');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'requester_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(4,'tissue','list-report.helper','','helper_tissue/report','',',','');
 INSERT INTO form_field_choosers VALUES(5,'biohazard_level','picker.replace','samplePrepReqBiohazardPickList','','',',','');
@@ -147,7 +147,7 @@ INSERT INTO detail_report_hotlinks VALUES(28,'state','detail-report','state','sa
 INSERT INTO detail_report_hotlinks VALUES(29,'wp_activation_state','no_display','value','',NULL,NULL,'');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','AddUpdateSamplePrepRequest');
-INSERT INTO sproc_args VALUES(2,'requester_prn','requesterPRN','varchar','input','32','AddUpdateSamplePrepRequest');
+INSERT INTO sproc_args VALUES(2,'requester_username','requesterPRN','varchar','input','32','AddUpdateSamplePrepRequest');
 INSERT INTO sproc_args VALUES(3,'reason','reason','varchar','input','512','AddUpdateSamplePrepRequest');
 INSERT INTO sproc_args VALUES(4,'material_container_list','materialContainerList','varchar','input','2048','AddUpdateSamplePrepRequest');
 INSERT INTO sproc_args VALUES(5,'organism','organism','varchar','input','128','AddUpdateSamplePrepRequest');

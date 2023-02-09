@@ -17,7 +17,7 @@ INSERT INTO form_fields VALUES(3,'description','Description','area','','','4','7
 INSERT INTO form_fields VALUES(4,'state','State','text','24','24','','','Active','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(5,'data_release_restrictions','Data Release Restrictions','text','50','128','','','Not yet approved for release','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(6,'project_mgr','Project Manager','text','50','64','','','','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(7,'pi_prn','Principal Investigator','text','50','64','','','','trim|required|max_length[64]');
+INSERT INTO form_fields VALUES(7,'pi_username','Principal Investigator','text','50','64','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(8,'technical_lead','Technical Lead','area','','','2','70','','trim|max_length[256]');
 INSERT INTO form_fields VALUES(9,'sample_preparation_staff','Sample Preparation Staff','area','','','2','70','','trim|max_length[256]');
 INSERT INTO form_fields VALUES(10,'dataset_acquisition_staff','Dataset Acquisition Staff','area','','','2','70','','trim|max_length[256]');
@@ -39,7 +39,7 @@ INSERT INTO form_field_options VALUES(4,'comment','section','Details');
 INSERT INTO form_field_options VALUES(5,'data_release_restrictions','permission','DMS_Infrastructure_Administration');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'project_mgr','picker.replace','userPRNPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'pi_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'pi_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'technical_lead','picker.append','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'state','picker.replace','activeInactivePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'eus_proposal_list','list-report.helper','','helper_eus_proposal_ckbx/report','',',','');
@@ -68,7 +68,7 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO sproc_args VALUES(1,'campaign','campaignNum','varchar','input','64','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(2,'project','projectNum','varchar','input','64','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(3,'project_mgr','progmgrPRN','varchar','input','64','AddUpdateCampaign');
-INSERT INTO sproc_args VALUES(4,'pi_prn','piPRN','varchar','input','64','AddUpdateCampaign');
+INSERT INTO sproc_args VALUES(4,'pi_username','piPRN','varchar','input','64','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(5,'technical_lead','technicalLead','varchar','input','256','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(6,'sample_preparation_staff','samplePreparationStaff','varchar','input','256','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(7,'dataset_acquisition_staff','datasetAcquisitionStaff','varchar','input','256','AddUpdateCampaign');

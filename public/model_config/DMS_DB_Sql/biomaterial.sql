@@ -23,10 +23,10 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO form_fields VALUES(1,'name','Name','text-if-new','60','80','','','','trim|required|max_length[64]|alpha_dash|min_length[8]');
 INSERT INTO form_fields VALUES(2,'biomaterial_type_name','Type','text','60','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(3,'source_name','Supplier','text','60','80','','','','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(4,'contact_prn','Contact (usually PNNL Staff)','text','60','128','','','','trim|required|max_length[128]');
+INSERT INTO form_fields VALUES(4,'contact_username','Contact (usually PNNL Staff)','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(5,'reason','Reason for creation','area','','','4','50','','trim|required|max_length[500]');
 INSERT INTO form_fields VALUES(6,'campaign','Campaign','text','60','80','','','','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(7,'pi_prn','Principle Investigator (PRN)','text','60','80','','','','trim|required|max_length[32]');
+INSERT INTO form_fields VALUES(7,'pi_username','Principle Investigator (PRN)','text','60','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(8,'container','Container','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(9,'comment','Comment','area','','','4','50','','trim|max_length[255]');
 INSERT INTO form_fields VALUES(10,'organism_list','Organism List','area','','','6','50','','trim');
@@ -35,9 +35,9 @@ INSERT INTO form_fields VALUES(12,'plasmid','Plasmid','text','60','80','','','',
 INSERT INTO form_fields VALUES(13,'cell_line','Cell Line','text','60','80','','','','trim|max_length[64]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'biomaterial_type_name','picker.replace','biomaterialTypePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'contact_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'contact_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
-INSERT INTO form_field_choosers VALUES(4,'pi_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(4,'pi_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'container','list-report.helper','','helper_material_container/report','',',','');
 INSERT INTO form_field_choosers VALUES(7,'organism_list','picker.append','orgPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
@@ -65,8 +65,8 @@ INSERT INTO detail_report_hotlinks VALUES(6,'organism_list','link_table','organi
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'name','biomaterialName','varchar','input','64','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(2,'source_name','sourceName','varchar','input','64','AddUpdateBiomaterial');
-INSERT INTO sproc_args VALUES(3,'contact_prn','contactPRN','varchar','input','64','AddUpdateBiomaterial');
-INSERT INTO sproc_args VALUES(4,'pi_prn','piPRN','varchar','input','32','AddUpdateBiomaterial');
+INSERT INTO sproc_args VALUES(3,'contact_username','contactPRN','varchar','input','64','AddUpdateBiomaterial');
+INSERT INTO sproc_args VALUES(4,'pi_username','piPRN','varchar','input','32','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(5,'biomaterial_type_name','biomaterialType','varchar','input','32','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(6,'reason','reason','varchar','input','500','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(7,'comment','comment','varchar','input','500','AddUpdateBiomaterial');
@@ -86,6 +86,6 @@ INSERT INTO sproc_args VALUES(20,'<local>','callingUser','varchar','input','128'
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO external_sources VALUES(1,'sample_submission','campaign','ColName','campaign');
 INSERT INTO external_sources VALUES(2,'sample_submission','container','ColName','container_list');
-INSERT INTO external_sources VALUES(3,'sample_submission','contact_prn','ColName','received_by');
+INSERT INTO external_sources VALUES(3,'sample_submission','contact_username','ColName','received_by');
 INSERT INTO external_sources VALUES(4,'sample_submission','reason','ColName','description');
 COMMIT;

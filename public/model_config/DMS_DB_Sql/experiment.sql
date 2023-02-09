@@ -16,7 +16,7 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO form_fields VALUES(1,'id','Experiment ID','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(2,'experiment','Experiment Name','text','40','80','','','','trim|required|max_length[50]|alpha_dash|min_length[6]');
 INSERT INTO form_fields VALUES(3,'campaign','Campaign Name','text','40','80','','','','trim|required|max_length[64]|not_contain[Placeholder]');
-INSERT INTO form_fields VALUES(4,'researcher_prn','Researcher','text','40','80','','','','trim|required|max_length[50]');
+INSERT INTO form_fields VALUES(4,'researcher_username','Researcher','text','40','80','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(5,'organism_name','Organism Name','text','40','80','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(6,'reason','Reason for Experiment','area','','','4','50','','trim|required|max_length[500]');
 INSERT INTO form_fields VALUES(7,'tissue','Plant/Animal Tissue','text','50','128','','','','trim|max_length[128]');
@@ -36,11 +36,11 @@ INSERT INTO form_fields VALUES(20,'wellplate','Wellplate','text','50','64','',''
 INSERT INTO form_fields VALUES(21,'well','Well Number','text','8','8','','','','trim|max_length[8]');
 INSERT INTO form_fields VALUES(22,'barcode','Barcode','text','40','64','','','','trim|max_length[64]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
-INSERT INTO form_field_options VALUES(1,'researcher_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(1,'researcher_username','default_function','GetUser()');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'experiment','list-report.helper','','helper_experiment/report','experiment',',','');
 INSERT INTO form_field_choosers VALUES(2,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
-INSERT INTO form_field_choosers VALUES(3,'researcher_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'researcher_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'organism_name','picker.replace','orgPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'biomaterial_list','list-report.helper','','helper_biomaterial/report','biomaterial_list',';','');
 INSERT INTO form_field_choosers VALUES(6,'reference_compound_list','list-report.helper','','helper_reference_compound/report/-/-/-/-/-/','reference_compound_list',';','');
@@ -116,7 +116,7 @@ INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128',
 INSERT INTO sproc_args VALUES(5,'id','experimentId','int','output','','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(6,'experiment','experimentName','varchar','input','50','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(7,'campaign','campaignName','varchar','input','64','AddUpdateExperiment');
-INSERT INTO sproc_args VALUES(8,'researcher_prn','researcherPRN','varchar','input','50','AddUpdateExperiment');
+INSERT INTO sproc_args VALUES(8,'researcher_username','researcherPRN','varchar','input','50','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(9,'organism_name','organismName','varchar','input','128','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(10,'reason','reason','varchar','input','500','AddUpdateExperiment');
 INSERT INTO sproc_args VALUES(11,'comment','comment','varchar','input','500','AddUpdateExperiment');

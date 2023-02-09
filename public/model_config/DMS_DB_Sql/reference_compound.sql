@@ -43,7 +43,7 @@ INSERT INTO sproc_args VALUES(10,'campaign','campaignName','varchar','input','64
 INSERT INTO sproc_args VALUES(11,'container','containerName','varchar','input','128','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(12,'wellplate_name','wellplateName','varchar','input','64','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(13,'well_number','wellNumber','varchar','input','64','AddUpdateReferenceCompound');
-INSERT INTO sproc_args VALUES(14,'contact_prn','contactPRN','varchar','input','64','AddUpdateReferenceCompound');
+INSERT INTO sproc_args VALUES(14,'contact_username','contactPRN','varchar','input','64','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(15,'supplier','supplier','varchar','input','64','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(16,'product_id','productId','varchar','input','128','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(17,'purchase_date','purchaseDate','varchar','input','30','AddUpdateReferenceCompound');
@@ -63,7 +63,7 @@ INSERT INTO form_fields VALUES(5,'gene_name','Gene or Protein','text','60','80',
 INSERT INTO form_fields VALUES(7,'modifications','Modifications','area','','','2','50','','trim|max_length[500]');
 INSERT INTO form_fields VALUES(8,'organism_name','Organism','text','60','80','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(9,'pub_chem_cid','PubChem CID','text','20','80','','','','trim|numeric');
-INSERT INTO form_fields VALUES(10,'contact_prn','Contact (usually PNNL Staff)','text','60','128','','','','trim|required|max_length[128]');
+INSERT INTO form_fields VALUES(10,'contact_username','Contact (usually PNNL Staff)','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(11,'campaign','Campaign','text','60','80','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(12,'container','Container','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(13,'wellplate_name','Wellplate','text','60','80','','','','trim|max_length[64]');
@@ -76,7 +76,7 @@ INSERT INTO form_fields VALUES(19,'purchase_quantity','Purchase Quantity','text'
 INSERT INTO form_fields VALUES(20,'mass','Mass','text','30','30','','','','trim|max_length[30]');
 INSERT INTO form_fields VALUES(21,'active','Active','text','30','30','','','Yes','trim|max_length[3]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'contact_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'contact_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
 INSERT INTO form_field_choosers VALUES(3,'container','list-report.helper','','helper_material_container/report','',',','');
 INSERT INTO form_field_choosers VALUES(4,'purchase_date','picker.prevDate','','','',',','');

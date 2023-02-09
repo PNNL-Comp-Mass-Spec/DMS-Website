@@ -41,10 +41,10 @@ class Notification extends DmsBase {
         $users = array();
         // Query the database
         $sql = '';
-        $sql .= 'SELECT Event, Name, Link, Campaign, Role, EventTypeID, entity_type, prn, User, User_ID, Entity, Email ';
+        $sql .= 'SELECT event, name, link, campaign, person_role, event_type_id, entity_type, username, person, user_id, entity, email ';
         $sql .= 'FROM V_Notification_Message_By_Registered_Users ';
-        $sql .= 'WHERE Entered > DATEADD(HOUR, - 24, GETDATE()) ';
-        $sql .= 'ORDER BY prn, entity_type, EventTypeID, Entity';
+        $sql .= 'WHERE entered > DATEADD(HOUR, - 24, GETDATE()) ';
+        $sql .= 'ORDER BY username, entity_type, event_type_id, entity';
 
         $this->db = \Config\Database::connect();
         $result = $this->db->query($sql);
@@ -55,16 +55,16 @@ class Notification extends DmsBase {
         $email = array();
         $rows = $result->getResultArray();
         foreach($rows as $row) {
-            $prn = $row['#PRN'];
-            if(!array_key_exists($prn, $users)) {
+            $username = $row['username'];
+            if(!array_key_exists($username, $users)) {
                 $obj = new \stdClass();
-                $obj->user = $prn;
-                $obj->user_name = $row['User'];
-                $obj->email = $row['Email'];
+                $obj->user = $username;
+                $obj->user_name = $row['person'];
+                $obj->email = $row['email'];
                 $obj->events[] = $row;
-                $users[$prn] = $obj;
+                $users[$username] = $obj;
             } else {
-                $users[$prn]->events[] = $row;
+                $users[$username]->events[] = $row;
             }
         }
         return $users;
@@ -86,8 +86,8 @@ class Notification extends DmsBase {
         $s .= '</tr>';
         foreach($notification->events as $row) {
             $s .= '<tr>';
-            $s .= '<td>' .$row['Event'] . '</td><td>' . $row['Name'] . '</td><td>' . '<a href="' . site_url($row['Link']) . '">' . $row['Entity'] . '</a>' . '</td>';
-            $s .= '<td>' . $row['Campaign'] . '</td><td>' .  $row['Role'] . '</td>';
+            $s .= '<td>' .$row['event'] . '</td><td>' . $row['name'] . '</td><td>' . '<a href="' . site_url($row['link']) . '">' . $row['entity'] . '</a>' . '</td>';
+            $s .= '<td>' . $row['campaign'] . '</td><td>' .  $row['person_role'] . '</td>';
             $s .= "</tr>\n";
         }
         $s .=  '</table>';

@@ -18,7 +18,7 @@ INSERT INTO form_fields VALUES(3,'experiment','Experiment Name','text','40','80'
 INSERT INTO form_fields VALUES(4,'instrument_group','Instrument Group','text','25','80','','','(lookup)','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(5,'dataset_type','Run Type','text','25','80','','','(lookup)','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(6,'separation_group','Separation Group','text','25','80','','','(lookup)','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(7,'requester_prn','Requester (Username)','text','25','80','','','','trim|required|max_length[24]');
+INSERT INTO form_fields VALUES(7,'requester_username','Requester (Username)','text','25','80','','','','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(8,'instrument_settings','Instrument Settings','area','','','6','60','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(9,'staging_location','Staging Location','text','40','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(10,'wellplate','Wellplate','text','40','80','','','(lookup)','trim|max_length[64]');
@@ -37,7 +37,7 @@ INSERT INTO form_fields VALUES(22,'mrm_attachment','MRM Transition List Attachme
 INSERT INTO form_fields VALUES(23,'internal_standard','Dataset Internal Standard','hidden','','','','','none','trim|max_length[50]');
 INSERT INTO form_fields VALUES(24,'state_name','Status','text','24','24','','','Active','trim|max_length[24]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
-INSERT INTO form_field_options VALUES(1,'requester_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(1,'requester_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(2,'comment','auto_format','none');
 INSERT INTO form_field_options VALUES(3,'request_name','load_key_field','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
@@ -45,7 +45,7 @@ INSERT INTO form_field_choosers VALUES(1,'experiment','list-report.helper','','h
 INSERT INTO form_field_choosers VALUES(2,'instrument_group','picker.replace','requestedRunInstrumentGroupPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'dataset_type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','instrument_group',',','');
 INSERT INTO form_field_choosers VALUES(4,'separation_group','picker.replace','separationGroupPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(5,'requester_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(5,'requester_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'wellplate','picker.replace','wellplatePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'eus_usage_type','picker.replace','eusUsageTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(8,'eus_users','list-report.helper','','helper_eus_user/report','eus_proposal_id',',','Select User...');
@@ -115,7 +115,7 @@ INSERT INTO detail_report_hotlinks VALUES(22,'wellplate','detail-report','wellpl
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
-INSERT INTO sproc_args VALUES(3,'requester_prn','requesterPRN','varchar','input','64','AddUpdateRequestedRun');
+INSERT INTO sproc_args VALUES(3,'requester_username','requesterPRN','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentName','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(5,'work_package','workPackage','varchar','input','50','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(6,'dataset_type','msType','varchar','input','20','AddUpdateRequestedRun');

@@ -20,7 +20,7 @@ INSERT INTO form_fields VALUES(6,'lc_column_2','LC Column 2','text','50','128','
 INSERT INTO form_fields VALUES(7,'comment','Comment','area','','','4','70','','trim|max_length[1024]');
 INSERT INTO form_fields VALUES(8,'guard_column','Guard Column','text','12','12','','','','trim|max_length[12]');
 INSERT INTO form_fields VALUES(9,'quality_control','Quality Control','area','','','4','70','','trim|max_length[2048]|required');
-INSERT INTO form_fields VALUES(10,'operator_prn','Operator PRN','text','50','50','','','','trim|max_length[50]');
+INSERT INTO form_fields VALUES(10,'operator_username','Operator Username','text','50','50','','','','trim|max_length[50]');
 INSERT INTO form_fields VALUES(11,'digestion_method','Digestion Method','text','50','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(12,'sample_type','Sample Type','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(13,'sample_prep_request','Sample Prep Request','area','','','4','70','','trim|max_length[1024]');
@@ -28,9 +28,9 @@ INSERT INTO form_fields VALUES(14,'number_of_runs','Number Of Runs','text','12',
 INSERT INTO form_fields VALUES(15,'instrument_pressure','Instrument Pressure','text','32','32','','','','trim|max_length[32]');
 INSERT INTO form_fields VALUES(16,'datasets','HPLC Datasets','area','','','4','70','','trim|max_length[2147483647]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
-INSERT INTO form_field_options VALUES(1,'operator_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(1,'operator_username','default_function','GetUser()');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'operator_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'operator_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'lc_column','list-report.helper','','helper_prep_lc_column/report','',',','');
 INSERT INTO form_field_choosers VALUES(3,'instrument','picker.replace','prepInstrumentPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'type','picker.replace','prepLCRunTypePickList','','',',','');
@@ -58,7 +58,7 @@ INSERT INTO detail_report_hotlinks VALUES(2,'experiment_groups','link_list','exp
 INSERT INTO detail_report_hotlinks VALUES(4,'instrument','detail-report','instrument','instrument/show','valueCol','dl_instrument','');
 INSERT INTO detail_report_hotlinks VALUES(5,'datasets','link_list','datasets','dataset/show','valueCol','dl_datasets',NULL);
 INSERT INTO detail_report_hotlinks VALUES(6,'lc_column','detail-report','lc_column','prep_lc_column/show','valueCol','dl_lc_column','');
-INSERT INTO detail_report_hotlinks VALUES(7,'operator_prn','detail-report','operator_prn','user/show','valueCol','dl_operator','');
+INSERT INTO detail_report_hotlinks VALUES(7,'operator_username','detail-report','operator_username','user/show','valueCol','dl_operator','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','id','int','output','','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(2,'prep_run_name','prepRunName','varchar','input','128','AddUpdatePrepLCRun');
@@ -68,7 +68,7 @@ INSERT INTO sproc_args VALUES(5,'lc_column','LCColumn','varchar','input','128','
 INSERT INTO sproc_args VALUES(6,'lc_column_2','LCColumn2','varchar','input','128','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(7,'comment','Comment','varchar','input','1024','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(8,'guard_column','GuardColumn','varchar','input','12','AddUpdatePrepLCRun');
-INSERT INTO sproc_args VALUES(9,'operator_prn','OperatorPRN','varchar','input','50','AddUpdatePrepLCRun');
+INSERT INTO sproc_args VALUES(9,'operator_username','OperatorPRN','varchar','input','50','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(10,'digestion_method','DigestionMethod','varchar','input','128','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(11,'sample_type','SampleType','varchar','input','64','AddUpdatePrepLCRun');
 INSERT INTO sproc_args VALUES(12,'sample_prep_request','SamplePrepRequest','varchar','input','1024','AddUpdatePrepLCRun');

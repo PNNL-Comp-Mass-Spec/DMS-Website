@@ -45,7 +45,7 @@ INSERT INTO sproc_args VALUES(3,'dataset','datasetNum','varchar','input','128','
 INSERT INTO sproc_args VALUES(4,'priority','priority','int','input','','AddUpdateLocalJobInBroker');
 INSERT INTO sproc_args VALUES(5,'job_param','jobParam','varchar','input','8000','AddUpdateLocalJobInBroker');
 INSERT INTO sproc_args VALUES(6,'comment','comment','varchar','input','512','AddUpdateLocalJobInBroker');
-INSERT INTO sproc_args VALUES(7,'owner_prn','ownerPRN','varchar','input','64','AddUpdateLocalJobInBroker');
+INSERT INTO sproc_args VALUES(7,'owner_username','ownerPRN','varchar','input','64','AddUpdateLocalJobInBroker');
 INSERT INTO sproc_args VALUES(8,'data_package_id','DataPackageID','int','input','','AddUpdateLocalJobInBroker');
 INSERT INTO sproc_args VALUES(9,'results_folder_name','resultsFolderName','varchar','output','128','AddUpdateLocalJobInBroker');
 INSERT INTO sproc_args VALUES(10,'<local>','mode','varchar','input','12','AddUpdateLocalJobInBroker');
@@ -58,7 +58,7 @@ INSERT INTO form_fields VALUES(3,'dataset','Dataset','text','50','128','','','Ag
 INSERT INTO form_fields VALUES(4,'priority','Priority','text','12','12','','','3','trim|max_length[12]');
 INSERT INTO form_fields VALUES(5,'job_param','Job Param','hidden','','','','','','trim|max_length[8000]');
 INSERT INTO form_fields VALUES(6,'comment','Comment','area','','','4','120','','trim|max_length[512]');
-INSERT INTO form_fields VALUES(7,'owner_prn','Owner','text','','','','','','trim|max_length[64]');
+INSERT INTO form_fields VALUES(7,'owner_username','Owner','text','','','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(8,'data_package_id','Data Package ID','text','12','12','','','','trim|max_length[12]');
 INSERT INTO form_fields VALUES(9,'results_folder_name','Results Folder Name','non-edit','50','128','','','','trim|max_length[128]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
@@ -70,6 +70,6 @@ INSERT INTO utility_queries VALUES(1,'parameter_values','','broker','T_Job_Param
 INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','V_Pipeline_Script_Parameters','Parameters as params','','{"Script":"MTx"}','');
 INSERT INTO utility_queries VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','script','','','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'owner_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'owner_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'data_package_id','list-report.helper','','helper_data_package/report','',',','');
 COMMIT;

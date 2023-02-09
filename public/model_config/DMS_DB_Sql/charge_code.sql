@@ -11,7 +11,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'charge_code','invoke_entity','value',
 INSERT INTO list_report_hotlinks VALUES(2,'usage_requested_run','invoke_entity','charge_code','requested_run/report/-/-/-/-/-/-/-/-/~','');
 INSERT INTO list_report_hotlinks VALUES(3,'usage_sample_prep','invoke_entity','charge_code','sample_prep_request/report/-/-/-/-/-/~','');
 INSERT INTO list_report_hotlinks VALUES(4,'state','color_label','activation_state','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_90","4":"clr_120","5":"clr_120"}');
-INSERT INTO list_report_hotlinks VALUES(5,'owner_prn','invoke_entity','value','user/report/','');
+INSERT INTO list_report_hotlinks VALUES(5,'owner_username','invoke_entity','value','user/report/','');
 INSERT INTO list_report_hotlinks VALUES(6,'activation_state','no_display','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_charge_code','Code','20','','charge_code','ContainsText','text','20','','');
@@ -26,6 +26,6 @@ INSERT INTO detail_report_hotlinks VALUES(3,'title','detail-report','title','cha
 INSERT INTO detail_report_hotlinks VALUES(4,'usage_requested_run','detail-report','charge_code','requested_run/report/-/-/-/-/-/-/-/-/~','labelCol','dl_Usage_Requested_Run','');
 INSERT INTO detail_report_hotlinks VALUES(5,'usage_sample_prep','detail-report','charge_code','sample_prep_request/report/-/-/-/-/-/~','labelCol','dl_Usage_Sample_Prep','');
 INSERT INTO detail_report_hotlinks VALUES(6,'state','color_label','wp_activation_state','','valueCol','dl_State','{"3":"clr_90","4":"clr_120", "5":"clr_120","10":"clr_120"}');
-INSERT INTO detail_report_hotlinks VALUES(7,'owner_prn','detail-report','owner_prn','user/report/','labelCol','dl_PRN','');
+INSERT INTO detail_report_hotlinks VALUES(7,'owner_username','detail-report','owner_username','user/report/','labelCol','dl_Owner','');
 INSERT INTO detail_report_hotlinks VALUES(8,'wp_activation_state','no_display','value','',NULL,NULL,'');
 COMMIT;

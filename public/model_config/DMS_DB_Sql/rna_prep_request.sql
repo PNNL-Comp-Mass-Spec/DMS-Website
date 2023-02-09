@@ -36,7 +36,7 @@ INSERT INTO detail_report_hotlinks VALUES(7,'work_package_state','color_label','
 INSERT INTO detail_report_hotlinks VALUES(8,'wp_activation_state','no_display','value','',NULL,NULL,'');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','RequestName','varchar','input','128','AddUpdateRNAPrepRequest');
-INSERT INTO sproc_args VALUES(2,'requester_prn','RequesterPRN','varchar','input','32','AddUpdateRNAPrepRequest');
+INSERT INTO sproc_args VALUES(2,'requester_username','RequesterPRN','varchar','input','32','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(3,'reason','Reason','varchar','input','512','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(5,'organism','Organism','varchar','input','128','AddUpdateRNAPrepRequest');
 INSERT INTO sproc_args VALUES(6,'biohazard_level','BiohazardLevel','varchar','input','12','AddUpdateRNAPrepRequest');
@@ -62,7 +62,7 @@ INSERT INTO sproc_args VALUES(27,'<local>','callingUser','varchar','input','128'
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
 INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','60','128','','','','trim|max_length[128]|required');
-INSERT INTO form_fields VALUES(3,'requester_prn','Requester PRN','text','32','32','','','','trim|max_length[32]|required');
+INSERT INTO form_fields VALUES(3,'requester_username','Requester Username','text','32','32','','','','trim|max_length[32]|required');
 INSERT INTO form_fields VALUES(4,'campaign','Campaign','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(5,'reason','Reason For Experiment','area','','','3','60','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(7,'organism','Organism','text','60','128','','','','trim|max_length[128]|required');
@@ -82,7 +82,7 @@ INSERT INTO form_fields VALUES(22,'eus_user_id','EMSL User ID','text','10','10',
 INSERT INTO form_fields VALUES(23,'estimated_completion','EstimatedCompletion','text','32','32','','','','trim|max_length[32]|valid_date');
 INSERT INTO form_fields VALUES(24,'state','State','text','32','32','','','Pending Approval','trim|max_length[32]|required');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'requester_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(4,'biohazard_level','picker.replace','samplePrepReqBiohazardPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
@@ -99,7 +99,7 @@ INSERT INTO form_field_choosers VALUES(15,'work_package','list-report.helper',''
 INSERT INTO form_field_choosers VALUES(16,'estimated_completion','picker.prevDate','','','',',','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'id','section','Basic Information');
-INSERT INTO form_field_options VALUES(2,'requester_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(2,'requester_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(3,'organism','section','Biomaterial Information');
 INSERT INTO form_field_options VALUES(4,'instrument_name','section','Instrument Run Information');
 INSERT INTO form_field_options VALUES(5,'number_of_samples','section','Preparation Information');

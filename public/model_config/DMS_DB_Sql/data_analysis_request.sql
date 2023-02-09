@@ -67,7 +67,7 @@ INSERT INTO detail_report_hotlinks VALUES(15,'wp_activation_state','no_display',
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(2,'analysis_type','analysisType','varchar','input','16','AddUpdateDataAnalysisRequest');
-INSERT INTO sproc_args VALUES(3,'requester_prn','requesterPRN','varchar','input','32','AddUpdateDataAnalysisRequest');
+INSERT INTO sproc_args VALUES(3,'requester_username','requesterPRN','varchar','input','32','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(4,'description','description','varchar','input','1024','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(5,'analysis_specifications','analysisSpecifications','varchar','input','2048','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(6,'comment','Comment','varchar','intput','2048','AddUpdateDataAnalysisRequest');
@@ -90,7 +90,7 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
 INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(3,'analysis_type','Analysis Type','text','60','60','','','','trim|max_length[60]|required');
-INSERT INTO form_fields VALUES(4,'requester_prn','Requester','text','32','32','','','','trim|max_length[32]|required');
+INSERT INTO form_fields VALUES(4,'requester_username','Requester','text','32','32','','','','trim|max_length[32]|required');
 INSERT INTO form_fields VALUES(5,'description','Description','area','','','3','60','','trim|max_length[1024]|required');
 INSERT INTO form_fields VALUES(6,'analysis_specifications','Analysis Specifications','area','','','3','60','','trim|max_length[2048]');
 INSERT INTO form_fields VALUES(7,'comment','Comment','area','','','3','60','','trim|max_length[2048]');
@@ -106,7 +106,7 @@ INSERT INTO form_fields VALUES(16,'estimated_analysis_time_days','Estimated Anal
 INSERT INTO form_fields VALUES(17,'state_name','State','text','32','32','','','New','trim|max_length[32]|required');
 INSERT INTO form_fields VALUES(18,'state_comment','State Comment','area','','','3','60','','trim|max_length[512]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'requester_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userPRNPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'analysis_type','picker.replace','dataAnalysisTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'batch_ids','list-report.helper','','helper_requested_run_batch_ckbx/report','batch_ids',',','Choose from:');
 INSERT INTO form_field_choosers VALUES(4,'data_package_id','list-report.helper','','helper_data_package/report/-/','data_package_id',',','Choose from:');
