@@ -56,6 +56,7 @@ INSERT INTO form_field_choosers VALUES(12,'state_name','picker.replace','activeI
 INSERT INTO form_field_choosers VALUES(13,'comment','link.list','multiDatasetRequestCommentTmpl','','',',','Use Template:');
 INSERT INTO form_field_choosers VALUES(14,'work_package','list-report.helper','','helper_charge_code/report','',',','');
 INSERT INTO form_field_choosers VALUES(15,'staging_location','list-report.helper','','helper_material_location','',',','');
+INSERT INTO form_field_choosers VALUES(16,'batch_id','list-report.helper','','helper_requested_run_batch/report','batch_id',',','Select Batch...');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','45!','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_request','RequestID','6!','','request','Equals','text','128','','');
