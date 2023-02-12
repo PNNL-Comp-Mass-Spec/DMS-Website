@@ -1,0 +1,12 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('base_table','T_Requested_Run_Batch_Group');
+INSERT INTO general_params VALUES('list_report_data_table','V_Requested_Run_Batch_Group_List_Report');
+INSERT INTO general_params VALUES('detail_report_data_table','V_Requested_Run_Batch_Group_Detail_Report');
+INSERT INTO general_params VALUES('detail_report_data_id_col','id');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
+INSERT INTO general_params VALUES('entry_page_data_table','V_Requested_Run_Batch_Group_Entry');
+INSERT INTO general_params VALUES('entry_page_data_id_col','id');
+INSERT INTO general_params VALUES('entry_sproc','AddUpdateRequestedRunBatchGroup');
+COMMIT;
