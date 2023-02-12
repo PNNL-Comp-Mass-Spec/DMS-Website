@@ -45,8 +45,8 @@ INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','requeste
 INSERT INTO list_report_hotlinks VALUES(2,'requests','invoke_entity','id','requested_run/report/-/-/active','');
 INSERT INTO list_report_hotlinks VALUES(3,'runs','invoke_entity','id','requested_run/report/-/-/completed/','');
 INSERT INTO list_report_hotlinks VALUES(4,'days_in_queue','color_label','days_in_queue_bin','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
-INSERT INTO list_report_hotlinks VALUES(6,'first_request','invoke_entity','first_request','requested_run/show/','');
-INSERT INTO list_report_hotlinks VALUES(7,'last_request','invoke_entity','last_request','requested_run/show/','');
+INSERT INTO list_report_hotlinks VALUES(6,'first_active_request','invoke_entity','first_active_request','requested_run/show/','');
+INSERT INTO list_report_hotlinks VALUES(7,'last_active_request','invoke_entity','last_active_request','requested_run/show/','');
 INSERT INTO list_report_hotlinks VALUES(8,'comment','min_col_width','value','40','');
 INSERT INTO list_report_hotlinks VALUES(9,'blocked','invoke_entity','id','requested_run_batch_blocking/param/@','');
 INSERT INTO list_report_hotlinks VALUES(10,'days_in_queue_bin','no_display','value','','');
