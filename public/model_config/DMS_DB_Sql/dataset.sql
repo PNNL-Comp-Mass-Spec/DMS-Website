@@ -44,7 +44,7 @@ INSERT INTO form_field_choosers VALUES(4,'separation_type','list-report.helper',
 INSERT INTO form_field_choosers VALUES(5,'lc_column','picker.replace','LCColumnPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'wellplate','picker.replace','wellplatePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'dataset_type','list-report.helper','','helper_instrument_dataset_type/report','instrument_name',',','');
-INSERT INTO form_field_choosers VALUES(8,'operator_username','picker.replace','instrumentUserPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(8,'operator_username','picker.replace','instrumentUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(9,'dataset_rating','picker.replace','datasetRatingPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(10,'request_id','list-report.helper','','helper_scheduled_run/report','',',','');
 INSERT INTO form_field_choosers VALUES(11,'lc_cart_name','picker.replace','lcCartPickList','','',',','');

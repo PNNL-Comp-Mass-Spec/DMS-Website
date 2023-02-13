@@ -106,7 +106,7 @@ INSERT INTO form_fields VALUES(16,'estimated_analysis_time_days','Estimated Anal
 INSERT INTO form_fields VALUES(17,'state_name','State','text','32','32','','','New','trim|max_length[32]|required');
 INSERT INTO form_fields VALUES(18,'state_comment','State Comment','area','','','3','60','','trim|max_length[512]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'analysis_type','picker.replace','dataAnalysisTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'batch_ids','list-report.helper','','helper_requested_run_batch_ckbx/report','batch_ids',',','Choose from:');
 INSERT INTO form_field_choosers VALUES(4,'data_package_id','list-report.helper','','helper_data_package/report/-/','data_package_id',',','Choose from:');

@@ -59,7 +59,7 @@ INSERT INTO form_field_options VALUES(10,'state','permission','DMS_Infrastructur
 INSERT INTO form_field_options VALUES(11,'comment','auto_format','none');
 INSERT INTO form_field_options VALUES(12,'estimated_prep_time_days','section','Staff Notes');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(4,'tissue','list-report.helper','','helper_tissue/report','',',','');
 INSERT INTO form_field_choosers VALUES(5,'biohazard_level','picker.replace','samplePrepReqBiohazardPickList','','',',','');

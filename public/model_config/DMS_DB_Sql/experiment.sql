@@ -40,7 +40,7 @@ INSERT INTO form_field_options VALUES(1,'researcher_username','default_function'
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'experiment','list-report.helper','','helper_experiment/report','experiment',',','');
 INSERT INTO form_field_choosers VALUES(2,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
-INSERT INTO form_field_choosers VALUES(3,'researcher_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'researcher_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'organism_name','picker.replace','orgPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'biomaterial_list','list-report.helper','','helper_biomaterial/report','biomaterial_list',';','');
 INSERT INTO form_field_choosers VALUES(6,'reference_compound_list','list-report.helper','','helper_reference_compound/report/-/-/-/-/-/','reference_compound_list',';','');

@@ -47,6 +47,7 @@ INSERT INTO detail_report_hotlinks VALUES(16,'plant_or_animal_tissue','detail-re
 INSERT INTO detail_report_hotlinks VALUES(17,'labelling','detail-report','labelling','sample_label_reporter_ions/report/~','valueCol','dl_labelling_reporter_ions','{"HideLinkIfValueMatch":"none"}');
 INSERT INTO detail_report_hotlinks VALUES(18,'+labelling','detail-report','id','experiment_plex_members/report/','labelCol','dl_labelling_plex_id','{"HideLinkIfValueMatch":"none"}');
 INSERT INTO detail_report_hotlinks VALUES(19,'experiment','detail-report','experiment','experiment/show/','labelCol','dl_experiment','');
+INSERT INTO detail_report_hotlinks VALUES(20,'digestion_enzyme','detail-report','digestion_enzyme','enzymes/report/-/~','labelCol','dl_enzyme','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','name','varchar','input','128','DoMaterialItemOperation');
 INSERT INTO sproc_args VALUES(2,'<local>','mode','varchar','input','32','DoMaterialItemOperation');
@@ -103,7 +104,7 @@ INSERT INTO form_fields VALUES(22,'barcode','Barcode','text','40','64','','','',
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'experiment','list-report.helper','','helper_experiment/report','experiment',',','');
 INSERT INTO form_field_choosers VALUES(2,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
-INSERT INTO form_field_choosers VALUES(3,'researcher_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'researcher_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'organism_name','picker.replace','orgPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'biomaterial_list','list-report.helper','','helper_biomaterial/report','biomaterial_list',';','');
 INSERT INTO form_field_choosers VALUES(6,'reference_compound_list','list-report.helper','','helper_reference_compound/report/-/-/-/-/-/','reference_compound_list',';','');

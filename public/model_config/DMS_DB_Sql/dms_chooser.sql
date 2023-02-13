@@ -87,11 +87,11 @@ INSERT INTO chooser_definitions VALUES(77,'samplePrepUserPickList','default','sq
 INSERT INTO chooser_definitions VALUES(78,'sampleRequestStatePickList','default','sql','SELECT val, ex FROM V_Sample_Prep_Request_State_Picklist ORDER BY State_ID');
 INSERT INTO chooser_definitions VALUES(80,'samplePrepEusUsageTypePickList','default','sql','SELECT Description AS val, Name AS ex FROM V_EUS_Usage_Type_Picklist WHERE Enabled_Prep_Request > 0 ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(81,'secsepPickList','default','sql','SELECT Name as val, '''' as ex FROM V_Secondary_Sep_Picklist ORDER BY Name');
-INSERT INTO chooser_definitions VALUES(83,'experimentUserPRNPickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Experiment_User_Picklist ORDER BY Name');
-INSERT INTO chooser_definitions VALUES(84,'instrumentUserPRNPickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Active_Instrument_Users ORDER BY Name');
+INSERT INTO chooser_definitions VALUES(83,'experimentUsernamePickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Experiment_User_Picklist ORDER BY Name');
+INSERT INTO chooser_definitions VALUES(84,'instrumentUsernamePickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Active_Instrument_Users ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(85,'userNamePickList','default','sql','SELECT Name_with_Username AS val, '''' AS ex FROM V_Active_Users ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(86,'userOperationsPickList','default','sql','SELECT Name As val, '''' as ex FROM V_User_Operation_Picklist ORDER BY Name');
-INSERT INTO chooser_definitions VALUES(87,'userPRNPickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Active_Users ORDER BY Name');
+INSERT INTO chooser_definitions VALUES(87,'userUsernamePickList','default','sql','SELECT Name AS val, Username AS ex FROM V_Active_Users ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(88,'wellplatePickList','default','sql','SELECT val, ex FROM V_Wellplate_Picklist ORDER BY val');
 INSERT INTO chooser_definitions VALUES(89,'dataPackageStatePickList','package','sql','SELECT Name AS val, Name AS ex FROM V_Data_Package_State_Picklist');
 INSERT INTO chooser_definitions VALUES(90,'dataPackageTeamPickList','package','sql','SELECT Team_Name AS val, Team_Name AS ex FROM V_Data_Package_Teams_Picklist');

@@ -40,7 +40,7 @@ INSERT INTO form_field_choosers VALUES(5,'settings_file','list-report.helper',''
 INSERT INTO form_field_choosers VALUES(6,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(7,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism',',','');
 INSERT INTO form_field_choosers VALUES(8,'prot_coll_options_list','picker.replace','protOptSeqDirPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(9,'owner','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(9,'owner','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(10,'associated_processor_group','list-report.helper','','helper_analysis_processor_group/report','',',','');
 INSERT INTO form_field_choosers VALUES(11,'propagation_mode','picker.replace','jobPropagationModePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(12,'state_name','picker.replace','analysisJobStatePickList','','',',','');

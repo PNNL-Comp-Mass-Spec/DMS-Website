@@ -40,7 +40,7 @@ INSERT INTO form_field_choosers VALUES(5,'settings_file_name','list-report.helpe
 INSERT INTO form_field_choosers VALUES(6,'organism_name','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(7,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism_name',',','');
 INSERT INTO form_field_choosers VALUES(8,'prot_coll_options_list','picker.replace','protOptSeqDirPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(9,'requester','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(9,'requester','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(10,'state','picker.replace','analysisRequestPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(12,'organism_db_name','list-report.helper','','helper_organism_db/report/-/~','organism_name',',','');
 INSERT INTO form_field_choosers VALUES(13,'data_package_id','list-report.helper','','helper_data_package/report/-/','data_package_id',',','Choose from (only for MaxQuant or MSFragger):');

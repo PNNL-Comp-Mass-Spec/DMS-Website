@@ -25,7 +25,7 @@ INSERT INTO form_fields VALUES(9,'requested_instrument','Instrument Group','text
 INSERT INTO form_fields VALUES(10,'comment','Comment','area','','','4','60','','trim|max_length[512]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'requested_run_list','list-report.helper','','helper_requested_run/report','',',','');
-INSERT INTO form_field_choosers VALUES(2,'owner_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'owner_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'requested_batch_priority','picker.replace','batchPriorityPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'requested_instrument','picker.replace','instrumentGroupPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'requested_completion_date','picker.prevDate','','','',',','');
@@ -55,7 +55,7 @@ INSERT INTO detail_report_commands VALUES(1,'Lock batch','cmd_op','LockBatch','r
 INSERT INTO detail_report_commands VALUES(2,'Unlock batch','cmd_op','UnlockBatch','requested_run_batch','Unlock batch to permit changes to run order or membership','Are you sure that you want to unlock this batch?');
 INSERT INTO detail_report_commands VALUES(3,'Delete batch','cmd_op','delete','requested_run_batch','Delete this requested run batch request.','Are you sure that you want to delete this batch?');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO detail_report_hotlinks VALUES(1,'requests','detail-report','id','requested_run/report/-/-/-','labelCol','requests',NULL);
+INSERT INTO detail_report_hotlinks VALUES(1,'requests','detail-report','id','requested_run/report/-/-/-','labelCol','dl_requests','');
 INSERT INTO detail_report_hotlinks VALUES(2,'id','detail-report','id','requested_run_batch_blocking/param','labelCol','dl_batch_blocking','');
 INSERT INTO detail_report_hotlinks VALUES(3,'+id','detail-report','id','requested_run_batch/report/-/-/-/-/-/-/-/-/@','valueCol','dl_batch_list_report','');
 INSERT INTO detail_report_hotlinks VALUES(4,'factors','detail-report','id','custom_factors/report','labelCol','dl_show_factors',NULL);

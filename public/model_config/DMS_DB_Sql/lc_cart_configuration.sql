@@ -85,7 +85,7 @@ INSERT INTO form_fields VALUES(32,'entered_by','Entry User','text','50','64','',
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'config_name','picker.prepend','lcCartPickList','','','_','');
 INSERT INTO form_field_choosers VALUES(2,'cart_config_state','picker.replace','activeInactiveInvalidPickList','','','','');
-INSERT INTO form_field_choosers VALUES(3,'entered_by','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'entered_by','picker.replace','userUsernamePickList','','',',','');
 CREATE TABLE IF NOT EXISTS "detail_report_hotlinks" (
 	`idx`	INTEGER,
 	`name`	text,

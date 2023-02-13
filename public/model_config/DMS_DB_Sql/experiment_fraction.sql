@@ -30,7 +30,7 @@ INSERT INTO form_field_choosers VALUES(1,'parent_experiment','list-report.helper
 INSERT INTO form_field_choosers VALUES(2,'request_override','list-report.helper','','helper_sample_prep/report','',',','');
 INSERT INTO form_field_choosers VALUES(3,'internal_standard','list-report.helper','','helper_internal_standards_predigest/report','',',','');
 INSERT INTO form_field_choosers VALUES(4,'postdigest_int_std','list-report.helper','','helper_internal_standards_postdigest/report','',',','');
-INSERT INTO form_field_choosers VALUES(5,'researcher','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(5,'researcher','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'container','list-report.helper','','helper_material_container/report','',',','');
 INSERT INTO form_field_choosers VALUES(7,'prep_lc_run_id','list-report.helper','','helper_prep_lc_run/report','',',','');
 INSERT INTO form_field_choosers VALUES(8,'add_underscore_before_fraction_num','picker.replace','yesNoPickList','','',',','');

@@ -70,6 +70,6 @@ INSERT INTO utility_queries VALUES(1,'parameter_values','','broker','T_Job_Param
 INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','V_Pipeline_Script_Parameters','Parameters as params','','{"Script":"MTx"}','');
 INSERT INTO utility_queries VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','script','','','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'owner_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'owner_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'data_package_id','list-report.helper','','helper_data_package/report','',',','');
 COMMIT;

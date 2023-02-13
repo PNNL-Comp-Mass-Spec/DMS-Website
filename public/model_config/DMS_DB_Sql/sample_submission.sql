@@ -41,7 +41,7 @@ INSERT INTO form_fields VALUES(6,'description','Description','area','','','10','
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'container_list','list-report.helper','','helper_material_container_ckbx/report','',',','Choose current container...');
 INSERT INTO form_field_choosers VALUES(2,'container_list','list-report.helper','','helper_material_location_available_ckbx/report','',',','Make new container...');
-INSERT INTO form_field_choosers VALUES(3,'received_by','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'received_by','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'campaign','list-report.helper','','helper_campaign/report/Active/','',',','campaign');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'container_list','link_list','container_list','material_container/show','valueCol','dl_container_list',NULL);

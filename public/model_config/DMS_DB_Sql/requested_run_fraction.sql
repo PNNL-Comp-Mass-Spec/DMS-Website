@@ -29,7 +29,7 @@ INSERT INTO form_fields VALUES(19,'eus_user','EMSL Proposal User','text','25','1
 INSERT INTO form_fields VALUES(20,'mrm_attachment','MRM Transition List Attachment','text','60','128','','','','trim|max_length[128]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'separation_group','picker.replace','separationGroupNoFractionsPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'requester','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'requester','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'staging_location','list-report.helper','','helper_material_location','',',','');
 INSERT INTO form_field_choosers VALUES(4,'wellplate','picker.replace','wellplatePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'work_package','list-report.helper','','helper_charge_code/report','',',','');

@@ -34,7 +34,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','instrume
 INSERT INTO list_report_hotlinks VALUES(2,'note','markup','value','','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'instrument','picker.replace','instrumentNamePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'posted_by','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'posted_by','picker.replace','userUsernamePickList','','',',','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'note','auto_format','None');
 INSERT INTO form_field_options VALUES(2,'posted_by','default_function','GetUser()');

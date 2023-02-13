@@ -30,7 +30,7 @@ INSERT INTO form_fields VALUES(16,'datasets','HPLC Datasets','area','','','4','7
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'operator_username','default_function','GetUser()');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'operator_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'operator_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'lc_column','list-report.helper','','helper_prep_lc_column/report','',',','');
 INSERT INTO form_field_choosers VALUES(3,'instrument','picker.replace','prepInstrumentPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'type','picker.replace','prepLCRunTypePickList','','',',','');

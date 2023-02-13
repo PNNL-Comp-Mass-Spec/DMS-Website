@@ -35,9 +35,9 @@ INSERT INTO form_fields VALUES(12,'plasmid','Plasmid','text','60','80','','','',
 INSERT INTO form_fields VALUES(13,'cell_line','Cell Line','text','60','80','','','','trim|max_length[64]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'biomaterial_type_name','picker.replace','biomaterialTypePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'contact_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'contact_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');
-INSERT INTO form_field_choosers VALUES(4,'pi_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(4,'pi_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'container','list-report.helper','','helper_material_container/report','',',','');
 INSERT INTO form_field_choosers VALUES(7,'organism_list','picker.append','orgPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

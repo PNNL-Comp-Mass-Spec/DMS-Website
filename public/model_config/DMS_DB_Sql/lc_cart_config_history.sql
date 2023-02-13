@@ -34,7 +34,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','lc_cart_config_history/show/','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'cart','picker.replace','lcCartPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'entered_by','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'entered_by','picker.replace','userUsernamePickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_cart','Cart','20','','cart','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','20','','description','ContainsText','text','128','','');

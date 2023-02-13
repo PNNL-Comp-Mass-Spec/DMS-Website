@@ -66,7 +66,7 @@ INSERT INTO form_field_choosers VALUES(13,'prot_coll_name_list','list-report.hel
 INSERT INTO form_field_choosers VALUES(14,'prot_coll_options_list','picker.replace','protOptSeqDirPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(15,'priority','picker.replace','analysisPredefJobPriPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(16,'enabled','picker.replace','predefEnablePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(17,'creator','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(17,'creator','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(18,'dataset_type_criteria','picker.replace','datasetTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(19,'trigger_before_disposition','picker.replace','predefTriggerModePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(20,'propagation_mode','picker.replace','jobPropagationModePickList','','',',','');

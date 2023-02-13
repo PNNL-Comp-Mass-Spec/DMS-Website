@@ -58,7 +58,7 @@ INSERT INTO form_field_choosers VALUES(1,'status','picker.replace','operationsTa
 INSERT INTO form_field_choosers VALUES(2,'priority','picker.replace','operationsTaskPriority','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'requested_personnel','picker.replace','operationsTaskStaff','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'assigned_personnel','picker.append','operationsTaskStaff','','',',','');
-INSERT INTO form_field_choosers VALUES(5,'requester','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(5,'requester','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'task_type_name','picker.replace','operationTaskTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'lab_name','picker.replace','labLocationPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(8,'work_package','list-report.helper','','helper_charge_code/report','',',','');

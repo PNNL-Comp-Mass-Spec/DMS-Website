@@ -35,8 +35,8 @@ INSERT INTO form_field_options VALUES(2,'requester','default_function','GetUser(
 INSERT INTO form_field_options VALUES(3,'owner','default_function','GetUser()');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'package_type','picker.replace','dataPackageTypePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'owner','picker.replace','userPRNPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(3,'requester','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'owner','picker.replace','userUsernamePickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'requester','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'team','picker.replace','dataPackageTeamPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'state','picker.replace','dataPackageStatePickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

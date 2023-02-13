@@ -24,7 +24,7 @@ INSERT INTO form_field_options VALUES(2,'note','auto_format','None');
 INSERT INTO form_field_options VALUES(3,'posted_by','default_function','GetUser()');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'instrument','picker.replace','instrumentNamePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'posted_by','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'posted_by','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'description','picker.replace','instrumentConfigDescriptionPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'date_of_change','picker.prevDate','','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

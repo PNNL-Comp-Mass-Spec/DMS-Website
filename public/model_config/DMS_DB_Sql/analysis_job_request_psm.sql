@@ -55,7 +55,7 @@ INSERT INTO form_field_choosers VALUES(1,'datasets','list-report.helper','','hel
 INSERT INTO form_field_choosers VALUES(2,'datasets','list-report.helper','','helper_data_package_dataset_ckbx/report','',',','Choose by Data Package:');
 INSERT INTO form_field_choosers VALUES(3,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism_name',',','');
 INSERT INTO form_field_choosers VALUES(4,'prot_coll_options_list','picker.replace','protOptSeqDirPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(5,'owner_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(5,'owner_prn','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'job_type_name','picker.list','psmJobTypePicklist','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'tool_name','picker.list','psmToolNamePicklist','','',',','');
 INSERT INTO form_field_choosers VALUES(8,'organism_name','list-report.helper','','helper_organism/report','',',','');

@@ -22,7 +22,7 @@ INSERT INTO form_fields VALUES(6,'researcher','Researcher','text','50','50','','
 INSERT INTO form_fields VALUES(7,'parent_exp','Parent Experiment','non-edit','','','','','Placeholder','trim|max_length[50]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'experiment_list','list-report.helper','','helper_experiment_ckbx/report','',',','');
-INSERT INTO form_field_choosers VALUES(2,'researcher','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'researcher','picker.replace','userUsernamePickList','','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'parent_experiment','invoke_entity','value','experiment/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'members','invoke_entity','id','experiment_group_members/report','');

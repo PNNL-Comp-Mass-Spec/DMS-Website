@@ -39,7 +39,7 @@ INSERT INTO form_field_choosers VALUES(1,'experiment_group_id','list-report.help
 INSERT INTO form_field_choosers VALUES(2,'instrument_group','picker.replace','instrumentGroupPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','instrument_group|required',',','');
 INSERT INTO form_field_choosers VALUES(4,'separation_group','picker.replace','separationGroupPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(5,'requester','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(5,'requester','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'eus_usage_type','picker.replace','eusUsageTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(8,'eus_users','list-report.helper','','helper_eus_user_ckbx/report','eus_proposal_id',',','');
 INSERT INTO form_field_choosers VALUES(9,'mrm_attachment','list-report.helper','','helper_mrm_attachment/report','',',','');

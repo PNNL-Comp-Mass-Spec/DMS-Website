@@ -27,7 +27,7 @@ INSERT INTO form_fields VALUES(13,'operator_username','Operator Username','text'
 INSERT INTO form_fields VALUES(14,'comment','Comment','area','','','4','70','','trim|max_length[244]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'state','picker.replace','LCColumnStatePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'operator_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'operator_username','picker.replace','userUsernamePickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_column_name','Column Name','20','','column_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_mfg_name','Mfg Name','20','','mfg_name','ContainsText','text','128','','');

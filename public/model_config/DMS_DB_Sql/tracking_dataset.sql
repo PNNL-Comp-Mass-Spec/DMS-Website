@@ -39,7 +39,7 @@ INSERT INTO form_fields VALUES(10,'eus_users_list','EMSL Proposal User','area','
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'experiment','list-report.helper','','helper_experiment/report','',',','');
 INSERT INTO form_field_choosers VALUES(2,'instrument_name','picker.replace','instrumentNameAdminPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(3,'operator_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'operator_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'eus_usage_type','picker.replace','eusUsageTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'eus_users_list','list-report.helper','','helper_eus_user_ckbx/report','eus_proposal_id',',','');
 INSERT INTO form_field_choosers VALUES(6,'eus_proposal_id','list-report.helper','','helper_eus_proposal/report','',',','Select Proposal...');

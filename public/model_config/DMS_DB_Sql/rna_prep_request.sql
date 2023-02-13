@@ -82,7 +82,7 @@ INSERT INTO form_fields VALUES(22,'eus_user_id','EMSL User ID','text','10','10',
 INSERT INTO form_fields VALUES(23,'estimated_completion','EstimatedCompletion','text','32','32','','','','trim|max_length[32]|valid_date');
 INSERT INTO form_fields VALUES(24,'state','State','text','32','32','','','Pending Approval','trim|max_length[32]|required');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'requester_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(4,'biohazard_level','picker.replace','samplePrepReqBiohazardPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'campaign','list-report.helper','','helper_campaign/report/Active/','campaign',',','');

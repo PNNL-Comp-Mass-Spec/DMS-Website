@@ -47,7 +47,7 @@ INSERT INTO form_fields VALUES(9,'state','State','text','32','32','','','Active'
 INSERT INTO form_fields VALUES(10,'user_folder_path','User Folder Path','area','','','4','70','','trim|max_length[512]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'package_type','picker.replace','osmPackageTypePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'owner','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'owner','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'state','picker.replace','osmPackageStatePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'sample_prep_request_list','list-report.helper','','helper_sample_prep_ckbx/report','',',','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
