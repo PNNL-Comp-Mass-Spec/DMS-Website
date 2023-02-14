@@ -11,7 +11,7 @@ INSERT INTO sproc_args VALUES(81,'request_id','requestID','int','output','','Add
 INSERT INTO sproc_args VALUES(82,'request_name','requestName','varchar','input','128','AddJobRequestPSM');
 INSERT INTO sproc_args VALUES(83,'datasets','datasets','varchar','output','2147483647','AddJobRequestPSM');
 INSERT INTO sproc_args VALUES(84,'comment','comment','varchar','input','512','AddJobRequestPSM');
-INSERT INTO sproc_args VALUES(85,'owner_prn','ownerPRN','varchar','input','64','AddJobRequestPSM');
+INSERT INTO sproc_args VALUES(85,'owner_username','ownerPRN','varchar','input','64','AddJobRequestPSM');
 INSERT INTO sproc_args VALUES(86,'organism_name','organismName','varchar','input','128','AddJobRequestPSM');
 INSERT INTO sproc_args VALUES(87,'prot_coll_name_list','protCollNameList','varchar','input','4000','AddJobRequestPSM');
 INSERT INTO sproc_args VALUES(88,'prot_coll_options_list','protCollOptionsList','varchar','input','256','AddJobRequestPSM');
@@ -33,7 +33,7 @@ INSERT INTO form_fields VALUES(1,'request_id','Request ID','non-edit','','','','
 INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','50','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(3,'datasets','Datasets','area','','','9','100','','trim|max_length[2147483647]|required');
 INSERT INTO form_fields VALUES(5,'comment','Comment','area','','','2','100','','trim|max_length[512]');
-INSERT INTO form_fields VALUES(6,'owner_prn','Owner PRN','text','50','64','','','','trim|max_length[64]|required');
+INSERT INTO form_fields VALUES(6,'owner_username','Owner Username','text','50','64','','','','trim|max_length[64]|required');
 INSERT INTO form_fields VALUES(7,'ignore_me','Defaults','action','','','','','entry.analysis_job_request_psm.getJobDefaults():Get suggested values:for Search Database, Tool, and Modifications based on analysis of datasets','');
 INSERT INTO form_fields VALUES(8,'organism_name','Organism','text','50','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(9,'prot_coll_name_list','Protein Collection List','area','','','2','70','','trim|max_length[4000]|required');
@@ -44,7 +44,7 @@ INSERT INTO form_fields VALUES(14,'modification_dyn_met_ox','DynMetOx','checkbox
 INSERT INTO form_fields VALUES(15,'modification_stat_cys_alk','StatCysAlk','checkbox','','','','','','trim|max_length[24]');
 INSERT INTO form_fields VALUES(16,'modification_dyn_styphos','DynSTYPhos','checkbox','','','','','','trim|max_length[24]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
-INSERT INTO form_field_options VALUES(1,'owner_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(1,'owner_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(2,'modification_dyn_met_ox','section','Modifications');
 INSERT INTO form_field_options VALUES(3,'request_id','section','General');
 INSERT INTO form_field_options VALUES(4,'ignore_me','section','Defaults');
@@ -55,7 +55,7 @@ INSERT INTO form_field_choosers VALUES(1,'datasets','list-report.helper','','hel
 INSERT INTO form_field_choosers VALUES(2,'datasets','list-report.helper','','helper_data_package_dataset_ckbx/report','',',','Choose by Data Package:');
 INSERT INTO form_field_choosers VALUES(3,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism_name',',','');
 INSERT INTO form_field_choosers VALUES(4,'prot_coll_options_list','picker.replace','protOptSeqDirPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(5,'owner_prn','picker.replace','userUsernamePickList','','',',','');
+INSERT INTO form_field_choosers VALUES(5,'owner_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'job_type_name','picker.list','psmJobTypePicklist','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'tool_name','picker.list','psmToolNamePicklist','','',',','');
 INSERT INTO form_field_choosers VALUES(8,'organism_name','list-report.helper','','helper_organism/report','',',','');

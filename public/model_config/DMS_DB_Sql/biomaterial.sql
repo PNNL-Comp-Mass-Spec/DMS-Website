@@ -26,7 +26,7 @@ INSERT INTO form_fields VALUES(3,'source_name','Supplier','text','60','80','',''
 INSERT INTO form_fields VALUES(4,'contact_username','Contact (usually PNNL Staff)','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(5,'reason','Reason for creation','area','','','4','50','','trim|required|max_length[500]');
 INSERT INTO form_fields VALUES(6,'campaign','Campaign','text','60','80','','','','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(7,'pi_username','Principle Investigator (PRN)','text','60','80','','','','trim|required|max_length[32]');
+INSERT INTO form_fields VALUES(7,'pi_username','Principle Investigator (Username)','text','60','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(8,'container','Container','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(9,'comment','Comment','area','','','4','50','','trim|max_length[255]');
 INSERT INTO form_fields VALUES(10,'organism_list','Organism List','area','','','6','50','','trim');
