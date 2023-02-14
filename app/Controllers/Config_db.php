@@ -1358,7 +1358,7 @@ class Config_db extends BaseController {
 
     /**
      * Generate SQL to create basic database objects for a page family from the given table.
-     * This will include the three views and the AddUpdate sproc
+     * This will include the three views and the add_update sproc
      */
     function code_for_family_sql() {
         helper(['config_db_edit']);
@@ -1463,10 +1463,10 @@ class Config_db extends BaseController {
         $baseProcName = str_replace(" ", "", $baseName);
 
         $obj = new \stdClass ();
-        $obj->lrn = "V_" . $baseViewName . "_List_Report";
-        $obj->drn = "V_" . $baseViewName . "_Detail_Report";
-        $obj->ern = "V_" . $baseViewName . "_Entry";
-        $obj->spn = "AddUpdate" . $baseProcName;
+        $obj->lrn = "v_" . $baseViewName . "_list_report";
+        $obj->drn = "v_" . $baseViewName . "_detail_report";
+        $obj->ern = "v_" . $baseViewName . "_entry";
+        $obj->spn = "add_update_" . $baseProcName;
         $obj->upn = "Update" . $baseProcName;
         $obj->tbl = 'T_' . $baseViewName;
         return $obj;

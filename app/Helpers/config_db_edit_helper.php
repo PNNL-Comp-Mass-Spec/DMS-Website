@@ -32,7 +32,7 @@ EOD;
 
 /**
  * Generate SQL to create basic database objects for a page family from the given table.
- * This will include the three views and the AddUpdate sproc
+ * This will include the three views and the add_update stored procedure
  * This procedure exits with an error message if base_table is not defined in the general_params table
  * @param object $my_db
  * @param string $gen_parms General parameters table name, typically general_params
@@ -145,7 +145,7 @@ function make_operations_sproc_sql($sprocName, $table) {
 }
 
 /**
- * Make SQL for creating the primary AddUpdate stored procedure
+ * Make SQL for creating the primary add_update stored procedure
  * @param string $sprocName
  * @param string $table
  * @param type $sa
