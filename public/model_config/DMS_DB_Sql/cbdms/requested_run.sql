@@ -20,7 +20,7 @@ INSERT INTO form_fields VALUES(3,'experiment','Experiment Name','text','40','80'
 INSERT INTO form_fields VALUES(4,'instrument_group','Instrument Group','text','25','80','','','(lookup)','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(5,'dataset_type','Run Type','text','25','80','','','(lookup)','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(6,'separation_group','Separation Group','text','25','80','','','(lookup)','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(7,'requester_prn','Requester (Username)','text','25','80','','','','trim|required|max_length[24]');
+INSERT INTO form_fields VALUES(7,'requester_username','Requester (Username)','text','25','80','','','','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(8,'instrument_settings','Instrument Settings','area','','','6','60','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(9,'staging_location','Staging Location','text','40','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(10,'wellplate','Wellplate','text','40','80','','','(lookup)','trim|max_length[64]');
@@ -39,7 +39,7 @@ INSERT INTO form_fields VALUES(22,'mrm_attachment','MRM Transition List Attachme
 INSERT INTO form_fields VALUES(23,'internal_standard','Dataset Internal Standard','hidden','','','','','none','trim|max_length[50]');
 INSERT INTO form_fields VALUES(24,'state_name','Status','text','24','24','','','Active','trim|max_length[24]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
-INSERT INTO form_field_options VALUES(1,'requester_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(1,'requester_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(2,'comment','auto_format','none');
 INSERT INTO form_field_options VALUES(3,'request_name','load_key_field','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
@@ -47,7 +47,7 @@ INSERT INTO form_field_choosers VALUES(1,'experiment','list-report.helper','','h
 INSERT INTO form_field_choosers VALUES(2,'instrument_group','picker.replace','requestedRunInstrumentGroupPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'dataset_type','list-report.helper','','data/lr/ad_hoc_query/helper_inst_group_dstype/report','instrument_group',',','');
 INSERT INTO form_field_choosers VALUES(4,'separation_group','picker.replace','separationGroupPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(5,'requester_prn','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(5,'requester_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'wellplate','picker.replace','wellplatePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'eus_usage_type','picker.replace','eusUsageTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(8,'eus_users','list-report.helper','','helper_eus_user/report','eus_proposal_id',',','Select User...');
@@ -58,6 +58,7 @@ INSERT INTO form_field_choosers VALUES(12,'state_name','picker.replace','activeI
 INSERT INTO form_field_choosers VALUES(13,'comment','link.list','multiDatasetRequestCommentTmpl','','',',','Use Template:');
 INSERT INTO form_field_choosers VALUES(14,'work_package','list-report.helper','','helper_charge_code/report','',',','');
 INSERT INTO form_field_choosers VALUES(15,'staging_location','list-report.helper','','helper_material_location','',',','');
+INSERT INTO form_field_choosers VALUES(16,'batch_id','list-report.helper','','helper_requested_run_batch/report','batch_id',',','Select Batch...');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','45!','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_request','RequestID','6!','','request','Equals','text','128','','');
@@ -90,7 +91,7 @@ CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Typ
 INSERT INTO detail_report_commands VALUES(1,'Delete this request','cmd_op','delete','requested_run','Delete this requested run.','Are you sure that you want to delete this requested run?');
 INSERT INTO detail_report_commands VALUES(2,'Convert Run to Dataset','copy_from','','dataset','Go to dataset entry page and copy information from this scheduled run.','');
 INSERT INTO detail_report_commands VALUES(3,'Convert Request Into Fractions','copy_from','','requested_run_fraction','Create a series of new requested run fractions; only applicable for LC-Nano separation groups','');
-INSERT INTO detail_report_commands VALUES(4,'Make New Requested Run Group','copy_from','','requested_run_group','Create a new requested run group based using metadata from this request','');
+INSERT INTO detail_report_commands VALUES(4,'Make New Requested Runs (from Experiment Group)','copy_from','','requested_run_group','Create new requested runs from an experiment group copying metadata from this request','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'experiment','detail-report','experiment','experiment/show','labelCol','experiment',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'campaign','detail-report','campaign','campaign/show','labelCol','campaign',NULL);
@@ -98,7 +99,7 @@ INSERT INTO detail_report_hotlinks VALUES(3,'batch','detail-report','batch','req
 INSERT INTO detail_report_hotlinks VALUES(4,'block','detail-report','batch','requested_run_batch_blocking/param','valueCol','block','');
 INSERT INTO detail_report_hotlinks VALUES(5,'dataset','detail-report','dataset','dataset/show','valueCol','dataset','');
 INSERT INTO detail_report_hotlinks VALUES(6,'factors','detail-report','request','custom_factors/report/-','labelCol','dl_show_factors',NULL);
-INSERT INTO detail_report_hotlinks VALUES(7,'+factors','detail-report','request','requested_run_factors/param/@/Requested_Run_ID','valueCol','dl_edit_factors',NULL);
+INSERT INTO detail_report_hotlinks VALUES(7,'+factors','detail-report','request','requested_run_factors/param/@/requested_run_id','valueCol','dl_edit_factors','');
 INSERT INTO detail_report_hotlinks VALUES(8,'instrument_group','detail-report','instrument_group','instrument_group/show/','valueCol','dl_instrument_group','');
 INSERT INTO detail_report_hotlinks VALUES(9,'instrument_used','detail-report','instrument_used','instrument/show/','valueCol','dl_instrument','');
 INSERT INTO detail_report_hotlinks VALUES(10,'eus_proposal','detail-report','eus_proposal','eus_proposals/show','valueCol','dl_eus_proposal','');
@@ -117,7 +118,7 @@ INSERT INTO detail_report_hotlinks VALUES(22,'wellplate','detail-report','wellpl
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','reqName','varchar','input','128','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentNum','varchar','input','64','AddUpdateRequestedRun');
-INSERT INTO sproc_args VALUES(3,'requester_prn','requesterPRN','varchar','input','64','AddUpdateRequestedRun');
+INSERT INTO sproc_args VALUES(3,'requester_username','requesterPRN','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentName','varchar','input','64','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(5,'work_package','workPackage','varchar','input','50','AddUpdateRequestedRun');
 INSERT INTO sproc_args VALUES(6,'dataset_type','msType','varchar','input','20','AddUpdateRequestedRun');

@@ -20,7 +20,7 @@ INSERT INTO form_fields VALUES(8,'organism','Organism','text','30','80','','',''
 INSERT INTO form_fields VALUES(9,'prot_coll_name_list','Protein Collection List','area','','','3','60','na','trim|max_length[4000]');
 INSERT INTO form_fields VALUES(10,'prot_coll_options_list','Protein Options List','area','','','2','60','na','trim|max_length[256]');
 INSERT INTO form_fields VALUES(11,'organism_db','Legacy Fasta (typically na)','text','80','80','','','na','trim|required|max_length[128]');
-INSERT INTO form_fields VALUES(12,'owner','Owner (PRN)','text','40','80','','','','trim|required|max_length[32]');
+INSERT INTO form_fields VALUES(12,'owner','Owner (Username)','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(13,'associated_processor_group','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(14,'comment','Comment','area','','','4','50','','trim|max_length[255]');
 INSERT INTO form_fields VALUES(15,'special_processing','Special Processing','area','','','4','70','','trim|max_length[512]');
@@ -46,7 +46,7 @@ INSERT INTO form_field_choosers VALUES(4,'settings_file','list-report.helper',''
 INSERT INTO form_field_choosers VALUES(5,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(6,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism',',','');
 INSERT INTO form_field_choosers VALUES(7,'prot_coll_options_list','picker.replace','protOptSeqDirPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(8,'owner','picker.replace','userPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(8,'owner','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(9,'associated_processor_group','list-report.helper','','helper_analysis_processor_group/report','',',','');
 INSERT INTO form_field_choosers VALUES(10,'propagation_mode','picker.replace','jobPropagationModePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(11,'dataset','list-report.helper','','helper_dataset_ckbx/report','',',','Choose from all datasets:');

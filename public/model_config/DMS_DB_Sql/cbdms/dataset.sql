@@ -26,7 +26,7 @@ INSERT INTO form_fields VALUES(7,'lc_column','LC Column','text','40','50','','',
 INSERT INTO form_fields VALUES(8,'wellplate','Wellplate Name','text','40','50','','','na','trim|max_length[50]');
 INSERT INTO form_fields VALUES(9,'well','Well Number','text','24','50','','','na','trim|max_length[50]');
 INSERT INTO form_fields VALUES(10,'dataset_type','Dataset Type','text','25','80','','','','trim|required|max_length[50]');
-INSERT INTO form_fields VALUES(11,'operator_prn','Operator','text','20','80','','','','trim|required|max_length[24]');
+INSERT INTO form_fields VALUES(11,'operator_username','Operator','text','20','80','','','','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(12,'comment','Comment','area','','','4','70','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(13,'dataset_rating','Dataset Rating','text','25','80','','','Unreviewed','trim|default_value[Unknown]|required|max_length[32]');
 INSERT INTO form_fields VALUES(14,'request_id','Request','text','12','24','','','','trim|required');
@@ -36,7 +36,7 @@ INSERT INTO form_fields VALUES(17,'eus_users','EMSL Users List','area','','','4'
 INSERT INTO form_fields VALUES(18,'internal_standard','Dataset Internal Standard','non-edit','','','','','none','trim|max_length[64]');
 INSERT INTO form_fields VALUES(19,'capture_subfolder','Capture Subfolder','text-if-new','60','255','','','','trim|max_length[255]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
-INSERT INTO form_field_options VALUES(1,'operator_prn','default_function','GetUser()');
+INSERT INTO form_field_options VALUES(1,'operator_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(2,'dataset','load_key_field','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'experiment','list-report.helper','','helper_experiment/report','',',','');
@@ -46,7 +46,7 @@ INSERT INTO form_field_choosers VALUES(4,'separation_type','list-report.helper',
 INSERT INTO form_field_choosers VALUES(5,'lc_column','picker.replace','LCColumnPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'wellplate','picker.replace','wellplatePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'dataset_type','list-report.helper','','helper_instrument_dataset_type/report','instrument_name',',','');
-INSERT INTO form_field_choosers VALUES(8,'operator_prn','picker.replace','instrumentUserPRNPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(8,'operator_username','picker.replace','instrumentUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(9,'dataset_rating','picker.replace','datasetRatingPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(10,'request_id','list-report.helper','','helper_scheduled_run/report','',',','');
 INSERT INTO form_field_choosers VALUES(11,'lc_cart_name','picker.replace','lcCartPickList','','',',','');
@@ -145,7 +145,7 @@ INSERT INTO external_sources VALUES(4,'requested_run','separation_type','ColName
 INSERT INTO external_sources VALUES(5,'requested_run','lc_column','Literal','');
 INSERT INTO external_sources VALUES(6,'requested_run','internal_standard','Literal','none');
 INSERT INTO external_sources VALUES(7,'requested_run','dataset_type','ColName','run_type');
-INSERT INTO external_sources VALUES(8,'requested_run','operator_prn','Literal','');
+INSERT INTO external_sources VALUES(8,'requested_run','operator_username','Literal','');
 INSERT INTO external_sources VALUES(9,'requested_run','comment','ColName','comment');
 INSERT INTO external_sources VALUES(10,'requested_run','dataset_rating','Literal','Unknown');
 INSERT INTO external_sources VALUES(11,'requested_run','request_id','ColName','request');
@@ -159,7 +159,7 @@ INSERT INTO external_sources VALUES(18,'prep_lc_run','comment','ColName','id');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'dataset','datasetNum','varchar','input','128','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentNum','varchar','input','64','AddUpdateDataset');
-INSERT INTO sproc_args VALUES(3,'operator_prn','operPRN','varchar','input','64','AddUpdateDataset');
+INSERT INTO sproc_args VALUES(3,'operator_username','operPRN','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(4,'instrument_name','instrumentName','varchar','input','64','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(5,'dataset_type','msType','varchar','input','20','AddUpdateDataset');
 INSERT INTO sproc_args VALUES(6,'lc_column','LCColumnNum','varchar','input','64','AddUpdateDataset');
