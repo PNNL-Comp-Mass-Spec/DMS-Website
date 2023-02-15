@@ -110,7 +110,7 @@ class Notification extends DmsBase {
             $items .= "\n";
         }
         $data['items'] = $items;
-        $data['prn'] = '';
+        $data['username'] = '';
         echo view('email/notification_default', $data);
     }
 
@@ -128,7 +128,7 @@ class Notification extends DmsBase {
             echo 'No messages for ' . $user . "\n";
         } else {
             $data['items'] = $this->_format_events($users[$user]);
-            $data['prn'] = $user;
+            $data['username'] = $user;
             // Unused: $email = $users[$user]->email;
             echo view('email/notification_default', $data);
         }
@@ -154,7 +154,7 @@ class Notification extends DmsBase {
             echo 'No messages for ' . $user . "\n";
         } else {
             $data['items'] = $this->_format_events($users[$user]);
-            $data['prn'] = $user;
+            $data['username'] = $user;
             $email = 'proteomics@pnnl.gov';
             $data['userEmail'] = $users[$user]->email;
             $data['isTest'] = true;
@@ -188,7 +188,7 @@ class Notification extends DmsBase {
         foreach($ul as $user) {
             log_message('info', 'notification/email sent to ' . $user);
             $data['items'] = $this->_format_events($users[$user]);
-            $data['prn'] = $user;
+            $data['username'] = $user;
             $email = $users[$user]->email;
             // Uncomment to override the destination e-mail
             // $email = 'debug.user@pnnl.gov';
