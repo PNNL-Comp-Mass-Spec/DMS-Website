@@ -144,4 +144,5 @@ INSERT INTO chooser_definitions VALUES(137,'dataAnalysisRequestUserPickList','de
 INSERT INTO chooser_definitions VALUES(138,'labLocationPickList','default','sql','SELECT Lab_Name as val, Lab_Name  as ex FROM V_Lab_Locations ORDER BY Sort_Weight, Lab_Name');
 INSERT INTO chooser_definitions VALUES(139,'operationTaskTypePickList','default','sql','SELECT Task_Type_Name as val, Task_Type_Name  as ex FROM V_Operations_Task_Types ORDER BY Task_Type_Name');
 INSERT INTO chooser_definitions VALUES(140,'emslInstrumentUsagePickList','default','sql','SELECT Description AS val, Name AS ex FROM V_EMSL_Instrument_Usage_Type_Picklist ORDER BY Name');
+INSERT INTO chooser_definitions VALUES(141,'requested_run_batch_group_list','default','sql','SELECT ID_With_Batch_Group As val, ID As ex FROM V_Requested_Run_Batch_Group_Picklist ORDER BY id');
 COMMIT;
