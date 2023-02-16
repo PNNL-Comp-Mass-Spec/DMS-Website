@@ -67,8 +67,8 @@ INSERT INTO list_report_hotlinks VALUES(9,'description','min_col_width','value',
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'campaign','campaignNum','varchar','input','64','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(2,'project','projectNum','varchar','input','64','AddUpdateCampaign');
-INSERT INTO sproc_args VALUES(3,'project_mgr','progmgrPRN','varchar','input','64','AddUpdateCampaign');
-INSERT INTO sproc_args VALUES(4,'pi_username','piPRN','varchar','input','64','AddUpdateCampaign');
+INSERT INTO sproc_args VALUES(3,'project_mgr','progmgrUsername','varchar','input','64','AddUpdateCampaign');
+INSERT INTO sproc_args VALUES(4,'pi_username','piUsername','varchar','input','64','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(5,'technical_lead','technicalLead','varchar','input','256','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(6,'sample_preparation_staff','samplePreparationStaff','varchar','input','256','AddUpdateCampaign');
 INSERT INTO sproc_args VALUES(7,'dataset_acquisition_staff','datasetAcquisitionStaff','varchar','input','256','AddUpdateCampaign');

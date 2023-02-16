@@ -43,7 +43,7 @@ INSERT INTO sproc_args VALUES(10,'campaign','campaignName','varchar','input','64
 INSERT INTO sproc_args VALUES(11,'container','containerName','varchar','input','128','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(12,'wellplate_name','wellplateName','varchar','input','64','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(13,'well_number','wellNumber','varchar','input','64','AddUpdateReferenceCompound');
-INSERT INTO sproc_args VALUES(14,'contact_username','contactPRN','varchar','input','64','AddUpdateReferenceCompound');
+INSERT INTO sproc_args VALUES(14,'contact_username','contactUsername','varchar','input','64','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(15,'supplier','supplier','varchar','input','64','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(16,'product_id','productId','varchar','input','128','AddUpdateReferenceCompound');
 INSERT INTO sproc_args VALUES(17,'purchase_date','purchaseDate','varchar','input','30','AddUpdateReferenceCompound');

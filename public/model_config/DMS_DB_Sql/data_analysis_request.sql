@@ -67,7 +67,7 @@ INSERT INTO detail_report_hotlinks VALUES(15,'wp_activation_state','no_display',
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(2,'analysis_type','analysisType','varchar','input','16','AddUpdateDataAnalysisRequest');
-INSERT INTO sproc_args VALUES(3,'requester_username','requesterPRN','varchar','input','32','AddUpdateDataAnalysisRequest');
+INSERT INTO sproc_args VALUES(3,'requester_username','requesterUsername','varchar','input','32','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(4,'description','description','varchar','input','1024','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(5,'analysis_specifications','analysisSpecifications','varchar','input','2048','AddUpdateDataAnalysisRequest');
 INSERT INTO sproc_args VALUES(6,'comment','Comment','varchar','intput','2048','AddUpdateDataAnalysisRequest');

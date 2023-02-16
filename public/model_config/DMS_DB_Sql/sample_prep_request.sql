@@ -147,7 +147,7 @@ INSERT INTO detail_report_hotlinks VALUES(28,'state','detail-report','state','sa
 INSERT INTO detail_report_hotlinks VALUES(29,'wp_activation_state','no_display','value','',NULL,NULL,'');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','AddUpdateSamplePrepRequest');
-INSERT INTO sproc_args VALUES(2,'requester_username','requesterPRN','varchar','input','32','AddUpdateSamplePrepRequest');
+INSERT INTO sproc_args VALUES(2,'requester_username','requesterUsername','varchar','input','32','AddUpdateSamplePrepRequest');
 INSERT INTO sproc_args VALUES(3,'reason','reason','varchar','input','512','AddUpdateSamplePrepRequest');
 INSERT INTO sproc_args VALUES(4,'material_container_list','materialContainerList','varchar','input','2048','AddUpdateSamplePrepRequest');
 INSERT INTO sproc_args VALUES(5,'organism','organism','varchar','input','128','AddUpdateSamplePrepRequest');
