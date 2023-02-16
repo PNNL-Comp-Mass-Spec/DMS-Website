@@ -67,8 +67,8 @@ INSERT INTO detail_report_hotlinks VALUES(6,'organism_list','link_table','organi
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'name','biomaterialName','varchar','input','64','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(2,'source_name','sourceName','varchar','input','64','AddUpdateBiomaterial');
-INSERT INTO sproc_args VALUES(3,'contact_username','contactPRN','varchar','input','64','AddUpdateBiomaterial');
-INSERT INTO sproc_args VALUES(4,'pi_username','piPRN','varchar','input','32','AddUpdateBiomaterial');
+INSERT INTO sproc_args VALUES(3,'contact_username','contactUsername','varchar','input','64','AddUpdateBiomaterial');
+INSERT INTO sproc_args VALUES(4,'pi_username','piUsername','varchar','input','32','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(5,'biomaterial_type_name','biomaterialType','varchar','input','32','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(6,'reason','reason','varchar','input','500','AddUpdateBiomaterial');
 INSERT INTO sproc_args VALUES(7,'comment','comment','varchar','input','500','AddUpdateBiomaterial');
