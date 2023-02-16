@@ -13,7 +13,7 @@ INSERT INTO general_params VALUES('operations_sproc','DoRequestedRunBatchOperati
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 INSERT INTO general_params VALUES('detail_report_cmds','file_attachment_cmds');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|max_length[6]');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|max_length[12]');
 INSERT INTO form_fields VALUES(2,'name','Name','text','50','50','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(3,'description','Description','area','','','2','60','','trim|max_length[256]');
 INSERT INTO form_fields VALUES(4,'requested_run_list','Requests','area','','','4','60','','trim');

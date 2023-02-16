@@ -13,7 +13,7 @@ INSERT INTO general_params VALUES('post_submission_detail_id','request_id');
 INSERT INTO general_params VALUES('operations_sproc','UpdateRequestedRunAssignments');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'request_id','Request','non-edit','','','','','','trim');
-INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','60','80','','','','trim|required|max_length[90]|alpha_dash|min_length[8]');
+INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','60','90','','','','trim|required|max_length[90]|alpha_dash|min_length[8]');
 INSERT INTO form_fields VALUES(3,'experiment','Experiment Name','text','40','80','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(4,'instrument_group','Instrument Group','text','25','80','','','(lookup)','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(5,'dataset_type','Run Type','text','25','80','','','(lookup)','trim|required|max_length[50]');
