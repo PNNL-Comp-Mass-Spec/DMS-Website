@@ -33,7 +33,7 @@ INSERT INTO form_field_choosers VALUES(4,'requested_instrument','picker.replace'
 INSERT INTO form_field_choosers VALUES(5,'requested_completion_date','picker.prevDate','','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'batch_group','picker.replace','requested_run_batch_group_list','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','32','','name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','30!','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Inst. Group','32','','inst_group','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_description','Description','32','','description','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_owner','Owner','32','','owner','ContainsText','text','128','','');
