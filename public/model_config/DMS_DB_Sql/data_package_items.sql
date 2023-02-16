@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_data_package_all_i
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 INSERT INTO general_params VALUES('list_report_cmds','data_package_cmds');
 INSERT INTO general_params VALUES('list_report_cmds_url','/data_package_items/operation');
-INSERT INTO general_params VALUES('operations_sproc','UpdateDataPackageItemsXML');
+INSERT INTO general_params VALUES('operations_sproc','update_data_package_items_xml');
 INSERT INTO general_params VALUES('my_db_group','package');
 INSERT INTO general_params VALUES('list_report_data_sort_col','id, item_type, item');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
@@ -17,10 +17,10 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','value','','');
 INSERT INTO list_report_hotlinks VALUES(2,'id','invoke_entity','value','data_package/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'paramListXML','paramListXML','text','input','2147483647','UpdateDataPackageItemsXML');
-INSERT INTO sproc_args VALUES(2,'comment','comment','varchar','input','512','UpdateDataPackageItemsXML');
-INSERT INTO sproc_args VALUES(3,'<local>','mode','varchar','input','12','UpdateDataPackageItemsXML');
-INSERT INTO sproc_args VALUES(4,'removeParents','removeParents','tinyint','input','','UpdateDataPackageItemsXML');
-INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','UpdateDataPackageItemsXML');
-INSERT INTO sproc_args VALUES(6,'<local>','callingUser','varchar','input','128','UpdateDataPackageItemsXML');
+INSERT INTO sproc_args VALUES(1,'paramListXML','paramListXML','text','input','2147483647','update_data_package_items_xml');
+INSERT INTO sproc_args VALUES(2,'comment','comment','varchar','input','512','update_data_package_items_xml');
+INSERT INTO sproc_args VALUES(3,'<local>','mode','varchar','input','12','update_data_package_items_xml');
+INSERT INTO sproc_args VALUES(4,'removeParents','removeParents','tinyint','input','','update_data_package_items_xml');
+INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','update_data_package_items_xml');
+INSERT INTO sproc_args VALUES(6,'<local>','callingUser','varchar','input','128','update_data_package_items_xml');
 COMMIT;

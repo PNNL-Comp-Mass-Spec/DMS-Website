@@ -32,15 +32,15 @@ class Data_package extends DmsBase {
         $this->db = \Config\Database::connect('package');
 
         // TODO: postgresfix!
-        $sql = "CheckDataPackageDatasetJobCoverage($id, '$tool', '$mode')";
+        $sql = "check_data_package_dataset_job_coverage($id, '$tool', '$mode')";
         $builder = $this->db->table($sql);
         $resultSet = $builder->get();
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
-            return "Error querying database via CheckDataPackageDatasetJobCoverage; see writable/logs/log-$currentTimestamp.php";
+            return "Error querying database via check_data_package_dataset_job_coverage; see writable/logs/log-$currentTimestamp.php";
         }
         if ($resultSet->getNumRows() == 0) {
-            return "No rows found calling CheckDataPackageDatasetJobCoverage";
+            return "No rows found calling check_data_package_dataset_job_coverage";
         }
         $result = $resultSet->getResultArray();
         $fields = $resultSet->list_fields();

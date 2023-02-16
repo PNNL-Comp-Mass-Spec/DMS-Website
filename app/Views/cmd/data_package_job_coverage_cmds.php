@@ -13,7 +13,7 @@
   // Clicking the Add Jobs or Remove Jobs button calls the op method below data_package_job_coverage in lcmd.js
   // That in turn calls /data_package_items/exec/
   // with an XML formatted list of items to add/update
-  // That in turn calls stored procedure UpdateDataPackageItemsXML
+  // That in turn calls stored procedure update_data_package_items_xml
 ?>
 
 <div id="membership_section" style="display:none;">

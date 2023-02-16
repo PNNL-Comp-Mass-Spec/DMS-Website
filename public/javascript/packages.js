@@ -15,7 +15,7 @@ var packages = {
 		$('#entry_cmd_mode').val(mode);
 		$('#removeParents').val(removeParents);
 
-		// Call stored procedure UpdateDataPackageItems
+		// Call stored procedure update_data_package_items
 		// gamma.doOperation is defined in dms2.js
 		gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
 			delta.processResults(data, container);
@@ -121,7 +121,7 @@ var packages = {
 		$('#entry_cmd_mode').val(mode);
 		$('#removeParents').val(removeParents);
 		var p = $('#operation_form').serialize();
-		// Call stored procedure UpdateDataPackageItemsXML
+		// Call stored procedure update_data_package_items_xml
 		// lambda.submitOperation is defined in dms2.js
 		lambda.submitOperation(url, p, true);
 	}

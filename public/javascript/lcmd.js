@@ -93,7 +93,7 @@ var lcmd = {
 			p.paramListXML = list;
 			p.removeParents = removeParents;
 
-			// Call stored procedure UpdateDataPackageItemsXML
+			// Call stored procedure update_data_package_items_xml
 			// lambda.submitOperation is defined in dms2.js
 			lambda.submitOperation(url, p, true);
 		},
