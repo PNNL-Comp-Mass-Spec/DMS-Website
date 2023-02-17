@@ -21,7 +21,7 @@ INSERT INTO form_fields VALUES(5,'owner_username','Owner','text','24','24','',''
 INSERT INTO form_fields VALUES(6,'requested_batch_priority','Requested Batch Priority','text','24','24','','','Normal','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(7,'requested_completion_date','Requested Completion Date','text','32','32','','','','trim|required|max_length[32]|valid_date');
 INSERT INTO form_fields VALUES(8,'justification_high_priority','Justification High Priority','area','','','4','60','','trim|max_length[512]');
-INSERT INTO form_fields VALUES(9,'requested_instrument','Instrument Group','text','24','64','','','','trim|required|max_length[64]');
+INSERT INTO form_fields VALUES(9,'requested_instrument_group','Instrument Group','text','24','64','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(10,'comment','Comment','area','','','4','60','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(11,'batch_group','Batch Group','text','24','24','','','','trim|numeric');
 INSERT INTO form_fields VALUES(12,'batch_group_order','Batch Group Order','text','24','24','','','','trim|numeric');
@@ -29,7 +29,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO form_field_choosers VALUES(1,'requested_run_list','list-report.helper','','helper_requested_run/report','',',','');
 INSERT INTO form_field_choosers VALUES(2,'owner_username','picker.replace','userUsernamePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'requested_batch_priority','picker.replace','batchPriorityPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(4,'requested_instrument','picker.replace','instrumentGroupPickList','','',',','');
+INSERT INTO form_field_choosers VALUES(4,'requested_instrument_group','picker.replace','instrumentGroupPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'requested_completion_date','picker.prevDate','','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'batch_group','picker.replace','requested_run_batch_group_list','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
@@ -78,7 +78,7 @@ INSERT INTO sproc_args VALUES(5,'owner_username','ownerPRN','varchar','input','2
 INSERT INTO sproc_args VALUES(6,'requested_batch_priority','requestedBatchPriority','varchar','input','24','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(7,'requested_completion_date','requestedCompletionDate','varchar','input','32','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(8,'justification_high_priority','justificationHighPriority','varchar','input','512','AddUpdateRequestedRunBatch');
-INSERT INTO sproc_args VALUES(9,'requested_instrument','requestedInstrument','varchar','input','64','AddUpdateRequestedRunBatch');
+INSERT INTO sproc_args VALUES(9,'requested_instrument_group','requestedInstrumentGroup','varchar','input','64','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(10,'comment','comment','varchar','input','512','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(11,'batch_group','batchGroupID','int','input','24','AddUpdateRequestedRunBatch');
 INSERT INTO sproc_args VALUES(12,'batch_group_order','batchGroupOrder','int','input','12','AddUpdateRequestedRunBatch');
