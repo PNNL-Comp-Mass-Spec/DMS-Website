@@ -6,7 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_cols','id AS Sel, id, manage
 INSERT INTO general_params VALUES('list_report_data_sort_col','manager_name');
 INSERT INTO general_params VALUES('my_db_group','manager_control');
 INSERT INTO general_params VALUES('list_report_cmds','mc_enable_control_by_manager_cmds');
-INSERT INTO general_params VALUES('operations_sproc','UpdateSingleMgrControlParam');
+INSERT INTO general_params VALUES('operations_sproc','update_single_mgr_control_param');
 INSERT INTO general_params VALUES('list_report_cmds_url','mc_enable_control_by_manager/operation');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','id','','');
@@ -20,8 +20,8 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_active','Active','6!','','ac
 INSERT INTO list_report_primary_filter VALUES(5,'pf_state_last_changed','State Last Changed','20','','state_last_changed','LaterThan','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_changed_by','Changed By','20','','changed_by','ContainsText','text','128','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'paramName','paramName','varchar','input','32','UpdateSingleMgrControlParam');
-INSERT INTO sproc_args VALUES(2,'newValue','newValue','varchar','input','128','UpdateSingleMgrControlParam');
-INSERT INTO sproc_args VALUES(3,'managerIDList','managerIDList','varchar','input','8000','UpdateSingleMgrControlParam');
-INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128','UpdateSingleMgrControlParam');
+INSERT INTO sproc_args VALUES(1,'paramName','paramName','varchar','input','32','update_single_mgr_control_param');
+INSERT INTO sproc_args VALUES(2,'newValue','newValue','varchar','input','128','update_single_mgr_control_param');
+INSERT INTO sproc_args VALUES(3,'managerIDList','managerIDList','varchar','input','8000','update_single_mgr_control_param');
+INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128','update_single_mgr_control_param');
 COMMIT;

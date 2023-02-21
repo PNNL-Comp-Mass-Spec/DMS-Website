@@ -6,7 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_cols','id AS sel, id, manage
 INSERT INTO general_params VALUES('my_db_group','manager_control');
 INSERT INTO general_params VALUES('list_report_data_sort_col','manager_type');
 INSERT INTO general_params VALUES('list_report_cmds','mc_enable_control_by_manager_type_cmds');
-INSERT INTO general_params VALUES('operations_sproc','UpdateSingleMgrTypeControlParam');
+INSERT INTO general_params VALUES('operations_sproc','update_single_mgr_type_control_param');
 INSERT INTO general_params VALUES('list_report_cmds_url','mc_enable_control_by_manager_type/operation');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','id','','');
@@ -14,8 +14,8 @@ INSERT INTO list_report_hotlinks VALUES(2,'id','invoke_entity','value','mc_enabl
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_manager_type','Manager Type','30!','','manager_type','ContainsText','text','50','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'paramName','paramName','varchar','input','32','UpdateSingleMgrTypeControlParam');
-INSERT INTO sproc_args VALUES(2,'newValue','newValue','varchar','input','128','UpdateSingleMgrTypeControlParam');
-INSERT INTO sproc_args VALUES(3,'managerTypeIDList','managerTypeIDList','varchar','input','2048','UpdateSingleMgrTypeControlParam');
-INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128','UpdateSingleMgrTypeControlParam');
+INSERT INTO sproc_args VALUES(1,'paramName','paramName','varchar','input','32','update_single_mgr_type_control_param');
+INSERT INTO sproc_args VALUES(2,'newValue','newValue','varchar','input','128','update_single_mgr_type_control_param');
+INSERT INTO sproc_args VALUES(3,'managerTypeIDList','managerTypeIDList','varchar','input','2048','update_single_mgr_type_control_param');
+INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128','update_single_mgr_type_control_param');
 COMMIT;
