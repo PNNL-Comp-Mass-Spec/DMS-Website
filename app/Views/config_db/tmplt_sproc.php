@@ -4,27 +4,25 @@ CREATE PROCEDURE <?= $sprocName ?>
 /****************************************************
 **
 **  Desc:
-**      Adds new or edits existing item in
-**      <?= $table ?>
+**      Adds new or edits existing item in <?= $table ?>
 **
 **  Return values: 0: success, otherwise, error code
 **
-**  Date: <?= $dt ?> mem - Initial version
+**  Auth:   mem
+**  Date:   <?= $dt ?> mem - Initial version
 **
 *****************************************************/
 (
     <?= $args ?>,
     @mode varchar(12) = 'add', -- or 'update'
-    @message varchar(512) output,
+    @message varchar(512) = '' output,
     @callingUser varchar(128) = ''
 )
 As
     Set XACT_ABORT, nocount on
 
-    Declare @myError int
-    Declare @myRowCount int
-    Set @myError = 0
-    Set @myRowCount = 0
+    Declare @myError int = 0
+    Declare @myRowCount int = 0
 
     Set @message = ''
 
@@ -79,7 +77,7 @@ As
         -- Action for add mode
         ---------------------------------------------------
         --
-        If @Mode = 'add'
+        If @mode = 'add'
         Begin
 
             INSERT INTO <?= $table ?> (
@@ -89,21 +87,20 @@ As
             )
             --
             SELECT @myError = @@error, @myRowCount = @@rowcount
-            --
+
             If @myError <> 0
                 RAISERROR ('Insert operation failed: "%d"', 11, 7, @ID)
 
             -- Return ID of newly created entry
-            -- This method is more accurate than using IDENT_CURRENT
             Set @ID = SCOPE_IDENTITY()
 
-        End -- add mode
+        End
 
         ---------------------------------------------------
         -- Action for update mode
         ---------------------------------------------------
         --
-        If @Mode = 'update'
+        If @mode = 'update'
         Begin
 
             UPDATE <?= $table ?>
@@ -112,11 +109,11 @@ As
             WHERE (ID = @ID)
             --
             SELECT @myError = @@error, @myRowCount = @@rowcount
-            --
+
             If @myError <> 0
                 RAISERROR ('Update operation failed: "%d"', 11, 4, @ID)
 
-        End -- update mode
+        End
 
     End Try
     Begin Catch
