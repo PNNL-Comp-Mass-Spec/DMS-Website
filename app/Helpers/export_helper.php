@@ -76,8 +76,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 if (isset($value)) {
                     $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
                     
-                    if (preg_match('/##FORMAT_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]##(.+)/i', $value, $matches)) {
-                        store_formatted_cell($cell, $matches);
+                    if (preg_match('/##FORMAT_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]##(.*)/i', $value, $matches)) {
+                        if (isset($matches[4]) && strlen($matches[4]) > 0) {
+                            store_formatted_cell($cell, $matches);
+                        }
+
                         $charCount = strlen($matches[4]);
                     } else {
                         $cell->setValue($value);
