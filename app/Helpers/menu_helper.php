@@ -339,6 +339,7 @@ function get_menu_context($page_type, $controller) {
     }
     switch ($page_type) {
         case 'Entry_Pages' :
+            $menu_context['url_link'] = "javascript:navBar.invoke(gamma.pageContext.updateShowURL)";
             break;
         case 'List_Reports':
             // Call function updateMessageBox in dms2.js to obtain the SQL or the URL behind the given list report

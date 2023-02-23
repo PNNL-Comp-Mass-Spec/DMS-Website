@@ -96,6 +96,8 @@ class Entry {
         $data['form'] = $this->controller->entry_form->build_display($mode);
         $data['entry_cmds'] = $this->handle_cmd_btns($this->controller, $form_def->entry_commands, $page_type);
         $data['entry_submission_cmds'] = $this->controller->gen_model->get_param('entry_submission_cmds');
+        $data['page_type'] = $page_type;
+        $data['url_segments'] = implode('/', $segs);
 
         helper(['menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Entry_Pages', $this->controller);
