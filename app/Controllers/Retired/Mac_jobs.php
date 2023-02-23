@@ -32,7 +32,7 @@ class Mac_jobs extends DmsBase {
             echo "<h3>$default_key</h3>";
             echo $this->build_param_entry_form($params, $default_key);
         } else {
-            $lnk = "<a href='javascript:void(0)' onclick='entry.mac_jobs.load_param_form()' >here</a>";
+            $lnk = "<a href='javascript:void(0)' onclick='entryCmds.mac_jobs.load_param_form()' >here</a>";
             if(!$default_key) {
                 $scripts = $this->get_scripts_with_param_definitions($this->my_tag);
                 echo "<div>Click one of the scripts below to show form for entering parameters:</div>";
@@ -40,7 +40,7 @@ class Mac_jobs extends DmsBase {
                 foreach($scripts as $dt) {
                     $tmpl = $dt['Name'];
                     $desc = $dt['Description'];
-                    echo "<li><a href='javascript:void(0)' onclick='entry.mac_jobs.choose_template(\"$tmpl\")'>$tmpl</a> $desc</li>";
+                    echo "<li><a href='javascript:void(0)' onclick='entryCmds.mac_jobs.choose_template(\"$tmpl\")'>$tmpl</a> $desc</li>";
                 }
                 echo "</ul>";
             }

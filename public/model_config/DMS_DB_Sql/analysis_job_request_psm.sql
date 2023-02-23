@@ -34,7 +34,7 @@ INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','50','128'
 INSERT INTO form_fields VALUES(3,'datasets','Datasets','area','','','9','100','','trim|max_length[2147483647]|required');
 INSERT INTO form_fields VALUES(5,'comment','Comment','area','','','2','100','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(6,'owner_username','Owner Username','text','50','64','','','','trim|max_length[64]|required');
-INSERT INTO form_fields VALUES(7,'ignore_me','Defaults','action','','','','','entry.analysis_job_request_psm.getJobDefaults():Get suggested values:for Search Database, Tool, and Modifications based on analysis of datasets','');
+INSERT INTO form_fields VALUES(7,'ignore_me','Defaults','action','','','','','entryCmds.analysis_job_request_psm.getJobDefaults():Get suggested values:for Search Database, Tool, and Modifications based on analysis of datasets','');
 INSERT INTO form_fields VALUES(8,'organism_name','Organism','text','50','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(9,'prot_coll_name_list','Protein Collection List','area','','','2','70','','trim|max_length[4000]|required');
 INSERT INTO form_fields VALUES(10,'prot_coll_options_list','Protein Options List','area','','','2','70','seq_direction=decoy','trim|max_length[256]|required');

@@ -1,7 +1,7 @@
 // After updating this page, increment the version ID defined on the base_url line in file app/Views/main/entry_form.php
 // This is required to force browsers to update the cached version of this file
 
-var entry = {
+var entryCmds = {
 
 	analysis_job_request_psm: {
 		createRequest: function() {
@@ -96,14 +96,14 @@ var entry = {
 				epsilon.copy_param_form_to_xml_param_field('param_form', 'job_param');
 				return true;
 			}
-			entry.mac_jobs.load_param_form();
+			entryCmds.mac_jobs.load_param_form();
 		}
 	}, // mac_jobs
 	pipeline_jobs: {
 		load_param_form: function () {
 			var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#script_name').val();
 			epsilon.load_supplemental_form(url, {}, 'param_container', function() {
-				entry.pipeline_jobs.set_param_row_visibility("hide_input", "none");
+				entryCmds.pipeline_jobs.set_param_row_visibility("hide_input", "none");
 			});
 		},
 		choose_script: function (script) {
@@ -120,7 +120,7 @@ var entry = {
 				epsilon.copy_param_form_to_xml_param_field('param_form', 'job_param', true);
 				return true;
 			}
-			entry.pipeline_jobs.load_param_form();
+			entryCmds.pipeline_jobs.load_param_form();
 			gamma.load_script_diagram_cmd();
 			return true;
 		}
@@ -138,7 +138,7 @@ var entry = {
 			return function(mode) {
 				// check whether or not we need to have user confirm submit
 				var skip = mode == "add";
-				proceed = skip || entry.sample_prep_request.checkMaterial(proceed);
+				proceed = skip || entryCmds.sample_prep_request.checkMaterial(proceed);
 				if(!proceed) {
 					// Prior to September 2018, we would show the user a modal dialog asking:
 					//    "Should the associated containers and biomaterial also be retired?"
@@ -210,7 +210,7 @@ var entry = {
 			 *
 				// Set hook to trap standard page submit sequence
 				// See submitStandardEntryPage in dms2.js
-				epsilon.actions.before = entry.sample_prep_request.approveSubmit;
+				epsilon.actions.before = entryCmds.sample_prep_request.approveSubmit;
 			 *
 			 */
 		}
