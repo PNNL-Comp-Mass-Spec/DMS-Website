@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_run_planning_report');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
-INSERT INTO general_params VALUES('list_report_data_sort_col','inst_group, min_request');
+INSERT INTO general_params VALUES('list_report_data_sort_col','inst_group, request_name_code, min_request');
 INSERT INTO general_params VALUES('list_report_disable_sort_persist','true');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument','Inst. Group','32','','inst_group','ContainsText','text','128','','');
