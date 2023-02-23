@@ -28,9 +28,9 @@ INSERT INTO form_fields VALUES(11,'well','Well','text','40','80','','','(lookup)
 INSERT INTO form_fields VALUES(12,'vialing_conc','Vialing Concentration','text','25','80','','','','trim|max_length[32]');
 INSERT INTO form_fields VALUES(13,'vialing_vol','Vialing Volume','text','25','80','','','','trim|max_length[32]');
 INSERT INTO form_fields VALUES(14,'comment','Comment','area','','','6','80','','trim|max_length[1024]');
-INSERT INTO form_fields VALUES(15,'batch_id','Batch','text','15','24','','','','trim|max_length[24]');
-INSERT INTO form_fields VALUES(16,'block','Block','text','15','24','','','','trim|max_length[24]');
-INSERT INTO form_fields VALUES(17,'run_order','Run_Order','text','15','24','','','','trim|max_length[24]');
+INSERT INTO form_fields VALUES(15,'batch_id','Batch','text','15','24','','','','trim|max_length[24]|Numeric');
+INSERT INTO form_fields VALUES(16,'block','Block','text','15','24','','','','trim|max_length[24]|Numeric');
+INSERT INTO form_fields VALUES(17,'run_order','Run_Order','text','15','24','','','','trim|max_length[24]|Numeric');
 INSERT INTO form_fields VALUES(18,'work_package','Work Package','text','15','50','','','(lookup)','trim|max_length[50]|required');
 INSERT INTO form_fields VALUES(19,'eus_usage_type','EMSL Usage Type','text','15','50','','','(lookup)','trim|required|max_length[50]|not_contain[(unknown)]');
 INSERT INTO form_fields VALUES(20,'eus_proposal_id','EMSL Proposal ID','text','10','10','','','(lookup)','trim|max_length[10]');
