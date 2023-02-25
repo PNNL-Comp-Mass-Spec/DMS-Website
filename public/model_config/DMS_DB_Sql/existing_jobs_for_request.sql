@@ -2,13 +2,13 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO general_params VALUES('list_report_sproc','FindExistingJobsForRequest');
+INSERT INTO general_params VALUES('list_report_sproc','find_existing_jobs_for_request');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'request_id','Request','text','6','6','','','','trim|max_length[6]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'Job','invoke_entity','value','analysis_job/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'request_id','requestID','int','input','','FindExistingJobsForRequest');
-INSERT INTO sproc_args VALUES(2,'<local>','message','varchar','output','512','FindExistingJobsForRequest');
+INSERT INTO sproc_args VALUES(1,'request_id','requestID','int','input','','find_existing_jobs_for_request');
+INSERT INTO sproc_args VALUES(2,'<local>','message','varchar','output','512','find_existing_jobs_for_request');
 COMMIT;

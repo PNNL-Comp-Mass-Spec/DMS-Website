@@ -385,7 +385,7 @@ class File_attachment extends DmsBase {
     function get_path($entity_type, $entity_id)
     {
         $path = "";
-        $sql = "SELECT GetFileAttachmentPath('$entity_type', '$entity_id') AS path";
+        $sql = "SELECT get_file_attachment_path('$entity_type', '$entity_id') AS path";
         $this->db = \Config\Database::connect();
         $resultSet = $this->db->query($sql);
         if(!$resultSet) {

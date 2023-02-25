@@ -71,7 +71,7 @@ class M_aux_info_copy extends Model {
             )
         );
 
-        $this->entry_sproc = "CopyAuxInfo";
+        $this->entry_sproc = "copy_aux_info";
     }
 
     /**
@@ -117,7 +117,7 @@ class M_aux_info_copy extends Model {
         $sprocHandler = "\\App\\Libraries\\Sproc_" . strtolower($my_db->DBDriver);
         $sproc_handler = new $sprocHandler();
 
-        $sprocName = "CopyAuxInfo";
+        $sprocName = "copy_aux_info";
 
         $sa_message = "";
 

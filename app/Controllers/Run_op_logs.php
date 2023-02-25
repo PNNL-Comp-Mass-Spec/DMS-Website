@@ -29,7 +29,7 @@ class Run_op_logs extends Grid {
     function grid() {
         $this->my_tag = "operation_log_review";
         $this->my_title = "Operation Log Review";
-        // The target for update_sproc is defined in Model Config DB run_op_logs and defaults to UpdateRunOpLog
+        // The target for update_sproc is defined in Model Config DB run_op_logs and defaults to update_run_op_log
         $save_url = 'run_op_logs/call/update_sproc';
         $data_url = 'run_op_logs/grid_data';
         $this->grid_page('operation_log_review', $save_url, $data_url);

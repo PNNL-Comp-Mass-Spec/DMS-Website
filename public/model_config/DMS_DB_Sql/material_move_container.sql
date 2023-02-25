@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_material_move_cont
 INSERT INTO general_params VALUES('list_report_data_sort_col','container');
 INSERT INTO general_params VALUES('list_report_cmds','material_move_container_cmds');
 INSERT INTO general_params VALUES('list_report_cmds_url','/material_move_container/operation');
-INSERT INTO general_params VALUES('operations_sproc','UpdateMaterialContainers');
+INSERT INTO general_params VALUES('operations_sproc','update_material_containers');
 INSERT INTO general_params VALUES('alternate_title_report','Move Containers');
 INSERT INTO general_params VALUES('alternate_title_export','Containers');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
@@ -19,10 +19,10 @@ INSERT INTO list_report_hotlinks VALUES(2,'items','invoke_entity','container','m
 INSERT INTO list_report_hotlinks VALUES(3,'sel','CHECKBOX','id','','');
 INSERT INTO list_report_hotlinks VALUES(4,'id','no_display','value','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'<local>','mode','varchar','input','32','UpdateMaterialContainers');
-INSERT INTO sproc_args VALUES(2,'containerList','containerList','varchar','input','4096','UpdateMaterialContainers');
-INSERT INTO sproc_args VALUES(3,'newValue','newValue','varchar','input','128','UpdateMaterialContainers');
-INSERT INTO sproc_args VALUES(4,'comment','comment','varchar','input','512','UpdateMaterialContainers');
-INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','UpdateMaterialContainers');
-INSERT INTO sproc_args VALUES(6,'<local>','callingUser','varchar','input','128','UpdateMaterialContainers');
+INSERT INTO sproc_args VALUES(1,'<local>','mode','varchar','input','32','update_material_containers');
+INSERT INTO sproc_args VALUES(2,'containerList','containerList','varchar','input','4096','update_material_containers');
+INSERT INTO sproc_args VALUES(3,'newValue','newValue','varchar','input','128','update_material_containers');
+INSERT INTO sproc_args VALUES(4,'comment','comment','varchar','input','512','update_material_containers');
+INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','update_material_containers');
+INSERT INTO sproc_args VALUES(6,'<local>','callingUser','varchar','input','128','update_material_containers');
 COMMIT;

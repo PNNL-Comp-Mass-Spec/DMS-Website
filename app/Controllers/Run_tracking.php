@@ -145,7 +145,7 @@ class Run_tracking extends DmsBase {
         // TODO: postgresfix!
         $sql = <<<EOD
 SELECT *
-FROM  GetRunTrackingMonthlyInfo('$instrument', '$year', '$month', '') AS GT
+FROM  get_run_tracking_monthly_info('$instrument', '$year', '$month', '') AS GT
 EOD;
 // Seq, ID, Dataset, Day, Duration, Interval, Time_Start, Time_End, Instrument
         $query = $this->db->query($sql);

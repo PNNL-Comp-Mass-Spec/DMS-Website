@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_protein_collection_members_list_report');
 INSERT INTO general_params VALUES('detail_report_data_table','');
 INSERT INTO general_params VALUES('detail_report_data_id_col','Reference_ID');
-INSERT INTO general_params VALUES('detail_report_sproc','GetProteinCollectionMemberDetail');
+INSERT INTO general_params VALUES('detail_report_sproc','get_protein_collection_member_detail');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_protein_collection_id','Collection ID','5!','','protein_collection_id','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_protein_collection','Collection Name','35!','','protein_collection','ContainsText','text','128','','');
@@ -19,5 +19,5 @@ INSERT INTO detail_report_hotlinks VALUES(1,'Protein_Collection_ID','detail-repo
 INSERT INTO detail_report_hotlinks VALUES(2,'Protein_ID','detail-report','Protein_ID','protein_collection_members/report/-/-/-/@','valueCol','',NULL);
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','id','int','input','','GetProteinCollectionMemberDetail');
+INSERT INTO sproc_args VALUES(1,'id','id','int','input','','get_protein_collection_member_detail');
 COMMIT;

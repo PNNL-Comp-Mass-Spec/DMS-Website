@@ -378,7 +378,7 @@ EOD;
         $sprocHandler = "\\App\\Libraries\\Sproc_" . strtolower($my_db->DBDriver);
         $sproc_handler = new $sprocHandler();
 
-        $sprocName = "AddUpdateAuxInfo";
+        $sprocName = "add_update_aux_info";
 
         $sa_message = "";
 

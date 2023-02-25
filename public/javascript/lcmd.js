@@ -19,7 +19,7 @@ var lcmd = {
             }
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
-            // URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupAssociations
+            // URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically update_analysis_job_processor_group_associations
             var url = gamma.pageContext.ops_url;
             var p = {};
             p.command = mode;
@@ -50,7 +50,7 @@ var lcmd = {
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
             if(mode=='set_membership_enabled') mode = $('#' + p1).val();
-            // URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically UpdateAnalysisJobProcessorGroupMembership
+            // URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically update_analysis_job_processor_group_membership
             var url = gamma.pageContext.ops_url;
             var p = {};
             p.command = mode;
@@ -116,7 +116,7 @@ var lcmd = {
             }
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
-            // URL will point to the operations_sproc value defined in dataset_disposition.db, typically UpdateDatasetDispositions
+            // URL will point to the operations_sproc value defined in dataset_disposition.db, typically update_dataset_dispositions
             var url = gamma.pageContext.ops_url;
             var p = {};
             p.command = mode;
@@ -180,7 +180,7 @@ var lcmd = {
                 return;
             }
             if(list.length > 4096) {
-                // Stored procedure UpdateMaterialItems has argument @itemList varchar(4096)
+                // Stored procedure update_material_items has argument @itemList varchar(4096)
                 alert('You have selected more items than the system can handle at one time.  Please select fewer items and try again.');
                 return;
             }
@@ -230,13 +230,13 @@ var lcmd = {
                 return;
             }
             if(list.length > 64000) {
-                // Stored procedure UpdateRequestedRunAssignments has argument @reqRunIDList varchar(max)
+                // Stored procedure update_requested_run_assignments has argument @reqRunIDList varchar(max)
                 // We can thus push in more than 8000 characters; the 64000 limit is an arbitrary limit
                 alert('You have selected more items than the system can handle at one time.  Please select fewer items and try again.');
                 return;
             }
             if (!confirm("Are you sure that you want to update the database?")) return;
-            // URL will point to the operations_sproc value defined in requested_run.db: UpdateRequestedRunAssignments
+            // URL will point to the operations_sproc value defined in requested_run.db: update_requested_run_assignments
             // See: http://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/general_params
             var url = gamma.pageContext.ops_url;
             var p = {};
@@ -265,7 +265,7 @@ var lcmd = {
             }
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
-            // URL will point to the operations_sproc value defined in sample_prep_request_assignment.db, typically UpdateSampleRequestAssignments
+            // URL will point to the operations_sproc value defined in sample_prep_request_assignment.db, typically update_sample_request_assignments
             var url = gamma.pageContext.site_url + "sample_prep_request_assignment/operation";
             var p = {};
             p.command = mode;

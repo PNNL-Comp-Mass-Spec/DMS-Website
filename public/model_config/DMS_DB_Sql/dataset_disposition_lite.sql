@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_dataset_dispositio
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_cmds','dataset_disposition_cmds');
 INSERT INTO general_params VALUES('list_report_cmds_url','/dataset_disposition/operation');
-INSERT INTO general_params VALUES('operations_sproc','UpdateDatasetDispositions');
+INSERT INTO general_params VALUES('operations_sproc','update_dataset_dispositions');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','32','','dataset','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
@@ -24,11 +24,11 @@ INSERT INTO list_report_hotlinks VALUES(3,'state','color_label','','','{"Capture
 INSERT INTO list_report_hotlinks VALUES(6,'instrument','invoke_entity','value','instrument_operation_history/report','');
 INSERT INTO list_report_hotlinks VALUES(8,'smaqc','masked_link','value','','{"Label":"Metrics"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'datasetIDList','datasetIDList','varchar','input','6000','UpdateDatasetDispositions');
-INSERT INTO sproc_args VALUES(2,'rating','rating','varchar','input','64','UpdateDatasetDispositions');
-INSERT INTO sproc_args VALUES(3,'comment','comment','varchar','input','512','UpdateDatasetDispositions');
-INSERT INTO sproc_args VALUES(4,'recycleRequest','recycleRequest','varchar','input','32','UpdateDatasetDispositions');
-INSERT INTO sproc_args VALUES(5,'<local>','mode','varchar','input','12','UpdateDatasetDispositions');
-INSERT INTO sproc_args VALUES(6,'<local>','message','varchar','output','512','UpdateDatasetDispositions');
-INSERT INTO sproc_args VALUES(7,'<local>','callingUser','varchar','input','128','UpdateDatasetDispositions');
+INSERT INTO sproc_args VALUES(1,'datasetIDList','datasetIDList','varchar','input','6000','update_dataset_dispositions');
+INSERT INTO sproc_args VALUES(2,'rating','rating','varchar','input','64','update_dataset_dispositions');
+INSERT INTO sproc_args VALUES(3,'comment','comment','varchar','input','512','update_dataset_dispositions');
+INSERT INTO sproc_args VALUES(4,'recycleRequest','recycleRequest','varchar','input','32','update_dataset_dispositions');
+INSERT INTO sproc_args VALUES(5,'<local>','mode','varchar','input','12','update_dataset_dispositions');
+INSERT INTO sproc_args VALUES(6,'<local>','message','varchar','output','512','update_dataset_dispositions');
+INSERT INTO sproc_args VALUES(7,'<local>','callingUser','varchar','input','128','update_dataset_dispositions');
 COMMIT;

@@ -41,7 +41,7 @@ INSERT INTO detail_report_hotlinks VALUES(11,'runtime_minutes','format_commas','
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'job','job','int','output','','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(2,'script_name','scriptName','varchar','input','64','add_update_local_job_in_broker');
-INSERT INTO sproc_args VALUES(3,'dataset','datasetNum','varchar','input','128','add_update_local_job_in_broker');
+INSERT INTO sproc_args VALUES(3,'dataset','datasetName','varchar','input','128','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(4,'priority','priority','int','input','','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(5,'job_param','jobParam','varchar','input','8000','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(6,'comment','comment','varchar','input','512','add_update_local_job_in_broker');

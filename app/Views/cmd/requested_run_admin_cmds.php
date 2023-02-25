@@ -4,13 +4,13 @@
 
 <!--
   lcmd.requested_run_admin.op will POST to requested_run_admin/call/admin_sproc ,
-  which in turn will call UpdateRequestedRunAssignments,
+  which in turn will call update_requested_run_assignments,
   as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
 -->
 
 <hr>
 <div>
-<!-- "assignedInstrument" will be passed to the @mode parameter of stored procedure UpdateRequestedRunAssignments -->
+<!-- "assignedInstrument" will be passed to the @mode parameter of stored procedure update_requested_run_assignments -->
 <!-- The value selected in the chooser will be sent to the @newValue parameter -->
 <input class="button lst_cmd_btn" type="button" value="Update"
        onClick='lcmd.requested_run_admin.op("assignedInstrument", "instrument_name_chooser")' />
@@ -21,7 +21,7 @@ Assign the selected requests to instrument
 <div>
 <!--
   tau.requested_run_admin.setRequestStatus is defined in factors.js
-  It calls stored procedure UpdateRequestedRunAdmin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
+  It calls stored procedure update_requested_run_admin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
   It does this by examining the POST data then calling the stored procedure defined by operations_sproc
 -->
 <input class='button lst_cmd_btn' type="button" value="Unassign Requests"
@@ -31,7 +31,7 @@ Assign the selected requests to instrument
 
 <hr>
 <div>
-<!-- "instrumentGroupIgnoreType" will be passed to the @mode parameter of stored procedure UpdateRequestedRunAssignments -->
+<!-- "instrumentGroupIgnoreType" will be passed to the @mode parameter of stored procedure update_requested_run_assignments -->
 <!-- The value selected in the chooser will be sent to the @newValue parameter -->
 <input class="button lst_cmd_btn" type="button" value="Update"
        onClick='lcmd.requested_run_admin.op("instrumentGroupIgnoreType", "instrument_group_chooser")' />
@@ -40,7 +40,7 @@ Change instrument group of selected requests to
 </div>
 
 <div>
-<!-- "datasetType" will be passed to the @mode parameter of stored procedure UpdateRequestedRunAssignments -->
+<!-- "datasetType" will be passed to the @mode parameter of stored procedure update_requested_run_assignments -->
 <!-- The value selected in the chooser will be sent to the @newValue parameter -->
 <input class="button lst_cmd_btn" type="button" value="Update"
        onClick='lcmd.requested_run_admin.op("datasetType", "dataset_type_chooser")' />
@@ -49,7 +49,7 @@ Change dataset type of selected requests to
 </div>
 
 <div>
-<!-- "separationGroup" will be passed to the @mode parameter of stored procedure UpdateRequestedRunAssignments -->
+<!-- "separationGroup" will be passed to the @mode parameter of stored procedure update_requested_run_assignments -->
 <!-- The value selected in the chooser will be sent to the @newValue parameter -->
 <input class="button lst_cmd_btn" type="button" value="Update"
        onClick='lcmd.requested_run_admin.op("separationGroup", "separation_group_chooser")' />
@@ -61,7 +61,7 @@ Change separation group of selected requests to
 <div>
 <!--
   tau.requested_run_admin.setRequestStatus is defined in factors.js
-  It calls stored procedure UpdateRequestedRunAdmin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
+  It calls stored procedure update_requested_run_admin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
 -->
 <input class='button lst_cmd_btn' type="button" value="Set Requests Active"
        onClick='tau.requested_run_admin.setRequestStatus("Active")'
@@ -78,7 +78,7 @@ Change separation group of selected requests to
 <div>
 <!--
     tau.requested_run_admin.changeWPN is defined in factors.js
-    It calls stored procedure UpdateRequestedRunWP, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
+    It calls stored procedure update_requested_run_wp, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
     It does this via a POST to requested_run_admin/call/updatewp_sproc
 -->
 <input class='button lst_cmd_btn' type="button" value="Change WPN"
@@ -92,7 +92,7 @@ for all or selected requests
 <div>
 <!--
   tau.requested_run_admin.setRequestStatus is defined in factors.js
-  It calls stored procedure UpdateRequestedRunAdmin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
+  It calls stored procedure update_requested_run_admin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
 -->
 <input class='button lst_cmd_btn' type="button" value="Delete Requests"
        onClick='tau.requested_run_admin.setRequestStatus("Delete")'

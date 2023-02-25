@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_material_location_
 INSERT INTO general_params VALUES('list_report_data_sort_col','location');
 INSERT INTO general_params VALUES('detail_report_data_table','v_material_location_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','location');
-INSERT INTO general_params VALUES('entry_sproc','UpdateMaterialLocation');
+INSERT INTO general_params VALUES('entry_sproc','update_material_location');
 INSERT INTO general_params VALUES('entry_page_data_table','v_material_location_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','location');
 INSERT INTO general_params VALUES('post_submission_detail_id','location');
@@ -29,11 +29,11 @@ INSERT INTO detail_report_hotlinks VALUES(2,'freezer','detail-report','freezer',
 INSERT INTO detail_report_hotlinks VALUES(3,'containers','detail-report','location','material_items/report/-/~','labelCol','dl_containers','');
 INSERT INTO detail_report_hotlinks VALUES(4,'status','detail-report','location','material_log/report/-/-/-/~','labelCol','dl_log_location','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'location','locationTag','varchar','input','64','UpdateMaterialLocation');
-INSERT INTO sproc_args VALUES(2,'comment','comment','varchar','input','512','UpdateMaterialLocation');
-INSERT INTO sproc_args VALUES(3,'status','status','varchar','input','32','UpdateMaterialLocation');
-INSERT INTO sproc_args VALUES(4,'<local>','message','varchar','output','512','UpdateMaterialLocation');
-INSERT INTO sproc_args VALUES(5,'<local>','callingUser','varchar','input','128','UpdateMaterialLocation');
+INSERT INTO sproc_args VALUES(1,'location','locationTag','varchar','input','64','update_material_location');
+INSERT INTO sproc_args VALUES(2,'comment','comment','varchar','input','512','update_material_location');
+INSERT INTO sproc_args VALUES(3,'status','status','varchar','input','32','update_material_location');
+INSERT INTO sproc_args VALUES(4,'<local>','message','varchar','output','512','update_material_location');
+INSERT INTO sproc_args VALUES(5,'<local>','callingUser','varchar','input','128','update_material_location');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','40','80','','','','trim');
 INSERT INTO form_fields VALUES(2,'location','Location','non-edit','40','80','','','','trim');
