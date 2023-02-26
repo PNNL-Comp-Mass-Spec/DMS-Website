@@ -19,5 +19,5 @@ INSERT INTO form_field_choosers VALUES(1,'instrument','picker.replace','instrume
 INSERT INTO form_field_choosers VALUES(2,'month','picker.replace','monthRunUsagePicklist','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'output_format','picker.replace','instrumentRunUsageFormatPicklist','','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'Dataset_ID','invoke_entity','value','datasetid/show/','');
+INSERT INTO list_report_hotlinks VALUES(1,'dataset_id','invoke_entity','value','datasetid/show/','');
 COMMIT;

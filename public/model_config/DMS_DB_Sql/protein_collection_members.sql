@@ -15,8 +15,8 @@ INSERT INTO list_report_hotlinks VALUES(1,'protein_collection_id','invoke_entity
 INSERT INTO list_report_hotlinks VALUES(2,'reference_id','invoke_entity','value','protein_collection_members/show/','');
 INSERT INTO list_report_hotlinks VALUES(3,'protein_id','invoke_entity','value','protein_collection_members/report/-/-/-/@','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO detail_report_hotlinks VALUES(1,'Protein_Collection_ID','detail-report','Protein_Collection_ID','protein_collection_members/report/@','valueCol','',NULL);
-INSERT INTO detail_report_hotlinks VALUES(2,'Protein_ID','detail-report','Protein_ID','protein_collection_members/report/-/-/-/@','valueCol','',NULL);
+INSERT INTO detail_report_hotlinks VALUES(1,'protein_collection_id','detail-report','Protein_Collection_ID','protein_collection_members/report/@','valueCol','','');
+INSERT INTO detail_report_hotlinks VALUES(2,'protein_id','detail-report','Protein_ID','protein_collection_members/report/-/-/-/@','valueCol','','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','id','int','input','','get_protein_collection_member_detail');

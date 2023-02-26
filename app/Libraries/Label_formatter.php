@@ -87,7 +87,25 @@ class Label_Formatter {
         "total_psms_fdr_filtered" => "Total PSMs (FDR-filtered)",
         "unique_peptides_fdr_filtered" => "Unique Peptides (FDR-filtered)",
         "unique_proteins_fdr_filtered" => "Unique Proteins (FDR-filtered)",
-        "fdr_threshold_pct" => "FDR Threshold (%)"
+        "fdr_threshold_pct" => "FDR Threshold (%)",
+        // for production_instrument_stats page:
+        "study_specific_datasets_per_day"     => "Study Specific Datasets per day",
+        "emsl_funded_study_specific_datasets" => "EMSL-Funded Study Specific Datasets",
+        "ef_study_specific_datasets_per_day"  => "EF Study Specific Datasets per day",
+        "total_acq_time_days"                 => "Total AcqTimeDays",
+        "study_specific_acq_time_days"        => "Study Specific AcqTimeDays",
+        "ef_total_acq_time_days"              => "EF Total AcqTimeDays",
+        "ef_study_specific_acq_time_days"     => "EF Study Specific AcqTimeDays",
+        "hours_acq_time_per_day"              => "Hours AcqTime per Day",
+        "inst_"                               => "Inst.",
+        "pct_inst_emsl_owned"                 => "% Inst EMSL Owned",
+        "ef_datasets_per_day"                 => "EF Datasets per day",
+        "pct_blank_datasets"                  => "% Blank Datasets",
+        "pct_qc_datasets"                     => "% QC Datasets",
+        "pct_bad_datasets"                    => "% Bad Datasets",
+        "pct_study_specific_datasets"         => "% Study Specific Datasets",
+        "pct_ef_study_specific_datasets"      => "% EF Study Specific Datasets",
+        "pct_ef_study_specific_by_acq_time"   => "% EF Study Specific by AcqTime"
     );
 
     /**
@@ -103,6 +121,7 @@ class Label_Formatter {
         "dms"    => "DMS",
         "doi"    => "DOI",
         "ds"     => "DS",
+        "ef"     => "EF",
         "emsl"   => "EMSL",
         "epr"    => "EPR",
         "eta"    => "ETA",
