@@ -47,7 +47,7 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 
 <?php if($entry_submission_cmds != ""): ?>
     <script src="<?= base_url('javascript/entryCmds.js?version=100') ?>"></script>
-    <script type='text/javascript'>gamma.pageContext.cmdInit = entry.<?= $my_tag ?>.cmdInit;</script>
+    <script type='text/javascript'>gamma.pageContext.cmdInit = entryCmds.<?= $my_tag ?>.cmdInit;</script>
 <?php endif; ?>
 
 <script type='text/javascript'>
