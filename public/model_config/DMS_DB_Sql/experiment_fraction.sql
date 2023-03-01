@@ -50,8 +50,8 @@ INSERT INTO sproc_args VALUES(11,'request_override','requestOverride','varchar',
 INSERT INTO sproc_args VALUES(12,'internal_standard','internalStandard','varchar','input','50','add_experiment_fractions');
 INSERT INTO sproc_args VALUES(13,'postdigest_int_std','postdigestIntStd','varchar','input','50','add_experiment_fractions');
 INSERT INTO sproc_args VALUES(14,'researcher','researcher','varchar','input','50','add_experiment_fractions');
-INSERT INTO sproc_args VALUES(15,'wellplate','wellplate','varchar','output','64','add_experiment_fractions');
-INSERT INTO sproc_args VALUES(16,'well','wellNum','varchar','output','8','add_experiment_fractions');
+INSERT INTO sproc_args VALUES(15,'wellplate','wellplateName','varchar','output','64','add_experiment_fractions');
+INSERT INTO sproc_args VALUES(16,'well','wellNumber','varchar','output','8','add_experiment_fractions');
 INSERT INTO sproc_args VALUES(17,'container','container','varchar','input','128','add_experiment_fractions');
 INSERT INTO sproc_args VALUES(18,'prep_lc_run_id','prepLCRunID','int','input','','add_experiment_fractions');
 INSERT INTO sproc_args VALUES(19,'<local>','mode','varchar','input','12','add_experiment_fractions');

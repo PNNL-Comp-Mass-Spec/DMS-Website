@@ -73,7 +73,7 @@ INSERT INTO sproc_args VALUES(5,'analysis_specifications','analysisSpecification
 INSERT INTO sproc_args VALUES(6,'comment','Comment','varchar','intput','2048','add_update_data_analysis_request');
 INSERT INTO sproc_args VALUES(7,'batch_ids','batchIDs','varchar','input','1024','add_update_data_analysis_request');
 INSERT INTO sproc_args VALUES(8,'data_package_id','dataPackageID','int','input','','add_update_data_analysis_request');
-INSERT INTO sproc_args VALUES(9,'exp_group_id','expGroupID','int','input','','add_update_data_analysis_request');
+INSERT INTO sproc_args VALUES(9,'exp_group_id','experimentGroupID','int','input','','add_update_data_analysis_request');
 INSERT INTO sproc_args VALUES(10,'work_package','workPackage','varchar','input','64','add_update_data_analysis_request');
 INSERT INTO sproc_args VALUES(11,'requested_personnel','requestedPersonnel','varchar','input','256','add_update_data_analysis_request');
 INSERT INTO sproc_args VALUES(12,'assigned_personnel','assignedPersonnel','varchar','input','256','add_update_data_analysis_request');
