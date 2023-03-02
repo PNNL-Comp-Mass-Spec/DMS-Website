@@ -45,8 +45,8 @@ INSERT INTO sproc_args VALUES(3,'dataset','datasetName','varchar','input','128',
 INSERT INTO sproc_args VALUES(4,'priority','priority','int','input','','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(5,'job_param','jobParam','varchar','input','8000','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(6,'comment','comment','varchar','input','512','add_update_local_job_in_broker');
-INSERT INTO sproc_args VALUES(7,'owner_username','ownerPRN','varchar','input','64','add_update_local_job_in_broker');
-INSERT INTO sproc_args VALUES(8,'data_package_id','DataPackageID','int','input','','add_update_local_job_in_broker');
+INSERT INTO sproc_args VALUES(7,'owner_username','ownerUsername','varchar','input','64','add_update_local_job_in_broker');
+INSERT INTO sproc_args VALUES(8,'data_package_id','dataPackageID','int','input','','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(9,'results_folder_name','resultsFolderName','varchar','output','128','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(10,'<local>','mode','varchar','input','12','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(11,'<local>','message','varchar','output','512','add_update_local_job_in_broker');
