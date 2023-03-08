@@ -41,7 +41,7 @@ INSERT INTO form_field_options VALUES(2,'posted_by','default_function','GetUser(
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_note','Note','20','','note','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_enteredby','EnteredBy','20','','enteredby','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_postedby','Posted By','20','','posted_by','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_entered','Entered','20','','entered','LaterThan','text','20','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'note','markup','note','','valueCol','dl_note',NULL);
