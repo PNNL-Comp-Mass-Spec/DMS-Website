@@ -121,26 +121,6 @@ var dmsChooser = {
       }
       return list;
     },
-    /**
-     * Transfer selected list data
-     * @param {type} perspective
-     * @returns {undefined}
-     */
-    transferSelectedListData: function(perspective) {
-        var list = lambda.getCkbxList('ckbx' );
-        if(list=='') {
-            alert('You must select at least 1 item.');
-            return;
-        }
-        if ( !confirm("Are you sure that you want to transfer the selected data?") )
-            return;
-
-        var url = gamma.pageContext.site_url + "/data_transfer/" + perspective;
-        var p = {};
-        p.perspective = perspective;
-        p.iDList = list;
-        lambda.submitOperation(url, p);
-    },
     //------------------------------------------
     // used by helper list reports with checkboxes
     //------------------------------------------
