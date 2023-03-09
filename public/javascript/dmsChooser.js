@@ -136,7 +136,7 @@ var dmsChooser = {
         // split list into separate trimmed elements
         var selections = selList.split(/[,;]/);
         for(var k = 0; k < selections.length; k++) {
-            selections[k] = gamma.trim(selections[k]);
+            selections[k] = dmsInput.trim(selections[k]);
         }
         // traverse checkbox elements, setting checkbox
         // if it's value matches an element in list

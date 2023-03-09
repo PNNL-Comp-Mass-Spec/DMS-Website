@@ -15,7 +15,7 @@
 Jobs to be associated with this group:
 </div>
 <div>
-<textarea name="addList" id="add_list_fld" rows=6 cols=80 onChange='epsilon.convertList("add_list_fld", ",")' ></textarea>
+<textarea name="addList" id="add_list_fld" rows=6 cols=80 onChange='dmsInput.convertList("add_list_fld", ",")' ></textarea>
 </div>
 <input class="button lst_cmd_btn" type="button" value="Update" onClick='lcmd.analysis_job_processor_group_association.op("add")' />
 </div>

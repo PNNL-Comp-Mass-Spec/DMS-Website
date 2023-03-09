@@ -39,7 +39,7 @@ For other groups to be:
 Processors to be added to this group:
 </div>
 <div>
-<textarea name="addList" id='add_list_fld' onChange='epsilon.convertList("add_list_fld", ",")' rows=6 cols=80 ></textarea>
+<textarea name="addList" id='add_list_fld' onChange='dmsInput.convertList("add_list_fld", ",")' rows=6 cols=80 ></textarea>
 </div>
 <div>
 <span>(You can add to the list above by picking processors from :<?= $choosers->get_chooser('add_list_fld', 'assignedProcessorPickList', 'append_comma')?>)</span>

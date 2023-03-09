@@ -95,7 +95,7 @@
             var dataRows = myGrid.grid.getData();
             var changes = gridUtil.getChanges(dataRows, 'seq');
             var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-            var paramXml = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+            var paramXml = dmsInput.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
             paramXml = '<id type="Seq" />' + paramXml;
             return {
                 factorList: paramXml,

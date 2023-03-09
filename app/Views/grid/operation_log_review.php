@@ -160,12 +160,12 @@
         getRequestChangeXml: function(dataRows) {
             var changes = myUtil.getChangedRows(dataRows, myUtil.isDataset);
             var mapP2A = [{p:'request', a:'request'}, {p:'usage', a:'usage'}, {p:'proposal', a:'proposal'}, {p:'emsl_user', a:'user'}];
-            return gamma.getXmlElementsFromObjectArray(changes, 'run', mapP2A);
+            return dmsInput.getXmlElementsFromObjectArray(changes, 'run', mapP2A);
         },
         getIntervalChangeXml: function(dataRows) {
             var changes = myUtil.getChangedRows(dataRows, myUtil.isInterval);
             var mapP2A = [{p:'id', a:'id'}, {p:'note', a:'note'}];
-            return gamma.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);
+            return dmsInput.getXmlElementsFromObjectArray(changes, 'interval', mapP2A);
         },
         /// move to gridUtil
         getChangedRows: function(dataRows, filter) {

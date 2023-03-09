@@ -123,7 +123,7 @@ var entry = {
             blks = list.split(',');
         }
         $.each(blks, function(idx, blk) {
-            sb = 'section_block_' + gamma.trim(blk);
+            sb = 'section_block_' + dmsInput.trim(blk);
             if(action === 'show') {
                 entry.showSection(sb);
             }

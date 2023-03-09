@@ -25,7 +25,7 @@ var dmsInput = {
         flds = [];
         var fields = line.split('\t');
         $.each(fields, function(idx, fld){
-            flds.push(gamma.trim(fld));
+            flds.push(dmsInput.trim(fld));
         });
         return flds;
     },
@@ -42,9 +42,9 @@ var dmsInput = {
         var header = [];
         var data = [];
         $.each(lines, function(lineNumber, line){
-            line = gamma.trim(line);
+            line = dmsInput.trim(line);
             if(line) {
-                var fields = gamma.parse_lines(line);
+                var fields = dmsInput.parse_lines(line);
                 if(lineNumber === 0) {
                     header = fields;
                 } else {

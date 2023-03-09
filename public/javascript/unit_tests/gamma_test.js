@@ -1,5 +1,5 @@
 test( "gamma trim", function() {
-  equal( gamma.trim(" Passed! "), "Passed!" );
+  equal( dmsInput.trim(" Passed! "), "Passed!" );
 });
 
 test("gamma remove", function() {

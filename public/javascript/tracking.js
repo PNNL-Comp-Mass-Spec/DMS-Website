@@ -6,9 +6,9 @@ var tracking = {
             var header = [];
             var data = [];
             $.each(lines, function(lineNumber, line){
-                line = gamma.trim(line);
+                line = dmsInput.trim(line);
                 if(line) {
-                    var fields = gamma.parse_lines(line)
+                    var fields = dmsInput.parse_lines(line)
                     if(lineNumber == 0) {
                         header = fields;
                     } else {
@@ -27,7 +27,7 @@ var tracking = {
         updateDatabaseFromList: function(flist, id_type) {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
             var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-            var factorXML = gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
+            var factorXML = dmsInput.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
             if(id_type) {
                 factorXML = '<id type="' + id_type + '" />' + factorXML;
             }
@@ -108,7 +108,7 @@ var tracking = {
             lambda.submitOperation(url, p);
         },
         load_delimited_text: function() {
-            var parsed_data = gamma.parseDelimitedText('delimited_text_input');
+            var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
             var fiscal_year = $('#fiscal_year').val();
             if(fiscal_year == '') {
                 alert('You must set the fiscal year for the changes');

@@ -21,13 +21,13 @@
     <label for="fiscalYear">Fiscal Year <span class='supplemental_text'>(required)</span></label>
     </div>
     <div>
-    <input name="fiscalYear" cols="100" rows="1" id="fiscalYear" onchange="epsilon.convertList('fiscalYear', ',')" ></input>
+    <input name="fiscalYear" cols="100" rows="1" id="fiscalYear" onchange="dmsInput.convertList('fiscalYear', ',')" ></input>
     </div>
     <div>
     <label for="itemList">Proposals <span class='supplemental_text'>(leave blank to get all for fiscal year)</span></label>
     </div>
     <div>
-    <textarea name="itemList" cols="100" rows="1" id="itemList" onchange="epsilon.convertList('itemList', ',')" ></textarea>
+    <textarea name="itemList" cols="100" rows="1" id="itemList" onchange="dmsInput.convertList('itemList', ',')" ></textarea>
     </div>
 </fieldset>
 </form>
@@ -69,7 +69,7 @@
                 }
             });
             var mapP2A = [{p:'id', a:'p'}, {p:'factor', a:'g'}, {p:'value', a:'a'}, {p:'comment', a:'x'}];
-            var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+            var factorXML = dmsInput.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
             var fy = $('#fiscalYear').val();
             factorXML = '<c fiscal_year="' + fy + '"/>' + factorXML;
             return { parameterList:factorXML };

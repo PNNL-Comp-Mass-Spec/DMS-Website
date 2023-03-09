@@ -21,7 +21,7 @@
     <label for="userName">Name contains:</label>
     </span>
     <span>
-    <input name="userName" size="40" id="userName" onchange="epsilon.convertList('userName', ',')" ></input>
+    <input name="userName" size="40" id="userName" onchange="dmsInput.convertList('userName', ',')" ></input>
     </span>
         <span>
     <label for="allUsers">Include inactive users</label>
@@ -66,7 +66,7 @@
             var dataRows = myGrid.grid.getData();
             var changes = gridUtil.getChanges(dataRows, 'id');
             var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-            var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+            var factorXML = dmsInput.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
 //          factorXML = '<id type="Request" />' + factorXML;
             return { factorList: factorXML };
         },

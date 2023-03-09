@@ -56,7 +56,7 @@
 
     <tr>
     <td colspan=2>
-    <textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="epsilon.convertList('requestItemList', ',')" ></textarea>
+    <textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="dmsInput.convertList('requestItemList', ',')" ></textarea>
     </td>
     </tr>
 
@@ -119,11 +119,11 @@
             });
 
             mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-            var factorXML = gamma.getXmlElementsFromObjectArray(factorChanges, 'r', mapP2A);
+            var factorXML = dmsInput.getXmlElementsFromObjectArray(factorChanges, 'r', mapP2A);
             factorXML = '<id type="Request" />' + factorXML;
 
             mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
-            var runParamXML = gamma.getXmlElementsFromObjectArray(runParamChanges, 'r', mapP2A);
+            var runParamXML = dmsInput.getXmlElementsFromObjectArray(runParamChanges, 'r', mapP2A);
 
             return { factorList: factorXML, blockingList: runParamXML };
         },

@@ -37,7 +37,7 @@
         </tr>
         <tr><td>Item List</td></tr>
         <tr>
-        <td><textarea id='entry_item_list' name='itemList' cols='70' rows='6' onChange='epsilon.convertList("entry_item_list", ",")'></textarea></td>
+        <td><textarea id='entry_item_list' name='itemList' cols='70' rows='6' onChange='dmsInput.convertList("entry_item_list", ",")'></textarea></td>
         <td>
         <div class='chsr'>choose biomaterial... <a href="javascript:void()" onclick="packages.callChooserSetType('biomaterial', 'helper_biomaterial/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>
         <div class='chsr'>choose experiments... <a href="javascript:void()" onclick="packages.callChooserSetType('experiments', 'helper_experiment_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a></div>

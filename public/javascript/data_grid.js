@@ -614,7 +614,7 @@ var gridImportExport = {
     },
     importDelimitedData: function(context) {
         if(!context.myMainGrid) return;
-        var parsed_data = gamma.parseDelimitedText('delimited_text');
+        var parsed_data = dmsInput.parseDelimitedText('delimited_text');
         var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
         if(context.preImportAction) {
             if(context.preImportAction(inputData) === false) return;
@@ -625,7 +625,7 @@ var gridImportExport = {
     updateFromDelimitedData: function(context) {
         if(!context.myMainGrid) return;
         var newColumns;
-        var parsed_data = gamma.parseDelimitedText('delimited_text');
+        var parsed_data = dmsInput.parseDelimitedText('delimited_text');
         var inputData = gridUtil.convertToGridData(parsed_data.header, parsed_data.data);
 
         if(context.preUpdateAction) {

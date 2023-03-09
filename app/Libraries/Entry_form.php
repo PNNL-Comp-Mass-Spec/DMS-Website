@@ -430,7 +430,7 @@ class Entry_form {
             }
             if ($autoFormatDelimitedList) {
                 // Replace carriage returns and linefeeds with the delimiter
-                $data['onChange'] = "epsilon.convertList('" . $data['id'] . "', '" . $delim . "')";
+                $data['onChange'] = "dmsInput.convertList('" . $data['id'] . "', '" . $delim . "')";
             }
             $data = $this->add_chooser_properties($field_name, $f_spec, $data);
             $s .= form_textarea($data);

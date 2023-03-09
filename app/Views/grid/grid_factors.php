@@ -65,8 +65,8 @@
 
     <tr>
     <td colspan=2>
-    <textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="epsilon.convertList('requestItemList', ',')" ></textarea>
-    <textarea cols="100" rows="5" name="datasetItemList" id="datasetItemList" onchange="epsilon.convertList('datasetItemList', ',')" style="display:none;"></textarea>
+    <textarea cols="100" rows="5" name="requestItemList" id="requestItemList" onchange="dmsInput.convertList('requestItemList', ',')" ></textarea>
+    <textarea cols="100" rows="5" name="datasetItemList" id="datasetItemList" onchange="dmsInput.convertList('datasetItemList', ',')" style="display:none;"></textarea>
     </td>
     </tr>
 
@@ -108,7 +108,7 @@
             var dataRows = myGrid.grid.getData();
             var changes = gridUtil.getChanges(dataRows, 'request');
             var mapP2A = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-            var factorXML = gamma.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
+            var factorXML = dmsInput.getXmlElementsFromObjectArray(changes, 'r', mapP2A);
             factorXML = '<id type="Request" />' + factorXML;
             return { factorList: factorXML };
         },

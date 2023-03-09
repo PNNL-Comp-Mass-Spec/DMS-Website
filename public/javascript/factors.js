@@ -3,17 +3,17 @@
 var theta = {
     getBlockingXMLFromList: function(flist) {
         var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
-        // gamma.getXmlElementsFromObjectArray is defined in dms2.js
-        return gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
+        // dmsInput.getXmlElementsFromObjectArray is defined in dmsInput.js
+        return dmsInput.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
     },
     getFactorXMLFromList: function(flist) {
         var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'f'}, {p:'value', a:'v'}];
-        return gamma.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
+        return dmsInput.getXmlElementsFromObjectArray(flist, 'r', mapPropertiesToAttributes);
     },
     getListReportColumnList: function() {
         var col_list = [];
         $('.col_header').each(function(idx, col){
-            col_list.push(gamma.trim(col.name));
+            col_list.push(dmsInput.trim(col.name));
         });
         return col_list;
     },
@@ -135,8 +135,8 @@ var tau = {
         },
         load_delimited_text: function() {
             // Parse tab-delimited text to convert it to XML which is passed to stored procedure update_requested_run_factors
-            // gamma.parseDelimitedText is defined in dms2.js
-            var parsed_data = gamma.parseDelimitedText('delimited_text_input');
+            // dmsInput.parseDelimitedText is defined in dmsInput.js
+            var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
             var id_type = parsed_data.header[0];
             var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order', 'Run_Order']);
             var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
@@ -161,7 +161,7 @@ var tau = {
         },
         setRequestStatus: function(command) {
             var iList = lambda.getSelectedItemList();
-            var xml = gamma.getXmlElementsFromArray(iList, 'r', 'i');
+            var xml = dmsInput.getXmlElementsFromArray(iList, 'r', 'i');
             this.updateDatabaseFromList(xml, command);
         },
         changeWPN: function(oldWpn, newWpn) {

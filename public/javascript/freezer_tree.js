@@ -180,7 +180,7 @@ Freezer.Model = {
         var changesXML = '';
         if(changeList.length > 0) {
             var mapP2A = [{p:'Location', a:'n'}, {p:'ID', a:'i'}, {p:'Action', a:'a'}, {p:'Value', a:'v'}];
-            changesXML = gamma.getXmlElementsFromObjectArray(changeList, 'r', mapP2A);
+            changesXML = dmsInput.getXmlElementsFromObjectArray(changeList, 'r', mapP2A);
         }
         return changesXML;
     },

@@ -10,6 +10,7 @@
 
 <?php // Increment version number here to force clients to reload dms.js ?>
 <script src="<?= base_url('javascript/dms.js?version=1') ?>"></script>
+<script src="<?= base_url('javascript/dmsInput.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsNav.js?version=1') ?>"></script>
 
 <?php // To force the reload of lcmd.js, update the version in app/Views/main/list_report.php ?>

@@ -171,7 +171,7 @@ var runBlocking = {
             this.updateDatabaseFromList(flist, blist);
         },
         load_delimited_text: function() {
-            var parsed_data = gamma.parseDelimitedText('delimited_text_input');
+            var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
             if(parsed_data.header[0] != 'request') {
                 alert('Header line does not begin with "request"');
                 // (someday) more extensive validation

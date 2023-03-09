@@ -365,7 +365,7 @@ var lcmd = {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
             var rlist = this.getEditFieldsObjList();
             var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}, {p:'cartConfig', a:'cg'}];
-            var xml = gamma.getXmlElementsFromObjectArray(rlist, 'r', mapP2A);
+            var xml = dmsInput.getXmlElementsFromObjectArray(rlist, 'r', mapP2A);
             var url = gamma.pageContext.ops_url;
             var p = {};
             p.command = 'update';
