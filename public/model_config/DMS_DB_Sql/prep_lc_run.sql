@@ -52,6 +52,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','prep_lc_run/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'sample_prep_requests','link_list','value','sample_prep_request/show','');
 INSERT INTO list_report_hotlinks VALUES(3,'lc_column','invoke_entity','value','prep_lc_column/show','');
+INSERT INTO list_report_hotlinks VALUES(4,'work_packages','link_list','value','charge_code/show','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'sample_prep_requests','link_list','sample_prep_requests','sample_prep_request/show','valueCol','dl_sample_prep_requests','');
 INSERT INTO detail_report_hotlinks VALUES(2,'experiment_groups','link_list','experiment_groups','experiment_group/show','valueCol','dl_experiment_groups',NULL);
@@ -59,6 +60,7 @@ INSERT INTO detail_report_hotlinks VALUES(4,'instrument','detail-report','instru
 INSERT INTO detail_report_hotlinks VALUES(5,'datasets','link_list','datasets','dataset/show','valueCol','dl_datasets',NULL);
 INSERT INTO detail_report_hotlinks VALUES(6,'lc_column','detail-report','lc_column','prep_lc_column/show','valueCol','dl_lc_column','');
 INSERT INTO detail_report_hotlinks VALUES(7,'operator_username','detail-report','operator_username','user/show','valueCol','dl_operator','');
+INSERT INTO detail_report_hotlinks VALUES(8,'work_packages','link_list','work_packages','charge_code/show','valueCol','dl_work_packages','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','id','int','output','','add_update_prep_lc_run');
 INSERT INTO sproc_args VALUES(2,'prep_run_name','prepRunName','varchar','input','128','add_update_prep_lc_run');
