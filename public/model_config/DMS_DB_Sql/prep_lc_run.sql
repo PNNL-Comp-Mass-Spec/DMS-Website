@@ -23,7 +23,7 @@ INSERT INTO form_fields VALUES(9,'quality_control','Quality Control','area','','
 INSERT INTO form_fields VALUES(10,'operator_username','Operator Username','text','50','50','','','','trim|max_length[50]');
 INSERT INTO form_fields VALUES(11,'digestion_method','Digestion Method','text','50','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(12,'sample_type','Sample Type','text','50','64','','','','trim|max_length[64]');
-INSERT INTO form_fields VALUES(13,'sample_prep_request','Sample Prep Request','area','','','4','70','','trim|max_length[1024]');
+INSERT INTO form_fields VALUES(13,'sample_prep_requests','Sample Prep Requests','area','','','4','70','','trim|max_length[1024]');
 INSERT INTO form_fields VALUES(14,'number_of_runs','Number Of Runs','text','12','12','','','','trim|max_length[12]');
 INSERT INTO form_fields VALUES(15,'instrument_pressure','Instrument Pressure','text','32','32','','','','trim|max_length[32]');
 INSERT INTO form_fields VALUES(16,'datasets','HPLC Datasets','area','','','4','70','','trim|max_length[2147483647]');
@@ -36,7 +36,7 @@ INSERT INTO form_field_choosers VALUES(3,'instrument','picker.replace','prepInst
 INSERT INTO form_field_choosers VALUES(4,'type','picker.replace','prepLCRunTypePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'guard_column','picker.replace','prepLCRunGuardColPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(6,'prep_run_name','picker.replace','prepLCRunNamePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(7,'sample_prep_request','list-report.helper','','helper_sample_prep_ckbx/report','',',','');
+INSERT INTO form_field_choosers VALUES(7,'sample_prep_requests','list-report.helper','','helper_sample_prep_ckbx/report','',',','');
 INSERT INTO form_field_choosers VALUES(8,'lc_column_2','list-report.helper','','helper_prep_lc_column/report','',',','');
 INSERT INTO form_field_choosers VALUES(9,'datasets','list-report.helper','','helper_prep_lc_run_dataset_ckbx/report','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
@@ -50,10 +50,10 @@ INSERT INTO list_report_primary_filter VALUES(7,'pf_created','Created','20','','
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','prep_lc_run/show','');
-INSERT INTO list_report_hotlinks VALUES(2,'sample_prep_request','link_list','value','sample_prep_request/show','');
+INSERT INTO list_report_hotlinks VALUES(2,'sample_prep_requests','link_list','value','sample_prep_request/show','');
 INSERT INTO list_report_hotlinks VALUES(3,'lc_column','invoke_entity','value','prep_lc_column/show','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO detail_report_hotlinks VALUES(1,'sample_prep_request','link_list','sample_prep_request','sample_prep_request/show','valueCol','dl_sample_prep_request',NULL);
+INSERT INTO detail_report_hotlinks VALUES(1,'sample_prep_requests','link_list','sample_prep_requests','sample_prep_request/show','valueCol','dl_sample_prep_requests','');
 INSERT INTO detail_report_hotlinks VALUES(2,'experiment_groups','link_list','experiment_groups','experiment_group/show','valueCol','dl_experiment_groups',NULL);
 INSERT INTO detail_report_hotlinks VALUES(4,'instrument','detail-report','instrument','instrument/show','valueCol','dl_instrument','');
 INSERT INTO detail_report_hotlinks VALUES(5,'datasets','link_list','datasets','dataset/show','valueCol','dl_datasets',NULL);
@@ -71,7 +71,7 @@ INSERT INTO sproc_args VALUES(8,'guard_column','guardColumn','varchar','input','
 INSERT INTO sproc_args VALUES(9,'operator_username','operatorUsername','varchar','input','50','add_update_prep_lc_run');
 INSERT INTO sproc_args VALUES(10,'digestion_method','digestionMethod','varchar','input','128','add_update_prep_lc_run');
 INSERT INTO sproc_args VALUES(11,'sample_type','sampleType','varchar','input','64','add_update_prep_lc_run');
-INSERT INTO sproc_args VALUES(12,'sample_prep_request','samplePrepRequest','varchar','input','1024','add_update_prep_lc_run');
+INSERT INTO sproc_args VALUES(12,'sample_prep_requests','samplePrepRequests','varchar','input','1024','add_update_prep_lc_run');
 INSERT INTO sproc_args VALUES(13,'number_of_runs','numberOfRuns','varchar','input','12','add_update_prep_lc_run');
 INSERT INTO sproc_args VALUES(14,'instrument_pressure','instrumentPressure','varchar','input','32','add_update_prep_lc_run');
 INSERT INTO sproc_args VALUES(15,'quality_control','qualityControl','varchar','input','2048','add_update_prep_lc_run');
