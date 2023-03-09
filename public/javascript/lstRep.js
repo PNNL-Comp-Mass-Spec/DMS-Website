@@ -12,9 +12,9 @@ var lstRep = {
     // and initialize filter status display
     filter_observers_action: {
         run:function() {
-            lambda.set_filter_field_observers();
-            lambda.is_filter_active();
-            lambda.adjustFilterVisibilityControls();
+            dmsFilter.set_filter_field_observers();
+            dmsFilter.is_filter_active();
+            dmsFilter.adjustFilterVisibilityControls();
         }
     },
     // copy the contents of the upper paging display to the lower one

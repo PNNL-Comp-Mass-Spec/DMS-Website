@@ -128,7 +128,7 @@ class Secondary_filter {
             // to refresh comparision selection list when column name selector is changed by user
             $c_url = site_url($url);
             $colSelID = "qf_col_sel_$i";
-            $a->js = "id='" . $colSelID . "' onChange='lambda.loadSqlComparisonSelector(\"qf_comp_sel_container_$i\", \"$c_url\", \"$colSelID\")'";
+            $a->js = "id='" . $colSelID . "' onChange='dmsFilter.loadSqlComparisonSelector(\"qf_comp_sel_container_$i\", \"$c_url\", \"$colSelID\")'";
             $a->flds = $cols;
             $fx[$i] = $a;
         }

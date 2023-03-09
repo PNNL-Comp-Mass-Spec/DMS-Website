@@ -402,7 +402,7 @@ function make_column_filter($cols, $col_filter, $col_filter_size = 5) {
         }
     }
     $hid = "<span class='filter_clear'>" . column_filter_vis_control() . "</span>";
-    $clr = "<span class='filter_clear'>" . filter_clear_control('cf_column_selection_ctl', 'gamma.clearSelector') . "</span>";
+    $clr = "<span class='filter_clear'>" . filter_clear_control('cf_column_selection_ctl', 'dmsFilter.clearSelector') . "</span>";
     $lab = "<span class='filter_label' >Column Filter</span>";
     $caption = "$lab $clr $hid";
 

@@ -12,6 +12,7 @@
 <script src="<?= base_url('javascript/dms.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/detRep.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsChooser.js?version=1') ?>"></script>
+<script src="<?= base_url('javascript/dmsFilter.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsInput.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsNav.js?version=1') ?>"></script>
 

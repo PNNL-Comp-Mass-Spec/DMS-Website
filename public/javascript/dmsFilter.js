@@ -29,7 +29,7 @@ var dmsFilter = {
         $( '.' + filter).each(function(idx, obj) {
             obj.value = ''
         });
-        lambda.is_filter_active();
+        dmsFilter.is_filter_active();
     },
     /**
      * Clear the list report search filters
@@ -39,7 +39,7 @@ var dmsFilter = {
         $(".filter_input_field").each(function(idx, obj) {
             obj.value = ''
         });
-        lambda.is_filter_active();
+        dmsFilter.is_filter_active();
     },
     /**
      * Toggle filter visibility
@@ -72,7 +72,7 @@ var dmsFilter = {
         $('.filter_container_box').each(function() {
             var id = this.id;
             var visible = $(this).is(':visible');
-            lambda.adjustFilterVisibilityControl(id, visible);
+            dmsFilter.adjustFilterVisibilityControl(id, visible);
         });
     },
     //------------------------------------------
@@ -113,7 +113,7 @@ var dmsFilter = {
         ff.find(".sorting_filter_input").each(function(idx, obj) {
                 if(obj.value != '') sortFlag++;
             } );
-        lambda.set_filter_active_indicator(filterFlag, sortFlag);
+        dmsFilter.set_filter_active_indicator(filterFlag, sortFlag);
     },
     /**
      * Filter key

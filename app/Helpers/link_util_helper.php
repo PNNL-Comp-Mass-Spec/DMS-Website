@@ -44,7 +44,7 @@ function filter_section_visibility_control($label, $filter_container, $icon_type
     }
     $marker_class = $filter_container;
     $icon = label_link_icon($icon_type, $marker_class, $label);
-    $s = "<a class='cmd_link_a' href='javascript:void(0)' onclick='lambda.toggleFilterVisibility(\"$filter_container\", 0.1, this)' title='$tool_tip'>$icon</a>";
+    $s = "<a class='cmd_link_a' href='javascript:void(0)' onclick='dmsFilter.toggleFilterVisibility(\"$filter_container\", 0.1, this)' title='$tool_tip'>$icon</a>";
     return $s;
 }
 
@@ -66,7 +66,7 @@ function sorting_filter_vis_control($label = '', $icon_type = 'plus') {
 }
 
 // --------------------------------------------------------------------
-function filter_clear_control($container, $clear_function = "lambda.clearSearchFilter") {
+function filter_clear_control($container, $clear_function = "dmsFilter.clearSearchFilter") {
     return "<a class='cmd_link_a' href='javascript:void(0)' onclick='$clear_function(\"" . $container . "\")' title='Clear existing filter values'>" . cmd_link_icon('close') . "</a>";
 }
 
@@ -85,7 +85,7 @@ function search_btn() {
 }
 
 function clear_filters_btn() {
-    return "<a class='cmd_link_a' href='javascript:void(0)' onclick='lambda.clearSearchFilters()' title='Clear any existing filter values'>" . label_link_icon('delete', '', 'Clear') . "</a>";
+    return "<a class='cmd_link_a' href='javascript:void(0)' onclick='dmsFilter.clearSearchFilters()' title='Clear any existing filter values'>" . label_link_icon('delete', '', 'Clear') . "</a>";
 }
 
 function collapse_filters_btn() {
