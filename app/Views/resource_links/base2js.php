@@ -8,8 +8,8 @@
 <script src="<?= base_url('javascript/select2/dist/js/select2.js') ?>"></script>
 <script src="<?= base_url('javascript/clipboard-polyfill/clipboard-polyfill.js?version=100') ?>"></script>
 
-<?php // Increment version number here to force clients to reload dms2.js ?>
-<script src="<?= base_url('javascript/dms2.js?version=124') ?>"></script>
+<?php // Increment version number here to force clients to reload dms.js ?>
+<script src="<?= base_url('javascript/dms.js?version=1') ?>"></script>
 
 <?php // To force the reload of lcmd.js, update the version in app/Views/main/list_report.php ?>
 <?php // Several  other .js files have version numbers defined for them in various .php files ?>
