@@ -18,7 +18,7 @@ var entryCmds = {
             $('#requestID').val('0');
             $('#move_next_link').hide();
             var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + "/submit_entry_form";
-            epsilon.submitEntryFormToPage(url, mode, followOnAction);
+            entry.submitEntryFormToPage(url, mode, followOnAction);
         },
         showPageLinks: function() {
             var id = $('#requestID').val();
@@ -56,11 +56,11 @@ var entryCmds = {
             $('#ModificationStatCysAlk').attr('checked', $('#suggested_StatCysAlkEnabled').val() == '1');
             $('#ModificationDynSTYPhos').attr('checked', $('#suggested_DynSTYPhosEnabled').val() == '1');
 
-            epsilon.showHideSections('show', '3,4,5');
+            entry.showHideSections('show', '3,4,5');
         },
         cmdInit: function() {
             $('#move_next_link').hide();
-            epsilon.showHideSections('hide', '3,4,5');
+            entry.showHideSections('hide', '3,4,5');
         }
     }, // analysis_job_request_psm
     mac_jobs: {
@@ -69,7 +69,7 @@ var entryCmds = {
             var caller = this;
             var script = $('#script_name').val();
             var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + script;
-            epsilon.load_supplemental_form(url, {}, 'param_container', function() { caller.revealControls(script); });
+            entry.load_supplemental_form(url, {}, 'param_container', function() { caller.revealControls(script); });
         },
         choose_template: function (template_name) {
             $('#script_name').val(template_name);
@@ -92,8 +92,8 @@ var entryCmds = {
 
             // define action to capture contents of param form
             // as xml copied to main form field
-            epsilon.actions.before = function() {
-                epsilon.copy_param_form_to_xml_param_field('param_form', 'job_param');
+            entry.actions.before = function() {
+                entry.copy_param_form_to_xml_param_field('param_form', 'job_param');
                 return true;
             }
             entryCmds.mac_jobs.load_param_form();
@@ -102,7 +102,7 @@ var entryCmds = {
     pipeline_jobs: {
         load_param_form: function () {
             var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#script_name').val();
-            epsilon.load_supplemental_form(url, {}, 'param_container', function() {
+            entry.load_supplemental_form(url, {}, 'param_container', function() {
                 entryCmds.pipeline_jobs.set_param_row_visibility("hide_input", "none");
             });
         },
@@ -116,8 +116,8 @@ var entryCmds = {
             });
         },
         cmdInit: function () {
-            epsilon.actions.before = function() {
-                epsilon.copy_param_form_to_xml_param_field('param_form', 'job_param', true);
+            entry.actions.before = function() {
+                entry.copy_param_form_to_xml_param_field('param_form', 'job_param', true);
                 return true;
             }
             entryCmds.pipeline_jobs.load_param_form();
@@ -209,8 +209,8 @@ var entryCmds = {
              * Disabled
              *
                 // Set hook to trap standard page submit sequence
-                // See submitStandardEntryPage in dms2.js
-                epsilon.actions.before = entryCmds.sample_prep_request.approveSubmit;
+                // See submitStandardEntryPage in entry.js
+                entry.actions.before = entryCmds.sample_prep_request.approveSubmit;
              *
              */
         }

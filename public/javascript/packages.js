@@ -4,6 +4,24 @@ var packages = {
         var page = gamma.pageContext.site_url + chooserPage;
         epsilon.callChooser('entry_item_list', page, delimiter, xref)
     },
+    /**
+     * Process results
+     * @param {type} data
+     * @param {type} container
+     * @returns {undefined}
+     */
+    processResults: function(data, container) {
+        if(data.indexOf('html failed') > -1) {
+            container.html(data);
+        } else {
+            if (data.length === 0)
+                container.html('Operation was successful');
+            else
+                container.html(data);
+
+            delta.updateMyData();
+        }
+    },
     updateDataPackageItems: function(id, form_id, mode) {
         if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
         var url = gamma.pageContext.site_url + "data_package/operation";
@@ -16,9 +34,9 @@ var packages = {
         $('#removeParents').val(removeParents);
 
         // Call stored procedure update_data_package_items
-        // gamma.doOperation is defined in dms2.js
+        // gamma.doOperation is defined in dms.js
         gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
-            delta.processResults(data, container);
+            packages.processResults(data, container);
         });
     },
     updateOSMPackage: function(id, mode) {
@@ -34,12 +52,39 @@ var packages = {
                 $('#attachments_control_section').hide();
                 $('.LRepExport').hide();
                 container.html(s);
-                var overlay = gamma.makeElementOverlay("data_container", "It's dead, Jim...");
+                var overlay = packages.makeElementOverlay("data_container", "It's dead, Jim...");
                 $('#overlay_label').fadeIn(900);
             } else {
                 container.html(x.message);
             }
         });
+    },
+    makeElementOverlay: function(elementId, message) {
+        var target = $("#" + elementId);
+        var overlay = $("<div />").css({
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            left: 0,
+            top: 0,
+            zIndex: 1000,  // to be on the safe side
+            background: 'gray',
+            opacity: 0.8
+        });
+        var label = $("<div id='overlay_label' ></div>").css({
+            'margin-left' : '2em',
+            'margin-top' : '2em',
+            'font-size' : '4em',
+            'color' : 'black',
+            'font-style' : 'italic',
+            'display' : 'none'
+        });
+        if(message) {
+            label.text(message);
+            overlay.append(label);
+        }
+        overlay.appendTo(target.css("position", "relative"));
+        return overlay;
     },
 /* OMCS-977
     revealOsmPackageCreateSection: function() {
@@ -82,7 +127,7 @@ var packages = {
         var url = gamma.pageContext.site_url + "osm_package/operation";
         $('#entry_cmd_mode').val(mode);
         gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
-            delta.processResults(data, container);
+            packages.processResults(data, container);
         });
     },
     updateOSMPackageItems_2: function(form_id, mode) {
@@ -93,7 +138,7 @@ var packages = {
         $('#itemTypeSelector').val(this.codeMap[gamma.pageContext.my_tag]);
         $('#entry_item_list').val(id);
         gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
-            delta.processResults(data, container);
+            packages.processResults(data, container);
         });
     },
     */
@@ -122,7 +167,7 @@ var packages = {
         $('#removeParents').val(removeParents);
         var p = $('#operation_form').serialize();
         // Call stored procedure update_data_package_items_xml
-        // lambda.submitOperation is defined in dms2.js
+        // lambda.submitOperation is defined in dms.js
         lambda.submitOperation(url, p, true);
     }
 }

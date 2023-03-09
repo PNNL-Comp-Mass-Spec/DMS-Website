@@ -39,10 +39,10 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
     gamma.pageContext.page_type = '<?= $page_type ?>';
     gamma.pageContext.url_segments = '<?= $url_segments ?>';
     gamma.pageContext.updateShowURL = entry.updateShowURL;
-    epsilon.pageContext.containerId = 'form_container';
-    epsilon.pageContext.modeFieldId = 'entry_cmd_mode';
-    epsilon.pageContext.entryFormId = 'entry_form';
-    epsilon.adjustEnabledFields();
+    entry.pageContext.containerId = 'form_container';
+    entry.pageContext.modeFieldId = 'entry_cmd_mode';
+    entry.pageContext.entryFormId = 'entry_form';
+    entry.adjustEnabledFields();
 </script>
 
 <?php if($entry_submission_cmds != ""): ?>
@@ -55,7 +55,7 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
         $('.sel_chooser').select2();
         gamma.autocompleteChooser.setup();
     });
-    epsilon.actions.after = function() {
+    entry.actions.after = function() {
         $('.sel_chooser').select2();
     };
     if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();

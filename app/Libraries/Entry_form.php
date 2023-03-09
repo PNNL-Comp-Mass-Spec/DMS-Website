@@ -264,9 +264,9 @@ class Entry_form {
         $s = '';
         $himg = "<img src='" . base_url('/images/z_show_col.gif') . "' border='0' >";
         $simg = "<img src='" . base_url('/images/z_hide_col.gif') . "' border='0' >";
-        $s .= "<a href='javascript:void(0)' onclick='epsilon.showHideSections(\"hide\", \"all\")'>$simg</a> Collapse All Sections ";
+        $s .= "<a href='javascript:void(0)' onclick='entry.showHideSections(\"hide\", \"all\")'>$simg</a> Collapse All Sections ";
         $s .= '&nbsp;';
-        $s .= "<a href='javascript:void(0)' onclick='epsilon.showHideSections(\"show\", \"all\")'>$himg</a> Expand All Sections ";
+        $s .= "<a href='javascript:void(0)' onclick='entry.showHideSections(\"show\", \"all\")'>$himg</a> Expand All Sections ";
         return $s;
     }
 
@@ -275,7 +275,7 @@ class Entry_form {
         $s = "";
         $block_label = "section_block_$section_count";
         $marker = "<img id='" . $block_label . "_cntl" . "' src='" . base_url('/images/z_hide_col.gif') . "' border='0' >";
-        $s .= "<a href='javascript:void(0)' onclick='epsilon.showHideTableRows(\"$block_label\", \"" . base_url() . "/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
+        $s .= "<a href='javascript:void(0)' onclick='entry.showHideTableRows(\"$block_label\", \"" . base_url() . "/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
         $s .= "&nbsp; <strong>" . $section_label . "</strong>";
         return $s;
     }
@@ -285,7 +285,7 @@ class Entry_form {
         $str = '';
         if (array_key_exists($fldName, $this->field_enable)) {
             $ckbx_id = $fldName . '_ckbx_enable';
-            $click = "onClick='epsilon.enableDisableField(this, \"$fldName\")'";
+            $click = "onClick='entry.enableDisableField(this, \"$fldName\")'";
             switch (strtolower($this->field_enable[$fldName])) {
                 case 'enabled':
                     $str = "<input type='checkbox' class='_ckbx_enable' name='$ckbx_id' $click checked='yes' >";
@@ -413,7 +413,7 @@ class Entry_form {
                 // auto_format is defined in the form_field_options table in the config DB
                 switch (strtolower($f_spec['auto_format'])) {
                     case 'xml':
-                        $data['onBlur'] = "epsilon.formatXMLText('" . $data['id'] . "')";
+                        $data['onBlur'] = "entry.formatXMLText('" . $data['id'] . "')";
                         $autoFormatDelimitedList = false;
                         break;
                     case 'none':
@@ -517,14 +517,14 @@ class Entry_form {
         // Default command button
         $attributes['id'] = 'primary_cmd';
         $url = site_url($this->file_tag . "/submit_entry_form");
-        $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$mode')";
+        $attributes['onclick'] = "entry.submitStandardEntryPage('$url', '$mode')";
         $attributes['content'] = ($page_type == 'create') ? 'Create' : 'Update';
         $attributes['class'] = 'button entry_cmd_button';
 
         // Is there an override for the default command button?
         foreach ($entry_commands as $command => $spec) {
             if ($spec['type'] == 'override' and $spec['target'] == $mode) {
-                $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$command')";
+                $attributes['onclick'] = "entry.submitStandardEntryPage('$url', '$command')";
                 $attributes['content'] = $spec['label'];
                 $attributes['title'] = $spec['tooltip'];
                 break;
@@ -544,7 +544,7 @@ class Entry_form {
                     $attributes = array();
                     $attributes['id'] = 'cmd_' . strtolower(str_replace(' ', '_', $command));
                     $attributes['content'] = $spec['label'];
-                    $attributes['onclick'] = "epsilon.submitStandardEntryPage('$url', '$command')";
+                    $attributes['onclick'] = "entry.submitStandardEntryPage('$url', '$command')";
                     $attributes['title'] = $spec['tooltip'];
                     $attributes['class'] = 'button entry_cmd_button';
                     $str .= form_button($attributes) . "<br>\n";
@@ -553,7 +553,7 @@ class Entry_form {
                     $target_url = site_url($spec['target']);
                     $attributes = array();
                     $attributes['content'] = $spec['label'];
-                    $attributes['onclick'] = "epsilon.submitEntryFormToOtherPage('$target_url', '$command')";
+                    $attributes['onclick'] = "entry.submitEntryFormToOtherPage('$target_url', '$command')";
                     $attributes['title'] = $spec['tooltip'];
                     $attributes['class'] = 'button entry_cmd_button';
                     $str .= form_button($attributes) . "<br>\n";
