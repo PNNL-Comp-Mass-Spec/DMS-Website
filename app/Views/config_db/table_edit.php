@@ -24,7 +24,7 @@ function ops(index, action) {
     var container = $('#edit_container');
     var url =  "<?= site_url()?>/config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
     var fields = $('#edit_form').serializeArray();
-    var flds = gamma.reformatFormArray(fields);
+    var flds = configdb.reformatFormArray(fields);
     var p = extractRow(flds, index);
     p.mode = action;
     $.post(url, p, function (data) {
