@@ -155,7 +155,7 @@ var dmsChooser = {
      * @param {type} checkBoxName
      * @returns {undefined}
      */
-    intializeChooserCkbx: function(checkBoxName) {
+    initializeChooserCkbx: function(checkBoxName) {
         if(window.opener) {
             var list = window.opener.epsilon.getFieldValueForChooser();
             lambda.setCkbxFromList(checkBoxName, list);
