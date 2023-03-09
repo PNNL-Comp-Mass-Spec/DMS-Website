@@ -100,7 +100,7 @@ $(document).ready(function() {
     });
 
     // set event handlers for global search panel
-    gamma.setSearchEventHandlers($('.global_search_panel'));
+    dmsNav.setSearchEventHandlers($('.global_search_panel'));
 });
 
 </script>
