@@ -19,7 +19,7 @@ var packages = {
             else
                 container.html(data);
 
-            delta.updateMyData();
+            detRep.updateMyData();
         }
     },
     updateDataPackageItems: function(id, form_id, mode) {

@@ -774,7 +774,7 @@ function make_detail_report_commands($commands, $tag, $id) {
             case 'cmd_op':
                 $url = site_url($target . "/command");
                 $icon = cmd_link_icon();
-                $cmds[] = "<a class='cmd_link_a' href='javascript:delta.performCommand(\"$url\", \"$id\", \"$cmd\", \"$prompt\")' title='$tooltip'>$label $icon</a>";
+                $cmds[] = "<a class='cmd_link_a' href='javascript:detRep.performCommand(\"$url\", \"$id\", \"$cmd\", \"$prompt\")' title='$tooltip'>$label $icon</a>";
                 break;
         }
     }

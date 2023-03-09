@@ -9,7 +9,7 @@ var detRep = {
      * Button definitions are in table detail_report_commands in the model config DB
      * Function make_detail_report_commands in detail_report_helper.php creates the hyperlink via the cmd_op option
      * For example:
-     *   javascript:delta.performCommand("http://dms2.pnl.gov/dataset/command", "QC_Shew_15_02_2_29Oct15_Lynx_15-08-27", "reset", "Are you sure that you want to reset this dataset to New?")
+     *   javascript:detRep.performCommand("http://dms2.pnl.gov/dataset/command", "QC_Shew_15_02_2_29Oct15_Lynx_15-08-27", "reset", "Are you sure that you want to reset this dataset to New?")
      *
      * The performCommand function in turn will post to http://dms2.pnl.gov/dataset/command/QC_Shew_15_02_2_29Oct15_Lynx_15-08-27/reset
      * That URL is processed by the base controller for the given page family, specifically function command in DmsBase.php
@@ -43,7 +43,7 @@ var detRep = {
         $.post(url, p, function (data) {
                 container.spin(false);
                 container.html(data);
-                delta.updateMyData();
+                detRep.updateMyData();
             }
         );
     },
@@ -70,7 +70,7 @@ var detRep = {
      * @returns {undefined}
      */
     updateMyData: function() {
-        delta.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container');
+        detRep.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container');
     },
     /**
      * Process results
@@ -87,7 +87,7 @@ var detRep = {
             else
                 container.html(data);
 
-            delta.updateMyData();
+            detRep.updateMyData();
         }
     },
     /**
