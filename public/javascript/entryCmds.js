@@ -37,7 +37,7 @@ var entryCmds = {
             var caller = this;
             url =  gamma.pageContext.site_url + url;
             var p = { datasets: $('#datasets').val() };
-            gamma.loadContainer(url, p, 'supplemental_material', function (data) {
+            dmsOps.loadContainer(url, p, 'supplemental_material', function (data) {
                     $('#sub_cmd_buttons').show();
                     caller.setFieldValues();
                 }
@@ -121,7 +121,7 @@ var entryCmds = {
                 return true;
             }
             entryCmds.pipeline_jobs.load_param_form();
-            gamma.load_script_diagram_cmd();
+            dmsOps.load_script_diagram_cmd();
             return true;
         }
 

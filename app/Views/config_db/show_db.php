@@ -12,7 +12,7 @@ function ops(submit_url) {
     if ( !confirm("Are you sure that you want to modify the config db?") ) return;
     var container_name = "display_container";
     var url =  "<?= site_url('config_db/') ?>" + submit_url;
-    $('#' + container_name).load(url); // gamma.loadContainer(url, {}, container_name);
+    $('#' + container_name).load(url); // dmsOps.loadContainer(url, {}, container_name);
 }
 
 function show_hide_all(mode) {

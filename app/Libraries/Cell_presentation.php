@@ -681,7 +681,7 @@ class Cell_presentation {
                 }
                 $url = reduce_double_slashes(site_url("$target"));
                 // Javascript automatically converts the JSON-formatted string to an object because it's not separately surrounded by quotes
-                $str .= "<td><a href='javascript:void(0)' onclick='lambda.submitDynamicForm(\"$url\", { $s })'>$value</a></td>";
+                $str .= "<td><a href='javascript:void(0)' onclick='dmsOps.submitDynamicForm(\"$url\", { $s })'>$value</a></td>";
                 break;
 
             case "row_to_json":

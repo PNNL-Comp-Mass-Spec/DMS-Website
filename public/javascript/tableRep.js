@@ -33,7 +33,7 @@ var tableRep = {
         $('#qf_sort_col_0').val(colName);
         $('#qf_sort_dir_0').val(dir);
         if(!noUpdate) {
-            lambda.reloadListReportData('autoload');
+            dmsOps.reloadListReportData('autoload');
         }
     },
     //------------------------------------------
@@ -47,7 +47,7 @@ var tableRep = {
      */
     setListReportCurRow: function(row) {
         $('#qf_first_row').val(row);
-        lambda.reloadListReportData();
+        dmsOps.reloadListReportData();
     },
     /**
      * Set the number of items to show on each page
@@ -101,7 +101,7 @@ var tableRep = {
             var n = Number(newPageSize);
             $('#qf_rows_per_page').val(newPageSize);
             $('#qf_first_row').val(1);
-            lambda.reloadListReportData();
+            dmsOps.reloadListReportData();
         }
     },
     /**

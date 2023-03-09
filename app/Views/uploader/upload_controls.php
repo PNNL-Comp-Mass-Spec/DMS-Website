@@ -59,7 +59,7 @@ var upld = {
         p.file_name   = file_name;
         p.id          = id;
         if(!p.file_name) {alert('No file name'); return; }
-        gamma.loadContainer(url, p, containerId, function(){
+        dmsOps.loadContainer(url, p, containerId, function(){
                 // call update_next_entity_in_list in case we are processing multiple selections
                 // making the call via timeout starts new thread allowing the AJAX thread to terminate
                 // so that recursion doesn't pork up the thread pool and the call stack

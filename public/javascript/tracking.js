@@ -35,7 +35,7 @@ var tracking = {
             var p = {};
             p.factorList = factorXML;
             p.operation = 'update';
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         },
         load_delimited_text: function() {
             var parsed_data = this.parseUploadText('delimited_text_input');
@@ -53,7 +53,7 @@ var tracking = {
             p.year = $('#pf_year').val();
             p.month = $('#pf_month').val();
             p.instrument = $('#pf_instrument').val();
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         },
         refresh_report: function() {
             if ( !confirm("Are you sure that you want to refresh the exiting report") ) return;
@@ -105,7 +105,7 @@ var tracking = {
             var url =  gamma.pageContext.ops_url;
             var p = {};
             p.parameterList = allocationXML;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         },
         load_delimited_text: function() {
             var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
@@ -139,7 +139,7 @@ var tracking = {
             var url =  gamma.pageContext.ops_url;
             var p = {};
             p.parameterList = xml;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         },
         set_allocated_hours: function() {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -154,7 +154,7 @@ var tracking = {
             var url =  gamma.pageContext.ops_url;
             var p = {};
             p.parameterList = xml;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     }
 

@@ -18,7 +18,7 @@ var dmsFilter = {
      */
     loadSqlComparisonSelector: function(containerId, url, col_sel) {
         url += $('#' + col_sel).val();
-        gamma.loadContainer(url, {}, containerId);
+        dmsOps.loadContainer(url, {}, containerId);
     },
     /**
      * Clear the specified list report search filter
@@ -127,7 +127,7 @@ var dmsFilter = {
         else if (e.which) code = e.which;
         if(code == 13) {
             $('#qf_first_row').val(1);
-            lambda.reloadListReportData();
+            dmsOps.reloadListReportData();
             return false;
         }
        return true;

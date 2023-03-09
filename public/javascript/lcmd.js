@@ -27,7 +27,7 @@ var lcmd = {
             p.processorGroupID = $('#pf_groupid').val();
             if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
             p.JobList = list;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     analysis_job_processor_group_membership: {
@@ -58,7 +58,7 @@ var lcmd = {
             p.processorGroupID = $('#pf_groupid').val();
             if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
             p.processorNameList = list;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     data_package_job_coverage: {
@@ -94,8 +94,8 @@ var lcmd = {
             p.removeParents = removeParents;
 
             // Call stored procedure update_data_package_items_xml
-            // lambda.submitOperation is defined in dms2.js
-            lambda.submitOperation(url, p, true);
+            // dmsOps.submitOperation is defined in dmsOps.js
+            dmsOps.submitOperation(url, p, true);
         },
         getDatasetInfo: function (mode) {
             var id = $('#pf_data_package_id').val();
@@ -103,7 +103,7 @@ var lcmd = {
             if(id == '') {alert('data_package_id filter not set'); return;}
             var url = gamma.pageContext.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
             $('#dataset_dump_field').html('');
-            gamma.loadContainer(url, {}, 'dataset_dump_field');
+            dmsOps.loadContainer(url, {}, 'dataset_dump_field');
         }
     },
     dataset_disposition: {
@@ -124,7 +124,7 @@ var lcmd = {
             p.rating = $('#rating_fld').val();
             p.comment = $('#comment_fld').val();
             p.recycleRequest = $('#recycle_fld').val();
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     instrument_allowed_dataset_type: {
@@ -141,7 +141,7 @@ var lcmd = {
             p.InstrumentGroup = $('#instrument_group_fld').val();
             p.DatasetType = $('#dataset_type_fld').val();
             p.Comment = $('#usage_fld').val();
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     material_move_container: {
@@ -165,7 +165,7 @@ var lcmd = {
             p.containerList = list;
             p.newValue = (val)?$('#' + val).val():'';
             p.comment = $('#comment_fld').val();
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     material_move_items: {
@@ -192,7 +192,7 @@ var lcmd = {
             p.itemList = list;
             p.newValue = (val)?$('#' + val).val():'';
             p.comment = $('#comment_fld').val();
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
 /*  OMCS-977
@@ -215,7 +215,7 @@ var lcmd = {
             $('#paramListXML').val(list);
             $('#entry_cmd_mode').val(mode);
             var p = $('#operation_form').serialize();
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
 */
@@ -252,7 +252,7 @@ var lcmd = {
             p.param = (value)?$('#' + value).val():'';
             p.id = list;
 
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     sample_prep_request_assignment: {
@@ -271,7 +271,7 @@ var lcmd = {
             p.command = mode;
             p.newValue = (value)?$('#' + value).val():'';
             p.reqIDList = list;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     mc_enable_control_by_manager: {
@@ -290,7 +290,7 @@ var lcmd = {
             p.newValue =  $('#' + newValFld).val();
             p.paramName = mode;
             p.managerIDList = list;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     mc_enable_control_by_manager_type: {
@@ -309,7 +309,7 @@ var lcmd = {
             p.newValue =  $('#' + newValFld).val();
             p.paramName = mode;
             p.managerTypeIDList = list;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     dataset_ext_cmds: {
@@ -342,7 +342,7 @@ var lcmd = {
             var p = {};
             p.perspective = perspective;
             p.iDList = commalist + list;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         }
     },
     lc_cart_request_loading: {
@@ -370,7 +370,7 @@ var lcmd = {
             var p = {};
             p.command = 'update';
             p.cartAssignmentList = xml;
-            lambda.submitOperation(url, p);
+            dmsOps.submitOperation(url, p);
         },
         setCartName: function () {
             var iList = dmsChooser.getSelectedItemList();
@@ -424,7 +424,7 @@ var lcmd = {
         download_to_graph: function() {
             var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export_param/json'
             var p = $('#entry_form').serialize();
-            gamma.getObjectFromJSON(url, p, 'graph_container', function(rows) {
+            dmsOps.getObjectFromJSON(url, p, 'graph_container', function(rows) {
                     lcmd.dataset_instrument_runtime.draw_graph(rows);
             });
         },

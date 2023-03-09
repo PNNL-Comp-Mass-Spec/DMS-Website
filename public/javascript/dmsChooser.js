@@ -62,7 +62,7 @@ var dmsChooser = {
                                 var f = (appendVal) ? request.term.split(/,\s*/).pop() : request.term ;
                                 if(f && (f.length > 1 || f == '*')) {
                                     var p = { filter_values:f };
-                                    gamma.getObjectFromJSON(url, p, null, function(obj) {
+                                    dmsOps.getObjectFromJSON(url, p, null, function(obj) {
                                         response( obj );
                                     })
                                 } else {

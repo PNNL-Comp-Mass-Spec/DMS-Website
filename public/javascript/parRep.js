@@ -4,7 +4,7 @@ var parRep = {
         run:function(){
             var sft = $('#sorting_filter_table');
             if(sft.length == 0) {
-                lambda.updateContainer('param_filter', 'entry_form', 'search_filter_container', gamma.no_action);
+                dmsOps.updateContainer('param_filter', 'entry_form', 'search_filter_container', dmsOps.no_action);
                 $('#search_controls_container').show();
             }
         }
@@ -26,14 +26,14 @@ var parRep = {
             } else {
                 $('#paging_container_upper').show();
                 $('#paging_container_lower').show();
-                lambda.updateContainer('param_paging', 'entry_form', 'paging_container_upper', parRep.paging_cleanup_action);
+                dmsOps.updateContainer('param_paging', 'entry_form', 'paging_container_upper', parRep.paging_cleanup_action);
             }
         }
     },
     //go get some data rows
     data_update_action: {
         run:function(){
-            lambda.updateContainer('param_data', 'entry_form', 'data_container', parRep.paging_update_action);
+            dmsOps.updateContainer('param_data', 'entry_form', 'data_container', parRep.paging_update_action);
         }
     },
     updateShowSQL: function(ignoreIfClosed) {
@@ -56,6 +56,6 @@ var parRep = {
 
 //after the page loads, set things in motion to populate it
 $(document).ready(function () {
-        lambda.reloadListReportData = function() { parRep.updateMyData('autoload');}
+        dmsOps.reloadListReportData = function() { parRep.updateMyData('autoload');}
         $('#data_container').html('Data will be displayed after you click the "Search" button.');
 });

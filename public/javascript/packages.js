@@ -34,8 +34,8 @@ var packages = {
         $('#removeParents').val(removeParents);
 
         // Call stored procedure update_data_package_items
-        // gamma.doOperation is defined in dms.js
-        gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
+        // dmsOps.doOperation is defined in dmsOps.js
+        dmsOps.doOperation(url, form_id, 'entry_update_status', function(data, container) {
             packages.processResults(data, container);
         });
     },
@@ -44,7 +44,7 @@ var packages = {
         var url = gamma.pageContext.site_url + "osm_package/call/";
         var lUrl = gamma.pageContext.site_url + "osm_package/report";
         var p = {osmPackageID: id, mode: mode};
-        gamma.doOperation(url, p, 'entry_update_status', function(data, container) {
+        dmsOps.doOperation(url, p, 'entry_update_status', function(data, container) {
             var x = $.parseJSON(data);
             if(x.result == 0) {
                 var s = "OSM Package was deleted. Go to <a href='"+ lUrl + "' >list report</a>";
@@ -97,7 +97,7 @@ var packages = {
     callSuggestionSetType: function(item_type, mode) {
         $('#entry_item_list').val('');
         var url = gamma.pageContext.site_url + "osm_package/suggested_items/" + gamma.pageContext.Id + "/" + mode;
-        gamma.doOperation(url, false, 'item_section', function(data) {
+        dmsOps.doOperation(url, false, 'item_section', function(data) {
                 $('#itemTypeSelector').val(item_type);
                 $('#entry_item_list').val(data);
         });
@@ -126,7 +126,7 @@ var packages = {
         if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
         var url = gamma.pageContext.site_url + "osm_package/operation";
         $('#entry_cmd_mode').val(mode);
-        gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
+        dmsOps.doOperation(url, form_id, 'entry_update_status', function(data, container) {
             packages.processResults(data, container);
         });
     },
@@ -137,7 +137,7 @@ var packages = {
         $('#entry_cmd_mode').val(mode);
         $('#itemTypeSelector').val(this.codeMap[gamma.pageContext.my_tag]);
         $('#entry_item_list').val(id);
-        gamma.doOperation(url, form_id, 'entry_update_status', function(data, container) {
+        dmsOps.doOperation(url, form_id, 'entry_update_status', function(data, container) {
             packages.processResults(data, container);
         });
     },
@@ -167,7 +167,7 @@ var packages = {
         $('#removeParents').val(removeParents);
         var p = $('#operation_form').serialize();
         // Call stored procedure update_data_package_items_xml
-        // lambda.submitOperation is defined in dms.js
-        lambda.submitOperation(url, p, true);
+        // dmsOps.submitOperation is defined in dmsOps.js
+        dmsOps.submitOperation(url, p, true);
     }
 }

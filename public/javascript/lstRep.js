@@ -1,7 +1,7 @@
 var lstRep = {
     // load the filter panel according to the given layout mode
     updateMyFilter: function($mode) {
-        lambda.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', lstRep.filter_observers_action);
+        dmsOps.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', lstRep.filter_observers_action);
         if($mode == 'minimal') {
             $('#show_more_filter').show();$('#show_less_filter').hide();
         } else {
@@ -32,7 +32,7 @@ var lstRep = {
             } else {
                 $('#paging_container_upper').show();
                 $('#paging_container_lower').show();
-                lambda.updateContainer('report_paging', 'filter_form', 'paging_container_upper', lstRep.paging_cleanup_action);
+                dmsOps.updateContainer('report_paging', 'filter_form', 'paging_container_upper', lstRep.paging_cleanup_action);
             }
         }
     },
@@ -46,7 +46,7 @@ var lstRep = {
     // go get some data rows
     data_update_action: {
         run:function(){
-            lambda.updateContainer('report_data', 'filter_form', 'data_container', lstRep.data_post_load_action);
+            dmsOps.updateContainer('report_data', 'filter_form', 'data_container', lstRep.data_post_load_action);
         }
     },
     updateShowSQL: function(ignoreIfClosed) {
@@ -104,7 +104,7 @@ var sigma = {
             "Save": function() {
                 var dlg = this;
                 var p = context.getFieldValues();
-                gamma.doOperation(context.url, p, 'Weltanschauung', function(data, container) {
+                dmsOps.doOperation(context.url, p, 'Weltanschauung', function(data, container) {
                     var response = $.parseJSON(data);
                     if(response.result) {
                         alert(response.message);
@@ -163,5 +163,5 @@ var sigma = {
 $(document).ready(function () {
         lstRep.updateMyFilter('minimal');
         lstRep.updateMyData(gamma.pageContext.initalDataLoad);
-        lambda.reloadListReportData = function() { lstRep.updateMyData('autoload');}
+        dmsOps.reloadListReportData = function() { lstRep.updateMyData('autoload');}
 });

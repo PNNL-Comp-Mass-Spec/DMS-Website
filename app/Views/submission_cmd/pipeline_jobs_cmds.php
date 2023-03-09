@@ -4,7 +4,7 @@
 </div>
 </form>
 
-<div style='padding:4px;'><a href="javascript:gamma.load_script_diagram_cmd()">Script...</a></div>
+<div style='padding:4px;'><a href="javascript:dmsOps.load_script_diagram_cmd()">Script...</a></div>
 <div id="script_diagram_container">
 </div>
 

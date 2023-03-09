@@ -12,7 +12,7 @@ var fileAttachment = {
         var p = {};
         p.entity_type = gamma.pageContext.my_tag;
         p.entity_id = gamma.pageContext.Id;
-        gamma.doOperation(url, p, 'attachments_list', function(data, container) {
+        dmsOps.doOperation(url, p, 'attachments_list', function(data, container) {
                 container.html(data);
 //              $('#file_attachments_section').show();
         });
@@ -26,7 +26,7 @@ var fileAttachment = {
         var p = {};
         p.id = faid;
         p.mode = mode;
-        gamma.doOperation(url, p, 'result_display', function (data) {
+        dmsOps.doOperation(url, p, 'result_display', function (data) {
                 if(data != '') {
                     alert(data);
                 } else {
@@ -40,7 +40,7 @@ var fileAttachment = {
     },
     doDownload: function(url) {
         var cUrl = url.replace('/retrieve/', '/check_retrieve/');
-        gamma.getObjectFromJSON(cUrl, {}, '', function(response) {
+        dmsOps.getObjectFromJSON(cUrl, {}, '', function(response) {
             if(response.ok) {
                 var ufrm =  $('#download_form').get(0);
                 ufrm.action = url;

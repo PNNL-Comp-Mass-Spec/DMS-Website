@@ -124,8 +124,8 @@ var tau = {
             var url = gamma.pageContext.ops_url;
             var p = {};
             p.factorList = factorXML;
-            // lambda.submitOperation is defined in dms2.js
-            lambda.submitOperation(url, p);
+            // dmsOps.submitOperation is defined in dmsOps.js
+            dmsOps.submitOperation(url, p);
         },
         saveChangesToDatabase: function() {
             var cols = theta.getListReportColumnList();
@@ -156,8 +156,8 @@ var tau = {
             // gamma.pageContext is defined in dms2.js
             // POST to requested_run_admin/call/admin_sproc
             var url = gamma.pageContext.site_url + gamma.pageContext.my_tag +  "/call/admin_sproc";
-            // lambda.submitCall is defined in dms2.js
-            lambda.submitCall(url, p);
+            // dmsOps.submitCall is defined in dmsOps.js
+            dmsOps.submitCall(url, p);
         },
         setRequestStatus: function(command) {
             var iList = dmsChooser.getSelectedItemList();
@@ -174,8 +174,8 @@ var tau = {
             if(!p.RequestedIdList) {
                 if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
             }
-            // lambda.submitCall is defined in dms2.js
-            lambda.submitCall(url, p);
+            // dmsOps.submitCall is defined in dmsOps.js
+            dmsOps.submitCall(url, p);
         },
     } // requested_run_admin
 }

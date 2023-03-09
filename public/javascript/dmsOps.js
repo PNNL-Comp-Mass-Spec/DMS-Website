@@ -114,14 +114,14 @@ var dmsOps = {
         if(scriptName) {
             var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
             var p = { datasets: $('#datasets').val() };
-            gamma.loadContainer(url, p, 'script_diagram_container');
+            dmsOps.loadContainer(url, p, 'script_diagram_container');
         }
     },
     load_script_diagram: function () {
         var scriptName = $('#lnk_ID').html();
         if(scriptName) {
             var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
-            gamma.loadContainer(url, {}, 'script_diagram_container');
+            dmsOps.loadContainer(url, {}, 'script_diagram_container');
         }
     },
 
@@ -137,7 +137,7 @@ var dmsOps = {
      * @returns {undefined}
      */
     reloadListReportData: function() {
-        alert('"lambda.reloadListReportData" not overridden');
+        alert('"dmsOps.reloadListReportData" not overridden');
     },
     /**
      * Go get some content from the server using given form and action
@@ -194,7 +194,7 @@ var dmsOps = {
                     }
                     container.html(msg);
                     ctl.hide();
-                    lambda.reloadListReportData();
+                    dmsOps.reloadListReportData();
                 }
             }
         );
@@ -218,7 +218,7 @@ var dmsOps = {
                     ctl.show();
                 } else {
                     ctl.hide();
-                    lambda.reloadListReportData();
+                    dmsOps.reloadListReportData();
                 }
             }
         );

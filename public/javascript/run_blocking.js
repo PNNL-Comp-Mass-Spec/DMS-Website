@@ -160,8 +160,8 @@ var runBlocking = {
             var p = {};
             p.factorList = factorXML;
             p.blockingList = blockingXML;
-            // lambda.submitOperation is defined in dms2.js
-            lambda.submitOperation(url, p);
+            // dmsOps.submitOperation is defined in dmsOps.js
+            dmsOps.submitOperation(url, p);
         },
         saveChangesToDatabase: function() {
             var factor_cols = this.getFactorCols();
@@ -211,8 +211,8 @@ var runBlocking = {
                 alert("No batch ID");
                 return;
             }
-            // lambda.submitOperation is defined in dms2.js
-            lambda.submitOperation(url, p);
+            // dmsOps.submitOperation is defined in dmsOps.js
+            dmsOps.submitOperation(url, p);
         }
     }
 } // runBlocking

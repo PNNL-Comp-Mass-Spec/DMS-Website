@@ -190,7 +190,7 @@ Freezer.Model = {
         var url = gamma.pageContext.site_url + 'freezer/operation';
         var p = { locationList:changesXML };
         $("#messages").html("");
-        gamma.doOperation(url, p, null, function(data, container) {
+        dmsOps.doOperation(url, p, null, function(data, container) {
             var response = (data);
             if(data.indexOf('Update was successful.') > -1) {
                 that.updateLocationNodes(changeList);
@@ -204,7 +204,7 @@ Freezer.Model = {
         var locationList = this.getDelimitedList(changeList, "Location");
         var url = gamma.pageContext.site_url + 'freezer/get_locations';
         var p = { "Type":"Tag", "Freezer":locationList, "Shelf":"", "Rack":"", "Row":"", "Col":"" };
-        gamma.getObjectFromJSON(url, p, null, function(objArray) {
+        dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             var tree = that.getTree();
             $.each(objArray, function(idx, obj) {
                 var node = tree.getNodeByKey(obj.key);
@@ -219,7 +219,7 @@ Freezer.Model = {
         var that = this;
         var url = gamma.pageContext.site_url + 'freezer/find_location';
         var p = { "Location":location };
-        gamma.getObjectFromJSON(url, p, null, function(objArray) {
+        dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(objArray.length == 0) {
                 alert("location could not be found");
             } else {
@@ -231,7 +231,7 @@ Freezer.Model = {
         var that = this;
         var url = gamma.pageContext.site_url + 'freezer/find_container';
         var p = { "Container":container };
-        gamma.getObjectFromJSON(url, p, null, function(objArray) {
+        dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(objArray.length == 0) {
                 alert("container could not be found");
             } else {
@@ -243,7 +243,7 @@ Freezer.Model = {
         var that = this;
         var url = gamma.pageContext.site_url + 'freezer/find_available_location';
         var p = { "Location":location };
-        gamma.getObjectFromJSON(url, p, null, function(objArray) {
+        dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(objArray.length == 0) {
                 alert("location could not be found");
             } else {
@@ -255,7 +255,7 @@ Freezer.Model = {
         var that = this;
         var url = gamma.pageContext.site_url + 'freezer/find_newest_containers';
         var p = { };
-        gamma.getObjectFromJSON(url, p, null, function(objArray) {
+        dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(callback) {
                 callback(objArray);
             }
@@ -273,7 +273,7 @@ Freezer.Model = {
             comment:'' // Future: prompt for comment
         };
         $("#messages").html("");
-        gamma.doOperation(url, p, null, function(data, container) {
+        dmsOps.doOperation(url, p, null, function(data, container) {
             if(data.indexOf('Update was successful.') > -1) {
                 $.each(catNodes.affectedLocs, function(idx, node) { node.reloadChildren(); });
                 var changeList = that.getChangeList(catNodes.affectedLocs, '', '');
@@ -293,7 +293,7 @@ Freezer.Model = {
             comment:'' // Future: prompt for comment
         };
         $("#messages").html("");
-        gamma.doOperation(url, p, null, function(data, container) {
+        dmsOps.doOperation(url, p, null, function(data, container) {
             if(data.indexOf('Update was successful.') > -1) {
                 if(callback) callback(containerNode, locationNode);
             } else {

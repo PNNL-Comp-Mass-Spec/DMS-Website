@@ -11,7 +11,7 @@ gamma.pageContext = {};
 gamma.pageContext.site_url = '<?= site_url() ?>';
 
 $(document).ready(function () {
-    $('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // gamma.loadContainer(url, {}, ss_entity_list_container)
+    $('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // dmsOps.loadContainer(url, {}, ss_entity_list_container)
 });
 
 // called by javascript that is returned by upload operation
@@ -33,7 +33,7 @@ function updateContainer(action, containerId, id) {
     p.file_name = $('#uploaded_file_name').val();
     p.id = id;
     if(!p.file_name) {alert('No file name'); return; }
-    gamma.loadContainer(url, p, containerId);
+    dmsOps.loadContainer(url, p, containerId);
 }
 // extract data from uploaded spreadsheet and display on page
 function extract() {

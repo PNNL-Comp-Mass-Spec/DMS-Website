@@ -34,7 +34,7 @@ function addNewMember(type, parent_id) {
 function updateContainer(type, id, follow_on_action) {
     var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/test/' + type + '/' + id;
     var containerId = type + '_container';
-    gamma.loadContainer(url, {}, containerId);
+    dmsOps.loadContainer(url, {}, containerId);
 }
 function clearChildren(parent) {
     var child = parent;

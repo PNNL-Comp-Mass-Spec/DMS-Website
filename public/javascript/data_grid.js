@@ -218,7 +218,7 @@ var gridUtil = {
     saveChanges: function (url, p, caller) {
         if ( !confirm("Are you sure that you want to update the database?") ) return;
         if(caller.beforeSaveAction) caller.beforeSaveAction();
-        gamma.doOperation(url, p, 'ctl_panel', function(data) {
+        dmsOps.doOperation(url, p, 'ctl_panel', function(data) {
             if(data.charAt(0) === '{' ) {
                 var obj = $.parseJSON(data);
                 if(obj.result !== 0) {
@@ -844,7 +844,7 @@ var sourceListUtil = {
         if(!id) { alert('Filter field cannot be blank'); return; }
         var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName;
         var p = { filter_values:id };
-        gamma.getObjectFromJSON(url, p, filterEl.attr('id'), function(obj) {
+        dmsOps.getObjectFromJSON(url, p, filterEl.attr('id'), function(obj) {
             if(!typeof obj == 'array') return;
             if(obj.length == 0) return;
             var d = $.map(obj, function(item) {
