@@ -58,7 +58,7 @@
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/slickgrid2js') ?>
 
-<script>
+<script type="text/javascript">
     gamma.pageContext.save_changes_url = '<?= $save_url ?>';
     gamma.pageContext.data_url = '<?= $data_url ?>';
 

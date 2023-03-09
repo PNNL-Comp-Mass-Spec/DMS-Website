@@ -84,7 +84,7 @@
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/slickgrid2js') ?>
 
-<script>
+<script type="text/javascript">
     // This code is used by https://dms2.pnl.gov/factors/grid
 
     gamma.pageContext.site_url = '<?= site_url() ?>';
