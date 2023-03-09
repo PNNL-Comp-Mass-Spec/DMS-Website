@@ -10,8 +10,8 @@ var lcmd = {
                     return;
                 }
             } else {
-                // lambda.getCkbxList is in dms2.js
-                list = lambda.getCkbxList('ckbx');
+                // dmsChooser.getCkbxList is in dmsChooser.js
+                list = dmsChooser.getCkbxList('ckbx');
                 if (list == '') {
                     alert('You must select items.');
                     return;
@@ -40,8 +40,8 @@ var lcmd = {
                     return;
                 }
             } else {
-                // lambda.getCkbxList is in dms2.js
-                list = lambda.getCkbxList('ckbx');
+                // dmsChooser.getCkbxList is in dmsChooser.js
+                list = dmsChooser.getCkbxList('ckbx');
                 if (list == '') {
                     alert('You must select items.');
                     return;
@@ -63,10 +63,10 @@ var lcmd = {
     },
     data_package_job_coverage: {
         op: function(mode){
-            // lambda.getSelectedItemList is in dms2.js
+            // dmsChooser.getSelectedItemList is in dmsChooser.js
             // The item names come from the value field of the selected checkboxes on the web page, for example:
             // <input type="checkbox" value="<item pkg="2900" type="Job" id="1511459"></item>" name="ckbx" class="lr_ckbx">
-            var iList = lambda.getSelectedItemList();
+            var iList = dmsChooser.getSelectedItemList();
             if (iList.length == 0) {
                 alert('No items are selected');
                 return;
@@ -108,8 +108,8 @@ var lcmd = {
     },
     dataset_disposition: {
         op: function(mode) {
-            // lambda.getCkbxList is in dms2.js
-            var list = lambda.getCkbxList('ckbx');
+            // dmsChooser.getCkbxList is in dmsChooser.js
+            var list = dmsChooser.getCkbxList('ckbx');
             if(list=='') {
                 alert('You must select datasets.');
                 return;
@@ -146,13 +146,13 @@ var lcmd = {
     },
     material_move_container: {
         op: function(mode, val) {
-            // lambda.getCkbxList is in dms2.js
+            // dmsChooser.getCkbxList is in dmsChooser.js
             // Valid options for mode:
             //   retire_container
             //   retire_container_and_contents
             //   unretire_container
             //   move_container
-            var list = lambda.getCkbxList('ckbx');
+            var list = dmsChooser.getCkbxList('ckbx');
             if(list=='') {
                 alert('You must select containers.');
                 return;
@@ -170,11 +170,11 @@ var lcmd = {
     },
     material_move_items: {
         op: function(mode, itemType, val) {
-            // lambda.getCkbxList is in dms2.js
+            // dmsChooser.getCkbxList is in dmsChooser.js
             // Contents of list will be of the form E:8432,E:8435,R:170
             // where the item names come from the value text associated with each checkbox
             // Checkbox names come from column #I_ID in view V_Material_Items_List_Report
-            var list = lambda.getCkbxList('ckbx');
+            var list = dmsChooser.getCkbxList('ckbx');
             if(list=='') {
                 alert('You must select items.');
                 return;
@@ -223,8 +223,8 @@ var lcmd = {
         // mode is the update mode, to be passed to the operation stored procedure
         // value is the new value
         op: function(mode, value) {
-            // lambda.getCkbxList is in dms2.js
-            var list = lambda.getCkbxList('ckbx');
+            // dmsChooser.getCkbxList is in dmsChooser.js
+            var list = dmsChooser.getCkbxList('ckbx');
             if(list=='') {
                 alert('You must select requested runs.');
                 return;
@@ -257,8 +257,8 @@ var lcmd = {
     },
     sample_prep_request_assignment: {
         op: function(mode, value) {
-            // lambda.getCkbxList is in dms2.js
-            var list = lambda.getCkbxList('ckbx');
+            // dmsChooser.getCkbxList is in dmsChooser.js
+            var list = dmsChooser.getCkbxList('ckbx');
             if(list=='') {
                 alert('You must select prep requests.');
                 return;
@@ -276,8 +276,8 @@ var lcmd = {
     },
     mc_enable_control_by_manager: {
         op: function(mode, newValFld) {
-            // lambda.getCkbxList is in dms2.js
-            var list = lambda.getCkbxList('ckbx');
+            // dmsChooser.getCkbxList is in dmsChooser.js
+            var list = dmsChooser.getCkbxList('ckbx');
             if(list=='') {
                 alert('You must select at least one manager.');
                 return;
@@ -295,8 +295,8 @@ var lcmd = {
     },
     mc_enable_control_by_manager_type: {
         op: function(mode, newValFld) {
-            // lambda.getCkbxList is in dms2.js
-            var list = lambda.getCkbxList('ckbx');
+            // dmsChooser.getCkbxList is in dmsChooser.js
+            var list = dmsChooser.getCkbxList('ckbx');
             if(list=='') {
                 alert('You must select at least one manager type.');
                 return;
@@ -317,8 +317,8 @@ var lcmd = {
 
             var commalist = $('#' + dslist).val();
 
-            // lambda.getCkbxList is in dms2.js
-            var list = lambda.getCkbxList('ckbx' );
+            // dmsChooser.getCkbxList is in dmsChooser.js
+            var list = dmsChooser.getCkbxList('ckbx' );
             if(list=='' && commalist=='') {
                 alert('You must select at least 1 dataset or enter 1 dataset id.');
                 return;
@@ -373,7 +373,7 @@ var lcmd = {
             lambda.submitOperation(url, p);
         },
         setCartName: function () {
-            var iList = lambda.getSelectedItemList();
+            var iList = dmsChooser.getSelectedItemList();
             if (iList.length == 0) {
                 alert('No items are selected');
                 return;
@@ -388,7 +388,7 @@ var lcmd = {
             });
         },
         setCartConfigName: function () {
-            var iList = lambda.getSelectedItemList();
+            var iList = dmsChooser.getSelectedItemList();
             if (iList.length == 0) {
                 alert('No items are selected');
                 return;
@@ -403,7 +403,7 @@ var lcmd = {
             });
         },
         setCartCol: function () {
-            var iList = lambda.getSelectedItemList();
+            var iList = dmsChooser.getSelectedItemList();
             if (iList.length == 0) {
                 alert('No items are selected');
                 return;
@@ -475,7 +475,7 @@ var lcmd = {
 $(document).ready(function () {
     $('.sel_chooser').select2();
     if(gamma.pageContext.my_tag == 'requested_run_factors') {
-        gamma.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
+        dmsChooser.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
     }
 });
 

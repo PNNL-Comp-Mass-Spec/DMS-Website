@@ -72,8 +72,8 @@ var theta = {
     applyFactorToDatabase: function(update) {
         var factor = $('#apply_factor_name').val();
         var value = $('#apply_factor_value').val();
-        // lambda.getSelectedItemList is defined in dms2.js
-        var ilist = lambda.getSelectedItemList();
+        // dmsChooser.getSelectedItemList is defined in dms.js
+        var ilist = dmsChooser.getSelectedItemList();
         var flist = this.makeObjectList(ilist, factor, value);
         if (flist.length == 0) {
             alert('No items selected on which to apply this action');
@@ -84,7 +84,7 @@ var theta = {
     removeFactorFromDatabase: function(update){
         var factor = $('#remove_factor_name').val();
         var value = '';
-        var ilist = lambda.getSelectedItemList();
+        var ilist = dmsChooser.getSelectedItemList();
         var flist = this.makeObjectList(ilist, factor, value);
         if (flist.length == 0) {
             alert('No items selected on which to apply this action');
@@ -99,16 +99,16 @@ var tau = {
     requested_run_factors: {
         setItemTypeField: function() {
             var $s = '';
-            if(gamma.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
+            if(dmsChooser.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
                 $s = 'Batch_ID';
             }
-            if(gamma.currentChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
+            if(dmsChooser.currentChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
                 $s = 'Requested_Run_ID';
             }
-            if(gamma.currentChooser.page.indexOf('helper_dataset_ckbx') > -1) {
+            if(dmsChooser.currentChooser.page.indexOf('helper_dataset_ckbx') > -1) {
                 $s = 'Dataset_Name';
             }
-            if(gamma.currentChooser.page.indexOf('helper_experiment_ckbx') > -1) {
+            if(dmsChooser.currentChooser.page.indexOf('helper_experiment_ckbx') > -1) {
                 $s = 'Experiment_Name';
             }
             if($s) {
@@ -160,7 +160,7 @@ var tau = {
             lambda.submitCall(url, p);
         },
         setRequestStatus: function(command) {
-            var iList = lambda.getSelectedItemList();
+            var iList = dmsChooser.getSelectedItemList();
             var xml = dmsInput.getXmlElementsFromArray(iList, 'r', 'i');
             this.updateDatabaseFromList(xml, command);
         },
@@ -170,7 +170,7 @@ var tau = {
             var p = {};
             p.OldWorkPackage = oldWpn;
             p.NewWorkPackage = newWpn;
-            p.RequestedIdList = lambda.getSelectedItemList().join();
+            p.RequestedIdList = dmsChooser.getSelectedItemList().join();
             if(!p.RequestedIdList) {
                 if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
             }

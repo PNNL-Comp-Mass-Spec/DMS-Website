@@ -27,8 +27,8 @@
 </div>
 
 <div>
-<div class='cx'><a onclick='lambda.setCkbxState("ckbx", 1)' title="Check all checkboxes" href='javascript:void(0)' >Select All</a> &nbsp;  </div>
-<div class='cx'><a onclick='lambda.setCkbxState("ckbx", 0)' title="Clear all checkboxes" href='javascript:void(0)' >Unselect All</a> &nbsp; </div>
+<div class='cx'><a onclick='dmsChooser.setCkbxState("ckbx", 1)' title="Check all checkboxes" href='javascript:void(0)' >Select All</a> &nbsp;  </div>
+<div class='cx'><a onclick='dmsChooser.setCkbxState("ckbx", 0)' title="Clear all checkboxes" href='javascript:void(0)' >Unselect All</a> &nbsp; </div>
 <div class='cx'><a onclick='upld.markUnprocessedEntities()' title="Select entities with blank results" href='javascript:void(0)' >Select Blank Results</a> &nbsp;  </div>
 <div class='cx'><a onclick='upld.clearResults()' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
 </div>
@@ -101,7 +101,7 @@ var upld = {
         }
         gamma.pageContext.update_url = gamma.pageContext.site_url + "upload/" + action;
 
-        gamma.pageContext.entityList = lambda.getSelectedItemList();
+        gamma.pageContext.entityList = dmsChooser.getSelectedItemList();
         $('#start_update_btn').attr("disabled", true);
         $('#cancel_update_btn').attr("disabled", false);
         upld.update_next_entity_in_list();

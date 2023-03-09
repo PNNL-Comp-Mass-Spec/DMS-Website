@@ -45,7 +45,7 @@
     From Data package <input type='text' size='10' class='dms_autocomplete_chsr' data-query='data_package_list' /><a class='button' href='javascript:void(0)' >Get</a>
     </span>
     <span class='ctls'>
-    From datasets... <a href="javascript:epsilon.callChooser('datasetItemList', '<?= site_url() ?>/helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+    From datasets... <a href="javascript:dmsChooser.callChooser('datasetItemList', '<?= site_url() ?>/helper_dataset_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
     </span>
     </div>
 
@@ -56,7 +56,7 @@
     </span>
 -->
     <span class='ctls'>
-    From requested runs or batches... <a href="javascript:epsilon.callChooser('requestItemList', '<?= site_url() ?>/helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
+    From requested runs or batches... <a href="javascript:dmsChooser.callChooser('requestItemList', '<?= site_url() ?>/helper_requested_run_ckbx/report', ',', '')"><img src='<?= $chimg ?>' border='0'></a>
     </span>
     </div>
 
@@ -192,7 +192,7 @@
 
         sourceListUtil.setup();
         sourceListSectionsUtil.setup();
-        gamma.autocompleteChooser.setup();
+        dmsChooser.autocompleteChooser.setup();
 
         myUtil.initEntryFields();
         myCommonControls.showControls(true);

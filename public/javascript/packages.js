@@ -2,7 +2,7 @@ var packages = {
     callChooserSetType: function(item_type, chooserPage, delimiter, xref){
         $('#itemTypeSelector').val(item_type);
         var page = gamma.pageContext.site_url + chooserPage;
-        epsilon.callChooser('entry_item_list', page, delimiter, xref)
+        dmsChooser.callChooser('entry_item_list', page, delimiter, xref)
     },
     /**
      * Process results
@@ -104,7 +104,7 @@ var packages = {
     },
     callOSMChooser: function(){
         var page = gamma.pageContext.site_url + "helper_osm_package/report";
-        epsilon.callChooser('packageID', page,  ',', '')
+        dmsChooser.callChooser('packageID', page,  ',', '')
     },
     goToPage: function() {
         var url = gamma.pageContext.site_url + "osm_package_items/report/" + this.codeMap[gamma.pageContext.my_tag] + "/" + $('#packageID').val();

@@ -53,7 +53,7 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 <script type='text/javascript'>
     $(document).ready(function () {
         $('.sel_chooser').select2();
-        gamma.autocompleteChooser.setup();
+        dmsChooser.autocompleteChooser.setup();
     });
     entry.actions.after = function() {
         $('.sel_chooser').select2();

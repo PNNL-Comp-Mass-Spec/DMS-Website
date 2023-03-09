@@ -183,8 +183,8 @@ var runBlocking = {
             this.updateDatabaseFromList(flist, blist);
         },
         setBlockForSelectedItems: function() {
-            // lambda.getSelectedItemList is defined in dms2.js
-            var iList = lambda.getSelectedItemList();
+            // dmsChooser.getSelectedItemList is defined in dmsChooser.js
+            var iList = dmsChooser.getSelectedItemList();
             if (iList.length == 0) {
                 alert('No items are selected');
                 return;

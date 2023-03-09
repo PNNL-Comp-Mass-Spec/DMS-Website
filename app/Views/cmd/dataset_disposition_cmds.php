@@ -25,7 +25,7 @@
 <div><textarea name='comment' id='comment_fld' rows='4' cols='45' ></textarea></div>
 
 <span style='position:relative;left:10px;''>
-<select name='cannedComments' id='commend_selector' onChange='epsilon.setFieldValueFromSelection("comment_fld", "commend_selector", "append")'>
+<select name='cannedComments' id='commend_selector' onChange='dmsChooser.setFieldValueFromSelection("comment_fld", "commend_selector", "append")'>
   <option></option>
   <Option>Air bubble in vial</Option>
   <Option>Calibration bad</Option>

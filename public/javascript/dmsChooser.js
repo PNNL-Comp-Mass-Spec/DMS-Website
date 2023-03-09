@@ -85,7 +85,7 @@ var dmsChooser = {
 
     /**
      * Get selected item list
-     * @returns {Array|lambda.getSelectedItemList.checkedIDlist}
+     * @returns {Array|dmsChooser.getSelectedItemList.checkedIDlist}
      */
     getSelectedItemList: function() {
         var checkedIDlist = [];
@@ -157,8 +157,8 @@ var dmsChooser = {
      */
     initializeChooserCkbx: function(checkBoxName) {
         if(window.opener) {
-            var list = window.opener.epsilon.getFieldValueForChooser();
-            lambda.setCkbxFromList(checkBoxName, list);
+            var list = window.opener.dmsChooser.getFieldValueForChooser();
+            dmsChooser.setCkbxFromList(checkBoxName, list);
         }
     },
 
@@ -169,9 +169,9 @@ var dmsChooser = {
     //------------------------------------------
     // These functions are used by any entry page that invokes a
     // list report chooser
-    // Note: a global variable "gamma.currentChooser" that references
+    // Note: a global variable "dmsChooser.currentChooser" that references
     // an empty object must be defined by the entry page
-    // that usese these functions
+    // that uses these functions
     //------------------------------------------
 
     /**
@@ -179,8 +179,8 @@ var dmsChooser = {
      * @returns {undefined}
      */
     closeChooserWindowPage: function() {
-        if (gamma.currentChooser.window && !gamma.currentChooser.window.closed) {
-            gamma.currentChooser.window.close();
+        if (dmsChooser.currentChooser.window && !dmsChooser.currentChooser.window.closed) {
+            dmsChooser.currentChooser.window.close();
         }
     },
     /**
@@ -229,14 +229,14 @@ var dmsChooser = {
             chooserPage += sep + xrefValue;
         }
         // make sure that there are no other chooser pages open
-        epsilon.closeChooserWindowPage();
+        dmsChooser.closeChooserWindowPage();
         // remember which field gets the update
         // for when the chooser page calls back (updateFieldValueFromChooser)
-        gamma.currentChooser.field = fieldName;
-        gamma.currentChooser.delimiter = delimiter;
-        gamma.currentChooser.page = chooserPage;
+        dmsChooser.currentChooser.field = fieldName;
+        dmsChooser.currentChooser.delimiter = delimiter;
+        dmsChooser.currentChooser.page = chooserPage;
         // open the chooser page in another window
-        gamma.currentChooser.window = window.open(chooserPage, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
+        dmsChooser.currentChooser.window = window.open(chooserPage, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
     },
     /**
      * Update field value from chooser
@@ -248,17 +248,17 @@ var dmsChooser = {
      * @returns {undefined}
      */
     updateFieldValueFromChooser: function(value, action) {
-        // todo: make sure gamma.currentChooser.field is defined
-        fld = $('#' + gamma.currentChooser.field)[0];
+        // todo: make sure dmsChooser.currentChooser.field is defined
+        fld = $('#' + dmsChooser.currentChooser.field)[0];
         // lists are always transmitted as comma-delimited
         // and field may need a different delimiter
-        if(gamma.currentChooser.delimiter != ',') {
-            value = value.replace(/,/g, gamma.currentChooser.delimiter);
+        if(dmsChooser.currentChooser.delimiter != ',') {
+            value = value.replace(/,/g, dmsChooser.currentChooser.delimiter);
         }
         // replace or append new value, as appropriate
         if(action == "append") {
-            if (gamma.currentChooser.delimiter != "" && fld.value != "") {
-                fld.value += gamma.currentChooser.delimiter + " " + value;
+            if (dmsChooser.currentChooser.delimiter != "" && fld.value != "") {
+                fld.value += dmsChooser.currentChooser.delimiter + " " + value;
             } else {
                 fld.value += value;
             }
@@ -266,20 +266,20 @@ var dmsChooser = {
             fld.value = value;
         }
         // we are done with chooser page - make it go away
-        epsilon.closeChooserWindowPage();
-        if(gamma.currentChooser.callBack) {
-            gamma.currentChooser.callBack();
+        dmsChooser.closeChooserWindowPage();
+        if(dmsChooser.currentChooser.callBack) {
+            dmsChooser.currentChooser.callBack();
         }
     },
     /**
      * Get field value for chooser
-     * @returns {epsilon.getFieldValueForChooser.value|jQuery}
+     * @returns {dmsChooser.getFieldValueForChooser.value|jQuery}
      */
     getFieldValueForChooser: function() {
-        // todo: make sure gamma.currentChooser.field is defined
-        var value = $('#' + gamma.currentChooser.field).val();
-        if(gamma.currentChooser.delimiter != ',') {
-            value = value.replace(/gamma.currentChooser.delimiter/g, ',');
+        // todo: make sure dmsChooser.currentChooser.field is defined
+        var value = $('#' + dmsChooser.currentChooser.field).val();
+        if(dmsChooser.currentChooser.delimiter != ',') {
+            value = value.replace(/dmsChooser.currentChooser.delimiter/g, ',');
         }
         return value;
     },

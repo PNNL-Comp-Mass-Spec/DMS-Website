@@ -606,7 +606,7 @@ class Cell_presentation {
                 break;
 
             case "update_opener":
-                $str .= "<td>" . "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
+                $str .= "<td>" . "<a href='javascript:opener.dmsChooser.updateFieldValueFromChooser(\"" . $ref . "\", \"replace\")' >" . $value . "</a>" . "</td>";
                 break;
 
             case "color_label":

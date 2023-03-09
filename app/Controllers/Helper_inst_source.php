@@ -141,7 +141,7 @@ class Helper_inst_source extends DmsBase {
                 !preg_match("/\.(sld|meth|txt|log)$/i", $value)
                )
             {
-                $lnk = "<a href='javascript:opener.epsilon.updateFieldValueFromChooser(\"$valueClean\", \"replace\")' >$value</a>";
+                $lnk = "<a href='javascript:opener.dmsChooser.updateFieldValueFromChooser(\"$valueClean\", \"replace\")' >$value</a>";
             } else {
                 $lnk = $value;
             }

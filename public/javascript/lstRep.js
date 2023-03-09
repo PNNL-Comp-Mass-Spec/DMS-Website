@@ -40,7 +40,7 @@ var lstRep = {
     data_post_load_action: {
         run:function(){
             lstRep.paging_update_action.run();
-            if(!$('#data_message') && gamma.pageContext.is_ms_helper) { lambda.initializeChooserCkbx('ckbx') }
+            if(!$('#data_message') && gamma.pageContext.is_ms_helper) { dmsChooser.initializeChooserCkbx('ckbx') }
         }
     },
     // go get some data rows
