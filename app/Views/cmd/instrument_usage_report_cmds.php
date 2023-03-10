@@ -33,6 +33,7 @@
 </form>
 </div>
 
-<?php echo view('resource_links/factors_js') ?>
+<?php // Import factors.js ?>
+<?php echo view('resource_links/factors') ?>
 
 <script src="<?= base_url('javascript/tracking.js?version=100') ?>"></script>

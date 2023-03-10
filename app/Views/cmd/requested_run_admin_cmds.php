@@ -102,4 +102,5 @@ for all or selected requests
 </form>
 </div>
 
-<?php echo view('resource_links/factors_js') ?>
+<?php // Import factors.js ?>
+<?php echo view('resource_links/factors') ?>
