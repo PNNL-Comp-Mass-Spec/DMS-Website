@@ -30,7 +30,8 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 </div>
 
 <?php echo view('resource_links/base2js') ?>
-<script src="<?= base_url('javascript/entry.js?version=106') ?>"></script>
+<?php // Import entry.js ?>
+<?php echo view('resource_links/entry') ?>
 
 <script type='text/javascript'>
     dmsjs.pageContext.site_url = '<?= site_url() ?>';
@@ -46,7 +47,8 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 </script>
 
 <?php if($entry_submission_cmds != ""): ?>
-    <script src="<?= base_url('javascript/entryCmds.js?version=100') ?>"></script>
+    <?php // Import entryCmds.js ?>
+    <?php echo view('resource_links/entryCmds') ?>
     <script type='text/javascript'>dmsjs.pageContext.cmdInit = entryCmds.<?= $my_tag ?>.cmdInit;</script>
 <?php endif; ?>
 

@@ -5,8 +5,8 @@
 <?php echo view('resource_links/base2css') ?>
 <?php echo view('resource_links/base2js') ?>
 
-<?php // When updating the version for aux_info.js, update both detail_report.php and aux_info_entry.php ?>
-<script src="<?= base_url('javascript/aux_info.js?version=100') ?>"></script>
+<?php // Import aux_info.js ?>
+<?php echo view('resource_links/aux_info') ?>
 
 <?= $ais->make_aux_info_global_AJAX_definitions() ?>
 

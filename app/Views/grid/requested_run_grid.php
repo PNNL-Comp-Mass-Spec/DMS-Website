@@ -71,11 +71,11 @@
 
 <?php echo view('grid/delimited_text') ?>
 
-
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/slickgrid2js') ?>
 
-<script src="<?= base_url('javascript/run_blocking_grid.js?version=104') ?>"></script>
+<?php // Import run_blocking_grid.js ?>
+<?php echo view('resource_links/run_blocking_grid') ?>
 
 <script type="text/javascript">
     dmsjs.pageContext.site_url = '<?= site_url() ?>';

@@ -80,10 +80,11 @@ echo view("main/param_report_export");
 <?php echo view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
-    <script src="<?= base_url('javascript/node_modules/flot/dist/es5/jquery.flot.js') ?>"></script>
+    <?php // Import jquery.flot.js ?>
+    <?php echo view('resource_links/flot') ?>
 
-    <?php // When updating the version for lcmd.js, update both param_report.php and list_report.php ?>
-    <script src="<?= base_url('javascript/lcmd.js?version=107') ?>"></script>
+    <?php // Import lcmd.js ?>
+    <?php echo view('resource_links/lcmd') ?>
 
 <?php else: ?>
     <script type='text/javascript'>
@@ -93,8 +94,8 @@ echo view("main/param_report_export");
     </script>
 <?php endif; ?>
 
-<script src="<?= base_url('javascript/parRep.js?version=100') ?>"></script>
-
+<?php // Import parRep.js ?>
+<?php echo view('resource_links/parRep') ?>
 
 <script type='text/javascript'>
     dmsjs.pageContext.site_url = '<?= site_url() ?>';

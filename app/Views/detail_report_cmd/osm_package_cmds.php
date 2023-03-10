@@ -11,6 +11,5 @@
 <div id='entry_update_status' style="margin: 10px;"></div>
 </div>
 
-<?php // When updating the version for packages.js, search for other .php files that also define the version ?>
-<script src="<?= base_url('javascript/packages.js?version=102') ?>"></script>
-
+<?php // Import packages.js ?>
+<?php echo view('resource_links/packages') ?>

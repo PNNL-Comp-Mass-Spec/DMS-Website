@@ -36,4 +36,5 @@
 <?php // Import factors.js ?>
 <?php echo view('resource_links/factors') ?>
 
-<script src="<?= base_url('javascript/tracking.js?version=100') ?>"></script>
+<?php // Import tracking.js ?>
+<?php echo view('resource_links/tracking') ?>

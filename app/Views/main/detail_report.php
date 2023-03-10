@@ -64,18 +64,19 @@ echo view("main/detail_report_export");
     dmsjs.pageContext.updateShowURL = detRep.updateShowURL;
 </script>
 
-<script src="<?= base_url('javascript/file_attachment.js?version=100') ?>"></script>
+<?php // Import file_attachment.js ?>
+<?php echo view('resource_links/file_attachment') ?>
 
-<?php // When updating the version for aux_info.js, update both detail_report.php and aux_info_entry.php ?>
-<script src="<?= base_url('javascript/aux_info.js?version=100') ?>"></script>
+<?php // Import aux_info.js ?>
+<?php echo view('resource_links/aux_info') ?>
 
 <script type='text/javascript'>
-    function updateAuxIntoControls() {
+    function updateAuxInfoControls() {
         detRep.updateContainer(dmsjs.pageContext.my_tag + '/detail_report_aux_info_controls/' + dmsjs.pageContext.Id, 'aux_info_controls_container');
     }
     $(document).ready(function () {
         detRep.updateMyData();
-        if(dmsjs.pageContext.aux_info_target) updateAuxIntoControls();
+        if(dmsjs.pageContext.aux_info_target) updateAuxInfoControls();
         fileAttachment.init();
     });
 </script>
