@@ -39,13 +39,13 @@ var parRep = {
     updateShowSQL: function(ignoreIfClosed) {
         // POST a request to a param_info/sql page
         // For example http://dms2.pnl.gov/requested_run_batch_blocking/param_info/sql
-        // Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
-        gamma.updateMessageBox(gamma.pageContext.my_tag + '/param_info/sql', 'entry_form', 'SQL', ignoreIfClosed);
+        // Note that string 'SQL' is used in dmsjs.updateMessageBox to trigger adding line breaks
+        dmsjs.updateMessageBox(dmsjs.pageContext.my_tag + '/param_info/sql', 'entry_form', 'SQL', ignoreIfClosed);
     },
     updateShowURL: function(ignoreIfClosed) {
         // POST a request to a param_info/url page
         // For example http://dms2.pnl.gov/requested_run_batch_blocking/param_info/url
-        gamma.updateMessageBox(gamma.pageContext.my_tag + '/param_info/url', 'entry_form', 'URL', ignoreIfClosed);
+        dmsjs.updateMessageBox(dmsjs.pageContext.my_tag + '/param_info/url', 'entry_form', 'URL', ignoreIfClosed);
     },
     //start the data update chain for the page
     updateMyData: function(loading) {

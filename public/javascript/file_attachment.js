@@ -8,10 +8,10 @@ var fileAttachment = {
         if(msg) alert(msg);
     },
     showAttachments: function() {
-        var url =  gamma.pageContext.site_url + "file_attachment/show_attachments";
+        var url =  dmsjs.pageContext.site_url + "file_attachment/show_attachments";
         var p = {};
-        p.entity_type = gamma.pageContext.my_tag;
-        p.entity_id = gamma.pageContext.Id;
+        p.entity_type = dmsjs.pageContext.my_tag;
+        p.entity_id = dmsjs.pageContext.Id;
         dmsOps.doOperation(url, p, 'attachments_list', function(data, container) {
                 container.html(data);
 //              $('#file_attachments_section').show();
@@ -22,7 +22,7 @@ var fileAttachment = {
             if(!confirm('Are you sure you want to delete this attached file? This operation cannot be undone.')) return;
         }
         var context = this;
-        var url =  gamma.pageContext.site_url + "file_attachment/perform_operation";
+        var url =  dmsjs.pageContext.site_url + "file_attachment/perform_operation";
         var p = {};
         p.id = faid;
         p.mode = mode;
@@ -53,8 +53,8 @@ var fileAttachment = {
     init: function() {
         var et = $('#entity_type');
         var ei = $('#entity_id');
-        if(et.length != 0) et.val(gamma.pageContext.my_tag);
-        if(ei.length != 0) ei.val(gamma.pageContext.Id);
+        if(et.length != 0) et.val(dmsjs.pageContext.my_tag);
+        if(ei.length != 0) ei.val(dmsjs.pageContext.Id);
         fileAttachment.showAttachments();
     }
 }

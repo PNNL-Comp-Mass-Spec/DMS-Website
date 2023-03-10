@@ -121,7 +121,7 @@ var tau = {
             if(id_type) {
                 factorXML = '<id type="' + id_type + '" />' + factorXML;
             }
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.factorList = factorXML;
             // dmsOps.submitOperation is defined in dmsOps.js
@@ -129,7 +129,7 @@ var tau = {
         },
         saveChangesToDatabase: function() {
             var cols = theta.getListReportColumnList();
-            var col_list = gamma.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
+            var col_list = dmsjs.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
             var flist = theta.getFactorFieldList(col_list);
             this.updateDatabaseFromList(flist, 'Request');
         },
@@ -138,7 +138,7 @@ var tau = {
             // dmsInput.parseDelimitedText is defined in dmsInput.js
             var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
             var id_type = parsed_data.header[0];
-            var col_list = gamma.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order', 'Run_Order']);
+            var col_list = dmsjs.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order', 'Run_Order']);
             var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
             this.updateDatabaseFromList(flist, id_type);
         }
@@ -153,9 +153,9 @@ var tau = {
             var p = {};
             p.requestList = xml;
             p.command = command;
-            // gamma.pageContext is defined in dms2.js
+            // dmsjs.pageContext is defined in dms.js
             // POST to requested_run_admin/call/admin_sproc
-            var url = gamma.pageContext.site_url + gamma.pageContext.my_tag +  "/call/admin_sproc";
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag +  "/call/admin_sproc";
             // dmsOps.submitCall is defined in dmsOps.js
             dmsOps.submitCall(url, p);
         },
@@ -166,7 +166,7 @@ var tau = {
         },
         changeWPN: function(oldWpn, newWpn) {
             // POST to requested_run_admin/call/updatewp_sproc
-            var url = gamma.pageContext.site_url + gamma.pageContext.my_tag +  "/call/updatewp_sproc";
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag +  "/call/updatewp_sproc";
             var p = {};
             p.OldWorkPackage = oldWpn;
             p.NewWorkPackage = newWpn;

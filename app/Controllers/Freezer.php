@@ -384,7 +384,7 @@ class Freezer extends DmsBase {
         $tbs = render_matrix_table($otr, $table_setup);
 
         // make freezer dropdown
-        $js = "id='freezer_list' onchange='gamma.goToSelectedPage(\"freezer_list\");'";
+        $js = "id='freezer_list' onchange='dmsjs.goToSelectedPage(\"freezer_list\");'";
         $data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), null, $js);
 
         $data['tbs'] = $tbs;

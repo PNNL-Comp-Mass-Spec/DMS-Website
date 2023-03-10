@@ -1,7 +1,7 @@
 var packages = {
     callChooserSetType: function(item_type, chooserPage, delimiter, xref){
         $('#itemTypeSelector').val(item_type);
-        var page = gamma.pageContext.site_url + chooserPage;
+        var page = dmsjs.pageContext.site_url + chooserPage;
         dmsChooser.callChooser('entry_item_list', page, delimiter, xref)
     },
     /**
@@ -24,7 +24,7 @@ var packages = {
     },
     updateDataPackageItems: function(id, form_id, mode) {
         if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
-        var url = gamma.pageContext.site_url + "data_package/operation";
+        var url = dmsjs.pageContext.site_url + "data_package/operation";
 
         var removeParents = 0;
         if (document.getElementById('removeParentsCheckbox').checked)
@@ -41,8 +41,8 @@ var packages = {
     },
     updateOSMPackage: function(id, mode) {
         if ( !confirm("Are you sure that you want to " + mode + " this package?") ) return;
-        var url = gamma.pageContext.site_url + "osm_package/call/";
-        var lUrl = gamma.pageContext.site_url + "osm_package/report";
+        var url = dmsjs.pageContext.site_url + "osm_package/call/";
+        var lUrl = dmsjs.pageContext.site_url + "osm_package/report";
         var p = {osmPackageID: id, mode: mode};
         dmsOps.doOperation(url, p, 'entry_update_status', function(data, container) {
             var x = $.parseJSON(data);
@@ -91,23 +91,23 @@ var packages = {
         var iframe = document.getElementById('embedded_page');
         var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
         $('#hdrContainer').hide();
-        gamma.toggleVisibility('package_entry_section',  0.5 );
+        dmsjs.toggleVisibility('package_entry_section',  0.5 );
         return false;
     },
     callSuggestionSetType: function(item_type, mode) {
         $('#entry_item_list').val('');
-        var url = gamma.pageContext.site_url + "osm_package/suggested_items/" + gamma.pageContext.Id + "/" + mode;
+        var url = dmsjs.pageContext.site_url + "osm_package/suggested_items/" + dmsjs.pageContext.Id + "/" + mode;
         dmsOps.doOperation(url, false, 'item_section', function(data) {
                 $('#itemTypeSelector').val(item_type);
                 $('#entry_item_list').val(data);
         });
     },
     callOSMChooser: function(){
-        var page = gamma.pageContext.site_url + "helper_osm_package/report";
+        var page = dmsjs.pageContext.site_url + "helper_osm_package/report";
         dmsChooser.callChooser('packageID', page,  ',', '')
     },
     goToPage: function() {
-        var url = gamma.pageContext.site_url + "osm_package_items/report/" + this.codeMap[gamma.pageContext.my_tag] + "/" + $('#packageID').val();
+        var url = dmsjs.pageContext.site_url + "osm_package_items/report/" + this.codeMap[dmsjs.pageContext.my_tag] + "/" + $('#packageID').val();
         window.location.href = url;
     },
     codeMap:{
@@ -124,7 +124,7 @@ var packages = {
     },
     updateOSMPackageItems_1: function(id, form_id, mode) {
         if ( !confirm("Are you sure that you want to " + mode + " the items in the list?") ) return;
-        var url = gamma.pageContext.site_url + "osm_package/operation";
+        var url = dmsjs.pageContext.site_url + "osm_package/operation";
         $('#entry_cmd_mode').val(mode);
         dmsOps.doOperation(url, form_id, 'entry_update_status', function(data, container) {
             packages.processResults(data, container);
@@ -132,10 +132,10 @@ var packages = {
     },
     updateOSMPackageItems_2: function(form_id, mode) {
         if ( !confirm("Are you sure that you want to " + mode + " this entity to the OSM package?") ) return;
-        var url = gamma.pageContext.site_url + "osm_package/operation";
-        var id = gamma.pageContext.Id;
+        var url = dmsjs.pageContext.site_url + "osm_package/operation";
+        var id = dmsjs.pageContext.Id;
         $('#entry_cmd_mode').val(mode);
-        $('#itemTypeSelector').val(this.codeMap[gamma.pageContext.my_tag]);
+        $('#itemTypeSelector').val(this.codeMap[dmsjs.pageContext.my_tag]);
         $('#entry_item_list').val(id);
         dmsOps.doOperation(url, form_id, 'entry_update_status', function(data, container) {
             packages.processResults(data, container);
@@ -161,7 +161,7 @@ var packages = {
         if (document.getElementById('removeParentsCheckbox').checked)
             removeParents=1;
 
-        var url =  gamma.pageContext.site_url + 'data_package_items/operation';
+        var url =  dmsjs.pageContext.site_url + 'data_package_items/operation';
         $('#paramListXML').val(list);
         $('#entry_cmd_mode').val(mode);
         $('#removeParents').val(removeParents);

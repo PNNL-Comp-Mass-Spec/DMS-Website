@@ -55,7 +55,7 @@
 </table>
 
 <script type='text/javascript'>
-gamma.pageContext.site_url = '<?= site_url() ?>';
+dmsjs.pageContext.site_url = '<?= site_url() ?>';
 
 Freezer.Display = {
     Model: null,
@@ -177,12 +177,12 @@ Freezer.Display = {
         return function(event, data) {
             var node = data.node;
             if(node.data.info.Type == 'Container') {
-                var link = gamma.pageContext.site_url + "material_container/show/" + node.data.info.Name;
+                var link = dmsjs.pageContext.site_url + "material_container/show/" + node.data.info.Name;
                 window.open(link);
             }
             if(node.data.info.Type == 'Col' && node.data.info.Available > 0) {
                 context.pendingLocaton = node.data.info.Tag;
-                var link = gamma.pageContext.site_url + "material_container/create/init/-/-/" + node.data.info.Tag;
+                var link = dmsjs.pageContext.site_url + "material_container/create/init/-/-/" + node.data.info.Tag;
                 window.open(link);
             }
         }

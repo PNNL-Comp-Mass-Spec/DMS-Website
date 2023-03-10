@@ -7,11 +7,11 @@
 <?php echo view('resource_links/base2js') ?>
 
 <script type='text/javascript'>
-gamma.pageContext = {};
-gamma.pageContext.site_url = '<?= site_url() ?>';
+dmsjs.pageContext = {};
+dmsjs.pageContext.site_url = '<?= site_url() ?>';
 
 $(document).ready(function () {
-    $('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory'); // dmsOps.loadContainer(url, {}, ss_entity_list_container)
+    $('#ss_entity_list_container').load(dmsjs.pageContext.site_url+'upload/directory'); // dmsOps.loadContainer(url, {}, ss_entity_list_container)
 });
 
 // called by javascript that is returned by upload operation
@@ -28,7 +28,7 @@ function report_upload_results(file_name, error) {
     }
 }
 function updateContainer(action, containerId, id) {
-    var url = gamma.pageContext.site_url + 'upload/' + action;
+    var url = dmsjs.pageContext.site_url + 'upload/' + action;
     var p = {};
     p.file_name = $('#uploaded_file_name').val();
     p.id = id;
@@ -85,7 +85,7 @@ Uploaded file:
 <table>
 <tr>
 <td style='vertical-align:top;' ><div style='height:10px;'></div><div id='master_control_container' style='display:none;border:2px solid #AAA;'><?php echo view('uploader/upload_controls') ?></div></td>
-<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(gamma.pageContext.site_url+'upload/directory')">Help</a></div></td>
+<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(dmsjs.pageContext.site_url+'upload/directory')">Help</a></div></td>
 </tr>
 </table>
 

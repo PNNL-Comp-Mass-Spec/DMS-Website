@@ -149,7 +149,7 @@ Freezer.Model = {
         node.setTitle(newTitle);
     },
     getLocationNodes: function(node, data) {
-    data.result = $.getJSON(gamma.pageContext.site_url + 'freezer/get_locations', {
+    data.result = $.getJSON(dmsjs.pageContext.site_url + 'freezer/get_locations', {
                 "Type": node.data.info.Type,
                 "Freezer":node.data.info.Freezer,
                 "Shelf":node.data.info.Shelf,
@@ -159,7 +159,7 @@ Freezer.Model = {
         });
     },
     getContainerNodes: function(node, data) {
-    data.result = $.getJSON(gamma.pageContext.site_url + 'freezer/get_containers', {
+    data.result = $.getJSON(dmsjs.pageContext.site_url + 'freezer/get_containers', {
         "Location": node.data.info.Tag,
     });
     },
@@ -187,7 +187,7 @@ Freezer.Model = {
     updateDatabase: function(changeList) {
         var that = this;
         var changesXML = this.getChangeXML(changeList);
-        var url = gamma.pageContext.site_url + 'freezer/operation';
+        var url = dmsjs.pageContext.site_url + 'freezer/operation';
         var p = { locationList:changesXML };
         $("#messages").html("");
         dmsOps.doOperation(url, p, null, function(data, container) {
@@ -202,7 +202,7 @@ Freezer.Model = {
     updateLocationNodes: function(changeList) {
         var that = this;
         var locationList = this.getDelimitedList(changeList, "Location");
-        var url = gamma.pageContext.site_url + 'freezer/get_locations';
+        var url = dmsjs.pageContext.site_url + 'freezer/get_locations';
         var p = { "Type":"Tag", "Freezer":locationList, "Shelf":"", "Rack":"", "Row":"", "Col":"" };
         dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             var tree = that.getTree();
@@ -217,7 +217,7 @@ Freezer.Model = {
     },
     findLocationNode: function(location) {
         var that = this;
-        var url = gamma.pageContext.site_url + 'freezer/find_location';
+        var url = dmsjs.pageContext.site_url + 'freezer/find_location';
         var p = { "Location":location };
         dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(objArray.length == 0) {
@@ -229,7 +229,7 @@ Freezer.Model = {
     },
     findContainerNode: function(container) {
         var that = this;
-        var url = gamma.pageContext.site_url + 'freezer/find_container';
+        var url = dmsjs.pageContext.site_url + 'freezer/find_container';
         var p = { "Container":container };
         dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(objArray.length == 0) {
@@ -241,7 +241,7 @@ Freezer.Model = {
     },
     findAvailableLocationNode: function(location) {
         var that = this;
-        var url = gamma.pageContext.site_url + 'freezer/find_available_location';
+        var url = dmsjs.pageContext.site_url + 'freezer/find_available_location';
         var p = { "Location":location };
         dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(objArray.length == 0) {
@@ -253,7 +253,7 @@ Freezer.Model = {
     },
     findNewestContainerNode: function(callback) {
         var that = this;
-        var url = gamma.pageContext.site_url + 'freezer/find_newest_containers';
+        var url = dmsjs.pageContext.site_url + 'freezer/find_newest_containers';
         var p = { };
         dmsOps.getObjectFromJSON(url, p, null, function(objArray) {
             if(callback) {
@@ -265,7 +265,7 @@ Freezer.Model = {
         var that = this;
         var catNodes = this.getSelectedNodesByType("tree");
         var moveParms = this.getContainerMoveParameters(catNodes);
-        var url = gamma.pageContext.site_url + 'material_move_container/operation';
+        var url = dmsjs.pageContext.site_url + 'material_move_container/operation';
         var p = {
             mode:'move_container',
             containerList:moveParms.containers,
@@ -285,7 +285,7 @@ Freezer.Model = {
         });
     },
     moveContainer: function(containerNode, locationNode, callback) {
-        var url = gamma.pageContext.site_url + 'material_move_container/operation';
+        var url = dmsjs.pageContext.site_url + 'material_move_container/operation';
         var p = {
             mode:'move_container',
             containerList: containerNode.data.info.ID,

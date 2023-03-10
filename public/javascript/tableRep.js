@@ -114,7 +114,7 @@ var tableRep = {
         if(row_count > 4000) {
             if (!confirm('Are you sure you want to export ' + row_count + ' rows?') ) return;
         }
-        var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/' + format
+        var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/export/' + format
         tableRep.export_to_doc(url, "filter_form");
     }
 

@@ -17,25 +17,25 @@ var entryCmds = {
         submitMainEntryForm: function(mode, followOnAction) {
             $('#requestID').val('0');
             $('#move_next_link').hide();
-            var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + "/submit_entry_form";
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + "/submit_entry_form";
             entry.submitEntryFormToPage(url, mode, followOnAction);
         },
         showPageLinks: function() {
             var id = $('#requestID').val();
             if(id != '0') {
-                var url = gamma.pageContext.site_url + "analysis_job_request/show/" + id;
+                var url = dmsjs.pageContext.site_url + "analysis_job_request/show/" + id;
                 $('#move_next_link').attr('href', url);
                 $('#move_next_link').show();
             }
         },
         // This method is invoked by analysis_job_request_psm based on the form field with type 'action'
         getJobDefaults: function() {
-            var url = gamma.pageContext.my_tag + '/get_defaults';
+            var url = dmsjs.pageContext.my_tag + '/get_defaults';
             this.callOperation(url);
         },
         callOperation: function(url) {
             var caller = this;
-            url =  gamma.pageContext.site_url + url;
+            url =  dmsjs.pageContext.site_url + url;
             var p = { datasets: $('#datasets').val() };
             dmsOps.loadContainer(url, p, 'supplemental_material', function (data) {
                     $('#sub_cmd_buttons').show();
@@ -68,7 +68,7 @@ var entryCmds = {
         load_param_form: function () {
             var caller = this;
             var script = $('#script_name').val();
-            var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + script;
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/parameter_form/' + script;
             entry.load_supplemental_form(url, {}, 'param_container', function() { caller.revealControls(script); });
         },
         choose_template: function (template_name) {
@@ -101,7 +101,7 @@ var entryCmds = {
     }, // mac_jobs
     pipeline_jobs: {
         load_param_form: function () {
-            var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#script_name').val();
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#script_name').val();
             entry.load_supplemental_form(url, {}, 'param_container', function() {
                 entryCmds.pipeline_jobs.set_param_row_visibility("hide_input", "none");
             });

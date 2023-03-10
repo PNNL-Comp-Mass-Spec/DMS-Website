@@ -129,7 +129,7 @@ var runBlocking = {
     requested_run_batch_blocking: {
         getFactorCols: function() {
             var cols = theta.getListReportColumnList();
-            var factor_cols = gamma.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order',  'Run_Order']);
+            var factor_cols = dmsjs.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order',  'Run_Order']);
 
             return factor_cols;
         },
@@ -156,7 +156,7 @@ var runBlocking = {
             var factorXML = theta.getFactorXMLFromList(flist);
             var blockingXML = theta.getBlockingXMLFromList(blist);
 
-            var url =  gamma.pageContext.ops_url;
+            var url =  dmsjs.pageContext.ops_url;
             var p = {};
             p.factorList = factorXML;
             p.blockingList = blockingXML;
@@ -177,7 +177,7 @@ var runBlocking = {
                 // (someday) more extensive validation
                 return;
             }
-            var col_list = gamma.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order', 'Run_Order']);
+            var col_list = dmsjs.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order', 'Run_Order']);
             var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
             var blist = theta.getFieldListFromParsedData(parsed_data, ['block', 'run_order']);
             this.updateDatabaseFromList(flist, blist);
@@ -203,7 +203,7 @@ var runBlocking = {
             });
         },
         performBatchOperation: function(mode) {
-            var url =  gamma.pageContext.site_url + "requested_run_batch_blocking/exec/batch";
+            var url =  dmsjs.pageContext.site_url + "requested_run_batch_blocking/exec/batch";
             var p = {};
             p.command = mode;
             p.batchID = $('#batch_id').val();

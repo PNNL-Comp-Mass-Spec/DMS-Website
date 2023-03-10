@@ -136,7 +136,7 @@ var dmsNav = {
      * @returns {undefined}
      */
     setListReportDefaults: function(pageType) {
-        var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/defaults/' + pageType;
+        var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/defaults/' + pageType;
         p = {};
         $.post(url, p, function (data) {
                 alert(data);

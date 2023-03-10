@@ -31,7 +31,7 @@ var tracking = {
             if(id_type) {
                 factorXML = '<id type="' + id_type + '" />' + factorXML;
             }
-            var url =  gamma.pageContext.ops_url;
+            var url =  dmsjs.pageContext.ops_url;
             var p = {};
             p.factorList = factorXML;
             p.operation = 'update';
@@ -40,13 +40,13 @@ var tracking = {
         load_delimited_text: function() {
             var parsed_data = this.parseUploadText('delimited_text_input');
             var id_type = parsed_data.header[0];
-            var col_list = gamma.removeItems(parsed_data.header, [id_type]);
+            var col_list = dmsjs.removeItems(parsed_data.header, [id_type]);
             var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
             this.updateDatabaseFromList(flist, id_type);
         },
         reloadReport: function(operation) {
             // Call stored procedure update_instrument_usage_report with @operation set to either 'refresh' or 'reload'
-            var url =  gamma.pageContext.ops_url;
+            var url =  dmsjs.pageContext.ops_url;
             var p = {};
             p.factorList = '';
             p.operation = operation;
@@ -102,7 +102,7 @@ var tracking = {
             if(fiscal_year) {
                 allocationXML = '<c fiscal_year="' + fiscal_year + '" />' + allocationXML;
             }
-            var url =  gamma.pageContext.ops_url;
+            var url =  dmsjs.pageContext.ops_url;
             var p = {};
             p.parameterList = allocationXML;
             dmsOps.submitOperation(url, p);
@@ -114,7 +114,7 @@ var tracking = {
                 alert('You must set the fiscal year for the changes');
                 return;
             }
-            var col_list = gamma.removeItems(parsed_data.header, ['Proposal_ID']);
+            var col_list = dmsjs.removeItems(parsed_data.header, ['Proposal_ID']);
             var flist = this.getFieldListFromParsedData(parsed_data, col_list);
             this.updateDatabaseFromList(flist, fiscal_year);
         },
@@ -136,7 +136,7 @@ var tracking = {
             xml += 'g="' + $('#move_group').val() + '" ';
             xml += 'x="' + $('#move_comment').val() + '" ';
             xml += ' />';
-            var url =  gamma.pageContext.ops_url;
+            var url =  dmsjs.pageContext.ops_url;
             var p = {};
             p.parameterList = xml;
             dmsOps.submitOperation(url, p);
@@ -151,7 +151,7 @@ var tracking = {
             xml += 'g="' + $('#set_group').val() + '" ';
             xml += 'x="' + $('#set_comment').val() + '" ';
             xml += ' />';
-            var url =  gamma.pageContext.ops_url;
+            var url =  dmsjs.pageContext.ops_url;
             var p = {};
             p.parameterList = xml;
             dmsOps.submitOperation(url, p);

@@ -33,12 +33,12 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 <script src="<?= base_url('javascript/entry.js?version=106') ?>"></script>
 
 <script type='text/javascript'>
-    gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.base_url = '<?= base_url() ?>';
-    gamma.pageContext.my_tag = '<?= $my_tag ?>';
-    gamma.pageContext.page_type = '<?= $page_type ?>';
-    gamma.pageContext.url_segments = '<?= $url_segments ?>';
-    gamma.pageContext.updateShowURL = entry.updateShowURL;
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
+    dmsjs.pageContext.base_url = '<?= base_url() ?>';
+    dmsjs.pageContext.my_tag = '<?= $my_tag ?>';
+    dmsjs.pageContext.page_type = '<?= $page_type ?>';
+    dmsjs.pageContext.url_segments = '<?= $url_segments ?>';
+    dmsjs.pageContext.updateShowURL = entry.updateShowURL;
     entry.pageContext.containerId = 'form_container';
     entry.pageContext.modeFieldId = 'entry_cmd_mode';
     entry.pageContext.entryFormId = 'entry_form';
@@ -47,7 +47,7 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
 
 <?php if($entry_submission_cmds != ""): ?>
     <script src="<?= base_url('javascript/entryCmds.js?version=100') ?>"></script>
-    <script type='text/javascript'>gamma.pageContext.cmdInit = entryCmds.<?= $my_tag ?>.cmdInit;</script>
+    <script type='text/javascript'>dmsjs.pageContext.cmdInit = entryCmds.<?= $my_tag ?>.cmdInit;</script>
 <?php endif; ?>
 
 <script type='text/javascript'>
@@ -58,7 +58,7 @@ if($entry_submission_cmds != "") echo view("submission_cmd/$entry_submission_cmd
     entry.actions.after = function() {
         $('.sel_chooser').select2();
     };
-    if(gamma.pageContext.cmdInit) gamma.pageContext.cmdInit();
+    if(dmsjs.pageContext.cmdInit) dmsjs.pageContext.cmdInit();
 </script>
 
 </body>

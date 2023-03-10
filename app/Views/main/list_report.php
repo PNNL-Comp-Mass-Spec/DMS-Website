@@ -97,17 +97,17 @@ Download in other formats (<a href="<?= config('App')->pwiki ?>DMS_Data_Export" 
 
 <script type='text/javascript'>
     //
-    // gamma is defined in dms2.js
+    // dmsjs is defined in dms.js
     //
-    gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.my_tag = '<?= $my_tag ?>';
-    gamma.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
-    gamma.pageContext.responseContainerId =  "update_message";
-    gamma.pageContext.cntrlContainerId =  "clear_message";
-    gamma.pageContext.ops_url = '<?= $ops_url ?>';
-    gamma.pageContext.updateShowSQL = lstRep.updateShowSQL;
-    gamma.pageContext.updateShowURL = lstRep.updateShowURL;
-    gamma.pageContext.initalDataLoad = '<?= $loading ?>';
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
+    dmsjs.pageContext.my_tag = '<?= $my_tag ?>';
+    dmsjs.pageContext.is_ms_helper = '<?= $is_ms_helper ?>';
+    dmsjs.pageContext.responseContainerId =  "update_message";
+    dmsjs.pageContext.cntrlContainerId =  "clear_message";
+    dmsjs.pageContext.ops_url = '<?= $ops_url ?>';
+    dmsjs.pageContext.updateShowSQL = lstRep.updateShowSQL;
+    dmsjs.pageContext.updateShowURL = lstRep.updateShowURL;
+    dmsjs.pageContext.initalDataLoad = '<?= $loading ?>';
 </script>
 
 </body>

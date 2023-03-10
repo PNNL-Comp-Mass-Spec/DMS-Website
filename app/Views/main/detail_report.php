@@ -51,17 +51,17 @@ echo view("main/detail_report_export");
 
 <script type='text/javascript'>
     //
-    // gamma is defined in dms.js
+    // dmsjs is defined in dms.js
     // detRep is defined in detRep.js
     //
-    gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.my_tag = '<?= $my_tag ?>';
-    gamma.pageContext.responseContainerId = 'update_message';
-    gamma.pageContext.Id = '<?= $id ?>';
-    gamma.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';
-    gamma.pageContext.ops_url = '<?= $ops_url ?>';
-    gamma.pageContext.updateShowSQL = detRep.updateShowSQL;
-    gamma.pageContext.updateShowURL = detRep.updateShowURL;
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
+    dmsjs.pageContext.my_tag = '<?= $my_tag ?>';
+    dmsjs.pageContext.responseContainerId = 'update_message';
+    dmsjs.pageContext.Id = '<?= $id ?>';
+    dmsjs.pageContext.aux_info_target = '<?= ($aux_info_target)?$aux_info_target:''; ?>';
+    dmsjs.pageContext.ops_url = '<?= $ops_url ?>';
+    dmsjs.pageContext.updateShowSQL = detRep.updateShowSQL;
+    dmsjs.pageContext.updateShowURL = detRep.updateShowURL;
 </script>
 
 <script src="<?= base_url('javascript/file_attachment.js?version=100') ?>"></script>
@@ -71,11 +71,11 @@ echo view("main/detail_report_export");
 
 <script type='text/javascript'>
     function updateAuxIntoControls() {
-        detRep.updateContainer(gamma.pageContext.my_tag + '/detail_report_aux_info_controls/' + gamma.pageContext.Id, 'aux_info_controls_container');
+        detRep.updateContainer(dmsjs.pageContext.my_tag + '/detail_report_aux_info_controls/' + dmsjs.pageContext.Id, 'aux_info_controls_container');
     }
     $(document).ready(function () {
         detRep.updateMyData();
-        if(gamma.pageContext.aux_info_target) updateAuxIntoControls();
+        if(dmsjs.pageContext.aux_info_target) updateAuxIntoControls();
         fileAttachment.init();
     });
 </script>

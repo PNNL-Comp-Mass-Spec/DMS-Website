@@ -57,7 +57,7 @@ var dmsChooser = {
                 // that is bound to given input parameters and will call server data controller with them
                 source: (function(queryName, append){
                     var appendVal = append;
-                    var url = gamma.pageContext.site_url + 'chooser/json/' + queryName;
+                    var url = dmsjs.pageContext.site_url + 'chooser/json/' + queryName;
                     return function( request, response ) {
                                 var f = (appendVal) ? request.term.split(/,\s*/).pop() : request.term ;
                                 if(f && (f.length > 1 || f == '*')) {

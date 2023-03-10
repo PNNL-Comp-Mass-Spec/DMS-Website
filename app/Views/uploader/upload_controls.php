@@ -52,10 +52,10 @@ var upld = {
     //update entity in database and call update_next_entity_in_list
     //upon completion (in case a list of entities is being processed)
     update_entity: function(id, containerId) {
-        var file_name = gamma.pageContext.file_name;
-        var url       = gamma.pageContext.update_url;
-        var p         = gamma.pageContext.processing_params;
-        p.entity_type = gamma.pageContext.entity_type;
+        var file_name = dmsjs.pageContext.file_name;
+        var url       = dmsjs.pageContext.update_url;
+        var p         = dmsjs.pageContext.processing_params;
+        p.entity_type = dmsjs.pageContext.entity_type;
         p.file_name   = file_name;
         p.id          = id;
         if(!p.file_name) {alert('No file name'); return; }
@@ -69,11 +69,11 @@ var upld = {
     //pull the specifications for the next entity to be updated
     //out of the master list and call update_entity for it to update the db
     update_next_entity_in_list: function() {
-        var x = gamma.pageContext.entityList.shift();
-        if(x && gamma.pageContext.update_in_progress) {
+        var x = dmsjs.pageContext.entityList.shift();
+        if(x && dmsjs.pageContext.update_in_progress) {
             var obj = JSON.parse(x);
             if(obj) {
-                $('#process_progress').html(gamma.pageContext.entityList.length);
+                $('#process_progress').html(dmsjs.pageContext.entityList.length);
                 upld.update_entity(obj.entity, obj.container);
             }
         } else {
@@ -82,33 +82,33 @@ var upld = {
     },
     //start the ball rolling on processing the selected entities
     updateSelectedEntities: function() {
-        gamma.pageContext.update_in_progress = true;
+        dmsjs.pageContext.update_in_progress = true;
 
         var file_name = $('#uploaded_file_name').val();
         if(file_name == '') { alert('File name is blank'); return; }
-        gamma.pageContext.file_name = file_name;
+        dmsjs.pageContext.file_name = file_name;
 
         var type = $('#entity_type').html();
         if(type == '') { alert('Entity type could not be determined'); return; }
-        gamma.pageContext.entity_type = type;
+        dmsjs.pageContext.entity_type = type;
 
         var p = upld.get_master_control_settings();
-        gamma.pageContext.processing_params = p;
+        dmsjs.pageContext.processing_params = p;
 
         var action = 'update';
         if(p.mode == 'check_exists') {
             action = 'exists';
         }
-        gamma.pageContext.update_url = gamma.pageContext.site_url + "upload/" + action;
+        dmsjs.pageContext.update_url = dmsjs.pageContext.site_url + "upload/" + action;
 
-        gamma.pageContext.entityList = dmsChooser.getSelectedItemList();
+        dmsjs.pageContext.entityList = dmsChooser.getSelectedItemList();
         $('#start_update_btn').attr("disabled", true);
         $('#cancel_update_btn').attr("disabled", false);
         upld.update_next_entity_in_list();
     },
     // stop the processing
     cancelUpdate: function() {
-        gamma.pageContext.update_in_progress = false;
+        dmsjs.pageContext.update_in_progress = false;
         $('#process_progress').html('');
         $('#start_update_btn').attr("disabled", false);
         $('#cancel_update_btn').attr("disabled", true);

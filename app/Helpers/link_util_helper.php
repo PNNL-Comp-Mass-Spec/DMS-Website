@@ -102,7 +102,7 @@ function general_visibility_control($label, $containerId, $tooltip = '') {
     if ($tooltip) {
         $tt .= ' for ' . $tooltip;
     }
-    return "<a class='cmd_link_a' title='$tt' href='javascript:void(0)' onclick='gamma.toggleVisibility(\"$containerId\", 0.5, this)'>$label " . expansion_link_icon() . "</a>";
+    return "<a class='cmd_link_a' title='$tt' href='javascript:void(0)' onclick='dmsjs.toggleVisibility(\"$containerId\", 0.5, this)'>$label " . expansion_link_icon() . "</a>";
 }
 
 // --------------------------------------------------------------------

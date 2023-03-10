@@ -20,7 +20,7 @@ var lcmd = {
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
             // URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically update_analysis_job_processor_group_associations
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.newValue = '';
@@ -51,7 +51,7 @@ var lcmd = {
                 return;
             if(mode=='set_membership_enabled') mode = $('#' + p1).val();
             // URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically update_analysis_job_processor_group_membership
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.newValue = (p2)?$('#' + p2).val():'';
@@ -82,7 +82,7 @@ var lcmd = {
             if (document.getElementById('removeParentsCheckbox').checked)
                 removeParents=1;
 
-            var url = gamma.pageContext.site_url + "data_package_items/exec";
+            var url = dmsjs.pageContext.site_url + "data_package_items/exec";
 
             console.log("Contacting " + url);
             console.log("with p.paramListXML = " + list);
@@ -101,7 +101,7 @@ var lcmd = {
             var id = $('#pf_data_package_id').val();
             var tool = $('#tool_name').val();
             if(id == '') {alert('data_package_id filter not set'); return;}
-            var url = gamma.pageContext.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
+            var url = dmsjs.pageContext.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
             $('#dataset_dump_field').html('');
             dmsOps.loadContainer(url, {}, 'dataset_dump_field');
         }
@@ -117,7 +117,7 @@ var lcmd = {
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
             // URL will point to the operations_sproc value defined in dataset_disposition.db, typically update_dataset_dispositions
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.datasetIDList = list;
@@ -135,7 +135,7 @@ var lcmd = {
         },
         op: function(mode) {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.InstrumentGroup = $('#instrument_group_fld').val();
@@ -158,8 +158,8 @@ var lcmd = {
                 return;
             }
             if (!confirm("Are you sure that you want to update the database?")) return;
-            // URL will point to the operations_sproc value defined in material_container.db, typically DoMaterialContainerOperation
-            var url = gamma.pageContext.ops_url;
+            // URL will point to the operations_sproc value defined in material_container.db, typically do_material_container_operation
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.containerList = list;
@@ -185,7 +185,7 @@ var lcmd = {
                 return;
             }
             if (!confirm("Are you sure that you want to update the database?")) return;
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.itemType = itemType;
@@ -211,7 +211,7 @@ var lcmd = {
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
             // URL will point to the operations_sproc value defined in osm_package_items.db, typically UpdateOSMPackageItemsXML
-            var url = gamma.pageContext.site_url + 'osm_package_items/operation';
+            var url = dmsjs.pageContext.site_url + 'osm_package_items/operation';
             $('#paramListXML').val(list);
             $('#entry_cmd_mode').val(mode);
             var p = $('#operation_form').serialize();
@@ -238,7 +238,7 @@ var lcmd = {
             if (!confirm("Are you sure that you want to update the database?")) return;
             // URL will point to the operations_sproc value defined in requested_run.db: update_requested_run_assignments
             // See: http://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/general_params
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
 
             // This is auto-mapped to the @mode parameter of the stored procedure
@@ -266,7 +266,7 @@ var lcmd = {
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
             // URL will point to the operations_sproc value defined in sample_prep_request_assignment.db, typically update_sample_request_assignments
-            var url = gamma.pageContext.site_url + "sample_prep_request_assignment/operation";
+            var url = dmsjs.pageContext.site_url + "sample_prep_request_assignment/operation";
             var p = {};
             p.command = mode;
             p.newValue = (value)?$('#' + value).val():'';
@@ -284,7 +284,7 @@ var lcmd = {
             }
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.newValue =  $('#' + newValFld).val();
@@ -303,7 +303,7 @@ var lcmd = {
             }
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.newValue =  $('#' + newValFld).val();
@@ -338,7 +338,7 @@ var lcmd = {
             if ( !confirm("Are you sure that you want to transfer the selected data?") )
                 return;
 
-            var url = gamma.pageContext.site_url + "/data_transfer/" + perspective;
+            var url = dmsjs.pageContext.site_url + "/data_transfer/" + perspective;
             var p = {};
             p.perspective = perspective;
             p.iDList = commalist + list;
@@ -366,7 +366,7 @@ var lcmd = {
             var rlist = this.getEditFieldsObjList();
             var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}, {p:'cartConfig', a:'cg'}];
             var xml = dmsInput.getXmlElementsFromObjectArray(rlist, 'r', mapP2A);
-            var url = gamma.pageContext.ops_url;
+            var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = 'update';
             p.cartAssignmentList = xml;
@@ -422,7 +422,7 @@ var lcmd = {
         // get data rows via an AJAX call for list report
         // using all the current search filters, and build graph from it
         download_to_graph: function() {
-            var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export_param/json'
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/export_param/json'
             var p = $('#entry_form').serialize();
             dmsOps.getObjectFromJSON(url, p, 'graph_container', function(rows) {
                     lcmd.dataset_instrument_runtime.draw_graph(rows);
@@ -474,7 +474,7 @@ var lcmd = {
 
 $(document).ready(function () {
     $('.sel_chooser').select2();
-    if(gamma.pageContext.my_tag == 'requested_run_factors') {
+    if(dmsjs.pageContext.my_tag == 'requested_run_factors') {
         dmsChooser.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
     }
 });

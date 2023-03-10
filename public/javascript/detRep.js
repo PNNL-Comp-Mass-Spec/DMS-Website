@@ -37,7 +37,7 @@ var detRep = {
         p.id = id;
         p.command = mode;
 
-        var container = $('#' + gamma.pageContext.responseContainerId);
+        var container = $('#' + dmsjs.pageContext.responseContainerId);
         container.spin('small');
 
         $.post(url, p, function (data) {
@@ -55,7 +55,7 @@ var detRep = {
      */
     updateContainer: function(url, containerId) {
         var container = $('#' + containerId);
-        url = gamma.pageContext.site_url + url;
+        url = dmsjs.pageContext.site_url + url;
         var p = {};
         container.spin('small');
         $.post(url, p, function (data) {
@@ -70,7 +70,7 @@ var detRep = {
      * @returns {undefined}
      */
     updateMyData: function() {
-        detRep.updateContainer(gamma.pageContext.my_tag + '/show_data/' + gamma.pageContext.Id, 'data_container');
+        detRep.updateContainer(dmsjs.pageContext.my_tag + '/show_data/' + dmsjs.pageContext.Id, 'data_container');
     },
     /**
      * Process results
@@ -93,13 +93,13 @@ var detRep = {
     /**
      * Show the SQL behind the given page of data
      * Example data retrieved: http://dms2.pnl.gov/analysis_job/detail_sql/1386092
-     * Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
+     * Note that string 'SQL' is used in dmsjs.updateMessageBox to trigger adding line breaks
      * @returns {undefined}
      */
     updateShowSQL: function () {
         // POST a request to a report_info/sql page
         // For example http://dms2.pnl.gov/dataset_qc/report_info/sql
-        gamma.updateMessageBox(gamma.pageContext.my_tag + '/detail_sql/' + gamma.pageContext.Id, 'OFS', 'SQL');
+        dmsjs.updateMessageBox(dmsjs.pageContext.my_tag + '/detail_sql/' + dmsjs.pageContext.Id, 'OFS', 'SQL');
     },
     /**
      * Show the URL of the currently visible page
@@ -108,8 +108,8 @@ var detRep = {
     updateShowURL: function() {
         // POST a request to a report_info/url page
         // For example http://dms2.pnl.gov/dataset_qc/report_info/url
-        var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/show/' + gamma.pageContext.Id;
-        gamma.updateMessageBoxText(url, 'URL');
+        var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/show/' + dmsjs.pageContext.Id;
+        dmsjs.updateMessageBoxText(url, 'URL');
     }
 
 };  //detRep

@@ -49,7 +49,7 @@ var dmsFilter = {
      * @returns {undefined}
      */
     toggleFilterVisibility: function(containerId, duration, element) {
-        var visible = gamma.toggleVisibility(containerId, duration, element);
+        var visible = dmsjs.toggleVisibility(containerId, duration, element);
         this.adjustFilterVisibilityControl(containerId, visible);
     },
     /**
@@ -61,7 +61,7 @@ var dmsFilter = {
     adjustFilterVisibilityControl: function(containerId, visible) {
         var vCtls = $('.' + containerId);
         vCtls.each(function() {
-            gamma.setToggleIcon($(this), visible);
+            dmsjs.setToggleIcon($(this), visible);
         });
     },
     /**

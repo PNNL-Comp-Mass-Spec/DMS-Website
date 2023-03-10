@@ -87,9 +87,9 @@
 <script type="text/javascript">
     // This code is used by https://dms2.pnl.gov/factors/grid
 
-    gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.save_changes_url = '<?= $save_url ?>';
-    gamma.pageContext.data_url = '<?= $data_url ?>';
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
+    dmsjs.pageContext.save_changes_url = '<?= $save_url ?>';
+    dmsjs.pageContext.data_url = '<?= $data_url ?>';
 
     var myCommonControls;
     var myImportExport;

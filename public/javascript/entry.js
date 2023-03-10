@@ -91,7 +91,7 @@ var entry = {
      * @returns {undefined}
      */
     showSection: function (block_name) {
-        var url = gamma.pageContext.base_url + 'images/';
+        var url = dmsjs.pageContext.base_url + 'images/';
         var hide_img = 'z_hide_col.gif';
         entry.showTableRows(block_name, url, hide_img);
     },
@@ -101,7 +101,7 @@ var entry = {
      * @returns {undefined}
      */
     hideSection: function (block_name) {
-        var url = gamma.pageContext.base_url + 'images/';
+        var url = dmsjs.pageContext.base_url + 'images/';
         var show_img = 'z_show_col.gif';
         entry.hideTableRows(block_name, url, show_img);
     },
@@ -301,7 +301,7 @@ var entry = {
     updateShowURL: function() {
         // POST a request to a report_info/url page
         // For example http://dms2.pnl.gov/dataset_qc/report_info/url
-        var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/' + gamma.pageContext.page_type + '/' + gamma.pageContext.url_segments;
-        gamma.updateMessageBoxText(url, 'URL');
+        var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/' + dmsjs.pageContext.page_type + '/' + dmsjs.pageContext.url_segments;
+        dmsjs.updateMessageBoxText(url, 'URL');
     }
 } // entry

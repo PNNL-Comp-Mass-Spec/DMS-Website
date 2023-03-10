@@ -112,7 +112,7 @@ var dmsOps = {
     load_script_diagram_cmd: function() {
         var scriptName = $('#scriptName').val();
         if(scriptName) {
-            var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
+            var url = dmsjs.pageContext.site_url + 'pipeline_script/dot/' + scriptName
             var p = { datasets: $('#datasets').val() };
             dmsOps.loadContainer(url, p, 'script_diagram_container');
         }
@@ -120,7 +120,7 @@ var dmsOps = {
     load_script_diagram: function () {
         var scriptName = $('#lnk_ID').html();
         if(scriptName) {
-            var url = gamma.pageContext.site_url + 'pipeline_script/dot/' + scriptName
+            var url = dmsjs.pageContext.site_url + 'pipeline_script/dot/' + scriptName
             dmsOps.loadContainer(url, {}, 'script_diagram_container');
         }
     },
@@ -152,7 +152,7 @@ var dmsOps = {
     updateContainer: function (action, formId, containerId, follow_on_action) {
         var container = $('#' + containerId);
         container.spin('small');
-        var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/' + action;
+        var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/' + action;
         var p = $('#' + formId).serialize();
         $.post(url, p, function (data) {
                 container.spin(false);
@@ -171,8 +171,8 @@ var dmsOps = {
      * @returns {undefined}
      */
     submitOperation: function(url, p, show_resp) {
-        var ctl = $('#' + gamma.pageContext.cntrlContainerId);
-        var container = $('#' + gamma.pageContext.responseContainerId);
+        var ctl = $('#' + dmsjs.pageContext.cntrlContainerId);
+        var container = $('#' + dmsjs.pageContext.responseContainerId);
         container.spin('small');
         $.post(url, p, function (data) {
                 container.spin(false);
@@ -207,8 +207,8 @@ var dmsOps = {
      * @returns {undefined}
      */
     submitCall: function(url, p, show_resp) {
-        var ctl = $('#' + gamma.pageContext.cntrlContainerId);
-        var container = $('#' + gamma.pageContext.responseContainerId);
+        var ctl = $('#' + dmsjs.pageContext.cntrlContainerId);
+        var container = $('#' + dmsjs.pageContext.responseContainerId);
         container.spin('small');
         $.post(url, p, function (data) {
                 container.spin(false);

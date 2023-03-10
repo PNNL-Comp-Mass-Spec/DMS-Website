@@ -44,8 +44,8 @@
 <?php echo view('resource_links/slickgrid2js') ?>
 
 <script type="text/javascript">
-    gamma.pageContext.save_changes_url = '<?= $save_url ?>';
-    gamma.pageContext.data_url = '<?= $data_url ?>';
+    dmsjs.pageContext.save_changes_url = '<?= $save_url ?>';
+    dmsjs.pageContext.data_url = '<?= $data_url ?>';
 
     var myCommonControls;
     var myImportExport;

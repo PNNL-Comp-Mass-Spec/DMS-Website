@@ -97,12 +97,12 @@ echo view("main/param_report_export");
 
 
 <script type='text/javascript'>
-    gamma.pageContext.site_url = '<?= site_url() ?>';
-    gamma.pageContext.my_tag = '<?= $my_tag ?>';
-    gamma.pageContext.responseContainerId =  'update_message';
-    gamma.pageContext.cntrlContainerId =  'clear_message';
-    gamma.pageContext.ops_url = '<?= $ops_url ?>';
-    gamma.pageContext.updateShowURL = parRep.updateShowURL;
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
+    dmsjs.pageContext.my_tag = '<?= $my_tag ?>';
+    dmsjs.pageContext.responseContainerId =  'update_message';
+    dmsjs.pageContext.cntrlContainerId =  'clear_message';
+    dmsjs.pageContext.ops_url = '<?= $ops_url ?>';
+    dmsjs.pageContext.updateShowURL = parRep.updateShowURL;
 </script>
 
 </body>

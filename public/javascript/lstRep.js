@@ -40,7 +40,7 @@ var lstRep = {
     data_post_load_action: {
         run:function(){
             lstRep.paging_update_action.run();
-            if(!$('#data_message') && gamma.pageContext.is_ms_helper) { dmsChooser.initializeChooserCkbx('ckbx') }
+            if(!$('#data_message') && dmsjs.pageContext.is_ms_helper) { dmsChooser.initializeChooserCkbx('ckbx') }
         }
     },
     // go get some data rows
@@ -50,11 +50,11 @@ var lstRep = {
         }
     },
     updateShowSQL: function(ignoreIfClosed) {
-        // Note that string 'SQL' is used in gamma.updateMessageBox to trigger adding line breaks
-        gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/sql', 'filter_form', 'SQL', ignoreIfClosed);
+        // Note that string 'SQL' is used in dmsjs.updateMessageBox to trigger adding line breaks
+        dmsjs.updateMessageBox(dmsjs.pageContext.my_tag + '/report_info/sql', 'filter_form', 'SQL', ignoreIfClosed);
     },
     updateShowURL: function(ignoreIfClosed) {
-        gamma.updateMessageBox(gamma.pageContext.my_tag + '/report_info/url', 'filter_form', 'URL', ignoreIfClosed);
+        dmsjs.updateMessageBox(dmsjs.pageContext.my_tag + '/report_info/url', 'filter_form', 'URL', ignoreIfClosed);
     },
     // start the data update chain for the page
     updateMyData: function(loading) {
@@ -162,6 +162,6 @@ var sigma = {
 // after the page loads, set things in motion to populate it
 $(document).ready(function () {
         lstRep.updateMyFilter('minimal');
-        lstRep.updateMyData(gamma.pageContext.initalDataLoad);
+        lstRep.updateMyData(dmsjs.pageContext.initalDataLoad);
         dmsOps.reloadListReportData = function() { lstRep.updateMyData('autoload');}
 });

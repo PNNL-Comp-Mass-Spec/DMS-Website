@@ -1,12 +1,12 @@
-test( "gamma trim", function() {
+test( "dmsInput trim", function() {
   equal( dmsInput.trim(" Passed! "), "Passed!" );
 });
 
-test("gamma remove", function() {
+test("dmsjs remove", function() {
 	expect(1);
 	var target = ['one', 'two', 'three', 'four', 'five'];
 	var remove = ['two', 'four'];
 	var expected = ['one', 'three', 'five'];
-	var result = gamma.removeItems(target, remove);
+	var result = dmsjs.removeItems(target, remove);
 	deepEqual( result, expected, "Array items successfully removed");
 });

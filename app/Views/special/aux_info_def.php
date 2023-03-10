@@ -14,10 +14,10 @@
 </style>
 
 <script type='text/javascript'>
-gamma.pageContext = {};
-gamma.pageContext.site_url = '<?= site_url() ?>';
-gamma.pageContext.my_tag = '<?= $my_tag ?>';
-gamma.pageContext.hierarchy = {
+dmsjs.pageContext = {};
+dmsjs.pageContext.site_url = '<?= site_url() ?>';
+dmsjs.pageContext.my_tag = '<?= $my_tag ?>';
+dmsjs.pageContext.hierarchy = {
         "top":"aux_info_targets",
         "aux_info_targets":"aux_info_categories",
         "aux_info_categories":"aux_info_subcategories",
@@ -32,19 +32,19 @@ function addNewMember(type, parent_id) {
     alert('add new member to ' + type + ' that belongs to parent ' + parent_id);
 }
 function updateContainer(type, id, follow_on_action) {
-    var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/test/' + type + '/' + id;
+    var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/test/' + type + '/' + id;
     var containerId = type + '_container';
     dmsOps.loadContainer(url, {}, containerId);
 }
 function clearChildren(parent) {
     var child = parent;
-    while(child = gamma.pageContext.hierarchy[child]) {
+    while(child = dmsjs.pageContext.hierarchy[child]) {
         $('#' + child + '_container').html('');
     }
 }
 function getChildren(parent) {
     id = (parent && parent != 'top')?$('#' + parent).val():'';
-    child = gamma.pageContext.hierarchy[parent];
+    child = dmsjs.pageContext.hierarchy[parent];
     if(child) {
         clearChildren(child);
         updateContainer(child, id);

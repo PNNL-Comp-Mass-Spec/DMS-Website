@@ -406,10 +406,10 @@ var mainGrid = {
             explicitInitialization: true
     },
     getLoadUrl: function() {
-        return gamma.pageContext.data_url;
+        return dmsjs.pageContext.data_url;
     },
     getSaveUrl: function() {
-        return gamma.pageContext.save_changes_url;
+        return dmsjs.pageContext.save_changes_url;
     },
     beforeLoadAction: null,
     afterLoadAction: null,
@@ -796,7 +796,7 @@ var cellLinkFormatterFactory = {
     },
     makeLink: function(page, value, target) {
         if (!value) return "";
-        var link = gamma.pageContext.site_url + page + value;
+        var link = dmsjs.pageContext.site_url + page + value;
         return '<a href="' + link + '" target="' + target + '">' + value + '</a>';
     },
     makeFor: function(colName) {
@@ -842,7 +842,7 @@ var sourceListUtil = {
         var targetFld = ctlsEl.closest('.ctls_grp').data('target');
         var id = filterEl.val();
         if(!id) { alert('Filter field cannot be blank'); return; }
-        var url = gamma.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName;
+        var url = dmsjs.pageContext.site_url + 'data/json/ad_hoc_query/' + queryName;
         var p = { filter_values:id };
         dmsOps.getObjectFromJSON(url, p, filterEl.attr('id'), function(obj) {
             if(!typeof obj == 'array') return;
