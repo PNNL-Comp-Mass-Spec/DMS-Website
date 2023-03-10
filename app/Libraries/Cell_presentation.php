@@ -877,7 +877,7 @@ class Cell_presentation {
                 $str .= '<th>';
             }
 
-            $clickToSort = " onclick='lambda.setColSort(\"$columnName\")'";
+            $clickToSort = " onclick='tableRep.setColSort(\"$columnName\")'";
             if ($columnName == 'Sel' || $columnName == 'sel') { // Do not allow sorting by the check box column
                 $clickToSort = "";
             }

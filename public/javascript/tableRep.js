@@ -57,16 +57,16 @@ var tableRep = {
      * @returns {undefined}
      */
     setPageSize: function(curPageSize, totalRows, max) {
-        var reply = lambda.getPageSizeFromUser(curPageSize, totalRows, max);
+        var reply = tableRep.getPageSizeFromUser(curPageSize, totalRows, max);
         if(reply == null) return;
-        lambda.setPageSizeParameter(reply);
+        tableRep.setPageSizeParameter(reply);
     },
     /**
      * Prompt the user for hte number of items to show on each page
      * @param {type} curPageSize
      * @param {type} totalRows
      * @param {type} max
-     * @returns {lambda.getPageSizeFromUser.reply}
+     * @returns {tableRep.getPageSizeFromUser.reply}
      */
     getPageSizeFromUser: function(curPageSize, totalRows, max) {
         var reply = null;
@@ -115,7 +115,7 @@ var tableRep = {
             if (!confirm('Are you sure you want to export ' + row_count + ' rows?') ) return;
         }
         var url = gamma.pageContext.site_url + gamma.pageContext.my_tag + '/export/' + format
-        gamma.export_to_doc(url, "filter_form");
+        tableRep.export_to_doc(url, "filter_form");
     }
 
 }; // tableRep

@@ -6,7 +6,7 @@ namespace App\Libraries;
  */
 class List_report_pager {
 
-    private $cur_row_function   = 'lambda.setListReportCurRow'; // Javascript function that sets current row
+    private $cur_row_function   = 'tableRep.setListReportCurRow'; // Javascript function that sets current row
     private $total_rows         = ''; // Total number of items (database results)
     private $per_page           = 10; // Max number of items you want shown per page
     private $num_links          =  5; // Number of "digit" links to show before/after the currently viewed page
@@ -100,8 +100,8 @@ class List_report_pager {
         }
 
         $icon_adjust = cmd_link_icon('adjust');
-        $page_sizer = '<a class="cmd_link_a" href="javascript:lambda.setPageSize(' . $this->per_page . ', ' . $this->total_rows . ',' . $mrr . ')" title="Click to change setting for number of rows on a page">Set Rows ' . $icon_adjust . '</a>';
-        $show_all = '<a class="cmd_link_a" href="javascript:lambda.setPageSize(\'all\', ' . $this->total_rows . ',' . $mrr . ')" title="Click to show maximum allowed number of rows (' . $mrr . ') on the page">Max Rows ' . $icon_adjust . '</a>';
+        $page_sizer = '<a class="cmd_link_a" href="javascript:tableRep.setPageSize(' . $this->per_page . ', ' . $this->total_rows . ',' . $mrr . ')" title="Click to change setting for number of rows on a page">Set Rows ' . $icon_adjust . '</a>';
+        $show_all = '<a class="cmd_link_a" href="javascript:tableRep.setPageSize(\'all\', ' . $this->total_rows . ',' . $mrr . ')" title="Click to show maximum allowed number of rows (' . $mrr . ') on the page">Max Rows ' . $icon_adjust . '</a>';
         $show_all = ($this->per_page < $this->total_rows) ? $show_all : '';
         //
 //      return "&nbsp; Rows $start_row through $end_row of <span id='total_rowcount'>$this->total_rows</span> &nbsp;" . $page_sizer. " &nbsp; " .$show_all;
