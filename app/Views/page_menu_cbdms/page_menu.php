@@ -8,8 +8,6 @@
 
 <?php echo view('resource_links/page_menu') ?>
 
-<script src="<?= base_url('javascript/page_menu.js?version=100') ?>"></script>
-
 </head>
 <body>
 <div id="body_container" >
