@@ -101,7 +101,7 @@ class Config_db extends BaseController {
             $page_fam_tag = "";
             $file_path = "";
             if (!$this->_controller_exists($config_db, $page_fam_tag, $file_path)) {
-                $s = "<a href='javascript:make_controller()'>Make Controller</a>";
+                $s = "<a href='javascript:configdb.make_controller()'>Make Controller</a>";
             } else {
                 $s .= "Controller Exists";
             }
@@ -253,18 +253,18 @@ class Config_db extends BaseController {
             $s .= "<div><span>$t</span></div>";
             $s .= "</th></tr>";
             $s .= "<tr><td>";
-            $s .= "<a href='javascript:show_hide_block(\"block_$t\")' >Show/Hide</a> &nbsp;";
+            $s .= "<a href='javascript:configdb.show_hide_block(\"block_$t\")' >Show/Hide</a> &nbsp;";
             $s .= $this->_make_wiki_help_link($t);
             if (in_array($t, $tbl_list)) {
                 if ($this->mod_enabled) {
                     $s .= " &nbsp; <a href='" . site_url("config_db/edit_table/$config_db/$t") . "'>Edit</a>";
-                    $s .= " &nbsp; <a href=\"javascript:ops('remove_table/$config_db/$t')\">Delete</a>";
+                    $s .= " &nbsp; <a href=\"javascript:configdb.tableOps('remove_table/$config_db/$t')\">Delete</a>";
                     $s .= "<br>\n";
                 }
                 $s .= $this->_get_table_dump($config_db, $t);
             } else {
                 if ($this->mod_enabled) {
-                    $s .= " &nbsp; <a href=\"javascript:ops('create_table/$config_db/$t')\">Create</a>";
+                    $s .= " &nbsp; <a href=\"javascript:configdb.tableOps('create_table/$config_db/$t')\">Create</a>";
                     $s .= "<br>\n";
                 } else {
                     $s .= " &nbsp; (not present)";
@@ -349,8 +349,8 @@ class Config_db extends BaseController {
           $s .= "<tr><th colspan='$n''>";
           $s .= "$table_name  &nbsp; ";
           //       $s .= "<a href='".site_url("config_db/edit_table/$config_db/$table_name")."'>Edit</a> &nbsp; ";
-          //       $s .= "<a href=\"javascript:ops('remove_table/$config_db/$table_name')\">Delete</a> &nbsp; ";
-          //       $s .= "<a href=\"javascript:ops('fill_table/$config_db/$table_name')\">Populate</a> &nbsp; ";
+          //       $s .= "<a href=\"javascript:configdb.tableOps('remove_table/$config_db/$table_name')\">Delete</a> &nbsp; ";
+          //       $s .= "<a href=\"javascript:configdb.tableOps('fill_table/$config_db/$table_name')\">Populate</a> &nbsp; ";
           $s .= "</th></tr>\n";
          */
         $s .= "<tr><td colspan='$n'>";
@@ -946,7 +946,7 @@ class Config_db extends BaseController {
 
                 if ($col_name == $data_obj->col_names[0]) {
                     // Column name
-                    $a = "<a href='javascript:set_id(\"$col_val\")' class='cfg_id_link'>$col_val</a>";
+                    $a = "<a href='javascript:configdb.set_id(\"$col_val\")' class='cfg_id_link'>$col_val</a>";
                     $s .= "<td><input name='$col_name' size='$col_width' value='$col_val' type='hidden' />$a</td>";
                 } else {
                     // Column value
@@ -964,8 +964,8 @@ class Config_db extends BaseController {
                     }
                 }
             }
-            $accept_action = "ops(\"$fid\", \"accept\")";
-            $delete_action = "ops(\"$fid\", \"delete\")";
+            $accept_action = "configdb.rowOps(\"$fid\", \"accept\")";
+            $delete_action = "configdb.rowOps(\"$fid\", \"delete\")";
             $s .= "<td><a href='javascript:$accept_action' title='$attip'>$accept_img</a></td>";
             $s .= "<td><a href='javascript:$delete_action' title='$dttip'>$delete_img</a></td>";
             $s .= "\n</tr>\n";
@@ -984,7 +984,7 @@ class Config_db extends BaseController {
                 $s .= "<td>" . $this->_get_edit_table_entry_field($config_db, $table_name, $col_name, $col_widths[$col_name], $max_width) . "</td>";
             }
         }
-        $add_action = "ops($n, \"add\")";
+        $add_action = "configdb.rowOps($n, \"add\")";
         $tooltip = "Add contents of row to table";
         $s .= "<td><a href='javascript:$add_action' title='$tooltip'>$add_img</a></td>";
         $s .= "<td>&nbsp;</td>\n";

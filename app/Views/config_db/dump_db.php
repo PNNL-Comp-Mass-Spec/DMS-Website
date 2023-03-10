@@ -35,7 +35,7 @@
 <td><input id='table_filter' value='<?= $table_filter?>' size='30' /></td><td>'_' used by itself matches all tables</td>
 </tr>
 <tr>
-<td><input type='button' onclick='search()' value='Search' /></td>
+<td><input type='button' onclick='configdb.search()' value='Search' /></td>
 <td><input type='checkbox' id='text_only'  />Text output</td>
 <td>&nbsp;</td>
 </tr>
@@ -58,18 +58,13 @@ Not implmented yet.
 
 <?php echo view('resource_links/base2js') ?>
 
-<script type="text/javascript">
+<?php // Import configdb.js ?>
+<?php echo view('resource_links/configdb') ?>
 
-function search() {
-    var file_filter = $('#file_filter').val();
-    var table_filter = $('#table_filter').val();
-    var url = '<?= site_url("config_db/search/") ?>'+ file_filter + '/' + table_filter;
-    if($('#text_only').checked) {
-        url += '/text';
-    }
-    location = url;
-}
-
+<script type='text/javascript'>
+    // dmsjs is defined in dms.js
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
 </script>
+
 </body>
 </html>

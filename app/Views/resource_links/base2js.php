@@ -10,7 +10,6 @@
 
 <?php // Increment version number here to force clients to reload dms.js ?>
 <script src="<?= base_url('javascript/dms.js?version=1') ?>"></script>
-<script src="<?= base_url('javascript/configdb.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/detRep.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsChooser.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsFilter.js?version=1') ?>"></script>

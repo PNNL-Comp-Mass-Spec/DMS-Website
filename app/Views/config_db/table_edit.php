@@ -7,99 +7,8 @@
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/cfg') ?>
 
-<script type="text/javascript">
-
-function extractRow(theObject, index) {
-    var obj = {};
-    for (var propName in theObject) {
-        obj[propName] = theObject[propName][index];
-    }
-    return obj;
-}
-
-// do editing action from editing from controls
-function ops(index, action) {
-    if ( !confirm("Are you sure that you want to modify the config db?") )
-        return;
-    var container = $('#edit_container');
-    var url =  "<?= site_url()?>/config_db/submit_edit_table/<?= $config_db ?>/<?= $table_name ?>";
-    var fields = $('#edit_form').serializeArray();
-    var flds = configdb.reformatFormArray(fields);
-    var p = extractRow(flds, index);
-    p.mode = action;
-    $.post(url, p, function (data) {
-            container.html(data);
-        }
-    );
-}
-
-// submit sql from entry field and refresh edit table
-function do_sql() {
-    if ( !confirm("Are you sure that you want to modify the config db?") ) return;
-    var url =  "<?= site_url()?>/config_db/exec_sql/<?= $config_db ?>/<?= $table_name ?>";
-    var p = $('#sql_text').serialize();
-    $.post(url, p, function (data) {
-            $('#edit_container').html(data);
-        }
-    );
-}
-// get suggested sql for enhancing table
-function get_sql(mode){
-    var field = $('#sql_text_fld');
-    var url = "<?= site_url()?>/config_db/get_suggested_sql/<?= $config_db ?>/<?= $table_name ?>";
-    var p = {};
-    p.mode = mode;
-    field.val('');
-    $.post(url, p, function (data) {
-            field.val(data);
-        }
-    );
-}
-// move any existing destination id to to source id
-// and set destination id to the input id
-function set_id(id) {
-    $('#source_id').html($('#dest_id').html());
-    $('#dest_id').html(id);
-
-    $('#range_start_id').html($('#range_stop_id').html());
-    $('#range_stop_id').html($('#range_dest_id').html());
-    $('#range_dest_id').html(id);
-}
-
-// get suggested SQL for moving item(s)
-function get_sql_from_range_move(mode){
-    if(mode === 'range') {
-        var r1_id = $('#range_start_id').html();
-        var r2_id = $('#range_stop_id').html();
-        var d_id = $('#range_dest_id').html();
-    } else {
-        var r1_id = $('#source_id').html();
-        var r2_id = $('#source_id').html();
-        var d_id = $('#dest_id').html();
-    }
-    if(!r1_id || !r2_id || !d_id) return;
-
-    var url = "<?= site_url()?>/config_db/move_range/<?= $config_db ?>/<?= $table_name ?>/" + r1_id + "/"  + r2_id + "/" + d_id;
-    var field = $('#sql_text_fld');
-    var p = {};
-    field.val('');
-    $.post(url, p, function (data) {
-            field.val(data);
-        }
-    );
-}
-// get suggested SQL for resequencing id column in table
-function get_sql_for_resequence(){
-    var url = "<?= site_url()?>/config_db/resequence_table/<?= $config_db ?>/<?= $table_name ?>";
-    var field = $('#sql_text_fld');
-    var p = {};
-    field.val('');
-    $.post(url, p, function (data) {
-            field.val(data);
-        }
-    );
-}
-</script>
+<?php // Import configdb.js ?>
+<?php echo view('resource_links/configdb') ?>
 
 </head>
 <body>
@@ -126,12 +35,12 @@ function get_sql_for_resequence(){
 </div></td></tr>
 
 <tr><td>
-<a href="javascript:void(0)" onclick="get_sql('suggest')" title='Get suggested SQL for possible new additions to table'>Suggest Additions</a> &nbsp;  &nbsp;
-<a href="javascript:void(0)" onclick="get_sql('dump')" title='Get SQL for existing contents of table.'>Current Content</a> &nbsp;  &nbsp;
-<a href="javascript:void(0)" onclick="do_sql()" title='Run the SQL against the config db.'>Update</a> &nbsp;  &nbsp;
-<a href="javascript:void(0)" onclick="get_sql_from_range_move('item')" title='Get SQL to move items'> <span id='source_id'></span>-><span id='dest_id'></span> </a> &nbsp;  &nbsp;
-<a href="javascript:void(0)" onclick="get_sql_from_range_move('range')" title='Get SQL to move range of items'> <span id='range_start_id'></span>-<span id='range_stop_id'></span>-><span id='range_dest_id'></span> </a> &nbsp;  &nbsp;
-<a href="javascript:void(0)" onclick="get_sql_for_resequence()" title='Get SQL to resequence id col in table'>Resequence</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="configdb.get_sql('suggest')" title='Get suggested SQL for possible new additions to table'>Suggest Additions</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="configdb.get_sql('dump')" title='Get SQL for existing contents of table.'>Current Content</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="configdb.do_sql()" title='Run the SQL against the config db.'>Update</a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="configdb.get_sql_from_range_move('item')" title='Get SQL to move items'> <span id='source_id'></span>-><span id='dest_id'></span> </a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="configdb.get_sql_from_range_move('range')" title='Get SQL to move range of items'> <span id='range_start_id'></span>-<span id='range_stop_id'></span>-><span id='range_dest_id'></span> </a> &nbsp;  &nbsp;
+<a href="javascript:void(0)" onclick="configdb.get_sql_for_resequence()" title='Get SQL to resequence id col in table'>Resequence</a> &nbsp;  &nbsp;
 <a href="javascript:void(0)" onclick="$('#sql_text_fld').val('')" title='Clear SQL field'>Clear</a> &nbsp;  &nbsp;
 </td></tr>
 
@@ -140,5 +49,13 @@ function get_sql_for_resequence(){
 <div id='end_of_content' style="height:1em;" ></div>
 
 </div>
+
+<script type='text/javascript'>
+    // dmsjs is defined in dms.js
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
+    dmsjs.pageContext.config_db = '<?= $config_db ?>';
+    dmsjs.pageContext.table_name = '<?= $table_name ?>';
+</script>
+
 </body>
 </html>

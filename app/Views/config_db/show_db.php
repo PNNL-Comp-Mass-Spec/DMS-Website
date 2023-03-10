@@ -7,32 +7,11 @@
 <?php echo view('resource_links/base2js') ?>
 <?php echo view('resource_links/cfg') ?>
 
+<?php // Import configdb.js ?>
+<?php echo view('resource_links/configdb') ?>
+
 <script type="text/javascript">
-function ops(submit_url) {
-    if ( !confirm("Are you sure that you want to modify the config db?") ) return;
-    var container_name = "display_container";
-    var url =  "<?= site_url('config_db/') ?>" + submit_url;
-    $('#' + container_name).load(url); // dmsOps.loadContainer(url, {}, container_name);
-}
-
-function show_hide_all(mode) {
-    $('div.block_content').each(function(idx, s){
-            s.style.display=mode;
-        });
-}
-function show_hide_block(name) {
-    $('#' + name).toggle();
-}
-function make_controller() {
-    var reply = prompt("Base title for page family", '');
-    if (reply)
-    {
-        var page = "<?= site_url('config_db/make_controller/') ?>" + "<?= $config_db ?>/" + reply;
-        window.open(page, "HW", "scrollbars,resizable,height=550,width=1000,menubar");
-    }
-}
-
-$(document).ready(function (){show_hide_all('none')});
+$(document).ready(function (){ configdb.show_hide_all('none') });
 </script>
 
 </head>
@@ -42,8 +21,8 @@ $(document).ready(function (){show_hide_all('none')});
 <h2 class='page_title'><?= $heading; ?></h2>
 <div style='min-height:2em;'>
 | &nbsp;
-<a href="javascript:void(0)" onclick="show_hide_all('block')" >Show Tables</a> &nbsp; | &nbsp;
-<a href="javascript:void(0)" onclick="show_hide_all('none')" >Hide Tables</a> &nbsp; | &nbsp;
+<a href="javascript:void(0)" onclick="configdb.show_hide_all('block')" >Show Tables</a> &nbsp; | &nbsp;
+<a href="javascript:void(0)" onclick="configdb.show_hide_all('none')" >Hide Tables</a> &nbsp; | &nbsp;
 <?= make_config_nav_links($config_db) ?>
 </div>
 
@@ -65,5 +44,12 @@ $(document).ready(function (){show_hide_all('none')});
 <div id='end_of_content' style="height:1em;" ></div>
 
 </div>
+
+<script type='text/javascript'>
+    // dmsjs is defined in dms.js
+    dmsjs.pageContext.site_url = '<?= site_url() ?>';
+    dmsjs.pageContext.config_db = '<?= $config_db ?>';
+</script>
+
 </body>
 </html>
