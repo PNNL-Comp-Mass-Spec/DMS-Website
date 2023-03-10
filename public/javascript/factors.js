@@ -1,6 +1,6 @@
 // These functions are used by run_blocking.js and tracking.js
 // and by the requested_run_batch_blocking and requested_run_factors list reports
-var theta = {
+var factorsjs = {
     getBlockingXMLFromList: function(flist) {
         var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
         // dmsInput.getXmlElementsFromObjectArray is defined in dmsInput.js
@@ -117,7 +117,7 @@ var tau = {
         },
         updateDatabaseFromList: function(flist, id_type) {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
-            var factorXML = theta.getFactorXMLFromList(flist);
+            var factorXML = factorsjs.getFactorXMLFromList(flist);
             if(id_type) {
                 factorXML = '<id type="' + id_type + '" />' + factorXML;
             }
@@ -128,9 +128,9 @@ var tau = {
             dmsOps.submitOperation(url, p);
         },
         saveChangesToDatabase: function() {
-            var cols = theta.getListReportColumnList();
+            var cols = factorsjs.getListReportColumnList();
             var col_list = dmsjs.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request',  'Experiment', 'Dataset']);
-            var flist = theta.getFactorFieldList(col_list);
+            var flist = factorsjs.getFactorFieldList(col_list);
             this.updateDatabaseFromList(flist, 'Request');
         },
         load_delimited_text: function() {
@@ -139,7 +139,7 @@ var tau = {
             var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
             var id_type = parsed_data.header[0];
             var col_list = dmsjs.removeItems(parsed_data.header, [id_type, 'Block', 'Run Order', 'Run_Order']);
-            var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
+            var flist = factorsjs.getFieldListFromParsedData(parsed_data, col_list);
             this.updateDatabaseFromList(flist, id_type);
         }
     },

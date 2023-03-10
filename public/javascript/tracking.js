@@ -41,7 +41,7 @@ var tracking = {
             var parsed_data = this.parseUploadText('delimited_text_input');
             var id_type = parsed_data.header[0];
             var col_list = dmsjs.removeItems(parsed_data.header, [id_type]);
-            var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
+            var flist = factorsjs.getFieldListFromParsedData(parsed_data, col_list);
             this.updateDatabaseFromList(flist, id_type);
         },
         reloadReport: function(operation) {

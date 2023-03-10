@@ -128,7 +128,7 @@ var runBlocking = {
     },
     requested_run_batch_blocking: {
         getFactorCols: function() {
-            var cols = theta.getListReportColumnList();
+            var cols = factorsjs.getListReportColumnList();
             var factor_cols = dmsjs.removeItems(cols, ['Sel', 'BatchID', 'Batch_ID', 'Status', 'Name',  'Request', 'Experiment', 'Dataset', 'Dataset_ID', 'Block',  'Run Order',  'Run_Order']);
 
             return factor_cols;
@@ -153,8 +153,8 @@ var runBlocking = {
         },
         updateDatabaseFromList: function(flist, blist) {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
-            var factorXML = theta.getFactorXMLFromList(flist);
-            var blockingXML = theta.getBlockingXMLFromList(blist);
+            var factorXML = factorsjs.getFactorXMLFromList(flist);
+            var blockingXML = factorsjs.getBlockingXMLFromList(blist);
 
             var url =  dmsjs.pageContext.ops_url;
             var p = {};
@@ -165,9 +165,9 @@ var runBlocking = {
         },
         saveChangesToDatabase: function() {
             var factor_cols = this.getFactorCols();
-            var flist = theta.getFactorFieldList(factor_cols);
+            var flist = factorsjs.getFactorFieldList(factor_cols);
             var blocking_cols = ['block',  'run_order'];
-            var blist = theta.getFactorFieldList(blocking_cols);
+            var blist = factorsjs.getFactorFieldList(blocking_cols);
             this.updateDatabaseFromList(flist, blist);
         },
         load_delimited_text: function() {
@@ -178,8 +178,8 @@ var runBlocking = {
                 return;
             }
             var col_list = dmsjs.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order', 'Run_Order']);
-            var flist = theta.getFieldListFromParsedData(parsed_data, col_list);
-            var blist = theta.getFieldListFromParsedData(parsed_data, ['block', 'run_order']);
+            var flist = factorsjs.getFieldListFromParsedData(parsed_data, col_list);
+            var blist = factorsjs.getFieldListFromParsedData(parsed_data, ['block', 'run_order']);
             this.updateDatabaseFromList(flist, blist);
         },
         setBlockForSelectedItems: function() {
