@@ -21,112 +21,19 @@
 <div><input type=RADIO NAME="createupdate" VALUE="check_exists" CHECKED >Check Existence <span style='font-size:80%;'>(database is not changed)</span></div>
 
 <div style='text-align:center;padding-top:15px;' >
-<div><input id='start_update_btn' class="button lst_cmd_btn" type="button" value="Start" onClick='upld.updateSelectedEntities()' title='Start processing selected entities' /></div>
-<div><input id='cancel_update_btn' class="button lst_cmd_btn" type="button" value="Cancel" onClick='upld.cancelUpdate()' title='Stop processing' /></div>
+<div><input id='start_update_btn' class="button lst_cmd_btn" type="button" value="Start" onClick='dmsUpload.updateSelectedEntities()' title='Start processing selected entities' /></div>
+<div><input id='cancel_update_btn' class="button lst_cmd_btn" type="button" value="Cancel" onClick='dmsUpload.cancelUpdate()' title='Stop processing' /></div>
 <div id='process_progress' ></div>
 </div>
 
 <div>
 <div class='cx'><a onclick='dmsChooser.setCkbxState("ckbx", 1)' title="Check all checkboxes" href='javascript:void(0)' >Select All</a> &nbsp;  </div>
 <div class='cx'><a onclick='dmsChooser.setCkbxState("ckbx", 0)' title="Clear all checkboxes" href='javascript:void(0)' >Unselect All</a> &nbsp; </div>
-<div class='cx'><a onclick='upld.markUnprocessedEntities()' title="Select entities with blank results" href='javascript:void(0)' >Select Blank Results</a> &nbsp;  </div>
-<div class='cx'><a onclick='upld.clearResults()' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
+<div class='cx'><a onclick='dmsUpload.markUnprocessedEntities()' title="Select entities with blank results" href='javascript:void(0)' >Select Blank Results</a> &nbsp;  </div>
+<div class='cx'><a onclick='dmsUpload.clearResults()' title="Clear results column" href='javascript:void(0)' >Clear Results</a>  </div>
 </div>
 
 </form>
 
 </div>
 
-<script type="text/javascript">
-
-var upld = {
-    //get an object that represents current settings
-    //of master controls
-    get_master_control_settings: function() {
-        var p = {};
-        p.mode = $('#cmds :checked').filter(':radio').first().val();
-        p.incTrackinfo = $('#incTrackinfo').is(':checked');
-        p.incAuxinfo = $('#incAuxinfo').is(':checked');
-        return p;
-    },
-    //update entity in database and call update_next_entity_in_list
-    //upon completion (in case a list of entities is being processed)
-    update_entity: function(id, containerId) {
-        var file_name = dmsjs.pageContext.file_name;
-        var url       = dmsjs.pageContext.update_url;
-        var p         = dmsjs.pageContext.processing_params;
-        p.entity_type = dmsjs.pageContext.entity_type;
-        p.file_name   = file_name;
-        p.id          = id;
-        if(!p.file_name) {alert('No file name'); return; }
-        dmsOps.loadContainer(url, p, containerId, function(){
-                // call update_next_entity_in_list in case we are processing multiple selections
-                // making the call via timeout starts new thread allowing the AJAX thread to terminate
-                // so that recursion doesn't pork up the thread pool and the call stack
-                setTimeout("upld.update_next_entity_in_list()", 200);
-        });
-    },
-    //pull the specifications for the next entity to be updated
-    //out of the master list and call update_entity for it to update the db
-    update_next_entity_in_list: function() {
-        var x = dmsjs.pageContext.entityList.shift();
-        if(x && dmsjs.pageContext.update_in_progress) {
-            var obj = JSON.parse(x);
-            if(obj) {
-                $('#process_progress').html(dmsjs.pageContext.entityList.length);
-                upld.update_entity(obj.entity, obj.container);
-            }
-        } else {
-            upld.cancelUpdate();
-        }
-    },
-    //start the ball rolling on processing the selected entities
-    updateSelectedEntities: function() {
-        dmsjs.pageContext.update_in_progress = true;
-
-        var file_name = $('#uploaded_file_name').val();
-        if(file_name == '') { alert('File name is blank'); return; }
-        dmsjs.pageContext.file_name = file_name;
-
-        var type = $('#entity_type').html();
-        if(type == '') { alert('Entity type could not be determined'); return; }
-        dmsjs.pageContext.entity_type = type;
-
-        var p = upld.get_master_control_settings();
-        dmsjs.pageContext.processing_params = p;
-
-        var action = 'update';
-        if(p.mode == 'check_exists') {
-            action = 'exists';
-        }
-        dmsjs.pageContext.update_url = dmsjs.pageContext.site_url + "upload/" + action;
-
-        dmsjs.pageContext.entityList = dmsChooser.getSelectedItemList();
-        $('#start_update_btn').attr("disabled", true);
-        $('#cancel_update_btn').attr("disabled", false);
-        upld.update_next_entity_in_list();
-    },
-    // stop the processing
-    cancelUpdate: function() {
-        dmsjs.pageContext.update_in_progress = false;
-        $('#process_progress').html('');
-        $('#start_update_btn').attr("disabled", false);
-        $('#cancel_update_btn').attr("disabled", true);
-    },
-    markUnprocessedEntities: function() {
-        $('.lr_ckbx').each(function(){
-            var obj = JSON.parse(this.value);
-            if(obj && !$('#' + obj.container).html()) {
-                this.checked = true;
-            } else {
-                this.checked = false;
-            }
-        });
-    },
-    clearResults: function() {
-        $(".entity_results_container").each(function(){
-            $(this).html("");
-        });
-    }
-} // upld
-</script>
