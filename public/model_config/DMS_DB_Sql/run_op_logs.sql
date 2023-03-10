@@ -14,7 +14,7 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_day','Day','20','','day','Eq
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','id','run_interval/edit','');
 INSERT INTO list_report_hotlinks VALUES(2,'log','select_case','type','','{ "Operation":"instrument_operation_history", "Configuration":"instrument_config_history" }');
-INSERT INTO list_report_hotlinks VALUES(4,'request','row_to_json','request','run_op_logs/call/operations_sproc','{ "rowAction":"omicron.update", "fields":"Usage, Proposal, EMSL User" }');
+INSERT INTO list_report_hotlinks VALUES(4,'request','row_to_json','request','run_op_logs/call/operations_sproc','{ "rowAction":"popEdit.update", "fields":"Usage, Proposal, EMSL User" }');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id_fld','id_fld','varchar','input','32','Junk_GRK_Test');
 INSERT INTO sproc_args VALUES(2,'usage_fld','usage_fld','varchar','input','128','Junk_GRK_Test');
