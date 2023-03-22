@@ -91,7 +91,7 @@ var entry = {
      * @returns {undefined}
      */
     showSection: function (block_name) {
-        var url = dmsjs.pageContext.base_url + 'images/';
+        var url = dmsjs.pageContext.base_url + '/images/';
         var hide_img = 'z_hide_col.gif';
         entry.showTableRows(block_name, url, hide_img);
     },
@@ -101,7 +101,7 @@ var entry = {
      * @returns {undefined}
      */
     hideSection: function (block_name) {
-        var url = dmsjs.pageContext.base_url + 'images/';
+        var url = dmsjs.pageContext.base_url + '/images/';
         var show_img = 'z_show_col.gif';
         entry.hideTableRows(block_name, url, show_img);
     },

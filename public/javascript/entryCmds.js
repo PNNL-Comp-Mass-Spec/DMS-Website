@@ -46,15 +46,15 @@ var entryCmds = {
         setFieldValues: function() {
             if($('#return_code').val() != 'success') return;
 
-            $('#toolName').val($('#suggested_ToolName').val());
-            $('#jobTypeName').val($('#suggested_JobTypeName').val());
-            $('#organismName').val($('#suggested_OrganismName').val());
-            $('#protCollNameList').val($('#suggested_ProteinCollectionList').val());
-            $('#protCollOptionsList').val($('#suggested_ProteinOptionsList').val());
+            $('#tool_name').val($('#suggested_ToolName').val());
+            $('#job_type_name').val($('#suggested_JobTypeName').val());
+            $('#organism_name').val($('#suggested_OrganismName').val());
+            $('#prot_coll_name_list').val($('#suggested_ProteinCollectionList').val());
+            $('#prot_coll_options_list').val($('#suggested_ProteinOptionsList').val());
 
-            $('#ModificationDynMetOx').attr('checked', $('#suggested_DynMetOxEnabled').val() == '1');
-            $('#ModificationStatCysAlk').attr('checked', $('#suggested_StatCysAlkEnabled').val() == '1');
-            $('#ModificationDynSTYPhos').attr('checked', $('#suggested_DynSTYPhosEnabled').val() == '1');
+            $('#modification_dyn_met_ox').attr('checked', $('#suggested_DynMetOxEnabled').val() == '1');
+            $('#modification_stat_cys_alk').attr('checked', $('#suggested_StatCysAlkEnabled').val() == '1');
+            $('#modification_dyn_styphos').attr('checked', $('#suggested_DynSTYPhosEnabled').val() == '1');
 
             entry.showHideSections('show', '3,4,5');
         },
