@@ -8,6 +8,6 @@
 </div>
 
 <div class="EPagCmds" >
-    <a href='<?= site_url("analysis_job_request/create") ?>'>Skip to generic job request page</a>
+    <a href='<?= site_url("analysis_job_request/create") ?>'>Switch to generic job request page</a>
 </div>
 
