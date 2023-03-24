@@ -77,6 +77,8 @@ INSERT INTO detail_report_hotlinks VALUES(13,'eus_user_id','detail-report','eus_
 INSERT INTO detail_report_hotlinks VALUES(14,'eus_proposal_id','detail-report','eus_proposal_id','eus_proposals/show','labelCol','eus_proposal_id','');
 INSERT INTO detail_report_hotlinks VALUES(15,'data_doi','doi_link','data_doi','','valueCol','','');
 INSERT INTO detail_report_hotlinks VALUES(16,'manuscript_doi','doi_link','manuscript_doi','','valueCol','','');
+INSERT INTO detail_report_hotlinks VALUES(17,'owner','detail-report','owner','user/report/-/StartsWith__@','labelCol','owner','');
+INSERT INTO detail_report_hotlinks VALUES(18,'requester','detail-report','requester','user/report/-/StartsWith__@','labelCol','requester','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','id','int','output','','add_update_data_package');
 INSERT INTO sproc_args VALUES(2,'name','name','varchar','input','128','add_update_data_package');
