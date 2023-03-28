@@ -27,7 +27,7 @@ class Freezer extends DmsBase {
     // --------------------------------------------------------------------
     function index()
     {
-        echo '<h2>Howdy</h2><p>You probably want <a href="http://dms2.pnl.gov/freezer/tree">http://dms2.pnl.gov/freezer/tree</a></p>';
+        echo '<h2>Howdy</h2><p>You probably want <br><a href="https://dms2.pnl.gov/freezer/tree">https://dms2.pnl.gov/freezer/tree</a> or<br><a href="https://dms2.pnl.gov/freezers/report">https://dms2.pnl.gov/freezers/report</a></p>';
     }
 
     // --------------------------------------------------------------------
