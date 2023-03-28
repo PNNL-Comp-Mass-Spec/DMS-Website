@@ -280,6 +280,9 @@ table.DRep td {
 	border-width: 1px;
 	padding: 3px;
 	border-style: hidden;
+	/* Wrap long strings, and limit the width of a single column to 90% of the window size */
+	overflow-wrap: break-word;
+	max-width: 90vw;
 }
 table.DRep h2 {
 	display: inline;
