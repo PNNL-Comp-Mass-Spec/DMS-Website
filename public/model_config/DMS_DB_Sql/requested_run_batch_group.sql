@@ -10,6 +10,7 @@ INSERT INTO general_params VALUES('entry_page_data_table','v_requested_run_batch
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('entry_sproc','add_update_requested_run_batch_group');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
+INSERT INTO general_params VALUES('operations_sproc','do_requested_run_batch_group_operation');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','requested_run_batch_group/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'batches','link_list','value','requested_run_batch/show/','');
@@ -39,7 +40,12 @@ INSERT INTO sproc_args VALUES(4,'requested_run_batch_list','requestedRunBatchLis
 INSERT INTO sproc_args VALUES(5,'owner_username','ownerUsername','varchar','input','64','add_update_requested_run_batch_group');
 INSERT INTO sproc_args VALUES(6,'<local>','mode','varchar','input','12','add_update_requested_run_batch_group');
 INSERT INTO sproc_args VALUES(7,'<local>','message','varchar','output','512','add_update_requested_run_batch_group');
+INSERT INTO sproc_args VALUES(8,'id','batchGroupID','int','input','','do_requested_run_batch_group_operation');
+INSERT INTO sproc_args VALUES(9,'<local>','mode','varchar','input','12','do_requested_run_batch_group_operation');
+INSERT INTO sproc_args VALUES(10,'<local>','message','varchar','output','512','do_requested_run_batch_group_operation');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'requested_run_batch_list','list-report.helper','','helper_requested_run_batch_ckbx/report','',',','');
 INSERT INTO form_field_choosers VALUES(2,'owner_username','picker.replace','userUsernamePickList','','',',','');
+CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
+INSERT INTO detail_report_commands VALUES(1,'Delete batch group','cmd_op','delete','requested_run_batch_group','Delete this requested run batch group','Are you sure that you want to delete this batch group?');
 COMMIT;
