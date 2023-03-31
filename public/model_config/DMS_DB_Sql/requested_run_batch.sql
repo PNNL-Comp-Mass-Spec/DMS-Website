@@ -57,7 +57,7 @@ INSERT INTO list_report_hotlinks VALUES(11,'batch_group','invoke_entity','value'
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO detail_report_commands VALUES(1,'Lock batch','cmd_op','LockBatch','requested_run_batch','Lock batch to prevent changes to run order or membership','Are you sure that you want to lock this batch?');
 INSERT INTO detail_report_commands VALUES(2,'Unlock batch','cmd_op','UnlockBatch','requested_run_batch','Unlock batch to permit changes to run order or membership','Are you sure that you want to unlock this batch?');
-INSERT INTO detail_report_commands VALUES(3,'Delete batch','cmd_op','delete','requested_run_batch','Delete this requested run batch request.','Are you sure that you want to delete this batch?');
+INSERT INTO detail_report_commands VALUES(3,'Delete batch','cmd_op','delete','requested_run_batch','Delete this requested run batch','Are you sure that you want to delete this batch?');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'requests','detail-report','id','requested_run/report/-/-/-','labelCol','dl_requests','');
 INSERT INTO detail_report_hotlinks VALUES(2,'id','detail-report','id','requested_run_batch_blocking/param','labelCol','dl_batch_blocking','');
