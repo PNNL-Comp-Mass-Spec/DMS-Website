@@ -926,6 +926,12 @@ class Cell_presentation {
                 $sort_marker = new \stdClass();
                 $sort_marker->precedence = $sorting_precedence++;
                 $sort_marker->dir = ($obj->dir == 'ASC') ? 'up' : 'down';
+
+                // If column names are capitalized in the dropdown box, use strtolower() to change back to lowercase
+                // (see function make_sorting_filter in filter_helper.php)
+                //
+                // $col_sort[strtolower($obj->col)] = $sort_marker;
+
                 $col_sort[$obj->col] = $sort_marker;
             } else
             if (is_array($obj)) { // raw sorting filter format

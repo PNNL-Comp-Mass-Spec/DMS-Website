@@ -356,6 +356,19 @@ function make_sorting_filter($current_filter_values, $cols) {
     $lab = "<span class='filter_label' >Sorting</span>";
     $str .= "<div class='filter_caption'> $lab $clr $hid </div>\n";
 
+    // Uncomment to capitalize names
+    // However, that leads to bugs if the user clicks on a column name in the table of results to change the sort
+
+    /*
+
+    // Capitalize each column name and each letter after an underscore
+    for ($i = 0; $i < count($cols); $i++)
+    {
+        $cols[$i] = capitalize_column_name($cols[$i]);
+    }
+
+    */
+
     // selection lists for column and direction selectors
     array_unshift($cols, '');
     $col_sel = array_combine($cols, $cols);
