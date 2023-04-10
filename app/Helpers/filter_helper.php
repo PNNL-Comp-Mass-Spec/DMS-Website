@@ -150,6 +150,18 @@ function big_primary_filter($current_primary_filter_values) {
     return $big;
 }
 
+function capitalize_column_name($columnName)
+{
+    // Capitalize each column name and each letter after an underscore
+    $firstLetterCapitalized = ucfirst($columnName);
+    $capitalizeAfterUnderscores = preg_replace_callback('/_[a-z]/',
+                            function ($matches) {
+                                return strtoupper($matches[0]);
+                            }, $firstLetterCapitalized);
+
+    return $capitalizeAfterUnderscores;
+}
+
 /**
  * Intermediate expansion control
  * @return string
@@ -399,7 +411,8 @@ function make_column_filter($cols, $col_filter, $col_filter_size = 5) {
     $options = array();
     foreach ($cols as $col) {
         if ($col[0] != '#') { // do not show columns with names that begin with hash
-            $options[$col] = $col;
+            // Capitalize each column name and each letter after an underscore
+            $options[$col] = capitalize_column_name($col);
         }
     }
     $hid = "<span class='filter_clear'>" . column_filter_vis_control() . "</span>";
