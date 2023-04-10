@@ -96,9 +96,20 @@ class Secondary_filter {
         // get array of column names from model
         // and make paired array suitable for selector option list
         // and get name of first column in case there is no current value for column name
-        $cn = $model->get_col_names();
-        $first_col = current($cn);
-        $cols = array_combine($cn, $cn);
+        $columnNames = $model->get_col_names();
+
+        // Capitalize each column name and each letter after an underscore
+        for ($i = 0; $i < count($columnNames); $i++)
+        {
+            $columnNames[$i] = ucfirst($columnNames[$i]);
+            $columnNames[$i] = preg_replace_callback('/_[a-z]/',
+                                    function ($matches) {
+                                        return strtoupper($matches[0]);
+                                    }, $columnNames[$i]);
+        }
+
+        $first_col = current($columnNames);
+        $cols = array_combine($columnNames, $columnNames);
 
         $fx = array();
         $relSelOpts = $model->get_allowed_rel_values();
@@ -121,7 +132,7 @@ class Secondary_filter {
             // make comparison selector options list for current
             // value of column (default to first column if current value is empty)
             $col = ($a->curCol) ? ($a->curCol) : $first_col;
-            $data_type = $model->get_column_data_type($col);
+            $data_type = $model->get_column_data_type(strtolower($col));
             $a->cmpSelOpts = $model->get_allowed_comparisons_for_type($data_type);
             //
             // set up selection parameters for column field including javascript

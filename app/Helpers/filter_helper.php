@@ -317,6 +317,7 @@ function make_secondary_filter($sec_filter_display_info) {
             'size' => '40',
             'class' => 'secondary_filter_input filter_input_field',
         );
+
         $r = array();
         $r[] = form_dropdown('qf_rel_sel[]', $sfdi[$i]->relSelOpts, $sfdi[$i]->curRel);
         $r[] = form_dropdown('qf_col_sel[]', $sfdi[$i]->flds, $sfdi[$i]->curCol, $sfdi[$i]->js);

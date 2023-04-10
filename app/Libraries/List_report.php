@@ -237,7 +237,7 @@ class List_report {
         session_start();
 
         $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
-        $data_type = $this->controller->model->get_column_data_type($column_name);
+        $data_type = $this->controller->model->get_column_data_type(strtolower($column_name));
         $cmpSelOpts = $this->controller->model->get_allowed_comparisons_for_type($data_type);
 
         helper('form');
