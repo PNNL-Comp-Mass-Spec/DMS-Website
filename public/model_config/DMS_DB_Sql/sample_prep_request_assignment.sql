@@ -9,7 +9,7 @@ INSERT INTO general_params VALUES('list_report_cmds_url','/sample_prep_request_a
 INSERT INTO general_params VALUES('operations_sproc','update_sample_request_assignments');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','32','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','32','','state_id','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','32','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_comment','Comment','32','','comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
