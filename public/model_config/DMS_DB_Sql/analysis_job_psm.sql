@@ -29,6 +29,8 @@ INSERT INTO list_report_hotlinks VALUES(4,'comment','min_col_width','value','60'
 INSERT INTO list_report_hotlinks VALUES(5,'unique_peptides_msgf','column_tooltip','value','Unique peptide count passing the MS-GF SpecEValue threshold (PEP threshold for DIA-NN and MaxQuant)','');
 INSERT INTO list_report_hotlinks VALUES(6,'total_psms_msgf','column_tooltip','value','Total peptides passing the MS-GF SpecEValue threshold (PEP threshold for DIA-NN and MaxQuant)','');
 INSERT INTO list_report_hotlinks VALUES(7,'unique_proteins_msgf','column_tooltip','value','Unique protein count passing the MS-GF SpecEValue threshold (PEP threshold for DIA-NN and MaxQuant)','');
+INSERT INTO list_report_hotlinks VALUES(8,'msgf_threshold','column_tooltip','value','MSGF SpecEValue threshold (Posterior Error Probability (PEP) threshold for DIA-NN and MaxQuant)','');
+INSERT INTO list_report_hotlinks VALUES(9,'fdr_threshold_pct','column_tooltip','value','FDR (aka QValue) threshold','');
 INSERT INTO list_report_hotlinks VALUES(10,'total_psms_fdr','column_tooltip','value','Total peptides passing the FDR threshold','');
 INSERT INTO list_report_hotlinks VALUES(11,'unique_peptides_fdr','column_tooltip','value','Unique peptide count passing the FDR threshold','');
 INSERT INTO list_report_hotlinks VALUES(12,'unique_proteins_fdr','column_tooltip','value','Unique protein count passing the FDR threshold','');
