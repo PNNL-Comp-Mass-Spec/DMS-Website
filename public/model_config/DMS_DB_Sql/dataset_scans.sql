@@ -14,6 +14,7 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_scan_type','Scan Type','20',
 INSERT INTO list_report_primary_filter VALUES(5,'pf_scan_filter','Scan Filter','20','','scan_filter','ContainsText','text','50','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'dataset','invoke_entity','dataset','dataset_scans/show','');
+INSERT INTO list_report_hotlinks VALUES(2,'scan_filter','min_col_width','value','70','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'dataset','detail-report','dataset','dataset/show','labelCol','dataset',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'instrument','detail-report','instrument','instrument/show/','labelCol','instrument','');
