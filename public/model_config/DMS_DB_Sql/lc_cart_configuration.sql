@@ -103,7 +103,7 @@ INSERT INTO detail_report_hotlinks VALUES(7,'primary_gradient','monomarkup','pri
 INSERT INTO detail_report_hotlinks VALUES(8,'upstream_fractionation_details','monomarkup','upstream_fractionation_details','','valueCol','dl_upstream_fractionation_Details','');
 INSERT INTO detail_report_hotlinks VALUES(9,'description','markup','description','','valueCol','dl_description','');
 INSERT INTO detail_report_hotlinks VALUES(10,'cart','detail-report','cart_id','lc_cart/show','labelCol','dl_cart','');
-INSERT INTO detail_report_hotlinks VALUES(11,'dataset_usage','detail-report','config_name','dataset/report/-/-/-/-/-/-/-/-/-/sfx/and/cart%20config/matchestext/','labelCol','dl_dataset_usage','');
+INSERT INTO detail_report_hotlinks VALUES(11,'dataset_usage','detail-report','config_name','dataset/report/-/-/-/-/-/-/-/-/-/-/-/sfx/AND/Cart_Config/MatchesText/','labelCol','dl_dataset_usage','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'description','auto_format','none');
 INSERT INTO form_field_options VALUES(3,'primary_gradient','auto_format','none');
