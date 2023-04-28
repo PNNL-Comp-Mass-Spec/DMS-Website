@@ -56,6 +56,8 @@ $routes->getAlias('analysis_jobs', 'Analysis_job');
 
 $routes->getAlias('analysis_request', 'Analysis_job_request');
 
+$routes->getAlias('cart_config', 'Lc_cart_configuration');
+
 $routes->getAlias('cell_culture', 'Biomaterial');
 
 $routes->getAlias('data_package_datasets', 'Data_package_dataset');
@@ -74,6 +76,8 @@ $routes->getAlias('disposition', 'Dataset_disposition');
 $routes->getAlias('eus_user', 'Eus_users');
 
 $routes->getAlias('file_attachments', 'File_attachment');
+
+$routes->getAlias('lc_cart_config', 'Lc_cart_configuration');
 
 $routes->getAlias('mass_correction_factor', 'Mass_correction_factors');
 
