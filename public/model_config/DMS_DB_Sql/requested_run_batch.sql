@@ -46,7 +46,7 @@ INSERT INTO list_report_primary_filter VALUES(11,'pf_SeparationType','Separation
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','requested_run_batch/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'requests','invoke_entity','id','requested_run/report/-/-/active','');
-INSERT INTO list_report_hotlinks VALUES(3,'runs','invoke_entity','id','requested_run/report/-/-/completed/','');
+INSERT INTO list_report_hotlinks VALUES(3,'datasets','invoke_entity','id','requested_run/report/-/-/completed/','');
 INSERT INTO list_report_hotlinks VALUES(4,'days_in_queue','color_label','days_in_queue_bin','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO list_report_hotlinks VALUES(6,'first_active_request','invoke_entity','first_active_request','requested_run/show/','');
 INSERT INTO list_report_hotlinks VALUES(7,'last_active_request','invoke_entity','last_active_request','requested_run/show/','');
