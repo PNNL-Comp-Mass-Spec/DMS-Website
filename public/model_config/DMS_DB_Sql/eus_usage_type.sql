@@ -6,9 +6,9 @@ INSERT INTO general_params VALUES('list_report_data_table','v_eus_usage_type_lis
 INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'ID','ID','','','id','Equals','int','','','');
-INSERT INTO list_report_primary_filter VALUES(2,'Name','Name','','','eus_usage_type','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(3,'Enabled','Enabled','','','enabled','Equals','int','','','');
-INSERT INTO list_report_primary_filter VALUES(4,'Enabled_Campaign','Enabled Campaign','','','enabled_campaign','Equals','int','','','');
-INSERT INTO list_report_primary_filter VALUES(5,'Enabled_Sample_Prep','Enabled Sample Prep','','','enabled_prep_request','Equals','int','','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','','','id','Equals','int','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','20!','','eus_usage_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_enabled','Enabled','','','enabled','Equals','int','','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_enabled_campaign','Enabled Campaign','','','enabled_campaign','Equals','int','','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_enabled_prep_request','Enabled Sample Prep','','','enabled_prep_request','Equals','int','','','');
 COMMIT;
