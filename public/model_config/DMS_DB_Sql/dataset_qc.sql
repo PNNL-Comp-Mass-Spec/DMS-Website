@@ -20,5 +20,5 @@ INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32',''
 INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','created','MostRecentWeeks','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_created_after','Created After','8','','created','LaterThan','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_minimum_acq_length','Min. Acq Length','4!','','acq_length','GreaterThanOrEqualTo','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(10,'pf_batch','Batch','4!','','batch','Equals','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(10,'pf_batch','Batch','6!','','batch','Equals','text','20','','');
 COMMIT;
