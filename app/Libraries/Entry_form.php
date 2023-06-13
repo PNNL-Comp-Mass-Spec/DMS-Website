@@ -275,7 +275,7 @@ class Entry_form {
         $s = "";
         $block_label = "section_block_$section_count";
         $marker = "<img id='" . $block_label . "_cntl" . "' src='" . base_url('/images/z_hide_col.gif') . "' border='0' >";
-        $s .= "<a href='javascript:void(0)' onclick='entry.showHideTableRows(\"$block_label\", \"" . base_url() . "/images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
+        $s .= "<a href='javascript:void(0)' onclick='entry.showHideTableRows(\"$block_label\", \"" . base_url() . "images/\", \"z_show_col.gif\", \"z_hide_col.gif\")'>$marker</a>";
         $s .= "&nbsp; <strong>" . $section_label . "</strong>";
         return $s;
     }

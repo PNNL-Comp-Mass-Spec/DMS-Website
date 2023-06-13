@@ -8,24 +8,22 @@
     "packages": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.2.10",
+            "version": "v4.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "6ffad151a303c5817ad6b2d9b996d07960aff2cc"
+                "reference": "b41bca4ff6efd9baffdb7a1bba33f946fb8580d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/6ffad151a303c5817ad6b2d9b996d07960aff2cc",
-                "reference": "6ffad151a303c5817ad6b2d9b996d07960aff2cc",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/b41bca4ff6efd9baffdb7a1bba33f946fb8580d9",
+                "reference": "b41bca4ff6efd9baffdb7a1bba33f946fb8580d9",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
                 "ext-intl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "kint-php/kint": "^4.2",
                 "laminas/laminas-escaper": "^2.9",
                 "php": "^7.4 || ^8.0",
                 "psr/log": "^1.1"
@@ -33,13 +31,15 @@
             "require-dev": {
                 "codeigniter/coding-standard": "^1.5",
                 "fakerphp/faker": "^1.9",
-                "friendsofphp/php-cs-fixer": "~3.13.0",
+                "friendsofphp/php-cs-fixer": "3.13.0",
+                "kint-php/kint": "^5.0.4",
                 "mikey179/vfsstream": "^1.6",
                 "nexusphp/cs-config": "^3.6",
                 "phpunit/phpunit": "^9.1",
                 "predis/predis": "^1.1 || ^2.0"
             },
             "suggest": {
+                "ext-curl": "If you use CURLRequest class",
                 "ext-dom": "If you use TestResponse",
                 "ext-exif": "If you run Image class tests",
                 "ext-fileinfo": "Improves mime type detection for files",
@@ -74,11 +74,11 @@
             "description": "The CodeIgniter framework v4",
             "homepage": "https://codeigniter.com",
             "support": {
-                "forum": "http://forum.codeigniter.com/",
+                "forum": "https://forum.codeigniter.com/",
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2022-11-05T22:23:07+00:00"
+            "time": "2023-05-21T13:41:12+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -140,71 +140,6 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/v4.16.0"
             },
             "time": "2022-09-18T07:06:19+00:00"
-        },
-        {
-            "name": "kint-php/kint",
-            "version": "4.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kint-php/kint.git",
-                "reference": "7601bfd95ccc50a1b903c2764b31d00919e8edd9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kint-php/kint/zipball/7601bfd95ccc50a1b903c2764b31d00919e8edd9",
-                "reference": "7601bfd95ccc50a1b903c2764b31d00919e8edd9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.0",
-                "phpspec/prophecy-phpunit": "^2",
-                "phpunit/phpunit": "^9.0",
-                "seld/phar-utils": "^1.0",
-                "symfony/finder": "^3.0 || ^4.0 || ^5.0",
-                "vimeo/psalm": "^4.0"
-            },
-            "suggest": {
-                "kint-php/kint-helpers": "Provides extra helper functions",
-                "kint-php/kint-twig": "Provides d() and s() functions in twig templates"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "init.php"
-                ],
-                "psr-4": {
-                    "Kint\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonathan Vollebregt",
-                    "homepage": "https://github.com/jnvsor"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/kint-php/kint/graphs/contributors"
-                }
-            ],
-            "description": "Kint - debugging tool for PHP developers",
-            "homepage": "https://kint-php.github.io/kint/",
-            "keywords": [
-                "debug",
-                "kint",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/kint-php/kint/issues",
-                "source": "https://github.com/kint-php/kint/tree/4.2.3"
-            },
-            "time": "2022-10-01T20:16:33+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -518,16 +453,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.25.2",
+            "version": "1.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "a317a09e7def49852400a4b3eca4a4b0790ceeb5"
+                "reference": "6e81cf39bbd93ebc3a4e8150444c41e8aa9b769a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/a317a09e7def49852400a4b3eca4a4b0790ceeb5",
-                "reference": "a317a09e7def49852400a4b3eca4a4b0790ceeb5",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/6e81cf39bbd93ebc3a4e8150444c41e8aa9b769a",
+                "reference": "6e81cf39bbd93ebc3a4e8150444c41e8aa9b769a",
                 "shasum": ""
             },
             "require": {
@@ -548,23 +483,23 @@
                 "maennchen/zipstream-php": "^2.1",
                 "markbaker/complex": "^3.0",
                 "markbaker/matrix": "^3.0",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+                "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
                 "dompdf/dompdf": "^1.0 || ^2.0",
                 "friendsofphp/php-cs-fixer": "^3.2",
-                "mitoteam/jpgraph": "10.2.4",
-                "mpdf/mpdf": "8.1.1",
+                "mitoteam/jpgraph": "^10.2.4",
+                "mpdf/mpdf": "^8.1.1",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "phpstan/phpstan": "^1.1",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^8.5 || ^9.0",
                 "squizlabs/php_codesniffer": "^3.7",
-                "tecnickcom/tcpdf": "6.5"
+                "tecnickcom/tcpdf": "^6.5"
             },
             "suggest": {
                 "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
@@ -617,27 +552,27 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.25.2"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.28.0"
             },
-            "time": "2022-09-25T17:21:01+00:00"
+            "time": "2023-02-25T12:24:49+00:00"
         },
         {
             "name": "psr/http-client",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/0955afe48220520692d2d09f7ab7e0f93ffd6a31",
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 || ^8.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
             "extra": {
@@ -657,7 +592,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP clients",
@@ -669,27 +604,27 @@
                 "psr-18"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
+                "source": "https://github.com/php-fig/http-client/tree/1.0.2"
             },
-            "time": "2020-06-29T06:28:15+00:00"
+            "time": "2023-04-10T20:12:12+00:00"
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+                "reference": "e616d01114759c4c489f93b099585439f795fe35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
+                "reference": "e616d01114759c4c489f93b099585439f795fe35",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
             "extra": {
@@ -709,7 +644,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interfaces for PSR-7 HTTP message factories",
@@ -724,31 +659,31 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/master"
+                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
             },
-            "time": "2019-04-30T12:38:16+00:00"
+            "time": "2023-04-10T20:10:41+00:00"
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -777,9 +712,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/log",
