@@ -159,7 +159,7 @@ class Label_Formatter {
         "msgf"   => "MSGF",
         "msms"   => "MSMS",
         "mt"     => "MT",
-        "myesml" => "MyEMSL",
+        "myemsl" => "MyEMSL",
         "ncbi"   => "NCBI",
         "pi"     => "PI",
         "pm"     => "PM",
