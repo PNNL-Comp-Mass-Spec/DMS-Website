@@ -63,7 +63,7 @@ INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentGroup','varchar','
 INSERT INTO sproc_args VALUES(5,'capture_method','captureMethod','varchar','input','10','add_update_instrument');
 INSERT INTO sproc_args VALUES(6,'status','status','varchar','input','8','add_update_instrument');
 INSERT INTO sproc_args VALUES(7,'room_number','roomNumber','varchar','input','50','add_update_instrument');
-INSERT INTO sproc_args VALUES(8,'description','description','varchar','input','2550','add_update_instrument');
+INSERT INTO sproc_args VALUES(8,'description','description','varchar','input','255','add_update_instrument');
 INSERT INTO sproc_args VALUES(9,'usage','usage','varchar','input','50','add_update_instrument');
 INSERT INTO sproc_args VALUES(10,'operations_role','operationsRole','varchar','input','50','add_update_instrument');
 INSERT INTO sproc_args VALUES(11,'track_usage_when_inactive','trackUsageWhenInactive','varchar','input','12','add_update_instrument');
