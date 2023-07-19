@@ -170,8 +170,8 @@ var tau = {
             var p = {};
             p.OldWorkPackage = oldWpn;
             p.NewWorkPackage = newWpn;
-            p.RequestedIdList = dmsChooser.getSelectedItemList().join();
-            if(!p.RequestedIdList) {
+            p.RequestIdList = dmsChooser.getSelectedItemList().join();
+            if(!p.RequestIdList) {
                 if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
             }
             // dmsOps.submitCall is defined in dmsOps.js
