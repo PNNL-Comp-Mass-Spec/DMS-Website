@@ -74,7 +74,7 @@ INSERT INTO detail_report_hotlinks VALUES(32,'lc_cart_config','detail-report','l
 INSERT INTO detail_report_hotlinks VALUES(33,'psm_jobs','detail-report','dataset','analysis_job_psm/report/-/-/-/~','labelCol','dl_psm_jobs','');
 INSERT INTO detail_report_hotlinks VALUES(34,'dataset','detail-report','dataset','dataset/show','labelCol','dl_dataset_name','');
 INSERT INTO detail_report_hotlinks VALUES(35,'sha1_hash','detail-report','id','dataset_file/report/','labelCol','dl_dataset_file','');
-INSERT INTO detail_report_hotlinks VALUES(36,'experiment_tissue','detail-report','experiment_tissue','tissue/report/~','labelCol','dl_experiment_tissue','');
+INSERT INTO detail_report_hotlinks VALUES(36,'experiment_tissue','detail-report','experiment_tissue','tissue/report/~','valueCol','dl_experiment_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(37,'lc_column','detail-report','lc_column','lc_column/report/@/-/-','labelCol','dl_lc_column','');
 INSERT INTO detail_report_hotlinks VALUES(38,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
 INSERT INTO detail_report_hotlinks VALUES(39,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');

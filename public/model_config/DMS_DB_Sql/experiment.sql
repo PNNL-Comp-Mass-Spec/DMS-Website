@@ -92,6 +92,7 @@ INSERT INTO detail_report_hotlinks VALUES(18,'+labelling','detail-report','id','
 INSERT INTO detail_report_hotlinks VALUES(19,'experiment','detail-report','id','experimentid/show','labelCol','dl_experiment_id','');
 INSERT INTO detail_report_hotlinks VALUES(20,'id','detail-report','id','experimentid/show','labelCol','dl_experiment_id_from_name','');
 INSERT INTO detail_report_hotlinks VALUES(21,'digestion_enzyme','detail-report','digestion_enzyme','enzymes/report/-/~','labelCol','dl_enzyme','');
+INSERT INTO detail_report_hotlinks VALUES(22,'tissue_id','detail-report','tissue_id','tissue/show','valueCol','dl_tissue_id','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO external_sources VALUES(1,'sample_prep_request','experiment','ColName','sample_group_naming_prefix');
 INSERT INTO external_sources VALUES(2,'sample_prep_request','campaign','ColName','campaign');
