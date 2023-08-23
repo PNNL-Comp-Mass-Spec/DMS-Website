@@ -43,12 +43,13 @@ INSERT INTO form_field_choosers VALUES(7,'scan_source_dir','picker.replace','YNP
 INSERT INTO form_field_choosers VALUES(8,'track_usage_when_inactive','picker.replace','YNPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','15!','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_class','Class','32','','class','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_group','Group','32','','group','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_ops_role','Ops Role','32','','ops_role','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','32','','description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_class','Class','32','','class','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_group','Group','32','','group','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_status','Status','32','','status','StartsWithText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_assigned_storage','Assigned Storage','32','','assigned_storage','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_assigned_source','Assigned Source','32','','assigned_source','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_ops_role','Ops Role','32','','ops_role','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_assigned_storage','Assigned Storage','32','','assigned_storage','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_assigned_source','Assigned Source','32','','assigned_source','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','instrumentid/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'allowed_dataset_types','min_col_width','value','60','');
@@ -63,7 +64,7 @@ INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentGroup','varchar','
 INSERT INTO sproc_args VALUES(5,'capture_method','captureMethod','varchar','input','10','add_update_instrument');
 INSERT INTO sproc_args VALUES(6,'status','status','varchar','input','8','add_update_instrument');
 INSERT INTO sproc_args VALUES(7,'room_number','roomNumber','varchar','input','50','add_update_instrument');
-INSERT INTO sproc_args VALUES(8,'description','description','varchar','input','2550','add_update_instrument');
+INSERT INTO sproc_args VALUES(8,'description','description','varchar','input','255','add_update_instrument');
 INSERT INTO sproc_args VALUES(9,'usage','usage','varchar','input','50','add_update_instrument');
 INSERT INTO sproc_args VALUES(10,'operations_role','operationsRole','varchar','input','50','add_update_instrument');
 INSERT INTO sproc_args VALUES(11,'track_usage_when_inactive','trackUsageWhenInactive','varchar','input','12','add_update_instrument');
