@@ -18,7 +18,7 @@ var dmsUpload = {
         }
     },
     updateContainer: function(action, containerId, id) {
-        var url = dmsjs.pageContext.site_url + 'upload/' + action;
+        var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + "/" + action;
         var p = {};
         p.file_name = $('#uploaded_file_name').val();
         p.id = id;
@@ -99,7 +99,7 @@ var dmsUpload = {
         if(p.mode == 'check_exists') {
             action = 'exists';
         }
-        dmsjs.pageContext.update_url = dmsjs.pageContext.site_url + "upload/" + action;
+        dmsjs.pageContext.update_url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + "/" + action;
 
         dmsjs.pageContext.entityList = dmsChooser.getSelectedItemList();
         $('#start_update_btn').attr("disabled", true);

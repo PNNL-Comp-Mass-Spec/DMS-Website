@@ -12,9 +12,10 @@
 <script type='text/javascript'>
 dmsjs.pageContext = {};
 dmsjs.pageContext.site_url = '<?= site_url() ?>';
+dmsjs.pageContext.my_tag = '<?= $my_tag ?>';
 
 $(document).ready(function () {
-    $('#ss_entity_list_container').load(dmsjs.pageContext.site_url+'upload/directory'); // dmsOps.loadContainer(url, {}, ss_entity_list_container)
+    $('#ss_entity_list_container').load(dmsjs.pageContext.site_url+dmsjs.pageContext.my_tag+'/directory'); // dmsOps.loadContainer(url, {}, ss_entity_list_container)
 });
 
 </script>
@@ -34,7 +35,7 @@ $(document).ready(function () {
     // File parsing logic is in file app/Controllers/Upload.php
     // which in turn calls load in   app/Libraries/Spreadsheet_loader.php" -->
  ?>
-<form action = "<?= site_url('upload/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" >
+<form action = "<?= site_url($my_tag.'/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" >
 File to upload:
 <input name="myfile" id="myfile" type="file" size="120"/>
 <input type="submit" name="submitBtn" value="Upload" title="Upload local file to DMS" />
@@ -53,7 +54,7 @@ Uploaded file:
 <table>
 <tr>
 <td style='vertical-align:top;' ><div style='height:10px;'></div><div id='master_control_container' style='display:none;border:2px solid #AAA;'><?php echo view('uploader/upload_controls') ?></div></td>
-<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(dmsjs.pageContext.site_url+'upload/directory')">Help</a></div></td>
+<td style='vertical-align:top;' ><div id='ss_entity_list_container'><a href='javascript:void(0)' onclick="$('#ss_entity_list_container').load(dmsjs.pageContext.site_url+dmsjs.pageContext.my_tag+'/directory')">Help</a></div></td>
 </tr>
 </table>
 

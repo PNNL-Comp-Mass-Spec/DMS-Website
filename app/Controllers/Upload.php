@@ -8,10 +8,15 @@ class Upload extends DmsBase {
     // Tracks names of entities currently supported by the spreadsheet loader.
     // Comes from column config_source in table loadable_entities in spreadsheet_loader.db
     private $supported_entities = array ();
+    private $my_url_tag = '';
 
     function __construct()
     {
         $this->my_tag = 'table_loader'; // Links to the help page; also used by the restricted_actions table in master_authorization
+
+        // Get the exact name (no namespace) of this class, since it's also the URL path to this controller
+        //$this->my_url_tag = strtolower(get_class($this)); // This won't work because we are in a namespace
+        $this->my_url_tag = strtolower((new \ReflectionClass($this))->getShortName());
 
         // Include the String operations methods
         $this->helpers = array_merge($this->helpers, ['string']);
@@ -56,7 +61,8 @@ class Upload extends DmsBase {
     {
         helper('user');
 
-        $data['tag'] = 'upload';
+        $data['tag'] = $this->my_url_tag;
+        $data['my_tag'] = $this->my_url_tag;
         $data['title'] = 'Spreadsheet Loader';
 
         helper(['menu']);
@@ -140,7 +146,7 @@ class Upload extends DmsBase {
                 $row = array();
                 $row[] = "<input type='checkbox' value='$val' name='ckbx' class='lr_ckbx'>";
                 $row[] = $entity;
-                $url = site_url("upload/entity/$fname/$entity");
+                $url = site_url($this->my_url_tag."/entity/$fname/$entity");
                 $tooltip = 'Show details of this entity from spreadsheet';
                 $row[] = "<a href='javascript:void(0)' onclick='window.open(\"$url\", \"EW\", \"scrollbars,resizable,height=600,width=600,menubar\")' title='$tooltip'>Examine</a>";
                 $row[] = "<span id='$results_container' class='entity_results_container'></span>";
@@ -617,8 +623,8 @@ class Upload extends DmsBase {
         foreach(array_keys($this->supported_entities) as $entity) {
             if($entity == 'BOGUS') continue;
             $pf = $this->supported_entities[$entity]['config_source'];
-            $lnkXlsx = anchor("upload/template/".$pf."/true/xlsx", "Blank Excel Template");
-            $lnk = anchor("upload/template/".$pf, "Blank TSV Template");
+            $lnkXlsx = anchor($this->my_url_tag."/template/".$pf."/true/xlsx", "Blank Excel Template");
+            $lnk = anchor($this->my_url_tag."/template/".$pf, "Blank TSV Template");
             $lr = anchor("$pf/report", "List Report");
 
             if(strtolower($entity) == 'biomaterial')
