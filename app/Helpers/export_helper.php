@@ -519,27 +519,27 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $prevCategory = '';
             $prevSubCategory = '';
             if(count($aux_info) > 0) {
-                // $fields = array("Category", "Subcategory", "Item", "Value");
+                // $fields = array("category", "subcategory", "item", "value");
                 foreach($aux_info as $item) {
                     $line = '';
 
                     if (!$firstItem) {
-                        $prevCategory = $item['Category'];
-                        $prevSubCategory = $item['Subcategory'];
+                        $prevCategory = $item['category'];
+                        $prevSubCategory = $item['subcategory'];
                         $firstItem = False;
                     }
 
-                    $itemCategory = fix_data($item['Category']);
-                    $itemSubCategory = fix_data($item['Subcategory']);
-                    $itemName = fix_data($item['Item']);
-                    $itemValue = fix_data($item['Value']);
+                    $itemCategory = fix_data($item['category']);
+                    $itemSubCategory = fix_data($item['subcategory']);
+                    $itemName = fix_data($item['item']);
+                    $itemValue = fix_data($item['value']);
 
-                    if ($item['Category'] != $prevCategory) {
+                    if ($item['category'] != $prevCategory) {
                         $markers .= "\t\t\t";
                         $headers .= trim($itemCategory)."\t".trim($itemSubCategory)."\t".trim($itemName)."\t";
                         $values .= "\t\t".trim($itemValue)."\t";
                     } else {
-                        if ($item['Subcategory'] != $prevSubCategory) {
+                        if ($item['subcategory'] != $prevSubCategory) {
                             $markers .= "\t\t\t";
                             $headers .= trim($itemCategory)."\t".trim($itemSubCategory)."\t".trim($itemName)."\t";
                             $values .= "\t\t".trim($itemValue)."\t";
@@ -550,8 +550,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                         }
                     }
 
-                    $prevCategory = $item['Category'];
-                    $prevSubCategory = $item['Subcategory'];
+                    $prevCategory = $item['category'];
+                    $prevSubCategory = $item['subcategory'];
 
                 }
             }
@@ -577,33 +577,33 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $prevCategory = '';
             $prevSubCategory = '';
             if(count($aux_info) > 0) {
-                // $fields = array("Category", "Subcategory", "Item", "Value");
+                // $fields = array("category", "subcategory", "item", "value");
                 foreach($aux_info as $row) {
                     $line = '';
 
                     if (!$firstRow) {
-                        $prevCategory = $row['Category'];
-                        $prevSubCategory = $row['Subcategory'];
+                        $prevCategory = $row['category'];
+                        $prevSubCategory = $row['subcategory'];
                         $firstRow = False;
                     }
 
-                    $rowCategory = fix_data($row['Category']);
-                    $rowSubCategory = fix_data($row['Subcategory']);
-                    $rowItem = fix_data($row['Item']);
-                    $rowValue = fix_data($row['Value']);
+                    $rowCategory = fix_data($row['category']);
+                    $rowSubCategory = fix_data($row['subcategory']);
+                    $rowItem = fix_data($row['item']);
+                    $rowValue = fix_data($row['value']);
 
-                    if ($row['Category'] != $prevCategory) {
+                    if ($row['category'] != $prevCategory) {
                         $ai .= trim($rowCategory)."\n".trim($rowSubCategory)."\n".trim($rowItem)."\t".trim($rowValue)."\n";
                     } else {
-                        if ($row['Subcategory'] != $prevSubCategory) {
+                        if ($row['subcategory'] != $prevSubCategory) {
                             $ai .= trim($rowCategory)."\n".trim($rowSubCategory)."\n".trim($rowItem)."\t".trim($rowValue)."\n";
                         } else {
                             $ai .= trim($rowItem)."\t".trim($rowValue)."\n";
                         }
                     }
 
-                    $prevCategory = $row['Category'];
-                    $prevSubCategory = $row['Subcategory'];
+                    $prevCategory = $row['category'];
+                    $prevSubCategory = $row['subcategory'];
 
                 }
             }
@@ -661,22 +661,22 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $prevCategory = '';
             $prevSubCategory = '';
             if(count($aux_info) > 0) {
-                // $fields = array("Category", "Subcategory", "Item", "Value");
+                // $fields = array("category", "subcategory", "item", "value");
                 foreach($aux_info as $item) {
                     $line = '';
 
                     if (!$firstItem) {
-                        $prevCategory = $item['Category'];
-                        $prevSubCategory = $item['Subcategory'];
+                        $prevCategory = $item['category'];
+                        $prevSubCategory = $item['subcategory'];
                         $firstItem = False;
                     }
 
-                    $itemCategory = fix_data($item['Category']);
-                    $itemSubCategory = fix_data($item['Subcategory']);
-                    $itemName = fix_data($item['Item']);
-                    $itemValue = fix_data($item['Value']);
+                    $itemCategory = fix_data($item['category']);
+                    $itemSubCategory = fix_data($item['subcategory']);
+                    $itemName = fix_data($item['item']);
+                    $itemValue = fix_data($item['value']);
 
-                    if ($item['Category'] != $prevCategory) {
+                    if ($item['category'] != $prevCategory) {
                         $data[1][$colIndex] = trim($itemCategory);
                         $data[2][$colIndex] = '';
                         $colIndex++;
@@ -687,7 +687,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                         $data[2][$colIndex] = trim($itemValue);
                         $colIndex++;
                     } else {
-                        if ($item['Subcategory'] != $prevSubCategory) {
+                        if ($item['subcategory'] != $prevSubCategory) {
                             $data[1][$colIndex] = trim($itemCategory);
                             $data[2][$colIndex] = '';
                             $colIndex++;
@@ -704,8 +704,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                         }
                     }
 
-                    $prevCategory = $item['Category'];
-                    $prevSubCategory = $item['Subcategory'];
+                    $prevCategory = $item['category'];
+                    $prevSubCategory = $item['subcategory'];
                 }
             }
         } else {
@@ -727,22 +727,22 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $prevCategory = '';
             $prevSubCategory = '';
             if(count($aux_info) > 0) {
-                // $fields = array("Category", "Subcategory", "Item", "Value");
+                // $fields = array("category", "subcategory", "item", "value");
                 foreach($aux_info as $item) {
                     $line = '';
 
                     if (!$firstItem) {
-                        $prevCategory = $item['Category'];
-                        $prevSubCategory = $item['Subcategory'];
+                        $prevCategory = $item['category'];
+                        $prevSubCategory = $item['subcategory'];
                         $firstItem = False;
                     }
 
-                    $itemCategory = fix_data($item['Category']);
-                    $itemSubCategory = fix_data($item['Subcategory']);
-                    $itemName = fix_data($item['Item']);
-                    $itemValue = fix_data($item['Value']);
+                    $itemCategory = fix_data($item['category']);
+                    $itemSubCategory = fix_data($item['subcategory']);
+                    $itemName = fix_data($item['item']);
+                    $itemValue = fix_data($item['value']);
 
-                    if ($item['Category'] != $prevCategory) {
+                    if ($item['category'] != $prevCategory) {
                         $data[$rowIndex][0] = trim($itemCategory);
                         $data[$rowIndex][1] = '';
                         $rowIndex++;
@@ -753,7 +753,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                         $data[$rowIndex][1] = trim($itemValue);
                         $rowIndex++;
                     } else {
-                        if ($item['Subcategory'] != $prevSubCategory) {
+                        if ($item['subcategory'] != $prevSubCategory) {
                             $data[$rowIndex][0] = trim($itemCategory);
                             $data[$rowIndex][1] = '';
                             $rowIndex++;
@@ -770,8 +770,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                         }
                     }
 
-                    $prevCategory = $item['Category'];
-                    $prevSubCategory = $item['Subcategory'];
+                    $prevCategory = $item['category'];
+                    $prevSubCategory = $item['subcategory'];
                 }
             }
         }

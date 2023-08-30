@@ -734,10 +734,10 @@ class File_attachment extends DmsBase {
             return;
         }
 
-        $sql = "SELECT Category, Subcategory, Item, Value "
-             . "FROM V_Aux_Info_Experiment_Values "
-             . "WHERE ID = $expID "
-             . "ORDER BY Category, Subcategory, Item";
+        $sql = "SELECT category, subcategory, item, value "
+             . "FROM v_aux_info_experiment_values "
+             . "WHERE id = $expID "
+             . "ORDER BY category, subcategory, item";
 
         $resultSet = $this->db->query($sql);
         if (!$resultSet) {
@@ -772,7 +772,7 @@ class File_attachment extends DmsBase {
      */
     function getExperimentInfo($expID)
     {
-        $sql = "SELECT * FROM V_Experiment_Detail_Report_Ex WHERE ID = $expID";
+        $sql = "SELECT * FROM v_experiment_detail_report_ex WHERE id = $expID";
         $resultSet = $this->db->query($sql);
         if (!$resultSet) {
             return;
@@ -783,7 +783,7 @@ class File_attachment extends DmsBase {
 
         $result = $resultSet->getResultArray();
         $fields = current($result);
-        $id = $fields["Experiment"];
+        $id = $fields["experiment"];
         $cols = array_keys($fields);
         foreach($cols as $col) {
             $contents .= $col . "\t" . $fields[$col] . "\n";

@@ -710,10 +710,10 @@ function make_detail_report_aux_info_section($result) {
     foreach ($result as $row) {
         $rowColor = alternator('ReportEvenRow', 'ReportOddRow');
         $str .= "<tr class='$rowColor' >\n";
-        $str .= "<td>" . $row['Category'] . "</td>";
-        $str .= "<td>" . $row['Subcategory'] . "</td>";
-        $str .= "<td>" . $row['Item'] . "</td>";
-        $str .= "<td>" . $row['Value'] . "</td>";
+        $str .= "<td>" . $row['category'] . "</td>";
+        $str .= "<td>" . $row['subcategory'] . "</td>";
+        $str .= "<td>" . $row['item'] . "</td>";
+        $str .= "<td>" . $row['value'] . "</td>";
         $str .= "</tr>\n";
     }
     $str .= "</table>\n";

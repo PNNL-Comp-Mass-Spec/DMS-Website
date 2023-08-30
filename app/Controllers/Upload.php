@@ -500,12 +500,12 @@ class Upload extends DmsBase {
             // get aux info definitions
             $this->model = model('App\Models\Q_model');
             $this->model->init('list_report', 'aux_info_def');
-            $this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
+            $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
             $query = $this->model->get_rows('filtered_only');
 
             $aux_info =  $query->getResultArray();
             foreach($aux_info as &$row) {
-                $row['Value'] = 'xx';
+                $row['value'] = 'xx';
             }
         }
         helper(['export']);
@@ -587,7 +587,7 @@ class Upload extends DmsBase {
         // get aux info definitions
         $this->model = model('App\Models\Q_model');
         $this->model->init('list_report', 'aux_info_def');
-        $this->model->add_predicate_item('AND', 'Target', 'MatchesText', $aux_info_target);
+        $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
         $query = $this->model->get_rows('filtered_only');
         $result =  $query->getResultArray();
 
@@ -595,7 +595,7 @@ class Upload extends DmsBase {
         foreach($aux_info as $obj) {
             $good = false;
             foreach($result as $row) {
-                if($obj->category == $row['Category'] && $obj->subcategory == $row['Subcategory'] && $obj->item == $row['Item']) {
+                if($obj->category == $row['category'] && $obj->subcategory == $row['subcategory'] && $obj->item == $row['item']) {
                     $good = true;
                     break;
                 }
