@@ -90,7 +90,7 @@ $routes->getAlias('reporter_ions', 'Sample_label_reporter_ions');
 
 $routes->getAlias('settings_file', 'Settings_files');
 
-$routes->getAlias('spreadsheet_loader', 'Upload');
+$routes->getAlias('upload', 'Spreadsheet_loader');
 
 $routes->getAlias('charge_codes', 'Charge_code');
 $routes->getAlias('work_package', 'Charge_code');

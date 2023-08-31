@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Database\SQLite3\Connection;
 
-class Upload extends DmsBase {
+class Spreadsheet_loader extends DmsBase {
 
     // Tracks names of entities currently supported by the spreadsheet loader.
     // Comes from column config_source in table loadable_entities in spreadsheet_loader.db
@@ -12,7 +12,7 @@ class Upload extends DmsBase {
 
     function __construct()
     {
-        $this->my_tag = 'table_loader'; // Links to the help page; also used by the restricted_actions table in master_authorization
+        $this->my_tag = "table_loader"; // Links to the help page; also used by the restricted_actions table in master_authorization
 
         // Get the exact name (no namespace) of this class, since it's also the URL path to this controller
         //$this->my_url_tag = strtolower(get_class($this)); // This won't work because we are in a namespace
