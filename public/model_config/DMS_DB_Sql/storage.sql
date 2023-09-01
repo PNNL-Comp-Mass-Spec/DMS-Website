@@ -16,7 +16,7 @@ INSERT INTO form_fields VALUES(2,'storage_path','Path','text','40','255','','','
 INSERT INTO form_fields VALUES(3,'vol_name_client','Volume (client)','text','40','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(4,'vol_name_server','Volume (server)','text','40','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(5,'storage_path_function','Function','text','40','80','','','','trim|required|max_length[50]');
-INSERT INTO form_fields VALUES(6,'instrument','Instrument','text','40','80','','','','trim|required|max_length[50]');
+INSERT INTO form_fields VALUES(6,'instrument','Instrument','text','40','80','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(7,'description','Description','area','','','4','50','','trim|max_length[255]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'storage_path_function','picker.replace','storageFunctionPickList','','',',','');
@@ -29,7 +29,7 @@ INSERT INTO sproc_args VALUES(1,'storage_path','path','varchar','input','255','a
 INSERT INTO sproc_args VALUES(2,'vol_name_client','volNameClient','varchar','input','128','add_update_storage');
 INSERT INTO sproc_args VALUES(3,'vol_name_server','volNameServer','varchar','input','128','add_update_storage');
 INSERT INTO sproc_args VALUES(4,'storage_path_function','storFunction','varchar','input','50','add_update_storage');
-INSERT INTO sproc_args VALUES(5,'instrument','instrumentName','varchar','input','50','add_update_storage');
+INSERT INTO sproc_args VALUES(5,'instrument','instrumentName','varchar','input','64','add_update_storage');
 INSERT INTO sproc_args VALUES(6,'description','description','varchar','input','255','add_update_storage');
 INSERT INTO sproc_args VALUES(7,'storage_path_id','id','varchar','output','32','add_update_storage');
 INSERT INTO sproc_args VALUES(8,'<local>','mode','varchar','input','12','add_update_storage');
