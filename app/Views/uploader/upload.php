@@ -16,6 +16,8 @@
 dmsjs.pageContext = {};
 dmsjs.pageContext.site_url = '<?= site_url() ?>';
 dmsjs.pageContext.my_tag = '<?= $my_tag ?>';
+dmsjs.pageContext.autoUpload = true;
+dmsjs.pageContext.fileUploadMaxSizeMB = 1;
 
 $(document).ready(function () {
     $('#ss_entity_list_container').load(dmsjs.pageContext.site_url+dmsjs.pageContext.my_tag+'/directory'); // dmsOps.loadContainer(url, {}, ss_entity_list_container)

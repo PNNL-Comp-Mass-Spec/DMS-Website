@@ -101,9 +101,17 @@
   font-weight: 700;
   color: #fff;
   background-color: #6495ed;
+  background-image: -webkit-linear-gradient(top, #6495ed 0%, #486fca 100%);
   display: none;
   padding: 8px 16px;
   margin: 40px auto 0;
+  border: 1px solid #555657;
+  line-height: 12px;
+  border-radius: 6px;
+}
+.js .box__button_on
+{
+  display: block;
 }
 .box__button:hover,
 .box__button:focus

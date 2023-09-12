@@ -45,6 +45,11 @@
                 $label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
             };
 
+        if ( dmsjs.pageContext.autoUpload !== true )
+        {
+            $form.find( 'input[type="submit"]' ).addClass( 'box__button_on' );
+        }
+
         // letting the server side to know we are going to make an Ajax request
         $form.append( '<input type="hidden" name="ajax" value="1" />' );
 
@@ -53,7 +58,10 @@
         {
             showFiles( e.target.files );
 
-            $form.trigger( 'submit' );
+            if ( dmsjs.pageContext.autoUpload === true )
+            {
+                $form.trigger( 'submit' );
+            }
         });
 
         // drag&drop files if the feature is available
@@ -79,7 +87,7 @@
             {
                 droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
 
-                $form.removeClass( 'is-warning' );
+                $form.removeClass( 'is-warning is-error' );
 
                 // Restrict to only a single dropped file
                 if ( droppedFiles.length > 1 )
@@ -95,12 +103,12 @@
                 {
                     // Block uploads of files larger that 1 MB
                     var $fileMBytes = droppedFiles[0].size / 1024 / 1024;
-                    if ( $fileMBytes > 1 )
+                    if ( $fileMBytes > dmsjs.pageContext.fileUploadMaxSizeMB )
                     {
                         $form.addClass( 'is-error' );
                         $errorMsg.text( "File is too large" );
                     }
-                    else
+                    else if ( dmsjs.pageContext.autoUpload === true )
                     {
                         $form.trigger( 'submit' ); // automatically submit the form on file drop
                     }
