@@ -1,0 +1,113 @@
+/*
+ * general formatting for forms with file inputs supporting drag-and-drop
+ * Based on example from https://css-tricks.com/drag-and-drop-file-uploading/
+ */
+
+.box
+{
+  font-size: 1.25rem; /* 20 */
+  background-color: #cfe2ff;
+  position: relative;
+  padding: 25px 20px;
+  text-align: center;
+  max-width: 680px;
+}
+.box.has-advanced-upload
+{
+  outline: 2px dashed #b3b3b3;
+  outline-offset: -10px;
+
+  -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+.box.is-dragover
+{
+  outline-offset: -20px;
+  outline-color: #cfe2ff;
+  background-color: #cccccc;
+}
+.box__dragndrop
+{
+  display: none;
+}
+.box.has-advanced-upload .box__dragndrop
+{
+  display: inline;
+}
+
+.box.is-uploading .box__input
+{
+  visibility: hidden;
+}
+
+.box__error,
+.box__warn
+{
+  display: none;
+}
+.box.is-error .box__error,
+.box.is-warning .box__warn
+{
+  display: block;
+}
+
+.js .box__file
+{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.js .box__file + label
+{
+  max-width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  font-weight: bold;
+}
+.js .box__file + label:hover,
+.box__file:focus + label,
+.box__file.has-focus + label
+{
+  color: #4971ce;
+}
+.js .box__file:focus + label,
+.js .box__file.has-focus + label
+{
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+.js .box__file + label *
+{
+  /* pointer-events: none; */ /* in case of FastClick lib use */
+}
+
+.no-js .box__file + label
+{
+  display: none;
+}
+
+.no-js .box__button
+{
+  display: block;
+}
+.box__button
+{
+  font-weight: 700;
+  color: #fff;
+  background-color: #6495ed;
+  display: none;
+  padding: 8px 16px;
+  margin: 40px auto 0;
+}
+.box__button:hover,
+.box__button:focus
+{
+  background-color: #4971ce;
+}
+

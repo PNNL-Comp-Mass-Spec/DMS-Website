@@ -9,6 +9,9 @@
 <?php // Import dmsUpload.js ?>
 <?php echo view('resource_links/dmsUpload') ?>
 
+<?php // Import fileDragDrop.css ?>
+<?php echo view('resource_links/fileDragDrop_css') ?>
+
 <script type='text/javascript'>
 dmsjs.pageContext = {};
 dmsjs.pageContext.site_url = '<?= site_url() ?>';
@@ -32,15 +35,21 @@ $(document).ready(function () {
 <div style='padding:5px 0 0 0;' >
 
 <?php
-    // File parsing logic is in file app/Controllers/Upload.php
+    // File parsing logic is in file app/Controllers/Spreadsheet_loader.php
     // which in turn calls load in   app/Libraries/Spreadsheet_loader.php" -->
  ?>
-<form action = "<?= site_url($my_tag.'/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" >
-File to upload:
-<input name="myfile" id="myfile" type="file" size="120"/>
-<input type="submit" name="submitBtn" value="Upload" title="Upload local file to DMS" />
+<form action = "<?= site_url($my_tag.'/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" class="box no-js">
+<div class="box__input">
+Click the text below to choose a file<span class="box__dragndrop"> or drag a file here</span>.<br><br>
+<input name="myfile" id="myfile" type="file" size="120" class="box__file" placeholder="Browse or drop here"/>
+<label for="myfile"><strong>Choose a file...</strong></label>
+<input type="submit" name="submitBtn" value="Upload" class="box__button" title="Upload local file to DMS" />
+</div>
+<div class="box__warn">Warning! <span></span>.</div>
+<div class="box__error">Error! <span></span>.</div>
 </form>
 <font size="-2">Supported formats: .xlsx/.xls, .tsv (tab-delimited), .odf (Open/LibreOffice Calc), .csv</font>
+
 </div>
 
 <div style="padding:10px 0 5px 0;">
@@ -68,5 +77,9 @@ Uploaded file:
 <iframe id="upload_target" name="upload_target" src="#" style="display:none"></iframe>
 
 </div>
+
+<?php // Import fileDragDrop.js ?>
+<?php echo view('resource_links/fileDragDrop_js') ?>
+
 </body>
 </html>
