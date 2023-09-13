@@ -39,7 +39,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     function export_to_excel($result, $filename='excel_download', $col_filter = array(), $col_alignment = array())
     {
         $startTime = hrtime(true);
-        
+
         if(empty($col_filter)) {
             $cols = array_keys(current($result));
         } else {
@@ -47,35 +47,36 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         }
 
         $autoSize = array();
-        
+        $label_formatter = new \App\Libraries\Label_formatter();
+
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->setActiveSheetIndex(0);
 
         // Add the header names
-        $rowNumber = 1;        
+        $rowNumber = 1;
         $colNumber = 1;
         foreach($cols as $header) {
             $autoSize[$colNumber - 1] = true;
             $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
-            $cell->setValue($header);
+            $cell->setValue($label_formatter->format($header));
             $cell->getStyle()->getFont()->setBold(true);
-            
+
             if (array_key_exists($header, $col_alignment)) {
                 set_cell_alignment($cell, $col_alignment[$header]);
             }
-            
+
             $colNumber++;
         }
 
         // Add the data
         $rowNumber++;
         foreach($result as $row) {
-            $colNumber = 1;            
+            $colNumber = 1;
             foreach($cols as $header) {
                 $value = $row[$header];
                 if (isset($value)) {
                     $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
-                    
+
                     if (preg_match('/##FORMAT_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]##(.*)/i', $value, $matches)) {
                         if (isset($matches[4]) && strlen($matches[4]) > 0) {
                             store_formatted_cell($cell, $matches);
@@ -86,16 +87,16 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                         $cell->setValue($value);
                         $charCount = strlen($value);
                     }
-                    
+
                     if ($charCount > 60) {
                         $autoSize[$colNumber - 1] = false;
                     }
-                    
+
                     if (array_key_exists($header, $col_alignment)) {
                         set_cell_alignment($cell, $col_alignment[$header]);
                     }
                 }
-                
+
                 $colNumber++;
             }
             $rowNumber++;
@@ -125,20 +126,20 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         // $worksheet->setCellValueByColumnAndRow(1, 1, $startTime);
         // $worksheet->setCellValueByColumnAndRow(2, 1, $endTime);
         // $worksheet->setCellValueByColumnAndRow(3, 1, $elapsedTime);
-         
+
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
     }
-    
+
     /**
      * Optionally override the default cell alignment
      * @param type $cell
      * @param type $alignment
      */
     function set_cell_alignment($cell, $alignment) {
-    
+
         switch (strtolower($alignment)) {
             case 'left':
                 $cell->getStyle()->getAlignment()
@@ -174,13 +175,13 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         }
 
         $cellStyle = $cell->getStyle();
-        
+
         if (!empty($textColor) && $textColor !== 'default') {
             if (strlen($textColor) == 6) {
                 // Define 100% opacity by prepending the RGB value with FF
                 $textColor = 'FF' . $textColor;
             }
-            
+
             $cellStyle->getFont()
                 ->getColor()->setARGB($textColor);
         }
@@ -190,7 +191,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 // Define 100% opacity by prepending the RGB value with FF
                 $fillColor = 'FF' . $fillColor;
             }
-            
+
             $cellStyle->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()->setARGB($fillColor);
@@ -204,7 +205,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             }
         }
     }
-    
+
     function get_column_name($columnIndex) {
         $indexValue = $columnIndex;
         $base26 = null;
@@ -213,10 +214,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $indexValue = ($indexValue - $characterValue) / 26;
             $base26 = chr($characterValue + 64) . ($base26 ?: '');
         } while ($indexValue > 0);
-        
+
         return $base26;
     }
-    
+
     /**
      * Export a list report to a tab-delimited file
      * @param type $result
@@ -271,7 +272,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         return $dataNoCR;
     }
-   
+
     /**
      * Export a detail report to a tab-delimited file
      * @param type $result
@@ -280,6 +281,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      */
     function export_detail_to_tab_delimited_text($result, $aux_info, $filename='tsv_download')
     {
+        $label_formatter = new \App\Libraries\Label_formatter();
+
         // detail report for tracking entity
         $data = '';
         $data .= "Parameter" . "\t" . "Value" . "\n";
@@ -289,7 +292,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             } else {
                 $value = quote_if_contains_tab($value) . "\t";
             }
-            $data .= trim($name ."\t" . $value)."\n";
+            $data .= trim($label_formatter->format($name) ."\t" . $value)."\n";
         }
 
         // detail report for aux info (if any)
@@ -326,6 +329,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      */
     function export_detail_to_excel($result, $aux_info, $filename='xlsx_download')
     {
+        $label_formatter = new \App\Libraries\Label_formatter();
+
         // detail report for tracking entity
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->setActiveSheetIndex(0);
@@ -335,7 +340,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $data[0][1] = "Value";
 
         foreach($result as $name => $value) {
-            $data[$rowIndex][0] = $name;
+            $data[$rowIndex][0] = $label_formatter->format($name);
             if (isset($value)) {
                 $data[$rowIndex][1] = $value;
             } else {
@@ -346,7 +351,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         // detail report for aux info (if any)
         if(count($aux_info) > 0) {
-            $fields = array("Category", "Subcategory", "Item", "Value");
+            $fields = array("category", "subcategory", "item", "value");
             $data[$rowIndex] = $fields;
             $rowIndex++;
             foreach($aux_info as $row) {
@@ -462,7 +467,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     * 
+     *
      * @param type $entity
      * @param type $result
      * @param type $aux_info
@@ -482,7 +487,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     * 
+     *
      * @param type $entity
      * @param type $result
      * @param type $aux_info
@@ -618,7 +623,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     * 
+     *
      * @param type $entity
      * @param type $result
      * @param type $aux_info
@@ -832,7 +837,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     * 
+     *
      * @param type $entity_info
      * @param type $aux_info
      */
@@ -855,7 +860,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     * 
+     *
      * @param type $rowValue
      * @return string
      */
@@ -870,14 +875,32 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     * 
+     *
+     * @param type $cols
+     * @return string
+     */
+    function reformat_headers($cols)
+    {
+        // Make a copy of the $cols array
+        $colsCopy = array();
+        $label_formatter = new \App\Libraries\Label_formatter();
+
+        foreach($cols as $header) {
+            $colsCopy[] = $label_formatter->format($header);
+        }
+
+        return $colsCopy;
+    }
+
+    /**
+     *
      * @param type $cols
      * @return string
      */
     function fix_ID_column($cols)
     {
         // Make a copy of the $cols array
-        $colsCopy = $cols;
+        $colsCopy = reformat_headers($cols);
 
         if (strtoupper(substr($colsCopy[0], 0, 2)) == "ID") {
             // The first column's name starts with ID
@@ -889,7 +912,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         return $colsCopy;
     }
 
-    
+
     /**
      * Surround $value with double quotes if it contains a tab character
      * @param type $value
