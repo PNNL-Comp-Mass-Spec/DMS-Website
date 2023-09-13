@@ -236,7 +236,7 @@ var dmsOps = {
             inputs += '<input type="hidden" name="' + item + '" value="' + jsonObj[item] + '" />'
         });
         $("body").append('<form action="' + url + '" method="post" id="dynamicForm">' + inputs + '</form>');
-        $("#dynamicForm").submit();
+        $("#dynamicForm").trigger('submit');
     }
 
 }; // dmsOps

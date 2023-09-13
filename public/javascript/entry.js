@@ -210,7 +210,7 @@ var entry = {
         modeField.val(mode);
         entryForm.action = url;
         entryForm.method="post";
-        entryForm.submit();
+        entryForm.trigger('submit');
     },
 
     //------------------------------------------

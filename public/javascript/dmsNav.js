@@ -117,14 +117,14 @@ var dmsNav = {
     },
     open_frames: function() {
         document.OFS.page.value = location;
-        document.OFS.submit();
+        document.OFS.trigger('submit');
     },
     toggle_frames: function() {
         if(top != self) {
           top.location = location;
         } else {
           document.OFS.page.value = location;
-          document.OFS.submit();
+          document.OFS.trigger('submit');
         }
     },
     //------------------------------------------
