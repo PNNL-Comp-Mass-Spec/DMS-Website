@@ -385,8 +385,8 @@ class File_attachment extends DmsBase {
     function get_path($entity_type, $entity_id)
     {
         $path = "";
-        $sql = "SELECT get_file_attachment_path('$entity_type', '$entity_id') AS path";
         $this->db = \Config\Database::connect();
+        $sql = "SELECT {$this->db->schema}.get_file_attachment_path('$entity_type', '$entity_id') AS path";
         $resultSet = $this->db->query($sql);
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
