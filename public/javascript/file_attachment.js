@@ -36,7 +36,8 @@ var fileAttachment = {
     },
     do_upload: function() {
         $('#result_display').spin('small');
-        $('#upload_form').submit();
+        //$('#upload_form').trigger('submit'); // Skipped: returning true instead to continue into the normal 'submit' method
+        return true;
     },
     doDownload: function(url) {
         var cUrl = url.replace('/retrieve/', '/check_retrieve/');
