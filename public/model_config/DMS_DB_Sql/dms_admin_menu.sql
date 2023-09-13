@@ -174,7 +174,7 @@ INSERT INTO home_menu_items VALUES(147,'Sample_Prep','prep_lc_run/create','Creat
 INSERT INTO home_menu_items VALUES(148,'Sample_Prep','prep_lc_column/report/-/-/-/-/NoMatch__Retired','Display','a list of all prep LC columns');
 INSERT INTO home_menu_items VALUES(149,'Sample_Prep','prep_lc_column/create','Create','a new prep LC column');
 INSERT INTO home_menu_items VALUES(150,'Sample_Prep','submenu','Spreadsheet','');
-INSERT INTO home_menu_items VALUES(151,'Sample_Prep','upload/main','Load','sample prep requests from spreadsheet');
+INSERT INTO home_menu_items VALUES(151,'Sample_Prep','upload/main','Upload','experiment and run requests using the spreadsheet loader');
 INSERT INTO home_menu_items VALUES(152,'Capture_Pipeline','capture_daily_check/report','Display','pending capture jobs');
 INSERT INTO home_menu_items VALUES(153,'Capture_Pipeline','capture_log/report','Display','capture log');
 INSERT INTO home_menu_items VALUES(154,'MTS','submenu','Databases','');
