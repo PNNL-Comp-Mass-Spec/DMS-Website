@@ -267,7 +267,7 @@ class File_attachment extends DmsBase {
         }
         // output is headed for an iframe
         // this script will automatically run when put into it and will inform elements on main page that operation has completed
-        echo "<script type='text/javascript'>parent.fileAttachment.report_upload_results('$resultMsg')</script>";
+        echo "<script type='text/javascript'>fileAttachment.report_upload_results('$resultMsg')</script>";
     }
 
     /**

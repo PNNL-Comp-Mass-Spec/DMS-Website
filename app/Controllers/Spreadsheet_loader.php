@@ -107,7 +107,7 @@ class Spreadsheet_loader extends DmsBase {
         // Output is headed for an iframe
         // This script will automatically run when put into it and will inform elements on main page that operation has completed
         // Surround $file_name with double quotes in case the filename has an apostrophe
-        echo "<script type='text/javascript'>parent.dmsUpload.report_upload_results(\"$file_name\", \"$error\")</script>";
+        echo "<script type='text/javascript'>dmsUpload.report_upload_results(\"$file_name\", \"$error\")</script>";
     }
 
     /**

@@ -40,7 +40,7 @@ $(document).ready(function () {
     // File parsing logic is in file app/Controllers/Spreadsheet_loader.php
     // which in turn calls load in   app/Libraries/Spreadsheet_loader.php" -->
  ?>
-<form action = "<?= site_url($my_tag.'/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" class="box no-js">
+<form action="<?= site_url($my_tag.'/load') ?>" method="post" enctype="multipart/form-data" target="upload_target" class="box no-js">
 <div class="box__input">
 Click the text below to choose a file<span class="box__dragndrop"> or drag a file here</span>.<br><br>
 <input name="myfile" id="myfile" type="file" size="120" class="box__file" placeholder="Browse or drop here"/>
