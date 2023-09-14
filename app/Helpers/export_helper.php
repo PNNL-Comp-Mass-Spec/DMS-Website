@@ -912,7 +912,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         return $colsCopy;
     }
 
-
     /**
      * Surround $value with double quotes if it contains a tab character
      * @param type $value

@@ -15,7 +15,7 @@ var tableRep = {
         var frm = $('#' + form)[0];
         var oldUrl = frm.action;
         frm.action = url;
-        frm.trigger('submit');
+        frm.submit();
         frm.action = oldUrl;
     },
     /**
