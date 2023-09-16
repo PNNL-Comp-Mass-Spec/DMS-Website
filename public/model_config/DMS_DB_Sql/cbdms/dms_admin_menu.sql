@@ -7,6 +7,7 @@ CREATE TABLE home_menu_sections (
     "section_number" TEXT,
     "section_comment" TEXT
 );
+INSERT INTO home_menu_sections VALUES(1,'Sample_Prep','Sample Prep','9','Common adminstration tasks for sample prep');
 INSERT INTO home_menu_sections VALUES(2,'Report','Logs/Reports','1','...');
 INSERT INTO home_menu_sections VALUES(3,'Capture','Datasets and Requested Runs','3','...');
 INSERT INTO home_menu_sections VALUES(4,'Capture_Pipeline','Capture and Archive','6','...');
@@ -14,7 +15,9 @@ INSERT INTO home_menu_sections VALUES(5,'Instruments','Instruments and Storage',
 INSERT INTO home_menu_sections VALUES(6,'Analysis','Data Analysis Jobs','2','...');
 INSERT INTO home_menu_sections VALUES(7,'Analysis_Pipeline','Data Analysis Pipeline','5','...');
 INSERT INTO home_menu_sections VALUES(8,'Miscelleneous','Miscelleneous','4','...');
+INSERT INTO home_menu_sections VALUES(9,'EMSL','EMSL','7','EMSL Usage Reporting');
 INSERT INTO home_menu_sections VALUES(10,'Configuration','Configuration DB','8','Config db');
+INSERT INTO home_menu_sections VALUES(11,'MTS','MTS','10','Mass and Time Tag System');
 CREATE TABLE home_menu_items (
     "id" INTEGER PRIMARY KEY,
     "section_name" TEXT,
@@ -30,6 +33,7 @@ INSERT INTO home_menu_items VALUES(5,'Report','main_log/report/Warning','Display
 INSERT INTO home_menu_items VALUES(6,'Report','archive_daily_check/report','Display','archive daily check report');
 INSERT INTO home_menu_items VALUES(7,'Report','archive_daily_check_update/report','Display','archive update daily check report');
 INSERT INTO home_menu_items VALUES(8,'Report','analysis_daily_check/report','Display','analysis job daily check report');
+INSERT INTO home_menu_items VALUES(9,'Report','manager_daily_check/param/72','Display','managers daily check report');
 INSERT INTO home_menu_items VALUES(10,'Report','dms_activity/report','Display','DMS activity report');
 INSERT INTO home_menu_items VALUES(11,'Report','submenu','Event Log','');
 INSERT INTO home_menu_items VALUES(12,'Report','event_log_dataset/report','Display','dataset event log');
@@ -119,6 +123,22 @@ INSERT INTO home_menu_items VALUES(96,'Miscelleneous','user/create','Create','us
 INSERT INTO home_menu_items VALUES(97,'Miscelleneous','user_operation/report','Display','user operation');
 INSERT INTO home_menu_items VALUES(98,'Miscelleneous','submenu','Internal Standards','');
 INSERT INTO home_menu_items VALUES(99,'Miscelleneous','internal_standards/report','Display','internal standards');
+INSERT INTO home_menu_items VALUES(100,'Miscelleneous','submenu','Metadata Dump','');
+INSERT INTO home_menu_items VALUES(101,'Miscelleneous','dump_metadata_for_multiple_experiments/param','Display','dump metadata for multiple experiments');
+INSERT INTO home_menu_items VALUES(102,'Miscelleneous','dump_metadata_for_multiple_datasets/param','Display','dump metadata for multiple datasets');
+INSERT INTO home_menu_items VALUES(103,'Miscelleneous','submenu','Aux Info Definition','');
+INSERT INTO home_menu_items VALUES(104,'Miscelleneous','aux_info_def/report/Biomaterial','Display','Biomaterial aux info def');
+INSERT INTO home_menu_items VALUES(105,'Miscelleneous','aux_info_def/report/Experiment','Display','Experiment aux info def');
+INSERT INTO home_menu_items VALUES(106,'Miscelleneous','aux_info_def/report/Dataset','Display','Dataset aux info def');
+INSERT INTO home_menu_items VALUES(107,'Miscelleneous','aux_info_def/report/SamplePrepRequest','Display','Sample Prep aux info def');
+INSERT INTO home_menu_items VALUES(108,'EMSL','submenu','EUS Proposals',' ');
+INSERT INTO home_menu_items VALUES(109,'EMSL','eus_proposals/report/-','Display','EUS proposals');
+INSERT INTO home_menu_items VALUES(110,'EMSL','eus_proposals/create','Create','EUS proposals');
+INSERT INTO home_menu_items VALUES(111,'EMSL','submenu','EUS Users',' ');
+INSERT INTO home_menu_items VALUES(112,'EMSL','eus_users/report','Display','EUS users');
+INSERT INTO home_menu_items VALUES(113,'EMSL','eus_users/create','Create','EUS users');
+INSERT INTO home_menu_items VALUES(114,'EMSL','submenu','EUS Usage',' ');
+INSERT INTO home_menu_items VALUES(115,'EMSL','user_proposal_dataset/search','Find...','user proposal dataset');
 INSERT INTO home_menu_items VALUES(116,'Configuration','submenu','Page Family','');
 INSERT INTO home_menu_items VALUES(117,'Configuration','config_db/page_families','Display','Page Family Database List');
 INSERT INTO home_menu_items VALUES(118,'Configuration','data/lr_menu','Display','list of custom (ad-hoc) list reports');
@@ -140,6 +160,38 @@ INSERT INTO home_menu_items VALUES(133,'Configuration','submenu','Config DB Syst
 INSERT INTO home_menu_items VALUES(134,'Configuration','config_db/edit_table/master_config_db.db/table_def_description','Edit','descriptions of standard config db tables');
 INSERT INTO home_menu_items VALUES(135,'Configuration','config_db/edit_table/master_config_db.db/table_def_sql','Edit','SQL that creates standard config db tables');
 INSERT INTO home_menu_items VALUES(136,'Configuration','config_db/edit_table/master_config_db.db/table_edit_col_defs','Edit','column definitions for standard config db tables');
+INSERT INTO home_menu_items VALUES(137,'Sample_Prep','submenu','Prep Requests','');
+INSERT INTO home_menu_items VALUES(138,'Sample_Prep','sample_prep_request_active/report','Display','a list of all active sample prep requests');
+INSERT INTO home_menu_items VALUES(139,'Sample_Prep','sample_prep_request/create','Create','a new sample prep request');
+INSERT INTO home_menu_items VALUES(140,'Sample_Prep','sample_prep_request_assignment/report','Assign','staff to requests (admin function)');
+INSERT INTO home_menu_items VALUES(141,'Sample_Prep','submenu','Material Storage','');
+INSERT INTO home_menu_items VALUES(142,'Sample_Prep','freezer/tree','Manage','freezer contents and status (tree)');
+INSERT INTO home_menu_items VALUES(143,'Sample_Prep','material_move_container/report/-/-/-','Move','containers between locations');
+INSERT INTO home_menu_items VALUES(144,'Sample_Prep','material_move_items/report/-/-/-','Move','material (Biomaterial, Experiments) between containers');
+INSERT INTO home_menu_items VALUES(145,'Sample_Prep','submenu','Prep LC','');
+INSERT INTO home_menu_items VALUES(146,'Sample_Prep','prep_lc_run/report','Display','a list of all prep LC runs');
+INSERT INTO home_menu_items VALUES(147,'Sample_Prep','prep_lc_run/create','Create','a new prep LC run');
+INSERT INTO home_menu_items VALUES(148,'Sample_Prep','prep_lc_column/report/-/-/-/-/NoMatch__Retired','Display','a list of all prep LC columns');
+INSERT INTO home_menu_items VALUES(149,'Sample_Prep','prep_lc_column/create','Create','a new prep LC column');
+INSERT INTO home_menu_items VALUES(150,'Sample_Prep','submenu','Spreadsheet','');
+INSERT INTO home_menu_items VALUES(151,'Sample_Prep','upload/main','Upload','experiment and run requests using the spreadsheet loader');
 INSERT INTO home_menu_items VALUES(152,'Capture_Pipeline','capture_daily_check/report','Display','pending capture jobs');
 INSERT INTO home_menu_items VALUES(153,'Capture_Pipeline','capture_log/report','Display','capture log');
+INSERT INTO home_menu_items VALUES(154,'MTS','submenu','Databases','');
+INSERT INTO home_menu_items VALUES(155,'MTS','mts_pt_dbs/report','Display','Peptide databases');
+INSERT INTO home_menu_items VALUES(156,'MTS','mts_mt_dbs/report','Display','AMT Tag databases');
+INSERT INTO home_menu_items VALUES(157,'MTS','submenu','Results','');
+INSERT INTO home_menu_items VALUES(158,'MTS','mts_pm_results/report','Display','peak matching results');
+INSERT INTO home_menu_items VALUES(159,'Miscelleneous','submenu','Notification','');
+INSERT INTO home_menu_items VALUES(160,'Miscelleneous','notification/report','Display','list of user notifications according to research team membership');
+INSERT INTO home_menu_items VALUES(161,'Miscelleneous','notification_event/report','Display','list of notification events');
+INSERT INTO home_menu_items VALUES(162,'Sample_Prep','submenu','Instrument Maint. Notes','');
+INSERT INTO home_menu_items VALUES(163,'Sample_Prep','instrument_config_history/report/PrepHPLC','Display','a list of all sample prep maintenance notes');
+INSERT INTO home_menu_items VALUES(164,'Sample_Prep','instrument_config_history/create','Create','a new sample prep maintenance notes');
+INSERT INTO home_menu_items VALUES(165,'Sample_Prep','submenu','Operations Task Queue','');
+INSERT INTO home_menu_items VALUES(166,'Sample_Prep','operations_tasks/report','Display','a list of all operations tasks');
+INSERT INTO home_menu_items VALUES(167,'Sample_Prep','operations_tasks/create','Create','a new operations task');
+INSERT INTO home_menu_items VALUES(168,'Sample_Prep','submenu','OSM Package','');
+INSERT INTO home_menu_items VALUES(169,'Sample_Prep','osm_package/report','Display','a list of all OSM Packages');
+INSERT INTO home_menu_items VALUES(170,'Sample_Prep','osm_package/create','Create','a new OSM Package');
 COMMIT;
