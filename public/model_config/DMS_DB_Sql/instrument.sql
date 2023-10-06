@@ -57,7 +57,7 @@ INSERT INTO list_report_hotlinks VALUES(3,'group','invoke_entity','value','instr
 INSERT INTO list_report_hotlinks VALUES(4,'class','invoke_entity','value','instrument_class/show/','');
 INSERT INTO list_report_hotlinks VALUES(5,'name','invoke_entity','value','helper_inst_source/view/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'id','instrumentID','int','output','','add_update_instrument');
+INSERT INTO sproc_args VALUES(1,'id','instrumentID','int','input','','add_update_instrument');
 INSERT INTO sproc_args VALUES(2,'instrument_name','instrumentName','varchar','input','64','add_update_instrument');
 INSERT INTO sproc_args VALUES(3,'instrument_class','instrumentClass','varchar','input','32','add_update_instrument');
 INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentGroup','varchar','intput','64','add_update_instrument');
