@@ -90,6 +90,8 @@
     var gridConfig = {
 
         // Columns are from stored procedure get_requested_run_parameters_and_factors, and must be exact matches
+        // Instrument is actually instrument group
+
         hiddenColumns: [],
         staticColumns: ['request', 'name', 'status', 'batch', 'experiment', 'dataset', 'lc_col', {id:"instrument"}, {id:"cart"}, {id:"block"}, {id:"run_order"}],
         getLoadParameters: function() {
