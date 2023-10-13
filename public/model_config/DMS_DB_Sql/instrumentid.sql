@@ -18,7 +18,7 @@ INSERT INTO form_fields VALUES(4,'instrument_class','InstrumentClass','text','32
 INSERT INTO form_fields VALUES(5,'instrument_group','InstrumentGroup','text','32','32','','','Other','trim');
 INSERT INTO form_fields VALUES(6,'room_number','RoomNumber','text','50','50','','','','trim');
 INSERT INTO form_fields VALUES(7,'capture_method','CaptureMethod','text','10','10','','','fso','trim');
-INSERT INTO form_fields VALUES(8,'status','Status','text','8','8','','','active','trim');
+INSERT INTO form_fields VALUES(8,'status','Status','text','8','8','','','Active','trim');
 INSERT INTO form_fields VALUES(9,'usage','Usage','text','50','128','','','','trim');
 INSERT INTO form_fields VALUES(10,'operations_role','OperationsRole','text','50','50','','','Production','trim');
 INSERT INTO form_fields VALUES(11,'track_usage_when_inactive','Track Usage When Inactive','text','32','32','','','Y','trim|required|max_length[12]');
