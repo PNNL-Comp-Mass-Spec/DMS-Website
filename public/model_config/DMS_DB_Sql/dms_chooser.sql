@@ -47,8 +47,8 @@ INSERT INTO chooser_definitions VALUES(31,'EUSProposalStatePickList','default','
 INSERT INTO chooser_definitions VALUES(32,'EUSUserSiteStatusPickList','default','sql','SELECT ID_with_Name as val, ID AS ex FROM V_EUS_Site_Status_Picklist ORDER BY ID');
 INSERT INTO chooser_definitions VALUES(33,'LCColumnPickList','default','sql','SELECT val, ex FROM V_LC_Column_Picklist ORDER BY val');
 INSERT INTO chooser_definitions VALUES(34,'LCColumnStatePickList','default','sql','SELECT val, ex FROM V_LC_Column_State_Picklist ORDER BY val');
-INSERT INTO chooser_definitions VALUES(35,'ReqRunInstrumentPicklist','default','sql','SELECT val, ex FROM V_Req_Run_Instrument_Picklist ORDER BY val');
-INSERT INTO chooser_definitions VALUES(36,'ReqRunInstrumentPicklistEx','default','sql','SELECT val, ex FROM V_Req_Run_Instrument_Picklist_Ex ORDER BY val');
+INSERT INTO chooser_definitions VALUES(35,'Obsolete_ReqRunInstrumentPicklist','default','sql','SELECT val, ex FROM V_Req_Run_Instrument_Picklist ORDER BY val');
+INSERT INTO chooser_definitions VALUES(36,'Obsolete_ReqRunInstrumentPicklistEx','default','sql','SELECT val, ex FROM V_Req_Run_Instrument_Picklist_Ex ORDER BY val');
 INSERT INTO chooser_definitions VALUES(37,'analysisJobStatePickList','default','sql','SELECT Name as val, '''' as ex FROM V_Analysis_Job_State_Picklist ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(38,'analysisRequestPickList','default','sql','SELECT Name AS val, '''' AS ex FROM V_Analysis_Job_Request_State_Picklist ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(39,'analysisToolPickList','default','sql','SELECT Name as val, '''' as ex FROM V_Analysis_Tool_Picklist ORDER BY Name');
