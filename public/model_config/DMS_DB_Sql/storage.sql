@@ -37,9 +37,9 @@ INSERT INTO sproc_args VALUES(9,'<local>','message','varchar','output','512','ad
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_vol_client','Vol Client','20','','vol_client','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','20','','instrument','ContainsText','text','50','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_function','Function','20','','function','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_storage_path_function','Function','20','','storage_path_function','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_description','Description','20','','description','ContainsText','text','255','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_path','Path','20','','path','ContainsText','text','255','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_storage_path','Path','20','','storage_path','ContainsText','text','255','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'instrument','detail-report','instrument','instrument/show/','labelCol','dl_Instrument','');
 COMMIT;
