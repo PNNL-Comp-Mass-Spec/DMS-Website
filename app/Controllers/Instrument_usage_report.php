@@ -16,6 +16,7 @@ class Instrument_usage_report extends Grid {
 
     // --------------------------------------------------------------------
     // Overrides index() in Grid.php
+    // --------------------------------------------------------------------
     function index()
     {
         // Don't show the "Editing Grid Demonstration Pages".
@@ -24,6 +25,8 @@ class Instrument_usage_report extends Grid {
     }
 
     // --------------------------------------------------------------------
+    // Grid editing page:
+    // https://dms2.pnl.gov/instrument_usage_report/grid
     // --------------------------------------------------------------------
     function grid() {
 //      $this->my_tag = "instrument_usage";
@@ -32,6 +35,7 @@ class Instrument_usage_report extends Grid {
         $data_url = 'instrument_usage_report/grid_data';
         $this->grid_page('instrument_usage', $save_url, $data_url);
     }
+
     // --------------------------------------------------------------------
     function grid_data() {
         $instrument = $this->request->getPost("instrument");
@@ -57,6 +61,7 @@ class Instrument_usage_report extends Grid {
     // --------------------------------------------------------------------
     // https://dms2.pnl.gov/instrument_usage_report/ws/2019/3
     // https://dmsdev.pnl.gov/instrument_usage_report/ws/2019/3
+    // --------------------------------------------------------------------
     function ws()
     {
         $uri = $this->request->uri;
@@ -117,6 +122,7 @@ EOD;
     // --------------------------------------------------------------------
     // https://dms2.pnl.gov/instrument_usage_report/daily/2019/3
     // https://dmsdev.pnl.gov/instrument_usage_report/daily/2012/3
+    // --------------------------------------------------------------------
     function daily()
     {
         $uri = $this->request->uri;
@@ -137,6 +143,7 @@ EOD;
     // --------------------------------------------------------------------
     // https://dms2.pnl.gov/instrument_usage_report/dailydetails/2019/3
     // https://dmsdev.pnl.gov/instrument_usage_report/dailydetails/2012/3
+    // --------------------------------------------------------------------
     function dailydetails()
     {
         $uri = $this->request->uri;
@@ -176,6 +183,7 @@ EOD;
     // --------------------------------------------------------------------
     // https://dms2.pnl.gov/instrument_usage_report/rollup/2019/3
     // https://dmsdev.pnl.gov/instrument_usage_report/rollup/2012/3
+    // --------------------------------------------------------------------
     function rollup()
     {
         $uri = $this->request->uri;

@@ -6,6 +6,8 @@
 <?php echo view('resource_links/slickgrid2css') ?>
 </head>
 
+<!-- This page is used by https://dms2.pnl.gov/run_op_logs/grid -->
+
 <body>
 <?php echo view('nav_bar') ?>
 

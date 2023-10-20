@@ -8,6 +8,8 @@
 
 </head>
 
+<!-- This page is used by https://dms2.pnl.gov/instrument_usage_report/grid -->
+
 <body>
 <?php echo view('nav_bar') ?>
 

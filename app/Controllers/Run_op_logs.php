@@ -16,6 +16,7 @@ class Run_op_logs extends Grid {
 
     // --------------------------------------------------------------------
     // Overrides index() in Grid.php
+    // --------------------------------------------------------------------
     function index()
     {
         // Don't show the "Editing Grid Demonstration Pages".
@@ -24,7 +25,8 @@ class Run_op_logs extends Grid {
     }
 
     // --------------------------------------------------------------------
-    // display grid editing page
+    // Grid editing page:
+    // https://dms2.pnl.gov/run_op_logs/grid
     // --------------------------------------------------------------------
     function grid() {
         $this->my_tag = "operation_log_review";
@@ -34,10 +36,11 @@ class Run_op_logs extends Grid {
         $data_url = 'run_op_logs/grid_data';
         $this->grid_page('operation_log_review', $save_url, $data_url);
     }
+
     // --------------------------------------------------------------------
     // get data for grid editing page (JSON)
     // --------------------------------------------------------------------
-        function grid_data() {
+    function grid_data() {
         $instrument = $this->request->getPost("instrument");
         $usage = $this->request->getPost("usage");
         $type = $this->request->getPost("type");
