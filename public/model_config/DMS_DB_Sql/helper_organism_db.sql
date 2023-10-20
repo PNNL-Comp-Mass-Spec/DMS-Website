@@ -15,4 +15,5 @@ INSERT INTO list_report_hotlinks VALUES(2,'name','update_opener','value','','');
 INSERT INTO list_report_hotlinks VALUES(3,'num_proteins','format_commas','value','','{"Decimals":"0"}');
 INSERT INTO list_report_hotlinks VALUES(4,'num_residues','format_commas','value','','{"Decimals":"0"}');
 INSERT INTO list_report_hotlinks VALUES(5,'organism','invoke_entity','value','organism/report/~','');
+INSERT INTO list_report_hotlinks VALUES(6,'created','min_col_width','value','15','');
 COMMIT;
