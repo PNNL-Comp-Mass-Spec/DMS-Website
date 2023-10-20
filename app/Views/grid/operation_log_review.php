@@ -31,22 +31,34 @@
     </td>
     <td><span>Usage</span></td>
     <td>
+        <!--
+            SELECT Usage
+            FROM V_Ops_Logs_List_Report
+            WHERE Entered >= '2022-10-15'
+            GROUP BY Usage
+
+            SELECT Name, Description
+            FROM T_EUS_UsageType
+            WHERE Enabled > 0
+        -->
+
         <select id='usage_selector' multiple data-placeholder='Select usage (optional)' >
-        <option>CAP_DEV</option>
-        <option>MAINTENANCE</option>
-        <option>BROKEN</option>
-        <option>USER</option>
-        <option>USER_UNKNOWN</option>
+            <option>CAP_DEV</option>
+            <option>MAINTENANCE</option>
+            <option>BROKEN</option>
+            <option>RESOURCE_OWNER</option>
+            <option>USER_ONSITE</option>
+            <option>USER_REMOTE</option>
         </select>
     </td>
     <td><span>Type</span></td>
     <td>
         <select id='type_selector' multiple data-placeholder='Select type (optional)' >
-        <option>Dataset</option>
-        <option>Long Interval</option>
-        <option>Operation</option>
-        <option>Configuration</option>
-        <option></option>
+            <option>Dataset</option>
+            <option>Long Interval</option>
+            <option>Operation</option>
+            <option>Configuration</option>
+            <option></option>
         </select>
     </td>
 </tr>

@@ -33,11 +33,26 @@
     </td>
     <td><span>Usage</span></td>
     <td>
+        <!--
+            SELECT Usage, COUNT(*)
+            FROM V_Instrument_Usage_Report_List_Report
+            WHERE start >= '2022-10-01'
+            GROUP BY usage
+
+            SELECT Name, Description
+            FROM T_EMSL_Instrument_Usage_Type
+            WHERE Enabled > 0
+        -->
+
         <select id='usage_selector' multiple data-placeholder='Select usage (optional)' >
-        <option>CAP_DEV</option>
-        <option>MAINTENANCE</option>
-        <option>ONSITE</option>
-        <option>REMOTE</option>
+            <option>CAP_DEV</option>
+            <option>MAINTENANCE</option>
+            <option>BROKEN</option>
+            <option>AVAILABLE</option>
+            <option>UNAVAILABLE</option>
+            <option>RESOURCE_OWNER</option>
+            <option>ONSITE</option>
+            <option>REMOTE</option>
         </select>
     </td>
     <td><span>Proposal</span></td>
