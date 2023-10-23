@@ -1,6 +1,7 @@
 
 <div id='attachments_control_section'>
-<?= general_visibility_control('File Attachments', 'file_attachments_section', '') ?>
+<?php // Include a span with a default value in the section title, to be populated via javascript ?>
+<?= general_visibility_control('File Attachments (<span id="attachments_count">0</span>)', 'file_attachments_section', '') ?>
 </div>
 
 <div id='file_attachments_section'>

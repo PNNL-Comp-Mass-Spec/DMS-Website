@@ -520,6 +520,8 @@ class File_attachment extends DmsBase {
             $entries[] = array($downloadLink . ' ' . $deleteLink , $row->name, $row->description);
         }
         $count = $resultSet->getNumRows();
+        // Also report the count of file attachments in a hidden element
+        echo "<span id='file_attachments_count' style='display:none'>$count</span>";
         if($count) {
             $this->table = new \CodeIgniter\View\Table();
             $this->table->setHeading("Action", "Name", "Description");

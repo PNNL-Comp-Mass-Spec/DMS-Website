@@ -14,7 +14,9 @@ var fileAttachment = {
         p.entity_id = dmsjs.pageContext.Id;
         dmsOps.doOperation(url, p, 'attachments_list', function(data, container) {
                 container.html(data);
-//              $('#file_attachments_section').show();
+                //$('#file_attachments_section').show();
+                // Copy the hidden 'count' value to the section title placeholder
+                $('#attachments_count').html($('#file_attachments_count').html());
         });
     },
     doOperation: function(faid, mode) {
