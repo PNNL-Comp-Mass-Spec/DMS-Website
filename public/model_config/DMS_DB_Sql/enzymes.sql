@@ -6,7 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_enzymes_list_repor
 INSERT INTO general_params VALUES('list_report_data_sort_col','enzyme_id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'enzyme_name','invoke_entity','value','experiment/report/-/-/-/-/-/-/-/sfx/and/enzyme/matchestext/@','');
+INSERT INTO list_report_hotlinks VALUES(1,'enzyme_name','invoke_entity','value','experiment/report/-/-/-/-/-/-/-/sfx/AND/Enzyme/MatchesText/','');
 INSERT INTO list_report_hotlinks VALUES(2,'protein_collection','invoke_entity','value','protein_collection/report/~','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_ID','ID','','','enzyme_id','Equals','int','','','');

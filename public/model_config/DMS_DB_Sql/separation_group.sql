@@ -33,5 +33,5 @@ INSERT INTO sproc_args VALUES(7,'<local>','message','varchar','output','512','ad
 INSERT INTO sproc_args VALUES(8,'<local>','callingUser','varchar','input','128','add_update_separation_group');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO detail_report_hotlinks VALUES(1,'separation_types','detail-report','separation_group','separation_type/report/-/-/~','labelCol','dl_separation_types','');
-INSERT INTO detail_report_hotlinks VALUES(2,'separation_group','detail-report','separation_group','requested_run/report/-/-/-/-/-/-/-/-/-/-/sfx/and/separation%20group/matchestext/','labelCol','dl_requested_runs_for_separation_group','');
+INSERT INTO detail_report_hotlinks VALUES(2,'separation_group','detail-report','separation_group','requested_run/report/-/-/-/-/-/-/-/-/-/-/-/-/sfx/AND/Separation_Group/MatchesText/','labelCol','dl_requested_runs_for_separation_group','');
 COMMIT;

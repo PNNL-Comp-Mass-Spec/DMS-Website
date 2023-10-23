@@ -23,10 +23,10 @@ INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_use','Most Recen
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'separation_type','invoke_entity','id','separation_type/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'separation_group','invoke_entity','value','separation_group/show','');
-INSERT INTO list_report_hotlinks VALUES(3,'dataset_usage_all_years','invoke_entity','separation_type','dataset/report/-/-/-/-/-/-/-/-/-/-/-/sfx/and/separation%20type/matchestext/','');
+INSERT INTO list_report_hotlinks VALUES(3,'dataset_usage_all_years','invoke_entity','separation_type','dataset/report/-/-/-/-/-/-/-/-/-/-/-/sfx/AND/Separation_Type/MatchesText/','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO detail_report_hotlinks VALUES(1,'separation_group','detail-report','separation_group','separation_group/show','valueCol','','');
-INSERT INTO detail_report_hotlinks VALUES(2,'dataset_usage_all_years','detail-report','separation_type','dataset/report/-/-/-/-/-/-/-/-/-/-/-/sfx/and/separation%20type/matchestext/','valueCol','','');
+INSERT INTO detail_report_hotlinks VALUES(2,'dataset_usage_all_years','detail-report','separation_type','dataset/report/-/-/-/-/-/-/-/-/-/-/-/sfx/AND/Separation_Type/MatchesText/','valueCol','','');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(2,'separation_name','Name','text','50','50','','','','trim|max_length[50]');

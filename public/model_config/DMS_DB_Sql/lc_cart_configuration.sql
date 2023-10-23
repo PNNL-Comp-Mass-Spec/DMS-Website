@@ -15,7 +15,7 @@ INSERT INTO general_params VALUES('post_submission_detail_id','id');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','lc_cart_configuration/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'cart','invoke_entity','value','lc_cart/report/','');
-INSERT INTO list_report_hotlinks VALUES(3,'dataset_usage','invoke_entity','config_name','dataset/report/-/-/-/-/-/-/-/-/-/sfx/and/cart%20config/matchestext/','');
+INSERT INTO list_report_hotlinks VALUES(3,'dataset_usage','invoke_entity','config_name','dataset/report/-/-/-/-/-/-/-/-/-/-/-/sfx/AND/Cart_Config/MatchesText/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_cart_config','Cart Config','','','config_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_cart','Cart','','','cart','ContainsText','text','128','','');
