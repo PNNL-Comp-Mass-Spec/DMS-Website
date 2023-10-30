@@ -11,7 +11,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','date_sort_key');
 INSERT INTO general_params VALUES('entry_sproc','add_update_dataset');
 INSERT INTO general_params VALUES('entry_page_data_table','v_dataset_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','dataset_id');
-INSERT INTO general_params VALUES('alternate_title_create','Create Dataset Trigger File');
+INSERT INTO general_params VALUES('alternate_title_create','Create Dataset (after validation)');
 INSERT INTO general_params VALUES('post_submission_detail_id','dataset_id');
 INSERT INTO general_params VALUES('operations_sproc','do_dataset_operation');
 INSERT INTO general_params VALUES('list_report_data_cols','id, dataset, experiment, campaign, state, instrument, created, comment, rating, dataset_type, operator, dataset_folder_path, qc_link, acq_start, acq_end, acq_length, scan_count, file_size_mb, cart_config, lc_column, separation_type, request, usage, proposal, work_package, organism, tissue, date_sort_key');
@@ -103,7 +103,7 @@ INSERT INTO sproc_args VALUES(14,'eus_proposal_id','eusProposalID','varchar','in
 INSERT INTO sproc_args VALUES(15,'eus_usage_type','eusUsageType','varchar','input','50','add_update_dataset');
 INSERT INTO sproc_args VALUES(16,'eus_users','eusUsersList','varchar','input','1024','add_update_dataset');
 INSERT INTO sproc_args VALUES(17,'request_id','requestID','int','input','','add_update_dataset');
-INSERT INTO sproc_args VALUES(18,'<local>','mode','varchar','input','12','add_update_dataset');
+INSERT INTO sproc_args VALUES(18,'<local>','mode','varchar','input','32','add_update_dataset');
 INSERT INTO sproc_args VALUES(19,'<local>','message','varchar','output','512','add_update_dataset');
 INSERT INTO sproc_args VALUES(20,'<local>','callingUser','varchar','input','128','add_update_dataset');
 INSERT INTO sproc_args VALUES(21,'capture_subfolder','captureSubfolder','varchar','input','255','add_update_dataset');
@@ -154,8 +154,8 @@ CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" 
 INSERT INTO form_field_options VALUES(1,'operator_username','default_function','GetUser()');
 INSERT INTO form_field_options VALUES(2,'dataset_id','load_key_field','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
-INSERT INTO entry_commands VALUES(1,'add_trigger','override','Create','','add');
-INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');
+INSERT INTO entry_commands VALUES(1,'add_dataset_create_task','override','Create','Create a new dataset by adding it to the dataset creation queue','add');
+INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as a bad instrument run (Rating "No Data").','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO detail_report_commands VALUES(1,'Retry Capture','cmd_op','reset','datasetid','Retry copying the instrument data from the instrument to the storage server.  This can only be used if the dataset folder on the storage server is empty or if it only contains a single corrupt .raw file.','Are you sure that you want to reset this dataset to New?');
 INSERT INTO detail_report_commands VALUES(3,'Delete this dataset','cmd_op','delete','datasetid','Delete this dataset (only allowed if the dataset has not been copied to a storage server).','Are you sure that you want to delete this dataset?');

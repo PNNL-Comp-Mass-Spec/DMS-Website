@@ -8,7 +8,7 @@ INSERT INTO general_params VALUES('detail_report_data_id_col','dataset');
 INSERT INTO general_params VALUES('entry_sproc','add_update_dataset');
 INSERT INTO general_params VALUES('entry_page_data_table','v_dataset_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','dataset');
-INSERT INTO general_params VALUES('alternate_title_create','Create Dataset Trigger File');
+INSERT INTO general_params VALUES('alternate_title_create','Create Dataset (after validation)');
 INSERT INTO general_params VALUES('operations_sproc','do_dataset_operation');
 INSERT INTO general_params VALUES('list_report_data_sort_col','date_sort_key');
 INSERT INTO general_params VALUES('base_table','T_Dataset');
@@ -136,8 +136,8 @@ INSERT INTO detail_report_hotlinks VALUES(40,'+masic_qc_link','literal_link','',
 INSERT INTO detail_report_hotlinks VALUES(41,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
 INSERT INTO detail_report_hotlinks VALUES(42,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
-INSERT INTO entry_commands VALUES(1,'add_trigger','override','Create','','add');
-INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as bad instrument run (Rating "No Data").','');
+INSERT INTO entry_commands VALUES(1,'add_dataset_create_task','override','Create','Create a new dataset by adding it to the dataset creation queue','add');
+INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as a bad instrument run (Rating "No Data").','');
 CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );
 INSERT INTO external_sources VALUES(1,'requested_run','experiment','ColName','experiment');
 INSERT INTO external_sources VALUES(2,'requested_run','dataset','ColName','experiment');
@@ -174,7 +174,7 @@ INSERT INTO sproc_args VALUES(14,'eus_proposal_id','eusProposalID','varchar','in
 INSERT INTO sproc_args VALUES(15,'eus_usage_type','eusUsageType','varchar','input','50','add_update_dataset');
 INSERT INTO sproc_args VALUES(16,'eus_users','eusUsersList','varchar','input','1024','add_update_dataset');
 INSERT INTO sproc_args VALUES(17,'request_id','requestID','int','input','','add_update_dataset');
-INSERT INTO sproc_args VALUES(18,'<local>','mode','varchar','input','12','add_update_dataset');
+INSERT INTO sproc_args VALUES(18,'<local>','mode','varchar','input','32','add_update_dataset');
 INSERT INTO sproc_args VALUES(19,'<local>','message','varchar','output','512','add_update_dataset');
 INSERT INTO sproc_args VALUES(20,'<local>','callingUser','varchar','input','128','add_update_dataset');
 INSERT INTO sproc_args VALUES(21,'capture_subfolder','captureSubfolder','varchar','input','255','add_update_dataset');
