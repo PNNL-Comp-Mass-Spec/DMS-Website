@@ -12,7 +12,7 @@ class Spreadsheet_loader extends DmsBase {
 
     function __construct()
     {
-        $this->my_tag = "table_loader"; // Links to the help page; also used by the restricted_actions table in master_authorization
+        $this->my_tag = "spreadsheet_loader"; // Links to the help page; also used by the restricted_actions table in master_authorization
 
         // Get the exact name (no namespace) of this class, since it's also the URL path to this controller
         //$this->my_url_tag = strtolower(get_class($this)); // This won't work because we are in a namespace

@@ -106,7 +106,7 @@ INSERT INTO restricted_actions VALUES(106,'sample_submission','operation','DMS_U
 INSERT INTO restricted_actions VALUES(107,'separation_group','enter','DMS_Infrastructure_Administration, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(108,'settings_files','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO restricted_actions VALUES(109,'storage','enter','DMS_Infrastructure_Administration');
-INSERT INTO restricted_actions VALUES(110,'table_loader','operation','DMS_Infrastructure_Administration, DMS_Instrument_Operation, DMS_Sample_Preparation');
+INSERT INTO restricted_actions VALUES(110,'spreadsheet_loader','operation','DMS_Infrastructure_Administration, DMS_Instrument_Operation, DMS_Sample_Preparation');
 INSERT INTO restricted_actions VALUES(111,'tracking_dataset','enter','DMS_Infrastructure_Administration, DMS_Instrument_Tracking');
 INSERT INTO restricted_actions VALUES(112,'update_analysis_jobs','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Analysis_Job_Administration');
 INSERT INTO restricted_actions VALUES(113,'update_archive','enter','DMS_Infrastructure_Administration');
