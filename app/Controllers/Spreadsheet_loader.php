@@ -30,6 +30,17 @@ class Spreadsheet_loader extends DmsBase {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
+        /**
+         * spreadsheet_loader.db: Not a standard config DB!
+         * Has a single table 'loadable_entities', with the following columns (excluding the identity column):
+         *   entity_type:           key normally used for reference, each entry needs to be unique in the table
+         *   config_source:         page family name for entity_type, used primarily for entry_sproc and sproc_args
+         *   aux_info_target:       if not supported for entity_type: empty string
+         *                            if supported for entity_type:     the value that should be entered in the 'Target' column of aux_info_def for this entity
+         *   existence_check_sql:   sql query to check for existence of the row in the database
+         *                            should be of the form "SELECT (identity_column_name) AS ID FROM (table_name) WHERE '(key_name)' = KEY"
+         *   key:                   column name in existence_check_sql/uploaded spreadsheet that is used as the match value for existence_check_sql
+         */
         $this->get_config_info('spreadsheet_loader.db');
     }
 
@@ -268,7 +279,7 @@ class Spreadsheet_loader extends DmsBase {
     {
         $fname = $this->request->getPost('file_name');
         $id= $this->request->getPost('id');
-        $mode =  $this->request->getPost('mode');
+        $mode = $this->request->getPost('mode');  // Comes from radio buttons, can be 'add', 'update', 'check_add', 'check_update', 'check_exists'; see Views/uploader/upload_controls.php
         $incTrackinfo = $this->request->getPost('incTrackinfo') == 'true';
         $incAuxinfo = $this->request->getPost('incAuxinfo') == 'true';
 
@@ -487,8 +498,8 @@ class Spreadsheet_loader extends DmsBase {
         $entity_info[$form_def->specs[$primary_key]['label']] = 'key';
         foreach($form_def->specs as $field => $spec) {
 
-	        // The form field type may contain several keywords specified by a vertical bar
-	        $fieldTypes = explode('|', $spec['type']);
+            // The form field type may contain several keywords specified by a vertical bar
+            $fieldTypes = explode('|', $spec['type']);
 
             if($field != $primary_key && !in_array('hidden', $fieldTypes) && !in_array('non-edit', $fieldTypes)) {
                 $entity_info[$spec['label']] = 'xx';
