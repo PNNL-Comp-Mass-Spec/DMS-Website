@@ -293,6 +293,11 @@ class Spreadsheet_loader extends DmsBase {
             $aux_info = $this->spreadsheet_loader->get_entity_aux_info($id);
             $grouped_aux_info = $this->spreadsheet_loader->group_aux_info_items($aux_info);
 
+            if($entity_type == 'DATASET' && $mode == 'add') {
+                // Datasets: don't use 'add', which bypasses the data import manager
+                $mode = 'add_dataset_create_task';
+            }
+
             //---- tracking info update ---------------------------
             if($incTrackinfo) {
                 $config_source = $this->get_config_source($entity_type);
