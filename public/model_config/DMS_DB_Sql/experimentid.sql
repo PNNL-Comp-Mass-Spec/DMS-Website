@@ -48,6 +48,7 @@ INSERT INTO detail_report_hotlinks VALUES(17,'labelling','detail-report','labell
 INSERT INTO detail_report_hotlinks VALUES(18,'+labelling','detail-report','id','experiment_plex_members/report/','labelCol','dl_labelling_plex_id','{"HideLinkIfValueMatch":"none"}');
 INSERT INTO detail_report_hotlinks VALUES(19,'experiment','detail-report','experiment','experiment/show/','labelCol','dl_experiment','');
 INSERT INTO detail_report_hotlinks VALUES(20,'digestion_enzyme','detail-report','digestion_enzyme','enzymes/report/-/~','labelCol','dl_enzyme','');
+INSERT INTO detail_report_hotlinks VALUES(21,'tissue_id','detail-report','tissue_id','tissue/show','valueCol','dl_tissue_id','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','name','varchar','input','128','do_material_item_operation');
 INSERT INTO sproc_args VALUES(2,'<local>','mode','varchar','input','32','do_material_item_operation');
