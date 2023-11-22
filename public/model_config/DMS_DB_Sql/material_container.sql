@@ -18,7 +18,7 @@ INSERT INTO form_fields VALUES(1,'container','Container','non-edit','','','','',
 INSERT INTO form_fields VALUES(2,'type','Type','text','32','32','','','Box','trim|max_length[32]');
 INSERT INTO form_fields VALUES(3,'location','Location','text','24','24','','','','trim|max_length[24]');
 INSERT INTO form_fields VALUES(4,'comment','Comment','area','','','4','60','','trim|max_length[1024]');
-INSERT INTO form_fields VALUES(5,'campaign','Campaign','text','60','64','','','','trim|required|max_length[64]');
+INSERT INTO form_fields VALUES(5,'campaign','Campaign','text','60','64','','','Not Set','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(6,'researcher','Researcher','text','50','128','','','','trim|required|max_length[128]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'type','picker.replace','containerTypePickList','','',',','');
