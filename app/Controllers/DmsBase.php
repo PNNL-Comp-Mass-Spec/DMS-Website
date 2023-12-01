@@ -497,7 +497,9 @@ class DmsBase extends BaseController
     // --------------------------------------------------------------------
     function data()
     {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         $this->load_lib('General_query', '', ''); // $config_name, $config_source
         $input_parms = $this->general_query->setup_query_for_dmsBase();
         $this->general_query->output_result($input_parms->output_format);

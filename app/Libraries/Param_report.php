@@ -84,7 +84,9 @@ class Param_report {
      * @category AJAX
      */
     function param_data() {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         helper('user');
 
         $message = $this->get_data_rows_from_sproc();
@@ -211,7 +213,9 @@ class Param_report {
      * @category AJAX
      */
     function param_info($what_info) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         $this->get_filter_values();
 
         switch ($what_info) {
@@ -319,7 +323,8 @@ class Param_report {
      * @category AJAX
      */
     function param_paging() {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         helper(['link_util']);
 
@@ -351,7 +356,8 @@ class Param_report {
     // --------------------------------------------------------------------
     // AJAX
     function param_filter() {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         // call stored procedure
         $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
@@ -379,7 +385,9 @@ class Param_report {
      * @return type
      */
     function export_param($format) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         helper(['user', 'export']);
 
         $message = $this->get_data_rows_from_sproc();

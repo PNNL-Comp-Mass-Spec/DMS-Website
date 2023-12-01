@@ -37,7 +37,8 @@ class Config_db extends BaseController {
         // E.g.:
         // $this->session = \Config\Services::session();
 
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         $this->mod_enabled = config('App')->modify_config_db_enabled;
 

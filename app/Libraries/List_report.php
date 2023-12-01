@@ -32,7 +32,8 @@ class List_report {
      * @param type $mode
      */
     function list_report($mode) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         // Include several helper methods
 
@@ -186,7 +187,8 @@ class List_report {
      * @category AJAX
      */
     function report_filter($filter_display_mode = 'advanced') {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         helper('form');
         helper(['filter', 'link_util']);
@@ -234,7 +236,8 @@ class List_report {
      * @category AJAX
      */
     function get_sql_comparison($column_name) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
         $data_type = $this->controller->model->get_column_data_type(strtolower($column_name));
@@ -250,7 +253,8 @@ class List_report {
      * @category AJAX
      */
     function report_data($option = 'rows') {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         $this->set_up_list_query();
 
@@ -286,7 +290,9 @@ class List_report {
      * @category AJAX
      */
     function report_info($what_info) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         $this->set_up_list_query();
 
         switch ($what_info) {
@@ -355,7 +361,8 @@ class List_report {
      * @category AJAX
      */
     function report_paging() {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         helper(['link_util']);
         $this->set_up_list_query();
@@ -440,7 +447,9 @@ class List_report {
      * @param string $format
      */
     function export($format) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         helper(['export']);
 
         $this->set_up_list_query();

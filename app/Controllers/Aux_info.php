@@ -26,7 +26,9 @@ class Aux_info extends BaseController {
         // E.g.:
         // $this->session = \Config\Services::session();
 
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         $this->preferences = model('App\Models\Dms_preferences');
         $this->choosers = model('App\Models\Dms_chooser');
 

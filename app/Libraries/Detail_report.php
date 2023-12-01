@@ -115,7 +115,8 @@ class Detail_report {
      * @category AJAX
      */
     function detail_sql($id) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
         echo $this->controller->detail_model->get_item_sql($id);
@@ -148,7 +149,8 @@ class Detail_report {
      * @param string $format
      */
     function export_detail($id, $format) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         // get entity data
         $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
@@ -262,7 +264,8 @@ class Detail_report {
      * @param string $format
      */
     function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv") {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         $entity_info = $this->get_entry_tracking_info($id);
         $aux_info = $this->get_entry_aux_info($id);

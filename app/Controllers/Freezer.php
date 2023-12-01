@@ -17,7 +17,8 @@ class Freezer extends DmsBase {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         $this->color_code = config('App')->version_color_code;
         $this->help_page_link = config('App')->pwiki;

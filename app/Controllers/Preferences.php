@@ -16,7 +16,8 @@ class Preferences extends BaseController {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
 
         $this->model = model('App\\Models\\'.$this->my_model);
     }

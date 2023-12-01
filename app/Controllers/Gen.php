@@ -28,7 +28,9 @@ class Gen extends BaseController
 		// E.g.:
 		// $this->session = \Config\Services::session();
 
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         $this->config = config('App');
         $this->color_code = $this->config->version_color_code;
         $this->page_menu_root = ($this->config->page_menu_root) ? $this->config->page_menu_root : "page_menu" ;

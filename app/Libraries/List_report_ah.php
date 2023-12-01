@@ -17,7 +17,9 @@ class List_report_ah extends List_report {
      * @param string $mode
      */
     function list_report($mode) {
-        session_start();
+        //Ensure a session is initialized
+        $session = \Config\Services::session();
+
         helper(['form', 'menu', 'link_util', 'url']);
         $this->controller->choosers = model('App\Models\Dms_chooser');
 
