@@ -4,6 +4,7 @@ namespace App\Services;
 use CodeIgniter\Autoloader\FileLocator;
 use CodeIgniter\Router\RouteCollectionInterface;
 use Config\Modules;
+use Config\Routing;
 use CodeIgniter\Router\RouteCollection as BaseRouteCollection;
 
 /*
@@ -29,10 +30,11 @@ class RouteCollection extends BaseRouteCollection
 	 *
 	 * @param FileLocator $locator
 	 * @param Modules     $moduleConfig
+	 * @param Routing     $routing
 	 */
-    public function __construct(FileLocator $locator, Modules $moduleConfig)
+    public function __construct(FileLocator $locator, Modules $moduleConfig, Routing $routing)
     {
-        parent::__construct($locator, $moduleConfig);
+        parent::__construct($locator, $moduleConfig, $routing);
 
         // Placeholder to allow a single entry for a page alias: match either a single slash or end of string.
         $this->placeholders['slashOrEnd'] = '/|$';

@@ -48,7 +48,7 @@ class Services extends BaseService
             return static::getSharedInstance('routes');
         }
 
-        return new \App\Services\RouteCollection(AppServices::locator(), config('Modules'));
+        return new \App\Services\RouteCollection(AppServices::locator(), config(Modules::class), config(Routing::class));
     }
 
     public static function xss_security($getShared = true)
