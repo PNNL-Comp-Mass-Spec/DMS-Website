@@ -12,7 +12,6 @@ INSERT INTO sproc_args VALUES(82,'request_name','requestName','varchar','input',
 INSERT INTO sproc_args VALUES(83,'datasets','datasets','varchar','output','2147483647','add_job_request_psm');
 INSERT INTO sproc_args VALUES(84,'comment','comment','varchar','input','512','add_job_request_psm');
 INSERT INTO sproc_args VALUES(85,'owner_username','ownerUsername','varchar','input','64','add_job_request_psm');
-INSERT INTO sproc_args VALUES(86,'organism_name','organismName','varchar','input','128','add_job_request_psm');
 INSERT INTO sproc_args VALUES(87,'prot_coll_name_list','protCollNameList','varchar','input','4000','add_job_request_psm');
 INSERT INTO sproc_args VALUES(88,'prot_coll_options_list','protCollOptionsList','varchar','input','256','add_job_request_psm');
 INSERT INTO sproc_args VALUES(89,'tool_name','toolName','varchar','input','64','add_job_request_psm');
