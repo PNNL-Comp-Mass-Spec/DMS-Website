@@ -233,7 +233,7 @@ class File_attachment extends DmsBase {
                 $data = $this->upload->data();
                 $orig_name = $data["orig_name"];
                 $name = $data["file_name"];
-                $size = $data["file_size"];
+                $size = $data["file_size"];                     // Size in Kilobytes
                 $type = $this->request->getPost("entity_type");
                 $id = $this->request->getPost("entity_id");
                 $description = $this->request->getPost("description");
@@ -428,7 +428,7 @@ class File_attachment extends DmsBase {
             $calling_params->description = $description;
             $calling_params->entityType = $type;
             $calling_params->entityID = $id;
-            $calling_params->fileSizeBytes = $size;
+            $calling_params->fileSizeKB = $size;
             $calling_params->archiveFolderPath = $path;
             $calling_params->mode = 'add';
             $calling_params->callingUser = get_user();

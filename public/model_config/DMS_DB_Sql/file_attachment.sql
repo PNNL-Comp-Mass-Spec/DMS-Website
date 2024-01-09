@@ -12,7 +12,7 @@ INSERT INTO sproc_args VALUES(2,'fileName','fileName','varchar','input','256','a
 INSERT INTO sproc_args VALUES(3,'description','description','varchar','input','1024','add_update_file_attachment');
 INSERT INTO sproc_args VALUES(4,'entityType','entityType','varchar','input','64','add_update_file_attachment');
 INSERT INTO sproc_args VALUES(5,'entityID','entityID','varchar','input','256','add_update_file_attachment');
-INSERT INTO sproc_args VALUES(6,'fileSizeBytes','fileSizeBytes','varchar','input','12','add_update_file_attachment');
+INSERT INTO sproc_args VALUES(6,'fileSizeKB','fileSizeKB','varchar','input','12','add_update_file_attachment');
 INSERT INTO sproc_args VALUES(7,'archiveFolderPath','archiveFolderPath','varchar','input','256','add_update_file_attachment');
 INSERT INTO sproc_args VALUES(8,'<local>','mode','varchar','input','12','add_update_file_attachment');
 INSERT INTO sproc_args VALUES(9,'<local>','message','varchar','output','512','add_update_file_attachment');

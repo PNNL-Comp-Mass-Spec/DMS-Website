@@ -136,7 +136,7 @@ class Upload {
 	public $file_type = '';
 
 	/**
-	 * File size
+	 * File size, initially in bytes, but later converted to kilobytes
 	 *
 	 * @var	int
 	 */
@@ -441,6 +441,8 @@ class Upload {
 
 		// Set the uploaded data as class variables
 		$this->file_temp = $_file['tmp_name'];
+
+		// At this point, the file size is in bytes
 		$this->file_size = $_file['size'];
 
 		// Skip MIME type detection?
