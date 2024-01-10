@@ -471,7 +471,7 @@ class File_attachment extends DmsBase {
 
             $calling_params = new \stdClass();
 
-            $calling_params->ID = $id;
+            $calling_params->id = $id;
             $calling_params->mode = $mode;
             $calling_params->callingUser = get_user();
             $calling_params->message = '';
