@@ -255,7 +255,9 @@ class File_attachment extends DmsBase {
                     rmdir(ROOTPATH."/attachment_uploads/{$id}/{$timestamp}");
                 }
 
-                if (strtolower(substr($orig_name, 0, 8)) !== 'testfile') {
+                if (stripos($orig_name, 'testfile') === 0) {
+                    $resultMsg .= '. Database entry skipped (name matches "testfile*")';
+                } else {
                     $msg = $this->make_attachment_tracking_entry($orig_name, $type, $id, $description, $size, $entity_folder_path);
                     if ($msg) {
                         throw new \Exception($msg);
