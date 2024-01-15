@@ -36,7 +36,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'column_name','invoke_entity','value','lc_column/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'created','format_date','value','15','{"Format":"Y-m-d"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
-INSERT INTO sproc_args VALUES(1,'lc_column','columnNumber','varchar','output','128','add_update_lc_column');
+INSERT INTO sproc_args VALUES(1,'lc_column','columnName','varchar','output','128','add_update_lc_column');
 INSERT INTO sproc_args VALUES(2,'packing_mfg','packingMfg','varchar','input','64','add_update_lc_column');
 INSERT INTO sproc_args VALUES(3,'packing_type','packingType','varchar','input','64','add_update_lc_column');
 INSERT INTO sproc_args VALUES(4,'particle_size','particleSize','varchar','input','64','add_update_lc_column');
