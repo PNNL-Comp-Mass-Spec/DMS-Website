@@ -12,7 +12,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim');
-INSERT INTO form_fields VALUES(2,'prep_run_name','Name','text','50','128','','','','trim|max_length[128]');
+INSERT INTO form_fields VALUES(2,'prep_run_name','Name','text','50','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(3,'instrument','Instrument','text','50','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(4,'type','Type','text','50','64','','','','trim|max_length[64]|required');
 INSERT INTO form_fields VALUES(5,'lc_column','LC Column','text','50','128','','','','trim|max_length[128]');
