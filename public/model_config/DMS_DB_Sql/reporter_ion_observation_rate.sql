@@ -47,6 +47,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_datasetId','ID','6!','','dataset_id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_reporterIon','Reporter_Ion','','','reporter_ion','StartsWithText','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_job','Job','6!','','job','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_reporterIon','Reporter Ion','','','reporter_ion','StartsWithText','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_batch','Batch','6!','','batch','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_job','Job','6!','','job','Equals','text','24','','');
 COMMIT;
