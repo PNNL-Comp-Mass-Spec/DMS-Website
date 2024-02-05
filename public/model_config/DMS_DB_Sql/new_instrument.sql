@@ -15,7 +15,7 @@ INSERT INTO form_fields VALUES(5,'room_number','Room Number','text','50','50',''
 INSERT INTO form_fields VALUES(6,'description','Description','area','','','4','80','Description is required','trim|required|max_length[1024]');
 INSERT INTO form_fields VALUES(7,'usage','Usage','text','50','128','','','','trim');
 INSERT INTO form_fields VALUES(8,'operations_role','Operations Role','text','50','50','','','Production','trim');
-INSERT INTO form_fields VALUES(9,'percent_emsl_owned','Percent EMSL Owned','text','50','50','','','','trim');
+INSERT INTO form_fields VALUES(9,'percent_emsl_owned','Percent EMSL Owned','text','50','50','','','0.0','trim');
 INSERT INTO form_fields VALUES(10,'source_machine_name','Instrument Workstation Name','text','80','128','','','\\VOrbi0x.bionet\','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(11,'source_path','Instrument XFer Folder (UNC)','area','','','2','60','ProteomicsData\','trim|required|max_length[255]');
 INSERT INTO form_fields VALUES(12,'path','Storage Path','area','','','2','60','VOrbi0x\','trim|required|max_length[255]');
