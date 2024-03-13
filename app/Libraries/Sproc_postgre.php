@@ -50,7 +50,8 @@ class Sproc_postgre extends Sproc_base {
 
         $sql = $sql.")";
 
-        pg_query($conn_id, "BEGIN");
+        // This might have been needed initially, but now using it causes 'invalid transaction termination' errors due to transaction nesting.
+        //pg_query($conn_id, "BEGIN");
         //$result = pg_query_params($conn_id, $sql, $params); // Use pg_send_query_params() and pg_get_results() to be able to use pg_result_error()
         $result = pg_send_query_params($conn_id, $sql, $params);
 
