@@ -46,6 +46,7 @@ INSERT INTO list_report_hotlinks VALUES(21,'cterm_k_phospho_pep','column_tooltip
 INSERT INTO list_report_hotlinks VALUES(22,'cterm_r_phospho_pep','column_tooltip','value','Number of distinct phosphopeptides with R on the C-terminus','');
 INSERT INTO list_report_hotlinks VALUES(23,'phospho_pct_missed_clvg','column_tooltip','value','Percent of distinct phosphopeptides with a missed cleavage (internal K or R)','');
 INSERT INTO list_report_hotlinks VALUES(24,'acetyl_pep','column_tooltip','value','Unique acetylated peptides passing the FDR threshold (any K with acetyl)','');
+INSERT INTO list_report_hotlinks VALUES(25,'ubiquitin_pep','column_tooltip','value','Unique ubiquitinated peptides passing the FDR threshold (any K with ubiquitin)','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'dataset','detail-report','dataset','dataset/show','labelCol','dataset',NULL);
 INSERT INTO detail_report_hotlinks VALUES(5,'results_folder_path','href-folder','results_folder_path','','labelCol','results_folder_path',NULL);
