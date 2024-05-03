@@ -125,8 +125,8 @@ return [
         'database' => "PRISM_IFC",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'DBDebug'  => true,
         'pConnect' => false,
+        'DBDebug'  => false,
     ],
 
     'prism_rpt' => [
@@ -136,8 +136,8 @@ return [
         'database' => "PRISM_RPT",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'DBDebug'  => true,
         'pConnect' => false,
+        'DBDebug'  => false,
     ],
 
     'ontology' => [
@@ -147,9 +147,8 @@ return [
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'DBDebug'  => true,
-
         'pConnect' => false,
+        'DBDebug'  => false,
     ],
 
     'manager_control' => [
@@ -165,8 +164,8 @@ return [
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
-        'DBDebug'  => true,
         'pConnect' => false,
+        'DBDebug'  => false,
     ],
 ];
 
