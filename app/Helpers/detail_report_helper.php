@@ -816,8 +816,17 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP = false
         if (!empty($options) && array_key_exists('RemoveRegEx', $options)) {
             $pattern = $options['RemoveRegEx'];
             if (!empty($pattern)) {
+                // Replace %2C with a comma
+                // Replace %20 with a space
+                // Replace %28 with (
+                // Replace %29 with )
+                $link_id_updated = preg_replace("/\%2C/", ",", 
+                                   preg_replace("/\%20/", " ", 
+                                   preg_replace("/\%28/", "(", 
+                                   preg_replace("/\%29/", ")", $link_id))));
+                
                 $pattern = '/' . $pattern . '/';
-                $link_id = preg_replace($pattern, "", $link_id);
+                $link_id = preg_replace($pattern, "", $link_id_updated);
             }
         }
 
