@@ -64,7 +64,7 @@ INSERT INTO restricted_actions VALUES(60,'lc_cart_loading','operation','DMS_Infr
 INSERT INTO restricted_actions VALUES(61,'lc_cart_request_loading','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(62,'lc_cart_settings_history','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(63,'lc_cart_version','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
-INSERT INTO restricted_actions VALUES(64,'lc_column','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation');
+INSERT INTO restricted_actions VALUES(64,'lc_column','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Instrument_Operation, DMS_LC_Column_Entry');
 INSERT INTO restricted_actions VALUES(65,'mac_jobs','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(66,'material_container','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(67,'material_container','operation','DMS_User');
@@ -85,7 +85,7 @@ INSERT INTO restricted_actions VALUES(83,'pipeline_script','enter','DMS_Infrastr
 INSERT INTO restricted_actions VALUES(84,'pipeline_step_tools','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO restricted_actions VALUES(85,'predefined_analysis','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO restricted_actions VALUES(86,'predefined_analysis_scheduling_rules','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration');
-INSERT INTO restricted_actions VALUES(88,'prep_lc_column','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation');
+INSERT INTO restricted_actions VALUES(88,'prep_lc_column','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation, DMS_LC_Column_Entry');
 INSERT INTO restricted_actions VALUES(89,'prep_lc_run','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(90,'requested_run','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(91,'requested_run','operation','DMS_User');
