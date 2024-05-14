@@ -168,18 +168,29 @@ class Sql_postgre {
         $str = '';
         switch ($cmp) {
             case "wildcards":
+                // Escape underscore and parentheses
                 $val = str_replace('_', '\_', $val);
+                $val = str_replace('(', '\(', $val);
+                $val = str_replace(')', '\)', $val);
                 $val = str_replace('*', '%', $val);
                 $val = str_replace('?', '_', $val);
                 $str .= "$col SIMILAR TO '$val'";
                 break;
             case "ContainsText":
             case "CTx":
+                // Escape underscore and parentheses
+                $val = str_replace('_', '\_', $val);
+                $val = str_replace('(', '\(', $val);
+                $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
                 $str .= "$col SIMILAR TO '$val'";
                 break;
             case "DoesNotContainText":
             case "DNCTx":
+                // Escape underscore and parentheses
+                $val = str_replace('_', '\_', $val);
+                $val = str_replace('(', '\(', $val);
+                $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
                 $str .= "NOT $col SIMILAR TO '$val'";
                 break;
@@ -193,6 +204,10 @@ class Sql_postgre {
                 break;
             case "StartsWithText":
             case "SWTx":
+                // Escape underscore and parentheses
+                $val = str_replace('_', '\_', $val);
+                $val = str_replace('(', '\(', $val);
+                $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : $val . '%';
                 $str .= "$col SIMILAR TO '$val'";
                 break;
