@@ -351,13 +351,14 @@ class Sql_postgre {
         $cmps = array();
         switch ($data_type) {
             case 'text':
-            case 25: // pgsql text
+            case 25:    // pgsql text
             case 'char':
-            case 1042: // pgsql char
+            case 1042:  // pgsql char
             case 'varchar':
-            case 1043: // pgsql varchar
+            case 1043:  // pgsql varchar
             case 'citext':
             case 16385: // pgsql citext
+            case 16389: // pgsql citext
             case 1:     // char
             case -8:    // nchar
             case -10:   // ntext
@@ -373,11 +374,11 @@ class Sql_postgre {
             case 'int':
             case 'money':
             case 'numeric':
-            case 1700: // pgsql numeric
+            case 1700:  // pgsql numeric
             case 'real':
             case 'float':
-            case 700: // pgsql float
-            case 16: // pgsql boolean
+            case 700:   // pgsql float
+            case 16:    // pgsql boolean
             case -5:    // bigint
             case -7:    // bit
             case 3:     // decimal
@@ -389,21 +390,21 @@ class Sql_postgre {
             case -6:    // tinyint
             case 'float4':
             case 'bit':
-            case 1560: // pgsql bit
-            case 1562: // pgsql varbit
+            case 1560:  // pgsql bit
+            case 1562:  // pgsql varbit
             case 'int2':
-            case 21: // pgsql int2
+            case 21:    // pgsql int2
             case 'smallint':
             case 'int4':
-            case 23: // pgsql int4
+            case 23:    // pgsql int4
             case 'integer':
-            case 23: // pgsql integer
+            case 23:    // pgsql integer
             case 'int8':
             case 'bigint':
-            case 20: // pgsql bigint/int8
+            case 20:    // pgsql bigint/int8
             case 'decimal':
             case 'double precision':
-            case 701: // pgsql double precision
+            case 701:   // pgsql double precision
                 foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('numeric', $def['type'])) {
                         $cmps[$n] = $def['label'];
@@ -411,17 +412,17 @@ class Sql_postgre {
                 }
                 break;
             case 'datetime':
-            case 1082: // pgsql date
-            case 1083: // pgsql time of day
+            case 1082:  // pgsql date
+            case 1083:  // pgsql time of day
             case 'timestamp':
-            case 1114: // pgsql date and time/'timestamp without time zone'
+            case 1114:  // pgsql date and time/'timestamp without time zone'
             case 'timestamptz':
-            case 1184: // pgsql timestamptz
-            case 1266: // pgsql 'time of day with time zone'?
+            case 1184:  // pgsql timestamptz
+            case 1266:  // pgsql 'time of day with time zone'?
             case 91:    // date
             case 93:    // datetime
             case -154:  // time
-            case 1186: // pgsql interval
+            case 1186:  // pgsql interval
                 foreach ($this->sqlCompDefs as $n => $def) {
                     if (in_array('datetime', $def['type'])) {
                         $cmps[$n] = $def['label'];
