@@ -1,5 +1,5 @@
 //------------------------------------------
-//For browsers that don't support console.log
+// For browsers that don't support console.log
 //------------------------------------------
 if (typeof console === "undefined" || typeof console.log === "undefined") {
     console = {};
@@ -7,14 +7,14 @@ if (typeof console === "undefined" || typeof console.log === "undefined") {
 }
 
 //------------------------------------------
-// set up generic hook to catch $.post AJAX errors
+// Set up generic hook to catch $.post AJAX errors
 //------------------------------------------
 $(document).ajaxError(function (e, xhr, settings, exception) {
     console.log('AJAX error in: ' + settings.url + '; ' + 'error:' + exception);
 });
 
 //------------------------------------------
-// stupid IE
+// Stupid IE
 //------------------------------------------
 
 if (!Array.prototype.indexOf) {
@@ -74,7 +74,7 @@ $("#el").spin(false); // Kills the spinner.
 })(jQuery);
 
 //------------------------------------------
-// global and general-purpose functions and objects
+// Global and general-purpose functions and objects
 //------------------------------------------
 
 var dmsjs = {
@@ -82,9 +82,9 @@ var dmsjs = {
     dlgPopupInfo: '',
 
     //------------------------------------------
-    // context values for current page
+    // Context values for current page
     //
-    // many library functions reference this object
+    // Many library functions reference this object
     // and depend on proper values being defined
     // by specific family page before they are called
     // - Id
@@ -376,7 +376,7 @@ var dmsjs = {
         }
     },
     //------------------------------------------
-    // misc functions and objects
+    // Misc functions and objects
     //------------------------------------------
 
     /**
