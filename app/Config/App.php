@@ -41,6 +41,15 @@ class App extends BaseConfig
     // Include trailing '/', if provided
     private $baseURLPrefix = '';
 
+    // On PrismWeb2 at /files1/www/html/dmsdev_pg
+    // private $baseURLPrefix = '/dmsdev-pg/';
+
+    // On PrismWeb2 at /files1/www/html/dmsdev2
+    // private $baseURLPrefix = '';
+
+    // On PrismWeb3 at /files1/www/html/prismsupport/dms-pg/app/Config/App.php
+    // private $baseURLPrefix = '/dmspg/';
+
     // --------------------------- END DMS Customizations----------------------
 
     // --------------------------------------------------------------------
