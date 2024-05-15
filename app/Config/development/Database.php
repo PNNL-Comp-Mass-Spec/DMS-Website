@@ -76,10 +76,10 @@ return [
 return [
     'default' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS5_T3",
         'DBDriver' => "SQLSRV",
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => true,
         'DBDebug'  => true,
@@ -87,10 +87,10 @@ return [
 
     'broker' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Pipeline_T3",
         'DBDriver' => "SQLSRV",
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => true,
         'DBDebug'  => true,
@@ -120,10 +120,10 @@ return [
 
     'package' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Data_Package_T3",
         'DBDriver' => "SQLSRV",
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => true,
         'DBDebug'  => true,
@@ -131,10 +131,10 @@ return [
 
     'capture' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Capture_T3",
         'DBDriver' => "SQLSRV",
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => true,
         'DBDebug'  => true,
@@ -164,10 +164,10 @@ return [
 
     'ontology' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => true,
         'DBDebug'  => true,
