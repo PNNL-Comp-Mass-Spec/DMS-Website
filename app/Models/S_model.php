@@ -272,7 +272,12 @@ class S_model extends Model {
                     if (IsNullOrWhitespace($this->bound_calling_parameters->message)) {
                         $errorMessage = "Non-zero return code for $this->sprocName: $sproc_return_value";
                     } else {
-                        $errorMessage = $this->bound_calling_parameters->message . " (return code $sproc_return_value for $this->sprocName)";
+                        $errorMessage = $this->bound_calling_parameters->message;
+                        
+                        if (strpos($errorMessage, $sproc_return_value) === 0 ||
+                            strpos($errorMessage, $this->sprocName) === 0) {
+                            $errorMessage = $errorMessage . " (return code $sproc_return_value for $this->sprocName)";
+                        }
                     }
                     throw new \Exception($errorMessage);
                 }
