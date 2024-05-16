@@ -265,7 +265,10 @@ class S_model extends Model {
             } else {
                 // Procedure simply returns an error code; examine it
                 $sproc_return_value = $this->bound_calling_parameters->retval;
-                if ($sproc_return_value != 0) {
+
+                if (!is_numeric($sproc_return_value) && strlen($sproc_return_value) > 0 ||
+                     is_numeric($sproc_return_value) && $sproc_return_value != 0) {
+
                     if (IsNullOrWhitespace($this->bound_calling_parameters->message)) {
                         $errorMessage = "Non-zero return code for $this->sprocName: $sproc_return_value";
                     } else {
