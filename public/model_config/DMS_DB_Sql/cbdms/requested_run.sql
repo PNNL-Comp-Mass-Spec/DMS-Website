@@ -28,9 +28,9 @@ INSERT INTO form_fields VALUES(11,'well','Well','text','40','80','','','(lookup)
 INSERT INTO form_fields VALUES(12,'vialing_conc','Vialing Concentration','text','25','80','','','','trim|max_length[32]');
 INSERT INTO form_fields VALUES(13,'vialing_vol','Vialing Volume','text','25','80','','','','trim|max_length[32]');
 INSERT INTO form_fields VALUES(14,'comment','Comment','area','','','6','80','','trim|max_length[1024]');
-INSERT INTO form_fields VALUES(15,'batch_id','Batch','text','15','24','','','','trim|max_length[24]');
-INSERT INTO form_fields VALUES(16,'block','Block','text','15','24','','','','trim|max_length[24]');
-INSERT INTO form_fields VALUES(17,'run_order','Run_Order','text','15','24','','','','trim|max_length[24]');
+INSERT INTO form_fields VALUES(15,'batch_id','Batch','text','15','24','','','','trim|max_length[24]|Numeric');
+INSERT INTO form_fields VALUES(16,'block','Block','text','15','24','','','','trim|max_length[24]|Numeric');
+INSERT INTO form_fields VALUES(17,'run_order','Run_Order','text','15','24','','','','trim|max_length[24]|Numeric');
 INSERT INTO form_fields VALUES(18,'work_package','Work Package','text','15','50','','','(lookup)','trim|max_length[50]|required');
 INSERT INTO form_fields VALUES(19,'eus_usage_type','EMSL Usage Type','text','15','50','','','(lookup)','trim|required|max_length[50]|not_contain[(unknown)]');
 INSERT INTO form_fields VALUES(20,'eus_proposal_id','EMSL Proposal ID','text','10','10','','','(lookup)','trim|max_length[10]');
@@ -115,6 +115,7 @@ INSERT INTO detail_report_hotlinks VALUES(19,'days_in_queue','detail-report','in
 INSERT INTO detail_report_hotlinks VALUES(20,'column_name','detail-report','column_name','lc_column/show','valueCol','dl_column_name','');
 INSERT INTO detail_report_hotlinks VALUES(21,'wp_activation_state','no_display','','',NULL,NULL,'');
 INSERT INTO detail_report_hotlinks VALUES(22,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
+INSERT INTO detail_report_hotlinks VALUES(23,'queued_instrument','detail-report','queued_instrument','instrument/show/','valueCol','dl_queued_instrument','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','add_update_requested_run');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentName','varchar','input','64','add_update_requested_run');

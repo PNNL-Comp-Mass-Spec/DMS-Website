@@ -113,6 +113,7 @@ INSERT INTO detail_report_hotlinks VALUES(19,'days_in_queue','detail-report','in
 INSERT INTO detail_report_hotlinks VALUES(20,'column_name','detail-report','column_name','lc_column/show','valueCol','dl_column_name','');
 INSERT INTO detail_report_hotlinks VALUES(21,'wp_activation_state','no_display','','',NULL,NULL,'');
 INSERT INTO detail_report_hotlinks VALUES(22,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
+INSERT INTO detail_report_hotlinks VALUES(23,'queued_instrument','detail-report','queued_instrument','instrument/show/','valueCol','dl_queued_instrument','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','add_update_requested_run');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentName','varchar','input','64','add_update_requested_run');
