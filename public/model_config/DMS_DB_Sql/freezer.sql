@@ -6,5 +6,4 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO sproc_args VALUES(1,'locationList','locationList','text','input','2147483647','update_material_locations');
 INSERT INTO sproc_args VALUES(2,'<local>','message','varchar','output','512','update_material_locations');
 INSERT INTO sproc_args VALUES(3,'<local>','callingUser','varchar','input','128','update_material_locations');
-INSERT INTO sproc_args VALUES(4,'infoOnly','infoOnly','tinyint','input','','update_material_locations');
 COMMIT;

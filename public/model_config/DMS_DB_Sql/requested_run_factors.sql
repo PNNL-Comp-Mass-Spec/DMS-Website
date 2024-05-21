@@ -11,7 +11,6 @@ INSERT INTO sproc_args VALUES(6,'<local>','message','varchar','output','512','up
 INSERT INTO sproc_args VALUES(7,'<local>','callingUser','varchar','input','128','update_requested_run_factors');
 INSERT INTO sproc_args VALUES(8,'item_list','itemList','text','input','2147483647','get_requested_run_factors_for_edit');
 INSERT INTO sproc_args VALUES(9,'item_type','itemType','varchar','input','32','get_requested_run_factors_for_edit');
-INSERT INTO sproc_args VALUES(10,'info_only','infoOnly','tinyint','input','','get_requested_run_factors_for_edit');
 INSERT INTO sproc_args VALUES(11,'<local>','message','varchar','output','512','get_requested_run_factors_for_edit');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'item_list','Item List','area','','','5','100','','trim|max_length[2147483647]');

@@ -10,7 +10,6 @@ INSERT INTO general_params VALUES('requested_run_data_sproc','get_requested_run_
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'batch_id','BatchID','int','input','','get_factor_crosstab_by_batch');
 INSERT INTO sproc_args VALUES(2,'name_contains','NameContains','varchar','input','48','get_factor_crosstab_by_batch');
-INSERT INTO sproc_args VALUES(4,'infoOnly','infoOnly','tinyint','input','','get_factor_crosstab_by_batch');
 INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','get_factor_crosstab_by_batch');
 INSERT INTO sproc_args VALUES(9,'blockingList','blockingList','text','input','2147483647','update_requested_run_blocking_and_factors');
 INSERT INTO sproc_args VALUES(10,'factorList','factorList','text','input','2147483647','update_requested_run_blocking_and_factors');
@@ -21,7 +20,6 @@ INSERT INTO sproc_args VALUES(14,'<local>','mode','varchar','input','32','make_a
 INSERT INTO sproc_args VALUES(15,'<local>','message','varchar','output','512','make_automatic_requested_run_factors');
 INSERT INTO sproc_args VALUES(16,'<local>','callingUser','varchar','input','128','make_automatic_requested_run_factors');
 INSERT INTO sproc_args VALUES(17,'itemList','itemList','text','input','2147483647','get_requested_run_parameters_and_factors');
-INSERT INTO sproc_args VALUES(18,'infoOnly','infoOnly','tinyint','input','','get_requested_run_parameters_and_factors');
 INSERT INTO sproc_args VALUES(19,'<local>','message','varchar','output','512','get_requested_run_parameters_and_factors');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'batch_id','Batch ID','text','12','12','','','','trim|max_length[12]');
