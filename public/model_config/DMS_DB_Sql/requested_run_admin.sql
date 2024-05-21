@@ -52,7 +52,6 @@ INSERT INTO sproc_args VALUES(6,'NewWorkPackage','NewWorkPackage','varchar','inp
 INSERT INTO sproc_args VALUES(7,'RequestIdList','RequestIdList','varchar','input','2147483647','update_requested_run_wp');
 INSERT INTO sproc_args VALUES(8,'<local>','message','varchar','output','512','update_requested_run_wp');
 INSERT INTO sproc_args VALUES(9,'<local>','callingUser','varchar','input','128','update_requested_run_wp');
-INSERT INTO sproc_args VALUES(10,'InfoOnly','InfoOnly','tinyint','input','','update_requested_run_wp');
 INSERT INTO sproc_args VALUES(11,'<local>','mode','varchar','input','32','update_requested_run_assignments');
 INSERT INTO sproc_args VALUES(12,'param','newValue','varchar','input','512','update_requested_run_assignments');
 INSERT INTO sproc_args VALUES(13,'id','reqRunIDList','varchar','input','64000','update_requested_run_assignments');
