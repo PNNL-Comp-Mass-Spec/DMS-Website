@@ -81,7 +81,7 @@ return [
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -92,7 +92,7 @@ return [
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -103,7 +103,7 @@ return [
         'database' => "DMS_Pipeline_Test",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -125,7 +125,7 @@ return [
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -136,7 +136,7 @@ return [
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -147,7 +147,7 @@ return [
         'database' => "PRISM_IFC",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -158,7 +158,7 @@ return [
         'database' => "PRISM_RPT",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -169,7 +169,7 @@ return [
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 
@@ -186,7 +186,7 @@ return [
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => true,
     ],
 ];

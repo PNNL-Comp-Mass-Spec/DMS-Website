@@ -92,7 +92,7 @@ return [
         'database' => "DMS_Data_Package_Beta",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'pConnect' => true,
+        'pConnect' => false,
         'DBDebug'  => false,
     ],
 
@@ -103,8 +103,8 @@ return [
         'database' => "PRISM_IFC",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'pConnect' => true,
-        'DBDebug'  => true,
+        'pConnect' => false,
+        'DBDebug'  => false,
     ],
 
     'prism_rpt' => [
@@ -114,8 +114,8 @@ return [
         'database' => "PRISM_RPT",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'pConnect' => true,
-        'DBDebug'  => true,
+        'pConnect' => false,
+        'DBDebug'  => false,
     ],
 
     'ontology' => [
@@ -125,8 +125,8 @@ return [
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
-        'pConnect' => true,
-        'DBDebug'  => true,
+        'pConnect' => false,
+        'DBDebug'  => false,
     ],
 ];
 
