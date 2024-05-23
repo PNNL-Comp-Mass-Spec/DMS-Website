@@ -112,6 +112,7 @@ class Dms_chooser extends Model {
      */
     function get_filtered_choices($chooser_name, $filter_value) {
         $filterValueClean = str_ireplace('*', '', $filter_value);
+        $returnListLimit = "50";
         $options = array();
         helper(['string']);
         if (array_key_exists($chooser_name, $this->choices)) {
@@ -133,8 +134,17 @@ class Dms_chooser extends Model {
                     $my_db = \Config\Database::connect(GetNullIfBlank($db));
                     $sql = $this->choices[$chooser_name]["value"];
                     if ($filterValueClean) {
-                        $sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);
-                        $sql = "SELECT * FROM ($sx) TX WHERE val LIKE '%$filterValueClean%'";
+                        $sx = $sql;
+                        $sqlsrvLimit = "";
+                        $postgresLimit = "";
+                        if (strcasecmp($my_db->driver, 'sqlsrv') == 0 || strcasecmp($my_db->driver, 'mssql') == 0) {
+                            // SQL Server requires 'TOP' or 'FOR XML' to allow use of ORDER BY in subqueries
+                            $sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);
+                            $sqlsrvLimit = " TOP " . $returnListLimit;
+                        } else {
+                            $postgresLimit = " LIMIT " . $returnListLimit;
+                        }
+                        $sql = "SELECT" . $sqlsrvLimit . " * FROM ($sx) TX WHERE val LIKE '%$filterValueClean%'" . $postgresLimit;
                     }
                     $result = $my_db->query($sql);
                     if ($result) {
