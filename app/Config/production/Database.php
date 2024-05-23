@@ -156,7 +156,7 @@ return [
         'database' => "Manager_Control",
         'DBDriver' => "SQLSRV",
 /*
-        'hostname' => "prismweb3",
+        'hostname' => "prismdb2",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "mc",

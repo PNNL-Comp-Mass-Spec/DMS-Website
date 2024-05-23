@@ -76,10 +76,10 @@ return [
 return [
     'default' => [
         'hostname' => "Gigasax",
-        'database' => "DMS5_T3",
-        'DBDriver' => "SQLSRV",
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'database' => "DMS5_T3",
+        'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -87,10 +87,10 @@ return [
 
     'broker' => [
         'hostname' => "Gigasax",
-        'database' => "DMS_Pipeline_T3",
-        'DBDriver' => "SQLSRV",
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'database' => "DMS_Pipeline_T3",
+        'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -120,10 +120,10 @@ return [
 
     'package' => [
         'hostname' => "Gigasax",
-        'database' => "DMS_Data_Package_T3",
-        'DBDriver' => "SQLSRV",
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'database' => "DMS_Data_Package_T3",
+        'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -131,10 +131,10 @@ return [
 
     'capture' => [
         'hostname' => "Gigasax",
-        'database' => "DMS_Capture_T3",
-        'DBDriver' => "SQLSRV",
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'database' => "DMS_Capture_T3",
+        'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -164,10 +164,10 @@ return [
 
     'ontology' => [
         'hostname' => "Gigasax",
-        'database' => "Ontology_Lookup",
-        'DBDriver' => "SQLSRV",
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'database' => "Ontology_Lookup",
+        'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -178,7 +178,7 @@ return [
         'database' => "Manager_Control_T3",
         'DBDriver' => "SQLSRV",
 /*
-        'hostname' => "prismweb3",
+        'hostname' => "prismdb1",
         'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
