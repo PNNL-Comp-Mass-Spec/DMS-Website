@@ -14,6 +14,35 @@ class Sproc_postgre extends Sproc_base {
      * @throws Exception
      */
     function execute($sprocName, $conn_id, $args, $input_params) {
+        try {
+            $this->executeInternal($sprocName, $conn_id, $args, $input_params);
+
+            // Ensure the transaction is committed, and cursors closed - this may trigger a warning if no transaction or already committed
+            // If it throws an error, it should only be due to a broken pipe
+            pg_query($conn_id, "COMMIT");
+        } catch (\Exception $ex) {
+            // Rollback any changes in the transaction, and also close any cursors - this may trigger a warning if no transaction or already rolled back
+            // If it throws an error, it should only be due to a broken pipe
+            pg_query($conn_id, "ROLLBACK");
+
+            throw $ex;
+        }
+
+        // Commit any changes in the transaction.
+        pg_query($conn_id, "COMMIT");
+    }
+
+    /**
+     * Call stored procedure given by $sprocName on database connection $conn_id
+     * binding arguments to fields in $input_params as defined by specifications in $args.
+     * Returns results as fields in $input_params
+     * @param string $sprocName Stored procedure name
+     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
+     * @param object $input_params
+     * @throws Exception
+     */
+    private function executeInternal($sprocName, $conn_id, $args, $input_params) {
         $input_params->retval = 0;
         $sql = "CALL ".$sprocName." (";
         $params = array();
@@ -50,8 +79,9 @@ class Sproc_postgre extends Sproc_base {
 
         $sql = $sql.")";
 
-        // This might have been needed initially, but now using it causes 'invalid transaction termination' errors due to transaction nesting.
-        //pg_query($conn_id, "BEGIN");
+        // NOTE: if the function or stored procedure starts a transaction with 'BEGIN;', you will see a 'nested transaction' error.
+        // Start a transaction before calling the procedure; cursors (for returning table data) only work inside transactions.
+        pg_query($conn_id, "BEGIN");
         //$result = pg_query_params($conn_id, $sql, $params); // Use pg_send_query_params() and pg_get_results() to be able to use pg_result_error()
         $result = pg_send_query_params($conn_id, $sql, $params);
 
@@ -147,7 +177,7 @@ class Sproc_postgre extends Sproc_base {
                     continue;
                 }
 
-                $cursorResult = pg_query($conn_id, "FETCH ALL IN " . $row[$colName]);
+                $cursorResult = pg_query($conn_id, "FETCH ALL FROM " . $row[$colName]);
                 if ($cursorResult && pg_num_rows($cursorResult) > 0) {
                     $metadata = $this->extract_field_metadata($cursorResult);
                     $rows = $this->get_rows($cursorResult);
@@ -214,12 +244,14 @@ class Sproc_postgre extends Sproc_base {
             'real' => 'float4',
             'double precision' => 'float8',
             'inet' => 'inet',
+            'int2' => 'int2',
             'smallint' => 'int2',
             'smallserial' => 'int2',
             'int4' => 'int4',
             'integer' => 'int4',
             'serial' => 'int4',
             'int4range' => 'int4range',
+            'int8' => 'int8',
             'bigint' => 'int8',
             'bigserial' => 'int8',
             'int8range' => 'int8range',
@@ -250,6 +282,7 @@ class Sproc_postgre extends Sproc_base {
             'bit varying' => 'varbit',
             'character varying' => 'varchar',
             'varchar' => 'varchar',
+            'citext' => 'text',
             'xml' => 'xml',
             'refcursor' => 'cursor'
         );
@@ -257,7 +290,9 @@ class Sproc_postgre extends Sproc_base {
         $tpconv = array(
             'varchar' => 'char',
             'int' => 'int',
+            'int2' => 'int',
             'int4' => 'int',
+            'int8' => 'int',
             'float' => 'real',
             'decimal' => 'real',
             'double precision' => 'real',
@@ -274,10 +309,14 @@ class Sproc_postgre extends Sproc_base {
             $fieldData = new \stdClass();
             $fieldData->name = pg_field_name($result, $i);
             $fieldData->sqlType = pg_field_type($result, $i);
-            $fieldData->type = $pg_to_php[$fieldData->sqlType];
 
-            if (array_key_exists($fieldData->sqlType, $tpconv)) {
-                $fieldData->type = $tpconv[$fieldData->sqlType];
+            $fieldData->type = $fieldData->sqlType;
+            if (array_key_exists($fieldData->sqlType, $pg_to_php)) {
+                $fieldData->type = $pg_to_php[$fieldData->sqlType];
+            }
+
+            if (array_key_exists($fieldData->type, $tpconv)) {
+                $fieldData->type = $tpconv[$fieldData->type];
             }
 
             $metadata[] = $fieldData;
