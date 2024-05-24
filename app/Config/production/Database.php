@@ -76,10 +76,17 @@ return [
 return [
     'default' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS5",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "public",
+        'swapPre'  => "public, sw, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
@@ -87,10 +94,17 @@ return [
 
     'broker' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Pipeline",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "sw",
+        'swapPre'  => "sw, public, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
@@ -98,10 +112,17 @@ return [
 
     'package' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Data_Package",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "dpkg",
+        'swapPre'  => "dpkg, public, sw, cap, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
@@ -109,10 +130,17 @@ return [
 
     'capture' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Capture",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "cap",
+        'swapPre'  => "cap, public, sw, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
@@ -142,10 +170,17 @@ return [
 
     'ontology' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "ont",
+        'swapPre'  => "ont, public, sw, cap, dpkg, mc, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
@@ -156,10 +191,17 @@ return [
         'database' => "Manager_Control",
         'DBDriver' => "SQLSRV",
 /*
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
+        'DBDriver' => "Postgre",
+        'schema'   => "mc",
+*/
+/*
         'hostname' => "prismdb2",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
+        'swapPre'  => "mc, public, sw, cap, dpkg, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
 */
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",

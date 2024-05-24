@@ -76,10 +76,17 @@ return [
 return [
     'default' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS5_T3",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "public",
+        'swapPre'  => "public, sw, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -87,10 +94,17 @@ return [
 
     'broker' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Pipeline_T3",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "sw",
+        'swapPre'  => "sw, public, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -120,10 +134,17 @@ return [
 
     'package' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Data_Package_T3",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "dpkg",
+        'swapPre'  => "dpkg, public, sw, cap, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -131,10 +152,17 @@ return [
 
     'capture' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "DMS_Capture_T3",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "cap",
+        'swapPre'  => "cap, public, sw, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -164,10 +192,17 @@ return [
 
     'ontology' => [
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "ont",
+        'swapPre'  => "ont, public, sw, cap, dpkg, mc, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+*/
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
@@ -182,6 +217,13 @@ return [
         'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
+*/
+/*
+        'hostname' => "prismdb2",
+        'database' => "dms",
+        'DBDriver' => "Postgre",
+        'schema'   => "mc",
+        'swapPre'  => "mc, public, sw, cap, dpkg, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
 */
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
