@@ -107,14 +107,15 @@ class Dms_chooser extends Model {
     }
 
     /**
-     * Return choices list for given chooser
+     * Return choices list for given chooser, optionally filtering the values
+     * Returns up to 500 items (sorted by ID), to prevent dropdown lists from being too long
      * @param type $chooser_name
      * @param type $filter_value
      * @return \stdClass
      */
     function get_filtered_choices($chooser_name, $filter_value) {
         $filterValueClean = str_ireplace('*', '', $filter_value);
-        $returnListLimit = "50";
+        $returnListLimit = "500";
         $options = array();
         helper(['string', 'database']);
         if (array_key_exists($chooser_name, $this->choices)) {
