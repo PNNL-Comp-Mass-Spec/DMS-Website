@@ -17,6 +17,8 @@ class Mrm_list_attachment extends DmsBase {
     {
         $sql = "SELECT File_Name, Attachment_Name, Contents FROM T_Attachments WHERE ID = $id";
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
+
         $result = $this->db->query($sql);
         //
         if(!$result) {

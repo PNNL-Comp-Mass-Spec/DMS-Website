@@ -37,6 +37,7 @@ class Grid_data {
         $response = new \stdClass();
         try {
             $this->controller->db = \Config\Database::connect();
+            $this->controller->updateSearchPath($this->controller->db);
             $result = $this->controller->db->query($sql);
             if (!$result) {
                 $currentTimestamp = date("Y-m-d");

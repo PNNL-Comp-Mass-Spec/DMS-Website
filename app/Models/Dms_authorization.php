@@ -75,6 +75,8 @@ class Dms_authorization extends Model {
             return $this->user_permissions;
         }
 
+        helper(['database']);
+
         // look up user's permission from database
         $p = array();
         $str = '';
@@ -85,6 +87,7 @@ WHERE username = '$username'
 EOD;
 
         $my_db = \Config\Database::connect('default');
+        update_search_path($my_db);
         $query_data = $my_db->query($str);
         if (!$query_data) {
             $currentTimestamp = date("Y-m-d");

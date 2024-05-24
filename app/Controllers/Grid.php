@@ -129,6 +129,7 @@ class Grid extends DmsBase {
     function user_data() {
         $this->my_tag = "user";
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
         $builder = $this->db->table("V_Users_Export");
         $builder->select('id, username, name, hanford_id, status, email, comment, created_dms as created');
         $userName = $this->request->getPost("userName");

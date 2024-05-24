@@ -30,6 +30,7 @@ class Data_package extends DmsBase {
         helper(['url', 'text']);
 
         $this->db = \Config\Database::connect('package');
+        $this->updateSearchPath($this->db);
 
         // TODO: postgresfix!
         $sql = "check_data_package_dataset_job_coverage($id, '$tool', '$mode')";
@@ -57,6 +58,8 @@ class Data_package extends DmsBase {
         helper(['url', 'text']);
 
         $this->db = \Config\Database::connect('package');
+        $this->updateSearchPath($this->db);
+
         $sqlList = array(
             "EMSL_Proposals" => "SELECT DISTINCT Proposal FROM V_Data_Package_Datasets_List_Report WHERE NOT Proposal IS NULL AND ID = $id",
             "Package" => "SELECT * FROM V_Data_Package_Detail_Report WHERE ID = $id",

@@ -141,6 +141,7 @@ class Run_tracking extends DmsBase {
     function get_run_info_3($instrument, $year, $month)
     {
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
 
         // TODO: postgresfix!
         $sql = <<<EOD
@@ -158,6 +159,7 @@ EOD;
     function get_long_interval_threshold()
     {
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
         $query = $this->db->query('SELECT threshold_minutes as threshold FROM V_Long_Interval_Threshold');
         $row = $query->getRow();
         return $row->threshold;
@@ -168,6 +170,7 @@ EOD;
     function get_instrument_list()
     {
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
         $sql = " SELECT * FROM V_Instrument_Tracked ORDER BY Reporting";
         $query = $this->db->query($sql);
         $result = $query->getResultArray();

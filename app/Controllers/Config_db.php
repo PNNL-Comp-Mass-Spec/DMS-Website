@@ -831,6 +831,7 @@ class Config_db extends BaseController {
         // for each parameter in general_params that ends in '_sproc'
         // get arguments from main database and convert to sql
         $my_db = \Config\Database::connect($db_group);
+        $this->updateSearchPath($my_db);
         foreach ($gen_parms as $p => $v) {
             if (!(false === strpos($p, '_sproc'))) {
                 $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $v);
@@ -863,6 +864,7 @@ class Config_db extends BaseController {
 
         if ($mainSproc) {
             $my_db = \Config\Database::connect($db_group);
+            $this->updateSearchPath($my_db);
             $sproc = $mainSproc;
             $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
             $sqlf = $this->_get_form_field_sql($sa);
@@ -1034,6 +1036,7 @@ class Config_db extends BaseController {
                     $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
                     if ($table) {
                         $my_db = \Config\Database::connect($db_group);
+                        $this->updateSearchPath($my_db);
                         $fields = $my_db->getFieldData($table);
                         foreach ($fields as $f) {
                             $sx .= "<option>$f->name</option>";
@@ -1092,6 +1095,7 @@ class Config_db extends BaseController {
         }
 
         $my_db = \Config\Database::connect($db_group);
+        $this->updateSearchPath($my_db);
         $fields = $my_db->getFieldData($table);
 
         $s .= "delete from list_report_hotlinks;\n";
@@ -1133,6 +1137,7 @@ class Config_db extends BaseController {
         }
 
         $my_db = \Config\Database::connect($db_group);
+        $this->updateSearchPath($my_db);
 
         $fields = $my_db->getFieldData($table);
 
@@ -1175,6 +1180,7 @@ class Config_db extends BaseController {
         }
 
         $my_db = \Config\Database::connect($db_group);
+        $this->updateSearchPath($my_db);
         $fields = $my_db->getFieldData($table);
 
         $s .= "delete from list_report_primary_filter;\n";
@@ -1269,6 +1275,9 @@ class Config_db extends BaseController {
     private function _get_sproc_arg_defs_from_main_db($dbObj, $sproc) {
         $sa = array();
         $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_NAME = '" . $sproc . "'";
+        if (strcasecmp($dbObj->driver, 'Postgres') == 0) {
+            $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_SCHEMA = '" . $dbObj->schema . "' AND SPECIFIC_NAME LIKE '" . $sproc . "_%'";
+        }
         $result = $this->_getQueryResultArray($dbObj->query($sql));
         if (!$result) {
             $str = "Couldn't get values from database.";
@@ -1372,6 +1381,7 @@ class Config_db extends BaseController {
         $gen_parms = $this->_get_general_params($config_db, $db_group);
 
         $my_db = \Config\Database::connect($db_group);
+        $this->updateSearchPath($my_db);
 
         header("Content-type: text/plain");
 
@@ -1393,6 +1403,7 @@ class Config_db extends BaseController {
         $sproc = $uri->getSegment(4);
 
         $my_db = \Config\Database::connect(GetNullIfBlank($db_group));
+        $this->updateSearchPath($my_db);
         $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
 
         header("Content-type: text/plain");
@@ -1468,8 +1479,8 @@ class Config_db extends BaseController {
         $obj->drn = "v_" . $baseViewName . "_detail_report";
         $obj->ern = "v_" . $baseViewName . "_entry";
         $obj->spn = "add_update_" . $baseProcName;
-        $obj->upn = "Update" . $baseProcName;
-        $obj->tbl = 'T_' . $baseViewName;
+        $obj->upn = "update" . $baseProcName;
+        $obj->tbl = 't_' . $baseViewName;
         return $obj;
     }
 

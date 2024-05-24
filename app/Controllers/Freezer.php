@@ -174,6 +174,7 @@ class Freezer extends DmsBase {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
 
         // labelling information for view
         $data['title'] = "Freezer Map";
@@ -250,6 +251,7 @@ class Freezer extends DmsBase {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
 
         // labelling information for view
         $data['title'] = "Freezer";
@@ -342,6 +344,7 @@ class Freezer extends DmsBase {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu', 'form']);
         $this->table = new \CodeIgniter\View\Table();
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
 
         $uri = $this->request->uri;
         // Don't trigger an exception if the segment index is too large

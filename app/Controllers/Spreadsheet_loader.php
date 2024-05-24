@@ -408,6 +408,7 @@ class Spreadsheet_loader extends DmsBase {
             $sql = str_replace('@@', $id, $sql);
 
             $this->db = \Config\Database::connect();
+            $this->updateSearchPath($this->db);
             $result = $this->db->query($sql);
             if($result->getNumRows() > 0) {
                 $row = $result->getRow();

@@ -73,7 +73,7 @@ class Dms_chooser extends Model {
      */
     function get_choices($chooser_name) {
         $options = array();
-        helper(['string']);
+        helper(['string', 'database']);
         if (array_key_exists($chooser_name, $this->choices)) {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
@@ -88,6 +88,8 @@ class Dms_chooser extends Model {
                         $db = $this->choices[$chooser_name]["db"];
                     }
                     $my_db = \Config\Database::connect(GetNullIfBlank($db));
+                    update_search_path($my_db);
+
                     $result = $my_db->query($this->choices[$chooser_name]["value"]);
                     if ($result) {
                         $options[""] = "-- choices --";
@@ -114,7 +116,7 @@ class Dms_chooser extends Model {
         $filterValueClean = str_ireplace('*', '', $filter_value);
         $returnListLimit = "50";
         $options = array();
-        helper(['string']);
+        helper(['string', 'database']);
         if (array_key_exists($chooser_name, $this->choices)) {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
@@ -132,6 +134,8 @@ class Dms_chooser extends Model {
                         $db = $this->choices[$chooser_name]["db"];
                     }
                     $my_db = \Config\Database::connect(GetNullIfBlank($db));
+                    update_search_path($my_db);
+
                     $sql = $this->choices[$chooser_name]["value"];
                     if ($filterValueClean) {
                         $sx = $sql;

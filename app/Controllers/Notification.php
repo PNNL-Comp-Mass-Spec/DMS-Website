@@ -47,6 +47,8 @@ class Notification extends DmsBase {
         $sql .= 'ORDER BY username, entity_type, event_type_id, entity';
 
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
+
         $result = $this->db->query($sql);
         if(!$result) {
             return $users();

@@ -15,6 +15,7 @@ class Osm_package extends DmsBase {
         helper(['url', 'text']);
 
         $this->db = \Config\Database::connect();
+        $this->updateSearchPath($this->db);
 
         // TODO: postgresfix!
         $sql = "SELECT GetOSMItemChooserList($id, '$mode')";
