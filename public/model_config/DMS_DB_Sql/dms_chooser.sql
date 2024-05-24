@@ -43,8 +43,8 @@ INSERT INTO chooser_definitions VALUES(27,'samplePrepReqTypePickList','default',
 INSERT INTO chooser_definitions VALUES(28,'storageFunctionPickList','default','select','{"inbox":"inbox", "old-storage":"old-storage", "raw-storage":"raw-storage"}');
 INSERT INTO chooser_definitions VALUES(29,'yesNoAsOneZeroPickList','default','select','{"1":"Yes", "0":"No"}');
 INSERT INTO chooser_definitions VALUES(30,'yesNoPickList','default','select','{"Yes":"Yes", "No":"No"}');
-INSERT INTO chooser_definitions VALUES(31,'EUSProposalStatePickList','default','sql','SELECT id_with_name as val, id AS ex FROM V_EUS_Project_Picklist ORDER BY ID');
-INSERT INTO chooser_definitions VALUES(32,'EUSUserSiteStatusPickList','default','sql','SELECT id_with_name as val, id AS ex FROM V_EUS_Site_Status_Picklist ORDER BY ID');
+INSERT INTO chooser_definitions VALUES(31,'EUSProposalStatePickList','default','sql','SELECT ID_with_Name as val, ID AS ex FROM V_EUS_Project_Picklist ORDER BY ID');
+INSERT INTO chooser_definitions VALUES(32,'EUSUserSiteStatusPickList','default','sql','SELECT ID_with_Name as val, ID AS ex FROM V_EUS_Site_Status_Picklist ORDER BY ID');
 INSERT INTO chooser_definitions VALUES(33,'LCColumnPickList','default','sql','SELECT val, ex FROM V_LC_Column_Picklist ORDER BY val');
 INSERT INTO chooser_definitions VALUES(34,'LCColumnStatePickList','default','sql','SELECT val, ex FROM V_LC_Column_State_Picklist ORDER BY val');
 INSERT INTO chooser_definitions VALUES(36,'Obsolete_ReqRunInstrumentPicklistEx','default','sql','SELECT val, ex FROM V_Req_Run_Instrument_Picklist_Ex ORDER BY val');
@@ -120,13 +120,13 @@ INSERT INTO chooser_definitions VALUES(114,'psmToolNamePicklist','default','sql'
 INSERT INTO chooser_definitions VALUES(115,'amtDBPicklist','default','sql','SELECT DISTINCT MT_DB_Name AS val, MT_DB_Name AS ex FROM V_MTS_MT_DBs WHERE State_ID < 10');
 INSERT INTO chooser_definitions VALUES(116,'usageTrackedInstruments','default','sql','SELECT Name_with_Reporting AS val, Name AS ex FROM V_Instrument_Tracked ORDER BY Reporting, Name');
 INSERT INTO chooser_definitions VALUES(117,'multiDatasetRequestCommentTmpl','default','select','{ "Capability Development":"Description of work:|Est. desired start date:|Est. days required:|Production LC needed? (if yes, provide details):", "Triple Quad Usage":"Analysis Type:|Est. desired start date:|Est. days required:|Est. total samples:|Project deadline (date):", "RapidFire":"Cartridge: |Ionization: |Experiment Group: https://dms2.pnl.gov/experiment_group/show/0000|Number of Runs: |Additional Info:" }');
-INSERT INTO chooser_definitions VALUES(118,'data_package_list','default','sql','SELECT id_with_name AS val, id AS ex FROM V_Data_Package_Picklist ORDER BY id');
-INSERT INTO chooser_definitions VALUES(119,'osm_package_list','default','sql','SELECT id_with_name AS val, id AS ex FROM V_OSM_Package_Picklist ORDER BY id');
-INSERT INTO chooser_definitions VALUES(120,'requested_run_batch_list','default','sql','SELECT id_with_batch AS val, id AS ex FROM V_Requested_Run_Batch_Picklist ORDER BY id');
+INSERT INTO chooser_definitions VALUES(118,'data_package_list','default','sql','SELECT Id_with_Name AS val, ID AS ex FROM V_Data_Package_Picklist ORDER BY ID');
+INSERT INTO chooser_definitions VALUES(119,'osm_package_list','default','sql','SELECT Id_with_Name AS val, ID AS ex FROM V_OSM_Package_Picklist ORDER BY ID');
+INSERT INTO chooser_definitions VALUES(120,'requested_run_batch_list','default','sql','SELECT ID_with_Batch AS val, ID AS ex FROM V_Requested_Run_Batch_Picklist ORDER BY ID');
 INSERT INTO chooser_definitions VALUES(121,'yesNoNAPickList','default','select','{"Yes":"Yes", "No":"No", "NA":"NA"}');
 INSERT INTO chooser_definitions VALUES(122,'instrumentConfigDescriptionPickList','default','select','{ "Cleaned source": "Cleaned source", "Cleaned source back to trap": "Cleaned source back to trap", "Deep clean": "Deep clean", "FT Mass cal": "FT Mass cal", "Full Instrument cal": "Full Instrument cal", "General configuration note": "General configuration note", "Liquid Nitrogen Fill....": "Liquid Nitrogen Fill....", "Mass cal": "Mass cal", "Mass cal and checks - Negative mode": "Mass cal and checks - Negative mode", "Mass cal and checks - Positive mode": "Mass cal and checks - Positive mode", "Misc Instrument checks": "Misc Instrument checks" }');
 INSERT INTO chooser_definitions VALUES(123,'apeWorkflowPickList','default','select','{"default":"Default (1% FDR)", "5percent":"5% FDR"}');
-INSERT INTO chooser_definitions VALUES(124,'instrumentNameRNAPickList','default','sql','SELECT instrument As val, '''' As ex FROM V_Instrument_Name_RNA_PickList ORDER BY instrument');
+INSERT INTO chooser_definitions VALUES(124,'instrumentNameRNAPickList','default','sql','SELECT Instrument As val, '''' As ex FROM V_Instrument_Name_RNA_PickList ORDER BY Instrument');
 INSERT INTO chooser_definitions VALUES(125,'rnaPrepReqMethodPickList','default','select',replace('{"PreProcessing Cleanup":"PreProcessing Cleanup",\n"PreProcessing RNA Extraction":"PreProcessing RNA Extraction",\n"PreProcessing Gel/Bioanalyzer":"PreProcessing Gel/Bioanalyzer",\n"Phenol/chloroform":"Phenol/chloroform",\n"Trizol/Qiagen column":"Trizol/Qiagen column",\n"Trizol/zymo column":"Trizol/zymo column",\n"CTAB":"CTAB",\n"Hot acid phenol":"Hot acid phenol"\n}','\n',char(10)));
 INSERT INTO chooser_definitions VALUES(126,'paramFileTypePickList','default','sql','SELECT Param_File_Type_Ex as val, Param_File_Type as ex FROM V_Param_File_Type_PickList order by Param_File_Type');
 INSERT INTO chooser_definitions VALUES(127,'campaignIDPickList','default','sql','SELECT Campaign as val, ID as ex FROM V_Campaign_List_Report_2 WHERE State = ''Active'' ORDER BY campaign');
