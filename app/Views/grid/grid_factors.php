@@ -145,7 +145,7 @@
         }
     }
 
-    // set up and manage filter section controls
+    // Set up and manage filter section controls
     var sourceListSectionsUtil = {
         setup: function() {
             var context = this;

@@ -59,22 +59,22 @@ class Aux_info_support {
         $str .= "<table class='EPag'>";
         $str .= "<tr><th colspan=3>Edit Subcategory</th></tr>";
         foreach ($items as $row) {
-            // start table row
+            // Start table row
             $str .= "<tr>";
-            // column for item name
+            // Column for item name
             // display name
             $str .= "<td>";
             $str .= "<span>" . $row['Item'] . "</span>";
-            // hidden input field to make sure name is POSTed
+            // Hidden input field to make sure name is POSTed
             $str .= "<span><input type='hidden' name='" . $in . "' value='" . $row['Item'] . "' ></span>";
             $str .= "</td>";
-            // column for item data entry field (and current value of item)
+            // Column for item data entry field (and current value of item)
             if ((int) $row['DataSize'] > 128) {
                 $str .= "<td><textarea class='aiif' name='$iv' id='" . $iv_id . "_" . $row['Item_ID'] . "' rows='2' cols='60' >" . $row['Value'] . "</textarea></td>";
             } else {
                 $str .= "<td><input class='aiif' name='$iv' id='" . $iv_id . "_" . $row['Item_ID'] . "'type='text' value='" . $row['Value'] . "' size='64' maxlength='128'></td>";
             }
-            // column for any choosers for allowed values for item
+            // Column for any choosers for allowed values for item
             if ($row['HelperAppend'] != 'N') {
                 $ccid = "allowed_value_chooser_container_" . $row['Item_ID'];
                 $str .= "<td><span id='" . $ccid . "'>";
@@ -83,7 +83,7 @@ class Aux_info_support {
             } else {
                 $str .= "<td></td>";
             }
-            // close table row
+            // Close table row
             $str .= "</tr>";
         }
         $str .= "</table>";
@@ -99,7 +99,7 @@ class Aux_info_support {
      * @return type
      */
     function make_allowed_values_chooser($choices, $item, $item_id, $helper_append) {
-        // extract only choices for the given item
+        // Extract only choices for the given item
         $options[''] = '';
         foreach ($choices as $ch) {
             if ($ch['Item'] == $item) {

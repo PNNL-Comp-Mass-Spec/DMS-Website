@@ -135,7 +135,7 @@ class Stomp
             throw new Stomp_Exception("No broker defined");
         }
 
-        // force disconnect, if previous established connection exists
+        // Force disconnect, if previous established connection exists
         $this->disconnect();
 
         $i = $this->_currentHost;

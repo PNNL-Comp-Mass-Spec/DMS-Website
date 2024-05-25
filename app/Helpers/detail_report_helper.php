@@ -16,7 +16,8 @@
  */
 function make_detail_report_section($columns, $fields, $hotlinks, $controller_name, $id, $show_entry_links, $show_create_links) {
     $str = '';
-    // fields are contained in a table
+
+    // Fields are contained in a table
     $str .= "\n<table class='DRep' >\n";
 
     $str .= "<tr>";
@@ -82,9 +83,9 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
     // Include the URL updater class
     $url_updater = new \App\Libraries\URL_updater();
 
-    // make a form field for each field in the field specs
+    // Make a form field for each field in the field specs
     foreach ($fields as $fieldName => $fieldValue) {
-        // don't display columns that begin with a hash character
+        // Don't display columns that begin with a hash character
         if ($fieldName[0] == '#') {
             continue;
         }
@@ -101,7 +102,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
             continue;
         }
 
-        // default field display for table
+        // Default field display for table
         $label = $fieldName;
         $val = $fieldValue;
 
@@ -124,7 +125,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
         // We will append </td> below
         $val_display = "<td>$val";
 
-        // override default field display with hotlinks
+        // Override default field display with hotlinks
         foreach ($hotlink_specs as $hotlink_spec) {
             if (array_key_exists("WhichArg", $hotlink_spec) && strlen($hotlink_spec["WhichArg"]) > 0) {
                 $wa = $hotlink_spec["WhichArg"];
@@ -160,7 +161,7 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
             }
         }
 
-        // open row in table
+        // Open row in table
         $rowColor = alternator('ReportEvenRow', 'ReportOddRow');
         $str .= "<tr class='$rowColor' >\n";
 
@@ -183,11 +184,11 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
             $pathCopyData[$pathCopyButtonCount] = $folderPath;
         }
 
-        // first column in table is field name
-        // second column in table is field value, possibly with special formatting
+        // First column in table is field name
+        // Second column in table is field value, possibly with special formatting
         $str .= $label_display . $val_display . "</td>\n";
 
-        // close row in table
+        // Close row in table
         $str .= "</tr>\n";
 
         $colIndex++;

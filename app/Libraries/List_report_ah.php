@@ -26,11 +26,11 @@ class List_report_ah extends List_report {
         $this->controller->load_mod('G_model', 'gen_model', $this->config_name, $this->config_source);
         $this->controller->load_mod('R_model', 'link_model', $this->config_name, $this->config_source);
 
-        // clear total rows cache in model to force getting value from database
+        // Clear total rows cache in model to force getting value from database
         $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
         $this->controller->model->clear_cached_total_rows();
 
-        // if there were extra segments for list report URL,
+        // If there were extra segments for list report URL,
         // convert them to primary filter field values and cache those
         // and redirect back to ourselves without the trailing URL segments
         $all_segs = getCurrentUriDecodedSegments();
@@ -47,7 +47,7 @@ class List_report_ah extends List_report {
         $data['my_tag'] = $this->controller->my_tag;
         $data['title'] = $this->controller->gen_model->get_page_label('', $mode);
 
-        // get stuff related to list report optional features
+        // Get stuff related to list report optional features
         $data['loading'] = ($mode === 'search') ? 'no_load' : '';
         $data['list_report_cmds'] = ''; ///$this->controller->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
@@ -69,7 +69,7 @@ class List_report_ah extends List_report {
      * @category AJAX
      */
     function report_data($option = 'rows') {
-        // preemptively load the hotlinks model from the ad hoc config db
+        // Preemptively load the hotlinks model from the ad hoc config db
         // to prevent parent from loading it from general_param table,
         // then let parent handle it
         $this->controller->load_mod('R_model', 'link_model', $this->config_name, $this->config_source);

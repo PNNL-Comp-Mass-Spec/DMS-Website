@@ -50,10 +50,9 @@ function make_family_sql($my_db, $gen_parms) {
         return "The 'base_table' parameter is not defined in config db table 'general_params'";
     }
 
-    // read the definitions for the arguments for the given
+    // Read the definitions for the arguments for the given
     // table in the given database, do some conversions
-    // from the raw format of the INFORMATION_SCHEMA, and save
-    // to a local array
+    // from the raw format of the INFORMATION_SCHEMA, and save to a local array
     $sql = "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $table . "'";
     $result = $my_db->query($sql);
     if (!$result) {
@@ -70,7 +69,7 @@ function make_family_sql($my_db, $gen_parms) {
     }
 
     if (array_key_exists('list_report_data_table', $gen_parms)) {
-        // make view
+        // Make view
         $viewName = $gen_parms['list_report_data_table'];
         $sep = '';
         $view_sql .= "CREATE VIEW $viewName AS \n SELECT ";
@@ -84,7 +83,7 @@ function make_family_sql($my_db, $gen_parms) {
     }
 
     if (array_key_exists('detail_report_data_table', $gen_parms)) {
-        // make view
+        // Make view
         $viewName = $gen_parms['detail_report_data_table'];
         $sep = '';
         $view_sql .= "CREATE VIEW $viewName AS \n SELECT ";
@@ -98,7 +97,7 @@ function make_family_sql($my_db, $gen_parms) {
     }
 
     if (array_key_exists('entry_page_data_table', $gen_parms)) {
-        // make view
+        // Make view
         $sep = '';
         $viewName = $gen_parms['entry_page_data_table'];
         $view_sql .= "CREATE VIEW $viewName AS \n SELECT ";
@@ -157,7 +156,7 @@ function make_main_sproc_sql($sprocName, $table, $sa) {
 
     $data['dt'] = date("m/d/Y");
 
-    // make sproc args section
+    // Make sproc args section
     $args = '';
     $argSep = '';
     foreach ($sa as $s) {
@@ -171,7 +170,7 @@ function make_main_sproc_sql($sprocName, $table, $sa) {
     }
     $data['args'] = $args;
 
-    // make sproc cols section
+    // Make sproc cols section
     $cols = '';
     $colSep = '';
     foreach ($sa as $s) {
@@ -181,7 +180,7 @@ function make_main_sproc_sql($sprocName, $table, $sa) {
     }
     $data['cols'] = $cols;
 
-    // make sproc inserts section
+    // Make sproc inserts section
     $insrts = '';
     $insertSep = '';
     foreach ($sa as $s) {
@@ -191,7 +190,7 @@ function make_main_sproc_sql($sprocName, $table, $sa) {
     }
     $data['insrts'] = $insrts;
 
-    // make sproc updates section
+    // Make sproc updates section
     $updts = '';
     $updateSep = '';
     foreach ($sa as $s) {
@@ -258,16 +257,16 @@ function make_table_dump_display($config_db_table_list) {
 
     foreach ($config_db_table_list as $db => $tables) {
 
-        // set of each config db section with distinctive label
+        // Set of each config db section with distinctive label
         echo "<hr>\n";
         echo "<span class='cfg_hdr'>$db</span>\n";
         echo "<a href='" . site_url("config_db/show_db/$db") . "'>Config DB</a>";
         echo "<br>\n";
 
-        // dump contents of each table
+        // Dump contents of each table
         foreach ($tables as $table => $rows) {
             echo "<table class='cfg_tab' >\n";
-            // table header
+            // Table header
             echo "<tr><th>";
             echo "$table  &nbsp; ";
             echo "</th></tr>\n";
@@ -278,11 +277,13 @@ function make_table_dump_display($config_db_table_list) {
                 if (!$i++) {
                     $cols = array_keys($row);
                     // $colCount = count($cols);
-                    // table header
+
+                    // Table header
                     // echo "<tr><th colspan=\"$n\">";
                     // echo "$table  &nbsp; ";
                     // echo "</th></tr>\n";
-                    // column headers
+
+                    // Column headers
                     echo "<tr>\n";
                     foreach ($cols as $c) {
                         echo "<th>$c</th>";
@@ -337,12 +338,12 @@ function make_config_nav_links($config_db) {
 function make_table_dump_text($config_db_table_list, $display_mode) {
     $sep = "\t";
     header("Content-type: text/plain");
-    // dump content of each config db
+
+    // Dump content of each config db
     foreach ($config_db_table_list as $db => $tables) {
-        // dump contents of each table
+        // Dump contents of each table
         foreach ($tables as $table => $rows) {
-            // dump contents of each row with config db and table
-            // as first two columns
+            // Dump contents of each row with config db and table as first two columns
             foreach ($rows as $row) {
                 switch ($display_mode) {
                     case '':
@@ -373,7 +374,7 @@ function make_table_dump_text($config_db_table_list, $display_mode) {
  * @return string
  */
 function make_general_params_dump($config_db_table_list, $config_db_table_name_list) {
-    // params that are of interest
+    // Params that are of interest
     $params = array(
         'page_family' => '',
         'list_report_data_table' => '',
@@ -404,12 +405,12 @@ function make_general_params_dump($config_db_table_list, $config_db_table_name_l
         'tables' => 'Tables',
     );
 
-    // build crosstab of parameters of interest
+    // Build crosstab of parameters of interest
     $crosstab = array();
 
-    // content of each config db
+    // Content of each config db
     foreach ($config_db_table_list as $db => $tables) {
-        // dump contents of each table
+        // Dump contents of each table
         foreach ($tables as $table => $rows) {
             $output_row = $params;
             $output_row['page_family'] = str_replace('.db', '', $db);
@@ -417,7 +418,8 @@ function make_general_params_dump($config_db_table_list, $config_db_table_name_l
             if (in_array('detail_report_commands', $config_db_table_name_list[$db])) {
                 $output_row['detail_report_commands'] = 'dr cmds T';
             }
-            // dump contents of each row
+
+            // Dump contents of each row
             foreach ($rows as $row) {
                 if (array_key_exists($row['name'], $params)) {
                     $output_row[$row['name']] = $row['value'];
@@ -428,14 +430,17 @@ function make_general_params_dump($config_db_table_list, $config_db_table_name_l
     }
 
     $s = '';
-    // dump crosstab to output table
+
+    // Dump crosstab to output table
     $s .= "<table class='cfg_tab'>\n";
-    // header row
+
+    // Header row
     $s .= "<tr>\n";
     foreach (array_keys($params) as $c) {
         $s .= "<th> $param_labels[$c] </th>\n";
     }
-    // data rows
+
+    // Data rows
     $s .= "</tr>\n";
     foreach ($crosstab as $output_row) {
         $s .= "<tr>\n";

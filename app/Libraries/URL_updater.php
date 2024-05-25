@@ -77,7 +77,7 @@ class URL_updater {
 
         // Check for non-HTTPS links on HTTPS connections
         if (!$this->server_bionet && $this->protocol === "https" && stripos($link, "https") === false) {
-            // need to replace HTTP with HTTPS to avoid security warnings (as long as the target server has a valid certificate)
+            // Need to replace HTTP with HTTPS to avoid security warnings (as long as the target server has a valid certificate)
             return str_ireplace("http", "https", $link);
         }
 

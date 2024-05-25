@@ -22,34 +22,34 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
     $num_segs = count($segs);
     //
     if ($num_segs == 0) {
-        // just accept defaults
+        // Just accept defaults
     } else if ($num_segs == 1) {
-        // get values from database using source and id that we were given
+        // Get values from database using source and id that we were given
         $id = $segs[0];
         $controller->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
         $initial_field_values = $controller->input_model->get_item($id, $controller);
     } else if ($num_segs > 1) {
-        // get values from an external source
+        // Get values from an external source
         $source = $segs[0];
         $id = $segs[1];
         if ($source == 'init') {
             $segs = array_slice($segs, 1);
-            // get values from url segments:
+            // Get values from url segments:
             $initial_field_values = get_values_from_segs($form_field_names, $segs);
         } else if ($id == 'post') {
-            // get external source mapping
+            // Get external source mapping
             $col_mapping = $controller->form_model->get_external_source_field_map($source);
             if ($col_mapping) {
-                // get values from POST data
+                // Get values from POST data
                 $request = \Config\Services::request();
                 $postData = $request->getPost();
                 $initial_field_values = load_from_external_source($col_mapping, $postData);
             }
         } else {
-            // get external source mapping
+            // Get external source mapping
             $col_mapping = $controller->form_model->get_external_source_field_map($source);
             if ($col_mapping) {
-                // get values from database using source and id plucked from url
+                // Get values from database using source and id plucked from url
                 $controller->load_mod('Q_model', 'input_model', 'detail_report', $source);
                 $source_data = $controller->input_model->get_item($id, $controller);
                 $initial_field_values = load_from_external_source($col_mapping, $source_data);
@@ -71,7 +71,7 @@ function load_from_external_source($col_mapping, $source_data) {
     $label_formatter = new \App\Libraries\Label_formatter();
     $source_data2 = array_change_key_case($source_data, CASE_LOWER);
 
-    // load entry fields from external source
+    // Load entry fields from external source
     foreach ($col_mapping as $fld => $spec) {
 
         // $spec['type'] will typically be ColName, PostName, or Literal
@@ -123,7 +123,7 @@ function load_from_external_source($col_mapping, $source_data) {
                 break;
         }
 
-        // any further actions?
+        // Any further actions?
         if (isset($spec['action'])) {
             switch ($spec['action']) {
                 case 'ExtractUsername':
@@ -222,7 +222,7 @@ function load_from_external_source($col_mapping, $source_data) {
  */
 function get_values_from_segs($form_field_names, $segs) {
     // Include app/Helpers/wildcard_conversion_helper.php
-    //helper('wildcard_conversion');
+    // helper('wildcard_conversion');
     // NOTE: As of Dec. 19, 2022, all calling methods are already doing URL/special value decoding
     //    Performing that again here ends up incorrectly converting '%xx' (from '__Wildcard__xx') into HTML entities
 
@@ -296,7 +296,7 @@ function make_post_submission_links($tag, $ps_link_specs, $input_params, $action
     $dr_tag = '';
     $id = '';
 
-    // get base url tag for post submission list report link
+    // Get base url tag for post submission list report link
     if ($ps_link_specs['link_tag'] != '') {
         $lr_tg = $ps_link_specs['link_tag'];
     } else
@@ -305,21 +305,21 @@ function make_post_submission_links($tag, $ps_link_specs, $input_params, $action
     } else {
         $lr_tg = '';
     }
-    // get base url tag for post submission detail report link
+    // Get base url tag for post submission detail report link
     if ($actions['show'] && $ps_link_specs['link_tag'] == '') {
         $dr_tag = $tag;
     } else {
         $id = '';
         $dr_tag = '';
     }
-    // get id for post submission link
+    // Get id for post submission link
     if ($ps_link_specs['detail_id'] != '') {
         $argName = $ps_link_specs['detail_id'];
         $id = $input_params->$argName;
     }
     $x_tag = ($ps_link_specs['link'] != '') ? json_decode($ps_link_specs['link'], true) : null;
 
-    // make the HTML
+    // Make the HTML
     $links = "";
     if ($lr_tg != '') {
         $url = site_url($lr_tg . "/report");

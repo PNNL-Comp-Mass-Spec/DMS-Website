@@ -21,7 +21,7 @@ class Ers extends BaseController {
         $ersDB = \Config\Database::connect('ers');
         $this->updateSearchPath($ersDB);
 
-        // get list of proposals from ers
+        // Get list of proposals from ers
         // PROPOSAL_ID  TITLE   DESCRIPTION
         $sql = 'select PROPOSAL_ID, TITLE, DESCRIPTION from VW_ALL_ACTIVE_PROPOSALS';
         $result = $ersDB->query($sql);
@@ -42,7 +42,7 @@ class Ers extends BaseController {
         $ersDB = \Config\Database::connect('ers');
         $this->updateSearchPath($ersDB);
 
-        // get list of users for proposals from ers PROPOSAL_ID, HANFORD_ID
+        // Get list of users for proposals from ers PROPOSAL_ID, HANFORD_ID
         // PROPOSAL_ID  TITLE   DESCRIPTION HANFORD_ID
         $sql = 'select * from VW_USERS_ACTIVE_PROPOSALS';
         $result = $ersDB->query($sql);
@@ -64,7 +64,7 @@ class Ers extends BaseController {
         $dmsDB = \Config\Database::connect('default');
         $this->updateSearchPath($dmsDB);
 
-        // get list of proposals from ers
+        // Get list of proposals from ers
         $sql = 'SELECT PROPOSAL_ID, TITLE FROM T_EUS_Proposals';
         $result = $dmsDB->query($sql);
         //
@@ -103,7 +103,7 @@ class Ers extends BaseController {
     {
         $this->table = new \CodeIgniter\View\Table();
 
-        // get list of proposals from ers
+        // Get list of proposals from ers
         $dmsDB = \Config\Database::connect('default');
         $this->updateSearchPath($dmsDB);
 
@@ -120,7 +120,7 @@ class Ers extends BaseController {
             $dms_proposals[$row->PROPOSAL_ID] = $row->TITLE;
         }
 
-        // get list of proposals from ers
+        // Get list of proposals from ers
         $ersDB = \Config\Database::connect('ers');
         $this->updateSearchPath($ersDB);
         $sql = 'select PROPOSAL_ID, TITLE, DESCRIPTION from VW_ALL_ACTIVE_PROPOSALS ORDER BY PROPOSAL_ID DESC';

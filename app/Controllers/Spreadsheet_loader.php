@@ -145,7 +145,7 @@ class Spreadsheet_loader extends DmsBase {
             $entity_list = $this->spreadsheet_loader->get_entity_list();
             $entity_count = count($entity_list);
 
-            // format entity list for display
+            // Format entity list for display
             $rows = array();
             foreach($entity_list as $entity) {
                 $base_name = preg_replace ('/[!"#$%&()*+, .\/:;<=>?@^`{|}~]/', '_', strtolower($entity));
@@ -164,7 +164,7 @@ class Spreadsheet_loader extends DmsBase {
                 $rows[] = $row;
             }
 
-            // table dump
+            // Table dump
             $this->table = new \CodeIgniter\View\Table();
             $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
@@ -195,7 +195,7 @@ class Spreadsheet_loader extends DmsBase {
             $entity_list = $this->spreadsheet_loader->get_entity_list();
             $entity_count = count($entity_list);
 
-            // table dump
+            // Table dump
             $this->table = new \CodeIgniter\View\Table();
             $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
@@ -232,7 +232,7 @@ class Spreadsheet_loader extends DmsBase {
         $aux_info = $this->spreadsheet_loader->get_entity_aux_info($id);
         $grouped_aux_info = $this->spreadsheet_loader->group_aux_info_items($aux_info);
 
-        // format tracking info for table display
+        // Format tracking info for table display
         $rows = array();
         foreach($tracking_info as $field => $value) {
             $row = array();
@@ -242,7 +242,8 @@ class Spreadsheet_loader extends DmsBase {
         }
 
         $arows = array();
-        // format aux info for table display
+
+        // Format aux info for table display
         foreach($aux_info as $obj) {
             $row = array();
             $row[] = $obj->category;
@@ -252,7 +253,7 @@ class Spreadsheet_loader extends DmsBase {
             $arows[] = $row;
         }
 
-        // table dump
+        // Table dump
         $data['title'] = "Details Of '$id' From Spreadsheet";
         $data['content'] = "File:$fname <br>";
 
@@ -306,7 +307,7 @@ class Spreadsheet_loader extends DmsBase {
                 $current_values = $this->get_current_field_values($id, $entity_type, $config_source, $mode);
                 $calling_params = $this->make_tracking_info_params($tracking_info, $config_source, $mode, $current_values);
 
-                // call stored procedure to update tracking info
+                // Call stored procedure to update tracking info
                 $this->sproc_model = model('App\Models\S_model');
                 $ok = $this->sproc_model->init('entry_sproc', $config_source);
                 if(!$ok) throw new \Exception($this->sproc_model->get_error_text());
@@ -350,7 +351,7 @@ class Spreadsheet_loader extends DmsBase {
     {
         $current_values = new \stdClass();
 
-        // only look for current values in update mode
+        // Only look for current values in update mode
         if($mode === 'update' || $mode === 'check_update') {
             $key = 0;
             $message = '';
@@ -434,7 +435,7 @@ class Spreadsheet_loader extends DmsBase {
     private
     function make_tracking_info_params($tracking_info, $config_source, $mode, $current_values)
     {
-        // use $entity_type to get definition of field/labels for entry sproc
+        // Use $entity_type to get definition of field/labels for entry sproc
         // entry form specifications
         $this->form_model = model('App\Models\E_model');
         $this->form_model->init('na', $config_source);
@@ -454,7 +455,7 @@ class Spreadsheet_loader extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // build parameter object for calling stored procedure that updates aux info
+    // Build parameter object for calling stored procedure that updates aux info
     private
     function make_aux_info_params($id, $entity_type, $ai, $mode)
     {
@@ -493,12 +494,12 @@ class Spreadsheet_loader extends DmsBase {
      */
     function template($config_source, $rowStyle = false, $ext = "tsv")
     {
-        // tracking info
+        // Tracking info
         $this->form_model = model('App\Models\E_model');
         $this->form_model->init('na', $config_source);
         $form_def = $this->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
-        // get array of field labels associated with field values
+        // Get array of field labels associated with field values
         // make sure key field is first in list
         $primary_key = $form_def->load_key;
         $entity_info[$form_def->specs[$primary_key]['label']] = 'key';
@@ -514,7 +515,7 @@ class Spreadsheet_loader extends DmsBase {
         $aux_info = array();
         $aux_info_target = $this->get_aux_info_target($config_source);
         if($aux_info_target) {
-            // get aux info definitions
+            // Get aux info definitions
             $this->model = model('App\Models\Q_model');
             $this->model->init('list_report', 'aux_info_def');
             $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
@@ -601,7 +602,7 @@ class Spreadsheet_loader extends DmsBase {
     private
     function cross_check_aux_info_fields($aux_info_target, $aux_info)
     {
-        // get aux info definitions
+        // Get aux info definitions
         $this->model = model('App\Models\Q_model');
         $this->model->init('list_report', 'aux_info_def');
         $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
@@ -673,7 +674,7 @@ class Spreadsheet_loader extends DmsBase {
 
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];

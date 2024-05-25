@@ -37,13 +37,13 @@ class Primary_filter {
 
         $this->clear_query_filter();
 
-        // try to get current values of filters from POST
+        // Try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post($filter_specs);
         if ($state) {
             $this->cur_filter_values = $state;
             save_to_cache($this->storage_name, $state);
         } else {
-            // try to get current values of filters from cache
+            // Try to get current values of filters from cache
             $state = get_from_cache($this->storage_name);
             if ($state) {
                 $this->cur_filter_values = $state;

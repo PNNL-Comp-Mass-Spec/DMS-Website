@@ -39,7 +39,7 @@ class Grid extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // get data from sproc
+    // Get data from sproc
     protected
     function grid_data_from_sproc($sproc_id, $config_db)
     {

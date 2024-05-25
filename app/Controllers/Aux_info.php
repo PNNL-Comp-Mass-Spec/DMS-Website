@@ -112,7 +112,7 @@ class Aux_info extends BaseController {
             $name = "Unknown";
         }
 
-        // labelling information for view
+        // Labelling information for view
         $data['title'] = "Aux Info Entry";
         $data['heading'] = "Aux Info Entry";
         $data['target'] = $target;
@@ -125,7 +125,7 @@ class Aux_info extends BaseController {
             $data['categories']= $this->model->get_aux_info_categories($target);
             $data['aux_info_def'] = $this->model->get_aux_info_def($target);
 
-            // load up data array and call view template
+            // Load up data array and call view template
             echo view('special/aux_info_entry', $data);
         } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();

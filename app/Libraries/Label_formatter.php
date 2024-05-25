@@ -88,7 +88,7 @@ class Label_Formatter {
         "unique_peptides_fdr_filtered" => "Unique Peptides (FDR-filtered)",
         "unique_proteins_fdr_filtered" => "Unique Proteins (FDR-filtered)",
         "fdr_threshold_pct" => "FDR Threshold (%)",
-        // for production_instrument_stats page:
+        // For production_instrument_stats page:
         "study_specific_datasets_per_day"     => "Study Specific Datasets per day",
         "emsl_funded_study_specific_datasets" => "EMSL-Funded Study Specific Datasets",
         "ef_study_specific_datasets_per_day"  => "EF Study Specific Datasets per day",
@@ -226,11 +226,11 @@ class Label_Formatter {
      */
     public function deformat($label_text)
     {
-        // array_search()/in_array() takes much longer to run than array_key_exists (apparently several orders of magnitude on large lists, see https://gist.github.com/alcaeus/536156663fac96744eba77b3e133e50a)
+        // Array_search()/in_array() takes much longer to run than array_key_exists (apparently several orders of magnitude on large lists, see https://gist.github.com/alcaeus/536156663fac96744eba77b3e133e50a)
         //$labelMatch = array_search($label_text, self::LABEL_MAP);
-        //if ($labelMatch !== false) {
-        //    return $labelMatch;
-        //}
+        // if ($labelMatch !== false) {
+        //     return $labelMatch;
+        // }
 
         if (array_key_exists($label_text, $this->label_map_flipped)) {
             return $this->label_map_flipped[$label_text];

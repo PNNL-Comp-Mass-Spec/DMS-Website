@@ -39,13 +39,13 @@ class Operation {
         $response = new \stdClass();
 
         try {
-            // init sproc model
+            // Init sproc model
             $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($this->controller->sproc_model->get_error_text());
             }
 
-            // get sproc fields and use them to make validation field definitions
+            // Get sproc fields and use them to make validation field definitions
             $fields = $this->controller->sproc_model->get_sproc_fields();
             $rules = array();
             foreach ($fields as $field) {

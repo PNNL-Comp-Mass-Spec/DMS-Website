@@ -5,17 +5,17 @@ function sproc_log_in($sproc, $user, $parms, $override = false) {
     $inhibit_sproc_call = config('App')->inhibit_sproc_call;
     $log_enabled = config('App')->sproc_call_log_enabled;
 
-    // we are done if sproc logging not enabled
+    // We are done if sproc logging not enabled
     if (!($log_enabled || $override)) {
         return $inhibit_sproc_call;
     }
 
-    // local override forces sproc call inhibit
+    // Local override forces sproc call inhibit
     if ($override) {
         $inhibit_sproc_call = true;
     }
 
-    // message about sproc call
+    // Message about sproc call
     $ma = array();
     $ma[] = $sproc;
     $ma[] = $user;
@@ -35,12 +35,12 @@ function sproc_log_out($sproc, $user, $retval, $message) {
     $inhibit_sproc_call = config('App')->inhibit_sproc_call;
     $log_enabled = config('App')->sproc_call_log_enabled;
 
-    // we are done if sproc logging not enabled
+    // We are done if sproc logging not enabled
     if (!$log_enabled) {
         return;
     }
 
-    // message about sproc call
+    // Message about sproc call
     $ma = array();
     $ma[] = $sproc;
     $ma[] = $user;

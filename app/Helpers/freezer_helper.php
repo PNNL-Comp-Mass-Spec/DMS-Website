@@ -10,11 +10,11 @@ function render_location_contents($location, $contents) {
     $loc = $location['Location'];
     $avail = $location['Available'];
 
-    // render location
+    // Render location
     $s = '';
     $s .= "<div>" . $loc . "</div>";
 
-    // if space for more containers is available
+    // If space for more containers is available
     // render link to make a new one
     if (($avail != '0')) {
         $s .= "<div>";
@@ -22,7 +22,7 @@ function render_location_contents($location, $contents) {
         $s .= "</div>";
     }
 
-    // render containers, if any
+    // Render containers, if any
     if (array_key_exists($loc, $contents)) {
         foreach ($contents[$loc] as $content) {
             $cn = $content['Container'];
@@ -61,15 +61,17 @@ function make_freezer_matrix_array($locs) {
  * @return string
  */
 function make_matrix_row_col_tables($fzr, $table_setup, $tstyl) {
-    // make inner tables (row, col)
+    // Make inner tables (row, col)
     $otr = array();
-    // make row for each shelf
+
+    // Make row for each shelf
     for ($shelf = 1; $shelf <= count($fzr); $shelf++) {
         for ($rack = 1; $rack <= count($fzr[$shelf]); $rack++) {
             $tbrc = "<table $table_setup $tstyl >\n";
             for ($row = 1; $row <= count($fzr[$shelf][$rack]); $row++) {
                 $cols = $fzr[$shelf][$rack][$row];
-                // make header row
+
+                // Make header row
                 if ($row == 1) {
                     $hdr = array_keys($cols);
                     $thdr = "<thead><tr>";
@@ -80,7 +82,8 @@ function make_matrix_row_col_tables($fzr, $table_setup, $tstyl) {
                     $thdr .= "</tr></thead>\n";
                     $tbrc .= $thdr;
                 }
-                // make rack row
+
+                // Make rack row
                 $tbrc .= "<tr>";
                 $tbrc .= "<th>Row $row</th>";
                 for ($j = 1; $j <= count($cols); $j++) {
@@ -104,10 +107,10 @@ function make_matrix_row_col_tables($fzr, $table_setup, $tstyl) {
  * @return string
  */
 function render_matrix_table($otr, $table_setup) {
-    // make outer table (shelf, rack) containing inner tables (row, col)
+    // Make outer table (shelf, rack) containing inner tables (row, col)
     $tbs = "<table $table_setup >\n";
-    //
-    // make header row
+
+    // Make header row
     $thdr = "<thead><tr>";
     $thdr .= "<th></th>";
 
@@ -120,8 +123,7 @@ function render_matrix_table($otr, $table_setup) {
     $tbs .= $thdr;
 
     if (sizeof($otr) > 0) {
-        //
-        // make row for each shelf
+        // Make row for each shelf
         for ($shelf = 1; $shelf <= count($otr); $shelf++) {
             $tbs .= "<tr>";
             $tbs .= "<th>Shelf $shelf</th>";

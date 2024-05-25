@@ -66,7 +66,7 @@ function make_search_filter_expanded($cols, $controller, $current_paging_filter_
     $sortDiv = "<div id='sorting_filter_container' class='filter_container_box' $style > $r </div>";
     $colFilterDiv = "<div id='column_filter_container' class='filter_container_box' $style > $c </div>";
 
-    // set up table to hold fields
+    // Set up table to hold fields
     list($cell_s, $cell_vs, $cell_cs, $cell_f) = array(
         '<td style="vertical-align:top;">',
         '<td style="vertical-align:top;" rowspan="2">',
@@ -257,7 +257,7 @@ function make_primary_filter_in_table($primary_filter_defs, $controller) {
     $lab = "<span class='filter_label' >Primary Filter</span>";
     $str .= "<div class='filter_caption'> $lab $clps $clr $hid </div>\n";
 
-    // set up table to hold fields
+    // Set up table to hold fields
     list($cell_s, $cell_f) = array("<td>", "</td>");
     list($row_s, $row_f) = array("<tr>", "</tr>\n");
     $str .= "<table class='FTab' id='primary_filter_table' >\n";
@@ -369,12 +369,12 @@ function make_sorting_filter($current_filter_values, $cols) {
 
     */
 
-    // selection lists for column and direction selectors
+    // Selection lists for column and direction selectors
     array_unshift($cols, '');
     $col_sel = array_combine($cols, $cols);
     $dir_sel = array('ASC' => 'Ascending', 'DESC' => 'Descending');
 
-    // build sorting elements and put into table
+    // Build sorting elements and put into table
     list($cell_s, $cell_f) = array("<td>", "</td>");
     list($row_s, $row_f) = array("<tr>", "</tr>\n");
     $str .= "<table class='FTab' id='sorting_filter_table' >";

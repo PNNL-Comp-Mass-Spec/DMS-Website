@@ -2,7 +2,7 @@
 namespace App\Libraries;
 
 // --------------------------------------------------------------------
-// entry page section
+// Entry page section
 // --------------------------------------------------------------------
 
 class Entry {
@@ -40,10 +40,10 @@ class Entry {
     function create_entry_page($page_type) {
         helper(['entry_page', 'url']);
 
-        // general specifications for page family
+        // General specifications for page family
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
-        // make entry form object using form definitions from model
+        // Make entry form object using form definitions from model
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
@@ -53,7 +53,7 @@ class Entry {
         // Determine the page mode ('add' or 'update')
         $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
 
-        // get initial field values and merge them with form object
+        // Get initial field values and merge them with form object
         $segs = array_slice(getCurrentUriDecodedSegments(), 2); // remove controller and function segments
         $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields, $this->controller);
 
@@ -86,10 +86,10 @@ class Entry {
             }
         }
 
-        // handle special field options for entry form object
+        // Handle special field options for entry form object
         $this->handle_special_field_options($form_def, $mode);
 
-        // build page display components and load page
+        // Build page display components and load page
         $data['tag'] = $this->tag;
         $data['my_tag'] = $this->controller->my_tag;
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, $page_type);
@@ -159,7 +159,7 @@ class Entry {
         $validation->setRules($form_def->rules);
         $valid_fields = $validation->run($postData);
 
-        // get field values from validation object
+        // Get field values from validation object
         $input_params = new \stdClass();
         foreach ($form_def->fields as $field) {
             $input_params->$field = $postData[$field];
@@ -173,7 +173,7 @@ class Entry {
             $msg = '';
             $this->call_stored_procedure($input_params, $form_def, $msg);
 
-            // everything worked - compose tidings of joy
+            // Everything worked - compose tidings of joy
             $ps_links = $this->get_post_submission_link($input_params);
             $message = 'Operation was successful';
             if (empty($msg)) {
@@ -184,7 +184,7 @@ class Entry {
             }
             $supplement = $this->supplement_msg($message . $ps_links, 'normal');
         } catch (\Exception $e) {
-            // something broke - compose expressions of regret
+            // Something broke - compose expressions of regret
             $message = $e->getMessage();     // . " (page family: $this->tag)";
             $outcome = $this->outcome_msg($message, 'failure');
             $supplement = $this->supplement_msg($message, 'error');
@@ -200,7 +200,7 @@ class Entry {
             }
         }
 
-        // get entry form object and use to to build and return HTML for form
+        // Get entry form object and use to to build and return HTML for form
         $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
         $data['form'] = $this->make_entry_form_HTML($input_params, $form_def, $validation);
         echo $outcome;
@@ -225,18 +225,18 @@ class Entry {
      */
     protected function make_entry_form_HTML($input_params, $form_def, $validation) {
         helper('form');
-        // handle special field options for entry form object
+        // Handle special field options for entry form object
         $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
         $this->handle_special_field_options($form_def, $mode);
 
-        // update entry form object with field values
+        // Update entry form object with field values
         // and any field validation errors
         foreach ($form_def->fields as $field) {
             $this->controller->entry_form->set_field_value($field, $input_params->$field);
             $fieldError = validation_error($validation, $field, '<span class="bad_clr">', '</span>');
             $this->controller->entry_form->set_field_error($field, $fieldError);
         }
-        // build HTML and return it
+        // Build HTML and return it
         return $this->controller->entry_form->build_display($mode);
     }
 
@@ -305,7 +305,7 @@ class Entry {
         $calling_params->mode = \Config\Services::request()->getPost('entry_cmd_mode');
         $calling_params->callingUser = get_user();
 
-        // adjust calling parameters for any disabled fields
+        // Adjust calling parameters for any disabled fields
         foreach ($field_enable as $field => $status) {
             if ($status == 'disabled') {
                 $calling_params->$field = '[no change]';

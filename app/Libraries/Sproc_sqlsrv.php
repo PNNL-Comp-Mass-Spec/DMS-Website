@@ -49,8 +49,8 @@ class Sproc_sqlsrv extends Sproc_base {
                 $sql = $sql . ", " . $paramName . " = ?";
             }
 
-            // format: array($value [, $direction [, $phpType [, $sqlType]]]) http://php.net/manual/en/function.sqlsrv-prepare.php
-            // see https://github.com/Microsoft/msphpsql/blob/9eadf805adf83c3f7de53e06f2a7f2630a9fdd8f/source/sqlsrv/stmt.cpp for types supported
+            // Format: array($value [, $direction [, $phpType [, $sqlType]]]) http://php.net/manual/en/function.sqlsrv-prepare.php
+            // See https://github.com/Microsoft/msphpsql/blob/9eadf805adf83c3f7de53e06f2a7f2630a9fdd8f/source/sqlsrv/stmt.cpp for types supported
             if ($direction == SQLSRV_PARAM_IN) {
                 $params[] = array($fieldValue, $direction);
             } else {

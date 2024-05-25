@@ -83,7 +83,7 @@
     var myImportExport;
     var myGrid;
 
-    // meant to be extended with mainGrid object
+    // Meant to be extended with mainGrid object
     // The column names in the staticColumns array correspond to https://dmsdev.pnl.gov/instrument_usage_report/grid
     // They must match the data returned by view V_Instrument_Usage_Report_List_Report (see also Controllers/Instrument_Usage_Report.php::grid_data())
     var gridConfig = {

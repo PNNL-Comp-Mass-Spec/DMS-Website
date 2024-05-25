@@ -176,7 +176,7 @@ class Freezer extends DmsBase {
         $this->db = \Config\Database::connect();
         $this->updateSearchPath($this->db);
 
-        // labelling information for view
+        // Labelling information for view
         $data['title'] = "Freezer Map";
         $data['heading'] = "Freezer Map";
 
@@ -184,7 +184,7 @@ class Freezer extends DmsBase {
         $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Detail_Reports', $this);
 
-        // populate array of storage locations
+        // Populate array of storage locations
         $sql = "";
         $sql .= "SELECT DISTINCT Location, Freezer, Shelf, Rack ";
         $sql .= "FROM V_Material_Location_List_Report ";
@@ -207,7 +207,8 @@ class Freezer extends DmsBase {
         }
 
         $data['content'] = '';
-        // show locations map in tables
+
+        // Show locations map in tables
         $fc_url = site_url("freezer/contents");
         $tmpl = array (
             'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="EPag">',
@@ -253,7 +254,7 @@ class Freezer extends DmsBase {
         $this->db = \Config\Database::connect();
         $this->updateSearchPath($this->db);
 
-        // labelling information for view
+        // Labelling information for view
         $data['title'] = "Freezer";
         $data['heading'] = "Freezer";
 
@@ -261,15 +262,16 @@ class Freezer extends DmsBase {
         $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
-        // optional limits on what to include
+        // Optional limits on what to include
         $uri = $this->request->uri;
+
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $freezer_spec = $uri->getSegment(3);
         $shelf_spec = $uri->getSegment(4);
         $rack_spec = $uri->getSegment(5);
 
-        // populate array of storage locations
+        // Populate array of storage locations
         $sql = "";
         $sql .= "SELECT Freezer, Shelf, Rack, Row, Col, Location, Available ";
         $sql .= "FROM V_Material_Location_List_Report ";
@@ -299,7 +301,7 @@ class Freezer extends DmsBase {
             $storage[$r['Freezer']][$r['Shelf']][$r['Rack']][$r['Row']][$r['Col']] = array( 'Location' => $r['Location'], 'Available' => $r['Available']) ;
         }
 
-        // populate array of location contents
+        // Populate array of location contents
         $sql = "";
         $sql .= "SELECT Container, Location, Comment ";
         $sql .= "FROM V_Material_Container_Locations ";
@@ -351,7 +353,7 @@ class Freezer extends DmsBase {
         $uri->setSilent();
         $freezer_spec = $uri->getSegment(3);
 
-        // labelling information for view
+        // Labelling information for view
         $data['title'] = "Freezer Matrix";
         $data['heading'] = "Freezer $freezer_spec Matrix";
 
@@ -359,11 +361,11 @@ class Freezer extends DmsBase {
         $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
-        // table styling
+        // Table styling
         $table_setup = "border='1' cellpadding='2' cellspacing='1' class='mytable'";
         $tstyl = " style='height:100%; width:100%; background-color:#abc; position:relative;'";
 
-        // get list of rows and columns for given freezer
+        // Get list of rows and columns for given freezer
         $sql = "";
         $sql .= "SELECT Location_ID AS ID, Location, Shelf, Rack, Row, Col, Status ";
         $sql .= "FROM V_Material_Locations ";
@@ -378,16 +380,16 @@ class Freezer extends DmsBase {
         }
         $locs = $rc_result->getResultArray();
 
-        // build nested array representation of freezer locations
+        // Build nested array representation of freezer locations
         $fzr = make_freezer_matrix_array($locs);
 
-        // make set of inner row-column tables
+        // Make set of inner row-column tables
         $otr = make_matrix_row_col_tables($fzr, $table_setup, $tstyl);
 
-        // render the final table
+        // Render the final table
         $tbs = render_matrix_table($otr, $table_setup);
 
-        // make freezer dropdown
+        // Make freezer dropdown
         $js = "id='freezer_list' onchange='dmsjs.goToSelectedPage(\"freezer_list\");'";
         $data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), null, $js);
 

@@ -69,7 +69,7 @@ class Config_db extends BaseController {
 
         $tbl_list = $this->_get_db_table_list($config_db);
 
-        // dump contents of each table
+        // Dump contents of each table
         $s = $this->_get_table_dump_all($config_db, $tbl_list);
 
         $data['tables'] = $s;
@@ -123,7 +123,7 @@ class Config_db extends BaseController {
         }
         $tbl_list = $this->_get_db_table_list($config_db);
 
-        // dump contents of each table
+        // Dump contents of each table
         $s = $this->_get_table_dump_all($config_db, $tbl_list);
 
         $data['tables'] = $s;
@@ -325,7 +325,7 @@ class Config_db extends BaseController {
             if (!$i++) {
                 $cols = array_keys($row);
                 $n = count($cols);
-                // column headers
+                // Column headers
                 $rs .= "<tr>\n";
                 foreach ($cols as $c) {
                     $rs .= "<th>$c</th>";
@@ -346,7 +346,7 @@ class Config_db extends BaseController {
         $s .= "<div class='block_content' id='block_$table_name'>\n";
         $s .= "<table class='cfg_tab' >\n";
         /*
-          // table header
+          // Table header
           $s .= "<tr><th colspan='$n''>";
           $s .= "$table_name  &nbsp; ";
           //       $s .= "<a href='".site_url("config_db/edit_table/$config_db/$table_name")."'>Edit</a> &nbsp; ";
@@ -358,9 +358,9 @@ class Config_db extends BaseController {
         $s .= $this->config_model->get_table_def($table_name, 'description') . " &nbsp;";
         //  $s .= $this->_make_wiki_help_link($table_name) . " &nbsp;";
         $s .= "</td></tr>\n";
-        // table rows
+        // Table rows
         $s .= $rs;
-        // end of table
+        // End of table
         $s .= "</table>\n";
         $s .= "</div>\n";
         $s .= "<div style='height:1em;'></div>\n";
@@ -675,7 +675,7 @@ class Config_db extends BaseController {
         $data['post'] = '';
         $data['sql_text'] = '';
 
-        // get data rows from config table
+        // Get data rows from config table
         $data_info = $this->_get_config_db_table_data_info($config_db, $table_name);
         $data['edit_table'] = $this->_get_edit_table_form($config_db, $table_name, $data_info);
         //       $data['tooltip_events'] = $this->_get_edit_table_form_tooltips($table_name, $data_info);
@@ -698,14 +698,14 @@ class Config_db extends BaseController {
         }
         helper(['config_db_edit']);
 
-        // show _POST (debug)
+        // Show _POST (debug)
         $p = '';
         foreach ($_POST as $k => $v) {
             $p .= "$k:'$v', ";
         }
         $data['post'] = '';
 
-        // get data rows from config table
+        // Get data rows from config table
         $data_info = $this->_get_config_db_table_data_info($config_db, $table_name);
 
         $mode = '';
@@ -789,7 +789,7 @@ class Config_db extends BaseController {
         }
         $db->close();
 
-        // max width for each col
+        // Max width for each col
         $col_widths = array();
         foreach ($col_names as $c) {
             $col_widths[$c] = strlen($c);
@@ -828,7 +828,7 @@ class Config_db extends BaseController {
             echo "Could not get general params";
             return "Problem";
         }
-        // for each parameter in general_params that ends in '_sproc'
+        // For each parameter in general_params that ends in '_sproc'
         // get arguments from main database and convert to sql
         $my_db = \Config\Database::connect($db_group);
         $this->updateSearchPath($my_db);
@@ -896,20 +896,20 @@ class Config_db extends BaseController {
 
         $s .= "<form id='edit_form' name='edit_form' action='post'>\n";
 
-        // outer table
+        // Outer table
         $s .= "<table class='cfg_tab' >\n";
         $s .= "<tr><th>";
         $s .= "<span>$table_name</span>";
         $s .= "</td></tr>";
 
-        // inner table
+        // Inner table
         $s .= "<tr><td>";
         $s .= $this->_make_wiki_help_link($table_name);
 
         $s .= "&nbsp;&nbsp;" . $this->_make_page_family_contents_link($config_db);
 
         $s .= "<table class='cfg_tab' >\n";
-        // table header
+        // Table header
         $nc = $data_obj->num_cols + 2;
 
         $s .= "<tr>";
@@ -918,7 +918,7 @@ class Config_db extends BaseController {
         $s .= "</td>";
         $s .= "</tr>\n";
 
-        // column headers
+        // Column headers
         $s .= make_edit_table_header($data_obj->col_names, 'th');
         /*
           $hdr = "<tr>\n";
@@ -977,7 +977,7 @@ class Config_db extends BaseController {
         $s .= "<tr><td colspan=\"$nc\">New Row:</td></tr>\n";
         $s .= make_edit_table_header($data_obj->col_names, 'td');
 
-        // new entry row
+        // New entry row
         $fid = "frm_add";
         $s .= "<tr>\n";
         foreach ($data_obj->col_names as $col_name) {
@@ -996,8 +996,8 @@ class Config_db extends BaseController {
         $s .= "</table>\n";
         $s .= "</td></tr>";
         $s .= "</table>\n";
-        // dummy row in form to insure that JS always sees field as part of array
-        // if table is empty
+
+        // Dummy row in form to insure that JS always sees field as part of array if table is empty
         foreach ($data_obj->col_names as $col_name) {
             $s .= "<input name='$col_name' type='hidden' value='na' />";
         }
@@ -1226,7 +1226,7 @@ class Config_db extends BaseController {
 
         $db->close();
 
-        // filter table names?
+        // Filter table names?
         if ($table_filter) {
             $tx = array();
             foreach ($table_list as $tn) {
@@ -1418,7 +1418,7 @@ class Config_db extends BaseController {
      * @return boolean
      */
     private function _controller_exists($config_db, &$page_fam_tag, &$file_path) {
-        // set up file names
+        // Set up file names
         // Assure that the page family name is all lowercase
         $page_fam_tag = strtolower(str_replace('.db', '', $config_db));
         $dir = "../app/Controllers/";
@@ -1453,10 +1453,10 @@ class Config_db extends BaseController {
         $ignore = '';
         $data_info = $this->_get_general_params($config_db, $ignore);
 
-        // create controller file contents
+        // Create controller file contents
         $s = make_controller_code($config_db, $page_fam_tag, $data_info, $title);
 
-        // write controller file
+        // Write controller file
         file_put_contents($file_path, $s);
         header("Content-type: text/plain");
         echo "Controller file was created as '$file_path'\n\n";
@@ -1492,12 +1492,12 @@ class Config_db extends BaseController {
      * @return type
      */
     private function _get_filtered_config_table_name_list($file_filter, $table_filter) {
-        // get list of config files from config folder
+        // Get list of config files from config folder
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
         asort($config_files);
 
-        // get list of tables for each config db
+        // Get list of tables for each config db
         $config_db_table_name_list = array();
         foreach ($config_files as $config_db) {
             $tbl_list = $this->_get_db_table_list($config_db, $table_filter);
@@ -1515,17 +1515,17 @@ class Config_db extends BaseController {
      * @return type
      */
     private function _get_filtered_config_table_list($file_filter, $table_filter) {
-        // get list of config files from config folder
+        // Get list of config files from config folder
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
         asort($config_files);
 
-        // get list of tables for each config db
+        // Get list of tables for each config db
         $config_db_table_list = array();
         foreach ($config_files as $config_db) {
             $tbl_list = $this->_get_db_table_list($config_db, $table_filter);
             asort($tbl_list);
-            // get contents of each table
+            // Get contents of each table
             $tb = array();
             foreach ($tbl_list as $table_name) {
                 $tb[$table_name] = $this->_get_table_contents($config_db, $table_name);
@@ -1545,7 +1545,7 @@ class Config_db extends BaseController {
     function search() {
         helper(['config_db_edit']);
 
-        // set up name filters
+        // Set up name filters
         $uri = $this->request->uri;
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
@@ -1557,7 +1557,7 @@ class Config_db extends BaseController {
         $data['file_filter'] = $file_filter;
         $data['table_filter'] = $table_filter;
 
-        // different output format
+        // Different output format
         $display_format = $uri->getSegment(5, 'table_dump');
         $data['display_format'] = $display_format;
         $display_mode = $uri->getSegment(6, '');
@@ -1587,14 +1587,14 @@ class Config_db extends BaseController {
 
         $file_filter = "/db/";
 
-        // get list of tables in all config dbs
+        // Get list of tables in all config dbs
         $config_db_table_name_list = $this->_get_filtered_config_table_name_list($file_filter, '');
 
-        // get contents for general_params table for all config dbs
+        // Get contents for general_params table for all config dbs
         $table_filter = "general_params";
         $config_db_table_list = $this->_get_filtered_config_table_list($file_filter, $table_filter);
 
-        // get crosstab data
+        // Get crosstab data
         $data['contents'] = make_general_params_dump($config_db_table_list, $config_db_table_name_list);
 
         echo view('config_db/main', $data);
@@ -1642,7 +1642,7 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/dir
      */
     function dir() {
-        // get list of config files from config folder
+        // Get list of config files from config folder
         $file_filter = "/db/";
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
@@ -1701,26 +1701,26 @@ class Config_db extends BaseController {
      * http://dms2.pnl.gov/config_db/update_multiple
      */
     function update_multiple() {
-        // do all config dbs
+        // Do all config dbs
         $file_filter = "/.db/";
 
-        // change to apply
+        // Change to apply
         $table_name = "detail_report_hotlinks";
         $sql = "ALTER TABLE detail_report_hotlinks ADD options text;";
 
-        // get list of config files from config folder
+        // Get list of config files from config folder
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
         asort($config_files);
 
         echo "Finding Config DBs with table " . $table_name . '<br><br>';
 
-        // apply the change to each one
+        // Apply the change to each one
         foreach ($config_files as $config_db) {
-            // get list of config files that have table
+            // Get list of config files that have table
             $tbl_list = $this->_get_db_table_list($config_db, $table_name);
 
-            // skip config dbs that don't contain the table
+            // Skip config dbs that don't contain the table
             if (count($tbl_list) == 0)
                 continue;
 

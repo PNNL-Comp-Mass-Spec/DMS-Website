@@ -2,7 +2,7 @@
 namespace App\Libraries;
 
 // --------------------------------------------------------------------
-// detail report page section
+// Detail report page section
 // --------------------------------------------------------------------
 
 class Detail_report {
@@ -67,7 +67,7 @@ class Detail_report {
      */
     function detail_report_data($id, $show_entry_links = true, $show_create_links = true) {
         try {
-            // get data
+            // Get data
             $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
             $result_row = $this->controller->detail_model->get_item($id, $this->controller);
             if (empty($result_row)) {
@@ -76,7 +76,7 @@ class Detail_report {
 
             $col_info = $this->controller->detail_model->get_column_info();
 
-            // hotlinks
+            // Hotlinks
             $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
             // Fix decimal-as-string display; datetimes are formatted in helpers/detail_report_helper.php
@@ -92,7 +92,7 @@ class Detail_report {
                 $show_create_links = false;
             }
 
-            // render with old detail report helper
+            // Render with old detail report helper
             $data['my_tag'] = $this->tag;
             $data['id'] = $id;
             $data["columns"] = $col_info;       // Column defs
@@ -131,8 +131,8 @@ class Detail_report {
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
 
-        // aux_info always needs numeric ID, and sometimes ID for detail report is string
-        // this is a bit of a hack to always get the number
+        // Aux_info always needs numeric ID, and sometimes ID for detail report is string
+        // This is a bit of a hack to always get the number
         $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
         $result_row = array_change_key_case($this->controller->detail_model->get_item($id, $this->controller), CASE_LOWER);
         if (!empty($result_row)) {
@@ -152,7 +152,7 @@ class Detail_report {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        // get entity data
+        // Get entity data
         $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
         $entity_info = $this->controller->detail_model->get_item($id, $this->controller);
 
@@ -189,7 +189,7 @@ class Detail_report {
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
 
-        // get aux into data
+        // Get aux into data
         $this->controller->load_mod('Q_model', 'aux_info_model', '', '');
         $this->controller->aux_info_model->set_columns('Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI');
         $this->controller->aux_info_model->set_table('V_Aux_Info_Value');
@@ -207,10 +207,10 @@ class Detail_report {
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
         if ($aux_info_target) {
-            // get data
+            // Get data
             $this->controller->load_mod('Q_model', 'detail_model', 'detail_report', $this->config_source);
             $result_row = $this->controller->detail_model->get_item($id, $this->controller);
-            // get aux info data
+            // Get aux info data
             $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : ((array_key_exists('id', $result_row)) ? $result_row['id'] : $id);
             $aux_info = $this->get_aux_info($aux_info_id);
         }
@@ -224,7 +224,7 @@ class Detail_report {
      * @return type
      */
     private function get_entry_tracking_info($id) {
-        // get definition of fields for entry page
+        // Get definition of fields for entry page
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
@@ -241,7 +241,7 @@ class Detail_report {
         $primaryKeyFieldTypes = explode('|', $form_def->specs[$primary_key]['type']);
 
         // Get array of field labels associated with field values
-        // make sure the primary key field is first in list
+        // Make sure the primary key field is first in list
         // However, if the primary key field is a non-edit field, do not add it
 
         if (!in_array('hidden', $primaryKeyFieldTypes) && !in_array('non-edit', $primaryKeyFieldTypes)) {

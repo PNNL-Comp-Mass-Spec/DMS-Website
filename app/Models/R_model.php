@@ -103,7 +103,7 @@ class R_model extends Model {
     private function get_general_defs($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
@@ -160,7 +160,7 @@ class R_model extends Model {
     private function get_utility_defs($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];

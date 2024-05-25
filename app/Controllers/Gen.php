@@ -98,18 +98,18 @@ class Gen extends BaseController
         $this->menu = model('\\App\\Models\\Dms_menu');
         helper(['form', 'user', 'menu', 'dms_search']);
 
-        // labelling information for view
+        // Labelling information for view
         $data['title'] = $title;
         $data['heading'] = $title;
 
         // nav_bar setup
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('', $this);
 
-        // home page menu sections
+        // Home page menu sections
         $defs = $this->menu->get_section_menu_def($menu_config_db, $menu_section_table, $menu_item_table);
         $data['qs_section_defs'] = $defs;
 
-        // which sub view to load?
+        // Which sub view to load?
         $data['sub_view_name'] = $sub_view_name;
         $data['splash_view_name'] = ($splash_view_name)?$splash_view_name:'splash_default';
         $data['page_menu_root'] = $this->page_menu_root;
@@ -231,7 +231,7 @@ class Gen extends BaseController
      */
     function auth()
     {
-        // load the authorization model
+        // Load the authorization model
         $this->auth = model('\\App\\Models\\Dms_authorization');
         $rows = $this->auth->get_master_restriction_list();
 
@@ -262,7 +262,7 @@ class Gen extends BaseController
         $this->menu = new \App\Models\Dms_menu();
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Statistics', $this);
 
-        // labelling information for view
+        // Labelling information for view
         $data['title'] = "DMS Statistics";
         $data['heading'] = $data['title'];
 

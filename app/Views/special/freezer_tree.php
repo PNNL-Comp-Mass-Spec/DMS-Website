@@ -102,18 +102,18 @@ Freezer.Display = {
         });
     },
     updateTreePostMove: function(tree, locationKey, callback) {
-        // find location node by key (if it exists)
+        // Find location node by key (if it exists)
         var locNode = tree.getNodeByKey(locationKey);
         if(!locNode) {
             if(callback) callback();
             return;
         }
-        // get parent location node
+        // Get parent location node
         var parLocNode = locNode.getParent();
 
-        // reload parent location node
+        // Reload parent location node
         parLocNode.reloadChildren(function() {
-            // original location will have new node - find it via key
+            // Original location will have new node - find it via key
             var node = tree.getNodeByKey(locationKey);
             if(node) {
                 node.reloadChildren(function() {
@@ -322,7 +322,7 @@ $(document).ready(function() {
         dnd: Freezer.Display.Right.getDndObj()
     });
 
-    // set event handlers for global search panel
+    // Set event handlers for global search panel
     dmsNav.setSearchEventHandlers($('.global_search_panel'));
 
 });

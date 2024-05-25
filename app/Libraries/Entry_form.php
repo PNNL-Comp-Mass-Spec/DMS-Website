@@ -64,7 +64,7 @@ class Entry_form {
         }
 
         if (isset($f_spec["default_function"])) {
-            // if so, use specified function to get value
+            // If so, use specified function to get value
             $func_parts = explode(':', $f_spec["default_function"]);
             switch (strtolower($func_parts[0])) {
                 case 'getuser()':
@@ -86,7 +86,7 @@ class Entry_form {
                     break;
             }
         } else {
-            // otherwise, use the literal default
+            // Otherwise, use the literal default
             $val = $f_spec["default"];
         }
         return $val;
@@ -139,7 +139,7 @@ class Entry_form {
                 $val = $this->field_values[$fldName];
                 $hidden_fields[] = "<input type='hidden' id='$fldName' name='$fldName' value='$val'/>";
             } else {
-                // if field has section header attribute, add section header row to table
+                // If field has section header attribute, add section header row to table
                 if (array_key_exists('section', $spec)) {
 
                     if (!array_key_exists('label', $spec)) {
@@ -190,11 +190,11 @@ class Entry_form {
             }
         }
 
-        // magic command/mode field
+        // Magic command/mode field
         $attr = array('name' => 'entry_cmd_mode', 'id' => 'entry_cmd_mode', 'type' => 'hidden');
         $hidden_fields[] = form_input($attr);
 
-        // package form display elements into final container
+        // Package form display elements into final container
         $str = '';
         if (!empty($visible_fields)) {
             $str .= $this->display_table($visible_fields, empty($this->field_enable), $block_number);
@@ -232,23 +232,24 @@ class Entry_form {
           $str .= "</tr>\n";
           }
          */
-        // place all visible fields into table cells in table rows
+
+        // Place all visible fields into table cells in table rows
         foreach ($visible_fields as $row) {
-            // remove the section number from the row fields (we don't display it)
+            // Remove the section number from the row fields (we don't display it)
             $section_number = array_shift($row);
-            // if row is a section header, apply header formatting to field and table row
+            // If row is a section header, apply header formatting to field and table row
             $col_span = '';
             if ($section_number == -1) {
                 $blk = array_pop($row); // retrieve and remove block number for section head
                 $col_span = "colspan='2' class='section_block_header_all' id='section_block_header_$blk' ";
                 $row[0] = $this->make_section_header($blk, $row[0]);
             }
-            // define classes for section rows with section numbers greater than 0
+            // Define classes for section rows with section numbers greater than 0
             $class = '';
             if ($section_number > 0) {
                 $class = "class='section_block_$section_number section_block_all'";
             }
-            // place row fields in table cells in table row
+            // Place row fields in table cells in table row
             $str .= "<tr $class>";
             foreach ($row as $field) {
                 $str .= "<td $col_span>" . $field . "</td>";
@@ -336,7 +337,7 @@ class Entry_form {
         $s = "";
         $nonEditField = false;
 
-        // set up delimiter for lists for the field
+        // Set up delimiter for lists for the field
         $delimFromSpec = (isset($f_spec['chooser']['Delimiter'])) ? $f_spec['chooser']['Delimiter'] : '';
         $delim = ($delimFromSpec != '') ? $delimFromSpec : ',';
 
@@ -399,7 +400,7 @@ class Entry_form {
             }
         }
 
-        // create HTML according to field type
+        // Create HTML according to field type
         if (in_array('text', $fieldTypes)) {
             $data['maxlength'] = $f_spec['maxlength'];
             $data['size'] = $f_spec['size'];
@@ -410,7 +411,7 @@ class Entry_form {
             $data['cols'] = $f_spec['cols'];
             $autoFormatDelimitedList = true;
             if (isset($f_spec['auto_format'])) {
-                // auto_format is defined in the form_field_options table in the config DB
+                // Auto_format is defined in the form_field_options table in the config DB
                 switch (strtolower($f_spec['auto_format'])) {
                     case 'xml':
                         $data['onBlur'] = "entry.formatXMLText('" . $data['id'] . "')";
@@ -564,7 +565,7 @@ class Entry_form {
     }
 
     // ---------------------------------------------------------------------------------------------------------
-    // form field adjustment section
+    // Form field adjustment section
     // ---------------------------------------------------------------------------------------------------------
 
     /**
@@ -572,15 +573,14 @@ class Entry_form {
      * @param type $userPermissions
      */
     function adjust_field_permissions($userPermissions) {
-        // look at each field
+        // Look at each field
         foreach ($this->form_field_specs as $field_name => $f_spec) {
-            // find ones that have permission restrictions
+            // Find ones that have permission restrictions
             if (array_key_exists('permission', $f_spec)) {
-                // do user's permisssions satisfy field restrictions?
+                // Do user's permisssions satisfy field restrictions?
                 $fieldPermissions = explode(',', $f_spec['permission']);
                 $hits = array_intersect($fieldPermissions, $userPermissions);
-                // no - change spec to make field non-editable
-                // and remove chooser (if one exists)
+                // No - change spec to make field non-editable and remove chooser (if one exists)
                 if (count($hits) == 0) {
                     $this->form_field_specs[$field_name]['type'] = 'non-edit';
                     if (array_key_exists('chooser_list', $f_spec)) {
@@ -597,7 +597,7 @@ class Entry_form {
      */
     function adjust_field_visibility($mode) {
         foreach ($this->form_field_specs as $field_name => $f_spec) {
-            // hide is defined in the form_field_options table in the config DB
+            // Hide is defined in the form_field_options table in the config DB
             if (array_key_exists('hide', $f_spec)) {
                 if ($mode === $f_spec["hide"]) {
                     $this->form_field_specs[$field_name]["type"] = "hidden";

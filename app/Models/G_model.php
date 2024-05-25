@@ -171,7 +171,7 @@ class G_model extends Model {
     {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
@@ -211,7 +211,7 @@ class G_model extends Model {
     {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
@@ -220,7 +220,7 @@ class G_model extends Model {
         $allowCreate = false;
         $blockCreate = false;
 
-        // maybe move this to general model?
+        // Maybe move this to general model?
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
 
             $this->the_parameters[$row['name']] = $row['value'];
@@ -280,7 +280,7 @@ class G_model extends Model {
                         $this->actions['operation'] = 'P';
                         break;
                     default:
-                        // add root name of any ad hoc sproc to actions list
+                        // Add root name of any ad hoc sproc to actions list
                         if(stripos($row['name'], '_sproc') !== false) {
                             $name = str_replace('_sproc' , '', $row['name']);
                             $this->actions[$name] = true;
@@ -355,21 +355,21 @@ class G_model extends Model {
                 throw new \Exception("Action '$action' is not recognized");
             }
 
-            // not all actions are possible for a given page family
+            // Not all actions are possible for a given page family
             if($allowed === false) {
                 throw new \Exception("Action '$action' is not allowed for this page");
             }
 
-            // we are going to have to check further, so load the authorization model
+            // We are going to have to check further, so load the authorization model
             $controller->auth = model('App\Models\Dms_authorization');
 
-            // get user permissions
+            // Get user permissions
             $permissions = $controller->auth->get_user_permissions($user);
             if(empty($permissions)) {
                 return "User '$user' does not have any access to the website";
             }
 
-            // user will at least need basic access
+            // User will at least need basic access
             $hits = array_intersect(array("DMS_User", "DMS_Guest"), $permissions);
             if(empty($hits)) {
                 return "User '$user' does not have general access to the website";
@@ -378,21 +378,21 @@ class G_model extends Model {
             /*
              * Disabled in September 2016 to allow Show and Report permissions to work again
              *
-                // free pass from here if action has no restrictions
+                // Free pass from here if action has no restrictions
                 if($allowed === true) {
                     return true;
                 }
             */
 
-            // get list of authorizations required for the action
+            // Get list of authorizations required for the action
             $restrictions = $controller->auth->get_controller_action_restrictions($page_family, $action);
 
-            // action has no restrictions, good to go
+            // Action has no restrictions, good to go
             if(empty($restrictions)) {
                 return true;
             }
 
-            // look for intersection of permissions with restrictions
+            // Look for intersection of permissions with restrictions
             $restrictionHits = array_intersect($restrictions, $permissions);
 
             if(empty($restrictionHits)) {
@@ -409,7 +409,7 @@ class G_model extends Model {
                 throw new \Exception($msg);
             }
 
-            // made it this far, good to go
+            // Made it this far, good to go
             return true;
         } catch (\Exception $e) {
             return $e->getMessage();

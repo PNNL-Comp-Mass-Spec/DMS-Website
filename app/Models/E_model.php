@@ -119,7 +119,7 @@ class E_model extends Model {
      */
     private function get_load_key() {
         $load_key = '';
-        // look for specific definition from config db
+        // Look for specific definition from config db
         foreach ($this->form_fields as $field => $spec) {
             if (array_key_exists('load_key_field', $spec)) {
                 $load_key = $field;
@@ -127,7 +127,7 @@ class E_model extends Model {
             }
         }
 
-        // default is first field that is not non-edit or hidden
+        // Default is first field that is not non-edit or hidden
         if (!$load_key) {
             foreach ($this->form_fields as $field => $spec) {
                 // The form field type may contain several keywords specified by a vertical bar
@@ -175,7 +175,7 @@ class E_model extends Model {
     private function get_entry_form_definitions($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];

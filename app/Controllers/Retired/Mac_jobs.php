@@ -9,25 +9,25 @@ class Mac_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // return supplemental form for job parameter editing
+    // Return supplemental form for job parameter editing
     // AJAX
     // TODO: generic enough for libraries/entry.php? Or new library?
     function parameter_form($default_key = '')
     {
-        // get basic parameter definitions using the lookup key
+        // Get basic parameter definitions using the lookup key
         $def_params = array();
         if($default_key) {
             $xml_def = $this->get_param_definitions($default_key, $this->my_tag);
             $def_params = $this->extract_params_from_xml($xml_def);
         }
 
-        // any special display features?
+        // Any special display features?
         $display_params = array();
         // TODO: special display definitions in config db
 
         $params = $this->merge_params($def_params, $display_params);
 
-        // use parameter set XML to build supplemental form
+        // Use parameter set XML to build supplemental form
         if(!empty($params)) {
             echo "<h3>$default_key</h3>";
             echo $this->build_param_entry_form($params, $default_key);
@@ -48,7 +48,7 @@ class Mac_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // get list of scripts with parameters defined
+    // Get list of scripts with parameters defined
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
@@ -58,7 +58,7 @@ class Mac_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // merge parameter definitions, current values, and special display definitions
+    // Merge parameter definitions, current values, and special display definitions
     // into single array of parameter field definitions
     // TODO: move this to some other module
     private
@@ -70,7 +70,7 @@ class Mac_jobs extends DmsBase {
             if(array_key_exists($key, $display_params)) {
                 // ??
             } else {
-                // default field display parameters
+                // Default field display parameters
                 $def['type'] = 'text';
                 $def['size'] = '120';
             }
@@ -152,7 +152,7 @@ class Mac_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // given array of parameters, return HTML
+    // Given array of parameters, return HTML
     // for supplemental form to edit them
     // TODO: move this to some other module (libraries/entry_form?)
     private
@@ -183,7 +183,7 @@ class Mac_jobs extends DmsBase {
 
                 $help_link = $this->build_wiki_help_link($script, $name);
 
-                // place row fields in table cells in table row
+                // Place row fields in table cells in table row
                 $str .= "<tr>";
                 $str .= "<td>${help_link}<span> " . $label . "</span></td>";
                 $str .= "<td><input name='$name' id='$name' size='120' maxlength='4096' value='$value' /></td>";

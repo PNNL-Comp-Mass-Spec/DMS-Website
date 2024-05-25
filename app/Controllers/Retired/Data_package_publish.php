@@ -20,7 +20,7 @@ class Data_package_publish extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // receive manifest of files (via POST) and send to download server
+    // Receive manifest of files (via POST) and send to download server
     function submit()
     {
         $manifest = $this->request->getPost('manifest');
@@ -28,18 +28,18 @@ class Data_package_publish extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // send file download manifest to download server web service
+    // Send file download manifest to download server web service
     private function send_manifest_to_download_server($manifest)
     {
         // FUTURE: change code to actually send to web service
-        // for now, just dump the manifest to output as plain text
+        // For now, just dump the manifest to output as plain text
         header("Content-type: text/plain");
         return $manifest;
     }
 
 /*
     // --------------------------------------------------------------------
-    // send manifest of files (and email addresses for notification) to download server
+    // Send manifest of files (and email addresses for notification) to download server
     function download($data_package_ID)
     {
         // FUTURE: pull data $data_package_ID from POST instead of URL
@@ -73,7 +73,7 @@ class Data_package_publish extends DmsBase {
 
 */
     // --------------------------------------------------------------------
-    // convert an array of rows (as arrays) into XML text
+    // Convert an array of rows (as arrays) into XML text
     // where each row becomes an XML element with the fields as attributes
     private function format_results($result, $row_element, $wrapper_element = '') {
         $xml = '';
@@ -90,7 +90,7 @@ class Data_package_publish extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // send XML data package description to collaboration website server
+    // Send XML data package description to collaboration website server
     function collaboration($data_package_ID)
     {
         // FUTURE: pull data $data_package_ID from POST instead of URL
@@ -113,11 +113,11 @@ class Data_package_publish extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // send data package description to collaboration server web service
+    // Send data package description to collaboration server web service
     private function send_description_to_collaboration_server($description)
     {
         // FUTURE: change code to actually send to web service
-        // for now, just dump the manifest to output as plain text
+        // For now, just dump the manifest to output as plain text
         header("Content-type: text/plain");
         return $description;
     }

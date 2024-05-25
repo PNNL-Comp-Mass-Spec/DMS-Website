@@ -89,24 +89,22 @@ class Preferences extends BaseController {
         $tag = array_shift($segs);
         $name = "display_cols_".$tag;
 
-        // if no columns are specified on the url,
-        // clear any previous saved version to revert
-        // to the default
+        // If no columns are specified on the url,
+        // clear any previous saved version to revert to the default
         if(count($segs)==0) {
             unset($_SESSION[$name]);
             echo 'cleared';
             return;
         }
 
-        // wrap any column names that contain spaces
-        // with appropriate quotes
+        // Wrap any column names that contain spaces with appropriate quotes
         for($i=0;$i<count($segs);$i++) {
             if(preg_match("/\s/", $segs[$i])) {
                 $segs[$i] = "[$segs[$i]]";
             }
         }
 
-        // generate the column list
+        // Generate the column list
         $value = implode(', ', $segs);
         echo $value;
         $_SESSION[$name] = $value;

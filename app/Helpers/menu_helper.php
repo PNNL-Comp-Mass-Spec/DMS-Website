@@ -259,7 +259,7 @@ function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '
                     echo "<li>$label</li>\n";
                     break;
                 default:
-                    // don't output anything if the link type is not recognized
+                    // Don't output anything if the link type is not recognized
                     // (unconverted context items are hidden by this mechanism)
                     break;
             }
@@ -316,9 +316,9 @@ function get_nav_bar_menu_items($page_type, $controller) {
  * @return string
  */
 function get_menu_context($page_type, $controller) {
-    // we get context sensitive values from controller
+    // We get context sensitive values from controller
 
-    // get array of context-sensitive values
+    // Get array of context-sensitive values
     $menu_context = array();
     if (isset($controller->help_page_link)) {
         $help_basic_link = $controller->help_page_link . $page_type;

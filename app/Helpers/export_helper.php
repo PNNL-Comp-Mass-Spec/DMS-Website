@@ -252,7 +252,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         $data = '';
 
-        // field data
+        // Field data
         foreach($result as $row) {
             $line = '';
             foreach($cols as $name) {
@@ -283,7 +283,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     {
         $label_formatter = new \App\Libraries\Label_formatter();
 
-        // detail report for tracking entity
+        // Detail report for tracking entity
         $data = '';
         $data .= "Parameter" . "\t" . "Value" . "\n";
         foreach($result as $name => $value) {
@@ -295,7 +295,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $data .= trim($label_formatter->format($name) ."\t" . $value)."\n";
         }
 
-        // detail report for aux info (if any)
+        // Detail report for aux info (if any)
         $ai = '';
         if(count($aux_info) > 0) {
             $fields = array("Category", "Subcategory", "Item", "Value");
@@ -331,7 +331,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     {
         $label_formatter = new \App\Libraries\Label_formatter();
 
-        // detail report for tracking entity
+        // Detail report for tracking entity
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->setActiveSheetIndex(0);
         $data = array();
@@ -349,7 +349,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             $rowIndex++;
         }
 
-        // detail report for aux info (if any)
+        // Detail report for aux info (if any)
         if(count($aux_info) > 0) {
             $fields = array("category", "subcategory", "item", "value");
             $data[$rowIndex] = $fields;
@@ -385,23 +385,23 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      */
     function export_xml_to_dot($scriptName, $description, $script)
     {
-        // build contents of dot file
+        // Build contents of dot file
         $s = convert_script_to_dot($script);
 
-        // set up file names
+        // Set up file names
         $dir = "generated/";
         $fn = $dir.$scriptName.'.dot';
         $typ = "png";
         $fo = $dir.$scriptName.'.'.$typ;
 
-        // create dot file
+        // Create dot file
         file_put_contents($fn, $s);
 
-        // generate graph image from dot file
+        // Generate graph image from dot file
         $output = shell_exec("dot -T$typ -o $fo $fn");
         echo "<pre>$output</pre>";
 
-        // display graph image
+        // Display graph image
         echo "<h2>Workflow for $scriptName Script</h2>";
         echo "<div style='width:60em;'>$description</div>";
         echo "<div style='height:1em;'></div>";
@@ -499,7 +499,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     {
         $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
 
-        // detail report for tracking entity
+        // Detail report for tracking entity
         $data = strtoupper(str_replace('_', ' ', $entity)). "\n";
         $data .= "\n";
         if ($validatedRowStyle) {
@@ -518,7 +518,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 $values .= trim($value)."\t";
             }
 
-            // detail report for aux info (if any)
+            // Detail report for aux info (if any)
             $markers .= "AUXILIARY INFORMATION";
             $firstItem = True;
             $prevCategory = '';
@@ -575,7 +575,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 $data .= trim($name ."\t" . $value)."\n";
             }
 
-            // detail report for aux info (if any)
+            // Detail report for aux info (if any)
             $ai = '';
             $ai .= "AUXILIARY INFORMATION" . "\n";
             $firstRow = True;
@@ -660,7 +660,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             }
 
             $data[0][0] = "TRACKING INFORMATION";
-            // detail report for aux info (if any)
+
+            // Detail report for aux info (if any)
             $data[0][$colIndex] = "AUXILIARY INFORMATION";
             $firstItem = True;
             $prevCategory = '';
@@ -725,7 +726,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 $rowIndex++;
             }
 
-            // detail report for aux info (if any)
+            // Detail report for aux info (if any)
             $data[$rowIndex][0] = "AUXILIARY INFORMATION";
             $rowIndex++;
             $firstItem = True;
@@ -814,7 +815,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 $writerType = 'Csv';
                 break;
             case 'pdf':
-                //header('Content-Type: application/pdf');
+                //Header('Content-Type: application/pdf');
                 //$writerType = 'Tcpdf';
                 //$writerType = 'Dompdf';
                 //$writerType = 'Mpdf';
@@ -919,7 +920,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      */
     function quote_if_contains_tab($value)
     {
-        // convert any newlines
+        // Convert any newlines
         $valueNoCrLf = str_replace(array("\r\n", "\r", "\n"), "; ", $value);
 
         // Look for a tab character in $value

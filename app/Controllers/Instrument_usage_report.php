@@ -229,7 +229,7 @@ EOD;
 
         $headers = implode("\t", $cols);
 
-        // field data
+        // Field data
         foreach($result as $row) {
             $line = '';
             foreach($cols as $name) {

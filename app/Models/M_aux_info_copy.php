@@ -8,12 +8,12 @@ class M_aux_info_copy extends Model {
     function init_definitions() {
         $this->my_tag = "aux_info_copy";
 
-        // query to get data for existing record in database for editing
+        // Query to get data for existing record in database for editing
         $this->entry_page_data_cols = "*";
         $this->entry_page_data_table = '';
         $this->entry_page_data_id_col = '';
 
-        // fields for entry form
+        // Fields for entry form
         $this->form_fields = array(
             'TargetName' => array(
                 'label' => 'targetName',

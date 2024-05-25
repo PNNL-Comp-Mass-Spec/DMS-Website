@@ -94,7 +94,7 @@
     var myCommonControls;
     var myImportExport;
     var myGrid;
-    // meant to be extended with mainGrid object
+    // Meant to be extended with mainGrid object
     var gridConfig = {
         maxColumnChars: 50,
         hiddenColumns: ['Year', 'Month', 'Day'],
@@ -158,7 +158,7 @@
         }
     }
 
-    // for the grunt work details
+    // For the grunt work details
     var myUtil = {
         postImportAction: function() {
         },

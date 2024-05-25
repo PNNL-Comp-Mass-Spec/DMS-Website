@@ -12,7 +12,7 @@ class Helper_inst_source extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // present file contents with chooser links
+    // Present file contents with chooser links
     function view($inst = "")
     {
         helper(['url', 'text']);
@@ -72,7 +72,7 @@ class Helper_inst_source extends DmsBase {
             exit;
         }
 
-        // get source content file from website
+        // Get source content file from website
         $cfg = config('App')->dms_inst_source_url;
         $url = $cfg ? $cfg : "http://gigasax.pnl.gov";
         $file = fopen ($url."/DMS_Inst_Source/".$inst."_source.txt", "r");
@@ -102,7 +102,7 @@ class Helper_inst_source extends DmsBase {
         while (!feof ($file)) {
             $line = fgets ($file, 1024);
 
-            // skip blank lines
+            // Skip blank lines
             if(preg_match("/^\s*$/", $line)) continue;
 
             if ($data['subheading'] == "" &&
@@ -122,7 +122,7 @@ class Helper_inst_source extends DmsBase {
             else
                 $size = "";
 
-            // clean off file extensions
+            // Clean off file extensions
             $valueClean = preg_replace('/(\.raw$|\.wiff$|\.d$|\.uimf$)/i'  , '', $value );
 
             // Hide certain files
@@ -197,7 +197,7 @@ class Helper_inst_source extends DmsBase {
         $result = array_merge($headerRow, $other, $dirs, $files);
         $data['result'] = $result;
 
-        // load up data array and call view template
+        // Load up data array and call view template
         echo view('tabular_data', $data);
     }
 }

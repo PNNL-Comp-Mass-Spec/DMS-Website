@@ -64,7 +64,7 @@ class DmsBase extends BaseController
     }
 
     // --------------------------------------------------------------------
-    // entry page section
+    // Entry page section
     // --------------------------------------------------------------------
 
     /**
@@ -113,7 +113,7 @@ class DmsBase extends BaseController
     }
 
     // --------------------------------------------------------------------
-    // list report page section
+    // List report page section
     // --------------------------------------------------------------------
 
     /**
@@ -208,7 +208,7 @@ class DmsBase extends BaseController
     }
 
     // --------------------------------------------------------------------
-    // detail report page section
+    // Detail report page section
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------
@@ -317,7 +317,7 @@ class DmsBase extends BaseController
     }
 
     // --------------------------------------------------------------------
-    // param report (stored procedure based list report) section
+    // Param report (stored procedure based list report) section
     // --------------------------------------------------------------------
 
     /**
@@ -381,7 +381,7 @@ class DmsBase extends BaseController
         $this->param_report->param_filter();
     }
     // --------------------------------------------------------------------
-    // export param report
+    // Export param report
     function export_param($format)
     {
         if (!$this->check_access('param')) {
@@ -481,7 +481,7 @@ class DmsBase extends BaseController
     }
 
     // --------------------------------------------------------------------
-    // miscelleneous section
+    // Miscelleneous section
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------

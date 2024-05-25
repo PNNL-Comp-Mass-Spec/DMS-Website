@@ -2,8 +2,8 @@
 namespace App\Libraries;
 
 // Not required because we are telling CodeIgniter to also use the Composer autoload.
-//require 'vendor/autoload.php';
-//use PhpOffice\PhpSpreadsheet\Spreadsheet;
+// require 'vendor/autoload.php';
+// use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Spreadsheet_loader {
 
@@ -134,7 +134,7 @@ class Spreadsheet_loader {
             }
         }
 
-        // figure out where things are and build supplemental arrays
+        // Figure out where things are and build supplemental arrays
         $this->find_tracking_info_fields();
         $this->find_aux_info_fields();
         $this->extract_entity_type();
@@ -197,11 +197,11 @@ class Spreadsheet_loader {
                 if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
                     $headerRow = $i + 1;
                     $grab_it = true;
-                    // find AUXILIARY INFORMATION
-                    //if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
-                    //    $end_it = true;
-                    //    break;
-                    //}
+                    // Find AUXILIARY INFORMATION
+                    // if ($this->ss_rows[$i][0] == "AUXILIARY INFORMATION") {
+                    //     $end_it = true;
+                    //     break;
+                    // }
                     break;
                 }
             }
@@ -258,7 +258,7 @@ class Spreadsheet_loader {
                 if ($this->ss_rows[$i][0] == "TRACKING INFORMATION") {
                     $in_section = true;
                     $headerRow = $i + 1;
-                    // find AUXILIARY INFORMATION
+                    // Find AUXILIARY INFORMATION
                 }
             }
             if ($in_section) {
@@ -483,11 +483,11 @@ class Spreadsheet_loader {
      * Get list of entities that are defined in spreadsheet
      */
     private function extract_entity_list() {
-        // the entity is, by definition, the first field in the list, so get its row number
+        // The entity is, by definition, the first field in the list, so get its row number
         $row = current($this->tracking_info_fields);
 
         if ($this->rowStyle) {
-            // use column number to get row of entity values from parsed main data array
+            // Use column number to get row of entity values from parsed main data array
             $this->entity_list = array();
             $count = 0;
             for ($i = $this->headerRow + 1; $i < count($this->ss_rows); $i++) {
@@ -495,14 +495,14 @@ class Spreadsheet_loader {
                 $count++;
             }
         } else {
-            // use row number to get row of entity values from parsed main data array
+            // Use row number to get row of entity values from parsed main data array
             $this->entity_list = $this->ss_rows[$row];
 
-            // first field is header column, get rid of it
+            // First field is header column, get rid of it
             array_shift($this->entity_list);
         }
 
-        // sometimes spreadsheet has extra empty columns,
+        // Sometimes spreadsheet has extra empty columns,
         // so remove trailing blank entries starting at end of list and working forward
         while (!empty($this->entity_list)) {
             if (trim(end($this->entity_list)) == '') {

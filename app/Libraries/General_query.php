@@ -2,7 +2,7 @@
 namespace App\Libraries;
 
 // --------------------------------------------------------------------
-// general query - return data directly using query model
+// General query - return data directly using query model
 // --------------------------------------------------------------------
 
 /**
@@ -72,9 +72,11 @@ class General_query {
         // Look for custom paging values specified after the question mark
         //
         // For example, with https://dms2.pnl.gov/data/ax/table/list_report/dataset/-/-/-/VOrbi05/QC_Shew_13?Offset=25&Rows=50&SortCol=ID&SortDir=ASC
-        // we are filtering on:
+
+        // We are filtering on:
         //   Instrument:      VOrbi05
         //   Experiment:      QC_Shew_13
+
         // And paging with:
         //   Offset:          25
         //   RowsToDisplay:   50
@@ -269,13 +271,13 @@ class General_query {
             return;
         }
 
-        // field headers
+        // Field headers
         foreach (array_keys(current($result)) as $field_name) {
             $headers .= $field_name . "\t";
         }
         echo $headers . "\n";
 
-        // field data
+        // Field data
         foreach ($result as $row) {
             $line = '';
             foreach ($row as $name => $value) {      // $name is the key, $value is the value
@@ -309,14 +311,14 @@ class General_query {
             return;
         }
 
-        // field headers
+        // Field headers
         foreach (array_keys(current($result)) as $field_name) {
             $headers .= "<th>$field_name</th>";
         }
 
         echo "<table border='1' style='border: 2px solid black;'>$headers\n";
 
-        // field data
+        // Field data
         foreach ($result as $row) {
             $line = '<tr>';
             foreach ($row as $name => $value) {      // $name is the key, $value is the value
@@ -343,7 +345,7 @@ class General_query {
 
         echo "<data>\n";
 
-        // field data
+        // Field data
         foreach ($result as $row) {
             $line = '';
             $line .= "<$table>";

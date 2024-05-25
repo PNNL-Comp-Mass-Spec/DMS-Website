@@ -175,7 +175,7 @@ class Cell_presentation {
 
         $cols = array_keys(current($result));
 
-        // traverse all the rows in the result
+        // Traverse all the rows in the result
         for ($i = 0; $i < count($result); $i++) {
             $row = $result[$i];
 
@@ -271,7 +271,7 @@ class Cell_presentation {
     private function get_color_code($value, $row, $colSpec) {
         $colorCode = "";
 
-        // resolve value to use for hotlink
+        // Resolve value to use for hotlink
         $whichArg = $colSpec["WhichArg"];
         $ref = $value;
         if ($whichArg != "") {
@@ -442,7 +442,7 @@ class Cell_presentation {
         $colIndex = 0;
 
         foreach ($display_cols as $columnName) {
-            // don't display columns that begin with hash character
+            // Don't display columns that begin with hash character
             if ($columnName[0] == '#') {
                 continue;
             }
@@ -507,10 +507,10 @@ class Cell_presentation {
 
         $str = "";
 
-        // resolve target for hotlink
+        // Resolve target for hotlink
         $target = $colSpec["Target"];
 
-        // resolve value to use for hotlink
+        // Resolve value to use for hotlink
         $whichArg = $colSpec["WhichArg"];
         $ref = $value;
         if ($whichArg != "") {
@@ -526,13 +526,13 @@ class Cell_presentation {
             }
         }
 
-        // tooltip?
+        // Tooltip?
         $tool_tip = '';
         if (array_key_exists('ToolTip', $colSpec) && $colSpec['ToolTip']) {
             $tool_tip = "title='" . $colSpec['ToolTip'] . "'";
         }
 
-        // render the hotlink
+        // Render the hotlink
         switch ($colSpec["LinkType"]) {
             case "invoke_entity":
                 // Look for conditions on link
@@ -823,7 +823,7 @@ class Cell_presentation {
                     $noLink = true;
                 }
             }
-            // more conditionals here when needed
+            // More conditionals here when needed
         }
         return $noLink;
     }
@@ -840,10 +840,10 @@ class Cell_presentation {
         }
         $str = "";
 
-        // which columns are showing
+        // Which columns are showing
         $display_cols = $this->get_display_cols(array_keys(current($rows)));
 
-        // get array of col sort makers
+        // Get array of col sort makers
         $col_sort = $this->get_column_sort_markers($sorting_cols);
 
         foreach ($display_cols as $columnName) {
@@ -864,7 +864,7 @@ class Cell_presentation {
                 continue;
             }
 
-            // sorting marker
+            // Sorting marker
             $marker = $this->get_column_sort_marker($columnName, $col_sort);
 
             // Check for a column header tooltip
@@ -882,7 +882,7 @@ class Cell_presentation {
                 $clickToSort = "";
             }
 
-            // make header label
+            // Make header label
             $str .= $marker;
             $str .= "<a href='javascript:void(0)'" . $clickToSort . " name='$columnName'" . " class='col_header' " . $toolTip . ">$formatted</a>";
             $padding = $this->get_cell_padding($columnName);
@@ -1017,7 +1017,7 @@ class Cell_presentation {
      * @return type
      */
     function fix_datetime_display(&$result, $col_info) {
-        // get list of datetime columns
+        // Get list of datetime columns
         $dateTimeColumns = array();
         foreach ($col_info as $f) {
             // mssql returns 'datetime', sqlsrv returns 93 (SQL datetime)
@@ -1043,20 +1043,20 @@ class Cell_presentation {
         $preferences = model('App\Models\Dms_preferences');
         $dateFormat = $preferences->get_date_format_string();
 
-        // traverse all the rows in the result
+        // Traverse all the rows in the result
         for ($i = 0; $i < count($result); $i++) {
-            // traverse all the date columns in the current row
+            // Traverse all the date columns in the current row
             foreach ($dateTimeColumns as $columnName) {
-                // skip if the column value is empty
+                // Skip if the column value is empty
                 if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
-                // convert to blank if column value is null
+                // Convert to blank if column value is null
                 if (is_null($result[$i][$columnName])) {
                     $result[$i][$columnName] = '';
                 } else {
-                    // convert original date string to date object
+                    // Convert original date string to date object
                     // and then convert that to desired display format.
                     // mark display if original format could not be parsed.
                     $dt = false;
@@ -1082,7 +1082,7 @@ class Cell_presentation {
      * @return type
      */
     function fix_decimal_display(&$result, $col_info) {
-        // get list of decimal columns
+        // Get list of decimal columns
         $decimalColumns = array();
         foreach ($col_info as $f) {
             // mssql returns decimals as doubles (and 'real' type), sqlsrv returns 3 (SQL decimal)
@@ -1097,21 +1097,21 @@ class Cell_presentation {
         }
 
         // Traverse the array of rows, and fix the decimal column formats
-        //
-        // traverse all the rows in the result
+        // Traverse all the rows in the result
+
         for ($i = 0; $i < count($result); $i++) {
-            // traverse all the decimal columns in the current row
+            // Traverse all the decimal columns in the current row
             foreach ($decimalColumns as $columnName) {
-                // skip if the column value is empty
+                // Skip if the column value is empty
                 if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
-                // convert to blank if column value is null
+                // Convert to blank if column value is null
                 if (is_null($result[$i][$columnName])) {
                     $result[$i][$columnName] = '';
                 } else {
-                    // convert original decimal string to double
+                    // Convert original decimal string to double
                     // if it is not a string, don't touch it.
                     if (is_string($result[$i][$columnName])) {
                         $result[$i][$columnName] = doubleval($result[$i][$columnName]);

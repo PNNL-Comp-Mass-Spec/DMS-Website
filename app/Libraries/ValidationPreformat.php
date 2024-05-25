@@ -135,21 +135,21 @@ class ValidationPreformat {
                 continue;
             }
 
-            //// Set the error message if we didn't survive.
-            //if ($passed === false)
-            //{
-            //    // if the $value is an array, convert it to as string representation
-            //    if (is_array($value))
-            //    {
-            //        $value = '[' . implode(', ', $value) . ']';
-            //    }
+            // // Set the error message if we didn't survive.
+            // if ($passed === false)
+            // {
+            //     // if the $value is an array, convert it to as string representation
+            //     if (is_array($value))
+            //     {
+            //         $value = '[' . implode(', ', $value) . ']';
+            //     }
             //
-            //    $this->errors[$field] = is_null($error)
-            //        ? $this->getErrorMessage($rule, $field, $label, $param, $value)
-            //        : $error; // @phpstan-ignore-line
+            //     $this->errors[$field] = is_null($error)
+            //         ? $this->getErrorMessage($rule, $field, $label, $param, $value)
+            //         : $error; // @phpstan-ignore-line
             //
-            //    return false;
-            //}
+            //     return false;
+            // }
         }
 
         return $value;

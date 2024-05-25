@@ -269,7 +269,8 @@ class File_attachment extends DmsBase {
         } catch (\Exception $e) {
             $resultMsg = $e->getMessage();
         }
-        // output is headed for an iframe
+
+        // Output is headed for an iframe
         // this script will automatically run when put into it and will inform elements on main page that operation has completed
         echo "<script type='text/javascript'>fileAttachment.report_upload_results('$resultMsg')</script>";
     }
@@ -289,7 +290,7 @@ class File_attachment extends DmsBase {
         $dest_folder_path = $root_path . $entity_folder_path;
         $dest_path = "{$dest_folder_path}/{$file_name}";
 
-        // get the lowest-level (closest to the target path) existing directory. is_dir tests for existence and directory.
+        // Get the lowest-level (closest to the target path) existing directory. is_dir tests for existence and directory.
         $min_existing_dir = $dest_folder_path;
         while (strlen($min_existing_dir) > strlen($root_path) and !is_dir($min_existing_dir)) {
             $min_existing_dir = dirname($min_existing_dir);
@@ -421,7 +422,7 @@ class File_attachment extends DmsBase {
         helper(['user','url']);
         $response = "OK";
         try {
-            // init sproc model
+            // Init sproc model
             $ok = $this->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->my_tag);
             if (!$ok) {
                 throw new \Exception($this->sproc_model->get_error_text());
@@ -467,7 +468,7 @@ class File_attachment extends DmsBase {
         helper(['user','url']);
         $response = "OK";
         try {
-            // init sproc model
+            // Init sproc model
             $ok = $this->load_mod('S_model', 'sproc_model', 'operations_sproc', $this->my_tag);
             if (!$ok) {
                 throw new \Exception($this->sproc_model->get_error_text());
@@ -612,9 +613,9 @@ class File_attachment extends DmsBase {
                 throw new \Exception('File could not be found on server');
             }
 
-            // copy file locally...
+            // Copy file locally...
             if ($result->path === $result->archive_path) {
-                // get the lowest-level (closest to the target path) existing directory. is_dir tests for existence and directory.
+                // Get the lowest-level (closest to the target path) existing directory. is_dir tests for existence and directory.
                 $min_dir = dirname($result->local_path);
                 $min_existing_dir = $min_dir;
                 while (strlen($min_existing_dir) > strlen($this->local_root_path) and !is_dir($min_existing_dir)) {
@@ -633,7 +634,7 @@ class File_attachment extends DmsBase {
                 }
             }
 
-            //get mimetype info
+            // Get mimetype info
             $mime = mime_content_type($full_path);
 
             if (preg_match('/Opera ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT'])) {

@@ -1,7 +1,7 @@
 <?php
 
-/// -----------------------------------
-// create HTML to display search form for DMS
+// -----------------------------------
+// Create HTML to display search form for DMS
 //
     function make_search_form() {
     $str = '';

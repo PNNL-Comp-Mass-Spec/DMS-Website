@@ -99,7 +99,7 @@ class Sproc_mssql extends Sproc_base {
 
     // --------------------------------------------------------------------
     // (someday) 'varchar' => constant('SQLVARCHAR'), ??
-    // conversion of sproc arg data type
+    // Conversion of sproc arg data type
     // from config definition to SQL Server binding value
     // (this list is partial)
     private $tpconv = array(

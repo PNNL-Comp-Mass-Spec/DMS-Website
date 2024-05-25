@@ -21,7 +21,7 @@ class Sql_mssql {
      * @return string
      */
     function build_query_sql($query_parts, $option = "filtered_and_paged") {
-        // process the predicate list
+        // Process the predicate list
         $p_and = array();
         $p_or = array();
         foreach ($query_parts->predicates as $predicate) {
@@ -33,7 +33,7 @@ class Sql_mssql {
                     $p_or[] = $this->make_where_item($predicate);
                     break;
                 case 'arg':
-                    // replace parameter in table spec with filter value
+                    // Replace parameter in table spec with filter value
                     $query_parts->table = str_replace($predicate->col, "'" . $predicate->val . "'", $query_parts->table);
                     break;
             }
@@ -69,13 +69,13 @@ class Sql_mssql {
             }
         }
 
-        //columns to display
+        // Columns to display
         $display_cols = $query_parts->columns;
 
-        // construct final query according to its intended use
+        // Construct final query according to its intended use
         $sql = "";
         switch ($option) {
-            case "count_only": // query for returning count of total rows
+            case "count_only":  // Query for returning count of total rows
                 $sql .= "SELECT COUNT(*) AS numrows";
                 $sql .= $baseSql;
                 break;
@@ -94,13 +94,13 @@ class Sql_mssql {
                 $sql .= ($orderBy) ? " ORDER By $orderBy" : "";
                 break;
             case "filtered_and_paged":
-                // make ordering expression from sorting params
+                // Make ordering expression from sorting params
                 $orderBy = $this->make_order_by($query_parts->sorting_items);
-                // get limit and offset parameters for paging
+                // Get limit and offset parameters for paging
                 $first_row = $query_parts->paging_items['first_row'];
                 $limit = $query_parts->paging_items['rows_per_page'];
                 $last_row = $first_row + $limit;
-                // construct query for returning a page of rows
+                // Construct query for returning a page of rows
                 $sql .= "SELECT * FROM (";
                 $sql .= "SELECT ROW_NUMBER() OVER (ORDER By " . $orderBy . ") AS #Row, ";
                 $sql .= " " . $display_cols;

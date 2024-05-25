@@ -8,12 +8,12 @@ class M_aux_info extends Model {
     function init_definitions() {
         $this->my_tag = "aux_info";
 
-        // initialize parameters for query for list report
+        // Initialize parameters for query for list report
         $this->list_report_data_cols = "category, subcategory, item, value";
         $this->list_report_data_table = 'v_aux_info_value';
         $this->list_report_data_sort_col = 'sc, ss, si';
 
-        // initialize primary filter specs
+        // Initialize primary filter specs
         $this->list_report_primary_filter = array(
             'pf_target' => array(
                 'label' => 'Target',
@@ -45,12 +45,12 @@ class M_aux_info extends Model {
             ),
         );
 
-        // query to get data for existing record in database for editing
+        // Query to get data for existing record in database for editing
         $this->entry_page_data_cols = "*";
         $this->entry_page_data_table = '';
         $this->entry_page_data_id_col = '';
 
-        // fields for entry form
+        // Fields for entry form
         $this->form_fields = array(
             'TargetName' => array(
                 'label' => 'targetName',

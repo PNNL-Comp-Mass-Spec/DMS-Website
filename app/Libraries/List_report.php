@@ -2,7 +2,7 @@
 namespace App\Libraries;
 
 // --------------------------------------------------------------------
-// list report page section
+// List report page section
 // --------------------------------------------------------------------
 
 class List_report {
@@ -50,11 +50,11 @@ class List_report {
 
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
-        // clear total rows cache in model to force getting value from database
+        // Clear total rows cache in model to force getting value from database
         $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
         $this->controller->model->clear_cached_total_rows();
 
-        // if there were extra segments for list report URL,
+        // If there were extra segments for list report URL,
         // convert them to primary and secondary filter field values and cache those
         // and redirect back to ourselves without the trailing URL segments
         $segs = array_slice(getCurrentUriDecodedSegments(), 2);
@@ -95,7 +95,7 @@ class List_report {
 
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, $mode);
 
-        // get stuff related to list report optional features
+        // Get stuff related to list report optional features
         $data['loading'] = ($mode === 'search') ? 'no_load' : '';
         $data['list_report_cmds'] = $this->controller->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
@@ -119,15 +119,16 @@ class List_report {
         $ns = count($segs);
         $nxt = "";
         $s = "";
-        // step through segments and look for secondary filter keywords
+
+        // Step through segments and look for secondary filter keywords
         for ($i = 0; $i < $ns; $i++) {
-            // clear secondary filter
+            // Clear secondary filter
             $s = $segs[$i];
             if ($s == "clear-sfx" && $i + 1 == $ns) {
                 $result = $i;
                 break;
             }
-            // verify keyword followed by relation
+            // Verify keyword followed by relation
             if ($s == "sfx") {
                 if ($i + 1 < $ns) {
                     $nxt = $segs[$i + 1];
@@ -147,24 +148,25 @@ class List_report {
      * @param type $primary_filter_specs
      */
     protected function set_pri_filter_from_url_segments($segs, $primary_filter_specs) {
-        // primary filter object (we will use it to cache field values)
+        // Primary filter object (we will use it to cache field values)
         $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
 
-        // get list of just the names of primary filter fields
+        // Get list of just the names of primary filter fields
         $form_field_names = array_keys($primary_filter_specs);
 
-        // use entry page helper mojo to relate segments to filter fields
+        // Use entry page helper mojo to relate segments to filter fields
         helper(['entry_page']);
         $initial_field_values = get_values_from_segs($form_field_names, $segs);
 
-        // we are completely replacing filter values, so get rid of any we pulled from cache
+        // We are completely replacing filter values, so get rid of any we pulled from cache
         $this->controller->primary_filter->clear_current_filter_values();
 
-        // update values in primary filter object
+        // Update values in primary filter object
         foreach ($initial_field_values as $field => $value) {
             $this->controller->primary_filter->set_current_filter_value($field, $value);
         }
-        // and cache the values we got from the segments
+
+        // And cache the values we got from the segments
         $this->controller->primary_filter->save_current_filter_values();
     }
 
@@ -173,7 +175,7 @@ class List_report {
      * @param type $segs
      */
     protected function set_sec_filter_from_url_segments($segs) {
-        // secondary filter object (we will use it to cache field values)
+        // Secondary filter object (we will use it to cache field values)
         $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
 
         $filter_state = $this->controller->secondary_filter->get_filter_from_list($segs);
@@ -316,7 +318,7 @@ class List_report {
         $s = "";
         helper(['wildcard_conversion']);
 
-        // dump primary filter to segment list
+        // Dump primary filter to segment list
         // Replace spaces with %20
         // Trim leading and trailing whitespace
         $pf = array();
@@ -326,7 +328,7 @@ class List_report {
         }
         $s .= rtrim(site_url(), "/") . "/$tag/report/" . implode("/", $pf);
 
-        // dump active secondary filters to array of segments
+        // Dump active secondary filters to array of segments
         $sf = array();
 
         $dateFilters = array("LaterThan", "EarlierThan");
@@ -348,7 +350,7 @@ class List_report {
             }
         }
 
-        // add secondary filter segments (if present)
+        // Add secondary filter segments (if present)
         if (!empty($sf)) {
             $s .= "/sfx" . implode("", $sf);
         }
@@ -369,12 +371,12 @@ class List_report {
 
         $current_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
-        // pull together info necessary to do paging displays and controls
+        // Pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
         $this->controller->preferences = model('App\Models\Dms_preferences');
         $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
         try {
-            // make HTML using pager
+            // Make HTML using pager
             $s = '';
             $total_rows = $this->controller->data_model->get_total_rows();
             $per_page = $current_filter_values['qf_rows_per_page'];
@@ -396,19 +398,19 @@ class List_report {
      * @return array Filter settings
      */
     protected function set_up_list_query() {
-        // it all starts with a model
+        // It all starts with a model
         $this->controller->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
 
-        // primary filter
+        // Primary filter
         $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
         $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
         $current_primary_filter_values = $this->controller->primary_filter->get_cur_filter_values();
 
-        // secondary filter
+        // Secondary filter
         $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
         $current_secondary_filter_values = $this->controller->secondary_filter->get_current_filter_values();
 
-        // paging filter
+        // Paging filter
         $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
         $current_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
@@ -417,11 +419,11 @@ class List_report {
 
         $options = array("PersistSortColumns" => $persistSortColumns);
 
-        // sorting filter
+        // Sorting filter
         $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
 
-        // add filter values to data model to set up query
+        // Add filter values to data model to set up query
         foreach (array_values($current_primary_filter_values) as $pi) {
             $this->controller->data_model->add_predicate_item($pi['rel'], $pi['col'], $pi['cmp'], $pi['value']);
         }
@@ -435,7 +437,7 @@ class List_report {
 
         $this->controller->data_model->convert_wildcards();
 
-        // return filter settings
+        // Return filter settings
         return array(
             "primary" => $current_primary_filter_values,
             "secondary" => $current_secondary_filter_values

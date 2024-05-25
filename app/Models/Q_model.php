@@ -6,9 +6,11 @@ use CodeIgniter\Database\SQLite3\Connection;
 
 // The primary function of this class is to build and execute an SQL query
 // against one of the databases defined in the app/Config/database file.
+
 // It gets the basic components of the query from a config db as defined by the
 // config_name and config_source.  It can then be augmented with values taken from
 // various user inputs in the form of filters (selection, paging, sorting).
+
 // This class also supplies certain definition information for use in building
 // and using those filters.
 
@@ -326,7 +328,7 @@ class Q_model extends Model {
                 continue; // no wildards for arguements
             }
 
-            // look for wildcard characters
+            // Look for wildcard characters
             $match_blank = $p->val == '\b';
             $exact_match = (substr($p->val, 0, 1) == '~');
             $not_match = (substr($p->val, 0, 1) == ':');
@@ -356,7 +358,7 @@ class Q_model extends Model {
             } else {
                 $exceptions = array('MatchesText', 'MTx', 'MatchesTextOrBlank', 'MTxOB');
                 if (!$sql_any && !in_array($p->cmp, $exceptions)) {
-                    // quote underscores in the absence of '%' or regex/glob wildcards
+                    // Quote underscores in the absence of '%' or regex/glob wildcards
                     $p->val = str_replace('_', '[_]', $p->val);
                 }
             }
@@ -470,13 +472,13 @@ class Q_model extends Model {
         if (empty($this->query_parts->table) && !empty($this->query_parts->detail_sproc)) {
             return $this->get_data_row_from_sproc($id, $controller);
         } else {
-            // primary_filter_specs is populated in get_detail_report_query_specs_from_config_db
+            // Primary_filter_specs is populated in get_detail_report_query_specs_from_config_db
             $spc = current($this->primary_filter_specs);
             $this->add_predicate_item('AND', $spc['col'], $spc['cmp'], $id);
 
             $query = $this->get_rows('filtered_only');
 
-            // get single row from results
+            // Get single row from results
             return $query->getRowArray();
         }
     }
@@ -631,12 +633,12 @@ class Q_model extends Model {
      */
     private function assure_sorting($option) {
         if ($option == 'filtered_and_paged' || $option == 'filtered_and_sorted') {
-            // only need to dig in if there aren't any sorting items already
+            // Only need to dig in if there aren't any sorting items already
             if (empty($this->query_parts->sorting_items)) {
                 // Use default sorting column or first column
                 $col = $this->query_parts->sorting_default['col'];
 
-                // use default sorting direction or ASC
+                // Use default sorting direction or ASC
                 $dir = $this->query_parts->sorting_default['dir'];
                 if ($dir) {
                     // Assure that the sort direction is ASC or DESC
@@ -1016,7 +1018,7 @@ class Q_model extends Model {
     private function get_list_report_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
@@ -1190,7 +1192,7 @@ class Q_model extends Model {
     }
 
     // --------------------------------------------------------------------
-    // stuff for query filters
+    // Stuff for query filters
     // --------------------------------------------------------------------
 
     /**

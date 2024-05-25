@@ -65,19 +65,19 @@ class Dms_authorization extends Model {
      * @throws Exception
      */
     function get_user_permissions($username) {
-        // is there a local cache of permissions?
+        // Is there a local cache of permissions?
         if (count($this->user_permissions) > 0) {
             return $this->user_permissions;
         }
 
-        // is there a session cache of permissions?
+        // Is there a session cache of permissions?
         if ($this->load_defaults()) {
             return $this->user_permissions;
         }
 
         helper(['database']);
 
-        // look up user's permission from database
+        // Look up user's permission from database
         $p = array();
         $str = '';
         $str .= <<<EOD
@@ -96,24 +96,24 @@ EOD;
         $rows = $query_data->getResultArray();
 
         if (count($rows) == 0) {
-            // user isn't in table - automatically a guest
+            // User isn't in table - automatically a guest
             $p[] = 'DMS_Guest';
         } else
         if ($rows[0]['status'] != 'Active') {
-            // user is inactive - automatically a guest
+            // User is inactive - automatically a guest
             $p[] = 'DMS_Guest';
         } else {
-            // user is in list and active, get their permissions
+            // User is in list and active, get their permissions
             $p = preg_split('/, */', $rows[0]['operations_list']);
 
-            // each user gets to have "DMS_User" permission automatically
+            // Each user gets to have "DMS_User" permission automatically
             // unless they have "DMS_Guest"
             if (!array_key_exists("DMS_User", $p) && !array_key_exists("DMS_Guest", $p)) {
                 $p[] = 'DMS_User';
             }
         }
 
-        // cache the permissions and return them
+        // Cache the permissions and return them
         $this->user_permissions = $p;
         $this->save_defaults();
         return $p;

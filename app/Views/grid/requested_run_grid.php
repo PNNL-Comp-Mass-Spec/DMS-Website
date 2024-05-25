@@ -149,11 +149,11 @@
             this.initializeBlockingControlPanel();
         },
         initializeBlockingControlPanel: function() {
-            // wire up command buttons
+            // Wire up command buttons
             $('#globally_randomize_btn').on("click", function() { myBlockingUtil.blockingOperation('global') }).attr('title', myBlockingUtil.titles.globally_randomize);
             $('#randomly_block_btn').on("click", function() { myBlockingUtil.blockingOperation('block') }).attr('title', myBlockingUtil.titles.randomly_block);
             $('#factor_block_btn').on("click", function() { myBlockingUtil.blockingOperation('factor') }).attr('title', myBlockingUtil.titles.factor_block);
-            // set block size selector options
+            // Set block size selector options
             var el = $('#block_size_ctl');
             for(var i = 2; i < 10; i++) {
                 var opt = $('<option></option>').attr('value', i).text(i);

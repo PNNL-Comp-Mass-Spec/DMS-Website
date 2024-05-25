@@ -36,7 +36,7 @@
 
 $(document).ready(function() {
 
-    // set up tree menu
+    // Set up tree menu
     $("#tree").fancytree({
         autoActivate: false,
         autoCollapse: true,
@@ -99,7 +99,7 @@ $(document).ready(function() {
       return false;
     });
 
-    // set event handlers for global search panel
+    // Set event handlers for global search panel
     dmsNav.setSearchEventHandlers($('.global_search_panel'));
 });
 

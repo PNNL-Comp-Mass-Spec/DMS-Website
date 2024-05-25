@@ -23,7 +23,7 @@
     } else {
         // echo "<p>You DO have permission to update items on this page</p>";
 
-        // show contents of locations in tables
+        // Show contents of locations in tables
         $tmpl = array (
             'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="GridCell">',
             'heading_cell_start' => '<th class="block_header" colspan="4">'

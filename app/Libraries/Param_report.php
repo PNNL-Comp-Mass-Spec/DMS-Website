@@ -2,7 +2,7 @@
 namespace App\Libraries;
 
 // --------------------------------------------------------------------
-// param report (stored procedure based list report) section
+// Param report (stored procedure based list report) section
 // --------------------------------------------------------------------
 
 class Param_report {
@@ -18,8 +18,7 @@ class Param_report {
     }
 
     // --------------------------------------------------------------------
-    // list report page section
-    // --------------------------------------------------------------------
+    // List report page section
     // --------------------------------------------------------------------
     function init($config_name, $config_source, $controller) {
         $this->config_name = $config_name;
@@ -36,16 +35,16 @@ class Param_report {
      * rows in HTML via and AJAX call to the param_data function.
      */
     function param() {
-        // general specifications for page family
+        // General specifications for page family
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
 
-        // entry form
+        // Entry form
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs'));
 
         $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
 
-        // get initial field values (from url segments) and merge them with form object
+        // Get initial field values (from url segments) and merge them with form object
         $segs = array_slice(getCurrentUriDecodedSegments(), 2);
         helper(['entry_page']);
         $initial_field_values = get_values_from_segs($form_def->fields, $segs);
@@ -59,7 +58,7 @@ class Param_report {
         $data['tag'] = $this->tag;
         $data['my_tag'] = $this->controller->my_tag;
 
-        // get stuff related to list report optional features
+        // Get stuff related to list report optional features
 //      $data['loading'] = ($mode === 'search')?'no_load':'';
         $data['list_report_cmds'] = $this->controller->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
@@ -153,8 +152,8 @@ class Param_report {
     private function get_data_rows_from_sproc() {
         helper('form');
 
-        // get specifications for the entry form
-        // used for submission into POST and to be returned as HTML
+        // Get specifications for the entry form
+        // Used for submission into POST and to be returned as HTML
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'rules'));
 
@@ -162,7 +161,7 @@ class Param_report {
         if (empty($form_def->fields)) {
             $valid_fields = true;
         } else {
-            // make validation object and use it to
+            // Make validation object and use it to
             // get field values from POST and validate them
             $request = \Config\Services::request();
             $postData = $request->getPost();
@@ -173,7 +172,7 @@ class Param_report {
             $validation->setRules($form_def->rules);
             $valid_fields = $validation->run($postData);
 
-            // get field values from validation object into an object
+            // Get field values from validation object into an object
             // that will be used for calling stored procedure
             // and also putting values back into entry form HTML
             foreach ($form_def->fields as $field) {
@@ -181,7 +180,7 @@ class Param_report {
             }
         }
 
-        // parameters needed by stored procedure that are not in entry form specs
+        // Parameters needed by stored procedure that are not in entry form specs
         $calling_params->mode = \Config\Services::request()->getPost('entry_cmd_mode');
         $calling_params->callingUser = get_user();
 
@@ -191,7 +190,7 @@ class Param_report {
                 throw new \Exception('There were validation errors: ' . validation_errors($validation, '<span class="bad_clr">', '</span>'));
             }
 
-            // call stored procedure
+            // Call stored procedure
             $ok = $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($this->controller->sproc_model->get_error_text());
@@ -239,7 +238,7 @@ class Param_report {
         $s = "";
         helper(['wildcard_conversion']);
 
-        // dump primary filter to segment list
+        // Dump primary filter to segment list
         // Replace spaces with %20
         // Trim leading and trailing whitespace
         $pf = array();
@@ -264,11 +263,11 @@ class Param_report {
      * @return array Filter settings
      */
     protected function get_filter_values() {
-        // it all starts with a model
+        // It all starts with a model
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('specs', 'fields'));
 
-        // search filter
+        // Search filter
         $current_search_filter_values = array();
         if (!empty($form_def->specs)) {
             foreach ($form_def->specs as $field => $spec) {
@@ -286,8 +285,8 @@ class Param_report {
             $filter_values = $current_search_filter_values;
         }
 
-        // return filter settings
-        //return $current_search_filter_values;
+        // Return filter settings
+        // return $current_search_filter_values;
         return $filter_values;
     }
 
@@ -328,20 +327,20 @@ class Param_report {
 
         helper(['link_util']);
 
-        // current paging settings
+        // Current paging settings
         $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
         $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
-        // model to get current row info
+        // Model to get current row info
         $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
 
-        // pull together info necessary to do paging displays and controls
+        // Pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
         $total_rows = $this->controller->sproc_model->get_total_rows();
         $per_page = $current_paging_filter_values['qf_rows_per_page'];
         $first_row = $current_paging_filter_values['qf_first_row'];
 
-        // make HTML using pager
+        // Make HTML using pager
         $this->controller->preferences = model('App\Models\Dms_preferences');
         $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
         $s = '';
@@ -359,7 +358,7 @@ class Param_report {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        // call stored procedure
+        // Call stored procedure
         $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
         $cols = $this->controller->sproc_model->get_col_names();
 

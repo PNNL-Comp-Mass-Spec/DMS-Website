@@ -229,7 +229,7 @@ class Sproc_postgre extends Sproc_base {
      * @return \stdClass
      */
     private function extract_field_metadata($result) {
-        // from comment at https://www.php.net/manual/en/function.pg-field-type.php
+        // From comment at https://www.php.net/manual/en/function.pg-field-type.php
         $pg_to_php = array(
             'bit' => 'bit',
             'boolean' => 'bool',

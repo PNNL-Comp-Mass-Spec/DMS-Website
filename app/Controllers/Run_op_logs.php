@@ -38,7 +38,7 @@ class Run_op_logs extends Grid {
     }
 
     // --------------------------------------------------------------------
-    // get data for grid editing page (JSON)
+    // Get data for grid editing page (JSON)
     // --------------------------------------------------------------------
     function grid_data() {
         $instrument = $this->request->getPost("instrument");

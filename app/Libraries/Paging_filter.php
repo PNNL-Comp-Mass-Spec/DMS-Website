@@ -33,19 +33,19 @@ class Paging_filter {
 
         $this->clear_filter();
 
-        // try to get current values of filters from POST
+        // Try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post($this->field_names);
         if ($state) {
             $this->cur_filter_values = $state;
             $state['qf_first_row'] = 1; // don't remember first row between visits
             save_to_cache($storage_name, $state);
         } else {
-            // try to get current values of filters from cache
+            // Try to get current values of filters from cache
             $state = get_from_cache($storage_name);
             if ($state) {
                 $this->cur_filter_values = $state;
             } else {
-                // user global defaults (if any)
+                // User global defaults (if any)
                 $this->controller->preferences = model('App\Models\Dms_preferences');
                 $x = $this->controller->preferences->get_preference('list_report_rows');
                 if ($x) {

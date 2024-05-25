@@ -36,7 +36,7 @@ class Sorting_filter {
 
         $persistSortColumns = $options['PersistSortColumns'];
 
-        // try to get current values of filters from POST
+        // Try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post();
         if ($state) {
             $this->cur_filter_values = $state;
@@ -44,7 +44,7 @@ class Sorting_filter {
                 save_to_cache($this->storage_name, $state);
             }
         } else if ($persistSortColumns !== false) {
-            // try to get current values of filters from cache
+            // Try to get current values of filters from cache
             $state = get_from_cache($this->storage_name);
             if ($state) {
                 $this->cur_filter_values = $state;

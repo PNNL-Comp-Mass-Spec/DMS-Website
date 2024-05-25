@@ -6,6 +6,7 @@ use CodeIgniter\Database\SQLite3\Connection;
 
 // The function of this class is to execute a stored procedure
 // against one of the databases defined in the app/Config/database file.
+
 // It gets the procedure name and arguments from a config db as defined by the
 // config_name and config_source. If the stored procedure returns a rowset,
 // it is automatically saved and made accessible to external code.
@@ -33,7 +34,7 @@ class Bound_arguments {
  */
 class S_model extends Model {
 
-    // some names used for caching
+    // Some names used for caching
     const col_info_storage_name_root = "col_info_";
 
     private $col_info_storage_name = "";
@@ -205,7 +206,7 @@ class S_model extends Model {
 
             $this->set_my_sproc_handler("Sproc_" . strtolower($my_db->DBDriver));
 
-            // bind arguments to object
+            // Bind arguments to object
             // - create fields in local param object and bind sproc args to them
             // - set values of local object fields from corresponding fields in input object, if present
             //
@@ -260,7 +261,7 @@ class S_model extends Model {
                 $this->column_info = $result->metadata;
                 $this->cache_column_info();
 
-                // package results into array of arrays
+                // Package results into array of arrays
                 $this->result_array = $result->rows;
                 $this->cache_total_rows();
             } else {
@@ -355,7 +356,8 @@ class S_model extends Model {
         helper('cache');
 
         $col_info = array();
-        // get cached values, if any
+
+        // Get cached values, if any
         $state = get_from_cache($this->col_info_storage_name);
         if ($state) {
             $col_info = $state;
@@ -372,7 +374,7 @@ class S_model extends Model {
 
         helper('cache');
 
-        // get cached values, if any
+        // Get cached values, if any
         $state = get_from_cache($this->total_rows_storage_name);
         if ($state) {
             $working_total = $state;
@@ -439,16 +441,16 @@ class S_model extends Model {
     private function get_sproc_arg_defs($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
-        // get list of tables in database
+        // Get list of tables in database
         $tbl_list = array();
         foreach ($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'")->getResultArray() as $row) {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        // set name of stored procedure (subject to override by an alias from the general parameter table)
+        // Set name of stored procedure (subject to override by an alias from the general parameter table)
         $this->sprocName = $config_name;
 
-        // get parameters of interest from the general table
+        // Get parameters of interest from the general table
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             if ($row['name'] == 'my_db_group') {
                 $this->dbn = $row['value'];
@@ -459,7 +461,7 @@ class S_model extends Model {
             }
         }
 
-        // get definitions of arguments for stored procedure
+        // Get definitions of arguments for stored procedure
         if (in_array('sproc_args', $tbl_list)) {
             $args = array();
             if (in_array('sproc_args', $tbl_list)) {

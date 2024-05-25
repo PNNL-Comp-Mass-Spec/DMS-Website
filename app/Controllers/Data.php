@@ -9,7 +9,7 @@ use CodeIgniter\Database\SQLite3\Connection;
 class Data extends BaseController {
 
     // --------------------------------------------------------------------
-    // ad hoc query stuff
+    // Ad hoc query stuff
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------
@@ -50,7 +50,7 @@ class Data extends BaseController {
     }
 
     // --------------------------------------------------------------------
-    // list report stuff
+    // List report stuff
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------
@@ -94,7 +94,7 @@ class Data extends BaseController {
         $config_source = $segs[1];
         $config_name = $segs[2];
 
-        // the list_report infrastructure needs this
+        // The list_report infrastructure needs this
         $this->my_tag = "data/lz/$output_format/$config_source/$config_name";
         $this->my_title = "";
 
@@ -171,7 +171,7 @@ class Data extends BaseController {
 
         $this->general_query->setup_query($input_parms);
 
-        $query = $this->model->get_rows('filtered_and_sorted'); // filtered_only  filtered_and_sorted
+        $query = $this->model->get_rows('filtered_and_sorted'); // filtered_only or filtered_and_sorted
         echo json_encode($query->getResult());
 //      echo $this->model->get_sql('filtered_and_sorted');
     }
@@ -194,7 +194,7 @@ class Data extends BaseController {
         $content_type = $segs[2];
         $option = (isset($segs[3]))?$segs[3]:'';
 
-        // the list_report view needs this for setting up its various links
+        // The list_report view needs this for setting up its various links
         $this->my_tag = "data/lr/$config_source/$config_name";
         $this->my_title = "";
         $this->my_config_db = $config_source;

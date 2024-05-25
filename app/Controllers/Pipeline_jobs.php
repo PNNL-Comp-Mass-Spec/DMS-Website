@@ -9,34 +9,35 @@ class Pipeline_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // return supplemental form for job parameter editing
+    // Return supplemental form for job parameter editing
     // using either actual parameter values from existing entity,
     // or defaults based on lookup using key
     // AJAX
     // TODO: generic enough for libraries/entry.php? Or new library?
     function parameter_form($id = 0, $default_key = '')
     {
-        // get basic parameter definitions using the lookup key
+        // Get basic parameter definitions using the lookup key
         $def_params = array();
         if($default_key) {
             $xml_def = $this->get_param_definitions($default_key, $this->my_tag);
             $def_params = $this->extract_params_from_xml($xml_def);
         }
 
-        // if an existing entity is involved, get its actual parameters
+        // If an existing entity is involved, get its actual parameters
         $val_params = array();
         if($id != 0) { // lookup parameter set from script - use lightweight query
             $xml_val = $this->get_param_values($id, $this->my_tag);
             $val_params = $this->extract_params_from_xml($xml_val);
         }
 
-        // any special display features?
+        // Any special display features?
         $display_params = array();
+
         // TODO: special display definitions in config db
 
         $params = $this->merge_params($def_params, $val_params, $display_params);
 
-        // use parameter set XML to build supplemental form
+        // Use parameter set XML to build supplemental form
         if(!empty($params)) {
             echo $this->build_param_entry_form($params, $default_key);
         } else {
@@ -58,7 +59,7 @@ class Pipeline_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // get list of scripts with parameters defined
+    // Get list of scripts with parameters defined
     // This will download data from the view defined by the parameter_scripts utility query in the model config DB
     //
     // Relevant DDL for the SQLite database:
@@ -73,7 +74,7 @@ class Pipeline_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // merge parameter definitions, current values, and special display definitions
+    // Merge parameter definitions, current values, and special display definitions
     // into single array of parameter field definitions
     // TODO: move this to some other module
     private
@@ -93,7 +94,7 @@ class Pipeline_jobs extends DmsBase {
             if(array_key_exists($key, $display_params)) {
                 // ??
             } else {
-                // default field display parameters
+                // Default field display parameters
                 $def['type'] = 'text';
                 $def['size'] = '120';
             }
@@ -116,7 +117,7 @@ class Pipeline_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // get definition of parameters for key
+    // Get definition of parameters for key
     // TODO: move this to some other module
     private
     function get_param_definitions($id, $config_source, $config_name = 'parameter_definitions')
@@ -131,7 +132,7 @@ class Pipeline_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // get array of parameters from given XML
+    // Get array of parameters from given XML
     // with section/name/value properties for each parameter
     // TODO: move this to some other module
     private
@@ -160,7 +161,7 @@ class Pipeline_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // given array of parameters, return HTML
+    // Given array of parameters, return HTML
     // for supplemental form to edit them
     // TODO: move this to some other module (libraries/entry_form?)
     private
@@ -205,7 +206,7 @@ class Pipeline_jobs extends DmsBase {
                 $highlight = (($param['user'] == "Yes"))?" style='color:blue;'":"";
                 $help_link = $this->build_wiki_help_link($script, $param['name']);
 
-                // place row fields in table cells in table row
+                // Place row fields in table cells in table row
                 $str .= "<tr $class>";
                 $str .= "<td>${help_link}<span $highlight> " . $param['name'] . "</span></td>";
                 $str .= "<td>".$param['Reqd']."</td>";
@@ -223,7 +224,7 @@ class Pipeline_jobs extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // build controls for collapsing and expanding parameter form
+    // Build controls for collapsing and expanding parameter form
     private
     function build_visibility_controls($show_class, $hide_class)
     {

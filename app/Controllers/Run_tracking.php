@@ -12,12 +12,13 @@ class Run_tracking extends DmsBase {
     }
 
     // --------------------------------------------------------------------
-    // if we don't have a complete URL, make it so and redirect
+    // If we don't have a complete URL, make it so and redirect
     // otherwise return the parameters from the complete URL
     private function check_initial_conditions()
     {
-        // get what we can from URL
+        // Get what we can from URL
         $uri = $this->request->uri;
+
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $instrument = $uri->getSegment(3, '');
@@ -102,20 +103,20 @@ class Run_tracking extends DmsBase {
         $data['year'] = $year;
         $data['month'] = $month;
 
-        // labelling information for view
+        // Labelling information for view
         $data['title'] = "Instrument Usage ($instrument)";
         $data['heading'] = $data['title'];
 
-        // link to list report
+        // Link to list report
         $data['tracking_link'] = site_url($this->my_tag . "/report/$instrument/$year/$month");
 
-        // link to operations/config logs list report
+        // Link to operations/config logs list report
         $data['log_link'] = site_url("run_op_logs/report/$instrument/$year/$month/-");
 
-        // link to usage report report
+        // Link to usage report report
         $data['report_link'] = site_url("usage_reporting/param/$instrument/$year/$month/details");
 
-        // link to ERS report report
+        // Link to ERS report report
         $data['ers_link'] = site_url("instrument_usage_report/report/$year/$month/$instrument");
 
         $data['calendar'] = $this->calendar;
@@ -234,7 +235,7 @@ EOD;
             $totalMinutesAvailable = 1;
         }
 
-        // calculate totals for acquisition runs
+        // Calculate totals for acquisition runs
         $runCount = 0;
         $runDuration = 0;
         $normalIntervalCount = 0;
@@ -251,10 +252,10 @@ EOD;
             }
         }
 
-        // calculate average normal interval
+        // Calculate average normal interval
         $avgNormalInterval = ($normalIntervalCount) ? $normalIntervalDuration / $normalIntervalCount : 0;
 
-        // calculate totals for long intervals
+        // Calculate totals for long intervals
         $intervalCount = 0;
         $intervalDuration = 0;
         foreach($intervals as $interval) {
@@ -325,7 +326,7 @@ EOD;
     private
     function build_calendar_data($runs, $intervals)
     {
-        // roll up number of runs and total duration for each day
+        // Roll up number of runs and total duration for each day
         $runTotals = array();
         foreach($runs as $run) {
             $day = $run['Day'];
@@ -341,14 +342,15 @@ EOD;
             }
         }
 
-        // add rolled up run count and duration to calendar display data
+        // Add rolled up run count and duration to calendar display data
         $calendarData = array();
         foreach($runTotals as $day=>$total) {
             $nRuns = $total["Runs"];
             $duration = $total["Duration"];
             $calendarData[$day] = "<div>Runs:&nbsp;$nRuns</div><div>Duration:&nbsp;$duration</div>";
         }
-        // add long intervals to calendar display data
+
+        // Add long intervals to calendar display data
         foreach($intervals as $interval) {
             $id = $interval['ID'];
             $tip = "[$id] " . $interval['Comment'];

@@ -21,7 +21,7 @@ class Sql_postgre {
      * @return string
      */
     function build_query_sql($query_parts, $option = "filtered_and_paged") {
-        // process the predicate list
+        // Process the predicate list
         $p_and = array();
         $p_or = array();
         foreach ($query_parts->predicates as $predicate) {
@@ -33,7 +33,7 @@ class Sql_postgre {
                     $p_or[] = $this->make_where_item($predicate);
                     break;
                 case 'arg':
-                    // replace parameter in table spec with filter value
+                    // Replace parameter in table spec with filter value
                     $query_parts->table = str_replace($predicate->col, "'" . $predicate->val . "'", $query_parts->table);
                     break;
             }
@@ -72,22 +72,24 @@ class Sql_postgre {
         // Replace '[_]' with '\_'
         $baseSql = str_replace("[_]", "\_", $baseSql);
 
-        //columns to display
-        //$display_cols = $query_parts->columns; // TODO: handle '#..." columns, [], spaces
-        // convert [#sortkey] to "#sortkey"
+        // Columns to display
+        // $display_cols = $query_parts->columns; // TODO: handle '#..." columns, [], spaces
+        // Convert [#sortkey] to "#sortkey"
         $wrapHash = preg_replace("/\[(#[^\]]*)\]/", "\"$1\"", $query_parts->columns);
-        // convert #sortkey (no quotes) to "#sortkey"; NOTE: will break a column that has '#' anywhere but the start of the name
+
+        // Convert #sortkey (no quotes) to "#sortkey"; NOTE: will break a column that has '#' anywhere but the start of the name
         $wrapHash2 = preg_replace("/(#[^,]*)/", "\"$1\"", $wrapHash);
-        // remove square brackets, and replace spaces on the matches with '_'
+
+        // Remove square brackets, and replace spaces on the matches with '_'
         $replaceSpace = preg_replace_callback("/\[([^\]]*)\]/", function($matches) { return str_replace(" ", "_", $matches[1]); }, $wrapHash2);
 
         // Replace '[' and ']' with ''
         $display_cols = str_replace(array("[", "]"), "", $replaceSpace);
 
-        // construct final query according to its intended use
+        // Construct final query according to its intended use
         $sql = "";
         switch ($option) {
-            case "count_only": // query for returning count of total rows
+            case "count_only":  // Query for returning count of total rows
                 $sql .= "SELECT COUNT(*) AS numrows";
                 $sql .= $baseSql;
                 break;
@@ -106,13 +108,13 @@ class Sql_postgre {
                 $sql .= ($orderBy) ? " ORDER By $orderBy" : "";
                 break;
             case "filtered_and_paged":
-                // make ordering expression from sorting params
+                // Make ordering expression from sorting params
                 $orderBy = $this->make_order_by($query_parts->sorting_items);
-                // get limit and offset parameters for paging
+                // Get limit and offset parameters for paging
                 $first_row = $query_parts->paging_items['first_row'];
                 $limit = $query_parts->paging_items['rows_per_page'];
                 $last_row = $first_row + $limit;
-                // construct query for returning a page of rows
+                // Construct query for returning a page of rows
                 $sql .= "SELECT * FROM (";
                 $sql .= "SELECT ROW_NUMBER() OVER (ORDER By " . $orderBy . ") AS \"#Row\", ";
                 $sql .= " " . $display_cols;

@@ -38,18 +38,18 @@ class Column_filter {
 
         $this->clear_filter();
 
-        // try to get current values of filters from POST
+        // Try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post();
         if ($state !== false) {
             $this->cur_filter_values = $state;
             save_to_cache($this->storage_name, $state);
         } else {
-            // try to get current values of filters from cache
+            // Try to get current values of filters from cache
             $state = get_from_cache($this->storage_name);
             if ($state) {
                 $this->cur_filter_values = $state;
             } else {
-                // user preference defaults (if any)
+                // User preference defaults (if any)
             }
         }
     }
@@ -61,9 +61,8 @@ class Column_filter {
      */
     private function get_current_filter_values_from_post() {
         // We need to be able to tell the difference between an empty post
-        // (signifying a new page visit) and a post that happens to contain
-        // an empty list of columns.  The presence of "cf_column_selection_marker"
-        // does that
+        // (signifying a new page visit) and a post that happens to contain an empty list of columns.
+        // The presence of "cf_column_selection_marker" does that
         $selected_items = false;
         if (array_key_exists('cf_column_selection_marker', $_POST)) {
             if (array_key_exists('cf_column_selection', $_POST)) {
