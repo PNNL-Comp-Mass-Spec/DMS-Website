@@ -139,13 +139,13 @@ class Sproc_postgre extends Sproc_base {
         $retRows = $this->get_rows($result);
 
         $matched = false;
-        
+
         // PostgreSQL: only a single row is ever returned from a single stored procedure.
         //   table data is returned via the refcursors specified in the returned row.
         $matchedCols = 0;
         $row = $retRows[0];
         reset($outParams); // Reset the iterator...
-        
+
         foreach (array_keys($row) as $colName) {
             if (strcasecmp("_returnCode", $colName) == 0 || strcasecmp("_return", $colName) == 0) {
                 $input_params->retval = $row[$colName];

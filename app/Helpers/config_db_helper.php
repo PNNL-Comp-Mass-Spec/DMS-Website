@@ -57,7 +57,7 @@ if ( ! function_exists('get_model_config_db_path'))
 {
     /**
      * Looks for the specified model config DB file
-     * 
+     *
      * @param $dbFileName
      * @return object: fields 'path', 'exists', 'dirPath', 'disabled': path to $dbFileName, if file exists, model config directory path
      */

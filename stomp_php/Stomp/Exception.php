@@ -29,7 +29,7 @@
 class Stomp_Exception extends Exception
 {
     protected $_details;
-    
+
     /**
      * Constructor
      *
@@ -40,10 +40,10 @@ class Stomp_Exception extends Exception
     public function __construct($message = null, $code = 0, $details = '')
     {
         $this->_details = $details;
-        
+
         parent::__construct($message, $code);
     }
-    
+
     /**
      * Stomp server error details
      *

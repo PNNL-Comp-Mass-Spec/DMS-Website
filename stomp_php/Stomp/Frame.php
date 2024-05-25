@@ -32,7 +32,7 @@ class Stomp_Frame
     public $command;
     public $headers = array();
     public $body;
-    
+
     /**
      * Constructor
      *
@@ -44,7 +44,7 @@ class Stomp_Frame
     {
         $this->_init($command, $headers, $body);
     }
-    
+
     protected function _init ($command = null, $headers = null, $body = null)
     {
         $this->command = $command;
@@ -52,13 +52,13 @@ class Stomp_Frame
             $this->headers = $headers;
         }
         $this->body = $body;
-        
+
         if ($this->command == 'ERROR') {
             require_once 'Stomp/Exception.php';
             throw new Stomp_Exception($this->headers['message'], 0, $this->body);
         }
     }
-    
+
     /**
      * Convert frame to transportable string
      *
@@ -67,11 +67,11 @@ class Stomp_Frame
     public function __toString()
     {
         $data = $this->command . "\n";
-        
+
         foreach ($this->headers as $name => $value) {
             $data .= $name . ": " . $value . "\n";
         }
-        
+
         $data .= "\n";
         $data .= $this->body;
         return $data .= "\x00\n";

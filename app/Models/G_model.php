@@ -75,7 +75,7 @@ class G_model extends Model {
     private $detail_report_aux_info_target = '';
 
     private $list_report_sort_persist_enabled = true;
-    
+
     // --------------------------------------------------------------------
     function __construct()
     {
@@ -92,7 +92,7 @@ class G_model extends Model {
             $this->config_source = $config_source;
 
             $dbFileName = $config_source . '.db';
-            
+
             helper(['config_db']);
             $dbFileData = get_model_config_db_path($dbFileName);
             $this->configDBPath = $dbFileData->path;
@@ -165,7 +165,7 @@ class G_model extends Model {
     {
         return $this->list_report_sort_persist_enabled;
     }
-    
+
     // --------------------------------------------------------------------
     private function get_utility_defs($config_name)
     {

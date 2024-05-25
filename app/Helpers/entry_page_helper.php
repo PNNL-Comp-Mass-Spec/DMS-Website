@@ -77,10 +77,10 @@ function load_from_external_source($col_mapping, $source_data) {
         // $spec['type'] will typically be ColName, PostName, or Literal
         // However, it might have a suffix in the form '.action.ActionName'
 
-        // Method get_entry_form_definitions() E_model.php looks for text 
+        // Method get_entry_form_definitions() E_model.php looks for text
         // in the form 'ColName.action.ActionName'
         // and will add an 'action' item to the field spec
-       
+
         switch ($spec['type']) {
             case 'ColName':
                 // Copy the text in the specified column of the detail report for the source page family

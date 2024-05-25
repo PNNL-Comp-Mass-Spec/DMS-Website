@@ -7,7 +7,7 @@ class Data_package_publish extends DmsBase {
         $this->my_tag = "data_package_publish";
         $this->my_title = "Publish Data Package";
     }
-    
+
     /**
      * CodeIgniter 4 Constructor.
      */
@@ -15,7 +15,7 @@ class Data_package_publish extends DmsBase {
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-        
+
         $this->model = model('App\Models\M_data_package_publish');
     }
 

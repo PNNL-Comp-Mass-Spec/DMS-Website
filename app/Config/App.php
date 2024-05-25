@@ -80,7 +80,7 @@ class App extends BaseConfig
         ConfigFromEnvironmentFile::getConfigFromEnvironmentSpecificFile($this);
         // --------------------------- END DMS Customizations----------------------
     }
-    
+
     /**
      * --------------------------------------------------------------------------
      * Base Site URL

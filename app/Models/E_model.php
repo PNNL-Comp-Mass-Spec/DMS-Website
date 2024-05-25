@@ -263,7 +263,7 @@ class E_model extends Model {
                 $tx = explode(".", $row['type']);
                 $a['type'] = $tx[0];
                 $a['value'] = $row['value'];
-                
+
                 if (count($tx) > 1) {
                     // If the type name is "ColName.action.ExtractUsername"
                     // this adds a new field named 'action' with value 'ExtractUsername'

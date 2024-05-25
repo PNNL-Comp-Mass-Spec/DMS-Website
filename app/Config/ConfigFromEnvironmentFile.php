@@ -8,7 +8,7 @@ namespace Config;
 class ConfigFromEnvironmentFile
 {
     public static function getClassNameNoNamespace(object $object)
-    {        
+    {
         $prefix      = get_class($object);
         $slashAt     = strrpos($prefix, '\\');
         $shortPrefix = substr($prefix, $slashAt === false ? 0 : $slashAt + 1);

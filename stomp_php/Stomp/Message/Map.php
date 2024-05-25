@@ -30,7 +30,7 @@ require_once 'Stomp/Message.php';
 class Stomp_Message_Map extends Stomp_Message
 {
     public $map;
-    
+
     /**
      * Constructor
      *
