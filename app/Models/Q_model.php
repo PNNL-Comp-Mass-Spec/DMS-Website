@@ -682,21 +682,24 @@ class Q_model extends Model {
      * If no cached value is available, or if base SQL in cache does not match current base SQL,
      * reload total from database and cache it
      *
+     * Calls procedure get_query_row_count_proc() to get the row counts for a given table or view and filter
+     *
      * @return type
      * @throws Exception
      */
     function get_total_rows() {
         $working_total = -1;
 
-        // need to get current base sql to compare with cached version
-        $sql = $this->sql_builder->build_query_sql($this->query_parts, 'count_only');
-        $base_sql = $this->get_base_sql();
+        // Call build_query_sql() to initialze $this->sql_builder->baseSQL
+        $this->sql_builder->build_query_sql($this->query_parts, 'count_only');
 
-        // Get cached values, if any.
-        // $state object has properties base_sql and total.
+        // Need to get current base sql to compare with cached version
+
         // Example base_sql:
         // " FROM V_Dataset_List_Report_2" or
         // " FROM V_Data_Package_Aggregation_List_Report WHERE Data_Package_ID = 194'
+        $base_sql = $this->get_base_sql();
+
         // Get cached values, if any
         // $state object has properties base_sql, total, and cache_time
         $state = get_from_cache($this->total_rows_storage_name);
@@ -710,22 +713,55 @@ class Q_model extends Model {
         }
 
         if ($working_total < 0) {
-            // get total from database
+            // Get total number of rows returned by the query in SELECT COUNT(*) FROM ...
+
+            // Option 1: use "SELECT COUNT(*) FROM ..."
+            // Option 2: call procedure get_query_row_count_proc()
+
             $my_db = $this->get_db_object($this->query_parts->dbn);
-            $query = $my_db->query($sql);
-            if (!$query) {
-                $currentTimestamp = date("Y-m-d");
-                throw new \Exception("Error getting total row count from database; see writable/logs/log-$currentTimestamp.php");
-            }
 
-            if ($query->getNumRows() == 0) {
-                $currentTimestamp = date("Y-m-d");
-                throw new \Exception("Total count row was not returned; see writable/logs/log-$currentTimestamp.php");
-            }
+            // Call procedure get_query_row_count_proc()
+            $row_count = 0;
+            $message = "";
 
-            $row = $query->getRow();
-            $query->freeResult();
-            $working_total = $row->numrows;
+            $result = $this->get_total_rows_using_procedure($my_db, $base_sql, $row_count, $message);
+
+            if ($result == 0) {
+                $working_total = $row_count;
+            } else {
+                echo "($result):$message";
+
+                // Set the row count to a negative number so it's obvious that the total row count could not be determined
+                $working_total = -13;
+
+                /*
+                 * Uncomment this code block to use Option 1
+                 *
+                 * For this code block to be used, the above call to build_query_sql() needs to store the result in $sql
+                 * The SQL returned by build_query_sql() is of the form
+                 *   "SELECT COUNT(*) FROM v_analysis_job_list_report_2 WHERE [tool] LIKE '%MSGFPlus%'"
+                 * $sql = $this->sql_builder->build_query_sql($this->query_parts, 'count_only');
+
+                $result = 0;
+
+                $query = $my_db->query($sql);
+                if (!$query) {
+                    $currentTimestamp = date("Y-m-d");
+                    throw new \Exception("Error getting total row count from database; see writable/logs/log-$currentTimestamp.php");
+                }
+
+                if ($query->getNumRows() == 0) {
+                    $currentTimestamp = date("Y-m-d");
+                    throw new \Exception("Total count row was not returned; see writable/logs/log-$currentTimestamp.php");
+                }
+
+                $row = $query->getRow();
+                $query->freeResult();
+                $working_total = $row->numrows;
+
+                 *
+                 */
+            }
 
             // Cache the row count for the given base_sql
             $state = new CachedTotalRows();
@@ -736,6 +772,90 @@ class Q_model extends Model {
             save_to_cache($this->total_rows_storage_name, $state);
         }
         return $working_total;
+    }
+
+    /**
+     * Call procedure get_query_row_count_proc() to determine the number of rows returned by the given base SQL
+     * @param stdClass $my_db      DB object
+     * @param string   $base_sql   Base SQL
+     * @param type     $row_count  Row count
+     * @param type     $sa_message Error message to return
+     * @return int Return code: 0 if no errors, -1 if an error
+     */
+    function get_total_rows_using_procedure($my_db, $base_sql, &$row_count, &$sa_message) {
+        // Use Sproc_sqlsrv with PHP 7 on Apache 2.4
+        // Use Sproc_mssql  with PHP 5 on Apache 2.2
+        // Set this based on the current DB driver
+
+        $sprocHandler = "\\App\\Libraries\\Sproc_" . strtolower($my_db->DBDriver);
+        $sproc_handler = new $sprocHandler();
+
+        $sprocName = "get_query_row_count_proc";
+
+        $input_params = new \stdClass();
+
+        $args = array();
+
+        $objectAndFilter = "";
+
+        // $base_sql should start with " FROM", which we want to remove
+        // The following test will work with or without the leading space
+        $fromIndex = stripos($base_sql, "FROM");
+
+        if ($fromIndex === 1) {
+            $objectAndFilter = substr(trim($base_sql), 4);
+        } elseif ($fromIndex === 0) {
+            $objectAndFilter = substr($base_sql, 4);
+        } else {
+            $objectAndFilter = trim($base_sql);
+        }
+
+        // Extract out the WHERE clause from $objectAndFilter
+        $queryParts = explode(" WHERE ", $objectAndFilter, 2);
+
+        if (count($queryParts) > 1) {
+            $objectName = $queryParts[0];
+            $whereClause = $queryParts[1];
+        } else {
+            $objectName = $objectAndFilter;
+            $whereClause = "";
+        }
+
+        $sproc_handler->AddLocalArgument($args, $input_params, "objectName", $objectName, "varchar", "input", 255);
+        $sproc_handler->AddLocalArgument($args, $input_params, "whereClause", $whereClause, "varchar", "input", 4000);
+        $sproc_handler->AddLocalArgument($args, $input_params, "rowCount", 0, "bigint", "output", 8);
+        $sproc_handler->AddLocalArgument($args, $input_params, "message", "", "varchar", "output", 512);
+
+        // Many functions check for and initialize the DB connection if not there,
+        // but that leaves connection issues popping up in random places
+        if (empty($my_db->connID)) {
+            // $my_db->connID is normally an object
+            // But if an error occurs or it disconnects, it is false/empty
+            // Try initializing first
+            $my_db->initialize();
+        }
+
+        $sproc_handler->execute($sprocName, $my_db->connID, $args, $input_params);
+
+        // Examine the result code
+        $result = $input_params->exec_result;
+        $returnValue = $input_params->retval;
+
+        if (!$result) {
+            $row_count = 0;
+            $sa_message = "Execution failed for $sprocName";
+            return -1;
+        }
+
+        if ($returnValue != 0) {
+            $row_count = 0;
+            $sa_message = "Procedure error: " . $input_params->message . " ($returnValue for $sprocName)";
+            return $returnValue;
+        }
+
+        $row_count = $input_params->rowCount;
+
+        return 0;
     }
 
     // --------------------------------------------------------------------
