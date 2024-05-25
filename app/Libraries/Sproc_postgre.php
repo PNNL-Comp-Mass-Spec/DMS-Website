@@ -50,6 +50,15 @@ class Sproc_postgre extends Sproc_base {
         $firstParam = true;
         $paramCounter = 1;
         reset($args); // Reset the iterator...
+
+        $procType = $this->isSProcFunction($sprocName, $conn_id);
+        $isFunction = $procType === 'f';
+        if ($isFunction) {
+            // Can use 'SELECT $sprocName', but that just gives back a single-column table of stringified rows.
+            // Use 'SELECT * FROM $sprocName' to get them as a proper table.
+            $sql = "SELECT * FROM ".$sprocName." (";
+        }
+
         foreach ($args as $arg) {
             $paramName = '_' . $arg['name'];  // sproc arg name needs prefix
 
@@ -63,6 +72,11 @@ class Sproc_postgre extends Sproc_base {
 
             if ($arg['dir']=='output') { // convert direction to boolean
                 $outParams[] = $arg;
+                continue;
+            }
+
+            if ($isFunction && empty($input_params->$fieldName)) {
+                // For functions, do not include parameters that are empty to avoid casting errors
                 continue;
             }
 
@@ -132,6 +146,23 @@ class Sproc_postgre extends Sproc_base {
             $input_params->retval = 0;
             // Commit any changes in the transaction.
             pg_query($conn_id, "COMMIT");
+            return;
+        }
+
+        if ($isFunction) {
+            // At this time, we do not have any PostgreSQL functions that have 'OUT'/'INOUT' parameters, so we will skip handling that case.
+            $metadata = $this->extract_field_metadata($result);
+            $rows = $this->get_rows($result);
+
+            $input_params->exec_result->hasRows = true;
+            $input_params->exec_result->metadata = $metadata;
+            $input_params->exec_result->rows = $rows;
+
+            pg_free_result($result);
+
+            // Commit any changes in the transaction.
+            pg_query($conn_id, "COMMIT");
+
             return;
         }
 
@@ -206,6 +237,41 @@ class Sproc_postgre extends Sproc_base {
             $result_array[] = $row;
         }
         return $result_array;
+    }
+
+    /**
+     * Determines if the stored procedure given by $sprocName on database connection $conn_id is actually a function
+     * Returns 'f' for function, or 'p' for procedure, or 'u' for unknown/not found.
+     * @param string $sprocName Stored procedure name
+     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @throws Exception
+     */
+    private function isSProcFunction($sprocName, $conn_id) {
+        $schema = 'public';
+        $spResult = pg_query($conn_id, "SHOW search_path");
+        if ($spResult) {
+            while ($row = pg_fetch_assoc($spResult)) {
+                $sp = $row["search_path"];
+                $sp2 = explode(",", $sp);
+                $schema = trim($sp2[0]);
+                break;
+            }
+        }
+
+        pg_free_result($spResult);
+
+        $result = pg_query($conn_id, 'SELECT prokind FROM pg_proc WHERE pronamespace = \''.$schema.'\'::regnamespace AND proname = \''.$sprocName.'\'');
+        //$result = pg_query($conn_id, 'SELECT routine_type AS prokind FROM information_schema.routines WHERE specific_schema = \''.$schema.'\' AND specific_name LIKE \''.$sprocName.'_%\''); // 'FUNCTION' or 'PROCEDURE'
+        $val = 'u';
+        if ($result) {
+            while ($row = pg_fetch_assoc($result)) {
+                $val = $row["prokind"];
+                break;
+            }
+        }
+
+        pg_free_result($result);
+        return $val;
     }
 
     /**
