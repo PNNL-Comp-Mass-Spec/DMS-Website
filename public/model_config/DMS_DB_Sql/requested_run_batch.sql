@@ -62,9 +62,9 @@ INSERT INTO detail_report_hotlinks VALUES(2,'id','detail-report','id','requested
 INSERT INTO detail_report_hotlinks VALUES(3,'+id','detail-report','id','requested_run_batch/report/-/-/-/-/-/-/-/-/@','valueCol','dl_batch_list_report','');
 INSERT INTO detail_report_hotlinks VALUES(4,'factors','detail-report','id','custom_factors/report','labelCol','dl_show_factors',NULL);
 INSERT INTO detail_report_hotlinks VALUES(5,'+factors','detail-report','id','requested_run_factors/param/@/batch_id','valueCol','dl_edit_factors',NULL);
-INSERT INTO detail_report_hotlinks VALUES(6,'instrument_group','detail-report','instrument_group','instrument_group/show/','labelCol','dl_instrument_group',NULL);
-INSERT INTO detail_report_hotlinks VALUES(7,'instrument_used','detail-report','instrument_used','instrument/show/','labelCol','dl_instrument','');
-INSERT INTO detail_report_hotlinks VALUES(8,'last_ordered','detail-report','id','requested_run_batch_blocking/param/@','labelCol','dl_batch_run_order','');
+INSERT INTO detail_report_hotlinks VALUES(6,'instrument_group','detail-report','instrument_group','instrument_group/show/','valueCol','dl_instrument_group','');
+INSERT INTO detail_report_hotlinks VALUES(7,'instrument_used','detail-report','instrument_used','instrument/show/','valueCol','dl_instrument','');
+INSERT INTO detail_report_hotlinks VALUES(8,'last_ordered','detail-report','id','requested_run_batch_blocking/param/@','valueCol','dl_batch_run_order','');
 INSERT INTO detail_report_hotlinks VALUES(9,'batch_group','detail-report','batch_group','requested_run_batch_group/show/','valueCol','dl_batch_group_edit','');
 INSERT INTO detail_report_hotlinks VALUES(10,'+batch_group','detail-report','batch_group','requested_run_batch_group/report/','labelCol','dl_batch_group_report','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
