@@ -140,7 +140,7 @@ class Entry {
      *  use entry form definition from config db
      *  validate entry form information, submit to database if valid,
      *  and return HTML containing entry form with updated values
-     *  and sucess/failure messages
+     *  and success/failure messages
      * @category AJAX
      */
     function submit_entry_form() {
