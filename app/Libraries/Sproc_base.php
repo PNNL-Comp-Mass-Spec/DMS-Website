@@ -14,7 +14,7 @@ abstract class Sproc_base {
      * @param stdClass $input_params Stored procedure arguments (ByRef)
      * @param type $fieldName Field name
      * @param type $value Value to send to the database for this argument
-     * @param type $fieldType Field type (varchar, int, float, decimal, or char)
+     * @param type $fieldType Field type (varchar, int, float, decimal, char, or text)
      * @param type $direction Direction: input or output (though output is in/out)
      * @param type $size Field size for varchar; use empty string for numeric
      */

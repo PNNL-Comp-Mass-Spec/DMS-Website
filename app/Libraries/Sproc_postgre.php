@@ -70,9 +70,18 @@ class Sproc_postgre extends Sproc_base {
 
             $arg['fieldName'] = $fieldName;
 
-            if ($arg['dir']=='output') { // convert direction to boolean
+            if ($arg['dir'] == 'output') {
+                // Store the argument in the output params array
                 $outParams[] = $arg;
-                continue;
+                
+                if (empty($input_params->$fieldName)) {
+                    // The current value for the field is undefined
+                    // Allow the DB library to pass an empty string as the value for this field
+                    // The procedure will need to have an overload that accepts a text value for this field
+                    continue;
+                }
+                
+                // Field is an input/output field with a defined value; need to pass the value to the procedure
             }
 
             if ($isFunction && empty($input_params->$fieldName)) {
