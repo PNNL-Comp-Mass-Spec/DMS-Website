@@ -14,8 +14,8 @@ INSERT INTO form_fields VALUES(2,'remove_datasets_with_jobs','Skip Datasets With
 INSERT INTO form_fields VALUES(3,'priority','Priority','text','3','3','','','','trim|default_value[3]|required|max_length[2]|numeric');
 INSERT INTO form_fields VALUES(4,'tool_name','Analysis Tool','text','30','80','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(5,'param_file','Parameter File','area','','','2','60','','trim|required|max_length[255]');
-INSERT INTO form_fields VALUES(6,'settings_file','Settings File','text','80','255','','','','trim|default_value[LCQDefSettings.txt]|required|max_length[255]');
-INSERT INTO form_fields VALUES(7,'data_package_id','Data Package ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(6,'settings_file','Settings File','text','80','255','','','','trim|default_value[IonTrapDefSettings_MzML.xml]|required|max_length[255]');
+INSERT INTO form_fields VALUES(7,'data_package_id','Data Package ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(8,'organism','Organism','text','30','80','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(9,'prot_coll_name_list','Protein Collection List','area','','','3','60','na','trim|max_length[4000]');
 INSERT INTO form_fields VALUES(10,'prot_coll_options_list','Protein Options List','area','','','2','60','na','trim|max_length[256]');

@@ -13,7 +13,7 @@ INSERT INTO general_params VALUES('post_submission_detail_id','request_id');
 INSERT INTO general_params VALUES('post_submission_link','{"link":"analysis_group/create/analysis_job_request/", "label":"Make jobs from request"}');
 INSERT INTO general_params VALUES('operations_sproc','do_analysis_request_operation');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'request_id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'request_id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'request_name','Name','text','80','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(4,'datasets','Datasets','area','','','12','80','','trim');
 INSERT INTO form_fields VALUES(5,'analysis_tool','Analysis Tool','text','30','80','','','','trim|required|max_length[64]');
@@ -22,7 +22,7 @@ INSERT INTO form_fields VALUES(7,'settings_file_name','Settings File','text','10
 INSERT INTO form_fields VALUES(8,'data_package_id','Data Package ID','text','','','','','','trim|max_length[24]');
 INSERT INTO form_fields VALUES(9,'organism_name','Organism','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(10,'prot_coll_name_list','Protein Collection List','area','','','3','60','','trim|max_length[4000]');
-INSERT INTO form_fields VALUES(11,'prot_coll_options_list','Protein Options List','area','','','2','40','seq_direction=forward','trim|max_length[256]');
+INSERT INTO form_fields VALUES(11,'prot_coll_options_list','Protein Options List','area','','','2','40','seq_direction=forward,filetype=fasta','trim|max_length[256]');
 INSERT INTO form_fields VALUES(12,'organism_db_name','Legacy Fasta (typically na)','text','100','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(13,'requester','Requested by','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(15,'state','State','text','24','24','','','New','trim|required|max_length[24]');
