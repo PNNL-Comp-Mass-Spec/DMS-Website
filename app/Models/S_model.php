@@ -13,11 +13,9 @@ use CodeIgniter\Database\SQLite3\Connection;
 
 /**
  * Helper class for stored procedure arguments:
- *   Basic definition of object that will contain
- *   bound arguments for calling stored procedure
- *   only the baseline canonical arguments are
- *   statically defined by the class - sproc-specific
- *   arguments are added dynamically
+ *   Basic definition of object that will contain bound arguments for calling stored procedure
+ *   Only the baseline canonical arguments are statically defined by the class 
+ *   - Stored-procedure specific arguments are added dynamically
  * @category Helper class
  */
 class Bound_arguments {
@@ -64,6 +62,12 @@ class S_model extends Model {
      * @var type
      */
     private $sproc_args = array();
+
+    /**
+     * Form fields from the config db
+     * @var type
+     */
+    private $form_fields = array();
 
     /**
      * Database connection group from config db (general parameters table)
@@ -125,7 +129,8 @@ class S_model extends Model {
 
             $this->_clear();
 
-            $this->get_sproc_arg_defs($config_name);
+            $this->get_sproc_args_and_form_fields($config_name);
+
             return true;
         } catch (\Exception $e) {
             $this->error_text = $e->getMessage();
@@ -439,8 +444,12 @@ class S_model extends Model {
         return $callingParams;
     }
 
-    // --------------------------------------------------------------------
-    private function get_sproc_arg_defs($config_name) {
+    /**
+     * Load the stored procedure arguments from table "sproc_args" in the model config DB
+     * Also load the form fields from table "form_fields"
+     * @param type $config_name
+     */
+    private function get_sproc_args_and_form_fields($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
         // Get list of tables in database
@@ -466,20 +475,39 @@ class S_model extends Model {
         // Get definitions of arguments for stored procedure
         if (in_array('sproc_args', $tbl_list)) {
             $args = array();
-            if (in_array('sproc_args', $tbl_list)) {
 
-                $sql = "select * from sproc_args where \"procedure\" = '$this->sprocName';";
-                foreach ($db->query($sql)->getResultArray() as $row) {
-                    $args[] = array(
-                        'field' => $row['field'],
-                        'name' => $row['name'],
-                        'type' => $row['type'],
-                        'dir' => $row['dir'],
-                        'size' => $row['size']
-                    );
-                }
-                $this->sproc_args = $args;
+            $sql = "select * from sproc_args where \"procedure\" = '$this->sprocName';";
+
+            foreach ($db->query($sql)->getResultArray() as $row) {
+                $args[] = array(
+                    'field' => $row['field'],
+                    'name' => $row['name'],
+                    'type' => $row['type'],
+                    'dir' => $row['dir'],
+                    'size' => $row['size']
+                );
             }
+
+            $this->sproc_args = $args;
+        }
+
+        // Get definitions of arguments for stored procedure
+        if (in_array('form_fields', $tbl_list)) {
+            $fields = array();
+
+            $sql = "select * from form_fields;";
+
+            foreach ($db->query($sql)->getResultArray() as $row) {
+                $fields[] = array(
+                    'name'    => $row['name'],
+                    'label'   => $row['label'],
+                    'type'    => $row['type'],
+                    'default' => $row['default'],
+                    'rules'   => $row['rules']
+                );
+            }
+
+            $this->form_fields = $fields;
         }
 
         $db->close();
