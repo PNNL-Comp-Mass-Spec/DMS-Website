@@ -11,9 +11,10 @@ class Sproc_sqlsrv extends Sproc_base {
      * @param resource $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
+     * @param array $formFields Form fields
      * @throws Exception
      */
-    function execute($sprocName, $conn_id, $args, $input_params) {
+    function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
         $input_params->retval = 0;
         //$sql = "{? = CALL ".$sprocName." ("; // for "call" syntax, which ignores parameter names (must supply empty items in the query for skipped parameters)
         $sql = "EXEC ? = " . $sprocName; // Syntax reference: https://docs.microsoft.com/en-us/sql/t-sql/language-elements/execute-transact-sql?view=sql-server-2017

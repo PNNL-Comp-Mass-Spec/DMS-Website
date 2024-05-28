@@ -237,7 +237,11 @@ class S_model extends Model {
 
             while ($execRetriesRemaining > 0) {
                 try {
-                    $this->sproc_handler->execute($this->sprocName, $my_db->connID, $this->sproc_args, $this->bound_calling_parameters);
+                    $this->sproc_handler->execute($this->sprocName, 
+                                                  $my_db->connID, 
+                                                  $this->sproc_args, 
+                                                  $this->bound_calling_parameters,
+                                                  $this->form_fields);
                     // Exit the while loop
                     break;
                 } catch (\Exception $ex) {

@@ -11,11 +11,12 @@ class Sproc_postgre extends Sproc_base {
      * @param resource $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
+     * @param array $formFields Form fields
      * @throws Exception
      */
-    function execute($sprocName, $conn_id, $args, $input_params) {
+    function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
         try {
-            $this->executeInternal($sprocName, $conn_id, $args, $input_params);
+            $this->executeInternal($sprocName, $conn_id, $args, $input_params, $formFields);
 
             // Ensure the transaction is committed, and cursors closed - this may trigger a warning if no transaction or already committed
             // If it throws an error, it should only be due to a broken pipe
@@ -40,9 +41,10 @@ class Sproc_postgre extends Sproc_base {
      * @param resource $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
+     * @param array $formFields Form fields
      * @throws Exception
      */
-    private function executeInternal($sprocName, $conn_id, $args, $input_params) {
+    private function executeInternal($sprocName, $conn_id, $args, $input_params, $formFields) {
         $input_params->retval = 0;
         $sql = "CALL ".$sprocName." (";
         $params = array();

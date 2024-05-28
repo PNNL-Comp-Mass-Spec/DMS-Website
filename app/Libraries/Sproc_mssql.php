@@ -9,11 +9,12 @@ class Sproc_mssql extends Sproc_base {
      * Returns results as fields in $input_params
      * @param string $sprocName
      * @param resource $conn_id
-     * @param array $args
+     * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
+     * @param array $formFields Form fields
      * @throws Exception
      */
-    function execute($sprocName, $conn_id, $args, $input_params) {
+    function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
         $stmt = mssql_init($sprocName, $conn_id);
         if (!$stmt) {
             throw new \Exception("Statement initialization failed for $sprocName");

@@ -152,7 +152,10 @@ class M_aux_info_copy extends Model {
             // Try initializing first
             $my_db->initialize();
         }
-        $sproc_handler->execute($sprocName, $my_db->connID, $args, $input_params);
+
+        $form_fields = array();
+
+        $sproc_handler->execute($sprocName, $my_db->connID, $args, $input_params, $form_fields);
 
         // Examine the result code
         $result = $input_params->exec_result;
