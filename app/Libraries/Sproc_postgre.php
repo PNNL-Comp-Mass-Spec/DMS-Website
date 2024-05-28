@@ -92,8 +92,38 @@ class Sproc_postgre extends Sproc_base {
 
             $paramCounter++;
             
+            $dataType = $arg['type'];
+            
+            if ($arg['dir'] == 'output') {
+                if (empty($input_params->$fieldName)) {
+                    // The current value for the input/output field is undefined
+                    // We need to pass the default value to the field to assure that PostgreSQL can resolve the procedure
+                    // based on the data types of the parameter values
+                    
+                    // First see if the form_fields table in the config DB has a default value defined,
+                    // either in the "default" column or in the "rules" column using "default_value[0]"
+                    // If not defined there, use $this->getDefaultValue($dataType)
+                    
+                    $valueDefined = false;
+                    $formFieldDefaultValue = $this->getFormFieldDefaultValue($formFields, $arg['field'], $dataType, $valueDefined);
+                    
+                    if ($valueDefined) {
+                        $defaultValue = $formFieldDefaultValue;
+                    } else {
+                        $defaultValue = $this->getDefaultValue($dataType);
+                    }
+                                         
+                    $params[] = $defaultValue;
+                } else {                
+                    // Field is an input/output field with a defined value; pass the value to the procedure
+                    // However, if the value is numeric, pass an actual number
+                    $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
+                    $params[] = $valueToUse;
+                }
+            } else {
                 $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
                 $params[] = $valueToUse;
+            }
         }
 
         $sql = $sql.")";
@@ -394,6 +424,54 @@ class Sproc_postgre extends Sproc_base {
         }
 
         return $metadata;
+    }
+    
+    /**
+     * Get the default value for a form field (if defined)
+     * @param array $formFields
+     * @param type $formFieldName
+     * @param type $dataType
+     * @param type $valueDefined
+     * @return string|real|int
+     */
+    private function getFormFieldDefaultValue($formFields, $formFieldName, $dataType, &$valueDefined) {
+        $valueDefined = false;
+
+        foreach ($formFields as $formField) {
+            if ($formField['name'] != $formFieldName) {
+                continue;
+            }
+
+            $formFieldDefault = $formField['default'];
+
+            if (!empty($formFieldDefault) && $formFieldDefault !== '') {
+                $valueDefined = true;
+                return $this->getValueToUse($dataType, $formFieldDefault);
+            }
+            
+            $rules = $formField['rules'];
+            
+            $rule_list = explode('|', $rules);
+            
+            foreach($rule_list as $ruleValue) {
+                if (stripos(trim($ruleValue), 'default_value') == 0) {
+                    // Find the opening square bracket
+                    $bracketPos1 = strpos($ruleValue, '[');
+                    
+                    // Find the last closing square bracket
+                    $bracketPos2 = strrpos($ruleValue, ']', $bracketPos1);
+                    
+                    if ($bracketPos1 > 0 && $bracketPos2 > $bracketPos1 + 1) {
+                        $defaultValue = substr($ruleValue, $bracketPos1 + 1, $bracketPos2 - $bracketPos1 - 1);
+                        
+                        $valueDefined = true;
+                        return $this->getValueToUse($dataType, $defaultValue);
+                    }
+                }                
+            }
+        }
+        
+        return '';
     }
     
     /**
