@@ -76,15 +76,6 @@ class Sproc_postgre extends Sproc_base {
             if ($arg['dir'] == 'output') {
                 // Store the argument in the output params array
                 $outParams[] = $arg;
-                
-                if (empty($input_params->$fieldName)) {
-                    // The current value for the field is undefined
-                    // Allow the DB library to pass an empty string as the value for this field
-                    // The procedure will need to have an overload that accepts a text value for this field
-                    continue;
-                }
-                
-                // Field is an input/output field with a defined value; need to pass the value to the procedure
             }
 
             if ($isFunction && empty($input_params->$fieldName)) {
@@ -100,7 +91,9 @@ class Sproc_postgre extends Sproc_base {
             }
 
             $paramCounter++;
-            $params[] = $input_params->$fieldName;
+            
+                $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
+                $params[] = $valueToUse;
         }
 
         $sql = $sql.")";
@@ -402,5 +395,95 @@ class Sproc_postgre extends Sproc_base {
 
         return $metadata;
     }
+    
+    /**
+     * Get default value for the given data type
+     * @param string $dataType Data type
+     * @return string|real|int
+     */
+    private function getDefaultValue($dataType) {
+        switch ($dataType) {
+            case 'integer':
+            case 'tinyint':
+            case 'smallint':
+            case 'int2':
+            case 'int':
+            case 'int4':
+            case 'bigint':
+            case 'int8':   
+                return 0;
+
+            case 'char':
+            case 'character':
+            case 'citext':
+            case 'text':
+            case 'varchar':
+                return '';
+
+            case 'real':
+            case 'float':
+            case 'float4':
+            case 'double':
+            case 'double precision':
+            case 'float8';
+            case 'numeric':
+                return 0.0;
+        }
+        
+        return '';
+    }
+
+    /**
+     * If the value is numeric, format it by the given data type
+     * @param type $dataType
+     * @param type $value
+     * @return type
+     */
+    private function getValueToUse($dataType, $value) {
+        
+        if (!empty($value) && $value !== '') {           
+            // Cast the value to the appropriate data type
+            switch ($dataType) {
+                case 'integer':
+                case 'tinyint':
+                case 'smallint':
+                case 'int2':
+                case 'int':
+                case 'int4':
+                case 'bigint':
+                case 'int8':   
+                    return (int)$value;
+
+                case 'char':
+                case 'character':
+                case 'citext':
+                case 'text':
+                case 'varchar':
+                    return $value;
+
+                case 'real':
+                case 'float':
+                case 'float4':
+                case 'numeric':
+                    return (float)$value;
+                    
+                case 'double':
+                case 'double precision':
+                case 'float8';
+                    return (double)$value;
+
+                case 'boolean':
+                case 'bool':
+                    return (boolean)$value;
+                
+                default:
+                    return $value;
+            }
+        }
+
+        $defaultValue = $this->getDefaultValue($dataType);
+        return $defaultValue;
+    }
+
 }
 ?>
