@@ -41,11 +41,15 @@ class Analysis_job_request_psm extends DmsBase {
     private
     function make_metadata_table($metadata)
     {
-        if(!$metadata) return "";
+        if(!$metadata) {
+            return "";
+        }
+
         $s = '';
         $s .= "<table class='EPag'>";
         $md_list = explode('|', $metadata);
         $header = true;
+        
         foreach($md_list as $md) {
             $kv = explode(':', $md);
             if(count($kv) == 3) {
@@ -75,7 +79,7 @@ class Analysis_job_request_psm extends DmsBase {
             if(count($kv) == 2) {
                 $dvs[$kv[0]] = $kv[1];
             }
-        };
+        }
 
         $code = ($result == 0)?'success':'failure';
 

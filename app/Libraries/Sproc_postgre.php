@@ -53,6 +53,7 @@ class Sproc_postgre extends Sproc_base {
 
         $procType = $this->isSProcFunction($sprocName, $conn_id);
         $isFunction = $procType === 'f';
+
         if ($isFunction) {
             // Can use 'SELECT $sprocName', but that just gives back a single-column table of stringified rows.
             // Use 'SELECT * FROM $sprocName' to get them as a proper table.

@@ -143,6 +143,7 @@ class S_model extends Model {
     function execute_sproc($parmObj) {
         $this->error_text = '';
         helper(['string', 'database']);
+
         try {
             if (!isset($parmObj)) {
                 throw new \Exception("Input parameter object was not supplied to execute_sproc for $this->sprocName");
@@ -220,6 +221,7 @@ class S_model extends Model {
                     $this->bound_calling_parameters->$fn = '';
                 }
             }  // $this->bound_calling_parameters = $this->get_calling_args($parmObj); ??
+
             // Execute the stored procedure
             // Retry the call up to 4 times
             $execRetriesRemaining = 4;
