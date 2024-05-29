@@ -515,6 +515,10 @@ class Sproc_postgre extends Sproc_base {
             case 'float8';
             case 'numeric':
                 return 0.0;
+                
+            case 'boolean':
+            case 'bool':
+                return false;
         }
         
         return '';
