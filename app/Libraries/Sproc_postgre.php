@@ -37,7 +37,7 @@ class Sproc_postgre extends Sproc_base {
      * Call stored procedure given by $sprocName on database connection $conn_id
      * binding arguments to fields in $input_params as defined by specifications in $args.
      * Returns results as fields in $input_params
-     * @param string $sprocName Stored procedure name
+     * @param string $sprocName Stored procedure or function name
      * @param resource $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
@@ -78,23 +78,14 @@ class Sproc_postgre extends Sproc_base {
                 $outParams[] = $arg;
             }
 
-            if ($isFunction && empty($input_params->$fieldName)) {
-                // For functions, do not include parameters that are empty to avoid casting errors
-                continue;
-            }
+            $dataType = trim(strtolower($arg['type']));
 
-            if ($firstParam) {
-                $sql = $sql . " " . $paramName . " => $" . $paramCounter;
-                $firstParam = false;
-            } else {
-                $sql = $sql . ", " . $paramName . " => $" . $paramCounter;
-            }
 
-            $paramCounter++;
+            $outputArgument = $arg['dir'] == 'output';
             
-            $dataType = $arg['type'];
+            $valueToUse = '';
             
-            if ($arg['dir'] == 'output') {
+            if ($outputArgument) {
                 if (empty($input_params->$fieldName)) {
                     // The current value for the input/output field is undefined
                     // We need to pass the default value to the field to assure that PostgreSQL can resolve the procedure
@@ -108,22 +99,34 @@ class Sproc_postgre extends Sproc_base {
                     $formFieldDefaultValue = $this->getFormFieldDefaultValue($formFields, $arg['field'], $dataType, $valueDefined);
                     
                     if ($valueDefined) {
-                        $defaultValue = $formFieldDefaultValue;
+                        $valueToUse = $formFieldDefaultValue;
                     } else {
-                        $defaultValue = $this->getDefaultValue($dataType);
+                        $valueToUse = $this->getDefaultValue($dataType);
                     }
-                                         
-                    $params[] = $defaultValue;
+
+                    }
                 } else {                
                     // Field is an input/output field with a defined value; pass the value to the procedure
                     // However, if the value is numeric, pass an actual number
                     $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
-                    $params[] = $valueToUse;
+
                 }
             } else {
                 $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
-                $params[] = $valueToUse;
+
             }
+
+
+            if ($firstParam) {
+                $sql = $sql . " " . $paramName . " => $" . $paramCounter;
+                $firstParam = false;
+            } else {
+                $sql = $sql . ", " . $paramName . " => $" . $paramCounter;
+            }
+
+            $paramCounter++;
+
+            $params[] = $valueToUse;            
         }
 
         $sql = $sql.")";
