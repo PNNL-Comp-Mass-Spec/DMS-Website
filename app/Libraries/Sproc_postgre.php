@@ -183,8 +183,10 @@ class Sproc_postgre extends Sproc_base {
         if (pg_num_rows($result) == 0) {
             // No results returned, nothing to process. Assume success.
             $input_params->retval = 0;
+
             // Commit any changes in the transaction.
             pg_query($conn_id, "COMMIT");
+
             return;
         }
 
@@ -208,10 +210,9 @@ class Sproc_postgre extends Sproc_base {
         $retMetadata = $this->get_metadata_assoc($this->extract_field_metadata($result));
         $retRows = $this->get_rows($result);
 
-        $matched = false;
+        // PostgreSQL: only a single row is ever returned from a single stored procedure
+        // Table data is returned via the refcursors specified in the returned row
 
-        // PostgreSQL: only a single row is ever returned from a single stored procedure.
-        //   table data is returned via the refcursors specified in the returned row.
         $matchedCols = 0;
         $row = $retRows[0];
         reset($outParams); // Reset the iterator...
@@ -248,6 +249,7 @@ class Sproc_postgre extends Sproc_base {
                 }
 
                 $cursorResult = pg_query($conn_id, "FETCH ALL FROM " . $row[$colName]);
+
                 if ($cursorResult && pg_num_rows($cursorResult) > 0) {
                     $metadata = $this->extract_field_metadata($cursorResult);
                     $rows = $this->get_rows($cursorResult);
@@ -288,6 +290,7 @@ class Sproc_postgre extends Sproc_base {
     private function isSProcFunction($sprocName, $conn_id) {
         $schema = 'public';
         $spResult = pg_query($conn_id, "SHOW search_path");
+
         if ($spResult) {
             while ($row = pg_fetch_assoc($spResult)) {
                 $sp = $row["search_path"];
@@ -301,6 +304,7 @@ class Sproc_postgre extends Sproc_base {
 
         $result = pg_query($conn_id, 'SELECT prokind FROM pg_proc WHERE pronamespace = \''.$schema.'\'::regnamespace AND proname = \''.$sprocName.'\'');
         //$result = pg_query($conn_id, 'SELECT routine_type AS prokind FROM information_schema.routines WHERE specific_schema = \''.$schema.'\' AND specific_name LIKE \''.$sprocName.'_%\''); // 'FUNCTION' or 'PROCEDURE'
+
         $val = 'u';
         if ($result) {
             while ($row = pg_fetch_assoc($result)) {
@@ -410,6 +414,7 @@ class Sproc_postgre extends Sproc_base {
 
         $metadata = array();
         $fields = pg_num_fields($result);
+
         for ($i = 0; $i < $fields; $i++) {
             $fieldData = new \stdClass();
             $fieldData->name = pg_field_name($result, $i);
