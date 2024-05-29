@@ -80,6 +80,10 @@ class Sproc_postgre extends Sproc_base {
 
             $dataType = trim(strtolower($arg['type']));
 
+            $isTimestampOrDate = $dataType == 'datetime' ||
+                                 $dataType == 'date' ||
+                                 $dataType == 'timestamp' ||
+                                 $dataType == 'timestamptz';
 
             $outputArgument = $arg['dir'] == 'output';
             
@@ -104,12 +108,19 @@ class Sproc_postgre extends Sproc_base {
                         $valueToUse = $this->getDefaultValue($dataType);
                     }
 
+                    if ($valueToUse == '' && $isTimestampOrDate) {
+                        // Use the current date and time, e.g. '2024-05-28 18:51:00'
+                        $valueToUse = date('Y-m-d H:i:s');
                     }
                 } else {                
                     // Field is an input/output field with a defined value; pass the value to the procedure
                     // However, if the value is numeric, pass an actual number
                     $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
 
+                    if ($valueToUse == '' && $isTimestampOrDate) {
+                        // Use the current date and time, e.g. '2024-05-28 18:51:00'
+                        $valueToUse = date('Y-m-d H:i:s');
+                    }
                 }
             } else {
                 $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
