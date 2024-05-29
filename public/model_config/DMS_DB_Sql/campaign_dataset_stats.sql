@@ -19,7 +19,6 @@ INSERT INTO sproc_args VALUES(7,'campaign_name_filter','campaignNameFilter','var
 INSERT INTO sproc_args VALUES(8,'campaign_name_exclude','campaignNameExclude','varchar','input','128','get_dataset_stats_by_campaign');
 INSERT INTO sproc_args VALUES(9,'instrument_building','instrumentBuilding','varchar','input','64','get_dataset_stats_by_campaign');
 INSERT INTO sproc_args VALUES(10,'preview_sql','previewSql','tinyint','input','','get_dataset_stats_by_campaign');
-INSERT INTO sproc_args VALUES(11,'message','message','varchar','output','512','get_dataset_stats_by_campaign');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'campaign_name_filter','Campaign Name Filter','text','24','128','','','EMSL','trim|max_length[128]');
 INSERT INTO form_fields VALUES(2,'campaign_name_exclude','Campaign Exclusion Filter','text','24','128','','','','trim|max_length[128]');
