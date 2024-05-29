@@ -134,14 +134,15 @@ class Sproc_postgre extends Sproc_base {
         // NOTE: if the function or stored procedure starts a transaction with 'BEGIN;', you will see a 'nested transaction' error.
         // Start a transaction before calling the procedure; cursors (for returning table data) only work inside transactions.
         pg_query($conn_id, "BEGIN");
-        //$result = pg_query_params($conn_id, $sql, $params); // Use pg_send_query_params() and pg_get_results() to be able to use pg_result_error()
-        $result = pg_send_query_params($conn_id, $sql, $params);
+        
+        // $queryParamsResult = pg_query_params($conn_id, $sql, $params); // Use pg_send_query_params() and pg_get_results() to be able to use pg_result_error()
+        $queryParamsResult = pg_send_query_params($conn_id, $sql, $params);
 
         // Process the results here, before we call pg_free_result()
         $input_params->exec_result = new \stdClass();
         $input_params->exec_result->hasRows = false;
 
-        if (!$result) {
+        if (!$queryParamsResult) {
             // TODO: report some kind of error; if sending the query failed, our connection is probably bad.
             return;
         }
