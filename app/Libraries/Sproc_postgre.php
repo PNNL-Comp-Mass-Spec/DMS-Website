@@ -87,6 +87,15 @@ class Sproc_postgre extends Sproc_base {
 
             $outputArgument = $arg['dir'] == 'output';
             
+            if ($isFunction && $outputArgument && $paramName == '_message') {
+                // In DMS, by convention, each procedure has output arguments _message and _returnCode
+                // However, functions do not have those output arguments
+
+                // Although we could auto-skip this argument, it is better to update the sproc_args table 
+                // in the model Config DB to remove the message field
+            }
+
+            $appendParameter = true;
             $valueToUse = '';
             
             if ($outputArgument) {
@@ -125,8 +134,16 @@ class Sproc_postgre extends Sproc_base {
             } else {
                 $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
 
+                if ($valueToUse == '' && $isTimestampOrDate) {
+                    // Do not append this parameter (since appending an empty string will result in a data conversion error)
+                    // Instead, use the default value defined by the procedure or function
+                    $appendParameter = false;
+                }
             }
 
+            if (!$appendParameter) {
+                continue;
+            }
 
             if ($firstParam) {
                 $sql = $sql . " " . $paramName . " => $" . $paramCounter;
@@ -530,6 +547,13 @@ class Sproc_postgre extends Sproc_base {
             case 'boolean':
             case 'bool':
                 return false;
+                
+            case 'datetime':
+            case 'date':
+            case 'timestamp':
+            case 'timestamptz':
+                // Return an empty string; the calling procedure should skip this parameter
+                return '';
         }
         
         return '';
@@ -577,6 +601,14 @@ class Sproc_postgre extends Sproc_base {
                 case 'boolean':
                 case 'bool':
                     return (boolean)$value;
+                
+                case 'datetime':
+                case 'date':
+                case 'timestamp':
+                case 'timestamptz':
+                    // Leave the value as a string; the PostgreSQL DB driver for PHP
+                    // will auto-convert dates to a timestamp (for timestamp arguments on a procedure or function)
+                    return $value;
                 
                 default:
                     return $value;
