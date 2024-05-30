@@ -140,10 +140,11 @@ class Sql_postgre {
     private function make_order_by($sort_items) {
         $a = array();
         foreach ($sort_items as $item) {
-            $col = str_replace(" ", "_", $item->col);
-            if (strpos($col, "#") !== false) {
-                $col = "\"" . $col . "\"";
-            }
+            $columnName = str_replace(" ", "_", $item->col);
+
+            // Possibly quote the column name with double quotes
+            $col = $this->possibly_quote_name($columnName);
+
             $a[] = $col . " " . $item->dir;
         }
         $s = implode(', ', $a);
@@ -157,10 +158,10 @@ class Sql_postgre {
      * @return type
      */
     private function make_where_item($predicate) {
-        $col = str_replace(" ", "_", $predicate->col);
-        if (strpos($col, "#") !== false) {
-            $col = "\"" . $col . "\"";
-        }
+        $columnName = str_replace(" ", "_", $predicate->col);
+
+        // Possibly quote the column name with double quotes
+        $col = $this->possibly_quote_name($columnName);
 
         $cmp = $predicate->cmp;
         $val = trim($predicate->val);
@@ -272,6 +273,30 @@ class Sql_postgre {
                 break;
         }
         return $str;
+    }
+
+    /**
+     * Quote the column name with double quotes, if required
+     * @param type $columnName
+     */
+    private function possibly_quote_name($columnName) {
+        // Quote if any of the following are true
+        // 1) it includes '#'
+        // 2) it is known to be capitalized in the database
+        // 3) it matches a PostgreSQL reserved word (we're only checking a subset of the full list of keywords)
+
+        // Note that we can't blindly capitalize columns simply because they have a capital letter,
+        // since the website auto-capitalizes columns for display purposes
+        
+        if (strpos($columnName, "#") !== false ||
+            preg_match("/^(HMS|HMSn)$/", $columnName) ||
+            preg_match("/^(array|case|column|default|grant|group|inner|left|limit|offset|order|outer|primary|right|table|unique|user|when|where|window)$/i",
+                       $columnName))
+        {
+            $columnName = "\"" . $columnName . "\"";
+        }
+
+        return $columnName;
     }
 
     /**
