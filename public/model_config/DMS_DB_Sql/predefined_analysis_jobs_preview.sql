@@ -5,8 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_sproc','predefined_analysis_jobs_proc');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'dataset_name','Dataset','text','60','128','','','QC_Mam_19_01_d_09Aug22_Pippin_WBEH-22-02-04-50u','trim|required|max_length[128]');
-INSERT INTO form_fields VALUES(3,'raise_error_messages','Raise Error Messages','hidden','1','1','','','1','trim|max_length[1]');
-INSERT INTO form_fields VALUES(4,'exclude_datasets_not_released','Exclude Datasets Not Released','hidden','1','1','','','1','trim|max_length[1]');
+INSERT INTO form_fields VALUES(4,'exclude_datasets_not_released','Exclude Datasets Not Released','hidden','1','1','','','1','trim|default_value[1]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'dataset_name','list-report.helper','','helper_dataset/report','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
@@ -15,6 +14,6 @@ INSERT INTO list_report_hotlinks VALUES(2,'job','row_to_url','dataset','analysis
 INSERT INTO list_report_hotlinks VALUES(3,'predefine_id','invoke_entity','value','predefined_analysis/show','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'dataset_name','datasetName','varchar','input','128','predefined_analysis_jobs_proc');
-INSERT INTO sproc_args VALUES(3,'<local>','message','varchar','output','512','predefined_analysis_jobs_proc');
-INSERT INTO sproc_args VALUES(5,'exclude_datasets_not_released','ExcludeDatasetsNotReleased','tinyint','input','','predefined_analysis_jobs_proc');
+INSERT INTO sproc_args VALUES(2,'<local>','message','varchar','output','512','predefined_analysis_jobs_proc');
+INSERT INTO sproc_args VALUES(3,'exclude_datasets_not_released','excludeDatasetsNotReleased','tinyint','input','','predefined_analysis_jobs_proc');
 COMMIT;
