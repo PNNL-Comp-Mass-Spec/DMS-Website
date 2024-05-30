@@ -15,7 +15,7 @@ CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "
 INSERT INTO form_fields VALUES(1,'start_date','Starting Date','text','24','80','','','','trim');
 INSERT INTO form_fields VALUES(2,'end_date','Ending Date','text','24','80','','','','trim');
 INSERT INTO form_fields VALUES(3,'campaign_id_filter_list','Campaign ID List','text','24','2000','','','','trim');
-INSERT INTO form_fields VALUES(4,'organism_id_filter_list','Organism Filter List','text','24','2000','','','','trim');
+INSERT INTO form_fields VALUES(4,'organism_id_filter_list','Organism ID List','text','24','2000','','','','trim');
 INSERT INTO form_fields VALUES(5,'instrument_filter_list','Instrument Filter List','text','24','2000','','','','trim');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'experiments','invoke_entity','Tissue','experiment/report/-/-/-/-/@','');
