@@ -74,6 +74,7 @@ class Sql_sqlsrv {
 
         // Construct final query according to its intended use
         $sql = "";
+
         switch ($option) {
             case "count_only":  // Query for returning count of total rows
                 $sql .= "SELECT COUNT(*) AS numrows";
@@ -110,10 +111,11 @@ class Sql_sqlsrv {
 
                 // Note: an alternative to "Row_Number() Over (Order By x Desc)"
                 // is to use "ORDER BY x DESC OFFSET 0 ROWS FETCH NEXT 125 ROWS ONLY;"
-                // However, performance will typically be the wame
+                // However, performance will typically be the same
 
                 break;
         }
+
         $this->baseSQL = $baseSql;
         return $sql;
     }
@@ -128,6 +130,7 @@ class Sql_sqlsrv {
         foreach ($sort_items as $item) {
             $a[] = "[" . $item->col . "] " . $item->dir;
         }
+
         $s = implode(', ', $a);
         return $s;
     }
@@ -150,6 +153,7 @@ class Sql_sqlsrv {
         $valNoCommas = str_replace(',', '', $val);
 
         $str = '';
+
         switch ($cmp) {
             case "wildcards":
                 $val = str_replace('_', '[_]', $val);
@@ -238,6 +242,7 @@ class Sql_sqlsrv {
                 $str .= "true /* '$cmp' unrecognized */";
                 break;
         }
+
         return $str;
     }
 
@@ -251,7 +256,7 @@ class Sql_sqlsrv {
     }
 
     // --------------------------------------------------------------------
-    // (the following might be factored out of this class if data types are not db specific)
+    // (the following could be factored out of this class if data types are not DB specific)
     // --------------------------------------------------------------------
 
     /**
@@ -320,7 +325,7 @@ class Sql_sqlsrv {
      */
     function get_allowed_comparisons_for_type($data_type) {
         // The sqlsrv_driver returns data types as integers
-        // See // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
+        // See https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
 
         $cmps = array();
         switch ($data_type) {
@@ -371,6 +376,7 @@ class Sql_sqlsrv {
                 $cmps = array("(unrecognized type '$data_type')" => "(unrecognized type '$data_type')");
                 break;
         }
+
         return $cmps;
     }
 }

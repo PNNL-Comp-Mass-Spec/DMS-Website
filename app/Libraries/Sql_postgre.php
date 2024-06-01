@@ -15,7 +15,7 @@ class Sql_postgre {
     }
 
     /**
-     * Build MSSQL T-SQL query from component parts
+     * Build PostgreSQL query from component parts
      * @param type $query_parts
      * @param type $option
      * @return string
@@ -75,15 +75,20 @@ class Sql_postgre {
         $displayColumns = $query_parts->columns;
 
         // Remove square brackets, and replace spaces on the matches with '_'
-        $replaceSpace = preg_replace_callback("/\[([^\]]*)\]/", function($matches) { return str_replace(" ", "_", $matches[1]); }, $displayColumns);
+        $replaceSpace = preg_replace_callback("/\[([^\]]*)\]/",
+                                              function($matches) {
+                                                  return str_replace(" ", "_", $matches[1]);
+                                              },
+                                              $displayColumns);
 
         // Replace '[' and ']' with ''
-        
+
         // Columns to display
         $display_cols = str_replace(array("[", "]"), "", $replaceSpace);
 
         // Construct final query according to its intended use
         $sql = "";
+
         switch ($option) {
             case "count_only":  // Query for returning count of total rows
                 $sql .= "SELECT COUNT(*) AS numrows";
@@ -120,10 +125,11 @@ class Sql_postgre {
 
                 // Note: an alternative to "Row_Number() Over (Order By x Desc)"
                 // is to use "ORDER BY x DESC OFFSET 0 ROWS FETCH NEXT 125 ROWS ONLY;"
-                // However, performance will typically be the wame
+                // However, performance will typically be the same
 
                 break;
         }
+
         $this->baseSQL = $baseSql;
         return $sql;
     }
@@ -135,6 +141,7 @@ class Sql_postgre {
      */
     private function make_order_by($sort_items) {
         $a = array();
+
         foreach ($sort_items as $item) {
             $columnName = str_replace(" ", "_", $item->col);
 
@@ -143,6 +150,7 @@ class Sql_postgre {
 
             $a[] = $col . " " . $item->dir;
         }
+
         $s = implode(', ', $a);
         return $s;
     }
@@ -165,6 +173,7 @@ class Sql_postgre {
         $valNoCommas = str_replace(',', '', $val);
 
         $str = '';
+
         switch ($cmp) {
             case "wildcards":
                 // Escape underscore and parentheses
@@ -268,6 +277,7 @@ class Sql_postgre {
                 $str .= "true /* '$cmp' unrecognized */";
                 break;
         }
+
         return $str;
     }
 
@@ -283,7 +293,7 @@ class Sql_postgre {
 
         // Note that we can't blindly capitalize columns simply because they have a capital letter,
         // since the website auto-capitalizes columns for display purposes
-        
+
         if (strpos($columnName, "#") !== false ||
             preg_match("/^(HMS|HMSn)$/", $columnName) ||
             preg_match("/^(array|case|column|default|grant|group|inner|left|limit|offset|order|outer|primary|right|table|unique|user|when|where|window)$/i",
@@ -305,7 +315,7 @@ class Sql_postgre {
     }
 
     // --------------------------------------------------------------------
-    // (the following might be factored out of this class if data types are not db specific)
+    // (the following could be factored out of this class if data types are not DB specific)
     // --------------------------------------------------------------------
 
     /**
@@ -387,6 +397,7 @@ class Sql_postgre {
         */
 
         $cmps = array();
+
         switch ($data_type) {
             case 'text':
             case 25:    // pgsql text
@@ -471,6 +482,7 @@ class Sql_postgre {
                 $cmps = array("(unrecognized type '$data_type')" => "(unrecognized type '$data_type')");
                 break;
         }
+
         return $cmps;
     }
 }
