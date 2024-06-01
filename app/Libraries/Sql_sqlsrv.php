@@ -139,7 +139,11 @@ class Sql_sqlsrv {
      * @return type
      */
     private function make_where_item($predicate) {
-        $col = $predicate->col;
+        $columnName = $predicate->col;
+
+        // Quote the column name with square brackes
+        $col = "[$columnName]";
+
         $cmp = $predicate->cmp;
         $val = trim($predicate->val);
 
@@ -151,84 +155,84 @@ class Sql_sqlsrv {
                 $val = str_replace('_', '[_]', $val);
                 $val = str_replace('*', '%', $val);
                 $val = str_replace('?', '_', $val);
-                $str .= "[$col] LIKE '$val'";
+                $str .= "$col LIKE '$val'";
                 break;
             case "ContainsText":
             case "CTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
-                $str .= "[$col] LIKE '$val'";
+                $str .= "$col LIKE '$val'";
                 break;
             case "DoesNotContainText":
             case "DNCTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
-                $str .= "NOT [$col] LIKE '$val'";
+                $str .= "NOT $col LIKE '$val'";
                 break;
             case "MatchesText":
             case "MTx":
-                $str .= "[$col] = '$val'";
+                $str .= "$col = '$val'";
                 break;
             case "MatchesBlank":
             case "MBTx":
-                $str .= "ISNULL([$col], '') = ''";
+                $str .= "ISNULL($col, '') = ''";
                 break;
             case "StartsWithText":
             case "SWTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : $val . '%';
-                $str .= "[$col] LIKE '$val'";
+                $str .= "$col LIKE '$val'";
                 break;
             case "Equals":
             case "EQn":
                 if (is_numeric($valNoCommas)) {
-                    $str .= "[$col] = $valNoCommas";
+                    $str .= "$col = $valNoCommas";
                 } else {
-                    $str .= "[$col] = '$val'";
+                    $str .= "$col = '$val'";
                 }
                 break;
             case "NotEqual":
             case "NEn":
                 if (is_numeric($valNoCommas)) {
-                    $str .= "NOT [$col] = $valNoCommas";
+                    $str .= "NOT $col = $valNoCommas";
                 }
                 break;
             case "GreaterThan":
             case "GTn":
                 if (is_numeric($valNoCommas)) {
-                    $str .= "[$col] > $valNoCommas";
+                    $str .= "$col > $valNoCommas";
                 }
                 break;
             case "LessThan":
             case "LTn":
                 if (is_numeric($valNoCommas)) {
-                    $str .= "[$col] < $valNoCommas";
+                    $str .= "$col < $valNoCommas";
                 }
                 break;
             case "LessThanOrEqualTo":
             case "LTOEn":
                 if (is_numeric($valNoCommas)) {
-                    $str .= "[$col] <= $valNoCommas";
+                    $str .= "$col <= $valNoCommas";
                 }
                 break;
             case "GreaterThanOrEqualTo":
             case "GTOEn":
                 if (is_numeric($valNoCommas)) {
-                    $str .= "[$col] >= $valNoCommas";
+                    $str .= "$col >= $valNoCommas";
                 }
                 break;
             case "MatchesTextOrBlank":
             case "MTxOB":
-                $str .= "([$col] = '$val' OR [$col] = '')";
+                $str .= "($col = '$val' OR $col = '')";
                 break;
             case "LaterThan":
             case "LTd":
-                $str .= "[$col] > '$val'";
+                $str .= "$col > '$val'";
                 break;
             case "EarlierThan":
             case "ETd":
-                $str .= "[$col] < '$val'";
+                $str .= "$col < '$val'";
                 break;
             case "MostRecentWeeks":
             case "MRWd":
-                $str .= " [$col] > DATEADD(Week, -$val, GETDATE()) ";
+                $str .= " $col > DATEADD(Week, -$val, GETDATE()) ";
                 break;
             default:
                 $str .= "true /* '$cmp' unrecognized */";
