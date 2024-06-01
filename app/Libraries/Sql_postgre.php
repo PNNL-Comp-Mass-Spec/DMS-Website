@@ -72,18 +72,14 @@ class Sql_postgre {
         // Replace '[_]' with '\_'
         $baseSql = str_replace("[_]", "\_", $baseSql);
 
-        // Columns to display
-        // $display_cols = $query_parts->columns; // TODO: handle '#..." columns, [], spaces
-        // Convert [#sortkey] to "#sortkey"
-        $wrapHash = preg_replace("/\[(#[^\]]*)\]/", "\"$1\"", $query_parts->columns);
-
-        // Convert #sortkey (no quotes) to "#sortkey"; NOTE: will break a column that has '#' anywhere but the start of the name
-        $wrapHash2 = preg_replace("/(#[^,]*)/", "\"$1\"", $wrapHash);
+        $displayColumns = $query_parts->columns;
 
         // Remove square brackets, and replace spaces on the matches with '_'
-        $replaceSpace = preg_replace_callback("/\[([^\]]*)\]/", function($matches) { return str_replace(" ", "_", $matches[1]); }, $wrapHash2);
+        $replaceSpace = preg_replace_callback("/\[([^\]]*)\]/", function($matches) { return str_replace(" ", "_", $matches[1]); }, $displayColumns);
 
         // Replace '[' and ']' with ''
+        
+        // Columns to display
         $display_cols = str_replace(array("[", "]"), "", $replaceSpace);
 
         // Construct final query according to its intended use
