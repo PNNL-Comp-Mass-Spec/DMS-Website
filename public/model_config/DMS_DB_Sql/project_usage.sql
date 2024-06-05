@@ -3,7 +3,6 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('base_table','T_Project_Usage_Stats');
 INSERT INTO general_params VALUES('list_report_data_table','v_project_usage_stats');
-INSERT INTO general_params VALUES('detail_report_data_id_col','Entry_ID');
 INSERT INTO general_params VALUES('list_report_data_sort_col','sort_key');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
