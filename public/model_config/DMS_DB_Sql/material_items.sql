@@ -6,6 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('detail_report_data_table','v_material_items_list_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_col','container, item');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_container','Container','6','','container','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','6','','location','ContainsText','text','80','','');
@@ -20,4 +21,5 @@ INSERT INTO list_report_hotlinks VALUES(2,'container','invoke_entity','value','m
 INSERT INTO list_report_hotlinks VALUES(3,'location','invoke_entity','value','material_location/report/~@','');
 INSERT INTO list_report_hotlinks VALUES(4,'prep_request','invoke_entity','value','sample_prep_request/show/','');
 INSERT INTO list_report_hotlinks VALUES(5,'campaign','invoke_entity','value','campaign/show/','');
+INSERT INTO list_report_hotlinks VALUES(6,'id','invoke_entity','value','material_items/show/','');
 COMMIT;

@@ -12,6 +12,7 @@ INSERT INTO general_params VALUES('list_report_cmds','instrument_usage_report_cm
 INSERT INTO general_params VALUES('list_report_cmds_url','instrument_usage_report/operation');
 INSERT INTO general_params VALUES('operations_sproc','update_instrument_usage_report');
 INSERT INTO general_params VALUES('post_submission_detail_id','seq');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_year','Year','20','','year','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_month','Month','20','','month','Equals','text','20','','');

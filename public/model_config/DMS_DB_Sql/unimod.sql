@@ -5,6 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_unimod_list_report
 INSERT INTO general_params VALUES('detail_report_data_table','v_unimod_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','unimod_id');
 INSERT INTO general_params VALUES('my_db_group','ontology');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','20','','name','ContainsText','text','512','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_DMS_Name','DMS_Name','20','','dms_name','ContainsText','text','128','','');

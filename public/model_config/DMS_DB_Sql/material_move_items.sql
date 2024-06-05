@@ -10,6 +10,7 @@ INSERT INTO general_params VALUES('list_report_cmds_url','/material_move_items/o
 INSERT INTO general_params VALUES('list_report_data_cols','item, id, '''' AS Sel, item_type, container, type, location, container_status, item_id');
 INSERT INTO general_params VALUES('list_report_data_sort_col','item');
 INSERT INTO general_params VALUES('operations_sproc','update_material_items');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_container','Container','6','','container','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','15!','','location','ContainsText','text','80','','');
@@ -21,6 +22,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'item','select_case','item_type','','{
 INSERT INTO list_report_hotlinks VALUES(2,'sel','CHECKBOX','item_id','','');
 INSERT INTO list_report_hotlinks VALUES(3,'container','invoke_entity','value','material_container/show/','');
 INSERT INTO list_report_hotlinks VALUES(4,'item_id','no_display','value','','');
+INSERT INTO list_report_hotlinks VALUES(5,'id','invoke_entity','value','material_move_items/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'<local>','mode','varchar','input','32','update_material_items');
 INSERT INTO sproc_args VALUES(2,'itemList','itemList','varchar','input','4096','update_material_items');

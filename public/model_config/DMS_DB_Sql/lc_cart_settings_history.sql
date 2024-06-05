@@ -9,6 +9,7 @@ INSERT INTO general_params VALUES('entry_sproc','add_update_lc_cart_settings_his
 INSERT INTO general_params VALUES('entry_page_data_table','v_lc_cart_settings_history_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|max_length[10]');
 INSERT INTO form_fields VALUES(2,'cart_name','Cart Name','text','60','128','','','','trim|max_length[128]');

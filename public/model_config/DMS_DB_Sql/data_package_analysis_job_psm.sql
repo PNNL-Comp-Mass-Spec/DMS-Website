@@ -6,6 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','data_pkg, job');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('detail_report_data_table','v_analysis_job_psm_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','job');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_data_package_id','Data Pkg','4!','','data_pkg','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_job','Job','12','','job','Equals','text','128','','');

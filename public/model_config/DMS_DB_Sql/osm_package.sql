@@ -14,6 +14,7 @@ INSERT INTO general_params VALUES('post_submission_detail_id','id');
 INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('operations_sproc','update_osm_package');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','osm_package/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);

@@ -14,6 +14,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','Desc');
 INSERT INTO general_params VALUES('entry_block_new','True');
 INSERT INTO general_params VALUES('operations_sproc','update_run_interval_instrument_usage');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_start','Start','20','','start','LaterThan','text','20','','');

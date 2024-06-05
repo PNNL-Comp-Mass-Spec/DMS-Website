@@ -12,6 +12,7 @@ INSERT INTO general_params VALUES('detail_report_aux_info_target','Experiment');
 INSERT INTO general_params VALUES('operations_sproc','do_material_item_operation');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 INSERT INTO general_params VALUES('detail_report_cmds','file_attachment_cmds');
+INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','experimentid/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'request','invoke_entity','value','sample_prep_request/show','');
