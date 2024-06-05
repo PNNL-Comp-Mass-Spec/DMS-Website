@@ -12,4 +12,5 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_Freezer','Freezer','32','','
 INSERT INTO list_report_primary_filter VALUES(2,'pf_Comment','Comment','32','','comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'containers','invoke_entity','freezer','material_location/report/-/~@','');
+INSERT INTO list_report_hotlinks VALUES(2,'freezer','invoke_entity','freezer','freezers/show/','');
 COMMIT;
