@@ -8,6 +8,7 @@ class Label_Formatter {
 
     /**
      * Full label special formats - key should be the exact name of the column as returned by the database, value is the display text
+     * These are used to capitalize column names shown on list reports and detail reports
      */
     private const LABEL_MAP = array(
         "file_size_mb" => "File Size (MB)",
@@ -17,6 +18,8 @@ class Label_Formatter {
         "pubchem_cid" => "PubChem CID",
         "mts_pt_db_count" => "MTS PT DB Count",
         "mts_mt_db_count" => "MTS MT DB Count",
+        "newt_id_list" => "NEWT ID List",
+        "newt_name"    => "NEWT Name",
         "ms2_prec_z_1" => "MS2_PrecZ_1",
         "ms2_prec_z_2" => "MS2_PrecZ_2",
         "ms2_prec_z_3" => "MS2_PrecZ_3",
