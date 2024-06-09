@@ -75,7 +75,7 @@ INSERT INTO sproc_args VALUES(26,'<local>','message','varchar','output','512','a
 INSERT INTO sproc_args VALUES(27,'<local>','callingUser','varchar','input','128','add_update_organisms');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'protein_collections','detail-report','name','protein_collection/report/-/~','labelCol','protein_collections','');
-INSERT INTO detail_report_hotlinks VALUES(4,'newt_id_list','link_list','newt_id_list','ontology/show/@newt1','valueCol','newt_ID_List','');
+INSERT INTO detail_report_hotlinks VALUES(4,'newt_id_list','link_list','newt_id_list','newt/show/','valueCol','newt_ID_List','');
 INSERT INTO detail_report_hotlinks VALUES(5,'ncbi_taxonomy_id','detail-report','ncbi_taxonomy_id','ncbi_taxonomy/show/','valueCol','ncbi_taxonomy_detail _report','');
 INSERT INTO detail_report_hotlinks VALUES(6,'+ncbi_taxonomy_id','detail-report','ncbi_taxonomy_id','ncbi_taxonomy/report/','labelCol','ncbi_taxonomy_list_report_id','');
 INSERT INTO detail_report_hotlinks VALUES(7,'ncbi_taxonomy','detail-report','ncbi_taxonomy','ncbi_taxonomy/report/-/~','labelCol','ncbi_taxonomy_list_report_name','');
