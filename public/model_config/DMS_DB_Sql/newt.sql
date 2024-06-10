@@ -26,6 +26,7 @@ INSERT INTO detail_report_hotlinks VALUES(4,'parent_term_identifier','detail-rep
 INSERT INTO detail_report_hotlinks VALUES(5,'+parent_term_identifier','detail-report','parent_term_identifier','newt/report/-/-/@/-/','valueCol','dl_parent_time_identifier_list_report','');
 INSERT INTO detail_report_hotlinks VALUES(6,'grandparent_term_identifier','detail-report','grandparent_term_identifier','newt/show/','labelCol','dl_grandparent_time_id','');
 INSERT INTO detail_report_hotlinks VALUES(7,'+grandparent_term_identifier','detail-report','grandparent_term_identifier','newt/report/-/-/-/@/','valueCol','dl_grandparent_time_identifier','');
+INSERT INTO detail_report_hotlinks VALUES(8,'children','detail-report','identifier','newt/report/-/-/@/-/','valueCol','dl_children','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'identifier','invoke_entity','value','newt/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'parent_term_id','invoke_entity','value','newt/show/','');
