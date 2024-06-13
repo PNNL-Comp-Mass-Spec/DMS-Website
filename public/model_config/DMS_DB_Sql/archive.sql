@@ -13,7 +13,8 @@ INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','32','','stat
 INSERT INTO list_report_primary_filter VALUES(4,'pf_update','Update','32','','update','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'dataset','invoke_entity','value','archive/show/','');
+INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','dataset','archive/show/','');
+INSERT INTO list_report_hotlinks VALUES(2,'dataset','invoke_entity','dataset','dataset/show/','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO detail_report_commands VALUES(1,'Reset Archive State','cmd_op','archivereset','archive','','Are you sure that you want to reset the archive state to New for this dataset?');
 INSERT INTO detail_report_commands VALUES(2,'Reset Update State','cmd_op','update_req','archive','','Are you sure that you want to set the archive update state to Update Required for this dataset?');
