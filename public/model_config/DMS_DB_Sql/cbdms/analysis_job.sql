@@ -15,7 +15,7 @@ INSERT INTO general_params VALUES('post_submission_detail_id','job');
 INSERT INTO general_params VALUES('list_report_data_cols','job, pri, state, tool, dataset, campaign, experiment, instrument, param_file, settings_file, organism, organism_db, protein_collection_list, protein_options, comment, created, started, finished, runtime_minutes, job_request, results_folder, results_folder_path, last_affected, rating');
 INSERT INTO general_params VALUES('detail_report_data_cols','job, dataset, experiment, dataset_folder, dataset_folder_path, instrument, tool_name, param_file, param_file_storage_path, settings_file, organism, organism_db, organism_db_storage_path, protein_collection_list, protein_options_list, state, runtime_minutes, owner, comment, special_processing, results_folder_path, data_folder_link, psm_stats, created, started, finished, request, priority, assigned_processor, am_code, dem_code, export_mode, dataset_unreviewed');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'dataset','Dataset','text','80','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(3,'priority','Priority','text','3','3','','','','trim|default_value[3]|required|max_length[2]|numeric');
 INSERT INTO form_fields VALUES(4,'tool_name','Analysis Tool','text','30','80','','','','trim|required|max_length[64]');
