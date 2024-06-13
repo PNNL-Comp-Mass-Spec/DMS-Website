@@ -1,7 +1,8 @@
 /****************************************************************
 * Javascript methods that are specific to entry pages
 ****************************************************************/
-// After updating this page, increment the version ID defined on the base_url line in file app/Views/main/entry_form.php
+
+// After updating this file, increment the version ID defined in app\Views\resource_links\entry.php
 // This is required to force browsers to update the cached version of this file
 
 var entry = {

@@ -1,4 +1,4 @@
-// After updating this page, increment the version ID defined on the base_url line in file app/Views/main/entry_form.php
+// After updating this file, increment the version ID defined in app\Views\resource_links\entryCmds.php
 // This is required to force browsers to update the cached version of this file
 
 var entryCmds = {
@@ -15,13 +15,13 @@ var entryCmds = {
             });
         },
         submitMainEntryForm: function(mode, followOnAction) {
-            $('#requestID').val('0');
+            $('#request_id').val('0');
             $('#move_next_link').hide();
             var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + "/submit_entry_form";
             entry.submitEntryFormToPage(url, mode, followOnAction);
         },
         showPageLinks: function() {
-            var id = $('#requestID').val();
+            var id = $('#request_id').val();
             if(id != '0') {
                 var url = dmsjs.pageContext.site_url + "analysis_job_request/show/" + id;
                 $('#move_next_link').attr('href', url);
