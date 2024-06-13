@@ -61,7 +61,7 @@ INSERT INTO sproc_args VALUES(25,'<local>','mode','varchar','input','12','add_up
 INSERT INTO sproc_args VALUES(26,'<local>','message','varchar','output','512','add_update_rna_prep_request');
 INSERT INTO sproc_args VALUES(27,'<local>','callingUser','varchar','input','128','add_update_rna_prep_request');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','60','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(3,'requester_username','Requester Username','text','32','32','','','','trim|max_length[32]|required');
 INSERT INTO form_fields VALUES(4,'campaign','Campaign','text','60','128','','','','trim|max_length[128]|required');

@@ -36,7 +36,7 @@ INSERT INTO sproc_args VALUES(35,'<local>','mode','varchar','input','32','update
 INSERT INTO sproc_args VALUES(36,'<local>','message','varchar','output','512','update_osm_package');
 INSERT INTO sproc_args VALUES(37,'<local>','callingUser','varchar','input','128','update_osm_package');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'name','Name','text','50','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(3,'package_type','Package Type','text','50','128','','','General','trim|max_length[128]');
 INSERT INTO form_fields VALUES(4,'description','Description','area','','','4','70','','trim|max_length[2048]');

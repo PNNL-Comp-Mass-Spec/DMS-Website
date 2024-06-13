@@ -28,7 +28,7 @@ INSERT INTO sproc_args VALUES(99,'defaults','defaults','varchar','output','2048'
 INSERT INTO sproc_args VALUES(100,'<local>','mode','varchar','input','12','get_psm_job_definitions');
 INSERT INTO sproc_args VALUES(101,'<local>','message','varchar','output','512','get_psm_job_definitions');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'request_id','Request ID','non-edit','','','','','0','trim|max_length[12]');
+INSERT INTO form_fields VALUES(1,'request_id','Request ID','non-edit','','','','','','trim|default_value[0]|max_length[12]');
 INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','50','128','','','','trim|max_length[128]|required');
 INSERT INTO form_fields VALUES(3,'datasets','Datasets','area','','','9','100','','trim|max_length[2147483647]|required');
 INSERT INTO form_fields VALUES(5,'comment','Comment','area','','','2','100','','trim|max_length[512]');

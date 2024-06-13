@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('entry_page_data_id_col','source_request_id');
 INSERT INTO general_params VALUES('post_submission_link','{"link":"requested_run/report/StartsWith__", "label":"Show new requested runs"}');
 INSERT INTO general_params VALUES('post_submission_detail_id','source_request_name');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'source_request_id','Source Request','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'source_request_id','Source Request','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'source_request_name','Source Request Name','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(3,'experiment','Experiment Name','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(4,'instrument_group','Instrument Group','non-edit','','','','','','trim');

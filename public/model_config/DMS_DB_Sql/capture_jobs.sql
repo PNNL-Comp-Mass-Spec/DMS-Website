@@ -22,7 +22,7 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO detail_report_hotlinks VALUES(1,'steps','detail-report','job','capture_job_steps/report','labelCol','job',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'dataset','detail-report','dataset','dataset/show','labelCol','dataset',NULL);
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','0','trim|max_length[12]');
+INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','','trim|default_value[0]|max_length[12]');
 INSERT INTO form_fields VALUES(2,'script_name','Script Name','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(3,'priority','Priority','text','12','12','','','3','trim|max_length[12]');
 INSERT INTO form_fields VALUES(4,'job_param','Job Param','area','','','15','120','','trim|max_length[8000]');

@@ -13,7 +13,7 @@ INSERT INTO general_params VALUES('entry_page_data_id_col','job');
 INSERT INTO general_params VALUES('operations_sproc','do_analysis_job_operation');
 INSERT INTO general_params VALUES('post_submission_detail_id','job');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'dataset','Dataset','text','80','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(3,'priority','Priority','text','3','3','','','','trim|default_value[3]|required|max_length[2]|numeric');
 INSERT INTO form_fields VALUES(4,'tool_name','Analysis Tool','text','30','80','','','','trim|required|max_length[64]');

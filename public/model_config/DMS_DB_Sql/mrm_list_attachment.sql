@@ -16,7 +16,7 @@ INSERT INTO form_fields VALUES(1,'attachment_name','Name','text','80','128','','
 INSERT INTO form_fields VALUES(2,'attachment_description','Description','area','','','4','60','','trim|max_length[1024]');
 INSERT INTO form_fields VALUES(3,'owner_username','Owner','text','24','24','','','','trim|max_length[24]');
 INSERT INTO form_fields VALUES(4,'active','Active','text','8','8','','','Y','trim|max_length[8]');
-INSERT INTO form_fields VALUES(5,'id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(5,'id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(6,'attachment_type','Type','hidden','','','','','MRM Transition List','trim');
 INSERT INTO form_fields VALUES(7,'file_name','FileName','text','80','128','','','','trim');
 INSERT INTO form_fields VALUES(8,'contents','File Contents','area','','','20','90','','trim|max_length[100000]');

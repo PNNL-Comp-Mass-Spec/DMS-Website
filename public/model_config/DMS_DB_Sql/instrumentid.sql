@@ -11,7 +11,7 @@ INSERT INTO general_params VALUES('entry_page_data_table','v_instrument_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'instrument_name','InstrumentName','non-edit','','','','','To add an instrument, use https://dms2.pnl.gov/new_instrument/create','trim');
 INSERT INTO form_fields VALUES(3,'description','Description','area','50','1024','4','60','','trim');
 INSERT INTO form_fields VALUES(4,'instrument_class','InstrumentClass','text','32','32','','','LTQ_FT','trim');

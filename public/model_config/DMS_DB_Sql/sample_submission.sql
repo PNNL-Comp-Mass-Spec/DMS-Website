@@ -33,7 +33,7 @@ INSERT INTO sproc_args VALUES(11,'<local>','mode','varchar','input','12','do_sam
 INSERT INTO sproc_args VALUES(12,'<local>','message','varchar','output','512','do_sample_submission_operation');
 INSERT INTO sproc_args VALUES(13,'<local>','callingUser','varchar','input','128','do_sample_submission_operation');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'campaign','Campaign','text','90','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(3,'received_by','Received By','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(4,'container_list','Container List','area','','','2','70','','trim|max_length[1024]');

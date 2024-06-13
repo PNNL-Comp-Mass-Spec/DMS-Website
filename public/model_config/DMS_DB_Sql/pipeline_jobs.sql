@@ -52,7 +52,7 @@ INSERT INTO sproc_args VALUES(10,'<local>','mode','varchar','input','12','add_up
 INSERT INTO sproc_args VALUES(11,'<local>','message','varchar','output','512','add_update_local_job_in_broker');
 INSERT INTO sproc_args VALUES(12,'<local>','callingUser','varchar','input','128','add_update_local_job_in_broker');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','0','trim|max_length[12]');
+INSERT INTO form_fields VALUES(1,'job','Job','non-edit','','','','','','trim|default_value[0]|max_length[12]');
 INSERT INTO form_fields VALUES(2,'script_name','Script Name','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(3,'dataset','Dataset','text','50','128','','','Aggregation','trim|max_length[128]');
 INSERT INTO form_fields VALUES(4,'priority','Priority','text','12','12','','','3','trim|max_length[12]');

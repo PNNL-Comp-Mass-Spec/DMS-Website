@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('entry_page_data_table','v_experiment_fraction
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('post_submission_link_tag','experiment');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'parent_experiment','Parent Experiment','text','60','128','','','','trim|required|alpha_dash');
 INSERT INTO form_fields VALUES(3,'group_type','Group Type','non-edit','','','','','Fraction','trim');
 INSERT INTO form_fields VALUES(4,'suffix','Suffix','text','20','20','','','','trim|alpha_dash');

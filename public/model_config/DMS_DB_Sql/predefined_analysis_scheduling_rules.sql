@@ -12,7 +12,7 @@ INSERT INTO general_params VALUES('entry_page_data_table','v_predefined_analysis
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','0','trim');
+INSERT INTO form_fields VALUES(1,'id','ID','non-edit','','','','','','trim|default_value[0]');
 INSERT INTO form_fields VALUES(2,'evaluation_order','Evaluation Order','text','2','2','','','','trim');
 INSERT INTO form_fields VALUES(3,'instrument_class','Instrument Class','text','32','32','','','','trim');
 INSERT INTO form_fields VALUES(4,'instrument_name','Instrument Name','text','60','64','','','','trim');
