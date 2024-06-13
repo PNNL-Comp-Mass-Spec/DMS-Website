@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_lc_cart_loading_2');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_cart','Cart','20','','cart','ContainsText','text','32','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_batchid','BatchID','20','','batch','Equals','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_batchid','Batch ID','20','','batch','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_name','Name','20','','name','ContainsText','text','64','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'batch','invoke_entity','batch','requested_run_batch/show','');

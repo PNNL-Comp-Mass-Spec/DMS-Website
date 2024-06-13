@@ -8,10 +8,10 @@ INSERT INTO general_params VALUES('list_report_helper_multiple_selection','yes')
 INSERT INTO general_params VALUES('list_report_data_sort_col','name');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','32','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_resulttype','ResultType','32','','result_type','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_resulttype','Result Type','32','','result_type','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_allowed_inst_classes','Allowed Inst. Classes','32','','allowed_inst_classes','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_allowed_ds_types','Allowed DS Types','32','','allowed_ds_types','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_orgdb_req','OrgDB Req','32','','org_db_req','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_orgdb_req','Org DB Req','32','','org_db_req','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_extract_req','Extract Req','32','','extract_req','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','name','','');

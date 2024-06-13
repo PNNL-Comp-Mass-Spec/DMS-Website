@@ -46,7 +46,7 @@ INSERT INTO form_field_choosers VALUES(12,'organism_db_name','list-report.helper
 INSERT INTO form_field_choosers VALUES(13,'data_package_id','list-report.helper','','helper_data_package/report/-/','data_package_id',',','Choose from (only for MaxQuant, MSFragger, or DIA-NN):');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','6!','','state','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_requestID','RequestID','6!','','request','Equals','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_requestID','Request ID','6!','','request','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_name','Name','25!','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_requester','Requester','15!','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_tool','Tool','32','','tool','ContainsText','text','128','','');

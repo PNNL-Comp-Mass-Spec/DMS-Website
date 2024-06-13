@@ -2,14 +2,16 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_analysis_tool_report');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','desc');
+INSERT INTO general_params VALUES('list_report_data_sort_col','ID');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','60','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_resulttype','ResultType','60','','result_type','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_resulttype','Result Type','60','','result_type','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_allowed_inst_classes','Allowed Inst. Classes','60','','allowed_inst_classes','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_allowed_ds_types','Allowed DS Types','60','','allowed_ds_types','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'allowed_ds_types','min_col_width','value','90','');
 INSERT INTO list_report_hotlinks VALUES(2,'allowed_inst_classes','min_col_width','value','70','');
 INSERT INTO list_report_hotlinks VALUES(3,'name','invoke_entity','value','analysis_job/report/-/-/~@/-/-/-/-/-/52/-','');
+INSERT INTO list_report_hotlinks VALUES(4,'id','min_col_width','value','6','');
 COMMIT;

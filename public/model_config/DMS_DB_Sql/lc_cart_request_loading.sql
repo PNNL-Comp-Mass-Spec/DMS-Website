@@ -10,7 +10,7 @@ INSERT INTO general_params VALUES('list_report_data_cols','request AS Sel, *');
 INSERT INTO general_params VALUES('list_report_data_sort_col','request');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_batchid','BatchID','20','','batch_id','Equals','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_batchid','Batch ID','20','','batch_id','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','20','','name','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_cart','Cart','20','','cart','ContainsText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_instrument','Instrument','20','','instrument','ContainsText','text','128','','');
