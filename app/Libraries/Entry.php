@@ -162,6 +162,16 @@ class Entry {
         // Get field values from validation object
         $input_params = new \stdClass();
         foreach ($form_def->fields as $field) {
+            if (array_key_exists($field, $postData) === false) {
+                // The form field is not in the POST data
+                // For checkbox fields, if a checkbox is unchecked, it will not be in $postData
+                // See, for example, https://dmsdev.pnl.gov/analysis_job_request_psm/create
+                
+                // The analysis_job_request_psm page also has a form field named 'ignore_me',
+                // which is a placeholder for the "Get suggested values" link; this field is also not in $postData
+                continue;
+            }
+
             $input_params->$field = $postData[$field];
         }
         try {
@@ -225,6 +235,7 @@ class Entry {
      */
     protected function make_entry_form_HTML($input_params, $form_def, $validation) {
         helper('form');
+
         // Handle special field options for entry form object
         $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
         $this->handle_special_field_options($form_def, $mode);
@@ -232,10 +243,17 @@ class Entry {
         // Update entry form object with field values
         // and any field validation errors
         foreach ($form_def->fields as $field) {
+            if(property_exists($input_params, $field) === false)
+            { 
+                // The field is not defined as a property in the $input_params class
+                continue;
+            }
+
             $this->controller->entry_form->set_field_value($field, $input_params->$field);
             $fieldError = validation_error($validation, $field, '<span class="bad_clr">', '</span>');
             $this->controller->entry_form->set_field_error($field, $fieldError);
         }
+
         // Build HTML and return it
         return $this->controller->entry_form->build_display($mode);
     }
