@@ -167,11 +167,14 @@ class Config_db extends BaseController {
      * @return type
      */
     private function _exec_sql($config_db, $sql, $table_name) {
+        helper(['config_db']);
 
         // Script out the existing table contents
-        $restore = $this->_get_table_contents_sql($config_db, $table_name);
+        $restore = "[non-existent]";
+        if ($this->_get_db_table_exists($config_db, $table_name)) {
+            $restore = $this->_get_table_contents_sql($config_db, $table_name);
+        }
 
-        helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
 
@@ -378,7 +381,12 @@ class Config_db extends BaseController {
             $this->show_not_allowed($config_db);
             return;
         }
-        // FUTURE: Don't do if table already exists
+
+        // Don't do if table already exists
+        if ($this->_get_db_table_exists($config_db, $table_name)) {
+            return;
+        }
+
         $sql = $this->config_model->get_table_def($table_name, 'sql');
         $this->_exec_sql($config_db, $sql, $table_name);
 
@@ -1205,6 +1213,35 @@ class Config_db extends BaseController {
             $s .= "{$pf}'{$name}', '{$label}', '{$size}', '{$value}', '{$col}', '{$cmp}', '{$type}', '{$ml}', '{$rows}', '{$cols}');\n";
         }
         return $s;
+    }
+
+    /**
+     * Check if a table exists in the database
+     * @param string $config_db Config DB name, including .db
+     * @param string $table_name
+     * @return boolean
+     */
+    private function _get_db_table_exists($config_db, $table_name) {
+        $s = "";
+        $table_list = array();
+        helper(['config_db']);
+        $dbFilePath = get_model_config_db_path($config_db)->path;
+
+        $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
+        foreach ($this->_getQueryResultArray($db->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table' AND name = '$table_name'")) as $row) {
+            $table_list[] = $row['tbl_name'];
+        }
+
+        $db->close();
+
+        // Filter table names?
+        foreach ($table_list as $tn) {
+            if (strcmp($tn, $table_name) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
