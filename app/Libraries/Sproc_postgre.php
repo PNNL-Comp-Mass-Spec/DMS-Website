@@ -183,24 +183,30 @@ class Sproc_postgre extends Sproc_base {
 
         $errors = pg_result_error($result);
         if ($errors != "") {
-            $fieldcode = array(
-            "PGSQL_DIAG_SEVERITY",        "PGSQL_DIAG_SQLSTATE",
-            "PGSQL_DIAG_MESSAGE_PRIMARY", "PGSQL_DIAG_MESSAGE_DETAIL",
-            "PGSQL_DIAG_MESSAGE_HINT",    "PGSQL_DIAG_STATEMENT_POSITION",
-            "PGSQL_DIAG_CONTEXT",         "PGSQL_DIAG_SOURCE_FILE",
-            "PGSQL_DIAG_SOURCE_LINE",     "PGSQL_DIAG_SOURCE_FUNCTION");
+            $msg = sprintf("<br />\n%s<br />\n", pg_result_error_field($result, constant("PGSQL_DIAG_MESSAGE_PRIMARY")));
 
-            $msg = "";
-            foreach ($fieldcode as $fcode)
-            {
-                $msg = $msg."ERROR:".sprintf("%s: %s<br />\n", $fcode, pg_result_error_field($result, constant($fcode)));
-            }
+            if (ENVIRONMENT === 'development') {
+                // Also show the extended details of the error on development instances
+                $msg = $msg."<br />\n";
 
-            // Change this to true to see additional debug messages
-            if (false) {
-                $msg = $msg . "\n" . $sql;
-                foreach ($params as $param) {
-                    $msg = $msg.", ".$param[0];
+                $fieldcode = array(
+                "PGSQL_DIAG_SEVERITY",        "PGSQL_DIAG_SQLSTATE",
+                "PGSQL_DIAG_MESSAGE_PRIMARY", "PGSQL_DIAG_MESSAGE_DETAIL",
+                "PGSQL_DIAG_MESSAGE_HINT",    "PGSQL_DIAG_STATEMENT_POSITION",
+                "PGSQL_DIAG_CONTEXT",         "PGSQL_DIAG_SOURCE_FILE",
+                "PGSQL_DIAG_SOURCE_LINE",     "PGSQL_DIAG_SOURCE_FUNCTION");
+
+                foreach ($fieldcode as $fcode)
+                {
+                    $msg = $msg."ERROR:".sprintf("%s: %s<br />\n", $fcode, pg_result_error_field($result, constant($fcode)));
+                }
+
+                // Change this to true to see additional debug messages
+                if (false) {
+                    $msg = $msg . "\n" . $sql;
+                    foreach ($params as $param) {
+                        $msg = $msg.", ".$param[0];
+                    }
                 }
             }
 
