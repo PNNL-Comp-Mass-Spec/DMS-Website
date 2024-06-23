@@ -3,6 +3,8 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_capture_check_report');
 INSERT INTO general_params VALUES('my_db_group','capture');
+INSERT INTO general_params VALUES('list_report_data_sort_col','job');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'job','invoke_entity','value','capture_jobs/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'steps','invoke_entity','job','capture_job_steps/report','');

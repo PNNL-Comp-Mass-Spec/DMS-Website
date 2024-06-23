@@ -2,6 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_capture_job_steps_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_col','job, step');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('detail_report_data_table','v_capture_job_steps_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','id');

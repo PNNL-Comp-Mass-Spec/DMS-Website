@@ -2,8 +2,8 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_analysis_tool_report');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','desc');
-INSERT INTO general_params VALUES('list_report_data_sort_col','ID');
+INSERT INTO general_params VALUES('list_report_data_sort_col','id');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','60','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_resulttype','Result Type','60','','result_type','ContainsText','text','128','','');

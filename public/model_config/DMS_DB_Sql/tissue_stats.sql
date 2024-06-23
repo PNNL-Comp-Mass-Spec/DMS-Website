@@ -1,8 +1,8 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('list_report_data_sort_col','tissue');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
-INSERT INTO general_params VALUES('list_report_data_sort_col','Tissue');
 INSERT INTO general_params VALUES('list_report_sproc','report_tissue_usage_stats');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'start_date','startDate','varchar','input','24','report_tissue_usage_stats');
