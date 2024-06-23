@@ -34,7 +34,6 @@ INSERT INTO sproc_args VALUES(2,'script_name','scriptName','varchar','input','64
 INSERT INTO sproc_args VALUES(3,'priority','priority','int','input','','add_update_local_task_in_broker');
 INSERT INTO sproc_args VALUES(4,'job_param','jobParam','varchar','input','8000','add_update_local_task_in_broker');
 INSERT INTO sproc_args VALUES(5,'comment','comment','varchar','input','512','add_update_local_task_in_broker');
-INSERT INTO sproc_args VALUES(6,'results_folder_name','resultsFolderName','varchar','output','128','add_update_local_task_in_broker');
 INSERT INTO sproc_args VALUES(7,'<local>','mode','varchar','input','12','add_update_local_task_in_broker');
 INSERT INTO sproc_args VALUES(8,'<local>','message','varchar','output','512','add_update_local_task_in_broker');
 INSERT INTO sproc_args VALUES(9,'<local>','callingUser','varchar','input','128','add_update_local_task_in_broker');
