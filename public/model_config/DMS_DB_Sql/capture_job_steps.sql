@@ -21,7 +21,7 @@ INSERT INTO list_report_hotlinks VALUES(2,'tool','invoke_entity','value','captur
 INSERT INTO list_report_hotlinks VALUES(3,'step','invoke_entity','id','capture_job_steps/show','');
 INSERT INTO list_report_hotlinks VALUES(4,'id','no_display','value','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO detail_report_hotlinks VALUES(1,'job','detail-report','job','analysis_job/show','labelCol','job',NULL);
+INSERT INTO detail_report_hotlinks VALUES(1,'job','detail-report','job','capture_jobs/show','labelCol','job','');
 INSERT INTO detail_report_hotlinks VALUES(2,'dataset','detail-report','dataset','dataset/show','labelCol','dataset',NULL);
 INSERT INTO detail_report_hotlinks VALUES(3,'script','detail-report','script','capture_script/show','labelCol','script',NULL);
 INSERT INTO detail_report_hotlinks VALUES(4,'tool','detail-report','tool','capture_step_tools/show','labelCol','tool',NULL);
