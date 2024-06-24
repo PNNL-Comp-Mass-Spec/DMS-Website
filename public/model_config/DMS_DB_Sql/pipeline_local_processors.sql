@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_pipeline_local_processors_list_report');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 INSERT INTO general_params VALUES('detail_report_data_table','v_pipeline_local_processors_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','processor_name');
 INSERT INTO general_params VALUES('my_db_group','broker');
