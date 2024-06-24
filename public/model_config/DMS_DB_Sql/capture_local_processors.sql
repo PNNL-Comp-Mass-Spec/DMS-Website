@@ -11,4 +11,6 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_processor_name','Processor N
 INSERT INTO list_report_primary_filter VALUES(2,'pf_machine','Machine','6','','machine','ContainsText','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'processor_name','invoke_entity','value','capture_local_processors/show/','');
+CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
+INSERT INTO detail_report_hotlinks VALUES(1,'tools','link_list','tools','capture_step_tools/show/','valueCol','dl_tools','');
 COMMIT;
