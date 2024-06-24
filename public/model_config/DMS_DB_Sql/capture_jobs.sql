@@ -10,6 +10,7 @@ INSERT INTO general_params VALUES('my_db_group','capture');
 INSERT INTO general_params VALUES('entry_page_data_table','v_capture_jobs_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','job');
 INSERT INTO general_params VALUES('entry_sproc','add_update_local_task_in_broker');
+INSERT INTO general_params VALUES('post_submission_detail_id','job');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','6','','job','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_job_state_b','Job_State_B','6','','job_state_b','ContainsText','text','80','','');
