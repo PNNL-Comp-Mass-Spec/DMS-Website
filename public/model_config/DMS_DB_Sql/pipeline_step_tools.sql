@@ -17,9 +17,9 @@ INSERT INTO form_fields VALUES(3,'description','Description','area','','','3','6
 INSERT INTO form_fields VALUES(4,'shared_result_version','Shared Result Version','text','2','2','','','','trim|max_length[2]');
 INSERT INTO form_fields VALUES(5,'filter_version','Filter Version','text','2','2','','','','trim|max_length[2]');
 INSERT INTO form_fields VALUES(6,'cpu_load','CPU Load','text','2','2','','','','trim|max_length[2]');
-INSERT INTO form_fields VALUES(7,'memory_usage_mb','Memory Usage MB','text','24','24','','','','trim|Max_Length[24]');
+INSERT INTO form_fields VALUES(7,'memory_usage_mb','Memory Usage MB','text','24','24','','','','trim|max_length[24]');
 INSERT INTO form_fields VALUES(8,'parameter_template','Parameter Template','area','','','15','70','','trim|max_length[2147483647]');
-INSERT INTO form_fields VALUES(9,'param_file_storage_path','ParamFileStoragePath','text','60','128','','','','rim|max_length[256]');
+INSERT INTO form_fields VALUES(9,'param_file_storage_path','ParamFileStoragePath','text','60','128','','','','trim|max_length[256]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'parameter_template','auto_format','xml');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
