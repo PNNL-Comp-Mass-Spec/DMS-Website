@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_pipeline_step_tools_list_report');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 INSERT INTO general_params VALUES('detail_report_data_table','v_pipeline_step_tools_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','name');
 INSERT INTO general_params VALUES('entry_sproc','add_update_step_tools');
