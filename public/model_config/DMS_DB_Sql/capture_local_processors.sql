@@ -13,4 +13,5 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'processor_name','invoke_entity','value','capture_local_processors/show/','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO detail_report_hotlinks VALUES(1,'tools','link_list','tools','capture_step_tools/show/','valueCol','dl_tools','');
+INSERT INTO detail_report_hotlinks VALUES(2,'machine','detail-report','machine','capture_processor_step_tools/report/-/-/-/-/~@','valueCol','dl_machine','');
 COMMIT;

@@ -13,4 +13,5 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_enabled','Enabled','6','','e
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'tool_name','invoke_entity','value','capture_step_tools/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'processor_name','invoke_entity','value','capture_local_processors/show','');
+INSERT INTO list_report_hotlinks VALUES(3,'machine','invoke_entity','value','capture_processor_step_tools/report/-/-/-/-/~@','');
 COMMIT;

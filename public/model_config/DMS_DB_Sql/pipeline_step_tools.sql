@@ -43,5 +43,5 @@ INSERT INTO sproc_args VALUES(10,'<local>','mode','varchar','input','12','add_up
 INSERT INTO sproc_args VALUES(11,'<local>','message','varchar','output','512','add_update_step_tools');
 INSERT INTO sproc_args VALUES(12,'<local>','callingUser','varchar','input','128','add_update_step_tools');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
-INSERT INTO detail_report_hotlinks VALUES(1,'name','detail-report','name','pipeline_processor_step_tools/report/-/@','valueCol','dl_name','');
+INSERT INTO detail_report_hotlinks VALUES(1,'name','detail-report','name','pipeline_processor_step_tools/report/-/~@','valueCol','dl_name','');
 COMMIT;
