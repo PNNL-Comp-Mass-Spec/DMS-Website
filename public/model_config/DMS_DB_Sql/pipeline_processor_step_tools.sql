@@ -9,8 +9,8 @@ INSERT INTO general_params VALUES('detail_report_data_table','v_processor_step_t
 INSERT INTO general_params VALUES('detail_report_data_id_col','processor_name');
 INSERT INTO general_params VALUES('detail_report_data_id_type','string');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_processor_name','Processor','6','','processor_name','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_tool_name','Tool','6','','tool_name','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_processor_name','Processor','15!','','processor_name','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_tool_name','Tool','15!','','tool_name','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_priority','Priority','6','','priority','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_enabled','Enabled','6','','enabled','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_machine','Machine','6','','machine','ContainsText','text','80','','');
