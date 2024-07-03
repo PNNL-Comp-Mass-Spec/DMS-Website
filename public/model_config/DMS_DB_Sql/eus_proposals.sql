@@ -35,6 +35,7 @@ INSERT INTO list_report_hotlinks VALUES(4,'import_date','format_date','value','1
 INSERT INTO list_report_hotlinks VALUES(5,'start_date','format_date','value','15','{"Format":"Y-m-d"}');
 INSERT INTO list_report_hotlinks VALUES(6,'end_date','format_date','value','15','{"Format":"Y-m-d"}');
 INSERT INTO list_report_hotlinks VALUES(7,'state','color_label','value','','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
+INSERT INTO list_report_hotlinks VALUES(8,'superseded_by','invoke_entity','value','eus_proposals/show/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','EUSPropID','varchar','input','10','add_update_eus_proposals');
 INSERT INTO sproc_args VALUES(2,'state','EUSPropStateID','int','input','','add_update_eus_proposals');
