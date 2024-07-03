@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_material_move_items_list_report');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 INSERT INTO general_params VALUES('detail_report_data_table','v_material_move_items_list_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','id');
 INSERT INTO general_params VALUES('list_report_cmds','material_move_items_cmds');

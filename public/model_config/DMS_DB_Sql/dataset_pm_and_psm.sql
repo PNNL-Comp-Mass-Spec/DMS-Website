@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_dataset_pm_and_psm_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_col','dataset_id');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','Desc');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_most_recent_weeks','Most recent weeks','3!','','acq_start','MostRecentWeeks','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_psm_tool','PSM_Tool','20','','psm_tool','ContainsText','text','64','','');

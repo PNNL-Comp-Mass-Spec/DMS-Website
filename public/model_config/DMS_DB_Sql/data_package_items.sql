@@ -9,7 +9,7 @@ INSERT INTO general_params VALUES('operations_sproc','update_data_package_items_
 INSERT INTO general_params VALUES('my_db_group','package');
 INSERT INTO general_params VALUES('list_report_data_sort_col','id, item_type, item');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','5!','','id','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_id','Pkg ID','5!','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_item_type','Item_Type','32','','item_type','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_item','Item','25!','','item','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_parent_entity','Parent_Entity','32','','parent_entity','ContainsText','text','128','','');

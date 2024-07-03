@@ -11,8 +11,8 @@ INSERT INTO list_report_hotlinks VALUES(2,'plex_exp_id','invoke_entity','value',
 INSERT INTO list_report_hotlinks VALUES(3,'exp_id','invoke_entity','value','experimentid/show','');
 INSERT INTO list_report_hotlinks VALUES(4,'comment','min_col_width','value','50','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','4!','','id','Equals','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_plex_exp_id','Plex Exp ID','6!','','plex_exp_id','Equals','text','22','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_id','Pkg ID','5!','','id','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_plex_exp_id','Plex Exp ID','7!','','plex_exp_id','Equals','text','22','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_plex_experiment','Plex Experiment','30!','','plex_experiment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_exp_id','Channel Exp ID','6!','','exp_id','Equals','text','22','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_channel_experiment','Channel Experiment','30!','','channel_experiment','ContainsText','text','128','','');

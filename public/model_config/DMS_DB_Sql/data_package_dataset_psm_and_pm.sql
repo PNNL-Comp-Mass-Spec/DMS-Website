@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_data_package_dataset_psm_and_pm_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_col','data_pkg, acq_start');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','Desc');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'dataset','invoke_entity','value','dataset/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'psm_job','invoke_entity','value','analysis_job/show','');

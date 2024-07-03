@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('base_table','T_Enzymes');
 INSERT INTO general_params VALUES('list_report_data_table','v_enzymes_list_report');
-INSERT INTO general_params VALUES('list_report_data_sort_col','enzyme_id');
+INSERT INTO general_params VALUES('list_report_data_sort_col','enzyme_name');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'enzyme_name','invoke_entity','value','experiment/report/-/-/-/-/-/-/-/sfx/AND/Enzyme/MatchesText/','');
