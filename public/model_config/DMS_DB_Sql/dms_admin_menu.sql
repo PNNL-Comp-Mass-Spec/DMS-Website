@@ -123,9 +123,6 @@ INSERT INTO home_menu_items VALUES(96,'Miscelleneous','user/create','Create','us
 INSERT INTO home_menu_items VALUES(97,'Miscelleneous','user_operation/report','Display','user operation');
 INSERT INTO home_menu_items VALUES(98,'Miscelleneous','submenu','Internal Standards','');
 INSERT INTO home_menu_items VALUES(99,'Miscelleneous','internal_standards/report','Display','internal standards');
-INSERT INTO home_menu_items VALUES(100,'Miscelleneous','submenu','Metadata Dump','');
-INSERT INTO home_menu_items VALUES(101,'Miscelleneous','dump_metadata_for_multiple_experiments/param','Display','dump metadata for multiple experiments');
-INSERT INTO home_menu_items VALUES(102,'Miscelleneous','dump_metadata_for_multiple_datasets/param','Display','dump metadata for multiple datasets');
 INSERT INTO home_menu_items VALUES(103,'Miscelleneous','submenu','Aux Info Definition','');
 INSERT INTO home_menu_items VALUES(104,'Miscelleneous','aux_info_def/report/Biomaterial','Display','Biomaterial aux info def');
 INSERT INTO home_menu_items VALUES(105,'Miscelleneous','aux_info_def/report/Experiment','Display','Experiment aux info def');
