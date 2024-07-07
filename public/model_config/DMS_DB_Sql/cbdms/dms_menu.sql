@@ -494,9 +494,6 @@ INSERT INTO menu_def VALUES(446,'Admin','submenu','Manager Control','Manager Con
 INSERT INTO menu_def VALUES(447,'Manager Control','link','mc_params/report','Parameters');
 INSERT INTO menu_def VALUES(448,'Manager Control','link','mc_enable_control_by_manager/report','Manager Control');
 INSERT INTO menu_def VALUES(449,'Manager Control','link','mc_enable_control_by_manager_type/report','Manager Type Control');
-INSERT INTO menu_def VALUES(450,'Admin','submenu','Metadata Dump','Metadata Dump');
-INSERT INTO menu_def VALUES(451,'Metadata Dump','link','dump_metadata_for_multiple_experiments/param','Experiment Metadata');
-INSERT INTO menu_def VALUES(452,'Metadata Dump','link','dump_metadata_for_multiple_datasets/param','Dataset Metadata');
 INSERT INTO menu_def VALUES(453,'Admin','submenu','Aux Info Definition','Aux Info Definition');
 INSERT INTO menu_def VALUES(454,'Aux Info Definition','link','aux_info_def/report/Biomaterial','Biomaterial');
 INSERT INTO menu_def VALUES(455,'Aux Info Definition','link','aux_info_def/report/Experiment','Experiment');
