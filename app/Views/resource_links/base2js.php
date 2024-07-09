@@ -15,7 +15,7 @@
 <script src="<?= base_url('javascript/dmsFilter.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsInput.js?version=1') ?>"></script>
 <script src="<?= base_url('javascript/dmsNav.js?version=3') ?>"></script>
-<script src="<?= base_url('javascript/dmsOps.js?version=2') ?>"></script>
+<script src="<?= base_url('javascript/dmsOps.js?version=3') ?>"></script>
 <script src="<?= base_url('javascript/tableRep.js?version=3') ?>"></script>
 
 <?php // To force the reload of lcmd.js, update the version in app/Views/main/list_report.php ?>

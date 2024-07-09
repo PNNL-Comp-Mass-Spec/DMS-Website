@@ -110,7 +110,7 @@ var dmsOps = {
         window.location.href = node.options[node.selectedIndex].value;
     },
     load_script_diagram_cmd: function() {
-        var scriptName = $('#scriptName').val();
+        var scriptName = $('#script_name').val();
         if(scriptName) {
             var url = dmsjs.pageContext.site_url + 'pipeline_script/dot/' + scriptName
             var p = { datasets: $('#datasets').val() };
