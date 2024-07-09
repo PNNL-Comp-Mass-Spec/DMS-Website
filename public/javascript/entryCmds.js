@@ -101,7 +101,11 @@ var entryCmds = {
     }, // mac_jobs
     pipeline_jobs: {
         load_param_form: function () {
-            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/parameter_form/' + $('#job').val() + '/' + $('#script_name').val();
+            var job = $('#job').val();
+            if (!job) {
+                job = 0;
+            }
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/parameter_form/' + job + '/' + $('#script_name').val();
             entry.load_supplemental_form(url, {}, 'param_container', function() {
                 entryCmds.pipeline_jobs.set_param_row_visibility("hide_input", "none");
             });
