@@ -23,10 +23,10 @@ INSERT INTO sproc_args VALUES(13,'<local>','mode','varchar','input','12','do_fil
 INSERT INTO sproc_args VALUES(14,'<local>','message','varchar','output','512','do_file_attachment_operation');
 INSERT INTO sproc_args VALUES(15,'<local>','callingUser','varchar','input','128','do_file_attachment_operation');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_file_name','File Name','20','','file_name','ContainsText','text','256','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_entity_type','Entity Type','30','','entity_type','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_file_name','File Name','40!','','file_name','ContainsText','text','256','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_entity_type','Entity Type','30!','','entity_type','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_entity_id','Entity ID','20','','entity_id','MatchesText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_description','Description','20','','description','ContainsText','text','1024','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_description','Description','30!','','description','ContainsText','text','1024','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'file_name','invoke_multi_col','value','file_attachment/retrieve/','{ "Entity_Type":0, "Entity_ID":0,  "File_Name":0 }');
 INSERT INTO list_report_hotlinks VALUES(2,'entity_id','invoke_multi_col','value','','{ "Entity_Type":0,  "show":1, "Entity_ID":0 }');
