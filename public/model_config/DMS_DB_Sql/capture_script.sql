@@ -37,5 +37,5 @@ INSERT INTO sproc_args VALUES(8,'<local>','callingUser','varchar','input','128',
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'script','detail-report','script','capture_script/dot','labelCol','ID',NULL);
 CREATE TABLE utility_queries (id INTEGER PRIMARY KEY, "name" TEXT, "db" TEXT, "table" TEXT, "columns" TEXT, "filters" TEXT);
-INSERT INTO utility_queries VALUES(1,'dot','capture','T_Scripts','*','{"Script":"MTx"}');
+INSERT INTO utility_queries VALUES(1,'dot','capture','v_capture_scripts','*','{"script":"MTx"}');
 COMMIT;

@@ -311,7 +311,7 @@ class DmsBase extends BaseController
      * @param string $scriptName
      */
     function dot($scriptName)
-    { $this->my_tag;
+    {
         $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
         $this->detail_report->dot($scriptName, $this->my_tag);
     }

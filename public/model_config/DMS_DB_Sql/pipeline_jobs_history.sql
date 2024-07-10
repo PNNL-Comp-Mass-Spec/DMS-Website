@@ -33,7 +33,7 @@ INSERT INTO detail_report_hotlinks VALUES(9,'settings_file','detail-report','set
 INSERT INTO detail_report_hotlinks VALUES(10,'parameter_file','detail-report','parameter_file','param_file/report/-/','labelCol','dl_ParameterFile','');
 INSERT INTO detail_report_hotlinks VALUES(11,'runtime_minutes','format_commas','runtime_minutes','','valueCol','dl_runtime_minutes','{"Decimals":"1"}');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
-INSERT INTO utility_queries VALUES(1,'parameter_values','','broker','T_Job_Parameters','CONVERT(varchar(MAX), Parameters)  as params','','{"Job":"EQn"}','');
-INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','T_Scripts','CONVERT(varchar(MAX), Parameters)  as params','','{"Script":"MTx"}','');
-INSERT INTO utility_queries VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','*','','','');
+INSERT INTO utility_queries VALUES(1,'parameter_values','','broker','v_pipeline_jobs_history_detail_report','parameters as params','','{"job":"EQn"}','');
+INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','v_pipeline_script_parameters','parameters as params','','{"script":"MTx"}','');
+INSERT INTO utility_queries VALUES(3,'parameter_scripts','','broker','v_pipeline_scripts_enabled','*','','','');
 COMMIT;

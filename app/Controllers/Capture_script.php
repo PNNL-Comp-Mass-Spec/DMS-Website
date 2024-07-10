@@ -17,7 +17,7 @@ class Capture_script extends DmsBase {
         $this->model->make_db_connection();
 
         // Get script XML
-        $builder = $this->db->table('t_scripts');
+        $builder = $this->db->table('v_capture_scripts');
         $builder->select('contents');
         $builder->where('script', $scriptName);
         $query = $builder->get();
