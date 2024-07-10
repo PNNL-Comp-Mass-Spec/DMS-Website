@@ -16,12 +16,12 @@ INSERT INTO list_report_hotlinks VALUES(6,'+entries','format_commas','value','',
 INSERT INTO list_report_hotlinks VALUES(7,'residues','format_commas','value','','{"Decimals":"0"}');
 INSERT INTO list_report_hotlinks VALUES(8,'description','min_col_width','value','60','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_Name','Name','40!','','name','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_Organism','Organism','15!','','organism_name','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_Name','Name','80!','','name','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_Organism','Organism','25!','','organism_name','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_Usage','Most recent weeks','2!','','most_recent_usage','MostRecentWeeks','text','','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_Min_Entries','Min entries','5!','','entries','GreaterThanOrEqualTo','text','','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_Max_Entries','Max entries','5!','','entries','LessThanOrEqualTo','text','','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_Description','Description','','','description','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_Description','Description','20!','','description','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_Source','Source','20!','','source','ContainsText','text','','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'organism_name','detail-report','organism_name','organism/report/~','valueCol','dl_organism','');
