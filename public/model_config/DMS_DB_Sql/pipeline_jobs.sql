@@ -67,7 +67,7 @@ CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text,
 INSERT INTO entry_commands VALUES(1,'reset','cmd','Reset Failed Steps or Rerun Job','','');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
 INSERT INTO utility_queries VALUES(1,'parameter_values','','broker','v_pipeline_jobs_detail_report','parameters as params','','{"job":"EQn"}','');
-INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','v_pipeline_script_parameters','parameters as params','','{"script":"MTx"}','');
+INSERT INTO utility_queries VALUES(2,'parameter_definitions','','broker','v_pipeline_scripts','parameters as params','','{"script":"MTx"}','');
 INSERT INTO utility_queries VALUES(3,'parameter_scripts','','broker','v_pipeline_scripts_enabled','script','','','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'owner_username','picker.replace','userUsernamePickList','','',',','');
