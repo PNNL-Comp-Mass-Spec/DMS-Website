@@ -36,6 +36,6 @@ INSERT INTO sproc_args VALUES(4,'hanford_id','HanfordID','varchar','input','50',
 INSERT INTO sproc_args VALUES(5,'<local>','mode','varchar','input','12','add_update_eus_users');
 INSERT INTO sproc_args VALUES(6,'<local>','message','varchar','output','512','add_update_eus_users');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO detail_report_hotlinks VALUES(1,'username','detail-report','username','user/show/','labelCol','dl_username','');
+INSERT INTO detail_report_hotlinks VALUES(1,'username','detail-report','username','user/show/','valueCol','dl_username','');
 INSERT INTO detail_report_hotlinks VALUES(2,'id','detail-report','id','eus_proposal_users/report/-/','labelCol','dl_eus_user_id','');
 COMMIT;
