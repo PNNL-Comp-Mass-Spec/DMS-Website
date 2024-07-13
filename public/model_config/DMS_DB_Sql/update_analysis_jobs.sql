@@ -43,8 +43,8 @@ INSERT INTO form_field_choosers VALUES(3,'priority','picker.replace','analysisJo
 INSERT INTO form_field_choosers VALUES(4,'assigned_processor','picker.replace','assignedProcessorPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(5,'associated_processor_group','list-report.helper','','helper_analysis_processor_group/report','',',','');
 INSERT INTO form_field_choosers VALUES(6,'propagation_mode','picker.replace','jobPropagationModePickList','','',',','');
-INSERT INTO form_field_choosers VALUES(7,'param_file','list-report.helper','','helper_aj_param_file/report','',',','');
-INSERT INTO form_field_choosers VALUES(8,'settings_file','list-report.helper','','helper_aj_settings_file/report','',',','');
+INSERT INTO form_field_choosers VALUES(7,'param_file','list-report.helper','','helper_aj_param_file/report/~','',',','');
+INSERT INTO form_field_choosers VALUES(8,'settings_file','list-report.helper','','helper_aj_settings_file/report/~','',',','');
 INSERT INTO form_field_choosers VALUES(9,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(10,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism',',','');
 INSERT INTO form_field_choosers VALUES(11,'prot_coll_options_list','picker.replace','protOptSeqDirPickList','','',',','');

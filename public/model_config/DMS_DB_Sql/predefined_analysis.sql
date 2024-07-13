@@ -62,7 +62,7 @@ INSERT INTO form_field_choosers VALUES(6,'instrument_name_criteria','picker.repl
 INSERT INTO form_field_choosers VALUES(7,'organism_name_criteria','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(8,'labelling_incl_criteria','picker.replace','labellingPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(9,'analysis_tool_name','picker.replace','analysisToolPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(10,'param_file_name','list-report.helper','','helper_aj_param_file/report','analysis_tool_name',',','');
+INSERT INTO form_field_choosers VALUES(10,'param_file_name','list-report.helper','','helper_aj_param_file/report/~','analysis_tool_name',',','');
 INSERT INTO form_field_choosers VALUES(11,'settings_file_name','list-report.helper','','helper_aj_settings_file/report/~','analysis_tool_name',',','');
 INSERT INTO form_field_choosers VALUES(12,'organism_name','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(13,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism_name',',','');

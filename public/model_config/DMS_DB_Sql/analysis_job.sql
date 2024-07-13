@@ -35,7 +35,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO form_field_choosers VALUES(1,'dataset','list-report.helper','','helper_dataset/report','',',','');
 INSERT INTO form_field_choosers VALUES(2,'priority','picker.replace','analysisJobPriPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'tool_name','picker.replace','analysisToolPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(4,'param_file','list-report.helper','','helper_aj_param_file/report','tool_name',',','');
+INSERT INTO form_field_choosers VALUES(4,'param_file','list-report.helper','','helper_aj_param_file/report/~','tool_name',',','');
 INSERT INTO form_field_choosers VALUES(5,'settings_file','list-report.helper','','helper_aj_settings_file/report/~','tool_name',',','');
 INSERT INTO form_field_choosers VALUES(6,'organism','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(7,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism',',','');

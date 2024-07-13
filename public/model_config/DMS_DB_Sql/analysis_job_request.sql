@@ -35,7 +35,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO form_field_choosers VALUES(1,'datasets','list-report.helper','','helper_dataset_ckbx/report/-/-/-/-/-/52','',',','Choose by Dataset Name:');
 INSERT INTO form_field_choosers VALUES(2,'datasets','list-report.helper','','helper_data_package_dataset_ckbx/report','',',','Choose by Data Package:');
 INSERT INTO form_field_choosers VALUES(3,'analysis_tool','picker.replace','analysisToolPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(4,'param_file_name','list-report.helper','','helper_aj_param_file/report','analysis_tool',',','');
+INSERT INTO form_field_choosers VALUES(4,'param_file_name','list-report.helper','','helper_aj_param_file/report/~','analysis_tool',',','');
 INSERT INTO form_field_choosers VALUES(5,'settings_file_name','list-report.helper','','helper_aj_settings_file/report/~','analysis_tool',',','');
 INSERT INTO form_field_choosers VALUES(6,'organism_name','list-report.helper','','helper_organism/report','',',','');
 INSERT INTO form_field_choosers VALUES(7,'prot_coll_name_list','list-report.helper','','helper_protein_collection/report','organism_name',',','');
