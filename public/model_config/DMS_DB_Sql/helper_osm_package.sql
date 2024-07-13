@@ -4,6 +4,8 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_osm_package_list_report');
 INSERT INTO general_params VALUES('list_report_helper_multiple_selection','no');
 INSERT INTO general_params VALUES('my_db_group','package');
+INSERT INTO general_params VALUES('list_report_data_sort_col','id');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','update_opener','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
