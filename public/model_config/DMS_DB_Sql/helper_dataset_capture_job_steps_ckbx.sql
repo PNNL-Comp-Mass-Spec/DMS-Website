@@ -13,8 +13,8 @@ INSERT INTO list_report_hotlinks VALUES(2,'dataset','update_opener','value',' ',
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job_state','Job_State','20','','job_state','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_script','Script','20','','script','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','30!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','50!','','dataset','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_job','Job','20','','job','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_storage_server','Storage_Server','20','','storage_server','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_instrument','Instrument','25!','','instrument','ContainsText','text','24','','');
 COMMIT;

@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','instrument');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument','Instrument','20','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','60','','description','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','60','','status','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','60','','status','StartsWithText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'instrument','invoke_entity','value','instrument_config_history/report/','');
 COMMIT;

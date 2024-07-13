@@ -8,10 +8,10 @@ INSERT INTO general_params VALUES('list_report_data_cols','name, genus, species,
 INSERT INTO general_params VALUES('list_report_helper_multiple_selection','no');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','50!','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','32','','description','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_strain','Strain','32','','strain','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_genus','Genus','32','','genus','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_species','Species','32','','species','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','30!','','description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_strain','Strain','20!','','strain','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_genus','Genus','20!','','genus','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_species','Species','20!','','species','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'name','update_opener','value','','');
 COMMIT;

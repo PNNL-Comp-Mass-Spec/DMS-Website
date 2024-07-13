@@ -11,7 +11,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','',
 INSERT INTO list_report_primary_filter VALUES(2,'pf_campaign','Campaign','32','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_experiment','Experiment','35!','','experiment','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_rating','Rating','32','','rating','MatchesText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_rating','Rating','32','','rating','StartsWithText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_acq_start','Most Recent Weeks','32','','acq_start','MostRecentWeeks','text','16','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_requestID','Request','12','','request','Equals','text','16','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_batchID','Batch','12','','batch','Equals','text','16','','');

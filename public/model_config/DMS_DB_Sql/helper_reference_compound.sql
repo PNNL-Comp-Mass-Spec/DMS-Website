@@ -9,9 +9,9 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'id','CHECKBOX','id_name','','');
 INSERT INTO list_report_hotlinks VALUES(2,'id_name','update_opener','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','35!','','compound_name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Comment','32','','description','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_ID','ID','12','','id','Equals','text','12','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Compound','35!','','compound_name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Desc','32','','description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_ID','ID','6!','','id','Equals','text','12','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_campaign','Campaign','32','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_gene','Gene','32','','gene','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_ID_Name','ID_Name','35!','','id_name','StartsWithText','text','128','','');

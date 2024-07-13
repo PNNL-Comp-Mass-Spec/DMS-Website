@@ -10,6 +10,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','dataset_type','','');
 INSERT INTO list_report_hotlinks VALUES(2,'dataset_type','update_opener','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset_type','Dataset_Type','20','','dataset_type','ContainsText','text','50','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','20','','description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset_type','Dataset_Type','25!','','dataset_type','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','35!','','description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_active','Active','6','','active','StartsWithText','text','10','','');
 COMMIT;

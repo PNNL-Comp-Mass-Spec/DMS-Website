@@ -7,11 +7,11 @@ INSERT INTO general_params VALUES('list_report_helper_multiple_selection','yes')
 INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','state_id','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_requestname','RequestName','32','','request_name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','state','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_requestname','Name','32','','request_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_reason','Reason','32','','reason','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_assignedpersonnel','AssignedPersonnel','32','','assigned_personnel','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_prepmethod','PrepMethod','32','','prep_method','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_assignedpersonnel','Assigned Personnel','32','','assigned_personnel','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_prepmethod','Prep Method','32','','prep_method','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_organism','Organism','32','','organism','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_priority','Priority','32','','priority','ContainsText','text','128','','');
