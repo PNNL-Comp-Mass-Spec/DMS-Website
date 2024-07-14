@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_lc_column_dataset_count');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_column_name','Column Name','60','','column_name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_column_name','Column Name','30!','','column_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','60','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_number_of_datasets_greater_than','Number of Datasets (greater than)','12','','number_of_datasets','GreaterThan','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
