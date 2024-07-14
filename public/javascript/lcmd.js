@@ -355,8 +355,8 @@ var lcmd = {
                 var obj = {};
                 obj.req = cartField.name;
                 obj.cart = cartField.value;
-                obj.col = $('#Col_' + obj.req).val();
-                obj.cartConfig = $('#Cart_Config_' + obj.req).val();
+                obj.col = $('#col_' + obj.req).val();
+                obj.cartConfig = $('#cart_config_' + obj.req).val();
                 rlist.push(obj);
             });
             return rlist;
@@ -364,7 +364,7 @@ var lcmd = {
         saveChangesToDatabase: function () {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
             var rlist = this.getEditFieldsObjList();
-            var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}, {p:'cartConfig', a:'cg'}];
+            var mapP2A = [{p:'req', a:'rq'}, {p:'cart', a:'ct'}, {p:'col', a:'co'}, {p:'cart_config', a:'cg'}];
             var xml = dmsInput.getXmlElementsFromObjectArray(rlist, 'r', mapP2A);
             var url = dmsjs.pageContext.ops_url;
             var p = {};
@@ -384,7 +384,7 @@ var lcmd = {
                 return;
             }
             $.each(iList, function(idx, req) {
-                $('#Cart_' + req).val(cart);
+                $('#cart_' + req).val(cart);
             });
         },
         setCartConfigName: function () {
@@ -399,7 +399,7 @@ var lcmd = {
                 return;
             }
             $.each(iList, function(idx, req) {
-                $('#Cart_Config_' + req).val(cartConfig);
+                $('#cart_config_' + req).val(cartConfig);
             });
         },
         setCartCol: function () {
@@ -414,7 +414,7 @@ var lcmd = {
                 return;
             }
             $.each(iList, function(idx, req) {
-                $('#Col_' + req).val(col);
+                $('#col_' + req).val(col);
             });
         }
     },
