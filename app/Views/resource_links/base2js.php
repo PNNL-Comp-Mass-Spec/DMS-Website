@@ -18,5 +18,5 @@
 <script src="<?= base_url('javascript/dmsOps.js?version=3') ?>"></script>
 <script src="<?= base_url('javascript/tableRep.js?version=3') ?>"></script>
 
-<?php // To force the reload of lcmd.js, update the version in app/Views/main/list_report.php ?>
+<?php // To force the reload of lcmd.js, update the version in app\Views\resource_links\lcmd.php ?>
 <?php // Several  other .js files have version numbers defined for them in various .php files ?>
