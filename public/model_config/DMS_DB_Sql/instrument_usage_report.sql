@@ -54,8 +54,8 @@ INSERT INTO form_fields VALUES(8,'month','Month','non-edit','','','','','','trim
 INSERT INTO form_fields VALUES(9,'dataset_id','ID','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(10,'proposal','Proposal','text','32','32','','','','trim|max_length[32]');
 INSERT INTO form_fields VALUES(11,'usage','Usage','text','32','32','','','','trim|max_length[32]');
-INSERT INTO form_fields VALUES(12,'users','Users','area','','','4','70','','trim|max_length[1024]');
-INSERT INTO form_fields VALUES(13,'operator','Operator','text','50','64','','','','trim|max_length[64]');
+INSERT INTO form_fields VALUES(12,'users','Users (EUS User IDs)','area','','','2','50','','trim|max_length[1024]');
+INSERT INTO form_fields VALUES(13,'operator','Operator (EUS User ID)','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(14,'comment','Comment','area','','','4','70','','trim|max_length[4096]');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'seq','invoke_entity','value','instrument_usage_report/show/','');
