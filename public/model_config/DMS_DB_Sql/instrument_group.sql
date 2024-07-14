@@ -38,7 +38,7 @@ INSERT INTO form_fields VALUES(7,'allocation_tag','Allocation Tag','text','12','
 INSERT INTO form_fields VALUES(8,'default_dataset_type_name','Default Dataset Type','text','20','64','','','','trim|max_length[64]');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'allowed_dataset_types','detail-report','instrument_group','instrument_allowed_dataset_type/report','labelCol','dl_dataset_type','');
-INSERT INTO detail_report_hotlinks VALUES(2,'instruments','detail-report','instrument_group','instrument/report/-/-/','labelCol','dl_instrument_list','');
+INSERT INTO detail_report_hotlinks VALUES(2,'instruments','detail-report','instrument_group','instrument/report/-/-/-/','labelCol','dl_instrument_list','');
 INSERT INTO detail_report_hotlinks VALUES(3,'+instruments','tabular_link_list','instruments','instrumentid/show/','valueCol','dl_instrument_id','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'default_dataset_type_name','picker.replace','datasetTypePickList','','',',','');
