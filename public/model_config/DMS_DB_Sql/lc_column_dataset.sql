@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_lc_column_dataset_count');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_column_name','Column Name','30!','','column_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','60','','state','ContainsText','text','128','','');
