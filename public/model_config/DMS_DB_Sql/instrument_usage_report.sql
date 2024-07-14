@@ -69,4 +69,6 @@ INSERT INTO detail_report_hotlinks VALUES(5,'users','link_list','users','eus_use
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'proposal','list-report.helper','','helper_eus_proposal/report','',',','Select Proposal...');
 INSERT INTO form_field_choosers VALUES(2,'usage','picker.replace','emslInstrumentUsagePickList','','',',','');
+INSERT INTO form_field_choosers VALUES(3,'users','list-report.helper','','helper_eus_user_id_ckbx/report','',',','Select Users');
+INSERT INTO form_field_choosers VALUES(4,'operator','list-report.helper','','helper_eus_user_id/report','',',','Select Operator');
 COMMIT;
