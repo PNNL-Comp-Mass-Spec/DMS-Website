@@ -75,7 +75,6 @@ INSERT INTO restricted_actions VALUES(71,'mc_enable_control_by_manager','operati
 INSERT INTO restricted_actions VALUES(72,'mc_enable_control_by_manager_type','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration');
 INSERT INTO restricted_actions VALUES(73,'mrm_list_attachment','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(75,'new_instrument','enter','DMS_Infrastructure_Administration');
-INSERT INTO restricted_actions VALUES(76,'new_instrument_class','enter','DMS_Infrastructure_Administration');
 INSERT INTO restricted_actions VALUES(77,'operations_tasks','enter','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation, DMS_Sample_Prep_Request_State, DMS_Instrument_Operation');
 INSERT INTO restricted_actions VALUES(78,'organism','enter','DMS_User');
 INSERT INTO restricted_actions VALUES(79,'osm_package','operation','DMS_Infrastructure_Administration, DMS_Ops_Administration, DMS_Sample_Preparation');
