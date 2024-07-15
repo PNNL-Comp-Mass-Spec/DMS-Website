@@ -10,7 +10,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','20','','job','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','20','','dataset','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_resulttype','Result Type','20','','result_type','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_mt_db_name','MT DB_Name','20','','mt_db_name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_mt_db_name','MT DB_Name','30!','','mt_db_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_process_state','State','20','','process_state','ContainsText','text','512','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
@@ -22,7 +22,7 @@ INSERT INTO list_report_hotlinks VALUES(3,'mt_db_name','invoke_entity','mt_db_na
 INSERT INTO list_report_hotlinks VALUES(4,'sort_key','no_display','value','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'msms_jobs','detail-report','mt_db_name','mts_mt_db_jobs/report/-/-/peptide_hit/~','labelCol','MT_DB',NULL);
-INSERT INTO detail_report_hotlinks VALUES(2,'ms_jobs','detail-report','mt_db_name','mts_mt_db_jobs/report/-/-/hmma/~','labelCol','MT_DB_HMMA',NULL);
+INSERT INTO detail_report_hotlinks VALUES(2,'ms_jobs','detail-report','mt_db_name','mts_mt_db_jobs/report/-/-/StartsWith__hmma/~','labelCol','MT_DB_HMMA','');
 INSERT INTO detail_report_hotlinks VALUES(3,'campaign','detail-report','campaign','campaign/show','valueCol','Campaign',NULL);
 INSERT INTO detail_report_hotlinks VALUES(4,'organism','detail-report','organism','organism/report/~','labelCol','Organism',NULL);
 INSERT INTO detail_report_hotlinks VALUES(5,'pm_task_count','detail-report','mt_db_name','mts_pm_results/report/-/-/-/~','labelCol','PM_Tasks',NULL);

@@ -16,7 +16,8 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_container','Container','6','
 INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','15!','','location','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_item','Item','6','','item','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_item_type','Item Type','6','','item_type','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_container_status','Container Status','6','','container_status','StartsWithText','text','32','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_item_id','Item ID','6','','id','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_container_status','Container Status','6','','container_status','StartsWithText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'item','select_case','item_type','','{"Biomaterial":"biomaterial","Experiment":"experiment","RefCompound":"reference_compound/report"}');
 INSERT INTO list_report_hotlinks VALUES(2,'sel','CHECKBOX','item_id','','');

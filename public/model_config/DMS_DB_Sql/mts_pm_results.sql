@@ -12,12 +12,12 @@ INSERT INTO list_report_hotlinks VALUES(4,'output_folder_path','masked_href-fold
 INSERT INTO list_report_hotlinks VALUES(5,'task_database','invoke_entity','value','mts_mt_dbs/report','');
 INSERT INTO list_report_hotlinks VALUES(6,'task_server','invoke_entity','value','mts_mt_dbs/report/-/-/-/-/-/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_Dataset','Dataset','32','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_Dataset','Dataset','30!','','dataset','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pb_Job','Job','12','','job','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_Instrument','Instrument','15','','instrument','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_TaskDB','Task Database','32','','task_database','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_MostRecent','Most recent weeks','8','','task_start','MostRecentWeeks','text','32','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_StartedAfter','Started after','8','','task_start','LaterThan','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_TaskDB','Task Database','30!','','task_database','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_MostRecent','Most recent weeks','3!','','task_start','MostRecentWeeks','text','32','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_StartedAfter','Started after','10!','','task_start','LaterThan','text','20','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_StartedAfter','picker.prevDate','','','',',');
 COMMIT;

@@ -5,8 +5,8 @@ INSERT INTO general_params VALUES('list_report_data_table','v_mts_mt_dbs');
 INSERT INTO general_params VALUES('list_report_data_sort_col','mt_db_id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_mt_db_name','DB_Name','20','','mt_db_name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','20','','description','ContainsText','text','2048','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_mt_db_name','DB Name','30!','','mt_db_name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','20!','','description','ContainsText','text','2048','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','20','','state','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_organism','Organism','20','','organism','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
@@ -16,5 +16,5 @@ INSERT INTO list_report_hotlinks VALUES(1,'mt_db_name','invoke_entity','mt_db_na
 INSERT INTO list_report_hotlinks VALUES(2,'campaign','invoke_entity','campaign','campaign/show','');
 INSERT INTO list_report_hotlinks VALUES(3,'peptide_db','invoke_entity','peptide_db','mts_pt_db_jobs/show','');
 INSERT INTO list_report_hotlinks VALUES(4,'msms_jobs','invoke_entity','mt_db_name','mts_mt_db_jobs/report/-/-/peptide_hit/~','');
-INSERT INTO list_report_hotlinks VALUES(5,'ms_jobs','invoke_entity','mt_db_name','mts_mt_db_jobs/report/-/-/hmma/~','');
+INSERT INTO list_report_hotlinks VALUES(5,'ms_jobs','invoke_entity','mt_db_name','mts_mt_db_jobs/report/-/-/StartsWith__hmma/~','');
 COMMIT;
