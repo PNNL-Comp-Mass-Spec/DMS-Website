@@ -15,7 +15,7 @@ INSERT INTO list_report_primary_filter VALUES(6,'pf_monomass_max','Max_Mass','20
 INSERT INTO list_report_primary_filter VALUES(7,'pf_composition','Composition','40','','composition','ContainsText','text','512','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'name','detail-report','name','unimod/report/','valueCol','dl_Name',NULL);
-INSERT INTO detail_report_hotlinks VALUES(2,'monoisotopic_mass','detail-report','monoisotopic_mass','unimod/report/-/-/-/-/@/@','valueCol','dl_monomass',NULL);
+INSERT INTO detail_report_hotlinks VALUES(2,'monoisotopic_mass','detail-report','monoisotopic_mass','unimod/report/-/-/-/@/@','valueCol','dl_monomass','');
 INSERT INTO detail_report_hotlinks VALUES(3,'url','literal_link','url','url/show','valueCol','dl_url',NULL);
 INSERT INTO detail_report_hotlinks VALUES(4,'dms_name','detail-report','dms_name','mass_correction_factors/report/-/~','valueCol','dl_dms_name','');
 INSERT INTO detail_report_hotlinks VALUES(5,'mass_correction_id','detail-report','mass_correction_id','param_file_mass_mods/report/-/@','valueCol','dl_mass_correction_id','');
