@@ -130,9 +130,9 @@ var lcmd = {
     },
     instrument_allowed_dataset_type: {
         localRowAction: function (url, value, obj) {
-            $('#instrument_group_fld').val(obj["Instrument Group"]);
-            $('#dataset_type_fld').val(obj["Dataset Type"]);
-            $('#usage_fld').val(obj["Usage for This Group"]);
+            $('#instrument_group_fld').val(obj["instrument_group"]);
+            $('#dataset_type_fld').val(obj["dataset_type"]);
+            $('#usage_fld').val(obj["usage_for_this_group"]);
         },
         op: function(mode) {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
@@ -352,7 +352,7 @@ var lcmd = {
             // where each object references the fields for
             // one block
             var rlist = [];
-            $('.Cart').each(function(idx, cartField) {
+            $('.cart').each(function(idx, cartField) {
                 var obj = {};
                 obj.req = cartField.name;
                 obj.cart = cartField.value;
