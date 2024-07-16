@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_predefined_analysis_scheduling_rules_list_report');
-INSERT INTO general_params VALUES('list_report_data_sort_col','evaluation_order');
+INSERT INTO general_params VALUES('list_report_data_sort_col','evaluation_order, id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 INSERT INTO general_params VALUES('detail_report_data_table','v_predefined_analysis_scheduling_rules_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','id');
