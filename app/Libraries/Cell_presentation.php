@@ -705,17 +705,17 @@ class Cell_presentation {
 
             case "masked_href-folder":
                 $lbl = getOptionValue($colSpec, 'Label', 'Undefined_masked_href-folder');
-                $lnk = str_replace('\\', '/', $ref);
+                $lnk = ltrim(str_replace('\\', '/', $ref), '/'); // remove leading '/'
                 if ($lnk) {
-                    $str = "<td>" . "<a href='file:///$lnk'>$lbl</a>" . "</td>";
+                    $str = "<td>" . "<a href='http://$lnk'>$lbl</a>" . "</td>";
                 } else {
                     $str = "<td></td>";
                 }
                 break;
 
             case "href-folder":
-                $lnk = str_replace('\\', '/', $ref);
-                $str = "<td>" . "<a href='file:///$lnk'>$value</a>" . "</td>";
+                $lnk = ltrim(str_replace('\\', '/', $ref), '/'); // remove leading '/'
+                $str = "<td>" . "<a href='http://$lnk'>$value</a>" . "</td>";
                 break;
 
             case "inplace_edit":

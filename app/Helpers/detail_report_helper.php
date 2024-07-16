@@ -340,8 +340,8 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
 
         case "href-folder":
             if ($val) {
-                $lnk = str_replace('\\', '/', $val);
-                $str = "<a href='file:///$lnk'>$display</a>";
+                $lnk = ltrim(str_replace('\\', '/', $val), '/'); // remove leading '/'
+                $str = "<a href='http://$lnk'>$display</a>";
             } else {
                 $str = $display;
             }
