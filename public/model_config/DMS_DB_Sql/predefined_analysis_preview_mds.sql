@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_sproc','predefined_analysis_jobs_mds_proc');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'dataset_list','Datasets','area','','','4','60','QC_Mam_19_01_d_09Aug22_Pippin_WBEH-22-02-04-50u, QC_Mam_19_01_a_09Aug22_Pippin_WBEH-22-02-04-50u, QC_Mam_19_01_Run-1_09Aug22_Oak_WBEH_22-06-17','trim|required|max_length[3500]');
+INSERT INTO form_fields VALUES(1,'dataset_list','Datasets','area','','','4','90','QC_Mam_19_01_d_09Aug22_Pippin_WBEH-22-02-04-50u, QC_Mam_19_01_a_09Aug22_Pippin_WBEH-22-02-04-50u, QC_Mam_19_01_Run-1_09Aug22_Oak_WBEH_22-06-17','trim|required|max_length[3500]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'dataset_list','list-report.helper','','helper_dataset_ckbx/report/-/-/-/-/-/52','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

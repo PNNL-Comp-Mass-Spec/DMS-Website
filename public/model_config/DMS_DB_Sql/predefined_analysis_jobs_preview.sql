@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_sproc','predefined_analysis_jobs_proc');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'dataset_name','Dataset','text','60','128','','','QC_Mam_19_01_d_09Aug22_Pippin_WBEH-22-02-04-50u','trim|required|max_length[128]');
+INSERT INTO form_fields VALUES(1,'dataset_name','Dataset','text','90','128','','','QC_Mam_19_01_d_09Aug22_Pippin_WBEH-22-02-04-50u','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(4,'exclude_datasets_not_released','Exclude Datasets Not Released','hidden','1','1','','','1','trim|default_value[1]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'dataset_name','list-report.helper','','helper_dataset/report','',',','');

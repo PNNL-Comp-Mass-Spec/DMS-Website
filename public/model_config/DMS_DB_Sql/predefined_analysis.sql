@@ -43,8 +43,8 @@ INSERT INTO form_fields VALUES(27,'organism_name','Organism','text','60','128','
 INSERT INTO form_fields VALUES(28,'organism_db_name','Organism DB File','text','60','128','','','na','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(29,'prot_coll_name_list','Protein Collection List','area','','','3','60','na','trim|max_length[512]');
 INSERT INTO form_fields VALUES(30,'prot_coll_options_list','Protein Options List','area','','','2','60','seq_direction=forward','trim|max_length[256]');
-INSERT INTO form_fields VALUES(31,'priority','Priority','text','4','4','','','3','trim|default_value[3]|required|max_length[2]|numeric');
-INSERT INTO form_fields VALUES(32,'enabled','Enabled','text','1','1','','','1','trim|default_value[1]|required|max_length[2]');
+INSERT INTO form_fields VALUES(31,'priority','Priority','text','4','2','','','3','trim|default_value[3]|required|max_length[2]|numeric');
+INSERT INTO form_fields VALUES(32,'enabled','Enabled','text','4','1','','','1','trim|default_value[1]|required|max_length[2]');
 INSERT INTO form_fields VALUES(33,'description','Description','area','','','2','60','','trim');
 INSERT INTO form_fields VALUES(34,'special_processing','Special Processing','area','','','3','110','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(35,'creator','Creator','text','50','50','','','','trim|required');
