@@ -139,7 +139,7 @@ INSERT INTO detail_report_hotlinks VALUES(6,'dataset_type_criteria','detail-repo
 INSERT INTO detail_report_hotlinks VALUES(7,'param_file_name','detail-report','param_file_name','param_file/report/-/~','labelCol','dl_parameter_file','');
 INSERT INTO detail_report_hotlinks VALUES(8,'campaign_criteria','detail-report','campaign_criteria','campaign/show/','valueCol','dl_campaign','');
 INSERT INTO detail_report_hotlinks VALUES(9,'organism_name','detail-report','organism_name','organism/report/~','labelCol','dl_organism_name','');
-INSERT INTO detail_report_hotlinks VALUES(10,'protein_collection_list','detail-report','protein_collection_list','protein_collection/report/StartsWith__@','labelCol','dl_protein_collection_list','');
+INSERT INTO detail_report_hotlinks VALUES(10,'protein_collection_list','detail-report','protein_collection_list','protein_collection/report/StartsWith__@','labelCol','dl_protein_collection_list','{"RemoveRegEx":",.+"}');
 CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );
 INSERT INTO utility_queries VALUES(1,'queue','Datasets Predefined Analysis Queue','','V_Predefined_Analysis_Scheduling_Queue_List_Report','*','{"col":"Item", "dir":"DESC"}','{"Dataset":"CTx", "ID":"Equals", "State":"CTx", "Message":"CTx", "User":"CTx", "Entered":"LTd"}','{"Dataset":{"LinkType":"invoke_entity","Target":"dataset\/show\/"},"Message":{"LinkType":"min_col_width", "Target":"40"}}');
 COMMIT;

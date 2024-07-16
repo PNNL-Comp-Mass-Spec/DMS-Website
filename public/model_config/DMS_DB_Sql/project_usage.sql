@@ -15,5 +15,6 @@ INSERT INTO list_report_primary_filter VALUES(6,'pf_Proposal_Name','Proposal Tit
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'proposal_id','invoke_entity','value','eus_proposals/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'proposal_user','invoke_entity','value','eus_proposals/report/-/-/','');
-INSERT INTO list_report_hotlinks VALUES(3,'instrument_last','invoke_entity','value','dataset/report/-/-/-/@/-/-/6','');
+INSERT INTO list_report_hotlinks VALUES(3,'instrument_first','invoke_entity','value','dataset/report/-/-/-/@/-/-/6','');
+INSERT INTO list_report_hotlinks VALUES(4,'instrument_last','invoke_entity','value','dataset/report/-/-/-/@/-/-/6','');
 COMMIT;
