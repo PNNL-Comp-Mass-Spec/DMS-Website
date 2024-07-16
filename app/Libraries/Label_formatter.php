@@ -17,6 +17,7 @@ class Label_Formatter {
         "file_size_kb"                  => "File Size (KB)",
         "file_size_mb"                  => "File Size (MB)",
         "grandparent_term_pk"           => "Grandparent Term PK",
+        "md_state"                      => "MD State",
         "mts_mt_db_count"               => "MTS MT DB Count",
         "mts_pt_db_count"               => "MTS PT DB Count",
         "myemsl_upload_ids"             => "MyEMSL Upload IDs",
