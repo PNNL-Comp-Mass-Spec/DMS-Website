@@ -14,6 +14,5 @@ CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "fi
 INSERT INTO external_sources VALUES(1,'predefined_analysis','rule_id','ColName','id');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'rule_id','ruleID','int','input','','predefined_analysis_datasets');
-INSERT INTO sproc_args VALUES(2,'<local>','message','varchar','output','512','predefined_analysis_datasets');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 COMMIT;
