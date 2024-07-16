@@ -45,7 +45,7 @@ INSERT INTO form_field_choosers VALUES(10,'associated_processor_group','list-rep
 INSERT INTO form_field_choosers VALUES(11,'propagation_mode','picker.replace','jobPropagationModePickList','','',',','');
 INSERT INTO form_field_choosers VALUES(12,'state_name','picker.replace','analysisJobStatePickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','6!','','job','Equals','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','8!','','job','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_tool','Tool','15!','','tool','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','50!','','dataset','ContainsText','text','128','','');

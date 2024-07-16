@@ -13,8 +13,9 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_processor_name','Processor',
 INSERT INTO list_report_primary_filter VALUES(2,'pf_tool_name','Tool','15!','','tool_name','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_priority','Priority','6','','priority','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_enabled','Enabled','6','','enabled','Equals','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_machine','Machine','6','','machine','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_group_name','Group','6','','group_name','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_processor_state','Processor State','6','','processor_state','Equals','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_machine','Machine','6','','machine','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_group_name','Group','6','','group_name','ContainsText','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'tool_name','invoke_entity','value','pipeline_step_tools/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'processor_name','invoke_entity','processor_name','pipeline_processor_step_tools/show','');

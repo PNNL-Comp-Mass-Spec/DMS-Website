@@ -6,9 +6,9 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','dataset_id, job')
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_data_cols','dataset_id, dataset, job, pri, state, tool, campaign, experiment, instrument, param_file, settings_file, organism, tissue, job_organism, organism_db, protein_collection_list, protein_options, comment, created, started, finished, runtime_minutes, progress, eta_minutes, job_request, results_folder, results_folder_path, last_affected, rating');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_datasetid','Dataset ID','6!','','dataset_id','Equals','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_datasetid','Dataset ID','8!','','dataset_id','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','60!','','dataset','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_job','Job','6!','','job','Equals','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_job','Job','8!','','job','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_state','State','','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_tool','Tool','','','tool','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','','','campaign','ContainsText','text','50','','');

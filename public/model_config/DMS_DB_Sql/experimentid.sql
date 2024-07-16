@@ -22,7 +22,7 @@ INSERT INTO list_report_hotlinks VALUES(5,'location','min_col_width','value','20
 INSERT INTO list_report_hotlinks VALUES(6,'tissue','invoke_entity','value','tissue/report/~','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','6!','','id','Equals','text','22','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_experiment','Experiment','30!','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_experiment','Experiment','40!','','experiment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_campaign','Campaign','15!','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_organism','Organism','15!','','organism','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_tissue','Tissue','10','','tissue','ContainsText','text','128','','');

@@ -35,10 +35,10 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','30!','','name'
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Inst. Group','32','','inst_group','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_description','Description','32','','description','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_owner','Owner','32','','owner','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_days_in_queue','Days In Queue','20','','days_in_queue','GreaterThanOrEqualTo','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_days_in_queue','Days In Queue ΓëÑ','20','','days_in_queue','GreaterThanOrEqualTo','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_comment','Comment','32','','comment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_req_priority','Req. Priority','32','','req_priority','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(9,'pf_requests','Requests','12','','requests','GreaterThanOrEqualTo','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(9,'pf_requests','Requests ΓëÑ','12','','requests','GreaterThanOrEqualTo','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_ID','Batch ID','12','','id','Equals','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(11,'pf_SeparationType','Separation Type','32','','separation_type','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

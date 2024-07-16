@@ -14,7 +14,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','Pkg ID','5!','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_plex_exp_id','Plex Exp ID','7!','','plex_exp_id','Equals','text','22','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_plex_experiment','Plex Experiment','30!','','plex_experiment','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_exp_id','Channel Exp ID','6!','','exp_id','Equals','text','22','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_exp_id','Channel Exp ID','8!','','exp_id','Equals','text','22','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_channel_experiment','Channel Experiment','30!','','channel_experiment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','15!','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_organism','Organism','15!','','organism','ContainsText','text','128','','');

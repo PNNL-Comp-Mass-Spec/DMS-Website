@@ -16,8 +16,8 @@ INSERT INTO list_report_hotlinks VALUES(6,'activation_state','no_display','value
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_charge_code','Code','20','','charge_code','ContainsText','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_wbs','WBS','20','','wbs','ContainsText','text','60','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_title','Title','20','','title','ContainsText','text','30','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_subaccount','SubAcct','20','','sub_account','ContainsText','text','60','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_title','Title','30!','','title','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_subaccount','SubAcct','30!','','sub_account','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_owner_name','Owner','20','','owner_name','ContainsText','text','50','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'sub_account','detail-report','sub_account','charge_code/report/-/-/-/~','labelCol','dl_SubAccount',NULL);

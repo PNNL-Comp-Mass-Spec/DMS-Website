@@ -9,8 +9,8 @@ INSERT INTO general_params VALUES('alternate_title_report','Requested Run Batch 
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'request','invoke_entity','value','requested_run/show','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Request','20','','request','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_batch','Name','20','','name','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Request ID','8!','','request','Equals','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_batch','Name','40!','','name','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_batchid','Batch','20','','batch','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_block','Block','20','','block','Equals','text','20','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );

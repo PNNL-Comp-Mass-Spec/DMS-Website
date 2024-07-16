@@ -44,10 +44,10 @@ INSERT INTO list_report_hotlinks VALUES(37,'channel16_intensity','format_commas'
 INSERT INTO list_report_hotlinks VALUES(38,'param_file','invoke_entity','value','param_file/report/-/@/-','');
 INSERT INTO list_report_hotlinks VALUES(39,'reporter_ion','invoke_entity','value','sample_label_reporter_ions/report/~','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_datasetId','ID','6!','','dataset_id','Equals','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','50!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_datasetId','Dataset ID','8!','','dataset_id','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','20!','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_reporterIon','Reporter Ion','','','reporter_ion','StartsWithText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_batch','Batch','6!','','batch','Equals','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_job','Job','6!','','job','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_job','Job','8!','','job','Equals','text','24','','');
 COMMIT;

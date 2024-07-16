@@ -12,7 +12,7 @@ INSERT INTO list_report_hotlinks VALUES(6,'qc_2d','image_link','value','index.ht
 INSERT INTO list_report_hotlinks VALUES(7,'qc_decontools','image_link','value','index.html','{"width":"340"}');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','6!','','id','Equals','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','8!','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','6!','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','32','','experiment','ContainsText','text','128','','');

@@ -17,7 +17,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_Name','Name','35!','','name'
 INSERT INTO list_report_primary_filter VALUES(2,'pf_PubChemID','PubChem ID','','','pub_chem_cid','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_Supplier','Supplier','','','supplier','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_Description','Description','','','description','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_ID_Name','ID_Name','','','id_name','StartsWithText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_ID_Name','ID:Name','','','id_name','StartsWithText','text','','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','reference_compound/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'description','min_col_width','value','60','');

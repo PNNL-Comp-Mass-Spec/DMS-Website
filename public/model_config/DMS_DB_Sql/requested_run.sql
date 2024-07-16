@@ -59,8 +59,8 @@ INSERT INTO form_field_choosers VALUES(15,'staging_location','list-report.helper
 INSERT INTO form_field_choosers VALUES(16,'batch_id','list-report.helper','','helper_requested_run_batch/report','batch_id',',','Select Batch...');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','45!','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_request','Request ID','6!','','request','Equals','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','6!','','status','StartsWithText','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_request','Request ID','8!','','request','Equals','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','8!','','status','StartsWithText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_batch','Batch','6!','','batch','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','20!','','campaign','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_requestNameCode','Code','10!','','request_name_code','StartsWithText','text','50','','');
