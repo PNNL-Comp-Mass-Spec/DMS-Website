@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_sample_prep_request_active_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','state_id','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_request_name','Request Name','32','','request_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_organism','Organism','32','','organism','ContainsText','text','128','','');

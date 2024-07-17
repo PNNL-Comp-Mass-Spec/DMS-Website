@@ -9,7 +9,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_assigned','Assigned','32','','assigned','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','32','','state','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_requestname','Request Name','32','','requestname','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_requestname','Request Name','32','','request_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','20','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_WP','WP','32','','wp','ContainsText','text','50','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
