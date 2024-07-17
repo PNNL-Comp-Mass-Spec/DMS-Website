@@ -110,7 +110,6 @@ INSERT INTO home_menu_items VALUES(83,'Instruments','instrument/report','Display
 INSERT INTO home_menu_items VALUES(84,'Instruments','new_instrument/create','Create','new instrument');
 INSERT INTO home_menu_items VALUES(85,'Instruments','submenu','Instrument Class','');
 INSERT INTO home_menu_items VALUES(86,'Instruments','instrument_class/report','Display','instrument class');
-INSERT INTO home_menu_items VALUES(87,'Instruments','new_instrument_class/create','Create','new instrument class');
 INSERT INTO home_menu_items VALUES(88,'Instruments','submenu','File Storage','');
 INSERT INTO home_menu_items VALUES(89,'Instruments','storage/report','Display','storage');
 INSERT INTO home_menu_items VALUES(90,'Instruments','storage/create','Create','storage');
