@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_run_assignment_wellplate_list_report');
-INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'wellplate','invoke_entity','value','wellplate/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'requested','invoke_entity','wellplate','requested_run/report/-/-/-/-/-/-/-/-/-/-/-/-/sfx/AND/Wellplate/MatchesText/@','');
