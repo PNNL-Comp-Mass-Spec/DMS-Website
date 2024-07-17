@@ -48,10 +48,10 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO detail_report_hotlinks VALUES(1,'container_list','link_list','container_list','material_container/show','valueCol','dl_container_list',NULL);
 INSERT INTO detail_report_hotlinks VALUES(3,'campaign','detail-report','campaign','campaign/show','valueCol','dl_campaign',NULL);
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_received_by','Received_By','20','','received_by','ContainsText','text','103','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_description','Description','20','','description','ContainsText','text','4096','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_container_list','Container_List','20','','container_list','ContainsText','text','1024','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_campaign','Campaign','35!','','campaign','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_received_by','Received By','20','','received_by','ContainsText','text','103','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_description','Description','30!','','description','ContainsText','text','4096','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_container_list','Container List','30!','','container_list','ContainsText','text','1024','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_id','ID','20','','id','Equals','text','20','','');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'new_container_comment','hide','update');

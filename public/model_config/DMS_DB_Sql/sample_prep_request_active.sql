@@ -5,10 +5,10 @@ INSERT INTO general_params VALUES('list_report_data_table','v_sample_prep_reques
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','32','','state_id','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_requestname','RequestName','32','','request_name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_request_name','Request Name','32','','request_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_organism','Organism','32','','organism','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_WorkPackage','WP','32','','work_package','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_Work_Package','WP','32','','work_package','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_requested_personnel','Req. Personnel','32','','requested_personnel','ContainsText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_assigned_personnel','Assigned Personnel','32','','assigned_personnel','ContainsText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
