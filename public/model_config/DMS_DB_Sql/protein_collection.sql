@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_protein_collection_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','desc');
-INSERT INTO general_params VALUES('detail_report_data_table','v_protein_collection_list_report');
+INSERT INTO general_params VALUES('detail_report_data_table','v_protein_collection_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','id');
 INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
