@@ -187,22 +187,23 @@ return [
     ],
 
     'manager_control' => [
+/*
         'hostname' => "Proteinseqs",
         'database' => "Manager_Control",
         'DBDriver' => "SQLSRV",
+*/
 /*
         'hostname' => "prismdb1",
         'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
 */
-/*
         'hostname' => "prismdb2",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
         'swapPre'  => "mc, public, sw, cap, dpkg, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
-*/
+
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
