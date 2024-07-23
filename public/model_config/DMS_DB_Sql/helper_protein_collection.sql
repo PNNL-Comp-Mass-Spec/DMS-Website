@@ -10,6 +10,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_organism_name','Organism Name','25!','','organism_name','MatchesTextOrBlank','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','50!','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_description','Description','30!','','description','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_state','State','','','state','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','name','','');
 INSERT INTO list_report_hotlinks VALUES(2,'name','update_opener','value','','');
