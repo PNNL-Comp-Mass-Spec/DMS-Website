@@ -14,11 +14,12 @@ INSERT INTO list_report_primary_filter VALUES(3,'pf_tool','Tool','32','','tool',
 INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','60','','experiment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','20','','campaign','ContainsText','text','50','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_param_file','Param File','60','','param_file','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_instrument','Instrument','60','','instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(9,'pf_protein_collection_list','Protein Collection List','60','','protein_collection_list','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(10,'pf_comment','Comment','60','','comment','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(11,'pf_job_request','Request','12','','job_request','Equals','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_psm_stats_date','Most Recent Weeks','12','','psm_stats_date','MostRecentWeeks','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_param_file','Param File','60','','param_file','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(9,'pf_instrument','Instrument','60','','instrument','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(10,'pf_protein_collection_list','Protein Collection List','60','','protein_collection_list','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(11,'pf_comment','Comment','60','','comment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(12,'pf_job_request','Request','12','','job_request','Equals','text','128','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','analysisJobStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_tool','picker.replace','analysisToolPickList','','',',');
