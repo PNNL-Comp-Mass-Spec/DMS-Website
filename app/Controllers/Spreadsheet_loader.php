@@ -413,7 +413,13 @@ class Spreadsheet_loader extends DmsBase {
             $result = $this->db->query($sql);
             if($result->getNumRows() > 0) {
                 $row = $result->getRow();
-                $key = ($this->supported_entities[$entity_type]['key'] == 'ID')?$row->ID:$id;
+                $keyColumn = $this->supported_entities[$entity_type]['key'];
+                if (strcasecmp($keyColumn, 'id') === 0) {
+                    $key = $row->$keyColumn;
+                } else {
+                    $key = $id;
+                }
+
                 $exists = true;
             }
         } catch (\Exception $e) {
