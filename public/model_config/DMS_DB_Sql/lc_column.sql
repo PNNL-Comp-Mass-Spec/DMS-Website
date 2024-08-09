@@ -45,7 +45,7 @@ INSERT INTO sproc_args VALUES(6,'column_inner_dia','columnInnerDia','varchar','i
 INSERT INTO sproc_args VALUES(7,'column_outer_dia','columnOuterDia','varchar','input','64','add_update_lc_column');
 INSERT INTO sproc_args VALUES(8,'column_length','length','varchar','input','64','add_update_lc_column');
 INSERT INTO sproc_args VALUES(9,'column_state','state','varchar','input','32','add_update_lc_column');
-INSERT INTO sproc_args VALUES(10,'operator_username','operator_username','varchar','input','50','add_update_lc_column');
+INSERT INTO sproc_args VALUES(10,'operator_username','operatorUsername','varchar','input','50','add_update_lc_column');
 INSERT INTO sproc_args VALUES(11,'comment','comment','varchar','input','244','add_update_lc_column');
 INSERT INTO sproc_args VALUES(12,'<local>','mode','varchar','input','12','add_update_lc_column');
 INSERT INTO sproc_args VALUES(13,'<local>','message','varchar','output','512','add_update_lc_column');

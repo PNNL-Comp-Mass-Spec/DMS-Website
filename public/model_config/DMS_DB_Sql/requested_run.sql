@@ -120,7 +120,7 @@ CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "ty
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','add_update_requested_run');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentName','varchar','input','64','add_update_requested_run');
 INSERT INTO sproc_args VALUES(3,'requester_username','requesterUsername','varchar','input','64','add_update_requested_run');
-INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentName','varchar','input','64','add_update_requested_run');
+INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentGroup ','varchar','input','64','add_update_requested_run');
 INSERT INTO sproc_args VALUES(5,'work_package','workPackage','varchar','input','50','add_update_requested_run');
 INSERT INTO sproc_args VALUES(6,'dataset_type','msType','varchar','input','20','add_update_requested_run');
 INSERT INTO sproc_args VALUES(7,'instrument_settings','instrumentSettings','varchar','input','512','add_update_requested_run');
