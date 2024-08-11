@@ -108,9 +108,9 @@ INSERT INTO menu_def VALUES(10,'Datasets','submenu','Dataset Special Reports','S
 INSERT INTO menu_def VALUES(11,'Dataset QC Reports','link','dataset_qc/search','Dataset QC Report');
 INSERT INTO menu_def VALUES(12,'Dataset QC Reports','link','dataset_qc_ions/report/','Dataset QC Ions');
 INSERT INTO menu_def VALUES(13,'Dataset QC Reports','link','reporter_ion_observation_rate/search','Rep Ion Obs Rate Report');
-INSERT INTO menu_def VALUES(14,'Dataset PSM Reports','link','dataset_psm_and_pm/report/4/StartsWith__msgfplus','Dataset PSM Stats (MS-GF+)');
-INSERT INTO menu_def VALUES(16,'Dataset PSM Reports','link','dataset_psm_and_pm/report/4/StartsWith__DiaNN','Dataset PSM Stats (DiaNN)');
-INSERT INTO menu_def VALUES(17,'Dataset PSM Reports','link','data_package_dataset_psm_and_pm/report/-/4/StartsWith__msgfplus','Data Pkg Dataset PSM Stats');
+INSERT INTO menu_def VALUES(14,'Dataset PSM Reports','link','dataset_psm/report/4/StartsWith__msgfplus','Dataset PSM Stats (MS-GF+)');
+INSERT INTO menu_def VALUES(16,'Dataset PSM Reports','link','dataset_psm/report/4/StartsWith__DiaNN','Dataset PSM Stats (DiaNN)');
+INSERT INTO menu_def VALUES(17,'Dataset PSM Reports','link','data_package_dataset_psm/report/-/4/StartsWith__msgfplus','Data Pkg Dataset PSM Stats');
 INSERT INTO menu_def VALUES(18,'Dataset PSM Reports','link','data_package_analysis_job_psm/report/-/-/-/StartsWith__msgfplus','Data Pkg Job PSM Stats');
 INSERT INTO menu_def VALUES(19,'Dataset PSM Reports','link','analysis_job_psm/report/','Job PSM Stats');
 INSERT INTO menu_def VALUES(20,'Dataset Special Reports','link','ai_user_funded_datasets_list_report/report/-/-/-/-/12','User funded');
@@ -235,9 +235,9 @@ INSERT INTO menu_def VALUES(165,'MAC Jobs','link','pipeline_jobs_history/report/
 INSERT INTO menu_def VALUES(167,'MAC Jobs','link','pipeline_jobs/create','Create generic MAC Job');
 INSERT INTO menu_def VALUES(168,'Data Analysis','link','protein_collection/report','Protein Collections');
 INSERT INTO menu_def VALUES(169,'Data Analysis','submenu','Analysis Job PSM Stats','PSM Stats');
-INSERT INTO menu_def VALUES(170,'Analysis Job PSM Stats','link','dataset_psm_and_pm/report/4/StartsWith__msgfplus','Dataset PSM Stats (MS-GF+)');
-INSERT INTO menu_def VALUES(171,'Analysis Job PSM Stats','link','dataset_psm_and_pm/report/4/StartsWith__DiaNN','Dataset PSM Stats (DiaNN)');
-INSERT INTO menu_def VALUES(172,'Analysis Job PSM Stats','link','data_package_dataset_psm_and_pm/report/-/4/StartsWith__msgfplus','Data Pkg Dataset PSM Stats');
+INSERT INTO menu_def VALUES(170,'Analysis Job PSM Stats','link','dataset_psm/report/4/StartsWith__msgfplus','Dataset PSM Stats (MS-GF+)');
+INSERT INTO menu_def VALUES(171,'Analysis Job PSM Stats','link','dataset_psm/report/4/StartsWith__DiaNN','Dataset PSM Stats (DiaNN)');
+INSERT INTO menu_def VALUES(172,'Analysis Job PSM Stats','link','data_package_dataset_psm/report/-/4/StartsWith__msgfplus','Data Pkg Dataset PSM Stats');
 INSERT INTO menu_def VALUES(173,'Analysis Job PSM Stats','link','data_package_analysis_job_psm/report/-/-/-/StartsWith__msgfplus','Data Pkg Job PSM Stats');
 INSERT INTO menu_def VALUES(174,'Analysis Job PSM Stats','link','analysis_job_psm/report/','Job PSM Stats');
 INSERT INTO menu_def VALUES(175,'Analysis Job PSM Stats','link','dataset_pm_and_psm/report/4/-/Exact','High Res Peak Matching Stats');
@@ -625,8 +625,8 @@ INSERT INTO nav_def VALUES(103,'Data Analysis','link','analysis_job/report/-/-/S
 INSERT INTO nav_def VALUES(105,'Data Analysis','separator','','PSM Stats','');
 INSERT INTO nav_def VALUES(106,'Data Analysis','link','analysis_job_psm/report/','Job PSM Stats','');
 INSERT INTO nav_def VALUES(107,'Data Analysis','link','data_package_analysis_job_psm/report/-/-/-/StartsWith__msgfplus','Data Pkg Job PSM Stats','');
-INSERT INTO nav_def VALUES(108,'Data Analysis','link','dataset_psm_and_pm/report/4/StartsWith__msgfplus','Dataset PSM Stats','');
-INSERT INTO nav_def VALUES(109,'Data Analysis','link','data_package_dataset_psm_and_pm/report/-/4/StartsWith__msgfplus','Data Pkg Dataset PSM Stats','');
+INSERT INTO nav_def VALUES(108,'Data Analysis','link','dataset_psm/report/4/StartsWith__msgfplus','Dataset PSM Stats','');
+INSERT INTO nav_def VALUES(109,'Data Analysis','link','data_package_dataset_psm/report/-/4/StartsWith__msgfplus','Data Pkg Dataset PSM Stats','');
 INSERT INTO nav_def VALUES(110,'','submenu','LC','LC','');
 INSERT INTO nav_def VALUES(111,'LC','separator','','Columns','');
 INSERT INTO nav_def VALUES(112,'LC','link','lc_column/report','Report','Display list of LC columns');
