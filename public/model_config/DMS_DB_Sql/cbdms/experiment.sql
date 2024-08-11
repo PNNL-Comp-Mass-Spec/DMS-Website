@@ -12,8 +12,6 @@ INSERT INTO general_params VALUES('detail_report_aux_info_target','Experiment');
 INSERT INTO general_params VALUES('operations_sproc','do_material_item_operation');
 INSERT INTO general_params VALUES('post_submission_detail_id','experiment');
 INSERT INTO general_params VALUES('detail_report_cmds','file_attachment_cmds');
-INSERT INTO general_params VALUES('list_report_data_cols','id, experiment, researcher, organism, reason, comment, concentration, created, campaign, biomaterial_list, enzyme, notebook, labelling, request, alkylated, tissue');
-INSERT INTO general_params VALUES('detail_report_data_cols','experiment, researcher, reason_for_experiment, comment, created, sample_concentration, digestion_enzyme, lab_notebook, campaign, biomaterial_list, labelling, alkylated, request, experiment_groups, datasets, most_recent_dataset, factors, plant_or_animal_tissue, tissue_id, experiment_files, experiment_group_files, id, material_status, last_used, barcode');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'id','Experiment ID','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(2,'experiment','Experiment Name','text','40','80','','','','trim|required|max_length[50]|alpha_dash|min_length[6]');
@@ -56,7 +54,7 @@ INSERT INTO form_field_choosers VALUES(13,'sample_prep_request','list-report.hel
 INSERT INTO form_field_choosers VALUES(14,'tissue','list-report.helper','','helper_tissue/report','tissue',',','');
 INSERT INTO form_field_choosers VALUES(15,'wellplate','picker.replace','wellplatePickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_experiment','Experiment','30!','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_experiment','Experiment','40!','','experiment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_campaign','Campaign','15!','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_id','ID','6!','','id','Equals','text','22','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_organism','Organism','15!','','organism','ContainsText','text','128','','');

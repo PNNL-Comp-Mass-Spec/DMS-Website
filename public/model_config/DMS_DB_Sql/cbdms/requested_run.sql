@@ -11,8 +11,6 @@ INSERT INTO general_params VALUES('entry_page_data_table','v_requested_run_entry
 INSERT INTO general_params VALUES('entry_page_data_id_col','request_id');
 INSERT INTO general_params VALUES('post_submission_detail_id','request_id');
 INSERT INTO general_params VALUES('operations_sproc','update_requested_run_assignments');
-INSERT INTO general_params VALUES('list_report_data_cols','request, name, status, origin, acq_start, campaign, experiment, dataset, instrument, requester, created, days_in_queue, comment, type, separation_group, vialing_conc, vialing_vol, cart, dataset_comment, request_name_code, days_in_queue_bin');
-INSERT INTO general_params VALUES('detail_report_data_cols','request, name, status, campaign, experiment, dataset, staging_location, instrument_used, instrument_group, run_type, separation_group, requester, username, created, days_in_queue, origin, instrument_settings, vialing_concentration, vialing_volume, comment, factors, note, special_instructions, wp_activation_state');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'request_id','Request','non-edit','','','','','','trim');
 INSERT INTO form_fields VALUES(2,'request_name','Request Name','text','60','90','','','','trim|required|max_length[90]|alpha_dash|min_length[8]');
@@ -61,8 +59,8 @@ INSERT INTO form_field_choosers VALUES(15,'staging_location','list-report.helper
 INSERT INTO form_field_choosers VALUES(16,'batch_id','list-report.helper','','helper_requested_run_batch/report','batch_id',',','Select Batch...');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','45!','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_request','Request ID','6!','','request','Equals','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','6!','','status','StartsWithText','text','24','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_request','Request ID','8!','','request','Equals','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','8!','','status','StartsWithText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_batch','Batch','6!','','batch','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','20!','','campaign','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_requestNameCode','Code','10!','','request_name_code','StartsWithText','text','50','','');
@@ -99,7 +97,7 @@ INSERT INTO detail_report_hotlinks VALUES(3,'batch','detail-report','batch','req
 INSERT INTO detail_report_hotlinks VALUES(4,'block','detail-report','batch','requested_run_batch_blocking/param','valueCol','block','');
 INSERT INTO detail_report_hotlinks VALUES(5,'dataset','detail-report','dataset','dataset/show','valueCol','dataset','');
 INSERT INTO detail_report_hotlinks VALUES(6,'factors','detail-report','request','custom_factors/report/-','labelCol','dl_show_factors',NULL);
-INSERT INTO detail_report_hotlinks VALUES(7,'+factors','detail-report','request','requested_run_factors/param/@/requested_run_id','valueCol','dl_edit_factors','');
+INSERT INTO detail_report_hotlinks VALUES(7,'+factors','detail-report','request','requested_run_factors/param/@/requested_run_id','valueCol','dl_edit_factors',NULL);
 INSERT INTO detail_report_hotlinks VALUES(8,'instrument_group','detail-report','instrument_group','instrument_group/show/','valueCol','dl_instrument_group','');
 INSERT INTO detail_report_hotlinks VALUES(9,'instrument_used','detail-report','instrument_used','instrument/show/','valueCol','dl_instrument','');
 INSERT INTO detail_report_hotlinks VALUES(10,'eus_proposal','detail-report','eus_proposal','eus_proposals/show','valueCol','dl_eus_proposal','');
@@ -116,11 +114,13 @@ INSERT INTO detail_report_hotlinks VALUES(20,'column_name','detail-report','colu
 INSERT INTO detail_report_hotlinks VALUES(21,'wp_activation_state','no_display','','',NULL,NULL,'');
 INSERT INTO detail_report_hotlinks VALUES(22,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
 INSERT INTO detail_report_hotlinks VALUES(23,'queued_instrument','detail-report','queued_instrument','instrument/show/','valueCol','dl_queued_instrument','');
+INSERT INTO detail_report_hotlinks VALUES(24,'cart_config','detail-report','cart_config','cart_config/report/~@/-','valueCol','dl_cart_config','');
+INSERT INTO detail_report_hotlinks VALUES(25,'cart','detail-report','cart','lc_cart/report/~@/-','valueCol','dl_cart','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','add_update_requested_run');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentName','varchar','input','64','add_update_requested_run');
 INSERT INTO sproc_args VALUES(3,'requester_username','requesterUsername','varchar','input','64','add_update_requested_run');
-INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentName','varchar','input','64','add_update_requested_run');
+INSERT INTO sproc_args VALUES(4,'instrument_group','instrumentGroup ','varchar','input','64','add_update_requested_run');
 INSERT INTO sproc_args VALUES(5,'work_package','workPackage','varchar','input','50','add_update_requested_run');
 INSERT INTO sproc_args VALUES(6,'dataset_type','msType','varchar','input','20','add_update_requested_run');
 INSERT INTO sproc_args VALUES(7,'instrument_settings','instrumentSettings','varchar','input','512','add_update_requested_run');
