@@ -80,7 +80,7 @@ return [
         'database' => "DMS5",
         'DBDriver' => "SQLSRV",
 */
-        'hostname' => "prismdb2",
+        'hostname' => "prismdb2.emsl.pnl.gov",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "public",
@@ -99,7 +99,7 @@ return [
         'database' => "DMS_Pipeline",
         'DBDriver' => "SQLSRV",
 */
-        'hostname' => "prismdb2",
+        'hostname' => "prismdb2.emsl.pnl.gov",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "sw",
@@ -118,7 +118,7 @@ return [
         'database' => "DMS_Data_Package",
         'DBDriver' => "SQLSRV",
 */
-        'hostname' => "prismdb2",
+        'hostname' => "prismdb2.emsl.pnl.gov",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "dpkg",
@@ -137,7 +137,7 @@ return [
         'database' => "DMS_Capture",
         'DBDriver' => "SQLSRV",
 */
-        'hostname' => "prismdb2",
+        'hostname' => "prismdb2.emsl.pnl.gov",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "cap",
@@ -178,7 +178,7 @@ return [
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
 */
-        'hostname' => "prismdb2",
+        'hostname' => "prismdb2.emsl.pnl.gov",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "ont",
@@ -202,7 +202,7 @@ return [
         'DBDriver' => "Postgre",
         'schema'   => "mc",
 */
-        'hostname' => "prismdb2",
+        'hostname' => "prismdb2.emsl.pnl.gov",
         'database' => "dms",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
