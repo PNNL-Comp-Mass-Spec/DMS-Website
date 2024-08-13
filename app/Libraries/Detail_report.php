@@ -171,7 +171,7 @@ class Detail_report {
                 export_detail_to_tab_delimited_text($entity_info, $aux_info, $this->tag . "_detail");
                 break;
             case 'json':
-                header("Content-type: application/json");
+                \Config\Services::response()->setContentType("application/json");
                 echo json_encode($entity_info);
                 break;
             case 'test':

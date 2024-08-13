@@ -337,7 +337,7 @@ function make_config_nav_links($config_db) {
  */
 function make_table_dump_text($config_db_table_list, $display_mode) {
     $sep = "\t";
-    header("Content-type: text/plain");
+    \Config\Services::response()->setContentType("text/plain");
 
     // Dump content of each config db
     foreach ($config_db_table_list as $db => $tables) {

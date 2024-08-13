@@ -1420,7 +1420,7 @@ class Config_db extends BaseController {
         $my_db = \Config\Database::connect($db_group);
         $this->updateSearchPath($my_db);
 
-        header("Content-type: text/plain");
+        $this->response->setContentType("text/plain");
 
         echo make_family_sql($my_db, $gen_parms);
     }
@@ -1443,7 +1443,7 @@ class Config_db extends BaseController {
         $this->updateSearchPath($my_db);
         $sa = $this->_get_sproc_arg_defs_from_main_db($my_db, $sproc);
 
-        header("Content-type: text/plain");
+        $this->response->setContentType("text/plain");
         echo make_csharp($sa);
     }
 
@@ -1495,7 +1495,7 @@ class Config_db extends BaseController {
 
         // Write controller file
         file_put_contents($file_path, $s);
-        header("Content-type: text/plain");
+        $this->response->setContentType("text/plain");
         echo "Controller file was created as '$file_path'\n\n";
         echo $s;
     }

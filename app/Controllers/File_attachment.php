@@ -649,9 +649,13 @@ class File_attachment extends DmsBase {
             // important for download in most browsers
             // $mime_type = ($UserBrowser == 'IE' || $UserBrowser == 'Opera') ?
             // 'application/octetstream' : 'application/octet-stream';
-            header("Content-type: {$mime}");
-            header("Content-Disposition: attachment; filename=\"{$filename}\"");
-            header("X-Sendfile: {$full_path}");
+
+            // Note: Technically 'header(...)' could be used for Content-Disposition and X-Sendfile because they are not default headers
+            // Content-type must be set using CodeIgniter's response->setContentType(...) because it is otherwise overwritten by the default
+            //   value that CodeIgniter sends, of text/html.
+            $this->response->setContentType($mime);
+            $this->response->setHeader("Content-Disposition", "attachment; filename=\"{$filename}\"");
+            $this->response->setHeader("X-Sendfile", $full_path);
 
         } catch (\Exception $e) {
             $error = $e->getMessage();
@@ -772,7 +776,7 @@ class File_attachment extends DmsBase {
         $description = "Automatically created auxinfo";
 //      $msg = $this->make_attached_file($name, $type, $id, $description, $contents);
 //      echo "$expID:$msg";
-        header("Content-type: text/plain");
+        $this->response->setContentType("text/plain");
         echo $contents;
     }
 

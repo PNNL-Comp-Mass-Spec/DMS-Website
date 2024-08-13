@@ -24,8 +24,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         // Use a file extension of .tsv for tab-separated
         // Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
-        header("Content-type: application/x-msdownload");
-        header("Content-Disposition: attachment; filename=$filename.tsv");
+        \Config\Services::response()->setContentType("application/x-msdownload");
+        \Config\Services::response()->setHeader("Content-Disposition", "attachment; filename=$filename.tsv");
         echo "$headers\n$data";
     }
 
@@ -127,8 +127,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         // $worksheet->setCellValueByColumnAndRow(2, 1, $endTime);
         // $worksheet->setCellValueByColumnAndRow(3, 1, $elapsedTime);
 
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+        \Config\Services::response()->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        \Config\Services::response()->setHeader('Content-Disposition', 'attachment;filename="'.$filename.'.xlsx"');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
     }
@@ -236,8 +236,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         $data = get_tab_delimited_text($result, $cols);
 
-        header("Content-type: text/plain");
-        header("Content-Disposition: attachment; filename=$filename.txt");
+        \Config\Services::response()->setContentType("text/plain");
+        \Config\Services::response()->setHeader("Content-Disposition", "attachment; filename=$filename.txt");
         echo "$headers\n$data";
     }
 
@@ -315,8 +315,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             }
         }
 
-        header("Content-type: text/plain");
-        header("Content-Disposition: attachment; filename=$filename.txt");
+        \Config\Services::response()->setContentType("text/plain");
+        \Config\Services::response()->setHeader("Content-Disposition", "attachment; filename=$filename.txt");
         echo $data;
         echo $ai;
     }
@@ -371,8 +371,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         $worksheet->fromArray($data, '');
 
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+        \Config\Services::response()->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        \Config\Services::response()->setHeader('Content-Disposition', 'attachment;filename="'.$filename.'.xlsx"');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
     }
@@ -616,8 +616,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         // Use a file extension of .tsv for tab-separated
         // Prior to June 2016 we used .xls but that's not an accurate file extension given the actual data
-        header("Content-type: application/x-msdownload");
-        header("Content-Disposition: attachment; filename=$filename.tsv");
+        \Config\Services::response()->setContentType("application/x-msdownload");
+        \Config\Services::response()->setHeader("Content-Disposition", "attachment; filename=$filename.tsv");
         echo $data;
         echo $ai;
     }
@@ -792,47 +792,47 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             case 'xlsm': // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
             case 'xltx': // Excel (OfficeOpenXML) Template
             case 'xltm': // Excel (OfficeOpenXML) Macro Template (macros will be discarded)
-                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                \Config\Services::response()->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                 $writerType = 'Xlsx';
                 break;
             case 'xls': // Excel (BIFF) Spreadsheet
             case 'xlt': // Excel (BIFF) Template
-                header('Content-Type: application/vnd.ms-excel');
+                \Config\Services::response()->setContentType('application/vnd.ms-excel');
                 $writerType = 'Xls';
                 break;
             case 'ods': // Open/Libre Offic Calc
             case 'ots': // Open/Libre Offic Calc Template
-                header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
+                \Config\Services::response()->setContentType('application/vnd.oasis.opendocument.spreadsheet');
                 $writerType = 'Ods';
                 break;
             case 'htm':
             case 'html':
-                header('Content-Type: text/html');
+                \Config\Services::response()->setContentType('text/html');
                 $writerType = 'Html';
                 break;
             case 'csv':
-                header('Content-Type: application/x-msdownload');
+                \Config\Services::response()->setContentType('application/x-msdownload');
                 $writerType = 'Csv';
                 break;
             case 'pdf':
-                //Header('Content-Type: application/pdf');
+                //\Config\Services::response()->setContentType('application/pdf');
                 //$writerType = 'Tcpdf';
                 //$writerType = 'Dompdf';
                 //$writerType = 'Mpdf';
 
                 // Extra libraries required.
-                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                \Config\Services::response()->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                 $writerType = 'Xlsx';
                 $ext = 'xlsx';
                 break;
             default:
-                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                \Config\Services::response()->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                 $writerType = 'Xlsx';
                 $ext = 'xlsx';
                 break;
         }
 
-        header('Content-Disposition: attachment;filename="'.$filename.".".$ext.'"');
+        \Config\Services::response()->setHeader('Content-Disposition', 'attachment;filename="'.$filename.".".$ext.'"');
         $writer = IOFactory::createWriter($spreadsheet, $writerType);
         $writer->save('php://output');
     }

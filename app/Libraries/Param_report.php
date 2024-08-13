@@ -416,7 +416,7 @@ class Param_report {
                     export_to_tab_delimited_text($rows, $this->tag, $col_filter);
                     break;
                 case 'json':
-                    header("Content-type: application/json");
+                    \Config\Services::response()->setContentType("application/json");
                     echo json_encode($rows);
                     break;
             }

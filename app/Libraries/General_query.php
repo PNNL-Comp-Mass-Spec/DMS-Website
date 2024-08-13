@@ -263,7 +263,7 @@ class General_query {
     function tsv($result) {
         $headers = '';
 
-        header("Content-type: text/plain");
+        \Config\Services::response()->setContentType("text/plain");
 
         if (count($result) == 0) {
             // No results
@@ -301,7 +301,7 @@ class General_query {
     function html_table($result, $pageTitle) {
         $headers = '';
 
-        header("Content-type: text/html");
+        \Config\Services::response()->setContentType("text/html");
 
         echo "<html><head><title>$pageTitle</title></head>\n";
 
@@ -341,7 +341,7 @@ class General_query {
      * @param type $table
      */
     function xml_dataset($result, $table = 'TX') {
-        header("Content-type: text/plain");
+        \Config\Services::response()->setContentType("text/plain");
 
         echo "<data>\n";
 

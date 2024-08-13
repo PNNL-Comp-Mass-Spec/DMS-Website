@@ -29,8 +29,8 @@ class Mrm_list_attachment extends DmsBase {
         $file_info = $result->getRow();
         $filename = str_replace(" ", "_", $file_info->Attachment_Name) . ".txt";
 
-        header("Content-type: text/plain");
-        header("Content-Disposition: attachment; filename=$filename");
+        $this->response->setContentType("text/plain");
+        $this->response->setHeader("Content-Disposition", "attachment; filename=$filename");
         echo $file_info->Contents;
     }
 }

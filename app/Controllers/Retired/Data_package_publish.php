@@ -33,7 +33,7 @@ class Data_package_publish extends DmsBase {
     {
         // FUTURE: change code to actually send to web service
         // For now, just dump the manifest to output as plain text
-        header("Content-type: text/plain");
+        $this->response->SetContentType("text/plain");
         return $manifest;
     }
 
@@ -118,7 +118,7 @@ class Data_package_publish extends DmsBase {
     {
         // FUTURE: change code to actually send to web service
         // For now, just dump the manifest to output as plain text
-        header("Content-type: text/plain");
+        $this->response->SetContentType("text/plain");
         return $description;
     }
 }

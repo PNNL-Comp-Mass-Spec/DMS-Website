@@ -46,7 +46,7 @@ class Data_package extends DmsBase {
         $result = $resultSet->getResultArray();
         $fields = $resultSet->list_fields();
 
-        header("Content-type: text/plain");
+        $this->response->setContentType("text/plain");
         echo "-- $mode Package:$id Tool:$tool --\n";
         foreach($result as $row) {
             echo $row['Dataset']."\n";
@@ -71,7 +71,8 @@ class Data_package extends DmsBase {
 
         $ignoreColumns = array('ID', 'Dataset Folder Path', 'Archive Folder Path', 'Share Path', 'Web Path', 'PRISM Wiki');
 
-        header("Content-type: text/plain");
+        // TODO: Might be worthwhile changing this to 'text/xml'
+        $this->response->setContentType("text/plain");
 
         echo "<?xml version='1.0' encoding='utf-8'?>\n";
         echo "<metadata>\n";

@@ -247,8 +247,8 @@ EOD;
 
         $data = str_replace("\r","",$data);
 
-        header("Content-type: text/plain");
-//      header("Content-Disposition: attachment; filename=$filename.txt");
+        $this->response->setContentType("text/plain");
+//      $this->response->setHeader("Content-Disposition", "attachment; filename=$filename.txt");
         echo "$headers\n$data";
     }
 
