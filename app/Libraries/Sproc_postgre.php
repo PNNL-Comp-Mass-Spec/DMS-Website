@@ -497,7 +497,7 @@ class Sproc_postgre extends Sproc_base {
             $rule_list = explode('|', $rules);
             
             foreach($rule_list as $ruleValue) {
-                if (stripos(trim($ruleValue), 'default_value') == 0) {
+                if (stripos(trim($ruleValue), 'default_value') === 0) {
                     // Find the opening square bracket
                     $bracketPos1 = strpos($ruleValue, '[');
                     
