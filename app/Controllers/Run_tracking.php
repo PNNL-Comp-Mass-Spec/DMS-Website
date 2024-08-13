@@ -144,7 +144,6 @@ class Run_tracking extends DmsBase {
         $this->db = \Config\Database::connect();
         $this->updateSearchPath($this->db);
 
-        // TODO: postgresfix!
         $sql = <<<EOD
 SELECT *
 FROM  get_run_tracking_monthly_info('$instrument', '$year', '$month', '') AS GT
