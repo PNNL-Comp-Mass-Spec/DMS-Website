@@ -109,9 +109,14 @@ class Sql_sqlsrv {
                 $sql .= ") AS T ";
                 $sql .= "WHERE #Row >= " . $first_row . " AND #Row < " . $last_row;
 
-                // Note: an alternative to "Row_Number() Over (Order By x Desc)"
+                // SQL Server 2012 and newer: an alternative to "Row_Number() Over (Order By x Desc)"
                 // is to use "ORDER BY x DESC OFFSET 0 ROWS FETCH NEXT 125 ROWS ONLY;"
-                // However, performance will typically be the same
+                // https://www.mssqltips.com/sqlservertip/2696/comparing-performance-for-different-sql-server-paging-methods/
+                // OFFSET ... FETCH ... is faster for the first page, and nearly identical for middle pages
+                //$sql .= "SELECT " . $display_cols;
+                //$sql .= $baseSql;
+                //$sql .= " ORDER BY " . $orderBy;
+                //$sql .= " OFFSET " . ($first_row - 1) . " ROWS FETCH NEXT " . $limit . " ROWS ONLY";
 
                 break;
         }

@@ -116,16 +116,21 @@ class Sql_postgre {
                 $limit = $query_parts->paging_items['rows_per_page'];
                 $last_row = $first_row + $limit;
                 // Construct query for returning a page of rows
-                $sql .= "SELECT * FROM (";
-                $sql .= "SELECT ROW_NUMBER() OVER (ORDER By " . $orderBy . ") AS \"#Row\", ";
-                $sql .= " " . $display_cols;
-                $sql .= $baseSql;
-                $sql .= ") AS T ";
-                $sql .= "WHERE \"#Row\" >= " . $first_row . " AND \"#Row\" < " . $last_row;
+                //$sql .= "SELECT * FROM (";
+                //$sql .= "SELECT ROW_NUMBER() OVER (ORDER By " . $orderBy . ") AS \"#Row\", ";
+                //$sql .= " " . $display_cols;
+                //$sql .= $baseSql;
+                //$sql .= ") AS T ";
+                //$sql .= "WHERE \"#Row\" >= " . $first_row . " AND \"#Row\" < " . $last_row;
 
-                // Note: an alternative to "Row_Number() Over (Order By x Desc)"
-                // is to use "ORDER BY x DESC OFFSET 0 ROWS FETCH NEXT 125 ROWS ONLY;"
-                // However, performance will typically be the same
+                // PostgreSQL: query optimizer does not do nearly as well with 'SELECT ROW_NUMBER();
+                // Performance on querying datasets with no filters at 1.28M rows is 3.5s for SELECT ROW_NUMBER(),
+                // vs. 0.130s for SELECT ... OFFSET x LIMIT y
+                // https://stackoverflow.com/questions/3125571/offset-vs-row-number
+                $sql .= "SELECT " . $display_cols;
+                $sql .= $baseSql;
+                $sql .= " ORDER BY " . $orderBy;
+                $sql .= " OFFSET " . ($first_row - 1) . " LIMIT " . $limit;
 
                 break;
         }
