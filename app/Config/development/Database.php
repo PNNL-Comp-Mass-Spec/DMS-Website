@@ -79,8 +79,8 @@ return [
         'database' => "DMS5_T3",
         'DBDriver' => "SQLSRV",
 /*
-        'hostname' => "prismdb2",
-        'database' => "dms",
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "public",
         'swapPre'  => "public, sw, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
@@ -97,8 +97,8 @@ return [
         'database' => "DMS_Pipeline_T3",
         'DBDriver' => "SQLSRV",
 /*
-        'hostname' => "prismdb2",
-        'database' => "dms",
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "sw",
         'swapPre'  => "sw, public, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
@@ -137,8 +137,8 @@ return [
         'database' => "DMS_Data_Package_T3",
         'DBDriver' => "SQLSRV",
 /*
-        'hostname' => "prismdb2",
-        'database' => "dms",
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "dpkg",
         'swapPre'  => "dpkg, public, sw, cap, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
@@ -155,8 +155,8 @@ return [
         'database' => "DMS_Capture_T3",
         'DBDriver' => "SQLSRV",
 /*
-        'hostname' => "prismdb2",
-        'database' => "dms",
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "cap",
         'swapPre'  => "cap, public, sw, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
@@ -195,8 +195,8 @@ return [
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
 /*
-        'hostname' => "prismdb2",
-        'database' => "dms",
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "ont",
         'swapPre'  => "ont, public, sw, cap, dpkg, mc, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
@@ -219,8 +219,8 @@ return [
         'schema'   => "mc",
 */
 /*
-        'hostname' => "prismdb2",
-        'database' => "dms",
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
         'swapPre'  => "mc, public, sw, cap, dpkg, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path

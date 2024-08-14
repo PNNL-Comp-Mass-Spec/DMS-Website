@@ -141,3 +141,5 @@ chosen/*.zip
 
 !/public/javascript/**/dist
 **/select2/src
+/app/Config/development/Database_pgsql.php
+/app/Config/development/Database_sqlsrv.php
