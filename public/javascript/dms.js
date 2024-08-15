@@ -126,8 +126,8 @@ var dmsjs = {
     /**
      * Return a new array consisting of items in target that are not in remove
      *
-     * @param {array} target Items to process
-     * @param {array} remove Items to remove
+     * @param {array} target Items to process, e.g. ['Request', 'Temperature', Time_Point, 'Block', 'Run Order']
+     * @param {array} remove Items to remove, e.g. ['Request', 'Block', 'Run Order', 'Run_Order']
      * @returns {array} Array of filtered items from target
      */
     removeItems: function(target, remove) {
