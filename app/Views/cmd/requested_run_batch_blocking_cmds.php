@@ -63,7 +63,44 @@ Assign requests to blocks randomly where block size is <input id='block_size' va
 <input class='button lst_cmd_btn' type="button" value="Update from list" onClick='runBlocking.requested_run_batch_blocking.load_delimited_text()' title="Test"  /> Update database using a tab delimited list
 </div>
 <div>
-<p>Delimited text input:</p>
+<table>
+<tr>
+    <td>To update blocking information, the first column must be Request, followed by Block and Run_Order:</td>
+</tr>
+<tr>
+    <td>
+    <table border='1' style='border-collapse:collapse'>
+      <tr>
+        <th style="width: 33%; font-weight: normal; padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px;">Request</th>
+        <th style="width: 33%; font-weight: normal; padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px;">Block</th>
+        <th style="width: 34%; font-weight: normal; padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px;">Run_Order</th>
+      </tr>
+    </table>
+    </td>
+</tr>
+</table>
+<br>
+
+<table>
+<tr>
+    <td>To add or update factors, the first column must be Request, then the other columns (besides Block and Run_Order) are the factor names</td>
+</tr>
+<tr>
+    <td>
+    <table border='1' style='border-collapse:collapse'>
+      <tr>
+        <th style="width: 33%; font-weight: normal; padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px;">Request</th>
+        <th style="width: 33%; font-weight: normal; padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px;">Temperature</th>
+        <th style="width: 34%; font-weight: normal; padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px;">Time_Point</th>
+      </tr>
+    </table>
+    </td>
+</tr>
+</table>
+<br>
+
+<p>Paste a tab-delimited table here:</p>
+
 <textarea id='delimited_text_input' rows='12' cols='90'></textarea>
 </div>
 </div>
