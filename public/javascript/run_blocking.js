@@ -133,6 +133,7 @@ var runBlocking = {
 
             return factor_cols;
         },
+
         verifyColName: function(col_name) {
             var colx = '';
             var cols = this.getFactorCols();
@@ -143,6 +144,7 @@ var runBlocking = {
             });
             return colx;
         },
+
         createBlocksFromBlockingFactor: function(col_name) {
             col = this.verifyColName(col_name);
             if(!col) {
@@ -151,10 +153,11 @@ var runBlocking = {
             }
             runBlocking.createBlocksFromBlockingFactor(col_name);
         },
-        updateDatabaseFromList: function(flist, blist) {
+
+        updateDatabaseFromList: function(factor_list, blocking_list) {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
-            var factorXML = factorsjs.getFactorXMLFromList(flist);
-            var blockingXML = factorsjs.getBlockingXMLFromList(blist);
+            var factorXML = factorsjs.getFactorXMLFromList(factor_list);
+            var blockingXML = factorsjs.getBlockingXMLFromList(blocking_list);
 
             var url =  dmsjs.pageContext.ops_url;
             var p = {};
@@ -163,13 +166,15 @@ var runBlocking = {
             // dmsOps.submitOperation is defined in dmsOps.js
             dmsOps.submitOperation(url, p);
         },
+
         saveChangesToDatabase: function() {
             var factor_cols = this.getFactorCols();
-            var flist = factorsjs.getFactorFieldList(factor_cols);
+            var factor_list = factorsjs.getFactorFieldList(factor_cols);
             var blocking_cols = ['block',  'run_order'];
-            var blist = factorsjs.getFactorFieldList(blocking_cols);
-            this.updateDatabaseFromList(flist, blist);
+            var blocking_list = factorsjs.getFactorFieldList(blocking_cols);
+            this.updateDatabaseFromList(factor_list, blocking_list);
         },
+
         load_delimited_text: function() {
             var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
             if(parsed_data.header[0] != 'request') {
@@ -182,6 +187,7 @@ var runBlocking = {
             var blist = factorsjs.getFieldListFromParsedData(parsed_data, ['block', 'run_order']);
             this.updateDatabaseFromList(flist, blist);
         },
+
         setBlockForSelectedItems: function() {
             // dmsChooser.getSelectedItemList is defined in dmsChooser.js
             var iList = dmsChooser.getSelectedItemList();
@@ -202,6 +208,7 @@ var runBlocking = {
                 $('#block_' + req).val(block);
             });
         },
+
         performBatchOperation: function(mode) {
             var url =  dmsjs.pageContext.site_url + "requested_run_batch_blocking/exec/batch";
             var p = {};
