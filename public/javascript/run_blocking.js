@@ -177,15 +177,45 @@ var runBlocking = {
 
         load_delimited_text: function() {
             var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
+            var header_updates = '';
+            
+            // Change header names to lowercase and change column 'run order' to 'run_order'   
+                     
+            parsed_data.header.forEach((headerName, index, array) => {
+                var lowercaseName = headerName.toLowerCase().trim();
+                
+                if (lowercaseName == 'run order') {
+                    lowercaseName = 'run_order'; 
+                }
+                
+                if (lowercaseName != headerName) {
+                   array[index] = lowercaseName;
+                   
+                   if (header_updates == '') {
+                       header_updates = 'Header updates: ' + headerName + '=>' + lowercaseName;
+                   } else {
+                       header_updates += ', ' + headerName + '=>' + lowercaseName;
+                   }
+                }
+            });
+            
+            // Uncomment to show the list of updated column names
+
+            // if (header_updates != '') {
+            //     alert(header_updates);
+            // }                
+            
             if(parsed_data.header[0] != 'request') {
-                alert('Header line does not begin with "request"');
+                alert('The first column in the header line must be "Request"');
                 // (someday) more extensive validation
                 return;
             }
-            var col_list = dmsjs.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order', 'Run_Order']);
-            var flist = factorsjs.getFieldListFromParsedData(parsed_data, col_list);
-            var blist = factorsjs.getFieldListFromParsedData(parsed_data, ['block', 'run_order']);
-            this.updateDatabaseFromList(flist, blist);
+
+            var factor_names = dmsjs.removeItems(parsed_data.header, ['Request', 'Block', 'Run Order', 'Run_Order']);
+            var factor_list = factorsjs.getFieldListFromParsedData(parsed_data, factor_names);
+            var blocking_list = factorsjs.getFieldListFromParsedData(parsed_data, ['block', 'run_order']);
+
+            this.updateDatabaseFromList(factor_list, blocking_list);
         },
 
         setBlockForSelectedItems: function() {
