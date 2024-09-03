@@ -232,16 +232,17 @@ if ($defaults.Contains("cbdmsDbSqlPath")) {
 # launch Beyond Compare
 if($settings["launchBeyondCompare"]) {
 
-    $beyondComparePath = "C:\Program Files\Beyond Compare 4\bcomp.exe"
+    $beyondComparePath = "C:\Program Files\Beyond Compare 5\bcomp.exe"
 
     if (!(Test-Path "$beyondComparePath")) { 
-        $beyondComparePath = "C:\Program Files (x86)\Beyond Compare 2\bc2.exe" 
+        # $beyondComparePath = "C:\Program Files (x86)\Beyond Compare 2\bc2.exe"
+        $beyondComparePath = "C:\Program Files\Beyond Compare 4\bcomp.exe"
     }
 
     Write-output ""
 
     if (!(Test-Path "$beyondComparePath")) { 
-        Write-Output "Could not find Beyond Compare 4 or Beyond Compare 2" 
+        Write-Output "Could not find Beyond Compare 4 or Beyond Compare 5" 
     } else {
 
         if (($codeSyncDir) -and (Test-Path "$codeSyncDir")) {
