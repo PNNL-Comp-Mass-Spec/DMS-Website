@@ -240,8 +240,8 @@ EOD;
         $normalIntervalCount = 0;
         $normalIntervalDuration = 0;
         foreach($runs as $run) {
-            $duration = $run['Duration'];
-            $interval = $run['Interval'];
+            $duration = $run['duration'];
+            $interval = $run['interval'];
             $runCount++;
             $runDuration += $duration;
             if($interval <= $this->maxNormalInterval) {
@@ -259,7 +259,7 @@ EOD;
         $intervalDuration = 0;
         foreach($intervals as $interval) {
             $intervalCount++;
-            $intervalDuration += $interval['Interval'];
+            $intervalDuration += $interval['interval'];
         }
 
 
@@ -286,7 +286,7 @@ EOD;
             $duration = $row["duration"];
             $interval = $row["interval"];
             if($duration > 0) {
-                $runs[] = array("Day"=>$day, "Duration"=>$duration, "Interval"=>$interval);
+                $runs[] = array("day"=>$day, "duration"=>$duration, "interval"=>$interval);
             }
         }
         return $runs;
@@ -314,7 +314,7 @@ EOD;
             }
             $hour = date("g A", $dt);
             if($interval > $this->maxNormalInterval) {
-                $intervals[] = array("ID"=>$id, "Day"=>$day, "Interval"=>$interval, "Hour"=>$hour, "ComState"=>$commentState, "Comment"=>$comment);
+                $intervals[] = array("id"=>$id, "day"=>$day, "interval"=>$interval, "hour"=>$hour, "commentState"=>$commentState, "comment"=>$comment);
             }
         }
         return $intervals;
@@ -328,36 +328,36 @@ EOD;
         // Roll up number of runs and total duration for each day
         $runTotals = array();
         foreach($runs as $run) {
-            $day = $run['Day'];
-            $duration = $run['Duration'];
-            $interval = $run['Interval'];
+            $day = $run['day'];
+            $duration = $run['duration'];
+            $interval = $run['interval'];
             if(!array_key_exists($day, $runTotals)) {
-                $runTotals[$day] = array("Runs"=>0, "Duration"=>0);
+                $runTotals[$day] = array("runs"=>0, "duration"=>0);
             }
-            $runTotals[$day]["Runs"] += 1;
-            $runTotals[$day]["Duration"] += $duration;
+            $runTotals[$day]["runs"] += 1;
+            $runTotals[$day]["duration"] += $duration;
             if($interval <= $this->maxNormalInterval) {
-                $runTotals[$day]["Duration"] += $interval;
+                $runTotals[$day]["duration"] += $interval;
             }
         }
 
         // Add rolled up run count and duration to calendar display data
         $calendarData = array();
         foreach($runTotals as $day=>$total) {
-            $nRuns = $total["Runs"];
-            $duration = $total["Duration"];
+            $nRuns = $total["runs"];
+            $duration = $total["duration"];
             $calendarData[$day] = "<div>Runs:&nbsp;$nRuns</div><div>Duration:&nbsp;$duration</div>";
         }
 
         // Add long intervals to calendar display data
         foreach($intervals as $interval) {
-            $id = $interval['ID'];
-            $tip = "[$id] " . $interval['Comment'];
-            $link = site_url("run_interval/edit/" . $interval['ID']);
-            $day = $interval['Day'];
-            $int = $interval['Interval'];
-            $hour = $interval['Hour'];
-            $commentState = $interval['ComState'];
+            $id = $interval['id'];
+            $tip = "[$id] " . $interval['comment'];
+            $link = site_url("run_interval/edit/" . $interval['id']);
+            $day = $interval['day'];
+            $int = $interval['interval'];
+            $hour = $interval['hour'];
+            $commentState = $interval['commentState'];
             $attbrs = "class='boink'";
             if(!array_key_exists($day, $calendarData)) {
                 $calendarData[$day] = '';
