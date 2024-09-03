@@ -8,7 +8,6 @@ INSERT INTO sproc_args VALUES(2,'<local>','eusInstrumentId','int','input','12','
 INSERT INTO sproc_args VALUES(3,'year','year','varchar','input','12','get_monthly_instrument_usage_report');
 INSERT INTO sproc_args VALUES(4,'month','month','varchar','input','12','get_monthly_instrument_usage_report');
 INSERT INTO sproc_args VALUES(5,'output_format','outputFormat','varchar','input','12','get_monthly_instrument_usage_report');
-INSERT INTO sproc_args VALUES(6,'<local>','message','varchar','output','512','get_monthly_instrument_usage_report');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'instrument','Instrument','text','50','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(2,'year','Year','text','12','12','','','','trim|max_length[12]');
