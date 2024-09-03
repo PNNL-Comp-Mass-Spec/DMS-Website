@@ -303,8 +303,8 @@ EOD;
             $id = $row['ID'];
             $day = $row["Day"];
             $interval = $row["Interval"];
-            $comState = $row['CommentState'];
             $comment = $row['Comment'];
+            $commentState = $row['comment_state'];
             $dt = new \DateTime();
             if (is_string($row['Time_End'])) {
                 $dt = strtotime($row['Time_End']);
@@ -314,7 +314,7 @@ EOD;
             }
             $hour = date("g A", $dt);
             if($interval > $this->maxNormalInterval) {
-                $intervals[] = array("ID"=>$id, "Day"=>$day, "Interval"=>$interval, "Hour"=>$hour, "ComState"=>$comState, "Comment"=>$comment);
+                $intervals[] = array("ID"=>$id, "Day"=>$day, "Interval"=>$interval, "Hour"=>$hour, "ComState"=>$commentState, "Comment"=>$comment);
             }
         }
         return $intervals;
@@ -357,15 +357,15 @@ EOD;
             $day = $interval['Day'];
             $int = $interval['Interval'];
             $hour = $interval['Hour'];
-            $comState = $interval['ComState'];
+            $commentState = $interval['ComState'];
             $attbrs = "class='boink'";
             if(!array_key_exists($day, $calendarData)) {
                 $calendarData[$day] = '';
             }
-            if($comState == 'x') {
+            if($commentState == 'x') {
                 $calendarData[$day] .= "<div>$hour:&nbsp;$int</div>";
             } else {
-                $color = ($comState == '+')?"green":"red";
+                $color = ($commentState == '+')?"green":"red";
                 $calendarData[$day] .= "<div style='color:$color'>$hour:&nbsp;<a href='$link' title='$tip'>$int</a></div>";
             }
         }
