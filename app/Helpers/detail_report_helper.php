@@ -331,6 +331,13 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 }
             }
 
+            if (!empty($options) && array_key_exists('MaskLink', $options)) {
+                $maskLinkText = $options['MaskLink'];
+                if (!empty($maskLinkText)) {
+                    $display = $maskLinkText;
+                }
+            }
+
             // Replace %, [, and ] in $link_id with placeholders
             $link_id = encode_special_values($link_id);
 
