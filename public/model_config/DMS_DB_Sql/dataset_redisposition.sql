@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('entry_sproc','update_dataset_dispositions_by_name');
 INSERT INTO general_params VALUES('alternate_title_create','Redisposition Datasets');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
-INSERT INTO form_fields VALUES(1,'dataset_list','Dataset List','area','','','4','60','','trim|max_length[6000]');
+INSERT INTO form_fields VALUES(1,'dataset_list','Dataset List','area','','','4','60','','trim|max_length[50000]');
 INSERT INTO form_fields VALUES(2,'rating','Rating','text','60','64','','','Not Released','trim|max_length[64]');
 INSERT INTO form_fields VALUES(3,'recycle_request','Recycle Request','text','32','32','','','Yes','trim|max_length[32]');
 INSERT INTO form_fields VALUES(4,'comment','Comment','area','','','3','60','This dataset was redispositioned.','trim|max_length[512]');
