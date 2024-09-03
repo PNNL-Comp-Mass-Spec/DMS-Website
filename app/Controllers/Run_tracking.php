@@ -29,7 +29,7 @@ class Run_tracking extends DmsBase {
         // so choose the first instrument in the list
         if(!$instrument) {
             $il = $this->get_instrument_list();
-            $instrument = $il[0]['Name'];
+            $instrument = $il[0]['name'];
         }
 
         // Validate the month
@@ -148,7 +148,7 @@ class Run_tracking extends DmsBase {
 SELECT *
 FROM  get_run_tracking_monthly_info('$instrument', '$year', '$month', '') AS GT
 EOD;
-// Seq, ID, Dataset, Day, Duration, Interval, Time_Start, Time_End, Instrument
+// seq, id, dataset, day, duration, interval, time_start, time_end, instrument
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
         return $result;
@@ -189,10 +189,10 @@ EOD;
         $options = array($emslLabel => array(), $dmsLabel => array() );
         if($instruments) {
             foreach($instruments as $item) {
-                $inst = $item['Name'];
+                $inst = $item['name'];
                 //$inst = $item;
                 $link = site_url($this->my_tag . "/cal/$inst/$year/$month");
-                $rpt = $item['Reporting'];
+                $rpt = $item['reporting'];
                 switch($rpt[0]) {
                     case 'E':
                     $options[$emslLabel][$link] =  "$inst ($rpt)";
@@ -282,9 +282,9 @@ EOD;
         $runs = array();
         reset($rows);
         foreach($rows as $row) {
-            $day = $row["Day"];
-            $duration = $row["Duration"];
-            $interval = $row["Interval"];
+            $day = $row["day"];
+            $duration = $row["duration"];
+            $interval = $row["interval"];
             if($duration > 0) {
                 $runs[] = array("Day"=>$day, "Duration"=>$duration, "Interval"=>$interval);
             }
@@ -300,17 +300,17 @@ EOD;
         $intervals = array();
         reset($rows);
         foreach($rows as $row) {
-            $id = $row['ID'];
-            $day = $row["Day"];
-            $interval = $row["Interval"];
-            $comment = $row['Comment'];
+            $id = $row['id'];
+            $day = $row["day"];
+            $interval = $row["interval"];
             $commentState = $row['comment_state'];
+            $comment = $row['comment'];
             $dt = new \DateTime();
-            if (is_string($row['Time_End'])) {
-                $dt = strtotime($row['Time_End']);
+            if (is_string($row['time_end'])) {
+                $dt = strtotime($row['time_end']);
             }
             else {
-                $dt = $row['Time_End'];
+                $dt = $row['time_end'];
             }
             $hour = date("g A", $dt);
             if($interval > $this->maxNormalInterval) {
