@@ -23,7 +23,7 @@ INSERT INTO form_fields VALUES(8,'data_package_id','Data Package ID','text','','
 INSERT INTO form_fields VALUES(9,'organism_name','Organism','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(10,'prot_coll_name_list','Protein Collection List','area','','','3','60','','trim|max_length[4000]');
 INSERT INTO form_fields VALUES(11,'prot_coll_options_list','Protein Options List','area','','','2','40','seq_direction=forward,filetype=fasta','trim|max_length[256]');
-INSERT INTO form_fields VALUES(12,'organism_db_name','Legacy Fasta (typically na)','text','100','128','','','','trim|max_length[128]');
+INSERT INTO form_fields VALUES(12,'organism_db_name','Individual FASTA (typically na)','text','100','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(13,'requester','Requested by','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(15,'state','State','text','24','24','','','New','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(16,'comment','Comment','area','','','4','50','','trim|max_length[512]');
@@ -72,7 +72,7 @@ INSERT INTO detail_report_hotlinks VALUES(5,'tool','detail-report','tool','pipel
 INSERT INTO detail_report_hotlinks VALUES(6,'protein_collection_list','link_table','protein_collection_list','protein_collection/report/~','valueCol','dl_protein_collection_list','');
 INSERT INTO detail_report_hotlinks VALUES(7,'requester_name','detail-report','requester','user/show/','labelCol','dl_requester','');
 INSERT INTO detail_report_hotlinks VALUES(8,'parameter_file','detail-report','parameter_file','param_file/report/-/~','labelCol','dl_param_file','');
-INSERT INTO detail_report_hotlinks VALUES(9,'legacy_fasta','detail-report','legacy_fasta','helper_organism_db/report/~','valueCol','dl_legacy_fasta','');
+INSERT INTO detail_report_hotlinks VALUES(9,'organism_db_file','detail-report','organism_db_file','helper_organism_db/report/~','valueCol','dl_organism_db_file','');
 INSERT INTO detail_report_hotlinks VALUES(10,'data_package_id','detail-report','data_package_id','data_package/show','valueCol','dl_data_package','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO entry_commands VALUES(1,'PreviewAdd','cmd','Preview Add','Determine if current values are valid, but do not change database.','');

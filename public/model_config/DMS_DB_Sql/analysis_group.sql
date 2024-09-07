@@ -19,7 +19,7 @@ INSERT INTO form_fields VALUES(7,'data_package_id','Data Package ID','non-edit',
 INSERT INTO form_fields VALUES(8,'organism','Organism','text','30','80','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(9,'prot_coll_name_list','Protein Collection List','area','','','3','60','na','trim|max_length[4000]');
 INSERT INTO form_fields VALUES(10,'prot_coll_options_list','Protein Options List','area','','','2','60','na','trim|max_length[256]');
-INSERT INTO form_fields VALUES(11,'organism_db','Legacy Fasta (typically na)','text','80','80','','','na','trim|required|max_length[128]');
+INSERT INTO form_fields VALUES(11,'organism_db','Individual FASTA (typically na)','text','80','80','','','na','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(12,'owner','Owner (Username)','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(13,'associated_processor_group','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(14,'comment','Comment','area','','','4','50','','trim|max_length[255]');
@@ -63,7 +63,7 @@ INSERT INTO external_sources VALUES(4,'analysis_job_request','settings_file','Co
 INSERT INTO external_sources VALUES(5,'analysis_job_request','organism','ColName','organism');
 INSERT INTO external_sources VALUES(6,'analysis_job_request','prot_coll_name_list','ColName','protein_collection_list');
 INSERT INTO external_sources VALUES(7,'analysis_job_request','prot_coll_options_list','ColName','protein_options');
-INSERT INTO external_sources VALUES(8,'analysis_job_request','organism_db','ColName','legacy_fasta');
+INSERT INTO external_sources VALUES(8,'analysis_job_request','organism_db','ColName','organism_db_file');
 INSERT INTO external_sources VALUES(9,'analysis_job_request','owner','ColName','requester');
 INSERT INTO external_sources VALUES(10,'analysis_job_request','comment','ColName.action.Scrub','comment');
 INSERT INTO external_sources VALUES(11,'analysis_job_request','request','ColName','request');

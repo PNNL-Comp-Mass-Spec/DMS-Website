@@ -48,7 +48,7 @@ INSERT INTO list_report_hotlinks VALUES(2,'protein_collections','invoke_entity',
 INSERT INTO list_report_hotlinks VALUES(3,'ncbi_taxonomy','invoke_entity','value','ncbi_taxonomy/report/-/StartsWith__@','');
 INSERT INTO list_report_hotlinks VALUES(4,'ncbi_synonyms','invoke_entity','ncbi_taxonomy_id','ncbi_taxonomy_altname/report/','');
 INSERT INTO list_report_hotlinks VALUES(5,'ncbi_taxonomy_id','invoke_entity','value','ncbi_taxonomy/show/','');
-INSERT INTO list_report_hotlinks VALUES(6,'legacy_fastas','invoke_entity','name','helper_organism_db/report/-/~','');
+INSERT INTO list_report_hotlinks VALUES(6,'individual_fastas','invoke_entity','name','helper_organism_db/report/-/~','');
 INSERT INTO list_report_hotlinks VALUES(7,'created','format_date','value','15','{"Format":"Y-m-d"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'organism','orgName','varchar','input','128','add_update_organisms');
@@ -82,6 +82,6 @@ INSERT INTO detail_report_hotlinks VALUES(7,'ncbi_taxonomy','detail-report','ncb
 INSERT INTO detail_report_hotlinks VALUES(8,'ncbi_synonyms','detail-report','ncbi_taxonomy_id','ncbi_taxonomy_altname/report/','labelCol','ncbi_taxonomy_Synomys','');
 INSERT INTO detail_report_hotlinks VALUES(10,'taxonomy_list','tabular_list','taxonomy_list','','valueCol','dl_taxonomy_list','');
 INSERT INTO detail_report_hotlinks VALUES(11,'default_protein_collection','detail-report','default_protein_collection','protein_collection/report/~','valueCol','dl_default_protein_collection','');
-INSERT INTO detail_report_hotlinks VALUES(12,'legacy_fasta_files','detail-report','name','helper_organism_db/report/-/~','labelCol','dl_legacy_fasta_files','');
+INSERT INTO detail_report_hotlinks VALUES(12,'individual_fasta_files','detail-report','name','helper_organism_db/report/-/~','labelCol','dl_individual_fasta_files','');
 INSERT INTO detail_report_hotlinks VALUES(13,'organism_storage_link','literal_link','organism_storage_link','','valueCol','dl_organism_storage_link','');
 COMMIT;
