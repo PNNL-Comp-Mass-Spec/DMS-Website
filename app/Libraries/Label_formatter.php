@@ -147,6 +147,8 @@ class Label_Formatter {
         "eta"    => "ETA",
         "etd"    => "ETD",
         "eus"    => "EUS",
+        "fasta"  => "FASTA",
+        "fastas" => "FASTAs",
         "fdr"    => "FDR",
         "fwhm"   => "FWHM",
         "ft"     => "FT",
