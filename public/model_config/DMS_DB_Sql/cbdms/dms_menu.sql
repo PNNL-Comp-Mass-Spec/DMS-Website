@@ -492,7 +492,7 @@ INSERT INTO menu_def VALUES(444,'Organisms Admin','link','organism/report','Repo
 INSERT INTO menu_def VALUES(445,'Organisms Admin','link','organism/create','Entry');
 INSERT INTO menu_def VALUES(446,'Organisms Admin','link','ncbi_taxonomy/report','NCBI Taxonomy Names');
 INSERT INTO menu_def VALUES(447,'Organisms Admin','link','protein_collection/report','Protein Collections');
-INSERT INTO menu_def VALUES(448,'Organisms Admin','link','helper_organism_db/report','Legacy FASTA files');
+INSERT INTO menu_def VALUES(448,'Organisms Admin','link','helper_organism_db/report','Individual FASTA files');
 INSERT INTO menu_def VALUES(449,'Admin','submenu','File Storage','Storage');
 INSERT INTO menu_def VALUES(450,'File Storage','link','storage/report','Report');
 INSERT INTO menu_def VALUES(451,'File Storage','link','storage/create','Entry');

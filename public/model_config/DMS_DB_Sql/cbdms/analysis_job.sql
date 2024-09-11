@@ -54,9 +54,9 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','50!','',
 INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','','','campaign','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_param_file','Param File','40!','','param_file','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_protein_collection_list','Protein Collection List','40!','','protein_collection_list','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_comment','Comment','','','comment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_comment','Comment','40!','','comment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_most_recent_weeks','Most recent weeks','3!','','last_affected','MostRecentWeeks','text','32','','');
-INSERT INTO list_report_primary_filter VALUES(10,'pf_settings_file','Settings File','30!','','settings_file','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(10,'pf_settings_file','Settings File','40!','','settings_file','ContainsText','text','128','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','analysisJobStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_tool','picker.replace','analysisToolPickList','','',',');
