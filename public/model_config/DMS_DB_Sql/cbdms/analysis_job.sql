@@ -29,7 +29,7 @@ INSERT INTO form_fields VALUES(11,'owner','Owner','text','40','80','','','','tri
 INSERT INTO form_fields VALUES(12,'associated_processor_group','Associated Processor Group','text','60','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(13,'propagation_mode','Export Mode','text','24','24','','','Export','trim|max_length[24]');
 INSERT INTO form_fields VALUES(14,'state_name','State','text','32','32','','','','trim|max_length[32]');
-INSERT INTO form_fields VALUES(15,'comment','Comment','area','','','4','50','','trim|max_length[512]');
+INSERT INTO form_fields VALUES(15,'comment','Comment','area','','','4','80','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(16,'special_processing','Special Processing','area','','','4','80','','trim|max_length[512]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'owner','default_function','GetUser()');
