@@ -20,32 +20,32 @@ class Helper_inst_source extends DmsBase {
         if (empty($inst)) {
 
             echo "<p>Commonly used DMS Instruments</p>\n";
-            echo "<!-- To edit this list, see file DMS2/app/Controllers/helper_inst_source.php -->\n";
 
             echo "<ul>\n";
             $instruments = array();
-            $instruments[] = "12T_FTICR_B";
-            $instruments[] = "15T_FTICR";
-            $instruments[] = "15T_FTICR_Imaging";
-            $instruments[] = "21T_Agilent";
-            $instruments[] = "Scimax01";
+            $instruments[] = "12T_FTICR_P";
+            $instruments[] = "15T_FTICR_I";
             $instruments[] = "Agilent_GC_MS_01";
             $instruments[] = "Agilent_GC_MS_02";
             $instruments[] = "Agilent_GC_MS_03";
-            $instruments[] = "Agilent_QQQ_04";
             $instruments[] = "Altis01";
             $instruments[] = "Altis02";
             $instruments[] = "Altis03";
-            $instruments[] = "GCQE01";
-            $instruments[] = "IMS08_AgQTOF05";
-            $instruments[] = "IMS09_AgQToF06";
-            $instruments[] = "IMS12-AgQToF09";
+            $instruments[] = "Altis04";
+            $instruments[] = "Ascend01";
+            $instruments[] = "Astral01";
+            $instruments[] = "Eclipse01";
+            $instruments[] = "Eclipse02";
+            $instruments[] = "Exploris01";
+            $instruments[] = "Exploris02";
+            $instruments[] = "Exploris03";
+            $instruments[] = "Exploris04";
+            $instruments[] = "Exploris05";
+            $instruments[] = "Exploris06";
+            $instruments[] = "Exploris07";
             $instruments[] = "Lumos01";
             $instruments[] = "Lumos02";
             $instruments[] = "Lumos03";
-            $instruments[] = "Eclipse01";
-            $instruments[] = "Eclipse02";
-            $instruments[] = "Ascend01";
             $instruments[] = "QExactHF03";
             $instruments[] = "QExactHF05";
             $instruments[] = "QExactP02";
@@ -54,12 +54,11 @@ class Helper_inst_source extends DmsBase {
             $instruments[] = "QEHFX01";
             $instruments[] = "QEHFX02";
             $instruments[] = "QEHFX03";
-            $instruments[] = "Exploris02";
-            $instruments[] = "SLIM02_AgQTOF02";
-            $instruments[] = "SLIM03_AgTOF06";
-            $instruments[] = "SLIM07_AgTOF08";
+            $instruments[] = "SciMax01";
+            $instruments[] = "SynaptG2_01";
+            $instruments[] = "timsTOFFlex02";
+            $instruments[] = "timsTOFScp01";
             $instruments[] = "TSQ_4";
-            $instruments[] = "TSQ_5";
             $instruments[] = "TSQ_6";
             $instruments[] = "VOrbi05";
             $instruments[] = "VOrbiETD02";
@@ -68,6 +67,23 @@ class Helper_inst_source extends DmsBase {
             {
                 echo "<li><a href=\"/helper_inst_source/view/" . $instrument . "\">" . $instrument. "</a></li>\n";
             }
+
+            echo "<p>To edit this list, see file DMS2/app/Controllers/helper_inst_source.php</p>\n";
+
+            echo "<p>Query to find instruments used by datasets from this calendar year:</p>\n";
+            echo "<pre>\n";
+            echo "SELECT DL.Instrument, InstName.assigned_source, Count(*) as Datasets\n";
+            echo "FROM v_dataset_list_report_2 DL                                     \n";
+            echo "     INNER JOIN ( SELECT name AS instrument, assigned_source        \n";
+            echo "                  FROM v_instrument_list_report                     \n";
+            echo "                ) InstName ON DL.instrument = InstName.instrument   \n";
+            echo "WHERE created >= make_date(extract(year from current_timestamp)::int, 1, 1) AND\n";
+            echo "      NOT DL.Instrument IN ( SELECT instrument FROM t_instrument_name WHERE instrument_class LIKE '%_LC') AND\n";
+            echo "      NOT DL.Instrument IN ('DMS_Pipeline_Data') AND \n";
+            echo "      NOT DL.Instrument LIKE 'External%'             \n";
+            echo "GROUP BY DL.Instrument, InstName.assigned_source     \n";
+            echo "ORDER BY DL.Instrument;                              \n";
+            echo "</pre>\n";
 
             exit;
         }
