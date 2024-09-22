@@ -10,23 +10,30 @@
  * @return type
  */
 function make_suggested_sql_for_general_params($obj) {
+    // Convert table names and view names to lowercase
+    $baseTable = strtolower($obj->tbl);
+    $listReportView = strtolower($obj->lrn);
+    $detailReportView = strtolower($obj->drn);
+    $entryView = strtolower($obj->ern);
+    $entryProcedure = strtolower($obj->spn);
+
     // Use a Heredoc string to define the insert into queries
-    // Note: do not indent the final line with EOD;
+
     $s = <<<EOD
 delete from general_params;
 ----
-insert into general_params ("name","value") values ('base_table' , '$obj->tbl');
-insert into general_params ("name","value") values ('list_report_data_table' , '$obj->lrn' );
-insert into general_params ("name","value") values ('detail_report_data_table' , '$obj->drn');
-insert into general_params ("name","value") values ('detail_report_data_id_col' , 'id');
-insert into general_params ("name","value") values ('detail_report_data_id_type' , 'integer');
-insert into general_params ("name","value") values ('detail_report_sproc' , '');
-insert into general_params ("name","value") values ('entry_page_data_table' , '$obj->ern');
-insert into general_params ("name","value") values ('entry_page_data_id_col' , 'id');
-insert into general_params ("name","value") values ('entry_sproc' , '$obj->spn');
+insert into general_params ("name","value") values ('base_table', '$baseTable');
+insert into general_params ("name","value") values ('list_report_data_table', '$listReportView' );
+insert into general_params ("name","value") values ('detail_report_data_table', '$detailReportView');
+insert into general_params ("name","value") values ('detail_report_data_id_col', 'id');
+insert into general_params ("name","value") values ('detail_report_data_id_type', 'integer');
+insert into general_params ("name","value") values ('detail_report_sproc', '');
+insert into general_params ("name","value") values ('entry_page_data_table', '$entryView');
+insert into general_params ("name","value") values ('entry_page_data_id_col', 'id');
+insert into general_params ("name","value") values ('entry_sproc', '$entryProcedure');
 EOD;
-    //insert into general_params ("name","value") values ('operations_sproc' , '$obj->upn');
-    //insert into general_params ("name","value") values ('my_db_group' , 'name of database connection [package, broker] (omit for connection to default DMS database)');
+    //insert into general_params ("name","value") values ('operations_sproc', '$obj->upn');
+    //insert into general_params ("name","value") values ('my_db_group', 'name of database connection [package, broker] (omit for connection to default DMS database)');
     return $s;
 }
 

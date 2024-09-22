@@ -1509,7 +1509,7 @@ class Config_db extends BaseController {
         $baseName = ucwords(str_replace("_", " ", $page_family_tag));
 
         $baseViewName = str_replace(" ", "_", $baseName);
-        $baseProcName = str_replace(" ", "", $baseName);
+        $baseProcName = str_replace(" ", "_", $baseName);
 
         $obj = new \stdClass ();
         $obj->lrn = "v_" . $baseViewName . "_list_report";
