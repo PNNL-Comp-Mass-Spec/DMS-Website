@@ -11,6 +11,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','',
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset_type','Type','20','','dataset_type','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_scan_types','Scan Types','20','','scan_types','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset_id','Dataset ID','10','','id','Equals','text','','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'dataset','invoke_entity','dataset','dataset_info/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'comment','min_col_width','value','60','');
