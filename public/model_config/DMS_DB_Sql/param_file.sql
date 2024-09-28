@@ -16,7 +16,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'param_file_id','invoke_entity','value
 INSERT INTO list_report_hotlinks VALUES(2,'job_usage_count','invoke_entity','param_file_name','analysis_job/report/-/-/-/-/-/~','');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'param_file_id','ID','non-edit','','','','','','trim');
-INSERT INTO form_fields VALUES(2,'param_file_name','Name','text','80','255','','','','trim|required|max_length[255]');
+INSERT INTO form_fields VALUES(2,'param_file_name','Name','text','100','255','','','','trim|required|max_length[255]');
 INSERT INTO form_fields VALUES(3,'param_file_description','Description','area','','','4','80','','trim|required|max_length[1024]');
 INSERT INTO form_fields VALUES(4,'param_file_type','Type','text','32','32','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(5,'valid','Valid','text','8','8','','','','trim|required|numeric');
@@ -43,7 +43,7 @@ INSERT INTO detail_report_hotlinks VALUES(5,'+mass_mods','monomarkup','mass_mods
 INSERT INTO detail_report_hotlinks VALUES(6,'maxquant_mods','tabular_link_list','maxquant_mods','maxquant_mods/report/@/-','valueCol','dl_maxquant_mods','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_param_file_id','ID','5!','','param_file_id','Equals','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_param_file_name','Name','50!','','param_file_name','ContainsText','text','256','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_param_file_name','Name','60!','','param_file_name','ContainsText','text','256','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_param_file_type','Type','20','','param_file_type','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_param_file_description','Description','20!','','param_file_description','ContainsText','text','1024','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_valid','Valid','5!','','valid','Equals','text','20','','');
