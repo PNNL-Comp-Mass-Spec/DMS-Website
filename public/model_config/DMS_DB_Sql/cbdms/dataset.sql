@@ -62,9 +62,10 @@ INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','20
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32!','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','date_sort_key','MostRecentWeeks','text','4','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_created_after','Created After','8','','created','LaterThan','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(9,'pf_rating','Rating','12','','rating','StartsWithText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(10,'pf_work_package','Work Pkg','12','','work_package','StartsWithText','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(11,'pf_eus_proposal','EMSL Proposal','12','','proposal','StartsWithText','text','12','','');
+INSERT INTO list_report_primary_filter VALUES(9,'pf_comment','Comment','12','','comment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(10,'pf_rating','Rating','12','','rating','StartsWithText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(11,'pf_work_package','Work Pkg','12','','work_package','StartsWithText','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(12,'pf_eus_proposal','EMSL Proposal','12','','proposal','StartsWithText','text','12','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
