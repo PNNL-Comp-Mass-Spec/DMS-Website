@@ -57,6 +57,7 @@ class Run_op_logs extends Grid {
         if(IsNotWhitespace($type)) $builder->where("type in ($type)");
         if(IsNotWhitespace($year)) $builder->where("year", $year);
         if(IsNotWhitespace($month)) $builder->where("month", $month);
+        $builder->orderBy("entered ASC, instrument ASC");
         $this->grid_data_from_query($builder);
     }
 }
