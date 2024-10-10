@@ -43,6 +43,7 @@ class Pipeline_jobs extends DmsBase {
         } else {
             $lnk = "<a href='javascript:void(0)' onclick='entryCmds.pipeline_jobs.load_param_form()' >here</a>";
             if(!$default_key) {
+                // Script names in $scripts are loaded from
                 $scripts = $this->get_scripts_with_param_definitions($this->my_tag);
                 echo "<div>Click one of the scripts below to show form for entering parameters:</div>";
                 echo "<ul>";
@@ -60,11 +61,11 @@ class Pipeline_jobs extends DmsBase {
 
     // --------------------------------------------------------------------
     // Get list of scripts with parameters defined
-    // This will download data from the view defined by the parameter_scripts utility query in the model config DB
+    // This will download data from the view defined by the parameter_scripts utility query in model config DB "pipeline_jobs.db"
     //
     // Relevant DDL for the SQLite database:
-    // INSERT INTO "utility_queries" VALUES(3,'parameter_scripts','','broker','V_Pipeline_Script_With_Parameters','*','','','');
-    // That view looks for entries in T_Scripts that are enabled and have a non-null value in the Parameters column
+    // INSERT INTO "utility_queries" VALUES(3,'parameter_scripts','','broker','v_pipeline_scripts_enabled','script','','','');
+    // That view looks for entries in sw.t_scripts that are enabled and have pipeline_job_enabled > 0
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
