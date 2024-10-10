@@ -522,11 +522,16 @@ INSERT INTO menu_def VALUES(478,'Capture Status Checks','link','capture_daily_ch
 INSERT INTO menu_def VALUES(479,'Capture Status Checks','link','capture_daily_check/report/SourceFileRename','Source File Rename');
 INSERT INTO menu_def VALUES(481,'Capture Pipeline','link','capture_log/report','Capture Log');
 INSERT INTO menu_def VALUES(482,'Data Analysis Requests','submenu','Data Analysis Requests Active','Active (by staff)');
-INSERT INTO menu_def VALUES(483,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Couvillion/-/-/-/-','Couvillion');
-INSERT INTO menu_def VALUES(484,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Hixson/-/-/-/-','Hixson');
-INSERT INTO menu_def VALUES(485,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kim/-/-/-/-','Kim');
-INSERT INTO menu_def VALUES(486,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Munoz/-/-/-/-','Munoz');
-INSERT INTO menu_def VALUES(487,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Nakayasu/-/-/-/-','Nakayasu');
+INSERT INTO menu_def VALUES(483,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Bloodsworth/-/-/-/-','Bloodsworth');
+INSERT INTO menu_def VALUES(484,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Callister/-/-/-/-','Callister');
+INSERT INTO menu_def VALUES(485,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Clendinen/-/-/-/-','Clendinen');
+INSERT INTO menu_def VALUES(486,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Couvillion/-/-/-/-','Couvillion');
+INSERT INTO menu_def VALUES(487,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Hixson/-/-/-/-','Hixson');
+INSERT INTO menu_def VALUES(488,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kim/-/-/-/-','Kim (Young-Mo)');
+INSERT INTO menu_def VALUES(489,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Munoz/-/-/-/-','Munoz');
+INSERT INTO menu_def VALUES(490,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Nakayasu/-/-/-/-','Nakayasu');
+INSERT INTO menu_def VALUES(491,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Purvine/-/-/-/-','Purvine');
+INSERT INTO menu_def VALUES(492,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Tolic/-/-/-/-','Tolic');
 CREATE TABLE nav_def (
     "id" INTEGER PRIMARY KEY,
     "owner_menu" TEXT,
