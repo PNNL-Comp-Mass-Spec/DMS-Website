@@ -17,6 +17,10 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_year','Year','20','','year','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_month','Month','20','','month','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','20','','instrument','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_type','Type','6!','','type','StartsWithText','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_proposal','Proposal','8!','','proposal','ContainsText','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_usage','Usage','8!','','usage','ContainsText','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_comment','Comment','20','','comment','ContainsText','text','128','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'seq','Seq','int','input','','add_update_instrument_usage_report');
 INSERT INTO sproc_args VALUES(2,'emsl_inst_id','EMSLInstID','int','input','','add_update_instrument_usage_report');
