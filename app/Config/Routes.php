@@ -54,6 +54,9 @@ $routes->getAlias('eus_user', 'Eus_users');
 
 $routes->getAlias('file_attachments', 'File_attachment');
 
+$routes->getAlias('instrument_op_history', 'Instrument_operation_history');
+$routes->getAlias('instrument_ops_history', 'Instrument_operation_history');
+
 $routes->getAlias('lc_cart_config', 'Lc_cart_configuration');
 
 $routes->getAlias('mass_correction_factor', 'Mass_correction_factors');
