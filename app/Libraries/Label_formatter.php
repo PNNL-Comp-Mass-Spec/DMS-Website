@@ -13,6 +13,7 @@ class Label_Formatter {
     private const LABEL_MAP = array(
         "contact_usually_pnnl_staff"    => "Contact (usually PNNL Staff)",
         "cpus_available"                => "CPUs Available",
+        "data_package_ids"              => "Data Package IDs",
         "emsl_user_ids"                 => "EMSL User IDs",
         "file_size_kb"                  => "File Size (KB)",
         "file_size_mb"                  => "File Size (MB)",
