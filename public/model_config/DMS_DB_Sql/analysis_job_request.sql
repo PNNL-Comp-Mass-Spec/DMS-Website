@@ -26,7 +26,7 @@ INSERT INTO form_fields VALUES(11,'prot_coll_options_list','Protein Options List
 INSERT INTO form_fields VALUES(12,'organism_db_name','Individual FASTA (typically na)','text','100','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(13,'requester','Requested by','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(15,'state','State','text','24','24','','','New','trim|required|max_length[24]');
-INSERT INTO form_fields VALUES(16,'comment','Comment','area','','','4','50','','trim|max_length[512]');
+INSERT INTO form_fields VALUES(16,'comment','Comment','area','','','4','80','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(17,'special_processing','Special Processing','area','','','4','80','','trim|max_length[512]');
 CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "parameter" text );
 INSERT INTO form_field_options VALUES(1,'requester','default_function','GetUser()');
