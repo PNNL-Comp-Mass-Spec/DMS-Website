@@ -16,7 +16,7 @@ INSERT INTO form_fields VALUES(4,'tool_name','Analysis Tool','text','30','80',''
 INSERT INTO form_fields VALUES(5,'param_file','Parameter File','text','80','255','','','','trim|required|max_length[255]');
 INSERT INTO form_fields VALUES(6,'settings_file','Settings File','text','80','255','','','','trim|default_value[IonTrapDefSettings_MzML.xml]|required|max_length[255]');
 INSERT INTO form_fields VALUES(7,'data_package_id','Data Package ID','non-edit','','','','','','trim|default_value[0]');
-INSERT INTO form_fields VALUES(8,'organism','Organism','text','30','80','','','','trim|required|max_length[64]');
+INSERT INTO form_fields VALUES(8,'organism','Organism','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(9,'prot_coll_name_list','Protein Collection List','area','','','3','60','na','trim|max_length[4000]');
 INSERT INTO form_fields VALUES(10,'prot_coll_options_list','Protein Options List','area','','','2','60','na','trim|max_length[256]');
 INSERT INTO form_fields VALUES(11,'organism_db','Individual FASTA (typically na)','text','80','80','','','na','trim|required|max_length[128]');
