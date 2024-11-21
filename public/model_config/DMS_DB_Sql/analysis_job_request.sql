@@ -49,10 +49,11 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','6!','','stat
 INSERT INTO list_report_primary_filter VALUES(2,'pf_requestID','Request ID','6!','','request','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_name','Name','25!','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_requester','Requester','15!','','requester','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_tool','Tool','32','','tool','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_tool','Tool','20!','','tool','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_param_file','Param File','45!','','param_file','ContainsText','text','256','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_proteincollectionlist','Protein Collection','45!','','protein_collection_list','ContainsText','text','256','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_proteincollectionlist','Protein Collection List','60!','','protein_collection_list','ContainsText','text','256','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_data_package','Data Package','6!','','data_package','Equals','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(10,'pf_org_db_file','Org DB File','45!','','organism_db_file','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'request','invoke_entity','value','analysis_job_request/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'jobs','invoke_entity','request','analysis_request_jobs/report','');
