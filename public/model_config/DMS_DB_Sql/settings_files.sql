@@ -25,7 +25,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO form_field_choosers VALUES(1,'analysis_tool','picker.replace','analysisToolPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'active','picker.replace','yesNoAsOneZeroPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_analysis_tool','Analysis Tool','20','','analysis_tool','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_analysis_tool','Analysis Tool','25!','','analysis_tool','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_file_name','File Name','35!','','file_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_description','Description','25!','','description','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
