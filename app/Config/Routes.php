@@ -20,12 +20,13 @@ $routes->get('/', 'Gen::index');
 
 
 // Define aliases (synonyms) that redirect to list reports
-// getAlias() is defined in app/Services/RouteCollection.php. It provides a single-line method
-// for creating an alias that allows a user to supply an old or potentially shortened URL,
-// and go to the correct controller. addAlias() and matchAlias() are also available.
+// getAlias() is defined in app/Services/RouteCollection.php
+// It provides a single-line method for creating an alias that allows a user
+// to supply an old or potentially shortened URL, and go to the correct controller.
+// addAlias() and matchAlias() are also available.
 // Compared to get(), add(), and match(), the ...alias() function only needs the
-// alias name and the target class name; regex matching is used to convert everything after
-// the alias name to the respective function (with data) in the target class.
+// alias name and the target class name; regex matching is used to convert everything
+// after the alias name to the respective function (with data) in the target class.
 
 $routes->getAlias('analysis_jobs', 'Analysis_job');
 
@@ -66,6 +67,9 @@ $routes->getAlias('material_locations', 'Material_location');
 $routes->getAlias('mc', 'Mc_enable_control_by_manager');
 $routes->getAlias('manager_control', 'Mc_enable_control_by_manager');
 
+$routes->getAlias('organism_db',      'Helper_organism_db');
+$routes->getAlias('organism_db_file', 'Helper_organism_db');
+
 $routes->getAlias('protein_collections', 'Protein_collection');
 
 $routes->getAlias('residues', 'Residue');
@@ -76,6 +80,7 @@ $routes->getAlias('settings_file', 'Settings_files');
 
 $routes->getAlias('upload', 'Spreadsheet_loader');
 
-$routes->getAlias('charge_codes', 'Charge_code');
-$routes->getAlias('work_package', 'Charge_code');
+$routes->getAlias('charge_code',   'Charge_code');
+$routes->getAlias('charge_codes',  'Charge_code');
+$routes->getAlias('work_package',  'Charge_code');
 $routes->getAlias('work_packages', 'Charge_code');
