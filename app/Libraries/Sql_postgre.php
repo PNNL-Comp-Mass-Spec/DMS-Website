@@ -190,13 +190,24 @@ class Sql_postgre {
                 $str .= "$col SIMILAR TO '$val'";
                 break;
             case "ContainsText":
+            case "ContainsTextTPO":
             case "CTx":
                 // Escape underscore and parentheses
                 $val = str_replace('_', '\_', $val);
                 $val = str_replace('(', '\(', $val);
                 $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
-                $str .= "$col SIMILAR TO '$val'";
+
+                if ($cmp == "ContainsTextTPO") {
+                    // Leverage the text pattern ops index on the given column
+                    // Relevant indices:
+                    //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_dataset.sql#L222
+                    //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_experiments.sql#L208
+                    //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_requested_run.sql#L261
+                    $str .= "lower($col::text) SIMILAR TO lower('$val')";
+                } else {
+                    $str .= "$col SIMILAR TO '$val'";
+                }
                 break;
             case "DoesNotContainText":
             case "DNCTx":

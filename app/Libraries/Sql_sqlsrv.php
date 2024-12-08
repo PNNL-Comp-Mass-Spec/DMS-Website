@@ -167,6 +167,7 @@ class Sql_sqlsrv {
                 $str .= "$col LIKE '$val'";
                 break;
             case "ContainsText":
+            case "ContainsTextTPO":
             case "CTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
                 $str .= "$col LIKE '$val'";

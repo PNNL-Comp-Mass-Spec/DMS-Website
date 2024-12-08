@@ -13,7 +13,7 @@ class DmsValidationRules
      */
     function trim($str) : bool
     {
-//        $scrubbed = trim(iconv("utf-8", "ASCII//TRANSLIT", $str));
+//      $scrubbed = trim(iconv("utf-8", "ASCII//TRANSLIT", $str));
 //      $_POST[$this->_current_field] = $str;
         return true;
     }
