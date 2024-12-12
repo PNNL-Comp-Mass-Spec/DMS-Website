@@ -298,8 +298,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         // Detail report for aux info (if any)
         $ai = '';
         if(count($aux_info) > 0) {
-            $fields = array("Category", "Subcategory", "Item", "Value");
-            $ai .= "Category" . "\t" . "Subcategory" . "\t" . "Item" . "\t" . "Value" . "\n";
+            $fields = array("category", "subcategory", "item", "value");
+            $ai .= "\n" . "Category" . "\t" . "Subcategory" . "\t" . "Item" . "\t" . "Value" . "\n";
             foreach($aux_info as $row) {
                 $line = '';
                 foreach($fields as $field) {
