@@ -86,31 +86,31 @@ class Sproc_postgre extends Sproc_base {
                                  $dataType == 'timestamptz';
 
             $outputArgument = $arg['dir'] == 'output';
-            
+
             if ($isFunction && $outputArgument && $paramName == '_message') {
                 // In DMS, by convention, each procedure has output arguments _message and _returnCode
                 // However, functions do not have those output arguments
 
-                // Although we could auto-skip this argument, it is better to update the sproc_args table 
+                // Although we could auto-skip this argument, it is better to update the sproc_args table
                 // in the model Config DB to remove the message field
             }
 
             $appendParameter = true;
             $valueToUse = '';
-            
+
             if ($outputArgument) {
                 if (empty($input_params->$fieldName)) {
                     // The current value for the input/output field is undefined
                     // We need to pass the default value to the field to assure that PostgreSQL can resolve the procedure
                     // based on the data types of the parameter values
-                    
+
                     // First see if the form_fields table in the config DB has a default value defined,
                     // either in the "default" column or in the "rules" column using "default_value[0]"
                     // If not defined there, use $this->getDefaultValue($dataType)
-                    
+
                     $valueDefined = false;
                     $formFieldDefaultValue = $this->getFormFieldDefaultValue($formFields, $arg['field'], $dataType, $valueDefined);
-                    
+
                     if ($valueDefined) {
                         $valueToUse = $formFieldDefaultValue;
                     } else {
@@ -121,7 +121,7 @@ class Sproc_postgre extends Sproc_base {
                         // Use the current date and time, e.g. '2024-05-28 18:51:00'
                         $valueToUse = date('Y-m-d H:i:s');
                     }
-                } else {                
+                } else {
                     // Field is an input/output field with a defined value; pass the value to the procedure
                     // However, if the value is numeric, pass an actual number
                     $valueToUse = $this->getValueToUse($dataType, $input_params->$fieldName);
@@ -154,7 +154,7 @@ class Sproc_postgre extends Sproc_base {
 
             $paramCounter++;
 
-            $params[] = $valueToUse;            
+            $params[] = $valueToUse;
         }
 
         $sql = $sql.")";
@@ -162,7 +162,7 @@ class Sproc_postgre extends Sproc_base {
         // NOTE: if the function or stored procedure starts a transaction with 'BEGIN;', you will see a 'nested transaction' error.
         // Start a transaction before calling the procedure; cursors (for returning table data) only work inside transactions.
         pg_query($conn_id, "BEGIN");
-        
+
         // $queryParamsResult = pg_query_params($conn_id, $sql, $params); // Use pg_send_query_params() and pg_get_results() to be able to use pg_result_error()
         $queryParamsResult = pg_send_query_params($conn_id, $sql, $params);
 
@@ -468,7 +468,7 @@ class Sproc_postgre extends Sproc_base {
 
         return $metadata;
     }
-    
+
     /**
      * Get the default value for a form field (if defined)
      * @param array $formFields
@@ -491,32 +491,32 @@ class Sproc_postgre extends Sproc_base {
                 $valueDefined = true;
                 return $this->getValueToUse($dataType, $formFieldDefault);
             }
-            
+
             $rules = $formField['rules'];
-            
+
             $rule_list = explode('|', $rules);
-            
+
             foreach($rule_list as $ruleValue) {
                 if (stripos(trim($ruleValue), 'default_value') === 0) {
                     // Find the opening square bracket
                     $bracketPos1 = strpos($ruleValue, '[');
-                    
+
                     // Find the last closing square bracket
                     $bracketPos2 = strrpos($ruleValue, ']', $bracketPos1);
-                    
+
                     if ($bracketPos1 > 0 && $bracketPos2 > $bracketPos1 + 1) {
                         $defaultValue = substr($ruleValue, $bracketPos1 + 1, $bracketPos2 - $bracketPos1 - 1);
-                        
+
                         $valueDefined = true;
                         return $this->getValueToUse($dataType, $defaultValue);
                     }
-                }                
+                }
             }
         }
-        
+
         return '';
     }
-    
+
     /**
      * Get default value for the given data type
      * @param string $dataType Data type
@@ -531,7 +531,7 @@ class Sproc_postgre extends Sproc_base {
             case 'int':
             case 'int4':
             case 'bigint':
-            case 'int8':   
+            case 'int8':
                 return 0;
 
             case 'char':
@@ -549,11 +549,11 @@ class Sproc_postgre extends Sproc_base {
             case 'float8';
             case 'numeric':
                 return 0.0;
-                
+
             case 'boolean':
             case 'bool':
                 return false;
-                
+
             case 'datetime':
             case 'date':
             case 'timestamp':
@@ -561,7 +561,7 @@ class Sproc_postgre extends Sproc_base {
                 // Return an empty string; the calling procedure should skip this parameter
                 return '';
         }
-        
+
         return '';
     }
 
@@ -572,8 +572,8 @@ class Sproc_postgre extends Sproc_base {
      * @return type
      */
     private function getValueToUse($dataType, $value) {
-        
-        if (!empty($value) && $value !== '') {           
+
+        if (!empty($value) && $value !== '') {
             // Cast the value to the appropriate data type
             switch ($dataType) {
                 case 'integer':
@@ -583,7 +583,7 @@ class Sproc_postgre extends Sproc_base {
                 case 'int':
                 case 'int4':
                 case 'bigint':
-                case 'int8':   
+                case 'int8':
                     return (int)$value;
 
                 case 'char':
@@ -598,7 +598,7 @@ class Sproc_postgre extends Sproc_base {
                 case 'float4':
                 case 'numeric':
                     return (float)$value;
-                    
+
                 case 'double':
                 case 'double precision':
                 case 'float8';
@@ -607,7 +607,7 @@ class Sproc_postgre extends Sproc_base {
                 case 'boolean':
                 case 'bool':
                     return (boolean)$value;
-                
+
                 case 'datetime':
                 case 'date':
                 case 'timestamp':
@@ -615,7 +615,7 @@ class Sproc_postgre extends Sproc_base {
                     // Leave the value as a string; the PostgreSQL DB driver for PHP
                     // will auto-convert dates to a timestamp (for timestamp arguments on a procedure or function)
                     return $value;
-                
+
                 default:
                     return $value;
             }
