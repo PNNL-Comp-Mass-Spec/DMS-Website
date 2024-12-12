@@ -351,9 +351,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         // Detail report for aux info (if any)
         if(count($aux_info) > 0) {
-            $fields = array("category", "subcategory", "item", "value");
+            $fields = array("");
             $data[$rowIndex] = $fields;
             $rowIndex++;
+
+            $fields = array("Category", "Subcategory", "Item", "Value");
+            $data[$rowIndex] = $fields;
+            $rowIndex++;
+
+            $fields = array("category", "subcategory", "item", "value");
             foreach($aux_info as $row) {
                 $colIndex = 0;
                 foreach($fields as $field) {
@@ -467,7 +473,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     *
+     * Export data in the format supported by the spreadsheet loader page (https://dms2.pnl.gov/upload/main)
      * @param type $entity
      * @param type $result
      * @param type $aux_info
@@ -487,7 +493,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     *
+     * Export data in the format supported by the spreadsheet loader page (https://dms2.pnl.gov/upload/main)
      * @param type $entity
      * @param type $result
      * @param type $aux_info
@@ -623,7 +629,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     }
 
     /**
-     *
+     * Export data in the format supported by the spreadsheet loader page (https://dms2.pnl.gov/upload/main)
      * @param type $entity
      * @param type $result
      * @param type $aux_info
