@@ -30,7 +30,8 @@ class Sproc_postgre extends Sproc_base {
         }
 
         // Commit any changes in the transaction.
-        pg_query($conn_id, "COMMIT");
+        // Commented out 2024-12-11
+        // pg_query($conn_id, "COMMIT");
     }
 
     /**
@@ -298,7 +299,8 @@ class Sproc_postgre extends Sproc_base {
         pg_free_result($result);
 
         // Commit any changes in the transaction.
-        pg_query($conn_id, "COMMIT");
+        // Commented out 2024-12-11
+        // pg_query($conn_id, "COMMIT");
     }
 
     /**
