@@ -11,10 +11,10 @@ INSERT INTO list_report_hotlinks VALUES(3,'request_id','invoke_entity','value','
 INSERT INTO list_report_hotlinks VALUES(4,'batch_id','invoke_entity','value','requested_run_batch/show/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_Request_ID','Request ID','15','','request_id','Equals','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','60!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','60!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_id','Dataset ID','15','','dataset_id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','20!','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','20!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32!','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_batch_ID','Batch ID','15','','batch_id','Equals','text','24','','');
 COMMIT;

@@ -76,11 +76,11 @@ INSERT INTO form_field_choosers VALUES(20,'propagation_mode','picker.replace','j
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument_class','Instrument Class','6','','instrument_class','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_analysis_tool','Analysis Tool','6','','analysis_tool','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_campaign','Campaign','20!','','campaign_crit','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','6','','instrument_crit','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_campaign_criteria','Campaign','20!','','campaign_crit','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument_criteria','Instrument','6','','instrument_crit','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_param_file','Param File','45!','','param_file','ContainsText','text','256','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_experiment','Experiment','25!','','experiment_crit','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_dataset','Dataset','20!','','dataset_crit','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_experiment_criteria','Experiment','25!','','experiment_crit','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_dataset_criteria','Dataset','20!','','dataset_crit','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_enabled','Enabled','2!','','enabled','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_level','Level','2!','','level','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_sequence_start','Seq Start','3!','','seq','GreaterThanOrEqualTo','text','','','');

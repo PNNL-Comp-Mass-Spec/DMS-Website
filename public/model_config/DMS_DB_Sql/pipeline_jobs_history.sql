@@ -10,7 +10,7 @@ INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','6','','job','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_job_state_b','Job State B','6','','job_state_b','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_script','Script','15!','','script','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_DataPkgID','Data Pkg ID','6','','data_pkg_id','Equals','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

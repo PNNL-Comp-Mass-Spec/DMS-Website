@@ -9,7 +9,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_most_recent_weeks','Most rec
 INSERT INTO list_report_primary_filter VALUES(2,'pf_psm_tool','PSM_Tool','20','','psm_tool','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','15!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','15!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_pm_database','PM_Database','20','','pm_database','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'dataset','invoke_entity','value','dataset/show','');

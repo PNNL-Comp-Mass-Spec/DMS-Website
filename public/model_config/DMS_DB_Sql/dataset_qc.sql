@@ -11,12 +11,12 @@ INSERT INTO list_report_hotlinks VALUES(5,'qc_link','image_link','value','index.
 INSERT INTO list_report_hotlinks VALUES(6,'qc_2d','image_link','value','index.html','{"width":"340"}');
 INSERT INTO list_report_hotlinks VALUES(7,'qc_decontools','image_link','value','index.html','{"width":"340"}');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','8!','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','6!','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','32','','experiment','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32','','campaign','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','32','','experiment','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32','','campaign','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','created','MostRecentWeeks','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_created_after','Created After','8','','created','LaterThan','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_minimum_acq_length','Min. Acq Length','4!','','acq_length','GreaterThanOrEqualTo','text','20','','');

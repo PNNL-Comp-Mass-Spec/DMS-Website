@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('list_report_cmds','dataset_disposition_cmds')
 INSERT INTO general_params VALUES('list_report_cmds_url','/dataset_disposition/operation');
 INSERT INTO general_params VALUES('operations_sproc','update_dataset_dispositions');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_lc_cart','LC Cart','32','','lc_cart','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_oper','Oper.','24','','oper','ContainsText','text','128','','');

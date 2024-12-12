@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('detail_report_data_id_col','dataset');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','Desc');
 INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset_type','Type','20','','dataset_type','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_scan_type','Scan Type','20','','scan_type','ContainsText','text','24','','');

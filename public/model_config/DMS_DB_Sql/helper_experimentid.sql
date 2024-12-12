@@ -10,7 +10,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'id','update_opener','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_experimentid','ID','6!','','id','Equals','text','40','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_experiment','Experiment','35!','','experiment','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_experiment','Experiment','35!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_researcher','Researcher','6','','researcher','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_organism','Organism','15!','','organism','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_reason','Reason','6','','reason','ContainsText','text','80','','');

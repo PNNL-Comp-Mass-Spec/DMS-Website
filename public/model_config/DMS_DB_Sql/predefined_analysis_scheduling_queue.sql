@@ -6,7 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_predefined_analysi
 INSERT INTO general_params VALUES('list_report_data_sort_col','item');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','Desc');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','30!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','30!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_id','Dataset ID','20','','id','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','20','','state','ContainsText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_user','User','5!','','user','StartsWithText','text','128','','');

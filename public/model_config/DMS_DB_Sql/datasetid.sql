@@ -30,10 +30,10 @@ INSERT INTO list_report_hotlinks VALUES(12,'work_package','export_align','value'
 INSERT INTO list_report_hotlinks VALUES(13,'date_sort_key','no_display','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','','','id','Equals','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','32','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','20!','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','20!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32','','campaign','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','date_sort_key','MostRecentWeeks','text','4','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_created_after','Created After','8','','created','LaterThan','text','20','','');

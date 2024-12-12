@@ -14,7 +14,7 @@ INSERT INTO list_report_hotlinks VALUES(2,'job','invoke_entity','job','analysis_
 INSERT INTO list_report_hotlinks VALUES(3,'data_package_id','invoke_entity','value','data_package/show','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_data_package_id','Pkg ID','5!','','data_package_id','Equals','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','30!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','30!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_tool','Tool','','','tool','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_in_package','In_Package','3!','','in_package','ContainsText','text','3','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_state','State','','','state','ContainsText','text','32','','');

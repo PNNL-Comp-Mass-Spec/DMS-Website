@@ -10,7 +10,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'dataset_id','invoke_entity','value','
 INSERT INTO list_report_hotlinks VALUES(2,'file_size_bytes','format_commas','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'Dataset_ID','Dataset ID','','','dataset_id','Equals','text','','','');
-INSERT INTO list_report_primary_filter VALUES(2,'Dataset','Dataset','32!','','dataset','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'Dataset','Dataset','32!','','dataset','ContainsTextTPO','text','','','');
 INSERT INTO list_report_primary_filter VALUES(3,'Hash','Hash','32!','','file_hash','StartsWithText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(4,'Size_Rank','Size Rank','','','file_size_rank','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(5,'File_Path','File','32!','','file_path','ContainsText','text','','','');

@@ -8,7 +8,7 @@ INSERT INTO general_params VALUES('list_report_data_cols','request, name, inst_g
 INSERT INTO general_params VALUES('list_report_helper_multiple_selection','no');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','15!','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_experiment','Experiment','15!','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_experiment','Experiment','15!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument_group','Inst. Group','32','','inst_group','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_comment','Comment','32','','comment','ContainsText','text','128','','');

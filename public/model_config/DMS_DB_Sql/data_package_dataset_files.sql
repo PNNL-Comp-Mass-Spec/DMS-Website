@@ -12,9 +12,9 @@ INSERT INTO list_report_hotlinks VALUES(3,'experiment','invoke_entity','value','
 INSERT INTO list_report_hotlinks VALUES(4,'dataset_id','invoke_entity','value','datasetid/show','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','Pkg ID','5!','','id','Equals','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','45!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_hash','Hash','45!','','file_hash','StartsWithText','text','72','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_experiment','Experiment','15!','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_experiment','Experiment','15!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_instrument','Instrument','24','','instrument','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_rating','Rating','24','','rating','StartsWithText','text','64','','');
 COMMIT;

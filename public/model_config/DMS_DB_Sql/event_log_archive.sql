@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_event_log_archive_
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_data_sort_col','event_id');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','6','','dataset','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','6','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_id','Dataset ID','6','','dataset_id','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_type','Type','6','','type','ContainsText','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

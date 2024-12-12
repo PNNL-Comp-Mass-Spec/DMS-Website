@@ -10,7 +10,7 @@ INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','20','','name',
 INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','20','','status','ContainsText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_request','Request','20','','request','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset_id','Dataset_ID','20','','dataset_id','Equals','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_dataset','Dataset','20','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_dataset','Dataset','20','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_block','Block','20','','block','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_start','Start','20','','start','LaterThan','text','20','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

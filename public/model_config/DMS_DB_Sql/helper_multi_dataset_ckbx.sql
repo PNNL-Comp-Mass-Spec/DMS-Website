@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 INSERT INTO general_params VALUES('list_report_data_cols','id, ''x'' AS Sel, dataset, instrument, state, update_state, state_last_affected, update_state_last_affected, archive_path, archive_server, storage_server');
 INSERT INTO general_params VALUES('list_report_helper_multiple_selection','yes');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','70!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','70!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','32','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_update','Update State','32','','update_state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','25!','','instrument','ContainsText','text','128','','');

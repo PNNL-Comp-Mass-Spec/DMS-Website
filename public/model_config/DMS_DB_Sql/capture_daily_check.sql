@@ -11,6 +11,6 @@ INSERT INTO list_report_hotlinks VALUES(2,'steps','invoke_entity','job','capture
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_script','Script','6','','script','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_job_state_b','State','6','','state','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','6','','dataset','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','6','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_job','Job','6','','job','Equals','text','80','','');
 COMMIT;

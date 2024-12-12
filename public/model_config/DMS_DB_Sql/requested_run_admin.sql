@@ -15,8 +15,8 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','35!','','name'
 INSERT INTO list_report_primary_filter VALUES(2,'pf_request','Request ID','12','','request','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','20','','status','StartsWithText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_batch','Batch','20','','batch','Equals','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_campaign','Campaign','30!','','campaign','ContainsText','text','50','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_campaign','Campaign','30!','','campaign','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_queue_state','Queue State','20','','queue_state','StartsWithText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_queued_instrument','Queued Instrument','20','','queued_instrument','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(11,'pf_requestNameCode','Code','20!','','request_name_code','StartsWithText','text','50','','');

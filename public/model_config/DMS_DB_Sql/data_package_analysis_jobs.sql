@@ -9,7 +9,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','Pkg ID','5!','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_tool','Tool','','','tool','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_job','Job','','','job','Equals','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','45!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_param_file','Param File','25!','','param_file','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_protein_collection_list','Protein Collection List','25!','','protein_collection_list','ContainsText','text','255','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','','','finished','MostRecentWeeks','text','32','','');

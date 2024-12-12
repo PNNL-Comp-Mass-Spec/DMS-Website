@@ -13,7 +13,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_batchid','Batch ID','20','','batch_id','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_batch_name','Batch Name','25!','','batch_name','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_name','Request Name','30!','','name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','30!','','experiment','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','30!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_request_id','Request ID','20','','request','Equals','text','50','','');
 COMMIT;

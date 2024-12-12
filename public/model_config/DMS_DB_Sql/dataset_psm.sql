@@ -27,5 +27,5 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_most_recent_weeks','Most rec
 INSERT INTO list_report_primary_filter VALUES(2,'pf_tool','Tool','20','','tool','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','20','','instrument','ContainsText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','15!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','15!','','dataset','ContainsTextTPO','text','128','','');
 COMMIT;

@@ -10,9 +10,9 @@ INSERT INTO list_report_primary_filter VALUES(2,'pf_request','Request','20','','
 INSERT INTO list_report_primary_filter VALUES(3,'pf_factor','Factor','20','','factor','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_value','Value','20','','value','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset_id','Dataset_ID','20','','dataset_id','Equals','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_dataset','Dataset','20','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_dataset','Dataset','20','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_experiment_id','Experiment_ID','20','','experiment_id','Equals','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_experiment','Experiment','20','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_experiment','Experiment','20','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'campaign','invoke_entity','value','campaign/show','');

@@ -5,9 +5,9 @@ INSERT INTO general_params VALUES('list_report_data_table','v_dataset_funding_re
 INSERT INTO general_params VALUES('list_report_data_sort_col','id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_experiment','Experiment','32','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_experiment','Experiment','32','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_most_recent_weeks','Most Recent Weeks','32','','run_start','MostRecentWeeks','text','12','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

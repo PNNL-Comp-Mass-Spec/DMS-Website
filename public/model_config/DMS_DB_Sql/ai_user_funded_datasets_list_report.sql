@@ -5,9 +5,9 @@ INSERT INTO general_params VALUES('list_report_data_table','v_ai_user_funded_dat
 INSERT INTO general_params VALUES('list_report_data_sort_col','date');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset_num','Dataset_Num','32','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset_num','Dataset','32','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_experiment','Experiment','32','','experiment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_experiment','Experiment','32','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_proposal_number','Proposal Number','32','','proposal_number','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_most_recent_weeks','Most Recent Weeks','32','','date','MostRecentWeeks','text','12','','');
 COMMIT;

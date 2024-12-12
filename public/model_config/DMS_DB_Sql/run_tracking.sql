@@ -10,7 +10,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument','Instrument','20
 INSERT INTO list_report_primary_filter VALUES(2,'pf_year','Year','20','','year','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_month','Month','20','','month','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_day','Day','20','','day','Equals','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','40','','dataset','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','40','','dataset','ContainsTextTPO','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(2,'interval','invoke_entity','id','run_interval/edit','{"GreaterOrEqual":"180"}');
 INSERT INTO list_report_hotlinks VALUES(3,'dataset','select_case','dataset_type','','{"Regular":"dataset","Tracking":"tracking_dataset"}');

@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('detail_report_data_table','v_archive_detail_r
 INSERT INTO general_params VALUES('detail_report_data_id_col','dataset');
 INSERT INTO general_params VALUES('operations_sproc','do_archive_operation');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','','dataset','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','10','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','32','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_update','Update','32','','update','ContainsText','text','128','','');

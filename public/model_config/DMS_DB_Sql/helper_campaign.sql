@@ -8,7 +8,7 @@ INSERT INTO general_params VALUES('list_report_data_cols','campaign, created, pi
 INSERT INTO general_params VALUES('list_report_helper_multiple_selection','no');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','12','','state','StartsWithText','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_campaign','Campaign','50!','','campaign','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_campaign','Campaign','50!','','campaign','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_pi','PI','20!','','pi','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_comment','Comment','32','','comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

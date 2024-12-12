@@ -5,7 +5,7 @@ INSERT INTO general_params VALUES('list_report_data_table','v_staff_roles_list_r
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_person','Person','20!','','person','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_role','Role','20','','role','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_campaign','Campaign','20','','campaign','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_state','State','20','','state','StartsWithText','text','24','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'campaign','invoke_entity','campaign','campaign/show','');

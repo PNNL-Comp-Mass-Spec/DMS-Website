@@ -14,7 +14,7 @@ INSERT INTO general_params VALUES('post_submission_detail_id','job');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','6','','job','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_job_state_b','Job_State_B','6','','job_state_b','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','45!','','dataset','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_script','Script','6','','script','ContainsText','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'job','invoke_entity','value','capture_jobs/show/','');

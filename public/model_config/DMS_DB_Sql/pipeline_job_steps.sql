@@ -13,7 +13,7 @@ INSERT INTO list_report_primary_filter VALUES(3,'pf_tool','Tool','15!','','tool'
 INSERT INTO list_report_primary_filter VALUES(4,'pf_step_state','Step_State','6','','step_state','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_step','Step','3!','','step','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_processor','Processor','6','','processor','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_dataset','Dataset','40!','','dataset','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_param_file','Param File','45!','','parameter_file','ContainsText','text','256','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_start','Start','6','','start','LaterThan','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

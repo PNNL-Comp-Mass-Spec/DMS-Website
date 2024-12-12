@@ -12,9 +12,9 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_data_package_id','Data Pkg',
 INSERT INTO list_report_primary_filter VALUES(2,'pf_job','Job','12','','job','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','20','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_tool','Tool','32','','tool','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','20!','','dataset','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_experiment','Experiment','15!','','experiment','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_campaign','Campaign','20','','campaign','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','20!','','dataset','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_experiment','Experiment','15!','','experiment','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_param_file','Param File','60','','param_file','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_instrument','Instrument','60','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_protein_collection_list','Protein Collection List','60','','protein_collection_list','ContainsText','text','128','','');
