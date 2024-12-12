@@ -186,6 +186,7 @@ class Sql_sqlsrv {
                 $str .= "ISNULL($col, '') = ''";
                 break;
             case "StartsWithText":
+            case "StartsWithTextTPO":
             case "SWTx":
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : $val . '%';
                 $str .= "$col LIKE '$val'";

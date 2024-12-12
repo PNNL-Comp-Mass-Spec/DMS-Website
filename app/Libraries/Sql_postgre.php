@@ -189,6 +189,7 @@ class Sql_postgre {
                 $val = str_replace('?', '_', $val);
                 $str .= "$col SIMILAR TO '$val'";
                 break;
+
             case "ContainsText":
             case "ContainsTextTPO":
             case "CTx":
@@ -200,7 +201,7 @@ class Sql_postgre {
 
                 if ($cmp == "ContainsTextTPO") {
                     // Leverage the text pattern ops index on the given column
-                    // Relevant indices:
+                    // Example indices:
                     //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_dataset.sql#L222
                     //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_experiments.sql#L208
                     //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_requested_run.sql#L261
@@ -209,6 +210,7 @@ class Sql_postgre {
                     $str .= "$col SIMILAR TO '$val'";
                 }
                 break;
+
             case "DoesNotContainText":
             case "DNCTx":
                 // Escape underscore and parentheses
@@ -218,23 +220,38 @@ class Sql_postgre {
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
                 $str .= "NOT $col SIMILAR TO '$val'";
                 break;
+
             case "MatchesText":
             case "MTx":
                 $str .= "$col = '$val'";
                 break;
+
             case "MatchesBlank":
             case "MBTx":
                 $str .= "ISNULL($col, '') = ''";
                 break;
+
             case "StartsWithText":
+            case "StartsWithTextTPO":
             case "SWTx":
                 // Escape underscore and parentheses
                 $val = str_replace('_', '\_', $val);
                 $val = str_replace('(', '\(', $val);
                 $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : $val . '%';
-                $str .= "$col SIMILAR TO '$val'";
+
+                if ($cmp == "StartsWithTextTPO") {
+                    // Leverage the text pattern ops index on the given column
+                    // Example indices:
+                    //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_dataset.sql#L222
+                    //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_experiments.sql#L208
+                    //   https://github.com/PNNL-Comp-Mass-Spec/DBSchema_PgSQL_DMS/blob/617be3fed6ba94cb38b1e8d4c4553ebbbaa1b67b/dms/t_requested_run.sql#L261
+                    $str .= "lower($col::text) SIMILAR TO lower('$val')";
+                } else {
+                    $str .= "$col SIMILAR TO '$val'";
+                }
                 break;
+
             case "Equals":
             case "EQn":
                 if (is_numeric($valNoCommas)) {
@@ -243,52 +260,62 @@ class Sql_postgre {
                     $str .= "$col = '$val'";
                 }
                 break;
+
             case "NotEqual":
             case "NEn":
                 if (is_numeric($valNoCommas)) {
                     $str .= "NOT $col = $valNoCommas";
                 }
                 break;
+
             case "GreaterThan":
             case "GTn":
                 if (is_numeric($valNoCommas)) {
                     $str .= "$col > $valNoCommas";
                 }
                 break;
+
             case "LessThan":
             case "LTn":
                 if (is_numeric($valNoCommas)) {
                     $str .= "$col < $valNoCommas";
                 }
                 break;
+
             case "LessThanOrEqualTo":
             case "LTOEn":
                 if (is_numeric($valNoCommas)) {
                     $str .= "$col <= $valNoCommas";
                 }
                 break;
+
             case "GreaterThanOrEqualTo":
             case "GTOEn":
                 if (is_numeric($valNoCommas)) {
                     $str .= "$col >= $valNoCommas";
                 }
                 break;
+
             case "MatchesTextOrBlank":
             case "MTxOB":
                 $str .= "($col = '$val' OR $col = '')";
                 break;
+
             case "LaterThan":
             case "LTd":
                 $str .= "$col > '$val'";
                 break;
+
             case "EarlierThan":
             case "ETd":
                 $str .= "$col < '$val'";
                 break;
+
             case "MostRecentWeeks":
             case "MRWd":
                 $str .= " $col > CURRENT_TIMESTAMP - Interval '$val weeks' ";
                 break;
+
             default:
                 $str .= "true /* '$cmp' unrecognized */";
                 break;
@@ -436,6 +463,7 @@ class Sql_postgre {
                     }
                 }
                 break;
+
             case 'int':
             case 'money':
             case 'numeric':
@@ -476,6 +504,7 @@ class Sql_postgre {
                     }
                 }
                 break;
+
             case 'datetime':
             case 1082:  // pgsql date
             case 1083:  // pgsql time of day
@@ -494,6 +523,7 @@ class Sql_postgre {
                     }
                 }
                 break;
+
             default:
                 $cmps = array("(unrecognized type '$data_type')" => "(unrecognized type '$data_type')");
                 break;
