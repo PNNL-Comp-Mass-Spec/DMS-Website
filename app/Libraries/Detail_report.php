@@ -158,7 +158,11 @@ class Detail_report {
 
         $aux_info_id = (array_key_exists('ID', $entity_info)) ? $entity_info['ID'] : ((array_key_exists('id', $entity_info)) ? $entity_info['id'] : false);
         $aux_info = array();
-        if ($aux_info_id) {
+
+        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
+
+        if ($aux_info_id && $aux_info_target) {
             $aux_info = $this->get_aux_info($aux_info_id);
         }
 
@@ -206,6 +210,7 @@ class Detail_report {
         $aux_info = array();
         $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
+
         if ($aux_info_target) {
             // Get data
             $this->controller->load_mod('Q_model', 'detail_model', 'detail_report', $this->config_source);
@@ -214,6 +219,7 @@ class Detail_report {
             $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : ((array_key_exists('id', $result_row)) ? $result_row['id'] : $id);
             $aux_info = $this->get_aux_info($aux_info_id);
         }
+
         return $aux_info;
     }
 
