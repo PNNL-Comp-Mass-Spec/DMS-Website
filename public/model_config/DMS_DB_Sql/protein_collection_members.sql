@@ -8,7 +8,7 @@ INSERT INTO general_params VALUES('detail_report_sproc','get_protein_collection_
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_protein_collection_id','Collection ID','5!','','protein_collection_id','Equals','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_protein_collection','Collection Name','35!','','protein_collection','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_protein_name','Protein','35!','','protein_name','StartsWithText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_protein_name','Protein','35!','','protein_name','StartsWithTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_protein_id','Protein ID','20','','protein_id','Equals','text','20','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'protein_collection_id','invoke_entity','value','protein_collection/show/','');

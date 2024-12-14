@@ -11,7 +11,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_data_package_id','Data Pkg','5!','','data_pkg','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_job','Job','12','','job','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','20','','state','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_tool','Tool','32','','tool','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_tool','Tool','32','','tool','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset','Dataset','20!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_experiment','Experiment','15!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_campaign','Campaign','20','','campaign','ContainsText','text','64','','');

@@ -50,8 +50,8 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','8!','','job','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_tool','Tool','15!','','tool','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','50!','','dataset','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','','','campaign','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','50!','','dataset','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','','','campaign','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_param_file','Param File','40!','','param_file','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_protein_collection_list','Protein Collection List','40!','','protein_collection_list','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_comment','Comment','40!','','comment','ContainsText','text','128','','');

@@ -477,7 +477,7 @@ INSERT INTO menu_def VALUES(429,'EMSL Admin Instrument Usage','link','run_tracki
 INSERT INTO menu_def VALUES(430,'EMSL Admin Instrument Usage','link','run_interval/report','Run Intervals');
 INSERT INTO menu_def VALUES(431,'EMSL Admin Instrument Usage','link','project_usage/report/__ThisYear__/__ThisWeek__/user','Weekly usage by project');
 INSERT INTO menu_def VALUES(432,'Admin','submenu','Ontology','Ontology / Unimod');
-INSERT INTO menu_def VALUES(433,'Ontology','link','ncbi_taxonomy/report','NCBI Taxonomy Names');
+INSERT INTO menu_def VALUES(433,'Ontology','link','ncbi_taxonomy/search','NCBI Taxonomy Names');
 INSERT INTO menu_def VALUES(434,'Ontology','link','newt/report','Species (NEWT)');
 INSERT INTO menu_def VALUES(435,'Ontology','link','tissue/report','Tissue (BTO)');
 INSERT INTO menu_def VALUES(436,'Ontology','link','unimod/report/','Unimod Mods');

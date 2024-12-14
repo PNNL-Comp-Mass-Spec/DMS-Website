@@ -10,7 +10,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'identifier','update_opener','value','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_identifier','identifier','10!','','identifier','Equals','text','96','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_term_name','Term_Name','35!','','term_name','ContainsText','text','1020','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_parent_term_name','Parent','30!','','parent','ContainsText','text','1020','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_grandparent_term_name','Grandparent','30!','','grandparent','ContainsText','text','1020','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_term_name','Term_Name','35!','','term_name','ContainsTextTPO','text','1020','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_parent_term_name','Parent','30!','','parent','ContainsTextTPO','text','1020','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_grandparent_term_name','Grandparent','30!','','grandparent','ContainsTextTPO','text','1020','','');
 COMMIT;

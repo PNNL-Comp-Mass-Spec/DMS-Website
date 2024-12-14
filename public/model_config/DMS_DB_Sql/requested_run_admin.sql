@@ -11,7 +11,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','request');
 INSERT INTO general_params VALUES('updatewp_sproc','update_requested_run_wp');
 INSERT INTO general_params VALUES('admin_sproc','update_requested_run_admin');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','35!','','name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','35!','','name','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_request','Request ID','12','','request','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','20','','status','StartsWithText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_batch','Batch','20','','batch','Equals','text','20','','');
