@@ -119,7 +119,7 @@ class Detail_report {
         $session = \Config\Services::session();
 
         $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
-        echo $this->controller->detail_model->get_item_sql($id);
+        echo $this->controller->detail_model->get_item_sql($id) . ';';
     }
 
     /**

@@ -288,6 +288,8 @@ class List_report {
 
     /**
      * Create HTML displaying the SQL behind the data or the URL for deep-linking to the page
+     * https://dms2.pnl.gov/dataset/report_info/sql
+     * https://dms2.pnl.gov/pipeline_job_steps/report_info/sql
      * @param string $what_info
      * @category AJAX
      */
@@ -299,7 +301,7 @@ class List_report {
 
         switch ($what_info) {
             case "sql":
-                echo $this->controller->data_model->get_sql("filtered_and_sorted");
+                echo $this->controller->data_model->get_sql("filtered_and_sorted") . ';';
                 break;
             case "url":
                 $filters = $this->set_up_list_query();
