@@ -416,7 +416,7 @@ class Q_model extends Model {
 
     /**
      * Construct the SQL query from component parts
-     * @param type $option
+     * @param type $option, which can be 'filtered_only', 'filtered_and_paged', 'filtered_and_sorted', or 'count_only'
      * @return type
      */
     function get_sql($option = 'filtered_and_paged') {
