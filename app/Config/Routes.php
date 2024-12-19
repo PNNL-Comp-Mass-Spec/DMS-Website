@@ -84,3 +84,4 @@ $routes->getAlias('charge_code',   'Charge_code');
 $routes->getAlias('charge_codes',  'Charge_code');
 $routes->getAlias('work_package',  'Charge_code');
 $routes->getAlias('work_packages', 'Charge_code');
+$routes->getAlias('wp',            'Charge_code');
