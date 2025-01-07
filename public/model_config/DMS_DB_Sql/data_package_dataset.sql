@@ -7,7 +7,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','id, dataset');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','Pkg ID','5!','','id','Equals','text','24','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','50!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_experiment','Experiment','15!','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','24','','instrument','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_rating','Rating','24','','rating','StartsWithText','text','64','','');

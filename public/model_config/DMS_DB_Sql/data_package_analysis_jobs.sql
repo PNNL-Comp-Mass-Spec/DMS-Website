@@ -9,11 +9,11 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','Pkg ID','5!','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_tool','Tool','','','tool','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_job','Job','','','job','Equals','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_param_file','Param File','25!','','param_file','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_protein_collection_list','Protein Collection List','25!','','protein_collection_list','ContainsText','text','255','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','50!','','dataset','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_param_file','Param File','45!','','param_file','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_protein_collection_list','Protein Collection List','35!','','protein_collection_list','ContainsText','text','255','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','','','finished','MostRecentWeeks','text','32','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_settings_file','Settings File','15!','','settings_file','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_settings_file','Settings File','25!','','settings_file','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_job_comment','Job Comment','','','comment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_pkg_comment','Package Comment','','','package_comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
