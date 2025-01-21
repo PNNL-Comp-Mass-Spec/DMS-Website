@@ -17,9 +17,9 @@ INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','lc_cart_
 INSERT INTO list_report_hotlinks VALUES(2,'cart','invoke_entity','value','lc_cart/report/~@','');
 INSERT INTO list_report_hotlinks VALUES(3,'dataset_usage','invoke_entity','config_name','dataset/report/-/-/-/-/-/-/-/-/-/-/-/sfx/AND/Cart_Config/MatchesText/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_cart_config','Cart Config','','','config_name','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_cart','Cart','','','cart','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_pumps','Pumps','','','pumps','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_cart_config','Cart Config','50!','','config_name','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_cart','Cart','15!','','cart','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_pumps','Pumps','35!','','pumps','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_state','State','','','state','StartsWithText','text','12','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','id','int','input','','add_update_lc_cart_configuration');
