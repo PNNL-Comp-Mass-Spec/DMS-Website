@@ -77,8 +77,10 @@ INSERT INTO detail_report_hotlinks VALUES(35,'dataset','detail-report','dataset'
 INSERT INTO detail_report_hotlinks VALUES(36,'sha1_hash','detail-report','id','dataset_file/report/','labelCol','dl_dataset_file','');
 INSERT INTO detail_report_hotlinks VALUES(37,'experiment_tissue','detail-report','experiment_tissue','tissue/report/~','valueCol','dl_experiment_tissue','');
 INSERT INTO detail_report_hotlinks VALUES(38,'lc_column','detail-report','lc_column','lc_column/report/@/-/-','labelCol','dl_lc_column','');
-INSERT INTO detail_report_hotlinks VALUES(39,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
-INSERT INTO detail_report_hotlinks VALUES(40,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
+INSERT INTO detail_report_hotlinks VALUES(39,'masic_qc_link','detail-report','dataset','reporter_ion_observation_rate/report/-/~','labelCol','dl_rep_ion_obs_rate_list_report','');
+INSERT INTO detail_report_hotlinks VALUES(40,'+masic_qc_link','literal_link','','','valueCol','dl_masic_data','');
+INSERT INTO detail_report_hotlinks VALUES(41,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
+INSERT INTO detail_report_hotlinks VALUES(42,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
