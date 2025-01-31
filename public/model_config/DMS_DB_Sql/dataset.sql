@@ -16,7 +16,7 @@ INSERT INTO general_params VALUES('post_submission_detail_id','dataset');
 CREATE TABLE form_fields ( id INTEGER PRIMARY KEY, "name"  text, "label" text, "type" text, "size" text, "maxlength" text, "rows" text, "cols" text, "default" text, "rules" text);
 INSERT INTO form_fields VALUES(1,'experiment','Experiment Name','text','40','80','','','','trim|required|max_length[64]|not_contain[Placeholder]');
 INSERT INTO form_fields VALUES(2,'instrument_name','Instrument Name','text-if-new','25','80','','','','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(3,'dataset','Dataset Name','text-if-new','70','128','','','','trim|required|not_contain[.raw]|not_contain[.wiff]|not_contain[.]|max_length[128]|alpha_dash|min_length[8]');
+INSERT INTO form_fields VALUES(3,'dataset','Dataset Name','text-if-new','90','128','','','','trim|required|not_contain[.raw]|not_contain[.wiff]|not_contain[.]|max_length[128]|alpha_dash|min_length[8]');
 INSERT INTO form_fields VALUES(4,'separation_type','Separation Type','text','25','80','','','','trim|required|max_length[64]');
 INSERT INTO form_fields VALUES(5,'lc_cart_name','LC Cart Name','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(6,'lc_cart_config','LC Cart Config','text','40','128','','','','trim|max_length[128]');
