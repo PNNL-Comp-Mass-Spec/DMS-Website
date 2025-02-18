@@ -13,13 +13,14 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_request_or_batch_name','Requ
 INSERT INTO list_report_primary_filter VALUES(5,'pf_requester','Requester','32','','requester','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_batch_id','Batch','16','','batch','Equals','text','16','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_batch_group_id','Batch Group','32','','batch_group','Equals','text','16','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_comment','Comment','32','','comment','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(9,'pf_work_package','Work Package','32','','work_package','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(10,'pf_proposal','Proposal','32','','proposal','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_queue_state','Quate State','16','','queue_state','ContainsText','text','32','','');
+INSERT INTO list_report_primary_filter VALUES(9,'pf_comment','Comment','32','','comment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(10,'pf_work_package','Work Package','32','','work_package','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(11,'pf_proposal','Proposal','32','','proposal','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'days_in_queue','color_label','days_in_queue_bin','','{"30":"clr_30","60":"clr_60","90":"clr_90","120":"clr_120"}');
 INSERT INTO list_report_hotlinks VALUES(2,'min_request','invoke_entity','value','requested_run/show/','');
-INSERT INTO list_report_hotlinks VALUES(3,'requests','invoke_entity','request_name_code','requested_run_admin/report/-/-/~active/-/-/-/-/-/~@','');
+INSERT INTO list_report_hotlinks VALUES(3,'requests','invoke_entity','request_name_code','requested_run_admin/report/-/-/~active/-/-/-/-/-/-/~@','');
 INSERT INTO list_report_hotlinks VALUES(4,'work_package','invoke_entity','value','charge_code/show/','');
 INSERT INTO list_report_hotlinks VALUES(5,'wp_state','color_label','wp_activation_state','','{"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_120","4":"clr_120","5":"clr_120"}');
 INSERT INTO list_report_hotlinks VALUES(6,'proposal','invoke_entity','value','eus_proposals/show','');

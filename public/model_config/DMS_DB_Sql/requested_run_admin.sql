@@ -19,7 +19,8 @@ INSERT INTO list_report_primary_filter VALUES(7,'pf_campaign','Campaign','30!','
 INSERT INTO list_report_primary_filter VALUES(8,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_queue_state','Queue State','20','','queue_state','StartsWithText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_queued_instrument','Queued Instrument','20','','queued_instrument','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(11,'pf_requestNameCode','Code','20!','','request_name_code','StartsWithText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(11,'pf_instrument_group','Instrument Group','20','','inst_group','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(12,'pf_request_name_code','Code','20!','','request_name_code','StartsWithText','text','50','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'request','invoke_entity','value','requested_run/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'campaign','invoke_entity','value','campaign/show','');
