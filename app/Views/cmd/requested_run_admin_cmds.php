@@ -58,20 +58,26 @@ Change separation group of selected requests to
 </div>
 
 <hr>
-<div>
 <!--
   tau.requested_run_admin.setRequestStatus is defined in factors.js
   It calls stored procedure update_requested_run_admin, as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
 -->
+<div>
 <input class='button lst_cmd_btn' type="button" value="Set Requests Active"
        onClick='tau.requested_run_admin.setRequestStatus("Active")'
-       title="Set Active"  /> Set selected requests to "Active" status
+       title="Set Active"   /> Set selected requests to "Active" status
 </div>
 
 <div>
 <input class='button lst_cmd_btn' type="button" value="Set Requests Inactive"
        onClick='tau.requested_run_admin.setRequestStatus("Inactive")'
-       title="Set Inactive"  /> Set selected requests to "Inactive" status
+       title="Set Inactive" /> Set selected requests to "Inactive" status
+</div>
+
+<div>
+<input class='button lst_cmd_btn' type="button" value="Place Requests On Hold"
+       onClick='tau.requested_run_admin.setRequestStatus("Holding")'
+       title="Set On Hold"  /> Set selected requests to "Holding" status
 </div>
 
 <hr>
