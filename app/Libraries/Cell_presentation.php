@@ -315,6 +315,10 @@ class Cell_presentation {
                         # Violet background
                         $fillColor = "D9CCFF";
                         break;
+                    case "light_red_background":
+                        # Light red background (FFADAD) with white text
+                        $fillColor = "FFADAD";
+                        break;
                     case "clr_30":
                         # Light green background
                         $fillColor = "E5FFE5";

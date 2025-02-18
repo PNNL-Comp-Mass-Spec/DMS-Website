@@ -1,5 +1,7 @@
 /* 
- * general formatting for body 
+ * general formatting for body
+ *
+ * Edit the version in file app/Views/resource_links/base2css.php to force this style sheet to be reloaded
  */
 body {
     font-family: verdana, arial, helvetica, sans-serif;
@@ -37,6 +39,9 @@ a.broken {
 }
 .violet_background {
 	background-color: #D9CCFF;
+}
+.light_red_background {
+	background-color: #FFADAD;
 }
 .clr_30 {
 	background-color: #E5FFE5;

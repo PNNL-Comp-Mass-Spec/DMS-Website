@@ -50,4 +50,6 @@ INSERT INTO list_report_hotlinks VALUES(31,'+days_in_prep_queue','export_align',
 INSERT INTO list_report_hotlinks VALUES(32,'+min_request','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(33,'+proposal','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(34,'++batch_group','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(35,'queue_state','invoke_entity','batch','requested_run_admin/report/-/-/-/@/-/-','');
+INSERT INTO list_report_hotlinks VALUES(36,'+queue_state','color_label','value','','{"Assigned":"clr_30", "Holding: Assigned":"light_red_background", "Holding: Unassigned":"light_red_background"}');
 COMMIT;

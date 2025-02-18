@@ -39,9 +39,10 @@ INSERT INTO list_report_hotlinks VALUES(15,'block','export_align','value','','{"
 INSERT INTO list_report_hotlinks VALUES(16,'run_order','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(17,'+days_in_queue','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(18,'+request','export_align','value','','{"Align":"Center"}');
-INSERT INTO list_report_hotlinks VALUES(19,'status','export_align','value','','{"Align":"Center"}');
-INSERT INTO list_report_hotlinks VALUES(20,'+wp_state','export_align','value','','{"Align":"Center"}');
-INSERT INTO list_report_hotlinks VALUES(21,'queue_state','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(19,'status','color_label','value','','{"Holding":"light_red_background"}');
+INSERT INTO list_report_hotlinks VALUES(20,'+status','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(21,'+wp_state','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(22,'queue_state','export_align','value','','{"Align":"Center"}');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'requestList','requestList','text','input','2147483647','update_requested_run_admin');
 INSERT INTO sproc_args VALUES(2,'<local>','mode','varchar','input','32','update_requested_run_admin');
