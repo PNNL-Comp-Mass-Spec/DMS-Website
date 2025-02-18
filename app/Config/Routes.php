@@ -76,6 +76,8 @@ $routes->getAlias('residues', 'Residue');
 
 $routes->getAlias('reporter_ions', 'Sample_label_reporter_ions');
 
+$routes->getAlias('requested_run_planning', 'Run_planning');
+
 $routes->getAlias('settings_file', 'Settings_files');
 
 $routes->getAlias('upload', 'Spreadsheet_loader');
