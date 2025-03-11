@@ -179,7 +179,8 @@ INSERT INTO menu_def VALUES(83,'Sample Prep Report Active','link','sample_prep_r
 INSERT INTO menu_def VALUES(86,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Tate','Tate');
 INSERT INTO menu_def VALUES(87,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Trejo','Trejo');
 INSERT INTO menu_def VALUES(88,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Velickovic','Velickovic');
-INSERT INTO menu_def VALUES(89,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Williams','Williams');
+INSERT INTO menu_def VALUES(89,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Walker','Walker');
+INSERT INTO menu_def VALUES(90,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Williams','Williams');
 INSERT INTO menu_def VALUES(91,'Sample Prep','submenu','OSM Packages','OSM Packages');
 INSERT INTO menu_def VALUES(92,'OSM Packages','link','osm_package/report','Report');
 INSERT INTO menu_def VALUES(93,'OSM Packages','link','osm_package/create','Entry');
@@ -526,12 +527,14 @@ INSERT INTO menu_def VALUES(483,'Data Analysis Requests Active','link','data_ana
 INSERT INTO menu_def VALUES(484,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Callister/-/-/-/-','Callister');
 INSERT INTO menu_def VALUES(485,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Clendinen/-/-/-/-','Clendinen');
 INSERT INTO menu_def VALUES(486,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Couvillion/-/-/-/-','Couvillion');
-INSERT INTO menu_def VALUES(487,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Hixson/-/-/-/-','Hixson');
-INSERT INTO menu_def VALUES(488,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kim/-/-/-/-','Kim (Young-Mo)');
-INSERT INTO menu_def VALUES(489,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Munoz/-/-/-/-','Munoz');
-INSERT INTO menu_def VALUES(490,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Nakayasu/-/-/-/-','Nakayasu');
-INSERT INTO menu_def VALUES(491,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Purvine/-/-/-/-','Purvine');
-INSERT INTO menu_def VALUES(492,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Tolic/-/-/-/-','Tolic');
+INSERT INTO menu_def VALUES(487,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Fulcher/-/-/-/-','Fulcher');
+INSERT INTO menu_def VALUES(488,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Hixson/-/-/-/-','Hixson');
+INSERT INTO menu_def VALUES(489,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kim/-/-/-/-','Kim (Young-Mo)');
+INSERT INTO menu_def VALUES(490,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kwon/-/-/-/-','Kwon');
+INSERT INTO menu_def VALUES(491,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Munoz/-/-/-/-','Munoz');
+INSERT INTO menu_def VALUES(492,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Nakayasu/-/-/-/-','Nakayasu');
+INSERT INTO menu_def VALUES(493,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Purvine/-/-/-/-','Purvine');
+INSERT INTO menu_def VALUES(494,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Tolic/-/-/-/-','Tolic');
 CREATE TABLE nav_def (
     "id" INTEGER PRIMARY KEY,
     "owner_menu" TEXT,
