@@ -57,7 +57,7 @@
     </td>
     <td><span>Proposal</span></td>
     <td>
-    <input name="proposal_fld" id='proposal_fld' size="8"  />
+    <input name="proposal_fld" id='proposal_fld' size="8" />
     </td>
 
 </tr>

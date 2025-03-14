@@ -14,13 +14,13 @@
 <div id="factor_section" style="display:none;">
 <div>
 <?php # factorsjs.applyFactorToDatabase is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='factorsjs.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  />
+<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='factorsjs.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title="" />
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='factorsjs.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title=""  />
+<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='factorsjs.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title="" />
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>
@@ -31,7 +31,7 @@ from selected items.
 <div id="upload_section" style="display:none;">
 <div>
 <?php # tau.requested_run_factors.load_delimited_text is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test"  /> Update database using a tab delimited list
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test" /> Update database using a tab delimited list
 </div>
 <div>
 <p>Delimited text input:</p>

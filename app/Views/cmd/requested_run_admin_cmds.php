@@ -26,7 +26,7 @@ Assign the selected requests to instrument
 -->
 <input class='button lst_cmd_btn' type="button" value="Unassign Requests"
        onClick='tau.requested_run_admin.setRequestStatus("UnassignInstrument")'
-       title="Unassign"  /> Unassign selected requests from the queued instrument
+       title="Unassign" /> Unassign selected requests from the queued instrument
 </div>
 
 <hr>
@@ -65,7 +65,7 @@ Change separation group of selected requests to
 <div>
 <input class='button lst_cmd_btn' type="button" value="Set Requests Active"
        onClick='tau.requested_run_admin.setRequestStatus("Active")'
-       title="Set Active"   /> Set selected requests to "Active" status
+       title="Set Active"  /> Set selected requests to "Active" status
 </div>
 
 <div>
@@ -77,7 +77,7 @@ Change separation group of selected requests to
 <div>
 <input class='button lst_cmd_btn' type="button" value="Place Requests On Hold"
        onClick='tau.requested_run_admin.setRequestStatus("Holding")'
-       title="Set On Hold"  /> Set selected requests to "Holding" status
+       title="Set On Hold" /> Set selected requests to "Holding" status
 </div>
 
 <hr>
@@ -89,7 +89,7 @@ Change separation group of selected requests to
 -->
 <input class='button lst_cmd_btn' type="button" value="Change WPN"
        onClick='tau.requested_run_admin.changeWPN($("#oldWPN").val(), $("#newWPN").val())'
-       title="Change WPN from old to new for selected requests"  />
+       title="Change WPN from old to new for selected requests" />
 from existing <input id='oldWPN'/> to <input id='newWPN'/>
 for all or selected requests
 </div>
@@ -102,7 +102,7 @@ for all or selected requests
 -->
 <input class='button lst_cmd_btn' type="button" value="Delete Requests"
        onClick='tau.requested_run_admin.setRequestStatus("Delete")'
-       title="Delete"  /> Delete selected requests
+       title="Delete" /> Delete selected requests
 </div>
 
 </form>

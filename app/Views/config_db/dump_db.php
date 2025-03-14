@@ -36,7 +36,7 @@
 </tr>
 <tr>
 <td><input type='button' onclick='configdb.search()' value='Search' /></td>
-<td><input type='checkbox' id='text_only'  />Text output</td>
+<td><input type='checkbox' id='text_only' />Text output</td>
 <td>&nbsp;</td>
 </tr>
 </table>
