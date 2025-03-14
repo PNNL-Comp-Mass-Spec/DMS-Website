@@ -4,7 +4,7 @@
 
 <div>
 <?php # lc_cart_request_loading.saveChangesToDatabase is defined in lcmd.js ?>
-<input class='button lst_cmd_btn' type="button" value="Update" onClick='lcmd.lc_cart_request_loading.saveChangesToDatabase()' id="btn_save" title="Update" /> Save changes
+<input class='button lst_cmd_btn' type="button" value="Update" onClick='lcmd.lc_cart_request_loading.saveChangesToDatabase()' id="btn_save" title="Update" /> Save changes to selected requested runs (with checkmarks)
 </div>
 
 <p>Note: Entries are local and must be explicitly saved to the database.  <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>

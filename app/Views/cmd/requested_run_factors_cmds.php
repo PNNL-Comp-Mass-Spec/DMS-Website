@@ -4,7 +4,7 @@
 
 <div>
 <?php # tau.requested_run_factors.saveChangesToDatabase is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDatabase()' id="btn_save" title="Update"  /> Save changes
+<input class='button lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDatabase()' id="btn_save" title="Update" /> Save changes to selected requested runs (with checkmarks)
 </div>
 
 <p>Note: Factors are associated with Requested Run entries. Editing changes are local and must be explicitly saved to the database. <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
