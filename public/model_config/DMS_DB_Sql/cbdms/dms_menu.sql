@@ -521,7 +521,6 @@ INSERT INTO menu_def VALUES(477,'Capture Status Checks','link','capture_daily_ch
 INSERT INTO menu_def VALUES(479,'Capture Pipeline','link','capture_log/report','Capture Log');
 INSERT INTO menu_def VALUES(480,'Data Analysis Requests','submenu','Data Analysis Requests Active','Active (by staff)');
 INSERT INTO menu_def VALUES(481,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Couvillion/-/-/-/-','Couvillion');
-INSERT INTO menu_def VALUES(482,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Hixson/-/-/-/-','Hixson');
 INSERT INTO menu_def VALUES(483,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kim/-/-/-/-','Kim');
 INSERT INTO menu_def VALUES(484,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Munoz/-/-/-/-','Munoz');
 INSERT INTO menu_def VALUES(485,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Nakayasu/-/-/-/-','Nakayasu');

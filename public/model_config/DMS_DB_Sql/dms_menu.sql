@@ -528,7 +528,6 @@ INSERT INTO menu_def VALUES(484,'Data Analysis Requests Active','link','data_ana
 INSERT INTO menu_def VALUES(485,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Clendinen/-/-/-/-','Clendinen');
 INSERT INTO menu_def VALUES(486,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Couvillion/-/-/-/-','Couvillion');
 INSERT INTO menu_def VALUES(487,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Fulcher/-/-/-/-','Fulcher');
-INSERT INTO menu_def VALUES(488,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Hixson/-/-/-/-','Hixson');
 INSERT INTO menu_def VALUES(489,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kim/-/-/-/-','Kim (Young-Mo)');
 INSERT INTO menu_def VALUES(490,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Kwon/-/-/-/-','Kwon');
 INSERT INTO menu_def VALUES(491,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Munoz/-/-/-/-','Munoz');
