@@ -35,7 +35,6 @@ class Aux_info extends BaseController {
         $this->help_page_link = config('App')->pwiki;
         $this->help_page_link .= config('App')->wikiHelpLinkPrefix;
 
-        $this->color_code = config('App')->version_color_code;
 ///--
         $this->my_tag = "aux_info";
         $this->my_model = "M_aux_info";

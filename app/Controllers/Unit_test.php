@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 class Unit_Test extends BaseController {
+
     function __construct()
     {
         $this->helpers = array_merge($this->helpers, ['url', 'text']);
@@ -17,8 +18,6 @@ class Unit_Test extends BaseController {
 
         //Ensure a session is initialized
         $session = \Config\Services::session();
-
-        $this->color_code = config('App')->version_color_code;
     }
 
     // --------------------------------------------------------------------

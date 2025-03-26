@@ -20,7 +20,6 @@ class Freezer extends DmsBase {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->color_code = config('App')->version_color_code;
         $this->help_page_link = config('App')->pwiki;
         $this->help_page_link .= config('App')->wikiHelpLinkPrefix;
     }

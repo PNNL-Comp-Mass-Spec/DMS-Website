@@ -32,7 +32,6 @@ class Gen extends BaseController
         $session = \Config\Services::session();
 
         $this->config = config('App');
-        $this->color_code = $this->config->version_color_code;
         $this->page_menu_root = ($this->config->page_menu_root) ? $this->config->page_menu_root : "page_menu" ;
 	}
 
@@ -64,10 +63,10 @@ class Gen extends BaseController
         $this->db = \Config\Database::connect();
         $this->updateSearchPath($this->db);
 
-        $version = $this->color_code = $this->config->version_label;
+        $version = $this->config->version_label;
         echo("<li>version:$version\n");
 
-        $archiveRoot = $this->color_code = $this->config->file_attachment_archive_root_path;
+        $archiveRoot = $this->config->file_attachment_archive_root_path;
         echo("<li>file attachment path:$archiveRoot\n");
 
         $dbName = $this->db->database;
