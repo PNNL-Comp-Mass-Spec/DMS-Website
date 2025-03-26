@@ -40,8 +40,6 @@ class Aux_info extends BaseController {
         $this->my_tag = "aux_info";
         $this->my_model = "M_aux_info";
         $this->my_title = "Aux Info";
-        $this->my_list_action = "aux_info/report";
-        $this->my_export_action = "aux_info/export";
 
         $this->model = model('App\\Models\\'.$this->my_model);
 

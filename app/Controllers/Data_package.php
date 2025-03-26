@@ -7,12 +7,6 @@ class Data_package extends DmsBase {
     {
         $this->my_tag = "data_package";
         $this->my_title = "DMS Data Package";
-        $this->my_create_action = "enter";
-        $this->my_edit_action = "enter";
-        $this->my_operation_action = "operation";
-        $this->my_list_action = "unrestricted";
-        $this->my_export_action = "unrestricted";
-        $this->my_show_action = "unrestricted";
 
         // This causes a link to the detail report page to appear on entry page following successful submit
 //      $this->my_post_submission_detail_id = "ID";

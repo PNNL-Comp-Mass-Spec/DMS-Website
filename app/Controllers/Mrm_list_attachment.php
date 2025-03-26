@@ -6,10 +6,6 @@ class Mrm_list_attachment extends DmsBase {
     {
         $this->my_tag = "mrm_list_attachment";
         $this->my_title = "MRM Transition List Attachment";
-        $this->my_create_action = "enter";
-        $this->my_edit_action = "enter";
-        $this->my_list_action = "unrestricted";
-        $this->my_export_action = "unrestricted";
     }
 
     // --------------------------------------------------------------------

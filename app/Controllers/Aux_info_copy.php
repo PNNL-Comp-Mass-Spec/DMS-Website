@@ -34,8 +34,6 @@ class Aux_info_copy extends BaseController {
         $this->my_tag = "aux_info_copy";
         $this->my_model = "M_aux_info_copy";
         $this->my_title = "Aux Info Copy";
-        $this->my_create_action = "aux_info_copy/create";
-        $this->my_edit_action = "aux_info_copy/edit";
 
         $this->model = model('App\\Models\\'.$this->my_model);
 
