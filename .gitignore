@@ -64,6 +64,7 @@ writable/uploads/*
 writable/tmpfiles/*
 
 writable/debugbar/*
+!writable/debugbar/.gitkeep
 
 php_errors.log
 
