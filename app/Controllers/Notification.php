@@ -46,10 +46,10 @@ class Notification extends DmsBase {
         $sql .= 'WHERE entered > DATEADD(HOUR, - 24, GETDATE()) ';
         $sql .= 'ORDER BY username, entity_type, event_type_id, entity';
 
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         if(!$result) {
             return $users();
         }

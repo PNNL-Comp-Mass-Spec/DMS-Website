@@ -48,9 +48,9 @@ class Run_op_logs extends Grid {
         $month = $this->request->getPost("month");
 
         $this->my_tag = "operation_log_review";
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
-        $builder = $this->db->table("v_ops_logs_list_report");
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
+        $builder = $db->table("v_ops_logs_list_report");
         $builder->select("entered, entered_by, instrument, type, minutes, id, log, request, usage, proposal, emsl_user, note");
         if(IsNotWhitespace($instrument)) $builder->where("instrument in ($instrument)");
         if(IsNotWhitespace($usage)) $builder->where("usage in ($usage)");

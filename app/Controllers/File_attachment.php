@@ -160,16 +160,16 @@ class File_attachment extends DmsBase {
     function get_valid_file_path($entity_type, $entity_id, $filename){
         $result = new Check_result();
         try {
-            $this->db = \Config\Database::connect();
-            $this->updateSearchPath($this->db);
+            $db = \Config\Database::connect();
+            $this->updateSearchPath($db);
 
-            $builder = $this->db->table('v_file_attachment_export');
+            $builder = $db->table('v_file_attachment_export');
             $builder->select("file_name AS filename, archive_folder_path as path");
             $builder->where("entity_type", $entity_type);
             $builder->where("entity_id", $entity_id);
             $builder->where("file_name", $filename);
             $sql = $builder->getCompiledSelect();
-            $resultSet = $this->db->query($sql);
+            $resultSet = $db->query($sql);
 
             if($resultSet && $resultSet->getNumRows() > 0) {
                 $local_path = "{$this->local_root_path}{$resultSet->getRow()->path}/{$resultSet->getRow()->filename}";
@@ -390,11 +390,11 @@ class File_attachment extends DmsBase {
     function get_path($entity_type, $entity_id)
     {
         $path = "";
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $sql = "SELECT {$this->db->schema}.get_file_attachment_path('$entity_type', '$entity_id') AS path";
-        $resultSet = $this->db->query($sql);
+        $sql = "SELECT {$db->schema}.get_file_attachment_path('$entity_type', '$entity_id') AS path";
+        $resultSet = $db->query($sql);
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             $path = "Error querying database for file attachment storage path; see writable/logs/log-$currentTimestamp.php";
@@ -505,9 +505,9 @@ class File_attachment extends DmsBase {
         $id = $this->request->getPost("entity_id");
         helper(['link_util']);
 
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
-        $builder = $this->db->table("v_file_attachment_export");
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
+        $builder = $db->table("v_file_attachment_export");
         $builder->select("file_name AS name, description, attachment_id AS fid");
         $builder->where("entity_type", $type);
         $builder->where("entity_id", $id);
@@ -741,10 +741,10 @@ class File_attachment extends DmsBase {
      * @return type
      */
     function auxinfo($expID) {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $contents = $this->getExperimentInfo($expID);
+        $contents = $this->getExperimentInfo($expID, $db);
         if (empty($contents)) {
             return;
         }
@@ -754,7 +754,7 @@ class File_attachment extends DmsBase {
              . "WHERE id = $expID "
              . "ORDER BY category, subcategory, item";
 
-        $resultSet = $this->db->query($sql);
+        $resultSet = $db->query($sql);
         if (!$resultSet) {
             return;
         }
@@ -785,10 +785,10 @@ class File_attachment extends DmsBase {
      * @param type $expID
      * @return string
      */
-    function getExperimentInfo($expID)
+    function getExperimentInfo($expID, $db)
     {
         $sql = "SELECT * FROM v_experiment_detail_report_ex WHERE id = $expID";
-        $resultSet = $this->db->query($sql);
+        $resultSet = $db->query($sql);
         if (!$resultSet) {
             return;
         }
@@ -838,9 +838,9 @@ class File_attachment extends DmsBase {
             }
 
             $full_path = '';
-            $this->db = \Config\Database::connect();
-            $this->updateSearchPath($this->db);
-            $builder = $this->db->table("v_file_attachment_export");
+            $db = \Config\Database::connect();
+            $this->updateSearchPath($db);
+            $builder = $db->table("v_file_attachment_export");
             $builder->select("file_name AS filename, entity_type as type, entity_id as id, archive_folder_path as path");
             $builder->where("active > 0");
             $resultSet = $builder->get();

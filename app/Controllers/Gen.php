@@ -60,8 +60,8 @@ class Gen extends BaseController
     {
         echo("<li>Environment:".ENVIRONMENT . "\n");
 //      $this->config->load('database', TRUE);
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         $version = $this->config->version_label;
         echo("<li>version:$version\n");
@@ -69,10 +69,10 @@ class Gen extends BaseController
         $archiveRoot = $this->config->file_attachment_archive_root_path;
         echo("<li>file attachment path:$archiveRoot\n");
 
-        $dbName = $this->db->database;
+        $dbName = $db->database;
         echo("<li>database:$dbName\n");
 
-        $userName = $this->db->username;
+        $userName = $db->username;
         echo("<li>user:$userName\n");
     }
 

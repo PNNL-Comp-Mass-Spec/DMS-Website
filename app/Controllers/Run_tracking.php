@@ -141,15 +141,15 @@ class Run_tracking extends DmsBase {
     private
     function get_run_info_3($instrument, $year, $month)
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         $sql = <<<EOD
 SELECT *
 FROM  get_run_tracking_monthly_info('$instrument', '$year', '$month', '') AS GT
 EOD;
 // seq, id, dataset, day, duration, interval, time_start, time_end, instrument
-        $query = $this->db->query($sql);
+        $query = $db->query($sql);
         $result = $query->getResultArray();
         return $result;
     }
@@ -158,9 +158,9 @@ EOD;
     private
     function get_long_interval_threshold()
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
-        $query = $this->db->query('SELECT threshold_minutes as threshold FROM V_Long_Interval_Threshold');
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
+        $query = $db->query('SELECT threshold_minutes as threshold FROM V_Long_Interval_Threshold');
         $row = $query->getRow();
         return $row->threshold;
     }
@@ -169,10 +169,10 @@ EOD;
     private
     function get_instrument_list()
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
         $sql = " SELECT * FROM V_Instrument_Tracked ORDER BY Reporting";
-        $query = $this->db->query($sql);
+        $query = $db->query($sql);
         $result = $query->getResultArray();
         return $result;
     }

@@ -12,10 +12,10 @@ class Mrm_list_attachment extends DmsBase {
     function download($id)
     {
         $sql = "SELECT File_Name, Attachment_Name, Contents FROM T_Attachments WHERE ID = $id";
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");

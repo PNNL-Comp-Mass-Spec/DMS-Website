@@ -23,11 +23,11 @@ class Data_package extends DmsBase {
     function ag($id, $tool, $mode) {
         helper(['url', 'text']);
 
-        $this->db = \Config\Database::connect('package');
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect('package');
+        $this->updateSearchPath($db);
 
         $sql = "SELECT * FROM check_data_package_dataset_job_coverage($id, '$tool', '$mode')";
-        $resultSet = $this->db->query($sql);
+        $resultSet = $db->query($sql);
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             return "Error querying database via check_data_package_dataset_job_coverage; see writable/logs/log-$currentTimestamp.php";
@@ -49,8 +49,8 @@ class Data_package extends DmsBase {
     function metadata($id) {
         helper(['url', 'text']);
 
-        $this->db = \Config\Database::connect('package');
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect('package');
+        $this->updateSearchPath($db);
 
         $sqlList = array(
             "EMSL_Proposals" => "SELECT DISTINCT Proposal FROM V_Data_Package_Datasets_List_Report WHERE NOT Proposal IS NULL AND ID = $id",
@@ -71,7 +71,7 @@ class Data_package extends DmsBase {
         echo "<DMS ID='$id' />\n";
         foreach($sqlList as $section => $sql) {
             echo "<$section>\n";
-            $resultSet = $this->db->query($sql);
+            $resultSet = $db->query($sql);
             if(!$resultSet) continue;
             if ($resultSet->getNumRows() == 0) continue;
             $result = $resultSet->getResultArray();

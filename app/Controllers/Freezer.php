@@ -172,8 +172,8 @@ class Freezer extends DmsBase {
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         // Labelling information for view
         $data['title'] = "Freezer Map";
@@ -190,7 +190,7 @@ class Freezer extends DmsBase {
         $sql .= "WHERE Status = 'Active' ";
         $sql .= "ORDER BY Location, Freezer, Shelf, Rack";
         //
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
@@ -250,8 +250,8 @@ class Freezer extends DmsBase {
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
         $this->table = new \CodeIgniter\View\Table();
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         // Labelling information for view
         $data['title'] = "Freezer";
@@ -286,7 +286,7 @@ class Freezer extends DmsBase {
         }
         $sql .= "ORDER BY Freezer, Shelf, Rack, Row, Col ";
         //
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
@@ -314,7 +314,7 @@ class Freezer extends DmsBase {
             $sql .= "AND (Rack = '$rack_spec') ";
         }
         //
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
@@ -344,8 +344,8 @@ class Freezer extends DmsBase {
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu', 'form']);
         $this->table = new \CodeIgniter\View\Table();
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         $uri = $this->request->uri;
         // Don't trigger an exception if the segment index is too large
@@ -371,7 +371,7 @@ class Freezer extends DmsBase {
         $sql .= "WHERE Freezer_Tag LIKE '%$freezer_spec%' ";
         $sql .= "AND NOT Row = 'na' AND NOT Col = 'na' ";
         $sql .= "ORDER BY Shelf, Rack, Row, Col ";
-        $rc_result = $this->db->query($sql);
+        $rc_result = $db->query($sql);
         if(!$rc_result) {
             $currentTimestamp = date("Y-m-d");
             echo "Error loading container row/column info; see writable/logs/log-$currentTimestamp.php";

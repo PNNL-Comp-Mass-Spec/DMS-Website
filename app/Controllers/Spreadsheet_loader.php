@@ -408,9 +408,9 @@ class Spreadsheet_loader extends DmsBase {
             if(!$sql) throw new \Exception('Error:Existence query not defined');
             $sql = str_replace('@@', $id, $sql);
 
-            $this->db = \Config\Database::connect();
-            $this->updateSearchPath($this->db);
-            $result = $this->db->query($sql);
+            $db = \Config\Database::connect();
+            $this->updateSearchPath($db);
+            $result = $db->query($sql);
             if($result->getNumRows() > 0) {
                 $row = $result->getRow();
                 $keyColumn = $this->supported_entities[$entity_type]['key'];

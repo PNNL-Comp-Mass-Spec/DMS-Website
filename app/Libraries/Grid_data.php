@@ -36,9 +36,9 @@ class Grid_data {
     function get_query_data($sql, $paramArray) {
         $response = new \stdClass();
         try {
-            $this->controller->db = \Config\Database::connect();
-            $this->controller->updateSearchPath($this->controller->db);
-            $result = $this->controller->db->query($sql);
+            $db = \Config\Database::connect();
+            $this->controller->updateSearchPath($db);
+            $result = $db->query($sql);
             if (!$result) {
                 $currentTimestamp = date("Y-m-d");
                 throw new \Exception("Error querying database; see writable/logs/log-$currentTimestamp.php");
