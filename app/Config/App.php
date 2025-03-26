@@ -57,13 +57,15 @@ class App extends BaseConfig
     {
         // --------------------------- BEGIN DMS Customizations--------------------
         // Need to set the properties before we call the parent constructor
-        $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
-        $this->baseURL = "{$protocol}://".$_SERVER["SERVER_NAME"].$this->baseURLPrefix;
+        $serverHttpsState = \Config\Services::superglobals()->server("HTTPS");
+        $protocol = isset($serverHttpsState) && $serverHttpsState == "on" ? "https" : "http";
+        $serverName = \Config\Services::superglobals()->server("SERVER_NAME");
+        $this->baseURL = "{$protocol}://".$serverName.$this->baseURLPrefix;
         $this->uriProtocol = 'PATH_INFO';
         $this->appTimezone = 'America/Los_Angeles';
 
         // Is the user accessing DMS from bionet?
-        $server_bionet = stripos($_SERVER["SERVER_NAME"], ".bionet") !== FALSE;
+        $server_bionet = stripos($serverName, ".bionet") !== FALSE;
 
         if ($server_bionet) {
             $this->pwiki = 'http://prismwiki.bionet/wiki/';

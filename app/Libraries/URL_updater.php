@@ -10,9 +10,11 @@ class URL_updater {
      * Constructor
      */
     function __construct() {
-        $this->protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+        $serverHttpsState = \Config\Services::superglobals()->server("HTTPS");
+        $this->protocol = isset($serverHttpsState) && $serverHttpsState == "on" ? "https" : "http";
         // TODO: May be better to check for the 'pnl.gov' string in the name?
-        $this->server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
+        $serverName = \Config\Services::superglobals()->server("SERVER_NAME");
+        $this->server_bionet = stripos($serverName, "bionet") !== false;
     }
 
     /**
