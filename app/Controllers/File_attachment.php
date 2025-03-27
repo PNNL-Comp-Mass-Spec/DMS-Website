@@ -636,9 +636,10 @@ class File_attachment extends DmsBase {
             // Get mimetype info
             $mime = mime_content_type($full_path);
 
-            if (preg_match('/Opera ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT'])) {
+            $userAgent = \Config\Services::superglobals()->server('HTTP_USER_AGENT');
+            if (preg_match('/Opera ([0-9].[0-9]{1,2})/i', $userAgent)) {
                 $UserBrowser = "Opera";
-            } elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT'])) {
+            } elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/i', $userAgent)) {
                 $UserBrowser = "IE";
             } else {
                 $UserBrowser = '';
