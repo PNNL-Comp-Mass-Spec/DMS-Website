@@ -531,8 +531,8 @@ class File_attachment extends DmsBase {
         // Also report the count of file attachments in a hidden element
         echo "<span id='file_attachments_count' style='display:none'>$count</span>";
         if($count) {
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setHeading("Action", "Name", "Description");
+            $table = new \CodeIgniter\View\Table();
+            $table->setHeading("Action", "Name", "Description");
             $tmpl = array(
               'table_open'      => "<table id=\"file_attachments\" style=\"width:100%;\">",
               'row_start'       => '<tr class="ReportEvenRow">',
@@ -540,8 +540,8 @@ class File_attachment extends DmsBase {
               'heading_row_start' => '<thead><tr style="text-align:left;">',
               'heading_row_end' => '</tr></thead>'
             );
-            $this->table->setTemplate($tmpl);
-            echo $this->table->generate($entries);
+            $table->setTemplate($tmpl);
+            echo $table->generate($entries);
         } else {
             echo "<h4>No attachments</h4>";
         }
@@ -845,8 +845,8 @@ class File_attachment extends DmsBase {
             $builder->where("active > 0");
             $resultSet = $builder->get();
 
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setTemplate(array ('heading_cell_start'  => '<th style="text-align:left;">'));
+            $table = new \CodeIgniter\View\Table();
+            $table->setTemplate(array ('heading_cell_start'  => '<th style="text-align:left;">'));
 
             $headerColumns = array('File', 'Type', 'ID', 'Path');
 
@@ -854,7 +854,7 @@ class File_attachment extends DmsBase {
                 $headerColumns[] = 'Exists';
             }
 
-            $this->table->setHeading($headerColumns);
+            $table->setHeading($headerColumns);
 
             foreach($resultSet->getResult() as $row) {
                 $full_path = "{$this->archive_root_path}{$row->path}/{$row->filename}";
@@ -867,10 +867,10 @@ class File_attachment extends DmsBase {
                 $fileExists = file_exists($full_path);
 
                 if ($showAll) {
-                    $this->table->addRow($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
+                    $table->addRow($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
                 } else {
                     if (!$fileExists) {
-                        $this->table->addRow($row->filename, $row->type, $row->id, $row->path);
+                        $table->addRow($row->filename, $row->type, $row->id, $row->path);
                     }
                 }
             }
@@ -893,7 +893,7 @@ class File_attachment extends DmsBase {
                 echo '<p><font size="+1">Missing Files</font></p>';
             }
 
-            echo $this->table->generate();
+            echo $table->generate();
 
         } catch (\Exception $e) {
             echo $e->getMessage();

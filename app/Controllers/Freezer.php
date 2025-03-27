@@ -171,7 +171,7 @@ class Freezer extends DmsBase {
     function show($id)
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
         $db = \Config\Database::connect();
         $this->updateSearchPath($db);
 
@@ -213,11 +213,11 @@ class Freezer extends DmsBase {
             'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="EPag">',
             'heading_cell_start' => '<th class="block_header" colspan="7">'
         );
-        $this->table->setTemplate($tmpl);
+        $table->setTemplate($tmpl);
         //
         foreach($storage as $freezer => $f) {
             $c_url = "<a href='$fc_url/$freezer'>Contents</a>";
-            $this->table->setHeading("Freezer:$freezer $c_url");
+            $table->setHeading("Freezer:$freezer $c_url");
             foreach($f as $shelf => $s) {
                 $tr = array();
                 $s_url = "<a href='$fc_url/$freezer/$shelf'>Contents</a>";
@@ -230,10 +230,10 @@ class Freezer extends DmsBase {
                         $tr[] = "Rack:".$rack . " &nbsp; " . $r_url;
                     }
                 }
-                $this->table->addRow($tr);
+                $table->addRow($tr);
             }
-            $data['content'] .= $this->table->generate() . '<br>';
-            $this->table->clear();
+            $data['content'] .= $table->generate() . '<br>';
+            $table->clear();
         }
         echo view('basic', $data);
 
@@ -249,7 +249,6 @@ class Freezer extends DmsBase {
     function contents()
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
-        $this->table = new \CodeIgniter\View\Table();
         $db = \Config\Database::connect();
         $this->updateSearchPath($db);
 
@@ -332,7 +331,7 @@ class Freezer extends DmsBase {
         $data['contents'] = $contents;
 
         $data['check_access'] = [$this, 'check_access'];
-        $data['table'] = $this->table;
+        $data['table'] = new \CodeIgniter\View\Table(); // Create for use in the view
 
         echo view('special/freezer', $data);
     }
@@ -343,7 +342,6 @@ class Freezer extends DmsBase {
     function config()
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu', 'form']);
-        $this->table = new \CodeIgniter\View\Table();
         $db = \Config\Database::connect();
         $this->updateSearchPath($db);
 

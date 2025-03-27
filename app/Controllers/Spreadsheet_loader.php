@@ -165,11 +165,11 @@ class Spreadsheet_loader extends DmsBase {
             }
 
             // Table dump
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+            $table = new \CodeIgniter\View\Table();
+            $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
-            $this->table->setHeading('', '<span id="entity_type">'.$entity_type.'</span>', 'Details', 'Results');
-            echo $this->table->generate($rows);
+            $table->setHeading('', '<span id="entity_type">'.$entity_type.'</span>', 'Details', 'Results');
+            echo $table->generate($rows);
             echo "<div>Number of entities:$entity_count<div>";
         } catch (\Exception $e) {
             $message = $e->getMessage();
@@ -196,15 +196,15 @@ class Spreadsheet_loader extends DmsBase {
             $entity_count = count($entity_list);
 
             // Table dump
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+            $table = new \CodeIgniter\View\Table();
+            $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
             $rows = $this->spreadsheet_loader->get_extracted_data();
             $i = 0;
             foreach($rows as &$row) {
                 array_unshift($row, $i++);
             }
-            echo $this->table->generate($rows);
+            echo $table->generate($rows);
         } catch (\Exception $e) {
             $message = $e->getMessage();
             echo "<div class='EPag_message'>$message</div>";
@@ -257,16 +257,16 @@ class Spreadsheet_loader extends DmsBase {
         $data['title'] = "Details Of '$id' From Spreadsheet";
         $data['content'] = "File:$fname <br>";
 
-        $this->table = new \CodeIgniter\View\Table();
-        $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+        $table = new \CodeIgniter\View\Table();
+        $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
-        $this->table->setHeading('Field', 'Value');
-        $data['content'] .= $this->table->generate($rows);
+        $table->setHeading('Field', 'Value');
+        $data['content'] .= $table->generate($rows);
 
         if(!empty($aux_info)) {
-            $this->table->clear();
-            $this->table->setHeading('Category', 'Subcategory',  'Item', 'Value');
-            $data['content'] .= $this->table->generate($arows);
+            $table->clear();
+            $table->setHeading('Category', 'Subcategory',  'Item', 'Value');
+            $data['content'] .= $table->generate($arows);
         }
 
         echo view('uploader/upload_supplemental', $data);
@@ -639,7 +639,7 @@ class Spreadsheet_loader extends DmsBase {
     function directory()
     {
         helper(['url']);
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
 
         $style = "width:40em;padding:5px 0 5px 0;";
         echo "<div style='$style'>This is a list of DMS entity types for which you can upload spreadsheet data</div>";
@@ -656,10 +656,10 @@ class Spreadsheet_loader extends DmsBase {
             else
                 $entityDescription = ucwords(strtolower($entity));
 
-            $this->table->addRow($entityDescription, $lnkXlsx, $lnk, $lr);
+            $table->addRow($entityDescription, $lnkXlsx, $lnk, $lr);
         }
         echo "<div style='$style'>";
-        echo $this->table->generate();
+        echo $table->generate();
         echo "</div>";
 
         echo "<div style='$style'>You can get a blank template with all possible fields for the entity by clicking the 'Blank Template' link.</div>";

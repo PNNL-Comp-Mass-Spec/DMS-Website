@@ -17,7 +17,7 @@ class Ers extends BaseController {
     // This method is obsolete (it refers to the "ers" database connection, which is no longer valid)
     function proposals()
     {
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
         $ersDB = \Config\Database::connect('ers');
         $this->updateSearchPath($ersDB);
 
@@ -31,14 +31,14 @@ class Ers extends BaseController {
             echo "No results found for active EUS proposals; see writable/logs/log-$currentTimestamp.php";
             return;
         }
-        echo $this->table->generate($result);
+        echo $table->generate($result);
     }
 
     // --------------------------------------------------------------------
     // This method is obsolete (it refers to the "ers" database connection, which is no longer valid)
     function users()
     {
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
         $ersDB = \Config\Database::connect('ers');
         $this->updateSearchPath($ersDB);
 
@@ -52,7 +52,7 @@ class Ers extends BaseController {
             echo "No results found for active EUS users; see writable/logs/log-$currentTimestamp.php";
             return;
         }
-        echo $this->table->generate($result);
+        echo $table->generate($result);
     }
 
     // --------------------------------------------------------------------
@@ -60,7 +60,7 @@ class Ers extends BaseController {
     // https://dmsdev.pnl.gov/ers/dms_proposals
     function dms_proposals()
     {
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
         $dmsDB = \Config\Database::connect('default');
         $this->updateSearchPath($dmsDB);
 
@@ -73,7 +73,7 @@ class Ers extends BaseController {
             echo "No results found for EUS proposals; see writable/logs/log-$currentTimestamp.php";
             return;
         }
-        echo $this->table->generate($result);
+        echo $table->generate($result);
     }
 
     // --------------------------------------------------------------------
@@ -81,7 +81,7 @@ class Ers extends BaseController {
     // https://dmsdev.pnl.gov/ers/dms_users
     function dms_users()
     {
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
         $dmsDB = \Config\Database::connect('default');
         $this->updateSearchPath($dmsDB);
 
@@ -94,14 +94,14 @@ class Ers extends BaseController {
             echo "No results found for EUS users; see writable/logs/log-$currentTimestamp.php";
             return;
         }
-        echo $this->table->generate($result);
+        echo $table->generate($result);
     }
 
     // --------------------------------------------------------------------
     // This method is obsolete (it refers to the "ers" database connection, which is no longer valid)
     function new_proposals()
     {
-        $this->table = new \CodeIgniter\View\Table();
+        //$table = new \CodeIgniter\View\Table();
 
         // Get list of proposals from ers
         $dmsDB = \Config\Database::connect('default');
@@ -135,7 +135,7 @@ class Ers extends BaseController {
         foreach($result->getResult() as $row) {
             $ers_proposals[$row->PROPOSAL_ID] = $row->TITLE;
         }
-//      echo $this->table->generate($ers_proposals);
+//      echo $table->generate($ers_proposals);
         echo "<table border='1'>";
         foreach($ers_proposals as $id => $title) {
             $s = "";

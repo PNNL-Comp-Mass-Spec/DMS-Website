@@ -250,23 +250,23 @@ class Data extends BaseController {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
 
         helper(['url']);
-        $this->table = new \CodeIgniter\View\Table();
-        $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
-        $this->table->setHeading('Page', 'Table', 'DB');
+        $table = new \CodeIgniter\View\Table();
+        $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+        $table->setHeading('Page', 'Table', 'DB');
 
         $links = array();
         foreach ($db->query("SELECT * FROM $config_name ORDER BY label")->getResultObject() as $obj) {
             $links['link'] = anchor("data/lr/$config_source/$obj->name/report", $obj->label);
             $links['table'] = $obj->table;
             $links['db'] = $obj->db;
-            $this->table->addRow($links);
+            $table->addRow($links);
         }
 
         $db->close();
         $edit_link = "<div style='padding:5px;'>" . anchor("config_db/show_db/$dbFileName", 'Config db') . "</div>";
 
         $data['title'] = 'Custom List Reports';
-        $data['content'] = $edit_link . $this->table->generate();
+        $data['content'] = $edit_link . $table->generate();
         echo view('basic', $data);
     }
 }

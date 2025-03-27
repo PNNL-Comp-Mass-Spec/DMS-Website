@@ -234,18 +234,18 @@ class Gen extends BaseController
         $this->auth = model('\\App\\Models\\Dms_authorization');
         $rows = $this->auth->get_master_restriction_list();
 
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
         $tmpl = array ('table_open' => '<table border="1" cellpadding="4" cellspacing="0">');
-        $this->table->setTemplate($tmpl);
+        $table->setTemplate($tmpl);
 
-        $this->table->setHeading('Page Family', 'Action', 'Restrictions');
+        $table->setHeading('Page Family', 'Action', 'Restrictions');
 
         foreach($rows as $row) {
             array_shift($row); // get rid of id column
-            $this->table->addRow($row);
+            $table->addRow($row);
         }
 
-        echo $this->table->generate();
+        echo $table->generate();
     }
 
     /**
