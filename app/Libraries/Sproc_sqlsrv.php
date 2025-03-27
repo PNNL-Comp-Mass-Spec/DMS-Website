@@ -162,7 +162,7 @@ class Sproc_sqlsrv extends Sproc_base {
             //3 => 'Smallmoney',
             -1 => 'text',
             -154 => 'time',
-            -2 => 'timestamp',
+            //-2 => 'timestamp',
             -6 => 'tinyint',
             -151 => 'udt',
             -11 => 'uniqueidentifier',
