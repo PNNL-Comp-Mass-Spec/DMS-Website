@@ -115,7 +115,7 @@ abstract class BaseController extends Controller
     /**
      * Updates the database search path for Postgres connections. Does nothing for SQL Server connections
      * @param BaseConnection $db
-     * @return boolean
+     * @return void
      */
     public function updateSearchPath($db) {
         helper(['database']);

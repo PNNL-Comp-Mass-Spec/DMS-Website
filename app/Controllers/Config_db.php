@@ -113,7 +113,6 @@ class Config_db extends BaseController {
     /**
      * Show the config DB contents after applying a change
      * @param string $config_db Config DB name, including .db
-     * @return type
      * @category AJAX
      */
     function submit_show_db($config_db) {
@@ -164,7 +163,6 @@ class Config_db extends BaseController {
      * @param strgin $config_db Config DB name, including .db
      * @param string $sql SQL Query (typically an UPDATE or INSERT query)
      * @param string $table_name Target table name
-     * @return type
      */
     private function _exec_sql($config_db, $sql, $table_name) {
         helper(['config_db']);
@@ -374,7 +372,6 @@ class Config_db extends BaseController {
      * Create a table (does not check for an existing table)
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return type
      */
     function create_table($config_db, $table_name) {
         if (!$this->mod_enabled) {
@@ -415,7 +412,6 @@ class Config_db extends BaseController {
      * @param int $range_start_id
      * @param int $range_stop_id
      * @param int $dest_id
-     * @return type
      * @category AJAX
      */
     function move_range($config_db, $table_name, $range_start_id, $range_stop_id, $dest_id) {
@@ -434,7 +430,6 @@ class Config_db extends BaseController {
      * Reorder items in a table
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return type
      * @category AJAX
      */
     function resequence_table($config_db, $table_name) {
@@ -462,7 +457,6 @@ class Config_db extends BaseController {
      * Execute the SQL to obtain the results
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return type
      * @category AJAX
      */
     function exec_sql($config_db, $table_name) {
@@ -668,7 +662,6 @@ class Config_db extends BaseController {
      * Display an editing page for the given table in the given config db
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return type
      */
     function edit_table($config_db, $table_name) {
         if (!$this->mod_enabled) {
@@ -696,7 +689,6 @@ class Config_db extends BaseController {
      * Same as edit_table, except change table then load view 'sub_table_edit'
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return type
      * @category AJAX
      */
     function submit_edit_table($config_db, $table_name) {
@@ -1470,7 +1462,6 @@ class Config_db extends BaseController {
      * Create the controller (if it doesn't yet exist)
      * @param string $config_db Config DB name, including .db
      * @param string $title
-     * @return type
      */
     function make_controller($config_db, $title) {
         if (!$this->mod_enabled) {

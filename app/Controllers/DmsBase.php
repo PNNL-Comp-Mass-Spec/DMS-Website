@@ -83,7 +83,6 @@ class DmsBase extends BaseController
     /**
      * Create an entry page to edit an existing record in the database
      * @param type $id
-     * @return type
      */
     function edit($id = '')
     {
@@ -237,7 +236,6 @@ class DmsBase extends BaseController
      * Make a page to show a detailed report for the single record identified by the the user-supplied id
      * Typically accessed using a call like http://dms2.pnl.gov/param_file/show/3287
      * @param string $id
-     * @return type
      */
     function detail_report($id)
     {
@@ -324,7 +322,6 @@ class DmsBase extends BaseController
      * Sets up a page that contains an entry form defined by the
      * E_model for the config db which will be used to get data
      * rows in HTML via and AJAX call to the param_data function.
-     * @return type
      */
     function param()
     {
@@ -337,7 +334,6 @@ class DmsBase extends BaseController
 
     /**
      * Returns HTML data row table of data returned by stored procedure
-     * @return type
      * @category AJAX
      */
     function param_data()
@@ -437,7 +433,6 @@ class DmsBase extends BaseController
 
     /**
      * Invokes the model's 'operation' stored procedure and returns simple text response.
-     * @return type
      * @category AJAX
      */
     function operation()
@@ -460,7 +455,6 @@ class DmsBase extends BaseController
     /**
      * Invokes the model's 'operation' stored procedure and returns simple text response.
      * This is a thin wrapper over the internal function "internal_operation"
-     * @return type
      * @category AJAX
      */
     function command()

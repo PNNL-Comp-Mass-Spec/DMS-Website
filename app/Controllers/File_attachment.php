@@ -497,7 +497,6 @@ class File_attachment extends DmsBase {
     /**
      * Show attachments for this entity
      * This is called from javascript file javascript/file_attachment.js
-     * @return string
      * @category AJAX
      */
     function show_attachments() {
@@ -738,7 +737,6 @@ class File_attachment extends DmsBase {
     /**
      * Retrieve data from V_Experiment_Detail_Report_Ex and V_Aux_Info_Experiment_Values for Experiment $expID
      * @param type $expID
-     * @return type
      */
     function auxinfo($expID) {
         $db = \Config\Database::connect();

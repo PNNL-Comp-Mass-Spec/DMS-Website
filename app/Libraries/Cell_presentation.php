@@ -169,7 +169,6 @@ class Cell_presentation {
      * Note: this method is only called when data is exported to an Excel file
      *
      * @param type $result
-     * @return type
      */
     function add_color_codes(&$result) {
 
@@ -1018,7 +1017,6 @@ class Cell_presentation {
      * Update the date columns to have user-friendly dates
      * @param type $result
      * @param type $col_info
-     * @return type
      */
     function fix_datetime_display(&$result, $col_info) {
         // Get list of datetime columns
@@ -1083,7 +1081,6 @@ class Cell_presentation {
      * Update the decimal columns to have user-friendly doubles
      * @param type $result
      * @param type $col_info
-     * @return type
      */
     function fix_decimal_display(&$result, $col_info) {
         // Get list of decimal columns
@@ -1129,7 +1126,6 @@ class Cell_presentation {
      * Update the decimal and datetime columns to have user-friendly doubles and dates
      * @param type $result
      * @param type $col_info
-     * @return type
      */
     function fix_datetime_and_decimal_display(&$result, $col_info) {
         $this->fix_datetime_display($result, $col_info);

@@ -296,7 +296,6 @@ class General_query {
      * Show results as an HTML-formatted table
      * @param type $result
      * @param type $pageTitle
-     * @return type
      */
     function html_table($result, $pageTitle) {
         $headers = '';
