@@ -15,11 +15,6 @@ class Aux_info_support {
 
     }
 
-    // --------------------------------------------------------------------
-    function get_update_response_container() {
-        return $this->update_response_container;
-    }
-
     // -----------------------------------
     function make_category_subcategory_selector($aux_info_def) {
         $str = '';
