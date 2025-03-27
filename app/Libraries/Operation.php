@@ -6,6 +6,7 @@ namespace App\Libraries;
  */
 class Operation {
 
+    private \App\Controllers\BaseController $controller;
     private $config_source = '';
 
     // --------------------------------------------------------------------

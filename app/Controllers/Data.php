@@ -8,6 +8,8 @@ use CodeIgniter\Database\SQLite3\Connection;
  */
 class Data extends BaseController {
 
+    public $my_config_db = null;
+
     // --------------------------------------------------------------------
     // Ad hoc query stuff
     // --------------------------------------------------------------------

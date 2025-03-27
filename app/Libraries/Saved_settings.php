@@ -3,6 +3,8 @@ namespace App\Libraries;
 
 class Saved_settings {
 
+    private \App\Controllers\BaseController $controller;
+
     // --------------------------------------------------------------------
     function __construct($controller) {
         $this->controller =& $controller;

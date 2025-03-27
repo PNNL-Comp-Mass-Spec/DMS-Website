@@ -13,10 +13,10 @@
  * @param type $segs
  * @param type $config_source
  * @param type $form_field_names
- * @param type $controller
+ * @param \App\Controllers\BaseController $controller
  * @return type
  */
-function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names, $controller) {
+function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names, \App\Controllers\BaseController $controller) {
     $initial_field_values = array();
 
     $num_segs = count($segs);

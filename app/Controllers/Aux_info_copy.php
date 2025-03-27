@@ -35,8 +35,6 @@ class Aux_info_copy extends BaseController {
         $this->my_title = "Aux Info Copy";
 
         $this->model = model('App\\Models\\M_aux_info_copy');
-
-        $this->aux_info_support = new \App\Libraries\Aux_info_support();
     }
 
     /**

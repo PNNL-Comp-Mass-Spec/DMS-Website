@@ -16,6 +16,10 @@ class Check_result {
  * File attachment uploader class
  */
 class File_attachment extends DmsBase {
+
+    private $local_root_path;
+    private $archive_root_path;
+
     function __construct()
     {
         $this->my_tag = "file_attachment";

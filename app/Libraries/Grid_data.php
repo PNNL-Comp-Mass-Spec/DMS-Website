@@ -6,6 +6,7 @@ namespace App\Libraries;
  */
 class Grid_data {
 
+    private $controller;
     private $config_source = '';
     private $config_name = '';
 

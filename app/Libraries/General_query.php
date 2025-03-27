@@ -27,6 +27,7 @@ class General_query_def {
  */
 class General_query {
 
+    private \App\Controllers\BaseController $controller;
     protected $config_source = '';
     protected $config_name = '';
     protected $tag = '';

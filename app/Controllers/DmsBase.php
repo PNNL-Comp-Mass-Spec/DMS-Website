@@ -7,9 +7,6 @@ namespace App\Controllers;
 
 class DmsBase extends BaseController
 {
-
-    var $my_tag = "";
-
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available

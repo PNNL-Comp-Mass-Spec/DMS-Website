@@ -21,6 +21,36 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
+    public $my_tag = "";
+    public $my_title = "";
+
+    // Model refs
+    public $aux_info_model = null;
+    public $data_model = null;
+    public $detail_model = null;
+    public $form_model = null;
+    public $gen_model = null;
+    public $input_model = null;
+    public $link_model = null;
+    public $model = null;
+    public $sproc_model = null;
+
+    // Library refs
+    public $entry_form = null;
+
+    // Filter library refs
+    public $column_filter = null;
+    public $paging_filter = null;
+    public $primary_filter = null;
+    public $secondary_filter = null;
+    public $sorting_filter = null;
+
+    public $help_page_link = null;
+    public $menu = null;
+    public $choosers = null;
+    public $preferences = null;
+    public $auth = null;
+
     /**
      * Instance of the main Request object.
      *

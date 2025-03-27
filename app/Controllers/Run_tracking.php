@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Run_tracking extends DmsBase {
 
-    var $maxNormalInterval = 90;
+    private $maxNormalInterval = 90;
 
     function __construct()
     {

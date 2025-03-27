@@ -9,6 +9,7 @@ class Spreadsheet_loader extends DmsBase {
     // Comes from column config_source in table loadable_entities in spreadsheet_loader.db
     private $supported_entities = array ();
     private $my_url_tag = '';
+    private $spreadsheet_loader;
 
     function __construct()
     {

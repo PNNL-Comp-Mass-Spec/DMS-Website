@@ -23,6 +23,9 @@ class Config_db extends BaseController {
      */
     protected $helpers = ['url', 'text'];
 
+    private $mod_enabled = false;
+    private $config_model = null;
+
     /**
      * Constructor.
      */

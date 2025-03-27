@@ -7,6 +7,7 @@ namespace App\Libraries;
 
 class Detail_report {
 
+    private \App\Controllers\BaseController $controller;
     private $config_source = '';
     private $config_name = '';
     private $tag = '';

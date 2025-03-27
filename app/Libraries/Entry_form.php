@@ -6,6 +6,7 @@ namespace App\Libraries;
  */
 class Entry_form {
 
+    private $controller;
     private $form_field_specs = array();
     private $field_values = array();
     private $field_enable = array();

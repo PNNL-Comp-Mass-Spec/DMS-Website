@@ -14,6 +14,9 @@ class Gen extends BaseController
 	 */
 	protected $helpers = ['url', 'text'];
 
+    private $config;
+    private $page_menu_root;
+
 	/**
 	 * Constructor.
 	 */

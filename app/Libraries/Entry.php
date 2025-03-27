@@ -7,6 +7,7 @@ namespace App\Libraries;
 
 class Entry {
 
+    private \App\Controllers\BaseController $controller;
     protected $config_source = '';
     protected $tag = '';
     protected $title = '';

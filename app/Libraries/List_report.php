@@ -7,6 +7,7 @@ namespace App\Libraries;
 
 class List_report {
 
+    protected \App\Controllers\BaseController $controller;
     protected $config_source = '';
     protected $config_name = '';
     protected $tag = '';

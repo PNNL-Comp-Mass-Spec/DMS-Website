@@ -5,10 +5,12 @@ class Paging_filter {
 
     const storage_name_root = "lr_paging_filter_";
 
+    private $controller;
     private $config_name = '';
     private $config_source = '';
     private $field_names = array('qf_first_row', 'qf_rows_per_page');
     private $cur_filter_values = null;
+    private $storage_name = '';
 
     // --------------------------------------------------------------------
     function __construct() {
