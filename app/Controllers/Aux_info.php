@@ -37,10 +37,9 @@ class Aux_info extends BaseController {
 
 ///--
         $this->my_tag = "aux_info";
-        $this->my_model = "M_aux_info";
         $this->my_title = "Aux Info";
 
-        $this->model = model('App\\Models\\'.$this->my_model);
+        $this->model = model('App\\Models\\M_aux_info');
 
         $this->aux_info_support = new \App\Libraries\Aux_info_support();
     }

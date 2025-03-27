@@ -4,7 +4,6 @@ namespace App\Controllers;
 class Preferences extends BaseController {
     function __construct()
     {
-        $this->my_model = 'Dms_preferences';
         $this->helpers = array_merge($this->helpers, ['url', 'text', 'dms_search', 'cookie', 'user']);
     }
 
@@ -19,7 +18,7 @@ class Preferences extends BaseController {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->model = model('App\\Models\\'.$this->my_model);
+        $this->model = model('App\\Models\\Dms_preferences');
     }
 
     // --------------------------------------------------------------------

@@ -5,7 +5,6 @@ class Helper_inst_source extends DmsBase {
     function __construct()
     {
         $this->my_tag = "helper_inst_source";
-//      $this->my_model = "";
         $this->my_title = "Source Files for Datasets";
     }
 
