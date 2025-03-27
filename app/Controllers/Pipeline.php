@@ -8,7 +8,7 @@ class Pipeline extends BaseController {
     {
         helper(['url','html']);
 
-        echo heading('Mini-Pipeline Page links', 3);
+        echo '<h3>Mini-Pipeline Page links</h3>';
 
         $links = array();
 
