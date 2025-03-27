@@ -43,6 +43,8 @@ class Data_package extends DmsBase {
         foreach($result as $row) {
             echo $row['dataset']."\t".$row['job_count']."\n";
         }
+
+        return "";
     }
 
     // --------------------------------------------------------------------
