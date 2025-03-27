@@ -22,10 +22,10 @@ class Analysis_job_request_psm extends DmsBase {
     function get_defaults()
     {
         $results = $this->get_defaults_from_db();
-            $metadata_tab = $this->make_metadata_table($results->parms->metadata);
-            $supplemental_form = $this->make_supplemental_param_form($results->parms->defaults, $results->result);
-            $message = $this->make_message($results->message);
-            echo $metadata_tab . $supplemental_form . $message;
+        $metadata_tab = $this->make_metadata_table($results->parms->metadata);
+        $supplemental_form = $this->make_supplemental_param_form($results->parms->defaults, $results->result);
+        $message = $this->make_message($results->message);
+        echo $metadata_tab . $supplemental_form . $message;
     }
 
     // --------------------------------------------------------------------
