@@ -487,7 +487,7 @@ class Cell_presentation {
                     $colorStyle = $this->get_hotlink_color_style($row, $formatted, $value);
                 }
 
-                $str .= $this->render_hotlink($value, $row, $colSpec, $columnName, $colIndex, $colorStyle);
+                $str .= $this->render_hotlink($value, $row, $colSpec, $colIndex, $colorStyle, $columnName);
             } else {
                 $str .= "<td>" . $value . "</td>";
             }
@@ -501,12 +501,12 @@ class Cell_presentation {
      * @param mixed  $value     String or number
      * @param mixed  $row       Array of row data
      * @param mixed  $colSpec
-     * @param string $columnName  Column name
      * @param int    $colIndex    Column index
      * @param string $colorStyle  Color style (preceded by a space), or an empty string
+     * @param string $columnName  Column name
      * @return string
      */
-    private function render_hotlink($value, $row, $colSpec, $columnName = '', $colIndex, $colorStyle) {
+    private function render_hotlink($value, $row, $colSpec, $colIndex, $colorStyle, $columnName = '') {
 
         $str = "";
 
