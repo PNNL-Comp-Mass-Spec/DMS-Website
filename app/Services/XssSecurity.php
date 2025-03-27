@@ -61,6 +61,11 @@ class XssSecurity implements XssSecurityInterface {
 	public $charset = 'UTF-8';
 
 	/**
+	 * Cached XSS hash
+	 */
+	private $_xss_hash = NULL;
+
+	/**
 	 * List of never allowed strings
 	 *
 	 * @var	array
@@ -389,9 +394,7 @@ class XssSecurity implements XssSecurityInterface {
 		static $_entities;
 
 		isset($charset) OR $charset = $this->charset;
-		$flag = is_php('5.4')
-			? ENT_COMPAT | ENT_HTML5
-			: ENT_COMPAT;
+		$flag = ENT_COMPAT | ENT_HTML5;
 
 		if ( ! isset($_entities))
 		{
@@ -688,6 +691,29 @@ class XssSecurity implements XssSecurityInterface {
 			'&',
 			$this->entity_decode($match, $this->charset)
 		);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * XSS Hash
+	 *
+	 * Generates the XSS hash if needed and returns it.
+	 *
+	 * @see		CI_Security::$_xss_hash
+	 * @return	string	XSS hash
+	 */
+	public function xss_hash()
+	{
+		if ($this->_xss_hash === NULL)
+		{
+			$rand = random_bytes(16);
+			$this->_xss_hash = ($rand === FALSE)
+				? md5(uniqid(mt_rand(), TRUE))
+				: bin2hex($rand);
+		}
+
+		return $this->_xss_hash;
 	}
 
 	// --------------------------------------------------------------------

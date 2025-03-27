@@ -187,7 +187,7 @@ class Config_db extends BaseController {
         //$db->execute($sql);
         try {
             $db->connID->exec($sql);
-        } catch (ErrorException $e) {
+        } catch (\ErrorException $e) {
             log_message('error', $e);
         }
         $db->transComplete();
