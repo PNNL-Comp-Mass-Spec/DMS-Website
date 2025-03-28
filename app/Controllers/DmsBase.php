@@ -35,6 +35,7 @@ class DmsBase extends BaseController
     // --------------------------------------------------------------------
     public function index()
     {
+        $output_message = false;
         $this->load_mod('G_model', 'gen_model', 'na', $this->my_tag);
 
         if ($this->gen_model->error_text) {
@@ -504,8 +505,8 @@ class DmsBase extends BaseController
      */
     public function defaults($page_type) //'Param_Pages''list_report_sproc'   'list_report'
     {
-        $this->saved_settings = new \App\Libraries\Saved_settings($this);
-        $this->saved_settings->defaults($page_type, $this->my_tag);
+        $saved_settings = new \App\Libraries\Saved_settings($this);
+        $saved_settings->defaults($page_type, $this->my_tag);
     }
 
     /**

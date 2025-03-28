@@ -229,14 +229,14 @@ class File_attachment extends DmsBase {
             $config['max_size'] = 204800;
             mkdir($config['upload_path'],0777,true);
 
-            $this->upload = new \App\Libraries\Upload($config);
+            $upload = new \App\Libraries\Upload($config);
 
             // Upload the file from the user's computer to this server
             // Store below ROOTPATH/attachment_uploads
-            if ( ! $this->upload->do_upload()) {
-                $resultMsg = $this->upload->display_errors();
+            if ( ! $upload->do_upload()) {
+                $resultMsg = $upload->display_errors();
             } else {
-                $data = $this->upload->data();
+                $data = $upload->data();
                 $orig_name = $data["orig_name"];
                 $name = $data["file_name"];
                 $size = $data["file_size"];                     // Size in Kilobytes

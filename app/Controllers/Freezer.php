@@ -49,10 +49,10 @@ class Freezer extends DmsBase {
     // https://dmsdev.pnl.gov/freezer/get_freezers
     function get_freezers()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
-        $frzrs = $this->freezer->get_freezers();
-        $items = $this->freezer->build_freezer_location_list('Freezer', $frzrs, $this);
+        $frzrs = $freezer->get_freezers();
+        $items = $freezer->build_freezer_location_list('Freezer', $frzrs, $this);
         echo json_encode($items);
     }
 
@@ -62,7 +62,7 @@ class Freezer extends DmsBase {
     // https://dmsdev.pnl.gov/freezer/get_locations
     function get_locations()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $Type = $this->request->getPost('Type');
         $Freezer = $this->request->getPost('Freezer');
@@ -71,9 +71,9 @@ class Freezer extends DmsBase {
         $Row = $this->request->getPost('Row');
         // $Col = $this->request->getPost('Col');
 
-        $sub_type = $this->freezer->get_sub_location_type($Type);
-        $frzrs = $this->freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row);
-        $items = $this->freezer->build_freezer_location_list($sub_type, $frzrs, $this);
+        $sub_type = $freezer->get_sub_location_type($Type);
+        $frzrs = $freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row);
+        $items = $freezer->build_freezer_location_list($sub_type, $frzrs, $this);
         echo json_encode($items);
     }
 
@@ -81,12 +81,12 @@ class Freezer extends DmsBase {
     // AJAX
     function get_containers()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $location = $this->request->getPost('Location');
 
-        $containers = $this->freezer->get_containers($location);
-        $items = $this->freezer->build_container_list($containers);
+        $containers = $freezer->get_containers($location);
+        $items = $freezer->build_container_list($containers);
         echo json_encode($items);
     }
 
@@ -94,12 +94,12 @@ class Freezer extends DmsBase {
     // AJAX
     function find_container()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $container = $this->request->getPost('Container');
 
-        $containers = $this->freezer->find_container($container);
-        $items = $this->freezer->build_container_list($containers);
+        $containers = $freezer->find_container($container);
+        $items = $freezer->build_container_list($containers);
         echo json_encode($items);
     }
 
@@ -107,12 +107,12 @@ class Freezer extends DmsBase {
     // AJAX
     function find_location()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $location = $this->request->getPost('Location');
 
-        $locations = $this->freezer->find_location($location);
-        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
+        $locations = $freezer->find_location($location);
+        $items = $freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -121,12 +121,12 @@ class Freezer extends DmsBase {
     // https://dms2.pnl.gov/freezer/find_available_location
     function find_available_location()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $location = $this->request->getPost('Location');
 
-        $locations = $this->freezer->find_available_location($location);
-        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
+        $locations = $freezer->find_available_location($location);
+        $items = $freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -135,12 +135,12 @@ class Freezer extends DmsBase {
     // https://dms2.pnl.gov/freezer/find_newest_containers
     function find_newest_containers()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         //$location = $this->request->getPost('Location');
 
-        $locations = $this->freezer->find_newest_containers();
-        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
+        $locations = $freezer->find_newest_containers();
+        $items = $freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -148,7 +148,7 @@ class Freezer extends DmsBase {
     // https://dms2.pnl.gov/freezer/test
     function test()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
         $testLocs = array(
             "80B.na.na.na.na",
             "80B.1.na.na.na",
@@ -157,8 +157,8 @@ class Freezer extends DmsBase {
             "80B.1.2.1.2",
         );
         foreach($testLocs as $location) {
-            $locations = $this->freezer->find_location($location);
-            echo $location . "=>" .$this->freezer->get_location_type($locations[0]) ."\n";
+            $locations = $freezer->find_location($location);
+            echo $location . "=>" .$freezer->get_location_type($locations[0]) ."\n";
         }
     }
 
@@ -399,9 +399,9 @@ class Freezer extends DmsBase {
     private
     function freezer_list()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
-        $frzrs = $this->freezer->get_freezers();
+        $frzrs = $freezer->get_freezers();
         $lst = array();
         foreach($frzrs as $frzr) {
             $r = $frzr["freezer"];

@@ -309,24 +309,24 @@ class Spreadsheet_loader extends DmsBase {
                 $calling_params = $this->make_tracking_info_params($tracking_info, $config_source, $mode, $current_values);
 
                 // Call stored procedure to update tracking info
-                $this->sproc_model = model('App\Models\S_model');
-                $ok = $this->sproc_model->init('entry_sproc', $config_source);
-                if(!$ok) throw new \Exception($this->sproc_model->get_error_text());
+                $sproc_model = model('App\Models\S_model');
+                $ok = $sproc_model->init('entry_sproc', $config_source);
+                if(!$ok) throw new \Exception($sproc_model->get_error_text());
 
-                $ok = $this->sproc_model->execute_sproc($calling_params);
-                if(!$ok) throw new \Exception($this->sproc_model->get_error_text());
+                $ok = $sproc_model->execute_sproc($calling_params);
+                if(!$ok) throw new \Exception($sproc_model->get_error_text());
             }
 
             //---- aux info update ---------------------------
             if($incAuxinfo && !empty($aux_info)) {
-                $this->aux_model = model('App\Models\S_model');
-                $ok = $this->aux_model->init('operations_sproc', 'aux_info_def');
-                if(!$ok) throw new \Exception($this->aux_model->get_error_text());
+                $aux_model = model('App\Models\S_model');
+                $ok = $aux_model->init('operations_sproc', 'aux_info_def');
+                if(!$ok) throw new \Exception($aux_model->get_error_text());
 
                 foreach($grouped_aux_info as $ai) {
                     $obj = $this->make_aux_info_params($id, $entity_type, $ai, $mode);
-                    $ok = $this->aux_model->execute_sproc($obj);
-                    if(!$ok) throw new \Exception($this->aux_model->get_error_text());
+                    $ok = $aux_model->execute_sproc($obj);
+                    if(!$ok) throw new \Exception($aux_model->get_error_text());
                 }
             }
 
@@ -444,9 +444,9 @@ class Spreadsheet_loader extends DmsBase {
     {
         // Use $entity_type to get definition of field/labels for entry sproc
         // entry form specifications
-        $this->form_model = model('App\Models\E_model');
-        $this->form_model->init('na', $config_source);
-        $form_def = $this->form_model->get_form_def(array('specs'));
+        $form_model = model('App\Models\E_model');
+        $form_model->init('na', $config_source);
+        $form_def = $form_model->get_form_def(array('specs'));
 
         helper('user');
         $calling_params = $current_values;
@@ -502,9 +502,9 @@ class Spreadsheet_loader extends DmsBase {
     function template($config_source, $rowStyle = false, $ext = "tsv")
     {
         // Tracking info
-        $this->form_model = model('App\Models\E_model');
-        $this->form_model->init('na', $config_source);
-        $form_def = $this->form_model->get_form_def(array('fields', 'specs', 'load_key'));
+        $form_model = model('App\Models\E_model');
+        $form_model->init('na', $config_source);
+        $form_def = $form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
         // Get array of field labels associated with field values
         // make sure key field is first in list
@@ -523,10 +523,10 @@ class Spreadsheet_loader extends DmsBase {
         $aux_info_target = $this->get_aux_info_target($config_source);
         if($aux_info_target) {
             // Get aux info definitions
-            $this->model = model('App\Models\Q_model');
-            $this->model->init('list_report', 'aux_info_def');
-            $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
-            $query = $this->model->get_rows('filtered_only');
+            $model = model('App\Models\Q_model');
+            $model->init('list_report', 'aux_info_def');
+            $model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
+            $query = $model->get_rows('filtered_only');
 
             $aux_info =  $query->getResultArray();
             foreach($aux_info as &$row) {
@@ -584,9 +584,9 @@ class Spreadsheet_loader extends DmsBase {
     private
     function cross_check_tracking_info_fields($config_source, $tracking_info)
     {
-        $this->form_model = model('App\Models\E_model');
-        $this->form_model->init('na', $config_source);
-        $form_def = $this->form_model->get_form_def(array('fields', 'specs', 'load_key'));
+        $form_model = model('App\Models\E_model');
+        $form_model->init('na', $config_source);
+        $form_def = $form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
         $errors = array();
         foreach($tracking_info as $field => $row) {
@@ -610,10 +610,10 @@ class Spreadsheet_loader extends DmsBase {
     function cross_check_aux_info_fields($aux_info_target, $aux_info)
     {
         // Get aux info definitions
-        $this->model = model('App\Models\Q_model');
-        $this->model->init('list_report', 'aux_info_def');
-        $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
-        $query = $this->model->get_rows('filtered_only');
+        $model = model('App\Models\Q_model');
+        $model->init('list_report', 'aux_info_def');
+        $model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
+        $query = $model->get_rows('filtered_only');
         $result =  $query->getResultArray();
 
         $errors = array();

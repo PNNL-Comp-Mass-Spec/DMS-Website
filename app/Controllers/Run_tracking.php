@@ -79,9 +79,9 @@ class Run_tracking extends DmsBase {
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 
         $prefs = $this->calendar_prefs($instrument);
-        $this->calendar = new \App\Libraries\Calendar($prefs);
+        $calendar = new \App\Libraries\Calendar($prefs);
 
-        $days_in_month = $this->calendar->get_total_days($month, $year);
+        $days_in_month = $calendar->get_total_days($month, $year);
 
         $calendarData = array();
         $data['rollup'] = '';
@@ -119,7 +119,7 @@ class Run_tracking extends DmsBase {
         // Link to ERS report report
         $data['ers_link'] = site_url("instrument_usage_report/report/$year/$month/$instrument");
 
-        $data['calendar'] = $this->calendar;
+        $data['calendar'] = $calendar;
 
         echo view('usage_tracking/cal2', $data);
     }
@@ -374,11 +374,11 @@ EOD;
 
     // FUTURE: Move to helper or library
     // --------------------------------------------------------------------
-    private
-    function calendar_display($instrument, $year, $month, $calendarData)
-    {
-        echo $this->calendar->generate($year, $month, $calendarData);
-    }
+    //private
+    //function calendar_display($instrument, $year, $month, $calendarData)
+    //{
+    //    echo $calendar->generate($year, $month, $calendarData);
+    //}
 
     // FUTURE: Move to helper or library
     // --------------------------------------------------------------------
