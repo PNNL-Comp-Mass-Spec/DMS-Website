@@ -12,9 +12,9 @@ class Analysis_job_request_psm extends DmsBase {
     private
     function get_defaults_from_db()
     {
-        $this->load_lib('Operation', 'na', $this->my_tag);
-        $response = $this->operation->internal_operation('operations_sproc');
-        $response->parms = $this->operation->get_params();
+        $operation = $this->getLibrary('Operation', 'na', $this->my_tag);
+        $response = $operation->internal_operation('operations_sproc');
+        $response->parms = $operation->get_params();
         return $response;
     }
 

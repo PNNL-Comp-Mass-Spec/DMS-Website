@@ -42,7 +42,7 @@ class Saved_settings {
             $this->controller->primary_filter->clear_cached_state();
 
             // Secondary filter
-            $this->controller->load_lib('Secondary_filter', $config_name, $config_source);
+            $this->controller->loadLibrary('Secondary_filter', $this->controller->secondary_filter, $config_name, $config_source);
             $this->controller->secondary_filter->clear_cached_state();
         } else
         if ($page_type == 'Param_Pages') {
@@ -51,17 +51,17 @@ class Saved_settings {
         }
 
         // Paging filter
-        $this->controller->load_lib('Paging_filter', $config_name, $config_source);
+        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $config_name, $config_source);
         $this->controller->paging_filter->clear_cached_state();
 
         $options = array("PersistSortColumns" => true);
 
         // Sorting filter
-        $this->controller->load_lib('Sorting_filter', $config_name, $config_source, $options);
+        $this->controller->loadLibrary('Sorting_filter', $this->controller->sorting_filter, $config_name, $config_source, $options);
         $this->controller->sorting_filter->clear_cached_state();
 
         // Column filter (unused)
-        // $this->controller->load_lib('Column_filter', $config_name, $config_source);
+        // $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $config_name, $config_source);
         // $col_filter = $this->controller->column_filter->clear_cached_state();
 
         echo "Saved preferences were cleared";

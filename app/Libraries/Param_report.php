@@ -43,7 +43,7 @@ class Param_report {
         $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs'));
 
-        $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
+        $this->controller->loadLibrary('Entry_form', $this->controller->entry_form, $form_def->specs, $this->config_source);
 
         // Get initial field values (from url segments) and merge them with form object
         $segs = array_slice(getCurrentUriDecodedSegments(), 2);
@@ -100,7 +100,7 @@ class Param_report {
         } else {
             $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
 
-            $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+            $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
             $col_filter = $this->controller->column_filter->get_current_filter_values();
 
             $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
@@ -127,7 +127,7 @@ class Param_report {
      * @return type
      */
     private function get_filtered_param_report_rows($paging = true) {
-        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
         if ($paging) {
             $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
         } else {
@@ -136,7 +136,7 @@ class Param_report {
 
         $options = array("PersistSortColumns" => true);
 
-        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $this->controller->loadLibrary('Sorting_filter', $this->controller->sorting_filter, $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
 
         return $this->controller->sproc_model->get_filtered_rows($current_sorting_filter_values, $current_paging_filter_values);
@@ -329,7 +329,7 @@ class Param_report {
         helper(['link_util']);
 
         // Current paging settings
-        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
         $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
         // Model to get current row info
@@ -363,15 +363,15 @@ class Param_report {
         $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
         $cols = $this->controller->sproc_model->get_col_names();
 
-        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
+        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
         $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
         $options = array("PersistSortColumns" => true);
 
-        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $this->controller->loadLibrary('Sorting_filter', $this->controller->sorting_filter, $this->config_name, $this->config_source, $options);
         $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
 
-        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+        $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
         $col_filter = $this->controller->column_filter->get_current_filter_values();
 
         helper('form');
@@ -403,7 +403,7 @@ class Param_report {
         $col_info = $this->controller->sproc_model->get_column_info();
         $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
+        $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
         $col_filter = $this->controller->column_filter->get_current_filter_values();
 
         if (empty($rows)) {

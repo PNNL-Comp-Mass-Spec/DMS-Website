@@ -97,28 +97,41 @@ abstract class BaseController extends Controller
     /**
      * Load named library and initialize it with given config info
      * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
+     * @param object $local_ref Local reference
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
      * @param boolean $options Custom options flag
      * @return boolean
      */
-    public function load_lib($lib_name, $config_name, $config_source, $options = false) {
-        $localName = lcfirst($lib_name);
-        if (property_exists($this, $localName)) {
+    public function loadLibrary($lib_name, &$local_ref, $config_name, $config_source, $options = false) {
+        if (isset($local_ref)) {
             return true;
         }
         // Load then initialize the model
         $libPath = "\\App\\Libraries\\$lib_name";
-        $this->$localName = new $libPath();
-        if (!method_exists($this->$localName, 'init')) {
+        $local_ref = new $libPath();
+        if (!method_exists($local_ref, 'init')) {
             return true;
         }
 
         if ($options === false) {
-            return $this->$localName->init($config_name, $config_source, $this);
+            return $local_ref->init($config_name, $config_source, $this);
         } else {
-            return $this->$localName->init($config_name, $config_source, $this, $options);
+            return $local_ref->init($config_name, $config_source, $this, $options);
         }
+    }
+
+    /**
+     * Get named library and initialize it with given config info
+     * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
+     * @param string $config_name Config name, e.g. list_report
+     * @param string $config_source Source, e.g. dataset, experiment, campaign
+     * @param boolean $options Custom options flag
+     * @return boolean
+     */
+    public function getLibrary($lib_name, $config_name, $config_source, $options = false) {
+        $this->loadLibrary($lib_name, $local_ref, $config_name, $config_source, $options);
+        return $local_ref;
     }
 
     /**
