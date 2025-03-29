@@ -42,10 +42,10 @@ class Entry {
         helper(['entry_page', 'url']);
 
         // General specifications for page family
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Make entry form object using form definitions from model
-        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
@@ -147,7 +147,7 @@ class Entry {
     function submit_entry_form() {
         helper(['entry_page']);
 
-        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
 
@@ -276,7 +276,7 @@ class Entry {
      * @param string $msg Message returned by the stored procedure (output)
      */
     protected function call_stored_procedure($input_params, $form_def, &$msg) {
-        $ok = $this->controller->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->config_source);
+        $ok = $this->controller->loadModel('S_model', $this->controller->sproc_model, 'entry_sproc', $this->config_source);
         if (!$ok) {
             throw new \Exception($this->controller->sproc_model->get_error_text());
         }

@@ -37,10 +37,10 @@ class Param_report {
      */
     function param() {
         // General specifications for page family
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Entry form
-        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs'));
 
         $this->controller->loadLibrary('Entry_form', $this->controller->entry_form, $form_def->specs, $this->config_source);
@@ -98,7 +98,7 @@ class Param_report {
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
-            $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
+            $this->controller->loadModel('R_model', $this->controller->link_model, 'na', $this->config_source);
 
             $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
             $col_filter = $this->controller->column_filter->get_current_filter_values();
@@ -155,7 +155,7 @@ class Param_report {
 
         // Get specifications for the entry form
         // Used for submission into POST and to be returned as HTML
-        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'rules'));
 
         $calling_params = new \stdClass();
@@ -192,7 +192,7 @@ class Param_report {
             }
 
             // Call stored procedure
-            $ok = $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+            $ok = $this->controller->loadModel('S_model', $this->controller->sproc_model, $this->config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($this->controller->sproc_model->get_error_text());
             }
@@ -265,7 +265,7 @@ class Param_report {
      */
     protected function get_filter_values() {
         // It all starts with a model
-        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('specs', 'fields'));
 
         // Search filter
@@ -333,7 +333,7 @@ class Param_report {
         $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
         // Model to get current row info
-        $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+        $this->controller->loadModel('S_model', $this->controller->sproc_model, $this->config_name, $this->config_source);
 
         // Pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
@@ -360,7 +360,7 @@ class Param_report {
         $session = \Config\Services::session();
 
         // Call stored procedure
-        $this->controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+        $this->controller->loadModel('S_model', $this->controller->sproc_model, $this->config_name, $this->config_source);
         $cols = $this->controller->sproc_model->get_col_names();
 
         $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);

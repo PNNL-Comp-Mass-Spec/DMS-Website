@@ -32,7 +32,7 @@ class Saved_settings {
 
         if ($page_type == 'List_Reports') {
             // It all starts with a model
-            $this->controller->load_mod('Q_model', 'data_model', $config_name, $config_source);
+            $this->controller->loadModel('Q_model', $this->controller->data_model, $config_name, $config_source);
             $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
             $this->controller->data_model->clear_cached_state();
 
@@ -46,7 +46,7 @@ class Saved_settings {
             $this->controller->secondary_filter->clear_cached_state();
         } else
         if ($page_type == 'Param_Pages') {
-            $this->controller->load_mod('S_model', 'sproc_model', $config_name, $config_source);
+            $this->controller->loadModel('S_model', $this->controller->sproc_model, $config_name, $config_source);
             $this->controller->sproc_model->clear_cached_state();
         }
 

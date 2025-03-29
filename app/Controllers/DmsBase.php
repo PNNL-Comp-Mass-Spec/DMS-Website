@@ -36,7 +36,7 @@ class DmsBase extends BaseController
     public function index()
     {
         $output_message = false;
-        $this->load_mod('G_model', 'gen_model', 'na', $this->my_tag);
+        $this->loadGeneralModel('na', $this->my_tag);
 
         if ($this->gen_model->error_text) {
             if ($output_message) {

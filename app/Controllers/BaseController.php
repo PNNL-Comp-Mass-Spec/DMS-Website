@@ -137,22 +137,44 @@ abstract class BaseController extends Controller
     /**
      * Load named model (with given local name) and initialize it with given config info
      * @param string $model_name Module name, e.g. G_model, Q_model
-     * @param string $local_name Local name, e.g. gen_model for G_model; model for Q_model
+     * @param object $local_ref Local reference, e.g. $this->gen_model for G_model; $this->model for Q_model
      * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
      */
-    public function load_mod($model_name, $local_name, $config_name, $config_source) {
-        if (property_exists($this, $local_name)) {
+    public function loadModel($model_name, &$local_ref, $config_name, $config_source) {
+        if (isset($local_ref)) {
             return true;
         }
         // Dynamically load and initialize the model
-        $this->$local_name = model('App\\Models\\'.$model_name);
-        if (method_exists($this->$local_name, 'init')) {
-            return $this->$local_name->init($config_name, $config_source);
+        $local_ref = model('App\\Models\\'.$model_name);
+        if (method_exists($local_ref, 'init')) {
+            return $local_ref->init($config_name, $config_source);
         } else {
             return true;
         }
+    }
+
+    /**
+     * Load G_model to $this->gen_model and initialize it with given config info
+     * @param string $config_name Config type; typically na for G_model
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return boolean
+     */
+    public function loadGeneralModel($config_name, $config_source) {
+        return $this->loadModel('G_model', $this->gen_model, $config_name, $config_source);
+    }
+
+    /**
+     * Get named model and initialize it with given config info
+     * @param string $model_name Module name, e.g. G_model, Q_model
+     * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return object model
+     */
+    public function getModel($model_name, $config_name, $config_source) {
+        $this->loadModel($model_name, $local_ref, $config_name, $config_source);
+        return $local_ref;
     }
 
     /**
@@ -180,7 +202,7 @@ abstract class BaseController extends Controller
         helper('user');
         $user = get_user();
 
-        $this->load_mod('G_model', 'gen_model', 'na', $this->my_tag);
+        $this->loadGeneralModel('na', $this->my_tag);
 
         if ($this->gen_model->error_text) {
             if ($output_message) {

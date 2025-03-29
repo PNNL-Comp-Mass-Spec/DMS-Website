@@ -150,7 +150,7 @@ class General_query {
      * @param type $input_params
      */
     function setup_query($input_params) {
-        $this->controller->load_mod('Q_model', 'model', $input_params->q_name, $input_params->config_source);
+        $this->controller->loadModel('Q_model', $this->controller->model, $input_params->q_name, $input_params->config_source);
         $this->add_filter_values_to_model_predicate($input_params->filter_values, $this->controller->model);
         $this->configure_paging($input_params, $this->controller->model);
 

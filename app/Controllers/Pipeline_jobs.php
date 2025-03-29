@@ -69,8 +69,8 @@ class Pipeline_jobs extends DmsBase {
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
-        $this->load_mod('Q_model', 'swp_model', $config_name, $config_source);
-        $query = $this->swp_model->get_rows('filtered_and_sorted');
+        $swp_model = $this->getModel('Q_model', $config_name, $config_source);
+        $query = $swp_model->get_rows('filtered_and_sorted');
         return $query->getResultArray();
     }
 
@@ -110,8 +110,8 @@ class Pipeline_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('Q_model', 'data_model', $config_name, $config_source);
-            $result_row = $this->data_model->get_item($id, $this);
+            $data_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $data_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
@@ -125,8 +125,8 @@ class Pipeline_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('Q_model', 'def_model', $config_name, $config_source);
-            $result_row = $this->def_model->get_item($id, $this);
+            $def_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $def_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;

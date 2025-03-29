@@ -49,10 +49,10 @@ class List_report {
 
         $this->controller->choosers = model('App\Models\Dms_chooser');
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Clear total rows cache in model to force getting value from database
-        $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
+        $this->controller->loadModel('Q_model', $this->controller->model, $this->config_name, $this->config_source);
         $this->controller->model->clear_cached_total_rows();
 
         // If there were extra segments for list report URL,
@@ -196,13 +196,13 @@ class List_report {
         helper('form');
         helper(['filter', 'link_util']);
 
-        $this->controller->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
+        $this->controller->loadModel('Q_model', $this->controller->data_model, $this->config_name, $this->config_source);
         $cols = $this->controller->data_model->get_col_names();
 
         $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
         $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $persistSortColumns = $this->controller->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
@@ -242,7 +242,7 @@ class List_report {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
+        $this->controller->loadModel('Q_model', $this->controller->model, $this->config_name, $this->config_source);
         $data_type = $this->controller->model->get_column_data_type(strtolower($column_name));
         $cmpSelOpts = $this->controller->model->get_allowed_comparisons_for_type($data_type);
 
@@ -261,7 +261,7 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
+        $this->controller->loadModel('R_model', $this->controller->link_model, 'na', $this->config_source);
 
         $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
         $col_filter = $this->controller->column_filter->get_current_filter_values();
@@ -402,7 +402,7 @@ class List_report {
      */
     protected function set_up_list_query() {
         // It all starts with a model
-        $this->controller->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
+        $this->controller->loadModel('Q_model', $this->controller->data_model, $this->config_name, $this->config_source);
 
         // Primary filter
         $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
@@ -417,7 +417,7 @@ class List_report {
         $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
         $current_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $persistSortColumns = $this->controller->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
@@ -459,9 +459,9 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
 
-        $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
+        $this->controller->loadModel('R_model', $this->controller->link_model, 'na', $this->config_source);
 
         $rows = $this->controller->data_model->get_rows('filtered_and_sorted')->getResultArray();
 
