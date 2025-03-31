@@ -36,7 +36,7 @@ abstract class BaseController extends Controller
     public $sproc_model = null;
 
     // Library refs
-    public $entry_form = null;
+    public $entry_form = null; // Directly assigned; could be 'private set' with PHP 8.4
 
     // Filter library refs
     public $column_filter = null;
@@ -119,6 +119,17 @@ abstract class BaseController extends Controller
         } else {
             return $local_ref->init($config_name, $config_source, $this, $options);
         }
+    }
+
+    /**
+     * Load Entry_form to $this->entry_form and initializes it with given config info
+     * @param string $config_name Config name, e.g. list_report
+     * @param string $config_source Source, e.g. dataset, experiment, campaign
+     * @param boolean $options Custom options flag
+     * @return boolean
+     */
+    public function loadEntryFormLibrary($config_name, $config_source) {
+        return $this->loadLibrary('Entry_form', $this->entry_form, $config_name, $config_source);
     }
 
     /**

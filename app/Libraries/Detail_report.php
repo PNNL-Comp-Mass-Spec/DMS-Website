@@ -235,7 +235,7 @@ class Detail_report {
         $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
-        $this->controller->loadLibrary('Entry_form', $this->controller->entry_form, $form_def->specs, $this->config_source);
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
 
         // Get entry field values for this entity
         $this->controller->loadModel('Q_model', $this->controller->input_model, 'entry_page', $this->config_source);

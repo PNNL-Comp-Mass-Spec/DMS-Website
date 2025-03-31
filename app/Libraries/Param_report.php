@@ -43,7 +43,7 @@ class Param_report {
         $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs'));
 
-        $this->controller->loadLibrary('Entry_form', $this->controller->entry_form, $form_def->specs, $this->config_source);
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
 
         // Get initial field values (from url segments) and merge them with form object
         $segs = array_slice(getCurrentUriDecodedSegments(), 2);

@@ -49,7 +49,7 @@ class Entry {
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
-        $this->controller->loadLibrary('Entry_form', $this->controller->entry_form, $form_def->specs, $this->config_source);
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
 
         // Determine the page mode ('add' or 'update')
         $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
@@ -212,7 +212,7 @@ class Entry {
         }
 
         // Get entry form object and use to to build and return HTML for form
-        $this->controller->loadLibrary('Entry_form', $this->controller->entry_form, $form_def->specs, $this->config_source);
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
         $data['form'] = $this->make_entry_form_HTML($input_params, $form_def, $validation);
         echo $outcome;
         echo $data['form'];
