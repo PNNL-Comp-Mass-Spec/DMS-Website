@@ -261,7 +261,7 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $this->controller->loadModel('R_model', $this->controller->link_model, 'na', $this->config_source);
+        $this->controller->loadLinkModel('na', $this->config_source);
 
         $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
         $col_filter = $this->controller->column_filter->get_current_filter_values();
@@ -461,7 +461,7 @@ class List_report {
 
         $this->controller->loadGeneralModel('na', $this->config_source);
 
-        $this->controller->loadModel('R_model', $this->controller->link_model, 'na', $this->config_source);
+        $this->controller->loadLinkModel('na', $this->config_source);
 
         $rows = $this->controller->data_model->get_rows('filtered_and_sorted')->getResultArray();
 

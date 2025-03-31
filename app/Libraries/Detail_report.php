@@ -78,7 +78,7 @@ class Detail_report {
             $col_info = $this->controller->detail_model->get_column_info();
 
             // Hotlinks
-            $this->controller->loadModel('R_model', $this->controller->link_model, 'na', $this->config_source);
+            $this->controller->loadLinkModel('na', $this->config_source);
 
             // Fix decimal-as-string display; datetimes are formatted in helpers/detail_report_helper.php
             $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();

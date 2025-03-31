@@ -98,7 +98,7 @@ class Param_report {
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
-            $this->controller->loadModel('R_model', $this->controller->link_model, 'na', $this->config_source);
+            $this->controller->loadLinkModel('na', $this->config_source);
 
             $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
             $col_filter = $this->controller->column_filter->get_current_filter_values();
