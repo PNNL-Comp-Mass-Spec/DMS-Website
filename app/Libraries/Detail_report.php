@@ -195,15 +195,15 @@ class Detail_report {
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
 
         // Get aux into data
-        $this->controller->loadModel('Q_model', $this->controller->aux_info_model, '', '');
-        $this->controller->aux_info_model->set_columns('Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI');
-        $this->controller->aux_info_model->set_table('V_Aux_Info_Value');
-        $this->controller->aux_info_model->add_predicate_item('AND', 'Target', 'Equals', $aux_info_target);
-        $this->controller->aux_info_model->add_predicate_item('AND', 'Target_ID', 'Equals', $aux_info_id);
-        $this->controller->aux_info_model->add_sorting_item('SC');
-        $this->controller->aux_info_model->add_sorting_item('SS');
-        $this->controller->aux_info_model->add_sorting_item('SI');
-        return $this->controller->aux_info_model->get_rows('filtered_and_sorted')->getResultArray();
+        $aux_info_model = $this->controller->getModel('Q_model', '', '');
+        $aux_info_model->set_columns('Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI');
+        $aux_info_model->set_table('V_Aux_Info_Value');
+        $aux_info_model->add_predicate_item('AND', 'Target', 'Equals', $aux_info_target);
+        $aux_info_model->add_predicate_item('AND', 'Target_ID', 'Equals', $aux_info_id);
+        $aux_info_model->add_sorting_item('SC');
+        $aux_info_model->add_sorting_item('SS');
+        $aux_info_model->add_sorting_item('SI');
+        return $aux_info_model->get_rows('filtered_and_sorted')->getResultArray();
     }
 
     // --------------------------------------------------------------------

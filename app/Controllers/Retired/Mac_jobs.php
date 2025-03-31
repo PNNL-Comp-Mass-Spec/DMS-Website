@@ -52,8 +52,8 @@ class Mac_jobs extends DmsBase {
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
-        $this->loadModel('Q_model', $this->swp_model, $config_name, $config_source);
-        $query = $this->swp_model->get_rows('filtered_and_paged');
+        $swp_model = $this->getModel('Q_model', $config_name, $config_source);
+        $query = $swp_model->get_rows('filtered_and_paged');
         return $query->getResultArray();
     }
 
@@ -102,8 +102,8 @@ class Mac_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->loadModel('Q_model', $this->def_model, $config_name, $config_source);
-            $result_row = $this->def_model->get_item($id, $this);
+            $def_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $def_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
