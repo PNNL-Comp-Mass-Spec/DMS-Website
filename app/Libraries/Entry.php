@@ -276,7 +276,7 @@ class Entry {
      * @param string $msg Message returned by the stored procedure (output)
      */
     protected function call_stored_procedure($input_params, $form_def, &$msg) {
-        $ok = $this->controller->loadModel('S_model', $this->controller->sproc_model, 'entry_sproc', $this->config_source);
+        $ok = $this->controller->loadSprocModel('entry_sproc', $this->config_source);
         if (!$ok) {
             throw new \Exception($this->controller->sproc_model->get_error_text());
         }

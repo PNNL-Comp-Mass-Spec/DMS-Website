@@ -192,7 +192,7 @@ class Param_report {
             }
 
             // Call stored procedure
-            $ok = $this->controller->loadModel('S_model', $this->controller->sproc_model, $this->config_name, $this->config_source);
+            $ok = $this->controller->loadSprocModel($this->config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($this->controller->sproc_model->get_error_text());
             }
@@ -333,7 +333,7 @@ class Param_report {
         $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
 
         // Model to get current row info
-        $this->controller->loadModel('S_model', $this->controller->sproc_model, $this->config_name, $this->config_source);
+        $this->controller->loadSprocModel($this->config_name, $this->config_source);
 
         // Pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
@@ -360,7 +360,7 @@ class Param_report {
         $session = \Config\Services::session();
 
         // Call stored procedure
-        $this->controller->loadModel('S_model', $this->controller->sproc_model, $this->config_name, $this->config_source);
+        $this->controller->loadSprocModel($this->config_name, $this->config_source);
         $cols = $this->controller->sproc_model->get_col_names();
 
         $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);

@@ -75,7 +75,7 @@ class Grid_data {
         $response = new \stdClass();
         try {
             // Init sproc model
-            $ok = $this->controller->loadModel('S_model', $this->controller->sproc_model, $config_name, $this->config_source);
+            $ok = $this->controller->loadSprocModel($config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($this->controller->sproc_model->get_error_text());
             }

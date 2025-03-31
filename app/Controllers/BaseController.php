@@ -33,7 +33,7 @@ abstract class BaseController extends Controller
     public $input_model = null;
     public $link_model = null;
     public $model = null;
-    public $sproc_model = null;
+    public $sproc_model = null; // Directly assigned; could be 'private set' with PHP 8.4
 
     // Library refs
     public $entry_form = null; // Directly assigned; could be 'private set' with PHP 8.4
@@ -184,6 +184,16 @@ abstract class BaseController extends Controller
      */
     public function loadGeneralModel($config_name, $config_source) {
         return $this->loadModel('G_model', $this->gen_model, $config_name, $config_source);
+    }
+
+    /**
+     * Load S_model to $this->sproc_model and initialize it with given config info
+     * @param string $config_name Config type
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return boolean
+     */
+    public function loadSprocModel($config_name, $config_source) {
+        return $this->loadModel('S_model', $this->sproc_model, $config_name, $config_source);
     }
 
     /**

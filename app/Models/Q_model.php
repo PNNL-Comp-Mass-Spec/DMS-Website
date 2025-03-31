@@ -528,7 +528,7 @@ class Q_model extends Model {
 
         try {
             // Call the stored procedure
-            $ok = $controller->loadModel('S_model', $controller->sproc_model, $this->config_name, $this->config_source);
+            $ok = $controller->loadSprocModel($this->config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($controller->sproc_model->get_error_text());
             }

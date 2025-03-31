@@ -46,7 +46,7 @@ class Saved_settings {
             $this->controller->secondary_filter->clear_cached_state();
         } else
         if ($page_type == 'Param_Pages') {
-            $this->controller->loadModel('S_model', $this->controller->sproc_model, $config_name, $config_source);
+            $this->controller->loadSprocModel($config_name, $config_source);
             $this->controller->sproc_model->clear_cached_state();
         }
 

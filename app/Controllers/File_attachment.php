@@ -427,7 +427,7 @@ class File_attachment extends DmsBase {
         $response = "OK";
         try {
             // Init sproc model
-            $ok = $this->loadModel('S_model', $this->sproc_model, 'entry_sproc', $this->my_tag);
+            $ok = $this->loadSprocModel('entry_sproc', $this->my_tag);
             if (!$ok) {
                 throw new \Exception($this->sproc_model->get_error_text());
             }
@@ -473,7 +473,7 @@ class File_attachment extends DmsBase {
         $response = "OK";
         try {
             // Init sproc model
-            $ok = $this->loadModel('S_model', $this->sproc_model, 'operations_sproc', $this->my_tag);
+            $ok = $this->loadSprocModel('operations_sproc', $this->my_tag);
             if (!$ok) {
                 throw new \Exception($this->sproc_model->get_error_text());
             }
