@@ -232,7 +232,7 @@ class Detail_report {
      */
     private function get_entry_tracking_info($id) {
         // Get definition of fields for entry page
-        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
+        $this->controller->loadFormModel('na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
         $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);

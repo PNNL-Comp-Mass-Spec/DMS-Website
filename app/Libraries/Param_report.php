@@ -40,7 +40,7 @@ class Param_report {
         $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Entry form
-        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
+        $this->controller->loadFormModel('na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs'));
 
         $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
@@ -155,7 +155,7 @@ class Param_report {
 
         // Get specifications for the entry form
         // Used for submission into POST and to be returned as HTML
-        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
+        $this->controller->loadFormModel('na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'rules'));
 
         $calling_params = new \stdClass();
@@ -265,7 +265,7 @@ class Param_report {
      */
     protected function get_filter_values() {
         // It all starts with a model
-        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
+        $this->controller->loadFormModel('na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('specs', 'fields'));
 
         // Search filter

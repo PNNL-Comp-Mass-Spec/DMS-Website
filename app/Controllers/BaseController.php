@@ -28,7 +28,7 @@ abstract class BaseController extends Controller
     public $aux_info_model = null;
     public $data_model = null;
     public $detail_model = null;
-    public $form_model = null;
+    public $form_model = null; // Directly assigned; could be 'private set' with PHP 8.4
     public $gen_model = null;
     public $input_model = null;
     public $link_model = null;
@@ -164,6 +164,16 @@ abstract class BaseController extends Controller
         } else {
             return true;
         }
+    }
+
+    /**
+     * Load E_model to $this->form_model and initialize it with given config info
+     * @param string $config_name Config type; typically na for E_model
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return boolean
+     */
+    public function loadFormModel($config_name, $config_source) {
+        return $this->loadModel('E_model', $this->form_model, $config_name, $config_source);
     }
 
     /**

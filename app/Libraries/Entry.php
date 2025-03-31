@@ -45,7 +45,7 @@ class Entry {
         $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Make entry form object using form definitions from model
-        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
+        $this->controller->loadFormModel('na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
         //
@@ -147,7 +147,7 @@ class Entry {
     function submit_entry_form() {
         helper(['entry_page']);
 
-        $this->controller->loadModel('E_model', $this->controller->form_model, 'na', $this->config_source);
+        $this->controller->loadFormModel('na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
         $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
 
