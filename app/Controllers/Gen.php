@@ -257,7 +257,7 @@ class Gen extends BaseController
      */
     function stats()
     {
-        $this->model = model('\\App\\Models\\Dms_statistics');
+        $model = model('\\App\\Models\\Dms_statistics');
         helper(['form', 'user', 'dms_stats', 'dms_search', 'menu']);
 
         // nav_bar setup
@@ -268,7 +268,7 @@ class Gen extends BaseController
         $data['title'] = "DMS Statistics";
         $data['heading'] = $data['title'];
 
-        $result = $this->model->get_stats();
+        $result = $model->get_stats();
         $data['results'] = $result;
 
         echo view('special/statistics', $data);

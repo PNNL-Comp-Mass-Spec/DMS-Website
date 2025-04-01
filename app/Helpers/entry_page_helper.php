@@ -26,8 +26,8 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
     } else if ($num_segs == 1) {
         // Get values from database using source and id that we were given
         $id = $segs[0];
-        $controller->loadModel('Q_model', $controller->input_model, 'entry_page', $config_source);
-        $initial_field_values = $controller->input_model->get_item($id, $controller);
+        $input_model = $controller->getModel('Q_model', 'entry_page', $config_source);
+        $initial_field_values = $input_model->get_item($id, $controller);
     } else if ($num_segs > 1) {
         // Get values from an external source
         $source = $segs[0];
@@ -50,8 +50,8 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
             $col_mapping = $controller->form_model->get_external_source_field_map($source);
             if ($col_mapping) {
                 // Get values from database using source and id plucked from url
-                $controller->loadModel('Q_model', $controller->input_model, 'detail_report', $source);
-                $source_data = $controller->input_model->get_item($id, $controller);
+                $input_model = $controller->getModel('Q_model', 'detail_report', $source);
+                $source_data = $input_model->get_item($id, $controller);
                 $initial_field_values = load_from_external_source($col_mapping, $source_data);
             }
         }

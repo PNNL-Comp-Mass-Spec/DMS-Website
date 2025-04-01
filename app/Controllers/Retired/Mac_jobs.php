@@ -85,8 +85,8 @@ class Mac_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->loadModel('Q_model', $this->data_model, $config_name, $config_source);
-            $result_row = $this->data_model->get_item($id, $this);
+            $data_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $data_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
