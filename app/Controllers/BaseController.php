@@ -34,7 +34,7 @@ abstract class BaseController extends Controller
     // Library refs
     public $entry_form = null; // Directly assigned; could be 'private set' with PHP 8.4
 
-    public $help_page_link = null;
+    public string $help_page_link; // Directly assigned; could be 'private set' with PHP 8.4
 
     /**
      * Instance of the main Request object.
@@ -97,6 +97,14 @@ abstract class BaseController extends Controller
         $data['heading'] = $heading;
         $data['message'] = $message;
         echo view('message_box', $data);
+    }
+
+    /**
+     * Sets help_page_link to the default value
+     * @return void
+     */
+    public function setupHelpPageLink() {
+        $this->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
     }
 
     /**

@@ -34,8 +34,7 @@ class Aux_info extends BaseController {
 
         $preferences = $this->getPreferences();
 
-        $this->help_page_link = config('App')->pwiki;
-        $this->help_page_link .= config('App')->wikiHelpLinkPrefix;
+        $this->setupHelpPageLink();
 
 ///--
         $this->my_tag = "aux_info";

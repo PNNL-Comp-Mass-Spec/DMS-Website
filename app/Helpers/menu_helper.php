@@ -292,7 +292,7 @@ function make_version_banner() {
  * @return type
  */
 function set_up_nav_bar($page_type, $controller) {
-    $controller->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
+    $controller->setupHelpPageLink();
     helper(['dms_search']);
     return get_nav_bar_menu_items($page_type, $controller);
 }

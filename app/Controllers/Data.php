@@ -64,7 +64,7 @@ class Data extends BaseController {
     // --------------------------------------------------------------------
     function set_up_nav_bar($page_type)
     {
-        $this->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
+        $this->setupHelpPageLink();
         helper(['menu', 'dms_search']);
         return get_nav_bar_menu_items($page_type, $this);
     }
