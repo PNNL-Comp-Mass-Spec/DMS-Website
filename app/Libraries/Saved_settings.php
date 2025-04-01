@@ -32,7 +32,7 @@ class Saved_settings {
 
         if ($page_type == 'List_Reports') {
             // It all starts with a model
-            $this->controller->loadModel('Q_model', $this->controller->data_model, $config_name, $config_source);
+            $this->controller->loadDataModel($config_name, $config_source);
             $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
             $this->controller->data_model->clear_cached_state();
 

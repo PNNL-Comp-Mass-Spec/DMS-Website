@@ -359,8 +359,8 @@ class Spreadsheet_loader extends DmsBase {
             $result = $this->get_entity_key($id, $entity_type, $key, $message);
             if(!$result) throw new \Exception($message);
 
-            $this->loadModel('Q_model', $this->input_model, 'entry_page', $config_source);
-            $field_values =  $this->input_model->get_item($key, $this);
+            $this->loadDataModel('entry_page', $config_source);
+            $field_values =  $this->data_model->get_item($key, $this);
             if(empty($field_values)) throw new \Exception("Could not get field values for $entity_type '$key'");
             foreach($field_values as $fn => $v) {
                 $current_values->$fn = $v;

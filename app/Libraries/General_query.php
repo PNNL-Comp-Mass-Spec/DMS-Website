@@ -150,11 +150,11 @@ class General_query {
      * @param type $input_params
      */
     function setup_query($input_params) {
-        $this->controller->loadModel('Q_model', $this->controller->model, $input_params->q_name, $input_params->config_source);
-        $this->add_filter_values_to_model_predicate($input_params->filter_values, $this->controller->model);
-        $this->configure_paging($input_params, $this->controller->model);
+        $this->controller->loadDataModel($input_params->q_name, $input_params->config_source);
+        $this->add_filter_values_to_model_predicate($input_params->filter_values, $this->controller->data_model);
+        $this->configure_paging($input_params, $this->controller->data_model);
 
-        $this->controller->model->convert_wildcards();
+        $this->controller->data_model->convert_wildcards();
     }
 
     /**
@@ -216,7 +216,7 @@ class General_query {
      * @param type $output_format
      */
     function output_result($output_format) {
-        $model = $this->controller->model;
+        $model = $this->controller->data_model;
 
         $pageTitle = $this->config_source;
 

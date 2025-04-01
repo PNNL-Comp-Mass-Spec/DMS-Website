@@ -101,16 +101,16 @@ class Data extends BaseController {
         $this->my_title = "";
 
         $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
-        $this->loadModel('Q_model', $this->model, $config_name, $config_source);
+        $this->loadDataModel($config_name, $config_source);
 
         $list_report_ah->set_up_data_query();
-        $query = $this->model->get_rows('filtered_and_sorted');
+        $query = $this->data_model->get_rows('filtered_and_sorted');
 
         $pageTitle = $config_source;
 
         switch(strtolower($output_format)) {
             case 'sql':
-                echo $this->model->get_sql('filtered_and_sorted');
+                echo $this->data_model->get_sql('filtered_and_sorted');
                 break;
             case 'count':
                 $rows = $query->getResultArray();
@@ -174,9 +174,10 @@ class Data extends BaseController {
 
         $general_query->setup_query($input_parms);
 
-        $query = $this->model->get_rows('filtered_and_sorted'); // filtered_only or filtered_and_sorted
+        $this->loadDataModel($input_parms->q_name, $input_parms->config_source);
+        $query = $this->data_model->get_rows('filtered_and_sorted'); // filtered_only or filtered_and_sorted
         echo json_encode($query->getResult());
-//      echo $this->model->get_sql('filtered_and_sorted');
+//      echo $this->data_model->get_sql('filtered_and_sorted');
     }
 
 

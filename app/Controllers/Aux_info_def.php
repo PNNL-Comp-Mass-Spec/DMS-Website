@@ -11,7 +11,7 @@ class Aux_info_def extends DmsBase {
     // --------------------------------------------------------------------
     function test($config_name = 'aux_info_targets',  $id = '')
     {
-        $this->loadModel('Q_model', $this->data_model, $config_name, $this->my_tag);
+        $this->loadDataModel($config_name, $this->my_tag);
         $filter_specs = $this->data_model->get_primary_filter_specs();
         foreach($filter_specs as $spec) {
             $this->data_model->add_predicate_item('AND', $spec['col'], $spec['cmp'], $id);

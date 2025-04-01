@@ -27,8 +27,8 @@ class List_report_ah extends List_report {
         $this->controller->loadLinkModel($this->config_name, $this->config_source);
 
         // Clear total rows cache in model to force getting value from database
-        $this->controller->loadModel('Q_model', $this->controller->model, $this->config_name, $this->config_source);
-        $this->controller->model->clear_cached_total_rows();
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $this->controller->data_model->clear_cached_total_rows();
 
         // If there were extra segments for list report URL,
         // convert them to primary filter field values and cache those
@@ -38,7 +38,7 @@ class List_report_ah extends List_report {
         $root_segs = array_slice($all_segs, 0, $end_of_root_segs);
         $segs = array_slice($all_segs, $end_of_root_segs);
         if (!empty($segs)) {
-            $primary_filter_specs = $this->controller->model->get_primary_filter_specs();
+            $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
             $this->set_pri_filter_from_url_segments($segs, $primary_filter_specs);
             redirect()->to(site_url(implode('/', $root_segs)));
         }

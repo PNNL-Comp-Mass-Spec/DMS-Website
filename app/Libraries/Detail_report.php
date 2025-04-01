@@ -69,13 +69,13 @@ class Detail_report {
     function detail_report_data($id, $show_entry_links = true, $show_create_links = true) {
         try {
             // Get data
-            $this->controller->loadModel('Q_model', $this->controller->detail_model, $this->config_name, $this->config_source);
-            $result_row = $this->controller->detail_model->get_item($id, $this->controller);
+            $this->controller->loadDataModel($this->config_name, $this->config_source);
+            $result_row = $this->controller->data_model->get_item($id, $this->controller);
             if (empty($result_row)) {
                 throw new \Exception("Details for entity '$id' could not be found");
             }
 
-            $col_info = $this->controller->detail_model->get_column_info();
+            $col_info = $this->controller->data_model->get_column_info();
 
             // Hotlinks
             $this->controller->loadLinkModel('na', $this->config_source);
@@ -119,8 +119,8 @@ class Detail_report {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->controller->loadModel('Q_model', $this->controller->detail_model, $this->config_name, $this->config_source);
-        echo $this->controller->detail_model->get_item_sql($id) . ';';
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        echo $this->controller->data_model->get_item_sql($id) . ';';
     }
 
     /**
@@ -134,8 +134,8 @@ class Detail_report {
 
         // Aux_info always needs numeric ID, and sometimes ID for detail report is string
         // This is a bit of a hack to always get the number
-        $this->controller->loadModel('Q_model', $this->controller->detail_model, $this->config_name, $this->config_source);
-        $result_row = array_change_key_case($this->controller->detail_model->get_item($id, $this->controller), CASE_LOWER);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $result_row = array_change_key_case($this->controller->data_model->get_item($id, $this->controller), CASE_LOWER);
         if (!empty($result_row)) {
             $aux_info_id = (array_key_exists('id', $result_row)) ? $result_row['id'] : $id;
 
@@ -154,8 +154,8 @@ class Detail_report {
         $session = \Config\Services::session();
 
         // Get entity data
-        $this->controller->loadModel('Q_model', $this->controller->detail_model, $this->config_name, $this->config_source);
-        $entity_info = $this->controller->detail_model->get_item($id, $this->controller);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $entity_info = $this->controller->data_model->get_item($id, $this->controller);
 
         $aux_info_id = (array_key_exists('ID', $entity_info)) ? $entity_info['ID'] : ((array_key_exists('id', $entity_info)) ? $entity_info['id'] : false);
         $aux_info = array();
@@ -214,8 +214,8 @@ class Detail_report {
 
         if ($aux_info_target) {
             // Get data
-            $this->controller->loadModel('Q_model', $this->controller->detail_model, 'detail_report', $this->config_source);
-            $result_row = $this->controller->detail_model->get_item($id, $this->controller);
+            $this->controller->loadDataModel('detail_report', $this->config_source);
+            $result_row = $this->controller->data_model->get_item($id, $this->controller);
             // Get aux info data
             $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : ((array_key_exists('id', $result_row)) ? $result_row['id'] : $id);
             $aux_info = $this->get_aux_info($aux_info_id);
@@ -238,8 +238,8 @@ class Detail_report {
         $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
 
         // Get entry field values for this entity
-        $this->controller->loadModel('Q_model', $this->controller->input_model, 'entry_page', $this->config_source);
-        $field_values = $this->controller->input_model->get_item($id, $this->controller);
+        $input_model = $this->controller->getModel('Q_model', 'entry_page', $this->config_source);
+        $field_values = $input_model->get_item($id, $this->controller);
 
         // Get entity key field
         $primary_key = $form_def->load_key;
@@ -300,8 +300,8 @@ class Detail_report {
         helper(['url', 'text', 'export']);
         $config_name = 'dot';
 
-        $this->controller->loadModel('Q_model', $this->controller->detail_model, $config_name, $config_source);
-        $result_row = array_change_key_case($this->controller->detail_model->get_item($scriptName, $this->controller), CASE_LOWER);
+        $this->controller->loadDataModel($config_name, $config_source);
+        $result_row = array_change_key_case($this->controller->data_model->get_item($scriptName, $this->controller), CASE_LOWER);
         $script = $result_row['contents'];
         $description = $result_row['description'];
 

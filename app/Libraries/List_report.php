@@ -52,8 +52,8 @@ class List_report {
         $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Clear total rows cache in model to force getting value from database
-        $this->controller->loadModel('Q_model', $this->controller->model, $this->config_name, $this->config_source);
-        $this->controller->model->clear_cached_total_rows();
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $this->controller->data_model->clear_cached_total_rows();
 
         // If there were extra segments for list report URL,
         // convert them to primary and secondary filter field values and cache those
@@ -79,7 +79,7 @@ class List_report {
 
         if (!empty($segs)) {
             // Retrieve the primary filters
-            $primary_filter_specs = $this->controller->model->get_primary_filter_specs();
+            $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
 
             $this->set_pri_filter_from_url_segments($pfSegs, $primary_filter_specs);
 
@@ -196,7 +196,7 @@ class List_report {
         helper('form');
         helper(['filter', 'link_util']);
 
-        $this->controller->loadModel('Q_model', $this->controller->data_model, $this->config_name, $this->config_source);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
         $cols = $this->controller->data_model->get_col_names();
 
         $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
@@ -242,9 +242,9 @@ class List_report {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->controller->loadModel('Q_model', $this->controller->model, $this->config_name, $this->config_source);
-        $data_type = $this->controller->model->get_column_data_type(strtolower($column_name));
-        $cmpSelOpts = $this->controller->model->get_allowed_comparisons_for_type($data_type);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $data_type = $this->controller->data_model->get_column_data_type(strtolower($column_name));
+        $cmpSelOpts = $this->controller->data_model->get_allowed_comparisons_for_type($data_type);
 
         helper('form');
         echo form_dropdown('qf_comp_sel[]', $cmpSelOpts);
@@ -402,7 +402,7 @@ class List_report {
      */
     protected function set_up_list_query() {
         // It all starts with a model
-        $this->controller->loadModel('Q_model', $this->controller->data_model, $this->config_name, $this->config_source);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
 
         // Primary filter
         $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();

@@ -152,7 +152,7 @@ abstract class BaseController extends Controller
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
      */
-    public function loadModel($model_name, &$local_ref, $config_name, $config_source) {
+    private function loadModel($model_name, &$local_ref, $config_name, $config_source) {
         if (isset($local_ref)) {
             return true;
         }
