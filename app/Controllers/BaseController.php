@@ -44,7 +44,6 @@ abstract class BaseController extends Controller
     public $help_page_link = null;
     public $menu = null;
     public $choosers = null;
-    public $preferences = null;
     public $auth = null;
 
     /**
@@ -68,6 +67,11 @@ abstract class BaseController extends Controller
      * The creation of dynamic property is deprecated in PHP 8.2.
      */
     // protected $session;
+
+    /**
+     * Cached preferences; set by check on first access.
+     */
+    private \App\Models\Dms_preferences $preferences;
 
     /**
      * @return void
@@ -222,6 +226,17 @@ abstract class BaseController extends Controller
     public function getModel($model_name, $config_name, $config_source) {
         $this->loadModel($model_name, $local_ref, $config_name, $config_source);
         return $local_ref;
+    }
+
+    /**
+     * Get preferences object (value is cached)
+     * @return \App\Models\Dms_preferences preferences
+     */
+    public function getPreferences() {
+        if (!isset($this->preferences)) {
+            $this->preferences = model('App\Models\Dms_preferences');
+        }
+        return $this->preferences;
     }
 
     /**

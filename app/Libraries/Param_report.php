@@ -342,7 +342,7 @@ class Param_report {
         $first_row = $current_paging_filter_values['qf_first_row'];
 
         // Make HTML using pager
-        $this->controller->preferences = model('App\Models\Dms_preferences');
+        $preferences = $this->controller->getPreferences();
         $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
         $s = '';
         $this->controller->list_report_pager->set($first_row, $total_rows, $per_page);

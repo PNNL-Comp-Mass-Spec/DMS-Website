@@ -32,7 +32,7 @@ class Aux_info extends BaseController {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->preferences = model('App\Models\Dms_preferences');
+        $preferences = $this->getPreferences();
         $this->choosers = model('App\Models\Dms_chooser');
 
         $this->help_page_link = config('App')->pwiki;

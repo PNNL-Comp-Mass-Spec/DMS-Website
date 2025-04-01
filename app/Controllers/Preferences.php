@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Preferences extends BaseController {
 
-    private $model = null;
+    private $prefs = null;
 
     function __construct()
     {
@@ -21,7 +21,7 @@ class Preferences extends BaseController {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->model = model('App\\Models\\Dms_preferences');
+        $this->prefs = $this->getPreferences();
     }
 
     // --------------------------------------------------------------------
@@ -44,9 +44,9 @@ class Preferences extends BaseController {
 
         $result = '';
         if($param != '' && $value != '') {
-            $result = $this->model->set_preference($param, $value);
+            $result = $this->prefs->set_preference($param, $value);
         }
-        $data['settings'] = $this->model->get_preferences();
+        $data['settings'] = $this->prefs->get_preferences();
 
         $data['result'] = $result;
         echo view('special/preferences', $data);
@@ -56,7 +56,7 @@ class Preferences extends BaseController {
     // --------------------------------------------------------------------
     function clear()
     {
-        $this->model->clear_saved_defaults();
+        $this->prefs->clear_saved_defaults();
         $this->set('', '');
         return;
     }

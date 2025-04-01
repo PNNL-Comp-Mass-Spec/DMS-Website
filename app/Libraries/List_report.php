@@ -376,7 +376,7 @@ class List_report {
 
         // Pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
-        $this->controller->preferences = model('App\Models\Dms_preferences');
+        $preferences = $this->controller->getPreferences();
         $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
         try {
             // Make HTML using pager
