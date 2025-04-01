@@ -158,7 +158,6 @@ class Mac_jobs extends DmsBase {
     private
     function build_param_entry_form($params, $script)
     {
-        $this->choosers = model('App\Models\Dms_chooser');
         helper(['url', 'text', 'form']);
         $str = "";
         $header_style = "font-weight:bold;";
@@ -187,7 +186,7 @@ class Mac_jobs extends DmsBase {
                 $str .= "<tr>";
                 $str .= "<td>${help_link}<span> " . $label . "</span></td>";
                 $str .= "<td><input name='$name' id='$name' size='120' maxlength='4096' value='$value' /></td>";
-                $str .= "<td>". $this->choosers->make_chooser($name, 'picker.replace', $chooser, '', '', '', '') . "</td>";
+                $str .= "<td>". $this->getChoosers()->make_chooser($name, 'picker.replace', $chooser, '', '', '', '') . "</td>";
                 $str .= "</tr>\n";
             }
         }

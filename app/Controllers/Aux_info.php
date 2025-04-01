@@ -33,7 +33,6 @@ class Aux_info extends BaseController {
         $session = \Config\Services::session();
 
         $preferences = $this->getPreferences();
-        $this->choosers = model('App\Models\Dms_chooser');
 
         $this->help_page_link = config('App')->pwiki;
         $this->help_page_link .= config('App')->wikiHelpLinkPrefix;

@@ -118,7 +118,6 @@ class Entry_form {
      * @return type
      */
     function build_display($mode) {
-        $this->controller->choosers = model('App\Models\Dms_chooser');
         helper(['url', 'text', 'form']);
 
         $visible_fields = array();
@@ -172,7 +171,7 @@ class Entry_form {
                 }
 
                 if ($showChooser) {
-                    $choosers = $this->controller->choosers->make_choosers($fldName, $spec);
+                    $choosers = $this->controller->getChoosers()->make_choosers($fldName, $spec);
                 } else {
                     $choosers = "";
                 }

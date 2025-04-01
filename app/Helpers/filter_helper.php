@@ -246,7 +246,6 @@ function make_primary_filter($primary_filter_defs) {
  */
 function make_primary_filter_in_table($primary_filter_defs, $controller) {
     helper('form');
-    $controller->choosers = model('App\Models\Dms_chooser');
 
     $str = '';
 
@@ -294,7 +293,7 @@ function make_primary_filter_in_table($primary_filter_defs, $controller) {
         }
 
         $data['value'] = $spec["value"];
-        $choosers = $controller->choosers->make_choosers($id, $spec, " &nbsp; ", "");
+        $choosers = $controller->getChoosers()->make_choosers($id, $spec, " &nbsp; ", "");
         $str .= $row_s . $cell_s . $spec["label"] . $cell_f . $cell_s . form_input($data) . $choosers . $cell_f . $row_f;
     }
     $str .= "</table>\n";

@@ -21,7 +21,6 @@ class List_report_ah extends List_report {
         $session = \Config\Services::session();
 
         helper(['form', 'menu', 'link_util', 'url']);
-        $this->controller->choosers = model('App\Models\Dms_chooser');
 
         $this->controller->loadGeneralModel($this->config_name, $this->config_source);
         $this->controller->loadLinkModel($this->config_name, $this->config_source);
@@ -55,7 +54,7 @@ class List_report_ah extends List_report {
         $data['ops_url'] = ''; ///site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
 
         //$data['check_access'] = [$this->controller, 'check_access'];
-        //$data['choosers'] = $this->controller->choosers;
+        //$data['choosers'] = $this->controller->getChoosers();
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports', $this->controller);
         echo view('main/list_report', $data);

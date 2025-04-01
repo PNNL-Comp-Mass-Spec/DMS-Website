@@ -20,7 +20,6 @@ class Grid extends DmsBase {
     {
         // Include the String operations methods
         helper(['form', 'string']);
-        $this->choosers = model('App\Models\Dms_chooser');
         $data = array();
         $data['title'] = $this->my_title;
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
@@ -33,7 +32,7 @@ class Grid extends DmsBase {
         // That leads to $data['save_url'] = "https://dms2.pnl.gov/instrument_usage_report/operation"
         $data['save_url'] = ($save_url) ? site_url($save_url) : site_url($this->my_tag  . "operation");
 
-        $data['choosers'] = $this->choosers;
+        $data['choosers'] = $this->getChoosers();
 
         echo view("grid/".$view_name, $data);
     }

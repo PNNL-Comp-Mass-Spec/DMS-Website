@@ -36,7 +36,6 @@ abstract class BaseController extends Controller
 
     public $help_page_link = null;
     public $menu = null;
-    public $choosers = null;
     public $auth = null;
 
     /**
@@ -65,6 +64,11 @@ abstract class BaseController extends Controller
      * Cached preferences; set by check on first access.
      */
     private \App\Models\Dms_preferences $preferences;
+
+    /**
+     * Cached choosers; set by check on first access.
+     */
+    private \App\Models\Dms_chooser $choosers;
 
     /**
      * @return void
@@ -219,6 +223,17 @@ abstract class BaseController extends Controller
     public function getModel($model_name, $config_name, $config_source) {
         $this->loadModel($model_name, $local_ref, $config_name, $config_source);
         return $local_ref;
+    }
+
+    /**
+     * Get choosers object (value is cached)
+     * @return \App\Models\Dms_chooser choosers
+     */
+    public function getChoosers() {
+        if (!isset($this->choosers)) {
+            $this->choosers = model('App\Models\Dms_chooser');
+        }
+        return $this->choosers;
     }
 
     /**

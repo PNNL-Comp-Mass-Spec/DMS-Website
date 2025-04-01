@@ -47,8 +47,6 @@ class List_report {
 
         helper(['form', 'menu', 'link_util', 'url']);
 
-        $this->controller->choosers = model('App\Models\Dms_chooser');
-
         $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Clear total rows cache in model to force getting value from database
@@ -104,7 +102,7 @@ class List_report {
         $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
 
         $data['check_access'] = [$this->controller, 'check_access'];
-        $data['choosers'] = $this->controller->choosers;
+        $data['choosers'] = $this->controller->getChoosers();
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports', $this->controller);
         echo view('main/list_report', $data);
