@@ -17,6 +17,8 @@ class Aux_info_copy extends BaseController {
      */
     protected $helpers = ['url', 'text', 'form'];
 
+    private $model = null;
+
     /**
      * CodeIgniter 4 Constructor.
      */

@@ -2,6 +2,9 @@
 namespace App\Controllers;
 
 class Preferences extends BaseController {
+
+    private $model = null;
+
     function __construct()
     {
         $this->helpers = array_merge($this->helpers, ['url', 'text', 'dms_search', 'cookie', 'user']);

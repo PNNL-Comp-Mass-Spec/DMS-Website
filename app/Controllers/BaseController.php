@@ -26,12 +26,9 @@ abstract class BaseController extends Controller
 
     // Model refs
     public $data_model = null; // Directly assigned; could be 'private set' with PHP 8.4
-    public $detail_model = null;
     public $form_model = null; // Directly assigned; could be 'private set' with PHP 8.4
     public $gen_model = null; // Directly assigned; could be 'private set' with PHP 8.4
-    public $input_model = null;
     public $link_model = null; // Directly assigned; could be 'private set' with PHP 8.4
-    public $model = null;
     public $sproc_model = null; // Directly assigned; could be 'private set' with PHP 8.4
 
     // Library refs
