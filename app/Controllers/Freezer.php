@@ -36,7 +36,6 @@ class Freezer extends DmsBase {
     function tree()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('App\Models\Dms_menu');
 
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 
@@ -180,7 +179,6 @@ class Freezer extends DmsBase {
         $data['heading'] = "Freezer Map";
 
         // navbar support
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Detail_Reports', $this);
 
         // Populate array of storage locations
@@ -257,7 +255,6 @@ class Freezer extends DmsBase {
         $data['heading'] = "Freezer";
 
         // navbar support
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // Optional limits on what to include
@@ -355,7 +352,6 @@ class Freezer extends DmsBase {
         $data['heading'] = "Freezer $freezer_spec Matrix";
 
         // navbar support
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // Table styling

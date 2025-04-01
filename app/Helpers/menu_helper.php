@@ -294,7 +294,6 @@ function make_version_banner() {
 function set_up_nav_bar($page_type, $controller) {
     $controller->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
     helper(['dms_search']);
-    $controller->menu = model('\\App\\Models\\Dms_menu');
     return get_nav_bar_menu_items($page_type, $controller);
 }
 
@@ -305,7 +304,7 @@ function set_up_nav_bar($page_type, $controller) {
  */
 function get_nav_bar_menu_items($page_type, $controller) {
     $menu_context = get_menu_context($page_type, $controller);
-    $nav_bar_menu_items = $controller->menu->get_menu_def("dms_menu.db", "nav_def");
+    $nav_bar_menu_items = $controller->getMenu()->get_menu_def("dms_menu.db", "nav_def");
     convert_context_sensitive_menu_items($nav_bar_menu_items, $menu_context);
     return $nav_bar_menu_items;
 }

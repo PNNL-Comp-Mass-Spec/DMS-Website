@@ -97,7 +97,6 @@ class Gen extends BaseController
                 $menu_item_table = "home_menu_items"
     )
     {
-        $this->menu = model('\\App\\Models\\Dms_menu');
         helper(['form', 'user', 'menu', 'dms_search']);
 
         // Labelling information for view
@@ -108,7 +107,7 @@ class Gen extends BaseController
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('', $this);
 
         // Home page menu sections
-        $defs = $this->menu->get_section_menu_def($menu_config_db, $menu_section_table, $menu_item_table);
+        $defs = $this->getMenu()->get_section_menu_def($menu_config_db, $menu_section_table, $menu_item_table);
         $data['qs_section_defs'] = $defs;
 
         // Which sub view to load?
@@ -166,7 +165,6 @@ class Gen extends BaseController
     function side_menu()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('\\App\\Models\\Dms_menu');
         echo view('menu_panel');
     }
 
@@ -177,9 +175,8 @@ class Gen extends BaseController
     function side_menu_objects()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('\\App\\Models\\Dms_menu');
 
-        $menu_def = $this->menu->get_menu_def("dms_menu.db", "menu_def");
+        $menu_def = $this->getMenu()->get_menu_def("dms_menu.db", "menu_def");
         $items = build_side_menu_object_tree($menu_def, '');
         echo json_encode($items);
     }
@@ -260,7 +257,6 @@ class Gen extends BaseController
         helper(['form', 'user', 'dms_stats', 'dms_search', 'menu']);
 
         // nav_bar setup
-        $this->menu = new \App\Models\Dms_menu();
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Statistics', $this);
 
         // Labelling information for view

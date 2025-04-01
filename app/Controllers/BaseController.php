@@ -35,7 +35,6 @@ abstract class BaseController extends Controller
     public $entry_form = null; // Directly assigned; could be 'private set' with PHP 8.4
 
     public $help_page_link = null;
-    public $menu = null;
 
     /**
      * Instance of the main Request object.
@@ -73,6 +72,11 @@ abstract class BaseController extends Controller
      * Cached auth; set by check on first access.
      */
     private \App\Models\Dms_authorization $auth;
+
+    /**
+     * Cached menu; set by check on first access.
+     */
+    private \App\Models\Dms_menu $menu;
 
     /**
      * @return void
@@ -249,6 +253,17 @@ abstract class BaseController extends Controller
             $this->choosers = model('App\Models\Dms_chooser');
         }
         return $this->choosers;
+    }
+
+    /**
+     * Get menu object (value is cached)
+     * @return \App\Models\Dms_menu menu
+     */
+    public function getMenu() {
+        if (!isset($this->menu)) {
+            $this->menu = model('App\Models\Dms_menu');
+        }
+        return $this->menu;
     }
 
     /**

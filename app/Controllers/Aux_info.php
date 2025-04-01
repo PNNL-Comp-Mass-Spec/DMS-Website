@@ -70,7 +70,6 @@ class Aux_info extends BaseController {
         helper('menu');
 
         // nav_bar setup
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         helper('detail_report_helper');
@@ -103,7 +102,6 @@ class Aux_info extends BaseController {
         $data['ais'] = $this->aux_info_support;
 
         // nav_bar setup
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         if (IsNullOrWhiteSpace($name)) {

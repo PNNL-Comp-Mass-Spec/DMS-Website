@@ -39,7 +39,6 @@ class Preferences extends BaseController {
         $data['heading'] = $data['title'];
 
         // nav_bar setup
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences', $this);
 
         $result = '';
