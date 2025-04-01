@@ -132,7 +132,7 @@ class Entry {
             $this->controller->entry_form->adjust_field_visibility($mode);
         }
 
-        $userPermissions = $this->controller->auth->get_user_permissions(get_user());
+        $userPermissions = $this->controller->getAuth()->get_user_permissions(get_user());
         $this->controller->entry_form->adjust_field_permissions($userPermissions);
     }
 

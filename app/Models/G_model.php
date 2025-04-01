@@ -360,11 +360,8 @@ class G_model extends Model {
                 throw new \Exception("Action '$action' is not allowed for this page");
             }
 
-            // We are going to have to check further, so load the authorization model
-            $controller->auth = model('App\Models\Dms_authorization');
-
             // Get user permissions
-            $permissions = $controller->auth->get_user_permissions($user);
+            $permissions = $controller->getAuth()->get_user_permissions($user);
             if(empty($permissions)) {
                 return "User '$user' does not have any access to the website";
             }
@@ -385,7 +382,7 @@ class G_model extends Model {
             */
 
             // Get list of authorizations required for the action
-            $restrictions = $controller->auth->get_controller_action_restrictions($page_family, $action);
+            $restrictions = $controller->getAuth()->get_controller_action_restrictions($page_family, $action);
 
             // Action has no restrictions, good to go
             if(empty($restrictions)) {

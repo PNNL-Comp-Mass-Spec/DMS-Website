@@ -234,8 +234,7 @@ class Gen extends BaseController
     function auth()
     {
         // Load the authorization model
-        $this->auth = model('\\App\\Models\\Dms_authorization');
-        $rows = $this->auth->get_master_restriction_list();
+        $rows = $this->getAuth()->get_master_restriction_list();
 
         $table = new \CodeIgniter\View\Table();
         $tmpl = array ('table_open' => '<table border="1" cellpadding="4" cellspacing="0">');

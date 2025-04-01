@@ -36,7 +36,6 @@ abstract class BaseController extends Controller
 
     public $help_page_link = null;
     public $menu = null;
-    public $auth = null;
 
     /**
      * Instance of the main Request object.
@@ -69,6 +68,11 @@ abstract class BaseController extends Controller
      * Cached choosers; set by check on first access.
      */
     private \App\Models\Dms_chooser $choosers;
+
+    /**
+     * Cached auth; set by check on first access.
+     */
+    private \App\Models\Dms_authorization $auth;
 
     /**
      * @return void
@@ -223,6 +227,17 @@ abstract class BaseController extends Controller
     public function getModel($model_name, $config_name, $config_source) {
         $this->loadModel($model_name, $local_ref, $config_name, $config_source);
         return $local_ref;
+    }
+
+    /**
+     * Get auth object (value is cached)
+     * @return \App\Models\Dms_authorization auth
+     */
+    public function getAuth() {
+        if (!isset($this->auth)) {
+            $this->auth = model('App\Models\Dms_authorization');
+        }
+        return $this->auth;
     }
 
     /**
