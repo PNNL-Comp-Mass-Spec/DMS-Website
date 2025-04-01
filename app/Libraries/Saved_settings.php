@@ -37,13 +37,12 @@ class Saved_settings {
             $this->controller->data_model->clear_cached_state();
 
             // Primary filter
-            $this->controller->primary_filter = new \App\Libraries\Primary_filter();
-            $this->controller->primary_filter->init($config_name, $config_source, $this->controller, $primary_filter_specs);
-            $this->controller->primary_filter->clear_cached_state();
+            $primary_filter = $this->controller->getLibrary('Primary_filter', $config_name, $config_source, $primary_filter_specs);
+            $primary_filter->clear_cached_state();
 
             // Secondary filter
-            $this->controller->loadLibrary('Secondary_filter', $this->controller->secondary_filter, $config_name, $config_source);
-            $this->controller->secondary_filter->clear_cached_state();
+            $secondary_filter = $this->controller->getLibrary('Secondary_filter', $config_name, $config_source);
+            $secondary_filter->clear_cached_state();
         } else
         if ($page_type == 'Param_Pages') {
             $this->controller->loadSprocModel($config_name, $config_source);
@@ -51,18 +50,18 @@ class Saved_settings {
         }
 
         // Paging filter
-        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $config_name, $config_source);
-        $this->controller->paging_filter->clear_cached_state();
+        $paging_filter = $this->controller->getLibrary('Paging_filter', $config_name, $config_source);
+        $paging_filter->clear_cached_state();
 
         $options = array("PersistSortColumns" => true);
 
         // Sorting filter
-        $this->controller->loadLibrary('Sorting_filter', $this->controller->sorting_filter, $config_name, $config_source, $options);
-        $this->controller->sorting_filter->clear_cached_state();
+        $sorting_filter = $this->controller->getLibrary('Sorting_filter', $config_name, $config_source, $options);
+        $sorting_filter->clear_cached_state();
 
         // Column filter (unused)
-        // $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $config_name, $config_source);
-        // $col_filter = $this->controller->column_filter->clear_cached_state();
+        // $column_filter = $this->controller->getLibrary('Column_filter', $config_name, $config_source);
+        // $col_filter = $column_filter->clear_cached_state();
 
         echo "Saved preferences were cleared";
     }

@@ -12,6 +12,7 @@ class Param_report {
     private $config_name = '';
     private $tag = '';
     private $title = '';
+    private $current_sorting_filter_values = null;
 
     // --------------------------------------------------------------------
     function __construct() {
@@ -100,8 +101,8 @@ class Param_report {
         } else {
             $this->controller->loadLinkModel('na', $this->config_source);
 
-            $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
-            $col_filter = $this->controller->column_filter->get_current_filter_values();
+            $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
+            $col_filter = $column_filter->get_current_filter_values();
 
             $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
             $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
@@ -111,7 +112,7 @@ class Param_report {
             $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
             $this->controller->cell_presentation->set_col_filter($col_filter);
 
-            $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
+            $current_sorting_filter_values = $this->current_sorting_filter_values;
             $data['rows'] = $rows;
             $data['row_renderer'] = $this->controller->cell_presentation;
             $data['column_header'] = $this->controller->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
@@ -127,17 +128,18 @@ class Param_report {
      * @return type
      */
     private function get_filtered_param_report_rows($paging = true) {
-        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
+        $paging_filter = $this->controller->getLibrary('Paging_filter', $this->config_name, $this->config_source);
         if ($paging) {
-            $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
+            $current_paging_filter_values = $paging_filter->get_current_filter_values();
         } else {
             $current_paging_filter_values = array();
         }
 
         $options = array("PersistSortColumns" => true);
 
-        $this->controller->loadLibrary('Sorting_filter', $this->controller->sorting_filter, $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
+        $sorting_filter = $this->controller->getLibrary('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $sorting_filter->get_current_filter_values();
+        $this->current_sorting_filter_values = $current_sorting_filter_values;
 
         return $this->controller->sproc_model->get_filtered_rows($current_sorting_filter_values, $current_paging_filter_values);
     }
@@ -329,8 +331,8 @@ class Param_report {
         helper(['link_util']);
 
         // Current paging settings
-        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
-        $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
+        $paging_filter = $this->controller->getLibrary('Paging_filter', $this->config_name, $this->config_source);
+        $current_paging_filter_values = $paging_filter->get_current_filter_values();
 
         // Model to get current row info
         $this->controller->loadSprocModel($this->config_name, $this->config_source);
@@ -343,11 +345,11 @@ class Param_report {
 
         // Make HTML using pager
         $preferences = $this->controller->getPreferences();
-        $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
+        $list_report_pager = new \App\Libraries\List_report_pager();
         $s = '';
-        $this->controller->list_report_pager->set($first_row, $total_rows, $per_page);
-        $pr = $this->controller->list_report_pager->create_links();
-        $ps = $this->controller->list_report_pager->create_stats($this->controller);
+        $list_report_pager->set($first_row, $total_rows, $per_page);
+        $pr = $list_report_pager->create_links();
+        $ps = $list_report_pager->create_stats($this->controller);
         $s .= "<span class='LRepPager'>$ps</span>";
         $s .= "<span class='LRepPager'>$pr</span>";
         echo $s;
@@ -363,16 +365,16 @@ class Param_report {
         $this->controller->loadSprocModel($this->config_name, $this->config_source);
         $cols = $this->controller->sproc_model->get_col_names();
 
-        $this->controller->loadLibrary('Paging_filter', $this->controller->paging_filter, $this->config_name, $this->config_source);
-        $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
+        $paging_filter = $this->controller->getLibrary('Paging_filter', $this->config_name, $this->config_source);
+        $current_paging_filter_values = $paging_filter->get_current_filter_values();
 
         $options = array("PersistSortColumns" => true);
 
-        $this->controller->loadLibrary('Sorting_filter', $this->controller->sorting_filter, $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
+        $sorting_filter = $this->controller->getLibrary('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $sorting_filter->get_current_filter_values();
 
-        $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
-        $col_filter = $this->controller->column_filter->get_current_filter_values();
+        $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $column_filter->get_current_filter_values();
 
         helper('form');
         helper(['filter', 'link_util']);
@@ -403,8 +405,8 @@ class Param_report {
         $col_info = $this->controller->sproc_model->get_column_info();
         $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-        $this->controller->loadLibrary('Column_filter', $this->controller->column_filter, $this->config_name, $this->config_source);
-        $col_filter = $this->controller->column_filter->get_current_filter_values();
+        $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $column_filter->get_current_filter_values();
 
         if (empty($rows)) {
             echo '<p>The table appears to have no data.</p>';

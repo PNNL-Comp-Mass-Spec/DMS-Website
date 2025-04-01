@@ -34,13 +34,6 @@ abstract class BaseController extends Controller
     // Library refs
     public $entry_form = null; // Directly assigned; could be 'private set' with PHP 8.4
 
-    // Filter library refs
-    public $column_filter = null;
-    public $paging_filter = null;
-    public $primary_filter = null;
-    public $secondary_filter = null;
-    public $sorting_filter = null;
-
     public $help_page_link = null;
     public $menu = null;
     public $choosers = null;
