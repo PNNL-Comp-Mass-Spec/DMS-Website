@@ -25,11 +25,10 @@ abstract class BaseController extends Controller
     public $my_title = "";
 
     // Model refs
-    public $aux_info_model = null;
-    public $data_model = null;
+    public $data_model = null; // Directly assigned; could be 'private set' with PHP 8.4
     public $detail_model = null;
     public $form_model = null; // Directly assigned; could be 'private set' with PHP 8.4
-    public $gen_model = null;
+    public $gen_model = null; // Directly assigned; could be 'private set' with PHP 8.4
     public $input_model = null;
     public $link_model = null; // Directly assigned; could be 'private set' with PHP 8.4
     public $model = null;
@@ -148,7 +147,7 @@ abstract class BaseController extends Controller
     /**
      * Load named model (with given local name) and initialize it with given config info
      * @param string $model_name Module name, e.g. G_model, Q_model
-     * @param object $local_ref Local reference, e.g. $this->gen_model for G_model; $this->model for Q_model
+     * @param object $local_ref Local reference, e.g. $this->gen_model for G_model; $this->data_model for Q_model
      * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return boolean
@@ -164,6 +163,16 @@ abstract class BaseController extends Controller
         } else {
             return true;
         }
+    }
+
+    /**
+     * Load Q_model to $this->data_model and initialize it with given config info
+     * @param string $config_name Config type
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return boolean
+     */
+    public function loadDataModel($config_name, $config_source) {
+        return $this->loadModel('Q_model', $this->data_model, $config_name, $config_source);
     }
 
     /**
