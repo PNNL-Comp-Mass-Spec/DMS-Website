@@ -104,18 +104,18 @@ class Param_report {
             $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
             $col_filter = $column_filter->get_current_filter_values();
 
-            $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
-            $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
+            $cell_presentation = new \App\Libraries\Cell_presentation();
+            $cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
 
             // (someday) roll the date fix into a function shareable with export_param
             $col_info = $this->controller->sproc_model->get_column_info();
-            $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
-            $this->controller->cell_presentation->set_col_filter($col_filter);
+            $cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+            $cell_presentation->set_col_filter($col_filter);
 
             $current_sorting_filter_values = $this->current_sorting_filter_values;
             $data['rows'] = $rows;
-            $data['row_renderer'] = $this->controller->cell_presentation;
-            $data['column_header'] = $this->controller->cell_presentation->make_column_header($rows, $current_sorting_filter_values);
+            $data['row_renderer'] = $cell_presentation;
+            $data['column_header'] = $cell_presentation->make_column_header($rows, $current_sorting_filter_values);
 
             helper(['text']);
             echo view('main/param_report_data', $data);
@@ -401,9 +401,9 @@ class Param_report {
         $rows = $this->get_filtered_param_report_rows(false);
 
         // (someday) roll the date fix into a function shareable with param_data
-        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
+        $cell_presentation = new \App\Libraries\Cell_presentation();
         $col_info = $this->controller->sproc_model->get_column_info();
-        $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+        $cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
         $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
         $col_filter = $column_filter->get_current_filter_values();

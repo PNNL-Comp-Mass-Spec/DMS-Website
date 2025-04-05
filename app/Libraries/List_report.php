@@ -264,20 +264,20 @@ class List_report {
         $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
         $col_filter = $column_filter->get_current_filter_values();
 
-        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
-        $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
-        $this->controller->cell_presentation->set_col_filter($col_filter);
+        $cell_presentation = new \App\Libraries\Cell_presentation();
+        $cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
+        $cell_presentation->set_col_filter($col_filter);
 
         $rows = $this->controller->data_model->get_rows()->getResultArray();
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
             $col_info = $this->controller->data_model->get_column_info();
-            $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+            $cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
             $qp = $this->controller->data_model->get_query_parts();
-            $data['row_renderer'] = $this->controller->cell_presentation;
-            $data['column_header'] = $this->controller->cell_presentation->make_column_header($rows, $qp->sorting_items);
+            $data['row_renderer'] = $cell_presentation;
+            $data['column_header'] = $cell_presentation->make_column_header($rows, $qp->sorting_items);
             $data['rows'] = $rows;
 
             helper(['text']);
@@ -464,11 +464,11 @@ class List_report {
 
         $rows = $this->controller->data_model->get_rows('filtered_and_sorted')->getResultArray();
 
-        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
-        $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
+        $cell_presentation = new \App\Libraries\Cell_presentation();
+        $cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
 
         $col_info = $this->controller->data_model->get_column_info();
-        $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+        $cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
         $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
         $col_filter = $column_filter->get_current_filter_values();
@@ -476,12 +476,12 @@ class List_report {
         if(empty($col_filter)) {
             // Examine the list report's hotlinks to look for any columns tagged with no_export
             // Skip those columns when exporting data
-            $col_filter = $this->controller->cell_presentation->get_columns_to_export($rows);
+            $col_filter = $cell_presentation->get_columns_to_export($rows);
         }
 
         if ($format == 'excel') {
-            $this->controller->cell_presentation->add_color_codes($rows);
-            $col_alignment = $this->controller->cell_presentation->get_column_alignment($rows);
+            $cell_presentation->add_color_codes($rows);
+            $col_alignment = $cell_presentation->get_column_alignment($rows);
         }
 
         // (someday) list report document export - output helper needs to clean out newlines and so forth.

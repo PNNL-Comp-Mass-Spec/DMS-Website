@@ -81,9 +81,9 @@ class Detail_report {
             $this->controller->loadLinkModel('na', $this->config_source);
 
             // Fix decimal-as-string display; datetimes are formatted in helpers/detail_report_helper.php
-            $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
+            $cell_presentation = new \App\Libraries\Cell_presentation();
             $rows = array(&$result_row);
-            $this->controller->cell_presentation->fix_decimal_display($rows, $col_info);
+            $cell_presentation->fix_decimal_display($rows, $col_info);
 
             if (!($this->controller->check_access('enter', false))) {
                 $show_entry_links = false;
