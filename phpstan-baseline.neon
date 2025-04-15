@@ -1,0 +1,49 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^@readonly property cannot have a default value\.$#'
+			identifier: property.readOnlyByPhpDocDefaultValue
+			count: 4
+			path: app/Config/Autoload.php
+
+		-
+			message: '#^@readonly property cannot have a default value\.$#'
+			identifier: property.readOnlyByPhpDocDefaultValue
+			count: 2
+			path: app/Config/DocTypes.php
+
+		-
+			message: '#^Access to constant SORT_FULL on an unknown class Kint\\Renderer\\AbstractRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Config/Kint.php
+
+		-
+			message: '#^@readonly property cannot have a default value\.$#'
+			identifier: property.readOnlyByPhpDocDefaultValue
+			count: 1
+			path: app/Config/Mimes.php
+
+		-
+			message: '#^@readonly property cannot have a default value\.$#'
+			identifier: property.readOnlyByPhpDocDefaultValue
+			count: 4
+			path: app/Config/Modules.php
+
+		-
+			message: '#^Argument \#1 \$name \(''Config\\\\Modules''\) passed to function config does not extend CodeIgniter\\\\Config\\\\BaseConfig\.$#'
+			identifier: codeigniter.configArgumentInstanceof
+			count: 1
+			path: app/Config/Services.php
+
+		-
+			message: '#^Assigning ''\*\*\*\*\*\*\*\* \(masked by app/Controllers/Gen\.php\)'' directly on offset ''PHP_AUTH_PW'' of \$_SERVER is discouraged\.$#'
+			identifier: codeigniter.superglobalAccessAssign
+			count: 1
+			path: app/Controllers/Gen.php
+
+		-
+			message: '#^Assigning mixed directly on offset ''PHP_AUTH_PW'' of \$_SERVER is discouraged\.$#'
+			identifier: codeigniter.superglobalAccessAssign
+			count: 1
+			path: app/Controllers/Gen.php
