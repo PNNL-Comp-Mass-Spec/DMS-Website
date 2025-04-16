@@ -37,6 +37,12 @@ parameters:
 			path: app/Config/Services.php
 
 		-
+			message: '#^Parameter \#1 \$name of function model expects a valid class string, non-falsy-string given.$#'
+			identifier: codeigniter.modelArgumentType 
+			count: 1
+			path: app/Controllers/BaseController.php
+
+		-
 			message: '#^Assigning ''\*\*\*\*\*\*\*\* \(masked by app/Controllers/Gen\.php\)'' directly on offset ''PHP_AUTH_PW'' of \$_SERVER is discouraged\.$#'
 			identifier: codeigniter.superglobalAccessAssign
 			count: 1
