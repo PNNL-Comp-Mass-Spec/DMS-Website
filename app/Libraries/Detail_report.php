@@ -251,6 +251,8 @@ class Detail_report {
         // Make sure the primary key field is first in list
         // However, if the primary key field is a non-edit field, do not add it
 
+        $entity_info = [];
+
         if (!in_array('hidden', $primaryKeyFieldTypes) && !in_array('non-edit', $primaryKeyFieldTypes)) {
             $entity_info[$form_def->specs[$primary_key]['label']] = $field_values[$primary_key];
         }

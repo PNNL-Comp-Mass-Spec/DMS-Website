@@ -161,6 +161,7 @@ class Param_report {
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'rules'));
 
         $calling_params = new \stdClass();
+        $validation = null;
         if (empty($form_def->fields)) {
             $valid_fields = true;
         } else {

@@ -788,15 +788,16 @@ class File_attachment extends DmsBase {
      * @param type $expID
      * @return string
      */
-    function getExperimentInfo($expID, $db)
+    function getExperimentInfo($expID, $db): string
     {
+        $contents = '';
         $sql = "SELECT * FROM v_experiment_detail_report_ex WHERE id = $expID";
         $resultSet = $db->query($sql);
         if (!$resultSet) {
-            return;
+            return '';
         }
         if ($resultSet->getNumRows() == 0) {
-            return;
+            return '';
         }
 
         $result = $resultSet->getResultArray();

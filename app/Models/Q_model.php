@@ -241,6 +241,7 @@ class Q_model extends Model {
         // This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
         $connectionSleepDelayMsec = 250;
 
+        $my_db = null;
         while ($connectionRetriesRemaining > 0) {
             try {
                 $my_db = \Config\Database::connect(GetNullIfBlank($this->query_parts->dbn));
@@ -571,6 +572,7 @@ class Q_model extends Model {
 
         helper(['string', 'database']);
 
+        $my_db = null;
         while ($connectionRetriesRemaining > 0) {
             try {
                 $my_db = \Config\Database::connect(GetNullIfBlank($dbGroupName));
@@ -1100,6 +1102,7 @@ class Q_model extends Model {
         $filterColumn = '';
         $filterComparison = '';
 
+        $row = null;
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':

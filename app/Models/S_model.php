@@ -162,6 +162,7 @@ class S_model extends Model {
             // This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
             $connectionSleepDelayMsec = 250;
 
+            $my_db = null;
             while ($connectionRetriesRemaining > 0) {
                 try {
                     $my_db = \Config\Database::connect(GetNullIfBlank($this->dbn));

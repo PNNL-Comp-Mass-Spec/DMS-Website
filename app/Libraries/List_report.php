@@ -479,11 +479,6 @@ class List_report {
             $col_filter = $cell_presentation->get_columns_to_export($rows);
         }
 
-        if ($format == 'excel') {
-            $cell_presentation->add_color_codes($rows);
-            $col_alignment = $cell_presentation->get_column_alignment($rows);
-        }
-
         // (someday) list report document export - output helper needs to clean out newlines and so forth.
 
         if (empty($rows)) {
@@ -491,6 +486,8 @@ class List_report {
         } else {
             switch ($format) {
                 case 'excel':
+                    $cell_presentation->add_color_codes($rows);
+                    $col_alignment = $cell_presentation->get_column_alignment($rows);
                     export_to_excel($rows, $this->tag, $col_filter, $col_alignment);
                     break;
                 case 'tsv':
