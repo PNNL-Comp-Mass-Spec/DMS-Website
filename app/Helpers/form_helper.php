@@ -15,13 +15,13 @@ if ( ! function_exists('form_error'))
 	 * Returns the error for a specific form field. This is a helper for the
 	 * form validation class.
 	 *
-	 * @param	stdClass
-	 * @param	string
-	 * @param	string
-	 * @param	string
+	 * @param	\stdClass $validation
+	 * @param	string $field
+	 * @param	string $prefix
+	 * @param	string $suffix
 	 * @return	string
 	 */
-	function validation_error($validation, string $field = '', string $prefix = '', string $suffix = '')
+	function validation_error(\stdClass $validation, string $field = '', string $prefix = '', string $suffix = '')
 	{
         $str = $validation->getError($field);
 
@@ -44,11 +44,12 @@ if ( ! function_exists('validation_errors'))
 	 * Returns all the errors associated with a form submission. This is a helper
 	 * function for the form validation class.
 	 *
-	 * @param	stdClass
-	 * @param	string
+	 * @param	\stdClass $validation
+	 * @param	string $prefix
+	 * @param	string $suffix
 	 * @return	string
 	 */
-	function validation_errors($validation, string $prefix = '', string $suffix = '')
+	function validation_errors(\stdClass $validation, string $prefix = '', string $suffix = '')
 	{
         $errors = $validation->getErrors();
 		// No errors, validation passes!

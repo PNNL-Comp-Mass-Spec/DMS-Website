@@ -344,7 +344,7 @@ class Spreadsheet_loader extends DmsBase {
      * @param type $entity_type
      * @param type $config_source
      * @param type $mode
-     * @return stdClass
+     * @return \stdClass
      * @throws \Exception
      */
     private

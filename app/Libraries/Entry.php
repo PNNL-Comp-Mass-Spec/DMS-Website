@@ -122,10 +122,10 @@ class Entry {
 
     /**
      * Handle special field options for entry form object
-     * @param stdClass $form_def
+     * @param \stdClass $form_def
      * @param string $mode Page mode: 'add' or 'update'
      */
-    protected function handle_special_field_options($form_def, $mode) {
+    protected function handle_special_field_options(\stdClass $form_def, $mode) {
         $this->controller->entry_form->set_field_enable($form_def->field_enable);
 
         if ($mode) {
@@ -230,11 +230,11 @@ class Entry {
 
     /**
      * Get entry form builder object and use it to make HTML
-     * @param stdClass $input_params
-     * @param stdClass $form_def
-     * @param stdClass $validation
+     * @param \stdClass $input_params
+     * @param \stdClass $form_def
+     * @param \stdClass $validation
      */
-    protected function make_entry_form_HTML($input_params, $form_def, $validation) {
+    protected function make_entry_form_HTML(\stdClass $input_params, \stdClass $form_def, \stdClass $validation) {
         helper('form');
 
         // Handle special field options for entry form object
@@ -261,9 +261,9 @@ class Entry {
 
     /**
      * Make post-submission links to list report and detail report
-     * @param stdClass $input_params
+     * @param \stdClass $input_params
      */
-    protected function get_post_submission_link($input_params) {
+    protected function get_post_submission_link(\stdClass $input_params) {
         $ps_link_specs = $this->controller->gen_model->get_post_submission_link_specs();
         $actions = $this->controller->gen_model->get_actions();
         return make_post_submission_links($this->controller->my_tag, $ps_link_specs, $input_params, $actions);
@@ -271,11 +271,11 @@ class Entry {
 
     /**
      * Call a stored procedure
-     * @param stdClass $input_params
-     * @param stdClass $form_def
+     * @param \stdClass $input_params
+     * @param \stdClass $form_def
      * @param string $msg Message returned by the stored procedure (output)
      */
-    protected function call_stored_procedure($input_params, $form_def, &$msg) {
+    protected function call_stored_procedure(\stdClass $input_params, \stdClass $form_def, &$msg) {
         $ok = $this->controller->loadSprocModel('entry_sproc', $this->config_source);
         if (!$ok) {
             throw new \Exception($this->controller->sproc_model->get_error_text());
@@ -294,9 +294,9 @@ class Entry {
     /**
      * Copy values from params that were bound to stored procedure arguments
      * back to input param object
-     * @param stdClass $input_params
+     * @param \stdClass $input_params
      */
-    protected function update_input_params_from_stored_procedure_args($input_params) {
+    protected function update_input_params_from_stored_procedure_args(\stdClass $input_params) {
         $bound_params = $this->controller->sproc_model->get_parameters();
         foreach ($this->controller->sproc_model->get_sproc_args() as $arg) {
             if ($arg['dir'] == 'output') {

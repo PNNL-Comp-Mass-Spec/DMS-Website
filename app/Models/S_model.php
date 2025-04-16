@@ -141,7 +141,7 @@ class S_model extends Model {
     /**
      * Initializes stored procedure, binds arguments to paramObj members and
      * local variables, and calls the stored procedure, returning the result
-     * @param stdClass|null $parmObj
+     * @param \stdClass|null $parmObj
      * @return bool
      * @throws \Exception
      */

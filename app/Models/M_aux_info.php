@@ -371,12 +371,12 @@ EOD;
 
     /**
      * Add or update Aux Info values
-     * @param stdClass $parmObj Field values from POST
+     * @param \stdClass $parmObj Field values from POST
      * @param type $command Action to perform; will always be 'add'
      * @param type $sa_message Error message to return
      * @return type
      */
-    function add_or_update($parmObj, $command, &$sa_message) {
+    function add_or_update(\stdClass $parmObj, $command, &$sa_message) {
         $my_db = $this->db;
 
         // Use Sproc_sqlsrv with PHP 7 on Apache 2.4

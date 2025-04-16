@@ -780,7 +780,7 @@ class Q_model extends Model {
 
     /**
      * Call procedure get_query_row_count_proc() to determine the number of rows returned by the given base SQL
-     * @param stdClass $my_db      DB object
+     * @param \stdClass $my_db      DB object
      * @param string   $base_sql   Base SQL
      * @param type     $row_count  Row count
      * @param type     $sa_message Error message to return
