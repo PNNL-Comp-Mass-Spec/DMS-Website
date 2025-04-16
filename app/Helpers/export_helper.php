@@ -868,10 +868,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      *
-     * @param type $rowValue
+     * @param string|null $rowValue
      * @return string
      */
-    function fix_data($rowValue)
+    function fix_data(?string $rowValue)
     {
         if (!isset($rowValue) || $rowValue == "") {
             $rowValue = "\t";

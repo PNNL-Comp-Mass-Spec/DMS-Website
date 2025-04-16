@@ -117,11 +117,11 @@ abstract class BaseController extends Controller
      * @return boolean
      */
     public function loadLibrary($lib_name, &$local_ref, $config_name, $config_source, $options = false) {
-        if (isset($local_ref)) {
+        $libPath = "\\App\\Libraries\\$lib_name";
+        if ($local_ref instanceof $libPath) {
             return true;
         }
         // Load then initialize the model
-        $libPath = "\\App\\Libraries\\$lib_name";
         $local_ref = new $libPath();
         if (!method_exists($local_ref, 'init')) {
             return true;
@@ -167,7 +167,8 @@ abstract class BaseController extends Controller
      * @return boolean
      */
     private function loadModel($model_name, &$local_ref, $config_name, $config_source) {
-        if (isset($local_ref)) {
+        $modelPath = '\\App\\Models\\'.$model_name;
+        if ($local_ref instanceof $modelPath) {
             return true;
         }
         // Dynamically load and initialize the model

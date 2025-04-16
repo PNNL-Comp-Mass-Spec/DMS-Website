@@ -4,10 +4,10 @@ if (! function_exists('IsNullOrWhiteSpace'))
 {
     /**
      * Return True if the variable is null or empty (aka IsNullOrEmpty)
-     * @param type $variable
+     * @param string|null $variable
      * @return type
      */
-    function IsNullOrWhiteSpace($variable) {
+    function IsNullOrWhiteSpace(?string $variable) {
         return (!isset($variable) || trim($variable) === '');
     }
 }
@@ -16,10 +16,10 @@ if (! function_exists('IsNotWhitespace'))
 {
     /**
      * Return True if the variable is defined and is not whitespace
-     * @param type $variable
+     * @param string|null $variable
      * @return type
      */
-    function IsNotWhitespace($variable) {
+    function IsNotWhitespace(?string $variable) {
         return (isset($variable) && trim($variable) !== '');
     }
 }
@@ -28,10 +28,10 @@ if (! function_exists('GetNullIfBlank'))
 {
     /**
      * Return null if the variable is not defined or is whitespace
-     * @param type $variable
+     * @param string|null $variable
      * @return type
      */
-    function GetNullIfBlank($variable) {
+    function GetNullIfBlank(?string $variable) {
         if (IsNotWhitespace($variable)) {
             return $variable;
         }

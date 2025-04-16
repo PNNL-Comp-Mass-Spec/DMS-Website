@@ -141,11 +141,11 @@ class S_model extends Model {
     /**
      * Initializes stored procedure, binds arguments to paramObj members and
      * local variables, and calls the stored procedure, returning the result
-     * @param stdClass $parmObj
+     * @param stdClass|null $parmObj
      * @return boolean
      * @throws Exception
      */
-    function execute_sproc($parmObj) {
+    function execute_sproc(?\stdClass $parmObj) {
         $this->error_text = '';
         helper(['string', 'database']);
 
