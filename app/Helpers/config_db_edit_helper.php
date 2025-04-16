@@ -279,9 +279,9 @@ function make_table_dump_display($config_db_table_list) {
             echo "</th></tr>\n";
             echo "<tr><td>";
             echo "<table class='cfg_tab' >\n";
-            $i = 0;
+            $cols = null;
             foreach ($rows as $row) {
-                if (!$i++) {
+                if (is_null($cols)) {
                     $cols = array_keys($row);
                     // $colCount = count($cols);
 

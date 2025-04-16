@@ -322,11 +322,11 @@ class Config_db extends BaseController {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        $i = 0;
+        $cols = null;
         $n = 1;
         $rs = "";
         foreach ($this->_getQueryResultArray($db->query("SELECT * FROM $table_name")) as $row) {
-            if (!$i++) {
+            if (is_null($cols)) {
                 $cols = array_keys($row);
                 $n = count($cols);
                 // Column headers
