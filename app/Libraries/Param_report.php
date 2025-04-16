@@ -1,6 +1,8 @@
 <?php
 namespace App\Libraries;
 
+use \CodeIgniter\Validation\ValidationInterface;
+
 // --------------------------------------------------------------------
 // Param report (stored procedure based list report) section
 // --------------------------------------------------------------------
@@ -191,7 +193,7 @@ class Param_report {
         $message = '';
         try {
             if (!$valid_fields) {
-                throw new \Exception('There were validation errors: ' . validation_errors($validation, '<span class="bad_clr">', '</span>'));
+                throw new \Exception('There were validation errors: ' . validation_errors_format($validation, '<span class="bad_clr">', '</span>'));
             }
 
             // Call stored procedure

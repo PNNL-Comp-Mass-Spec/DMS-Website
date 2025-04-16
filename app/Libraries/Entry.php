@@ -1,6 +1,8 @@
 <?php
 namespace App\Libraries;
 
+use \CodeIgniter\Validation\ValidationInterface;
+
 // --------------------------------------------------------------------
 // Entry page section
 // --------------------------------------------------------------------
@@ -232,9 +234,9 @@ class Entry {
      * Get entry form builder object and use it to make HTML
      * @param \stdClass $input_params
      * @param \stdClass $form_def
-     * @param \stdClass $validation
+     * @param ValidationInterface $validation
      */
-    protected function make_entry_form_HTML(\stdClass $input_params, \stdClass $form_def, \stdClass $validation) {
+    protected function make_entry_form_HTML(\stdClass $input_params, \stdClass $form_def, ValidationInterface $validation) {
         helper('form');
 
         // Handle special field options for entry form object
@@ -251,7 +253,7 @@ class Entry {
             }
 
             $this->controller->entry_form->set_field_value($field, $input_params->$field);
-            $fieldError = validation_error($validation, $field, '<span class="bad_clr">', '</span>');
+            $fieldError = validation_error_format($validation, $field, '<span class="bad_clr">', '</span>');
             $this->controller->entry_form->set_field_error($field, $fieldError);
         }
 
