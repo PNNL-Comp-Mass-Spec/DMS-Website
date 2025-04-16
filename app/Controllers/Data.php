@@ -89,7 +89,7 @@ class Data extends BaseController {
     function lz()
     {
         helper(['url', 'user']);
-        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
+        $segs = decodeSegments(array_slice($this->request->getUri()->getSegments(), 2));
 //print_r($_POST); echo "\n";
         $output_format = $segs[0];
         $config_source = $segs[1];
@@ -153,7 +153,7 @@ class Data extends BaseController {
         $session = \Config\Services::session();
 
         helper(['url']);
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
 
         $general_query = $this->getLibrary('General_query', '', ''); // $config_name, $config_source
 
@@ -190,7 +190,7 @@ class Data extends BaseController {
     function lr()
     {
         helper(['url', 'user']);
-        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
+        $segs = decodeSegments(array_slice($this->request->getUri()->getSegments(), 2));
 
         $config_source = $segs[0];
         $config_name = $segs[1];

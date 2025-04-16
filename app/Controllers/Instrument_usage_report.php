@@ -65,7 +65,7 @@ class Instrument_usage_report extends Grid {
     // --------------------------------------------------------------------
     function ws()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));
@@ -127,7 +127,7 @@ EOD;
     // --------------------------------------------------------------------
     function daily()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));
@@ -148,7 +148,7 @@ EOD;
     // --------------------------------------------------------------------
     function dailydetails()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));
@@ -189,7 +189,7 @@ EOD;
     // --------------------------------------------------------------------
     function rollup()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));

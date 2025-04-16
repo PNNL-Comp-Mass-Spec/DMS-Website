@@ -824,7 +824,7 @@ class File_attachment extends DmsBase {
      */
     function check_file_access(){
         try {
-            $uri = $this->request->uri;
+            $uri = $this->request->getUri();
             // Don't trigger an exception if the segment index is too large
             $uri->setSilent();
             $filterOption = $uri->getSegment(3, "");

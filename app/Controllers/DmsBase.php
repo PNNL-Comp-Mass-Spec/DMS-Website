@@ -412,7 +412,7 @@ class DmsBase extends BaseController
     public function exec($sproc_name = 'operations_sproc')
     {
 //      if(!$this->check_access('??')) return;
-//      $uri = $this->request->uri;
+//      $uri = $this->request->getUri();
 //      // Don't trigger an exception if the segment index is too large
 //      $uri->setSilent();
 //      $sproc_name = $uri->getSegment(3, '');

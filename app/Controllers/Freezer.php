@@ -257,7 +257,7 @@ class Freezer extends DmsBase {
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // Optional limits on what to include
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
 
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
@@ -341,7 +341,7 @@ class Freezer extends DmsBase {
         $db = \Config\Database::connect();
         $this->updateSearchPath($db);
 
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $freezer_spec = $uri->getSegment(3);

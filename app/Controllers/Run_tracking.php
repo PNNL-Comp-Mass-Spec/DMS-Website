@@ -17,7 +17,7 @@ class Run_tracking extends DmsBase {
     private function check_initial_conditions()
     {
         // Get what we can from URL
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
 
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
@@ -44,7 +44,7 @@ class Run_tracking extends DmsBase {
         }
 
         // URL was incomplete - construct one and redirect to it
-        $ns = $this->request->uri->getTotalSegments();
+        $ns = $this->request->getUri()->getTotalSegments();
         if($ns < 5) {
             $url = $this->my_tag . "/cal/$instrument/$year/$month";
             redirect()->to(site_url($url));
