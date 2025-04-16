@@ -31,6 +31,7 @@ class R_model extends Model {
     private $list_report_hotlinks = array();
     private $detail_report_hotlinks = array();
     private $has_checkboxes = false;
+    private $error_text = '';
 
     // --------------------------------------------------------------------
     function __construct() {

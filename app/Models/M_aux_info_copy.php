@@ -5,9 +5,14 @@ use CodeIgniter\Model;
 
 class M_aux_info_copy extends Model {
 
-    function init_definitions() {
-        $this->my_tag = "aux_info_copy";
+    // I'm not sure how these are actually used, at least outside of this class... -- BCG
+    public $entry_page_data_cols;
+    public $entry_page_data_table;
+    public $entry_page_data_id_col;
+    public $form_fields;
+    public $entry_sproc;
 
+    function init_definitions() {
         // Query to get data for existing record in database for editing
         $this->entry_page_data_cols = "*";
         $this->entry_page_data_table = '';

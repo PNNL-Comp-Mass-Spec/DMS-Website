@@ -5,9 +5,17 @@ use CodeIgniter\Model;
 
 class M_aux_info extends Model {
 
-    function init_definitions() {
-        $this->my_tag = "aux_info";
+    // I'm not sure how these are actually used, at least outside of this class... -- BCG
+    public $list_report_data_cols;
+    public $list_report_data_table;
+    public $list_report_data_sort_col;
+    public $list_report_primary_filter;
+    public $entry_page_data_cols;
+    public $entry_page_data_table;
+    public $entry_page_data_id_col;
+    public $form_fields;
 
+    function init_definitions() {
         // Initialize parameters for query for list report
         $this->list_report_data_cols = "category, subcategory, item, value";
         $this->list_report_data_table = 'v_aux_info_value';

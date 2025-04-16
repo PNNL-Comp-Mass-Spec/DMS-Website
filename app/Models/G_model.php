@@ -293,7 +293,6 @@ class G_model extends Model {
         $this->actions['create'] = $allowCreate && !$blockCreate;
 
         if(in_array('list_report_hotlinks', $tbl_list)) {
-            $this->list_report_hotlinks = array();
             foreach ($db->query("SELECT * FROM list_report_hotlinks")->getResultArray() as $row) {
                 $link_type = $row['LinkType'];
                 if($link_type == 'update_opener') {

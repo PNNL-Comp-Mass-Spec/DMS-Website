@@ -12,6 +12,7 @@ class E_model extends Model {
     private $config_name = '';
     private $config_source = '';
     private $configDBPath = '';
+    private $error_text = '';
 
     /**
      * Definitions of fields for entry form
@@ -30,6 +31,12 @@ class E_model extends Model {
      * @var type
      */
     private $entry_commands = array();
+
+    /**
+     * Definitions of operations fields
+     * @var type
+     */
+    private $operations_fields = array();
 
     // --------------------------------------------------------------------
     function __construct() {
