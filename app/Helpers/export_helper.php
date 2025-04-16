@@ -8,9 +8,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      * Note: code is adapted from http://codeigniter.com/wiki/Excel_Plugin/
      * @param type $result
      * @param type $filename
-     * @param type $col_filter
+     * @param array $col_filter
      */
-    function export_to_excel_tsv($result, $filename='excel_download', $col_filter = array())
+    function export_to_excel_tsv($result, $filename='excel_download', array $col_filter = array())
     {
         if(empty($col_filter)) {
             $cols = array_keys(current($result));
@@ -33,10 +33,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      * Export a list report to an Excel file
      * @param type $result
      * @param type $filename
-     * @param type $col_filter If an empty array, export all columns; otherwise, list of column names to export
-     * @param type $col_alignment Horizontal alignment for each column (keys are column name, values are default, left, right, or center)
+     * @param array $col_filter If an empty array, export all columns; otherwise, list of column names to export
+     * @param array $col_alignment Horizontal alignment for each column (keys are column name, values are default, left, right, or center)
      */
-    function export_to_excel($result, $filename='excel_download', $col_filter = array(), $col_alignment = array())
+    function export_to_excel($result, $filename='excel_download', array $col_filter = array(), array $col_alignment = array())
     {
         $startTime = hrtime(true);
 
@@ -222,9 +222,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      * Export a list report to a tab-delimited file
      * @param type $result
      * @param type $filename
-     * @param type $col_filter
+     * @param array $col_filter
      */
-    function export_to_tab_delimited_text($result, $filename='tsv_download', $col_filter = array())
+    function export_to_tab_delimited_text($result, $filename='tsv_download', array $col_filter = array())
     {
         if(empty($col_filter)) {
             $cols = array_keys(current($result));

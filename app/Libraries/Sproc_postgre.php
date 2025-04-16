@@ -570,10 +570,10 @@ class Sproc_postgre extends Sproc_base {
     /**
      * If the value is numeric, format it by the given data type
      * @param type $dataType
-     * @param type $value
+     * @param string $value
      * @return type
      */
-    private function getValueToUse($dataType, $value) {
+    private function getValueToUse($dataType, string $value) {
 
         if (!empty($value) && $value !== '') {
             // Cast the value to the appropriate data type

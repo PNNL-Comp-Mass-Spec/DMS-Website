@@ -102,12 +102,12 @@ function make_search_filter_expanded($cols, $controller, $current_paging_filter_
 /**
  * Make filter for param reports (stored procedure based list reports)
  * Example usage: predefined_analysis_preview/param
- * @param type $cols
+ * @param array $cols
  * @param type $current_paging_filter_values
  * @param type $current_sorting_filter_values
  * @param type $col_filter
  */
-function make_param_filter($cols, $current_paging_filter_values, $current_sorting_filter_values, $col_filter) {
+function make_param_filter(array $cols, $current_paging_filter_values, $current_sorting_filter_values, $col_filter) {
     $style = 'float:left;padding:3px 3px 0 0;display:none;';
 
     $g = make_paging_filter($current_paging_filter_values);
@@ -343,10 +343,10 @@ function make_secondary_filter($sec_filter_display_info) {
 /**
  * Construct the sorting filter table
  * @param type $current_filter_values
- * @param type $cols
+ * @param array $cols
  * @return string
  */
-function make_sorting_filter($current_filter_values, $cols) {
+function make_sorting_filter($current_filter_values, array $cols) {
     $str = '';
 
     $hid = "<span class='filter_clear'>" . sorting_filter_vis_control() . "</span>";
@@ -412,12 +412,12 @@ function make_paging_filter($current_filter_values) {
 
 /**
  * Construct the column filter table
- * @param type $cols
+ * @param array $cols
  * @param type $col_filter
  * @param type $col_filter_size
  * @return string
  */
-function make_column_filter($cols, $col_filter, $col_filter_size = 5) {
+function make_column_filter(array $cols, $col_filter, $col_filter_size = 5) {
     $str = "";
 
     $options = array();

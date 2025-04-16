@@ -3,12 +3,12 @@
 /**
  * Look for item $itemName in the Options array in $colSpec
  * If found, return its value, otherwise return $valueIfMissing
- * @param type $colSpec
+ * @param array $colSpec
  * @param string $itemName
  * @param string $valueIfMissing
- * @return type
+ * @return string
  */
-function getOptionValue($colSpec, $itemName, $valueIfMissing = "") {
+function getOptionValue(array $colSpec, string $itemName, string $valueIfMissing = ""): string {
     if (array_key_exists('Options', $colSpec)) {
         $options = $colSpec['Options'];
         if ($options != null &&

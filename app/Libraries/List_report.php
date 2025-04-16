@@ -481,7 +481,7 @@ class List_report {
 
         // (someday) list report document export - output helper needs to clean out newlines and so forth.
 
-        if (empty($rows)) {
+        if (!is_array($rows) || count($rows) === 0) {
             echo '<p>The table appears to have no data.</p>';
         } else {
             switch ($format) {

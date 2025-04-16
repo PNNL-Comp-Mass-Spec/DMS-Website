@@ -833,11 +833,11 @@ class Cell_presentation {
 
     /**
      * Create HTML to display a set of column headers
-     * @param type $rows
+     * @param array $rows
      * @param type $sorting_cols
      * @return string
      */
-    function make_column_header($rows, $sorting_cols = array()) {
+    function make_column_header(array $rows, $sorting_cols = array()) {
         if (empty($rows)) {
             return '';
         }
@@ -994,9 +994,9 @@ class Cell_presentation {
     /**
      *  Look for tooltip text associated with the given column
      * @param type $columnNameToFind
-     * @return type
+     * @return string
      */
-    private function get_column_tooltip_work($columnNameToFind) {
+    private function get_column_tooltip_work($columnNameToFind): string {
         $toolTip = '';
         $formatted = $this->label_formatter->format($columnNameToFind);
         if (array_key_exists(strtolower($columnNameToFind), $this->hotlinks)) {

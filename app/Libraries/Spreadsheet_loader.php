@@ -408,9 +408,9 @@ class Spreadsheet_loader {
     /**
      * Get aux info for given entity
      * @param type $id
-     * @return type
+     * @return array
      */
-    function get_entity_aux_info($id) {
+    function get_entity_aux_info($id): array {
         $info = array();
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);

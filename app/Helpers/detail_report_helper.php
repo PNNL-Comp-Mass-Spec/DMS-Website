@@ -284,12 +284,12 @@ function get_fieldspec_with_link_type($hotlinks, $linkTypeName) {
  * @param type $colIndex  Form field index (0-based)
  * @param type $text      Form field text
  * @param type $display   Form field displayed text
- * @param type $val       Data value for this form field from the database.
+ * @param string $val     Data value for this form field from the database.
  *                        If Name and WhichArg are the same, $link_id and $val will be the same
  *                        For hotlinks that have 'valueCol' for the hotlink placement, $val will be an empty string
  * @return type
  */
-function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $text, $display, $val = '') {
+function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $text, $display, string $val = '') {
 
     // Include several helper methods
 
@@ -322,7 +322,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
     switch ($type) {
         case "detail-report":
             // Link to another DMS page, including both list reports and detail reports
-            if (!empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
+            if (is_array($options) && !empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
                 $hideLinkMatchText = $options['HideLinkIfValueMatch'];
                 if (empty($val) && $link_id === $hideLinkMatchText ||
                         !empty($val) && $val === $hideLinkMatchText) {
@@ -797,11 +797,11 @@ function make_detail_report_commands($commands, $tag, $id) {
  * Construct a URL to include as a hotlink on a detail report page
  * @param type $target      Target page family, optionally including filters, e.g. 'param_file/report/-/~'
  * @param type $link_id     Data value for field specified by WhichArg
- * @param type $options     Link processing options
+ * @param array $options     Link processing options
  * @param type $renderHTTP  If true, and if $link_id starts with http, simply link to that URL
  * @return string
  */
-function make_detail_report_url($target, $link_id, $options, $renderHTTP = false) {
+function make_detail_report_url($target, $link_id, array $options, $renderHTTP = false) {
 
     if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
         // The field has a URL; link to it
