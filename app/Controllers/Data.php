@@ -243,7 +243,7 @@ class Data extends BaseController {
      * Get list of URLs for ad hoc list reports
      * @param type $config_source
      * @param type $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     function lr_menu($config_source = "ad_hoc_query", $config_name = 'utility_queries')
     {

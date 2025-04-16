@@ -168,7 +168,7 @@ class M_aux_info extends Model {
      * @param type $target
      * @param type $id
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_aux_info_item_current_values($target, $id) {
         if ($target == '') {
@@ -211,7 +211,7 @@ EOD;
      * @param type $subcategory
      * @param type $id
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_aux_info_item_values($target, $category, $subcategory, $id) {
 
@@ -251,7 +251,7 @@ EOD;
      * @param type $category
      * @param type $subcategory
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_aux_info_allowed_values($target, $category, $subcategory) {
         $builder = $this->db->table('v_aux_info_allowed_values');
@@ -271,7 +271,7 @@ EOD;
      * Get list of aux info target definitions (tracking entities that are allowed
      * to have associated aux info)
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_aux_info_targets() {
         $builder = $this->db->table('t_aux_info_target');
@@ -306,7 +306,7 @@ EOD;
      * Get list of all aux info item definitions for the given target
      * @param type $target
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_aux_info_def($target) {
         $builder = $this->db->table('v_aux_info_definition');

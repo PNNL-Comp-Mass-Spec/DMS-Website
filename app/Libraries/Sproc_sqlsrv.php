@@ -12,7 +12,7 @@ class Sproc_sqlsrv extends Sproc_base {
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
-     * @throws Exception
+     * @throws \Exception
      */
     function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
         $input_params->retval = 0;

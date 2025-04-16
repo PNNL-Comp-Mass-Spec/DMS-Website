@@ -125,7 +125,7 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Extract data from given file already uploaded to server
      * and return HTML table listing entities found
-     * @throws exception
+     * @throws \Exception
      * @category AJAX
      */
     function extract_data()
@@ -181,7 +181,7 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Extract data from given file already uploaded to server
      * and return HTML table of whole spreadsheet
-     * @throws exception
+     * @throws \Exception
      * @category AJAX
      */
     function extract_table()
@@ -275,7 +275,7 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Update tracking info for given entity in DMS (and optionally its aux info)
-     * @throws exception
+     * @throws \Exception
      */
     function update() ///$fname, $id, $mode
     {
@@ -345,7 +345,7 @@ class Spreadsheet_loader extends DmsBase {
      * @param type $config_source
      * @param type $mode
      * @return stdClass
-     * @throws exception
+     * @throws \Exception
      */
     private
     function get_current_field_values($id, $entity_type, $config_source, $mode)
@@ -670,8 +670,7 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Get definitions for entities that can be uploaded from spreadsheet loader
      * @param type $dbFileName
-     * @throws Exception
-     * @throws exception
+     * @throws \Exception
      */
     private
     function get_config_info($dbFileName)

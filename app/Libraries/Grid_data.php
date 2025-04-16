@@ -32,7 +32,7 @@ class Grid_data {
      * Get data for the grid
      * @param type $sql
      * @param type $paramArray
-     * @throws exception
+     * @throws \Exception
      */
     function get_query_data($sql, $paramArray) {
         $response = new \stdClass();
@@ -64,7 +64,7 @@ class Grid_data {
      * @param type $paramArray
      * @param type $config_name
      * @return \stdClass
-     * @throws exception
+     * @throws \Exception
      */
     function get_sproc_data($paramArray, $config_name = '') {
         if (!$config_name) {

@@ -143,7 +143,7 @@ class S_model extends Model {
      * local variables, and calls the stored procedure, returning the result
      * @param stdClass|null $parmObj
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
     function execute_sproc(?\stdClass $parmObj) {
         $this->error_text = '';

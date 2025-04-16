@@ -150,7 +150,7 @@ class Param_report {
      * by config_name/config_source, and set up controller for
      * call to $this->controller->sproc_model->get_rows();
      * @return type
-     * @throws exception
+     * @throws \Exception
      */
     private function get_data_rows_from_sproc() {
         helper('form');

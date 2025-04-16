@@ -63,7 +63,7 @@ class Detail_report {
      * @param string $id
      * @param bool $show_entry_links
      * @param bool $show_create_links
-     * @throws exception
+     * @throws \Exception
      * @category AJAX
      */
     function detail_report_data($id, $show_entry_links = true, $show_create_links = true) {

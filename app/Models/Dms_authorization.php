@@ -62,7 +62,7 @@ class Dms_authorization extends Model {
      * Lookup permissions for the user
      * @param type $username
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     function get_user_permissions($username) {
         // Is there a local cache of permissions?

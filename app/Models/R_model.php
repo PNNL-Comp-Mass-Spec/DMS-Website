@@ -99,7 +99,7 @@ class R_model extends Model {
      * Read data from tables list_report_hotlinks and detail_report_hotlinks
      * in a model config database
      * @param string $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_general_defs($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
@@ -156,7 +156,7 @@ class R_model extends Model {
     /**
      * Read data from table utility_queries, for example, with the ad_hoc_query page family
      * @param string $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_utility_defs($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);

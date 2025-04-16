@@ -21,7 +21,7 @@ class Dms_menu extends Model {
      * @param type $section_def_table
      * @param type $section_item_table
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_section_menu_def($config_db_name, $section_def_table, $section_item_table) {
         $sections = array();
@@ -48,7 +48,7 @@ class Dms_menu extends Model {
      * @param type $config_db_name
      * @param type $menu_def_table
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_menu_def($config_db_name, $menu_def_table) {
         helper(['config_db']);

@@ -42,7 +42,7 @@ abstract class Sproc_base {
      * @param array $args
      * @param object $input_params
      * @param array $formFields
-     * @throws Exception
+     * @throws \Exception
      */
     abstract function execute($sprocName, $conn_id, $args, $input_params, $formFields);
 }

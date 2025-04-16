@@ -35,7 +35,7 @@ class Freezer_model extends Model {
     /**
      * https://dms2.pnl.gov/freezer/get_freezers
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_freezers() {
         $sql = <<<EOD

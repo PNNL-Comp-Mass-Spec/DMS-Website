@@ -186,7 +186,7 @@ class Spreadsheet_loader {
 
     /**
      * Get list of tracking info fields and their row number
-     * @throws exception
+     * @throws \Exception
      */
     private function find_tracking_info_fields() {
         $this->tracking_info_fields = array();
@@ -241,7 +241,7 @@ class Spreadsheet_loader {
      * and item names and the row number in the main data array.
      * this builds the $this->aux_info_fields array (flat array of items labeled with category and subcategory)
      *  and the $this->aux_info_groups (arrays of items nested within category/subcategory pairs)
-     * @throws exception
+     * @throws \Exception
      */
     private function find_aux_info_fields() {
         $this->aux_info_fields = array();
@@ -458,7 +458,7 @@ class Spreadsheet_loader {
 
     /**
      * What type of entity was defined in the spreadsheet
-     * @throws exception
+     * @throws \Exception
      */
     private function extract_entity_type() {
         foreach ($this->ss_rows as $row) {

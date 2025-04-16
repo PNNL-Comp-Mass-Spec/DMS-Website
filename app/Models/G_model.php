@@ -205,7 +205,7 @@ class G_model extends Model {
      * Read list_report_hotlinks and update has_opener_hotlinks and has_checkboxes in $this->the_parameters
      * Read detail_report_commands and store in $this->detail_report_commands
      * @param type $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_general_defs($config_name)
     {
@@ -342,8 +342,7 @@ class G_model extends Model {
      * @param string $page_family
      * @param object $controller
      * @return bool
-     * @throws exception
-     * @throws Exception
+     * @throws \Exception
      */
     function check_permission($user, $action, $page_family, $controller)
     {

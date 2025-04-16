@@ -12,7 +12,7 @@ class Sproc_postgre extends Sproc_base {
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
-     * @throws Exception
+     * @throws \Exception
      */
     function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
         try {
@@ -43,7 +43,7 @@ class Sproc_postgre extends Sproc_base {
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
-     * @throws Exception
+     * @throws \Exception
      */
     private function executeInternal($sprocName, $conn_id, $args, $input_params, $formFields) {
         $input_params->retval = 0;
@@ -321,7 +321,7 @@ class Sproc_postgre extends Sproc_base {
      * Returns 'f' for function, or 'p' for procedure, or 'u' for unknown/not found.
      * @param string $sprocName Stored procedure name
      * @param resource $conn_id Database connection ID, from  $this->db->connID
-     * @throws Exception
+     * @throws \Exception
      */
     private function isSProcFunction($sprocName, $conn_id) {
         $schema = 'public';

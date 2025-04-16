@@ -48,7 +48,7 @@ class File_attachment extends DmsBase {
     /**
      * Validate the availability of the remote mount
      * @return Check_result
-     * @throws Exception
+     * @throws \Exception
      */
     private
     function validate_remote_mount()
@@ -99,7 +99,7 @@ class File_attachment extends DmsBase {
     /**
      * Validate the availability of the local storage path
      * @return Check_result
-     * @throws Exception
+     * @throws \Exception
      */
     private
     function validate_local_path()
@@ -159,7 +159,7 @@ class File_attachment extends DmsBase {
      * @param type $entity_id
      * @param type $filename
      * @return \Check_result
-     * @throws Exception
+     * @throws \Exception
      */
     function get_valid_file_path($entity_type, $entity_id, $filename){
         $result = new Check_result();
@@ -201,7 +201,7 @@ class File_attachment extends DmsBase {
      * Copy uploaded file to receiving folder on web server,
      * make file attachment tracking entry in DMS,
      * and copy uploaded file to EMSL archive
-     * @throws Exception
+     * @throws \Exception
      */
     function upload()
     {
@@ -418,7 +418,7 @@ class File_attachment extends DmsBase {
      * @param type $size
      * @param type $path
      * @return type
-     * @throws exception
+     * @throws \Exception
      */
     private
     function make_attachment_tracking_entry($name, $type, $id, $description, $size, $path)
@@ -461,7 +461,7 @@ class File_attachment extends DmsBase {
     /**
      * Perform operation on given attached file
      * @return type
-     * @throws exception
+     * @throws \Exception
      * @category AJAX
      */
     function perform_operation()
@@ -587,7 +587,7 @@ class File_attachment extends DmsBase {
      * @param type $entity_type
      * @param type $entity_id
      * @param type $filename
-     * @throws Exception
+     * @throws \Exception
      */
     function retrieve($entity_type, $entity_id, $filename){
         try {
@@ -676,7 +676,7 @@ class File_attachment extends DmsBase {
      * @param type $description
      * @param type $contents
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     private
     function make_attached_file($name, $type, $id, $description, $contents)

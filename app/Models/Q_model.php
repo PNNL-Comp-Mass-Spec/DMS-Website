@@ -463,7 +463,7 @@ class Q_model extends Model {
      * @param string $id
      * @param object $controller
      * @return type
-     * @throws exception
+     * @throws \Exception
      */
     function get_item($id, $controller) {
         if (empty($this->primary_filter_specs)) {
@@ -510,7 +510,7 @@ class Q_model extends Model {
      * @param type $id
      * @param type $controller
      * @return type
-     * @throws exception Thrown if there is an error or if the SP returns a non-zero value
+     * @throws \Exception Thrown if there is an error or if the SP returns a non-zero value
      */
     function get_data_row_from_sproc($id, $controller) {
         $calling_params = new \stdClass();
@@ -559,7 +559,7 @@ class Q_model extends Model {
      * @param mixed $dbGroupName DB Group name, typically default or broker, but sometimes
      *                           package, capture, prism_ifc, prism_rpt, ontology, or manager_control
      *                           If empty, the active group is used (defined by $active_group)
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_db_object($dbGroupName) {
         // Connect to the database
@@ -631,7 +631,7 @@ class Q_model extends Model {
     /**
      * Make sure there is at least one valid sorting column if option includes sorting
      * @param type $option
-     * @throws exception
+     * @throws \Exception
      */
     private function assure_sorting($option) {
         if ($option == 'filtered_and_paged' || $option == 'filtered_and_sorted') {
@@ -689,7 +689,7 @@ class Q_model extends Model {
      * Calls procedure get_query_row_count_proc() to get the row counts for a given table or view and filter
      *
      * @return type
-     * @throws Exception
+     * @throws \Exception
      */
     function get_total_rows() {
         $working_total = -1;
@@ -981,7 +981,7 @@ class Q_model extends Model {
     /**
      * Load the query specs from table utility_queries in the config DB
      * @param string $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_query_specs_from_config_db($config_name) {
 
@@ -1017,7 +1017,7 @@ class Q_model extends Model {
 
     /**
      * Get the list report query specs from tables general_params, list_report_primary_filter, and primary_filter_choosers
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_list_report_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
@@ -1094,7 +1094,7 @@ class Q_model extends Model {
 
     /**
      * Get the detail report query specs from the general_params table
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_detail_report_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
@@ -1155,7 +1155,7 @@ class Q_model extends Model {
 
     /**
      * Get the entry page query specs from tables the general_params table
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_entry_page_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
