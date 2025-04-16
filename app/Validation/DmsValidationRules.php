@@ -26,7 +26,7 @@ class DmsValidationRules
         {
             $error = "The %s field must contain only characters from '$charSet'";
         }
-        return result;
+        return $result;
     }
 
     function char_set_base($str, string $fields, array $data, string &$error = null) : bool

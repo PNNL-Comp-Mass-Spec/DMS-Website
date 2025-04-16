@@ -120,7 +120,7 @@ class Grid_data {
             $spec = new \stdClass();
             $colSpec[] = $spec;
         }
-        return colSpec;
+        return $colSpec;
     }
 }
 ?>
