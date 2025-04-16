@@ -97,7 +97,8 @@ class Run_tracking extends DmsBase {
         }
         $data['calendarData'] = $calendarData;
 
-        $instruments = $this->get_instrument_list($year, $month);
+        //$instruments = $this->get_instrument_list($year, $month); // No fields on the table we query to allow filtering by month and year
+        $instruments = $this->get_instrument_list();
         $data['instrument_list'] = $this->make_instrument_selector($instruments, $instrument, $year, $month);
 
         $data['year'] = $year;
