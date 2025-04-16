@@ -140,7 +140,7 @@ class M_aux_info extends Model {
 
     /**
      * Stub procedure for validating the connection
-     * @return boolean
+     * @return bool
      */
     function check_connection() {
         return true;

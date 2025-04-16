@@ -128,7 +128,7 @@ EOD;
 
     /**
      * Load user permissions for session
-     * @return boolean True if cached user permissions were found
+     * @return bool True if cached user permissions were found
      */
     function load_defaults() {
         if (isset($_SESSION[$this->storage_name])) {

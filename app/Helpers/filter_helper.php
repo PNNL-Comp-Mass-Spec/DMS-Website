@@ -133,7 +133,7 @@ function make_param_filter(array $cols, $current_paging_filter_values, $current_
 /**
  * Construct the big primary filter table
  * @param type $current_primary_filter_values
- * @return boolean
+ * @return bool
  */
 function big_primary_filter($current_primary_filter_values) {
     if (count($current_primary_filter_values) > 5) {

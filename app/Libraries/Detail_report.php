@@ -61,8 +61,8 @@ class Detail_report {
     /**
      * Get detail report data for specified entity
      * @param string $id
-     * @param boolean $show_entry_links
-     * @param boolean $show_create_links
+     * @param bool $show_entry_links
+     * @param bool $show_create_links
      * @throws exception
      * @category AJAX
      */

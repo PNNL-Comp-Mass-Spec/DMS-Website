@@ -1214,7 +1214,7 @@ class Config_db extends BaseController {
      * Check if a table exists in the database
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return boolean
+     * @return bool
      */
     private function _get_db_table_exists($config_db, $table_name) {
         $s = "";
@@ -1447,7 +1447,7 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name, including .db
      * @param string $page_fam_tag
      * @param string $file_path
-     * @return boolean
+     * @return bool
      */
     private function _controller_exists($config_db, &$page_fam_tag, &$file_path) {
         // Set up file names

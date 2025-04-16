@@ -62,7 +62,7 @@ class Paging_filter {
      * Get current values for secondary filter if present in POST
      * otherwise return false
      * @param type $field_names
-     * @return boolean
+     * @return bool
      */
     private function get_current_filter_values_from_post($field_names) {
         $values = array();

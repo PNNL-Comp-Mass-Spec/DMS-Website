@@ -16,7 +16,7 @@ function save_to_cache($name, $obj) {
 /**
  * Load options from the session cache
  * @param type $name
- * @return boolean
+ * @return bool
  */
 function get_from_cache($name) {
     if (isset($_SESSION[$name])) {

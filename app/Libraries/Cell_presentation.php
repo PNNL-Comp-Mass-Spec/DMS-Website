@@ -815,7 +815,7 @@ class Cell_presentation {
      * @param type $colSpec
      * @param type $ref
      * @param type $value
-     * @return boolean
+     * @return bool
      */
     function evaulate_conditional($colSpec, $value) {
         $noLink = false;

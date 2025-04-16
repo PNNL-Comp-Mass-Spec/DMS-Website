@@ -55,7 +55,7 @@ class Secondary_filter {
     /**
      * Get current values for secondary filter if present in POST
      * Otherwise return false
-     * @return boolean
+     * @return bool
      */
     private function get_current_filter_values_from_post() {
         $request = \Config\Services::request();

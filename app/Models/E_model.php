@@ -110,7 +110,7 @@ class E_model extends Model {
      * Return the mapping between fields from the given external source
      * The form fields for the source for this instantiated object
      * @param type $source_name
-     * @return boolean
+     * @return bool
      */
     function get_external_source_field_map($source_name) {
         if (array_key_exists($source_name, $this->external_sources)) {

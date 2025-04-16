@@ -21,7 +21,7 @@ if (! function_exists('current_uri'))
 	 * Compared to 'current_url', this does not include everything after base_url()
 	 * String returns ignore query and fragment parts.
 	 *
-	 * @param boolean              $returnObject True to return an object instead of a string
+	 * @param bool                 $returnObject True to return an object instead of a string
 	 * @param IncomingRequest|null $request      A request to use when retrieving the path
 	 *
 	 * @return string|URI

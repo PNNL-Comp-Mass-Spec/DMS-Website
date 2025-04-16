@@ -113,8 +113,8 @@ abstract class BaseController extends Controller
      * @param object $local_ref Local reference
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
-     * @param boolean $options Custom options flag
-     * @return boolean
+     * @param bool $options Custom options flag
+     * @return bool
      */
     public function loadLibrary($lib_name, &$local_ref, $config_name, $config_source, $options = false) {
         $libPath = "\\App\\Libraries\\$lib_name";
@@ -138,8 +138,8 @@ abstract class BaseController extends Controller
      * Load Entry_form to $this->entry_form and initializes it with given config info
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
-     * @param boolean $options Custom options flag
-     * @return boolean
+     * @param bool $options Custom options flag
+     * @return bool
      */
     public function loadEntryFormLibrary($config_name, $config_source) {
         return $this->loadLibrary('Entry_form', $this->entry_form, $config_name, $config_source);
@@ -150,8 +150,8 @@ abstract class BaseController extends Controller
      * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
-     * @param boolean $options Custom options flag
-     * @return boolean
+     * @param bool $options Custom options flag
+     * @return bool
      */
     public function getLibrary($lib_name, $config_name, $config_source, $options = false) {
         $this->loadLibrary($lib_name, $local_ref, $config_name, $config_source, $options);
@@ -164,7 +164,7 @@ abstract class BaseController extends Controller
      * @param object $local_ref Local reference, e.g. $this->gen_model for G_model; $this->data_model for Q_model
      * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     private function loadModel($model_name, &$local_ref, $config_name, $config_source) {
         $modelPath = '\\App\\Models\\'.$model_name;
@@ -184,7 +184,7 @@ abstract class BaseController extends Controller
      * Load Q_model to $this->data_model and initialize it with given config info
      * @param string $config_name Config type
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     public function loadDataModel($config_name, $config_source) {
         return $this->loadModel('Q_model', $this->data_model, $config_name, $config_source);
@@ -194,7 +194,7 @@ abstract class BaseController extends Controller
      * Load E_model to $this->form_model and initialize it with given config info
      * @param string $config_name Config type; typically na for E_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     public function loadFormModel($config_name, $config_source) {
         return $this->loadModel('E_model', $this->form_model, $config_name, $config_source);
@@ -204,7 +204,7 @@ abstract class BaseController extends Controller
      * Load G_model to $this->gen_model and initialize it with given config info
      * @param string $config_name Config type; typically na for G_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     public function loadGeneralModel($config_name, $config_source) {
         return $this->loadModel('G_model', $this->gen_model, $config_name, $config_source);
@@ -214,7 +214,7 @@ abstract class BaseController extends Controller
      * Load R_model to $this->link_model and initialize it with given config info
      * @param string $config_name Config type
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     public function loadLinkModel($config_name, $config_source) {
         return $this->loadModel('R_model', $this->link_model, $config_name, $config_source);
@@ -224,7 +224,7 @@ abstract class BaseController extends Controller
      * Load S_model to $this->sproc_model and initialize it with given config info
      * @param string $config_name Config type
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     public function loadSprocModel($config_name, $config_source) {
         return $this->loadModel('S_model', $this->sproc_model, $config_name, $config_source);
@@ -304,8 +304,8 @@ abstract class BaseController extends Controller
      * - user has necessary permission if action is a restricted one
      * Present message box if access check fails and $output_message is true
      * @param string $action
-     * @param boolean $output_message When true, update the message box with "Access Denied"
-     * @return boolean
+     * @param bool $output_message When true, update the message box with "Access Denied"
+     * @return bool
      */
     public function check_access($action, $output_message = true) {
         helper('user');

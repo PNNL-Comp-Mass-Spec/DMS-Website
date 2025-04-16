@@ -298,7 +298,7 @@ class Param_report {
      * Get current values for secondary filter if present in POST.
      * Otherwise return false
      * @param type $filter_specs
-     * @return boolean
+     * @return bool
      */
     private function get_current_filter_values_from_post($filter_specs) {
         // (someday) smarter extraction of primary filter values from POST:

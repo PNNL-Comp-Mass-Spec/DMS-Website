@@ -45,7 +45,7 @@ class R_model extends Model {
      * @param string $config_name Config type; na for list reports and detail reports,
      *                            but a query name like helper_inst_group_dstype when the source is ad_hoc_query
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     function init($config_name, $config_source) {
         try {

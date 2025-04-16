@@ -341,7 +341,7 @@ class G_model extends Model {
      * @param string $action
      * @param string $page_family
      * @param object $controller
-     * @return boolean
+     * @return bool
      * @throws exception
      * @throws Exception
      */

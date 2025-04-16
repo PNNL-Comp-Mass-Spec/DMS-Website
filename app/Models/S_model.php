@@ -111,7 +111,7 @@ class S_model extends Model {
      * Initialize objects
      * @param type $config_name
      * @param type $config_source
-     * @return boolean
+     * @return bool
      */
     function init($config_name, $config_source = "ad_hoc_query") {
         $this->error_text = '';
@@ -142,7 +142,7 @@ class S_model extends Model {
      * Initializes stored procedure, binds arguments to paramObj members and
      * local variables, and calls the stored procedure, returning the result
      * @param stdClass|null $parmObj
-     * @return boolean
+     * @return bool
      * @throws Exception
      */
     function execute_sproc(?\stdClass $parmObj) {
