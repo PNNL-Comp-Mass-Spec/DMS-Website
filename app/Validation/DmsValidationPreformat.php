@@ -11,8 +11,8 @@ class DmsValidationPreformat {
     /**
      * Called for every field
      * Convert exotic characters to plain ASCII and trim whitespace off ends
-     * @param type $str
-     * @return type
+     * @param string $str
+     * @return string
      */
     function trim($str) : string {
         $scrubbed = trim(iconv("utf-8", "ASCII//TRANSLIT", $str));

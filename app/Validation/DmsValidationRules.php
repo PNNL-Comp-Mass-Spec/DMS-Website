@@ -8,8 +8,8 @@ class DmsValidationRules
 {
     /**
      * Dummy method to allow use in DmsValidationPreformat without validation errors
-     * @param type $str
-     * @return type
+     * @param string $str
+     * @return bool
      */
     function trim($str) : bool
     {

@@ -722,8 +722,8 @@ class XssSecurity implements XssSecurityInterface {
 	 * Do Never Allowed
 	 *
 	 * @used-by	XssSecurity::xss_clean()
-	 * @param 	string
-	 * @return 	string
+	 * @param	string	$str
+	 * @return	string
 	 */
 	protected function _do_never_allowed($str)
 	{
