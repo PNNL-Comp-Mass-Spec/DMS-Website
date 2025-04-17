@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use App\Libraries\Query_parts;
+use App\Libraries\Query_predicate;
 use CodeIgniter\Model;
 use CodeIgniter\Database\SQLite3\Connection;
 
@@ -13,96 +15,6 @@ use CodeIgniter\Database\SQLite3\Connection;
 
 // This class also supplies certain definition information for use in building
 // and using those filters.
-
-/**
- * Track parts of the SQL query
- * @category Helper class
- */
-class Query_parts {
-
-    /**
-     * Database name
-     * @var type
-     */
-    var $dbn = 'default';
-
-    /**
-     * Table to retrieve data from
-     * @var type
-     */
-    var $table = '';
-
-    /**
-     * Only used on detail reports (via detail_report_sproc); only used when detail_report_data_table is empty
-     * @var type
-     */
-    var $detail_sproc = '';
-
-    /**
-     * Columns to show
-     * @var type
-     */
-    var $columns = '*';
-
-    /**
-     * Query where clause info
-     * @var type
-     */
-    var $predicates = array();      // of Query_predicate
-
-    /**
-     * User-defined list of column name and direction to sort on
-     * @var type
-     */
-    var $sorting_items = array();   // column => direction
-
-    /**
-     * Paging information
-     * @var type
-     */
-    var $paging_items = array('first_row' => 1, 'rows_per_page' => 12);
-
-    /**
-     * Default column and direction to sort on
-     * Multiple column names can be specified by separating them with a comma
-     * When using multiple columns, the same sort direction is applied to all of them
-     * @var type
-     */
-    var $sorting_default = array('col' => '', 'dir' => '');
-
-}
-
-/**
- * Track where clause items
- * @category Helper class
- */
-class Query_predicate {
-
-    /**
-     * Boolean operator
-     * @var string
-     */
-    var $rel = 'AND';
-
-    /**
-     * Column name to filter on
-     * @var string
-     */
-    var $col;
-
-    /**
-     * Comparison mode (ContainsText, StartsWithText, GreaterThan, etc.)
-     * @var string
-     */
-    var $cmp;
-
-    /**
-     * Value to filter on
-     * @var string
-     */
-    var $val;
-
-}
 
 /**
  * Keep track of the total rows returned by the query
