@@ -64,10 +64,10 @@ class List_report_ah extends List_report {
      * Returns HTML displaying the list report data rows
      * for inclusion in list report page
      * (override of base class function)
-     * @param type $option
+     * @param string $option
      * @category AJAX
      */
-    function report_data($option = 'rows') {
+    function report_data(string $option = 'rows') {
         // Preemptively load the hotlinks model from the ad hoc config db
         // to prevent parent from loading it from general_param table,
         // then let parent handle it

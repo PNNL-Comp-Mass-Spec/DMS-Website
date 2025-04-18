@@ -228,7 +228,7 @@ class Detail_report {
      * Get the field information that would appear on the entry page for the given entity (label -> value)
      * Skips hidden and non-edit fields
      * @param string $id
-     * @return type
+     * @return array
      */
     private function get_entry_tracking_info($id) {
         // Get definition of fields for entry page
@@ -296,7 +296,7 @@ class Detail_report {
     /**
      * Display contents of given script as graph
      * @param string $scriptName
-     * @param type $config_source
+     * @param string $config_source
      */
     function dot($scriptName, $config_source) {
         helper(['url', 'text', 'export']);

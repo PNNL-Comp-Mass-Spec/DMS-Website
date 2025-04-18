@@ -26,8 +26,8 @@ class Column_filter {
     /**
      * Get current secondary filter values either from POST
      * or from cache storage (session)
-     * @param type $config_name
-     * @param type $config_source
+     * @param string $config_name
+     * @param string $config_source
      */
     function init($config_name, $config_source) {
         helper('cache');

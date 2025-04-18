@@ -33,9 +33,9 @@ class List_report_pager {
 
     /**
      * Constructor
-     * @param type $params
+     * @param array $params
      */
-    function __construct($params = array()) {
+    function __construct(array $params = array()) {
         if (count($params) > 0) {
             $this->initialize($params);
         }
@@ -47,9 +47,9 @@ class List_report_pager {
 
     /**
      * Initialize the pager
-     * @param type $params
+     * @param array $params
      */
-    function initialize($params = array()) {
+    function initialize(array $params = array()) {
         if (count($params) > 0) {
             foreach ($params as $key => $val) {
                 if (isset($this->$key)) {
@@ -61,11 +61,11 @@ class List_report_pager {
 
     /**
      * Update the page number and row info
-     * @param type $first_row
-     * @param type $total_rows
-     * @param type $per_page
+     * @param string|int $first_row
+     * @param int $total_rows
+     * @param int $per_page
      */
-    function set($first_row, $total_rows, $per_page) {
+    function set($first_row, int $total_rows, int $per_page) {
         $this->total_rows = $total_rows;
         $this->per_page = $per_page;
         $this->num_pages = ceil($this->total_rows / $this->per_page);
@@ -110,19 +110,19 @@ class List_report_pager {
 
     /**
      * Make the JavaScript invocation that sets the current page
-     * @param type $row
-     * @return type
+     * @param string|int $row
+     * @return string
      */
-    private function page_link($row) {
+    private function page_link($row): string {
         return "javascript:" . $this->cur_row_function . "('" . $row . "')";
     }
 
     /**
      * Determine the first row number visible on the page
-     * @param type $page
-     * @return type
+     * @param int $page
+     * @return int
      */
-    private function first_row_for_page($page) {
+    private function first_row_for_page(int $page): int {
         return (($page - 1) * $this->per_page) + 1;
     }
 

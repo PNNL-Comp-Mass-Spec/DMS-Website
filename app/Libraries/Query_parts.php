@@ -7,7 +7,6 @@ namespace App\Libraries;
  * @category Helper class
  */
 class Query_parts {
-
     /**
      * Database name
      * @var string
@@ -57,7 +56,6 @@ class Query_parts {
      * @var array
      */
     public array $sorting_default = array('col' => '', 'dir' => '');
-
 }
 
 /**
@@ -65,7 +63,6 @@ class Query_parts {
  * @category Helper class
  */
 class Query_predicate {
-
     /**
      * Boolean operator
      * @var string
@@ -89,6 +86,5 @@ class Query_predicate {
      * @var string
      */
     public string $val;
-
 }
 ?>

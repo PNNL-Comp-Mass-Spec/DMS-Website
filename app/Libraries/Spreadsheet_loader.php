@@ -26,27 +26,27 @@ class Spreadsheet_loader {
 
     /**
      * Get tracking info fields
-     * @return type
+     * @return array
      */
-    function get_tracking_info_fields() {
+    function get_tracking_info_fields(): array {
         return $this->tracking_info_fields;
     }
 
     /**
      * Get Aux Info fields
-     * @return type
+     * @return array
      */
-    function get_aux_info_fields() {
+    function get_aux_info_fields(): array {
         return $this->aux_info_fields;
     }
 
     /**
      * Read given spreadsheet TSV formatted file into an internal two-dimensional
      * array and parse it into supplementary arrays
-     * @param type $fname
+     * @param string $fname
      * @category AJAX
      */
-    function load($fname) {
+    function load(string $fname) {
         $filePath = WRITEPATH . "uploads/$fname";
 
         $mimeType = mime_content_type($filePath);
@@ -372,10 +372,10 @@ class Spreadsheet_loader {
 
     /**
      * Get array of field/values for the tracking information for the given entity
-     * @param type $id
-     * @return type
+     * @param string $id
+     * @return array
      */
-    function get_entity_tracking_info($id) {
+    function get_entity_tracking_info(string $id): array {
         $info = array();
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);
@@ -407,10 +407,10 @@ class Spreadsheet_loader {
 
     /**
      * Get aux info for given entity
-     * @param type $id
+     * @param string $id
      * @return array
      */
-    function get_entity_aux_info($id): array {
+    function get_entity_aux_info(string $id): array {
         $info = array();
         if ($this->rowStyle) {
             $row = array_search($id, $this->entity_list);
@@ -437,10 +437,10 @@ class Spreadsheet_loader {
     /**
      * Repackage given aux info into array of category/subcategory groups
      * with array of item/values for each category/subcategory
-     * @param type $aux_info_fields
-     * @return type
+     * @param array $aux_info_fields
+     * @return array
      */
-    function group_aux_info_items($aux_info_fields) {
+    function group_aux_info_items(array $aux_info_fields): array {
         $out = array();
         foreach ($this->aux_info_groups as $g) {
             $group = clone($g);
@@ -515,25 +515,25 @@ class Spreadsheet_loader {
 
     /**
      * Get extracted data
-     * @return type
+     * @return array
      */
-    function get_extracted_data() {
+    function get_extracted_data(): array {
         return $this->ss_rows;
     }
 
     /**
      * Get entity type
-     * @return type
+     * @return string
      */
-    function get_entity_type() {
+    function get_entity_type(): string {
         return $this->entity_type;
     }
 
     /**
      * Get entity list
-     * @return type
+     * @return array
      */
-    function get_entity_list() {
+    function get_entity_list(): array {
         return $this->entity_list;
     }
 }

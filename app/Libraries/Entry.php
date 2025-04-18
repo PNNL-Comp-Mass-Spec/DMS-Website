@@ -25,9 +25,9 @@ class Entry {
      * Initialize this class
      * @param string $config_name Not used
      * @param string $config_source Configuration source
-     * @param type $controller
+     * @param \App\Controllers\BaseController $controller
      */
-    function init($config_name, $config_source, $controller) {
+    function init(string $config_name, string $config_source, \App\Controllers\BaseController $controller) {
         $this->config_source = $config_source;
 
         $this->controller = $controller;

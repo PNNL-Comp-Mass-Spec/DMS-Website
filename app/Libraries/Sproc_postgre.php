@@ -305,10 +305,10 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * Package results into array of arrays
-     * @param type $result
-     * @return type
+     * @param resource $result
+     * @return array
      */
-    private function get_rows($result) {
+    private function get_rows($result): array {
         $result_array = array();
         while ($row = pg_fetch_assoc($result)) {
             $result_array[] = $row;
@@ -355,10 +355,10 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * Convert metadata definitions to an associative array
-     * @param type $metadata
-     * @return \stdClass
+     * @param array $metadata
+     * @return array
      */
-    private function get_metadata_assoc($metadata)
+    private function get_metadata_assoc($metadata): array
     {
         $metadataAssoc = array();
         foreach ($metadata as $column) {
@@ -370,10 +370,10 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * This builds up column metadata definitions https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
-     * @param type $result
-     * @return \stdClass
+     * @param resource $result
+     * @return array
      */
-    private function extract_field_metadata($result) {
+    private function extract_field_metadata($result): array {
         // From comment at https://www.php.net/manual/en/function.pg-field-type.php
         $pg_to_php = array(
             'bit' => 'bit',
@@ -474,12 +474,12 @@ class Sproc_postgre extends Sproc_base {
     /**
      * Get the default value for a form field (if defined)
      * @param array $formFields
-     * @param type $formFieldName
-     * @param type $dataType
-     * @param type $valueDefined
-     * @return string|real|int
+     * @param string $formFieldName
+     * @param mixed $dataType
+     * @param mixed $valueDefined
+     * @return string|float|int
      */
-    private function getFormFieldDefaultValue($formFields, $formFieldName, $dataType, &$valueDefined) {
+    private function getFormFieldDefaultValue(array $formFields, string $formFieldName, $dataType, &$valueDefined) {
         $valueDefined = false;
 
         foreach ($formFields as $formField) {
@@ -522,7 +522,7 @@ class Sproc_postgre extends Sproc_base {
     /**
      * Get default value for the given data type
      * @param string $dataType Data type
-     * @return string|real|int
+     * @return string|float|int
      */
     private function getDefaultValue($dataType) {
         switch ($dataType) {
@@ -569,11 +569,11 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * If the value is numeric, format it by the given data type
-     * @param type $dataType
+     * @param string $dataType
      * @param string $value
-     * @return type
+     * @return mixed
      */
-    private function getValueToUse($dataType, string $value) {
+    private function getValueToUse(string $dataType, string $value) {
 
         if (!empty($value) && $value !== '') {
             // Cast the value to the appropriate data type

@@ -5,7 +5,7 @@ class Paging_filter {
 
     const storage_name_root = "lr_paging_filter_";
 
-    private $controller;
+    private \App\Controllers\BaseController $controller;
     private $config_name = '';
     private $config_source = '';
     private $field_names = array('qf_first_row', 'qf_rows_per_page');
@@ -20,11 +20,11 @@ class Paging_filter {
     /**
      * Get current secondary filter values either from POST
      * or from cache storage (session)
-     * @param type $config_name
-     * @param type $config_source
-     * @param type $controller
+     * @param string $config_name
+     * @param string $config_source
+     * @param \App\Controllers\BaseController $controller
      */
-    function init($config_name, $config_source, $controller) {
+    function init(string $config_name, string $config_source, \App\Controllers\BaseController $controller) {
         helper('cache');
 
         $this->config_name = $config_name;
@@ -61,10 +61,10 @@ class Paging_filter {
     /**
      * Get current values for secondary filter if present in POST
      * otherwise return false
-     * @param type $field_names
-     * @return bool
+     * @param array $field_names
+     * @return array|bool
      */
-    private function get_current_filter_values_from_post($field_names) {
+    private function get_current_filter_values_from_post(array $field_names) {
         $values = array();
 
         if (!empty($_POST)) {
@@ -91,15 +91,15 @@ class Paging_filter {
 
     /**
      * Get current filter values
-     * @return type
+     * @return array
      */
-    function get_current_filter_values() {
+    function get_current_filter_values():array {
         return $this->cur_filter_values;
     }
 
     /**
      * Get cached values
-     * @return type
+     * @return array
      */
     function get_cached_value() {
         return get_from_cache($this->storage_name);

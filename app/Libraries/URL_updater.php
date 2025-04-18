@@ -20,11 +20,11 @@ class URL_updater {
     /**
      * Transform the value to a URL if it starts with doi: or http,
      * or if it matches a standard MassIVE or ProteomeXchange accession
-     * @param type $value
-     * @param type $colIndex
-     * @return type
+     * @param string $value
+     * @param int $colIndex
+     * @return string
      */
-    function get_doi_link($value, $colIndex) {
+    function get_doi_link(string $value, int $colIndex): string {
 
         $urls = [];
 
@@ -68,10 +68,10 @@ class URL_updater {
     /**
      * Auto-update the link to change from http to https or vice versa,
      * depending on the target host name
-     * @param type $link
-     * @return type
+     * @param string $link
+     * @return string
      */
-    function fix_link($link) {
+    function fix_link(string $link): string {
         if (stripos($link, "http") !== 0) {
             // Not a "link" that we can deal with.
             return $link;

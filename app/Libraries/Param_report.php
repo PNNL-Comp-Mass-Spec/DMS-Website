@@ -83,7 +83,6 @@ class Param_report {
      * parameter in the general_params table of the config db and expects
      * POST data from a form defined by the form_fields table of the config db
      * (via the E_model).
-     * @return type
      * @category AJAX
      */
     function param_data() {
@@ -126,10 +125,10 @@ class Param_report {
 
     /**
      * Get filtered data
-     * @param type $paging
-     * @return type
+     * @param bool $paging
+     * @return array
      */
-    private function get_filtered_param_report_rows($paging = true) {
+    private function get_filtered_param_report_rows(bool $paging = true): array {
         $paging_filter = $this->controller->getLibrary('Paging_filter', $this->config_name, $this->config_source);
         if ($paging) {
             $current_paging_filter_values = $paging_filter->get_current_filter_values();
@@ -151,10 +150,10 @@ class Param_report {
      * using parameters delivered from the entry form specified
      * by config_name/config_source, and set up controller for
      * call to $this->controller->sproc_model->get_rows();
-     * @return type
+     * @return string
      * @throws \Exception
      */
-    private function get_data_rows_from_sproc() {
+    private function get_data_rows_from_sproc(): string {
         helper('form');
 
         // Get specifications for the entry form
@@ -217,7 +216,7 @@ class Param_report {
      * @param string $what_info
      * @category AJAX
      */
-    function param_info($what_info) {
+    function param_info(string $what_info) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -236,11 +235,11 @@ class Param_report {
 
     /**
      * Convert the filters into a string for use by report_info
-     * @param type $filters
-     * @param type $tag
+     * @param array $filters
+     * @param string $tag
      * @return string
      */
-    private function dump_filters($filters, $tag) {
+    private function dump_filters(array $filters, string $tag) {
         $s = "";
         helper(['wildcard_conversion']);
 
@@ -299,10 +298,10 @@ class Param_report {
     /**
      * Get current values for secondary filter if present in POST.
      * Otherwise return false
-     * @param type $filter_specs
-     * @return bool
+     * @param array $filter_specs
+     * @return array|bool
      */
-    private function get_current_filter_values_from_post($filter_specs) {
+    private function get_current_filter_values_from_post(array $filter_specs) {
         // (someday) smarter extraction of primary filter values from POST:
         // There may be other items in the POST not relevant to primary filter.
         // Maybe we can check for the presence of any scalars that begin with "pf_"
@@ -386,10 +385,9 @@ class Param_report {
 
     /**
      * Export a param report
-     * @param type $format
-     * @return type
+     * @param string $format
      */
-    function export_param($format) {
+    function export_param(string $format) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -411,7 +409,7 @@ class Param_report {
         $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
         $col_filter = $column_filter->get_current_filter_values();
 
-        if (empty($rows)) {
+        if (count($rows) === 0) {
             echo '<p>The table appears to have no data.</p>';
         } else {
             switch ($format) {

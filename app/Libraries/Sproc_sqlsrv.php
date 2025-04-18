@@ -120,8 +120,8 @@ class Sproc_sqlsrv extends Sproc_base {
 
     /**
      * Package results into array of arrays
-     * @param type $result
-     * @return type
+     * @param resource $result
+     * @return array
      */
     private function get_rows($result) {
         $result_array = array();
@@ -133,7 +133,7 @@ class Sproc_sqlsrv extends Sproc_base {
 
     /**
      * This builds up column metadata definitions https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
-     * @param type $result
+     * @param resource $result
      * @return \stdClass
      */
     private function extract_field_metadata($result) {

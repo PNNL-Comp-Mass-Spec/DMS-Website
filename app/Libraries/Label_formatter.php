@@ -219,7 +219,8 @@ class Label_formatter {
 
     /**
      * Format the label to a more readable form
-     * @param type $label_text
+     * @param string $label_text
+     * @return string
      */
     public function format($label_text) {
         if (array_key_exists($label_text, self::LABEL_MAP)) {
@@ -241,7 +242,8 @@ class Label_formatter {
 
     /**
      * De-Format the label to the lowercase, '_'-interpolated form
-     * @param type $label_text
+     * @param string $label_text
+     * @return string
      */
     public function deformat($label_text)
     {

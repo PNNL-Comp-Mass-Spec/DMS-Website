@@ -28,10 +28,10 @@ class General_query_def {
 class General_query {
 
     private \App\Controllers\BaseController $controller;
-    protected $config_source = '';
-    protected $config_name = '';
-    protected $tag = '';
-    protected $title = '';
+    protected string $config_source = '';
+    protected string $config_name = '';
+    protected string $tag = '';
+    protected string $title = '';
 
     /**
      * Constructor
@@ -43,11 +43,11 @@ class General_query {
 
     /**
      * Initialize the class
-     * @param type $config_name
-     * @param type $config_source
-     * @param type $controller
+     * @param string $config_name
+     * @param string $config_source
+     * @param \App\Controllers\BaseController $controller
      */
-    function init($config_name, $config_source, $controller) {
+    function init(string $config_name, string $config_source, \App\Controllers\BaseController $controller) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
@@ -56,9 +56,9 @@ class General_query {
 
     /**
      * Extract parameters from input URL segments and return object
-     * @return \General_query_def
+     * @return General_query_def
      */
-    function get_query_values_from_url() {
+    function get_query_values_from_url(): General_query_def {
         helper(['url', 'security']);
         $uri = current_uri(true);
         // Don't trigger an exception if the segment index is too large
@@ -126,9 +126,9 @@ class General_query {
 
     /**
      * Setup the query
-     * @return \General_query_def
+     * @return General_query_def
      */
-    function setup_query_for_dmsBase() {
+    function setup_query_for_dmsBase(): General_query_def {
         helper(['url']);
         $uri = current_uri(true);
         // Don't trigger an exception if the segment index is too large
@@ -147,9 +147,9 @@ class General_query {
     /**
      * Called by client controller to execute query via Q_model and return result in format
      * as specified by the input_params object (of class General_query_def)
-     * @param type $input_params
+     * @param General_query_def $input_params
      */
-    function setup_query($input_params) {
+    function setup_query(General_query_def $input_params) {
         $this->controller->loadDataModel($input_params->q_name, $input_params->config_source);
         $this->add_filter_values_to_model_predicate($input_params->filter_values, $this->controller->data_model);
         $this->configure_paging($input_params, $this->controller->data_model);
@@ -160,10 +160,10 @@ class General_query {
     /**
      * Merge input values in URL segment order with filter spec in order
      * and add results to model as predicate items
-     * @param type $filter_values
-     * @param type $model
+     * @param array $filter_values
+     * @param \App\Models\Q_model $model
      */
-    private function add_filter_values_to_model_predicate($filter_values, $model) {
+    private function add_filter_values_to_model_predicate(array $filter_values, \App\Models\Q_model $model) {
         $filter_specs = $model->get_primary_filter_specs();
         $i = 0;
         foreach (array_values($filter_specs) as $pi) {
@@ -194,10 +194,10 @@ class General_query {
 
     /**
      * Configure paging
-     * @param type $input_params
-     * @param type $model
+     * @param General_query_def $input_params
+     * @param \App\Models\Q_model $model
      */
-    private function configure_paging($input_params, $model) {
+    private function configure_paging(General_query_def $input_params, \App\Models\Q_model $model) {
         /*
           echo "<pre>";
           echo "Offset:         $input_params->offset \n";
@@ -213,9 +213,9 @@ class General_query {
 
     /**
      * Output a result in the specified format
-     * @param type $output_format
+     * @param string $output_format
      */
-    function output_result($output_format) {
+    function output_result(string $output_format) {
         $model = $this->controller->data_model;
 
         $pageTitle = $this->config_source;
@@ -261,7 +261,7 @@ class General_query {
      * Show results as TSV
      * @param array $result
      */
-    function tsv($result) {
+    function tsv(array $result) {
         $headers = '';
 
         \Config\Services::response()->setContentType("text/plain");
@@ -295,10 +295,10 @@ class General_query {
 
     /**
      * Show results as an HTML-formatted table
-     * @param type $result
-     * @param type $pageTitle
+     * @param array $result
+     * @param string $pageTitle
      */
-    function html_table($result, $pageTitle) {
+    function html_table(array $result, string $pageTitle) {
         $headers = '';
 
         \Config\Services::response()->setContentType("text/html");
@@ -337,10 +337,10 @@ class General_query {
 
     /**
      * Show results as XML
-     * @param type $result
-     * @param type $table
+     * @param array $result
+     * @param string $table
      */
-    function xml_dataset($result, $table = 'TX') {
+    function xml_dataset(array$result, string $table = 'TX') {
         \Config\Services::response()->setContentType("text/plain");
 
         echo "<data>\n";

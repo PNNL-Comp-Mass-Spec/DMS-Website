@@ -13,10 +13,10 @@ class Saved_settings {
     /**
      * Clears cached session variables
      * (intended for calling via AJAX)
-     * @param type $page_type
-     * @param type $config_source
+     * @param string $page_type
+     * @param string $config_source
      */
-    function defaults($page_type, $config_source) { //'Param_Pages''list_report_sproc'   'list_report'
+    function defaults(string $page_type, string $config_source) { //'Param_Pages''list_report_sproc'   'list_report'
         //Ensure a session is initialized
         $session = \Config\Services::session();
 

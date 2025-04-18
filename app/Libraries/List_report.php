@@ -19,7 +19,7 @@ class List_report {
     }
 
     // --------------------------------------------------------------------
-    function init($config_name, $config_source, $controller) {
+    function init($config_name, $config_source, \App\Controllers\BaseController $controller) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
@@ -30,9 +30,9 @@ class List_report {
 
     /**
      * Make list report page
-     * @param type $mode
+     * @param string $mode
      */
-    function list_report($mode) {
+    function list_report(string $mode) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -111,9 +111,9 @@ class List_report {
     /**
      * Check segment array to see of there is a secondary filter preset
      * @param array $segs
-     * @return int
+     * @return int|false
      */
-    private function get_secondary_filter_preset_idx($segs) {
+    private function get_secondary_filter_preset_idx(array $segs) {
         $result = false;
         $ns = count($segs);
         $nxt = "";
@@ -143,10 +143,10 @@ class List_report {
 
     /**
      * Initialize primary filter values from URL segments and cache them for subsequent queries
-     * @param type $segs
-     * @param type $primary_filter_specs
+     * @param array $segs
+     * @param array $primary_filter_specs
      */
-    protected function set_pri_filter_from_url_segments($segs, $primary_filter_specs) {
+    protected function set_pri_filter_from_url_segments(array $segs, array $primary_filter_specs) {
         // Primary filter object (we will use it to cache field values)
         $primary_filter = $this->controller->getLibrary('Primary_filter',$this->config_name, $this->config_source, $primary_filter_specs);
 
@@ -171,9 +171,9 @@ class List_report {
 
     /**
      * Initialize secondary filter values from URL segments and cache them for subsequent queries
-     * @param type $segs
+     * @param array $segs
      */
-    protected function set_sec_filter_from_url_segments($segs) {
+    protected function set_sec_filter_from_url_segments(array $segs) {
         // Secondary filter object (we will use it to cache field values)
         $secondary_filter = $this->controller->getLibrary('Secondary_filter', $this->config_name, $this->config_source);
 
@@ -184,10 +184,10 @@ class List_report {
     /**
      * Make filter section for list report page
      * Returns HTML containing filter components arranged in the specified format
-     * @param type $filter_display_mode
+     * @param string $filter_display_mode
      * @category AJAX
      */
-    function report_filter($filter_display_mode = 'advanced') {
+    function report_filter(string $filter_display_mode = 'advanced') {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -236,7 +236,7 @@ class List_report {
      * @param string $column_name
      * @category AJAX
      */
-    function get_sql_comparison($column_name) {
+    function get_sql_comparison(string $column_name) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -253,7 +253,7 @@ class List_report {
      * @param string $option
      * @category AJAX
      */
-    function report_data($option = 'rows') {
+    function report_data(string $option = 'rows') {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -292,7 +292,7 @@ class List_report {
      * @param string $what_info
      * @category AJAX
      */
-    function report_info($what_info) {
+    function report_info(string $what_info) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -311,11 +311,11 @@ class List_report {
 
     /**
      * Convert the filters into a string for use by report_info
-     * @param type $filters
-     * @param type $tag
+     * @param array $filters
+     * @param string $tag
      * @return string
      */
-    private function dump_filters($filters, $tag) {
+    private function dump_filters(array $filters, string $tag) {
         $s = "";
         helper(['wildcard_conversion']);
 
@@ -398,7 +398,7 @@ class List_report {
      * Set up query for database entity based on list report filtering
      * @return array Filter settings
      */
-    protected function set_up_list_query() {
+    protected function set_up_list_query(): array {
         // It all starts with a model
         $this->controller->loadDataModel($this->config_name, $this->config_source);
 
@@ -450,7 +450,7 @@ class List_report {
      * Export a list report
      * @param string $format
      */
-    function export($format) {
+    function export(string $format) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 

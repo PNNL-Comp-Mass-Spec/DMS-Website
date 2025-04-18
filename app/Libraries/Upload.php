@@ -625,7 +625,7 @@ class Upload {
 	 * Set Upload Path
 	 *
 	 * @param	string	$path
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_upload_path($path)
 	{
@@ -686,7 +686,7 @@ class Upload {
 	 * Set Maximum File Size
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_filesize($n)
 	{
@@ -703,7 +703,7 @@ class Upload {
 	 * as initialize() will look for a set_<property_name>() method ...
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	protected function set_max_size($n)
 	{
@@ -716,7 +716,7 @@ class Upload {
 	 * Set Maximum File Name Length
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_filename($n)
 	{
@@ -730,7 +730,7 @@ class Upload {
 	 * Set Maximum Image Width
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_width($n)
 	{
@@ -744,7 +744,7 @@ class Upload {
 	 * Set Maximum Image Height
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_height($n)
 	{
@@ -758,7 +758,7 @@ class Upload {
 	 * Set minimum image width
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_min_width($n)
 	{
@@ -772,7 +772,7 @@ class Upload {
 	 * Set minimum image height
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_min_height($n)
 	{
@@ -786,7 +786,7 @@ class Upload {
 	 * Set Allowed File Types
 	 *
 	 * @param	mixed	$types
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_allowed_types($types)
 	{
@@ -804,7 +804,7 @@ class Upload {
 	 * Uses GD to determine the width/height/type of image
 	 *
 	 * @param	string	$path
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_image_properties($path = '')
 	{
@@ -833,7 +833,7 @@ class Upload {
 	 * will be run through the XSS filter.
 	 *
 	 * @param	bool	$flag
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_xss_clean($flag = FALSE)
 	{
@@ -1084,6 +1084,7 @@ class Upload {
 			$memory_limit = str_split($memory_limit, strspn($memory_limit, '1234567890'));
 			if ( ! empty($memory_limit[1]))
 			{
+				$memory_limit[0] = (int)$memory_limit[0];
 				switch ($memory_limit[1][0])
 				{
 					case 'g':
@@ -1143,7 +1144,7 @@ class Upload {
 	 * Set an error message
 	 *
 	 * @param	string	$msg
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_error($msg, $log_level = 'error')
 	{
