@@ -92,9 +92,9 @@ class M_aux_info_copy extends Model {
     /**
      * Return an array from the form field specifications keyed by
      * field name and containing the field label as the value for the key
-     * @return type
+     * @return array
      */
-    function get_field_validation_fields() {
+    function get_field_validation_fields(): array {
         $x = array();
         foreach ($this->form_fields as $f_name => $f_spec) {
             $x[$f_name] = $f_spec["label"];
@@ -107,12 +107,12 @@ class M_aux_info_copy extends Model {
 
     /**
      * Copy Aux Info values from one item to another
-     * @param type $parmObj
-     * @param type $command Action to perform; will always be 'CopyMode'
-     * @param type $sa_message
-     * @return type
+     * @param \stdClass $parmObj
+     * @param string $command Action to perform; will always be 'CopyMode'
+     * @param string $sa_message
+     * @return mixed
      */
-    function add_or_update($parmObj, $command, &$sa_message) {
+    function add_or_update(\stdClass $parmObj, string $command, &$sa_message) {
         $my_db = $this->db;
 
         // Use Sproc_sqlsrv with PHP 7 on Apache 2.4

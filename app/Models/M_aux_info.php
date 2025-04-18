@@ -149,9 +149,9 @@ class M_aux_info extends Model {
     /**
      * Return an array from the form field specifications keyed by
      * field name and containing the field label as the value for the key
-     * @return type
+     * @return array
      */
-    function get_field_validation_fields() {
+    function get_field_validation_fields(): array {
         $x = array();
         foreach ($this->form_fields as $f_name => $f_spec) {
             $x[$f_name] = $f_spec["label"];
@@ -165,12 +165,12 @@ class M_aux_info extends Model {
     /**
      * Return current values for given target, and id
      * (only include items that have current values set)
-     * @param type $target
-     * @param type $id
-     * @return type
+     * @param string $target
+     * @param int|string $id ID as integer, or as a string containing only numeric characters
+     * @return array
      * @throws \Exception
      */
-    function get_aux_info_item_current_values($target, $id) {
+    function get_aux_info_item_current_values(string $target, $id): array {
         if ($target == '') {
             return array();
         }
@@ -191,13 +191,13 @@ EOD;
 
     /**
      * Get aux info for the given item
-     * @param type $target
-     * @param type $category
-     * @param type $subcategory
-     * @param type $id
-     * @return type
+     * @param string $target
+     * @param string $category
+     * @param string $subcategory
+     * @param int|string $id ID as integer, or as a string containing only numeric characters
+     * @return array
      */
-    function get_aux_info($target, $category, $subcategory, $id) {
+    function get_aux_info(string $target, string $category, string $subcategory, $id): array {
         $ai_items = $this->get_aux_info_item_values($target, $category, $subcategory, $id);
         $ai_choices = $this->get_aux_info_allowed_values($target, $category, $subcategory);
         return array($ai_items, $ai_choices);
@@ -206,14 +206,14 @@ EOD;
     /**
      * Return all defined aux info items for given target, category, subcategory
      * including any currently set values for entity given by id
-     * @param type $target
-     * @param type $category
-     * @param type $subcategory
-     * @param type $id
-     * @return type
+     * @param string $target
+     * @param string $category
+     * @param string $subcategory
+     * @param int|string $id ID as integer, or as a string containing only numeric characters
+     * @return array
      * @throws \Exception
      */
-    function get_aux_info_item_values($target, $category, $subcategory, $id) {
+    function get_aux_info_item_values(string $target, string $category, string $subcategory, $id): array {
 
     /*
      * When switching to Postgres, update this query to reference v_aux_info_definition and t_aux_info_value
@@ -247,13 +247,13 @@ EOD;
 
     /**
      * Get allowed values for the given category and subcategory
-     * @param type $target
-     * @param type $category
-     * @param type $subcategory
-     * @return type
+     * @param string $target
+     * @param string $category
+     * @param string $subcategory
+     * @return array
      * @throws \Exception
      */
-    function get_aux_info_allowed_values($target, $category, $subcategory) {
+    function get_aux_info_allowed_values(string $target, string $category, string $subcategory): array {
         $builder = $this->db->table('v_aux_info_allowed_values');
         $builder->select('item, allowed_value');
         $builder->where('target', $target);
@@ -270,10 +270,10 @@ EOD;
     /**
      * Get list of aux info target definitions (tracking entities that are allowed
      * to have associated aux info)
-     * @return type
+     * @return array
      * @throws \Exception
      */
-    function get_aux_info_targets() {
+    function get_aux_info_targets(): array {
         $builder = $this->db->table('t_aux_info_target');
         $builder->select('target_type_id, target_type_name, target_table, target_id_col, target_name_col');
         $resultSet = $builder->get();
@@ -289,9 +289,9 @@ EOD;
 
     /**
      * Get list of aux info target names only
-     * @return type
+     * @return array
      */
-    function get_aux_info_target_names() {
+    function get_aux_info_target_names(): array {
         $result = $this->get_aux_info_targets();
         $targets = array();
         foreach ($result as $row1) {
@@ -304,11 +304,11 @@ EOD;
 
     /**
      * Get list of all aux info item definitions for the given target
-     * @param type $target
-     * @return type
+     * @param string $target
+     * @return array
      * @throws \Exception
      */
-    function get_aux_info_def($target) {
+    function get_aux_info_def(string $target): array {
         $builder = $this->db->table('v_aux_info_definition');
         $builder->select('target, category, subcategory, item, item_id, sc, ss, si, data_size, helper_append');
         $builder->where('target', $target);
@@ -338,33 +338,33 @@ EOD;
 
     /**
      * Get list of all aux info categories for the given target
-     * @param type $target
-     * @return type
+     * @param string $target
+     * @return array
      */
-    function get_aux_info_categories($target) {
+    function get_aux_info_categories(string $target) {
         $result = $this->get_aux_info_def($target);
         return array_keys($result);
     }
 
     /**
      * Get list of all aux info subcategories for the given target and category
-     * @param type $target
-     * @param type $category
-     * @return type
+     * @param string $target
+     * @param string $category
+     * @return array
      */
-    function get_aux_info_subcategories($target, $category) {
+    function get_aux_info_subcategories(string $target, string $category) {
         $result = $this->get_aux_info_def($target);
         return array_keys($result[$category]);
     }
 
     /**
      * Get list of all aux info items for the given target and category and subcategories
-     * @param type $target
-     * @param type $category
-     * @param type $subcategory
-     * @return type
+     * @param string $target
+     * @param string $category
+     * @param string $subcategory
+     * @return array
      */
-    function get_aux_info_items($target, $category, $subcategory) {
+    function get_aux_info_items(string $target, string $category, string $subcategory) {
         $result = $this->get_aux_info_def($target);
         return $result[$category][$subcategory];
     }
@@ -372,11 +372,11 @@ EOD;
     /**
      * Add or update Aux Info values
      * @param \stdClass $parmObj Field values from POST
-     * @param type $command Action to perform; will always be 'add'
-     * @param type $sa_message Error message to return
-     * @return type
+     * @param string $command Action to perform; will always be 'add'
+     * @param string $sa_message Error message to return
+     * @return mixed
      */
-    function add_or_update(\stdClass $parmObj, $command, &$sa_message) {
+    function add_or_update(\stdClass $parmObj, string $command, &$sa_message) {
         $my_db = $this->db;
 
         // Use Sproc_sqlsrv with PHP 7 on Apache 2.4

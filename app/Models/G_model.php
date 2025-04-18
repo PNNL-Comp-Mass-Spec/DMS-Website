@@ -133,18 +133,18 @@ class G_model extends Model {
 
     /**
      * For simple "standard" commands to be generated into detailed report page
-     * @return type
+     * @return array
      */
-    function get_detail_report_commands()
+    function get_detail_report_commands(): array
     {
         return  $this->detail_report_commands;
     }
 
     /**
      * For any detail report command files to be loaded into detail report page
-     * @return type
+     * @return string
      */
-    function get_detail_report_cmds()
+    function get_detail_report_cmds(): string
     {
         return  $this->detail_report_cmds;
     }
@@ -204,10 +204,10 @@ class G_model extends Model {
      * Read contents of general_params and update $this->the_parameters
      * Read list_report_hotlinks and update has_opener_hotlinks and has_checkboxes in $this->the_parameters
      * Read detail_report_commands and store in $this->detail_report_commands
-     * @param type $config_name
+     * @param string $config_name
      * @throws \Exception
      */
-    private function get_general_defs($config_name)
+    private function get_general_defs(string $config_name)
     {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
@@ -323,8 +323,8 @@ class G_model extends Model {
 
     /**
      * Get the value for the specified parameter
-     * @param type $name
-     * @return type
+     * @param string $name
+     * @return mixed
      */
     function get_param($name)
     {

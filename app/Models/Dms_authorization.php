@@ -60,7 +60,7 @@ class Dms_authorization extends Model {
 
     /**
      * Lookup permissions for the user
-     * @param type $username
+     * @param string $username
      * @return string
      * @throws \Exception
      */

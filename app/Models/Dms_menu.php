@@ -17,13 +17,13 @@ class Dms_menu extends Model {
     /**
      * Section menu has section def and section item def tables that get
      * combined into one nested array
-     * @param type $config_db_name
-     * @param type $section_def_table
-     * @param type $section_item_table
-     * @return type
+     * @param string $config_db_name
+     * @param string $section_def_table
+     * @param string $section_item_table
+     * @return array
      * @throws \Exception
      */
-    function get_section_menu_def($config_db_name, $section_def_table, $section_item_table) {
+    function get_section_menu_def(string $config_db_name, string $section_def_table, string $section_item_table): array {
         $sections = array();
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db_name)->path;
@@ -45,12 +45,12 @@ class Dms_menu extends Model {
 
     /**
      * Simple menu single def table that gets loaded into an array
-     * @param type $config_db_name
-     * @param type $menu_def_table
-     * @return type
+     * @param string $config_db_name
+     * @param string $menu_def_table
+     * @return array
      * @throws \Exception
      */
-    function get_menu_def($config_db_name, $menu_def_table) {
+    function get_menu_def($config_db_name, $menu_def_table): array {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db_name)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);

@@ -12,21 +12,21 @@ class R_model extends Model {
     /**
      * Config type, e.g. na for list reports and detail reports;
      * helper_inst_group_dstype for http://dms2.pnl.gov/data/lr/ad_hoc_query/helper_inst_group_dstype/report
-     * @var type
+     * @var string
      */
-    private $config_name = '';
+    private string $config_name = '';
 
     /**
      * Data source, e.g. dataset, experiment, ad_hoc_query
-     * @var type
+     * @var string
      */
-    private $config_source = '';
+    private string $config_source = '';
 
     /**
      * Path to the model config database file
-     * @var type
+     * @var string
      */
-    private $configDBPath = "";
+    private string $configDBPath = "";
 
     private $list_report_hotlinks = array();
     private $detail_report_hotlinks = array();

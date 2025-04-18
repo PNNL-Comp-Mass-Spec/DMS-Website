@@ -34,10 +34,10 @@ class Freezer_model extends Model {
 
     /**
      * https://dms2.pnl.gov/freezer/get_freezers
-     * @return type
+     * @return array
      * @throws \Exception
      */
-    function get_freezers() {
+    function get_freezers(): array {
         $sql = <<<EOD
 SELECT RankQ.tag, RankQ.freezer, RankQ.shelf, RankQ.rack, RankQ.row, RankQ.col, RankQ.comment,
        RankQ.limit, RankQ.containers, RankQ.available, RankQ.status, RankQ.id
@@ -57,14 +57,14 @@ EOD;
     }
 
     /**
-     * @param type $Type Location type: Shelf, Rack, Row, Col, or Tag
-     * @param type $Freezer Freezer name, but if $Type = 'Tag', this is location name
-     * @param type $Shelf Shelf number (ignored if $Type is Shelf or Tag
-     * @param type $Rack Rack number (ignored if $Type is Shelf, Rack, or Tag
-     * @param type $Row Row number (only used if $Type is Col)
-     * @return type
+     * @param string $Type Location type: Shelf, Rack, Row, Col, or Tag
+     * @param string $Freezer Freezer name, but if $Type = 'Tag', this is location name
+     * @param string|int $Shelf Shelf number (ignored if $Type is Shelf or Tag
+     * @param string|int $Rack Rack number (ignored if $Type is Shelf, Rack, or Tag
+     * @param string|int $Row Row number (only used if $Type is Col)
+     * @return array
      */
-    function get_locations($Type, $Freezer, $Shelf, $Rack, $Row) {
+    function get_locations(string $Type, string $Freezer, $Shelf, $Rack, $Row): array {
         $sql = <<<EOD
 SELECT Location As tag, Freezer_Tag As freezer, shelf, rack, row, col, comment,
        Container_Limit As limit, containers, available, status, id
