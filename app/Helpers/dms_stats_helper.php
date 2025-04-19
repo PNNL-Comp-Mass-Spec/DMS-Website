@@ -2,10 +2,10 @@
 
 /**
  * Create HTML to display overall DMS statistics
- * @param type $results
+ * @param array $results
  * @return string
  */
-function make_stats_display($results) {
+function make_stats_display(array $results) {
     $str = '';
     $str .= "<table class='LRep' style='font-size: 1.1em; '>";
     $str .= "<tr >";

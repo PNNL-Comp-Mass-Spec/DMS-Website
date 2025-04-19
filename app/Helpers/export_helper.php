@@ -1,16 +1,17 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export a list report to a tab-separated values file (TSV)
      * Note: code is adapted from http://codeigniter.com/wiki/Excel_Plugin/
-     * @param type $result
-     * @param type $filename
+     * @param array $result
+     * @param string $filename
      * @param array $col_filter
      */
-    function export_to_excel_tsv($result, $filename='excel_download', array $col_filter = array())
+    function export_to_excel_tsv(array $result, string $filename='excel_download', array $col_filter = array())
     {
         if(empty($col_filter)) {
             $cols = array_keys(current($result));
@@ -31,12 +32,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export a list report to an Excel file
-     * @param type $result
-     * @param type $filename
+     * @param array $result
+     * @param string $filename
      * @param array $col_filter If an empty array, export all columns; otherwise, list of column names to export
      * @param array $col_alignment Horizontal alignment for each column (keys are column name, values are default, left, right, or center)
      */
-    function export_to_excel($result, $filename='excel_download', array $col_filter = array(), array $col_alignment = array())
+    function export_to_excel(array $result, string $filename='excel_download', array $col_filter = array(), array $col_alignment = array())
     {
         $startTime = hrtime(true);
 
@@ -135,10 +136,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Optionally override the default cell alignment
-     * @param type $cell
-     * @param type $alignment
+     * @param Cell $cell
+     * @param string $alignment
      */
-    function set_cell_alignment($cell, $alignment) {
+    function set_cell_alignment(Cell $cell, string $alignment) {
 
         switch (strtolower($alignment)) {
             case 'left':
@@ -158,10 +159,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Store a value in an Excel cell and format its color
-     * @param type $cell
-     * @param type $matches
+     * @param Cell $cell
+     * @param array $matches
      */
-    function store_formatted_cell($cell, $matches) {
+    function store_formatted_cell(Cell $cell, array $matches) {
         $textColor = $matches[1];
         $fillColor = $matches[2];
         $textStyle = $matches[3];
@@ -220,11 +221,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export a list report to a tab-delimited file
-     * @param type $result
-     * @param type $filename
+     * @param array $result
+     * @param string $filename
      * @param array $col_filter
      */
-    function export_to_tab_delimited_text($result, $filename='tsv_download', array $col_filter = array())
+    function export_to_tab_delimited_text(array $result, string $filename='tsv_download', array $col_filter = array())
     {
         if(empty($col_filter)) {
             $cols = array_keys(current($result));
@@ -243,13 +244,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Convert data in $result into tab-delimited text
-     * @param type $result
-     * @param type $cols
-     * @return type
+     * @param array $result
+     * @param array $cols
+     * @return string
      */
-    function get_tab_delimited_text($result, $cols)
+    function get_tab_delimited_text(array $result, array $cols): string
     {
-
         $data = '';
 
         // Field data
@@ -275,11 +275,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export a detail report to a tab-delimited file
-     * @param type $result
-     * @param type $aux_info
-     * @param type $filename
+     * @param array $result
+     * @param array $aux_info
+     * @param string $filename
      */
-    function export_detail_to_tab_delimited_text($result, $aux_info, $filename='tsv_download')
+    function export_detail_to_tab_delimited_text(array $result, array $aux_info, string $filename='tsv_download')
     {
         $label_formatter = new \App\Libraries\Label_formatter();
 
@@ -323,11 +323,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export a detail report to an Excel file
-     * @param type $result
-     * @param type $aux_info
-     * @param type $filename
+     * @param array $result
+     * @param array $aux_info
+     * @param string $filename
      */
-    function export_detail_to_excel($result, $aux_info, $filename='xlsx_download')
+    function export_detail_to_excel(array $result, array $aux_info, string $filename='xlsx_download')
     {
         $label_formatter = new \App\Libraries\Label_formatter();
 
@@ -385,11 +385,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export XML text to .dot file
-     * @param type $scriptName
-     * @param type $description
-     * @param type $script
+     * @param string $scriptName
+     * @param string $description
+     * @param string $script
      */
-    function export_xml_to_dot($scriptName, $description, $script)
+    function export_xml_to_dot(string $scriptName, string $description, string $script)
     {
         // Build contents of dot file
         $s = convert_script_to_dot($script);
@@ -416,10 +416,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Converts a job script from XML to a dot graphic file
-     * @param type $script
+     * @param string $script
      * @return string
      */
-    function convert_script_to_dot($script) {
+    function convert_script_to_dot(string $script) {
         $dom = new \DOMDocument();
         $dom->loadXML($script);
         $xp = new \DOMXPath($dom);
@@ -431,6 +431,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         $steps = $xp->query("//Step");
         foreach ($steps as $step) {
+            if (get_class($step) != 'DOMElement') {
+                continue;
+            }
              $description = "";
              $desc_items = $step->getElementsByTagName( "Description" );
              if($desc_items->length > 0) {
@@ -453,6 +456,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
         $dependencies = $xp->query("//Depends_On");
         foreach ($dependencies as $dependency) {
+            if (get_class($dependency) != 'DOMElement') {
+                continue;
+            }
             $step_number = $dependency->parentNode->getAttribute('Number');
             $target_step_number = $dependency->getAttribute('Step_Number');
             $test = $dependency->getAttribute('Test');
@@ -474,14 +480,14 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export data in the format supported by the spreadsheet loader page (https://dms2.pnl.gov/upload/main)
-     * @param type $entity
-     * @param type $result
-     * @param type $aux_info
-     * @param type $rowStyle
-     * @param type $ext
-     * @param type $filename
+     * @param string $entity
+     * @param array $result
+     * @param array $aux_info
+     * @param bool|string|int $rowStyle
+     * @param string $ext
+     * @param string $filename
      */
-    function export_spreadsheet($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
+    function export_spreadsheet(string $entity, array $result, array $aux_info, $rowStyle = false, string $ext = "tsv", string $filename='tsv_download')
     {
         $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
 
@@ -494,14 +500,14 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export data in the format supported by the spreadsheet loader page (https://dms2.pnl.gov/upload/main)
-     * @param type $entity
-     * @param type $result
-     * @param type $aux_info
-     * @param type $rowStyle
-     * @param type $ext
-     * @param type $filename
+     * @param string $entity
+     * @param array $result
+     * @param array $aux_info
+     * @param bool|string|int $rowStyle
+     * @param string $ext
+     * @param string $filename
      */
-    function export_spreadsheet_text($entity, $result, $aux_info, $rowStyle = false, $ext = "tsv", $filename='tsv_download')
+    function export_spreadsheet_text(string $entity, array $result, array $aux_info, $rowStyle = false, string $ext = "tsv", string $filename='tsv_download')
     {
         $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
 
@@ -630,14 +636,14 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Export data in the format supported by the spreadsheet loader page (https://dms2.pnl.gov/upload/main)
-     * @param type $entity
-     * @param type $result
-     * @param type $aux_info
-     * @param type $rowStyle
-     * @param type $ext
-     * @param type $filename
+     * @param string $entity
+     * @param array $result
+     * @param array $aux_info
+     * @param bool|string|int $rowStyle
+     * @param string $ext
+     * @param string $filename
      */
-    function export_spreadsheet_binary($entity, $result, $aux_info, $rowStyle = false, $ext = "xlsx", $filename='tsv_download')
+    function export_spreadsheet_binary(string $entity, array $result, array $aux_info, $rowStyle = false, string $ext = "xlsx", string $filename='tsv_download')
     {
         $validatedRowStyle = filter_var($rowStyle, FILTER_VALIDATE_BOOLEAN);
 
@@ -845,10 +851,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      *
-     * @param type $entity_info
-     * @param type $aux_info
+     * @param array $entity_info
+     * @param array $aux_info
      */
-    function dump_spreadsheet($entity_info, $aux_info)
+    function dump_spreadsheet(array $entity_info, array $aux_info)
     {
         $table = new \CodeIgniter\View\Table();
         $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
@@ -871,7 +877,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
      * @param string|null $rowValue
      * @return string
      */
-    function fix_data(?string $rowValue)
+    function fix_data(?string $rowValue): string
     {
         if (!isset($rowValue) || $rowValue == "") {
             $rowValue = "\t";
@@ -883,10 +889,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      *
-     * @param type $cols
+     * @param array $cols
      * @return string
      */
-    function reformat_headers($cols)
+    function reformat_headers(array $cols): string
     {
         // Make a copy of the $cols array
         $colsCopy = array();
@@ -901,10 +907,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      *
-     * @param type $cols
+     * @param array $cols
      * @return string
      */
-    function fix_ID_column($cols)
+    function fix_ID_column(array $cols): string
     {
         // Make a copy of the $cols array
         $colsCopy = reformat_headers($cols);
@@ -921,10 +927,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
     /**
      * Surround $value with double quotes if it contains a tab character
-     * @param type $value
-     * @return type
+     * @param string $value
+     * @return string
      */
-    function quote_if_contains_tab($value)
+    function quote_if_contains_tab(string $value): string
     {
         // Convert any newlines
         $valueNoCrLf = str_replace(array("\r\n", "\r", "\n"), "; ", $value);

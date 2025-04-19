@@ -22,13 +22,13 @@ function getOptionValue(array $colSpec, string $itemName, string $valueIfMissing
 
 /**
  * Convert a value to a string, rounding to the number of decimal points defined by the Decimals option in the page config
- * @param type $value Value to convert
- * @param type $colSpec Column specification
- * @param type $alwaysAddCommas When true, always group numbers to the left of the decimal point using commas
+ * @param string $value Value to convert
+ * @param array $colSpec Column specification
+ * @param bool $alwaysAddCommas When true, always group numbers to the left of the decimal point using commas
  *                              When false, only do so if the Commas option is defined and has a non-zero value
- * @return type
+ * @return string
  */
-function valueToString($value, $colSpec, $alwaysAddCommas) {
+function valueToString($value, array $colSpec, bool $alwaysAddCommas) {
 
     if (!is_numeric($value)) {
         return $value;

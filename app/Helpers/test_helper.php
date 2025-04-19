@@ -77,11 +77,11 @@ function dump_e_model($mod) {
 /**
  * Display interesting parameters from Q_model object
  * and use it to get rows (and display in plain HTML table)
- * @param type $mod
- * @param type $option
- * @param type $dump_rows
+ * @param \App\Models\Q_model $mod
+ * @param string $option
+ * @param bool $dump_rows
  */
-function dump_q_model($mod, $option = 'filtered_and_paged', $dump_rows = true) {
+function dump_q_model(\App\Models\Q_model $mod, string $option = 'filtered_and_paged', bool $dump_rows = true) {
 
     echo "Test of Q_model<br>";
     echo 'q_name: ' . $mod->get_config_name() . '<br>';

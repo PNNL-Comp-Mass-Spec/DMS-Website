@@ -2,14 +2,14 @@
 
 /**
  * Make minimal search filter
- * @param type $cols
- * @param type $current_paging_filter_values
- * @param type $current_primary_filter_values
- * @param type $sec_filter_display_info
- * @param type $current_sorting_filter_values
- * @param type $col_filter
+ * @param array $cols
+ * @param array $current_paging_filter_values
+ * @param array $current_primary_filter_values
+ * @param array $sec_filter_display_info
+ * @param array $current_sorting_filter_values
+ * @param array $col_filter
  */
-function make_search_filter_minimal($cols, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter) {
+function make_search_filter_minimal(array $cols, array $current_paging_filter_values, array $current_primary_filter_values, array $sec_filter_display_info, array $current_sorting_filter_values, array $col_filter) {
     $g = make_paging_filter($current_paging_filter_values);
     $p = make_primary_filter($current_primary_filter_values);
     $s = make_secondary_filter($sec_filter_display_info);
@@ -37,16 +37,16 @@ function make_search_filter_minimal($cols, $current_paging_filter_values, $curre
 
 /**
  * Make expanded search filter
- * @param type $cols
- * @param type $controller
- * @param type $current_paging_filter_values
- * @param type $current_primary_filter_values
- * @param type $sec_filter_display_info
- * @param type $current_sorting_filter_values
- * @param type $col_filter
- * @param type $filter_display_mode
+ * @param array $cols
+ * @param \App\Controllers\BaseController  $controller
+ * @param array $current_paging_filter_values
+ * @param array $current_primary_filter_values
+ * @param array $sec_filter_display_info
+ * @param array $current_sorting_filter_values
+ * @param array $col_filter
+ * @param bool|string $filter_display_mode
  */
-function make_search_filter_expanded($cols, $controller, $current_paging_filter_values, $current_primary_filter_values, $sec_filter_display_info, $current_sorting_filter_values, $col_filter, $filter_display_mode = "") {
+function make_search_filter_expanded(array $cols, \App\Controllers\BaseController $controller, array $current_paging_filter_values, array $current_primary_filter_values, array $sec_filter_display_info, array $current_sorting_filter_values, array $col_filter, $filter_display_mode = "") {
     $big_primary_filter = big_primary_filter($current_primary_filter_values);
 //      $col_filter_size = ($big_primary_filter)?14:7;
     $default_col_filter_size = 5;
@@ -103,11 +103,11 @@ function make_search_filter_expanded($cols, $controller, $current_paging_filter_
  * Make filter for param reports (stored procedure based list reports)
  * Example usage: predefined_analysis_preview/param
  * @param array $cols
- * @param type $current_paging_filter_values
- * @param type $current_sorting_filter_values
- * @param type $col_filter
+ * @param array $current_paging_filter_values
+ * @param array $current_sorting_filter_values
+ * @param array $col_filter
  */
-function make_param_filter(array $cols, $current_paging_filter_values, $current_sorting_filter_values, $col_filter) {
+function make_param_filter(array $cols, array $current_paging_filter_values, array $current_sorting_filter_values, array $col_filter) {
     $style = 'float:left;padding:3px 3px 0 0;display:none;';
 
     $g = make_paging_filter($current_paging_filter_values);
@@ -132,10 +132,10 @@ function make_param_filter(array $cols, $current_paging_filter_values, $current_
 
 /**
  * Construct the big primary filter table
- * @param type $current_primary_filter_values
+ * @param array $current_primary_filter_values
  * @return bool
  */
-function big_primary_filter($current_primary_filter_values) {
+function big_primary_filter(array $current_primary_filter_values): bool {
     if (count($current_primary_filter_values) > 5) {
         return true;
     }
@@ -150,7 +150,7 @@ function big_primary_filter($current_primary_filter_values) {
     return $big;
 }
 
-function capitalize_column_name($columnName)
+function capitalize_column_name(string $columnName): string
 {
     // Capitalize each column name and each letter after an underscore
     $firstLetterCapitalized = ucfirst($columnName);
@@ -166,7 +166,7 @@ function capitalize_column_name($columnName)
  * Intermediate expansion control
  * @return string
  */
-function make_intermediate_expansion_control() {
+function make_intermediate_expansion_control(): string {
     return '<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'intermediate\')" title="Expand showing only the primary filter"><span class="expando_section ui-icon ui-icon-circle-zoomout "></span></a>';
 }
 
@@ -174,16 +174,16 @@ function make_intermediate_expansion_control() {
  * Intermediate collapse control
  * @return string
  */
-function make_intermediate_collapse_control() {
+function make_intermediate_collapse_control(): string {
     return '<a class="cmd_link_a" href="javascript:void(0)" onclick="lstRep.updateMyFilter(\'minimal\')" title="Minimize filters"><span class="expando_section ui-icon ui-icon-circle-zoomin "></span></a>';
 }
 
 /**
  * Primary filter form fields
- * @param type $primary_filter_defs
- * @return type
+ * @param array $primary_filter_defs
+ * @return string
  */
-function make_primary_filter($primary_filter_defs) {
+function make_primary_filter(array $primary_filter_defs): string {
     helper('form');
 
     $str = "";
@@ -240,11 +240,11 @@ function make_primary_filter($primary_filter_defs) {
 
 /**
  * Construct the primary filter table
- * @param type $primary_filter_defs
- * @param type $controller
+ * @param array $primary_filter_defs
+ * @param \App\Controllers\BaseController $controller
  * @return string
  */
-function make_primary_filter_in_table($primary_filter_defs, $controller) {
+function make_primary_filter_in_table(array $primary_filter_defs, \App\Controllers\BaseController $controller): string {
     helper('form');
 
     $str = '';
@@ -303,10 +303,10 @@ function make_primary_filter_in_table($primary_filter_defs, $controller) {
 /**
  * Construct the secondary filter table
  * (someday) cross-check number of filters against depth of fx
- * @param type $sec_filter_display_info
+ * @param array $sec_filter_display_info
  * @return string
  */
-function make_secondary_filter($sec_filter_display_info) {
+function make_secondary_filter(array $sec_filter_display_info): string {
     $sfdi = & $sec_filter_display_info;
 
     $str = '';
@@ -342,11 +342,11 @@ function make_secondary_filter($sec_filter_display_info) {
 
 /**
  * Construct the sorting filter table
- * @param type $current_filter_values
+ * @param array $current_filter_values
  * @param array $cols
  * @return string
  */
-function make_sorting_filter($current_filter_values, array $cols) {
+function make_sorting_filter(array $current_filter_values, array $cols): string {
     $str = '';
 
     $hid = "<span class='filter_clear'>" . sorting_filter_vis_control() . "</span>";
@@ -394,10 +394,10 @@ function make_sorting_filter($current_filter_values, array $cols) {
 
 /**
  * Construct the paging filter table
- * @param type $current_filter_values
- * @return type
+ * @param array $current_filter_values
+ * @return string
  */
-function make_paging_filter($current_filter_values) {
+function make_paging_filter(array $current_filter_values): string {
     $str = '';
     foreach ($current_filter_values as $name => $value) {
         $data = array(
@@ -413,11 +413,11 @@ function make_paging_filter($current_filter_values) {
 /**
  * Construct the column filter table
  * @param array $cols
- * @param type $col_filter
- * @param type $col_filter_size
+ * @param array $col_filter
+ * @param int $col_filter_size
  * @return string
  */
-function make_column_filter(array $cols, $col_filter, $col_filter_size = 5) {
+function make_column_filter(array $cols, array $col_filter, int $col_filter_size = 5): string {
     $str = "";
 
     $options = array();

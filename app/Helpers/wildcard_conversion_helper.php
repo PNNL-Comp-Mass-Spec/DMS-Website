@@ -3,10 +3,10 @@
 /**
  * Check for the field either matching a special tag or containing a special tag
  * String comparisons are case sensitive
- * @param type $input
- * @return type
+ * @param string $input
+ * @return string
  */
-function decode_special_values($input) {
+function decode_special_values(string $input): string {
     // Replace any 'URL encoded' characters
     $value = rawurldecode($input);
 
@@ -79,10 +79,10 @@ function decode_special_values($input) {
 /**
  * Check for the field either matching a special character or containing a special character
  * String comparisons are case sensitive
- * @param type $value
- * @return type
+ * @param string $value
+ * @return string
  */
-function encode_special_values($value) {
+function encode_special_values(string $value): string {
     // Check the field fully matching a special tag
     switch ($value) {
         case '\b':

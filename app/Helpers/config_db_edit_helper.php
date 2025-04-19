@@ -6,10 +6,10 @@
 
 /**
  * Create the suggested SQL for the general_params table
- * @param type $obj
- * @return type
+ * @param \stdClass $obj
+ * @return string
  */
-function make_suggested_sql_for_general_params($obj) {
+function make_suggested_sql_for_general_params(\stdClass $obj): string {
     // Convert table names and view names to lowercase
     $baseTable = strtolower($obj->tbl);
     $listReportView = strtolower($obj->lrn);
@@ -41,11 +41,11 @@ EOD;
  * Generate SQL to create basic database objects for a page family from the given table.
  * This will include the three views and the add_update stored procedure
  * This procedure exits with an error message if base_table is not defined in the general_params table
- * @param object $my_db
+ * @param \CodeIgniter\Database\BaseConnection $my_db
  * @param string $gen_parms General parameters table name, typically general_params
  * @return string
  */
-function make_family_sql($my_db, $gen_parms) {
+function make_family_sql(\CodeIgniter\Database\BaseConnection $my_db, string $gen_parms): string {
     $view_sql = "";
     $sa = array();
 
@@ -138,9 +138,9 @@ function make_family_sql($my_db, $gen_parms) {
  * Make SQL for creating the operations stored procedure
  * @param string $sprocName
  * @param string $table
- * @return type
+ * @return string
  */
-function make_operations_sproc_sql($sprocName, $table) {
+function make_operations_sproc_sql(string $sprocName, string $table): string {
     $data['sprocName'] = $sprocName;
     $data['table'] = $table;
 
@@ -154,10 +154,10 @@ function make_operations_sproc_sql($sprocName, $table) {
  * Make SQL for creating the primary add_update stored procedure
  * @param string $sprocName
  * @param string $table
- * @param type $sa
- * @return type
+ * @param array $sa
+ * @return string
  */
-function make_main_sproc_sql($sprocName, $table, $sa) {
+function make_main_sproc_sql(string $sprocName, string $table, array $sa): string {
     $data['sprocName'] = $sprocName;
     $data['table'] = $table;
 
@@ -214,10 +214,10 @@ function make_main_sproc_sql($sprocName, $table, $sa) {
 
 /**
  * Return SQL to create C# code for calling the stored procedure associated with this config DB
- * @param type $sa
+ * @param array $sa
  * @return string
  */
-function make_csharp($sa) {
+function make_csharp(array $sa): string {
     $s = "";
     foreach ($sa as $a) {
         $typ = "";
@@ -243,11 +243,11 @@ function make_csharp($sa) {
  * Create the controller
  * @param string $config_db Config DB name
  * @param string $page_fam_tag
- * @param type $data_info
+ * @param mixed $data_info UNUSED
  * @param string $title
- * @return type
+ * @return string
  */
-function make_controller_code($config_db, $page_fam_tag, $data_info, $title) {
+function make_controller_code(string $config_db, string $page_fam_tag, $data_info, $title): string {
     $data['tag'] = $page_fam_tag;
     $data['title'] = $title;
 
@@ -258,9 +258,9 @@ function make_controller_code($config_db, $page_fam_tag, $data_info, $title) {
 /**
  * Dump contents of each config DB in $config_db_table_list
  * Display as an HTML table
- * @param string[] $config_db_table_list
+ * @param string[] $config_db_table_list array of strings
  */
-function make_table_dump_display($config_db_table_list) {
+function make_table_dump_display(array $config_db_table_list) {
 
     foreach ($config_db_table_list as $db => $tables) {
 
@@ -318,7 +318,7 @@ function make_table_dump_display($config_db_table_list) {
  * @param string $config_db Config DB name
  * @return string
  */
-function make_config_nav_links($config_db) {
+function make_config_nav_links(string $config_db): string {
     $db = $config_db;
     $s = '';
     $s .= "<a href='" . config('App')->pwiki . "DMS_Config_DB_Help'>Help</a> &nbsp; | &nbsp;";
@@ -342,7 +342,7 @@ function make_config_nav_links($config_db) {
  * @param string[] $config_db_table_list
  * @param string $display_mode
  */
-function make_table_dump_text($config_db_table_list, $display_mode) {
+function make_table_dump_text(array $config_db_table_list, string $display_mode) {
     $sep = "\t";
     \Config\Services::response()->setContentType("text/plain");
 

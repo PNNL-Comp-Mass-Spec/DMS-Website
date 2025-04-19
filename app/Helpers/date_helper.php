@@ -2,6 +2,7 @@
 
 /**
  * CodeIgniter Date Helpers, copied from CodeIgniter 3
+ * Only used by the calendar library in one place
  */
 
 if ( ! function_exists('days_in_month'))
@@ -12,11 +13,11 @@ if ( ! function_exists('days_in_month'))
 	 * Takes a month/year as input and returns the number of days
 	 * for the given month/year. Takes leap years into consideration.
 	 *
-	 * @param	int	a numeric month
-	 * @param	int	a numeric year
+	 * @param	int	$month	a numeric month
+	 * @param	int	$year	a numeric year
 	 * @return	int
 	 */
-	function days_in_month($month = 0, $year = '')
+	function days_in_month(int $month, int $year)
 	{
 		if ($month < 1 OR $month > 12)
 		{
