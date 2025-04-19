@@ -80,7 +80,7 @@ class DmsBase extends BaseController
 
     /**
      * Create an entry page to edit an existing record in the database
-     * @param type $id
+     * @param string $id
      */
     public function edit($id = '')
     {
@@ -153,7 +153,7 @@ class DmsBase extends BaseController
 
     /**
      * Returns the HTML for a query filter comparison field selector for the given column name
-     * @param type $column_name
+     * @param string $column_name
      * @category AJAX
      */
     public function get_sql_comparison($column_name)
@@ -164,7 +164,7 @@ class DmsBase extends BaseController
 
     /**
      * Returns HTML displaying the list report data rows for inclusion in list report page
-     * @param type $option
+     * @param string $option
      * @category AJAX
      */
     public function report_data($option = 'rows')
@@ -175,7 +175,7 @@ class DmsBase extends BaseController
 
     /**
      * Returns HTML displaying supplemental information about page for inclusion in list report page
-     * @param type $what_info
+     * @param string $what_info
      * @category AJAX
      */
     public function report_info($what_info)
@@ -222,7 +222,7 @@ class DmsBase extends BaseController
      * Show the data with minimal formatting (no headers, but does have "Edit, Copy and New")
      * For example http://dms2.pnl.gov/param_file/show_data/3287
      * Actual data loading occurs in method detail_report_data in file Detail_report.php
-     * @param type $id
+     * @param string $id
      */
     public function show_data($id)
     {
@@ -271,7 +271,7 @@ class DmsBase extends BaseController
 
     /**
      * Get aux info controls associated with specified entity
-     * @param type $id
+     * @param string $id
      * @category AJAX
      */
     public function detail_report_aux_info_controls($id)
@@ -356,7 +356,7 @@ class DmsBase extends BaseController
 
     /**
      * Returns HTML displaying supplemental information about page for inclusion in param report page
-     * @param type $what_info
+     * @param string $what_info
      * @category AJAX
      */
     public function param_info($what_info)
@@ -391,7 +391,7 @@ class DmsBase extends BaseController
 
     /**
      * Invokes the stored procedure given by $sproc_name and returns simple JSON response.
-     * @param type $sproc_name
+     * @param string $sproc_name
      * @category AJAX
      */
     public function call($sproc_name = 'operations_sproc')
@@ -406,7 +406,7 @@ class DmsBase extends BaseController
     /**
      * Invokes the stored procedure given by $sproc_name and returns simple JSON response.
      * (someday) allow name of stored procedure to be passed as part of POST
-     * @param type $sproc_name
+     * @param string $sproc_name
      * @category AJAX
      */
     public function exec($sproc_name = 'operations_sproc')
@@ -499,7 +499,7 @@ class DmsBase extends BaseController
     /**
      * Clears cached session variables
      * (someday) handle param reports?
-     * @param type $page_type
+     * @param string $page_type
      * @category AJAX
      */
     public function defaults($page_type) //'Param_Pages''list_report_sproc'   'list_report'
@@ -539,8 +539,8 @@ class DmsBase extends BaseController
      * Show the contents of a variable using var_dump() but use html formatting
      * From: http://php.net/manual/en/function.var-dump.php
      * User: b dot bergloev at gmail dot com
-     * @param type $input
-     * @param type $collapse
+     * @param mixed $input
+     * @param bool $collapse
      */
     public static function var_dump_ex($input, $collapse=false) {
         $recursive = function($data, $level=0) use (&$recursive, $collapse) {

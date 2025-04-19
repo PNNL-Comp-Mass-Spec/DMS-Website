@@ -21,9 +21,9 @@ class Chooser extends BaseController {
     /**
      *  This returns HTML for a drop-down selector and suitable options
      *  for the specified chooser_name.  It is suitable for AJAX
-     * @param type $target_field_name
-     * @param type $chooser_name
-     * @param type $mode
+     * @param string $target_field_name
+     * @param string $chooser_name
+     * @param string $mode
      */
     function get_chooser($target_field_name, $chooser_name, $mode)
     {
@@ -46,7 +46,7 @@ class Chooser extends BaseController {
 
     /**
      * This returns list of selections for the specified chooser_name.  It is suitable for AJAX
-     * @param type $chooser_name
+     * @param string $chooser_name
      */
     function get_choices($chooser_name)
     {
@@ -56,8 +56,8 @@ class Chooser extends BaseController {
 
     /**
      * This returns list of selections for the specified chooser_name.  It is suitable for AJAX
-     * @param type $chooser_name
-     * @param type $filter_value
+     * @param string $chooser_name
+     * @param string $filter_value
      */
     function json($chooser_name, $filter_value = '')
     {

@@ -147,6 +147,9 @@ class Pipeline_jobs extends DmsBase {
             $params = $xp->query("//Param");
 
             foreach ($params as $param) {
+                if (get_class($param) != 'DOMElement') {
+                    continue;
+                }
                 $a = array();
                 $a['name'] = $param->getAttribute('Name');
                 $a['value'] = $param->getAttribute('Value');

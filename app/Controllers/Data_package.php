@@ -15,9 +15,9 @@ class Data_package extends DmsBase {
     /**
      * Get information about jobs associated with the given tool for the given data package (likely not in use)
      * Example URL: https://dms2.pnl.gov/data_package/ag/3142/MSGFPlus_MzML/PackageJobCount
-     * @param type $id Data Package ID
-     * @param type $tool Analysis tool name
-     * @param type $mode Query mode: NoPackageJobs, NoDMSJobs, or PackageJobCount
+     * @param string $id Data Package ID
+     * @param string $tool Analysis tool name
+     * @param string $mode Query mode: NoPackageJobs, NoDMSJobs, or PackageJobCount
      * @return string
      */
     function ag($id, $tool, $mode) {

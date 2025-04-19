@@ -163,7 +163,7 @@ class Config_db extends BaseController {
 
     /**
      * Execute the given SQL against the model config DB
-     * @param strgin $config_db Config DB name, including .db
+     * @param string $config_db Config DB name, including .db
      * @param string $sql SQL Query (typically an UPDATE or INSERT query)
      * @param string $table_name Target table name
      */
@@ -245,11 +245,10 @@ class Config_db extends BaseController {
     /**
      * Dump contents of each table
      * @param string $config_db Config DB name, including .db
-     * @param type $tbl_list
+     * @param array $tbl_list
      * @return string
      */
-    private function _get_table_dump_all($config_db, $tbl_list) {
-
+    private function _get_table_dump_all(string $config_db, array $tbl_list): string {
         $s = "";
         $tables = $this->config_model->get_table_list();
         foreach ($tables as $t) {
@@ -287,7 +286,7 @@ class Config_db extends BaseController {
      * Get contents of a single table
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return SQLite Query Result Array object, or false on failure.
+     * @return array|false SQLite Query Result Array object, or false on failure.
      */
     private function _get_table_contents($config_db, $table_name) {
         helper(['config_db']);
@@ -300,7 +299,7 @@ class Config_db extends BaseController {
 
     /**
      * Get contents of a single table
-     * @param string $queryResult Query result, e.g. from $db->query("SELECT * FROM ...")
+     * @param object|false $queryResult Query result, e.g. from $db->query("SELECT * FROM ...")
      * @return false|array Array of results, or false on failure.
      */
     private function _getQueryResultArray($queryResult) {
@@ -771,7 +770,7 @@ class Config_db extends BaseController {
      * @param string $table_name
      * @return \stdClass
      */
-    private function _get_config_db_table_data_info($config_db, $table_name) {
+    private function _get_config_db_table_data_info(string $config_db, string $table_name) {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
 
@@ -879,10 +878,10 @@ class Config_db extends BaseController {
      * Show results in a table
      * @param string $config_db Config DB name
      * @param string $table_name
-     * @param type $data_obj
+     * @param \stdClass $data_obj
      * @return string
      */
-    private function _get_edit_table_form($config_db, $table_name, $data_obj) {
+    private function _get_edit_table_form(string $config_db, string $table_name, \stdClass $data_obj) {
         $s = "";
 
         if ($data_obj->num_cols > 0) {
@@ -1013,8 +1012,8 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name
      * @param string $table_name Table name
      * @param string $col_name
-     * @param integer $col_width
-     * @param integer $max_width
+     * @param int $col_width
+     * @param int $max_width
      * @return string
      */
     private function _get_edit_table_entry_field($config_db, $table_name, $col_name, $col_width, $max_width) {
@@ -1245,7 +1244,7 @@ class Config_db extends BaseController {
      * @param string $table_filter
      * @return string[]
      */
-    private function _get_db_table_list($config_db, $table_filter = '') {
+    private function _get_db_table_list(string $config_db, string $table_filter = ''): array {
         $s = "";
         $table_list = array();
         helper(['config_db']);
@@ -1300,15 +1299,15 @@ class Config_db extends BaseController {
      * Read the definitions for the arguments for the given
      * stored procedure in the given database, do some conversions
      * from the raw format of the INFORMATION_SCHEMA, and return in an array
-     * @param type $dbObj
-     * @param type $sproc
-     * @return type Array of stored procedure argument info
+     * @param \CodeIgniter\Database\BaseConnection $dbObj
+     * @param string $sproc
+     * @return array Array of stored procedure argument info
      */
-    private function _get_sproc_arg_defs_from_main_db($dbObj, $sproc) {
+    private function _get_sproc_arg_defs_from_main_db(\CodeIgniter\Database\BaseConnection $dbObj, string $sproc): array {
         $sa = array();
         $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_NAME = '" . $sproc . "'";
-        if (strcasecmp($dbObj->driver, 'Postgres') == 0) {
-            $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_SCHEMA = '" . $dbObj->schema . "' AND SPECIFIC_NAME LIKE '" . $sproc . "_%'";
+        if (strcasecmp($dbObj->DBDriver, 'Postgres') == 0) {
+            $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_SCHEMA = '" . $dbObj->__get('schema') . "' AND SPECIFIC_NAME LIKE '" . $sproc . "_%'";
         }
         $result = $this->_getQueryResultArray($dbObj->query($sql));
         if (!$result) {
@@ -1341,11 +1340,11 @@ class Config_db extends BaseController {
     /**
      * Return SQL to create the appropriate entries in the sproc_args table
      * from given sproc args definition array
-     * @param type $sa Array of stored procedure argument info
+     * @param array $sa Array of stored procedure argument info
      * @param string $sproc Stored procedure name
-     * @return type
+     * @return string
      */
-    private function _get_sproc_arg_sql($sa, $sproc) {
+    private function _get_sproc_arg_sql(array $sa, string $sproc): string {
         $table = 'sproc_args';
         $sql = "DELETE FROM $table WHERE procedure = '" . $sproc . "';\n";
         $pf = "INSERT INTO $table (\"field\", \"name\", \"type\", \"dir\", \"size\", \"procedure\") VALUES (";
@@ -1358,10 +1357,10 @@ class Config_db extends BaseController {
     /**
      * Return SQL to create appropriate entries in the form field table
      * from given sproc args definition array
-     * @param type $sa Array of stored procedure argument info
-     * @return type
+     * @param array $sa Array of stored procedure argument info
+     * @return string
      */
-    private function _get_form_field_sql($sa) {
+    private function _get_form_field_sql(array $sa): string {
         $table = 'form_fields';
         $sql = "DELETE FROM $table;\n";
         $pf = "INSERT INTO $table (\"name\", \"label\", \"type\", \"size\", \"maxlength\", \"rows\", \"cols\", \"default\", \"rules\") VALUES (";
@@ -1422,8 +1421,8 @@ class Config_db extends BaseController {
 
     /**
      * Display example C# code for calling the stored procedure associated with this config DB
-     * @param type $db_group
-     * @param type $sproc
+     * @param string $db_group
+     * @param string $sproc
      */
     function code_for_csharp($db_group, $sproc) {
         helper(['config_db_edit','string']);
@@ -1496,10 +1495,10 @@ class Config_db extends BaseController {
 
     /**
      * Obtain standard view, stored procedure, and table names
-     * @param type $page_family_tag
+     * @param string $page_family_tag
      * @return \stdClass
      */
-    private function _get_standard_names($page_family_tag) {
+    private function _get_standard_names(string $page_family_tag): \stdClass {
         $baseName = ucwords(str_replace("_", " ", $page_family_tag));
 
         $baseViewName = str_replace(" ", "_", $baseName);
@@ -1518,11 +1517,11 @@ class Config_db extends BaseController {
     /**
      * Return array of table names for all the config dbs where the config db
      * file names satisfy the $file_filter and the table names satisfy the $table_filter
-     * @param type $file_filter
-     * @param type $table_filter
-     * @return type
+     * @param string $file_filter
+     * @param string $table_filter
+     * @return array
      */
-    private function _get_filtered_config_table_name_list($file_filter, $table_filter) {
+    private function _get_filtered_config_table_name_list(string $file_filter, string $table_filter): array {
         // Get list of config files from config folder
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
@@ -1541,11 +1540,11 @@ class Config_db extends BaseController {
     /**
      * Return list of tables in all the config dbs where the config db file names
      * satisfy the $file_filter and the table names satisfy the $table_filter
-     * @param type $file_filter
-     * @param type $table_filter
-     * @return type
+     * @param string $file_filter
+     * @param string $table_filter
+     * @return array
      */
-    private function _get_filtered_config_table_list($file_filter, $table_filter) {
+    private function _get_filtered_config_table_list(string $file_filter, string $table_filter): array {
         // Get list of config files from config folder
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
@@ -1690,8 +1689,8 @@ class Config_db extends BaseController {
 
     /**
      * Show Not Allowed message box
-     * @param type $title
-     * @param type $msg
+     * @param string $title
+     * @param string $msg
      */
     function message($title = "Not Allowed", $msg = "This feature is not enabled for this version of DMS") {
         $data['title'] = $title;

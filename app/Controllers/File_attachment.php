@@ -145,9 +145,9 @@ class File_attachment extends DmsBase {
     /**
      * View the status of a file
      * http://dms2.pnl.gov/file_attachment/check_file_path/lc_cart_configuration/100/TestFile.txt
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
      */
     function check_file_path($entity_type, $entity_id, $filename) {
         $this->var_dump_ex($this->get_valid_file_path($entity_type, $entity_id, $filename));
@@ -155,13 +155,13 @@ class File_attachment extends DmsBase {
 
     /**
      * Get the file path for the given item by querying V_File_Attachment_Export
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
-     * @return \Check_result
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
+     * @return Check_result
      * @throws \Exception
      */
-    function get_valid_file_path($entity_type, $entity_id, $filename){
+    function get_valid_file_path($entity_type, $entity_id, $filename): Check_result {
         $result = new Check_result();
         try {
             $db = \Config\Database::connect();
@@ -282,14 +282,14 @@ class File_attachment extends DmsBase {
     /**
      * Copy a file from the source path to the specified destination, optionally creating a backup of an existing destination file
      *
-     * @param type $src_path
-     * @param type $root_path
-     * @param type $entity_folder_path
-     * @param type $file_name
-     * @param type $backup_existing
+     * @param string $src_path
+     * @param string $root_path
+     * @param string $entity_folder_path
+     * @param string $file_name
+     * @param bool $backup_existing
      */
     private
-    function copy_file($src_path, $root_path, $entity_folder_path, $file_name, $backup_existing)
+    function copy_file(string $src_path, string $root_path, string $entity_folder_path, string $file_name, bool $backup_existing)
     {
         $dest_folder_path = $root_path . $entity_folder_path;
         $dest_path = "{$dest_folder_path}/{$file_name}";
@@ -377,8 +377,8 @@ class File_attachment extends DmsBase {
      *  returns dataset/2012_1/255000
      * http://dms2.pnl.gov/file_attachment/path/lc_cart_configuration/100
      *  lc_cart_configuration/spread/100
-     * @param type $entity_type
-     * @param type $entity_id
+     * @param string $entity_type
+     * @param string $entity_id
      */
     function path($entity_type, $entity_id) {
         echo $this->get_path($entity_type, $entity_id);
@@ -386,18 +386,18 @@ class File_attachment extends DmsBase {
 
     /**
      * Get storage path for attached files for the given entity
-     * @param type $entity_type
-     * @param type $entity_id
-     * @return type
+     * @param string $entity_type
+     * @param string $entity_id
+     * @return string
      */
     protected
-    function get_path($entity_type, $entity_id)
+    function get_path(string $entity_type, string $entity_id): string
     {
         $path = "";
         $db = \Config\Database::connect();
         $this->updateSearchPath($db);
 
-        $sql = "SELECT {$db->schema}.get_file_attachment_path('$entity_type', '$entity_id') AS path";
+        $sql = "SELECT {$db->__get('schema')}.get_file_attachment_path('$entity_type', '$entity_id') AS path";
         $resultSet = $db->query($sql);
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
@@ -411,17 +411,17 @@ class File_attachment extends DmsBase {
 
     /**
      * Make tracking entry in DMS database for attached file
-     * @param type $name
-     * @param type $type
-     * @param type $id
-     * @param type $description
-     * @param type $size
-     * @param type $path
-     * @return type
+     * @param string $name
+     * @param string $type
+     * @param string $id
+     * @param string $description
+     * @param int|string $size
+     * @param string $path
+     * @return string
      * @throws \Exception
      */
     private
-    function make_attachment_tracking_entry($name, $type, $id, $description, $size, $path)
+    function make_attachment_tracking_entry(string $name, string $type, string $id, string $description, $size, string $path): string
     {
         helper(['user','url']);
         $response = "OK";
@@ -460,7 +460,7 @@ class File_attachment extends DmsBase {
 
     /**
      * Perform operation on given attached file
-     * @return type
+     * @return string
      * @throws \Exception
      * @category AJAX
      */
@@ -553,9 +553,9 @@ class File_attachment extends DmsBase {
     /**
      * Confirm that the attachment can be retrieved
      * http://dms2.pnl.gov/file_attachment/check_retrieve/experiment/SWDev/MageMerge.docx
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
      * @returns string Json encoded string
      */
     function check_retrieve($entity_type, $entity_id, $filename)
@@ -584,9 +584,9 @@ class File_attachment extends DmsBase {
 
     /**
      * Retrieve the attachment for the given entity
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
      * @throws \Exception
      */
     function retrieve($entity_type, $entity_id, $filename){
@@ -670,16 +670,16 @@ class File_attachment extends DmsBase {
     /**
      * Make file in EMSL archive using given contents,
      * then make file attachment tracking entry in DMS.
-     * @param type $name
-     * @param type $type
-     * @param type $id
-     * @param type $description
-     * @param type $contents
-     * @return type
+     * @param string $name
+     * @param string $type
+     * @param string $id
+     * @param string $description
+     * @param string $contents
+     * @return string
      * @throws \Exception
      */
     private
-    function make_attached_file($name, $type, $id, $description, $contents)
+    function make_attached_file(string $name, string $type, string $id, string $description, string $contents): string
     {
         $msg = "";
         $entity_folder_path = $this->get_path($type, $id);
@@ -741,7 +741,7 @@ class File_attachment extends DmsBase {
 
     /**
      * Retrieve data from V_Experiment_Detail_Report_Ex and V_Aux_Info_Experiment_Values for Experiment $expID
-     * @param type $expID
+     * @param string $expID
      */
     function auxinfo($expID) {
         $db = \Config\Database::connect();
@@ -785,7 +785,7 @@ class File_attachment extends DmsBase {
 
     /**
      * Retrieve data from V_Experiment_Detail_Report_Ex for Experiment $expID
-     * @param type $expID
+     * @param string $expID
      * @return string
      */
     function getExperimentInfo($expID, $db): string

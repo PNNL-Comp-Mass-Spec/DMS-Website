@@ -72,21 +72,21 @@ class Gen extends BaseController
         $archiveRoot = $this->config->file_attachment_archive_root_path;
         echo("<li>file attachment path:$archiveRoot\n");
 
-        $dbName = $db->database;
+        $dbName = $db->getDatabase();
         echo("<li>database:$dbName\n");
 
-        $userName = $db->username;
-        echo("<li>user:$userName\n");
+        //$userName = $db->username; // NOTE: what else to use here (protected member variable)
+        //echo("<li>user:$userName\n");
     }
 
     /**
      * Create the menus
-     * @param type $title
-     * @param type $sub_view_name
-     * @param type $splash_view_name
-     * @param type $menu_config_db
-     * @param type $menu_section_table
-     * @param type $menu_item_table
+     * @param string $title
+     * @param string $sub_view_name
+     * @param string $splash_view_name
+     * @param string $menu_config_db
+     * @param string $menu_section_table
+     * @param string $menu_item_table
      */
     function _page_menu(
                 $title,

@@ -34,9 +34,9 @@ class Notification extends DmsBase {
 
     /**
      * Retrieve notification events from the database
-     * @return \stdClass
+     * @return array
      */
-    function _get_notification_info()
+    function _get_notification_info(): array
     {
         $users = array();
         // Query the database
@@ -51,7 +51,7 @@ class Notification extends DmsBase {
 
         $result = $db->query($sql);
         if(!$result) {
-            return $users();
+            return $users;
         }
 
         $email = array();
@@ -74,10 +74,10 @@ class Notification extends DmsBase {
 
     /**
      * Format the events as a table
-     * @param type $notification
+     * @param \stdClass $notification
      * @return string
      */
-    function _format_events($notification)
+    function _format_events(\stdClass $notification)
     {
         $s = '';
         $s .= '<p>'. $notification->user_name . ' (' . $notification->user . ')' .'</p>';
@@ -118,7 +118,7 @@ class Notification extends DmsBase {
 
     /**
      * Show the notification events for a single user
-     * @param type $user
+     * @param string $user
      */
     function user($user)
     {
@@ -139,7 +139,7 @@ class Notification extends DmsBase {
 
     /**
      * Send an e-mail to the user if notification events are available
-     * @param type $user
+     * @param string $user
      */
     function email_user($user)
     {

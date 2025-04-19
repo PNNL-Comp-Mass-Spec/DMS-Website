@@ -53,11 +53,11 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Get config source for given entity type
-     * @param type $entity_type
-     * @return type
+     * @param string $entity_type
+     * @return string
      */
     private
-    function get_config_source($entity_type)
+    function get_config_source(string $entity_type): string
     {
         $config_source = '';
         if(array_key_exists($entity_type, $this->supported_entities)) {
@@ -216,8 +216,8 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Extract data from given file already uploaded to server
      * and show details of given entity
-     * @param type $fname
-     * @param type $id
+     * @param string $fname
+     * @param string $id
      */
     function entity($fname, $id)
     {
@@ -340,15 +340,15 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Get current field values from existing entity
      * (allows us to have partial field coverage from spreadsheet in update mode)
-     * @param type $id
-     * @param type $entity_type
-     * @param type $config_source
-     * @param type $mode
+     * @param string $id
+     * @param string $entity_type
+     * @param string $config_source
+     * @param string $mode
      * @return \stdClass
      * @throws \Exception
      */
     private
-    function get_current_field_values($id, $entity_type, $config_source, $mode)
+    function get_current_field_values(string $id, string $entity_type, string $config_source, string $mode): \stdClass
     {
         $current_values = new \stdClass();
 
@@ -397,7 +397,7 @@ class Spreadsheet_loader extends DmsBase {
 
     // --------------------------------------------------------------------
     private
-    function get_entity_key($id, $entity_type, &$key, &$message)
+    function get_entity_key(string $id, string $entity_type, &$key, &$message): bool
     {
         $exists = false;
         try {
@@ -433,14 +433,14 @@ class Spreadsheet_loader extends DmsBase {
      * Build parameter object for calling stored procedure that updates the tracking entity.
      * The parameters pulled from the spreadsheet (defined by labels) will be mapped
      * to calling parameter names matching the stored procedure arguments
-     * @param type $tracking_info
-     * @param type $config_source
-     * @param type $mode
-     * @param type $current_values
-     * @return type
+     * @param array $tracking_info
+     * @param string $config_source
+     * @param string $mode
+     * @param \stdClass $current_values
+     * @return \stdClass
      */
     private
-    function make_tracking_info_params($tracking_info, $config_source, $mode, $current_values)
+    function make_tracking_info_params(array $tracking_info, string $config_source, string $mode, \stdClass $current_values): \stdClass
     {
         // Use $entity_type to get definition of field/labels for entry sproc
         // entry form specifications
@@ -497,7 +497,9 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Generate generic spreadsheet template for given entity type
-     * @param type $config_source
+     * @param string $config_source
+     * @param bool $rowStyle
+     * @param string $ext
      */
     function template($config_source, $rowStyle = false, $ext = "tsv")
     {
@@ -669,11 +671,11 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Get definitions for entities that can be uploaded from spreadsheet loader
-     * @param type $dbFileName
+     * @param string $dbFileName
      * @throws \Exception
      */
     private
-    function get_config_info($dbFileName)
+    function get_config_info(string $dbFileName)
     {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($dbFileName)->path;

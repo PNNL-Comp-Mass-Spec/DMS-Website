@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -138,7 +139,6 @@ abstract class BaseController extends Controller
      * Load Entry_form to $this->entry_form and initializes it with given config info
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
-     * @param bool $options Custom options flag
      * @return bool
      */
     public function loadEntryFormLibrary($config_name, $config_source) {
@@ -151,7 +151,7 @@ abstract class BaseController extends Controller
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
      * @param bool $options Custom options flag
-     * @return bool
+     * @return object
      */
     public function getLibrary($lib_name, $config_name, $config_source, $options = false) {
         $this->loadLibrary($lib_name, $local_ref, $config_name, $config_source, $options);

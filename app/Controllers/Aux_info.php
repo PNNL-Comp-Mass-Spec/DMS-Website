@@ -47,10 +47,10 @@ class Aux_info extends BaseController {
 
     /**
      * Set aux info names
-     * @param type $target
-     * @param type $id
+     * @param string $target
+     * @param string $id
      */
-    private function _set_aux_info_names($target, $id='')
+    private function _set_aux_info_names(string $target, string $id='')
     {
         $this->aux_info_support->item_entry_url = site_url('aux_info/item_values/'.$target);
         $this->aux_info_support->copy_info_url =  site_url('aux_info_copy/update');
@@ -61,8 +61,8 @@ class Aux_info extends BaseController {
     /**
      * Returns HTML to display current values for aux info items for
      * given target and entity given by id
-     * @param type $target
-     * @param type $id
+     * @param string $target
+     * @param string $id
      */
     function show($target, $id)
     {
@@ -90,9 +90,9 @@ class Aux_info extends BaseController {
     /**
      * Presents the aux info entry page, for example
      * https://dms2.pnl.gov/aux_info/entry/Biomaterial/8875/Shew_QC_110415
-     * @param type $target
-     * @param type $id
-     * @param type $name
+     * @param string $target
+     * @param string $id
+     * @param string $name
      */
     function entry($target, $id, $name = "")
     {
@@ -129,7 +129,7 @@ class Aux_info extends BaseController {
 
     /**
      * Make entry form for subcategory items via AJAX ()called by loadItemEntryForm)
-     * @param type $target
+     * @param string $target
      */
     function item_values($target)
     {
