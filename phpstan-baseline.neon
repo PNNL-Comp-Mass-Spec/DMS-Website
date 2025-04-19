@@ -13,7 +13,31 @@ parameters:
 			path: app/Config/DocTypes.php
 
 		-
+			message: '#^Call to method get\(\) on an unknown class Config\\RouteCollection\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Config/Events.php
+
+		-
 			message: '#^Access to constant SORT_FULL on an unknown class Kint\\Renderer\\AbstractRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Config/Kint.php
+
+		-
+			message: '#^Property Config\\Kint\:\:\$plugins has unknown class Kint\\Parser\\ConstructablePluginInterface as its type\.$#'
+			identifier: class.notFound
+			count: 2
+			path: app/Config/Kint.php
+
+		-
+			message: '#^Property Config\\Kint\:\:\$richObjectPlugins has unknown class Kint\\Renderer\\Rich\\ValuePluginInterface as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Config/Kint.php
+
+		-
+			message: '#^Property Config\\Kint\:\:\$richTabPlugins has unknown class Kint\\Renderer\\Rich\\TabPluginInterface as its type\.$#'
 			identifier: class.notFound
 			count: 1
 			path: app/Config/Kint.php
@@ -37,8 +61,14 @@ parameters:
 			path: app/Config/Services.php
 
 		-
-			message: '#^Parameter \#1 \$name of function model expects a valid class string, non-falsy-string given.$#'
-			identifier: codeigniter.modelArgumentType 
+			message: '#^Method Config\\Services\:\:routes\(\) has invalid return type Config\\RouteCollection\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Config/Services.php
+
+		-
+			message: '#^Parameter \#1 \$name of function model expects a valid class string, non\-falsy\-string given\.$#'
+			identifier: codeigniter.modelArgumentType
 			count: 1
 			path: app/Controllers/BaseController.php
 
@@ -53,3 +83,9 @@ parameters:
 			identifier: codeigniter.superglobalAccessAssign
 			count: 1
 			path: app/Controllers/Gen.php
+
+		-
+			message: '#^Call to an undefined method DOMNode\:\:getAttribute\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Helpers/export_helper.php
