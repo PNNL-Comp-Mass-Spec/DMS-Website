@@ -8,13 +8,6 @@ namespace App\Controllers;
  */
 class Aux_info_copy extends BaseController {
 
-    /**
-     * An array of helpers to be loaded automatically upon
-     * class instantiation. These helpers will be available
-     * to all other controllers that extend BaseController.
-     *
-     * @var array
-     */
     protected $helpers = ['url', 'text', 'form'];
 
     private $model = null;

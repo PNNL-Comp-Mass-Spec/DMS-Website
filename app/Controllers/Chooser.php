@@ -3,13 +3,6 @@ namespace App\Controllers;
 
 class Chooser extends BaseController {
 
-    /**
-     * An array of helpers to be loaded automatically upon
-     * class instantiation. These helpers will be available
-     * to all other controllers that extend DmsBase.
-     *
-     * @var array
-     */
     protected $helpers = ['url', 'text', 'form'];
 
     // --------------------------------------------------------------------

@@ -5,14 +5,7 @@ use App\Controllers;
 
 class Gen extends BaseController
 {
-	/**
-	 * An array of helpers to be loaded automatically upon
-	 * class instantiation. These helpers will be available
-	 * to all other controllers that extend BaseController.
-	 *
-	 * @var array
-	 */
-	protected $helpers = ['url', 'text'];
+    protected $helpers = ['url', 'text'];
 
     private $config;
     private $page_menu_root;

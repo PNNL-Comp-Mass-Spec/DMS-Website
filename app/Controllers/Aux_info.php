@@ -3,13 +3,6 @@ namespace App\Controllers;
 
 class Aux_info extends BaseController {
 
-    /**
-     * An array of helpers to be loaded automatically upon
-     * class instantiation. These helpers will be available
-     * to all other controllers that extend BaseController.
-     *
-     * @var array
-     */
     protected $helpers = ['dms_search', 'cookie', 'user', 'dms_logging', 'url', 'text', 'form', 'string'];
 
     private $aux_info_support = null;
