@@ -111,15 +111,5 @@ class Grid_data {
         }
         return $paramObj;
     }
-
-    // --------------------------------------------------------------------
-    private function make_col_specs($colNames) {
-        $colSpec = array();
-        foreach ($colNames as $colName) {
-            $spec = new \stdClass();
-            $colSpec[] = $spec;
-        }
-        return $colSpec;
-    }
 }
 ?>

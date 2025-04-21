@@ -36,8 +36,6 @@ class Primary_filter {
         $this->config_source = $config_source;
         $this->storage_name = self::storage_name_root . $this->config_name . '_' . $this->config_source;
 
-        $this->clear_query_filter();
-
         // Try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post($filter_specs);
         if ($state) {
@@ -103,13 +101,6 @@ class Primary_filter {
      */
     function save_current_filter_values() {
         save_to_cache($this->storage_name, $this->cur_filter_values);
-    }
-
-    /**
-     * Reset (clear) the filter
-     */
-    private function clear_query_filter() {
-
     }
 
     /**

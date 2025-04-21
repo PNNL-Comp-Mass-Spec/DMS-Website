@@ -261,6 +261,7 @@ class Entry_form {
     }
 
     // -----------------------------------
+    /* FUTURE: currently only used in commented-out code block in above function
     private function make_master_section_controls() {
         $s = '';
         $himg = "<img src='" . base_url('/images/z_show_col.gif') . "' border='0' >";
@@ -270,6 +271,7 @@ class Entry_form {
         $s .= "<a href='javascript:void(0)' onclick='entry.showHideSections(\"show\", \"all\")'>$himg</a> Expand All Sections ";
         return $s;
     }
+    */
 
     // -----------------------------------
     private function make_section_header($section_count, $section_label) {

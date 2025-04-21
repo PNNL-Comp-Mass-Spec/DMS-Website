@@ -638,7 +638,6 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
         case "no_display":
             // Hide no_display fields
             return "";
-            break;
 
         default:
             $str = "??? $text ???";

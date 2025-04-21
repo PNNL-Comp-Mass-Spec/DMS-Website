@@ -284,6 +284,8 @@ class File_attachment extends DmsBase {
      * @param string $entity_folder_path
      * @param string $file_name
      * @param bool $backup_existing
+     * @throws \Exception
+     * @return bool true on success, exception on failure
      */
     private
     function copy_file(string $src_path, string $root_path, string $entity_folder_path, string $file_name, bool $backup_existing)
@@ -364,8 +366,6 @@ class File_attachment extends DmsBase {
             chmodr($min_existing_dir,0755);
             return true;
         }
-
-        return false;
     }
 
     /**
