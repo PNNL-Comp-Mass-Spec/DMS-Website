@@ -103,7 +103,7 @@ class Upload {
 	/**
 	 * Allowed file types
 	 *
-	 * @var	string
+	 * @var	string|string[]
 	 */
 	public $allowed_types = '';
 
@@ -1143,7 +1143,7 @@ class Upload {
 	/**
 	 * Set an error message
 	 *
-	 * @param	string	$msg
+	 * @param	string|string[]	$msg
 	 * @return	Upload
 	 */
 	public function set_error($msg, $log_level = 'error')

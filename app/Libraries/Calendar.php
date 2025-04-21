@@ -440,7 +440,7 @@ class Calendar {
 	 * Total days in a given month
 	 *
 	 * @param	int	$month	the month
-	 * @param	int	$year	the year
+	 * @param	int|string	$year	the year
 	 * @return	int
 	 */
 	public function get_total_days($month, $year)

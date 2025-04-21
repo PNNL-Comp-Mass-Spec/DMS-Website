@@ -57,7 +57,7 @@ class Column_filter {
     /**
      * Get current values for filtering columns if present in POST
      * Otherwise return false
-     * @return array
+     * @return array|false
      */
     private function get_current_filter_values_from_post() {
         // We need to be able to tell the difference between an empty post

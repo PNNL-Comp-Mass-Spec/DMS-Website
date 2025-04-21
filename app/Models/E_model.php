@@ -68,7 +68,7 @@ class E_model extends Model {
      * Return an object with member fields representing the different parameter collections
      * that are defined for the entry mode.
      * The specific collections are selected by the input list array
-     * ('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands')
+     * ('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands', 'operations_fields')
      * @param array $which_ones
      * @return \stdClass
      */
@@ -92,6 +92,9 @@ class E_model extends Model {
         }
         if (in_array('entry_commands', $which_ones)) {
             $form_def->entry_commands = $this->entry_commands;
+        }
+        if (in_array('operations_fields', $which_ones)) {
+            $form_def->operations_fields = $this->operations_fields;
         }
         return $form_def;
     }

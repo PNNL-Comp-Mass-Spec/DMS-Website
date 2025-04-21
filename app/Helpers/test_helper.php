@@ -118,7 +118,7 @@ function dump_q_model(\App\Models\Q_model $mod, string $option = 'filtered_and_p
     echo '<hr>';
 
     echo 'Cached total Rows: <br>';
-    echo print_r($mod->get_cached_total_rows());
+    print_r($mod->get_cached_total_rows());
     echo '<hr>';
 
     echo 'Total Rows: <br>';
@@ -190,7 +190,7 @@ function dump_r_model($mod) {
     echo $jl;
     echo "<hr>\n";
     $hl_restored = json_decode($jl, true);
-    echo print_r($hl_restored);
+    print_r($hl_restored);
     echo "<hr>\n";
 
     $hd = $mod->get_detail_report_hotlinks();

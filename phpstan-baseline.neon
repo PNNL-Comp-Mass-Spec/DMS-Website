@@ -61,10 +61,28 @@ parameters:
 			path: app/Config/Services.php
 
 		-
+			message: '#^Call to function is_null\(\) with null will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Controllers/BaseController.php
+
+		-
 			message: '#^Parameter \#1 \$name of function model expects a valid class string, non\-falsy\-string given\.$#'
 			identifier: codeigniter.modelArgumentType
 			count: 1
 			path: app/Controllers/BaseController.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: app/Controllers/BaseController.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: app/Controllers/DmsBase.php
 
 		-
 			message: '#^Assigning ''\*\*\*\*\*\*\*\* \(masked by app/Controllers/Gen\.php\)'' directly on offset ''PHP_AUTH_PW'' of \$_SERVER is discouraged\.$#'
@@ -83,3 +101,27 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/Helpers/export_helper.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 4
+			path: app/Helpers/export_helper.php
+
+		-
+			message: '#^Loose comparison using \=\= between ''Param_Pages'' and ''Param_Pages'' will always evaluate to true\.$#'
+			identifier: equal.alwaysTrue
+			count: 1
+			path: app/Libraries/Saved_settings.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: app/Libraries/Sproc_postgre.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: app/Libraries/Sproc_sqlsrv.php

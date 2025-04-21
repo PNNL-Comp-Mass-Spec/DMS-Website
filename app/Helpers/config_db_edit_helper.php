@@ -42,10 +42,10 @@ EOD;
  * This will include the three views and the add_update stored procedure
  * This procedure exits with an error message if base_table is not defined in the general_params table
  * @param \CodeIgniter\Database\BaseConnection $my_db
- * @param string $gen_parms General parameters table name, typically general_params
+ * @param string[] $gen_parms General parameters table name, typically general_params
  * @return string
  */
-function make_family_sql(\CodeIgniter\Database\BaseConnection $my_db, string $gen_parms): string {
+function make_family_sql(\CodeIgniter\Database\BaseConnection $my_db, array $gen_parms): string {
     $view_sql = "";
     $sa = array();
 
@@ -126,7 +126,7 @@ function make_family_sql(\CodeIgniter\Database\BaseConnection $my_db, string $ge
 
     if (array_key_exists('operations_sproc', $gen_parms)) {
         $sprocOperations = $gen_parms['operations_sproc'];
-        $view_sql .= make_operations_sproc_sql($sprocOperations, $table, $sa);
+        $view_sql .= make_operations_sproc_sql($sprocOperations, $table);
     } else {
         $view_sql .= "\n('operations_sproc') not defined\n\n";
     }
