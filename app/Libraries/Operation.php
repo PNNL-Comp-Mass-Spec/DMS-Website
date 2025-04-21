@@ -33,7 +33,6 @@ class Operation {
      * See also https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_detail_report_commands#Command_Types
      * @param string $sproc_name
      * @return \stdClass A response object containing return value and message from sproc
-     * @throws \Exception
      */
     function internal_operation(string $sproc_name) {
         $config_name = $sproc_name;

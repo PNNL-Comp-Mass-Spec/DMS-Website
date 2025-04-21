@@ -99,7 +99,6 @@ class File_attachment extends DmsBase {
     /**
      * Validate the availability of the local storage path
      * @return Check_result
-     * @throws \Exception
      */
     private
     function validate_local_path()
@@ -159,7 +158,6 @@ class File_attachment extends DmsBase {
      * @param string $entity_id
      * @param string $filename
      * @return Check_result
-     * @throws \Exception
      */
     function get_valid_file_path($entity_type, $entity_id, $filename): Check_result {
         $result = new Check_result();
@@ -201,7 +199,6 @@ class File_attachment extends DmsBase {
      * Copy uploaded file to receiving folder on web server,
      * make file attachment tracking entry in DMS,
      * and copy uploaded file to EMSL archive
-     * @throws \Exception
      */
     function upload()
     {
@@ -587,7 +584,6 @@ class File_attachment extends DmsBase {
      * @param string $entity_type
      * @param string $entity_id
      * @param string $filename
-     * @throws \Exception
      */
     function retrieve($entity_type, $entity_id, $filename){
         try {

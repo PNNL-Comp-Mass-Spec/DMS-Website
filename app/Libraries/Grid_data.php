@@ -32,7 +32,6 @@ class Grid_data {
      * Get data for the grid ---------------------- April 2025 - not currently used anywhere
      * @param string $sql
      * @param array|bool $paramArray
-     * @throws \Exception
      */
     function get_query_data(string $sql, $paramArray) {
         $response = new \stdClass();
