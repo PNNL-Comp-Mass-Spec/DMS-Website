@@ -13,12 +13,6 @@ parameters:
 			path: app/Config/DocTypes.php
 
 		-
-			message: '#^Call to method get\(\) on an unknown class Config\\RouteCollection\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Config/Events.php
-
-		-
 			message: '#^Access to constant SORT_FULL on an unknown class Kint\\Renderer\\AbstractRenderer\.$#'
 			identifier: class.notFound
 			count: 1
@@ -57,12 +51,6 @@ parameters:
 		-
 			message: '#^Argument \#1 \$name \(''Config\\\\Modules''\) passed to function config does not extend CodeIgniter\\\\Config\\\\BaseConfig\.$#'
 			identifier: codeigniter.configArgumentInstanceof
-			count: 1
-			path: app/Config/Services.php
-
-		-
-			message: '#^Method Config\\Services\:\:routes\(\) has invalid return type Config\\RouteCollection\.$#'
-			identifier: class.notFound
 			count: 1
 			path: app/Config/Services.php
 
