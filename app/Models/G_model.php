@@ -409,5 +409,15 @@ class G_model extends Model {
             return $e->getMessage();
         }
     }
+
+    // --------------------------------------------------------------------
+    function get_config_name() {
+        return $this->config_name;
+    }
+
+    // --------------------------------------------------------------------
+    function get_config_source() {
+        return $this->config_source;
+    }
 }
 ?>

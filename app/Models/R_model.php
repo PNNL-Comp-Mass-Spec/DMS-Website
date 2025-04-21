@@ -201,5 +201,10 @@ class R_model extends Model {
     function get_config_source() {
         return $this->config_source;
     }
+
+    // --------------------------------------------------------------------
+    function get_error_text() {
+        return $this->error_text;
+    }
 }
 ?>

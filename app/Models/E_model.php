@@ -282,5 +282,10 @@ class E_model extends Model {
 
         $db->close();
     }
+
+    // --------------------------------------------------------------------
+    function get_error_text() {
+        return $this->error_text;
+    }
 }
 ?>
