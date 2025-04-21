@@ -159,34 +159,29 @@ class Q_model extends Model {
         $my_db = null;
         while ($connectionRetriesRemaining > 0) {
             try {
+                // Try to establish a connection to the database. Either returns BaseConnection object, or throws an exception
                 $my_db = \Config\Database::connect(GetNullIfBlank($this->query_parts->dbn));
                 update_search_path($my_db);
 
-                if ($my_db === false) {
-                    // $\Config\Database::connect() normally returns a database object
-                    // But if an error occurs, it returns false?
-                    // Retry establishing the connection
-                    throw new \Exception('\Config\Database::connect returned false in S_model');
-                } else {
-                    // Many functions check for and initialize the DB connection if not there,
-                    // but that leaves connection issues popping up in random places
-                    if (empty($my_db->connID)) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs or it disconnects, it is false/empty
-                        // Try initializing first
-                        $my_db->initialize();
-                    }
-
-                    if ($my_db->connID === false) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs, it is false
-                        // Retry establishing the connection
-                        throw new \Exception('$my_db->connID returned false in S_model');
-                    }
-
-                    // Exit the while loop
-                    break;
+                // Many functions check for and initialize the DB connection if not there,
+                // but that leaves connection issues popping up in random places
+                if (empty($my_db->connID)) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs or it disconnects, it is false/empty
+                    // Try initializing first
+                    $my_db->initialize();
                 }
+
+                if ($my_db->connID === false) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs, it is false
+                    // Retry establishing the connection
+                    throw new \Exception('$my_db->connID returned false in S_model');
+                }
+
+                // Exit the while loop
+                break;
+
             } catch (\Exception $ex) {
                 $errorMessage = $ex->getMessage();
                 log_message('error', "Exception connecting to DB group '{$this->query_parts->dbn}' (config name $config_name): $errorMessage");
@@ -490,30 +485,24 @@ class Q_model extends Model {
         $my_db = null;
         while ($connectionRetriesRemaining > 0) {
             try {
+                // Try to establish a connection to the database. Either returns BaseConnection object, or throws an exception
                 $my_db = \Config\Database::connect(GetNullIfBlank($dbGroupName));
                 update_search_path($my_db);
 
-                if ($my_db === false) {
-                    // \Config\Database::connect() normally returns a database object
-                    // But if an error occurs, it returns false
-                    // Retry establishing the connection
-                    throw new \Exception('\Config\Database::connect returned false in Q_model');
-                } else {
-                    // Many functions check for and initialize the DB connection if not there,
-                    // but that leaves connection issues popping up in random places
-                    if (empty($my_db->connID)) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs or it disconnects, it is false/empty
-                        // Try initializing first
-                        $my_db->initialize();
-                    }
+                // Many functions check for and initialize the DB connection if not there,
+                // but that leaves connection issues popping up in random places
+                if (empty($my_db->connID)) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs or it disconnects, it is false/empty
+                    // Try initializing first
+                    $my_db->initialize();
+                }
 
-                    if ($my_db->connID === false) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs, it is false
-                        // Retry establishing the connection
-                        throw new \Exception('$my_db->connID returned false in Q_model');
-                    }
+                if ($my_db->connID === false) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs, it is false
+                    // Retry establishing the connection
+                    throw new \Exception('$my_db->connID returned false in Q_model');
                 }
 
                 // Exit the while loop
