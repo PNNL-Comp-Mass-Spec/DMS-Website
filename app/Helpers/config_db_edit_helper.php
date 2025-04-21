@@ -258,7 +258,7 @@ function make_controller_code(string $config_db, string $page_fam_tag, $data_inf
 /**
  * Dump contents of each config DB in $config_db_table_list
  * Display as an HTML table
- * @param string[] $config_db_table_list array of strings
+ * @param array $config_db_table_list array of strings
  */
 function make_table_dump_display(array $config_db_table_list) {
 
@@ -339,7 +339,7 @@ function make_config_nav_links(string $config_db): string {
 /**
  * Dump contents of each config DB in $config_db_table_list
  * Display as plain text
- * @param string[] $config_db_table_list
+ * @param array $config_db_table_list
  * @param string $display_mode
  */
 function make_table_dump_text(array $config_db_table_list, string $display_mode) {
@@ -376,11 +376,11 @@ function make_table_dump_text(array $config_db_table_list, string $display_mode)
 
 /**
  * Dump a crosstab of selected general_params for each config DB in $config_db_table_list
- * @param string[] $config_db_table_list
+ * @param array $config_db_table_list
  * @param string[] $config_db_table_name_list
  * @return string
  */
-function make_general_params_dump($config_db_table_list, $config_db_table_name_list) {
+function make_general_params_dump(array $config_db_table_list, $config_db_table_name_list) {
     // Params that are of interest
     $params = array(
         'page_family' => '',

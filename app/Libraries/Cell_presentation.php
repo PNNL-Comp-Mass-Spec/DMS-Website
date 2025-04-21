@@ -919,7 +919,7 @@ class Cell_presentation {
      * accepts sorting column information in two different formats
      * and produces a common output format
      * @param array|object|\stdClass $sorting_cols
-     * @return \stdClass
+     * @return array
      */
     private function get_column_sort_markers($sorting_cols) {
         $col_sort = array();

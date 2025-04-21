@@ -315,7 +315,7 @@ function get_nav_bar_menu_items(string $page_type, \App\Controllers\BaseControll
  * Get menu context
  * @param string $page_type
  * @param \App\Controllers\BaseController $controller
- * @return string
+ * @return array
  */
 function get_menu_context(string $page_type, \App\Controllers\BaseController $controller) {
     // We get context sensitive values from controller

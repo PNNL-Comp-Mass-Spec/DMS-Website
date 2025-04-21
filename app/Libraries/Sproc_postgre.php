@@ -522,7 +522,7 @@ class Sproc_postgre extends Sproc_base {
     /**
      * Get default value for the given data type
      * @param string $dataType Data type
-     * @return string|float|int
+     * @return string|float|int|bool
      */
     private function getDefaultValue($dataType) {
         switch ($dataType) {

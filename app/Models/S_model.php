@@ -342,7 +342,7 @@ class S_model extends Model {
 
         if ($rows == null) {
             // No rows were returned by the database
-            return null;
+            return array();
         }
 
         $sortedRows = $table_sorter->sort_multi_col($rows, $sorting_filter);

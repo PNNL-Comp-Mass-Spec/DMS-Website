@@ -890,9 +890,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     /**
      *
      * @param array $cols
-     * @return string
+     * @return array
      */
-    function reformat_headers(array $cols): string
+    function reformat_headers(array $cols): array
     {
         // Make a copy of the $cols array
         $colsCopy = array();
@@ -908,9 +908,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
     /**
      *
      * @param array $cols
-     * @return string
+     * @return array
      */
-    function fix_ID_column(array $cols): string
+    function fix_ID_column(array $cols): array
     {
         // Make a copy of the $cols array
         $colsCopy = reformat_headers($cols);

@@ -61,10 +61,10 @@ class Dms_authorization extends Model {
     /**
      * Lookup permissions for the user
      * @param string $username
-     * @return string
+     * @return array
      * @throws \Exception
      */
-    function get_user_permissions($username) {
+    function get_user_permissions($username): array {
         // Is there a local cache of permissions?
         if (count($this->user_permissions) > 0) {
             return $this->user_permissions;

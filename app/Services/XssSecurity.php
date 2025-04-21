@@ -140,7 +140,7 @@ class XssSecurity implements XssSecurityInterface {
 	 *
 	 * @param	string|string[]	$str		Input data
 	 * @param 	bool		$is_image	Whether the input is an image
-	 * @return	string
+	 * @return	string|string[]|bool bool if image, true if clean, false if not
 	 */
 	public function xss_clean($str, $is_image = FALSE)
 	{

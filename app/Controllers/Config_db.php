@@ -851,7 +851,7 @@ class Config_db extends BaseController {
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
             echo "Problem";
-            return;
+            return '';
         }
 
         $mainSproc = (array_key_exists('entry_sproc', $gen_parms)) ? $gen_parms['entry_sproc'] : '';
@@ -1078,15 +1078,15 @@ class Config_db extends BaseController {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
-            $s .= "Problem";
-            return;
+            echo "Problem";
+            return '';
         }
 
         $pn = 'list_report_data_table';
         $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
         if (!$table) {
-            $s .= "List report view not defined in general_params table in config db '$config_db'.";
-            return;
+            echo "List report view not defined in general_params table in config db '$config_db'.";
+            return '';
         }
 
         $my_db = \Config\Database::connect($db_group);
@@ -1120,15 +1120,15 @@ class Config_db extends BaseController {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
-            $s .= "Problem";
-            return;
+            echo "Problem";
+            return '';
         }
 
         $pn = 'detail_report_data_table';
         $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
         if (!$table) {
-            $s .= "Detail report view not defined in general_params table in config db '$config_db'.";
-            return;
+            echo "Detail report view not defined in general_params table in config db '$config_db'.";
+            return '';
         }
 
         $my_db = \Config\Database::connect($db_group);
@@ -1163,15 +1163,15 @@ class Config_db extends BaseController {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
-            $s .= "Problem";
-            return;
+            echo "Problem";
+            return '';
         }
 
         $pn = 'list_report_data_table';
         $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
         if (!$table) {
-            $s .= "List report view not defined in general_params table in config db '$config_db'.";
-            return;
+            echo "List report view not defined in general_params table in config db '$config_db'.";
+            return '';
         }
 
         $my_db = \Config\Database::connect($db_group);

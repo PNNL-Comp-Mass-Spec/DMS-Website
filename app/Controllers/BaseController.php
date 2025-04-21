@@ -161,7 +161,7 @@ abstract class BaseController extends Controller
     /**
      * Load named model (with given local name) and initialize it with given config info
      * @param string $model_name Module name, e.g. G_model, Q_model
-     * @param object $local_ref Local reference, e.g. $this->gen_model for G_model; $this->data_model for Q_model
+     * @param object|null $local_ref Local reference, e.g. $this->gen_model for G_model; $this->data_model for Q_model
      * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
      * @return bool

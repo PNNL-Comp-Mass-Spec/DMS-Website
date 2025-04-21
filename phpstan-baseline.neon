@@ -13,6 +13,12 @@ parameters:
 			path: app/Config/DocTypes.php
 
 		-
+			message: '#^Property Config\\Filters\:\:\$globals \(array\<string, array\<int\<0, max\>\|string, array\<string, string\>\|string\>\>\) does not accept default value of type array\{before\: array\{\}, after\: array\{toolbar\: array\{except\: array\{''\*/export/\*'', ''\*/export_detail/\*'', ''\*/export…'', ''\*/export_param/\*'', ''\*/export_to_tab…'', ''spreadsheet_loader…''\}\}\}\}\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: app/Config/Filters.php
+
+		-
 			message: '#^Access to constant SORT_FULL on an unknown class Kint\\Renderer\\AbstractRenderer\.$#'
 			identifier: class.notFound
 			count: 1

@@ -134,7 +134,7 @@ class Sproc_sqlsrv extends Sproc_base {
     /**
      * This builds up column metadata definitions https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
      * @param resource $result
-     * @return \stdClass
+     * @return array
      */
     private function extract_field_metadata($result) {
         // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017

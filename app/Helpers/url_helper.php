@@ -43,7 +43,7 @@ if (! function_exists('decodeSegments'))
 	 *
 	 * @param array  $segments     URI segments, usually from URI->getSegments()
 	 *
-	 * @return string|URI
+	 * @return array
 	 */
 	function decodeSegments(array $segments)
 	{

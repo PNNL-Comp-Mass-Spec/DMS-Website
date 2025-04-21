@@ -341,7 +341,7 @@ class G_model extends Model {
      * @param string $action
      * @param string $page_family
      * @param object $controller
-     * @return bool
+     * @return bool|string
      * @throws \Exception
      */
     function check_permission($user, $action, $page_family, $controller)

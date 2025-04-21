@@ -138,7 +138,7 @@ class Upload {
 	/**
 	 * File size, initially in bytes, but later converted to kilobytes
 	 *
-	 * @var	int
+	 * @var	int|float
 	 */
 	public $file_size = NULL;
 
@@ -152,7 +152,7 @@ class Upload {
 	/**
 	 * Force filename extension to lowercase
 	 *
-	 * @var	string
+	 * @var	bool
 	 */
 	public $file_ext_tolower = FALSE;
 
@@ -257,7 +257,7 @@ class Upload {
 	/**
 	 * Filename sent by the client
 	 *
-	 * @var	bool
+	 * @var	string
 	 */
 	public $client_name = '';
 
@@ -645,7 +645,7 @@ class Upload {
 	 *
 	 * @param	string	$path
 	 * @param	string	$filename
-	 * @return	string
+	 * @return	string|false
 	 */
 	public function set_filename($path, $filename)
 	{
@@ -1068,7 +1068,7 @@ class Upload {
 	 * I'm not sure that it won't negatively affect certain files in unexpected ways,
 	 * but so far I haven't found that it causes trouble.
 	 *
-	 * @return	string
+	 * @return	string|bool
 	 */
 	public function do_xss_clean()
 	{

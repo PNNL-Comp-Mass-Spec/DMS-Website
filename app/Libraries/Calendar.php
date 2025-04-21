@@ -96,7 +96,7 @@ class Calendar {
 	/**
 	 * Url base to use for next/prev month links
 	 *
-	 * @var bool
+	 * @var string
 	 */
 	public $next_prev_url = '';
 

@@ -143,7 +143,9 @@ class Q_model extends Model {
                     break;
             }
         } catch (\Exception $e) {
-            return $e->getMessage();
+            $errorMessage = $e->getMessage();
+            log_message('error', "Exception getting Q_model query specs: (config name $config_name): $errorMessage");
+            throw new \Exception("Failure getting Q_model query specs: (config name $config_name): $errorMessage");
         }
 
         // Connect to the database
