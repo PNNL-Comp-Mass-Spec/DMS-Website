@@ -39,8 +39,8 @@ class Gen extends BaseController
     function index()
     {
 		// TODO: $page = $this->request->getPost('page');
-        $page = '';
-        $pageToShow = ($page != '')?$page:site_url('gen/welcome');
+        //$pageToShow = ($page != '')?$page:site_url('gen/welcome');
+        $pageToShow = site_url('gen/welcome');
 
         $data['page_url'] = $pageToShow;
         $data['side_menu_url'] = site_url('gen/side_menu');

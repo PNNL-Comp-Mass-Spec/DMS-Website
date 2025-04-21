@@ -62,7 +62,7 @@ class Entry {
 
         if (empty($initial_field_values)) {
             if ($page_type == 'edit') {
-                if (!empty($segs) && sizeof($segs) > 0) {
+                if (count($segs) > 0) {
                     $this->controller->message_box('Edit Error', "Entity '$segs[0]' not found");
                 } else {
                     $this->controller->message_box('Edit Error', "Entity ID not specified for editing");

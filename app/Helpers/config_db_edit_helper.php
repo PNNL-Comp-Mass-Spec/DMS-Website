@@ -53,7 +53,7 @@ function make_family_sql(\CodeIgniter\Database\BaseConnection $my_db, string $ge
     if (array_key_exists('base_table', $gen_parms)) {
         $table = $gen_parms['base_table'];
     }
-    if (!$table) {
+    if (empty($table)) {
         return "The 'base_table' parameter is not defined in config db table 'general_params'";
     }
 

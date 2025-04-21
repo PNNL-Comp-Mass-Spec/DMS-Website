@@ -351,9 +351,7 @@ class Calendar {
 			$month_names = array('01' => 'cal_january', '02' => 'cal_february', '03' => 'cal_march', '04' => 'cal_april', '05' => 'cal_mayl', '06' => 'cal_june', '07' => 'cal_july', '08' => 'cal_august', '09' => 'cal_september', '10' => 'cal_october', '11' => 'cal_november', '12' => 'cal_december');
 		}
 
-		return (lang("Calendar.".$month_names[$month]) === FALSE)
-			? ucfirst(substr($month_names[$month], 4))
-			: lang("Calendar.".$month_names[$month]);
+		return lang("Calendar.".$month_names[$month]);
 	}
 
 	// --------------------------------------------------------------------
@@ -390,7 +388,7 @@ class Calendar {
 		$days = array();
 		for ($i = 0, $c = count($day_names); $i < $c; $i++)
 		{
-			$days[] = (lang('Calendar.cal_'.$day_names[$i]) === FALSE) ? ucfirst($day_names[$i]) : lang('Calendar.cal_'.$day_names[$i]);
+			$days[] = lang('Calendar.cal_'.$day_names[$i]);
 		}
 
 		return $days;

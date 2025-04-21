@@ -1049,29 +1049,24 @@ class Cell_presentation {
         for ($i = 0; $i < count($result); $i++) {
             // Traverse all the date columns in the current row
             foreach ($dateTimeColumns as $columnName) {
-                // Skip if the column value is empty
+                // Skip if the column value is empty or null
                 if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
-                // Convert to blank if column value is null
-                if (is_null($result[$i][$columnName])) {
-                    $result[$i][$columnName] = '';
+                // Convert original date string to date object
+                // and then convert that to desired display format.
+                // mark display if original format could not be parsed.
+                $dt = false;
+                if (is_string($result[$i][$columnName])) {
+                    $dt = strtotime($result[$i][$columnName]);
                 } else {
-                    // Convert original date string to date object
-                    // and then convert that to desired display format.
-                    // mark display if original format could not be parsed.
-                    $dt = false;
-                    if (is_string($result[$i][$columnName])) {
-                        $dt = strtotime($result[$i][$columnName]);
-                    } else {
-                        $dt = $result[$i][$columnName];
-                    }
-                    if ($dt) {
-                        $result[$i][$columnName] = date($dateFormat, $dt);
-                    } else {
-                        $result[$i][$columnName] = "??" . $result[$i][$columnName];
-                    }
+                    $dt = $result[$i][$columnName];
+                }
+                if ($dt) {
+                    $result[$i][$columnName] = date($dateFormat, $dt);
+                } else {
+                    $result[$i][$columnName] = "??" . $result[$i][$columnName];
                 }
             }
         }
@@ -1103,20 +1098,15 @@ class Cell_presentation {
         for ($i = 0; $i < count($result); $i++) {
             // Traverse all the decimal columns in the current row
             foreach ($decimalColumns as $columnName) {
-                // Skip if the column value is empty
+                // Skip if the column value is empty or null
                 if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
-                // Convert to blank if column value is null
-                if (is_null($result[$i][$columnName])) {
-                    $result[$i][$columnName] = '';
-                } else {
-                    // Convert original decimal string to double
-                    // if it is not a string, don't touch it.
-                    if (is_string($result[$i][$columnName])) {
-                        $result[$i][$columnName] = doubleval($result[$i][$columnName]);
-                    }
+                // Convert original decimal string to double
+                // if it is not a string, don't touch it.
+                if (is_string($result[$i][$columnName])) {
+                    $result[$i][$columnName] = doubleval($result[$i][$columnName]);
                 }
             }
         }

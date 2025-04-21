@@ -173,6 +173,9 @@ abstract class BaseController extends Controller
         }
         // Dynamically load and initialize the model
         $local_ref = model('App\\Models\\'.$model_name);
+        if (is_null($local_ref)) {
+            return false;
+        }
         if (method_exists($local_ref, 'init')) {
             return $local_ref->init($config_name, $config_source);
         } else {

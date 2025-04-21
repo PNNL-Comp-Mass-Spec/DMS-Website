@@ -21,14 +21,14 @@ function get_initial_values_for_entry_fields(array $segs, string $config_source,
 
     $num_segs = count($segs);
     //
-    if ($num_segs == 0) {
+    if ($num_segs <= 0) {
         // Just accept defaults
     } else if ($num_segs == 1) {
         // Get values from database using source and id that we were given
         $id = $segs[0];
         $input_model = $controller->getModel('Q_model', 'entry_page', $config_source);
         $initial_field_values = $input_model->get_item($id, $controller);
-    } else if ($num_segs > 1) {
+    } else {
         // Get values from an external source
         $source = $segs[0];
         $id = $segs[1];

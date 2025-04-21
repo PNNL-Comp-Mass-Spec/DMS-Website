@@ -110,9 +110,7 @@ class Paging_filter {
      */
     function clear_cached_state() {
         helper('cache');
-        if (property_exists($this, "storage_name")) {
-            clear_cache($this->storage_name);
-        }
+        clear_cache($this->storage_name);
     }
 }
 ?>

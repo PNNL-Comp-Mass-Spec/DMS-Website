@@ -892,7 +892,7 @@ class Q_model extends Model {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
         $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
-        if ($obj === false || is_null($obj)) {
+        if (is_null($obj)) {
             throw new \Exception('Could not find query specs');
         }
 

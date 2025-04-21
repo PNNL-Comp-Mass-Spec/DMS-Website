@@ -180,7 +180,7 @@ class G_model extends Model {
         if(in_array('utility_queries', $tbl_list)) {
 
             $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
-            if($obj === false || is_null($obj)) {
+            if(is_null($obj)) {
                 throw new \Exception('Could not find query specs');
             }
 

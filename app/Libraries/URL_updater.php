@@ -89,7 +89,7 @@ class URL_updater {
         }
 
         $val = $link;
-        if ($this->server_bionet && stripos($val, "http") === 0) {
+        if (stripos($val, "http") === 0) {
             $target_host = str_ireplace(".emsl.pnl.gov", ".bionet", $val);
             $target_host = str_ireplace(".pnl.gov", ".bionet", $target_host);
             $prev_protocol = stripos($target_host, "https") === 0 ? "https" : "http";

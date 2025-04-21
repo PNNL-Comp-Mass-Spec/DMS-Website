@@ -489,7 +489,7 @@ class Sproc_postgre extends Sproc_base {
 
             $formFieldDefault = $formField['default'];
 
-            if (!empty($formFieldDefault) && $formFieldDefault !== '') {
+            if (!empty($formFieldDefault)) {
                 $valueDefined = true;
                 return $this->getValueToUse($dataType, $formFieldDefault);
             }
@@ -575,7 +575,7 @@ class Sproc_postgre extends Sproc_base {
      */
     private function getValueToUse(string $dataType, string $value) {
 
-        if (!empty($value) && $value !== '') {
+        if (!empty($value)) {
             // Cast the value to the appropriate data type
             switch ($dataType) {
                 case 'integer':

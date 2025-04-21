@@ -1079,7 +1079,7 @@ class Upload {
 			return FALSE;
 		}
 
-		if (memory_get_usage() && ($memory_limit = ini_get('memory_limit')) > 0)
+		if (($memory_limit = ini_get('memory_limit')) > 0)
 		{
 			$memory_limit = str_split($memory_limit, strspn($memory_limit, '1234567890'));
 			if ( ! empty($memory_limit[1]))
@@ -1148,10 +1148,13 @@ class Upload {
 	 */
 	public function set_error($msg, $log_level = 'error')
 	{
-		is_array($msg) OR $msg = array($msg);
+		if (!is_array($msg))
+		{
+			$msg = array($msg);
+		}
 		foreach ($msg as $val)
 		{
-			$msg = (lang("Upload.".$val) === FALSE) ? $val : lang("Upload.".$val);
+			$msg = lang("Upload.".$val);
 			$this->error_msg[] = $msg;
 			log_message($log_level, $msg);
 		}

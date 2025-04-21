@@ -252,7 +252,7 @@ class Param_report {
             if (array_key_exists("value", $f)) {
                 $x = $f["value"];
             } else {
-                $x = $x ? $x : "-";
+                $x = "-";
             }
             $pf[] = str_replace(" ", "%20", encode_special_values(trim($x)));
         }

@@ -90,7 +90,7 @@ class DmsValidationRules
 
         foreach ($fields as $field)
         {
-            if (strpos($str, $field) === true)
+            if (strpos($str, $field) !== false)
             {
                 $error = "The %s field can not contain the word '$field'";
                 return false;

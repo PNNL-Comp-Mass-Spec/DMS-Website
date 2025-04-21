@@ -50,7 +50,7 @@ class Dms_authorization extends Model {
 
         $db = new Connection(['database' => $this->masterAuthDBPath, 'dbdriver' => 'sqlite3']);
         $row = $db->query("SELECT * FROM $table_name WHERE page_family = '$controller' AND action = '$action'")->getRowArray();
-        if (!(false === $row || is_null($row))) {
+        if (!(is_null($row))) {
             $restrictions = preg_split('/, */', $row['required_permisions']);
         }
 
@@ -108,7 +108,7 @@ EOD;
 
             // Each user gets to have "DMS_User" permission automatically
             // unless they have "DMS_Guest"
-            if (!array_key_exists("DMS_User", $p) && !array_key_exists("DMS_Guest", $p)) {
+            if (!in_array('DMS_User', $p) && !in_array('DMS_Guest', $p)) {
                 $p[] = 'DMS_User';
             }
         }

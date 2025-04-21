@@ -393,23 +393,15 @@ class XssSecurity implements XssSecurityInterface {
 
 		static $_entities;
 
-		isset($charset) OR $charset = $this->charset;
+		if (!isset($charset))
+		{
+			$charset = $this->charset;
+		}
 		$flag = ENT_COMPAT | ENT_HTML5;
 
 		if ( ! isset($_entities))
 		{
 			$_entities = array_map('strtolower', get_html_translation_table(HTML_ENTITIES, $flag, $charset));
-
-			// If we're not on PHP 5.4+, add the possibly dangerous HTML 5
-			// entities to the array manually
-			if ($flag === ENT_COMPAT)
-			{
-				$_entities[':'] = '&colon;';
-				$_entities['('] = '&lpar;';
-				$_entities[')'] = '&rpar;';
-				$_entities["\n"] = '&NewLine;';
-				$_entities["\t"] = '&Tab;';
-			}
 		}
 
 		do
@@ -438,11 +430,6 @@ class XssSecurity implements XssSecurityInterface {
 				$flag,
 				$charset
 			);
-
-			if ($flag === ENT_COMPAT)
-			{
-				$str = str_replace(array_values($_entities), array_keys($_entities), $str);
-			}
 		}
 		while ($str_compare !== $str);
 		return $str;
@@ -708,9 +695,7 @@ class XssSecurity implements XssSecurityInterface {
 		if ($this->_xss_hash === NULL)
 		{
 			$rand = random_bytes(16);
-			$this->_xss_hash = ($rand === FALSE)
-				? md5(uniqid(mt_rand(), TRUE))
-				: bin2hex($rand);
+			$this->_xss_hash = bin2hex($rand);
 		}
 
 		return $this->_xss_hash;

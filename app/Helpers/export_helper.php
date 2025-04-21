@@ -79,7 +79,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                     $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
 
                     if (preg_match('/##FORMAT_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]##(.*)/i', $value, $matches)) {
-                        if (isset($matches[4]) && strlen($matches[4]) > 0) {
+                        if (strlen($matches[4]) > 0) {
                             store_formatted_cell($cell, $matches);
                         }
 
@@ -437,7 +437,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
              $description = "";
              $desc_items = $step->getElementsByTagName( "Description" );
              if($desc_items->length > 0) {
-                 $description = ($desc_items)?$desc_items->item(0)->nodeValue:"";
+                 $description = ($desc_items->item(0)->nodeValue)?$desc_items->item(0)->nodeValue:"";
                  $description = str_replace("\n", "\\l", $description);
              }
              $step_number = $step->getAttribute('Number');

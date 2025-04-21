@@ -21,7 +21,7 @@ if ( ! function_exists('xss_clean'))
 	 */
 	function xss_clean($str, $is_image = FALSE)
 	{
-		if (is_null($str)) {
+		if (empty($str)) {
 			return $str;
 		}
 
