@@ -38,7 +38,7 @@ abstract class Sproc_base {
      * binding arguments to fields in $par as defined by specifications in $args.
      * Return results as fields in $par
      * @param string $sprocName
-     * @param resource $conn_id
+     * @param resource|object|string $conn_id
      * @param array $args
      * @param object $input_params
      * @param array $formFields

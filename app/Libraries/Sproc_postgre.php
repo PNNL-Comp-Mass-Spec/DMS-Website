@@ -8,13 +8,17 @@ class Sproc_postgre extends Sproc_base {
      * binding arguments to fields in $input_params as defined by specifications in $args.
      * Returns results as fields in $input_params
      * @param string $sprocName Stored procedure name
-     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @param resource|object|string $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
      * @throws \Exception
      */
     function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
+        if (is_resource($conn_id) || (!is_string($conn_id) && get_class($conn_id) !== '\PgSql\Connection')) {
+            throw new \Exception('Invalid value for $conn_id passed to method!');
+        }
+
         try {
             $this->executeInternal($sprocName, $conn_id, $args, $input_params, $formFields);
 
@@ -39,7 +43,7 @@ class Sproc_postgre extends Sproc_base {
      * binding arguments to fields in $input_params as defined by specifications in $args.
      * Returns results as fields in $input_params
      * @param string $sprocName Stored procedure or function name
-     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @param \PgSql\Connection|string $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
@@ -305,7 +309,7 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * Package results into array of arrays
-     * @param resource $result
+     * @param \PgSql\Result $result
      * @return array
      */
     private function get_rows($result): array {
@@ -320,7 +324,7 @@ class Sproc_postgre extends Sproc_base {
      * Determines if the stored procedure given by $sprocName on database connection $conn_id is actually a function
      * Returns 'f' for function, or 'p' for procedure, or 'u' for unknown/not found.
      * @param string $sprocName Stored procedure name
-     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @param \PgSql\Connection|string $conn_id Database connection ID, from  $this->db->connID
      * @throws \Exception
      */
     private function isSProcFunction($sprocName, $conn_id) {
@@ -370,7 +374,7 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * This builds up column metadata definitions https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
-     * @param resource $result
+     * @param \PgSql\Result $result
      * @return array
      */
     private function extract_field_metadata($result): array {
