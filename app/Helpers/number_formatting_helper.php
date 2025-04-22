@@ -56,7 +56,7 @@ function valueToString($value, array $colSpec, bool $alwaysAddCommas) {
 
     if (strlen($addCommaFlag) > 0 && $addCommaFlag !== '0') {
         // Add commas for the thousands separator
-        $formattedValue = number_format($valueNum, $decimals);
+        $formattedValue = number_format($valueNum, (int)$decimals);
         $maxLength = 15;
     } else {
 

@@ -227,7 +227,7 @@ class Dms_chooser extends Model {
                 $target = $chsr['Target'];
                 $xref = $chsr['XRef'];
                 $label = (array_key_exists('Label', $chsr)) ? $chsr['Label'] : 'Choose from:';
-                $ch = $this->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
+                $ch = $this->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, "$seq");
                 $s .= $element_start . $ch . $element_end;
             }
         }

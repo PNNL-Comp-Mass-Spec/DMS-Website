@@ -146,7 +146,7 @@ function make_operations_sproc_sql(string $sprocName, string $table): string {
 
     $data['dt'] = date("m/d/Y");
 
-    $body = view('config_db/tmplt_ops_sproc', $data, true);
+    $body = view('config_db/tmplt_ops_sproc', $data);
     return $body;
 }
 
@@ -208,7 +208,7 @@ function make_main_sproc_sql(string $sprocName, string $table, array $sa): strin
     }
     $data['updts'] = $updts;
 
-    $body = view('config_db/tmplt_sproc', $data, true);
+    $body = view('config_db/tmplt_sproc', $data);
     return $body;
 }
 
@@ -377,7 +377,7 @@ function make_table_dump_text(array $config_db_table_list, string $display_mode)
 /**
  * Dump a crosstab of selected general_params for each config DB in $config_db_table_list
  * @param array $config_db_table_list
- * @param string[] $config_db_table_name_list
+ * @param array $config_db_table_name_list array of arrays
  * @return string
  */
 function make_general_params_dump(array $config_db_table_list, $config_db_table_name_list) {

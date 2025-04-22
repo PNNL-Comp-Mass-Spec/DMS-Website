@@ -242,7 +242,7 @@ class Calendar {
 		// Heading containing the month/year
 		$colspan = ($this->show_next_prev === TRUE) ? 5 : 7;
 
-		$this->replacements['heading_title_cell'] = str_replace('{colspan}', $colspan,
+		$this->replacements['heading_title_cell'] = str_replace('{colspan}', "$colspan",
 								str_replace('{heading}', $this->get_month_name($month).'&nbsp;'.$year, $this->replacements['heading_title_cell']));
 
 		$out .= $this->replacements['heading_title_cell']."\n";
@@ -283,14 +283,14 @@ class Calendar {
 						// Cells with content
 						$temp = ($is_current_month === TRUE && $day == $cur_day) ?
 								$this->replacements['cal_cell_content_today'] : $this->replacements['cal_cell_content'];
-						$out .= str_replace(array('{content}', '{day}'), array($data[$day], $day), $temp);
+						$out .= str_replace(array('{content}', '{day}'), array("{$data[$day]}", "$day"), $temp);
 					}
 					else
 					{
 						// Cells with no content
 						$temp = ($is_current_month === TRUE && $day == $cur_day) ?
 								$this->replacements['cal_cell_no_content_today'] : $this->replacements['cal_cell_no_content'];
-						$out .= str_replace('{day}', $day, $temp);
+						$out .= str_replace('{day}', "$day", $temp);
 					}
 
 					$out .= ($is_current_month === TRUE && $day == $cur_day) ? $this->replacements['cal_cell_end_today'] : $this->replacements['cal_cell_end'];
@@ -304,12 +304,12 @@ class Calendar {
 						// Day of previous month
 						$prev_month = $this->adjust_date($month - 1, $year);
 						$prev_month_days = $this->get_total_days($prev_month['month'], $prev_month['year']);
-						$out .= str_replace('{day}', $prev_month_days + $day, $this->replacements['cal_cell_other']);
+						$out .= str_replace('{day}', "".($prev_month_days + $day), $this->replacements['cal_cell_other']);
 					}
 					else
 					{
 						// Day of next month
-						$out .= str_replace('{day}', $day - $total_days, $this->replacements['cal_cell_other']);
+						$out .= str_replace('{day}', "".($day - $total_days), $this->replacements['cal_cell_other']);
 					}
 
 					$out .= $this->replacements['cal_cell_end_other'];
@@ -426,7 +426,7 @@ class Calendar {
 			$date['year']--;
 		}
 
-		if (strlen($date['month']) === 1)
+		if (strlen("{$date['month']}") === 1)
 		{
 			$date['month'] = '0'.$date['month'];
 		}

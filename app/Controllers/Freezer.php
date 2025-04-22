@@ -383,7 +383,7 @@ class Freezer extends DmsBase {
 
         // Make freezer dropdown
         $js = "id='freezer_list' onchange='dmsjs.goToSelectedPage(\"freezer_list\");'";
-        $data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), null, $js);
+        $data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), array(), $js);
 
         $data['tbs'] = $tbs;
 

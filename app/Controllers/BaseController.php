@@ -114,7 +114,7 @@ abstract class BaseController extends Controller
      * @param object $local_ref Local reference
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
-     * @param bool $options Custom options flag
+     * @param array|false $options Custom options flag
      * @return bool
      */
     public function loadLibrary($lib_name, &$local_ref, $config_name, $config_source, $options = false) {
@@ -150,7 +150,7 @@ abstract class BaseController extends Controller
      * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
-     * @param bool $options Custom options flag
+     * @param array|false $options Custom options flag
      * @return object
      */
     public function getLibrary($lib_name, $config_name, $config_source, $options = false) {
