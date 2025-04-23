@@ -15,7 +15,7 @@ class Sproc_postgre extends Sproc_base {
      * @throws \Exception
      */
     function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
-        if (is_resource($conn_id) || (!is_string($conn_id) && get_class($conn_id) !== '\PgSql\Connection')) {
+        if (is_resource($conn_id) || (!is_string($conn_id) && get_class($conn_id) !== 'PgSql\Connection')) {
             throw new \Exception('Invalid value for $conn_id passed to method!');
         }
 
