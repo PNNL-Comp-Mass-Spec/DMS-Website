@@ -212,7 +212,7 @@ class Pipeline_jobs extends DmsBase {
 
                 // Place row fields in table cells in table row
                 $str .= "<tr $class>";
-                $str .= "<td>${help_link}<span $highlight> " . $param['name'] . "</span></td>";
+                $str .= "<td>{$help_link}<span $highlight> " . $param['name'] . "</span></td>";
                 $str .= "<td>".$param['Reqd']."</td>";
                 switch($type) {
                     case 'text':
@@ -248,7 +248,7 @@ class Pipeline_jobs extends DmsBase {
         $nsLabel = str_replace(" ", "_", $label);
         $pwiki = config('App')->pwiki;
         $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
-        $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}_${script}#${nsLabel}";
+        $href = "{$pwiki}{$wiki_helpLink_prefix}{$file_tag}_{$script}#{$nsLabel}";
         $s .= "<a class=help_link target = '_blank' title='Click to bring up PRISM Wiki help page' href='".$href."'><img src='" . base_url('/images/help.png') . "' border='0' ></a>";
         return $s;
     }

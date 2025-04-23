@@ -460,7 +460,7 @@ class Entry_form {
             $lbx = $px[1];
             $dsx = $px[2];
             $s .= "<a href='javascript:void(0)' onclick='$fnx' >$lbx</a> $dsx";
-//          $s .= "<button name='${f_name}_btn' onclick='$fnx' class='button'>$lbx</button>";
+//          $s .= "<button name='{$f_name}_btn' onclick='$fnx' class='button'>$lbx</button>";
         }
 
         return $s;
@@ -500,7 +500,7 @@ class Entry_form {
             $nsLabel = str_replace(" ", "_", $label);
             $pwiki = config('App')->pwiki;
             $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
-            $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}#${nsLabel}";
+            $href = "{$pwiki}{$wiki_helpLink_prefix}{$file_tag}#{$nsLabel}";
             $s .= "<a class=help_link target = '_blank' title='Click to explain field " . $label . "' href='" . $href . "'><img src='" . base_url('/images/help.png') . "' border='0' ></a>";
         }
         return $s;

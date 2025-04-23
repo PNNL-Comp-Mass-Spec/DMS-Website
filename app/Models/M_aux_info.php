@@ -156,7 +156,7 @@ class M_aux_info extends Model {
         foreach ($this->form_fields as $f_name => $f_spec) {
             $x[$f_name] = $f_spec["label"];
             if (array_key_exists('enable', $f_spec)) {
-                $x["${f_name}_ckbx"] = $f_spec["enable"];
+                $x["{$f_name}_ckbx"] = $f_spec["enable"];
             }
         }
         return $x;

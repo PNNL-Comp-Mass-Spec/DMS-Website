@@ -263,7 +263,7 @@ function entry_outcome_message(string $message, string $option = 'success', stri
             $str = "<div class='bad_clr' $idWithTag>" . $message . "</div>";
             break;
         default:
-            $str = "<div ${id}>" . $message . "</div>";
+            $str = "<div {$id}>" . $message . "</div>";
             break;
     }
     return $str;

@@ -343,7 +343,7 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
             $link_id = encode_special_values($link_id);
 
             $url = make_detail_report_url($target, $link_id, $options);
-            $str = "<a$link_class id='lnk_${fld_id}' href='$url'>$display</a>";
+            $str = "<a$link_class id='lnk_{$fld_id}' href='$url'>$display</a>";
             break;
 
         case "href-folder":
@@ -629,10 +629,10 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
                 $linkTitle = "";
             }
 
-            $str = "<a id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$text</a>";
+            $str = "<a id='lnk_{$fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$text</a>";
 
             // Pop-up option
-            // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$text','width=800,height=600')\">$text</a>";
+            // $str = "<a id='lnk_{$fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$text','width=800,height=600')\">$text</a>";
             break;
 
         case "no_display":

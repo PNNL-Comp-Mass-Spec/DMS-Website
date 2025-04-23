@@ -184,7 +184,7 @@ class Mac_jobs extends DmsBase {
 
                 // Place row fields in table cells in table row
                 $str .= "<tr>";
-                $str .= "<td>${help_link}<span> " . $label . "</span></td>";
+                $str .= "<td>{$help_link}<span> " . $label . "</span></td>";
                 $str .= "<td><input name='$name' id='$name' size='120' maxlength='4096' value='$value' /></td>";
                 $str .= "<td>". $this->getChoosers()->make_chooser($name, 'picker.replace', $chooser, '', '', '', '') . "</td>";
                 $str .= "</tr>\n";
@@ -204,7 +204,7 @@ class Mac_jobs extends DmsBase {
         $nsLabel = str_replace(" ", "_", $label);
         $pwiki = config('App')->pwiki;
         $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
-        $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}_${script}#${nsLabel}";
+        $href = "{$pwiki}{$wiki_helpLink_prefix}{$file_tag}_{$script}#{$nsLabel}";
         $s .= "<a class=help_link target = '_blank' title='Click to bring up PRISM Wiki help page' href='".$href."'><img src='" . base_url('images/help.png') . "' border='0' ></a>";
         return $s;
     }

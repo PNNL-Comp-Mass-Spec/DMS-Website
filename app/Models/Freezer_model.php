@@ -251,7 +251,7 @@ EOD;
     function build_material_item_list($material_items) {
         $items = array();
         foreach ($material_items as $entry) {
-            $name = "${entry['item_type']} ${entry['item']}";
+            $name = "{$entry['item_type']} {$entry['item']}";
             $obj = new \stdClass();
             $obj->title = $name;
             $obj->folder = false;

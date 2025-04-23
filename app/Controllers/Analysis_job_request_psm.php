@@ -87,7 +87,7 @@ class Analysis_job_request_psm extends DmsBase {
         $s .= "<form id='suggested_values'>";
         $s .= "<input type='hidden' name='return_code' id='return_code' value='$code' />";
         foreach($dvs as $name => $val) {
-            $s .= "<input type='hidden' name='suggested_${name}' id='suggested_${name}' value='$val' />";
+            $s .= "<input type='hidden' name='suggested_{$name}' id='suggested_{$name}' value='$val' />";
         }
         $s .= "</form>\n";
 
