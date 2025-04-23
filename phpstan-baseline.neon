@@ -19,30 +19,6 @@ parameters:
 			path: app/Config/Filters.php
 
 		-
-			message: '#^Access to constant SORT_FULL on an unknown class Kint\\Renderer\\AbstractRenderer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Config/Kint.php
-
-		-
-			message: '#^Property Config\\Kint\:\:\$plugins has unknown class Kint\\Parser\\ConstructablePluginInterface as its type\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Config/Kint.php
-
-		-
-			message: '#^Property Config\\Kint\:\:\$richObjectPlugins has unknown class Kint\\Renderer\\Rich\\ValuePluginInterface as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Config/Kint.php
-
-		-
-			message: '#^Property Config\\Kint\:\:\$richTabPlugins has unknown class Kint\\Renderer\\Rich\\TabPluginInterface as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Config/Kint.php
-
-		-
 			message: '#^@readonly property cannot have a default value\.$#'
 			identifier: property.readOnlyByPhpDocDefaultValue
 			count: 1
@@ -53,6 +29,12 @@ parameters:
 			identifier: property.readOnlyByPhpDocDefaultValue
 			count: 4
 			path: app/Config/Modules.php
+
+		-
+			message: '#^@readonly property cannot have a default value\.$#'
+			identifier: property.readOnlyByPhpDocDefaultValue
+			count: 2
+			path: app/Config/Optimize.php
 
 		-
 			message: '#^Argument \#1 \$name \(''Config\\\\Modules''\) passed to function config does not extend CodeIgniter\\\\Config\\\\BaseConfig\.$#'

@@ -91,6 +91,8 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
         'options'  => '--application_name=website:dmsdev2::default',
     ],
 
@@ -111,9 +113,11 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
         'options'  => '--application_name=website:dmsdev2::broker',
     ],
-
+/*
     'broker_test' => [
         'hostname' => "Gigasax",
         'username' => "dmswebuser",
@@ -135,7 +139,7 @@ return [
         'pConnect' => false,
         'DBDebug'  => false,
     ],
-
+*/
     'package' => [
 /*
         'hostname' => "Gigasax",
@@ -153,6 +157,8 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
         'options'  => '--application_name=website:dmsdev2::package',
     ],
 
@@ -173,6 +179,8 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
         'options'  => '--application_name=website:dmsdev2::capture',
     ],
 
@@ -214,6 +222,8 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
         'options'  => '--application_name=website:dmsdev2::ontology',
     ],
 
@@ -240,6 +250,8 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
         'options'  => '--application_name=website:dmsdev2::manager_control',
     ],
 ];

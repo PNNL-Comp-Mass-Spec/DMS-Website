@@ -60,6 +60,13 @@ class App extends BaseConfig
         $serverHttpsState = \Config\Services::superglobals()->server("HTTPS");
         $protocol = isset($serverHttpsState) && $serverHttpsState == "on" ? "https" : "http";
         $serverName = \Config\Services::superglobals()->server("SERVER_NAME");
+        if (is_null($serverName) || $serverName === '')
+        {
+            // This should always be valid when running from the web server
+            // But, it's blank when running PHPstan, and 'baseURL' must have a value after 'http://',
+            // Otherwise, a ConfigException is (rightfully) thrown
+            $serverName = 'localhost';
+        }
         $this->baseURL = "{$protocol}://".$serverName.$this->baseURLPrefix;
         $this->uriProtocol = 'PATH_INFO';
         $this->appTimezone = 'America/Los_Angeles';

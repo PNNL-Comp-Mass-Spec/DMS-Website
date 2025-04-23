@@ -1,7 +1,10 @@
 <?php
 namespace App\Services;
 
-use CodeIgniter\Autoloader\FileLocator;
+use Closure;
+use CodeIgniter\Autoloader\FileLocatorInterface;
+use CodeIgniter\HTTP\Method;
+use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Router\RouteCollectionInterface;
 use Config\Modules;
 use Config\Routing;
@@ -25,14 +28,10 @@ use CodeIgniter\Router\RouteCollection as BaseRouteCollection;
  */
 class RouteCollection extends BaseRouteCollection
 {
-	/**
-	 * Constructor
-	 *
-	 * @param FileLocator $locator
-	 * @param Modules     $moduleConfig
-	 * @param Routing     $routing
-	 */
-    public function __construct(FileLocator $locator, Modules $moduleConfig, Routing $routing)
+    /**
+     * Constructor
+     */
+    public function __construct(FileLocatorInterface $locator, Modules $moduleConfig, Routing $routing)
     {
         parent::__construct($locator, $moduleConfig, $routing);
 
@@ -40,21 +39,34 @@ class RouteCollection extends BaseRouteCollection
         $this->placeholders['slashOrEnd'] = '/|$';
     }
 
-	//--------------------------------------------------------------------
-	/**
-	 * Specifies a single alias route to match for multiple HTTP Verbs.
-	 *
-	 * Example:
-	 *  $route->matchAlias( ['get', 'post'], 'user', 'users');
-	 *
-	 * @param array        $verbs
-	 * @param string       $from
-	 * @param string|array $to
-	 * @param array|null   $options
-	 *
-	 * @return RouteCollectionInterface
-	 */
-    public function matchAlias(array $verbs = [], string $from = '', $to = '', array $options = null): RouteCollectionInterface
+    /**
+     * Adds a single alias route to the collection.
+     *
+     * Example:
+     *      $routes->addAlias('news', 'Posts');
+     *
+     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     */
+    public function addAlias(string $from, $to, ?array $options = null)
+    {
+        // Match either just '[alias name]', or '[alias name]/[function and data?]'
+        // converting to '[target class]::[function and data?]'.
+        // If [function and data?] is blank, '[target class]::' just directs to
+        // '[target class]::index', which is the expected behavior.
+        $this->create('*', $from . '(:slashOrEnd)(:any)', $to . '::$2', $options);
+
+        return $this;
+    }
+
+    /**
+     * Specifies a single route to match for multiple HTTP Verbs.
+     *
+     * Example:
+     *  $route->matchAlias( ['GET', 'POST'], 'users', 'users');
+     *
+     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     */
+    public function matchAlias(array $verbs = [], string $from = '', $to = '', ?array $options = null): RouteCollectionInterface
     {
         // Match either just '[alias name]', or '[alias name]/[function and data?]'
         // converting to '[target class]::[function and data?]'.
@@ -65,50 +77,18 @@ class RouteCollection extends BaseRouteCollection
         return $this;
     }
 
-	//--------------------------------------------------------------------
-	/**
-	 * Specifies an alias route that is only available to GET requests.
-	 *
-	 * Example:
-	 *      $routes->getAlias('news', 'Posts');
-	 *
-	 * @param string       $from
-	 * @param array|string $to
-	 * @param array|null   $options
-	 *
-	 * @return RouteCollectionInterface
-	 */
-    public function getAlias(string $from, $to, array $options = null): RouteCollectionInterface
+    /**
+     * Specifies an alias route that is only available to GET requests.
+     *
+     * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
+     */
+    public function getAlias(string $from, $to, ?array $options = null): RouteCollectionInterface
     {
         // Match either just '[alias name]', or '[alias name]/[function and data?]'
         // converting to '[target class]::[function and data?]'.
         // If [function and data?] is blank, '[target class]::' just directs to
         // '[target class]::index', which is the expected behavior.
-        $this->create('get', $from . '(:slashOrEnd)(:any)', $to . '::$2', $options);
-
-        return $this;
-    }
-
-	//--------------------------------------------------------------------
-	/**
-	 * Adds a single alias route to the collection.
-	 *
-	 * Example:
-	 *      $routes->addAlias('news', 'Posts');
-	 *
-	 * @param string       $from
-	 * @param array|string $to
-	 * @param array|null   $options
-	 *
-	 * @return RouteCollectionInterface
-	 */
-    public function addAlias(string $from, $to, array $options = null)
-    {
-        // Match either just '[alias name]', or '[alias name]/[function and data?]'
-        // converting to '[target class]::[function and data?]'.
-        // If [function and data?] is blank, '[target class]::' just directs to
-        // '[target class]::index', which is the expected behavior.
-        $this->create('*', $from . '(:slashOrEnd)(:any)', $to . '::$2', $options);
+        $this->create(Method::GET, $from . '(:slashOrEnd)(:any)', $to . '::$2', $options);
 
         return $this;
     }
