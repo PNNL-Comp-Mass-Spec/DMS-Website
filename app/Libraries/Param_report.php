@@ -87,7 +87,7 @@ class Param_report {
      */
     function param_data() {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper('user');
 
@@ -218,7 +218,7 @@ class Param_report {
      */
     function param_info(string $what_info) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $this->get_filter_values();
 
@@ -328,7 +328,7 @@ class Param_report {
      */
     function param_paging() {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['link_util']);
 
@@ -361,7 +361,7 @@ class Param_report {
     // AJAX
     function param_filter() {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         // Call stored procedure
         $this->controller->loadSprocModel($this->config_name, $this->config_source);
@@ -389,7 +389,7 @@ class Param_report {
      */
     function export_param(string $format) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['user', 'export']);
 

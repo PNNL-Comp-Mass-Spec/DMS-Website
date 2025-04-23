@@ -116,7 +116,7 @@ class Detail_report {
      */
     function detail_sql($id) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $this->controller->loadDataModel($this->config_name, $this->config_source);
         echo $this->controller->data_model->get_item_sql($id) . ';';
@@ -150,7 +150,7 @@ class Detail_report {
      */
     function export_detail($id, $format) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         // Get entity data
         $this->controller->loadDataModel($this->config_name, $this->config_source);
@@ -273,7 +273,7 @@ class Detail_report {
      */
     function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv") {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $entity_info = $this->get_entry_tracking_info($id);
         $aux_info = $this->get_entry_aux_info($id);

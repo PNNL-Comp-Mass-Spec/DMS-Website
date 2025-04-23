@@ -41,7 +41,7 @@ class Data extends BaseController {
     function ax()
     {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['url']);
         $general_query = $this->getLibrary('General_query', '', ''); // $config_name, $config_source
@@ -150,7 +150,7 @@ class Data extends BaseController {
     function json()
     {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['url']);
         $uri = $this->request->getUri();

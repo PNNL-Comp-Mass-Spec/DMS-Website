@@ -17,7 +17,7 @@ class Unit_Test extends BaseController {
         parent::initController($request, $response, $logger);
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
     }
 
     // --------------------------------------------------------------------

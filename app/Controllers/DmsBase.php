@@ -21,7 +21,7 @@ class DmsBase extends BaseController
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
         // E.g.:
-        // $this->session = \Config\Services::session();
+        // $this->session = service('session');
 
     }
 
@@ -482,7 +482,7 @@ class DmsBase extends BaseController
     public function data()
     {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $general_query = $this->getLibrary('General_query', '', ''); // $config_name, $config_source
         $input_parms = $general_query->setup_query_for_dmsBase();

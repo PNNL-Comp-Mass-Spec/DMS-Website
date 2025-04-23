@@ -34,7 +34,7 @@ class List_report {
      */
     function list_report(string $mode) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         // Include several helper methods
 
@@ -189,7 +189,7 @@ class List_report {
      */
     function report_filter(string $filter_display_mode = 'advanced') {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper('form');
         helper(['filter', 'link_util']);
@@ -238,7 +238,7 @@ class List_report {
      */
     function get_sql_comparison(string $column_name) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $this->controller->loadDataModel($this->config_name, $this->config_source);
         $data_type = $this->controller->data_model->get_column_data_type(strtolower($column_name));
@@ -255,7 +255,7 @@ class List_report {
      */
     function report_data(string $option = 'rows') {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $this->set_up_list_query();
 
@@ -294,7 +294,7 @@ class List_report {
      */
     function report_info(string $what_info) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $this->set_up_list_query();
 
@@ -365,7 +365,7 @@ class List_report {
      */
     function report_paging() {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['link_util']);
         $current_filters = $this->set_up_list_query();
@@ -452,7 +452,7 @@ class List_report {
      */
     function export(string $format) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['export']);
 

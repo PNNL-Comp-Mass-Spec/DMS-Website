@@ -18,7 +18,7 @@ class List_report_ah extends List_report {
      */
     function list_report($mode) {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['form', 'menu', 'link_util', 'url']);
 

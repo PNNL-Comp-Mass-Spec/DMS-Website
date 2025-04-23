@@ -20,10 +20,10 @@ class Aux_info extends BaseController {
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
         // E.g.:
-        // $this->session = \Config\Services::session();
+        // $this->session = service('session');
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $preferences = $this->getPreferences();
 

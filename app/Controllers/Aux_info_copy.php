@@ -24,7 +24,7 @@ class Aux_info_copy extends BaseController {
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
         // E.g.:
-        // $this->session = \Config\Services::session();
+        // $this->session = service('session');
 
         $this->my_tag = "aux_info_copy";
         $this->my_title = "Aux Info Copy";
