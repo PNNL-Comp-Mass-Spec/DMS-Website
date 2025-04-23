@@ -324,11 +324,17 @@ class G_model extends Model {
     /**
      * Get the value for the specified parameter
      * @param string $name
+     * @param mixed $defaultValue
      * @return mixed
      */
-    function get_param($name)
+    function get_param($name, $defaultValue = false)
     {
-        return (array_key_exists($name, $this->the_parameters))?$this->the_parameters[$name]:false;
+        if (array_key_exists($name, $this->the_parameters))
+        {
+            return $this->the_parameters[$name];
+        }
+
+        return $defaultValue;
     }
 
     /**
