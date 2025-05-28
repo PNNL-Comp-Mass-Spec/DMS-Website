@@ -10,7 +10,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','45!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_lc_cart','LC Cart','32','','lc_cart','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_oper','Oper.','24','','oper','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_oper','Oper.','24','','operator','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_batch','Batch','12','','batch','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_state','State','32','','state','ContainsText','text','128','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
