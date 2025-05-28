@@ -29,9 +29,9 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_container','Container','10','','container','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','15!','','location','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_type','Type','4','','type','ContainsText','text','10','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_comment','Comment','15','','comment','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_comment','Comment','40!','','comment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_status','Status','4','','status','StartsWithText','text','10','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','15!','','campaign','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','25!','','campaign','ContainsText','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'container','invoke_entity','value','material_container/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'items','invoke_entity','container','material_items/report/~@','');
