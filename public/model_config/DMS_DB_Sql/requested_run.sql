@@ -69,7 +69,7 @@ INSERT INTO list_report_primary_filter VALUES(8,'pf_instrument_group','Inst. Gro
 INSERT INTO list_report_primary_filter VALUES(9,'pf_work_package','Work Pkg','32','','work_package','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_comment','Comment','20','','comment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(11,'pf_queue_state','Queue State','20','','queue_state','StartsWithText','text','32','','');
-INSERT INTO list_report_primary_filter VALUES(12,'pf_experiment','Experiment','20!','','experiment','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(12,'pf_experiment','Experiment','30!','','experiment','ContainsTextTPO','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'request','invoke_entity','value','requested_run/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'status','color_label','value','','{"Holding":"light_red_background"}');
