@@ -1,0 +1,10 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('list_report_data_table','v_dataset_cc_report_state_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO list_report_primary_filter VALUES(1,'pf_report_state_id','Cost Center Report State ID','5!','','cc_report_state_id','Equals','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_report_state_name','Report State Name','30!','','cc_report_state','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_report_state_description','Description','30!','','description','ContainsText','text','','','');
+COMMIT;
