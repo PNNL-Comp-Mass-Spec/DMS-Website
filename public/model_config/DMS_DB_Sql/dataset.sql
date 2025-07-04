@@ -78,13 +78,15 @@ INSERT INTO list_report_hotlinks VALUES(2,'rating','color_label','','','{"Unrevi
 INSERT INTO list_report_hotlinks VALUES(3,'qc_link','masked_link','value','','{"Label":"QC_Link"}');
 INSERT INTO list_report_hotlinks VALUES(4,'comment','min_col_width','value','60','');
 INSERT INTO list_report_hotlinks VALUES(5,'experiment','invoke_entity','value','experiment/show/','');
-INSERT INTO list_report_hotlinks VALUES(6,'proposal','invoke_entity','value','eus_proposals/show','');
+INSERT INTO list_report_hotlinks VALUES(6,'proposal','invoke_entity','value','eus_proposals/show/','');
 INSERT INTO list_report_hotlinks VALUES(7,'id','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(8,'acq_length','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(9,'scan_count','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(10,'file_size_mb','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(11,'request','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(12,'work_package','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(13,'cc_service_type','invoke_entity','value','cost_center_service_type/report/','');
+INSERT INTO list_report_hotlinks VALUES(14,'cc_report_state','invoke_entity','value','dataset_cc_report_state/report/','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO detail_report_commands VALUES(1,'Retry Capture','cmd_op','reset','dataset','Retry copying the instrument data from the instrument to the storage server.  This can only be used if the dataset folder on the storage server is empty or if it only contains a single corrupt .raw file.','Are you sure that you want to reset this dataset to New?');
 INSERT INTO detail_report_commands VALUES(2,'Create Data Analysis Request...','copy_from','','analysis_job_request','Open the entry form to create a new data analysis request for this dataset','');
@@ -134,6 +136,8 @@ INSERT INTO detail_report_hotlinks VALUES(40,'masic_qc_link','detail-report','da
 INSERT INTO detail_report_hotlinks VALUES(41,'+masic_qc_link','literal_link','','','valueCol','dl_masic_data','');
 INSERT INTO detail_report_hotlinks VALUES(42,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
 INSERT INTO detail_report_hotlinks VALUES(43,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
+INSERT INTO detail_report_hotlinks VALUES(44,'cost_center_service_type_id','detail-report','cost_center_service_type_id','cost_center_service_type/report/','labelCol','dl_cost_center_service_type','');
+INSERT INTO detail_report_hotlinks VALUES(45,'cost_center_report_state','detail-report','cost_center_service_type','dataset_cc_report_state/report/-/~','labelCol','dl_dataset_cc_report_state','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO entry_commands VALUES(1,'add_dataset_create_task','override','Create','Create a new dataset by adding it to the dataset creation queue','add');
 INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as a bad instrument run (Rating "No Data").','');
