@@ -75,25 +75,113 @@ return [
 
 return [
     'default' => [
+/*
+        'hostname' => "Gigasax",
+        'database' => "DMS5_Beta",
+        'DBDriver' => "SQLSRV",
+*/
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
+        'DBDriver' => "Postgre",
+        'schema'   => "public",
+        'swapPre'  => "public, sw, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'DBPrefix' => "",
+        'pConnect' => false,
+        'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dmsbeta::default',
+    ],
+
+    'broker' => [
+/*
+        'hostname' => "Gigasax",
+        'database' => "DMS_Pipeline_T3",
+        'DBDriver' => "SQLSRV",
+*/
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
+        'DBDriver' => "Postgre",
+        'schema'   => "sw",
+        'swapPre'  => "sw, public, cap, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'DBPrefix' => "",
+        'pConnect' => false,
+        'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dmsbeta::broker',
+    ],
+/*
+    'broker_test' => [
         'hostname' => "Gigasax",
         'username' => "dmswebuser",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
-        'database' => "DMS5_Beta",
+        'database' => "DMS_Pipeline_Test",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
     ],
 
-    'package' => [
-        'hostname' => "Gigasax",
-        'username' => "dmswebuser",
+    'ers' => [
+        'hostname' => "eusi.emsl.pnl.gov",
+        'username' => "auberry_user",
         'password' => "see_repo_DMS2_DatabaseConfigFiles",
-        'database' => "DMS_Data_Package_Beta",
+        'database' => "Auberry",
         'DBDriver' => "SQLSRV",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+    ],
+*/
+    'package' => [
+/*
+        'hostname' => "Gigasax",
+        'database' => "DMS_Data_Package_Beta",
+        'DBDriver' => "SQLSRV",
+*/
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
+        'DBDriver' => "Postgre",
+        'schema'   => "dpkg",
+        'swapPre'  => "dpkg, public, sw, cap, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'DBPrefix' => "",
+        'pConnect' => false,
+        'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dmsbeta::package',
+    ],
+
+    'capture' => [
+/*
+        'hostname' => "Gigasax",
+        'database' => "DMS_Capture_T3",
+        'DBDriver' => "SQLSRV",
+*/
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
+        'DBDriver' => "Postgre",
+        'schema'   => "cap",
+        'swapPre'  => "cap, public, sw, dpkg, mc, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
+        'DBPrefix' => "",
+        'pConnect' => false,
+        'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dmsbeta::capture',
     ],
 
     'prism_ifc' => [
@@ -119,14 +207,24 @@ return [
     ],
 
     'ontology' => [
+/*
         'hostname' => "Gigasax",
-        'username' => "dmswebuser",
-        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'database' => "Ontology_Lookup",
         'DBDriver' => "SQLSRV",
+*/
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
+        'DBDriver' => "Postgre",
+        'schema'   => "ont",
+        'swapPre'  => "ont, public, sw, cap, dpkg, mc, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
+        'username' => "dmswebuser",
+        'password' => "see_repo_DMS2_DatabaseConfigFiles",
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dmsbeta::ontology',
     ],
 
     'manager_control' => [
@@ -141,8 +239,8 @@ return [
         'DBDriver' => "Postgre",
         'schema'   => "mc",
 */
-        'hostname' => "prismdb2",
-        'database' => "dms",
+        'hostname' => "prismdb1",
+        'database' => "dmsdev",
         'DBDriver' => "Postgre",
         'schema'   => "mc",
         'swapPre'  => "mc, public, sw, cap, dpkg, ont, pc", // Provided that DBPrefix is an empty string, we can re-purpose this for a full search path
@@ -152,6 +250,9 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dmsbeta::manager_control',
     ],
 ];
 
