@@ -108,6 +108,71 @@ class Entry {
     }
 
     /**
+     * Make an entry page json object that can be populated for creating a new entry, or edited for updating an entry
+     * The entry json object is later submitted via POST call to function api_create or (PUT/PATCH/POST) api_update.
+     * @param string $page_type
+     * @param string $id
+     */
+    function create_entry_json($page_type, $id = '') {
+        helper(['entry_page', 'url']);
+
+        // General specifications for page family
+        $this->controller->loadGeneralModel('na', $this->config_source);
+
+        // Make entry form object using form definitions from model
+        $this->controller->loadFormModel('na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
+        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
+        //
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
+
+        // Determine the page mode ('add' or 'update')
+        $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
+
+        // Get initial field values and merge them with form object
+        $segs = array();
+        if ($page_type == 'edit') {
+            $segs[] = $id;
+        }
+        $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields, $this->controller);
+
+        if (empty($initial_field_values)) {
+            if ($page_type == 'edit') {
+                \Config\Services::response()->setContentType("application/json");
+                echo '{"error":"Entity with id \'' . $id . '\' does not exist."}';
+                return;
+            }
+        } else {
+            foreach ($initial_field_values as $field => $value) {
+
+                // Entry views in DMS can append __NoCopy__ to a field when we do not want the field value to be copied to new entries
+                // For example, see V_Sample_Prep_Request_Entry
+                if (EndsWith($value, '__NoCopy__')) {
+                    if (substr($mode, 0, 3) === 'add') {
+                        // Creating a new item (either from scratch or by copying an existing item)
+                        // Blank out the field
+                        $value = '';
+                    } else {
+                        // Editing an item; remove the NoCopy flag
+                        $value = substr($value, 0, strlen($value) - strlen('__NoCopy__'));
+                    }
+                }
+
+                $this->controller->entry_form->set_field_value($field, $value);
+            }
+        }
+
+        // Handle special field options for entry form object
+        $this->handle_special_field_options($form_def, $mode);
+
+        // Build page display components and load page
+        $json = $this->controller->entry_form->build_json_object($mode);
+
+        \Config\Services::response()->setContentType("application/json");
+        echo json_encode($json);
+    }
+
+    /**
      * Handle command buttons
      * @param object $me
      * @param mixed $commands Array of strings

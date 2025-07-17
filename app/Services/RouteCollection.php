@@ -92,4 +92,152 @@ class RouteCollection extends BaseRouteCollection
 
         return $this;
     }
+
+    /**
+     * Add the API/resource route set for a controller to the collection. This is a wrapper around '->resource' with URI 'api/[controller]' and 'api_' prefixes for methods.
+     *
+     * Example:
+     *      $routes->addApiRoutes('requested_run');
+     *
+     * @param string $name controller name used in URI 
+     */
+    public function addApiRoutes(string $name, ?array $options = null)
+    {
+        if (!isset($options['websafe']))
+        {
+            $options['websafe'] = 1;
+        }
+
+        $this->resourcePrefixed($name, 'api', $options);
+
+        return $this;
+    }
+
+    /**
+     * Copied with modifications from framework\system\Router\RouteCollection::resource
+     * Creates a collections of HTTP-verb based routes for a controller, with a URI path prefix and method prefixes
+     *
+     * Possible Options:
+     *      'controller'    - Customize the name of the controller used in the 'to' route
+     *      'placeholder'   - The regex used by the Router. Defaults to '(:any)'
+     *      'websafe'   -   - '1' if only GET and POST HTTP verbs are supported
+     *
+     * Example:
+     *
+     *      $route->resource('photos');
+     *
+     *      // Generates the following routes:
+     *      HTTP Verb | Path        | Action        | Used for...
+     *      ----------+-------------+---------------+-----------------
+     *      GET         /photos             index           an array of photo objects
+     *      GET         /photos/new         new             an empty photo object, with default properties
+     *      GET         /photos/{id}/edit   edit            a specific photo object, editable properties
+     *      GET         /photos/{id}        show            a specific photo object, all properties
+     *      POST        /photos             create          a new photo object, to add to the resource
+     *      DELETE      /photos/{id}        delete          deletes the specified photo object
+     *      PUT/PATCH   /photos/{id}        update          replacement properties for existing photo
+     *
+     *  If 'websafe' option is present, the following paths are also available:
+     *
+     *      POST        /photos/{id}/delete delete
+     *      POST        /photos/{id}        update
+     *
+     * @param string     $name    The name of the resource/controller to route to.
+     * @param string     $prefix  The prefix added to the segments (before the name, '/' added at end) and to the method name ('_' added at end)
+     * @param array|null $options An list of possible ways to customize the routing.
+     *
+     * @return RouteCollectionInterface
+     */
+    public function resourcePrefixed(string $name, string $prefix = "", array $options = null): RouteCollectionInterface
+    {
+        // In order to allow customization of the route the
+        // resources are sent to, we need to have a new name
+        // to store the values in.
+        $newName = implode('\\', array_map('ucfirst', explode('/', $name)));
+        // If a new controller is specified, then we replace the
+        // $name value with the name of the new controller.
+        if (isset($options['controller']))
+        {
+            $newName = ucfirst(filter_var($options['controller'], FILTER_SANITIZE_STRING));
+        }
+
+        $uriPrefix = $prefix . '/';
+        $methodPrefix = $prefix . '_';
+        if (is_null($prefix) || empty($prefix) || empty(trim($prefix)))
+        {
+            $uriPrefix = '';
+            $methodPrefix = '';
+        }
+
+        // In order to allow customization of allowed id values
+        // we need someplace to store them.
+        $id = $this->placeholders[$this->defaultPlaceholder] ?? '(:segment)';
+
+        if (isset($options['placeholder']))
+        {
+            $id = $options['placeholder'];
+        }
+
+        // Make sure we capture back-references
+        $id = '(' . trim($id, '()') . ')';
+
+        $methods = isset($options['only']) ? (is_string($options['only']) ? explode(',', $options['only']) : $options['only']) : ['index', 'show', 'create', 'update', 'delete', 'new', 'edit'];
+
+        if (isset($options['except']))
+        {
+            $options['except'] = is_array($options['except']) ? $options['except'] : explode(',', $options['except']);
+            foreach ($methods as $i => $method)
+            {
+                if (in_array($method, $options['except'], true))
+                {
+                    unset($methods[$i]);
+                }
+            }
+        }
+
+        if (in_array('index', $methods, true))
+        {
+            $this->get($uriPrefix . $name, $newName . '::' . $methodPrefix . 'index', $options);
+        }
+        if (in_array('new', $methods, true))
+        {
+            $this->get($uriPrefix . $name . '/new', $newName . '::' . $methodPrefix . 'new', $options);
+        }
+        if (in_array('edit', $methods, true))
+        {
+            $this->get($uriPrefix . $name . '/' . $id . '/edit', $newName . '::' . $methodPrefix . 'edit/$1', $options);
+        }
+        if (in_array('show', $methods, true))
+        {
+            $this->get($uriPrefix . $name . '/' . $id, $newName . '::' . $methodPrefix . 'show/$1', $options);
+        }
+        if (in_array('create', $methods, true))
+        {
+            $this->post($uriPrefix . $name, $newName . '::' . $methodPrefix . 'create', $options);
+        }
+        if (in_array('update', $methods, true))
+        {
+            $this->put($uriPrefix . $name . '/' . $id, $newName . '::' . $methodPrefix . 'update/$1', $options);
+            $this->patch($uriPrefix . $name . '/' . $id, $newName . '::' . $methodPrefix . 'update/$1', $options);
+        }
+        if (in_array('delete', $methods, true))
+        {
+            $this->delete($uriPrefix . $name . '/' . $id, $newName . '::' . $methodPrefix . 'delete/$1', $options);
+        }
+
+        // Web Safe? delete needs checking before update because of method name
+        if (isset($options['websafe']))
+        {
+            if (in_array('delete', $methods, true))
+            {
+                $this->post($uriPrefix . $name . '/' . $id . '/delete', $newName . '::' . $methodPrefix . 'delete/$1', $options);
+            }
+            if (in_array('update', $methods, true))
+            {
+                $this->post($uriPrefix . $name . '/' . $id, $newName . '::' . $methodPrefix . 'update/$1', $options);
+            }
+        }
+
+        return $this;
+    }
 }
