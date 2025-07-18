@@ -69,15 +69,18 @@ class Dms_chooser extends Model {
     /**
      * Return choices list for given chooser
      * @param string $chooser_name
+     * @param bool $include_prompt
      * @return array
      */
-    function get_choices(string $chooser_name): array {
+    function get_choices(string $chooser_name, bool $include_prompt = true): array {
         $options = array();
         helper(['string', 'database']);
         if (array_key_exists($chooser_name, $this->choices)) {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
-                    $options[""] = "-- choices --";
+                    if ($include_prompt) {
+                        $opt1ions[""] = "-- choices --";
+                    }
                     foreach ($this->choices[$chooser_name]["value"] as $k => $v) {
                         $options[$k] = $v;
                     }
@@ -92,7 +95,9 @@ class Dms_chooser extends Model {
 
                     $result = $my_db->query($this->choices[$chooser_name]["value"]);
                     if ($result) {
-                        $options[""] = "-- choices --";
+                        if ($include_prompt) {
+                            $options[""] = "-- choices --";
+                        }
                         foreach ($result->getResultArray() as $row) {
                             $val = $row["val"];
                             $ex = (string) $row["ex"];
@@ -125,7 +130,9 @@ class Dms_chooser extends Model {
                     break;
                 case "sql":
                     // NOTE: uses 'ex' if that column exists and is not empty, otherwise uses 'val'
-                    $str .= "value in 'ex' (or 'val' if 'ex' empty/missing) column from SQL query '" . $this->choices[$chooser_name]["value"] . "'";
+                    $url1 = reduce_double_slashes(site_url("chooser/get_choices/$chooser_name"));
+                    $url2 = reduce_double_slashes(site_url("chooser/get_choices_kv/$chooser_name"));
+                    $str .= "see values at $url1, with descriptions at $url2";
                     break;
             }
         }
