@@ -210,15 +210,12 @@ class Entry_form {
      * for an entry form row, and then call function to build HTML for
      * visible entry form
      * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
-     * @return string
+     * @return array
      */
-    function build_json_object($mode): array {
+    function build_entry_array($mode): array {
         helper(['url', 'text', 'form']);
 
-        $visible_fields = array();
-        $hidden_fields = array();
-        $json_data = array();
-        $block_number = 0;
+        $data = array();
         foreach ($this->form_field_specs as $fldName => $spec) {
             if (!array_key_exists('type', $spec)) {
                 continue;
@@ -228,61 +225,7 @@ class Entry_form {
             $fieldTypes = explode('|', $spec['type']);
             $doc = array();
 
-            if (in_array('hidden', $fieldTypes)) {
-                $val = $this->field_values[$fldName];
-                $hidden_fields[] = "<input type='hidden' id='$fldName' name='$fldName' value='$val'/>";
-                $json_data[$fldName] = $val;
-            } else {
-                // If field has section header attribute, add section header row to table
-                if (array_key_exists('section', $spec)) {
-
-                    if (!array_key_exists('label', $spec)) {
-                        // Section name that points to a column that is not in the source data table or view
-                        // A warning box should have already been displayed via get_default_value
-                        continue;
-                    }
-
-                    $block_number++;
-                    $visible_fields[] = array(-1, $spec['section'], $block_number);
-                    // (someday) allow for enable field and section headers to be used together
-                }
-                $help = $this->make_wiki_help_link($spec['label']);
-                $label = $spec['label'];
-                $nonEditField = false;
-                $field = $this->make_entry_field($fldName, $spec, $this->field_values[$fldName], $mode, $nonEditField);
-                $json_data[$fldName] = $this->field_values[$fldName];
-
-                $showChooser = !$nonEditField;
-
-                if ($showChooser && in_array('text-if-new', $fieldTypes)) {
-                    if (substr($mode, 0, 3) === 'add' || $mode === 'retry') {
-                        // Mode is likely add, though for dataset creation it will be add_trigger
-                        // Mode will be retry if an exception occurred while calling a stored procedure and entry_cmd_mode was undefined
-                        $showChooser = true;
-                    } else {
-                        // Mode is likely update
-                        $showChooser = false;
-                    }
-                }
-
-                if ($showChooser) {
-                    $choosers = $this->controller->getChoosers()->make_choosers($fldName, $spec);
-                } else {
-                    $choosers = "";
-                }
-
-                $error = $this->field_errors[$fldName]; //$this->make_error_field($this->field_errors[$fldName]);
-                //
-                $entry = $this->make_entry_area($field, $choosers, $error);
-                $param = ($help) ? $help . '&nbsp;' . $label : $label;
-                //
-                if (!empty($this->field_enable)) {
-                    $enable_ctrl = $this->make_field_enable_checkbox($fldName);
-                    $visible_fields[] = array($block_number, $param, $enable_ctrl, $entry);
-                } else {
-                    $visible_fields[] = array($block_number, $param, $entry);
-                }
-            }
+            $data[$fldName] = $this->field_values[$fldName];
 
             $fieldRules = explode('|', $spec['rules']);
             $nonEdit = false;
@@ -359,17 +302,11 @@ class Entry_form {
 
             if (isset($doc) && !empty($doc))
             {
-                $json_data['doc_' . $fldName] = implode('; ', $doc);
+                $data['doc_' . $fldName] = implode('; ', $doc);
             }
         }
 
-        // Package form display elements into final container
-        $str = '';
-        if (!empty($visible_fields)) {
-            $str .= $this->display_table($visible_fields, empty($this->field_enable), $block_number);
-        }
-        $str .= implode("\n", $hidden_fields);
-        return $json_data;
+        return $data;
     }
 
     // ---------------------------------------------------------------------------------------------------------

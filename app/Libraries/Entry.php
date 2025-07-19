@@ -114,6 +114,18 @@ class Entry {
      * @param string $id
      */
     function create_entry_json($page_type, $id = '') {
+        \Config\Services::response()->setContentType("application/json");
+        echo json_encode($this->create_entry_array($page_type, $id));
+    }
+
+    /**
+     * Make an entry page array that can be populated for creating a new entry, or edited for updating an entry
+     * The entry data array is later submitted via POST call to function api_create or (PUT/PATCH/POST) api_update.
+     * @param string $page_type
+     * @param string $id
+     * @return array
+     */
+    function create_entry_array($page_type, $id = '') : array {
         helper(['entry_page', 'url']);
 
         // General specifications for page family
@@ -138,9 +150,7 @@ class Entry {
 
         if (empty($initial_field_values)) {
             if ($page_type == 'edit') {
-                \Config\Services::response()->setContentType("application/json");
-                echo '{"error":"Entity with id \'' . $id . '\' does not exist."}';
-                return;
+                return array("error" => "Entity with id '$id' does not exist.");
             }
         } else {
             foreach ($initial_field_values as $field => $value) {
@@ -166,10 +176,9 @@ class Entry {
         $this->handle_special_field_options($form_def, $mode);
 
         // Build page display components and load page
-        $json = $this->controller->entry_form->build_json_object($mode);
+        $data = $this->controller->entry_form->build_entry_array($mode);
 
-        \Config\Services::response()->setContentType("application/json");
-        echo json_encode($json);
+        return $data;
     }
 
     /**
@@ -286,6 +295,106 @@ class Entry {
         echo $supplement;
     }
 
+    /**
+     *  Create or update entry in database from entry page form fields in POST:
+     *  use entry form definition from config db
+     *  validate entry form information, submit to database if valid,
+     *  and return HTML containing entry form with updated values
+     *  and success/failure messages
+     * @param string|array$data
+     * @param string $id
+     */
+    function submit_entry_json($data, $id = '') {
+        helper(['entry_page']);
+
+        $this->controller->loadFormModel('na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
+        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
+
+        $request = \Config\Services::request();
+        $postData = $data;
+        //$this->controller->getLogger()->info(print_r($postData, true));
+        $preformat = new \App\Libraries\ValidationPreformat();
+        $postData = $preformat->run($postData, $form_def->rules);
+
+        //$this->controller->getLogger()->info(print_r($postData, true));
+        //foreach ($postData as $key => $value)
+        //{
+        //    $this->controller->getLogger()->info("$key: $value");
+        //    if (is_null($value))
+        //    {
+        //        $postData[$key] = "";
+        //    }
+        //}
+        //$this->controller->getLogger()->info(print_r($postData, true));
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($form_def->rules);
+
+        $resultType = "";
+        try {
+            $valid_fields = $validation->run($postData);
+
+            // Get field values from validation object
+            $input_params = new \stdClass();
+            foreach ($form_def->fields as $field) {
+                if (array_key_exists($field, $postData) === false) {
+                    // The form field is not in the POST data
+                    // For checkbox fields, if a checkbox is unchecked, it will not be in $postData
+                    // See, for example, https://dmsdev.pnl.gov/analysis_job_request_psm/create
+                
+                    // The analysis_job_request_psm page also has a form field named 'ignore_me',
+                    // which is a placeholder for the "Get suggested values" link; this field is also not in $postData
+                    continue;
+                }
+
+                $input_params->$field = $postData[$field];
+            }
+
+            if (!$valid_fields) {
+                throw new \Exception('There were validation errors');
+            }
+
+            // $msg is an output parameter of call_stored_procedure
+            $msg = '';
+            $this->call_stored_procedure($input_params, $form_def, $msg);
+
+            // Everything worked - compose tidings of joy
+            $resultType = 'success';
+            $message = 'Operation was successful';
+            if (empty($msg)) {
+                $outcome = $message;
+            } else {
+                // Define $outcome as "Operation was successful: message"
+                $outcome = $message . ": " . $msg;
+            }
+        } catch (\Exception $e) {
+            // Something broke - compose expressions of regret
+            $outcome = $e->getMessage();
+
+            // Read the value of $_POST['entry_cmd_mode']
+            $entryCmdMode = filter_input(INPUT_POST, 'entry_cmd_mode', FILTER_SANITIZE_STRING);
+
+            // Add or update the mode property of the input params
+            if (empty($entryCmdMode)) {
+                $input_params->mode = 'retry';
+            } else {
+                $input_params->mode = $entryCmdMode;
+            }
+        }
+
+        // Get entry form object and use to to build and return HTML for form
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
+        $reportData = $this->make_entry_report_array($input_params, $form_def, $validation);
+        $result = array(
+            'result' => $resultType,
+            'message' => $outcome
+        );
+
+        \Config\Services::response()->setContentType("application/json");
+        echo json_encode(array_merge($result, $reportData));
+    }
+
     // --------------------------------------------------------------------
     private function outcome_msg($message, $option) {
         return entry_outcome_message($message, $option, 'main_outcome_msg');
@@ -324,6 +433,41 @@ class Entry {
 
         // Build HTML and return it
         return $this->controller->entry_form->build_display($mode);
+    }
+
+    /**
+     * Get entry form builder object and use it to make HTML
+     * @param \stdClass $input_params
+     * @param \stdClass $form_def
+     * @param ValidationInterface $validation
+     * @return array
+     */
+    protected function make_entry_report_array(\stdClass $input_params, \stdClass $form_def, ValidationInterface $validation) : array {
+        // Handle special field options for entry form object
+        $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
+        $this->handle_special_field_options($form_def, $mode);
+        $errors = array();
+
+        // Update entry form object with field values
+        // and any field validation errors
+        foreach ($form_def->fields as $field) {
+            if(property_exists($input_params, $field) === false)
+            { 
+                // The field is not defined as a property in the $input_params class
+                continue;
+            }
+
+            $this->controller->entry_form->set_field_value($field, $input_params->$field);
+            $fieldError = $validation->getError($field);
+
+            if ($fieldError !== '')
+            {
+                $errors["error_$field"] = $fieldError;
+            }
+        }
+
+        $data = $this->controller->entry_form->build_entry_array($mode);
+        return array_merge($errors, $data);
     }
 
     /**

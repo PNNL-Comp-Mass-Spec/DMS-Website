@@ -100,6 +100,11 @@ abstract class BaseController extends Controller
         echo view('message_box', $data);
     }
 
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
     /**
      * Sets help_page_link to the default value
      * @return void

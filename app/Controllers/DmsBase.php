@@ -490,7 +490,12 @@ class DmsBase extends BaseController
         }
 
         $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
-        $entry->submit_entry_form();
+        // $this->request->getPOST() and $this->request->getRawInput() do preliminary string parsing that has issues, so just get the real raw input
+        $rawData = file_get_contents('php://input');
+        //$this->getLogger()->info($rawData);
+        $postData = json_decode($rawData, true);
+        //$this->getLogger()->info(print_r($postData, true));
+        $entry->submit_entry_json($postData);
     }
 
     /**
@@ -553,9 +558,36 @@ class DmsBase extends BaseController
             return;
         }
 
-        // TODO: if verb is PATCH, need to merge into JSON object from api_edit before submitting
         $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
-        $entry->submit_entry_form();
+
+        // Get the data via the appropriate method
+        // $this->request->getPOST() and $this->request->getRawInput() do preliminary string parsing that has issues, so just get the real raw input
+        $rawData = file_get_contents('php://input');
+        //$this->getLogger()->info($rawData);
+        $data = json_decode($rawData, true);
+        //$this->getLogger()->info(print_r($postData, true));
+
+        if ($this->request->is('PATCH'))
+        {
+            // Partial update. Rebuild to full object with current values
+            $dataChunk = $this->request->getJSON();
+            if (is_array($dataChunk))
+            {
+                $data = $entry->create_entry_array('edit', $id);
+
+                foreach ($dataChunk as $field => $value)
+                {
+                    $data[$field] = $value;
+                }
+            }
+        }
+
+        //$this->getLogger()->info(print_r($postData, true));
+
+        if (isset($data))
+        {
+            $entry->submit_entry_json($data, $id);
+        }
     }
 
     /**
@@ -568,7 +600,7 @@ class DmsBase extends BaseController
             return;
         }
 
-		return $this->fail(lang('RESTful.notImplemented', ['delete']), 501);
+        return $this->fail(lang('RESTful.notImplemented', ['delete']), 501);
     }
 
     // --------------------------------------------------------------------

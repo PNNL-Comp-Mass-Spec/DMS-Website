@@ -73,7 +73,7 @@ class Filters extends BaseConfig
             // 'invalidchars',
         ],
         'after' => [
-            'toolbar' => ['except' => ['*/export/*', '*/export_detail/*', '*/export_spreadsheet/*', '*/export_param/*', '*/export_to_tab_delimited_text/*', 'spreadsheet_loader/template/*']],
+            'toolbar' => ['except' => ['*/export/*', '*/export_detail/*', '*/export_spreadsheet/*', '*/export_param/*', '*/export_to_tab_delimited_text/*', 'spreadsheet_loader/template/*', 'api/*']],
             // 'honeypot',
             // 'secureheaders',
         ],
