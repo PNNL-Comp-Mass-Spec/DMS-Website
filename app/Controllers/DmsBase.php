@@ -495,7 +495,7 @@ class DmsBase extends BaseController
         //$this->getLogger()->info($rawData);
         $postData = json_decode($rawData, true);
         //$this->getLogger()->info(print_r($postData, true));
-        $entry->submit_entry_json($postData);
+        $entry->submit_entry_json($postData, 'add');
     }
 
     /**
@@ -565,12 +565,13 @@ class DmsBase extends BaseController
         $rawData = file_get_contents('php://input');
         //$this->getLogger()->info($rawData);
         $data = json_decode($rawData, true);
-        //$this->getLogger()->info(print_r($postData, true));
+        //$this->getLogger()->info(print_r($data, true));
 
+        // NOTE: Ideally we only do this merge for PATCH requests, but it may be good practice to use this to avoid many errors anyway.
         if ($this->request->is('PATCH'))
         {
             // Partial update. Rebuild to full object with current values
-            $dataChunk = $this->request->getJSON();
+            $dataChunk = $data;
             if (is_array($dataChunk))
             {
                 $data = $entry->create_entry_array('edit', $id);
@@ -582,11 +583,11 @@ class DmsBase extends BaseController
             }
         }
 
-        //$this->getLogger()->info(print_r($postData, true));
+        //$this->getLogger()->info(print_r($data, true));
 
         if (isset($data))
         {
-            $entry->submit_entry_json($data, $id);
+            $entry->submit_entry_json($data, 'update', $id);
         }
     }
 

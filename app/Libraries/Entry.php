@@ -256,9 +256,10 @@ class Entry {
                 throw new \Exception('There were validation errors');
             }
 
+            $mode = \Config\Services::request()->getPost('entry_cmd_mode');
             // $msg is an output parameter of call_stored_procedure
             $msg = '';
-            $this->call_stored_procedure($input_params, $form_def, $msg);
+            $this->call_stored_procedure($input_params, $form_def, $mode, $msg);
 
             // Everything worked - compose tidings of joy
             $ps_links = $this->get_post_submission_link($input_params);
@@ -301,10 +302,11 @@ class Entry {
      *  validate entry form information, submit to database if valid,
      *  and return HTML containing entry form with updated values
      *  and success/failure messages
-     * @param string|array$data
+     * @param array $data
+     * @param string $mode
      * @param string $id
      */
-    function submit_entry_json($data, $id = '') {
+    function submit_entry_json(array $data, string $mode, string $id = '') {
         helper(['entry_page']);
 
         $this->controller->loadFormModel('na', $this->config_source);
@@ -357,7 +359,7 @@ class Entry {
 
             // $msg is an output parameter of call_stored_procedure
             $msg = '';
-            $this->call_stored_procedure($input_params, $form_def, $msg);
+            $this->call_stored_procedure($input_params, $form_def, $mode, $msg);
 
             // Everything worked - compose tidings of joy
             $resultType = 'success';
@@ -370,10 +372,11 @@ class Entry {
             }
         } catch (\Exception $e) {
             // Something broke - compose expressions of regret
+            $resultType = 'error';
             $outcome = $e->getMessage();
 
-            // Read the value of $_POST['entry_cmd_mode']
-            $entryCmdMode = filter_input(INPUT_POST, 'entry_cmd_mode', FILTER_SANITIZE_STRING);
+            // Use the 'mode' provided in the method call
+            $entryCmdMode = $mode;
 
             // Add or update the mode property of the input params
             if (empty($entryCmdMode)) {
@@ -390,6 +393,15 @@ class Entry {
             'result' => $resultType,
             'message' => $outcome
         );
+
+        // Remove 'doc_' entries in the result report
+        foreach ($reportData as $key => $value)
+        {
+            if (substr($key, 0, 4) === "doc_")
+            {
+                unset($reportData[$key]);
+            }
+        }
 
         \Config\Services::response()->setContentType("application/json");
         echo json_encode(array_merge($result, $reportData));
@@ -484,15 +496,16 @@ class Entry {
      * Call a stored procedure
      * @param \stdClass $input_params
      * @param \stdClass $form_def
+     * @param string $mode
      * @param string $msg Message returned by the stored procedure (output)
      */
-    protected function call_stored_procedure(\stdClass $input_params, \stdClass $form_def, &$msg) {
+    protected function call_stored_procedure(\stdClass $input_params, \stdClass $form_def, string $mode, &$msg) {
         $ok = $this->controller->loadSprocModel('entry_sproc', $this->config_source);
         if (!$ok) {
             throw new \Exception($this->controller->sproc_model->get_error_text());
         }
 
-        $calling_params = $this->make_calling_param_object($input_params, $form_def->field_enable);
+        $calling_params = $this->make_calling_param_object($input_params, $mode, $form_def->field_enable);
         $success = $this->controller->sproc_model->execute_sproc($calling_params);
         if (!$success) {
             throw new \Exception($this->controller->sproc_model->get_error_text());
@@ -527,12 +540,13 @@ class Entry {
      * for actually supplying values to call stored procedure
      * Returns a copy of $input_params, with disabled fields changed to [no change]
      * @param mixed $input_params
+     * @param string $mode
      * @param mixed $field_enable
      * @return mixed
      */
-    protected function make_calling_param_object($input_params, $field_enable) {
+    protected function make_calling_param_object($input_params, string $mode, $field_enable) {
         $calling_params = clone $input_params;
-        $calling_params->mode = \Config\Services::request()->getPost('entry_cmd_mode');
+        $calling_params->mode = $mode;
         $calling_params->callingUser = get_user();
 
         // Adjust calling parameters for any disabled fields
