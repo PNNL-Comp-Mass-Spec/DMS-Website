@@ -1,0 +1,12 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('list_report_data_table','v_service_use_report_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_col','report_id');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','','','report_id','Equals','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_report_state','Report State','','','report_state','ContainsText','text','','','');
+CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
+INSERT INTO list_report_hotlinks VALUES(1,'report_id','invoke_entity','value','cost_center_service_use/report/','');
+COMMIT;

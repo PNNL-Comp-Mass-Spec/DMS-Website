@@ -78,6 +78,10 @@ $routes->getAlias('reporter_ions', 'Sample_label_reporter_ions');
 
 $routes->getAlias('requested_run_planning', 'Run_planning');
 
+$routes->getAlias('service_type', 'Cost_center_service_type');
+$routes->getAlias('service_use', 'Cost_center_service_use');
+$routes->getAlias('service_use_report', 'Cost_center_service_use_report');
+
 $routes->getAlias('settings_file', 'Settings_files');
 
 $routes->getAlias('upload', 'Spreadsheet_loader');
