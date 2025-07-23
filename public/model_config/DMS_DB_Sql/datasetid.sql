@@ -28,6 +28,8 @@ INSERT INTO list_report_hotlinks VALUES(10,'file_size_mb','export_align','value'
 INSERT INTO list_report_hotlinks VALUES(11,'request','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(12,'work_package','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(13,'date_sort_key','no_display','value','','');
+INSERT INTO list_report_hotlinks VALUES(14,'cc_service_type','invoke_entity','value','cost_center_service_type/report/','');
+INSERT INTO list_report_hotlinks VALUES(15,'cc_report_state','invoke_entity','value','dataset_cc_report_state/report/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');
@@ -81,6 +83,8 @@ INSERT INTO detail_report_hotlinks VALUES(39,'masic_qc_link','detail-report','da
 INSERT INTO detail_report_hotlinks VALUES(40,'+masic_qc_link','literal_link','','','valueCol','dl_masic_data','');
 INSERT INTO detail_report_hotlinks VALUES(41,'separation_type','detail-report','separation_type','helper_dataset_separation_type/report/@/-/-/-/-/-/-/1','labelCol','dl_separation_type','');
 INSERT INTO detail_report_hotlinks VALUES(42,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
+INSERT INTO detail_report_hotlinks VALUES(43,'cost_center_service_type_id','detail-report','cost_center_service_type_id','cost_center_service_type/report/','labelCol','dl_cost_center_service_type','');
+INSERT INTO detail_report_hotlinks VALUES(44,'cost_center_report_state','detail-report','cost_center_report_state','dataset_cc_report_state/report/-/~','labelCol','dl_dataset_cc_report_state','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
