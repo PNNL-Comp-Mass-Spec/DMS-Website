@@ -1,0 +1,14 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('list_report_data_table','v_service_cost_rate_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_col','cost_group_id, service_type_id');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
+CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
+INSERT INTO list_report_hotlinks VALUES(1,'cost_group_id','invoke_entity','value','cost_center_service_use_report/report/-/-/@','');
+INSERT INTO list_report_hotlinks VALUES(2,'service_type_id','invoke_entity','value','cost_center_service_type/report','');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO list_report_primary_filter VALUES(1,'pf_cost_group_id','Cost Group ID','','','cost_group_id','Equals','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_service_type','Service Type','','','service_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_service_type_id','Service Type ID','','','service_type_id','Equals','text','','','');
+COMMIT;
