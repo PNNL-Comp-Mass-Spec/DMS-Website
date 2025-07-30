@@ -41,11 +41,11 @@ INSERT INTO table_def_sql VALUES(12,'sproc_args','CREATE TABLE sproc_args ( id I
 INSERT INTO table_def_sql VALUES(13,'external_sources','CREATE TABLE external_sources ( id INTEGER PRIMARY KEY,  "source_page" text, "field" text, "type" text, "value" text );');
 INSERT INTO table_def_sql VALUES(14,'utility_queries','CREATE TABLE utility_queries ( id integer PRIMARY KEY, name text, label text, db text, "table" text, columns text, sorting text, filters text, hotlinks text );');
 CREATE TABLE table_def_description ( id INTEGER PRIMARY KEY,   "config_table" TEXT,"value" TEXT );
-INSERT INTO table_def_description VALUES(1,'general_params','List Of key/value parameters that define primary aspects of page family');
+INSERT INTO table_def_description VALUES(1,'general_params','List of key/value parameters that define primary aspects of page family');
 INSERT INTO table_def_description VALUES(2,'list_report_hotlinks','Defines hotlink fields for the list report page');
 INSERT INTO table_def_description VALUES(3,'list_report_primary_filter','Defines the primary filter fields for the list report page');
 INSERT INTO table_def_description VALUES(4,'detail_report_hotlinks','Defines hotlink fields for the detail report page');
-INSERT INTO table_def_description VALUES(5,'sproc_args','Defines arguments for stored procedures (entry and operations).  The field column in this table names the associated row in either the form_fields or operations_fields tables.');
+INSERT INTO table_def_description VALUES(5,'sproc_args','Defines arguments for procedures (entry and operations).  The field column in this table names the associated row in either the form_fields or operations_fields tables.');
 INSERT INTO table_def_description VALUES(6,'form_fields','Parameters that define the field on the entry page for the page family');
 INSERT INTO table_def_description VALUES(7,'form_field_choosers','Defines choosers for fields defined in form_fields table');
 INSERT INTO table_def_description VALUES(8,'form_field_options','Defines optional behaviors for fields defined in form_fields table');
