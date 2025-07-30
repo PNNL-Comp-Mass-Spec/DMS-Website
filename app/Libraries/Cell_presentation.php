@@ -517,6 +517,7 @@ class Cell_presentation {
         // Resolve value to use for hotlink
         $whichArg = $colSpec["WhichArg"];
         $ref = $value;
+
         if ($whichArg != "") {
             switch ($whichArg) {
                 case "value":
@@ -528,6 +529,11 @@ class Cell_presentation {
                     $ref = $row[$whichArg];
                     break;
             }
+        }
+
+        if (is_null($ref))
+        {
+            $ref = '';
         }
 
         // Tooltip?

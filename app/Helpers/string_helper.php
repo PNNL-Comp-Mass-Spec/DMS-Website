@@ -7,7 +7,8 @@ if (! function_exists('IsNullOrWhiteSpace'))
      * @param string|null $variable
      * @return bool
      */
-    function IsNullOrWhiteSpace(?string $variable): bool {
+    function IsNullOrWhiteSpace(?string $variable): bool
+    {
         return (!isset($variable) || trim($variable) === '');
     }
 }
@@ -19,7 +20,8 @@ if (! function_exists('IsNotWhitespace'))
      * @param string|null $variable
      * @return bool
      */
-    function IsNotWhitespace(?string $variable): bool {
+    function IsNotWhitespace(?string $variable): bool
+    {
         return (isset($variable) && trim($variable) !== '');
     }
 }
@@ -31,8 +33,10 @@ if (! function_exists('GetNullIfBlank'))
      * @param string|null $variable
      * @return string|null
      */
-    function GetNullIfBlank(?string $variable): ?string {
-        if (IsNotWhitespace($variable)) {
+    function GetNullIfBlank(?string $variable): ?string
+    {
+        if (IsNotWhitespace($variable))
+        {
             return $variable;
         }
 
@@ -44,11 +48,17 @@ if (! function_exists('StartsWith'))
 {
     /**
      * Return true if $haystack starts with $needle
-     * @param string $haystack
-     * @param string $needle
+     * @param string|null $haystack
+     * @param string|null $needle
      * @return bool
      */
-    function StartsWith(string $haystack, string $needle): bool {
+    function StartsWith(?string $haystack, ?string $needle): bool
+    {
+        if (is_null($haystack) || is_null($needle))
+        {
+            return false;
+        }
+
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
     }
@@ -58,12 +68,14 @@ if (! function_exists('EndsWith'))
 {
     /**
      * Return true if $haystack ends with $needle
-     * @param string $haystack
-     * @param string $needle
+     * @param string|null $haystack
+     * @param string|null $needle
      * @return bool
      */
-    function EndsWith(string $haystack, string $needle): bool {
-        if (strlen($needle) > strlen($haystack)) {
+    function EndsWith(?string $haystack, ?string $needle): bool
+    {
+        if (is_null($haystack) || is_null($needle) || strlen($needle) > strlen($haystack))
+        {
             return false;
         }
 

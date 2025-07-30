@@ -105,6 +105,10 @@ function make_detail_table_data_rows(array $columns, array $fields, array $hotli
         // Default field display for table
         $label = $fieldName;
         $val = $fieldValue;
+        if (is_null($val))
+        {
+            $val = '';
+        }
 
         if (!is_null($fieldValue) && in_array($fieldName, $datetimeColumns)) {
             // Convert original date string to date object
@@ -146,6 +150,11 @@ function make_detail_table_data_rows(array $columns, array $fields, array $hotli
                 }
             } else {
                 $link_id = "";
+            }
+
+            if (is_null($link_id))
+            {
+                $link_id = '';
             }
 
             if ($hotlink_spec['Placement'] == 'labelCol') {
@@ -800,11 +809,11 @@ function make_detail_report_commands(array $commands, string $tag, $id): string 
  * Construct a URL to include as a hotlink on a detail report page
  * @param string $target      Target page family, optionally including filters, e.g. 'param_file/report/-/~'
  * @param string $link_id     Data value for field specified by WhichArg
- * @param array $options     Link processing options
+ * @param array|null $options     Link processing options
  * @param bool $renderHTTP  If true, and if $link_id starts with http, simply link to that URL
  * @return string
  */
-function make_detail_report_url(string $target, string $link_id, array $options, bool $renderHTTP = false): string {
+function make_detail_report_url(string $target, string $link_id, ?array $options, bool $renderHTTP = false): string {
 
     if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
         // The field has a URL; link to it
@@ -824,7 +833,7 @@ function make_detail_report_url(string $target, string $link_id, array $options,
             $targetNew = $target;
         }
 
-        if (!empty($options) && array_key_exists('RemoveRegEx', $options)) {
+        if (is_array($options) && !empty($options) && array_key_exists('RemoveRegEx', $options)) {
             $pattern = $options['RemoveRegEx'];
             if (!empty($pattern)) {
                 // Replace %2C with a comma
