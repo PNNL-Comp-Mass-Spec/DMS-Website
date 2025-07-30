@@ -9,6 +9,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','60','','name',
 INSERT INTO list_report_primary_filter VALUES(2,'pf_resulttype','Result Type','60','','result_type','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_allowed_inst_classes','Allowed Inst. Classes','60','','allowed_inst_classes','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_allowed_ds_types','Allowed DS Types','60','','allowed_ds_types','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_active','Active','12','','active','Equals','text','16','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'allowed_ds_types','min_col_width','value','90','');
 INSERT INTO list_report_hotlinks VALUES(2,'allowed_inst_classes','min_col_width','value','70','');
