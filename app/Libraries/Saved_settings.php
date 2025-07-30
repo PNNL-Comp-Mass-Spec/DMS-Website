@@ -18,7 +18,7 @@ class Saved_settings {
      */
     function defaults(string $page_type, string $config_source) { //'Param_Pages''list_report_sproc'   'list_report'
         //Ensure a session is initialized
-        $session = service('session');
+        $session = \Config\Services::session();
 
         if ($page_type == 'List_Reports') {
             $config_name = 'list_report';
