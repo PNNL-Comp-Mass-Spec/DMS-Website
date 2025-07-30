@@ -163,7 +163,7 @@ class RouteCollection extends BaseRouteCollection
 
         $uriPrefix = $prefix . '/';
         $methodPrefix = $prefix . '_';
-        if (is_null($prefix) || empty($prefix) || empty(trim($prefix)))
+        if (empty($prefix) || empty(trim($prefix)))
         {
             $uriPrefix = '';
             $methodPrefix = '';

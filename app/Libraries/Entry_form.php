@@ -285,11 +285,11 @@ class Entry_form {
                         }
                         if ($split[0] == 'min_length')
                         {
-                            $lengthRules[] .= "&gt;= " . $ruleParam;
+                            $lengthRules[] = "&gt;= " . $ruleParam;
                         }
                         if ($split[0] == 'max_length')
                         {
-                            $lengthRules[] .= "&lt;= " . $ruleParam;
+                            $lengthRules[] = "&lt;= " . $ruleParam;
                         }
                     }
                     
@@ -300,7 +300,7 @@ class Entry_form {
                 }
             }
 
-            if (isset($doc) && !empty($doc))
+            if (!empty($doc))
             {
                 $data['doc_' . $fldName] = implode('; ', $doc);
             }

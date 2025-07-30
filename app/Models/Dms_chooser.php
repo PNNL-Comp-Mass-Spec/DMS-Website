@@ -271,8 +271,6 @@ class Dms_chooser extends Model {
      * Create a set of choosers from the list in the given field spec
      * @param string $field_name
      * @param array $f_spec
-     * @param string $element_start
-     * @param string $element_end
      * @return string
      */
     function make_choosers_doc(string $field_name, array $f_spec): string {

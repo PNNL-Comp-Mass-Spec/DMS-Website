@@ -601,7 +601,11 @@ class DmsBase extends BaseController
             return;
         }
 
-        return $this->fail(lang('RESTful.notImplemented', ['delete']), 501);
+        $data = [
+            'error' => '\'delete\' is not supported for this entity type',
+        ];
+
+        return $this->response->setStatusCode(405)->setJSON($data);
     }
 
     // --------------------------------------------------------------------

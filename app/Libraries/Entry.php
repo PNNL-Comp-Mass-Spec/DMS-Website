@@ -334,11 +334,11 @@ class Entry {
         $validation->setRules($form_def->rules);
 
         $resultType = "";
+        $input_params = new \stdClass();
         try {
             $valid_fields = $validation->run($postData);
 
             // Get field values from validation object
-            $input_params = new \stdClass();
             foreach ($form_def->fields as $field) {
                 if (array_key_exists($field, $postData) === false) {
                     // The form field is not in the POST data
