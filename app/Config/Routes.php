@@ -8,10 +8,8 @@ namespace Config;
 // additional route-adding functions
 $routes = Services::routes();
 
-/*
- * --------------------------------------------------------------------
- * Route Definitions
- * --------------------------------------------------------------------
+/**
+ * @var RouteCollection $routes
  */
 
 // We get a performance increase by specifying the default

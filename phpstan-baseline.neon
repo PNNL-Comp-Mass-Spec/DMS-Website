@@ -1,40 +1,10 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^@readonly property cannot have a default value\.$#'
-			identifier: property.readOnlyByPhpDocDefaultValue
-			count: 4
-			path: app/Config/Autoload.php
-
-		-
-			message: '#^@readonly property cannot have a default value\.$#'
-			identifier: property.readOnlyByPhpDocDefaultValue
-			count: 2
-			path: app/Config/DocTypes.php
-
-		-
-			message: '#^Property Config\\Filters\:\:\$globals \(array\<string, array\<int\<0, max\>\|string, array\<string, string\>\|string\>\>\) does not accept default value of type array\{before\: array\{\}, after\: array\{toolbar\: array\{except\: array\{''\*/export/\*'', ''\*/export_detail/\*'', ''\*/export…'', ''\*/export_param/\*'', ''\*/export_to_tab…'', ''spreadsheet_loader…''\}\}\}\}\.$#'
-			identifier: property.defaultValue
+			message: '#^PHPDoc type array\<string, array\<int\<0, max\>\|string, array\<string, list\<string\>\|string\>\|string\>\> of property Config\\Filters\:\:\$globals is not covariant with PHPDoc type array\<string, array\<int\<0, max\>\|string, array\<string, string\>\|string\>\> of overridden property CodeIgniter\\Config\\Filters\:\:\$globals\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Config/Filters.php
-
-		-
-			message: '#^@readonly property cannot have a default value\.$#'
-			identifier: property.readOnlyByPhpDocDefaultValue
-			count: 1
-			path: app/Config/Mimes.php
-
-		-
-			message: '#^@readonly property cannot have a default value\.$#'
-			identifier: property.readOnlyByPhpDocDefaultValue
-			count: 4
-			path: app/Config/Modules.php
-
-		-
-			message: '#^@readonly property cannot have a default value\.$#'
-			identifier: property.readOnlyByPhpDocDefaultValue
-			count: 2
-			path: app/Config/Optimize.php
 
 		-
 			message: '#^Argument \#1 \$name \(''Config\\\\Modules''\) passed to function config does not extend CodeIgniter\\\\Config\\\\BaseConfig\.$#'
