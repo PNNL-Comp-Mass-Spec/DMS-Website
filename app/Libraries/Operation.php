@@ -53,7 +53,7 @@ class Operation {
                 $rule['field'] = $field;
                 $rule['label'] = $field;
                 $rule['rules'] = 'trim'; // someday: rule to require presence of arg?
-                $rules[] = $rule;
+                $rules[$field] = $rule;
             }
 
             // Make validation object and use it to
