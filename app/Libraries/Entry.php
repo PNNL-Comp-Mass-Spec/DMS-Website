@@ -108,6 +108,80 @@ class Entry {
     }
 
     /**
+     * Make an entry page json object that can be populated for creating a new entry, or edited for updating an entry
+     * The entry json object is later submitted via POST call to function api_create or (PUT/PATCH/POST) api_update.
+     * @param string $page_type
+     * @param string $id
+     */
+    function create_entry_json($page_type, $id = '') {
+        \Config\Services::response()->setContentType("application/json");
+        echo json_encode($this->create_entry_array($page_type, $id));
+    }
+
+    /**
+     * Make an entry page array that can be populated for creating a new entry, or edited for updating an entry
+     * The entry data array is later submitted via POST call to function api_create or (PUT/PATCH/POST) api_update.
+     * @param string $page_type
+     * @param string $id
+     * @return array
+     */
+    function create_entry_array($page_type, $id = '') : array {
+        helper(['entry_page', 'url']);
+
+        // General specifications for page family
+        $this->controller->loadGeneralModel('na', $this->config_source);
+
+        // Make entry form object using form definitions from model
+        $this->controller->loadFormModel('na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
+        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
+        //
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
+
+        // Determine the page mode ('add' or 'update')
+        $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
+
+        // Get initial field values and merge them with form object
+        $segs = array();
+        if ($page_type == 'edit') {
+            $segs[] = $id;
+        }
+        $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields, $this->controller);
+
+        if (empty($initial_field_values)) {
+            if ($page_type == 'edit') {
+                return array("error" => "Entity with id '$id' does not exist.");
+            }
+        } else {
+            foreach ($initial_field_values as $field => $value) {
+
+                // Entry views in DMS can append __NoCopy__ to a field when we do not want the field value to be copied to new entries
+                // For example, see V_Sample_Prep_Request_Entry
+                if (EndsWith($value, '__NoCopy__')) {
+                    if (substr($mode, 0, 3) === 'add') {
+                        // Creating a new item (either from scratch or by copying an existing item)
+                        // Blank out the field
+                        $value = '';
+                    } else {
+                        // Editing an item; remove the NoCopy flag
+                        $value = substr($value, 0, strlen($value) - strlen('__NoCopy__'));
+                    }
+                }
+
+                $this->controller->entry_form->set_field_value($field, $value);
+            }
+        }
+
+        // Handle special field options for entry form object
+        $this->handle_special_field_options($form_def, $mode);
+
+        // Build page display components and load page
+        $data = $this->controller->entry_form->build_entry_array($mode);
+
+        return $data;
+    }
+
+    /**
      * Handle command buttons
      * @param object $me
      * @param mixed $commands Array of strings
@@ -182,9 +256,10 @@ class Entry {
                 throw new \Exception('There were validation errors');
             }
 
+            $mode = \Config\Services::request()->getPost('entry_cmd_mode');
             // $msg is an output parameter of call_stored_procedure
             $msg = '';
-            $this->call_stored_procedure($input_params, $form_def, $msg);
+            $this->call_stored_procedure($input_params, $form_def, $mode, $msg);
 
             // Everything worked - compose tidings of joy
             $ps_links = $this->get_post_submission_link($input_params);
@@ -219,6 +294,117 @@ class Entry {
         echo $outcome;
         echo $data['form'];
         echo $supplement;
+    }
+
+    /**
+     *  Create or update entry in database from entry page form fields in POST:
+     *  use entry form definition from config db
+     *  validate entry form information, submit to database if valid,
+     *  and return HTML containing entry form with updated values
+     *  and success/failure messages
+     * @param array $data
+     * @param string $mode
+     * @param string $id
+     */
+    function submit_entry_json(array $data, string $mode, string $id = '') {
+        helper(['entry_page']);
+
+        $this->controller->loadFormModel('na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
+        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
+
+        $request = \Config\Services::request();
+        $postData = $data;
+        //$this->controller->getLogger()->info(print_r($postData, true));
+        $preformat = new \App\Libraries\ValidationPreformat();
+        $postData = $preformat->run($postData, $form_def->rules);
+
+        //$this->controller->getLogger()->info(print_r($postData, true));
+        //foreach ($postData as $key => $value)
+        //{
+        //    $this->controller->getLogger()->info("$key: $value");
+        //    if (is_null($value))
+        //    {
+        //        $postData[$key] = "";
+        //    }
+        //}
+        //$this->controller->getLogger()->info(print_r($postData, true));
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($form_def->rules);
+
+        $resultType = "";
+        $input_params = new \stdClass();
+        try {
+            $valid_fields = $validation->run($postData);
+
+            // Get field values from validation object
+            foreach ($form_def->fields as $field) {
+                if (array_key_exists($field, $postData) === false) {
+                    // The form field is not in the POST data
+                    // For checkbox fields, if a checkbox is unchecked, it will not be in $postData
+                    // See, for example, https://dmsdev.pnl.gov/analysis_job_request_psm/create
+                
+                    // The analysis_job_request_psm page also has a form field named 'ignore_me',
+                    // which is a placeholder for the "Get suggested values" link; this field is also not in $postData
+                    continue;
+                }
+
+                $input_params->$field = $postData[$field];
+            }
+
+            if (!$valid_fields) {
+                throw new \Exception('There were validation errors');
+            }
+
+            // $msg is an output parameter of call_stored_procedure
+            $msg = '';
+            $this->call_stored_procedure($input_params, $form_def, $mode, $msg);
+
+            // Everything worked - compose tidings of joy
+            $resultType = 'success';
+            $message = 'Operation was successful';
+            if (empty($msg)) {
+                $outcome = $message;
+            } else {
+                // Define $outcome as "Operation was successful: message"
+                $outcome = $message . ": " . $msg;
+            }
+        } catch (\Exception $e) {
+            // Something broke - compose expressions of regret
+            $resultType = 'error';
+            $outcome = $e->getMessage();
+
+            // Use the 'mode' provided in the method call
+            $entryCmdMode = $mode;
+
+            // Add or update the mode property of the input params
+            if (empty($entryCmdMode)) {
+                $input_params->mode = 'retry';
+            } else {
+                $input_params->mode = $entryCmdMode;
+            }
+        }
+
+        // Get entry form object and use to to build and return HTML for form
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
+        $reportData = $this->make_entry_report_array($input_params, $form_def, $validation);
+        $result = array(
+            'result' => $resultType,
+            'message' => $outcome
+        );
+
+        // Remove 'doc_' entries in the result report
+        foreach ($reportData as $key => $value)
+        {
+            if (substr($key, 0, 4) === "doc_")
+            {
+                unset($reportData[$key]);
+            }
+        }
+
+        \Config\Services::response()->setContentType("application/json");
+        echo json_encode(array_merge($result, $reportData));
     }
 
     // --------------------------------------------------------------------
@@ -262,6 +448,41 @@ class Entry {
     }
 
     /**
+     * Get entry form builder object and use it to make HTML
+     * @param \stdClass $input_params
+     * @param \stdClass $form_def
+     * @param ValidationInterface $validation
+     * @return array
+     */
+    protected function make_entry_report_array(\stdClass $input_params, \stdClass $form_def, ValidationInterface $validation) : array {
+        // Handle special field options for entry form object
+        $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
+        $this->handle_special_field_options($form_def, $mode);
+        $errors = array();
+
+        // Update entry form object with field values
+        // and any field validation errors
+        foreach ($form_def->fields as $field) {
+            if(property_exists($input_params, $field) === false)
+            { 
+                // The field is not defined as a property in the $input_params class
+                continue;
+            }
+
+            $this->controller->entry_form->set_field_value($field, $input_params->$field);
+            $fieldError = $validation->getError($field);
+
+            if ($fieldError !== '')
+            {
+                $errors["error_$field"] = $fieldError;
+            }
+        }
+
+        $data = $this->controller->entry_form->build_entry_array($mode);
+        return array_merge($errors, $data);
+    }
+
+    /**
      * Make post-submission links to list report and detail report
      * @param \stdClass $input_params
      */
@@ -275,15 +496,16 @@ class Entry {
      * Call a stored procedure
      * @param \stdClass $input_params
      * @param \stdClass $form_def
+     * @param string $mode
      * @param string $msg Message returned by the stored procedure (output)
      */
-    protected function call_stored_procedure(\stdClass $input_params, \stdClass $form_def, &$msg) {
+    protected function call_stored_procedure(\stdClass $input_params, \stdClass $form_def, string $mode, &$msg) {
         $ok = $this->controller->loadSprocModel('entry_sproc', $this->config_source);
         if (!$ok) {
             throw new \Exception($this->controller->sproc_model->get_error_text());
         }
 
-        $calling_params = $this->make_calling_param_object($input_params, $form_def->field_enable);
+        $calling_params = $this->make_calling_param_object($input_params, $mode, $form_def->field_enable);
         $success = $this->controller->sproc_model->execute_sproc($calling_params);
         if (!$success) {
             throw new \Exception($this->controller->sproc_model->get_error_text());
@@ -318,12 +540,13 @@ class Entry {
      * for actually supplying values to call stored procedure
      * Returns a copy of $input_params, with disabled fields changed to [no change]
      * @param mixed $input_params
+     * @param string $mode
      * @param mixed $field_enable
      * @return mixed
      */
-    protected function make_calling_param_object($input_params, $field_enable) {
+    protected function make_calling_param_object($input_params, string $mode, $field_enable) {
         $calling_params = clone $input_params;
-        $calling_params->mode = \Config\Services::request()->getPost('entry_cmd_mode');
+        $calling_params->mode = $mode;
         $calling_params->callingUser = get_user();
 
         // Adjust calling parameters for any disabled fields

@@ -19,6 +19,9 @@ class Sproc_postgre extends Sproc_base {
             throw new \Exception('Invalid value for $conn_id passed to method!');
         }
 
+        //$logger = \Config\Services::logger();
+        //$logger->info(print_r($input_params, true));
+
         try {
             $this->executeInternal($sprocName, $conn_id, $args, $input_params, $formFields);
 

@@ -65,7 +65,7 @@ class Filters extends BaseFilters
      * List of filter aliases that are always
      * applied before and after every request.
      *
-     * @var array<string, array<string, array<string, string>>>|array<string, list<string>>
+     * @var array<string, array<string, array<string, string|list<string>>>>|array<string, list<string>>
      */
     public array $globals = [
         'before' => [
@@ -74,7 +74,7 @@ class Filters extends BaseFilters
             // 'invalidchars',
         ],
         'after' => [
-            'toolbar' => ['except' => ['*/export/*', '*/export_detail/*', '*/export_spreadsheet/*', '*/export_param/*', '*/export_to_tab_delimited_text/*', 'spreadsheet_loader/template/*']],
+            'toolbar' => ['except' => ['api/*', '*/export/*', '*/export_detail/*', '*/export_spreadsheet/*', '*/export_param/*', '*/export_to_tab_delimited_text/*', 'spreadsheet_loader/template/*']],
             // 'honeypot',
             // 'secureheaders',
         ],

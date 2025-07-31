@@ -43,7 +43,19 @@ class Chooser extends BaseController {
      */
     function get_choices($chooser_name)
     {
-        $x = array_keys( $this->getChoosers()->get_choices($chooser_name) );
+        $x = array_keys( $this->getChoosers()->get_choices($chooser_name, false) );
+        \Config\Services::response()->setContentType("application/json");
+        echo json_encode($x);
+    }
+
+    /**
+     * This returns list of selections for the specified chooser_name, as key-value pairs.  It is suitable for AJAX
+     * @param string $chooser_name
+     */
+    function get_choices_kv($chooser_name)
+    {
+        $x = $this->getChoosers()->get_choices($chooser_name, false);
+        \Config\Services::response()->setContentType("application/json");
         echo json_encode($x);
     }
 
@@ -58,6 +70,7 @@ class Chooser extends BaseController {
             $filter_value = $this->request->getPost('filter_values');
         }
         $x = $this->getChoosers()->get_filtered_choices($chooser_name, $filter_value);
+        \Config\Services::response()->setContentType("application/json");
         echo json_encode($x);
     }
 }

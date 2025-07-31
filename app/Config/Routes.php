@@ -16,6 +16,12 @@ $routes = Services::routes();
 // route since we don't have to scan directories.
 $routes->get('/', 'Gen::index');
 
+$routes->addApiRoutes('requested_run', ['placeholder' => '(:num)']);
+$routes->addApiRoutes('experiment', ['placeholder' => '(:num)']);
+
+// final API entry - landing page for anything not mapped above
+$routes->create('*', 'api(:slashOrEnd)', 'Api::index');
+$routes->create('*', 'api/(:any)', 'Api::error_report');
 
 // Define aliases (synonyms) that redirect to list reports
 // getAlias() is defined in app/Services/RouteCollection.php

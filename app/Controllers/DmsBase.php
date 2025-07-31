@@ -466,6 +466,149 @@ class DmsBase extends BaseController
     }
 
     // --------------------------------------------------------------------
+    // RESTful API section
+    // --------------------------------------------------------------------
+
+    /**
+     * Returns a blank JSON bundle that includes all fields expected by 'create'
+     * @category REST
+     */
+    public function api_new()
+    {
+        $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
+        $entry->create_entry_json('create');
+    }
+
+    /**
+     * Expects a JSON bundle via POST to create a new entry
+     * @category REST
+     */
+    public function api_create()
+    {
+        if (!$this->check_access('create')) {
+            return;
+        }
+
+        $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
+        // $this->request->getPOST() and $this->request->getRawInput() do preliminary string parsing that has issues, so just get the real raw input
+        $rawData = file_get_contents('php://input');
+        //$this->getLogger()->info($rawData);
+        $postData = json_decode($rawData, true);
+        //$this->getLogger()->info(print_r($postData, true));
+        $entry->submit_entry_json($postData, 'add');
+    }
+
+    /**
+     * Returns a list of all entities under the controller as JSON
+     * @category REST
+     */
+    public function api_index()
+    {
+        helper(['url', 'user']);
+        $output_format = 'json';
+        $config_source = $this->my_tag;
+        $config_name = 'list_report';
+
+        $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+        $this->loadDataModel($config_name, $config_source);
+
+        $list_report_ah->set_up_data_query();
+        $this->data_model->add_paging_item(1, 5000);
+        //$query = $this->data_model->get_rows('filtered_and_sorted');
+        $query = $this->data_model->get_rows('filtered_and_paged');
+
+        $rows = $query->getResultArray();
+
+        \Config\Services::response()->setContentType("application/json");
+        echo json_encode($rows);
+    }
+
+    /**
+     * Returns a JSON bundle for a specific entry
+     * @category REST
+     */
+    public function api_show($id)
+    {
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->export_detail($id, 'json');
+    }
+
+    /**
+     * Returns a populated JSON bundle that includes all fields expected by 'update'
+     * @category REST
+     */
+    public function api_edit($id = '')
+    {
+        if(!$id || $id == '0') {
+            \Config\Services::response()->setContentType("application/json");
+            echo '{"error":"Item id \'' . $id . '\' is invalid."}';
+            return;
+        }
+        $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
+        $entry->create_entry_json('edit', $id);
+    }
+
+    /**
+     * Expects a JSON bundle via POST/PUT/PATCH to update an existing entry
+     * @category REST
+     */
+    public function api_update($id = '')
+    {
+        if (!$this->check_access('enter')) {
+            return;
+        }
+
+        $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
+
+        // Get the data via the appropriate method
+        // $this->request->getPOST() and $this->request->getRawInput() do preliminary string parsing that has issues, so just get the real raw input
+        $rawData = file_get_contents('php://input');
+        //$this->getLogger()->info($rawData);
+        $data = json_decode($rawData, true);
+        //$this->getLogger()->info(print_r($data, true));
+
+        // NOTE: Ideally we only do this merge for PATCH requests, but it may be good practice to use this to avoid many errors anyway.
+        if ($this->request->is('PATCH'))
+        {
+            // Partial update. Rebuild to full object with current values
+            $dataChunk = $data;
+            if (is_array($dataChunk))
+            {
+                $data = $entry->create_entry_array('edit', $id);
+
+                foreach ($dataChunk as $field => $value)
+                {
+                    $data[$field] = $value;
+                }
+            }
+        }
+
+        //$this->getLogger()->info(print_r($data, true));
+
+        if (isset($data))
+        {
+            $entry->submit_entry_json($data, 'update', $id);
+        }
+    }
+
+    /**
+     * Deletes the specified entry
+     * @category REST
+     */
+    public function api_delete($id = '')
+    {
+        if (!$this->check_access('enter')) {
+            return;
+        }
+
+        $data = [
+            'error' => '\'delete\' is not supported for this entity type',
+        ];
+
+        return $this->response->setStatusCode(405)->setJSON($data);
+    }
+
+    // --------------------------------------------------------------------
     // Miscelleneous section
     // --------------------------------------------------------------------
 

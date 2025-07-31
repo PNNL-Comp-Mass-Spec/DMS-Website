@@ -69,15 +69,18 @@ class Dms_chooser extends Model {
     /**
      * Return choices list for given chooser
      * @param string $chooser_name
+     * @param bool $include_prompt
      * @return array
      */
-    function get_choices(string $chooser_name): array {
+    function get_choices(string $chooser_name, bool $include_prompt = true): array {
         $options = array();
         helper(['string', 'database']);
         if (array_key_exists($chooser_name, $this->choices)) {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
-                    $options[""] = "-- choices --";
+                    if ($include_prompt) {
+                        $opt1ions[""] = "-- choices --";
+                    }
                     foreach ($this->choices[$chooser_name]["value"] as $k => $v) {
                         $options[$k] = $v;
                     }
@@ -92,7 +95,9 @@ class Dms_chooser extends Model {
 
                     $result = $my_db->query($this->choices[$chooser_name]["value"]);
                     if ($result) {
-                        $options[""] = "-- choices --";
+                        if ($include_prompt) {
+                            $options[""] = "-- choices --";
+                        }
                         foreach ($result->getResultArray() as $row) {
                             $val = $row["val"];
                             $ex = (string) $row["ex"];
@@ -104,6 +109,34 @@ class Dms_chooser extends Model {
             }
         }
         return $options;
+    }
+
+    /**
+     * Return choices list for given chooser
+     * @param string $chooser_name
+     * @return string
+     */
+    function get_choices_doc(string $chooser_name): string {
+        $options = array();
+        $str = "";
+        helper(['string', 'database']);
+        if (array_key_exists($chooser_name, $this->choices)) {
+            switch ($this->choices[$chooser_name]["type"]) {
+                case "select":
+                    foreach ($this->choices[$chooser_name]["value"] as $k => $v) {
+                        $options[$k] = $v;
+                    }
+                    $str .= implode(', ', $options);
+                    break;
+                case "sql":
+                    // NOTE: uses 'ex' if that column exists and is not empty, otherwise uses 'val'
+                    $url1 = reduce_double_slashes(site_url("chooser/get_choices/$chooser_name"));
+                    $url2 = reduce_double_slashes(site_url("chooser/get_choices_kv/$chooser_name"));
+                    $str .= "see values at $url1, with descriptions at $url2";
+                    break;
+            }
+        }
+        return $str;
     }
 
     /**
@@ -235,6 +268,30 @@ class Dms_chooser extends Model {
     }
 
     /**
+     * Create a set of choosers from the list in the given field spec
+     * @param string $field_name
+     * @param array $f_spec
+     * @return string
+     */
+    function make_choosers_doc(string $field_name, array $f_spec): string {
+        $s = "";
+        $seq = 0;
+        if (array_key_exists("chooser_list", $f_spec)) {
+            foreach ($f_spec['chooser_list'] as $chsr) {
+                $seq++;
+                $pln = $chsr["PickListName"];
+                $delim = $chsr['Delimiter'];
+                $type = $chsr["type"];
+                $target = $chsr['Target'];
+                $xref = $chsr['XRef'];
+                $label = (array_key_exists('Label', $chsr)) ? $chsr['Label'] : 'Choose from:';
+                $s = $this->make_chooser_doc($field_name, $type, $pln, $target, $label, $delim, $xref, "$seq");
+            }
+        }
+        return $s;
+    }
+
+    /**
      * Create a chooser from the given parameters
      * @param string $f_name Field Name
      * @param string $type Chooser type
@@ -302,6 +359,53 @@ class Dms_chooser extends Model {
             	// When the user clicks one, pre-canned text is placed in the associated list box.
             	// Templates are defined with the other DMS choosers in dms_chooser.db
                 $str .= "$label " . $this->get_link_chooser($f_name, $pln);
+                break;
+        }
+        return $str;
+    }
+
+    /**
+     * Create a chooser from the given parameters
+     * @param string $f_name Field Name
+     * @param string $type Chooser type
+     * @param string $pln Chooser name (aka pick list name); empty string when the type is 'list-report.helper'
+     * @param string $target Target helper page (only used if the type is 'list-report.helper')
+     * @param string $label Text to show before the chooser dropdown or chooser list
+     * @param string $delim Delimiter to use when selecting multiple items
+     * @param string $xref Field name whose contents should be sent to the helper page when the type is 'list-report.helper'
+     * @param string $seq Sequence ID (1, 2, 3, etc.)
+     * @return string
+     */
+    function make_chooser_doc(string $f_name, string $type, string $pln, string $target, string $label, string $delim, string $xref, string $seq = '1'): string {
+        $str = "";
+        switch ($type) {
+            case "picker.prepend":
+            case "picker.append":
+            case "picker.replace":
+            case "picker.list":
+                $str .= 'Allowed values: ' . $this->get_choices_doc($pln);
+                break;
+
+            case "list-report.helper":
+                helper(['text']);
+                $target_url = reduce_double_slashes(site_url($target));
+                $str .= "Allowed values: a '$f_name' value from the entities returned by '$target_url'";
+                if (!empty($xref))
+                {
+                    $str .= ", filtered by field '$xref'";
+                }
+                if (!empty($delim))
+                {
+                    $str .= ", multiple items allowed with delimiter '$delim'";
+                }
+                break;
+
+            case "picker.prevDate":
+                $str .= 'Allowed values: a valid date';
+                break;
+
+            case "link.list":
+                // We ignore this type here
                 break;
         }
         return $str;
