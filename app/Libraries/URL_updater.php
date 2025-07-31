@@ -10,19 +10,21 @@ class URL_updater {
      * Constructor
      */
     function __construct() {
-        $this->protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http";
+        $serverHttpsState = \Config\Services::superglobals()->server("HTTPS");
+        $this->protocol = isset($serverHttpsState) && $serverHttpsState == "on" ? "https" : "http";
         // TODO: May be better to check for the 'pnl.gov' string in the name?
-        $this->server_bionet = stripos($_SERVER["SERVER_NAME"], "bionet") !== false;
+        $serverName = \Config\Services::superglobals()->server("SERVER_NAME");
+        $this->server_bionet = stripos($serverName, "bionet") !== false;
     }
 
     /**
      * Transform the value to a URL if it starts with doi: or http,
      * or if it matches a standard MassIVE or ProteomeXchange accession
-     * @param type $value
-     * @param type $colIndex
-     * @return type
+     * @param string $value
+     * @param int $colIndex
+     * @return string
      */
-    function get_doi_link($value, $colIndex) {
+    function get_doi_link(string $value, int $colIndex): string {
 
         $urls = [];
 
@@ -66,10 +68,10 @@ class URL_updater {
     /**
      * Auto-update the link to change from http to https or vice versa,
      * depending on the target host name
-     * @param type $link
-     * @return type
+     * @param string $link
+     * @return string
      */
-    function fix_link($link) {
+    function fix_link(string $link): string {
         if (stripos($link, "http") !== 0) {
             // Not a "link" that we can deal with.
             return $link;
@@ -87,7 +89,7 @@ class URL_updater {
         }
 
         $val = $link;
-        if ($this->server_bionet && stripos($val, "http") === 0) {
+        if (stripos($val, "http") === 0) {
             $target_host = str_ireplace(".emsl.pnl.gov", ".bionet", $val);
             $target_host = str_ireplace(".pnl.gov", ".bionet", $target_host);
             $prev_protocol = stripos($target_host, "https") === 0 ? "https" : "http";

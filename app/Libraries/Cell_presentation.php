@@ -11,12 +11,12 @@ class Cell_presentation {
     /**
      * List of specific columns to show
      * Empty array if showing all columns
-     * @var type Array of strings
+     * @var array Array of strings
      */
-    var $col_filter = array();
+    private array $col_filter = array();
 
-    var $url_updater;
-    var $label_formatter;
+    private \App\Libraries\URL_updater $url_updater;
+    private \App\Libraries\Label_formatter $label_formatter;
 
     /**
      * Constructor
@@ -32,16 +32,16 @@ class Cell_presentation {
 
     /**
      * Initialize
-     * @param mixed $cell_presentation_specs
+     * @param array $cell_presentation_specs
      */
-    function init($cell_presentation_specs) {
+    function init(array $cell_presentation_specs) {
         //$this->hotlinks = $cell_presentation_specs;
         $this->hotlinks = array_change_key_case($cell_presentation_specs, CASE_LOWER);
     }
 
     /**
      * Get an array of column names to export
-     * @param type $result
+     * @param array $result
      */
     function get_columns_to_export(&$result) {
 
@@ -75,11 +75,11 @@ class Cell_presentation {
     /**
      * Look for a hotlink of the given type; return it if found or null if not found
      * Matches both $columnName and hotlinks named with one or more plus signs followed by $columnName
-     * @param type $columnName
-     * @param type $linkTypeName
-     * @return type
+     * @param string $columnName
+     * @param string $linkTypeName
+     * @return array|null
      */
-    private function get_colspec_with_link_type($columnName, $linkTypeName) {
+    private function get_colspec_with_link_type(string $columnName, string $linkTypeName) {
 
         // Look for a hotlink name that matches this column name
         if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
@@ -115,7 +115,7 @@ class Cell_presentation {
      * @param array $cols All columns
      * @return array Returns all columns if $this->col_filter is empty
      */
-    private function get_display_cols($cols) {
+    private function get_display_cols(array $cols): array {
         if (!empty($this->col_filter)) {
             $cols = $this->col_filter;
         }
@@ -124,10 +124,10 @@ class Cell_presentation {
 
     /**
      * Get an array listing the horizontal alignment mode for each column
-     * @param type $result
-     * @return type
+     * @param array $result
+     * @return array
      */
-    function get_column_alignment(&$result) {
+    function get_column_alignment(&$result): array {
 
         // This array tracks all of the column names in $result
         $cols = array_keys(current($result));
@@ -168,8 +168,7 @@ class Cell_presentation {
      *
      * Note: this method is only called when data is exported to an Excel file
      *
-     * @param type $result
-     * @return type
+     * @param array $result
      */
     function add_color_codes(&$result) {
 
@@ -264,11 +263,12 @@ class Cell_presentation {
      * that starts with ##FORMAT and, if found, uses the text color, fill color,
      * and text style to format the cell
      *
-     * @param type $value
-     * @param type $colSpec
+     * @param mixed $value
+     * @param array $row
+     * @param array $colSpec
      * @return string
      */
-    private function get_color_code($value, $row, $colSpec) {
+    private function get_color_code($value, array $row, array $colSpec): string {
         $colorCode = "";
 
         // Resolve value to use for hotlink
@@ -376,11 +376,11 @@ class Cell_presentation {
      * Determine the color style to use based on the condition for the column spec and the given reference value
      *   Requires an exact match to the value
      * Color styles are defined in file base.css
-     * @param type $colSpec
-     * @param type $ref
+     * @param array $colSpec
+     * @param string $ref
      * @return string
      */
-    private function get_color_style($colSpec, $ref) {
+    private function get_color_style(array $colSpec, string $ref): string {
         if (array_key_exists($ref, $colSpec['cond'])) {
             // The options array contains $ref; use the specified color
             // For example, given options array {"0":"clr_30","1":"clr_45","2":"clr_60","3":"clr_120"}
@@ -396,11 +396,11 @@ class Cell_presentation {
     /**
      * Get the color style for a hot link; return an empty string if no color
      * Color styles are defined in file base.css
-     * @param type $row
-     * @param type $columnName
-     * @param type $value
+     * @param array $row
+     * @param string  $columnName
+     * @param mixed $value
      */
-    private function get_hotlink_color_style($row, $columnName, $value) {
+    private function get_hotlink_color_style(array $row, string $columnName, $value) {
 
         // Look for a hotlink name that matches this column name, preceded by one or more plus signs
         $columnNameWithPlusSigns = '+' . $columnName;
@@ -437,10 +437,10 @@ class Cell_presentation {
 
     /**
      * Render a row
-     * @param type $row
+     * @param array $row
      * @return string
      */
-    function render_row($row) {
+    function render_row(array $row): string {
         $str = "";
         $display_cols = $this->get_display_cols(array_keys($row));
         $colIndex = 0;
@@ -488,7 +488,7 @@ class Cell_presentation {
                     $colorStyle = $this->get_hotlink_color_style($row, $formatted, $value);
                 }
 
-                $str .= $this->render_hotlink($value, $row, $colSpec, $columnName, $colIndex, $colorStyle);
+                $str .= $this->render_hotlink($value, $row, $colSpec, $colIndex, $colorStyle, $columnName);
             } else {
                 $str .= "<td>" . $value . "</td>";
             }
@@ -499,15 +499,15 @@ class Cell_presentation {
 
     /**
      * Render a hotlink as HTML, as specified by $colSpec["LinkType"]
-     * @param mixed  $value     String or number
-     * @param mixed  $row       Array of row data
-     * @param mixed  $colSpec
-     * @param string $columnName  Column name
+     * @param string|int  $value     String or number
+     * @param array  $row       Array of row data
+     * @param array  $colSpec
      * @param int    $colIndex    Column index
      * @param string $colorStyle  Color style (preceded by a space), or an empty string
+     * @param string $columnName  Column name
      * @return string
      */
-    private function render_hotlink($value, $row, $colSpec, $columnName = '', $colIndex, $colorStyle) {
+    private function render_hotlink($value, array $row, array $colSpec, int $colIndex, string $colorStyle, string $columnName = ''): string {
 
         $str = "";
 
@@ -517,6 +517,7 @@ class Cell_presentation {
         // Resolve value to use for hotlink
         $whichArg = $colSpec["WhichArg"];
         $ref = $value;
+
         if ($whichArg != "") {
             switch ($whichArg) {
                 case "value":
@@ -528,6 +529,11 @@ class Cell_presentation {
                     $ref = $row[$whichArg];
                     break;
             }
+        }
+
+        if (is_null($ref))
+        {
+            $ref = '';
         }
 
         // Tooltip?
@@ -813,12 +819,11 @@ class Cell_presentation {
      * If found, compare $value to the specified value,
      * returning true if $value is lest than the value defined in the options
      * Otherwise, return false
-     * @param type $colSpec
-     * @param type $ref
-     * @param type $value
-     * @return boolean
+     * @param array $colSpec
+     * @param mixed $value
+     * @return bool
      */
-    function evaulate_conditional($colSpec, $value) {
+    function evaulate_conditional(array $colSpec, $value): bool {
         $noLink = false;
         if (array_key_exists('Options', $colSpec)) {
             $test = getOptionValue($colSpec, 'GreaterOrEqual');
@@ -834,11 +839,11 @@ class Cell_presentation {
 
     /**
      * Create HTML to display a set of column headers
-     * @param type $rows
-     * @param type $sorting_cols
+     * @param array $rows
+     * @param array $sorting_cols
      * @return string
      */
-    function make_column_header($rows, $sorting_cols = array()) {
+    function make_column_header(array $rows, array $sorting_cols = array()): string {
         if (empty($rows)) {
             return '';
         }
@@ -901,11 +906,11 @@ class Cell_presentation {
 
     /**
      *
-     * @param type $columnName
-     * @param type $col_sort
+     * @param string $columnName
+     * @param array $col_sort
      * @return string
      */
-    private function get_column_sort_marker($columnName, $col_sort) {
+    private function get_column_sort_marker(string $columnName, array $col_sort): string {
         $marker = '';
         if (array_key_exists($columnName, $col_sort)) {
             $arrow = 'arrow_' . $col_sort[$columnName]->dir . $col_sort[$columnName]->precedence . '.png';
@@ -919,8 +924,8 @@ class Cell_presentation {
      * sorting and info about their precedence and direction.
      * accepts sorting column information in two different formats
      * and produces a common output format
-     * @param type $sorting_cols
-     * @return \stdClass
+     * @param array|object|\stdClass $sorting_cols
+     * @return array
      */
     private function get_column_sort_markers($sorting_cols) {
         $col_sort = array();
@@ -950,10 +955,10 @@ class Cell_presentation {
 
     /**
      * Optionally assure that the cell is a minimum target width
-     * @param type $columnName
-     * @return type
+     * @param string $columnName
+     * @return string
      */
-    private function get_cell_padding($columnName) {
+    private function get_cell_padding(string $columnName): string {
         $padding = '';
         if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
             $colSpec = $this->hotlinks[strtolower($columnName)];
@@ -975,10 +980,10 @@ class Cell_presentation {
     /**
      * Look for tooltip text associated with the given column
      * Checks for both col_name and +col_name entries
-     * @param type $columnName
-     * @return type
+     * @param string $columnName
+     * @return string
      */
-    private function get_column_tooltip($columnName) {
+    private function get_column_tooltip(string $columnName): string {
         $toolTip = $this->get_column_tooltip_work($columnName);
         if (empty($toolTip)) {
             // ToolTip was not found using the column name
@@ -994,10 +999,10 @@ class Cell_presentation {
 
     /**
      *  Look for tooltip text associated with the given column
-     * @param type $columnNameToFind
-     * @return type
+     * @param string $columnNameToFind
+     * @return string
      */
-    private function get_column_tooltip_work($columnNameToFind) {
+    private function get_column_tooltip_work(string $columnNameToFind): string {
         $toolTip = '';
         $formatted = $this->label_formatter->format($columnNameToFind);
         if (array_key_exists(strtolower($columnNameToFind), $this->hotlinks)) {
@@ -1016,11 +1021,10 @@ class Cell_presentation {
 
     /**
      * Update the date columns to have user-friendly dates
-     * @param type $result
-     * @param type $col_info
-     * @return type
+     * @param array $result
+     * @param array $col_info
      */
-    function fix_datetime_display(&$result, $col_info) {
+    function fix_datetime_display(array &$result, array $col_info) {
         // Get list of datetime columns
         $dateTimeColumns = array();
         foreach ($col_info as $f) {
@@ -1051,29 +1055,24 @@ class Cell_presentation {
         for ($i = 0; $i < count($result); $i++) {
             // Traverse all the date columns in the current row
             foreach ($dateTimeColumns as $columnName) {
-                // Skip if the column value is empty
+                // Skip if the column value is empty or null
                 if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
-                // Convert to blank if column value is null
-                if (is_null($result[$i][$columnName])) {
-                    $result[$i][$columnName] = '';
+                // Convert original date string to date object
+                // and then convert that to desired display format.
+                // mark display if original format could not be parsed.
+                $dt = false;
+                if (is_string($result[$i][$columnName])) {
+                    $dt = strtotime($result[$i][$columnName]);
                 } else {
-                    // Convert original date string to date object
-                    // and then convert that to desired display format.
-                    // mark display if original format could not be parsed.
-                    $dt = false;
-                    if (is_string($result[$i][$columnName])) {
-                        $dt = strtotime($result[$i][$columnName]);
-                    } else {
-                        $dt = $result[$i][$columnName];
-                    }
-                    if ($dt) {
-                        $result[$i][$columnName] = date($dateFormat, $dt);
-                    } else {
-                        $result[$i][$columnName] = "??" . $result[$i][$columnName];
-                    }
+                    $dt = $result[$i][$columnName];
+                }
+                if ($dt) {
+                    $result[$i][$columnName] = date($dateFormat, $dt);
+                } else {
+                    $result[$i][$columnName] = "??" . $result[$i][$columnName];
                 }
             }
         }
@@ -1081,11 +1080,10 @@ class Cell_presentation {
 
     /**
      * Update the decimal columns to have user-friendly doubles
-     * @param type $result
-     * @param type $col_info
-     * @return type
+     * @param array $result
+     * @param array $col_info
      */
-    function fix_decimal_display(&$result, $col_info) {
+    function fix_decimal_display(array &$result, array $col_info) {
         // Get list of decimal columns
         $decimalColumns = array();
         foreach ($col_info as $f) {
@@ -1106,20 +1104,15 @@ class Cell_presentation {
         for ($i = 0; $i < count($result); $i++) {
             // Traverse all the decimal columns in the current row
             foreach ($decimalColumns as $columnName) {
-                // Skip if the column value is empty
+                // Skip if the column value is empty or null
                 if (!isset($result[$i][$columnName])) {
                     continue;
                 }
 
-                // Convert to blank if column value is null
-                if (is_null($result[$i][$columnName])) {
-                    $result[$i][$columnName] = '';
-                } else {
-                    // Convert original decimal string to double
-                    // if it is not a string, don't touch it.
-                    if (is_string($result[$i][$columnName])) {
-                        $result[$i][$columnName] = doubleval($result[$i][$columnName]);
-                    }
+                // Convert original decimal string to double
+                // if it is not a string, don't touch it.
+                if (is_string($result[$i][$columnName])) {
+                    $result[$i][$columnName] = doubleval($result[$i][$columnName]);
                 }
             }
         }
@@ -1127,11 +1120,10 @@ class Cell_presentation {
 
     /**
      * Update the decimal and datetime columns to have user-friendly doubles and dates
-     * @param type $result
-     * @param type $col_info
-     * @return type
+     * @param array $result
+     * @param array $col_info
      */
-    function fix_datetime_and_decimal_display(&$result, $col_info) {
+    function fix_datetime_and_decimal_display(array &$result, array $col_info) {
         $this->fix_datetime_display($result, $col_info);
         $this->fix_decimal_display($result, $col_info);
     }
@@ -1140,7 +1132,7 @@ class Cell_presentation {
      * Set the list of columns to show
      * @param array $col_filter
      */
-    function set_col_filter($col_filter) {
+    function set_col_filter(array $col_filter) {
         $this->col_filter = $col_filter;
     }
 }

@@ -1,7 +1,10 @@
 <?php
 namespace App\Models;
 
+use App\Libraries\Query_parts;
+use App\Libraries\Query_predicate;
 use CodeIgniter\Model;
+use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\SQLite3\Connection;
 
 // The primary function of this class is to build and execute an SQL query
@@ -15,104 +18,14 @@ use CodeIgniter\Database\SQLite3\Connection;
 // and using those filters.
 
 /**
- * Track parts of the SQL query
- * @category Helper class
- */
-class Query_parts {
-
-    /**
-     * Database name
-     * @var type
-     */
-    var $dbn = 'default';
-
-    /**
-     * Table to retrieve data from
-     * @var type
-     */
-    var $table = '';
-
-    /**
-     * Only used on detail reports (via detail_report_sproc); only used when detail_report_data_table is empty
-     * @var type
-     */
-    var $detail_sproc = '';
-
-    /**
-     * Columns to show
-     * @var type
-     */
-    var $columns = '*';
-
-    /**
-     * Query where clause info
-     * @var type
-     */
-    var $predicates = array();      // of Query_predicate
-
-    /**
-     * User-defined list of column name and direction to sort on
-     * @var type
-     */
-    var $sorting_items = array();   // column => direction
-
-    /**
-     * Paging information
-     * @var type
-     */
-    var $paging_items = array('first_row' => 1, 'rows_per_page' => 12);
-
-    /**
-     * Default column and direction to sort on
-     * Multiple column names can be specified by separating them with a comma
-     * When using multiple columns, the same sort direction is applied to all of them
-     * @var type
-     */
-    var $sorting_default = array('col' => '', 'dir' => '');
-
-}
-
-/**
- * Track where clause items
- * @category Helper class
- */
-class Query_predicate {
-
-    /**
-     * Boolean operator
-     * @var string
-     */
-    var $rel = 'AND';
-
-    /**
-     * Column name to filter on
-     * @var string
-     */
-    var $col;
-
-    /**
-     * Comparison mode (ContainsText, StartsWithText, GreaterThan, etc.)
-     * @var string
-     */
-    var $cmp;
-
-    /**
-     * Value to filter on
-     * @var string
-     */
-    var $val;
-
-}
-
-/**
  * Keep track of the total rows returned by the query
  * @category Helper class
  */
 class CachedTotalRows {
 
-    var $total = 0;
-    var $base_sql = '';
-    var $cache_time = 0;
+    public $total = 0;
+    public $base_sql = '';
+    public $cache_time = 0;
 
 }
 
@@ -142,36 +55,36 @@ class Q_model extends Model {
 
     /**
      * Database-specific object to build SQL out of generic query parts
-     * @var type
+     * @var \App\Libraries\Sql_base
      */
-    private $sql_builder = null;
+    private \App\Libraries\Sql_base $sql_builder;
 
     /**
      * SQL used by main query that returns rows
-     * @var type
+     * @var string
      */
-    private $main_sql = '';
+    private string $main_sql = '';
 
     /**
      * Parameters that will be used to build SQL
      * Object of class Query_parts
-     * @var type
+     * @var Query_parts
      */
-    private $query_parts = null;
+    private Query_parts $query_parts;
 
     /**
      * Array of objects, one object per column
      * Object has fields: name, type, max_length, primary_key
-     * @var type
+     * @var array|null
      */
-    private $result_column_info = null;
+    private ?array $result_column_info = null;
 
     /**
      * Unix timestamp when the result column info was cached
      * Data in $result_column_info is updated every 24 hours
-     * @var type
+     * @var int|null
      */
-    private $result_column_cachetime = null;
+    private ?int $result_column_cachetime = null;
 
     const column_info_refresh_interval_minutes = 1440;
 
@@ -196,7 +109,7 @@ class Q_model extends Model {
      * @param string $config_name Config type; na for list reports and detail reports,
      *                          but a query name like helper_inst_group_dstype when the source is ad_hoc_query
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     function init($config_name, $config_source = "ad_hoc_query") {
         $this->config_name = $config_name;
@@ -230,7 +143,9 @@ class Q_model extends Model {
                     break;
             }
         } catch (\Exception $e) {
-            return $e->getMessage();
+            $errorMessage = $e->getMessage();
+            log_message('error', "Exception getting Q_model query specs: (config name $config_name): $errorMessage");
+            throw new \Exception("Failure getting Q_model query specs: (config name $config_name): $errorMessage");
         }
 
         // Connect to the database
@@ -241,36 +156,32 @@ class Q_model extends Model {
         // This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
         $connectionSleepDelayMsec = 250;
 
+        $my_db = null;
         while ($connectionRetriesRemaining > 0) {
             try {
+                // Try to establish a connection to the database. Either returns BaseConnection object, or throws an exception
                 $my_db = \Config\Database::connect(GetNullIfBlank($this->query_parts->dbn));
                 update_search_path($my_db);
 
-                if ($my_db === false) {
-                    // $\Config\Database::connect() normally returns a database object
-                    // But if an error occurs, it returns false?
-                    // Retry establishing the connection
-                    throw new \Exception('\Config\Database::connect returned false in S_model');
-                } else {
-                    // Many functions check for and initialize the DB connection if not there,
-                    // but that leaves connection issues popping up in random places
-                    if (empty($my_db->connID)) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs or it disconnects, it is false/empty
-                        // Try initializing first
-                        $my_db->initialize();
-                    }
-
-                    if ($my_db->connID === false) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs, it is false
-                        // Retry establishing the connection
-                        throw new \Exception('$my_db->connID returned false in S_model');
-                    }
-
-                    // Exit the while loop
-                    break;
+                // Many functions check for and initialize the DB connection if not there,
+                // but that leaves connection issues popping up in random places
+                if (empty($my_db->connID)) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs or it disconnects, it is false/empty
+                    // Try initializing first
+                    $my_db->initialize();
                 }
+
+                if ($my_db->connID === false) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs, it is false
+                    // Retry establishing the connection
+                    throw new \Exception('$my_db->connID returned false in S_model');
+                }
+
+                // Exit the while loop
+                break;
+
             } catch (\Exception $ex) {
                 $errorMessage = $ex->getMessage();
                 log_message('error', "Exception connecting to DB group '{$this->query_parts->dbn}' (config name $config_name): $errorMessage");
@@ -305,9 +216,9 @@ class Q_model extends Model {
 
     /**
      *  SQL will be built using a database-specific object - set it up here
-     * @param type $bldr_class
+     * @param string $bldr_class
      */
-    private function set_my_sql_builder($bldr_class) {
+    private function set_my_sql_builder(string $bldr_class) {
         $sqlBuilder = "\\App\\Libraries\\$bldr_class";
         $this->sql_builder = new $sqlBuilder();
     }
@@ -389,10 +300,10 @@ class Q_model extends Model {
 
     /**
      * Add one more items to be used for building the 'Order by' clause
-     * @param type $col
-     * @param type $dir
+     * @param string $col
+     * @param string $dir
      */
-    function add_sorting_item($col, $dir = '') {
+    function add_sorting_item(string $col, string $dir = '') {
         if ($col) { // don't take malformed items
             $o = new \stdClass();
             $o->col = $col;
@@ -404,8 +315,8 @@ class Q_model extends Model {
 
     /**
      * Replace the paging values
-     * @param type $first_row
-     * @param type $rows_per_page
+     * @param int $first_row
+     * @param int $rows_per_page
      */
     function add_paging_item($first_row, $rows_per_page) {
         if ($first_row) { // don't take malformed items
@@ -416,10 +327,10 @@ class Q_model extends Model {
 
     /**
      * Construct the SQL query from component parts
-     * @param type $option, which can be 'filtered_only', 'filtered_and_paged', 'filtered_and_sorted', or 'count_only'
-     * @return type
+     * @param string $option, which can be 'filtered_only', 'filtered_and_paged', 'filtered_and_sorted', or 'count_only'
+     * @return string
      */
-    function get_sql($option = 'filtered_and_paged') {
+    function get_sql(string $option = 'filtered_and_paged'): string {
         return $this->sql_builder->build_query_sql($this->query_parts, $option);
     }
 
@@ -460,11 +371,11 @@ class Q_model extends Model {
      * Return single row for given ID using first defined filter
      * Used to retrieve data for a detail report
      * @param string $id
-     * @param object $controller
-     * @return type
-     * @throws exception
+     * @param \App\Controllers\BaseController $controller
+     * @return array
+     * @throws \Exception
      */
-    function get_item($id, $controller) {
+    function get_item($id, \App\Controllers\BaseController $controller): array {
         if (empty($this->primary_filter_specs)) {
             throw new \Exception('no primary id column defined; update general_params to include detail_report_data_id_col');
         }
@@ -486,10 +397,10 @@ class Q_model extends Model {
     /**
      * Retrieve data for a list report when $option is 'filtered_and_paged'
      * Retrieve a single result for a detail report when $option is 'filtered_only'
-     * @param type $option Can be 'filtered_and_paged' or 'filtered_only'
-     * @return type
+     * @param string $option Can be 'filtered_and_paged' or 'filtered_only'
+     * @return object
      */
-    function get_rows($option = 'filtered_and_paged') {
+    function get_rows(string $option = 'filtered_and_paged') {
         $this->assure_sorting($option);
 
         $this->main_sql = $this->sql_builder->build_query_sql($this->query_parts, $option);
@@ -506,12 +417,12 @@ class Q_model extends Model {
     /**
      * Ported from get_data_rows_from_sproc in Param_report.php
      * Returns the first row of data returned by the stored procedure
-     * @param type $id
-     * @param type $controller
-     * @return type
-     * @throws exception Thrown if there is an error or if the SP returns a non-zero value
+     * @param string $id
+     * @param \App\Controllers\BaseController $controller
+     * @return mixed
+     * @throws \Exception Thrown if there is an error or if the SP returns a non-zero value
      */
-    function get_data_row_from_sproc($id, $controller) {
+    function get_data_row_from_sproc($id, \App\Controllers\BaseController $controller) {
         $calling_params = new \stdClass();
 
         // When calling a stored procedure from a detail report, we do not allow for passing custom values for stored procedure parameters
@@ -528,7 +439,7 @@ class Q_model extends Model {
 
         try {
             // Call the stored procedure
-            $ok = $controller->load_mod('S_model', 'sproc_model', $this->config_name, $this->config_source);
+            $ok = $controller->loadSprocModel($this->config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($controller->sproc_model->get_error_text());
             }
@@ -555,12 +466,12 @@ class Q_model extends Model {
 
     /**
      * Obtain the database object for the given database group
-     * @param mixed $dbGroupName DB Group name, typically default or broker, but sometimes
-     *                           package, capture, prism_ifc, prism_rpt, ontology, or manager_control
-     *                           If empty, the active group is used (defined by $active_group)
-     * @throws Exception
+     * @param string $dbGroupName DB Group name, typically default or broker, but sometimes
+     *                            package, capture, prism_ifc, prism_rpt, ontology, or manager_control
+     *                            If empty, the active group is used (defined by $active_group)
+     * @throws \Exception
      */
-    private function get_db_object($dbGroupName) {
+    private function get_db_object(string $dbGroupName) {
         // Connect to the database
         // Retry the connection up to 5 times
         $connectionRetriesRemaining = 5;
@@ -571,32 +482,27 @@ class Q_model extends Model {
 
         helper(['string', 'database']);
 
+        $my_db = null;
         while ($connectionRetriesRemaining > 0) {
             try {
+                // Try to establish a connection to the database. Either returns BaseConnection object, or throws an exception
                 $my_db = \Config\Database::connect(GetNullIfBlank($dbGroupName));
                 update_search_path($my_db);
 
-                if ($my_db === false) {
-                    // \Config\Database::connect() normally returns a database object
-                    // But if an error occurs, it returns false
-                    // Retry establishing the connection
-                    throw new \Exception('\Config\Database::connect returned false in Q_model');
-                } else {
-                    // Many functions check for and initialize the DB connection if not there,
-                    // but that leaves connection issues popping up in random places
-                    if (empty($my_db->connID)) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs or it disconnects, it is false/empty
-                        // Try initializing first
-                        $my_db->initialize();
-                    }
+                // Many functions check for and initialize the DB connection if not there,
+                // but that leaves connection issues popping up in random places
+                if (empty($my_db->connID)) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs or it disconnects, it is false/empty
+                    // Try initializing first
+                    $my_db->initialize();
+                }
 
-                    if ($my_db->connID === false) {
-                        // $my_db->connID is normally an object
-                        // But if an error occurs, it is false
-                        // Retry establishing the connection
-                        throw new \Exception('$my_db->connID returned false in Q_model');
-                    }
+                if ($my_db->connID === false) {
+                    // $my_db->connID is normally an object
+                    // But if an error occurs, it is false
+                    // Retry establishing the connection
+                    throw new \Exception('$my_db->connID returned false in Q_model');
                 }
 
                 // Exit the while loop
@@ -628,10 +534,10 @@ class Q_model extends Model {
 
     /**
      * Make sure there is at least one valid sorting column if option includes sorting
-     * @param type $option
-     * @throws exception
+     * @param string $option
+     * @throws \Exception
      */
-    private function assure_sorting($option) {
+    private function assure_sorting(string $option) {
         if ($option == 'filtered_and_paged' || $option == 'filtered_and_sorted') {
             // Only need to dig in if there aren't any sorting items already
             if (empty($this->query_parts->sorting_items)) {
@@ -686,8 +592,8 @@ class Q_model extends Model {
      *
      * Calls procedure get_query_row_count_proc() to get the row counts for a given table or view and filter
      *
-     * @return type
-     * @throws Exception
+     * @return int
+     * @throws \Exception
      */
     function get_total_rows() {
         $working_total = -1;
@@ -778,13 +684,13 @@ class Q_model extends Model {
 
     /**
      * Call procedure get_query_row_count_proc() to determine the number of rows returned by the given base SQL
-     * @param stdClass $my_db      DB object
-     * @param string   $base_sql   Base SQL
-     * @param type     $row_count  Row count
-     * @param type     $sa_message Error message to return
+     * @param BaseConnection $my_db      DB object
+     * @param string         $base_sql   Base SQL
+     * @param int            $row_count  Row count
+     * @param string         $sa_message Error message to return
      * @return int Return code: 0 if no errors, -1 if an error
      */
-    function get_total_rows_using_procedure($my_db, $base_sql, &$row_count, &$sa_message) {
+    function get_total_rows_using_procedure(BaseConnection $my_db, string $base_sql, &$row_count, &$sa_message) {
         // Use Sproc_sqlsrv with PHP 7 on Apache 2.4
         // Use Sproc_mssql  with PHP 5 on Apache 2.2
         // Set this based on the current DB driver
@@ -883,9 +789,9 @@ class Q_model extends Model {
     /**
      * Get information about columns that would be generated by current query parts,
      * either from cache or by running a single-row query against database
-     * @return type
+     * @return array
      */
-    function get_column_info() {
+    function get_column_info(): array {
 
         $forceRefresh = false;
         if (!is_null($this->result_column_cachetime) &&
@@ -934,9 +840,9 @@ class Q_model extends Model {
 
     /**
      * Get a single row from database and remember the column information
-     * @return type
+     * @return array
      */
-    private function get_col_data() {
+    private function get_col_data(): array {
         $sql = $this->sql_builder->build_query_sql($this->query_parts, 'column_data_only');
 
         $my_db = $this->get_db_object($this->query_parts->dbn);
@@ -961,10 +867,10 @@ class Q_model extends Model {
 
     /**
      * Get the data type for the given column
-     * @param type $col Column Name
+     * @param string $col Column Name
      * @return string
      */
-    function get_column_data_type($col) {
+    function get_column_data_type(string $col) {
         $type = '??';
         $col_info = $this->get_column_info();
         foreach ($col_info as $obj) {
@@ -979,14 +885,14 @@ class Q_model extends Model {
     /**
      * Load the query specs from table utility_queries in the config DB
      * @param string $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_query_specs_from_config_db($config_name) {
 
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
         $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
-        if ($obj === false || is_null($obj)) {
+        if (is_null($obj)) {
             throw new \Exception('Could not find query specs');
         }
 
@@ -1015,7 +921,7 @@ class Q_model extends Model {
 
     /**
      * Get the list report query specs from tables general_params, list_report_primary_filter, and primary_filter_choosers
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_list_report_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
@@ -1092,7 +998,7 @@ class Q_model extends Model {
 
     /**
      * Get the detail report query specs from the general_params table
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_detail_report_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
@@ -1100,6 +1006,7 @@ class Q_model extends Model {
         $filterColumn = '';
         $filterComparison = '';
 
+        $row = null;
         foreach ($db->query("SELECT * FROM general_params")->getResultArray() as $row) {
             switch ($row['name']) {
                 case 'my_db_group':
@@ -1152,7 +1059,7 @@ class Q_model extends Model {
 
     /**
      * Get the entry page query specs from tables the general_params table
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_entry_page_query_specs_from_config_db() {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);

@@ -133,18 +133,18 @@ class G_model extends Model {
 
     /**
      * For simple "standard" commands to be generated into detailed report page
-     * @return type
+     * @return array
      */
-    function get_detail_report_commands()
+    function get_detail_report_commands(): array
     {
         return  $this->detail_report_commands;
     }
 
     /**
      * For any detail report command files to be loaded into detail report page
-     * @return type
+     * @return string
      */
-    function get_detail_report_cmds()
+    function get_detail_report_cmds(): string
     {
         return  $this->detail_report_cmds;
     }
@@ -180,7 +180,7 @@ class G_model extends Model {
         if(in_array('utility_queries', $tbl_list)) {
 
             $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
-            if($obj === false || is_null($obj)) {
+            if(is_null($obj)) {
                 throw new \Exception('Could not find query specs');
             }
 
@@ -204,10 +204,10 @@ class G_model extends Model {
      * Read contents of general_params and update $this->the_parameters
      * Read list_report_hotlinks and update has_opener_hotlinks and has_checkboxes in $this->the_parameters
      * Read detail_report_commands and store in $this->detail_report_commands
-     * @param type $config_name
-     * @throws Exception
+     * @param string $config_name
+     * @throws \Exception
      */
-    private function get_general_defs($config_name)
+    private function get_general_defs(string $config_name)
     {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
@@ -293,7 +293,6 @@ class G_model extends Model {
         $this->actions['create'] = $allowCreate && !$blockCreate;
 
         if(in_array('list_report_hotlinks', $tbl_list)) {
-            $this->list_report_hotlinks = array();
             foreach ($db->query("SELECT * FROM list_report_hotlinks")->getResultArray() as $row) {
                 $link_type = $row['LinkType'];
                 if($link_type == 'update_opener') {
@@ -324,12 +323,18 @@ class G_model extends Model {
 
     /**
      * Get the value for the specified parameter
-     * @param type $name
-     * @return type
+     * @param string $name
+     * @param mixed $defaultValue
+     * @return mixed
      */
-    function get_param($name)
+    function get_param($name, $defaultValue = false)
     {
-        return (array_key_exists($name, $this->the_parameters))?$this->the_parameters[$name]:false;
+        if (array_key_exists($name, $this->the_parameters))
+        {
+            return $this->the_parameters[$name];
+        }
+
+        return $defaultValue;
     }
 
     /**
@@ -342,9 +347,7 @@ class G_model extends Model {
      * @param string $action
      * @param string $page_family
      * @param object $controller
-     * @return boolean
-     * @throws exception
-     * @throws Exception
+     * @return bool|string
      */
     function check_permission($user, $action, $page_family, $controller)
     {
@@ -360,11 +363,8 @@ class G_model extends Model {
                 throw new \Exception("Action '$action' is not allowed for this page");
             }
 
-            // We are going to have to check further, so load the authorization model
-            $controller->auth = model('App\Models\Dms_authorization');
-
             // Get user permissions
-            $permissions = $controller->auth->get_user_permissions($user);
+            $permissions = $controller->getAuth()->get_user_permissions($user);
             if(empty($permissions)) {
                 return "User '$user' does not have any access to the website";
             }
@@ -385,7 +385,7 @@ class G_model extends Model {
             */
 
             // Get list of authorizations required for the action
-            $restrictions = $controller->auth->get_controller_action_restrictions($page_family, $action);
+            $restrictions = $controller->getAuth()->get_controller_action_restrictions($page_family, $action);
 
             // Action has no restrictions, good to go
             if(empty($restrictions)) {
@@ -414,6 +414,16 @@ class G_model extends Model {
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    // --------------------------------------------------------------------
+    function get_config_name() {
+        return $this->config_name;
+    }
+
+    // --------------------------------------------------------------------
+    function get_config_source() {
+        return $this->config_source;
     }
 }
 ?>

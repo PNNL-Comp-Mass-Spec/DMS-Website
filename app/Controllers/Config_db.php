@@ -14,14 +14,10 @@ class Config_db extends BaseController {
      */
     var $my_tag = "";
 
-    /**
-     * An array of helpers to be loaded automatically upon
-     * class instantiation. These helpers will be available
-     * to all other controllers that extend DmsBase.
-     *
-     * @var array
-     */
     protected $helpers = ['url', 'text'];
+
+    private $mod_enabled = false;
+    private $config_model = null;
 
     /**
      * Constructor.
@@ -35,10 +31,10 @@ class Config_db extends BaseController {
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
         // E.g.:
-        // $this->session = \Config\Services::session();
+        // $this->session = service('session');
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $this->mod_enabled = config('App')->modify_config_db_enabled;
 
@@ -113,7 +109,6 @@ class Config_db extends BaseController {
     /**
      * Show the config DB contents after applying a change
      * @param string $config_db Config DB name, including .db
-     * @return type
      * @category AJAX
      */
     function submit_show_db($config_db) {
@@ -161,10 +156,9 @@ class Config_db extends BaseController {
 
     /**
      * Execute the given SQL against the model config DB
-     * @param strgin $config_db Config DB name, including .db
+     * @param string $config_db Config DB name, including .db
      * @param string $sql SQL Query (typically an UPDATE or INSERT query)
      * @param string $table_name Target table name
-     * @return type
      */
     private function _exec_sql($config_db, $sql, $table_name) {
         helper(['config_db']);
@@ -187,7 +181,7 @@ class Config_db extends BaseController {
         //$db->execute($sql);
         try {
             $db->connID->exec($sql);
-        } catch (ErrorException $e) {
+        } catch (\ErrorException $e) {
             log_message('error', $e);
         }
         $db->transComplete();
@@ -244,11 +238,10 @@ class Config_db extends BaseController {
     /**
      * Dump contents of each table
      * @param string $config_db Config DB name, including .db
-     * @param type $tbl_list
+     * @param array $tbl_list
      * @return string
      */
-    private function _get_table_dump_all($config_db, $tbl_list) {
-
+    private function _get_table_dump_all(string $config_db, array $tbl_list): string {
         $s = "";
         $tables = $this->config_model->get_table_list();
         foreach ($tables as $t) {
@@ -286,7 +279,7 @@ class Config_db extends BaseController {
      * Get contents of a single table
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return SQLite Query Result Array object, or false on failure.
+     * @return array|false SQLite Query Result Array object, or false on failure.
      */
     private function _get_table_contents($config_db, $table_name) {
         helper(['config_db']);
@@ -299,7 +292,7 @@ class Config_db extends BaseController {
 
     /**
      * Get contents of a single table
-     * @param string $queryResult Query result, e.g. from $db->query("SELECT * FROM ...")
+     * @param object|false $queryResult Query result, e.g. from $db->query("SELECT * FROM ...")
      * @return false|array Array of results, or false on failure.
      */
     private function _getQueryResultArray($queryResult) {
@@ -321,11 +314,11 @@ class Config_db extends BaseController {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
-        $i = 0;
+        $cols = null;
         $n = 1;
         $rs = "";
         foreach ($this->_getQueryResultArray($db->query("SELECT * FROM $table_name")) as $row) {
-            if (!$i++) {
+            if (is_null($cols)) {
                 $cols = array_keys($row);
                 $n = count($cols);
                 // Column headers
@@ -374,7 +367,6 @@ class Config_db extends BaseController {
      * Create a table (does not check for an existing table)
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return type
      */
     function create_table($config_db, $table_name) {
         if (!$this->mod_enabled) {
@@ -415,7 +407,6 @@ class Config_db extends BaseController {
      * @param int $range_start_id
      * @param int $range_stop_id
      * @param int $dest_id
-     * @return type
      * @category AJAX
      */
     function move_range($config_db, $table_name, $range_start_id, $range_stop_id, $dest_id) {
@@ -434,7 +425,6 @@ class Config_db extends BaseController {
      * Reorder items in a table
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return type
      * @category AJAX
      */
     function resequence_table($config_db, $table_name) {
@@ -462,7 +452,6 @@ class Config_db extends BaseController {
      * Execute the SQL to obtain the results
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return type
      * @category AJAX
      */
     function exec_sql($config_db, $table_name) {
@@ -668,7 +657,6 @@ class Config_db extends BaseController {
      * Display an editing page for the given table in the given config db
      * @param string $config_db Config DB name, including .db
      * @param string $table_name Table name
-     * @return type
      */
     function edit_table($config_db, $table_name) {
         if (!$this->mod_enabled) {
@@ -696,7 +684,6 @@ class Config_db extends BaseController {
      * Same as edit_table, except change table then load view 'sub_table_edit'
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return type
      * @category AJAX
      */
     function submit_edit_table($config_db, $table_name) {
@@ -776,7 +763,7 @@ class Config_db extends BaseController {
      * @param string $table_name
      * @return \stdClass
      */
-    private function _get_config_db_table_data_info($config_db, $table_name) {
+    private function _get_config_db_table_data_info(string $config_db, string $table_name) {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($config_db)->path;
 
@@ -864,7 +851,7 @@ class Config_db extends BaseController {
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
             echo "Problem";
-            return;
+            return '';
         }
 
         $mainSproc = (array_key_exists('entry_sproc', $gen_parms)) ? $gen_parms['entry_sproc'] : '';
@@ -884,10 +871,10 @@ class Config_db extends BaseController {
      * Show results in a table
      * @param string $config_db Config DB name
      * @param string $table_name
-     * @param type $data_obj
+     * @param \stdClass $data_obj
      * @return string
      */
-    private function _get_edit_table_form($config_db, $table_name, $data_obj) {
+    private function _get_edit_table_form(string $config_db, string $table_name, \stdClass $data_obj) {
         $s = "";
 
         if ($data_obj->num_cols > 0) {
@@ -1018,8 +1005,8 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name
      * @param string $table_name Table name
      * @param string $col_name
-     * @param integer $col_width
-     * @param integer $max_width
+     * @param int $col_width
+     * @param int $max_width
      * @return string
      */
     private function _get_edit_table_entry_field($config_db, $table_name, $col_name, $col_width, $max_width) {
@@ -1091,15 +1078,15 @@ class Config_db extends BaseController {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
-            $s .= "Problem";
-            return;
+            echo "Problem";
+            return '';
         }
 
         $pn = 'list_report_data_table';
         $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
         if (!$table) {
-            $s .= "List report view not defined in general_params table in config db '$config_db'.";
-            return;
+            echo "List report view not defined in general_params table in config db '$config_db'.";
+            return '';
         }
 
         $my_db = \Config\Database::connect($db_group);
@@ -1133,15 +1120,15 @@ class Config_db extends BaseController {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
-            $s .= "Problem";
-            return;
+            echo "Problem";
+            return '';
         }
 
         $pn = 'detail_report_data_table';
         $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
         if (!$table) {
-            $s .= "Detail report view not defined in general_params table in config db '$config_db'.";
-            return;
+            echo "Detail report view not defined in general_params table in config db '$config_db'.";
+            return '';
         }
 
         $my_db = \Config\Database::connect($db_group);
@@ -1176,15 +1163,15 @@ class Config_db extends BaseController {
         $db_group = 'default';
         $gen_parms = $this->_get_general_params($config_db, $db_group);
         if (!$gen_parms) {
-            $s .= "Problem";
-            return;
+            echo "Problem";
+            return '';
         }
 
         $pn = 'list_report_data_table';
         $table = (array_key_exists($pn, $gen_parms)) ? $gen_parms[$pn] : '';
         if (!$table) {
-            $s .= "List report view not defined in general_params table in config db '$config_db'.";
-            return;
+            echo "List report view not defined in general_params table in config db '$config_db'.";
+            return '';
         }
 
         $my_db = \Config\Database::connect($db_group);
@@ -1219,7 +1206,7 @@ class Config_db extends BaseController {
      * Check if a table exists in the database
      * @param string $config_db Config DB name, including .db
      * @param string $table_name
-     * @return boolean
+     * @return bool
      */
     private function _get_db_table_exists($config_db, $table_name) {
         $s = "";
@@ -1250,7 +1237,7 @@ class Config_db extends BaseController {
      * @param string $table_filter
      * @return string[]
      */
-    private function _get_db_table_list($config_db, $table_filter = '') {
+    private function _get_db_table_list(string $config_db, string $table_filter = ''): array {
         $s = "";
         $table_list = array();
         helper(['config_db']);
@@ -1305,15 +1292,15 @@ class Config_db extends BaseController {
      * Read the definitions for the arguments for the given
      * stored procedure in the given database, do some conversions
      * from the raw format of the INFORMATION_SCHEMA, and return in an array
-     * @param type $dbObj
-     * @param type $sproc
-     * @return type Array of stored procedure argument info
+     * @param \CodeIgniter\Database\BaseConnection $dbObj
+     * @param string $sproc
+     * @return array Array of stored procedure argument info
      */
-    private function _get_sproc_arg_defs_from_main_db($dbObj, $sproc) {
+    private function _get_sproc_arg_defs_from_main_db(\CodeIgniter\Database\BaseConnection $dbObj, string $sproc): array {
         $sa = array();
         $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_NAME = '" . $sproc . "'";
-        if (strcasecmp($dbObj->driver, 'Postgres') == 0) {
-            $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_SCHEMA = '" . $dbObj->schema . "' AND SPECIFIC_NAME LIKE '" . $sproc . "_%'";
+        if (strcasecmp($dbObj->DBDriver, 'Postgres') == 0) {
+            $sql = "SELECT * FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_SCHEMA = '" . $dbObj->__get('schema') . "' AND SPECIFIC_NAME LIKE '" . $sproc . "_%'";
         }
         $result = $this->_getQueryResultArray($dbObj->query($sql));
         if (!$result) {
@@ -1346,11 +1333,11 @@ class Config_db extends BaseController {
     /**
      * Return SQL to create the appropriate entries in the sproc_args table
      * from given sproc args definition array
-     * @param type $sa Array of stored procedure argument info
+     * @param array $sa Array of stored procedure argument info
      * @param string $sproc Stored procedure name
-     * @return type
+     * @return string
      */
-    private function _get_sproc_arg_sql($sa, $sproc) {
+    private function _get_sproc_arg_sql(array $sa, string $sproc): string {
         $table = 'sproc_args';
         $sql = "DELETE FROM $table WHERE procedure = '" . $sproc . "';\n";
         $pf = "INSERT INTO $table (\"field\", \"name\", \"type\", \"dir\", \"size\", \"procedure\") VALUES (";
@@ -1363,10 +1350,10 @@ class Config_db extends BaseController {
     /**
      * Return SQL to create appropriate entries in the form field table
      * from given sproc args definition array
-     * @param type $sa Array of stored procedure argument info
-     * @return type
+     * @param array $sa Array of stored procedure argument info
+     * @return string
      */
-    private function _get_form_field_sql($sa) {
+    private function _get_form_field_sql(array $sa): string {
         $table = 'form_fields';
         $sql = "DELETE FROM $table;\n";
         $pf = "INSERT INTO $table (\"name\", \"label\", \"type\", \"size\", \"maxlength\", \"rows\", \"cols\", \"default\", \"rules\") VALUES (";
@@ -1409,7 +1396,7 @@ class Config_db extends BaseController {
      */
     function code_for_family_sql() {
         helper(['config_db_edit']);
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $config_db = $uri->getSegment(3);
@@ -1427,13 +1414,13 @@ class Config_db extends BaseController {
 
     /**
      * Display example C# code for calling the stored procedure associated with this config DB
-     * @param type $db_group
-     * @param type $sproc
+     * @param string $db_group
+     * @param string $sproc
      */
     function code_for_csharp($db_group, $sproc) {
         helper(['config_db_edit','string']);
 
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $db_group = $uri->getSegment(3);
@@ -1452,7 +1439,7 @@ class Config_db extends BaseController {
      * @param string $config_db Config DB name, including .db
      * @param string $page_fam_tag
      * @param string $file_path
-     * @return boolean
+     * @return bool
      */
     private function _controller_exists($config_db, &$page_fam_tag, &$file_path) {
         // Set up file names
@@ -1470,7 +1457,6 @@ class Config_db extends BaseController {
      * Create the controller (if it doesn't yet exist)
      * @param string $config_db Config DB name, including .db
      * @param string $title
-     * @return type
      */
     function make_controller($config_db, $title) {
         if (!$this->mod_enabled) {
@@ -1502,10 +1488,10 @@ class Config_db extends BaseController {
 
     /**
      * Obtain standard view, stored procedure, and table names
-     * @param type $page_family_tag
+     * @param string $page_family_tag
      * @return \stdClass
      */
-    private function _get_standard_names($page_family_tag) {
+    private function _get_standard_names(string $page_family_tag): \stdClass {
         $baseName = ucwords(str_replace("_", " ", $page_family_tag));
 
         $baseViewName = str_replace(" ", "_", $baseName);
@@ -1524,11 +1510,11 @@ class Config_db extends BaseController {
     /**
      * Return array of table names for all the config dbs where the config db
      * file names satisfy the $file_filter and the table names satisfy the $table_filter
-     * @param type $file_filter
-     * @param type $table_filter
-     * @return type
+     * @param string $file_filter
+     * @param string $table_filter
+     * @return array
      */
-    private function _get_filtered_config_table_name_list($file_filter, $table_filter) {
+    private function _get_filtered_config_table_name_list(string $file_filter, string $table_filter): array {
         // Get list of config files from config folder
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
@@ -1547,11 +1533,11 @@ class Config_db extends BaseController {
     /**
      * Return list of tables in all the config dbs where the config db file names
      * satisfy the $file_filter and the table names satisfy the $table_filter
-     * @param type $file_filter
-     * @param type $table_filter
-     * @return type
+     * @param string $file_filter
+     * @param string $table_filter
+     * @return array
      */
-    private function _get_filtered_config_table_list($file_filter, $table_filter) {
+    private function _get_filtered_config_table_list(string $file_filter, string $table_filter): array {
         // Get list of config files from config folder
         helper(['config_db']);
         $config_files = get_model_config_db_list($file_filter);
@@ -1583,7 +1569,7 @@ class Config_db extends BaseController {
         helper(['config_db_edit']);
 
         // Set up name filters
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $raw_filter = $uri->getSegment(3, ".db");
@@ -1696,8 +1682,8 @@ class Config_db extends BaseController {
 
     /**
      * Show Not Allowed message box
-     * @param type $title
-     * @param type $msg
+     * @param string $title
+     * @param string $msg
      */
     function message($title = "Not Allowed", $msg = "This feature is not enabled for this version of DMS") {
         $data['title'] = $title;

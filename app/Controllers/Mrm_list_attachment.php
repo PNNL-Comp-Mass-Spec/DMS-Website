@@ -6,20 +6,16 @@ class Mrm_list_attachment extends DmsBase {
     {
         $this->my_tag = "mrm_list_attachment";
         $this->my_title = "MRM Transition List Attachment";
-        $this->my_create_action = "enter";
-        $this->my_edit_action = "enter";
-        $this->my_list_action = "unrestricted";
-        $this->my_export_action = "unrestricted";
     }
 
     // --------------------------------------------------------------------
     function download($id)
     {
         $sql = "SELECT File_Name, Attachment_Name, Contents FROM T_Attachments WHERE ID = $id";
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");

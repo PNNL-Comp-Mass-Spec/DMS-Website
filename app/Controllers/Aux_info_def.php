@@ -11,7 +11,7 @@ class Aux_info_def extends DmsBase {
     // --------------------------------------------------------------------
     function test($config_name = 'aux_info_targets',  $id = '')
     {
-        $this->load_mod('Q_model', 'data_model', $config_name, $this->my_tag);
+        $this->loadDataModel($config_name, $this->my_tag);
         $filter_specs = $this->data_model->get_primary_filter_specs();
         foreach($filter_specs as $spec) {
             $this->data_model->add_predicate_item('AND', $spec['col'], $spec['cmp'], $id);
@@ -28,7 +28,7 @@ class Aux_info_def extends DmsBase {
             helper(['form']);
             $fn = "getChildren(\"$config_name\")";
             $sz = count($options);
-            echo form_multiselect('bob', $options, '', "size='$sz' id='$config_name' onclick='$fn'");
+            echo form_multiselect('bob', $options, array(''), "size='$sz' id='$config_name' onclick='$fn'");
             if($id) {
                 echo "<a href='javascript:void(0)' onclick='addNewMember(\"$config_name\", \"$id\")' >add new member to $config_name </a>";
             }

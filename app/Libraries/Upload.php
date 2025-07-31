@@ -103,7 +103,7 @@ class Upload {
 	/**
 	 * Allowed file types
 	 *
-	 * @var	string
+	 * @var	string|string[]
 	 */
 	public $allowed_types = '';
 
@@ -138,7 +138,7 @@ class Upload {
 	/**
 	 * File size, initially in bytes, but later converted to kilobytes
 	 *
-	 * @var	int
+	 * @var	int|float
 	 */
 	public $file_size = NULL;
 
@@ -152,7 +152,7 @@ class Upload {
 	/**
 	 * Force filename extension to lowercase
 	 *
-	 * @var	string
+	 * @var	bool
 	 */
 	public $file_ext_tolower = FALSE;
 
@@ -257,7 +257,7 @@ class Upload {
 	/**
 	 * Filename sent by the client
 	 *
-	 * @var	bool
+	 * @var	string
 	 */
 	public $client_name = '';
 
@@ -625,7 +625,7 @@ class Upload {
 	 * Set Upload Path
 	 *
 	 * @param	string	$path
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_upload_path($path)
 	{
@@ -645,13 +645,13 @@ class Upload {
 	 *
 	 * @param	string	$path
 	 * @param	string	$filename
-	 * @return	string
+	 * @return	string|false
 	 */
 	public function set_filename($path, $filename)
 	{
 		if ($this->encrypt_name === TRUE)
 		{
-			$filename = md5(uniqid(mt_rand())).$this->file_ext;
+			$filename = md5(uniqid("" . mt_rand())).$this->file_ext;
 		}
 
 		if ($this->overwrite === TRUE OR ! file_exists($path.$filename))
@@ -686,7 +686,7 @@ class Upload {
 	 * Set Maximum File Size
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_filesize($n)
 	{
@@ -703,7 +703,7 @@ class Upload {
 	 * as initialize() will look for a set_<property_name>() method ...
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	protected function set_max_size($n)
 	{
@@ -716,7 +716,7 @@ class Upload {
 	 * Set Maximum File Name Length
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_filename($n)
 	{
@@ -730,7 +730,7 @@ class Upload {
 	 * Set Maximum Image Width
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_width($n)
 	{
@@ -744,7 +744,7 @@ class Upload {
 	 * Set Maximum Image Height
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_max_height($n)
 	{
@@ -758,7 +758,7 @@ class Upload {
 	 * Set minimum image width
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_min_width($n)
 	{
@@ -772,7 +772,7 @@ class Upload {
 	 * Set minimum image height
 	 *
 	 * @param	int	$n
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_min_height($n)
 	{
@@ -786,7 +786,7 @@ class Upload {
 	 * Set Allowed File Types
 	 *
 	 * @param	mixed	$types
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_allowed_types($types)
 	{
@@ -804,7 +804,7 @@ class Upload {
 	 * Uses GD to determine the width/height/type of image
 	 *
 	 * @param	string	$path
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_image_properties($path = '')
 	{
@@ -833,7 +833,7 @@ class Upload {
 	 * will be run through the XSS filter.
 	 *
 	 * @param	bool	$flag
-	 * @return	CI_Upload
+	 * @return	Upload
 	 */
 	public function set_xss_clean($flag = FALSE)
 	{
@@ -1068,7 +1068,7 @@ class Upload {
 	 * I'm not sure that it won't negatively affect certain files in unexpected ways,
 	 * but so far I haven't found that it causes trouble.
 	 *
-	 * @return	string
+	 * @return	string|bool
 	 */
 	public function do_xss_clean()
 	{
@@ -1079,11 +1079,12 @@ class Upload {
 			return FALSE;
 		}
 
-		if (memory_get_usage() && ($memory_limit = ini_get('memory_limit')) > 0)
+		if (($memory_limit = ini_get('memory_limit')) > 0)
 		{
 			$memory_limit = str_split($memory_limit, strspn($memory_limit, '1234567890'));
 			if ( ! empty($memory_limit[1]))
 			{
+				$memory_limit[0] = (int)$memory_limit[0];
 				switch ($memory_limit[1][0])
 				{
 					case 'g':
@@ -1142,15 +1143,18 @@ class Upload {
 	/**
 	 * Set an error message
 	 *
-	 * @param	string	$msg
-	 * @return	CI_Upload
+	 * @param	string|string[]	$msg
+	 * @return	Upload
 	 */
 	public function set_error($msg, $log_level = 'error')
 	{
-		is_array($msg) OR $msg = array($msg);
+		if (!is_array($msg))
+		{
+			$msg = array($msg);
+		}
 		foreach ($msg as $val)
 		{
-			$msg = (lang("Upload.".$val) === FALSE) ? $val : lang("Upload.".$val);
+			$msg = lang("Upload.".$val);
 			$this->error_msg[] = $msg;
 			log_message($log_level, $msg);
 		}

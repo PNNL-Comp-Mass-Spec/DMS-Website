@@ -6,6 +6,7 @@ namespace App\Libraries;
  */
 class Entry_form {
 
+    private \App\Controllers\BaseController $controller;
     private $form_field_specs = array();
     private $field_values = array();
     private $field_enable = array();
@@ -24,7 +25,7 @@ class Entry_form {
     }
 
     // --------------------------------------------------------------------
-    function init($form_field_specs, $file_tag, $controller) {
+    function init($form_field_specs, $file_tag, \App\Controllers\BaseController $controller) {
         $this->form_field_specs = $form_field_specs;
         $this->file_tag = $file_tag;
 
@@ -46,12 +47,12 @@ class Entry_form {
 
     /**
      * Get default value for field from spec
-     * @param type $controller
+     * @param \App\Controllers\BaseController $controller
      * @param string $fldName
-     * @param type $f_spec
-     * @return type
+     * @param array $f_spec
+     * @return mixed
      */
-    private function get_default_value($controller, $fldName, $f_spec) {
+    private function get_default_value(\App\Controllers\BaseController $controller, $fldName, array $f_spec) {
         $val = '';
 
         if (!array_key_exists('default', $f_spec) &&
@@ -77,11 +78,11 @@ class Entry_form {
                     $val = date("m/d/Y", strtotime('-1 week'));
                     break;
                 case 'previousndays':
-                    $interval = $func_parts[1] * -1;
+                    $interval = (int)$func_parts[1] * -1;
                     $val = date("m/d/Y", strtotime("$interval day"));
                     break;
                 case 'previousnweeks':
-                    $interval = $func_parts[1] * -7;
+                    $interval = (int)$func_parts[1] * -7;
                     $val = date("m/d/Y", strtotime("$interval day"));
                     break;
             }
@@ -114,10 +115,9 @@ class Entry_form {
      * for an entry form row, and then call function to build HTML for
      * visible entry form
      * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
-     * @return type
+     * @return string
      */
-    function build_display($mode) {
-        $this->controller->choosers = model('App\Models\Dms_chooser');
+    function build_display($mode): string {
         helper(['url', 'text', 'form']);
 
         $visible_fields = array();
@@ -171,7 +171,7 @@ class Entry_form {
                 }
 
                 if ($showChooser) {
-                    $choosers = $this->controller->choosers->make_choosers($fldName, $spec);
+                    $choosers = $this->controller->getChoosers()->make_choosers($fldName, $spec);
                 } else {
                     $choosers = "";
                 }
@@ -209,12 +209,12 @@ class Entry_form {
 
     /**
      * Put content of visible fields into HTML table
-     * @param type $visible_fields
-     * @param type $has_enable_col
-     * @param type $sections
+     * @param array $visible_fields
+     * @param bool $has_enable_col
+     * @param int $sections
      * @return string
      */
-    private function display_table($visible_fields, $has_enable_col, $sections) {
+    private function display_table(array $visible_fields, bool $has_enable_col, int $sections) {
         $str = "";
         $str .= "<table class='EPag'>\n";
 
@@ -261,6 +261,7 @@ class Entry_form {
     }
 
     // -----------------------------------
+    /* FUTURE: currently only used in commented-out code block in above function
     private function make_master_section_controls() {
         $s = '';
         $himg = "<img src='" . base_url('/images/z_show_col.gif') . "' border='0' >";
@@ -270,6 +271,7 @@ class Entry_form {
         $s .= "<a href='javascript:void(0)' onclick='entry.showHideSections(\"show\", \"all\")'>$himg</a> Expand All Sections ";
         return $s;
     }
+    */
 
     // -----------------------------------
     private function make_section_header($section_count, $section_label) {
@@ -304,12 +306,12 @@ class Entry_form {
 
     /**
      * Package components of entry area
-     * @param type $field
-     * @param type $choosers
-     * @param type $error
+     * @param string $field
+     * @param string $choosers
+     * @param string $error
      * @return string
      */
-    private function make_entry_area($field, $choosers, $error) {
+    private function make_entry_area(string $field, string $choosers, string $error): string {
         $str = '';
         $str .= "<table>";
         $str .= "<tr>";
@@ -326,14 +328,14 @@ class Entry_form {
     /**
      * Make an entry form field
      *
-     * @param type $field_name Field name
-     * @param type $f_spec Field spec
-     * @param type $cur_value Current value
+     * @param string $field_name Field name
+     * @param array $f_spec Field spec
+     * @param mixed $cur_value Current value
      * @param string $mode Typically 'add' or 'update' but could be 'add_trigger' or 'retry'
      * @param bool $nonEditField Will be set to true if the field is non-edit
-     * @return type
+     * @return string
      */
-    private function make_entry_field($field_name, $f_spec, $cur_value, $mode, &$nonEditField) {
+    private function make_entry_field(string $field_name, array $f_spec, $cur_value, string $mode, &$nonEditField): string {
         $s = "";
         $nonEditField = false;
 
@@ -458,7 +460,7 @@ class Entry_form {
             $lbx = $px[1];
             $dsx = $px[2];
             $s .= "<a href='javascript:void(0)' onclick='$fnx' >$lbx</a> $dsx";
-//          $s .= "<button name='${f_name}_btn' onclick='$fnx' class='button'>$lbx</button>";
+//          $s .= "<button name='{$f_name}_btn' onclick='$fnx' class='button'>$lbx</button>";
         }
 
         return $s;
@@ -466,12 +468,12 @@ class Entry_form {
 
     /**
      * Get attributes to be added to input field for auto complete
-     * @param type $field_name Field name
-     * @param type $f_spec field spec
-     * @param type $props
-     * @return string
+     * @param string $field_name Field name
+     * @param array $f_spec field spec
+     * @param array $props
+     * @return array
      */
-    function add_chooser_properties($field_name, $f_spec, $props) {
+    function add_chooser_properties(string $field_name, array $f_spec, array $props): array {
         if (array_key_exists("chooser_list", $f_spec)) {
             $chsr = $f_spec['chooser_list'][0];
             if ($chsr["type"] == 'autocomplete' || $chsr["type"] == 'autocomplete.append') {
@@ -488,17 +490,17 @@ class Entry_form {
     /**
      * Create the link to the wiki page (provided $this->include_help_link is true)
      * Example: http://prismwiki.pnl.gov/wiki/DMS_Help_for_analysis_job_request#ID
-     * @param type $label
+     * @param string $label
      * @return string
      */
-    private function make_wiki_help_link($label) {
+    private function make_wiki_help_link(string $label): string {
         $s = "";
         if ($this->include_help_link) {
             $file_tag = $this->file_tag;
             $nsLabel = str_replace(" ", "_", $label);
             $pwiki = config('App')->pwiki;
             $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
-            $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}#${nsLabel}";
+            $href = "{$pwiki}{$wiki_helpLink_prefix}{$file_tag}#{$nsLabel}";
             $s .= "<a class=help_link target = '_blank' title='Click to explain field " . $label . "' href='" . $href . "'><img src='" . base_url('/images/help.png') . "' border='0' ></a>";
         }
         return $s;
@@ -570,9 +572,9 @@ class Entry_form {
 
     /**
      * Modify field specs to account for field edit permissions
-     * @param type $userPermissions
+     * @param array $userPermissions
      */
-    function adjust_field_permissions($userPermissions) {
+    function adjust_field_permissions(array $userPermissions) {
         // Look at each field
         foreach ($this->form_field_specs as $field_name => $f_spec) {
             // Find ones that have permission restrictions
@@ -593,9 +595,9 @@ class Entry_form {
 
     /**
      * Change the visibility of designated fields according to given entry mode
-     * @param type $mode Page mode: 'add' or 'update'
+     * @param string $mode Page mode: 'add' or 'update'
      */
-    function adjust_field_visibility($mode) {
+    function adjust_field_visibility(string $mode) {
         foreach ($this->form_field_specs as $field_name => $f_spec) {
             // Hide is defined in the form_field_options table in the config DB
             if (array_key_exists('hide', $f_spec)) {

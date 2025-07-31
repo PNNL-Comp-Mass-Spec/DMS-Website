@@ -9,6 +9,7 @@ class Spreadsheet_loader extends DmsBase {
     // Comes from column config_source in table loadable_entities in spreadsheet_loader.db
     private $supported_entities = array ();
     private $my_url_tag = '';
+    private $spreadsheet_loader;
 
     function __construct()
     {
@@ -52,11 +53,11 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Get config source for given entity type
-     * @param type $entity_type
-     * @return type
+     * @param string $entity_type
+     * @return string
      */
     private
-    function get_config_source($entity_type)
+    function get_config_source(string $entity_type): string
     {
         $config_source = '';
         if(array_key_exists($entity_type, $this->supported_entities)) {
@@ -124,7 +125,7 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Extract data from given file already uploaded to server
      * and return HTML table listing entities found
-     * @throws exception
+     * @throws \Exception
      * @category AJAX
      */
     function extract_data()
@@ -165,11 +166,11 @@ class Spreadsheet_loader extends DmsBase {
             }
 
             // Table dump
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+            $table = new \CodeIgniter\View\Table();
+            $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
-            $this->table->setHeading('', '<span id="entity_type">'.$entity_type.'</span>', 'Details', 'Results');
-            echo $this->table->generate($rows);
+            $table->setHeading('', '<span id="entity_type">'.$entity_type.'</span>', 'Details', 'Results');
+            echo $table->generate($rows);
             echo "<div>Number of entities:$entity_count<div>";
         } catch (\Exception $e) {
             $message = $e->getMessage();
@@ -180,7 +181,7 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Extract data from given file already uploaded to server
      * and return HTML table of whole spreadsheet
-     * @throws exception
+     * @throws \Exception
      * @category AJAX
      */
     function extract_table()
@@ -196,15 +197,15 @@ class Spreadsheet_loader extends DmsBase {
             $entity_count = count($entity_list);
 
             // Table dump
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+            $table = new \CodeIgniter\View\Table();
+            $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
             $rows = $this->spreadsheet_loader->get_extracted_data();
             $i = 0;
             foreach($rows as &$row) {
                 array_unshift($row, $i++);
             }
-            echo $this->table->generate($rows);
+            echo $table->generate($rows);
         } catch (\Exception $e) {
             $message = $e->getMessage();
             echo "<div class='EPag_message'>$message</div>";
@@ -215,8 +216,8 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Extract data from given file already uploaded to server
      * and show details of given entity
-     * @param type $fname
-     * @param type $id
+     * @param string $fname
+     * @param string $id
      */
     function entity($fname, $id)
     {
@@ -257,16 +258,16 @@ class Spreadsheet_loader extends DmsBase {
         $data['title'] = "Details Of '$id' From Spreadsheet";
         $data['content'] = "File:$fname <br>";
 
-        $this->table = new \CodeIgniter\View\Table();
-        $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+        $table = new \CodeIgniter\View\Table();
+        $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
 
-        $this->table->setHeading('Field', 'Value');
-        $data['content'] .= $this->table->generate($rows);
+        $table->setHeading('Field', 'Value');
+        $data['content'] .= $table->generate($rows);
 
         if(!empty($aux_info)) {
-            $this->table->clear();
-            $this->table->setHeading('Category', 'Subcategory',  'Item', 'Value');
-            $data['content'] .= $this->table->generate($arows);
+            $table->clear();
+            $table->setHeading('Category', 'Subcategory',  'Item', 'Value');
+            $data['content'] .= $table->generate($arows);
         }
 
         echo view('uploader/upload_supplemental', $data);
@@ -274,7 +275,7 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Update tracking info for given entity in DMS (and optionally its aux info)
-     * @throws exception
+     * @throws \Exception
      */
     function update() ///$fname, $id, $mode
     {
@@ -308,24 +309,24 @@ class Spreadsheet_loader extends DmsBase {
                 $calling_params = $this->make_tracking_info_params($tracking_info, $config_source, $mode, $current_values);
 
                 // Call stored procedure to update tracking info
-                $this->sproc_model = model('App\Models\S_model');
-                $ok = $this->sproc_model->init('entry_sproc', $config_source);
-                if(!$ok) throw new \Exception($this->sproc_model->get_error_text());
+                $sproc_model = model('App\Models\S_model');
+                $ok = $sproc_model->init('entry_sproc', $config_source);
+                if(!$ok) throw new \Exception($sproc_model->get_error_text());
 
-                $ok = $this->sproc_model->execute_sproc($calling_params);
-                if(!$ok) throw new \Exception($this->sproc_model->get_error_text());
+                $ok = $sproc_model->execute_sproc($calling_params);
+                if(!$ok) throw new \Exception($sproc_model->get_error_text());
             }
 
             //---- aux info update ---------------------------
             if($incAuxinfo && !empty($aux_info)) {
-                $this->aux_model = model('App\Models\S_model');
-                $ok = $this->aux_model->init('operations_sproc', 'aux_info_def');
-                if(!$ok) throw new \Exception($this->aux_model->get_error_text());
+                $aux_model = model('App\Models\S_model');
+                $ok = $aux_model->init('operations_sproc', 'aux_info_def');
+                if(!$ok) throw new \Exception($aux_model->get_error_text());
 
                 foreach($grouped_aux_info as $ai) {
                     $obj = $this->make_aux_info_params($id, $entity_type, $ai, $mode);
-                    $ok = $this->aux_model->execute_sproc($obj);
-                    if(!$ok) throw new \Exception($this->aux_model->get_error_text());
+                    $ok = $aux_model->execute_sproc($obj);
+                    if(!$ok) throw new \Exception($aux_model->get_error_text());
                 }
             }
 
@@ -339,15 +340,15 @@ class Spreadsheet_loader extends DmsBase {
     /**
      * Get current field values from existing entity
      * (allows us to have partial field coverage from spreadsheet in update mode)
-     * @param type $id
-     * @param type $entity_type
-     * @param type $config_source
-     * @param type $mode
-     * @return stdClass
-     * @throws exception
+     * @param string $id
+     * @param string $entity_type
+     * @param string $config_source
+     * @param string $mode
+     * @return \stdClass
+     * @throws \Exception
      */
     private
-    function get_current_field_values($id, $entity_type, $config_source, $mode)
+    function get_current_field_values(string $id, string $entity_type, string $config_source, string $mode): \stdClass
     {
         $current_values = new \stdClass();
 
@@ -358,8 +359,8 @@ class Spreadsheet_loader extends DmsBase {
             $result = $this->get_entity_key($id, $entity_type, $key, $message);
             if(!$result) throw new \Exception($message);
 
-            $this->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
-            $field_values =  $this->input_model->get_item($key, $this);
+            $this->loadDataModel('entry_page', $config_source);
+            $field_values =  $this->data_model->get_item($key, $this);
             if(empty($field_values)) throw new \Exception("Could not get field values for $entity_type '$key'");
             foreach($field_values as $fn => $v) {
                 $current_values->$fn = $v;
@@ -396,7 +397,7 @@ class Spreadsheet_loader extends DmsBase {
 
     // --------------------------------------------------------------------
     private
-    function get_entity_key($id, $entity_type, &$key, &$message)
+    function get_entity_key(string $id, string $entity_type, &$key, &$message): bool
     {
         $exists = false;
         try {
@@ -408,9 +409,9 @@ class Spreadsheet_loader extends DmsBase {
             if(!$sql) throw new \Exception('Error:Existence query not defined');
             $sql = str_replace('@@', $id, $sql);
 
-            $this->db = \Config\Database::connect();
-            $this->updateSearchPath($this->db);
-            $result = $this->db->query($sql);
+            $db = \Config\Database::connect();
+            $this->updateSearchPath($db);
+            $result = $db->query($sql);
             if($result->getNumRows() > 0) {
                 $row = $result->getRow();
                 $keyColumn = $this->supported_entities[$entity_type]['key'];
@@ -432,20 +433,20 @@ class Spreadsheet_loader extends DmsBase {
      * Build parameter object for calling stored procedure that updates the tracking entity.
      * The parameters pulled from the spreadsheet (defined by labels) will be mapped
      * to calling parameter names matching the stored procedure arguments
-     * @param type $tracking_info
-     * @param type $config_source
-     * @param type $mode
-     * @param type $current_values
-     * @return type
+     * @param array $tracking_info
+     * @param string $config_source
+     * @param string $mode
+     * @param \stdClass $current_values
+     * @return \stdClass
      */
     private
-    function make_tracking_info_params($tracking_info, $config_source, $mode, $current_values)
+    function make_tracking_info_params(array $tracking_info, string $config_source, string $mode, \stdClass $current_values): \stdClass
     {
         // Use $entity_type to get definition of field/labels for entry sproc
         // entry form specifications
-        $this->form_model = model('App\Models\E_model');
-        $this->form_model->init('na', $config_source);
-        $form_def = $this->form_model->get_form_def(array('specs'));
+        $form_model = model('App\Models\E_model');
+        $form_model->init('na', $config_source);
+        $form_def = $form_model->get_form_def(array('specs'));
 
         helper('user');
         $calling_params = $current_values;
@@ -496,14 +497,16 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Generate generic spreadsheet template for given entity type
-     * @param type $config_source
+     * @param string $config_source
+     * @param bool $rowStyle
+     * @param string $ext
      */
     function template($config_source, $rowStyle = false, $ext = "tsv")
     {
         // Tracking info
-        $this->form_model = model('App\Models\E_model');
-        $this->form_model->init('na', $config_source);
-        $form_def = $this->form_model->get_form_def(array('fields', 'specs', 'load_key'));
+        $form_model = model('App\Models\E_model');
+        $form_model->init('na', $config_source);
+        $form_def = $form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
         // Get array of field labels associated with field values
         // make sure key field is first in list
@@ -522,10 +525,10 @@ class Spreadsheet_loader extends DmsBase {
         $aux_info_target = $this->get_aux_info_target($config_source);
         if($aux_info_target) {
             // Get aux info definitions
-            $this->model = model('App\Models\Q_model');
-            $this->model->init('list_report', 'aux_info_def');
-            $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
-            $query = $this->model->get_rows('filtered_only');
+            $model = model('App\Models\Q_model');
+            $model->init('list_report', 'aux_info_def');
+            $model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
+            $query = $model->get_rows('filtered_only');
 
             $aux_info =  $query->getResultArray();
             foreach($aux_info as &$row) {
@@ -583,9 +586,9 @@ class Spreadsheet_loader extends DmsBase {
     private
     function cross_check_tracking_info_fields($config_source, $tracking_info)
     {
-        $this->form_model = model('App\Models\E_model');
-        $this->form_model->init('na', $config_source);
-        $form_def = $this->form_model->get_form_def(array('fields', 'specs', 'load_key'));
+        $form_model = model('App\Models\E_model');
+        $form_model->init('na', $config_source);
+        $form_def = $form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
         $errors = array();
         foreach($tracking_info as $field => $row) {
@@ -609,10 +612,10 @@ class Spreadsheet_loader extends DmsBase {
     function cross_check_aux_info_fields($aux_info_target, $aux_info)
     {
         // Get aux info definitions
-        $this->model = model('App\Models\Q_model');
-        $this->model->init('list_report', 'aux_info_def');
-        $this->model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
-        $query = $this->model->get_rows('filtered_only');
+        $model = model('App\Models\Q_model');
+        $model->init('list_report', 'aux_info_def');
+        $model->add_predicate_item('AND', 'target', 'MatchesText', $aux_info_target);
+        $query = $model->get_rows('filtered_only');
         $result =  $query->getResultArray();
 
         $errors = array();
@@ -639,7 +642,7 @@ class Spreadsheet_loader extends DmsBase {
     function directory()
     {
         helper(['url']);
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
 
         $style = "width:40em;padding:5px 0 5px 0;";
         echo "<div style='$style'>This is a list of DMS entity types for which you can upload spreadsheet data</div>";
@@ -656,10 +659,10 @@ class Spreadsheet_loader extends DmsBase {
             else
                 $entityDescription = ucwords(strtolower($entity));
 
-            $this->table->addRow($entityDescription, $lnkXlsx, $lnk, $lr);
+            $table->addRow($entityDescription, $lnkXlsx, $lnk, $lr);
         }
         echo "<div style='$style'>";
-        echo $this->table->generate();
+        echo $table->generate();
         echo "</div>";
 
         echo "<div style='$style'>You can get a blank template with all possible fields for the entity by clicking the 'Blank Template' link.</div>";
@@ -668,12 +671,11 @@ class Spreadsheet_loader extends DmsBase {
 
     /**
      * Get definitions for entities that can be uploaded from spreadsheet loader
-     * @param type $dbFileName
-     * @throws Exception
-     * @throws exception
+     * @param string $dbFileName
+     * @throws \Exception
      */
     private
-    function get_config_info($dbFileName)
+    function get_config_info(string $dbFileName)
     {
         helper(['config_db']);
         $dbFilePath = get_model_config_db_path($dbFileName)->path;

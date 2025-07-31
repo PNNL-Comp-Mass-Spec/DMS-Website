@@ -22,10 +22,12 @@ class Sorting_filter {
     /**
      * Get current secondary filter values either from POST
      * or from cache storage (session)
-     * @param type $config_name
-     * @param type $config_source
+     * @param string $config_name
+     * @param string $config_source
+     * @param \App\Controllers\BaseController $controller
+     * @param array $options
      */
-    function init($config_name, $config_source, $controller, $options) {
+    function init(string $config_name, string $config_source, \App\Controllers\BaseController $controller, array $options) {
         helper('cache');
 
         $this->config_name = $config_name;
@@ -55,7 +57,7 @@ class Sorting_filter {
     /**
      * Get current values for secondary filter if present in POST
      * otherwise return false
-     * @return boolean
+     * @return array|bool
      */
     private function get_current_filter_values_from_post() {
         $request = \Config\Services::request();
@@ -87,25 +89,25 @@ class Sorting_filter {
 
     /**
      * Get current filter values
-     * @return type
+     * @return array
      */
-    function get_current_filter_values() {
+    function get_current_filter_values(): array {
         return $this->cur_filter_values;
     }
 
     /**
      * Get the storage path
-     * @return type
+     * @return string
      */
-    function get_storage_name() {
+    function get_storage_name(): string {
         return $this->storage_name;
     }
 
     /**
      * Get cached values
-     * @return type
+     * @return string
      */
-    function get_cached_value() {
+    function get_cached_value(): string {
         return get_from_cache($this->storage_name);
     }
 

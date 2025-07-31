@@ -2,6 +2,9 @@
 namespace App\Controllers;
 
 class Data_package_publish extends DmsBase {
+
+    private $model = null;
+
     function __construct()
     {
         $this->my_tag = "data_package_publish";

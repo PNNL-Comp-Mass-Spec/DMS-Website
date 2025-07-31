@@ -7,6 +7,7 @@ namespace App\Libraries;
 
 class List_report {
 
+    protected \App\Controllers\BaseController $controller;
     protected $config_source = '';
     protected $config_name = '';
     protected $tag = '';
@@ -18,7 +19,7 @@ class List_report {
     }
 
     // --------------------------------------------------------------------
-    function init($config_name, $config_source, $controller) {
+    function init($config_name, $config_source, \App\Controllers\BaseController $controller) {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
 
@@ -29,9 +30,9 @@ class List_report {
 
     /**
      * Make list report page
-     * @param type $mode
+     * @param string $mode
      */
-    function list_report($mode) {
+    function list_report(string $mode) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -46,13 +47,11 @@ class List_report {
 
         helper(['form', 'menu', 'link_util', 'url']);
 
-        $this->controller->choosers = model('App\Models\Dms_chooser');
-
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
 
         // Clear total rows cache in model to force getting value from database
-        $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
-        $this->controller->model->clear_cached_total_rows();
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $this->controller->data_model->clear_cached_total_rows();
 
         // If there were extra segments for list report URL,
         // convert them to primary and secondary filter field values and cache those
@@ -78,7 +77,7 @@ class List_report {
 
         if (!empty($segs)) {
             // Retrieve the primary filters
-            $primary_filter_specs = $this->controller->model->get_primary_filter_specs();
+            $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
 
             $this->set_pri_filter_from_url_segments($pfSegs, $primary_filter_specs);
 
@@ -100,10 +99,10 @@ class List_report {
         $data['list_report_cmds'] = $this->controller->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
+        $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url', ''));
 
         $data['check_access'] = [$this->controller, 'check_access'];
-        $data['choosers'] = $this->controller->choosers;
+        $data['choosers'] = $this->controller->getChoosers();
 
         $data['nav_bar_menu_items'] = set_up_nav_bar('List_Reports', $this->controller);
         echo view('main/list_report', $data);
@@ -112,9 +111,9 @@ class List_report {
     /**
      * Check segment array to see of there is a secondary filter preset
      * @param array $segs
-     * @return int
+     * @return int|false
      */
-    private function get_secondary_filter_preset_idx($segs) {
+    private function get_secondary_filter_preset_idx(array $segs) {
         $result = false;
         $ns = count($segs);
         $nxt = "";
@@ -144,12 +143,12 @@ class List_report {
 
     /**
      * Initialize primary filter values from URL segments and cache them for subsequent queries
-     * @param type $segs
-     * @param type $primary_filter_specs
+     * @param array $segs
+     * @param array $primary_filter_specs
      */
-    protected function set_pri_filter_from_url_segments($segs, $primary_filter_specs) {
+    protected function set_pri_filter_from_url_segments(array $segs, array $primary_filter_specs) {
         // Primary filter object (we will use it to cache field values)
-        $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $primary_filter = $this->controller->getLibrary('Primary_filter',$this->config_name, $this->config_source, $primary_filter_specs);
 
         // Get list of just the names of primary filter fields
         $form_field_names = array_keys($primary_filter_specs);
@@ -159,65 +158,65 @@ class List_report {
         $initial_field_values = get_values_from_segs($form_field_names, $segs);
 
         // We are completely replacing filter values, so get rid of any we pulled from cache
-        $this->controller->primary_filter->clear_current_filter_values();
+        $primary_filter->clear_current_filter_values();
 
         // Update values in primary filter object
         foreach ($initial_field_values as $field => $value) {
-            $this->controller->primary_filter->set_current_filter_value($field, $value);
+            $primary_filter->set_current_filter_value($field, $value);
         }
 
         // And cache the values we got from the segments
-        $this->controller->primary_filter->save_current_filter_values();
+        $primary_filter->save_current_filter_values();
     }
 
     /**
      * Initialize secondary filter values from URL segments and cache them for subsequent queries
-     * @param type $segs
+     * @param array $segs
      */
-    protected function set_sec_filter_from_url_segments($segs) {
+    protected function set_sec_filter_from_url_segments(array $segs) {
         // Secondary filter object (we will use it to cache field values)
-        $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
+        $secondary_filter = $this->controller->getLibrary('Secondary_filter', $this->config_name, $this->config_source);
 
-        $filter_state = $this->controller->secondary_filter->get_filter_from_list($segs);
-        $this->controller->secondary_filter->save_filter_values($filter_state);
+        $filter_state = $secondary_filter->get_filter_from_list($segs);
+        $secondary_filter->save_filter_values($filter_state);
     }
 
     /**
      * Make filter section for list report page
      * Returns HTML containing filter components arranged in the specified format
-     * @param type $filter_display_mode
+     * @param string $filter_display_mode
      * @category AJAX
      */
-    function report_filter($filter_display_mode = 'advanced') {
+    function report_filter(string $filter_display_mode = 'advanced') {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
         helper('form');
         helper(['filter', 'link_util']);
 
-        $this->controller->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
         $cols = $this->controller->data_model->get_col_names();
 
-        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
-        $current_paging_filter_values = $this->controller->paging_filter->get_current_filter_values();
+        $paging_filter = $this->controller->getLibrary('Paging_filter', $this->config_name, $this->config_source);
+        $current_paging_filter_values = $paging_filter->get_current_filter_values();
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $persistSortColumns = $this->controller->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
 
-        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
+        $sorting_filter = $this->controller->getLibrary('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $sorting_filter->get_current_filter_values();
 
-        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $this->controller->column_filter->get_current_filter_values();
+        $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $column_filter->get_current_filter_values();
 
         $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
-        $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
-        $current_primary_filter_values = $this->controller->primary_filter->get_cur_filter_values();
+        $primary_filter = $this->controller->getLibrary('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $current_primary_filter_values = $primary_filter->get_cur_filter_values();
 
-        $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
-        $sec_filter_display_info = $this->controller->secondary_filter->collect_information_for_display($this->controller->data_model, "$this->config_source/get_sql_comparison/");
+        $secondary_filter = $this->controller->getLibrary('Secondary_filter', $this->config_name, $this->config_source);
+        $sec_filter_display_info = $secondary_filter->collect_information_for_display($this->controller->data_model, "$this->config_source/get_sql_comparison/");
 
         switch ($filter_display_mode) {
             case 'minimal':
@@ -237,13 +236,13 @@ class List_report {
      * @param string $column_name
      * @category AJAX
      */
-    function get_sql_comparison($column_name) {
+    function get_sql_comparison(string $column_name) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->controller->load_mod('Q_model', 'model', $this->config_name, $this->config_source);
-        $data_type = $this->controller->model->get_column_data_type(strtolower($column_name));
-        $cmpSelOpts = $this->controller->model->get_allowed_comparisons_for_type($data_type);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $data_type = $this->controller->data_model->get_column_data_type(strtolower($column_name));
+        $cmpSelOpts = $this->controller->data_model->get_allowed_comparisons_for_type($data_type);
 
         helper('form');
         echo form_dropdown('qf_comp_sel[]', $cmpSelOpts);
@@ -254,31 +253,31 @@ class List_report {
      * @param string $option
      * @category AJAX
      */
-    function report_data($option = 'rows') {
+    function report_data(string $option = 'rows') {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
         $this->set_up_list_query();
 
-        $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
+        $this->controller->loadLinkModel('na', $this->config_source);
 
-        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $this->controller->column_filter->get_current_filter_values();
+        $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $column_filter->get_current_filter_values();
 
-        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
-        $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
-        $this->controller->cell_presentation->set_col_filter($col_filter);
+        $cell_presentation = new \App\Libraries\Cell_presentation();
+        $cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
+        $cell_presentation->set_col_filter($col_filter);
 
         $rows = $this->controller->data_model->get_rows()->getResultArray();
         if (empty($rows)) {
             echo "<div id='data_message' >No rows found</div>";
         } else {
             $col_info = $this->controller->data_model->get_column_info();
-            $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+            $cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
             $qp = $this->controller->data_model->get_query_parts();
-            $data['row_renderer'] = $this->controller->cell_presentation;
-            $data['column_header'] = $this->controller->cell_presentation->make_column_header($rows, $qp->sorting_items);
+            $data['row_renderer'] = $cell_presentation;
+            $data['column_header'] = $cell_presentation->make_column_header($rows, $qp->sorting_items);
             $data['rows'] = $rows;
 
             helper(['text']);
@@ -293,7 +292,7 @@ class List_report {
      * @param string $what_info
      * @category AJAX
      */
-    function report_info($what_info) {
+    function report_info(string $what_info) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -312,11 +311,11 @@ class List_report {
 
     /**
      * Convert the filters into a string for use by report_info
-     * @param type $filters
-     * @param type $tag
+     * @param array $filters
+     * @param string $tag
      * @return string
      */
-    private function dump_filters($filters, $tag) {
+    private function dump_filters(array $filters, string $tag) {
         $s = "";
         helper(['wildcard_conversion']);
 
@@ -369,23 +368,23 @@ class List_report {
         $session = \Config\Services::session();
 
         helper(['link_util']);
-        $this->set_up_list_query();
+        $current_filters = $this->set_up_list_query();
 
-        $current_filter_values = $this->controller->paging_filter->get_current_filter_values();
+        $current_filter_values = $current_filters["paging"];
 
         // Pull together info necessary to do paging displays and controls
         // and use it to set up a pager object
-        $this->controller->preferences = model('App\Models\Dms_preferences');
-        $this->controller->list_report_pager = new \App\Libraries\List_report_pager();
+        $preferences = $this->controller->getPreferences();
+        $list_report_pager = new \App\Libraries\List_report_pager();
         try {
             // Make HTML using pager
             $s = '';
             $total_rows = $this->controller->data_model->get_total_rows();
             $per_page = $current_filter_values['qf_rows_per_page'];
             $first_row = $current_filter_values['qf_first_row'];
-            $this->controller->list_report_pager->set($first_row, $total_rows, $per_page);
-            $pr = $this->controller->list_report_pager->create_links();
-            $ps = $this->controller->list_report_pager->create_stats($this->controller);
+            $list_report_pager->set($first_row, $total_rows, $per_page);
+            $pr = $list_report_pager->create_links();
+            $ps = $list_report_pager->create_stats($this->controller);
 
             $s .= "<span class='LRepPager'>$ps</span>";
             $s .= "<span class='LRepPager'>$pr</span>";
@@ -399,31 +398,31 @@ class List_report {
      * Set up query for database entity based on list report filtering
      * @return array Filter settings
      */
-    protected function set_up_list_query() {
+    protected function set_up_list_query(): array {
         // It all starts with a model
-        $this->controller->load_mod('Q_model', 'data_model', $this->config_name, $this->config_source);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
 
         // Primary filter
         $primary_filter_specs = $this->controller->data_model->get_primary_filter_specs();
-        $this->controller->load_lib('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
-        $current_primary_filter_values = $this->controller->primary_filter->get_cur_filter_values();
+        $primary_filter = $this->controller->getLibrary('Primary_filter', $this->config_name, $this->config_source, $primary_filter_specs);
+        $current_primary_filter_values = $primary_filter->get_cur_filter_values();
 
         // Secondary filter
-        $this->controller->load_lib('Secondary_filter', $this->config_name, $this->config_source);
-        $current_secondary_filter_values = $this->controller->secondary_filter->get_current_filter_values();
+        $secondary_filter = $this->controller->getLibrary('Secondary_filter', $this->config_name, $this->config_source);
+        $current_secondary_filter_values = $secondary_filter->get_current_filter_values();
 
         // Paging filter
-        $this->controller->load_lib('Paging_filter', $this->config_name, $this->config_source);
-        $current_filter_values = $this->controller->paging_filter->get_current_filter_values();
+        $paging_filter = $this->controller->getLibrary('Paging_filter', $this->config_name, $this->config_source);
+        $current_filter_values = $paging_filter->get_current_filter_values();
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $persistSortColumns = $this->controller->gen_model->get_list_report_sort_persist_enabled();
 
         $options = array("PersistSortColumns" => $persistSortColumns);
 
         // Sorting filter
-        $this->controller->load_lib('Sorting_filter', $this->config_name, $this->config_source, $options);
-        $current_sorting_filter_values = $this->controller->sorting_filter->get_current_filter_values();
+        $sorting_filter = $this->controller->getLibrary('Sorting_filter', $this->config_name, $this->config_source, $options);
+        $current_sorting_filter_values = $sorting_filter->get_current_filter_values();
 
         // Add filter values to data model to set up query
         foreach (array_values($current_primary_filter_values) as $pi) {
@@ -442,7 +441,8 @@ class List_report {
         // Return filter settings
         return array(
             "primary" => $current_primary_filter_values,
-            "secondary" => $current_secondary_filter_values
+            "secondary" => $current_secondary_filter_values,
+            "paging" => $current_filter_values
         );
     }
 
@@ -450,7 +450,7 @@ class List_report {
      * Export a list report
      * @param string $format
      */
-    function export($format) {
+    function export(string $format) {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
@@ -458,39 +458,36 @@ class List_report {
 
         $this->set_up_list_query();
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
 
-        $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
+        $this->controller->loadLinkModel('na', $this->config_source);
 
         $rows = $this->controller->data_model->get_rows('filtered_and_sorted')->getResultArray();
 
-        $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
-        $this->controller->cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
+        $cell_presentation = new \App\Libraries\Cell_presentation();
+        $cell_presentation->init($this->controller->link_model->get_list_report_hotlinks());
 
         $col_info = $this->controller->data_model->get_column_info();
-        $this->controller->cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
+        $cell_presentation->fix_datetime_and_decimal_display($rows, $col_info);
 
-        $this->controller->load_lib('Column_filter', $this->config_name, $this->config_source);
-        $col_filter = $this->controller->column_filter->get_current_filter_values();
+        $column_filter = $this->controller->getLibrary('Column_filter', $this->config_name, $this->config_source);
+        $col_filter = $column_filter->get_current_filter_values();
 
         if(empty($col_filter)) {
             // Examine the list report's hotlinks to look for any columns tagged with no_export
             // Skip those columns when exporting data
-            $col_filter = $this->controller->cell_presentation->get_columns_to_export($rows);
-        }
-
-        if ($format == 'excel') {
-            $this->controller->cell_presentation->add_color_codes($rows);
-            $col_alignment = $this->controller->cell_presentation->get_column_alignment($rows);
+            $col_filter = $cell_presentation->get_columns_to_export($rows);
         }
 
         // (someday) list report document export - output helper needs to clean out newlines and so forth.
 
-        if (empty($rows)) {
+        if (count($rows) === 0) {
             echo '<p>The table appears to have no data.</p>';
         } else {
             switch ($format) {
                 case 'excel':
+                    $cell_presentation->add_color_codes($rows);
+                    $col_alignment = $cell_presentation->get_column_alignment($rows);
                     export_to_excel($rows, $this->tag, $col_filter, $col_alignment);
                     break;
                 case 'tsv':

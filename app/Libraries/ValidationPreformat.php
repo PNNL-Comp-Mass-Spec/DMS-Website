@@ -1,6 +1,8 @@
 <?php
 namespace App\Libraries;
 
+use CodeIgniter\Validation\Exceptions\ValidationException;
+
 // --------------------------------------------------------------------
 // Form Validation preformatting
 // --------------------------------------------------------------------
@@ -97,7 +99,7 @@ class ValidationPreformat {
     {
         if (is_null($data))
         {
-            throw new InvalidArgumentException('You must supply the parameter: data.');
+            throw new \InvalidArgumentException('You must supply the parameter: data.');
         }
 
         foreach ($rules as $rule)
@@ -134,22 +136,6 @@ class ValidationPreformat {
             {
                 continue;
             }
-
-            // // Set the error message if we didn't survive.
-            // if ($passed === false)
-            // {
-            //     // if the $value is an array, convert it to as string representation
-            //     if (is_array($value))
-            //     {
-            //         $value = '[' . implode(', ', $value) . ']';
-            //     }
-            //
-            //     $this->errors[$field] = is_null($error)
-            //         ? $this->getErrorMessage($rule, $field, $label, $param, $value)
-            //         : $error; // @phpstan-ignore-line
-            //
-            //     return false;
-            // }
         }
 
         return $value;

@@ -5,14 +5,10 @@ use App\Controllers;
 
 class Gen extends BaseController
 {
-	/**
-	 * An array of helpers to be loaded automatically upon
-	 * class instantiation. These helpers will be available
-	 * to all other controllers that extend BaseController.
-	 *
-	 * @var array
-	 */
-	protected $helpers = ['url', 'text'];
+    protected $helpers = ['url', 'text'];
+
+    private $config;
+    private $page_menu_root;
 
 	/**
 	 * Constructor.
@@ -26,13 +22,12 @@ class Gen extends BaseController
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.:
-		// $this->session = \Config\Services::session();
+		// $this->session = service('session');
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         $this->config = config('App');
-        $this->color_code = $this->config->version_color_code;
         $this->page_menu_root = ($this->config->page_menu_root) ? $this->config->page_menu_root : "page_menu" ;
 	}
 
@@ -44,8 +39,8 @@ class Gen extends BaseController
     function index()
     {
 		// TODO: $page = $this->request->getPost('page');
-        $page = '';
-        $pageToShow = ($page != '')?$page:site_url('gen/welcome');
+        //$pageToShow = ($page != '')?$page:site_url('gen/welcome');
+        $pageToShow = site_url('gen/welcome');
 
         $data['page_url'] = $pageToShow;
         $data['side_menu_url'] = site_url('gen/side_menu');
@@ -61,30 +56,30 @@ class Gen extends BaseController
     {
         echo("<li>Environment:".ENVIRONMENT . "\n");
 //      $this->config->load('database', TRUE);
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $version = $this->color_code = $this->config->version_label;
+        $version = $this->config->version_label;
         echo("<li>version:$version\n");
 
-        $archiveRoot = $this->color_code = $this->config->file_attachment_archive_root_path;
+        $archiveRoot = $this->config->file_attachment_archive_root_path;
         echo("<li>file attachment path:$archiveRoot\n");
 
-        $dbName = $this->db->database;
+        $dbName = $db->getDatabase();
         echo("<li>database:$dbName\n");
 
-        $userName = $this->db->username;
-        echo("<li>user:$userName\n");
+        //$userName = $db->username; // NOTE: what else to use here (protected member variable)
+        //echo("<li>user:$userName\n");
     }
 
     /**
      * Create the menus
-     * @param type $title
-     * @param type $sub_view_name
-     * @param type $splash_view_name
-     * @param type $menu_config_db
-     * @param type $menu_section_table
-     * @param type $menu_item_table
+     * @param string $title
+     * @param string $sub_view_name
+     * @param string $splash_view_name
+     * @param string $menu_config_db
+     * @param string $menu_section_table
+     * @param string $menu_item_table
      */
     function _page_menu(
                 $title,
@@ -95,7 +90,6 @@ class Gen extends BaseController
                 $menu_item_table = "home_menu_items"
     )
     {
-        $this->menu = model('\\App\\Models\\Dms_menu');
         helper(['form', 'user', 'menu', 'dms_search']);
 
         // Labelling information for view
@@ -106,7 +100,7 @@ class Gen extends BaseController
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('', $this);
 
         // Home page menu sections
-        $defs = $this->menu->get_section_menu_def($menu_config_db, $menu_section_table, $menu_item_table);
+        $defs = $this->getMenu()->get_section_menu_def($menu_config_db, $menu_section_table, $menu_item_table);
         $data['qs_section_defs'] = $defs;
 
         // Which sub view to load?
@@ -164,7 +158,6 @@ class Gen extends BaseController
     function side_menu()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('\\App\\Models\\Dms_menu');
         echo view('menu_panel');
     }
 
@@ -175,9 +168,8 @@ class Gen extends BaseController
     function side_menu_objects()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('\\App\\Models\\Dms_menu');
 
-        $menu_def = $this->menu->get_menu_def("dms_menu.db", "menu_def");
+        $menu_def = $this->getMenu()->get_menu_def("dms_menu.db", "menu_def");
         $items = build_side_menu_object_tree($menu_def, '');
         echo json_encode($items);
     }
@@ -232,21 +224,20 @@ class Gen extends BaseController
     function auth()
     {
         // Load the authorization model
-        $this->auth = model('\\App\\Models\\Dms_authorization');
-        $rows = $this->auth->get_master_restriction_list();
+        $rows = $this->getAuth()->get_master_restriction_list();
 
-        $this->table = new \CodeIgniter\View\Table();
+        $table = new \CodeIgniter\View\Table();
         $tmpl = array ('table_open' => '<table border="1" cellpadding="4" cellspacing="0">');
-        $this->table->setTemplate($tmpl);
+        $table->setTemplate($tmpl);
 
-        $this->table->setHeading('Page Family', 'Action', 'Restrictions');
+        $table->setHeading('Page Family', 'Action', 'Restrictions');
 
         foreach($rows as $row) {
             array_shift($row); // get rid of id column
-            $this->table->addRow($row);
+            $table->addRow($row);
         }
 
-        echo $this->table->generate();
+        echo $table->generate();
     }
 
     /**
@@ -255,18 +246,17 @@ class Gen extends BaseController
      */
     function stats()
     {
-        $this->model = model('\\App\\Models\\Dms_statistics');
+        $model = model('\\App\\Models\\Dms_statistics');
         helper(['form', 'user', 'dms_stats', 'dms_search', 'menu']);
 
         // nav_bar setup
-        $this->menu = new \App\Models\Dms_menu();
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Statistics', $this);
 
         // Labelling information for view
         $data['title'] = "DMS Statistics";
         $data['heading'] = $data['title'];
 
-        $result = $this->model->get_stats();
+        $result = $model->get_stats();
         $data['results'] = $result;
 
         echo view('special/statistics', $data);

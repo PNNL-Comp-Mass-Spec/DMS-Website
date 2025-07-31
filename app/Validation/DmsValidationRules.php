@@ -8,8 +8,8 @@ class DmsValidationRules
 {
     /**
      * Dummy method to allow use in DmsValidationPreformat without validation errors
-     * @param type $str
-     * @return type
+     * @param string $str
+     * @return bool
      */
     function trim($str) : bool
     {
@@ -26,7 +26,7 @@ class DmsValidationRules
         {
             $error = "The %s field must contain only characters from '$charSet'";
         }
-        return result;
+        return $result;
     }
 
     function char_set_base($str, string $fields, array $data, string &$error = null) : bool
@@ -90,7 +90,7 @@ class DmsValidationRules
 
         foreach ($fields as $field)
         {
-            if (strpos($str, $field) === true)
+            if (strpos($str, $field) !== false)
             {
                 $error = "The %s field can not contain the word '$field'";
                 return false;

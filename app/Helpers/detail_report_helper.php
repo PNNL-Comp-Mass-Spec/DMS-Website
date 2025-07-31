@@ -5,16 +5,16 @@
  * Also adds the header fields, including the link to the list report and edit/entry buttons
  * This method is called from view app/Views/main/detail_report_data.php
  * That view is loaded from method show_data in DmsBase.php
- * @param type $columns
- * @param type $fields
- * @param type $hotlinks
- * @param type $controller_name
- * @param type $id
- * @param type $show_entry_links
- * @param type $show_create_links
+ * @param array $columns
+ * @param array $fields
+ * @param array $hotlinks
+ * @param string $controller_name
+ * @param mixed $id
+ * @param bool $show_entry_links
+ * @param bool $show_create_links
  * @return string
  */
-function make_detail_report_section($columns, $fields, $hotlinks, $controller_name, $id, $show_entry_links, $show_create_links) {
+function make_detail_report_section(array $columns, array $fields, array $hotlinks, string $controller_name, $id, bool $show_entry_links, bool $show_create_links): string {
     $str = '';
 
     // Fields are contained in a table
@@ -45,12 +45,12 @@ function make_detail_report_section($columns, $fields, $hotlinks, $controller_na
 
 /**
  * Convert the rows of data into html, including formatting datetime values and adding hotlinks
- * @param type $columns
- * @param type $fields
- * @param type $hotlinks_in
+ * @param array $columns
+ * @param array $fields
+ * @param array $hotlinks_in
  * @return string
  */
-function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
+function make_detail_table_data_rows(array $columns, array $fields, array $hotlinks_in): string {
     $str = "";
     $colIndex = 0;
 
@@ -105,6 +105,10 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
         // Default field display for table
         $label = $fieldName;
         $val = $fieldValue;
+        if (is_null($val))
+        {
+            $val = '';
+        }
 
         if (!is_null($fieldValue) && in_array($fieldName, $datetimeColumns)) {
             // Convert original date string to date object
@@ -146,6 +150,11 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
                 }
             } else {
                 $link_id = "";
+            }
+
+            if (is_null($link_id))
+            {
+                $link_id = '';
             }
 
             if ($hotlink_spec['Placement'] == 'labelCol') {
@@ -230,11 +239,12 @@ function make_detail_table_data_rows($columns, $fields, $hotlinks_in) {
 
 /**
  * Get hotlink info for the given field
- * @param type $fieldName Field name
- * @param type $hotlinks hotlink info
- * @return type Array of hotlink info
+ * @param string $fieldName Field name
+ * @param string $fieldNameFormatted Field name, formatted for display
+ * @param array $hotlinks hotlink info
+ * @return array Array of hotlink info
  */
-function get_hotlink_specs_for_field($fieldName, $fieldNameFormatted, $hotlinks) {
+function get_hotlink_specs_for_field(string $fieldName, string $fieldNameFormatted, array $hotlinks): array {
     // List of any hotlink spec(s) for the field
     $hotlink_specs = array();
 
@@ -260,11 +270,11 @@ function get_hotlink_specs_for_field($fieldName, $fieldNameFormatted, $hotlinks)
 
 /**
  * Look for a hotlink of the given type; return it if found or null if not found
- * @param type $hotlinks hotlink info for a specific field
- * @param type $linkTypeName
- * @return type
+ * @param array $hotlinks hotlink info for a specific field
+ * @param string $linkTypeName
+ * @return string|null
  */
-function get_fieldspec_with_link_type($hotlinks, $linkTypeName) {
+function get_fieldspec_with_link_type(array $hotlinks, string $linkTypeName) {
     // Look for a hotlink name that matches this field name
     foreach ($hotlinks as $hotlink_spec) {
         if ($hotlink_spec["LinkType"] == $linkTypeName) {
@@ -277,19 +287,19 @@ function get_fieldspec_with_link_type($hotlinks, $linkTypeName) {
 
 /**
  * Construct a detail report hotlink
- * @param array $url_updater URL_updater instances
- * @param array $colSpec  Key/value pairs from detail_report_hotlinks in the Model Config DB
- *                        LinkType, WhichArg, Target, Placement, id, and Options
- * @param type $link_id   Data value for field specified by WhichArg
- * @param type $colIndex  Form field index (0-based)
- * @param type $text      Form field text
- * @param type $display   Form field displayed text
- * @param type $val       Data value for this form field from the database.
+ * @param \App\Libraries\URL_updater $url_updater URL_updater instances
+ * @param array  $colSpec  Key/value pairs from detail_report_hotlinks in the Model Config DB
+ *                         LinkType, WhichArg, Target, Placement, id, and Options
+ * @param string $link_id   Data value for field specified by WhichArg
+ * @param int    $colIndex  Form field index (0-based)
+ * @param string $text      Form field text
+ * @param string $display   Form field displayed text
+ * @param string $val     Data value for this form field from the database.
  *                        If Name and WhichArg are the same, $link_id and $val will be the same
  *                        For hotlinks that have 'valueCol' for the hotlink placement, $val will be an empty string
- * @return type
+ * @return string
  */
-function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex, $text, $display, $val = '') {
+function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, array $colSpec, string $link_id, $colIndex, string $text, string $display, string $val = ''): string {
 
     // Include several helper methods
 
@@ -322,7 +332,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
     switch ($type) {
         case "detail-report":
             // Link to another DMS page, including both list reports and detail reports
-            if (!empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
+            if (is_array($options) && !empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
                 $hideLinkMatchText = $options['HideLinkIfValueMatch'];
                 if (empty($val) && $link_id === $hideLinkMatchText ||
                         !empty($val) && $val === $hideLinkMatchText) {
@@ -342,7 +352,7 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
             $link_id = encode_special_values($link_id);
 
             $url = make_detail_report_url($target, $link_id, $options);
-            $str = "<a$link_class id='lnk_${fld_id}' href='$url'>$display</a>";
+            $str = "<a$link_class id='lnk_{$fld_id}' href='$url'>$display</a>";
             break;
 
         case "href-folder":
@@ -628,16 +638,15 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
                 $linkTitle = "";
             }
 
-            $str = "<a id='lnk_${fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$text</a>";
+            $str = "<a id='lnk_{$fld_id}' target='_GlossaryEntry' " . $linkTitle . " href='$url'>$text</a>";
 
             // Pop-up option
-            // $str = "<a id='lnk_${fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$text','width=800,height=600')\">$text</a>";
+            // $str = "<a id='lnk_{$fld_id}' target='popup' href='$url'  onclick=\"window.open('$url','$text','width=800,height=600')\">$text</a>";
             break;
 
         case "no_display":
             // Hide no_display fields
             return "";
-            break;
 
         default:
             $str = "??? $text ???";
@@ -650,10 +659,10 @@ function make_detail_report_hotlink($url_updater, $colSpec, $link_id, $colIndex,
 
 /**
  * Make a table given XML
- * @param type $xml
+ * @param string $xml
  * @return string
  */
-function make_table_from_param_xml($xml) {
+function make_table_from_param_xml(string $xml): string {
     $dom = new \DOMDocument();
     $dom->loadXML('<root>' . $xml . '</root>');
     $xp = new \DOMXPath($dom);
@@ -663,6 +672,9 @@ function make_table_from_param_xml($xml) {
     $s .= "<table class='inner_table'>\n";
     $cur_section = '';
     foreach ($params as $param) {
+        if (get_class($param) != 'DOMElement') {
+            continue;
+        }
         $name = $param->getAttribute('Name');
         $value = $param->getAttribute('Value');
         $section = $param->getAttribute('Section');
@@ -678,12 +690,12 @@ function make_table_from_param_xml($xml) {
 
 /**
  * Create HTML to display detail report edit links
- * @param type $controller_name
- * @param type $id
- * @param type $show_create_links
- * @return type
+ * @param string $controller_name
+ * @param mixed $id
+ * @param bool $show_create_links
+ * @return string
  */
-function make_detail_report_edit_links($controller_name, $id, $show_create_links) {
+function make_detail_report_edit_links(string $controller_name, $id, bool $show_create_links): string {
     $str = '';
     $edit_url = site_url("$controller_name/edit/$id");
     $copy_url = site_url("$controller_name/create/$id");
@@ -703,10 +715,10 @@ function make_detail_report_edit_links($controller_name, $id, $show_create_links
 
 /**
  * Create HTML to display detail report aux info section
- * @param type $result
+ * @param array $result
  * @return string
  */
-function make_detail_report_aux_info_section($result) {
+function make_detail_report_aux_info_section(array $result): string {
     $str = '';
     $str .= "<table class='DRep'>\n";
     $str .= "<tr>";
@@ -730,12 +742,12 @@ function make_detail_report_aux_info_section($result) {
 
 /**
  * Create HTML for controls for displaying and editing aux info on detail report page
- * @param type $aux_info_target
- * @param type $aux_info_id
- * @param type $id
+ * @param string $aux_info_target
+ * @param mixed $aux_info_id
+ * @param mixed $id
  * @return string
  */
-function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $id) {
+function make_detail_report_aux_info_controls(string $aux_info_target, $aux_info_id, $id): string {
     $js = "javascript:showAuxInfo(\"aux_info_container\", \"" . site_url("aux_info/show/" . $aux_info_target . "/" . $aux_info_id) . "\")";
     $str = '';
     $str .= "Aux Info: |";
@@ -750,12 +762,12 @@ function make_detail_report_aux_info_controls($aux_info_target, $aux_info_id, $i
 
 /**
  * Create HTML to display detail report commands section
- * @param type $commands
- * @param type $tag
- * @param type $id
- * @return type
+ * @param array $commands
+ * @param string $tag
+ * @param mixed $id
+ * @return string
  */
-function make_detail_report_commands($commands, $tag, $id) {
+function make_detail_report_commands(array $commands, string $tag, $id): string {
     $cmds = array();
     foreach ($commands as $label => $spec) {
         $target = $spec['Target'];
@@ -795,13 +807,13 @@ function make_detail_report_commands($commands, $tag, $id) {
 
 /**
  * Construct a URL to include as a hotlink on a detail report page
- * @param type $target      Target page family, optionally including filters, e.g. 'param_file/report/-/~'
- * @param type $link_id     Data value for field specified by WhichArg
- * @param type $options     Link processing options
- * @param type $renderHTTP  If true, and if $link_id starts with http, simply link to that URL
+ * @param string $target      Target page family, optionally including filters, e.g. 'param_file/report/-/~'
+ * @param string $link_id     Data value for field specified by WhichArg
+ * @param array|null $options     Link processing options
+ * @param bool $renderHTTP  If true, and if $link_id starts with http, simply link to that URL
  * @return string
  */
-function make_detail_report_url($target, $link_id, $options, $renderHTTP = false) {
+function make_detail_report_url(string $target, string $link_id, ?array $options, bool $renderHTTP = false): string {
 
     if ($renderHTTP && strncasecmp($link_id, "http", 4) == 0) {
         // The field has a URL; link to it
@@ -821,7 +833,7 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP = false
             $targetNew = $target;
         }
 
-        if (!empty($options) && array_key_exists('RemoveRegEx', $options)) {
+        if (is_array($options) && !empty($options) && array_key_exists('RemoveRegEx', $options)) {
             $pattern = $options['RemoveRegEx'];
             if (!empty($pattern)) {
                 // Replace %2C with a comma
@@ -846,11 +858,11 @@ function make_detail_report_url($target, $link_id, $options, $renderHTTP = false
 
 /**
  * Make links for exporting data
- * @param type $entity
- * @param type $id
+ * @param string $entity
+ * @param mixed $id
  * @return string
  */
-function make_export_links($entity, $id) {
+function make_export_links(string $entity, $id): string {
     // Example URLs:
     // http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/excel
     // http://dms2.pnl.gov/experiment/export_detail/QC_Shew_16_01/tsv
@@ -871,10 +883,10 @@ function make_export_links($entity, $id) {
 
 /**
  * Construct a message box
- * @param type $message
+ * @param string $message
  * @return string
  */
-function make_message_box($message) {
+function make_message_box(string $message): string {
     //$style_sheet = base_url('css/base.css');
     $class = (strripos($message, 'error') === false) ? 'EPag_message' : 'EPag_error';
     $s = '';

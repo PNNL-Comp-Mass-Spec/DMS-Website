@@ -6,6 +6,7 @@ namespace App\Libraries;
  */
 class Operation {
 
+    private \App\Controllers\BaseController $controller;
     private $config_source = '';
 
     // --------------------------------------------------------------------
@@ -15,11 +16,11 @@ class Operation {
 
     /**
      * Define $config_source
-     * @param type $config_name
-     * @param type $config_source
-     * @param type $controller
+     * @param string $config_name
+     * @param string $config_source
+     * @param \App\Controllers\BaseController  $controller
      */
-    function init($config_name, $config_source, $controller) {
+    function init(string $config_name, string $config_source, \App\Controllers\BaseController $controller) {
         $this->config_source = $config_source;
 
         $this->controller = $controller;
@@ -30,17 +31,16 @@ class Operation {
      * derived from the sproc args definition for the stored procedure in config db
      * (and looks for a 'command' field in POST which is set to sproc arg 'mode').
      * See also https://prismwiki.pnl.gov/wiki/DMS_Config_DB_Help_detail_report_commands#Command_Types
-     * @param type $sproc_name
+     * @param string $sproc_name
      * @return \stdClass A response object containing return value and message from sproc
-     * @throws exception
      */
-    function internal_operation($sproc_name) {
+    function internal_operation(string $sproc_name) {
         $config_name = $sproc_name;
         $response = new \stdClass();
 
         try {
             // Init sproc model
-            $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
+            $ok = $this->controller->loadSprocModel($config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($this->controller->sproc_model->get_error_text());
             }
@@ -101,9 +101,9 @@ class Operation {
 
     /**
      * Get params that sproc was called with, including changes passed back from sproc
-     * @return type
+     * @return \App\Models\Bound_arguments
      */
-    function get_params() {
+    function get_params(): \App\Models\Bound_arguments {
         return $this->controller->sproc_model->get_parameters();
     }
 }

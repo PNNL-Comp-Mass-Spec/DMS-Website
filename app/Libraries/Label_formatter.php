@@ -4,7 +4,7 @@ namespace App\Libraries;
 /**
  * Handles reformatting of labels/column names
  */
-class Label_Formatter {
+class Label_formatter {
 
     /**
      * Full label special formats - key should be the exact name of the column as returned by the database, value is the display text

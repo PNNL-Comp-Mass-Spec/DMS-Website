@@ -15,11 +15,6 @@ class Aux_info_support {
 
     }
 
-    // --------------------------------------------------------------------
-    function get_update_response_container() {
-        return $this->update_response_container;
-    }
-
     // -----------------------------------
     function make_category_subcategory_selector($aux_info_def) {
         $str = '';
@@ -46,11 +41,11 @@ class Aux_info_support {
     /**
      * Create the entry form (and enclosing table)
      * for editing aux info items (for one subcategory)
-     * @param type $items
-     * @param type $choices
+     * @param array $items
+     * @param array $choices
      * @return string
      */
-    function make_item_entry_form($items, $choices) {
+    function make_item_entry_form(array $items, array $choices) {
         $in = 'FieldNamesEx[]';
         $iv = 'FieldValuesEx[]';
         $iv_id = 'FieldValuesEx';
@@ -92,13 +87,13 @@ class Aux_info_support {
 
     /**
      * Make the allowed values chooser
-     * @param type $choices
-     * @param type $item
-     * @param type $item_id
-     * @param type $helper_append
-     * @return type
+     * @param array $choices
+     * @param string $item
+     * @param string $item_id
+     * @param string $helper_append
+     * @return string
      */
-    function make_allowed_values_chooser($choices, $item, $item_id, $helper_append) {
+    function make_allowed_values_chooser(array $choices, string $item, string $item_id, string $helper_append) {
         // Extract only choices for the given item
         $options[''] = '';
         foreach ($choices as $ch) {

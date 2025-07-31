@@ -2,9 +2,11 @@
 namespace App\Controllers;
 
 class Preferences extends BaseController {
+
+    private $prefs = null;
+
     function __construct()
     {
-        $this->my_model = 'Dms_preferences';
         $this->helpers = array_merge($this->helpers, ['url', 'text', 'dms_search', 'cookie', 'user']);
     }
 
@@ -17,9 +19,9 @@ class Preferences extends BaseController {
         parent::initController($request, $response, $logger);
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
-        $this->model = model('App\\Models\\'.$this->my_model);
+        $this->prefs = $this->getPreferences();
     }
 
     // --------------------------------------------------------------------
@@ -37,14 +39,13 @@ class Preferences extends BaseController {
         $data['heading'] = $data['title'];
 
         // nav_bar setup
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Preferences', $this);
 
         $result = '';
         if($param != '' && $value != '') {
-            $result = $this->model->set_preference($param, $value);
+            $result = $this->prefs->set_preference($param, $value);
         }
-        $data['settings'] = $this->model->get_preferences();
+        $data['settings'] = $this->prefs->get_preferences();
 
         $data['result'] = $result;
         echo view('special/preferences', $data);
@@ -54,7 +55,7 @@ class Preferences extends BaseController {
     // --------------------------------------------------------------------
     function clear()
     {
-        $this->model->clear_saved_defaults();
+        $this->prefs->clear_saved_defaults();
         $this->set('', '');
         return;
     }
@@ -85,7 +86,7 @@ class Preferences extends BaseController {
     function columns()
     {
         helper(['url']);
-        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
+        $segs = decodeSegments(array_slice($this->request->getUri()->getSegments(), 2));
         $tag = array_shift($segs);
         $name = "display_cols_".$tag;
 

@@ -16,6 +16,10 @@ class Check_result {
  * File attachment uploader class
  */
 class File_attachment extends DmsBase {
+
+    private $local_root_path;
+    private $archive_root_path;
+
     function __construct()
     {
         $this->my_tag = "file_attachment";
@@ -44,7 +48,7 @@ class File_attachment extends DmsBase {
     /**
      * Validate the availability of the remote mount
      * @return Check_result
-     * @throws Exception
+     * @throws \Exception
      */
     private
     function validate_remote_mount()
@@ -95,7 +99,6 @@ class File_attachment extends DmsBase {
     /**
      * Validate the availability of the local storage path
      * @return Check_result
-     * @throws Exception
      */
     private
     function validate_local_path()
@@ -141,9 +144,9 @@ class File_attachment extends DmsBase {
     /**
      * View the status of a file
      * http://dms2.pnl.gov/file_attachment/check_file_path/lc_cart_configuration/100/TestFile.txt
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
      */
     function check_file_path($entity_type, $entity_id, $filename) {
         $this->var_dump_ex($this->get_valid_file_path($entity_type, $entity_id, $filename));
@@ -151,25 +154,24 @@ class File_attachment extends DmsBase {
 
     /**
      * Get the file path for the given item by querying V_File_Attachment_Export
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
-     * @return \Check_result
-     * @throws Exception
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
+     * @return Check_result
      */
-    function get_valid_file_path($entity_type, $entity_id, $filename){
+    function get_valid_file_path($entity_type, $entity_id, $filename): Check_result {
         $result = new Check_result();
         try {
-            $this->db = \Config\Database::connect();
-            $this->updateSearchPath($this->db);
+            $db = \Config\Database::connect();
+            $this->updateSearchPath($db);
 
-            $builder = $this->db->table('v_file_attachment_export');
+            $builder = $db->table('v_file_attachment_export');
             $builder->select("file_name AS filename, archive_folder_path as path");
             $builder->where("entity_type", $entity_type);
             $builder->where("entity_id", $entity_id);
             $builder->where("file_name", $filename);
             $sql = $builder->getCompiledSelect();
-            $resultSet = $this->db->query($sql);
+            $resultSet = $db->query($sql);
 
             if($resultSet && $resultSet->getNumRows() > 0) {
                 $local_path = "{$this->local_root_path}{$resultSet->getRow()->path}/{$resultSet->getRow()->filename}";
@@ -197,7 +199,6 @@ class File_attachment extends DmsBase {
      * Copy uploaded file to receiving folder on web server,
      * make file attachment tracking entry in DMS,
      * and copy uploaded file to EMSL archive
-     * @throws Exception
      */
     function upload()
     {
@@ -225,14 +226,14 @@ class File_attachment extends DmsBase {
             $config['max_size'] = 204800;
             mkdir($config['upload_path'],0777,true);
 
-            $this->upload = new \App\Libraries\Upload($config);
+            $upload = new \App\Libraries\Upload($config);
 
             // Upload the file from the user's computer to this server
             // Store below ROOTPATH/attachment_uploads
-            if ( ! $this->upload->do_upload()) {
-                $resultMsg = $this->upload->display_errors();
+            if ( ! $upload->do_upload()) {
+                $resultMsg = $upload->display_errors();
             } else {
-                $data = $this->upload->data();
+                $data = $upload->data();
                 $orig_name = $data["orig_name"];
                 $name = $data["file_name"];
                 $size = $data["file_size"];                     // Size in Kilobytes
@@ -278,14 +279,16 @@ class File_attachment extends DmsBase {
     /**
      * Copy a file from the source path to the specified destination, optionally creating a backup of an existing destination file
      *
-     * @param type $src_path
-     * @param type $root_path
-     * @param type $entity_folder_path
-     * @param type $file_name
-     * @param type $backup_existing
+     * @param string $src_path
+     * @param string $root_path
+     * @param string $entity_folder_path
+     * @param string $file_name
+     * @param bool $backup_existing
+     * @throws \Exception
+     * @return bool true on success, exception on failure
      */
     private
-    function copy_file($src_path, $root_path, $entity_folder_path, $file_name, $backup_existing)
+    function copy_file(string $src_path, string $root_path, string $entity_folder_path, string $file_name, bool $backup_existing)
     {
         $dest_folder_path = $root_path . $entity_folder_path;
         $dest_path = "{$dest_folder_path}/{$file_name}";
@@ -363,8 +366,6 @@ class File_attachment extends DmsBase {
             chmodr($min_existing_dir,0755);
             return true;
         }
-
-        return false;
     }
 
     /**
@@ -373,8 +374,8 @@ class File_attachment extends DmsBase {
      *  returns dataset/2012_1/255000
      * http://dms2.pnl.gov/file_attachment/path/lc_cart_configuration/100
      *  lc_cart_configuration/spread/100
-     * @param type $entity_type
-     * @param type $entity_id
+     * @param string $entity_type
+     * @param string $entity_id
      */
     function path($entity_type, $entity_id) {
         echo $this->get_path($entity_type, $entity_id);
@@ -382,19 +383,19 @@ class File_attachment extends DmsBase {
 
     /**
      * Get storage path for attached files for the given entity
-     * @param type $entity_type
-     * @param type $entity_id
-     * @return type
+     * @param string $entity_type
+     * @param string $entity_id
+     * @return string
      */
     protected
-    function get_path($entity_type, $entity_id)
+    function get_path(string $entity_type, string $entity_id): string
     {
         $path = "";
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $sql = "SELECT {$this->db->schema}.get_file_attachment_path('$entity_type', '$entity_id') AS path";
-        $resultSet = $this->db->query($sql);
+        $sql = "SELECT {$db->__get('schema')}.get_file_attachment_path('$entity_type', '$entity_id') AS path";
+        $resultSet = $db->query($sql);
         if(!$resultSet) {
             $currentTimestamp = date("Y-m-d");
             $path = "Error querying database for file attachment storage path; see writable/logs/log-$currentTimestamp.php";
@@ -407,23 +408,23 @@ class File_attachment extends DmsBase {
 
     /**
      * Make tracking entry in DMS database for attached file
-     * @param type $name
-     * @param type $type
-     * @param type $id
-     * @param type $description
-     * @param type $size
-     * @param type $path
-     * @return type
-     * @throws exception
+     * @param string $name
+     * @param string $type
+     * @param string $id
+     * @param string $description
+     * @param int|string $size
+     * @param string $path
+     * @return string
+     * @throws \Exception
      */
     private
-    function make_attachment_tracking_entry($name, $type, $id, $description, $size, $path)
+    function make_attachment_tracking_entry(string $name, string $type, string $id, string $description, $size, string $path): string
     {
         helper(['user','url']);
         $response = "OK";
         try {
             // Init sproc model
-            $ok = $this->load_mod('S_model', 'sproc_model', 'entry_sproc', $this->my_tag);
+            $ok = $this->loadSprocModel('entry_sproc', $this->my_tag);
             if (!$ok) {
                 throw new \Exception($this->sproc_model->get_error_text());
             }
@@ -456,8 +457,8 @@ class File_attachment extends DmsBase {
 
     /**
      * Perform operation on given attached file
-     * @return type
-     * @throws exception
+     * @return string
+     * @throws \Exception
      * @category AJAX
      */
     function perform_operation()
@@ -469,7 +470,7 @@ class File_attachment extends DmsBase {
         $response = "OK";
         try {
             // Init sproc model
-            $ok = $this->load_mod('S_model', 'sproc_model', 'operations_sproc', $this->my_tag);
+            $ok = $this->loadSprocModel('operations_sproc', $this->my_tag);
             if (!$ok) {
                 throw new \Exception($this->sproc_model->get_error_text());
             }
@@ -497,7 +498,6 @@ class File_attachment extends DmsBase {
     /**
      * Show attachments for this entity
      * This is called from javascript file javascript/file_attachment.js
-     * @return string
      * @category AJAX
      */
     function show_attachments() {
@@ -505,9 +505,9 @@ class File_attachment extends DmsBase {
         $id = $this->request->getPost("entity_id");
         helper(['link_util']);
 
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
-        $builder = $this->db->table("v_file_attachment_export");
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
+        $builder = $db->table("v_file_attachment_export");
         $builder->select("file_name AS name, description, attachment_id AS fid");
         $builder->where("entity_type", $type);
         $builder->where("entity_id", $id);
@@ -531,8 +531,8 @@ class File_attachment extends DmsBase {
         // Also report the count of file attachments in a hidden element
         echo "<span id='file_attachments_count' style='display:none'>$count</span>";
         if($count) {
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setHeading("Action", "Name", "Description");
+            $table = new \CodeIgniter\View\Table();
+            $table->setHeading("Action", "Name", "Description");
             $tmpl = array(
               'table_open'      => "<table id=\"file_attachments\" style=\"width:100%;\">",
               'row_start'       => '<tr class="ReportEvenRow">',
@@ -540,8 +540,8 @@ class File_attachment extends DmsBase {
               'heading_row_start' => '<thead><tr style="text-align:left;">',
               'heading_row_end' => '</tr></thead>'
             );
-            $this->table->setTemplate($tmpl);
-            echo $this->table->generate($entries);
+            $table->setTemplate($tmpl);
+            echo $table->generate($entries);
         } else {
             echo "<h4>No attachments</h4>";
         }
@@ -550,9 +550,9 @@ class File_attachment extends DmsBase {
     /**
      * Confirm that the attachment can be retrieved
      * http://dms2.pnl.gov/file_attachment/check_retrieve/experiment/SWDev/MageMerge.docx
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
      * @returns string Json encoded string
      */
     function check_retrieve($entity_type, $entity_id, $filename)
@@ -581,10 +581,9 @@ class File_attachment extends DmsBase {
 
     /**
      * Retrieve the attachment for the given entity
-     * @param type $entity_type
-     * @param type $entity_id
-     * @param type $filename
-     * @throws Exception
+     * @param string $entity_type
+     * @param string $entity_id
+     * @param string $filename
      */
     function retrieve($entity_type, $entity_id, $filename){
         try {
@@ -637,9 +636,10 @@ class File_attachment extends DmsBase {
             // Get mimetype info
             $mime = mime_content_type($full_path);
 
-            if (preg_match('/Opera ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT'])) {
+            $userAgent = \Config\Services::superglobals()->server('HTTP_USER_AGENT');
+            if (preg_match('/Opera ([0-9].[0-9]{1,2})/i', $userAgent)) {
                 $UserBrowser = "Opera";
-            } elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/i', $_SERVER['HTTP_USER_AGENT'])) {
+            } elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/i', $userAgent)) {
                 $UserBrowser = "IE";
             } else {
                 $UserBrowser = '';
@@ -666,16 +666,16 @@ class File_attachment extends DmsBase {
     /**
      * Make file in EMSL archive using given contents,
      * then make file attachment tracking entry in DMS.
-     * @param type $name
-     * @param type $type
-     * @param type $id
-     * @param type $description
-     * @param type $contents
-     * @return type
-     * @throws Exception
+     * @param string $name
+     * @param string $type
+     * @param string $id
+     * @param string $description
+     * @param string $contents
+     * @return string
+     * @throws \Exception
      */
     private
-    function make_attached_file($name, $type, $id, $description, $contents)
+    function make_attached_file(string $name, string $type, string $id, string $description, string $contents): string
     {
         $msg = "";
         $entity_folder_path = $this->get_path($type, $id);
@@ -737,14 +737,13 @@ class File_attachment extends DmsBase {
 
     /**
      * Retrieve data from V_Experiment_Detail_Report_Ex and V_Aux_Info_Experiment_Values for Experiment $expID
-     * @param type $expID
-     * @return type
+     * @param string $expID
      */
     function auxinfo($expID) {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $contents = $this->getExperimentInfo($expID);
+        $contents = $this->getExperimentInfo($expID, $db);
         if (empty($contents)) {
             return;
         }
@@ -754,7 +753,7 @@ class File_attachment extends DmsBase {
              . "WHERE id = $expID "
              . "ORDER BY category, subcategory, item";
 
-        $resultSet = $this->db->query($sql);
+        $resultSet = $db->query($sql);
         if (!$resultSet) {
             return;
         }
@@ -782,18 +781,19 @@ class File_attachment extends DmsBase {
 
     /**
      * Retrieve data from V_Experiment_Detail_Report_Ex for Experiment $expID
-     * @param type $expID
+     * @param string $expID
      * @return string
      */
-    function getExperimentInfo($expID)
+    function getExperimentInfo($expID, $db): string
     {
+        $contents = '';
         $sql = "SELECT * FROM v_experiment_detail_report_ex WHERE id = $expID";
-        $resultSet = $this->db->query($sql);
+        $resultSet = $db->query($sql);
         if (!$resultSet) {
-            return;
+            return '';
         }
         if ($resultSet->getNumRows() == 0) {
-            return;
+            return '';
         }
 
         $result = $resultSet->getResultArray();
@@ -820,7 +820,7 @@ class File_attachment extends DmsBase {
      */
     function check_file_access(){
         try {
-            $uri = $this->request->uri;
+            $uri = $this->request->getUri();
             // Don't trigger an exception if the segment index is too large
             $uri->setSilent();
             $filterOption = $uri->getSegment(3, "");
@@ -838,15 +838,15 @@ class File_attachment extends DmsBase {
             }
 
             $full_path = '';
-            $this->db = \Config\Database::connect();
-            $this->updateSearchPath($this->db);
-            $builder = $this->db->table("v_file_attachment_export");
+            $db = \Config\Database::connect();
+            $this->updateSearchPath($db);
+            $builder = $db->table("v_file_attachment_export");
             $builder->select("file_name AS filename, entity_type as type, entity_id as id, archive_folder_path as path");
             $builder->where("active > 0");
             $resultSet = $builder->get();
 
-            $this->table = new \CodeIgniter\View\Table();
-            $this->table->setTemplate(array ('heading_cell_start'  => '<th style="text-align:left;">'));
+            $table = new \CodeIgniter\View\Table();
+            $table->setTemplate(array ('heading_cell_start'  => '<th style="text-align:left;">'));
 
             $headerColumns = array('File', 'Type', 'ID', 'Path');
 
@@ -854,7 +854,7 @@ class File_attachment extends DmsBase {
                 $headerColumns[] = 'Exists';
             }
 
-            $this->table->setHeading($headerColumns);
+            $table->setHeading($headerColumns);
 
             foreach($resultSet->getResult() as $row) {
                 $full_path = "{$this->archive_root_path}{$row->path}/{$row->filename}";
@@ -867,10 +867,10 @@ class File_attachment extends DmsBase {
                 $fileExists = file_exists($full_path);
 
                 if ($showAll) {
-                    $this->table->addRow($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
+                    $table->addRow($row->filename, $row->type, $row->id, $row->path, $fileExists ? "Yes" : "No");
                 } else {
                     if (!$fileExists) {
-                        $this->table->addRow($row->filename, $row->type, $row->id, $row->path);
+                        $table->addRow($row->filename, $row->type, $row->id, $row->path);
                     }
                 }
             }
@@ -893,7 +893,7 @@ class File_attachment extends DmsBase {
                 echo '<p><font size="+1">Missing Files</font></p>';
             }
 
-            echo $this->table->generate();
+            echo $table->generate();
 
         } catch (\Exception $e) {
             echo $e->getMessage();

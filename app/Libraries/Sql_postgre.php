@@ -1,13 +1,7 @@
 <?php
 namespace App\Libraries;
 
-class Sql_postgre {
-
-    /**
-     * Tracks the root part of the constructed SQL that can affect the number of rows
-     * @var type
-     */
-    private $baseSQL = '';
+class Sql_postgre extends Sql_base {
 
     // --------------------------------------------------------------------
     function __construct() {
@@ -16,11 +10,11 @@ class Sql_postgre {
 
     /**
      * Build PostgreSQL query from component parts
-     * @param type $query_parts
-     * @param type $option
+     * @param \App\Libraries\Query_parts $query_parts
+     * @param string $option
      * @return string
      */
-    function build_query_sql($query_parts, $option = "filtered_and_paged") {
+    function build_query_sql(\App\Libraries\Query_parts $query_parts, string $option = "filtered_and_paged") {
         // Process the predicate list
         $p_and = array();
         $p_or = array();
@@ -141,10 +135,10 @@ class Sql_postgre {
 
     /**
      * Build the Order By clause
-     * @param type $sort_items
-     * @return type
+     * @param array $sort_items
+     * @return string
      */
-    private function make_order_by($sort_items) {
+    private function make_order_by(array $sort_items): string {
         $a = array();
 
         foreach ($sort_items as $item) {
@@ -163,10 +157,10 @@ class Sql_postgre {
     /**
      * Generate the Where Clause from the predicate specification object
      * (column name, comparison operator, comparison value)
-     * @param type $predicate
-     * @return type
+     * @param \App\Libraries\Query_predicate $predicate
+     * @return string
      */
-    private function make_where_item($predicate) {
+    private function make_where_item(\App\Libraries\Query_predicate $predicate): string {
         $columnName = str_replace(" ", "_", $predicate->col);
 
         // Possibly quote the column name with double quotes
@@ -326,9 +320,9 @@ class Sql_postgre {
 
     /**
      * Quote the column name with double quotes, if required
-     * @param type $columnName
+     * @param string $columnName
      */
-    private function possibly_quote_name($columnName) {
+    private function possibly_quote_name(string $columnName): string {
         // Quote if any of the following are true
         // 1) it includes '#'
         // 2) it is known to be capitalized in the database
@@ -349,81 +343,9 @@ class Sql_postgre {
     }
 
     /**
-     * Return the root part of the constructed SQL that can affect the number of rows
-     * For example: FROM V_Analysis_Job_List_Report_2 WHERE "Tool" LIKE '%MSGFPlus%' AND "Last_Affected" > DATEADD(Week, -1, GETDATE())
-     * @return type
-     */
-    function get_base_sql() {
-        return $this->baseSQL;
-    }
-
-    // --------------------------------------------------------------------
-    // (the following could be factored out of this class if data types are not DB specific)
-    // --------------------------------------------------------------------
-
-    /**
-     * SQL comparison definitions
-     * @var type
-     */
-    private $sqlCompDefs = array(
-        "ContainsText" => array(
-            'label' => "Contains Text",
-            'type' => array('text'),
-        ),
-        "DoesNotContainText" => array(
-            'label' => "Does Not Contain Text",
-            'type' => array('text'),
-        ),
-        "MatchesText" => array(
-            'label' => "Matches Text",
-            'type' => array('text'),
-        ),
-        "StartsWithText" => array(
-            'label' => "Starts With Text",
-            'type' => array('text'),
-        ),
-        "GreaterThanOrEqualTo" => array(
-            'label' => "Greater Than or Equal To",
-            'type' => array('numeric'),
-        ),
-        "LessThanOrEqualTo" => array(
-            'label' => "Less Than or Equal To",
-            'type' => array('numeric'),
-        ),
-        "GreaterThan" => array(
-            'label' => "Greater Than",
-            'type' => array('numeric'),
-        ),
-        "LessThan" => array(
-            'label' => "Less Than",
-            'type' => array('numeric'),
-        ),
-        "Equals" => array(
-            'label' => "Equals",
-            'type' => array('numeric'),
-        ),
-        "NotEqual" => array(
-            'label' => "Not Equal",
-            'type' => array('numeric'),
-        ),
-        "LaterThan" => array(
-            'label' => "Later Than",
-            'type' => array('datetime'),
-        ),
-        "EarlierThan" => array(
-            'label' => "Earlier Than",
-            'type' => array('datetime'),
-        ),
-        "MostRecentWeeks" => array(
-            'label' => "Most Recent N Weeks",
-            'type' => array('datetime'),
-        ),
-    );
-
-    /**
      * Get the allowed comparisons for the given data type
-     * @param type $data_type
-     * @return mixed
+     * @param mixed $data_type
+     * @return array
      */
     function get_allowed_comparisons_for_type($data_type) {
         // The postgres_driver returns data types as integers

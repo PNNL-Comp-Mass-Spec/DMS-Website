@@ -13,11 +13,12 @@ class Capture_script extends DmsBase {
     function dot($scriptName)
     {
         helper(['url', 'text', 'export']);
-        $this->model = model('App\\Models\\'.$this->my_model);
-        $this->model->make_db_connection();
+        $model = model('App\\Models\\'.$this->my_model);
+        $model->make_db_connection();
 
         // Get script XML
-        $builder = $this->db->table('v_capture_scripts');
+        // TODO: Setup $db
+        $builder = $db->table('v_capture_scripts');
         $builder->select('contents');
         $builder->where('script', $scriptName);
         $query = $builder->get();

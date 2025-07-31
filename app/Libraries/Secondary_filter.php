@@ -20,9 +20,9 @@ class Secondary_filter {
 
     /**
      * Get the number of active filters
-     * @return type
+     * @return int
      */
-    function get_num_filters() {
+    function get_num_filters(): int {
         return $this->qf_num_filters;
     }
 
@@ -55,7 +55,7 @@ class Secondary_filter {
     /**
      * Get current values for secondary filter if present in POST
      * Otherwise return false
-     * @return boolean
+     * @return array|false
      */
     private function get_current_filter_values_from_post() {
         $request = \Config\Services::request();
@@ -88,11 +88,11 @@ class Secondary_filter {
      * Collect info for building secondary filter display.
      * Combines information from given model with current state of this secondary filter
      * into a structure suitable for display or other output to be generated
-     * @param type $model
-     * @param type $url
-     * @return \stdClass
+     * @param \App\Models\Q_model $model
+     * @param string $url
+     * @return array
      */
-    function collect_information_for_display($model, $url = "data/get_sql_comparison/") {
+    function collect_information_for_display(\App\Models\Q_model $model, string $url = "data/get_sql_comparison/"): array {
         // Get array of column names from model
         // and make paired array suitable for selector option list
         // and get name of first column in case there is no current value for column name
@@ -148,35 +148,35 @@ class Secondary_filter {
 
     /**
      * Get current filter values
-     * @return type
+     * @return array
      */
-    function get_current_filter_values() {
+    function get_current_filter_values(): array {
         return $this->cur_qf_vals;
     }
 
     /**
      * Get the storage path
-     * @return type
+     * @return string
      */
-    function get_storage_name() {
+    function get_storage_name(): string {
         return $this->storage_name;
     }
 
     /**
      * Get cached values
-     * @return type
+     * @return array
      */
-    function get_cached_value() {
+    function get_cached_value(): array {
         return get_from_cache($this->storage_name);
     }
 
     /**
      * For building up current values from a simple ordered list
      * (usually URL seqments)
-     * @param type $items
-     * @return string
+     * @param array $items
+     * @return array
      */
-    function get_filter_from_list($items) {
+    function get_filter_from_list(array $items): array {
         // Build filters from list items
         $filter_state = array();
         $numItems = count($items);
@@ -208,9 +208,9 @@ class Secondary_filter {
 
     /**
      * Save current filter values to the cache
-     * @param type $filter_state
+     * @param array $filter_state
      */
-    function save_filter_values($filter_state) {
+    function save_filter_values(array $filter_state) {
         save_to_cache($this->storage_name, $filter_state);
     }
 

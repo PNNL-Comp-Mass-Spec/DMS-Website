@@ -52,8 +52,8 @@ class Mac_jobs extends DmsBase {
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
-        $this->load_mod('Q_model', 'swp_model', $config_name, $config_source);
-        $query = $this->swp_model->get_rows('filtered_and_paged');
+        $swp_model = $this->getModel('Q_model', $config_name, $config_source);
+        $query = $swp_model->get_rows('filtered_and_paged');
         return $query->getResultArray();
     }
 
@@ -85,8 +85,8 @@ class Mac_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('Q_model', 'data_model', $config_name, $config_source);
-            $result_row = $this->data_model->get_item($id, $this);
+            $data_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $data_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
@@ -102,8 +102,8 @@ class Mac_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('Q_model', 'def_model', $config_name, $config_source);
-            $result_row = $this->def_model->get_item($id, $this);
+            $def_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $def_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
@@ -158,7 +158,6 @@ class Mac_jobs extends DmsBase {
     private
     function build_param_entry_form($params, $script)
     {
-        $this->choosers = model('App\Models\Dms_chooser');
         helper(['url', 'text', 'form']);
         $str = "";
         $header_style = "font-weight:bold;";
@@ -185,9 +184,9 @@ class Mac_jobs extends DmsBase {
 
                 // Place row fields in table cells in table row
                 $str .= "<tr>";
-                $str .= "<td>${help_link}<span> " . $label . "</span></td>";
+                $str .= "<td>{$help_link}<span> " . $label . "</span></td>";
                 $str .= "<td><input name='$name' id='$name' size='120' maxlength='4096' value='$value' /></td>";
-                $str .= "<td>". $this->choosers->make_chooser($name, 'picker.replace', $chooser, '', '', '', '') . "</td>";
+                $str .= "<td>". $this->getChoosers()->make_chooser($name, 'picker.replace', $chooser, '', '', '', '') . "</td>";
                 $str .= "</tr>\n";
             }
         }
@@ -205,7 +204,7 @@ class Mac_jobs extends DmsBase {
         $nsLabel = str_replace(" ", "_", $label);
         $pwiki = config('App')->pwiki;
         $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
-        $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}_${script}#${nsLabel}";
+        $href = "{$pwiki}{$wiki_helpLink_prefix}{$file_tag}_{$script}#{$nsLabel}";
         $s .= "<a class=help_link target = '_blank' title='Click to bring up PRISM Wiki help page' href='".$href."'><img src='" . base_url('images/help.png') . "' border='0' ></a>";
         return $s;
     }

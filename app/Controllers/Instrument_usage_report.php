@@ -45,9 +45,9 @@ class Instrument_usage_report extends Grid {
         $month = $this->request->getPost("month");
 
         $this->my_tag = "instrument_usage";
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
-        $builder = $this->db->table("v_instrument_usage_report_list_report");
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
+        $builder = $db->table("v_instrument_usage_report_list_report");
         $builder->select('seq, emsl_inst_id, instrument, type, start, minutes, proposal, usage, users, operator, comment, dataset_id AS id, validation', false);
 
         if(IsNotWhitespace($instrument)) $builder->where("instrument in ($instrument)");
@@ -65,7 +65,7 @@ class Instrument_usage_report extends Grid {
     // --------------------------------------------------------------------
     function ws()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));
@@ -83,8 +83,8 @@ class Instrument_usage_report extends Grid {
     private
     function get_usage_data($instrument, $year, $month)
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
 /*
         // Query method #1
@@ -95,7 +95,7 @@ FROM  V_Instrument_Usage_Report_Export
 WHERE Year = $year AND Month = $month
 ORDER BY Instrument, Year, Month, Start, Type, Seq
 EOD;
-        $query = $this->db->query($sql);
+        $query = $db->query($sql);
         $result = $query->getResultArray();
 */
 
@@ -103,7 +103,7 @@ EOD;
         $result = array();
 
         $where_array = array("year" => (int)$year, "month" => (int)$month);
-        $query = $this->db->
+        $query = $db->
             table("v_instrument_usage_report_export")->
             where($where_array)->
             orderBy('instrument', 'ASC')->
@@ -127,7 +127,7 @@ EOD;
     // --------------------------------------------------------------------
     function daily()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));
@@ -148,7 +148,7 @@ EOD;
     // --------------------------------------------------------------------
     function dailydetails()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));
@@ -167,8 +167,8 @@ EOD;
     private
     function get_daily_data($instrument, $year, $month, $showDetails)
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         if ($showDetails) {
             $udf = "get_emsl_instrument_usage_daily_details";
@@ -178,7 +178,7 @@ EOD;
 
         $sql = "SELECT * FROM $udf($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY Instrument, Start, Type, Seq";
 
-        $query = $this->db->query($sql);
+        $query = $db->query($sql);
         $result = $query->getResultArray();
         return $result;
     }
@@ -189,7 +189,7 @@ EOD;
     // --------------------------------------------------------------------
     function rollup()
     {
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $year = $uri->getSegment(3, date(''));
@@ -208,11 +208,11 @@ EOD;
     private
     function get_rollup_data($instrument, $year, $month)
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         $sql = "SELECT * FROM get_emsl_instrument_usage_rollup($year, $month) WHERE NOT EMSL_Inst_ID Is Null ORDER BY DMS_Instrument, Month, Day, Usage";
-        $query = $this->db->query($sql);
+        $query = $db->query($sql);
         $result = $query->getResultArray();
         return $result;
     }

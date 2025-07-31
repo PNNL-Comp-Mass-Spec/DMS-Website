@@ -18,11 +18,9 @@ class Freezer extends DmsBase {
         parent::initController($request, $response, $logger);
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
-        $this->color_code = config('App')->version_color_code;
-        $this->help_page_link = config('App')->pwiki;
-        $this->help_page_link .= config('App')->wikiHelpLinkPrefix;
+        $this->setupHelpPageLink();
     }
 
     // --------------------------------------------------------------------
@@ -37,7 +35,6 @@ class Freezer extends DmsBase {
     function tree()
     {
         helper(['menu', 'dms_search']);
-        $this->menu = model('App\Models\Dms_menu');
 
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 
@@ -50,10 +47,10 @@ class Freezer extends DmsBase {
     // https://dmsdev.pnl.gov/freezer/get_freezers
     function get_freezers()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
-        $frzrs = $this->freezer->get_freezers();
-        $items = $this->freezer->build_freezer_location_list('Freezer', $frzrs, $this);
+        $frzrs = $freezer->get_freezers();
+        $items = $freezer->build_freezer_location_list('Freezer', $frzrs, $this);
         echo json_encode($items);
     }
 
@@ -63,7 +60,7 @@ class Freezer extends DmsBase {
     // https://dmsdev.pnl.gov/freezer/get_locations
     function get_locations()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $Type = $this->request->getPost('Type');
         $Freezer = $this->request->getPost('Freezer');
@@ -72,9 +69,9 @@ class Freezer extends DmsBase {
         $Row = $this->request->getPost('Row');
         // $Col = $this->request->getPost('Col');
 
-        $sub_type = $this->freezer->get_sub_location_type($Type);
-        $frzrs = $this->freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row);
-        $items = $this->freezer->build_freezer_location_list($sub_type, $frzrs, $this);
+        $sub_type = $freezer->get_sub_location_type($Type);
+        $frzrs = $freezer->get_locations($sub_type, $Freezer, $Shelf, $Rack, $Row);
+        $items = $freezer->build_freezer_location_list($sub_type, $frzrs, $this);
         echo json_encode($items);
     }
 
@@ -82,12 +79,12 @@ class Freezer extends DmsBase {
     // AJAX
     function get_containers()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $location = $this->request->getPost('Location');
 
-        $containers = $this->freezer->get_containers($location);
-        $items = $this->freezer->build_container_list($containers);
+        $containers = $freezer->get_containers($location);
+        $items = $freezer->build_container_list($containers);
         echo json_encode($items);
     }
 
@@ -95,12 +92,12 @@ class Freezer extends DmsBase {
     // AJAX
     function find_container()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $container = $this->request->getPost('Container');
 
-        $containers = $this->freezer->find_container($container);
-        $items = $this->freezer->build_container_list($containers);
+        $containers = $freezer->find_container($container);
+        $items = $freezer->build_container_list($containers);
         echo json_encode($items);
     }
 
@@ -108,12 +105,12 @@ class Freezer extends DmsBase {
     // AJAX
     function find_location()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $location = $this->request->getPost('Location');
 
-        $locations = $this->freezer->find_location($location);
-        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
+        $locations = $freezer->find_location($location);
+        $items = $freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -122,12 +119,12 @@ class Freezer extends DmsBase {
     // https://dms2.pnl.gov/freezer/find_available_location
     function find_available_location()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         $location = $this->request->getPost('Location');
 
-        $locations = $this->freezer->find_available_location($location);
-        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
+        $locations = $freezer->find_available_location($location);
+        $items = $freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -136,12 +133,12 @@ class Freezer extends DmsBase {
     // https://dms2.pnl.gov/freezer/find_newest_containers
     function find_newest_containers()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
         //$location = $this->request->getPost('Location');
 
-        $locations = $this->freezer->find_newest_containers();
-        $items = $this->freezer->build_freezer_location_list('', $locations, $this);
+        $locations = $freezer->find_newest_containers();
+        $items = $freezer->build_freezer_location_list('', $locations, $this);
         echo json_encode($items);
     }
 
@@ -149,7 +146,7 @@ class Freezer extends DmsBase {
     // https://dms2.pnl.gov/freezer/test
     function test()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
         $testLocs = array(
             "80B.na.na.na.na",
             "80B.1.na.na.na",
@@ -158,8 +155,8 @@ class Freezer extends DmsBase {
             "80B.1.2.1.2",
         );
         foreach($testLocs as $location) {
-            $locations = $this->freezer->find_location($location);
-            echo $location . "=>" .$this->freezer->get_location_type($locations[0]) ."\n";
+            $locations = $freezer->find_location($location);
+            echo $location . "=>" .$freezer->get_location_type($locations[0]) ."\n";
         }
     }
 
@@ -172,16 +169,15 @@ class Freezer extends DmsBase {
     function show($id)
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
-        $this->table = new \CodeIgniter\View\Table();
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $table = new \CodeIgniter\View\Table();
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         // Labelling information for view
         $data['title'] = "Freezer Map";
         $data['heading'] = "Freezer Map";
 
         // navbar support
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Detail_Reports', $this);
 
         // Populate array of storage locations
@@ -191,7 +187,7 @@ class Freezer extends DmsBase {
         $sql .= "WHERE Status = 'Active' ";
         $sql .= "ORDER BY Location, Freezer, Shelf, Rack";
         //
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
@@ -214,11 +210,11 @@ class Freezer extends DmsBase {
             'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="EPag">',
             'heading_cell_start' => '<th class="block_header" colspan="7">'
         );
-        $this->table->setTemplate($tmpl);
+        $table->setTemplate($tmpl);
         //
         foreach($storage as $freezer => $f) {
             $c_url = "<a href='$fc_url/$freezer'>Contents</a>";
-            $this->table->setHeading("Freezer:$freezer $c_url");
+            $table->setHeading("Freezer:$freezer $c_url");
             foreach($f as $shelf => $s) {
                 $tr = array();
                 $s_url = "<a href='$fc_url/$freezer/$shelf'>Contents</a>";
@@ -231,10 +227,10 @@ class Freezer extends DmsBase {
                         $tr[] = "Rack:".$rack . " &nbsp; " . $r_url;
                     }
                 }
-                $this->table->addRow($tr);
+                $table->addRow($tr);
             }
-            $data['content'] .= $this->table->generate() . '<br>';
-            $this->table->clear();
+            $data['content'] .= $table->generate() . '<br>';
+            $table->clear();
         }
         echo view('basic', $data);
 
@@ -250,20 +246,18 @@ class Freezer extends DmsBase {
     function contents()
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu']);
-        $this->table = new \CodeIgniter\View\Table();
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         // Labelling information for view
         $data['title'] = "Freezer";
         $data['heading'] = "Freezer";
 
         // navbar support
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // Optional limits on what to include
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
 
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
@@ -287,7 +281,7 @@ class Freezer extends DmsBase {
         }
         $sql .= "ORDER BY Freezer, Shelf, Rack, Row, Col ";
         //
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
@@ -315,7 +309,7 @@ class Freezer extends DmsBase {
             $sql .= "AND (Rack = '$rack_spec') ";
         }
         //
-        $result = $this->db->query($sql);
+        $result = $db->query($sql);
         //
         if(!$result) {
             $currentTimestamp = date("Y-m-d");
@@ -333,7 +327,7 @@ class Freezer extends DmsBase {
         $data['contents'] = $contents;
 
         $data['check_access'] = [$this, 'check_access'];
-        $data['table'] = $this->table;
+        $data['table'] = new \CodeIgniter\View\Table(); // Create for use in the view
 
         echo view('special/freezer', $data);
     }
@@ -344,11 +338,10 @@ class Freezer extends DmsBase {
     function config()
     {
         helper(['freezer_helper', 'url', 'text', 'user', 'dms_search', 'menu', 'form']);
-        $this->table = new \CodeIgniter\View\Table();
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
         $freezer_spec = $uri->getSegment(3);
@@ -358,7 +351,6 @@ class Freezer extends DmsBase {
         $data['heading'] = "Freezer $freezer_spec Matrix";
 
         // navbar support
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('List_Report', $this);
 
         // Table styling
@@ -372,7 +364,7 @@ class Freezer extends DmsBase {
         $sql .= "WHERE Freezer_Tag LIKE '%$freezer_spec%' ";
         $sql .= "AND NOT Row = 'na' AND NOT Col = 'na' ";
         $sql .= "ORDER BY Shelf, Rack, Row, Col ";
-        $rc_result = $this->db->query($sql);
+        $rc_result = $db->query($sql);
         if(!$rc_result) {
             $currentTimestamp = date("Y-m-d");
             echo "Error loading container row/column info; see writable/logs/log-$currentTimestamp.php";
@@ -391,7 +383,7 @@ class Freezer extends DmsBase {
 
         // Make freezer dropdown
         $js = "id='freezer_list' onchange='dmsjs.goToSelectedPage(\"freezer_list\");'";
-        $data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), null, $js);
+        $data['picker'] = form_dropdown("freezer_list", $this->freezer_list(), array(), $js);
 
         $data['tbs'] = $tbs;
 
@@ -402,9 +394,9 @@ class Freezer extends DmsBase {
     private
     function freezer_list()
     {
-        $this->freezer = model('App\Models\Freezer_model');
+        $freezer = model('App\Models\Freezer_model');
 
-        $frzrs = $this->freezer->get_freezers();
+        $frzrs = $freezer->get_freezers();
         $lst = array();
         foreach($frzrs as $frzr) {
             $r = $frzr["freezer"];

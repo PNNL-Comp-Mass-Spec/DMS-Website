@@ -61,6 +61,11 @@ class XssSecurity implements XssSecurityInterface {
 	public $charset = 'UTF-8';
 
 	/**
+	 * Cached XSS hash
+	 */
+	private $_xss_hash = NULL;
+
+	/**
 	 * List of never allowed strings
 	 *
 	 * @var	array
@@ -135,7 +140,7 @@ class XssSecurity implements XssSecurityInterface {
 	 *
 	 * @param	string|string[]	$str		Input data
 	 * @param 	bool		$is_image	Whether the input is an image
-	 * @return	string
+	 * @return	string|string[]|bool bool if image, true if clean, false if not
 	 */
 	public function xss_clean($str, $is_image = FALSE)
 	{
@@ -388,25 +393,15 @@ class XssSecurity implements XssSecurityInterface {
 
 		static $_entities;
 
-		isset($charset) OR $charset = $this->charset;
-		$flag = is_php('5.4')
-			? ENT_COMPAT | ENT_HTML5
-			: ENT_COMPAT;
+		if (!isset($charset))
+		{
+			$charset = $this->charset;
+		}
+		$flag = ENT_COMPAT | ENT_HTML5;
 
 		if ( ! isset($_entities))
 		{
 			$_entities = array_map('strtolower', get_html_translation_table(HTML_ENTITIES, $flag, $charset));
-
-			// If we're not on PHP 5.4+, add the possibly dangerous HTML 5
-			// entities to the array manually
-			if ($flag === ENT_COMPAT)
-			{
-				$_entities[':'] = '&colon;';
-				$_entities['('] = '&lpar;';
-				$_entities[')'] = '&rpar;';
-				$_entities["\n"] = '&NewLine;';
-				$_entities["\t"] = '&Tab;';
-			}
 		}
 
 		do
@@ -435,11 +430,6 @@ class XssSecurity implements XssSecurityInterface {
 				$flag,
 				$charset
 			);
-
-			if ($flag === ENT_COMPAT)
-			{
-				$str = str_replace(array_values($_entities), array_keys($_entities), $str);
-			}
 		}
 		while ($str_compare !== $str);
 		return $str;
@@ -693,11 +683,32 @@ class XssSecurity implements XssSecurityInterface {
 	// --------------------------------------------------------------------
 
 	/**
+	 * XSS Hash
+	 *
+	 * Generates the XSS hash if needed and returns it.
+	 *
+	 * @see		CI_Security::$_xss_hash
+	 * @return	string	XSS hash
+	 */
+	public function xss_hash()
+	{
+		if ($this->_xss_hash === NULL)
+		{
+			$rand = random_bytes(16);
+			$this->_xss_hash = bin2hex($rand);
+		}
+
+		return $this->_xss_hash;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Do Never Allowed
 	 *
 	 * @used-by	XssSecurity::xss_clean()
-	 * @param 	string
-	 * @return 	string
+	 * @param	string	$str
+	 * @return	string
 	 */
 	protected function _do_never_allowed($str)
 	{

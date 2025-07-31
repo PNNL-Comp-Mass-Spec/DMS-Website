@@ -96,7 +96,7 @@ class Calendar {
 	/**
 	 * Url base to use for next/prev month links
 	 *
-	 * @var bool
+	 * @var string
 	 */
 	public $next_prev_url = '';
 
@@ -133,8 +133,8 @@ class Calendar {
 	 *
 	 * Accepts an associative array as input, containing display preferences
 	 *
-	 * @param	array	config preferences
-	 * @return	CI_Calendar
+	 * @param	array	$config	config preferences
+	 * @return	Calendar
 	 */
 	public function initialize($config = array())
 	{
@@ -161,9 +161,9 @@ class Calendar {
 	/**
 	 * Generate the calendar
 	 *
-	 * @param	int	the year
-	 * @param	int	the month
-	 * @param	array	the data to be shown in the calendar cells
+	 * @param	int|string	$year	the year
+	 * @param	int|string	$month	the month
+	 * @param	array	$data	the data to be shown in the calendar cells
 	 * @return	string
 	 */
 	public function generate($year = '', $month = '', $data = array())
@@ -242,7 +242,7 @@ class Calendar {
 		// Heading containing the month/year
 		$colspan = ($this->show_next_prev === TRUE) ? 5 : 7;
 
-		$this->replacements['heading_title_cell'] = str_replace('{colspan}', $colspan,
+		$this->replacements['heading_title_cell'] = str_replace('{colspan}', "$colspan",
 								str_replace('{heading}', $this->get_month_name($month).'&nbsp;'.$year, $this->replacements['heading_title_cell']));
 
 		$out .= $this->replacements['heading_title_cell']."\n";
@@ -283,14 +283,14 @@ class Calendar {
 						// Cells with content
 						$temp = ($is_current_month === TRUE && $day == $cur_day) ?
 								$this->replacements['cal_cell_content_today'] : $this->replacements['cal_cell_content'];
-						$out .= str_replace(array('{content}', '{day}'), array($data[$day], $day), $temp);
+						$out .= str_replace(array('{content}', '{day}'), array("{$data[$day]}", "$day"), $temp);
 					}
 					else
 					{
 						// Cells with no content
 						$temp = ($is_current_month === TRUE && $day == $cur_day) ?
 								$this->replacements['cal_cell_no_content_today'] : $this->replacements['cal_cell_no_content'];
-						$out .= str_replace('{day}', $day, $temp);
+						$out .= str_replace('{day}', "$day", $temp);
 					}
 
 					$out .= ($is_current_month === TRUE && $day == $cur_day) ? $this->replacements['cal_cell_end_today'] : $this->replacements['cal_cell_end'];
@@ -304,12 +304,12 @@ class Calendar {
 						// Day of previous month
 						$prev_month = $this->adjust_date($month - 1, $year);
 						$prev_month_days = $this->get_total_days($prev_month['month'], $prev_month['year']);
-						$out .= str_replace('{day}', $prev_month_days + $day, $this->replacements['cal_cell_other']);
+						$out .= str_replace('{day}', "".($prev_month_days + $day), $this->replacements['cal_cell_other']);
 					}
 					else
 					{
 						// Day of next month
-						$out .= str_replace('{day}', $day - $total_days, $this->replacements['cal_cell_other']);
+						$out .= str_replace('{day}', "".($day - $total_days), $this->replacements['cal_cell_other']);
 					}
 
 					$out .= $this->replacements['cal_cell_end_other'];
@@ -337,7 +337,7 @@ class Calendar {
 	 * Generates a textual month name based on the numeric
 	 * month provided.
 	 *
-	 * @param	int	the month
+	 * @param	int	$month	the month
 	 * @return	string
 	 */
 	public function get_month_name($month)
@@ -351,9 +351,7 @@ class Calendar {
 			$month_names = array('01' => 'cal_january', '02' => 'cal_february', '03' => 'cal_march', '04' => 'cal_april', '05' => 'cal_mayl', '06' => 'cal_june', '07' => 'cal_july', '08' => 'cal_august', '09' => 'cal_september', '10' => 'cal_october', '11' => 'cal_november', '12' => 'cal_december');
 		}
 
-		return (lang("Calendar.".$month_names[$month]) === FALSE)
-			? ucfirst(substr($month_names[$month], 4))
-			: lang("Calendar.".$month_names[$month]);
+		return lang("Calendar.".$month_names[$month]);
 	}
 
 	// --------------------------------------------------------------------
@@ -364,7 +362,7 @@ class Calendar {
 	 * Returns an array of day names (Sunday, Monday, etc.) based
 	 * on the type. Options: long, short, abr
 	 *
-	 * @param	string
+	 * @param	string	$day_type
 	 * @return	array
 	 */
 	public function get_day_names($day_type = '')
@@ -390,7 +388,7 @@ class Calendar {
 		$days = array();
 		for ($i = 0, $c = count($day_names); $i < $c; $i++)
 		{
-			$days[] = (lang('Calendar.cal_'.$day_names[$i]) === FALSE) ? ucfirst($day_names[$i]) : lang('Calendar.cal_'.$day_names[$i]);
+			$days[] = lang('Calendar.cal_'.$day_names[$i]);
 		}
 
 		return $days;
@@ -405,8 +403,8 @@ class Calendar {
 	 * For example, if you submit 13 as the month, the year will
 	 * increment and the month will become January.
 	 *
-	 * @param	int	the month
-	 * @param	int	the year
+	 * @param	int	$month	the month
+	 * @param	int	$year	the year
 	 * @return	array
 	 */
 	public function adjust_date($month, $year)
@@ -428,7 +426,7 @@ class Calendar {
 			$date['year']--;
 		}
 
-		if (strlen($date['month']) === 1)
+		if (strlen("{$date['month']}") === 1)
 		{
 			$date['month'] = '0'.$date['month'];
 		}
@@ -441,14 +439,56 @@ class Calendar {
 	/**
 	 * Total days in a given month
 	 *
-	 * @param	int	the month
-	 * @param	int	the year
+	 * @param	int	$month	the month
+	 * @param	int|string	$year	the year
 	 * @return	int
 	 */
 	public function get_total_days($month, $year)
 	{
-		helper('date');
-		return days_in_month($month, $year);
+		return $this->days_in_month($month, $year);
+	}
+
+	/**
+	 * Number of days in a month
+	 *
+	 * Takes a month/year as input and returns the number of days
+	 * for the given month/year. Takes leap years into consideration.
+	 *
+	 * @param	int	$month	a numeric month
+	 * @param	int|string	$year	a numeric year
+	 * @return	int
+	 */
+	function days_in_month(int $month, $year)
+	{
+		if ($month < 1 OR $month > 12)
+		{
+			return 0;
+		}
+		elseif ( ! is_numeric($year) OR strlen($year) !== 4)
+		{
+			$year = date('Y');
+		}
+
+		if (defined('CAL_GREGORIAN'))
+		{
+			return cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		}
+
+		if ($year >= 1970)
+		{
+			return (int) date('t', mktime(12, 0, 0, $month, 1, $year));
+		}
+
+		if ($month == 2)
+		{
+			if ($year % 400 === 0 OR ($year % 4 === 0 && $year % 100 !== 0))
+			{
+				return 29;
+			}
+		}
+
+		$days_in_month	= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+		return $days_in_month[$month - 1];
 	}
 
 	// --------------------------------------------------------------------
@@ -498,7 +538,7 @@ class Calendar {
 	 * Harvests the data within the template {pseudo-variables}
 	 * used to display the calendar
 	 *
-	 * @return	CI_Calendar
+	 * @return	Calendar
 	 */
 	public function parse_template()
 	{

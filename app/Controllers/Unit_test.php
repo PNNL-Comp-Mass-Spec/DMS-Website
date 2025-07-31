@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 class Unit_Test extends BaseController {
+
     function __construct()
     {
         $this->helpers = array_merge($this->helpers, ['url', 'text']);
@@ -16,9 +17,7 @@ class Unit_Test extends BaseController {
         parent::initController($request, $response, $logger);
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
-
-        $this->color_code = config('App')->version_color_code;
+        $session = service('session');
     }
 
     // --------------------------------------------------------------------
@@ -29,7 +28,7 @@ class Unit_Test extends BaseController {
     // --------------------------------------------------------------------
     function run()
     {
-        $segs = array_slice($this->request->uri->getSegments(), 2);
+        $segs = array_slice($this->request->getUri()->getSegments(), 2);
         $testFile = (count($segs) == 0)? 'test' : $segs[0] . '_test';
 
         $data['title'] = "DMS JavaScript Unit Tests";

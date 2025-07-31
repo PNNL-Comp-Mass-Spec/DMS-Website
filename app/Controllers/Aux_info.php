@@ -3,14 +3,10 @@ namespace App\Controllers;
 
 class Aux_info extends BaseController {
 
-    /**
-     * An array of helpers to be loaded automatically upon
-     * class instantiation. These helpers will be available
-     * to all other controllers that extend BaseController.
-     *
-     * @var array
-     */
     protected $helpers = ['dms_search', 'cookie', 'user', 'dms_logging', 'url', 'text', 'form', 'string'];
+
+    private $aux_info_support = null;
+    private $model = null;
 
     /**
      * CodeIgniter 4 Constructor.
@@ -24,36 +20,30 @@ class Aux_info extends BaseController {
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
         // E.g.:
-        // $this->session = \Config\Services::session();
+        // $this->session = service('session');
 
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
-        $this->preferences = model('App\Models\Dms_preferences');
-        $this->choosers = model('App\Models\Dms_chooser');
+        $preferences = $this->getPreferences();
 
-        $this->help_page_link = config('App')->pwiki;
-        $this->help_page_link .= config('App')->wikiHelpLinkPrefix;
+        $this->setupHelpPageLink();
 
-        $this->color_code = config('App')->version_color_code;
 ///--
         $this->my_tag = "aux_info";
-        $this->my_model = "M_aux_info";
         $this->my_title = "Aux Info";
-        $this->my_list_action = "aux_info/report";
-        $this->my_export_action = "aux_info/export";
 
-        $this->model = model('App\\Models\\'.$this->my_model);
+        $this->model = model('App\\Models\\M_aux_info');
 
         $this->aux_info_support = new \App\Libraries\Aux_info_support();
     }
 
     /**
      * Set aux info names
-     * @param type $target
-     * @param type $id
+     * @param string $target
+     * @param string $id
      */
-    private function _set_aux_info_names($target, $id='')
+    private function _set_aux_info_names(string $target, string $id='')
     {
         $this->aux_info_support->item_entry_url = site_url('aux_info/item_values/'.$target);
         $this->aux_info_support->copy_info_url =  site_url('aux_info_copy/update');
@@ -64,15 +54,14 @@ class Aux_info extends BaseController {
     /**
      * Returns HTML to display current values for aux info items for
      * given target and entity given by id
-     * @param type $target
-     * @param type $id
+     * @param string $target
+     * @param string $id
      */
     function show($target, $id)
     {
         helper('menu');
 
         // nav_bar setup
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         helper('detail_report_helper');
@@ -94,9 +83,9 @@ class Aux_info extends BaseController {
     /**
      * Presents the aux info entry page, for example
      * https://dms2.pnl.gov/aux_info/entry/Biomaterial/8875/Shew_QC_110415
-     * @param type $target
-     * @param type $id
-     * @param type $name
+     * @param string $target
+     * @param string $id
+     * @param string $name
      */
     function entry($target, $id, $name = "")
     {
@@ -105,7 +94,6 @@ class Aux_info extends BaseController {
         $data['ais'] = $this->aux_info_support;
 
         // nav_bar setup
-        $this->menu = model('App\Models\Dms_menu');
         $data['nav_bar_menu_items']= get_nav_bar_menu_items('Aux_Info', $this);
 
         if (IsNullOrWhiteSpace($name)) {
@@ -134,7 +122,7 @@ class Aux_info extends BaseController {
 
     /**
      * Make entry form for subcategory items via AJAX ()called by loadItemEntryForm)
-     * @param type $target
+     * @param string $target
      */
     function item_values($target)
     {

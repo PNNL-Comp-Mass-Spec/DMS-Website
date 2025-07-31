@@ -12,9 +12,9 @@ class Analysis_job_request_psm extends DmsBase {
     private
     function get_defaults_from_db()
     {
-        $this->load_lib('Operation', 'na', $this->my_tag);
-        $response = $this->operation->internal_operation('operations_sproc');
-        $response->parms = $this->operation->get_params();
+        $operation = $this->getLibrary('Operation', 'na', $this->my_tag);
+        $response = $operation->internal_operation('operations_sproc');
+        $response->parms = $operation->get_params();
         return $response;
     }
 
@@ -22,10 +22,10 @@ class Analysis_job_request_psm extends DmsBase {
     function get_defaults()
     {
         $results = $this->get_defaults_from_db();
-            $metadata_tab = $this->make_metadata_table($results->parms->metadata);
-            $supplemental_form = $this->make_supplemental_param_form($results->parms->defaults, $results->result);
-            $message = $this->make_message($results->message);
-            echo $metadata_tab . $supplemental_form . $message;
+        $metadata_tab = $this->make_metadata_table($results->parms->metadata);
+        $supplemental_form = $this->make_supplemental_param_form($results->parms->defaults, $results->result);
+        $message = $this->make_message($results->message);
+        echo $metadata_tab . $supplemental_form . $message;
     }
 
     // --------------------------------------------------------------------
@@ -87,7 +87,7 @@ class Analysis_job_request_psm extends DmsBase {
         $s .= "<form id='suggested_values'>";
         $s .= "<input type='hidden' name='return_code' id='return_code' value='$code' />";
         foreach($dvs as $name => $val) {
-            $s .= "<input type='hidden' name='suggested_${name}' id='suggested_${name}' value='$val' />";
+            $s .= "<input type='hidden' name='suggested_{$name}' id='suggested_{$name}' value='$val' />";
         }
         $s .= "</form>\n";
 

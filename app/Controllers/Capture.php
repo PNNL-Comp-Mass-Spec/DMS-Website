@@ -7,7 +7,7 @@ class Capture extends BaseController {
     {
         helper(['url','html']);
 
-        echo heading('Capture-capture Page links', 3);
+        echo '<h3>Capture-capture Page links</h3>';
 
         $links = array();
 

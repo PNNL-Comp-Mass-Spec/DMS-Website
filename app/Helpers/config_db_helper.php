@@ -11,7 +11,7 @@ if ( ! function_exists('get_model_config_db_list'))
      * @param string $file_filter
      * @return array of matching file names
      */
-    function get_model_config_db_list($file_filter = '')
+    function get_model_config_db_list(string $file_filter = ''): array
     {
         $config_files = array();
         $disabled_files = array();
@@ -58,10 +58,10 @@ if ( ! function_exists('get_model_config_db_path'))
     /**
      * Looks for the specified model config DB file
      *
-     * @param $dbFileName
-     * @return object: fields 'path', 'exists', 'dirPath', 'disabled': path to $dbFileName, if file exists, model config directory path
+     * @param string $dbFileName
+     * @return \stdClass fields 'path', 'exists', 'dirPath', 'disabled': path to $dbFileName, if file exists, model config directory path
      */
-    function get_model_config_db_path($dbFileName)
+    function get_model_config_db_path(string $dbFileName): \stdClass
     {
         helper('string');
         $mainPath = config('App')->model_config_path;

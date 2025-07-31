@@ -10,25 +10,25 @@
  * - current values from same entity type being edited
  * - current values from other entity type (if config db provides column mapping spec)
  * - URL segment values
- * @param type $segs
- * @param type $config_source
- * @param type $form_field_names
- * @param type $controller
- * @return type
+ * @param array $segs
+ * @param string $config_source
+ * @param array $form_field_names
+ * @param \App\Controllers\BaseController $controller
+ * @return array
  */
-function get_initial_values_for_entry_fields($segs, $config_source, $form_field_names, $controller) {
+function get_initial_values_for_entry_fields(array $segs, string $config_source, array $form_field_names, \App\Controllers\BaseController $controller): array {
     $initial_field_values = array();
 
     $num_segs = count($segs);
     //
-    if ($num_segs == 0) {
+    if ($num_segs <= 0) {
         // Just accept defaults
     } else if ($num_segs == 1) {
         // Get values from database using source and id that we were given
         $id = $segs[0];
-        $controller->load_mod('Q_model', 'input_model', 'entry_page', $config_source);
-        $initial_field_values = $controller->input_model->get_item($id, $controller);
-    } else if ($num_segs > 1) {
+        $input_model = $controller->getModel('Q_model', 'entry_page', $config_source);
+        $initial_field_values = $input_model->get_item($id, $controller);
+    } else {
         // Get values from an external source
         $source = $segs[0];
         $id = $segs[1];
@@ -50,8 +50,8 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
             $col_mapping = $controller->form_model->get_external_source_field_map($source);
             if ($col_mapping) {
                 // Get values from database using source and id plucked from url
-                $controller->load_mod('Q_model', 'input_model', 'detail_report', $source);
-                $source_data = $controller->input_model->get_item($id, $controller);
+                $input_model = $controller->getModel('Q_model', 'detail_report', $source);
+                $source_data = $input_model->get_item($id, $controller);
                 $initial_field_values = load_from_external_source($col_mapping, $source_data);
             }
         }
@@ -62,11 +62,11 @@ function get_initial_values_for_entry_fields($segs, $config_source, $form_field_
 /**
  * Return an array (of field => value) containing fields defined
  * in $col_mapping with values according to type of mapping defined
- * @param type $col_mapping
- * @param type $source_data
- * @return string
+ * @param array $col_mapping
+ * @param array $source_data
+ * @return array
  */
-function load_from_external_source($col_mapping, $source_data) {
+function load_from_external_source(array $col_mapping, array $source_data): array {
     $a = array();
     $label_formatter = new \App\Libraries\Label_formatter();
     $source_data2 = array_change_key_case($source_data, CASE_LOWER);
@@ -216,11 +216,11 @@ function load_from_external_source($col_mapping, $source_data) {
 /**
  * Override default values with values directly from URL segments
  * (based on matching segment and field order)
- * @param type $form_field_names
- * @param type $segs
- * @return type
+ * @param array $form_field_names
+ * @param array $segs
+ * @return array
  */
-function get_values_from_segs($form_field_names, $segs) {
+function get_values_from_segs(array $form_field_names, array $segs): array {
     // Include app/Helpers/wildcard_conversion_helper.php
     // helper('wildcard_conversion');
     // NOTE: As of Dec. 19, 2022, all calling methods are already doing URL/special value decoding
@@ -244,12 +244,12 @@ function get_values_from_segs($form_field_names, $segs) {
 
 /**
  * Create the entry outcome message
- * @param type $message
- * @param type $option
- * @param type $id
+ * @param string $message
+ * @param string $option
+ * @param string $id div attribute information
  * @return string
  */
-function entry_outcome_message($message, $option = 'success', $id = '') {
+function entry_outcome_message(string $message, string $option = 'success', string $id = ''): string {
     $str = '';
     $idWithTag = ($id) ? " id='$id'" : '';
     switch ($option) {
@@ -263,7 +263,7 @@ function entry_outcome_message($message, $option = 'success', $id = '') {
             $str = "<div class='bad_clr' $idWithTag>" . $message . "</div>";
             break;
         default:
-            $str = "<div${id}>" . $message . "</div>";
+            $str = "<div {$id}>" . $message . "</div>";
             break;
     }
     return $str;
@@ -285,13 +285,13 @@ function entry_outcome_message($message, $option = 'success', $id = '') {
  * - link:      Adds an arbitrary link shown following successfully submitting the entry
  *              'post_submission_link' in the General Params table
  *
- * @param type $tag
- * @param type $ps_link_specs
- * @param type $input_params
- * @param type $actions
+ * @param string $tag
+ * @param array $ps_link_specs
+ * @param \stdClass $input_params
+ * @param array $actions
  * @return string
  */
-function make_post_submission_links($tag, $ps_link_specs, $input_params, $actions) {
+function make_post_submission_links(string $tag, array $ps_link_specs, \stdClass $input_params, array $actions): string {
     $lr_tg = '';
     $dr_tag = '';
     $id = '';

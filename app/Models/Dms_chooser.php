@@ -9,7 +9,7 @@ class Dms_chooser extends Model {
     /**
      * This array defines the selection list choosers and includes both cases
      * (direct list of options vs query db for options)
-     * @var type
+     * @var array
      */
     var $choices = array();
 
@@ -50,17 +50,17 @@ class Dms_chooser extends Model {
 
     /**
      * Return list of chooser specs
-     * @return type
+     * @return array
      */
-    function get_choosers() {
+    function get_choosers(): array {
         return $this->choices;
     }
 
     /**
      * Return sorted list of chooser names
-     * @return type
+     * @return array
      */
-    function get_chooser_names() {
+    function get_chooser_names(): array {
         $cl = array_keys($this->choices);
         natcasesort($cl);
         return $cl;
@@ -68,10 +68,10 @@ class Dms_chooser extends Model {
 
     /**
      * Return choices list for given chooser
-     * @param type $chooser_name
-     * @return type
+     * @param string $chooser_name
+     * @return array
      */
-    function get_choices($chooser_name) {
+    function get_choices(string $chooser_name): array {
         $options = array();
         helper(['string', 'database']);
         if (array_key_exists($chooser_name, $this->choices)) {
@@ -109,11 +109,11 @@ class Dms_chooser extends Model {
     /**
      * Return choices list for given chooser, optionally filtering the values
      * Returns up to 500 items (sorted by ID), to prevent dropdown lists from being too long
-     * @param type $chooser_name
-     * @param type $filter_value
-     * @return \stdClass
+     * @param string $chooser_name
+     * @param string $filter_value
+     * @return array
      */
-    function get_filtered_choices($chooser_name, $filter_value) {
+    function get_filtered_choices(string $chooser_name, string $filter_value): array {
         $filterValueClean = str_ireplace('*', '', $filter_value);
         $returnListLimit = "500";
         $options = array();
@@ -142,7 +142,7 @@ class Dms_chooser extends Model {
                         $sx = $sql;
                         $sqlsrvLimit = "";
                         $postgresLimit = "";
-                        if (strcasecmp($my_db->driver, 'sqlsrv') == 0 || strcasecmp($my_db->driver, 'mssql') == 0) {
+                        if (strcasecmp($my_db->DBDriver, 'sqlsrv') == 0 || strcasecmp($my_db->DBDriver, 'mssql') == 0) {
                             // SQL Server requires 'TOP' or 'FOR XML' to allow use of ORDER BY in subqueries
                             $sx = str_ireplace('select', 'SELECT TOP 100 PERCENT', $sql);
                             $sqlsrvLimit = " TOP " . $returnListLimit;
@@ -174,13 +174,13 @@ class Dms_chooser extends Model {
 
     /**
      * Return HTML for a drop-down selector and suitable options for the specified chooser_name.
-     * @param type $target_field_name Field Name
-     * @param type $chooser_name Chooser name (aka pick list name)
-     * @param type $mode Chooser mode (append, append_comma, prepend, prepend_comma, prepend_underscore, or replace)
-     * @param type $seq Sequence ID (1, 2, 3, etc.)
+     * @param string $target_field_name Field Name
+     * @param string $chooser_name Chooser name (aka pick list name)
+     * @param string $mode Chooser mode (append, append_comma, prepend, prepend_comma, prepend_underscore, or replace)
+     * @param string $seq Sequence ID (1, 2, 3, etc.)
      * @return string
      */
-    function get_chooser($target_field_name, $chooser_name, $mode = 'replace', $seq = '') {
+    function get_chooser(string $target_field_name, string $chooser_name, string $mode = 'replace', string $seq = ''): string {
         $str = "";
         $chooser_element_name = $target_field_name . "_chooser" . $seq;
         $js = "id=\"$chooser_element_name\" class=\"sel_chooser\" ";
@@ -209,13 +209,13 @@ class Dms_chooser extends Model {
 
     /**
      * Create a set of choosers from the list in the given field spec
-     * @param type $field_name
-     * @param type $f_spec
-     * @param type $element_start
-     * @param type $element_end
+     * @param string $field_name
+     * @param array $f_spec
+     * @param string $element_start
+     * @param string $element_end
      * @return string
      */
-    function make_choosers($field_name, $f_spec, $element_start = "<div style='margin-bottom:5px;'>", $element_end = "</div>") {
+    function make_choosers(string $field_name, array $f_spec, string $element_start = "<div style='margin-bottom:5px;'>", string $element_end = "</div>"): string {
         $s = "";
         $seq = 0;
         if (array_key_exists("chooser_list", $f_spec)) {
@@ -227,7 +227,7 @@ class Dms_chooser extends Model {
                 $target = $chsr['Target'];
                 $xref = $chsr['XRef'];
                 $label = (array_key_exists('Label', $chsr)) ? $chsr['Label'] : 'Choose from:';
-                $ch = $this->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, $seq);
+                $ch = $this->make_chooser($field_name, $type, $pln, $target, $label, $delim, $xref, "$seq");
                 $s .= $element_start . $ch . $element_end;
             }
         }
@@ -236,17 +236,17 @@ class Dms_chooser extends Model {
 
     /**
      * Create a chooser from the given parameters
-     * @param type $f_name Field Name
-     * @param type $type Chooser type
-     * @param type $pln Chooser name (aka pick list name); empty string when the type is 'list-report.helper'
-     * @param type $target Target helper page (only used if the type is 'list-report.helper')
-     * @param type $label Text to show before the chooser dropdown or chooser list
-     * @param type $delim Delimiter to use when selecting multiple items
-     * @param type $xref Field name whose contents should be sent to the helper page when the type is 'list-report.helper'
-     * @param type $seq Sequence ID (1, 2, 3, etc.)
+     * @param string $f_name Field Name
+     * @param string $type Chooser type
+     * @param string $pln Chooser name (aka pick list name); empty string when the type is 'list-report.helper'
+     * @param string $target Target helper page (only used if the type is 'list-report.helper')
+     * @param string $label Text to show before the chooser dropdown or chooser list
+     * @param string $delim Delimiter to use when selecting multiple items
+     * @param string $xref Field name whose contents should be sent to the helper page when the type is 'list-report.helper'
+     * @param string $seq Sequence ID (1, 2, 3, etc.)
      * @return string
      */
-    function make_chooser($f_name, $type, $pln, $target, $label, $delim, $xref, $seq = '1') {
+    function make_chooser(string $f_name, string $type, string $pln, string $target, string $label, string $delim, string $xref, string $seq = '1'): string {
         $str = "";
         switch ($type) {
             case "picker.prepend":
@@ -309,11 +309,11 @@ class Dms_chooser extends Model {
 
     /**
      * Get list chooser
-     * @param type $target_field_name
-     * @param type $chooser_name
+     * @param string $target_field_name
+     * @param string $chooser_name
      * @return string
      */
-    function get_list_chooser($target_field_name, $chooser_name) {
+    function get_list_chooser(string $target_field_name, string $chooser_name): string {
         $str = '';
         $options = $this->get_choices($chooser_name);
         $str .= "<table>";
@@ -329,11 +329,11 @@ class Dms_chooser extends Model {
 
     /**
      * Get link chooser
-     * @param type $target_field_name
-     * @param type $chooser_name
+     * @param string $target_field_name
+     * @param string $chooser_name
      * @return string
      */
-    function get_link_chooser($target_field_name, $chooser_name) {
+    function get_link_chooser(string $target_field_name, string $chooser_name): string {
         $str = '';
         $options = $this->get_choices($chooser_name);
         $str .= "<table>";

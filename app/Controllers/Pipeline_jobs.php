@@ -69,8 +69,8 @@ class Pipeline_jobs extends DmsBase {
     private
     function get_scripts_with_param_definitions($config_source, $config_name = 'parameter_scripts')
     {
-        $this->load_mod('Q_model', 'swp_model', $config_name, $config_source);
-        $query = $this->swp_model->get_rows('filtered_and_sorted');
+        $swp_model = $this->getModel('Q_model', $config_name, $config_source);
+        $query = $swp_model->get_rows('filtered_and_sorted');
         return $query->getResultArray();
     }
 
@@ -110,8 +110,8 @@ class Pipeline_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('Q_model', 'data_model', $config_name, $config_source);
-            $result_row = $this->data_model->get_item($id, $this);
+            $data_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $data_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
@@ -125,8 +125,8 @@ class Pipeline_jobs extends DmsBase {
     {
         $xml = '';
         if($id) {
-            $this->load_mod('Q_model', 'def_model', $config_name, $config_source);
-            $result_row = $this->def_model->get_item($id, $this);
+            $def_model = $this->getModel('Q_model', $config_name, $config_source);
+            $result_row = $def_model->get_item($id, $this);
             $xml = $result_row['params'];
         }
         return $xml;
@@ -147,6 +147,9 @@ class Pipeline_jobs extends DmsBase {
             $params = $xp->query("//Param");
 
             foreach ($params as $param) {
+                if (get_class($param) != 'DOMElement') {
+                    continue;
+                }
                 $a = array();
                 $a['name'] = $param->getAttribute('Name');
                 $a['value'] = $param->getAttribute('Value');
@@ -209,7 +212,7 @@ class Pipeline_jobs extends DmsBase {
 
                 // Place row fields in table cells in table row
                 $str .= "<tr $class>";
-                $str .= "<td>${help_link}<span $highlight> " . $param['name'] . "</span></td>";
+                $str .= "<td>{$help_link}<span $highlight> " . $param['name'] . "</span></td>";
                 $str .= "<td>".$param['Reqd']."</td>";
                 switch($type) {
                     case 'text':
@@ -245,7 +248,7 @@ class Pipeline_jobs extends DmsBase {
         $nsLabel = str_replace(" ", "_", $label);
         $pwiki = config('App')->pwiki;
         $wiki_helpLink_prefix = config('App')->wikiHelpLinkPrefix;
-        $href = "${pwiki}${wiki_helpLink_prefix}${file_tag}_${script}#${nsLabel}";
+        $href = "{$pwiki}{$wiki_helpLink_prefix}{$file_tag}_{$script}#{$nsLabel}";
         $s .= "<a class=help_link target = '_blank' title='Click to bring up PRISM Wiki help page' href='".$href."'><img src='" . base_url('/images/help.png') . "' border='0' ></a>";
         return $s;
     }

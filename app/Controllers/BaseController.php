@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -21,6 +22,21 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
+    public $my_tag = "";
+    public $my_title = "";
+
+    // Model refs
+    public $data_model = null; // Directly assigned; could be 'private set' with PHP 8.4
+    public $form_model = null; // Directly assigned; could be 'private set' with PHP 8.4
+    public $gen_model = null; // Directly assigned; could be 'private set' with PHP 8.4
+    public $link_model = null; // Directly assigned; could be 'private set' with PHP 8.4
+    public $sproc_model = null; // Directly assigned; could be 'private set' with PHP 8.4
+
+    // Library refs
+    public $entry_form = null; // Directly assigned; could be 'private set' with PHP 8.4
+
+    public string $help_page_link; // Directly assigned; could be 'private set' with PHP 8.4
+
     /**
      * Instance of the main Request object.
      *
@@ -44,6 +60,26 @@ abstract class BaseController extends Controller
     // protected $session;
 
     /**
+     * Cached preferences; set by check on first access.
+     */
+    private \App\Models\Dms_preferences $preferences;
+
+    /**
+     * Cached choosers; set by check on first access.
+     */
+    private \App\Models\Dms_chooser $choosers;
+
+    /**
+     * Cached auth; set by check on first access.
+     */
+    private \App\Models\Dms_authorization $auth;
+
+    /**
+     * Cached menu; set by check on first access.
+     */
+    private \App\Models\Dms_menu $menu;
+
+    /**
      * @return void
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -53,7 +89,7 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
 
-        // E.g.: $this->session = \Config\Services::session();
+        // E.g.: $this->session = service('session');
     }
 
     // --------------------------------------------------------------------
@@ -65,57 +101,198 @@ abstract class BaseController extends Controller
     }
 
     /**
+     * Sets help_page_link to the default value
+     * @return void
+     */
+    public function setupHelpPageLink() {
+        $this->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
+    }
+
+    /**
      * Load named library and initialize it with given config info
      * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
+     * @param object $local_ref Local reference
      * @param string $config_name Config name, e.g. list_report
      * @param string $config_source Source, e.g. dataset, experiment, campaign
-     * @param boolean $options Custom options flag
-     * @return boolean
+     * @param array|false $options Custom options flag
+     * @return bool
      */
-    public function load_lib($lib_name, $config_name, $config_source, $options = false) {
-        $localName = lcfirst($lib_name);
-        if (property_exists($this, $localName)) {
+    public function loadLibrary($lib_name, &$local_ref, $config_name, $config_source, $options = false) {
+        $libPath = "\\App\\Libraries\\$lib_name";
+        if ($local_ref instanceof $libPath) {
             return true;
         }
         // Load then initialize the model
-        $libPath = "\\App\\Libraries\\$lib_name";
-        $this->$localName = new $libPath();
-        if (!method_exists($this->$localName, 'init')) {
+        $local_ref = new $libPath();
+        if (!method_exists($local_ref, 'init')) {
             return true;
         }
 
         if ($options === false) {
-            return $this->$localName->init($config_name, $config_source, $this);
+            return $local_ref->init($config_name, $config_source, $this);
         } else {
-            return $this->$localName->init($config_name, $config_source, $this, $options);
+            return $local_ref->init($config_name, $config_source, $this, $options);
         }
+    }
+
+    /**
+     * Load Entry_form to $this->entry_form and initializes it with given config info
+     * @param string $config_name Config name, e.g. list_report
+     * @param string $config_source Source, e.g. dataset, experiment, campaign
+     * @return bool
+     */
+    public function loadEntryFormLibrary($config_name, $config_source) {
+        return $this->loadLibrary('Entry_form', $this->entry_form, $config_name, $config_source);
+    }
+
+    /**
+     * Get named library and initialize it with given config info
+     * @param string $lib_name Library name, including list_report, detail_report, paging_filter, sorting_filter, column_filter, secondary_filter
+     * @param string $config_name Config name, e.g. list_report
+     * @param string $config_source Source, e.g. dataset, experiment, campaign
+     * @param array|false $options Custom options flag
+     * @return object
+     */
+    public function getLibrary($lib_name, $config_name, $config_source, $options = false) {
+        $this->loadLibrary($lib_name, $local_ref, $config_name, $config_source, $options);
+        return $local_ref;
     }
 
     /**
      * Load named model (with given local name) and initialize it with given config info
      * @param string $model_name Module name, e.g. G_model, Q_model
-     * @param string $local_name Local name, e.g. gen_model for G_model; model for Q_model
+     * @param object|null $local_ref Local reference, e.g. $this->gen_model for G_model; $this->data_model for Q_model
      * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
-    public function load_mod($model_name, $local_name, $config_name, $config_source) {
-        if (property_exists($this, $local_name)) {
+    private function loadModel($model_name, &$local_ref, $config_name, $config_source) {
+        $modelPath = '\\App\\Models\\'.$model_name;
+        if ($local_ref instanceof $modelPath) {
             return true;
         }
         // Dynamically load and initialize the model
-        $this->$local_name = model('App\\Models\\'.$model_name);
-        if (method_exists($this->$local_name, 'init')) {
-            return $this->$local_name->init($config_name, $config_source);
+        $local_ref = model('App\\Models\\'.$model_name);
+        if (is_null($local_ref)) {
+            return false;
+        }
+        if (method_exists($local_ref, 'init')) {
+            return $local_ref->init($config_name, $config_source);
         } else {
             return true;
         }
     }
 
     /**
+     * Load Q_model to $this->data_model and initialize it with given config info
+     * @param string $config_name Config type
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return bool
+     */
+    public function loadDataModel($config_name, $config_source) {
+        return $this->loadModel('Q_model', $this->data_model, $config_name, $config_source);
+    }
+
+    /**
+     * Load E_model to $this->form_model and initialize it with given config info
+     * @param string $config_name Config type; typically na for E_model
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return bool
+     */
+    public function loadFormModel($config_name, $config_source) {
+        return $this->loadModel('E_model', $this->form_model, $config_name, $config_source);
+    }
+
+    /**
+     * Load G_model to $this->gen_model and initialize it with given config info
+     * @param string $config_name Config type; typically na for G_model
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return bool
+     */
+    public function loadGeneralModel($config_name, $config_source) {
+        return $this->loadModel('G_model', $this->gen_model, $config_name, $config_source);
+    }
+
+    /**
+     * Load R_model to $this->link_model and initialize it with given config info
+     * @param string $config_name Config type
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return bool
+     */
+    public function loadLinkModel($config_name, $config_source) {
+        return $this->loadModel('R_model', $this->link_model, $config_name, $config_source);
+    }
+
+    /**
+     * Load S_model to $this->sproc_model and initialize it with given config info
+     * @param string $config_name Config type
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return bool
+     */
+    public function loadSprocModel($config_name, $config_source) {
+        return $this->loadModel('S_model', $this->sproc_model, $config_name, $config_source);
+    }
+
+    /**
+     * Get named model and initialize it with given config info
+     * @param string $model_name Module name, e.g. G_model, Q_model
+     * @param string $config_name Config type; typically na for G_model; list_report (or similar) for Q_model
+     * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
+     * @return object model
+     */
+    public function getModel($model_name, $config_name, $config_source) {
+        $this->loadModel($model_name, $local_ref, $config_name, $config_source);
+        return $local_ref;
+    }
+
+    /**
+     * Get auth object (value is cached)
+     * @return \App\Models\Dms_authorization auth
+     */
+    public function getAuth() {
+        if (!isset($this->auth)) {
+            $this->auth = model('App\Models\Dms_authorization');
+        }
+        return $this->auth;
+    }
+
+    /**
+     * Get choosers object (value is cached)
+     * @return \App\Models\Dms_chooser choosers
+     */
+    public function getChoosers() {
+        if (!isset($this->choosers)) {
+            $this->choosers = model('App\Models\Dms_chooser');
+        }
+        return $this->choosers;
+    }
+
+    /**
+     * Get menu object (value is cached)
+     * @return \App\Models\Dms_menu menu
+     */
+    public function getMenu() {
+        if (!isset($this->menu)) {
+            $this->menu = model('App\Models\Dms_menu');
+        }
+        return $this->menu;
+    }
+
+    /**
+     * Get preferences object (value is cached)
+     * @return \App\Models\Dms_preferences preferences
+     */
+    public function getPreferences() {
+        if (!isset($this->preferences)) {
+            $this->preferences = model('App\Models\Dms_preferences');
+        }
+        return $this->preferences;
+    }
+
+    /**
      * Updates the database search path for Postgres connections. Does nothing for SQL Server connections
      * @param BaseConnection $db
-     * @return boolean
+     * @return void
      */
     public function updateSearchPath($db) {
         helper(['database']);
@@ -130,14 +307,14 @@ abstract class BaseController extends Controller
      * - user has necessary permission if action is a restricted one
      * Present message box if access check fails and $output_message is true
      * @param string $action
-     * @param boolean $output_message When true, update the message box with "Access Denied"
-     * @return boolean
+     * @param bool $output_message When true, update the message box with "Access Denied"
+     * @return bool
      */
     public function check_access($action, $output_message = true) {
         helper('user');
         $user = get_user();
 
-        $this->load_mod('G_model', 'gen_model', 'na', $this->my_tag);
+        $this->loadGeneralModel('na', $this->my_tag);
 
         if ($this->gen_model->error_text) {
             if ($output_message) {

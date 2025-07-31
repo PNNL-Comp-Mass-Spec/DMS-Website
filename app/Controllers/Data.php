@@ -8,6 +8,8 @@ use CodeIgniter\Database\SQLite3\Connection;
  */
 class Data extends BaseController {
 
+    public $my_config_db = null;
+
     // --------------------------------------------------------------------
     // Ad hoc query stuff
     // --------------------------------------------------------------------
@@ -39,14 +41,14 @@ class Data extends BaseController {
     function ax()
     {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['url']);
-        $this->load_lib('General_query', '', ''); // $config_name, $config_source
+        $general_query = $this->getLibrary('General_query', '', ''); // $config_name, $config_source
 
-        $input_parms = $this->general_query->get_query_values_from_url();
-        $this->general_query->setup_query($input_parms);
-        $this->general_query->output_result($input_parms->output_format);
+        $input_parms = $general_query->get_query_values_from_url();
+        $general_query->setup_query($input_parms);
+        $general_query->output_result($input_parms->output_format);
     }
 
     // --------------------------------------------------------------------
@@ -62,9 +64,8 @@ class Data extends BaseController {
     // --------------------------------------------------------------------
     function set_up_nav_bar($page_type)
     {
-        $this->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
+        $this->setupHelpPageLink();
         helper(['menu', 'dms_search']);
-        $this->menu = model('App\Models\Dms_menu');
         return get_nav_bar_menu_items($page_type, $this);
     }
 
@@ -88,7 +89,7 @@ class Data extends BaseController {
     function lz()
     {
         helper(['url', 'user']);
-        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
+        $segs = decodeSegments(array_slice($this->request->getUri()->getSegments(), 2));
 //print_r($_POST); echo "\n";
         $output_format = $segs[0];
         $config_source = $segs[1];
@@ -98,9 +99,10 @@ class Data extends BaseController {
         $this->my_tag = "data/lz/$output_format/$config_source/$config_name";
         $this->my_title = "";
 
-        $this->load_lib('List_report_ah', $config_name, $config_source);
+        $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+        $this->loadDataModel($config_name, $config_source);
 
-        $this->list_report_ah->set_up_data_query();
+        $list_report_ah->set_up_data_query();
         $query = $this->data_model->get_rows('filtered_and_sorted');
 
         $pageTitle = $config_source;
@@ -119,20 +121,20 @@ class Data extends BaseController {
                 break;
             case 'tsv':
                 $rows = $query->getResultArray();
-                $this->load_lib('General_query', '', '');
-                $this->general_query->tsv($rows);
+                $general_query = $this->getLibrary('General_query', '', '');
+                $general_query->tsv($rows);
                 break;
             case 'html':
             case 'table':
                 $rows = $query->getResultArray();
-                $this->load_lib('General_query', '', '');
-                $this->general_query->html_table($rows, $pageTitle);
+                $general_query = $this->getLibrary('General_query', '', '');
+                $general_query->html_table($rows, $pageTitle);
                 break;
             case 'xml':
             case 'xml_dataset':
                 $rows = $query->getResultArray();
-                $this->load_lib('General_query', '', '');
-                $this->general_query->xml_dataset($rows, $pageTitle);
+                $general_query = $this->getLibrary('General_query', '', '');
+                $general_query->xml_dataset($rows, $pageTitle);
                 break;
         }
     }
@@ -148,12 +150,12 @@ class Data extends BaseController {
     function json()
     {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
         helper(['url']);
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
 
-        $this->load_lib('General_query', '', ''); // $config_name, $config_source
+        $general_query = $this->getLibrary('General_query', '', ''); // $config_name, $config_source
 
         $input_parms = new \App\Libraries\General_query_def ();
         // Don't trigger an exception if the segment index is too large
@@ -169,11 +171,12 @@ class Data extends BaseController {
             $input_parms->filter_values = decodeSegments(array_slice($uri->getSegments(), 4));
         }
 
-        $this->general_query->setup_query($input_parms);
+        $general_query->setup_query($input_parms);
 
-        $query = $this->model->get_rows('filtered_and_sorted'); // filtered_only or filtered_and_sorted
+        $this->loadDataModel($input_parms->q_name, $input_parms->config_source);
+        $query = $this->data_model->get_rows('filtered_and_sorted'); // filtered_only or filtered_and_sorted
         echo json_encode($query->getResult());
-//      echo $this->model->get_sql('filtered_and_sorted');
+//      echo $this->data_model->get_sql('filtered_and_sorted');
     }
 
 
@@ -187,12 +190,13 @@ class Data extends BaseController {
     function lr()
     {
         helper(['url', 'user']);
-        $segs = decodeSegments(array_slice($this->request->uri->getSegments(), 2));
+        $segs = decodeSegments(array_slice($this->request->getUri()->getSegments(), 2));
 
         $config_source = $segs[0];
         $config_name = $segs[1];
         $content_type = $segs[2];
         $option = (isset($segs[3]))?$segs[3]:'';
+        $column_name = (isset($segs[4]))?$segs[4]:'';
 
         // The list_report view needs this for setting up its various links
         $this->my_tag = "data/lr/$config_source/$config_name";
@@ -201,45 +205,45 @@ class Data extends BaseController {
 
         switch($content_type) {
             case 'report':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->list_report('report');
+                $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+                $list_report_ah->list_report('report');
                 break;
             case 'search':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->list_report('search');
+                $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+                $list_report_ah->list_report('search');
                 break;
             case 'report_filter':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->report_filter($option);
+                $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+                $list_report_ah->report_filter($option);
                 break;
             case 'get_sql_comparison':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->get_sql_comparison($column_name);
+                $list_report_ah = $this->getLibrary('List_report', $config_name, $config_source);
+                $list_report_ah->get_sql_comparison($column_name);
                 break;
             case 'report_data':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->report_data('rows');
+                $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+                $list_report_ah->report_data('rows');
                 break;
             case 'reportinfol':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->report_info("sql");
+                $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+                $list_report_ah->report_info("sql");
                 break;
             case 'report_paging':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->report_paging();
+                $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+                $list_report_ah->report_paging();
                 break;
             case 'export':
-                $this->load_lib('List_report_ah', $config_name, $config_source);
-                $this->list_report_ah->export($option);
+                $list_report_ah = $this->getLibrary('List_report_ah', $config_name, $config_source);
+                $list_report_ah->export($option);
                 break;
         }
     }
 
     /**
      * Get list of URLs for ad hoc list reports
-     * @param type $config_source
-     * @param type $config_name
-     * @throws Exception
+     * @param string $config_source
+     * @param string $config_name
+     * @throws \Exception
      */
     function lr_menu($config_source = "ad_hoc_query", $config_name = 'utility_queries')
     {
@@ -250,23 +254,23 @@ class Data extends BaseController {
         $db = new Connection(['database' => $dbFilePath, 'dbdriver' => 'sqlite3']);
 
         helper(['url']);
-        $this->table = new \CodeIgniter\View\Table();
-        $this->table->setTemplate(array ('table_open'  => '<table class="EPag">'));
-        $this->table->setHeading('Page', 'Table', 'DB');
+        $table = new \CodeIgniter\View\Table();
+        $table->setTemplate(array ('table_open'  => '<table class="EPag">'));
+        $table->setHeading('Page', 'Table', 'DB');
 
         $links = array();
         foreach ($db->query("SELECT * FROM $config_name ORDER BY label")->getResultObject() as $obj) {
             $links['link'] = anchor("data/lr/$config_source/$obj->name/report", $obj->label);
             $links['table'] = $obj->table;
             $links['db'] = $obj->db;
-            $this->table->addRow($links);
+            $table->addRow($links);
         }
 
         $db->close();
         $edit_link = "<div style='padding:5px;'>" . anchor("config_db/show_db/$dbFileName", 'Config db') . "</div>";
 
         $data['title'] = 'Custom List Reports';
-        $data['content'] = $edit_link . $this->table->generate();
+        $data['content'] = $edit_link . $table->generate();
         echo view('basic', $data);
     }
 }

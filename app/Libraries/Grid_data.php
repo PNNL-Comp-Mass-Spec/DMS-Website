@@ -6,6 +6,7 @@ namespace App\Libraries;
  */
 class Grid_data {
 
+    private \App\Controllers\BaseController $controller;
     private $config_source = '';
     private $config_name = '';
 
@@ -16,11 +17,11 @@ class Grid_data {
 
     /**
      * Initialize the grid data
-     * @param type $config_name
-     * @param type $config_source
-     * @param type $controller
+     * @param string $config_name
+     * @param string $config_source
+     * @param \App\Controllers\BaseController $controller
      */
-    function init($config_name, $config_source, $controller) {
+    function init(string $config_name, string $config_source, \App\Controllers\BaseController $controller) {
         $this->config_source = $config_source;
         $this->config_name = $config_name;
 
@@ -28,17 +29,16 @@ class Grid_data {
     }
 
     /**
-     * Get data for the grid
-     * @param type $sql
-     * @param type $paramArray
-     * @throws exception
+     * Get data for the grid ---------------------- April 2025 - not currently used anywhere
+     * @param string $sql
+     * @param array|bool $paramArray
      */
-    function get_query_data($sql, $paramArray) {
+    function get_query_data(string $sql, $paramArray) {
         $response = new \stdClass();
         try {
-            $this->controller->db = \Config\Database::connect();
-            $this->controller->updateSearchPath($this->controller->db);
-            $result = $this->controller->db->query($sql);
+            $db = \Config\Database::connect();
+            $this->controller->updateSearchPath($db);
+            $result = $db->query($sql);
             if (!$result) {
                 $currentTimestamp = date("Y-m-d");
                 throw new \Exception("Error querying database; see writable/logs/log-$currentTimestamp.php");
@@ -60,12 +60,12 @@ class Grid_data {
 
     /**
      * Get data from a stored procedure
-     * @param type $paramArray
-     * @param type $config_name
+     * @param array|bool $paramArray
+     * @param string $config_name
      * @return \stdClass
-     * @throws exception
+     * @throws \Exception
      */
-    function get_sproc_data($paramArray, $config_name = '') {
+    function get_sproc_data($paramArray, string $config_name = '') {
         if (!$config_name) {
             $config_name = $this->config_name;
         }
@@ -74,7 +74,7 @@ class Grid_data {
         $response = new \stdClass();
         try {
             // Init sproc model
-            $ok = $this->controller->load_mod('S_model', 'sproc_model', $config_name, $this->config_source);
+            $ok = $this->controller->loadSprocModel($config_name, $this->config_source);
             if (!$ok) {
                 throw new \Exception($this->controller->sproc_model->get_error_text());
             }
@@ -110,16 +110,6 @@ class Grid_data {
             $paramObj->$field = (array_key_exists($field, $paramArray)) ? $paramArray[$field] : '';
         }
         return $paramObj;
-    }
-
-    // --------------------------------------------------------------------
-    private function make_col_specs($colNames) {
-        $colSpec = array();
-        foreach ($colNames as $colName) {
-            $spec = new \stdClass();
-            $colSpec[] = $spec;
-        }
-        return colSpec;
     }
 }
 ?>

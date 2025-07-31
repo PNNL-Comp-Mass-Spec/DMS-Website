@@ -2,11 +2,11 @@
 
 /**
  * Render contents of freezer location
- * @param type $location
- * @param type $contents
+ * @param array $location
+ * @param array $contents
  * @return string
  */
-function render_location_contents($location, $contents) {
+function render_location_contents(array $location, array $contents): string {
     $loc = $location['Location'];
     $avail = $location['Available'];
 
@@ -38,10 +38,10 @@ function render_location_contents($location, $contents) {
 
 /**
  * Build nested array representation of freezer locations
- * @param type $locs
- * @return type
+ * @param array $locs
+ * @return array
  */
-function make_freezer_matrix_array($locs) {
+function make_freezer_matrix_array(array $locs): array {
     $fzr = array();
     foreach ($locs as $loc) {
         $status = $loc['Status'];
@@ -55,12 +55,12 @@ function make_freezer_matrix_array($locs) {
 
 /**
  * Make inner tables for a matrix row
- * @param type $fzr
- * @param type $table_setup
- * @param type $tstyl
- * @return string
+ * @param array $fzr
+ * @param string $table_setup
+ * @param string $tstyl
+ * @return array
  */
-function make_matrix_row_col_tables($fzr, $table_setup, $tstyl) {
+function make_matrix_row_col_tables(array $fzr, string $table_setup, string $tstyl): array {
     // Make inner tables (row, col)
     $otr = array();
 
@@ -102,11 +102,11 @@ function make_matrix_row_col_tables($fzr, $table_setup, $tstyl) {
 
 /**
  * Render a matrix table
- * @param type $otr
- * @param type $table_setup
+ * @param array $otr
+ * @param string $table_setup
  * @return string
  */
-function render_matrix_table($otr, $table_setup) {
+function render_matrix_table(array $otr, string $table_setup): string {
     // Make outer table (shelf, rack) containing inner tables (row, col)
     $tbs = "<table $table_setup >\n";
 

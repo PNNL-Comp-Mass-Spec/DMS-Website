@@ -9,27 +9,34 @@ use CodeIgniter\Database\SQLite3\Connection;
  */
 class E_model extends Model {
 
-    private $config_name = '';
-    private $config_source = '';
-    private $configDBPath = '';
+    private string $config_name = '';
+    private string $config_source = '';
+    private string $configDBPath = '';
+    private string $error_text = '';
 
     /**
      * Definitions of fields for entry form
-     * @var type
+     * @var array
      */
-    private $form_fields = array();
+    private array $form_fields = array();
 
     /**
      * Definitions of external sources for entry form
-     * @var type
+     * @var array
      */
-    private $external_sources = array();
+    private array $external_sources = array();
 
     /**
      * Definitions of entry page commands
-     * @var type
+     * @var array
      */
-    private $entry_commands = array();
+    private array $entry_commands = array();
+
+    /**
+     * Definitions of operations fields
+     * @var array
+     */
+    private array $operations_fields = array();
 
     // --------------------------------------------------------------------
     function __construct() {
@@ -61,7 +68,7 @@ class E_model extends Model {
      * Return an object with member fields representing the different parameter collections
      * that are defined for the entry mode.
      * The specific collections are selected by the input list array
-     * ('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands')
+     * ('fields', 'rules', 'specs', 'load_key', 'enable_spec', 'entry_commands', 'operations_fields')
      * @param array $which_ones
      * @return \stdClass
      */
@@ -86,6 +93,9 @@ class E_model extends Model {
         if (in_array('entry_commands', $which_ones)) {
             $form_def->entry_commands = $this->entry_commands;
         }
+        if (in_array('operations_fields', $which_ones)) {
+            $form_def->operations_fields = $this->operations_fields;
+        }
         return $form_def;
     }
 
@@ -102,10 +112,10 @@ class E_model extends Model {
     /**
      * Return the mapping between fields from the given external source
      * The form fields for the source for this instantiated object
-     * @param type $source_name
-     * @return boolean
+     * @param string $source_name
+     * @return bool|array
      */
-    function get_external_source_field_map($source_name) {
+    function get_external_source_field_map(string $source_name) {
         if (array_key_exists($source_name, $this->external_sources)) {
             return $this->external_sources[$source_name];
         } else {
@@ -115,9 +125,9 @@ class E_model extends Model {
 
     /**
      * Return the field defined as key for spreadsheet loading
-     * @return type
+     * @return string
      */
-    private function get_load_key() {
+    private function get_load_key(): string {
         $load_key = '';
         // Look for specific definition from config db
         foreach ($this->form_fields as $field => $spec) {
@@ -157,9 +167,9 @@ class E_model extends Model {
      * Return an array from the form field specifications keyed by
      * field name and containing the validation rules for the field
      * as the the value for the key
-     * @return type
+     * @return array
      */
-    private function get_field_validation_rules() {
+    private function get_field_validation_rules(): array {
         $rules = array();
         foreach ($this->form_fields as $f_name => $f_spec) {
             $rule = array();
@@ -274,6 +284,11 @@ class E_model extends Model {
         }
 
         $db->close();
+    }
+
+    // --------------------------------------------------------------------
+    function get_error_text() {
+        return $this->error_text;
     }
 }
 ?>

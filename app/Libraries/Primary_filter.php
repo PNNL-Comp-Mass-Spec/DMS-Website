@@ -8,7 +8,7 @@ class Primary_filter {
     private $config_name = '';
     private $config_source = '';
     private $storage_name = '';
-    private $cur_filter_values = null;
+    private $cur_filter_values = array();
 
     // --------------------------------------------------------------------
     function __construct() {
@@ -18,11 +18,12 @@ class Primary_filter {
     /**
      * Get current secondary filter values either from POST
      * or from cache storage (session)
-     * @param type $config_name
-     * @param type $config_source
-     * @param type $filter_specs
+     * @param string $config_name
+     * @param string $config_source
+     * @param \App\Controllers\BaseController $controller
+     * @param array $filter_specs
      */
-    function init($config_name, $config_source, $controller, $filter_specs) {
+    function init(string $config_name, string $config_source, \App\Controllers\BaseController $controller, array $filter_specs) {
         foreach (array_keys($filter_specs) as $id) {
             $filter_specs[$id]["value"] = '';
             $filter_specs[$id]['rel'] = ($filter_specs[$id]['cmp'] == 'Rp') ? 'ARG' : 'AND';
@@ -34,8 +35,6 @@ class Primary_filter {
         $this->config_name = $config_name;
         $this->config_source = $config_source;
         $this->storage_name = self::storage_name_root . $this->config_name . '_' . $this->config_source;
-
-        $this->clear_query_filter();
 
         // Try to get current values of filters from POST
         $state = $this->get_current_filter_values_from_post($filter_specs);
@@ -54,10 +53,10 @@ class Primary_filter {
     /**
      * Get current values for secondary filter if present in POST.
      * Otherwise return false
-     * @param type $filter_specs
-     * @return boolean
+     * @param array $filter_specs
+     * @return array|bool
      */
-    private function get_current_filter_values_from_post($filter_specs) {
+    private function get_current_filter_values_from_post(array $filter_specs) {
         // (someday) smarter extraction of primary filter values from POST:
         // There may be other items in the POST not relevant to primary filter.
         // Maybe we can check for the presence of any scalars that begin with "pf_"
@@ -80,10 +79,10 @@ class Primary_filter {
     /**
      * For building up current values from another source
      * (usually URL seqments)
-     * @param type $field
-     * @param type $value
+     * @param string $field
+     * @param mixed $value
      */
-    function set_current_filter_value($field, $value) {
+    function set_current_filter_value(string $field, $value) {
         $this->cur_filter_values[$field]['value'] = $value;
     }
 
@@ -105,31 +104,24 @@ class Primary_filter {
     }
 
     /**
-     * Reset (clear) the filter
-     */
-    private function clear_query_filter() {
-
-    }
-
-    /**
      * Get current filter values
-     * @return type
+     * @return array
      */
-    function get_cur_filter_values() {
+    function get_cur_filter_values(): array {
         return $this->cur_filter_values;
     }
 
     /**
      * Get the storage path
-     * @return type
+     * @return string
      */
-    function get_storage_name() {
+    function get_storage_name(): string {
         return $this->storage_name;
     }
 
     /**
      * Get cached values
-     * @return type
+     * @return array
      */
     function get_cached_value() {
         return get_from_cache($this->storage_name);

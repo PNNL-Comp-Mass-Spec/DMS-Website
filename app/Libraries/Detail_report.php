@@ -7,6 +7,7 @@ namespace App\Libraries;
 
 class Detail_report {
 
+    private \App\Controllers\BaseController $controller;
     private $config_source = '';
     private $config_name = '';
     private $tag = '';
@@ -32,7 +33,7 @@ class Detail_report {
      * @param string $id
      */
     function detail_report($id) {
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, 'show');
 
         $data['tag'] = $this->tag;
@@ -60,29 +61,28 @@ class Detail_report {
     /**
      * Get detail report data for specified entity
      * @param string $id
-     * @param boolean $show_entry_links
-     * @param boolean $show_create_links
-     * @throws exception
+     * @param bool $show_entry_links
+     * @param bool $show_create_links
      * @category AJAX
      */
     function detail_report_data($id, $show_entry_links = true, $show_create_links = true) {
         try {
             // Get data
-            $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
-            $result_row = $this->controller->detail_model->get_item($id, $this->controller);
+            $this->controller->loadDataModel($this->config_name, $this->config_source);
+            $result_row = $this->controller->data_model->get_item($id, $this->controller);
             if (empty($result_row)) {
                 throw new \Exception("Details for entity '$id' could not be found");
             }
 
-            $col_info = $this->controller->detail_model->get_column_info();
+            $col_info = $this->controller->data_model->get_column_info();
 
             // Hotlinks
-            $this->controller->load_mod('R_model', 'link_model', 'na', $this->config_source);
+            $this->controller->loadLinkModel('na', $this->config_source);
 
             // Fix decimal-as-string display; datetimes are formatted in helpers/detail_report_helper.php
-            $this->controller->cell_presentation = new \App\Libraries\Cell_presentation();
+            $cell_presentation = new \App\Libraries\Cell_presentation();
             $rows = array(&$result_row);
-            $this->controller->cell_presentation->fix_decimal_display($rows, $col_info);
+            $cell_presentation->fix_decimal_display($rows, $col_info);
 
             if (!($this->controller->check_access('enter', false))) {
                 $show_entry_links = false;
@@ -118,8 +118,8 @@ class Detail_report {
         //Ensure a session is initialized
         $session = \Config\Services::session();
 
-        $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
-        echo $this->controller->detail_model->get_item_sql($id) . ';';
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        echo $this->controller->data_model->get_item_sql($id) . ';';
     }
 
     /**
@@ -128,13 +128,13 @@ class Detail_report {
      * @category AJAX
      */
     function detail_report_aux_info_controls($id) {
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
 
         // Aux_info always needs numeric ID, and sometimes ID for detail report is string
         // This is a bit of a hack to always get the number
-        $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
-        $result_row = array_change_key_case($this->controller->detail_model->get_item($id, $this->controller), CASE_LOWER);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $result_row = array_change_key_case($this->controller->data_model->get_item($id, $this->controller), CASE_LOWER);
         if (!empty($result_row)) {
             $aux_info_id = (array_key_exists('id', $result_row)) ? $result_row['id'] : $id;
 
@@ -153,13 +153,13 @@ class Detail_report {
         $session = \Config\Services::session();
 
         // Get entity data
-        $this->controller->load_mod('Q_model', 'detail_model', $this->config_name, $this->config_source);
-        $entity_info = $this->controller->detail_model->get_item($id, $this->controller);
+        $this->controller->loadDataModel($this->config_name, $this->config_source);
+        $entity_info = $this->controller->data_model->get_item($id, $this->controller);
 
         $aux_info_id = (array_key_exists('ID', $entity_info)) ? $entity_info['ID'] : ((array_key_exists('id', $entity_info)) ? $entity_info['id'] : false);
         $aux_info = array();
 
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
 
         if ($aux_info_id && $aux_info_target) {
@@ -190,31 +190,31 @@ class Detail_report {
 
     // --------------------------------------------------------------------
     private function get_aux_info($aux_info_id) {
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
 
         // Get aux into data
-        $this->controller->load_mod('Q_model', 'aux_info_model', '', '');
-        $this->controller->aux_info_model->set_columns('Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI');
-        $this->controller->aux_info_model->set_table('V_Aux_Info_Value');
-        $this->controller->aux_info_model->add_predicate_item('AND', 'Target', 'Equals', $aux_info_target);
-        $this->controller->aux_info_model->add_predicate_item('AND', 'Target_ID', 'Equals', $aux_info_id);
-        $this->controller->aux_info_model->add_sorting_item('SC');
-        $this->controller->aux_info_model->add_sorting_item('SS');
-        $this->controller->aux_info_model->add_sorting_item('SI');
-        return $this->controller->aux_info_model->get_rows('filtered_and_sorted')->getResultArray();
+        $aux_info_model = $this->controller->getModel('Q_model', '', '');
+        $aux_info_model->set_columns('Target, Target_ID, Category, Subcategory, Item, Value, SC, SS, SI');
+        $aux_info_model->set_table('V_Aux_Info_Value');
+        $aux_info_model->add_predicate_item('AND', 'Target', 'Equals', $aux_info_target);
+        $aux_info_model->add_predicate_item('AND', 'Target_ID', 'Equals', $aux_info_id);
+        $aux_info_model->add_sorting_item('SC');
+        $aux_info_model->add_sorting_item('SS');
+        $aux_info_model->add_sorting_item('SI');
+        return $aux_info_model->get_rows('filtered_and_sorted')->getResultArray();
     }
 
     // --------------------------------------------------------------------
     private function get_entry_aux_info($id) {
         $aux_info = array();
-        $this->controller->load_mod('G_model', 'gen_model', 'na', $this->config_source);
+        $this->controller->loadGeneralModel('na', $this->config_source);
         $aux_info_target = $this->controller->gen_model->get_detail_report_aux_info_target();
 
         if ($aux_info_target) {
             // Get data
-            $this->controller->load_mod('Q_model', 'detail_model', 'detail_report', $this->config_source);
-            $result_row = $this->controller->detail_model->get_item($id, $this->controller);
+            $this->controller->loadDataModel('detail_report', $this->config_source);
+            $result_row = $this->controller->data_model->get_item($id, $this->controller);
             // Get aux info data
             $aux_info_id = (array_key_exists('ID', $result_row)) ? $result_row['ID'] : ((array_key_exists('id', $result_row)) ? $result_row['id'] : $id);
             $aux_info = $this->get_aux_info($aux_info_id);
@@ -227,18 +227,18 @@ class Detail_report {
      * Get the field information that would appear on the entry page for the given entity (label -> value)
      * Skips hidden and non-edit fields
      * @param string $id
-     * @return type
+     * @return array
      */
     private function get_entry_tracking_info($id) {
         // Get definition of fields for entry page
-        $this->controller->load_mod('E_model', 'form_model', 'na', $this->config_source);
+        $this->controller->loadFormModel('na', $this->config_source);
         $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'load_key'));
 
-        $this->controller->load_lib('Entry_form', $form_def->specs, $this->config_source);
+        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
 
         // Get entry field values for this entity
-        $this->controller->load_mod('Q_model', 'input_model', 'entry_page', $this->config_source);
-        $field_values = $this->controller->input_model->get_item($id, $this->controller);
+        $input_model = $this->controller->getModel('Q_model', 'entry_page', $this->config_source);
+        $field_values = $input_model->get_item($id, $this->controller);
 
         // Get entity key field
         $primary_key = $form_def->load_key;
@@ -249,6 +249,8 @@ class Detail_report {
         // Get array of field labels associated with field values
         // Make sure the primary key field is first in list
         // However, if the primary key field is a non-edit field, do not add it
+
+        $entity_info = [];
 
         if (!in_array('hidden', $primaryKeyFieldTypes) && !in_array('non-edit', $primaryKeyFieldTypes)) {
             $entity_info[$form_def->specs[$primary_key]['label']] = $field_values[$primary_key];
@@ -293,14 +295,14 @@ class Detail_report {
     /**
      * Display contents of given script as graph
      * @param string $scriptName
-     * @param type $config_source
+     * @param string $config_source
      */
     function dot($scriptName, $config_source) {
         helper(['url', 'text', 'export']);
         $config_name = 'dot';
 
-        $this->controller->load_mod('Q_model', 'detail_model', $config_name, $config_source);
-        $result_row = array_change_key_case($this->controller->detail_model->get_item($scriptName, $this->controller), CASE_LOWER);
+        $this->controller->loadDataModel($config_name, $config_source);
+        $result_row = array_change_key_case($this->controller->data_model->get_item($scriptName, $this->controller), CASE_LOWER);
         $script = $result_row['contents'];
         $description = $result_row['description'];
 

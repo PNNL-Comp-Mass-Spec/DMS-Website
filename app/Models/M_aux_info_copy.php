@@ -5,9 +5,14 @@ use CodeIgniter\Model;
 
 class M_aux_info_copy extends Model {
 
-    function init_definitions() {
-        $this->my_tag = "aux_info_copy";
+    // I'm not sure how these are actually used, at least outside of this class... -- BCG
+    public $entry_page_data_cols;
+    public $entry_page_data_table;
+    public $entry_page_data_id_col;
+    public $form_fields;
+    public $entry_sproc;
 
+    function init_definitions() {
         // Query to get data for existing record in database for editing
         $this->entry_page_data_cols = "*";
         $this->entry_page_data_table = '';
@@ -87,14 +92,14 @@ class M_aux_info_copy extends Model {
     /**
      * Return an array from the form field specifications keyed by
      * field name and containing the field label as the value for the key
-     * @return type
+     * @return array
      */
-    function get_field_validation_fields() {
+    function get_field_validation_fields(): array {
         $x = array();
         foreach ($this->form_fields as $f_name => $f_spec) {
             $x[$f_name] = $f_spec["label"];
             if (array_key_exists('enable', $f_spec)) {
-                $x["${f_name}_ckbx"] = $f_spec["enable"];
+                $x["{$f_name}_ckbx"] = $f_spec["enable"];
             }
         }
         return $x;
@@ -102,12 +107,12 @@ class M_aux_info_copy extends Model {
 
     /**
      * Copy Aux Info values from one item to another
-     * @param type $parmObj
-     * @param type $command Action to perform; will always be 'CopyMode'
-     * @param type $sa_message
-     * @return type
+     * @param \stdClass $parmObj
+     * @param string $command Action to perform; will always be 'CopyMode'
+     * @param string $sa_message
+     * @return mixed
      */
-    function add_or_update($parmObj, $command, &$sa_message) {
+    function add_or_update(\stdClass $parmObj, string $command, &$sa_message) {
         $my_db = $this->db;
 
         // Use Sproc_sqlsrv with PHP 7 on Apache 2.4

@@ -18,13 +18,13 @@ use CodeIgniter\Database\SQLite3\Connection;
  *   - Stored-procedure specific arguments are added dynamically
  * @category Helper class
  */
-class Bound_arguments {
+class Bound_arguments extends \stdClass {
 
     var $retval = -1;
     var $mode = '';
     var $message = '';
     var $callingUser = '';
-
+    var $exec_result = null;
 }
 
 /**
@@ -46,9 +46,9 @@ class S_model extends Model {
 
     /**
      * Object that contains database-specific code used to actually access the stored procedure
-     * @var type
+     * @var \App\Libraries\Sproc_base
      */
-    private $sproc_handler = null;
+    private \App\Libraries\Sproc_base $sproc_handler;
 
     /**
      * Actual name of stored procedure
@@ -59,19 +59,19 @@ class S_model extends Model {
 
     /**
      * Definition of stored procedure arguments from config db
-     * @var type
+     * @var array
      */
     private $sproc_args = array();
 
     /**
      * Form fields from the config db
-     * @var type
+     * @var array
      */
     private $form_fields = array();
 
     /**
      * Database connection group from config db (general parameters table)
-     * @var type
+     * @var string
      */
     private $dbn = 'default';
 
@@ -83,15 +83,15 @@ class S_model extends Model {
 
     /**
      * Rowset returned by the stored procedure (null if none returned)
-     * @var type
+     * @var array
      */
     private $result_array = null;
 
     /**
      * Information about data columns in $result_array
-     * @var type
+     * @var array|null
      */
-    private $column_info = null;
+    private ?array $column_info = null;
     private $error_text = '';
 
     /**
@@ -109,11 +109,11 @@ class S_model extends Model {
 
     /**
      * Initialize objects
-     * @param type $config_name
-     * @param type $config_source
-     * @return boolean
+     * @param string $config_name
+     * @param string $config_source
+     * @return bool
      */
-    function init($config_name, $config_source = "ad_hoc_query") {
+    function init(string $config_name, string $config_source = "ad_hoc_query") {
         $this->error_text = '';
         try {
             $this->config_name = $config_name;
@@ -141,11 +141,11 @@ class S_model extends Model {
     /**
      * Initializes stored procedure, binds arguments to paramObj members and
      * local variables, and calls the stored procedure, returning the result
-     * @param stdClass $parmObj
-     * @return boolean
-     * @throws Exception
+     * @param \stdClass|null $parmObj
+     * @return bool
+     * @throws \Exception
      */
-    function execute_sproc($parmObj) {
+    function execute_sproc(?\stdClass $parmObj) {
         $this->error_text = '';
         helper(['string', 'database']);
 
@@ -162,36 +162,31 @@ class S_model extends Model {
             // This is doubled to 500 msec, then 1000, 2000, & 4000 msec if we end up retrying the connection
             $connectionSleepDelayMsec = 250;
 
+            $my_db = null;
             while ($connectionRetriesRemaining > 0) {
                 try {
+                    // Try to establish a connection to the database. Either returns BaseConnection object, or throws an exception
                     $my_db = \Config\Database::connect(GetNullIfBlank($this->dbn));
                     update_search_path($my_db);
 
-                    if ($my_db === false) {
-                        // \Config\Database::connect() normally returns a database object
-                        // But if an error occurs, it returns false?
-                        // Retry establishing the connection
-                        throw new \Exception('\Config\Database::connect returned false in S_model');
-                    } else {
-                        // Many functions check for and initialize the DB connection if not there,
-                        // but that leaves connection issues popping up in random places
-                        if (empty($my_db->connID)) {
-                            // $my_db->connID is normally an object
-                            // But if an error occurs or it disconnects, it is false/empty
-                            // Try initializing first
-                            $my_db->initialize();
-                        }
-
-                        if ($my_db->connID === false) {
-                            // $my_db->connID is normally an object
-                            // But if an error occurs, it is false
-                            // Retry establishing the connection
-                            throw new \Exception('$my_db->connID returned false in S_model');
-                        }
-
-                        // Exit the while loop
-                        break;
+                    // Many functions check for and initialize the DB connection if not there,
+                    // but that leaves connection issues popping up in random places
+                    if (empty($my_db->connID)) {
+                        // $my_db->connID is normally an object
+                        // But if an error occurs or it disconnects, it is false/empty
+                        // Try initializing first
+                        $my_db->initialize();
                     }
+
+                    if ($my_db->connID === false) {
+                        // $my_db->connID is normally an object
+                        // But if an error occurs, it is false
+                        // Retry establishing the connection
+                        throw new \Exception('$my_db->connID returned false in S_model');
+                    }
+
+                    // Exit the while loop
+                    break;
                 } catch (\Exception $ex) {
                     $errorMessage = $ex->getMessage();
                     log_message('error', "Exception connecting to DB group '$this->dbn' (calling sproc $this->sprocName): $errorMessage");
@@ -325,7 +320,7 @@ class S_model extends Model {
     }
 
     // --------------------------------------------------------------------
-    function get_filtered_rows($sorting_filter, $paging_filter) {
+    function get_filtered_rows(array $sorting_filter, array $paging_filter): array {
         $rows = $this->result_array;
 
         $table_sorter = new \App\Libraries\Table_sorter();
@@ -341,7 +336,7 @@ class S_model extends Model {
 
         if ($rows == null) {
             // No rows were returned by the database
-            return null;
+            return array();
         }
 
         $sortedRows = $table_sorter->sort_multi_col($rows, $sorting_filter);
@@ -355,15 +350,15 @@ class S_model extends Model {
     }
 
     // --------------------------------------------------------------------
-    function get_parameters() {
+    function get_parameters(): Bound_arguments {
         return $this->bound_calling_parameters;
     }
 
     /**
      * Return the column information that was cached from the last execute_sproc that returned a rowset
-     * @return type
+     * @return array
      */
-    function get_column_info() {
+    function get_column_info(): array {
         helper('cache');
 
         $col_info = array();
@@ -410,7 +405,7 @@ class S_model extends Model {
 
     /**
      * Return a list of fields for given sproc (minus the '<local>' fields)
-     * @return type
+     * @return array
      */
     function get_sproc_fields() {
         $fields = array();
@@ -431,10 +426,10 @@ class S_model extends Model {
     /**
      * Get a list of arguments for calling the stored procedure
      * based on configuration db definition and initialized from given param object
-     * @param type $parmObj
-     * @return \Bound_arguments
+     * @param Bound_arguments $parmObj
+     * @return Bound_arguments
      */
-    function get_calling_args($parmObj) {
+    function get_calling_args(Bound_arguments $parmObj): Bound_arguments {
         $callingParams = new Bound_arguments();
         foreach ($this->sproc_args as $arg) {
             $fn = ($arg['field'] == '<local>') ? $arg['name'] : $arg['field'];
@@ -451,9 +446,9 @@ class S_model extends Model {
     /**
      * Load the stored procedure arguments from table "sproc_args" in the model config DB
      * Also load the form fields from table "form_fields"
-     * @param type $config_name
+     * @param string $config_name
      */
-    private function get_sproc_args_and_form_fields($config_name) {
+    private function get_sproc_args_and_form_fields(string $config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
 
         // Get list of tables in database
@@ -518,14 +513,14 @@ class S_model extends Model {
     }
 
     // --------------------------------------------------------------------
-    private function set_my_sproc_handler($hndlr_class) {
+    private function set_my_sproc_handler(string $hndlr_class) {
         $sprocHandler = "\\App\\Libraries\\$hndlr_class";
         $this->sproc_handler = new $sprocHandler();
     }
 
     // --------------------------------------------------------------------
     private function _clear() {
-
+        $this->result_array = array();
     }
 
     // --------------------------------------------------------------------

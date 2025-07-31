@@ -13,12 +13,12 @@ class Table_sorter {
 
     /**
      * Sort a table on the given column
-     * @param type $table
-     * @param type $column
-     * @param type $dir
-     * @return type
+     * @param array $table
+     * @param mixed $column
+     * @param string $dir
+     * @return array
      */
-    function sort($table, $column, $dir = 'ASC') {
+    function sort(array $table, $column, $dir = 'ASC'): array {
         $this->column = $column;
         switch ($dir) {
             case 'ASC':
@@ -33,11 +33,11 @@ class Table_sorter {
 
     /**
      * Compare values for an ascending sort
-     * @param type $a
-     * @param type $b
+     * @param array $a
+     * @param array $b
      * @return int
      */
-    function compare_asc($a, $b) {
+    function compare_asc(array $a, array $b):int {
         if ($a[$this->column] == $b[$this->column]) {
             return 0;
         }
@@ -46,11 +46,11 @@ class Table_sorter {
 
     /**
      * Compare values for a descending sort
-     * @param type $a
-     * @param type $b
+     * @param array $a
+     * @param array $b
      * @return int
      */
-    function compare_desc($a, $b) {
+    function compare_desc(array $a, array $b): int {
         if ($a[$this->column] == $b[$this->column]) {
             return 0;
         }
@@ -59,11 +59,11 @@ class Table_sorter {
 
     /**
      * Sort a table on multiple columns
-     * @param type $table
-     * @param type $sort_filter
-     * @return type
+     * @param array $table
+     * @param array $sort_filter
+     * @return array
      */
-    function sort_multi_col($table, $sort_filter) {
+    function sort_multi_col(array $table, array $sort_filter): array {
 //print_r($sort_filter); echo '<hr>';
         $this->sort_filter = $sort_filter;
         usort($table, array($this, 'compare_multi_col'));
@@ -72,11 +72,11 @@ class Table_sorter {
 
     /**
      * Compare multiple columns while sorting
-     * @param type $a
-     * @param type $b
-     * @return type
+     * @param array $a
+     * @param array $b
+     * @return int
      */
-    function compare_multi_col($a, $b) {
+    function compare_multi_col(array $a, array $b): int {
 //print_r($a); echo '<br>---------<br>';print_r($b); echo '<hr>';
         // Initially presume the two values are equal
         $comparison = 0;

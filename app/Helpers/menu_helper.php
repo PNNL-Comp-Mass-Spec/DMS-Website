@@ -2,10 +2,10 @@
 
 /**
  * Make a menu that dynamically appears on the welcome page (https://dms2.pnl.gov/gen/welcome)
- * @param type $params
+ * @param array $params
  * @return string
  */
-function make_qs_fly_menu($params) {
+function make_qs_fly_menu(array $params): string {
     $num_menu_items = count($params['section_menu_items']);
     $s = '';
     $s .= "<div class='qs_menu fly_aspect'>\n";
@@ -33,10 +33,10 @@ function make_qs_fly_menu($params) {
 
 /**
  * Generate menus that dynamically appear on the welcome page (https://dms2.pnl.gov/gen/welcome)
- * @param type $section_defs
+ * @param array $section_defs
  * @return string
  */
-function make_fly_section_layout($section_defs) {
+function make_fly_section_layout(array $section_defs): string {
     $s = '';
     foreach ($section_defs as $section => $params) {
 //$params['section_comment']
@@ -49,10 +49,10 @@ function make_fly_section_layout($section_defs) {
 
 /**
  * Make the list of menus that dynamically appear on the welcome page (https://dms2.pnl.gov/gen/welcome)
- * @param type $section_defs
+ * @param array $section_defs
  * @return string
  */
-function make_fly_master_list($section_defs) {
+function make_fly_master_list(array $section_defs): string {
     $s = '';
     $s .= "<div>\n";
     foreach ($section_defs as $section => $params) {
@@ -69,11 +69,11 @@ function make_fly_master_list($section_defs) {
 
 /**
  * Append a dynamic menu item
- * @param type $params
- * @param type $i
- * @return type
+ * @param array $params
+ * @param string|int $i
+ * @return string
  */
-function make_qs_menu_item($params, $i) {
+function make_qs_menu_item(array $params, $i): string {
     $s = '';
     $page = $params['section_menu_items'][$i]['page'];
     $url = strncasecmp($page, "http", 4) ? site_url($page) : $page;
@@ -92,11 +92,11 @@ function make_qs_menu_item($params, $i) {
 
 /**
  * Append a dynamic menu section
- * @param type $params
- * @param type $default_num_revealed
+ * @param array $params
+ * @param int $default_num_revealed
  * @return string
  */
-function make_qs_section($params, $default_num_revealed = 2) {
+function make_qs_section(array $params, $default_num_revealed = 2): string {
     $num_menu_items = count($params['section_menu_items']);
     $num_revealed = ($default_num_revealed > $num_menu_items) ? $num_menu_items : $default_num_revealed;
     $sect_name = "b" . $params['section_number'];
@@ -138,10 +138,10 @@ function make_qs_section($params, $default_num_revealed = 2) {
 
 /**
  * Layout sections in grid
- * @param type $section_defs
+ * @param array $section_defs
  * @return string
  */
-function make_qs_layout($section_defs) {
+function make_qs_layout(array $section_defs): string {
     $sections = array_keys($section_defs);
     $num_sections = count($sections);
     $num_layout_columns = 2;
@@ -172,11 +172,11 @@ function make_qs_layout($section_defs) {
 /**
  * Build the side menu object tree
  * Called recursively, starting with function side_menu_objects in Gen.php calling this function with $mnu_name = ''
- * @param type $menu_items  Menu items for the current menu
- * @param type $mnu_name    Current menu's name (empty string for the top level)
- * @return \stdClass
+ * @param array $menu_items  Menu items for the current menu
+ * @param string $mnu_name    Current menu's name (empty string for the top level)
+ * @return array
  */
-function build_side_menu_object_tree($menu_items, $mnu_name) {
+function build_side_menu_object_tree(array $menu_items, string $mnu_name): array {
     $items = array();
     foreach ($menu_items as $entry) {
         if ($entry['owner_menu'] == $mnu_name) {
@@ -216,12 +216,12 @@ function build_side_menu_object_tree($menu_items, $mnu_name) {
 
 /**
  * Construct the navigation bar
- * @param type $menu_items
- * @param type $index
- * @param type $mnu_name
- * @param type $mnu_label
+ * @param array $menu_items
+ * @param int $index
+ * @param string $mnu_name
+ * @param string $mnu_label
  */
-function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '') {
+function nav_bar_layout(array $menu_items, int &$index = 0, string $mnu_name = '', string $mnu_label = '') {
     if ($mnu_name != '') {
         echo "<li><span><a onClick='navBar.expose_menu(\"ddm_$index\")' href='javascript:void(0);'>$mnu_label</a></span>\n";
         echo "<ul id='ddm_$index' class='ddm'>\n";
@@ -273,9 +273,9 @@ function nav_bar_layout($menu_items, &$index = 0, $mnu_name = '', $mnu_label = '
 
 /**
  * Make the version banner
- * @return type
+ * @return string
  */
-function make_version_banner() {
+function make_version_banner(): string {
     $s = '';
     $banner = config('App')->version_banner;
     $color = config('App')->version_color_code;
@@ -288,34 +288,36 @@ function make_version_banner() {
 
 /**
  * Get page-specific information necessary for drop-down menu bar
- * @param type $page_type
- * @return type
+ * @param string $page_type
+ * @param \App\Controllers\BaseController $controller
+ * @return array
  */
-function set_up_nav_bar($page_type, $controller) {
-    $controller->help_page_link = config('App')->pwiki . config('App')->wikiHelpLinkPrefix;
+function set_up_nav_bar(string $page_type, \App\Controllers\BaseController $controller): array {
+    $controller->setupHelpPageLink();
     helper(['dms_search']);
-    $controller->menu = model('\\App\\Models\\Dms_menu');
     return get_nav_bar_menu_items($page_type, $controller);
 }
 
 /**
  * Get the definition of the nav_bar menu and roll in the context-sensitive stuff
- * @param type $page_type
- * @return type
+ * @param string $page_type
+ * @param \App\Controllers\BaseController $controller
+ * @return array
  */
-function get_nav_bar_menu_items($page_type, $controller) {
+function get_nav_bar_menu_items(string $page_type, \App\Controllers\BaseController $controller): array {
     $menu_context = get_menu_context($page_type, $controller);
-    $nav_bar_menu_items = $controller->menu->get_menu_def("dms_menu.db", "nav_def");
+    $nav_bar_menu_items = $controller->getMenu()->get_menu_def("dms_menu.db", "nav_def");
     convert_context_sensitive_menu_items($nav_bar_menu_items, $menu_context);
     return $nav_bar_menu_items;
 }
 
 /**
  * Get menu context
- * @param type $page_type
- * @return string
+ * @param string $page_type
+ * @param \App\Controllers\BaseController $controller
+ * @return array
  */
-function get_menu_context($page_type, $controller) {
+function get_menu_context(string $page_type, \App\Controllers\BaseController $controller) {
     // We get context sensitive values from controller
 
     // Get array of context-sensitive values
@@ -377,10 +379,10 @@ function get_menu_context($page_type, $controller) {
 /**
  * Convert context-sensitive menu items in the input menu item def array
  * into simple links that are processable by nav_bar_layout
- * @param type $menu_items
- * @param type $context
+ * @param array $menu_items
+ * @param array $context
  */
-function convert_context_sensitive_menu_items(&$menu_items, $context) {
+function convert_context_sensitive_menu_items(array &$menu_items, array $context) {
     for ($i = 0; $i < count($menu_items); $i++) {
         switch ($menu_items[$i]['item_type']) {
             case 'link_context':

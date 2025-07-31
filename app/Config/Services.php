@@ -39,7 +39,7 @@ class Services extends BaseService
      *
      * @param boolean $getShared
      *
-     * @return RouteCollection
+     * @return \App\Services\RouteCollection
      */
     public static function routes(bool $getShared = true)
     {

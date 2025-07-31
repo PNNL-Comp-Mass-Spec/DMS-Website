@@ -12,25 +12,26 @@ class R_model extends Model {
     /**
      * Config type, e.g. na for list reports and detail reports;
      * helper_inst_group_dstype for http://dms2.pnl.gov/data/lr/ad_hoc_query/helper_inst_group_dstype/report
-     * @var type
+     * @var string
      */
-    private $config_name = '';
+    private string $config_name = '';
 
     /**
      * Data source, e.g. dataset, experiment, ad_hoc_query
-     * @var type
+     * @var string
      */
-    private $config_source = '';
+    private string $config_source = '';
 
     /**
      * Path to the model config database file
-     * @var type
+     * @var string
      */
-    private $configDBPath = "";
+    private string $configDBPath = "";
 
     private $list_report_hotlinks = array();
     private $detail_report_hotlinks = array();
     private $has_checkboxes = false;
+    private $error_text = '';
 
     // --------------------------------------------------------------------
     function __construct() {
@@ -44,7 +45,7 @@ class R_model extends Model {
      * @param string $config_name Config type; na for list reports and detail reports,
      *                            but a query name like helper_inst_group_dstype when the source is ad_hoc_query
      * @param string $config_source Data source, e.g. dataset, experiment, ad_hoc_query
-     * @return boolean
+     * @return bool
      */
     function init($config_name, $config_source) {
         try {
@@ -98,7 +99,7 @@ class R_model extends Model {
      * Read data from tables list_report_hotlinks and detail_report_hotlinks
      * in a model config database
      * @param string $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_general_defs($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
@@ -155,7 +156,7 @@ class R_model extends Model {
     /**
      * Read data from table utility_queries, for example, with the ad_hoc_query page family
      * @param string $config_name
-     * @throws Exception
+     * @throws \Exception
      */
     private function get_utility_defs($config_name) {
         $db = new Connection(['database' => $this->configDBPath, 'dbdriver' => 'sqlite3']);
@@ -169,7 +170,7 @@ class R_model extends Model {
         if (in_array('utility_queries', $tbl_list)) {
 
             $obj = $db->query("SELECT * FROM utility_queries WHERE name='$config_name'")->getRowObject();
-            if ($obj === false || is_null($obj)) {
+            if (is_null($obj)) {
                 throw new \Exception('Could not find query specs');
             }
 
@@ -199,6 +200,11 @@ class R_model extends Model {
     // --------------------------------------------------------------------
     function get_config_source() {
         return $this->config_source;
+    }
+
+    // --------------------------------------------------------------------
+    function get_error_text() {
+        return $this->error_text;
     }
 }
 ?>

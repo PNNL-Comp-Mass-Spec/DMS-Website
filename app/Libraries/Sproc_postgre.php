@@ -8,13 +8,17 @@ class Sproc_postgre extends Sproc_base {
      * binding arguments to fields in $input_params as defined by specifications in $args.
      * Returns results as fields in $input_params
      * @param string $sprocName Stored procedure name
-     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @param resource|object|string $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
-     * @throws Exception
+     * @throws \Exception
      */
     function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
+        if (is_resource($conn_id) || (!is_string($conn_id) && get_class($conn_id) !== 'PgSql\Connection')) {
+            throw new \Exception('Invalid value for $conn_id passed to method!');
+        }
+
         try {
             $this->executeInternal($sprocName, $conn_id, $args, $input_params, $formFields);
 
@@ -39,11 +43,11 @@ class Sproc_postgre extends Sproc_base {
      * binding arguments to fields in $input_params as defined by specifications in $args.
      * Returns results as fields in $input_params
      * @param string $sprocName Stored procedure or function name
-     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @param \PgSql\Connection|string $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
-     * @throws Exception
+     * @throws \Exception
      */
     private function executeInternal($sprocName, $conn_id, $args, $input_params, $formFields) {
         $input_params->retval = 0;
@@ -305,10 +309,10 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * Package results into array of arrays
-     * @param type $result
-     * @return type
+     * @param \PgSql\Result $result
+     * @return array
      */
-    private function get_rows($result) {
+    private function get_rows($result): array {
         $result_array = array();
         while ($row = pg_fetch_assoc($result)) {
             $result_array[] = $row;
@@ -320,8 +324,8 @@ class Sproc_postgre extends Sproc_base {
      * Determines if the stored procedure given by $sprocName on database connection $conn_id is actually a function
      * Returns 'f' for function, or 'p' for procedure, or 'u' for unknown/not found.
      * @param string $sprocName Stored procedure name
-     * @param resource $conn_id Database connection ID, from  $this->db->connID
-     * @throws Exception
+     * @param \PgSql\Connection|string $conn_id Database connection ID, from  $this->db->connID
+     * @throws \Exception
      */
     private function isSProcFunction($sprocName, $conn_id) {
         $schema = 'public';
@@ -355,10 +359,10 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * Convert metadata definitions to an associative array
-     * @param type $metadata
-     * @return \stdClass
+     * @param array $metadata
+     * @return array
      */
-    private function get_metadata_assoc($metadata)
+    private function get_metadata_assoc($metadata): array
     {
         $metadataAssoc = array();
         foreach ($metadata as $column) {
@@ -370,10 +374,10 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * This builds up column metadata definitions https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
-     * @param type $result
-     * @return \stdClass
+     * @param \PgSql\Result $result
+     * @return array
      */
-    private function extract_field_metadata($result) {
+    private function extract_field_metadata($result): array {
         // From comment at https://www.php.net/manual/en/function.pg-field-type.php
         $pg_to_php = array(
             'bit' => 'bit',
@@ -474,12 +478,12 @@ class Sproc_postgre extends Sproc_base {
     /**
      * Get the default value for a form field (if defined)
      * @param array $formFields
-     * @param type $formFieldName
-     * @param type $dataType
-     * @param type $valueDefined
-     * @return string|real|int
+     * @param string $formFieldName
+     * @param mixed $dataType
+     * @param mixed $valueDefined
+     * @return string|float|int
      */
-    private function getFormFieldDefaultValue($formFields, $formFieldName, $dataType, &$valueDefined) {
+    private function getFormFieldDefaultValue(array $formFields, string $formFieldName, $dataType, &$valueDefined) {
         $valueDefined = false;
 
         foreach ($formFields as $formField) {
@@ -489,7 +493,7 @@ class Sproc_postgre extends Sproc_base {
 
             $formFieldDefault = $formField['default'];
 
-            if (!empty($formFieldDefault) && $formFieldDefault !== '') {
+            if (!empty($formFieldDefault)) {
                 $valueDefined = true;
                 return $this->getValueToUse($dataType, $formFieldDefault);
             }
@@ -522,7 +526,7 @@ class Sproc_postgre extends Sproc_base {
     /**
      * Get default value for the given data type
      * @param string $dataType Data type
-     * @return string|real|int
+     * @return string|float|int|bool
      */
     private function getDefaultValue($dataType) {
         switch ($dataType) {
@@ -569,13 +573,13 @@ class Sproc_postgre extends Sproc_base {
 
     /**
      * If the value is numeric, format it by the given data type
-     * @param type $dataType
-     * @param type $value
-     * @return type
+     * @param string $dataType
+     * @param string $value
+     * @return mixed
      */
-    private function getValueToUse($dataType, $value) {
+    private function getValueToUse(string $dataType, string $value) {
 
-        if (!empty($value) && $value !== '') {
+        if (!empty($value)) {
             // Cast the value to the appropriate data type
             switch ($dataType) {
                 case 'integer':

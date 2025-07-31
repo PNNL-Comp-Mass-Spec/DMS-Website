@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Run_tracking extends DmsBase {
 
-    var $maxNormalInterval = 90;
+    private $maxNormalInterval = 90;
 
     function __construct()
     {
@@ -17,7 +17,7 @@ class Run_tracking extends DmsBase {
     private function check_initial_conditions()
     {
         // Get what we can from URL
-        $uri = $this->request->uri;
+        $uri = $this->request->getUri();
 
         // Don't trigger an exception if the segment index is too large
         $uri->setSilent();
@@ -44,7 +44,7 @@ class Run_tracking extends DmsBase {
         }
 
         // URL was incomplete - construct one and redirect to it
-        $ns = $this->request->uri->getTotalSegments();
+        $ns = $this->request->getUri()->getTotalSegments();
         if($ns < 5) {
             $url = $this->my_tag . "/cal/$instrument/$year/$month";
             redirect()->to(site_url($url));
@@ -79,9 +79,9 @@ class Run_tracking extends DmsBase {
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
 
         $prefs = $this->calendar_prefs($instrument);
-        $this->calendar = new \App\Libraries\Calendar($prefs);
+        $calendar = new \App\Libraries\Calendar($prefs);
 
-        $days_in_month = $this->calendar->get_total_days($month, $year);
+        $days_in_month = $calendar->get_total_days($month, $year);
 
         $calendarData = array();
         $data['rollup'] = '';
@@ -97,7 +97,8 @@ class Run_tracking extends DmsBase {
         }
         $data['calendarData'] = $calendarData;
 
-        $instruments = $this->get_instrument_list($year, $month);
+        //$instruments = $this->get_instrument_list($year, $month); // No fields on the table we query to allow filtering by month and year
+        $instruments = $this->get_instrument_list();
         $data['instrument_list'] = $this->make_instrument_selector($instruments, $instrument, $year, $month);
 
         $data['year'] = $year;
@@ -119,7 +120,7 @@ class Run_tracking extends DmsBase {
         // Link to ERS report report
         $data['ers_link'] = site_url("instrument_usage_report/report/$year/$month/$instrument");
 
-        $data['calendar'] = $this->calendar;
+        $data['calendar'] = $calendar;
 
         echo view('usage_tracking/cal2', $data);
     }
@@ -141,15 +142,15 @@ class Run_tracking extends DmsBase {
     private
     function get_run_info_3($instrument, $year, $month)
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
 
         $sql = <<<EOD
 SELECT *
 FROM  get_run_tracking_monthly_info('$instrument', '$year', '$month', '') AS GT
 EOD;
 // seq, id, dataset, day, duration, interval, time_start, time_end, instrument
-        $query = $this->db->query($sql);
+        $query = $db->query($sql);
         $result = $query->getResultArray();
         return $result;
     }
@@ -158,9 +159,9 @@ EOD;
     private
     function get_long_interval_threshold()
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
-        $query = $this->db->query('SELECT threshold_minutes as threshold FROM V_Long_Interval_Threshold');
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
+        $query = $db->query('SELECT threshold_minutes as threshold FROM V_Long_Interval_Threshold');
         $row = $query->getRow();
         return $row->threshold;
     }
@@ -169,10 +170,10 @@ EOD;
     private
     function get_instrument_list()
     {
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
         $sql = " SELECT * FROM V_Instrument_Tracked ORDER BY Reporting";
-        $query = $this->db->query($sql);
+        $query = $db->query($sql);
         $result = $query->getResultArray();
         return $result;
     }
@@ -374,11 +375,11 @@ EOD;
 
     // FUTURE: Move to helper or library
     // --------------------------------------------------------------------
-    private
-    function calendar_display($instrument, $year, $month, $calendarData)
-    {
-        echo $this->calendar->generate($year, $month, $calendarData);
-    }
+    //private
+    //function calendar_display($instrument, $year, $month, $calendarData)
+    //{
+    //    echo $calendar->generate($year, $month, $calendarData);
+    //}
 
     // FUTURE: Move to helper or library
     // --------------------------------------------------------------------

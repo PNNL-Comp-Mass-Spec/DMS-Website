@@ -26,8 +26,8 @@ class Column_filter {
     /**
      * Get current secondary filter values either from POST
      * or from cache storage (session)
-     * @param type $config_name
-     * @param type $config_source
+     * @param string $config_name
+     * @param string $config_source
      */
     function init($config_name, $config_source) {
         helper('cache');
@@ -57,7 +57,7 @@ class Column_filter {
     /**
      * Get current values for filtering columns if present in POST
      * Otherwise return false
-     * @return array
+     * @return array|false
      */
     private function get_current_filter_values_from_post() {
         // We need to be able to tell the difference between an empty post

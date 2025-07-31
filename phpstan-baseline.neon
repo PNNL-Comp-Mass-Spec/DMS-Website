@@ -1,0 +1,79 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^PHPDoc type array\<string, array\<int\<0, max\>\|string, array\<string, list\<string\>\|string\>\|string\>\> of property Config\\Filters\:\:\$globals is not covariant with PHPDoc type array\<string, array\<int\<0, max\>\|string, array\<string, string\>\|string\>\> of overridden property CodeIgniter\\Config\\Filters\:\:\$globals\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Config/Filters.php
+
+		-
+			message: '#^Argument \#1 \$name \(''Config\\\\Modules''\) passed to function config does not extend CodeIgniter\\\\Config\\\\BaseConfig\.$#'
+			identifier: codeigniter.configArgumentInstanceof
+			count: 1
+			path: app/Config/Services.php
+
+		-
+			message: '#^Call to function is_null\(\) with null will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Controllers/BaseController.php
+
+		-
+			message: '#^Parameter \#1 \$name of function model expects a valid class string, non\-falsy\-string given\.$#'
+			identifier: codeigniter.modelArgumentType
+			count: 1
+			path: app/Controllers/BaseController.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: app/Controllers/BaseController.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: app/Controllers/DmsBase.php
+
+		-
+			message: '#^Assigning ''\*\*\*\*\*\*\*\* \(masked by app/Controllers/Gen\.php\)'' directly on offset ''PHP_AUTH_PW'' of \$_SERVER is discouraged\.$#'
+			identifier: codeigniter.superglobalAccessAssign
+			count: 1
+			path: app/Controllers/Gen.php
+
+		-
+			message: '#^Assigning mixed directly on offset ''PHP_AUTH_PW'' of \$_SERVER is discouraged\.$#'
+			identifier: codeigniter.superglobalAccessAssign
+			count: 1
+			path: app/Controllers/Gen.php
+
+		-
+			message: '#^Call to an undefined method DOMNode\:\:getAttribute\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Helpers/export_helper.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 4
+			path: app/Helpers/export_helper.php
+
+		-
+			message: '#^Loose comparison using \=\= between ''Param_Pages'' and ''Param_Pages'' will always evaluate to true\.$#'
+			identifier: equal.alwaysTrue
+			count: 1
+			path: app/Libraries/Saved_settings.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: app/Libraries/Sproc_postgre.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: app/Libraries/Sproc_sqlsrv.php

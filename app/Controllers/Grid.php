@@ -20,7 +20,6 @@ class Grid extends DmsBase {
     {
         // Include the String operations methods
         helper(['form', 'string']);
-        $this->choosers = model('App\Models\Dms_chooser');
         $data = array();
         $data['title'] = $this->my_title;
         $data['nav_bar_menu_items']= $this->get_basic_nav_bar_items();
@@ -33,7 +32,7 @@ class Grid extends DmsBase {
         // That leads to $data['save_url'] = "https://dms2.pnl.gov/instrument_usage_report/operation"
         $data['save_url'] = ($save_url) ? site_url($save_url) : site_url($this->my_tag  . "operation");
 
-        $data['choosers'] = $this->choosers;
+        $data['choosers'] = $this->getChoosers();
 
         echo view("grid/".$view_name, $data);
     }
@@ -43,8 +42,8 @@ class Grid extends DmsBase {
     protected
     function grid_data_from_sproc($sproc_id, $config_db)
     {
-        $this->load_lib('Grid_data', $sproc_id, $config_db);
-        $response = $this->grid_data->get_sproc_data($this->request->getPost());
+        $grid_data = $this->getLibrary('Grid_data', $sproc_id, $config_db);
+        $response = $grid_data->get_sproc_data($this->request->getPost());
         echo json_encode($response);
     }
 
@@ -128,9 +127,9 @@ class Grid extends DmsBase {
     // --------------------------------------------------------------------
     function user_data() {
         $this->my_tag = "user";
-        $this->db = \Config\Database::connect();
-        $this->updateSearchPath($this->db);
-        $builder = $this->db->table("V_Users_Export");
+        $db = \Config\Database::connect();
+        $this->updateSearchPath($db);
+        $builder = $db->table("V_Users_Export");
         $builder->select('id, username, name, hanford_id, status, email, comment, created_dms as created');
         $userName = $this->request->getPost("userName");
         if(IsNotWhitespace($userName)) {

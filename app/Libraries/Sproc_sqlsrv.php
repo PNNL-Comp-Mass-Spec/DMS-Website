@@ -8,13 +8,17 @@ class Sproc_sqlsrv extends Sproc_base {
      * binding arguments to fields in $input_params as defined by specifications in $args.
      * Returns results as fields in $input_params
      * @param string $sprocName Stored procedure name
-     * @param resource $conn_id Database connection ID, from  $this->db->connID
+     * @param resource|object|string $conn_id Database connection ID, from  $this->db->connID
      * @param array $args Stored procedure arguments; see AddLocalArgument in Sproc_base or get_sproc_arg_defs in S_model
      * @param object $input_params
      * @param array $formFields Form fields
-     * @throws Exception
+     * @throws \Exception
      */
     function execute($sprocName, $conn_id, $args, $input_params, $formFields) {
+        if (!is_resource($conn_id)) {
+            throw new \Exception('Invalid value for $conn_id passed to method!');
+        }
+
         $input_params->retval = 0;
         //$sql = "{? = CALL ".$sprocName." ("; // for "call" syntax, which ignores parameter names (must supply empty items in the query for skipped parameters)
         $sql = "EXEC ? = " . $sprocName; // Syntax reference: https://docs.microsoft.com/en-us/sql/t-sql/language-elements/execute-transact-sql?view=sql-server-2017
@@ -120,8 +124,8 @@ class Sproc_sqlsrv extends Sproc_base {
 
     /**
      * Package results into array of arrays
-     * @param type $result
-     * @return type
+     * @param resource $result
+     * @return array
      */
     private function get_rows($result) {
         $result_array = array();
@@ -133,8 +137,8 @@ class Sproc_sqlsrv extends Sproc_base {
 
     /**
      * This builds up column metadata definitions https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
-     * @param type $result
-     * @return \stdClass
+     * @param resource $result
+     * @return array
      */
     private function extract_field_metadata($result) {
         // https://docs.microsoft.com/en-us/sql/connect/php/sqlsrv-field-metadata?view=sql-server-2017
@@ -162,7 +166,7 @@ class Sproc_sqlsrv extends Sproc_base {
             //3 => 'Smallmoney',
             -1 => 'text',
             -154 => 'time',
-            -2 => 'timestamp',
+            //-2 => 'timestamp',
             -6 => 'tinyint',
             -151 => 'udt',
             -11 => 'uniqueidentifier',

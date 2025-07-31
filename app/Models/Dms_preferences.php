@@ -191,8 +191,8 @@ class Dms_preferences extends Model {
 
     /**
      * Save the user preferences as a cookie
-     * @param type $ser_state Serialized state, or false if deleting the cookie
-     * @param type $cookie_life The number of seconds until expiration
+     * @param string|bool $ser_state Serialized state, or false if deleting the cookie
+     * @param string $cookie_life The number of seconds until expiration
      */
     function save_user_prefs_to_cookie($ser_state, $cookie_life = '2073600') {
         $user_name = get_user();

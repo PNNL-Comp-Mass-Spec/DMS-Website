@@ -7,16 +7,6 @@ namespace App\Controllers;
 
 class DmsBase extends BaseController
 {
-
-    var $my_tag = "";
-
-    /**
-     * An array of helpers to be loaded automatically upon
-     * class instantiation. These helpers will be available
-     * to all other controllers that extend DmsBase.
-     *
-     * @var array
-     */
     protected $helpers = ['url'];
 
     /**
@@ -31,14 +21,15 @@ class DmsBase extends BaseController
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
         // E.g.:
-        // $this->session = \Config\Services::session();
+        // $this->session = service('session');
 
     }
 
     // --------------------------------------------------------------------
-    function index()
+    public function index()
     {
-        $this->load_mod('G_model', 'gen_model', 'na', $this->my_tag);
+        $output_message = false;
+        $this->loadGeneralModel('na', $this->my_tag);
 
         if ($this->gen_model->error_text) {
             if ($output_message) {
@@ -70,22 +61,21 @@ class DmsBase extends BaseController
     /**
      * Create an entry page to make a new record in the database
      */
-    function create()
+    public function create()
     {
         $page_type = 'create';
         if (!$this->check_access('create')) {
             return;
         }
-        $this->load_lib('Entry', 'na', $this->my_tag);
-        $this->entry->create_entry_page($page_type);
+        $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
+        $entry->create_entry_page($page_type);
     }
 
     /**
      * Create an entry page to edit an existing record in the database
-     * @param type $id
-     * @return type
+     * @param string $id
      */
-    function edit($id = '')
+    public function edit($id = '')
     {
         if(!$id) {
             $this->message_box('Edit Error', 'No object ID was given');
@@ -95,21 +85,21 @@ class DmsBase extends BaseController
         if (!$this->check_access('enter')) {
             return;
         }
-        $this->load_lib('Entry', 'na', $this->my_tag);
-        $this->entry->create_entry_page($page_type);
+        $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
+        $entry->create_entry_page($page_type);
     }
 
     /**
      * Create or update entry in database from entry page form fields in POST:
      * @category AJAX
      */
-    function submit_entry_form()
+    public function submit_entry_form()
     {
         if (!$this->check_access('enter')) {
             return;
         }
-        $this->load_lib('Entry', 'na', $this->my_tag);
-        $this->entry->submit_entry_form();
+        $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
+        $entry->submit_entry_form();
     }
 
     // --------------------------------------------------------------------
@@ -119,26 +109,26 @@ class DmsBase extends BaseController
     /**
      * action for "report" format of list report
      */
-    function report()
+    public function report()
     {
         if (!$this->check_access('report')) {
             return;
         }
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->list_report('report');
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->list_report('report');
         return;
     }
 
     /**
      * Action for "search" version of list report
      */
-    function search()
+    public function search()
     {
         if (!$this->check_access('report')) {
             return;
         }
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->list_report('search');
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->list_report('search');
         return;
     }
 
@@ -148,63 +138,63 @@ class DmsBase extends BaseController
      * @param string $filter_display_mode
      * @category AJAX
      */
-    function report_filter($filter_display_mode = 'advanced')
+    public function report_filter($filter_display_mode = 'advanced')
     {
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->report_filter($filter_display_mode);
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->report_filter($filter_display_mode);
     }
 
     /**
      * Returns the HTML for a query filter comparison field selector for the given column name
-     * @param type $column_name
+     * @param string $column_name
      * @category AJAX
      */
-    function get_sql_comparison($column_name)
+    public function get_sql_comparison($column_name)
     {
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->get_sql_comparison($column_name);
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->get_sql_comparison($column_name);
     }
 
     /**
      * Returns HTML displaying the list report data rows for inclusion in list report page
-     * @param type $option
+     * @param string $option
      * @category AJAX
      */
-    function report_data($option = 'rows')
+    public function report_data($option = 'rows')
     {
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->report_data($option);
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->report_data($option);
     }
 
     /**
      * Returns HTML displaying supplemental information about page for inclusion in list report page
-     * @param type $what_info
+     * @param string $what_info
      * @category AJAX
      */
-    function report_info($what_info)
+    public function report_info($what_info)
     {
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->report_info($what_info);
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->report_info($what_info);
     }
 
     /**
      * returns HTML for the paging display and control element for inclusion in report pages
      * @category AJAX
      */
-    function report_paging()
+    public function report_paging()
     {
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->report_paging();
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->report_paging();
     }
 
     /**
      * Export list report
      * @param string $format
      */
-    function export($format)
+    public function export($format)
     {
-        $this->load_lib('List_report', 'list_report', $this->my_tag);
-        $this->list_report->export($format);
+        $list_report = $this->getLibrary('List_report', 'list_report', $this->my_tag);
+        $list_report->export($format);
     }
 
     // --------------------------------------------------------------------
@@ -212,40 +202,39 @@ class DmsBase extends BaseController
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------
-    function show($id)
+    public function show($id)
     {
         if (!$this->check_access('show')) {
             return;
         }
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->detail_report($id);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->detail_report($id);
     }
 
     /**
      * Show the data with minimal formatting (no headers, but does have "Edit, Copy and New")
      * For example http://dms2.pnl.gov/param_file/show_data/3287
      * Actual data loading occurs in method detail_report_data in file Detail_report.php
-     * @param type $id
+     * @param string $id
      */
-    function show_data($id)
+    public function show_data($id)
     {
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->detail_report_data($id);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->detail_report_data($id);
     }
 
     /**
      * Make a page to show a detailed report for the single record identified by the the user-supplied id
      * Typically accessed using a call like http://dms2.pnl.gov/param_file/show/3287
      * @param string $id
-     * @return type
      */
-    function detail_report($id)
+    public function detail_report($id)
     {
         if (!$this->check_access('show')) {
             return;
         }
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->detail_report($id);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->detail_report($id);
     }
 
     /**
@@ -253,13 +242,13 @@ class DmsBase extends BaseController
      * @param string $id
      * @category AJAX
      */
-    function detail_report_data($id)
+    public function detail_report_data($id)
     {
         $show_entry_links = $this->check_access('enter', false);
         $show_create_links = $this->check_access('create', false);
 
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->detail_report_data($id, $show_entry_links, $show_create_links);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->detail_report_data($id, $show_entry_links, $show_create_links);
     }
 
     /**
@@ -267,21 +256,21 @@ class DmsBase extends BaseController
      * @param string $id
      * @category AJAX
      */
-    function detail_sql($id)
+    public function detail_sql($id)
     {
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->detail_sql($id);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->detail_sql($id);
     }
 
     /**
      * Get aux info controls associated with specified entity
-     * @param type $id
+     * @param string $id
      * @category AJAX
      */
-    function detail_report_aux_info_controls($id)
+    public function detail_report_aux_info_controls($id)
     {
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->detail_report_aux_info_controls($id);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->detail_report_aux_info_controls($id);
     }
 
     /**
@@ -289,10 +278,10 @@ class DmsBase extends BaseController
      * @param string $id
      * @param string $format
      */
-    function export_detail($id, $format)
+    public function export_detail($id, $format)
     {
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->export_detail($id, $format);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->export_detail($id, $format);
     }
 
     /**
@@ -300,20 +289,20 @@ class DmsBase extends BaseController
      * @param string $id
      * @param string $format
      */
-    function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv")
+    public function export_spreadsheet($id, $format, $rowStyle = false, $ext = "tsv")
     {
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->export_spreadsheet($id, $format, $rowStyle, $ext);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->export_spreadsheet($id, $format, $rowStyle, $ext);
     }
 
     /**
      * Display contents of given script as graph
      * @param string $scriptName
      */
-    function dot($scriptName)
+    public function dot($scriptName)
     {
-        $this->load_lib('Detail_report', 'detail_report', $this->my_tag);
-        $this->detail_report->dot($scriptName, $this->my_tag);
+        $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
+        $detail_report->dot($scriptName, $this->my_tag);
     }
 
     // --------------------------------------------------------------------
@@ -324,29 +313,27 @@ class DmsBase extends BaseController
      * Sets up a page that contains an entry form defined by the
      * E_model for the config db which will be used to get data
      * rows in HTML via and AJAX call to the param_data function.
-     * @return type
      */
-    function param()
+    public function param()
     {
         if (!$this->check_access('param')) {
             return;
         }
-        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
-        $this->param_report->param();
+        $param_report = $this->getLibrary('Param_report', 'list_report_sproc', $this->my_tag);
+        $param_report->param();
     }
 
     /**
      * Returns HTML data row table of data returned by stored procedure
-     * @return type
      * @category AJAX
      */
-    function param_data()
+    public function param_data()
     {
         if (!$this->check_access('param')) {
             return;
         }
-        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
-        $this->param_report->param_data();
+        $param_report = $this->getLibrary('Param_report', 'list_report_sproc', $this->my_tag);
+        $param_report->param_data();
     }
 
     /**
@@ -354,41 +341,41 @@ class DmsBase extends BaseController
      * for inclusion in param report pages
      * @category AJAX
      */
-    function param_paging()
+    public function param_paging()
     {
-        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
-        $this->param_report->param_paging();
+        $param_report = $this->getLibrary('Param_report', 'list_report_sproc', $this->my_tag);
+        $param_report->param_paging();
     }
 
     /**
      * Returns HTML displaying supplemental information about page for inclusion in param report page
-     * @param type $what_info
+     * @param string $what_info
      * @category AJAX
      */
-    function param_info($what_info)
+    public function param_info($what_info)
     {
-        $this->load_lib('Param_report', 'param_report', $this->my_tag);
-        $this->param_report->param_info($what_info);
+        $param_report = $this->getLibrary('Param_report', 'param_report', $this->my_tag);
+        $param_report->param_info($what_info);
     }
 
     /**
      * Returns HTML for defining custom filters
      * @category AJAX
      */
-    function param_filter()
+    public function param_filter()
     {
-        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
-        $this->param_report->param_filter();
+        $param_report = $this->getLibrary('Param_report', 'list_report_sproc', $this->my_tag);
+        $param_report->param_filter();
     }
     // --------------------------------------------------------------------
     // Export param report
-    function export_param($format)
+    public function export_param($format)
     {
         if (!$this->check_access('param')) {
             return;
         }
-        $this->load_lib('Param_report', 'list_report_sproc', $this->my_tag);
-        $this->param_report->export_param($format);
+        $param_report = $this->getLibrary('Param_report', 'list_report_sproc', $this->my_tag);
+        $param_report->export_param($format);
     }
 
     // --------------------------------------------------------------------
@@ -397,14 +384,14 @@ class DmsBase extends BaseController
 
     /**
      * Invokes the stored procedure given by $sproc_name and returns simple JSON response.
-     * @param type $sproc_name
+     * @param string $sproc_name
      * @category AJAX
      */
-    function call($sproc_name = 'operations_sproc')
+    public function call($sproc_name = 'operations_sproc')
     {
-        $this->load_lib('Operation', 'na', $this->my_tag);
-        $response = $this->operation->internal_operation($sproc_name);
-//      $response->parms = $this->operation->get_params();
+        $operation = $this->getLibrary('Operation', 'na', $this->my_tag);
+        $response = $operation->internal_operation($sproc_name);
+//      $response->parms = $operation->get_params();
         echo json_encode($response);
     }
 
@@ -412,18 +399,18 @@ class DmsBase extends BaseController
     /**
      * Invokes the stored procedure given by $sproc_name and returns simple JSON response.
      * (someday) allow name of stored procedure to be passed as part of POST
-     * @param type $sproc_name
+     * @param string $sproc_name
      * @category AJAX
      */
-    function exec($sproc_name = 'operations_sproc')
+    public function exec($sproc_name = 'operations_sproc')
     {
 //      if(!$this->check_access('??')) return;
-//      $uri = $this->request->uri;
+//      $uri = $this->request->getUri();
 //      // Don't trigger an exception if the segment index is too large
 //      $uri->setSilent();
 //      $sproc_name = $uri->getSegment(3, '');
-        $this->load_lib('Operation', 'na', $this->my_tag);
-        $response = $this->operation->internal_operation($sproc_name);
+        $operation = $this->getLibrary('Operation', 'na', $this->my_tag);
+        $response = $operation->internal_operation($sproc_name);
         if($response->result == 0) {
             if (empty($response->message))
                 $response->message = "Operation was successful";
@@ -437,16 +424,15 @@ class DmsBase extends BaseController
 
     /**
      * Invokes the model's 'operation' stored procedure and returns simple text response.
-     * @return type
      * @category AJAX
      */
-    function operation()
+    public function operation()
     {
         if (!$this->check_access('operation')) {
             return;
         }
-        $this->load_lib('Operation', 'na', $this->my_tag);
-        $response = $this->operation->internal_operation('operations_sproc');
+        $operation = $this->getLibrary('Operation', 'na', $this->my_tag);
+        $response = $operation->internal_operation('operations_sproc');
         if($response->result != 0) {
             echo "Update failed. " . $response->message;
         } else {
@@ -460,16 +446,15 @@ class DmsBase extends BaseController
     /**
      * Invokes the model's 'operation' stored procedure and returns simple text response.
      * This is a thin wrapper over the internal function "internal_operation"
-     * @return type
      * @category AJAX
      */
-    function command()
+    public function command()
     {
         if (!$this->check_access('operation')) {
             return;
         }
-        $this->load_lib('Operation', 'na', $this->my_tag);
-        $response = $this->operation->internal_operation('operations_sproc');
+        $operation = $this->getLibrary('Operation', 'na', $this->my_tag);
+        $response = $operation->internal_operation('operations_sproc');
         if($response->result != 0) {
             echo "Update failed. " . $response->message;
         } else {
@@ -485,42 +470,41 @@ class DmsBase extends BaseController
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------
-    function get_basic_nav_bar_items()
+    public function get_basic_nav_bar_items()
     {
         helper(['user', 'dms_search', 'menu']);
-        $this->menu = model('App\Models\Dms_menu');
         return get_nav_bar_menu_items('', $this);
     }
 
     // --------------------------------------------------------------------
     // http://dmsdev.pnl.gov/controller/data/<output format>/<query name>/<filter value>/.../<filter value>
     // --------------------------------------------------------------------
-    function data()
+    public function data()
     {
         //Ensure a session is initialized
-        $session = \Config\Services::session();
+        $session = service('session');
 
-        $this->load_lib('General_query', '', ''); // $config_name, $config_source
-        $input_parms = $this->general_query->setup_query_for_dmsBase();
-        $this->general_query->output_result($input_parms->output_format);
+        $general_query = $this->getLibrary('General_query', '', ''); // $config_name, $config_source
+        $input_parms = $general_query->setup_query_for_dmsBase();
+        $general_query->output_result($input_parms->output_format);
     }
 
     /**
      * Clears cached session variables
      * (someday) handle param reports?
-     * @param type $page_type
+     * @param string $page_type
      * @category AJAX
      */
-    function defaults($page_type) //'Param_Pages''list_report_sproc'   'list_report'
+    public function defaults($page_type) //'Param_Pages''list_report_sproc'   'list_report'
     {
-        $this->saved_settings = new \App\Libraries\Saved_settings($this);
-        $this->saved_settings->defaults($page_type, $this->my_tag);
+        $saved_settings = new \App\Libraries\Saved_settings($this);
+        $saved_settings->defaults($page_type, $this->my_tag);
     }
 
     /**
      * RSS Feed (not implemented)
      */
-    function rss()
+    public function rss()
     {
         // (someday) make RSS export work or remove it
         echo "This is not implemented";
@@ -530,7 +514,7 @@ class DmsBase extends BaseController
      * Set custom list of columns to display for this list report
      * (implemented via a different mechanism)
      */
-    function columns()
+    public function columns()
     {
         echo "This is not implemented";
     }
@@ -539,7 +523,7 @@ class DmsBase extends BaseController
      * Show a help page
      * (implemented via a different mechanism)
      */
-    function help_page()
+    public function help_page()
     {
         echo "This is not implemented";
     }
@@ -548,10 +532,10 @@ class DmsBase extends BaseController
      * Show the contents of a variable using var_dump() but use html formatting
      * From: http://php.net/manual/en/function.var-dump.php
      * User: b dot bergloev at gmail dot com
-     * @param type $input
-     * @param type $collapse
+     * @param mixed $input
+     * @param bool $collapse
      */
-    static function var_dump_ex($input, $collapse=false) {
+    public static function var_dump_ex($input, $collapse=false) {
         $recursive = function($data, $level=0) use (&$recursive, $collapse) {
             global $argv;
 
