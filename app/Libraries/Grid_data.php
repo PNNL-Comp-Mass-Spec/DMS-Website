@@ -105,7 +105,7 @@ class Grid_data {
         if ($paramArray === false) {
             $paramArray = array();
         }
-        $paramObj = new \stdClass();
+        $paramObj = new \App\Models\Bound_arguments();
         foreach ($fields as $field) {
             $paramObj->$field = (array_key_exists($field, $paramArray)) ? $paramArray[$field] : '';
         }
