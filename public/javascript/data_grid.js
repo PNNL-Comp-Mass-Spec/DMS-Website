@@ -459,8 +459,8 @@ var mainGrid = {
         }
         var colDefs = this.buildColumns(this.staticColumns, false);
         this.container = $("<div id='" + this.internalContainerId + "' class='GridContainer'></div>");
-        this.grid = new Slick.Grid(this.container, [], colDefs, this.options);
         this.container.appendTo($('#' + this.externalContainerId));
+        this.grid = new Slick.Grid('#' + this.internalContainerId, [], colDefs, this.options);
         this.grid.init();
         this.grid.onCellChange.subscribe(this.getCellChangeHandler());
         if(this.editPermissionFilter) this.grid.onBeforeEditCell.subscribe(this.editPermissionFilter);
@@ -551,7 +551,7 @@ var mainGrid = {
         } else {
             colSpec.cssClass = 'nonEditable';
         }
-        colSpec.header = { menu: { items: menuItems } };
+        colSpec.header = { menu: { commandItems: menuItems } };
         return colSpec;
     },
     setDataRows: function (obj, reset) {
@@ -568,8 +568,8 @@ var mainGrid = {
     setColumnMenuCmds: function(colName, cmds, useSep) {
         var col = this.grid.getColumns()[this.grid.getColumnIndex(colName)];
         if(!col) return;
-        if(useSep) col.header.menu.items.push( { command:'', title:'-----' });
-        col.header.menu.items = $.merge(col.header.menu.items, cmds)
+        if(useSep) col.header.menu.commandItems.push( { command:'', title:'-----' });
+        col.header.menu.commandItems = $.merge(col.header.menu.commandItems, cmds)
     },
     registerColumnMenuCmdHandlers: function(handlers) {
         $.extend(this.headerUtil.commands, handlers);

@@ -54,7 +54,9 @@ var dmsOps = {
                 if(container) container.spin(false);
                 // Safety - if empty JSON response, return an empty array
                 var data = [];
-                if(json.length > 0) {
+                if (typeof json === 'object' && data !== null) {
+                    data = json;
+                } else if(json.length > 0) {
                     data = JSON.parse(json);
                 }
                 if(afterAction) {
