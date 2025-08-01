@@ -58,7 +58,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $colNumber = 1;
         foreach($cols as $header) {
             $autoSize[$colNumber - 1] = true;
-            $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
+            $cell = $worksheet->getCell([$colNumber, $rowNumber]);
             $cell->setValue($label_formatter->format($header));
             $cell->getStyle()->getFont()->setBold(true);
 
@@ -76,7 +76,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             foreach($cols as $header) {
                 $value = $row[$header];
                 if (isset($value)) {
-                    $cell = $worksheet->getCellByColumnAndRow($colNumber, $rowNumber);
+                    $cell = $worksheet->getCell([$colNumber, $rowNumber]);
 
                     if (preg_match('/##FORMAT_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]_\[([a-z0-9]+)\]##(.*)/i', $value, $matches)) {
                         if (strlen($matches[4]) > 0) {
@@ -118,7 +118,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         $worksheet->freezePane('A2');
 
         // Select cell A2
-        $worksheet->setSelectedCellByColumnAndRow(1, 2);
+        $worksheet->setSelectedCells([1, 2]);
 
         $endTime = hrtime(true);
         $elapsedTime = 'Elapsed time: ' . ($endTime - $startTime) / 1000000 . ' msec';
