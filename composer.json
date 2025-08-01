@@ -6,8 +6,8 @@
     "homepage": "https://dms2.pnl.gov",
     "require": {
         "php": "^8.2",
-        "codeigniter4/framework": "^4.6",
-        "phpoffice/phpspreadsheet": "^1.29.10"
+        "codeigniter4/framework": "^4.6.2",
+        "phpoffice/phpspreadsheet": "^1.29.12"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1",
