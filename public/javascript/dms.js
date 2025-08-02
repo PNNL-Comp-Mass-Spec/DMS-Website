@@ -312,9 +312,9 @@ var dmsjs = {
      */
     addCopyDataButton: function(data, buttonName, dataForClipboard, htmlForClipboard) {
 
-        // Note: Copy functionality is implemented in clipboard.min.js
-        // More info at https://www.npmjs.com/package/clipboard-js
-        // and at       https://github.com/lgarron/clipboard.js
+        // Note: Copy functionality is build-in on all supported browsers from 2020+
+        // We previously used clipboard-polyfill clipboard.min.js
+        // More info at https://github.com/lgarron/clipboard-polyfill
 
         data += "<br><button id='" + buttonName + "' class='copypath_btn'>Copy and close</button>";
 
@@ -324,7 +324,7 @@ var dmsjs = {
 
         // Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
         data += '$("#' + buttonName + '").on("click",function(e) { \n';
-        data += "    clipboard.write([new clipboard.ClipboardItem({\n";
+        data += "    navigator.clipboard.write([new ClipboardItem({\n";
         data += '      "text/html": new Blob(["'  + htmlForClipboard + '"], { type: "text/html" }), \n';
         data += '      "text/plain": new Blob(["' + dataForClipboard + '"], { type: "text/plain" })\n';
         data += "      })]); \n"
@@ -337,10 +337,10 @@ var dmsjs = {
          * and a Javascript promise
          *
             data += "document.getElementById('" + buttonName + "').addEventListener('click', function() {\n";
-            data += "  clipboard.write({\n";
-            data += "    'text/plain': \"" + dataForClipboard + "\",\n";
-            data += "    'text/html': \""  + htmlForClipboard + "\"\n";
-            data += "  }).then(\n";
+            data += "  navigator.clipboard.write([new ClipboardItem({\n";
+            data += '      "text/html": new Blob(["'  + htmlForClipboard + '"], { type: "text/html" }), \n';
+            data += '      "text/plain": new Blob(["' + dataForClipboard + '"], { type: "text/plain" })\n';
+            data += "  })]).then(\n";
             data += "    function(){console.log('success: " + buttonName + "');\n";
             data += "  }).then(\n";
             data += "    function(){if (dmsjs.dlgPopupInfo) { dmsjs.dlgPopupInfo.dialog('close'); }\n";

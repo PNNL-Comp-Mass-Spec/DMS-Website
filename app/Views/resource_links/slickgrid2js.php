@@ -13,5 +13,5 @@
 
 <?php // Include data_grid.js here to have a single reference point ?>
 <?php // Increment version number here to force clients to reload data_grid.js ?>
-<script src="<?= base_url('javascript/data_grid.js?version=101') ?>"></script>
+<script src="<?= base_url('javascript/data_grid.js?version=102') ?>"></script>
 
