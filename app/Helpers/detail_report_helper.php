@@ -209,7 +209,7 @@ function make_detail_table_data_rows(array $columns, array $fields, array $hotli
         foreach ($pathCopyData as $key => $value) {
             // Attach code to the JQuery dialog's .on("click") method (synonymous with .click())
             $scriptData .= '$("#copy-data-button' . $key . '").on("click",function(e) {';
-            $scriptData .= "    clipboard.writeText('$value'); ";
+            $scriptData .= "    navigator.clipboard.writeText('$value'); ";
             $scriptData .= "    console.log('success: copy-data-button$key'); ";
             $scriptData .= "  });\n";
 
@@ -218,10 +218,10 @@ function make_detail_table_data_rows(array $columns, array $fields, array $hotli
              * and a Javascript promise
              *
               $scriptData .= "document.getElementById('copy-data-button$key').addEventListener('click', function() {";
-              $scriptData .= "  clipboard.write({\n";
-              $scriptData .= "    'text/plain': '$value',\n";
-              // $scriptData .= "    'text/html': '$value'\n";
-              $scriptData .= "  }).then(\n";
+              $scriptData .= "  navigator.clipboard.write([new ClipboardItem({\n";
+              $scriptData .= "    'text/plain': new Blob(['$value'], {type: 'text/plain'}),\n";
+              // $scriptData .= "    'text/html': new Blob(['$value'], {type: 'text/html'})\n";
+              $scriptData .= "  })]).then(\n";
               $scriptData .= "    function(){console.log('success'); },\n";
               $scriptData .= "    function(err){console.log('failure', err);\n";
               $scriptData .= "  });\n";
