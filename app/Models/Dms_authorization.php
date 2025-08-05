@@ -102,8 +102,13 @@ EOD;
         if ($rows[0]['status'] != 'Active') {
             // User is inactive - automatically a guest
             $p[] = 'DMS_Guest';
+        } else
+        if (is_null($rows[0]['operations_list']) || !is_string($rows[0]['operations_list'])) {
+            // User is has no explicitly defined permissions - automatically a "DMS_User"
+            $p[] = 'DMS_User';
         } else {
             // User is in list and active, get their permissions
+            // $rows[0]['operations_list'] needs to not be null and a string
             $p = preg_split('/, */', $rows[0]['operations_list']);
 
             // Each user gets to have "DMS_User" permission automatically
