@@ -123,9 +123,9 @@ class Spreadsheet_loader {
 
             for ($j = 0; $j < $colCount; $j++) {
                 if (($i == $stripCharsLineNum && $j > 0) || $j == $stripCharsColNum) {
-                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_HIGH);
                 } else {
-                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH);
+                    $sanitized = filter_var(trim($this->ss_rows[$i][$j]), FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_ENCODE_HIGH);
                 }
 
                 if ($this->ss_rows[$i][$j] != $sanitized) {

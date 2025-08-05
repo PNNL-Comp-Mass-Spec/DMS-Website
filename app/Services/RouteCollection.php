@@ -158,7 +158,7 @@ class RouteCollection extends BaseRouteCollection
         // $name value with the name of the new controller.
         if (isset($options['controller']))
         {
-            $newName = ucfirst(filter_var($options['controller'], FILTER_SANITIZE_STRING));
+            $newName = ucfirst(filter_var($options['controller'], FILTER_SANITIZE_SPECIAL_CHARS));
         }
 
         $uriPrefix = $prefix . '/';

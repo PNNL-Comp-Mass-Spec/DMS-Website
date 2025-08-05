@@ -278,7 +278,7 @@ class Entry {
             $supplement = $this->supplement_msg($message, 'error');
 
             // Read the value of $_POST['entry_cmd_mode']
-            $entryCmdMode = filter_input(INPUT_POST, 'entry_cmd_mode', FILTER_SANITIZE_STRING);
+            $entryCmdMode = filter_input(INPUT_POST, 'entry_cmd_mode', FILTER_SANITIZE_SPECIAL_CHARS);
 
             // Add or update the mode property of the input params
             if (empty($entryCmdMode)) {
