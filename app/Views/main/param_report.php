@@ -80,8 +80,8 @@ echo view("main/param_report_export");
 <?php echo view('resource_links/base2js') ?>
 
 <?php if($list_report_cmds != ""): ?>
-    <?php // Import jquery.flot.js ?>
-    <?php echo view('resource_links/flot') ?>
+    <?php // Import echarts.min.js ?>
+    <?php echo view('resource_links/echarts') ?>
 
     <?php // Import lcmd.js ?>
     <?php echo view('resource_links/lcmd') ?>

@@ -1,0 +1,4 @@
+Download from 'dist' folder in repo at https://github.com/apache/echarts
+
+Version:
+6.0.0

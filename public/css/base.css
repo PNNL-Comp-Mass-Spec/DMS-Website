@@ -611,12 +611,3 @@ div.block_content {
 .sel_chooser {
 	min-width:105px;
 }
-
-/*
- * https://github.com/flot/flot/issues/1708
- */
-.legendLayer .background {
-fill: rgba(255, 255, 255, 0.85);
-stroke: rgba(0, 0, 0, 0.85);
-stroke-width: 1;
-}

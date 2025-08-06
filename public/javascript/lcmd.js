@@ -430,44 +430,65 @@ var lcmd = {
             });
         },
         draw_graph: function(rows) {
-            var caption = "Dataset Acquisition/Interval Time For " + $('#instrumentName').val() + " From " + $('#startDate').val() + " To " + $('#endDate').val()
+            var caption = "Dataset Acquisition/Interval Time For " + $('#instrument_name').val() + " From " + $('#start_date').val() + " To " + $('#end_date').val()
             $('#caption_container').html(caption);
-            var dataSeriesSet = lcmd.dataset_instrument_runtime.make_data_series_from_column(rows, "Duration") ;
-            var graphFormatting = lcmd.dataset_instrument_runtime.set_graph_format();
+            // Create a bar chart using Apache ECharts...
+            var dataSeriesSet = lcmd.dataset_instrument_runtime.make_data_series_from_column(rows, "duration") ;
+            var options = lcmd.dataset_instrument_runtime.set_graph_options(dataSeriesSet);
             $('#graph_container').show();
-            var f = $.plot($('#graph_container'), dataSeriesSet, graphFormatting);
+            var chartDom = document.getElementById('graph_container');
+            var plot = echarts.init(chartDom);
+            options && plot.setOption(options);
         },
         make_data_series_from_column: function(rows, colName) {
             var intervalSeries = [];
             var acquistionSeries = [];
             var index = 0;
-            $.each(rows, function(idx, obj) {
+            var yMax = 0;
+            rows.forEach(function(obj) {
                     var val = obj[colName];
-                    if(obj["Seq"] > 0) {
-                        if(obj["Dataset"] == "Interval") {
+                    yMax = Math.max(yMax, val);
+                    if(obj["seq"] > 0) {
+                        if(obj["dataset"] == "Interval") {
                             var item = [];
                             item.push(index++);
                             item.push(val);
+                            item.push(obj);
                             intervalSeries.push(item);
                         } else {
                             var item = [];
                             item.push(index++);
                             item.push(val);
+                            item.push(obj);
                             acquistionSeries.push(item);
                         }
                     }
                 }
             );
-            return [
-                { label: "Acquisition Time", color: '#0000ff', bars: { show: true, barWidth: 0.5 }, data: acquistionSeries },
-                { label: "Interval Time", color: '#ff0000', bars: { show: true, barWidth: 0.5 }, data: intervalSeries }
-            ];
-        },
-        set_graph_format: function() {
+            // Note: this is actually unused, because the tooltip type is set to 'axis'; this will be used if the type is changed to 'item'
+            var toolTipFormat = { formatter: function(d) { return '' + d.value[2]['dataset'] + '<br />Duration (minutes): ' + d.value[1] + '<br />ID: ' + d.value[2]['id'] + '<br />Time: ' + d.value[2]['time_start'] + ' - ' + d.value[2]['time_end']; } };
+            // barGap is set to -100% to make ECharts treat the series as an overlapping series, because it wants to always group bars into categories...
             return {
-                yaxis: { min: 0 },
-        // See https://github.com/flot/flot/issues/1708 for current issue with legend background
-                legend: { show: true, backgroundColor: '#ffffff' }
+                dataYmax : yMax,
+                dataXmax : index - 1,
+                series: [
+                    { name: "Acquisition Time", color: '#0000ff', type: 'bar', barGap: '-100%', barCategoryGap: 0, tooltip: toolTipFormat, data: acquistionSeries },
+                    { name: "Interval Time"   , color: '#ff0000', type: 'bar', barGap: '-100%', barCategoryGap: 0, tooltip: toolTipFormat, data: intervalSeries }
+                ]
+            };
+        },
+        set_graph_options: function(seriesData) {
+            var yMax = Math.round(seriesData.dataYmax * 1.10);
+            return {
+                yAxis: { type: 'value', min: 0, max: yMax },
+                legend: { orient: 'vertical', right: '20', top: '20', align: 'left', backgroundColor: '#ffffff', borderColor: '#000000', borderWidth: 2 },
+                xAxis: { type: 'value', max: seriesData.dataXmax + 1, boundaryGap: false },
+                grid: { top: '10', bottom: '0', left: '25', right: '0', show: true},
+                animation: false,
+                tooltip: { trigger: 'axis', axisPointer: { type: 'line', axis: 'x' }, formatter: function(d) { return '' + d[0].data[2]['dataset'] + '<br />Duration (minutes): ' + d[0].data[1] + '<br />ID: ' + d[0].data[2]['id'] + '<br />Time: ' + d[0].data[2]['time_start'] + ' - ' + d[0].data[2]['time_end']; } },
+                toolbox: { show: true, itemSize: 20, feature: { dataZoom: { show: true }, restore: {} }, right: 200 },
+                dataZoom: [ { type: 'inside' } ],
+                series: seriesData.series
             };
         }
     }
