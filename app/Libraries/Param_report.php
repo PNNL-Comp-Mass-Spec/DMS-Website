@@ -67,7 +67,14 @@ class Param_report {
         $data['list_report_cmds'] = $this->controller->gen_model->get_param('list_report_cmds');
         $data['is_ms_helper'] = $this->controller->gen_model->get_param('is_ms_helper');
         $data['has_checkboxes'] = $this->controller->gen_model->get_param('has_checkboxes');
-        $data['ops_url'] = site_url($this->controller->gen_model->get_param('list_report_cmds_url'));
+
+        $opsUrl = '';
+        $opsUrlRelPath = $this->controller->gen_model->get_param('list_report_cmds_url');
+        if (!is_null($opsUrlRelPath) && $opsUrlRelPath !== false) {
+            $opsUrl = site_url($opsUrlRelPath);
+        }
+
+        $data['ops_url'] = $opsUrl;
 
         $data['check_access'] = [$this->controller, 'check_access'];
         $data['choosers'] = $this->controller->getChoosers();
