@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^PHPDoc type array\<string, array\<int\<0, max\>\|string, array\<string, list\<string\>\|string\>\|string\>\> of property Config\\Filters\:\:\$globals is not covariant with PHPDoc type array\<string, array\<int\<0, max\>\|string, array\<string, string\>\|string\>\> of overridden property CodeIgniter\\Config\\Filters\:\:\$globals\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Config/Filters.php
-
-		-
 			message: '#^Argument \#1 \$name \(''Config\\\\Modules''\) passed to function config does not extend CodeIgniter\\\\Config\\\\BaseConfig\.$#'
 			identifier: codeigniter.configArgumentInstanceof
 			count: 1
