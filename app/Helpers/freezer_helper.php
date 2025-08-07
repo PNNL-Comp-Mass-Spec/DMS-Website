@@ -44,11 +44,11 @@ function render_location_contents(array $location, array $contents): string {
 function make_freezer_matrix_array(array $locs): array {
     $fzr = array();
     foreach ($locs as $loc) {
-        $status = $loc['Status'];
+        $status = $loc['status'];
         $active_desc = "<span style='color:green;'>$status</span>";
         $inactive_desc = "";
         $desc = ($status == 'Active') ? $active_desc : $inactive_desc;
-        $fzr[$loc['Shelf']][$loc['Rack']][$loc['Row']][$loc['Col']] = $desc;
+        $fzr[$loc['shelf']][$loc['rack']][$loc['row']][$loc['col']] = $desc;
     }
     return $fzr;
 }

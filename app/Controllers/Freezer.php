@@ -182,10 +182,10 @@ class Freezer extends DmsBase {
 
         // Populate array of storage locations
         $sql = "";
-        $sql .= "SELECT DISTINCT Location, Freezer, Shelf, Rack ";
-        $sql .= "FROM V_Material_Location_List_Report ";
-        $sql .= "WHERE Status = 'Active' ";
-        $sql .= "ORDER BY Location, Freezer, Shelf, Rack";
+        $sql .= "SELECT DISTINCT location, freezer, shelf, rack ";
+        $sql .= "FROM v_material_location_list_report ";
+        $sql .= "WHERE status = 'Active' ";
+        $sql .= "ORDER BY location, freezer, shelf, rack";
         //
         $result = $db->query($sql);
         //
@@ -199,7 +199,7 @@ class Freezer extends DmsBase {
         $storage = array();
         $rows = $result->getResultArray();
         foreach($rows as $r) {
-            $storage[$r['Freezer']][$r['Shelf']][$r['Rack']] = '' ;
+            $storage[$r['freezer']][$r['shelf']][$r['rack']] = '' ;
         }
 
         $data['content'] = '';
@@ -267,19 +267,19 @@ class Freezer extends DmsBase {
 
         // Populate array of storage locations
         $sql = "";
-        $sql .= "SELECT Freezer, Shelf, Rack, Row, Col, Location, Available ";
-        $sql .= "FROM V_Material_Location_List_Report ";
-        $sql .= "WHERE Status = 'Active' ";
+        $sql .= "SELECT freezer, shelf, rack, row, col, location, available ";
+        $sql .= "FROM v_material_location_list_report ";
+        $sql .= "WHERE status = 'Active' ";
         if($freezer_spec) {
-            $sql .= "AND Freezer LIKE '%$freezer_spec%' ";
+            $sql .= "AND freezer LIKE '%$freezer_spec%' ";
         }
         if($shelf_spec) {
-            $sql .= "AND Shelf = '$shelf_spec' ";
+            $sql .= "AND shelf = '$shelf_spec' ";
         }
         if($rack_spec) {
-            $sql .= "AND Rack = '$rack_spec' ";
+            $sql .= "AND rack = '$rack_spec' ";
         }
-        $sql .= "ORDER BY Freezer, Shelf, Rack, Row, Col ";
+        $sql .= "ORDER BY freezer, shelf, rack, row, col ";
         //
         $result = $db->query($sql);
         //
@@ -292,21 +292,21 @@ class Freezer extends DmsBase {
         $storage = array();
         $rows = $result->getResultArray();
         foreach($rows as $r) {
-            $storage[$r['Freezer']][$r['Shelf']][$r['Rack']][$r['Row']][$r['Col']] = array( 'Location' => $r['Location'], 'Available' => $r['Available']) ;
+            $storage[$r['freezer']][$r['shelf']][$r['rack']][$r['row']][$r['col']] = array( 'Location' => $r['location'], 'Available' => $r['available']) ;
         }
 
         // Populate array of location contents
         $sql = "";
-        $sql .= "SELECT Container, Location, Comment ";
-        $sql .= "FROM V_Material_Container_Locations ";
+        $sql .= "SELECT container, location, comment ";
+        $sql .= "FROM v_material_container_locations ";
         if($freezer_spec) {
-            $sql .= "WHERE Freezer_Tag LIKE '%$freezer_spec%' ";
+            $sql .= "WHERE freezer_tag LIKE '%$freezer_spec%' ";
         }
         if($shelf_spec) {
-            $sql .= "AND (Shelf = '$shelf_spec') ";
+            $sql .= "AND (shelf = '$shelf_spec') ";
         }
         if($rack_spec) {
-            $sql .= "AND (Rack = '$rack_spec') ";
+            $sql .= "AND (rack = '$rack_spec') ";
         }
         //
         $result = $db->query($sql);
@@ -320,7 +320,7 @@ class Freezer extends DmsBase {
         $contents = array();
         $rows = $result->getResultArray();
         foreach($rows as $r) {
-            $contents[$r['Location']][] = array( 'Container' => $r['Container'], 'Comment' => $r['Comment']);
+            $contents[$r['location']][] = array( 'Container' => $r['container'], 'Comment' => $r['comment']);
         }
 
         $data['storage'] = $storage;
@@ -359,11 +359,11 @@ class Freezer extends DmsBase {
 
         // Get list of rows and columns for given freezer
         $sql = "";
-        $sql .= "SELECT Location_ID AS ID, Location, Shelf, Rack, Row, Col, Status ";
-        $sql .= "FROM V_Material_Locations ";
-        $sql .= "WHERE Freezer_Tag LIKE '%$freezer_spec%' ";
-        $sql .= "AND NOT Row = 'na' AND NOT Col = 'na' ";
-        $sql .= "ORDER BY Shelf, Rack, Row, Col ";
+        $sql .= "SELECT location_id AS id, location, shelf, rack, row, col, status ";
+        $sql .= "FROM v_material_locations ";
+        $sql .= "WHERE freezer_tag LIKE '%$freezer_spec%' ";
+        $sql .= "AND NOT Row = 'na' AND NOT col = 'na' ";
+        $sql .= "ORDER BY shelf, rack, row, col ";
         $rc_result = $db->query($sql);
         if(!$rc_result) {
             $currentTimestamp = date("Y-m-d");
