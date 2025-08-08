@@ -79,7 +79,7 @@ class Dms_chooser extends Model {
             switch ($this->choices[$chooser_name]["type"]) {
                 case "select":
                     if ($include_prompt) {
-                        $opt1ions[""] = "-- choices --";
+                        $options[""] = "-- choices --";
                     }
                     foreach ($this->choices[$chooser_name]["value"] as $k => $v) {
                         $options[$k] = $v;
