@@ -390,7 +390,13 @@ class Q_model extends Model {
             $query = $this->get_rows('filtered_only');
 
             // Get single row from results
-            return $query->getRowArray();
+            $data = $query->getRowArray();
+            if (is_null($data))
+            {
+                $data = array();
+            }
+
+            return $data;
         }
     }
 

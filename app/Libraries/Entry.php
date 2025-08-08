@@ -43,64 +43,26 @@ class Entry {
     function create_entry_page($page_type) {
         helper(['entry_page', 'url']);
 
-        // General specifications for page family
-        $this->controller->loadGeneralModel('na', $this->config_source);
+        // Get id/initial field values from segments
+        $segments = array_slice(getCurrentUriDecodedSegments(), 2); // remove controller and function segments
 
-        // Make entry form object using form definitions from model
-        $this->controller->loadFormModel('na', $this->config_source);
-        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'entry_commands', 'enable_spec'));
-        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
-        //
-        $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
+        $entryData = $this->create_entry_data($page_type, $segments);
 
-        // Determine the page mode ('add' or 'update')
-        $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
-
-        // Get initial field values and merge them with form object
-        $segs = array_slice(getCurrentUriDecodedSegments(), 2); // remove controller and function segments
-        $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields, $this->controller);
-
-        if (empty($initial_field_values)) {
-            if ($page_type == 'edit') {
-                if (count($segs) > 0) {
-                    $this->controller->message_box('Edit Error', "Entity '$segs[0]' not found");
-                } else {
-                    $this->controller->message_box('Edit Error', "Entity ID not specified for editing");
-                }
-                return;
-            }
-        } else {
-            foreach ($initial_field_values as $field => $value) {
-
-                // Entry views in DMS can append __NoCopy__ to a field when we do not want the field value to be copied to new entries
-                // For example, see V_Sample_Prep_Request_Entry
-                if (EndsWith($value, '__NoCopy__')) {
-                    if (substr($mode, 0, 3) === 'add') {
-                        // Creating a new item (either from scratch or by copying an existing item)
-                        // Blank out the field
-                        $value = '';
-                    } else {
-                        // Editing an item; remove the NoCopy flag
-                        $value = substr($value, 0, strlen($value) - strlen('__NoCopy__'));
-                    }
-                }
-
-                $this->controller->entry_form->set_field_value($field, $value);
-            }
+        if (!$entryData->success)
+        {
+            $this->controller->message_box('Edit Error', $entryData->editError);
+            return;
         }
-
-        // Handle special field options for entry form object
-        $this->handle_special_field_options($form_def, $mode);
 
         // Build page display components and load page
         $data['tag'] = $this->tag;
         $data['my_tag'] = $this->controller->my_tag;
         $data['title'] = $this->controller->gen_model->get_page_label($this->title, $page_type);
-        $data['form'] = $this->controller->entry_form->build_display($mode);
-        $data['entry_cmds'] = $this->handle_cmd_btns($this->controller, $form_def->entry_commands, $page_type);
+        $data['form'] = $this->controller->entry_form->build_display($entryData->mode);
+        $data['entry_cmds'] = $this->handle_cmd_btns($this->controller, $entryData->form_def->entry_commands, $page_type);
         $data['entry_submission_cmds'] = $this->controller->gen_model->get_param('entry_submission_cmds');
         $data['page_type'] = $page_type;
-        $data['url_segments'] = implode('/', $segs);
+        $data['url_segments'] = implode('/', $segments);
 
         helper(['menu', 'link_util']);
         $data['nav_bar_menu_items'] = set_up_nav_bar('Entry_Pages', $this->controller);
@@ -113,7 +75,7 @@ class Entry {
      * @param string $page_type
      * @param string $id
      */
-    function create_entry_json($page_type, $id = '') {
+    public function create_entry_json($page_type, $id = '') {
         \Config\Services::response()->setContentType("application/json");
         echo json_encode($this->create_entry_array($page_type, $id));
     }
@@ -125,8 +87,33 @@ class Entry {
      * @param string $id
      * @return array
      */
-    function create_entry_array($page_type, $id = '') : array {
+    public function create_entry_array($page_type, $id = '') : array {
+        $segments = array();
+        if ($page_type == 'edit') {
+            $segments[] = $id;
+        }
+
+        $entryData = $this->create_entry_data($page_type, $segments);
+
+        if (!$entryData->success)
+        {
+            return array("error" => $entryData->editError);
+        }
+
+        // Build page data into an array
+        return $entryData->entry_form->build_entry_array($entryData->mode);
+    }
+
+    /**
+     * Make an entry page object that can be populated for creating a new entry, or edited for updating an entry
+     * The entry data is later submitted via POST call from website (AJAX) or REST (api_create POST, api_update PUT/PATCH/POST)
+     * @param string $page_type
+     * @param array $segments URL segments; can be empty if $page_type = 'create'; if $page_type = 'edit', must not be empty, and $segments[0] needs to be an entity ID value
+     * @return \stdClass
+     */
+    private function create_entry_data($page_type, array $segments) : \stdClass {
         helper(['entry_page', 'url']);
+        $entryData = new \stdClass();
 
         // General specifications for page family
         $this->controller->loadGeneralModel('na', $this->config_source);
@@ -142,15 +129,18 @@ class Entry {
         $mode = $this->controller->entry_form->get_mode_from_page_type($page_type);
 
         // Get initial field values and merge them with form object
-        $segs = array();
-        if ($page_type == 'edit') {
-            $segs[] = $id;
-        }
-        $initial_field_values = get_initial_values_for_entry_fields($segs, $this->config_source, $form_def->fields, $this->controller);
+        $initial_field_values = get_initial_values_for_entry_fields($segments, $this->config_source, $form_def->fields, $this->controller);
 
         if (empty($initial_field_values)) {
             if ($page_type == 'edit') {
-                return array("error" => "Entity with id '$id' does not exist.");
+                $entryData->success = false;
+                $entryData->editError = '';
+                if (count($segments) > 0) {
+                    $entryData->editError = "Entity with ID '$segments[0]' not found";
+                } else {
+                    $entryData->editError = "Entity ID not specified for editing";
+                }
+                return $entryData;
             }
         } else {
             foreach ($initial_field_values as $field => $value) {
@@ -175,10 +165,13 @@ class Entry {
         // Handle special field options for entry form object
         $this->handle_special_field_options($form_def, $mode);
 
-        // Build page display components and load page
-        $data = $this->controller->entry_form->build_entry_array($mode);
+        // Store the return data in an object
+        $entryData->success = true;
+        $entryData->entry_form = $this->controller->entry_form;
+        $entryData->form_def = $form_def;
+        $entryData->mode = $mode;
 
-        return $data;
+        return $entryData;
     }
 
     /**
@@ -273,7 +266,7 @@ class Entry {
         $validation = $resultData->validation;
         $outcome = $resultData->outcome;
         $resultType = 'success';
-        
+
         if (!$resultData->success)
         {
             $resultType= 'error';
@@ -311,7 +304,7 @@ class Entry {
      * @param string $id
      * @return \stdClass Object with necessary information to generate an appropriate response object
      */
-    private function submit_entry_data(array $data, string $mode, string $id = '') {
+    private function submit_entry_data(array $data, string $mode, string $id = ''): \stdClass {
         helper(['entry_page']);
 
         $this->controller->loadFormModel('na', $this->config_source);
