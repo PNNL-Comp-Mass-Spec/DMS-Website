@@ -177,10 +177,13 @@ abstract class BaseController extends Controller
             return true;
         }
         // Dynamically load and initialize the model
+        // @phpstan-ignore codeigniter.modelArgumentType
         $local_ref = model('App\\Models\\'.$model_name);
+        // @phpstan-ignore function.alreadyNarrowedType
         if (is_null($local_ref)) {
             return false;
         }
+        // @phpstan-ignore deadCode.unreachable
         if (method_exists($local_ref, 'init')) {
             return $local_ref->init($config_name, $config_source);
         } else {

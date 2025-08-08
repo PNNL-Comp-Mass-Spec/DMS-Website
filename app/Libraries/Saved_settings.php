@@ -44,6 +44,7 @@ class Saved_settings {
             $secondary_filter = $this->controller->getLibrary('Secondary_filter', $config_name, $config_source);
             $secondary_filter->clear_cached_state();
         } else
+        // @phpstan-ignore equal.alwaysTrue
         if ($page_type == 'Param_Pages') {
             $this->controller->loadSprocModel($config_name, $config_source);
             $this->controller->sproc_model->clear_cached_state();

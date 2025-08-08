@@ -3,6 +3,7 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseService;
+use Config\Modules;
 use CodeIgniter\Config\Services as AppServices;
 
 /**
@@ -48,7 +49,7 @@ class Services extends BaseService
             return static::getSharedInstance('routes');
         }
 
-        return new \App\Services\RouteCollection(AppServices::locator(), config(Modules::class), config(Routing::class));
+        return new \App\Services\RouteCollection(AppServices::get('locator'), new Modules(), config(Routing::class));
     }
 
     public static function xss_security($getShared = true)

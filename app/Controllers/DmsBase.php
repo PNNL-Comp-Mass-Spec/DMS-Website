@@ -28,13 +28,13 @@ class DmsBase extends BaseController
     // --------------------------------------------------------------------
     public function index()
     {
-        $output_message = false;
+        //$output_message = false;
         $this->loadGeneralModel('na', $this->my_tag);
 
         if ($this->gen_model->error_text) {
-            if ($output_message) {
-                $this->message_box('Error', $this->gen_model->error_text);
-            }
+            //if ($output_message) {
+            //    $this->message_box('Error', $this->gen_model->error_text);
+            //}
 
             // Failed to load G_model for page; just do the original action
             return redirect()->to(site_url($this->my_tag.'/report'));

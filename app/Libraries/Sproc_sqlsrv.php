@@ -84,6 +84,7 @@ class Sproc_sqlsrv extends Sproc_base {
             }
 
             // Change this to true to see additional debug messages
+            // @phpstan-ignore if.alwaysFalse
             if (false) {
                 $msg = $msg . "\n" . $sql;
                 //$msg = $msg."\nretval (SQLSRV_PARAM_OUT)";

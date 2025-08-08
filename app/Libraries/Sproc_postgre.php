@@ -210,6 +210,7 @@ class Sproc_postgre extends Sproc_base {
                 }
 
                 // Change this to true to see additional debug messages
+                // @phpstan-ignore if.alwaysFalse
                 if (false) {
                     $msg = $msg . "\n" . $sql;
                     foreach ($params as $param) {

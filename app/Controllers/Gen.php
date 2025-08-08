@@ -203,15 +203,16 @@ class Gen extends BaseController
 
         if (array_key_exists ('PHP_AUTH_PW' , $serverVars )) {
             $savedPassword = $serverVars["PHP_AUTH_PW"];
-            $_SERVER["PHP_AUTH_PW"] = "******** (masked by app/Controllers/Gen.php)";
+            \Config\Services::superglobals()->setServer('PHP_AUTH_PW', '******** (masked by app/Controllers/Gen.php)');
         }
 
+        // If PHP_AUTH_PW exists in $_SERVER, we need to blank it out before this call to not expose their password
         echo phpinfo();
 
         DmsBase::var_dump_ex($_SERVER);
 
         if (strlen($savedPassword) > 0) {
-            $_SERVER["PHP_AUTH_PW"] = $savedPassword;
+            \Config\Services::superglobals()->setServer('PHP_AUTH_PW', $savedPassword);
         }
 
     }

@@ -459,7 +459,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
             if (get_class($dependency) != 'DOMElement') {
                 continue;
             }
-            $step_number = $dependency->parentNode->getAttribute('Number');
+            $step_number = $dependency->parentElement->getAttribute('Number');
             $target_step_number = $dependency->getAttribute('Step_Number');
             $test = $dependency->getAttribute('Test');
             // $value = $dependency->getAttribute('Value');
@@ -540,6 +540,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 foreach($aux_info as $item) {
                     $line = '';
 
+                    // @phpstan-ignore booleanNot.alwaysFalse
                     if (!$firstItem) {
                         $prevCategory = $item['category'];
                         $prevSubCategory = $item['subcategory'];
@@ -598,6 +599,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 foreach($aux_info as $row) {
                     $line = '';
 
+                    // @phpstan-ignore booleanNot.alwaysFalse
                     if (!$firstRow) {
                         $prevCategory = $row['category'];
                         $prevSubCategory = $row['subcategory'];
@@ -683,6 +685,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 foreach($aux_info as $item) {
                     $line = '';
 
+                    // @phpstan-ignore booleanNot.alwaysFalse
                     if (!$firstItem) {
                         $prevCategory = $item['category'];
                         $prevSubCategory = $item['subcategory'];
@@ -749,6 +752,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
                 foreach($aux_info as $item) {
                     $line = '';
 
+                    // @phpstan-ignore booleanNot.alwaysFalse
                     if (!$firstItem) {
                         $prevCategory = $item['category'];
                         $prevSubCategory = $item['subcategory'];
