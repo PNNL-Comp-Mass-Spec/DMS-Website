@@ -11,6 +11,8 @@ class Entry_form {
     private $field_values = array();
     private $field_enable = array();
     private $field_errors = array();
+    private $field_errors_plain = array();
+    private int $field_errors_plain_count = 0;
 
     /**
      * Flag for showing the help links on the entry form
@@ -42,7 +44,10 @@ class Entry_form {
         foreach ($this->form_field_specs as $fldName => $spc) {
             $this->field_values[$fldName] = $this->get_default_value($this->controller, $fldName, $spc);
             $this->field_errors[$fldName] = '';
+            $this->field_errors_plain[$fldName] = '';
         }
+
+        $this->field_errors_plain_count = 0;
     }
 
     /**
@@ -99,8 +104,12 @@ class Entry_form {
     }
 
     // --------------------------------------------------------------------
-    function set_field_error($field, $error) {
+    function set_field_error($field, $error, $errorPlain = '') {
         $this->field_errors[$field] = $error;
+        $this->field_errors_plain[$field] = $errorPlain;
+        if ($errorPlain !== '') {
+            $this->field_errors_plain_count++;
+        }
     }
 
     // --------------------------------------------------------------------
@@ -216,6 +225,15 @@ class Entry_form {
         helper(['url', 'text', 'form']);
 
         $data = array();
+        // Check for and output errors first
+        if ($this->field_errors_plain_count > 0) {
+            foreach (array_keys($this->form_field_specs) as $fldName) {
+                $error = $this->field_errors_plain[$fldName];
+                if ($error !== '') {
+                    $data['error_' . $fldName] = $error;
+                }
+            }
+        }
         foreach ($this->form_field_specs as $fldName => $spec) {
             if (!array_key_exists('type', $spec)) {
                 continue;

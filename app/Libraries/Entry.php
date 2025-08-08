@@ -243,7 +243,9 @@ class Entry {
 
         // Get entry form object and use to to build and return HTML for form
         $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
-        $formData = $this->make_entry_form_HTML($input_params, $form_def, $validation);
+        $this->process_submission_results($input_params, $form_def, $validation);
+        // Build HTML
+        $formData = $this->controller->entry_form->build_display($mode);
         echo $outcome;
         echo $formData;
         echo $supplement;
@@ -274,7 +276,8 @@ class Entry {
 
         // Get entry form object and use to to build and return array for form
         $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
-        $reportData = $this->make_entry_report_array($input_params, $form_def, $validation);
+        $this->process_submission_results($input_params, $form_def, $validation);
+        $reportData = $this->controller->entry_form->build_entry_array($mode);
         $result = array(
             'result' => $resultType,
             'message' => $outcome
@@ -402,12 +405,12 @@ class Entry {
     }
 
     /**
-     * Get entry form builder object and use it to make HTML
+     * Process submission output and prepare submission report data
      * @param \stdClass $input_params
      * @param \stdClass $form_def
      * @param ValidationInterface $validation
      */
-    protected function make_entry_form_HTML(\stdClass $input_params, \stdClass $form_def, ValidationInterface $validation) {
+    protected function process_submission_results(\stdClass $input_params, \stdClass $form_def, ValidationInterface $validation) {
         helper('form');
 
         // Handle special field options for entry form object
@@ -425,46 +428,9 @@ class Entry {
 
             $this->controller->entry_form->set_field_value($field, $input_params->$field);
             $fieldError = validation_error_format($validation, $field, '<span class="bad_clr">', '</span>');
-            $this->controller->entry_form->set_field_error($field, $fieldError);
+            $fieldErrorPlain = $validation->getError($field);
+            $this->controller->entry_form->set_field_error($field, $fieldError, $fieldErrorPlain);
         }
-
-        // Build HTML and return it
-        return $this->controller->entry_form->build_display($mode);
-    }
-
-    /**
-     * Get entry form builder object and use it to make HTML
-     * @param \stdClass $input_params
-     * @param \stdClass $form_def
-     * @param ValidationInterface $validation
-     * @return array
-     */
-    protected function make_entry_report_array(\stdClass $input_params, \stdClass $form_def, ValidationInterface $validation) : array {
-        // Handle special field options for entry form object
-        $mode = (property_exists($input_params, 'mode')) ? $input_params->mode : '';
-        $this->handle_special_field_options($form_def, $mode);
-        $errors = array();
-
-        // Update entry form object with field values
-        // and any field validation errors
-        foreach ($form_def->fields as $field) {
-            if(property_exists($input_params, $field) === false)
-            {
-                // The field is not defined as a property in the $input_params class
-                continue;
-            }
-
-            $this->controller->entry_form->set_field_value($field, $input_params->$field);
-            $fieldError = $validation->getError($field);
-
-            if ($fieldError !== '')
-            {
-                $errors["error_$field"] = $fieldError;
-            }
-        }
-
-        $data = $this->controller->entry_form->build_entry_array($mode);
-        return array_merge($errors, $data);
     }
 
     /**
