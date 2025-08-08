@@ -220,79 +220,39 @@ class Entry {
      *  and success/failure messages
      * @category AJAX
      */
-    function submit_entry_form() {
-        helper(['entry_page']);
-
-        $this->controller->loadFormModel('na', $this->config_source);
-        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
-        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
-
+    public function submit_entry_form() {
         $request = \Config\Services::request();
         $postData = $request->getPost();
-        $preformat = new \App\Libraries\ValidationPreformat();
-        $postData = $preformat->run($postData, $form_def->rules);
 
-        $validation = \Config\Services::validation();
-        $validation->setRules($form_def->rules);
-        $valid_fields = $validation->run($postData);
+        // Read the value of $_POST['entry_cmd_mode']
+        $mode = \Config\Services::request()->getPost('entry_cmd_mode');
 
-        // Get field values from validation object
-        $input_params = new \stdClass();
-        foreach ($form_def->fields as $field) {
-            if (array_key_exists($field, $postData) === false) {
-                // The form field is not in the POST data
-                // For checkbox fields, if a checkbox is unchecked, it will not be in $postData
-                // See, for example, https://dmsdev.pnl.gov/analysis_job_request_psm/create
-                
-                // The analysis_job_request_psm page also has a form field named 'ignore_me',
-                // which is a placeholder for the "Get suggested values" link; this field is also not in $postData
-                continue;
-            }
+        $resultData = $this->submit_entry_data($postData, $mode);
+        $input_params = $resultData->input_params;
+        $form_def = $resultData->form_def;
+        $validation = $resultData->validation;
+        $message = $resultData->message;
+        $outcomeText = $resultData->outcome;
+        $outcome = '';
+        $supplement = '';
 
-            $input_params->$field = $postData[$field];
-        }
-        try {
-            if (!$valid_fields) {
-                throw new \Exception('There were validation errors');
-            }
-
-            $mode = \Config\Services::request()->getPost('entry_cmd_mode');
-            // $msg is an output parameter of call_stored_procedure
-            $msg = '';
-            $this->call_stored_procedure($input_params, $form_def, $mode, $msg);
-
-            // Everything worked - compose tidings of joy
+        if ($resultData->success)
+        {
             $ps_links = $this->get_post_submission_link($input_params);
-            $message = 'Operation was successful';
-            if (empty($msg)) {
-                $outcome = $this->outcome_msg($message, 'normal');
-            } else {
-                // Define $outcome as "Operation was successful: message"
-                $outcome = $this->outcome_msg($message . ": " . $msg, 'normal');
-            }
+            $outcome = $this->outcome_msg($outcomeText, 'normal');
             $supplement = $this->supplement_msg($message . $ps_links, 'normal');
-        } catch (\Exception $e) {
-            // Something broke - compose expressions of regret
-            $message = $e->getMessage();     // . " (page family: $this->tag)";
-            $outcome = $this->outcome_msg($message, 'failure');
-            $supplement = $this->supplement_msg($message, 'error');
-
-            // Read the value of $_POST['entry_cmd_mode']
-            $entryCmdMode = filter_input(INPUT_POST, 'entry_cmd_mode', FILTER_SANITIZE_SPECIAL_CHARS);
-
-            // Add or update the mode property of the input params
-            if (empty($entryCmdMode)) {
-                $input_params->mode = 'retry';
-            } else {
-                $input_params->mode = $entryCmdMode;
-            }
+        }
+        else
+        {
+            $outcome = $this->outcome_msg($outcomeText, 'failure');
+            $supplement = $this->supplement_msg($outcomeText, 'error');
         }
 
         // Get entry form object and use to to build and return HTML for form
         $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
-        $data['form'] = $this->make_entry_form_HTML($input_params, $form_def, $validation);
+        $formData = $this->make_entry_form_HTML($input_params, $form_def, $validation);
         echo $outcome;
-        echo $data['form'];
+        echo $formData;
         echo $supplement;
     }
 
@@ -300,93 +260,26 @@ class Entry {
      *  Create or update entry in database from entry page form fields in POST:
      *  use entry form definition from config db
      *  validate entry form information, submit to database if valid,
-     *  and return HTML containing entry form with updated values
+     *  and return JSON containing entry data with updated values
      *  and success/failure messages
      * @param array $data
      * @param string $mode
      * @param string $id
      */
-    function submit_entry_json(array $data, string $mode, string $id = '') {
-        helper(['entry_page']);
-
-        $this->controller->loadFormModel('na', $this->config_source);
-        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
-        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
-
-        $request = \Config\Services::request();
-        $postData = $data;
-        //$this->controller->getLogger()->info(print_r($postData, true));
-        $preformat = new \App\Libraries\ValidationPreformat();
-        $postData = $preformat->run($postData, $form_def->rules);
-
-        //$this->controller->getLogger()->info(print_r($postData, true));
-        //foreach ($postData as $key => $value)
-        //{
-        //    $this->controller->getLogger()->info("$key: $value");
-        //    if (is_null($value))
-        //    {
-        //        $postData[$key] = "";
-        //    }
-        //}
-        //$this->controller->getLogger()->info(print_r($postData, true));
-
-        $validation = \Config\Services::validation();
-        $validation->setRules($form_def->rules);
-
-        $resultType = "";
-        $input_params = new \stdClass();
-        try {
-            $valid_fields = $validation->run($postData);
-
-            // Get field values from validation object
-            foreach ($form_def->fields as $field) {
-                if (array_key_exists($field, $postData) === false) {
-                    // The form field is not in the POST data
-                    // For checkbox fields, if a checkbox is unchecked, it will not be in $postData
-                    // See, for example, https://dmsdev.pnl.gov/analysis_job_request_psm/create
-                
-                    // The analysis_job_request_psm page also has a form field named 'ignore_me',
-                    // which is a placeholder for the "Get suggested values" link; this field is also not in $postData
-                    continue;
-                }
-
-                $input_params->$field = $postData[$field];
-            }
-
-            if (!$valid_fields) {
-                throw new \Exception('There were validation errors');
-            }
-
-            // $msg is an output parameter of call_stored_procedure
-            $msg = '';
-            $this->call_stored_procedure($input_params, $form_def, $mode, $msg);
-
-            // Everything worked - compose tidings of joy
-            $resultType = 'success';
-            $message = 'Operation was successful';
-            if (empty($msg)) {
-                $outcome = $message;
-            } else {
-                // Define $outcome as "Operation was successful: message"
-                $outcome = $message . ": " . $msg;
-            }
-        } catch (\Exception $e) {
-            // Something broke - compose expressions of regret
-            $resultType = 'error';
-            $outcome = $e->getMessage();
-
-            // Use the 'mode' provided in the method call
-            $entryCmdMode = $mode;
-
-            // Add or update the mode property of the input params
-            if (empty($entryCmdMode)) {
-                $input_params->mode = 'retry';
-            } else {
-                $input_params->mode = $entryCmdMode;
-            }
+    public function submit_entry_json(array $data, string $mode, string $id = '') {
+        $resultData = $this->submit_entry_data($data, $mode, $id);
+        $input_params = $resultData->input_params;
+        $form_def = $resultData->form_def;
+        $validation = $resultData->validation;
+        $outcome = $resultData->outcome;
+        $resultType = 'success';
+        
+        if (!$resultData->success)
+        {
+            $resultType= 'error';
         }
 
-        // Get entry form object and use to to build and return HTML for form
+        // Get entry form object and use to to build and return array for form
         $this->controller->loadEntryFormLibrary($form_def->specs, $this->config_source);
         $reportData = $this->make_entry_report_array($input_params, $form_def, $validation);
         $result = array(
@@ -407,12 +300,111 @@ class Entry {
         echo json_encode(array_merge($result, $reportData));
     }
 
+    /**
+     *  Create or update entry in database from entry page form fields (from POST data):
+     *  use entry form definition from config db
+     *  validate entry form information, submit to database if valid,
+     *  and return data object containing updated values for entry form
+     *  and success/failure messages
+     * @param array $data
+     * @param string $mode
+     * @param string $id
+     * @return \stdClass Object with necessary information to generate an appropriate response object
+     */
+    private function submit_entry_data(array $data, string $mode, string $id = '') {
+        helper(['entry_page']);
+
+        $this->controller->loadFormModel('na', $this->config_source);
+        $form_def = $this->controller->form_model->get_form_def(array('fields', 'specs', 'rules', 'enable_spec'));
+        $form_def->field_enable = $this->get_field_enable($form_def->enable_spec);
+
+        $postData = $data;
+        $preformat = new \App\Libraries\ValidationPreformat();
+        $postData = $preformat->run($postData, $form_def->rules);
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($form_def->rules);
+
+        $resultData = new \stdClass();
+        $input_params = new \stdClass();
+        $outcome = '';
+        try {
+            $valid_fields = $validation->run($postData);
+
+            // Get field values from validation object
+            foreach ($form_def->fields as $field) {
+                if (array_key_exists($field, $postData) === false) {
+                    // The form field is not in the POST data
+                    // For checkbox fields, if a checkbox is unchecked, it will not be in $postData
+                    // See, for example, https://dmsdev.pnl.gov/analysis_job_request_psm/create
+
+                    // The analysis_job_request_psm page also has a form field named 'ignore_me',
+                    // which is a placeholder for the "Get suggested values" link; this field is also not in $postData
+                    continue;
+                }
+
+                $input_params->$field = $postData[$field];
+            }
+
+            if (!$valid_fields) {
+                throw new \Exception('There were validation errors');
+            }
+
+            // $msg is an output parameter of call_stored_procedure
+            $msg = '';
+            $this->call_stored_procedure($input_params, $form_def, $mode, $msg);
+
+            // Everything worked - compose tidings of joy
+            $message = 'Operation was successful';
+            $resultData->message = $message;
+            if (empty($msg)) {
+                $outcome = $message;
+            } else {
+                // Define $outcome as "Operation was successful: message"
+                $outcome = $message . ": " . $msg;
+            }
+            $resultData->success = true;
+        } catch (\Exception $e) {
+            // Something broke - compose expressions of regret
+            $outcome = $e->getMessage();     // . " (page family: $this->tag)";
+            $resultData->message = $outcome;
+
+            // Use the 'mode' provided in the method call
+            // Add or update the mode property of the input params
+            if (empty($mode)) {
+                $input_params->mode = 'retry';
+            } else {
+                $input_params->mode = $mode;
+            }
+            $resultData->success = false;
+        }
+
+        $resultData->outcome = $outcome;
+        $resultData->input_params = $input_params;
+        $resultData->form_def = $form_def;
+        $resultData->validation = $validation;
+
+        return $resultData;
+    }
+
     // --------------------------------------------------------------------
-    private function outcome_msg($message, $option) {
+    /**
+     * Create the primary outcome message
+     * @param string $message
+     * @param string $option
+     * @return string
+     */
+    private function outcome_msg($message, $option): string {
         return entry_outcome_message($message, $option, 'main_outcome_msg');
     }
 
-    private function supplement_msg($message, $option) {
+    /**
+     * Create the supplemental outcome message
+     * @param string $message
+     * @param string $option
+     * @return string
+     */
+    private function supplement_msg($message, $option): string {
         return entry_outcome_message($message, $option, 'supplement_outcome_msg');
     }
 
@@ -433,7 +425,7 @@ class Entry {
         // and any field validation errors
         foreach ($form_def->fields as $field) {
             if(property_exists($input_params, $field) === false)
-            { 
+            {
                 // The field is not defined as a property in the $input_params class
                 continue;
             }
@@ -464,7 +456,7 @@ class Entry {
         // and any field validation errors
         foreach ($form_def->fields as $field) {
             if(property_exists($input_params, $field) === false)
-            { 
+            {
                 // The field is not defined as a property in the $input_params class
                 continue;
             }
