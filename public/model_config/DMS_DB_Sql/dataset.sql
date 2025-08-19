@@ -26,7 +26,7 @@ INSERT INTO form_fields VALUES(9,'well','Well Number','text','24','50','','','na
 INSERT INTO form_fields VALUES(10,'dataset_type','Dataset Type','text','25','80','','','','trim|required|max_length[50]');
 INSERT INTO form_fields VALUES(11,'operator_username','Operator','text','20','80','','','','trim|required|max_length[24]');
 INSERT INTO form_fields VALUES(12,'comment','Comment','area','','','4','70','','trim|max_length[512]');
-INSERT INTO form_fields VALUES(13,'dataset_rating','Dataset Rating','text','25','80','','','Unreviewed','trim|default_value[Unknown]|required|max_length[32]');
+INSERT INTO form_fields VALUES(13,'dataset_rating','Dataset Rating','text','35','80','','','Unreviewed','trim|default_value[Unknown]|required|max_length[32]');
 INSERT INTO form_fields VALUES(14,'request_id','Request','text','12','24','','','','trim|required');
 INSERT INTO form_fields VALUES(15,'eus_usage_type','EMSL Usage Type','text','50','50','','','(lookup)','trim|max_length[50]|not_contain[(unknown)]');
 INSERT INTO form_fields VALUES(16,'eus_proposal_id','EMSL Proposal ID','text','10','10','','','(lookup)','trim|max_length[10]');
