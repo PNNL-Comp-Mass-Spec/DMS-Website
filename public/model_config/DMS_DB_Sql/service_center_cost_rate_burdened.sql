@@ -1,0 +1,15 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('list_report_data_table','v_service_cost_rate_burdened_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_col','cost_group_id, funding_agency, service_type_id');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
+CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
+INSERT INTO list_report_hotlinks VALUES(1,'cost_group_id','invoke_entity','value','service_center_cost_rate/report','');
+INSERT INTO list_report_hotlinks VALUES(2,'service_type_id','invoke_entity','value','service_center_use_type/report','');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO list_report_primary_filter VALUES(1,'pf_cost_group_id','Cost Group ID','7!','','cost_group_id','Equals','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_funding_agency','Funding Agency','15!','','funding_agency','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_service_type','Service Type','30!','','service_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_service_type_id','Service Type ID','7!','','service_type_id','Equals','text','','','');
+COMMIT;
