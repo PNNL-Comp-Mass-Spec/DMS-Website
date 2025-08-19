@@ -1,11 +1,11 @@
 <?php
 namespace App\Controllers;
 
-class Cost_center_service_type extends DmsBase {
+class Service_center_use_type extends DmsBase {
     function __construct()
     {
-        $this->my_tag = "cost_center_service_type";
-        $this->my_title = "Cost Center Service Type";
+        $this->my_tag = "service_center_use_type";
+        $this->my_title = "Service Center Use Type";
     }
 }
 ?>

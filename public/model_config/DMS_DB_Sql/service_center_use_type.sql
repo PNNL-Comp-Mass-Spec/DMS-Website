@@ -8,5 +8,5 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_service_type_id','Service Ty
 INSERT INTO list_report_primary_filter VALUES(2,'pf_service_type_name','Service Type Name','30!','','service_type','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_service_type_description','Service Type Description','30!','','service_description','ContainsText','text','','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'service_type_id','invoke_entity','value','cost_center_service_use/report/-/-/-/@','');
+INSERT INTO list_report_hotlinks VALUES(1,'service_type_id','invoke_entity','value','service_center_use/report/-/-/-/-/@','');
 COMMIT;

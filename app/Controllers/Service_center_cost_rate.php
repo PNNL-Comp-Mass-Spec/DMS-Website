@@ -1,11 +1,11 @@
 <?php
 namespace App\Controllers;
 
-class Cost_center_service_cost_rate extends DmsBase {
+class Service_center_cost_rate extends DmsBase {
     function __construct()
     {
-        $this->my_tag = "cost_center_service_cost_rate";
-        $this->my_title = "Cost Center Service Cost Rate";
+        $this->my_tag = "service_center_cost_rate";
+        $this->my_title = "Service Center Cost Rate";
     }
 }
 ?>
