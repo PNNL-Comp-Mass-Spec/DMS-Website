@@ -1,11 +1,11 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO general_params VALUES('list_report_data_table','v_service_use_list_report');
-INSERT INTO general_params VALUES('detail_report_data_table','v_service_use_detail_report');
+INSERT INTO general_params VALUES('list_report_data_table','v_service_center_use_list_report');
+INSERT INTO general_params VALUES('detail_report_data_table','v_service_center_use_detail_report');
 INSERT INTO general_params VALUES('detail_report_data_id_col','id');
 INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
-INSERT INTO general_params VALUES('entry_page_data_table','v_service_use_entry');
+INSERT INTO general_params VALUES('entry_page_data_table','v_service_center_use_entry');
 INSERT INTO general_params VALUES('entry_page_data_id_col','id');
 INSERT INTO general_params VALUES('entry_sproc','update_service_use');
 INSERT INTO general_params VALUES('list_report_data_sort_col','report_id, dataset_id');
@@ -26,7 +26,7 @@ INSERT INTO list_report_primary_filter VALUES(6,'pf_service_type_id','Service Ty
 INSERT INTO list_report_primary_filter VALUES(7,'pf_service_type','Service Type','30!','','service_type','ContainsText','text','','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO detail_report_hotlinks VALUES(1,'report_id','detail-report','report_id','service_center_use/report','valueCol','','');
-INSERT INTO detail_report_hotlinks VALUES(2,'+report_id','detail-report','report_id','service_center_use_report./report','labelCol','','');
+INSERT INTO detail_report_hotlinks VALUES(2,'+report_id','detail-report','report_id','service_center_use_report/report','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(3,'dataset_id','detail-report','dataset_id','datasetid/show/','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(4,'request_id','detail-report','request_id','requested_run/show/','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(5,'charge_code','detail-report','charge_code','charge_code/show/','labelCol','','');

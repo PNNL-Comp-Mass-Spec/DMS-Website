@@ -1,7 +1,7 @@
 ﻿PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
-INSERT INTO general_params VALUES('list_report_data_table','v_service_use_report_list_report');
+INSERT INTO general_params VALUES('list_report_data_table','v_service_center_use_report_list_report');
 INSERT INTO general_params VALUES('list_report_data_sort_col','report_id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );

@@ -87,7 +87,7 @@ INSERT INTO list_report_hotlinks VALUES(14,'proposal_state','color_label','value
 INSERT INTO list_report_hotlinks VALUES(15,'queue_state','invoke_entity','campaign','requested_run_admin/report/-/-/-/-/~@/-/-/-','');
 INSERT INTO list_report_hotlinks VALUES(16,'days_in_queue_bin','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(17,'wp_activation_state','no_display','value','','');
-INSERT INTO list_report_hotlinks VALUES(18,'cc_service_type','invoke_entity','value','cost_center_service_type/report/','');
+INSERT INTO list_report_hotlinks VALUES(18,'svc_center_use_type','invoke_entity','value','service_center_use_type/report/','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO detail_report_commands VALUES(1,'Delete this request','cmd_op','delete','requested_run','Delete this requested run.','Are you sure that you want to delete this requested run?');
 INSERT INTO detail_report_commands VALUES(2,'Convert Run to Dataset','copy_from','','dataset','Go to dataset entry page and copy information from this scheduled run.','');
@@ -120,7 +120,7 @@ INSERT INTO detail_report_hotlinks VALUES(23,'wellplate','detail-report','wellpl
 INSERT INTO detail_report_hotlinks VALUES(24,'queued_instrument','detail-report','queued_instrument','instrument/show/','valueCol','dl_queued_instrument','');
 INSERT INTO detail_report_hotlinks VALUES(25,'cart_config','detail-report','cart_config','cart_config/report/~@/-','valueCol','dl_cart_config','');
 INSERT INTO detail_report_hotlinks VALUES(26,'cart','detail-report','cart','lc_cart/report/~@/-','valueCol','dl_cart','');
-INSERT INTO detail_report_hotlinks VALUES(27,'cost_center_service_type_id','detail-report','cost_center_service_type_id','cost_center_service_type/report/','labelCol','dl_cost_center_service_type','');
+INSERT INTO detail_report_hotlinks VALUES(27,'service_center_use_type_id','detail-report','service_center_use_type_id','service_center_use_type/report/','labelCol','dl_service_center_use_type','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','add_update_requested_run');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentName','varchar','input','64','add_update_requested_run');
