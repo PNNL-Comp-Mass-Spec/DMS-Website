@@ -342,4 +342,40 @@ abstract class BaseController extends Controller
             return false;
         }
     }
+
+    /**
+     * Check permissions
+     * Verify (all):
+     * - action is allowed for the page family
+     * - user has at least basic access to website
+     * - user has necessary permission if action is a restricted one
+     * Present usable message if access check fails and $output_message is true
+     * @param string $action
+     * @param bool $output_message When true, update the message box with "Access Denied"
+     * @return bool
+     */
+    public function check_access_rest($action, $output_message = true) {
+        helper('user');
+        $user = get_user();
+
+        $this->loadGeneralModel('na', $this->my_tag);
+
+        if ($this->gen_model->error_text) {
+            if ($output_message) {
+                \Config\Services::response()->setContentType("application/json");
+                echo '{"error":"' . $this->gen_model->error_text . '"}';
+            }
+            return false;
+        }
+
+        $result = $this->gen_model->check_permission($user, $action, $this->my_tag, $this);
+
+        if ($result === true) {
+            return true;
+        } else {
+            \Config\Services::response()->setContentType("application/json");
+            echo '{"error":"Access Denied: ' . $result . '"}';
+            return false;
+        }
+    }
 }

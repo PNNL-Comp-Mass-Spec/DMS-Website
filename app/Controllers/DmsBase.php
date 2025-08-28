@@ -475,8 +475,14 @@ class DmsBase extends BaseController
      */
     public function api_new()
     {
+        if (!$this->check_access_rest('create')) {
+            return;
+        }
+        
+        $segments = array_slice(getCurrentUriDecodedSegments(), 3); // remove controller, 'api', and function segments
+
         $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
-        $entry->create_entry_json('create');
+        $entry->create_entry_json('create', $segments);
     }
 
     /**
@@ -485,7 +491,7 @@ class DmsBase extends BaseController
      */
     public function api_create()
     {
-        if (!$this->check_access('create')) {
+        if (!$this->check_access_rest('enter')) {
             return;
         }
 
@@ -504,6 +510,10 @@ class DmsBase extends BaseController
      */
     public function api_index()
     {
+        if (!$this->check_access_rest('report')) {
+            return;
+        }
+
         helper(['url', 'user']);
         $output_format = 'json';
         $config_source = $this->my_tag;
@@ -529,6 +539,10 @@ class DmsBase extends BaseController
      */
     public function api_show($id)
     {
+        if (!$this->check_access_rest('show')) {
+            return;
+        }
+
         $detail_report = $this->getLibrary('Detail_report', 'detail_report', $this->my_tag);
         $detail_report->export_detail($id, 'json');
     }
@@ -539,13 +553,17 @@ class DmsBase extends BaseController
      */
     public function api_edit($id = '')
     {
+        if (!$this->check_access_rest('enter')) {
+            return;
+        }
+
         if(!$id || $id == '0') {
             \Config\Services::response()->setContentType("application/json");
             echo '{"error":"Item id \'' . $id . '\' is invalid."}';
             return;
         }
         $entry = $this->getLibrary('Entry', 'na', $this->my_tag);
-        $entry->create_entry_json('edit', $id);
+        $entry->create_entry_json('edit', array($id));
     }
 
     /**
@@ -554,7 +572,7 @@ class DmsBase extends BaseController
      */
     public function api_update($id = '')
     {
-        if (!$this->check_access('enter')) {
+        if (!$this->check_access_rest('enter')) {
             return;
         }
 
@@ -597,7 +615,7 @@ class DmsBase extends BaseController
      */
     public function api_delete($id = '')
     {
-        if (!$this->check_access('enter')) {
+        if (!$this->check_access_rest('enter')) {
             return;
         }
 

@@ -202,6 +202,8 @@ class RouteCollection extends BaseRouteCollection
         if (in_array('new', $methods, true))
         {
             $this->get($uriPrefix . $name . '/new', $newName . '::' . $methodPrefix . 'new', $options);
+            // Customized for DMS to allowing pre-filling fields with copied data, even from another entity type
+            $this->get($uriPrefix . $name . '/new/(:any)', $newName . '::' . $methodPrefix . 'new', $options);
         }
         if (in_array('edit', $methods, true))
         {

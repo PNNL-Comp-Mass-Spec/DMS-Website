@@ -73,11 +73,11 @@ class Entry {
      * Make an entry page json object that can be populated for creating a new entry, or edited for updating an entry
      * The entry json object is later submitted via POST call to function api_create or (PUT/PATCH/POST) api_update.
      * @param string $page_type
-     * @param string $id
+     * @param array $segments URL segments, can be either just an ID, or 2 entries with an entity name and id
      */
-    public function create_entry_json($page_type, $id = '') {
+    public function create_entry_json(string $page_type, array $segments) {
         \Config\Services::response()->setContentType("application/json");
-        echo json_encode($this->create_entry_array($page_type, $id));
+        echo json_encode($this->create_entry_array_work($page_type, $segments));
     }
 
     /**
@@ -89,10 +89,22 @@ class Entry {
      */
     public function create_entry_array($page_type, $id = '') : array {
         $segments = array();
-        if ($page_type == 'edit') {
+        if ($page_type == 'edit')
+        {
             $segments[] = $id;
         }
 
+        return $this->create_entry_array_work($page_type, $segments);
+    }
+
+    /**
+     * Make an entry page array that can be populated for creating a new entry, or edited for updating an entry
+     * The entry data array is later submitted via POST call to function api_create or (PUT/PATCH/POST) api_update.
+     * @param string $page_type
+     * @param array $segments
+     * @return array
+     */
+    public function create_entry_array_work($page_type, array $segments) : array {
         $entryData = $this->create_entry_data($page_type, $segments);
 
         if (!$entryData->success)

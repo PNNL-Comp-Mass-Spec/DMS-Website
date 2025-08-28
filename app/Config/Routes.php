@@ -16,6 +16,10 @@ $routes = Services::routes();
 // route since we don't have to scan directories.
 $routes->get('/', 'Gen::index');
 
+$routes->addApiRoutes('analysis_job_request', ['placeholder' => '(:num)']);
+$routes->addApiRoutes('analysis_group', ['only' => ['create', 'new']]);
+$routes->addApiRoutes('analysis_request_jobs', ['only' => ['index']]);
+$routes->addApiRoutes('analysis_job', ['placeholder' => '(:num)']);
 $routes->addApiRoutes('requested_run', ['placeholder' => '(:num)']);
 $routes->addApiRoutes('experiment', ['placeholder' => '(:num)']);
 
