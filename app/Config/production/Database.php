@@ -91,6 +91,9 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dms2::default',
     ],
 
     'broker' => [
@@ -110,6 +113,9 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dms2::broker',
     ],
 
     'package' => [
@@ -129,6 +135,9 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dms2::package',
     ],
 
     'capture' => [
@@ -148,6 +157,9 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dms2::capture',
     ],
 
     'prism_ifc' => [
@@ -188,6 +200,9 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dms2::ontology',
     ],
 
     'manager_control' => [
@@ -213,6 +228,9 @@ return [
         'DBPrefix' => "",
         'pConnect' => false,
         'DBDebug'  => false,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'options'  => '--application_name=website:dms2::manager_control',
     ],
 ];
 
