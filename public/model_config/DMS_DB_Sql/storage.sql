@@ -20,7 +20,7 @@ INSERT INTO form_fields VALUES(6,'instrument','Instrument','text','40','80','','
 INSERT INTO form_fields VALUES(7,'description','Description','area','','','4','50','','trim|max_length[255]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
 INSERT INTO form_field_choosers VALUES(1,'storage_path_function','picker.replace','storageFunctionPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(2,'instrument','picker.replace','instrumentNamePickList','','',',','');
+INSERT INTO form_field_choosers VALUES(2,'instrument','picker.replace','instrumentNameAdminPickList','','',',','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','storage/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'instrument','invoke_entity','value','instrument/show/','');

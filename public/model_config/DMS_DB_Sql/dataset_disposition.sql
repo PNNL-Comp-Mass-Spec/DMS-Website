@@ -14,7 +14,7 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_oper','Oper.','24','','opera
 INSERT INTO list_report_primary_filter VALUES(5,'pf_batch','Batch','12','','batch','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_state','State','32','','state','ContainsText','text','128','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
-INSERT INTO primary_filter_choosers VALUES(1,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
+INSERT INTO primary_filter_choosers VALUES(1,'pf_instrument','picker.replace','instrumentNameAdminPickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_lc_cart','picker.replace','lcCartPickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(3,'pf_state','picker.replace','datasetStatePickList','','',',');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );

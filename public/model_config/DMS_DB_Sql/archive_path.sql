@@ -18,7 +18,7 @@ INSERT INTO form_fields VALUES(5,'instrument_name','Instrument Name','text','25'
 INSERT INTO form_fields VALUES(6,'note','Note','text','40','128','','','','trim|max_length[128]');
 INSERT INTO form_fields VALUES(7,'archive_path_function','Status','text','24','24','','','','trim|required|max_length[24]');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'instrument_name','picker.replace','instrumentNamePickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'instrument_name','picker.replace','instrumentNameAdminPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'archive_path_function','picker.replace','archiveFunctionPickList','','',',','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument_name','Instrument Name','60','','instrument_name','ContainsText','text','128','','');

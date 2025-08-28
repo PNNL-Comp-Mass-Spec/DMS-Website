@@ -44,7 +44,7 @@ INSERT INTO list_report_hotlinks VALUES(17,'pct_study_specific_datasets','column
 INSERT INTO list_report_hotlinks VALUES(18,'pct_ef_study_specific_datasets','column_tooltip','value','[EMSL-Funded Study Specific] / [Total datasets]','');
 INSERT INTO list_report_hotlinks VALUES(19,'pct_ef_study_specific_by_acq_time','column_tooltip','value','[EMSL-Funded Total AcqTimeDays] / [Total AcqTimeDays]','');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'instrument_filter_list','picker.append','instrumentNamePickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'instrument_filter_list','picker.append','instrumentNameAdminPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'production_only','picker.replace','yesNoAsOneZeroPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'include_proposal_type','picker.replace','yesNoAsOneZeroPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(4,'eus_usage_filter_list','picker.append','eusUsageTypePickList','','',',','');

@@ -87,7 +87,7 @@ INSERT INTO detail_report_hotlinks VALUES(43,'service_center_use_type_id','detai
 INSERT INTO detail_report_hotlinks VALUES(44,'service_center_report_state','detail-report','service_center_report_state','dataset_svc_center_report_state/report/-/~','labelCol','dl_dataset_svc_center_report_state','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
-INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNamePickList','','',',');
+INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNameAdminPickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(3,'pf_experiment','list-report.Chooser','','Chooser_experiment/report','',',');
 INSERT INTO primary_filter_choosers VALUES(4,'pf_campaign','list-report.Chooser','','Chooser_campaign/report','',',');
 INSERT INTO primary_filter_choosers VALUES(5,'pf_created_after','picker.prevDate','','','',',');

@@ -22,7 +22,7 @@ CREATE TABLE form_field_options ( id INTEGER PRIMARY KEY,  "field" text, "type" 
 INSERT INTO form_field_options VALUES(1,'start_date','default_function','PreviousNWeeks:10');
 INSERT INTO form_field_options VALUES(2,'end_date','default_function','CurrentDate');
 CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text, "Label" text);
-INSERT INTO form_field_choosers VALUES(1,'instrument_filter_list','picker.append','instrumentNamePickList','','',',','');
+INSERT INTO form_field_choosers VALUES(1,'instrument_filter_list','picker.append','instrumentNameAdminPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(2,'campaign_id_filter_list','picker.append','campaignIDPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(3,'organism_id_filter_list','picker.append','organismIDPickList','','',',','');
 COMMIT;
