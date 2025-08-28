@@ -167,6 +167,7 @@ class Label_formatter {
         "id"     => "ID",
         "ims"    => "IMS",
         "lc"     => "LC",
+        "ldrd"   => "LDRD",
         "ltq"    => "LTQ",
         "masic"  => "MASIC",
         "maxquant" => "MaxQuant",
