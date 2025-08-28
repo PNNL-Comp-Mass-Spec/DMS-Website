@@ -66,7 +66,7 @@ INSERT INTO chooser_definitions VALUES(52,'eusUsageTypePickList','default','sql'
 INSERT INTO chooser_definitions VALUES(54,'filterSetPickList','default','sql','SELECT distinct CONCAT(CAST(filter_set_ID as varchar(11)), '' - '', Filter_Set_Name) as val, filter_set_ID as ex FROM V_Filter_Sets ORDER by filter_set_ID');
 INSERT INTO chooser_definitions VALUES(55,'instrumentClassPickList','default','sql','SELECT Name as val, '''' as ex FROM V_Instrument_Class_Picklist ORDER BY Name');
 INSERT INTO chooser_definitions VALUES(57,'instrumentNameAdminPickList','default','sql','SELECT val, ex FROM V_Instrument_Admin_Picklist ORDER BY val');
-INSERT INTO chooser_definitions VALUES(58,'instrumentNamePickList','default','sql','SELECT val, ex FROM V_Instrument_Picklist ORDER BY val');
+INSERT INTO chooser_definitions VALUES(58,'instrumentNamePickList','default','sql','SELECT val, ex, operations_role FROM V_Instrument_Picklist WHERE NOT operations_role IN (''LC'', ''Offsite'') ORDER BY val;');
 INSERT INTO chooser_definitions VALUES(60,'instrumentOpsRolePickList','default','sql','SELECT val, '''' as ex FROM V_Instrument_Ops_Role_Picklist ORDER BY val');
 INSERT INTO chooser_definitions VALUES(61,'instrumentStatusPickList','default','sql','SELECT val, '''' as ex FROM V_Instrument_Status_Picklist ORDER BY val');
 INSERT INTO chooser_definitions VALUES(62,'instrumentGroupPickList','default','sql','SELECT Instrument_Group As val, '''' As ex FROM V_Instrument_Group_PickList ORDER BY Instrument_Group');
