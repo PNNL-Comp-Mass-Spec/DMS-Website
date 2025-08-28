@@ -45,13 +45,13 @@ INSERT INTO table_def_description VALUES(1,'general_params','List of key/value p
 INSERT INTO table_def_description VALUES(2,'list_report_hotlinks','Defines hotlink fields for the list report page');
 INSERT INTO table_def_description VALUES(3,'list_report_primary_filter','Defines the primary filter fields for the list report page');
 INSERT INTO table_def_description VALUES(4,'detail_report_hotlinks','Defines hotlink fields for the detail report page');
-INSERT INTO table_def_description VALUES(5,'sproc_args','Defines arguments for procedures (entry and operations).  The field column in this table names the associated row in either the form_fields or operations_fields tables.');
-INSERT INTO table_def_description VALUES(6,'form_fields','Parameters that define the field on the entry page for the page family');
+INSERT INTO table_def_description VALUES(5,'sproc_args','Defines arguments for procedures (entry and operations). The field column in this table names the associated row in either the form_fields or operations_fields tables.');
+INSERT INTO table_def_description VALUES(6,'form_fields','Parameters that define the fields on the entry page for the page family');
 INSERT INTO table_def_description VALUES(7,'form_field_choosers','Defines choosers for fields defined in form_fields table');
 INSERT INTO table_def_description VALUES(8,'form_field_options','Defines optional behaviors for fields defined in form_fields table');
-INSERT INTO table_def_description VALUES(9,'primary_filter_choosers','Defines any choosers for the fields defined in the list_report_primary_filter table');
+INSERT INTO table_def_description VALUES(9,'primary_filter_choosers','Defines any choosers for the fields defined in the list_report_primary_filter table; these choosers are visible when using the expanded primary filter (click "Expand")');
 INSERT INTO table_def_description VALUES(10,'detail_report_commands','Defines command buttons that are added to the detail report page');
 INSERT INTO table_def_description VALUES(11,'entry_commands','Defines command buttons that supplement or override the "Create" or "Update" buttons on the entry page');
 INSERT INTO table_def_description VALUES(13,'external_sources','Defines how the entry page for this page family can import values from an entity in another page family');
-INSERT INTO table_def_description VALUES(14,'utility_queries','Miscelleneous queries for specialized uses for the page family');
+INSERT INTO table_def_description VALUES(14,'utility_queries','Defines a list of utility queries for retrieving information from the database, in lieu of using a page family or chooser');
 COMMIT;
