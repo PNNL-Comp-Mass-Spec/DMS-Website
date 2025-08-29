@@ -22,7 +22,7 @@ INSERT INTO list_report_primary_filter VALUES(10,'pf_queued_instrument','Queued 
 INSERT INTO list_report_primary_filter VALUES(11,'pf_instrument_group','Instrument Group','20','','inst_group','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(12,'pf_request_name_code','Code','20!','','request_name_code','StartsWithText','text','50','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'request','invoke_entity','value','requested_run/show/','');
+INSERT INTO list_report_hotlinks VALUES(1,'request','invoke_entity','value','requested_run/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'campaign','invoke_entity','value','campaign/show','');
 INSERT INTO list_report_hotlinks VALUES(3,'experiment','invoke_entity','value','experiment/show','');
 INSERT INTO list_report_hotlinks VALUES(4,'dataset','invoke_entity','value','dataset/show','');
@@ -49,9 +49,9 @@ INSERT INTO sproc_args VALUES(1,'requestList','requestList','text','input','2147
 INSERT INTO sproc_args VALUES(2,'<local>','mode','varchar','input','32','update_requested_run_admin');
 INSERT INTO sproc_args VALUES(3,'<local>','message','varchar','output','512','update_requested_run_admin');
 INSERT INTO sproc_args VALUES(4,'<local>','callingUser','varchar','input','128','update_requested_run_admin');
-INSERT INTO sproc_args VALUES(5,'OldWorkPackage','OldWorkPackage','varchar','input','50','update_requested_run_wp');
-INSERT INTO sproc_args VALUES(6,'NewWorkPackage','NewWorkPackage','varchar','input','50','update_requested_run_wp');
-INSERT INTO sproc_args VALUES(7,'RequestIdList','RequestIdList','varchar','input','2147483647','update_requested_run_wp');
+INSERT INTO sproc_args VALUES(5,'oldWorkPackage','oldWorkPackage','varchar','input','50','update_requested_run_wp');
+INSERT INTO sproc_args VALUES(6,'newWorkPackage','newWorkPackage','varchar','input','50','update_requested_run_wp');
+INSERT INTO sproc_args VALUES(7,'requestIdList','requestIdList','varchar','input','2147483647','update_requested_run_wp');
 INSERT INTO sproc_args VALUES(8,'<local>','message','varchar','output','512','update_requested_run_wp');
 INSERT INTO sproc_args VALUES(9,'<local>','callingUser','varchar','input','128','update_requested_run_wp');
 INSERT INTO sproc_args VALUES(11,'<local>','mode','varchar','input','32','update_requested_run_assignments');

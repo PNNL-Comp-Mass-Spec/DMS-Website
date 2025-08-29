@@ -168,10 +168,10 @@ var tau = {
             // POST to requested_run_admin/call/updatewp_sproc
             var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag +  "/call/updatewp_sproc";
             var p = {};
-            p.OldWorkPackage = oldWpn;
-            p.NewWorkPackage = newWpn;
-            p.RequestIdList = dmsChooser.getSelectedItemList().join();
-            if(!p.RequestIdList) {
+            p.oldWorkPackage = oldWpn;
+            p.newWorkPackage = newWpn;
+            p.requestIdList = dmsChooser.getSelectedItemList().join();
+            if(!p.requestIdList) {
                 if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
             }
             // dmsOps.submitCall is defined in dmsOps.js
