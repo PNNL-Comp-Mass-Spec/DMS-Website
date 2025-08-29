@@ -55,7 +55,7 @@ class Gen extends BaseController
     function config()
     {
         echo("<li>Environment:".ENVIRONMENT . "\n");
-//      $this->config->load('database', TRUE);
+//      $this->config->load('database', true);
         $db = \Config\Database::connect();
         $this->updateSearchPath($db);
 

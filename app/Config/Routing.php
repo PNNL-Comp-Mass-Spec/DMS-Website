@@ -87,12 +87,12 @@ class Routing extends BaseRouting
     public ?string $override404 = null;
 
     /**
-     * If TRUE, the system will attempt to match the URI against
+     * If true, the system will attempt to match the URI against
      * Controllers by matching each segment against folders/files
      * in APPPATH/Controllers, when a match wasn't found against
      * defined routes.
      *
-     * If FALSE, will stop searching and do NO automatic routing.
+     * If false, will stop searching and do NO automatic routing.
      */
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
@@ -105,7 +105,7 @@ class Routing extends BaseRouting
 
     /**
      * For Defined Routes.
-     * If TRUE, will enable the use of the 'prioritize' option
+     * If true, will enable the use of the 'prioritize' option
      * when defining routes.
      *
      * Default: false
@@ -114,7 +114,7 @@ class Routing extends BaseRouting
 
     /**
      * For Defined Routes.
-     * If TRUE, matched multiple URI segments will be passed as one parameter.
+     * If true, matched multiple URI segments will be passed as one parameter.
      *
      * Default: false
      */

@@ -142,7 +142,7 @@ class XssSecurity implements XssSecurityInterface {
 	 * @param 	bool		$is_image	Whether the input is an image
 	 * @return	string|string[]|bool bool if image, true if clean, false if not
 	 */
-	public function xss_clean($str, $is_image = FALSE)
+	public function xss_clean($str, $is_image = false)
 	{
 		// Is the string an array?
 		if (is_array($str))
@@ -217,7 +217,7 @@ class XssSecurity implements XssSecurityInterface {
 		 *
 		 * But it doesn't seem to pose a problem.
 		 */
-		if ($is_image === TRUE)
+		if ($is_image === true)
 		{
 			// Images have a tendency to have the PHP short opening and
 			// closing tags every so often so we skip those and only
@@ -352,12 +352,12 @@ class XssSecurity implements XssSecurityInterface {
 		 * Images are Handled in a Special Way
 		 * - Essentially, we want to know that after all of the character
 		 * conversion is done whether any unwanted, likely XSS, code was found.
-		 * If not, we return TRUE, as the image is clean.
+		 * If not, we return true, as the image is clean.
 		 * However, if the string post-conversion does not matched the
 		 * string post-removal of XSS, then it fails, as there was unwanted XSS
 		 * code found and removed/changed during processing.
 		 */
-		if ($is_image === TRUE)
+		if ($is_image === true)
 		{
 			return ($str === $converted_string);
 		}
@@ -386,7 +386,7 @@ class XssSecurity implements XssSecurityInterface {
 	 */
 	public function entity_decode($str, $charset = NULL)
 	{
-		if (strpos($str, '&') === FALSE)
+		if (strpos($str, '&') === false)
 		{
 			return $str;
 		}
@@ -415,7 +415,7 @@ class XssSecurity implements XssSecurityInterface {
 				$matches = array_unique(array_map('strtolower', $matches[0]));
 				foreach ($matches as &$match)
 				{
-					if (($char = array_search($match.';', $_entities, TRUE)) !== FALSE)
+					if (($char = array_search($match.';', $_entities, true)) !== false)
 					{
 						$replace[$match] = $char;
 					}
@@ -500,7 +500,7 @@ class XssSecurity implements XssSecurityInterface {
 			return '&lt;'.$matches[1];
 		}
 		// Is the element that we caught naughty? If so, escape it
-		elseif (in_array(strtolower($matches['tagName']), $naughty_tags, TRUE))
+		elseif (in_array(strtolower($matches['tagName']), $naughty_tags, true))
 		{
 			return '&lt;'.$matches[1].'&gt;';
 		}

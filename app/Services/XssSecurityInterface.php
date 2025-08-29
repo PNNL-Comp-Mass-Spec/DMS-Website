@@ -74,5 +74,5 @@ interface XssSecurityInterface {
 	 * @param 	bool		$is_image	Whether the input is an image
 	 * @return	string
 	 */
-	public function xss_clean($str, $is_image = FALSE);
+	public function xss_clean($str, $is_image = false);
 }

@@ -17,8 +17,7 @@ class App extends BaseConfig
     public $version_banner = NULL;
     public $version_label = 'Production';
 
-
-    public $modify_config_db_enabled = FALSE;
+    public $modify_config_db_enabled = false;
 
     public $file_attachment_archive_root_path = "/mnt/dms_attachments/";
 
@@ -70,7 +69,7 @@ class App extends BaseConfig
         $this->appTimezone = 'America/Los_Angeles';
 
         // Is the user accessing DMS from bionet?
-        $server_bionet = stripos($serverName, ".bionet") !== FALSE;
+        $server_bionet = stripos($serverName, ".bionet") !== false;
 
         if ($server_bionet) {
             $this->pwiki = 'http://prismwiki.bionet/wiki/';

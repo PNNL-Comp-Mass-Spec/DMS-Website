@@ -91,7 +91,7 @@ class Calendar {
 	 *
 	 * @var bool
 	 */
-	public $show_next_prev = FALSE;
+	public $show_next_prev = false;
 
 	/**
 	 * Url base to use for next/prev month links
@@ -105,7 +105,7 @@ class Calendar {
 	 *
 	 * @var bool
 	 */
-	public $show_other_days = FALSE;
+	public $show_other_days = false;
 
 	// --------------------------------------------------------------------
 
@@ -148,7 +148,7 @@ class Calendar {
 		}
 
 		// Set the next_prev_url to the controller if required but not defined
-		if ($this->show_next_prev === TRUE && empty($this->next_prev_url))
+		if ($this->show_next_prev === true && empty($this->next_prev_url))
 		{
 			$this->next_prev_url = site_url(current_uri());
 		}
@@ -230,7 +230,7 @@ class Calendar {
 		$out = $this->replacements['table_open']."\n\n".$this->replacements['heading_row_start']."\n";
 
 		// "previous" month link
-		if ($this->show_next_prev === TRUE)
+		if ($this->show_next_prev === true)
 		{
 			// Add a trailing slash to the URL if needed
 			$this->next_prev_url = preg_replace('/(.+?)\/*$/', '\\1/', $this->next_prev_url);
@@ -240,7 +240,7 @@ class Calendar {
 		}
 
 		// Heading containing the month/year
-		$colspan = ($this->show_next_prev === TRUE) ? 5 : 7;
+		$colspan = ($this->show_next_prev === true) ? 5 : 7;
 
 		$this->replacements['heading_title_cell'] = str_replace('{colspan}', "$colspan",
 								str_replace('{heading}', $this->get_month_name($month).'&nbsp;'.$year, $this->replacements['heading_title_cell']));
@@ -248,7 +248,7 @@ class Calendar {
 		$out .= $this->replacements['heading_title_cell']."\n";
 
 		// "next" month link
-		if ($this->show_next_prev === TRUE)
+		if ($this->show_next_prev === true)
 		{
 			$adjusted_date = $this->adjust_date($month + 1, $year);
 			$out .= str_replace('{next_url}', $this->next_prev_url.$adjusted_date['year'].'/'.$adjusted_date['month'], $this->replacements['heading_next_cell']);
@@ -276,26 +276,26 @@ class Calendar {
 			{
 				if ($day > 0 && $day <= $total_days)
 				{
-					$out .= ($is_current_month === TRUE && $day == $cur_day) ? $this->replacements['cal_cell_start_today'] : $this->replacements['cal_cell_start'];
+					$out .= ($is_current_month === true && $day == $cur_day) ? $this->replacements['cal_cell_start_today'] : $this->replacements['cal_cell_start'];
 
 					if (isset($data[$day]))
 					{
 						// Cells with content
-						$temp = ($is_current_month === TRUE && $day == $cur_day) ?
+						$temp = ($is_current_month === true && $day == $cur_day) ?
 								$this->replacements['cal_cell_content_today'] : $this->replacements['cal_cell_content'];
 						$out .= str_replace(array('{content}', '{day}'), array("{$data[$day]}", "$day"), $temp);
 					}
 					else
 					{
 						// Cells with no content
-						$temp = ($is_current_month === TRUE && $day == $cur_day) ?
+						$temp = ($is_current_month === true && $day == $cur_day) ?
 								$this->replacements['cal_cell_no_content_today'] : $this->replacements['cal_cell_no_content'];
 						$out .= str_replace('{day}', "$day", $temp);
 					}
 
-					$out .= ($is_current_month === TRUE && $day == $cur_day) ? $this->replacements['cal_cell_end_today'] : $this->replacements['cal_cell_end'];
+					$out .= ($is_current_month === true && $day == $cur_day) ? $this->replacements['cal_cell_end_today'] : $this->replacements['cal_cell_end'];
 				}
-				elseif ($this->show_other_days === TRUE)
+				elseif ($this->show_other_days === true)
 				{
 					$out .= $this->replacements['cal_cell_start_other'];
 
@@ -559,7 +559,7 @@ class Calendar {
 				{
 					$this->replacements[$val] = $match[1];
 				}
-				elseif (in_array($val, $today, TRUE))
+				elseif (in_array($val, $today, true))
 				{
 					$this->replacements[$val] = $this->replacements[substr($val, 0, -6)];
 				}
