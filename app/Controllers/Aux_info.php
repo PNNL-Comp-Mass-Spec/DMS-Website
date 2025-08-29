@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Aux_info extends BaseController {
 
-    protected $helpers = ['dms_search', 'cookie', 'user', 'dms_logging', 'url', 'text', 'form', 'string'];
+    protected $helpers = ['dms_search', 'cookie', 'user', 'url', 'text', 'form', 'string'];
 
     private $aux_info_support = null;
     private $model = null;

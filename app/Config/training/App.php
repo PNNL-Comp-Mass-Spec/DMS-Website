@@ -22,9 +22,6 @@ $appConfig['version_color_code'] = 'Coral';
 $appConfig['version_banner'] = "TRAINING VERSION";
 $appConfig['version_label'] = 'Training';
 
-$appConfig['inhibit_sproc_call'] = false;
-$appConfig['sproc_call_log_enabled'] = false;
-
 $appConfig['modify_config_db_enabled'] = false;
 
 // Disabled for training:

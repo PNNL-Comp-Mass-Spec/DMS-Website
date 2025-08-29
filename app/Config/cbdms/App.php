@@ -21,9 +21,6 @@ $appConfig['wikiHelpLinkPrefix'] = 'DMS_Help_for_';
 $appConfig['version_color_code'] = 'black';
 $appConfig['version_label'] = 'Production';
 
-$appConfig['inhibit_sproc_call'] = false;
-$appConfig['sproc_call_log_enabled'] = false;
-
 $appConfig['modify_config_db_enabled'] = true;
 
 // Do not store DMS Attachments in the archive when on CBDMSWeb

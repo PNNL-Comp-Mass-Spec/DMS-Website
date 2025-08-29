@@ -17,8 +17,6 @@ class App extends BaseConfig
     public $version_banner = NULL;
     public $version_label = 'Production';
 
-    public $inhibit_sproc_call = FALSE;
-    public $sproc_call_log_enabled = FALSE;
 
     public $modify_config_db_enabled = FALSE;
 
