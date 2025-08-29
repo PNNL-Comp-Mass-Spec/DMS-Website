@@ -25,7 +25,7 @@ INSERT INTO detail_report_hotlinks VALUES(2,'wbs','detail-report','wbs','charge_
 INSERT INTO detail_report_hotlinks VALUES(3,'title','detail-report','title','charge_code/report/-/-/~','labelCol','dl_Title',NULL);
 INSERT INTO detail_report_hotlinks VALUES(4,'usage_requested_run','detail-report','charge_code','requested_run/report/-/-/-/-/-/-/-/-/~','labelCol','dl_Usage_Requested_Run','');
 INSERT INTO detail_report_hotlinks VALUES(5,'usage_sample_prep','detail-report','charge_code','sample_prep_request/report/-/-/-/-/-/~','labelCol','dl_Usage_Sample_Prep','');
-INSERT INTO detail_report_hotlinks VALUES(6,'state','color_label','wp_activation_state','','valueCol','dl_State','{"3":"clr_90","4":"clr_120", "5":"clr_120","10":"clr_120"}');
+INSERT INTO detail_report_hotlinks VALUES(6,'charge_code_activation_state','color_label','wp_activation_state','','valueCol','dl_Charge_Code_Activation_State','{"3":"clr_90","4":"clr_120", "5":"clr_120","10":"clr_120"}');
 INSERT INTO detail_report_hotlinks VALUES(7,'owner_username','detail-report','owner_username','user/report/','labelCol','dl_Owner','');
-INSERT INTO detail_report_hotlinks VALUES(8,'wp_activation_state','no_display','value','',NULL,NULL,'');
+INSERT INTO detail_report_hotlinks VALUES(8,'wp_activation_state','no_display','','','','','');
 COMMIT;
