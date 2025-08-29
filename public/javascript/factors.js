@@ -1,5 +1,11 @@
 // These functions are used by run_blocking.js and tracking.js
-// and by the requested_run_batch_blocking and requested_run_factors list reports
+// and also by several list reports:
+//   instrument_usage_report        as defined in app/Views/cmd/instrument_usage_report_cmds.php
+//   requested_run_admin            as defined in app/Views/cmd/requested_run_admin_cmds.php
+//   requested_run_batch_blocking   as defined in app/Views/cmd/requested_run_batch_blocking_cmds.php
+//   requested_run_factors          as defined in app/Views/cmd/requested_run_factors_cmds.php
+//   service_center_use_admin       as defined in app/Views/cmd/service_center_use_admin_cmds.php
+
 var factorsjs = {
     getBlockingXMLFromList: function(flist) {
         var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
@@ -94,7 +100,7 @@ var factorsjs = {
     }
 };
 
-// These functions are used by the requested_run_factors and requested_run_admin list reports
+// These functions are used by the requested_run_factors, requested_run_admin, and service_center_use_admin list reports
 var tau = {
     requested_run_factors: {
         setItemTypeField: function() {
@@ -144,7 +150,7 @@ var tau = {
         }
     },
     requested_run_admin: {
-        updateDatabaseFromList: function(xml, command) {
+        updateDatabaseFromList: function(xml, command) {    // This method is called from method setRequestStatus
             if (xml == '') {
                 alert('No requests were selected');
                 return;
@@ -160,6 +166,7 @@ var tau = {
             dmsOps.submitCall(url, p);
         },
         setRequestStatus: function(command) {
+            // POST to requested_run_admin/call/admin_sproc by calling method updateDatabaseFromList
             var iList = dmsChooser.getSelectedItemList();
             var xml = dmsInput.getXmlElementsFromArray(iList, 'r', 'i');
             this.updateDatabaseFromList(xml, command);
@@ -176,6 +183,34 @@ var tau = {
             }
             // dmsOps.submitCall is defined in dmsOps.js
             dmsOps.submitCall(url, p);
+        }
+    },
+    service_center_use_admin: {
+        changeWPN: function(oldWpn, newWpn) {
+            // POST to service_center_use_admin/call/update_wp_sproc
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag +  "/call/update_wp_sproc";
+            var p = {};
+            p.oldWorkPackage = oldWpn;
+            p.newWorkPackage = newWpn;
+            p.entryIdList = dmsChooser.getSelectedItemList().join();
+            if(!p.entryIdList) {
+                if ( !confirm("There are no service use items selected. Do you wish to apply the change to all active service use entries?") ) return;
+            }
+            // dmsOps.submitCall is defined in dmsOps.js
+            dmsOps.submitCall(url, p);
         },
-    } // requested_run_admin
+        updateComment: function(textToFind, replacementText) {
+            // POST to service_center_use_admin/call/update_comment_sproc
+            var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag +  "/call/update_comment_sproc";
+            var p = {};
+            p.textTofind = textToFind;
+            p.replacementText = replacementText;
+            p.entryIdList = dmsChooser.getSelectedItemList().join();
+            if(!p.entryIdList) {
+                if ( !confirm("There are no service use items selected. Do you wish to apply the change to all active service use entries?") ) return;
+            }
+            // dmsOps.submitCall is defined in dmsOps.js
+            dmsOps.submitCall(url, p);
+        },
+    }
 }

@@ -6,6 +6,8 @@
   lcmd.requested_run_admin.op will POST to requested_run_admin/call/admin_sproc ,
   which in turn will call update_requested_run_assignments,
   as defined in https://dms2.pnl.gov/config_db/show_db/requested_run_admin.db
+
+  lcmd.requested_run_admin.op is defined in file public/javascript/lcmd.js
 -->
 
 <hr>

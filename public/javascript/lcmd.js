@@ -238,17 +238,53 @@ var lcmd = {
                 return;
             }
             if (!confirm("Are you sure that you want to update the database?")) return;
-            // URL will point to the operations_sproc value defined in requested_run.db: update_requested_run_assignments
-            // See: http://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/general_params
+            // URL will point to the operations_sproc value defined in requested_run_admin.db: update_requested_run_assignments
+            // See: https://dmsdev2.pnl.gov/config_db/edit_table/requested_run_admin.db/general_params
             var url = dmsjs.pageContext.ops_url;
             var p = {};
 
             // This is auto-mapped to the @mode parameter of the procedure
             p.command = mode;
 
-            // The following two form fields are defined in the sproc_args table for page family https://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/sproc_arg
+            // The following two form fields are defined in the sproc_args table for page family https://dmsdev2.pnl.gov/config_db/edit_table/requested_run_admin.db/sproc_arg
             //   param maps to the @newValue parameter
             //   id    maps to the @reqRunIDList parameter
+            // Since "id" is lowercase in "p.id", the field name must also be lowercase
+
+            p.param = (value)?$('#' + value).val():'';
+            p.id = list;
+
+            dmsOps.submitOperation(url, p);
+        }
+    },
+    service_center_use_admin: {
+        // mode is the update mode, to be passed to the operation procedure
+        // value is the new value
+        op: function(mode, value) {
+            // dmsChooser.getCkbxList is in dmsChooser.js
+            var list = dmsChooser.getCkbxList('ckbx');
+            if(list=='') {
+                alert('You must select service use entries.');
+                return;
+            }
+            if(list.length > 128000) {
+                // Procedure update_service_use_entries has argument @entryidlist text
+                // We can thus push in more than 8000 characters; the 128000 limit is an arbitrary limit
+                alert('You have selected more items than the system can handle at one time. Please select fewer items and try again.');
+                return;
+            }
+            if (!confirm("Are you sure that you want to update the database?")) return;
+            // URL will point to the operations_sproc value defined in service_center_use_admin.db: update_service_use_entries
+            // See: https://dmsdev2.pnl.gov/config_db/edit_table/service_center_use_admin.db/general_params
+            var url = dmsjs.pageContext.ops_url;
+            var p = {};
+
+            // This is auto-mapped to the @mode parameter of the procedure
+            p.command = mode;
+
+            // The following two form fields are defined in the sproc_args table for page family https://dmsdev2.pnl.gov/config_db/edit_table/service_center_use_admin.db/sproc_arg
+            //   param maps to the @newValue parameter
+            //   id    maps to the @entryIDList parameter
             // Since "id" is lowercase in "p.id", the field name must also be lowercase
 
             p.param = (value)?$('#' + value).val():'';
@@ -349,9 +385,8 @@ var lcmd = {
     },
     lc_cart_request_loading: {
         getEditFieldsObjList: function () {
-            // go through editable fields and build array of objects
-            // where each object references the fields for
-            // one block
+            // Step through editable fields and build array of objects
+            // where each object references the fields for one block
             var rlist = [];
             $('.cart').each(function(idx, cartField) {
                 var obj = {};
@@ -421,8 +456,8 @@ var lcmd = {
         }
     },
     dataset_instrument_runtime: {
-        // get data rows via an AJAX call for list report
-        // using all the current search filters, and build graph from it
+        // Retrieve data rows via an AJAX call for list report
+        // using the current search filters, and build graph from it
         download_to_graph: function() {
             var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag + '/export_param/json'
             var p = $('#entry_form').serialize();
