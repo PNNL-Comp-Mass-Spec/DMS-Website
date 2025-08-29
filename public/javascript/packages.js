@@ -33,7 +33,7 @@ var packages = {
         $('#entry_cmd_mode').val(mode);
         $('#removeParents').val(removeParents);
 
-        // Call stored procedure update_data_package_items
+        // Call procedure update_data_package_items
         // dmsOps.doOperation is defined in dmsOps.js
         dmsOps.doOperation(url, form_id, 'entry_update_status', function(data, container) {
             packages.processResults(data, container);
@@ -166,7 +166,7 @@ var packages = {
         $('#entry_cmd_mode').val(mode);
         $('#removeParents').val(removeParents);
         var p = $('#operation_form').serialize();
-        // Call stored procedure update_data_package_items_xml
+        // Call procedure update_data_package_items_xml
         // dmsOps.submitOperation is defined in dmsOps.js
         dmsOps.submitOperation(url, p, true);
     }

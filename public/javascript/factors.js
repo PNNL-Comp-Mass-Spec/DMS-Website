@@ -134,7 +134,7 @@ var tau = {
             this.updateDatabaseFromList(flist, 'Request');
         },
         load_delimited_text: function() {
-            // Parse tab-delimited text to convert it to XML which is passed to stored procedure update_requested_run_factors
+            // Parse tab-delimited text to convert it to XML which is passed to procedure update_requested_run_factors
             // dmsInput.parseDelimitedText is defined in dmsInput.js
             var parsed_data = dmsInput.parseDelimitedText('delimited_text_input');
             var id_type = parsed_data.header[0];

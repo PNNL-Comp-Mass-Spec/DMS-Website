@@ -45,7 +45,7 @@ var tracking = {
             this.updateDatabaseFromList(flist, id_type);
         },
         reloadReport: function(operation) {
-            // Call stored procedure update_instrument_usage_report with @operation set to either 'refresh' or 'reload'
+            // Call procedure update_instrument_usage_report with @operation set to either 'refresh' or 'reload'
             var url =  dmsjs.pageContext.ops_url;
             var p = {};
             p.factorList = '';

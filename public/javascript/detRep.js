@@ -14,13 +14,13 @@ var detRep = {
      * The performCommand function in turn will post to http://dms2.pnl.gov/dataset/command/QC_Shew_15_02_2_29Oct15_Lynx_15-08-27/reset
      * That URL is processed by the base controller for the given page family, specifically function command in DmsBase.php
      * The command function calls function internal_operation in Operation.php
-     * The internal_operation function looks up the name of the stored procedure specified by operations_sproc in the general_params table of the model config db
-     * It then calls the stored procedure, passing on the given command to the @mode parameter
+     * The internal_operation function looks up the name of the procedure specified by operations_sproc in the general_params table of the model config db
+     * It then calls the procedure, passing on the given command to the @mode parameter
      * In the above example, DoDatasetOperation is called with @mode='reset'
      *
      * @param {type} url URL to post to
      * @param {type} id ID of the entity to update (e.g. dataset ID)
-     * @param {type} mode Mode to send to the operations_sproc stored procedure
+     * @param {type} mode Mode to send to the operations_sproc procedure
      * @param {type} promptMsg Message to show the user to ask them to confirm the operation
      * @returns {undefined}
      */

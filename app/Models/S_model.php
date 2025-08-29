@@ -4,17 +4,17 @@ namespace App\Models;
 use CodeIgniter\Model;
 use CodeIgniter\Database\SQLite3\Connection;
 
-// The function of this class is to execute a stored procedure
-// against one of the databases defined in the app/Config/database file.
+// The function of this class is to call a procedure in one of the databases
+// defined in the app/Config/database file.
 
 // It gets the procedure name and arguments from a config db as defined by the
-// config_name and config_source. If the stored procedure returns a rowset,
+// config_name and config_source. If the procedure returns a rowset,
 // it is automatically saved and made accessible to external code.
 
 /**
- * Helper class for stored procedure arguments:
- *   Basic definition of object that will contain bound arguments for calling stored procedure
- *   Only the baseline canonical arguments are statically defined by the class 
+ * Helper class for procedure arguments:
+ *   Basic definition of object that will contain bound arguments for calling a procedure
+ *   Only the baseline canonical arguments are statically defined by the class
  *   - Stored-procedure specific arguments are added dynamically
  * @category Helper class
  */
@@ -28,7 +28,7 @@ class Bound_arguments extends \stdClass {
 }
 
 /**
- * Used to execute a stored procedure against one of the databases defined in the app/Config/database file
+ * Used to call a procedure in one of the databases defined in the app/Config/database file
  */
 class S_model extends Model {
 
@@ -45,20 +45,20 @@ class S_model extends Model {
     private $configDBPath = "";
 
     /**
-     * Object that contains database-specific code used to actually access the stored procedure
+     * Object that contains database-specific code used to actually access the procedure
      * @var \App\Libraries\Sproc_base
      */
     private \App\Libraries\Sproc_base $sproc_handler;
 
     /**
-     * Actual name of stored procedure
+     * Actual name of the procedure
      * May be different then config_name, which can reference aliases in general parameters table in config db
      * @var string
      */
     private $sprocName = '';
 
     /**
-     * Definition of stored procedure arguments from config db
+     * Definition of procedure arguments from config db
      * @var array
      */
     private $sproc_args = array();
@@ -82,7 +82,7 @@ class S_model extends Model {
     private $bound_calling_parameters = null;
 
     /**
-     * Rowset returned by the stored procedure (null if none returned)
+     * Rowset returned by the procedure (null if none returned)
      * @var array
      */
     private $result_array = null;
@@ -139,8 +139,8 @@ class S_model extends Model {
     }
 
     /**
-     * Initializes stored procedure, binds arguments to paramObj members and
-     * local variables, and calls the stored procedure, returning the result
+     * Initializes procedure, binds arguments to paramObj members and
+     * local variables, and calls the procedure, returning the result
      * @param \stdClass|null $parmObj
      * @return bool
      * @throws \Exception
@@ -222,7 +222,7 @@ class S_model extends Model {
                 }
             }  // $this->bound_calling_parameters = $this->get_calling_args($parmObj); ??
 
-            // Execute the stored procedure
+            // Call the procedure
             // Retry the call up to 4 times
             $execRetriesRemaining = 4;
 
@@ -232,23 +232,23 @@ class S_model extends Model {
 
             while ($execRetriesRemaining > 0) {
                 try {
-                    $this->sproc_handler->execute($this->sprocName, 
-                                                  $my_db->connID, 
-                                                  $this->sproc_args, 
+                    $this->sproc_handler->execute($this->sprocName,
+                                                  $my_db->connID,
+                                                  $this->sproc_args,
                                                   $this->bound_calling_parameters,
                                                   $this->form_fields);
                     // Exit the while loop
                     break;
                 } catch (\Exception $ex) {
                     $errorMessage = $ex->getMessage();
-                    log_message('error', "Exception calling stored procedure $this->sprocName: $errorMessage");
+                    log_message('error', "Exception calling procedure $this->sprocName: $errorMessage");
                     $execRetriesRemaining--;
                     if ($execRetriesRemaining > 0) {
                         log_message('error', "Retrying call to $this->sprocName in $execSleepDelayMsec msec");
                         usleep($execSleepDelayMsec * 1000);
                         $execSleepDelayMsec *= 2;
                     } else {
-                        throw new \Exception("Call to stored procedure $this->sprocName failed: $errorMessage");
+                        throw new \Exception("Call to procedure $this->sprocName failed: $errorMessage");
                     }
                 }
             }
@@ -424,8 +424,8 @@ class S_model extends Model {
     }
 
     /**
-     * Get a list of arguments for calling the stored procedure
-     * based on configuration db definition and initialized from given param object
+     * Get a list of arguments for calling the procedure
+     * based on configuration DB definition and initialized from given param object
      * @param Bound_arguments $parmObj
      * @return Bound_arguments
      */
@@ -444,7 +444,7 @@ class S_model extends Model {
     }
 
     /**
-     * Load the stored procedure arguments from table "sproc_args" in the model config DB
+     * Load the procedure arguments from table "sproc_args" in the model config DB
      * Also load the form fields from table "form_fields"
      * @param string $config_name
      */
@@ -457,7 +457,7 @@ class S_model extends Model {
             $tbl_list[] = $row['tbl_name'];
         }
 
-        // Set name of stored procedure (subject to override by an alias from the general parameter table)
+        // Set name of procedure (subject to override by an alias from the general parameters table)
         $this->sprocName = $config_name;
 
         // Get parameters of interest from the general table
@@ -471,7 +471,7 @@ class S_model extends Model {
             }
         }
 
-        // Get definitions of arguments for stored procedure
+        // Get definitions of arguments for the procedure
         if (in_array('sproc_args', $tbl_list)) {
             $args = array();
 
@@ -490,7 +490,7 @@ class S_model extends Model {
             $this->sproc_args = $args;
         }
 
-        // Get definitions of arguments for stored procedure
+        // Get definitions of arguments for the procedure
         if (in_array('form_fields', $tbl_list)) {
             $fields = array();
 

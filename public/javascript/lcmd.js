@@ -94,7 +94,7 @@ var lcmd = {
             p.paramListXML = list;
             p.removeParents = removeParents;
 
-            // Call stored procedure update_data_package_items_xml
+            // Call procedure update_data_package_items_xml
             // dmsOps.submitOperation is defined in dmsOps.js
             dmsOps.submitOperation(url, p, true);
         },
@@ -221,7 +221,7 @@ var lcmd = {
     },
 */
     requested_run_admin: {
-        // mode is the update mode, to be passed to the operation stored procedure
+        // mode is the update mode, to be passed to the operation procedure
         // value is the new value
         op: function(mode, value) {
             // dmsChooser.getCkbxList is in dmsChooser.js
@@ -242,7 +242,7 @@ var lcmd = {
             var url = dmsjs.pageContext.ops_url;
             var p = {};
 
-            // This is auto-mapped to the @mode parameter of the stored procedure
+            // This is auto-mapped to the @mode parameter of the procedure
             p.command = mode;
 
             // The following two form fields are defined in the sproc_args table for page family https://dmsdev.pnl.gov/config_db/edit_table/requested_run.db/sproc_arg

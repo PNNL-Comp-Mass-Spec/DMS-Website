@@ -189,7 +189,7 @@ var dmsOps = {
                         // data should be a JSON-encoded string, for example:
                         //   '{"result":0,"message":"Operation was successful: Deleted 1 analysis job"}'
 
-                        // Look for a message parameter, which many DMS stored procedures have as an output parameter
+                        // Look for a message parameter, which many DMS procedures have as an output parameter
                         var dataObject = jQuery.parseJSON(data);
                         if (dataObject.message)
                             msg = dataObject.message;
