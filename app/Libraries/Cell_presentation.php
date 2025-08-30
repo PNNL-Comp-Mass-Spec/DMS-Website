@@ -522,6 +522,9 @@ class Cell_presentation {
             switch ($whichArg) {
                 case "value":
                     break;
+                case "no_value":
+                    $ref = '';
+                    break;
                 default:
                     if (array_key_exists(strtolower($whichArg), $row)) {
                         $whichArg = strtolower($whichArg);

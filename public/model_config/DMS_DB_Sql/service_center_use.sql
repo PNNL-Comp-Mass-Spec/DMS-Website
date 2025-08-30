@@ -15,7 +15,7 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'entry_id','invoke_entity','value','service_center_use/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'dataset_id','invoke_entity','value','datasetid/show/','');
 INSERT INTO list_report_hotlinks VALUES(3,'service_type_id','invoke_entity','value','service_center_use_type/report/','');
-INSERT INTO list_report_hotlinks VALUES(4,'report_id','invoke_entity','value','service_center_use_report/report/','');
+INSERT INTO list_report_hotlinks VALUES(4,'report_id','invoke_entity','no_value','service_center_use_report/report/-/-/-','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','6!','','report_id','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_entry_id','Entry ID','8!','','entry_id','Equals','text','','','');
