@@ -28,7 +28,7 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_username','Username','7!',''
 INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','20!','','name','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','6!','','status','StartsWithText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_hanford_id','Hanford ID','8!','','hanford_id','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_operations_list','Operations','15!','','operations_list','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_operations_list','Operations','30!','','operations_list','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_eus_ID','EUS ID','6!','','eus_id','Equals','text','12','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'username','invoke_entity','value','user/show/','');

@@ -42,5 +42,6 @@ INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_id','Dataset ID','8!
 INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','20!','','instrument','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_charge_code','Charge Code','','','charge_code','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_service_type_id','Service Type ID','6!','','service_type_id','Equals','text','','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_service_type','Service Type','30!','','service_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_service_type','Service Type','20!','','service_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_comment','Comment','40!','','comment','ContainsText','text','','','');
 COMMIT;
