@@ -29,7 +29,7 @@ INSERT INTO list_report_hotlinks VALUES(11,'request','export_align','value','','
 INSERT INTO list_report_hotlinks VALUES(12,'work_package','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(13,'date_sort_key','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(14,'svc_center_use_type','invoke_entity','value','service_center_use_type/report/','');
-INSERT INTO list_report_hotlinks VALUES(15,'svc_center_report_state','invoke_entity','value','dataset_svc_center_report_state/report/','');
+INSERT INTO list_report_hotlinks VALUES(15,'svc_center_report_state','invoke_entity','id','service_center_use_admin/report/-/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','40!','','dataset','ContainsTextTPO','text','128','','');

@@ -86,7 +86,7 @@ INSERT INTO list_report_hotlinks VALUES(10,'file_size_mb','export_align','value'
 INSERT INTO list_report_hotlinks VALUES(11,'request','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(12,'work_package','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(13,'svc_center_use_type','invoke_entity','value','service_center_use_type/report/','');
-INSERT INTO list_report_hotlinks VALUES(14,'svc_center_report_state','invoke_entity','value','dataset_svc_center_report_state/report/','');
+INSERT INTO list_report_hotlinks VALUES(14,'svc_center_report_state','invoke_entity','id','service_center_use_admin/report/-/','');
 CREATE TABLE detail_report_commands ( id INTEGER PRIMARY KEY,  "name" text, "Type" text, "Command" text, "Target" text, "Tooltip" text, "Prompt" text );
 INSERT INTO detail_report_commands VALUES(1,'Retry Capture','cmd_op','reset','dataset','Retry copying the instrument data from the instrument to the storage server.  This can only be used if the dataset folder on the storage server is empty or if it only contains a single corrupt .raw file.','Are you sure that you want to reset this dataset to New?');
 INSERT INTO detail_report_commands VALUES(2,'Create Data Analysis Request...','copy_from','','analysis_job_request','Open the entry form to create a new data analysis request for this dataset','');
