@@ -161,6 +161,7 @@ class Label_formatter {
         "gc"     => "GC",
         "hcd"    => "HCD",
         "hhs"    => "HHS",
+        "hid"    => "HID",
         "hms"    => "HMS",
         "hmsn"   => "HMSn",
         "hplc"   => "HPLC",
