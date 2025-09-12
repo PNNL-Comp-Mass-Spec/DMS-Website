@@ -16,12 +16,20 @@ $routes = Services::routes();
 // route since we don't have to scan directories.
 $routes->get('/', 'Gen::index');
 
-$routes->addApiRoutes('analysis_job_request', ['placeholder' => '(:num)']);
-$routes->addApiRoutes('analysis_group', ['only' => ['create', 'new']]);
-$routes->addApiRoutes('analysis_request_jobs', ['only' => ['index']]);
-$routes->addApiRoutes('analysis_job', ['placeholder' => '(:num)']);
-$routes->addApiRoutes('requested_run', ['placeholder' => '(:num)']);
-$routes->addApiRoutes('experiment', ['placeholder' => '(:num)']);
+// For allowed placeholders, like (:num), see
+//   https://codeigniter.com/user_guide/incoming/routing.html#placeholders
+
+// Info on 'only':
+//   at https://codeigniter.com/user_guide/incoming/restful.html for 'only'
+
+$routes->addApiRoutes('analysis_job_request',  ['placeholder' => '(:num)']);
+$routes->addApiRoutes('analysis_group',        ['only'        => ['create', 'new']]);
+$routes->addApiRoutes('analysis_request_jobs', ['only'        => ['index']]);
+$routes->addApiRoutes('analysis_job',          ['placeholder' => '(:num)']);
+$routes->addApiRoutes('experiment',            ['placeholder' => '(:segment)']);
+$routes->addApiRoutes('experimentid',          ['placeholder' => '(:num)']);
+$routes->addApiRoutes('pnnl_projects',         ['placeholder' => '(:num)']);
+$routes->addApiRoutes('requested_run',         ['placeholder' => '(:num)']);
 
 // final API entry - landing page for anything not mapped above
 $routes->create('*', 'api(:slashOrEnd)', 'Api::index');
