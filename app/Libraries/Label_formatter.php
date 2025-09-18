@@ -31,6 +31,16 @@ class Label_formatter {
         "requested_run_batch_ids"       => "Requested Run Batch IDs",
         "term_pk"                       => "Term PK",
         "total_cpus"                    => "Total CPUs",
+        // Service Center Use Export page:
+        "ticket_number"                 => "TicketNumber",
+        "sub_account"                   => "Subaccount",
+        "service_type_id"               => "TOS",
+        "requestor_employee_id"         => "RequestorEmployeeId",
+        "charge_code"                   => "ChargeCode",
+        "transaction_date"              => "TransactionDate",
+        "transaction_units"             => "TransactionUnits",
+        "is_held"                       => "IsHeld",
+        "comment"                       => "Comment",
         // V_Dataset_QC_Metrics views
         "ms2_prec_z_1"                  => "MS2_PrecZ_1",
         "ms2_prec_z_2"                  => "MS2_PrecZ_2",
