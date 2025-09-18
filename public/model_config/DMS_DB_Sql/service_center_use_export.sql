@@ -2,12 +2,15 @@
 BEGIN TRANSACTION;
 CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_service_center_use_export');
-INSERT INTO general_params VALUES('list_report_data_sort_col','report_id, "TicketNumber"');
+INSERT INTO general_params VALUES('list_report_data_sort_col','report_id, ticket_number');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'report_id','invoke_entity','value','service_center_use_report/report/','');
 INSERT INTO list_report_hotlinks VALUES(2,'TicketNumber','invoke_entity','value','service_center_use/show/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','','','report_id','Equals','text','','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_ticket_number','Ticket Number (Entry_ID)','','','"TicketNumber"','StartsWithText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_ticket_number','Ticket Number (Entry_ID)','','','ticket_number','StartsWithText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_comment','Comment','30!','','comment','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','','','instrument','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset_id','Dataset ID','','','dataset_id','Equals','text','','','');
 COMMIT;
