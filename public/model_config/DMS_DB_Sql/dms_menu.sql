@@ -119,7 +119,6 @@ INSERT INTO menu_def VALUES(22,'Dataset Special Reports','link','ai_user_funded_
 INSERT INTO menu_def VALUES(23,'Dataset Special Reports','link','dataset_funding/report/-/-/-/-/12','All funded');
 INSERT INTO menu_def VALUES(24,'Dataset Special Reports','link','dataset_instrument/report','Instrument Usage');
 INSERT INTO menu_def VALUES(26,'Dataset Special Reports','link','production_instrument_stats/param','Dataset Production Statistics');
-INSERT INTO menu_def VALUES(27,'Datasets','separator','','');
 INSERT INTO menu_def VALUES(28,'','submenu','Experiments','Experiments');
 INSERT INTO menu_def VALUES(29,'Experiments','link','experiment/report','Report');
 INSERT INTO menu_def VALUES(30,'Experiments','link','experiment/search','Search');
@@ -140,7 +139,6 @@ INSERT INTO menu_def VALUES(44,'Experiment Labelling','link','sample_label_repor
 INSERT INTO menu_def VALUES(45,'Experiments','submenu','Experiment Organisms','Organisms');
 INSERT INTO menu_def VALUES(46,'Experiment Organisms','link','organism/report','Report');
 INSERT INTO menu_def VALUES(47,'Experiment Organisms','link','organism/create','Entry');
-INSERT INTO menu_def VALUES(48,'Experiments','separator','','');
 INSERT INTO menu_def VALUES(49,'','submenu','Biomaterial','Biomaterial');
 INSERT INTO menu_def VALUES(50,'Biomaterial','link','biomaterial/report','Report');
 INSERT INTO menu_def VALUES(51,'Biomaterial','link','biomaterial/search','Search');
@@ -151,7 +149,6 @@ INSERT INTO menu_def VALUES(55,'Campaigns','link','campaign/search','Search');
 INSERT INTO menu_def VALUES(56,'Campaigns','link','campaign/create','Entry');
 INSERT INTO menu_def VALUES(57,'Campaigns','link','staff_roles/report','Staff Roles');
 INSERT INTO menu_def VALUES(58,'Campaigns','link','campaign_dataset_stats/param','Campaign Dataset Stats');
-INSERT INTO menu_def VALUES(59,'','separator ','','');
 INSERT INTO menu_def VALUES(60,'','submenu','Sample Prep','Sample Prep');
 INSERT INTO menu_def VALUES(61,'Sample Prep','submenu','Sample Prep Report','Report');
 INSERT INTO menu_def VALUES(62,'Sample Prep Report','link','sample_prep_request/report/-/-/-/-','All');
@@ -187,7 +184,6 @@ INSERT INTO menu_def VALUES(93,'OSM Packages','link','osm_package/create','Entry
 INSERT INTO menu_def VALUES(107,'Sample Prep','submenu','Transcriptomics','Transcriptomics');
 INSERT INTO menu_def VALUES(108,'Transcriptomics','link','rna_prep_request/report/-/-/-/-','Requests');
 INSERT INTO menu_def VALUES(109,'Transcriptomics','link','rna_prep_request/create','Entry');
-INSERT INTO menu_def VALUES(110,'Sample Prep','separator','','');
 INSERT INTO menu_def VALUES(111,'','submenu','Prep LC','Prep LC');
 INSERT INTO menu_def VALUES(112,'Prep LC','submenu','Prep LC Columns','Prep LC Columns');
 INSERT INTO menu_def VALUES(113,'Prep LC Columns','link','prep_lc_column/report/-/-/-/-/NoMatch__Retired','Report');
@@ -195,7 +191,6 @@ INSERT INTO menu_def VALUES(114,'Prep LC Columns','link','prep_lc_column/create'
 INSERT INTO menu_def VALUES(115,'Prep LC','submenu','Prep LC Runs','Prep LC Runs');
 INSERT INTO menu_def VALUES(116,'Prep LC Runs','link','prep_lc_run/report','Report');
 INSERT INTO menu_def VALUES(117,'Prep LC Runs','link','prep_lc_run/create','Entry');
-INSERT INTO menu_def VALUES(118,'','separator',' ',' ');
 INSERT INTO menu_def VALUES(119,'','submenu','Material Storage','Material Storage');
 INSERT INTO menu_def VALUES(120,'Material Storage','link','material_location_available/report/-/-/-','Available Locations');
 INSERT INTO menu_def VALUES(121,'Material Storage','link','material_location/report/-/-/-/-/-/-/Active','Active Locations');
@@ -215,7 +210,6 @@ INSERT INTO menu_def VALUES(135,'Sample Submission','link','sample_submission/cr
 INSERT INTO menu_def VALUES(136,'','submenu','Wellplates','Wellplates');
 INSERT INTO menu_def VALUES(137,'Wellplates','link','wellplate/report/-/-/-','Report');
 INSERT INTO menu_def VALUES(138,'Wellplates','link','wellplate/create','Entry');
-INSERT INTO menu_def VALUES(139,'','separator','','');
 INSERT INTO menu_def VALUES(140,'','submenu','Data Analysis','Data Analysis');
 INSERT INTO menu_def VALUES(141,'Data Analysis','submenu','Data Analysis Reports','Reports (last 12 months)');
 INSERT INTO menu_def VALUES(142,'Data Analysis Reports','link','analysis_job/report/-/-/-/-/-/-/-/-/52','All');
@@ -229,7 +223,6 @@ INSERT INTO menu_def VALUES(155,'Data Analysis','submenu','Analysis Job Requests
 INSERT INTO menu_def VALUES(156,'Analysis Job Requests','link','analysis_job_request/report/-/-/-/-','All');
 INSERT INTO menu_def VALUES(157,'Analysis Job Requests','link','analysis_job_request/report/New','New');
 INSERT INTO menu_def VALUES(158,'Analysis Job Requests','link','analysis_job_request/report/Used','Used');
-INSERT INTO menu_def VALUES(160,'Analysis Job Requests','separator','','');
 INSERT INTO menu_def VALUES(162,'Analysis Job Requests','link','analysis_job_request_psm/create','MS/MS Job Request Wizard');
 INSERT INTO menu_def VALUES(163,'Analysis Job Requests','link','analysis_job_request/create','Create generic request');
 INSERT INTO menu_def VALUES(165,'Analysis Job Requests','link','pipeline_job_steps/report/-/-/-/StartsWith__running','Running Job Steps');
@@ -259,7 +252,6 @@ INSERT INTO menu_def VALUES(190,'Data Package Reports','link','data_package_data
 INSERT INTO menu_def VALUES(191,'Data Package Reports','link','data_package_jobs/search','Data Package Jobs');
 INSERT INTO menu_def VALUES(192,'Data Package Reports','link','data_package_dataset_qc/search','Data Package Dataset QC');
 INSERT INTO menu_def VALUES(193,'Data Packages','link','data_package/create','Entry');
-INSERT INTO menu_def VALUES(194,'','separator','','');
 INSERT INTO menu_def VALUES(195,'','submenu','MS Scheduling','MS Scheduling');
 INSERT INTO menu_def VALUES(196,'MS Scheduling','submenu','Requested Run Reports','Reports');
 INSERT INTO menu_def VALUES(198,'Requested Run Reports','link','requested_run/report/-/-/-/-','Requests - All');
@@ -280,11 +272,9 @@ INSERT INTO menu_def VALUES(212,'Usage Tracking','link','run_interval/report','R
 INSERT INTO menu_def VALUES(213,'Usage Tracking','submenu','Tracking Datasets','Tracking Datasets');
 INSERT INTO menu_def VALUES(214,'Tracking Datasets','link','tracking_dataset/report','Report');
 INSERT INTO menu_def VALUES(215,'Tracking Datasets','link','tracking_dataset/create','Entry');
-INSERT INTO menu_def VALUES(216,'MS Scheduling Entry','separator','','');
 INSERT INTO menu_def VALUES(217,'MS Scheduling','submenu','MRM Transition List','MRM Transition List');
 INSERT INTO menu_def VALUES(218,'MRM Transition List','link','mrm_list_attachment/report','Report');
 INSERT INTO menu_def VALUES(219,'MRM Transition List','link','mrm_list_attachment/create','Upload');
-INSERT INTO menu_def VALUES(220,'MRM Transition List','separator',' ',' ');
 INSERT INTO menu_def VALUES(221,'MS Scheduling','submenu','MS Scheduling Batches','Run Batches');
 INSERT INTO menu_def VALUES(222,'MS Scheduling Batches','link','requested_run_batch/report','Report');
 INSERT INTO menu_def VALUES(223,'MS Scheduling Batches','link','requested_run_batch/report/-/-/-/-/-/-/-/1','Report Active Requests');
@@ -293,16 +283,13 @@ INSERT INTO menu_def VALUES(225,'MS Scheduling Batches','link','requested_run_ba
 INSERT INTO menu_def VALUES(226,'MS Scheduling Batches','link','requested_run_batch_group/report','Batch Groups');
 INSERT INTO menu_def VALUES(227,'MS Scheduling Batches','link','batch_tracking/report/-/-/-/-','Tracking');
 INSERT INTO menu_def VALUES(228,'MS Scheduling Batches','link','requested_run_batch_location_history/report','Location History');
-INSERT INTO menu_def VALUES(229,'MS Scheduling Batches','separator','','');
 INSERT INTO menu_def VALUES(230,'MS Scheduling','submenu','Requested Run Blocking','Run Blocking');
-INSERT INTO menu_def VALUES(231,'Requested Run Blocking','separator','','');
 INSERT INTO menu_def VALUES(232,'Requested Run Blocking','link','requested_run_batch_blocking/param','Define Blocking');
 INSERT INTO menu_def VALUES(233,'Requested Run Blocking','link','requested_run_batch_blocking/grid','Define Blocking (grid)');
 INSERT INTO menu_def VALUES(234,'MS Scheduling','submenu','Requested Run Factors','Run Factors');
 INSERT INTO menu_def VALUES(236,'Requested Run Factors','link','requested_run_factors/param','Define Factors');
 INSERT INTO menu_def VALUES(237,'Requested Run Factors','link','factors/grid','Define Factors (grid)');
 INSERT INTO menu_def VALUES(238,'Requested Run Factors','link','custom_factors/report/-','Browse Factors');
-INSERT INTO menu_def VALUES(239,'','separator',' ',' ');
 INSERT INTO menu_def VALUES(240,'MS Scheduling','link','run_assignment_wellplate/report','Wellplates');
 INSERT INTO menu_def VALUES(241,'','submenu','MS LC','MS LC');
 INSERT INTO menu_def VALUES(242,'MS LC','submenu','LC Columns','LC Columns');
@@ -310,7 +297,6 @@ INSERT INTO menu_def VALUES(243,'LC Columns','link','lc_column/report','Report')
 INSERT INTO menu_def VALUES(244,'LC Columns','link','lc_column/create','Entry');
 INSERT INTO menu_def VALUES(245,'LC Columns','submenu','Special LC Columns Reports','Special Reports');
 INSERT INTO menu_def VALUES(246,'Special LC Columns Reports','link','lc_column_dataset/report','Dataset Count');
-INSERT INTO menu_def VALUES(247,'LC Columns','separator',' ',' ');
 INSERT INTO menu_def VALUES(248,'MS LC','submenu','LC Carts','LC Carts');
 INSERT INTO menu_def VALUES(249,'LC Carts','link','lc_cart/report','Report');
 INSERT INTO menu_def VALUES(250,'LC Carts','link','lc_cart/create','Entry');
@@ -318,15 +304,12 @@ INSERT INTO menu_def VALUES(252,'LC Carts','link','lc_cart_request_loading/repor
 INSERT INTO menu_def VALUES(253,'LC Carts','link','lc_cart_loading/report','Loading List');
 INSERT INTO menu_def VALUES(254,'LC Carts','link','lc_cart_configuration/report','LC Cart Configurations');
 INSERT INTO menu_def VALUES(255,'LC Carts','link','lc_cart_config_history/report','LC Cart Service Notes');
-INSERT INTO menu_def VALUES(256,'LC Carts','separator','','');
 INSERT INTO menu_def VALUES(257,'MS LC','submenu','Instrument Config','Instrument Config.');
 INSERT INTO menu_def VALUES(258,'Instrument Config','link','instrument_config/report','Inst. List');
 INSERT INTO menu_def VALUES(259,'Instrument Config','link','instrument_config_history/report','Config. History');
 INSERT INTO menu_def VALUES(260,'Instrument Config','link','instrument_config_history/create','New Inst. Service Note');
-INSERT INTO menu_def VALUES(261,'Instrument Config','separator','','');
 INSERT INTO menu_def VALUES(262,'MS LC','link','run_op_logs/grid','Operation Log Grid');
 INSERT INTO menu_def VALUES(263,'MS LC','link','instrument_operation_history/report','Inst. Operation Notes ');
-INSERT INTO menu_def VALUES(264,'','separator',' ',' ');
 INSERT INTO menu_def VALUES(266,'','submenu','Search','Search');
 INSERT INTO menu_def VALUES(267,'Search','link','analysis_job/search','Analysis Jobs');
 INSERT INTO menu_def VALUES(268,'Search','link','dataset/search','Datasets');
@@ -342,7 +325,6 @@ INSERT INTO menu_def VALUES(278,'Service Center','link','service_center_use_admi
 INSERT INTO menu_def VALUES(279,'Service Center','link','service_center_use_export/report/-','Service Center Use Export');
 INSERT INTO menu_def VALUES(280,'Service Center','link','service_center_use_type/report/-','Service Center Use Types');
 INSERT INTO menu_def VALUES(281,'Service Center','link','service_center_cost_rate/report/-','Service Center Cost Rates');
-INSERT INTO menu_def VALUES(282,'Search','separator','','');
 INSERT INTO menu_def VALUES(283,'','submenu','Admin','Admin');
 INSERT INTO menu_def VALUES(284,'Admin','submenu','Activity Reports','Activity Reports');
 INSERT INTO menu_def VALUES(288,'Activity Reports','link','production_instrument_stats/param','Prod. Inst. Stats.');
@@ -350,7 +332,6 @@ INSERT INTO menu_def VALUES(289,'Activity Reports','link','dataset_instrument_ru
 INSERT INTO menu_def VALUES(290,'Activity Reports','link','campaign_dataset_stats/param','Campaign Dataset Stats');
 INSERT INTO menu_def VALUES(291,'Activity Reports','link','project_usage/report/__ThisYear__/__ThisWeek__/user','Project Usage Stats');
 INSERT INTO menu_def VALUES(292,'Activity Reports','link','tissue_stats/param/__TodayLastYear__/__Today__','Tissue Usage Statistics');
-INSERT INTO menu_def VALUES(293,'Activity Reports','separator','','');
 INSERT INTO menu_def VALUES(294,'Admin','submenu','Data Analysis Admin','Data Analysis');
 INSERT INTO menu_def VALUES(295,'Data Analysis Admin','link','analysis_group/create','Analysis Job Group Entry');
 INSERT INTO menu_def VALUES(296,'Data Analysis Admin','link','analysis_tools/report','Analysis Tools');
@@ -386,11 +367,9 @@ INSERT INTO menu_def VALUES(327,'Predefines Admin Preview','link','predefined_an
 INSERT INTO menu_def VALUES(328,'Predefines Admin Preview','link','predefined_analysis_preview_mds/param','Jobs (MDS)');
 INSERT INTO menu_def VALUES(329,'Predefines Admin Preview','link','predefined_analysis_datasets/param','Datasets');
 INSERT INTO menu_def VALUES(330,'Predefines Admin Preview','link','predefined_analysis_rules_preview/param','Rules');
-INSERT INTO menu_def VALUES(331,'Predefines Admin Preview','separator',' ',' ');
 INSERT INTO menu_def VALUES(332,'Predefines Admin','submenu','Predefines Admin Scheduling Rules','Scheduling Rules');
 INSERT INTO menu_def VALUES(333,'Predefines Admin Scheduling Rules','link','predefined_analysis_scheduling_rules/report','Report');
 INSERT INTO menu_def VALUES(334,'Predefines Admin Scheduling Rules','link','predefined_analysis_scheduling_rules/create','Entry');
-INSERT INTO menu_def VALUES(335,'Predefines Admin Scheduling Rules','separator','','');
 INSERT INTO menu_def VALUES(336,'Admin','submenu','Data Analysis Pipeline','Data Analysis Pipeline');
 INSERT INTO menu_def VALUES(337,'Data Analysis Pipeline','link','settings_files/report','Settings Files');
 INSERT INTO menu_def VALUES(338,'Data Analysis Pipeline','link','pipeline_script/report','Script');
@@ -411,13 +390,11 @@ INSERT INTO menu_def VALUES(353,'Capture Pipeline','link','capture_processor_ste
 INSERT INTO menu_def VALUES(354,'Admin','submenu','Capture Status Checks','Capture Status Checks');
 INSERT INTO menu_def VALUES(355,'Admin','submenu','Dataset Admin','Dataset');
 INSERT INTO menu_def VALUES(358,'Dataset Admin','link','dataset_redisposition/create','Redisposition Dataset');
-INSERT INTO menu_def VALUES(359,'Dataset Admin','separator','','');
 INSERT INTO menu_def VALUES(360,'Admin','submenu','Archive Admin','Archive');
 INSERT INTO menu_def VALUES(361,'Archive Admin','link','archive/report','Datasets');
 INSERT INTO menu_def VALUES(362,'Archive Admin','link','archive_assigned_storage/report','Assigned');
 INSERT INTO menu_def VALUES(363,'Archive Admin','link','archive_path/report','Archive Path');
 INSERT INTO menu_def VALUES(365,'Archive Admin','link','archive/search','Search');
-INSERT INTO menu_def VALUES(366,'Archive Admin','separator','','');
 INSERT INTO menu_def VALUES(367,'Admin','submenu','EMSL Admin','EMSL');
 INSERT INTO menu_def VALUES(368,'EMSL Admin','submenu','EMSL Admin EUS Proposals','EUS Proposals');
 INSERT INTO menu_def VALUES(369,'EMSL Admin EUS Proposals','link','eus_proposals/report/-','Report (all)');
@@ -442,7 +419,6 @@ INSERT INTO menu_def VALUES(392,'Daily Status Checks','link','archive_daily_chec
 INSERT INTO menu_def VALUES(393,'Daily Status Checks','link','archive_daily_check_update/report','Archive Update');
 INSERT INTO menu_def VALUES(394,'Daily Status Checks','link','analysis_daily_check/report','Analysis');
 INSERT INTO menu_def VALUES(396,'Daily Status Checks','link','dms_activity/report','DMS Activity');
-INSERT INTO menu_def VALUES(397,'Daily Status Checks','separator','','');
 INSERT INTO menu_def VALUES(398,'Admin','submenu','Event Log','Event Log');
 INSERT INTO menu_def VALUES(399,'Event Log','link','event_log_dataset/report','Dataset');
 INSERT INTO menu_def VALUES(400,'Event Log','link','event_log_analysis_job/report','Analyses');
