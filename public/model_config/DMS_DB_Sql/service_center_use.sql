@@ -16,6 +16,7 @@ INSERT INTO list_report_hotlinks VALUES(1,'entry_id','invoke_entity','value','se
 INSERT INTO list_report_hotlinks VALUES(2,'dataset_id','invoke_entity','value','datasetid/show/','');
 INSERT INTO list_report_hotlinks VALUES(3,'service_type_id','invoke_entity','value','service_center_use_type/report/','');
 INSERT INTO list_report_hotlinks VALUES(4,'report_id','invoke_entity','no_value','service_center_use_report/report/-/-/-','');
+INSERT INTO list_report_hotlinks VALUES(5,'charge_code','invoke_entity','value','charge_code/show/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','6!','','report_id','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_entry_id','Entry ID','8!','','entry_id','Equals','text','','','');
@@ -23,7 +24,8 @@ INSERT INTO list_report_primary_filter VALUES(3,'pf_dataset_id','Dataset ID','8!
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','20!','','instrument','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_charge_code','Charge Code','','','charge_code','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_service_type_id','Service Type ID','6!','','service_type_id','Equals','text','','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_service_type','Service Type','30!','','service_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_service_type','Service Type','20!','','service_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_comment','Comment','30!','','comment','ContainsText','text','','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
 INSERT INTO detail_report_hotlinks VALUES(1,'report_id','detail-report','report_id','service_center_use/report','valueCol','','');
 INSERT INTO detail_report_hotlinks VALUES(2,'+report_id','detail-report','report_id','service_center_use_report/report','labelCol','','');
