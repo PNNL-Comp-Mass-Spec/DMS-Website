@@ -138,6 +138,7 @@ INSERT INTO detail_report_hotlinks VALUES(42,'separation_type','detail-report','
 INSERT INTO detail_report_hotlinks VALUES(43,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
 INSERT INTO detail_report_hotlinks VALUES(44,'service_center_use_type_id','detail-report','service_center_use_type_id','service_center_use_type/report/','labelCol','dl_service_center_use_type','');
 INSERT INTO detail_report_hotlinks VALUES(45,'service_center_report_state','detail-report','service_center_report_state','dataset_svc_center_report_state/report/-/~','labelCol','dl_dataset_svc_center_report_state','');
+INSERT INTO detail_report_hotlinks VALUES(46,'rating','detail-report','','dataset_rating/report/-/-/-','labelCol','dl_dataset_rating','');
 CREATE TABLE entry_commands ( id INTEGER PRIMARY KEY,  "name" text, "type" text, "label" text, "tooltip" text, "target" text );
 INSERT INTO entry_commands VALUES(1,'add_dataset_create_task','override','Create','Create a new dataset by adding it to the dataset creation queue','add');
 INSERT INTO entry_commands VALUES(2,'bad','cmd','Bad Dataset - Add For Tracking Only','Create a new dataset in DMS, but mark it as a bad instrument run (Rating "No Data").','');

@@ -35,6 +35,7 @@ INSERT INTO detail_report_hotlinks VALUES(5,'charge_code','detail-report','charg
 INSERT INTO detail_report_hotlinks VALUES(6,'service_type_id','detail-report','service_type_id','service_center_use_type/report/','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(7,'requestor_employee_id','detail-report','requestor_employee_id','user/show/','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(8,'instrument','detail-report','instrument','instrument/show/','labelCol','','');
+INSERT INTO detail_report_hotlinks VALUES(9,'dataset_rating','detail-report','','dataset_rating/report/-/-/-','labelCol','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','entryID','int','input','','update_service_use');
 INSERT INTO sproc_args VALUES(2,'charge_code','chargeCode','varchar','input','64','update_service_use');
