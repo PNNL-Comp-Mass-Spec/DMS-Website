@@ -2,13 +2,21 @@
 
 <form name="DBG" action="">
 
+<!--
+    Page https://dms2.pnl.gov/dataset_disposition/search calls procedure update_dataset_dispositions to update the dataset rating and optionally append text to the comment
+    The dataset rating names in the following list correspond to names in table t_dataset_rating_name
+    Procedure update_dataset_dispositions removes " (not service center eligible)" from the dataset rating sent to the procedure
+-->
+
 <div>
 <span>Dataset Rating:</span>
 <select name='rating' id='rating_fld'>
     <option>Released</option>
-    <option>Not Released</option>
+    <option>Not Released (not service center eligible)</option>
     <option>Rerun (Good Data)</option>
     <option>Rerun (Superseded)</option>
+    <option>Exclude From Service Center</option>
+    <option>Method Development (not service center eligible)</option>
 </select>
 </div>
 
