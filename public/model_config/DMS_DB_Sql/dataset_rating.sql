@@ -1,0 +1,14 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('base_table','t_dataset_rating_name');
+INSERT INTO general_params VALUES('list_report_data_table','v_dataset_rating_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_col','id');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset_rating_id','ID','','','id','Equals','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_rating','Dataset Rating','','','dataset_rating','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_comment','Comment','','','comment','ContainsText','text','','','');
+CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
+INSERT INTO list_report_hotlinks VALUES(1,'dataset_rating','invoke_entity','value','dataset/report/-/-/-/-/-/-/24/-/-/ExactMatch__@/-/-','');
+COMMIT;
