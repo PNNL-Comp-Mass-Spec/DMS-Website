@@ -35,7 +35,7 @@ class Label_formatter {
         "ticket_number"                 => "TicketNumber",
         "sub_account"                   => "Subaccount",
         "service_type_id"               => "TOS",
-        "requestor_employee_id"         => "RequestorEmployeeId",
+        "requester_employee_id"         => "RequestorEmployeeId",
         "charge_code"                   => "ChargeCode",
         "transaction_date"              => "TransactionDate",
         "transaction_units"             => "TransactionUnits",
