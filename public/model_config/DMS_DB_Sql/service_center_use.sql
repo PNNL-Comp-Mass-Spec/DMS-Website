@@ -12,11 +12,11 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','report_id, datase
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('post_submission_detail_id','id');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'entry_id','invoke_entity','value','service_center_use/show/','');
-INSERT INTO list_report_hotlinks VALUES(2,'dataset_id','invoke_entity','value','datasetid/show/','');
-INSERT INTO list_report_hotlinks VALUES(3,'service_type_id','invoke_entity','value','service_center_use_type/report/','');
-INSERT INTO list_report_hotlinks VALUES(4,'report_id','invoke_entity','no_value','service_center_use_report/report/-/-/-','');
-INSERT INTO list_report_hotlinks VALUES(5,'charge_code','invoke_entity','value','charge_code/show/','');
+INSERT INTO list_report_hotlinks VALUES(1,'report_id','invoke_entity','value','service_center_use_admin/report/@/-/-/-','');
+INSERT INTO list_report_hotlinks VALUES(2,'entry_id','invoke_entity','value','service_center_use/show/','');
+INSERT INTO list_report_hotlinks VALUES(3,'dataset_id','invoke_entity','value','datasetid/show/','');
+INSERT INTO list_report_hotlinks VALUES(4,'charge_code','invoke_entity','value','charge_code/show/','');
+INSERT INTO list_report_hotlinks VALUES(5,'service_type_id','invoke_entity','value','service_center_use_type/report/','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','6!','','report_id','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_entry_id','Entry ID','8!','','entry_id','Equals','text','','','');
@@ -27,8 +27,8 @@ INSERT INTO list_report_primary_filter VALUES(6,'pf_service_type_id','Service Ty
 INSERT INTO list_report_primary_filter VALUES(7,'pf_service_type','Service Type','20!','','service_type','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_comment','Comment','30!','','comment','ContainsText','text','','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text, "options" text );
-INSERT INTO detail_report_hotlinks VALUES(1,'report_id','detail-report','report_id','service_center_use/report','valueCol','','');
-INSERT INTO detail_report_hotlinks VALUES(2,'+report_id','detail-report','report_id','service_center_use_report/report','labelCol','','');
+INSERT INTO detail_report_hotlinks VALUES(1,'report_id','detail-report','report_id','service_center_use_admin/report/@/-/-/-','valueCol','','');
+INSERT INTO detail_report_hotlinks VALUES(2,'+report_id','detail-report','','service_center_use_report/report/-/-/-','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(3,'dataset_id','detail-report','dataset_id','datasetid/show/','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(4,'request_id','detail-report','request_id','requested_run/show/','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(5,'charge_code','detail-report','charge_code','charge_code/show/','labelCol','','');

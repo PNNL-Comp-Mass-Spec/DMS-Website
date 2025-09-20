@@ -9,7 +9,8 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','',''
 INSERT INTO list_report_primary_filter VALUES(2,'pf_report_state','Report State','','','report_state','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_cost_group_id','Cost Group ID','','','cost_group_id','Equals','text','','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
-INSERT INTO list_report_hotlinks VALUES(1,'report_id','invoke_entity','value','service_center_use/report/','');
-INSERT INTO list_report_hotlinks VALUES(2,'cost_group_id','invoke_entity','value','service_center_cost_rate/report/','');
-INSERT INTO list_report_hotlinks VALUES(3,'report_state','invoke_entity','report_id','service_center_use_export/report/','');
+INSERT INTO list_report_hotlinks VALUES(1,'report_id','invoke_entity','value','service_center_use/report/@/-/-','');
+INSERT INTO list_report_hotlinks VALUES(2,'cost_group_id','invoke_entity','value','service_center_cost_rate/report/@/-/-','');
+INSERT INTO list_report_hotlinks VALUES(3,'report_state','invoke_entity','report_id','service_center_use_export/report/@/-/-','');
+INSERT INTO list_report_hotlinks VALUES(4,'requester_employee_id','invoke_entity','value','user/report/@/-/-','');
 COMMIT;
