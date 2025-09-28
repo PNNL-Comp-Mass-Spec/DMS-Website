@@ -66,6 +66,7 @@ $routes->getAlias('dataset_tracking', 'Tracking_dataset');
 $routes->getAlias('datasets', 'Dataset');
 
 $routes->getAlias('disposition', 'Dataset_disposition');
+$routes->getAlias('disposition_lite', 'Dataset_disposition_lite');
 
 $routes->getAlias('eus_user', 'Eus_users');
 
