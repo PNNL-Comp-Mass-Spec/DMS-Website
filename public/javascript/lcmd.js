@@ -26,7 +26,7 @@ var lcmd = {
             p.command = mode;
             p.newValue = '';
             p.processorGroupID = $('#pf_groupid').val();
-            if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
+            if (p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
             p.JobList = list;
             dmsOps.submitOperation(url, p);
         }
@@ -50,14 +50,14 @@ var lcmd = {
             }
             if ( !confirm("Are you sure that you want to update the database?") )
                 return;
-            if(mode=='set_membership_enabled') mode = $('#' + p1).val();
+            if (mode=='set_membership_enabled') mode = $('#' + p1).val();
             // URL will point to the operations_sproc value defined in analysis_job_processor_group_association.db, typically update_analysis_job_processor_group_membership
             var url = dmsjs.pageContext.ops_url;
             var p = {};
             p.command = mode;
             p.newValue = (p2)?$('#' + p2).val():'';
             p.processorGroupID = $('#pf_groupid').val();
-            if(p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
+            if (p.processorGroupID == '') {alert('No group ID in primary filter'); return;}
             p.processorNameList = list;
             dmsOps.submitOperation(url, p);
         }
@@ -101,7 +101,7 @@ var lcmd = {
         getDatasetInfo: function (mode) {
             var id = $('#pf_data_package_id').val();
             var tool = $('#tool_name').val();
-            if(id == '') {alert('data_package_id filter not set'); return;}
+            if (id == '') {alert('data_package_id filter not set'); return;}
             var url = dmsjs.pageContext.site_url + 'data_package/ag/' + id + '/' + tool + '/' + mode;
             $('#dataset_dump_field').html('');
             dmsOps.loadContainer(url, {}, 'dataset_dump_field');
@@ -111,7 +111,7 @@ var lcmd = {
         op: function(mode) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select datasets.');
                 return;
             }
@@ -154,7 +154,7 @@ var lcmd = {
             //   unretire_container
             //   move_container
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select containers.');
                 return;
             }
@@ -176,11 +176,11 @@ var lcmd = {
             // where the item names come from the value text associated with each checkbox
             // Checkbox names come from column #I_ID in view V_Material_Items_List_Report
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select items.');
                 return;
             }
-            if(list.length > 64000) {
+            if (list.length > 64000) {
                 // Procedure update_material_items has argument @itemList text
                 // We can thus push in more than 8000 characters; the 128000 limit is an arbitrary limit
                 alert('You have selected more items than the system can handle at one time. Please select fewer items and try again.');
@@ -206,7 +206,7 @@ var lcmd = {
                 if ( rows[i].checked )
                     list  += rows[i].value;
             }
-            if(list=='') {
+            if (list=='') {
                 alert('You must select items');
                 return;
             }
@@ -222,16 +222,17 @@ var lcmd = {
     },
 */
     requested_run_admin: {
-        // mode is the update mode, to be passed to the operation procedure
+        // mode is the update mode, to be passed to the operations procedure, update_requested_run_assignments
         // value is the new value
+        // Valid modes are 'assignedInstrument', 'instrumentGroup', 'instrumentGroupIgnoreType', 'datasetType', 'separationGroup', 'delete', and 'priority'
         op: function(mode, value) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select requested runs.');
                 return;
             }
-            if(list.length > 128000) {
+            if (list.length > 128000) {
                 // Procedure update_requested_run_assignments has argument @reqRunIDList text
                 // We can thus push in more than 8000 characters; the 128000 limit is an arbitrary limit
                 alert('You have selected more items than the system can handle at one time. Please select fewer items and try again.');
@@ -258,16 +259,17 @@ var lcmd = {
         }
     },
     service_center_use_admin: {
-        // mode is the update mode, to be passed to the operation procedure
+        // mode is the update mode, to be passed to the operations procedure, update_service_use_entries
         // value is the new value
+        // Valid modes are 'datasetRating' and 'serviceCenterRefund'
         op: function(mode, value) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select service use entries.');
                 return;
             }
-            if(list.length > 128000) {
+            if (list.length > 128000) {
                 // Procedure update_service_use_entries has argument @entryidlist text
                 // We can thus push in more than 8000 characters; the 128000 limit is an arbitrary limit
                 alert('You have selected more items than the system can handle at one time. Please select fewer items and try again.');
@@ -297,7 +299,7 @@ var lcmd = {
         op: function(mode, value) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select prep requests.');
                 return;
             }
@@ -316,7 +318,7 @@ var lcmd = {
         op: function(mode, newValFld) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select at least one manager.');
                 return;
             }
@@ -335,7 +337,7 @@ var lcmd = {
         op: function(mode, newValFld) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if(list=='') {
+            if (list=='') {
                 alert('You must select at least one manager type.');
                 return;
             }
@@ -357,12 +359,12 @@ var lcmd = {
 
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx' );
-            if(list=='' && commalist=='') {
+            if (list=='' && commalist=='') {
                 alert('You must select at least 1 dataset or enter 1 dataset id.');
                 return;
             }
             //Add or Remove trailing comma
-            if(list!='') {
+            if (list!='') {
                 if (commalist.charAt(commalist.length-1) != ',' && commalist != '')
                 {
                     commalist = commalist + ',';
@@ -416,7 +418,7 @@ var lcmd = {
                 return;
             }
             var cart = $('#cart_name_input').val();
-            if(cart == '') {
+            if (cart == '') {
                 alert('Cart name cannot be blank');
                 return;
             }
@@ -431,7 +433,7 @@ var lcmd = {
                 return;
             }
             var cartConfig = $('#cart_config_input').val();
-            if(cartConfig == '') {
+            if (cartConfig == '') {
                 alert('Cart config name cannot be blank');
                 return;
             }
@@ -446,7 +448,7 @@ var lcmd = {
                 return;
             }
             var col = $('#col_input_setting').val();
-            if(col < 1 || col > 8) {
+            if (col < 1 || col > 8) {
                 alert('Column out of range');
                 return;
             }
@@ -484,8 +486,8 @@ var lcmd = {
             rows.forEach(function(obj) {
                     var val = obj[colName];
                     yMax = Math.max(yMax, val);
-                    if(obj["seq"] > 0) {
-                        if(obj["dataset"] == "Interval") {
+                    if (obj["seq"] > 0) {
+                        if (obj["dataset"] == "Interval") {
                             var item = [];
                             item.push(index++);
                             item.push(val);
@@ -532,7 +534,7 @@ var lcmd = {
 
 $(document).ready(function () {
     $('.sel_chooser').select2();
-    if(dmsjs.pageContext.my_tag == 'requested_run_factors') {
+    if (dmsjs.pageContext.my_tag == 'requested_run_factors') {
         dmsChooser.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
     }
 });

@@ -26,7 +26,7 @@ var factorsjs = {
     getFactorFieldList: function(factor_cols) {
         var idlist = [];
         $('.lr_ckbx').each(function(idx, obj){
-            if(obj.checked) {
+            if (obj.checked) {
                 idlist.push(obj.value);
             }
         });
@@ -61,7 +61,7 @@ var factorsjs = {
         var flist = [];
         $.each(col_list, function(idx, factor){
             var idx = parsed_data.header.indexOf(factor);
-            if(idx > -1) {
+            if (idx > -1) {
                 $.each(parsed_data.data, function(ignore, row){
                     var id = row[0];
                     var value = row[idx] || '';
@@ -105,26 +105,26 @@ var tau = {
     requested_run_factors: {
         setItemTypeField: function() {
             var $s = '';
-            if(dmsChooser.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
+            if (dmsChooser.currentChooser.page.indexOf('helper_requested_run_batch') > -1) {
                 $s = 'Batch_ID';
             }
-            if(dmsChooser.currentChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
+            if (dmsChooser.currentChooser.page.indexOf('helper_requested_run_ckbx') > -1) {
                 $s = 'Requested_Run_ID';
             }
-            if(dmsChooser.currentChooser.page.indexOf('helper_dataset_ckbx') > -1) {
+            if (dmsChooser.currentChooser.page.indexOf('helper_dataset_ckbx') > -1) {
                 $s = 'Dataset_Name';
             }
-            if(dmsChooser.currentChooser.page.indexOf('helper_experiment_ckbx') > -1) {
+            if (dmsChooser.currentChooser.page.indexOf('helper_experiment_ckbx') > -1) {
                 $s = 'Experiment_Name';
             }
-            if($s) {
+            if ($s) {
                 $('#itemType').val($s);
             }
         },
         updateDatabaseFromList: function(flist, id_type) {
             if ( !confirm("Are you sure that you want to update the database?") ) return;
             var factorXML = factorsjs.getFactorXMLFromList(flist);
-            if(id_type) {
+            if (id_type) {
                 factorXML = '<id type="' + id_type + '" />' + factorXML;
             }
             var url = dmsjs.pageContext.ops_url;
@@ -178,8 +178,14 @@ var tau = {
             p.oldWorkPackage = oldWpn;
             p.newWorkPackage = newWpn;
             p.requestIdList = dmsChooser.getSelectedItemList().join();
-            if(!p.requestIdList) {
-                if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
+            if (!p.requestIdList) {
+                // This if statement asked the user if they wished to change the work package for all requested runs
+                // if ( !confirm("There are no requests selected. Do you wish to apply the change to all requests?") ) return;
+                
+                // Since this update would be applied to every requested run with the old work package, 
+                // not just the ones visible using the specified filters, this functionality was disabled in September 2025
+                alert('One or more requested runs must be selected');
+                return;
             }
             // dmsOps.submitCall is defined in dmsOps.js
             dmsOps.submitCall(url, p);
@@ -188,26 +194,30 @@ var tau = {
     service_center_use_admin: {
         changeWPN: function(oldWpn, newWpn) {
             // POST to service_center_use_admin/call/update_wp_sproc
+            // This calls procedure update_service_use_wp
             var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag +  "/call/update_wp_sproc";
             var p = {};
             p.oldWorkPackage = oldWpn;
             p.newWorkPackage = newWpn;
             p.entryIdList = dmsChooser.getSelectedItemList().join();
-            if(!p.entryIdList) {
-                if ( !confirm("There are no service use items selected. Do you wish to apply the change to all active service use entries?") ) return;
+            if (!p.entryIdList) {
+                alert('One or more service use entries must be selected');
+                return;
             }
             // dmsOps.submitCall is defined in dmsOps.js
             dmsOps.submitCall(url, p);
         },
         updateComment: function(textToFind, replacementText) {
             // POST to service_center_use_admin/call/update_comment_sproc
+            // This calls procedure update_service_use_comment
             var url = dmsjs.pageContext.site_url + dmsjs.pageContext.my_tag +  "/call/update_comment_sproc";
             var p = {};
             p.textTofind = textToFind;
             p.replacementText = replacementText;
             p.entryIdList = dmsChooser.getSelectedItemList().join();
-            if(!p.entryIdList) {
-                if ( !confirm("There are no service use items selected. Do you wish to apply the change to all active service use entries?") ) return;
+            if (!p.entryIdList) {
+                alert('One or more service use entries must be selected');
+                return;
             }
             // dmsOps.submitCall is defined in dmsOps.js
             dmsOps.submitCall(url, p);
