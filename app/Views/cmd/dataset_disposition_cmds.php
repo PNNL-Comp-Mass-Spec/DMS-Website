@@ -13,8 +13,8 @@
 <select name='rating' id='rating_fld'>
     <option>Released</option>
     <option>Not Released (not service center eligible)</option>
-    <option>Rerun (Good Data)</option>
-    <option>Rerun (Superseded)</option>
+    <option>Rerun (Good data, not service center eligible)</option>
+    <option>Rerun (Superseded, not service center eligible)</option>
     <option>Exclude From Service Center</option>
     <option>Method Development (not service center eligible)</option>
 </select>
