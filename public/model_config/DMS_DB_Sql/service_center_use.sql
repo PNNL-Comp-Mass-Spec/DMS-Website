@@ -17,6 +17,8 @@ INSERT INTO list_report_hotlinks VALUES(2,'entry_id','invoke_entity','value','se
 INSERT INTO list_report_hotlinks VALUES(3,'dataset_id','invoke_entity','value','datasetid/show/','');
 INSERT INTO list_report_hotlinks VALUES(4,'charge_code','invoke_entity','value','charge_code/show/','');
 INSERT INTO list_report_hotlinks VALUES(5,'service_type_id','invoke_entity','value','service_center_use_type/report/','');
+INSERT INTO list_report_hotlinks VALUES(6,'transaction_units','color_label','value','','{"-1":"violet_background"}');
+INSERT INTO list_report_hotlinks VALUES(7,'dataset_svc_center_state','color_label','value','','{"Refunding to service center":"violet_background", "Refunded to service center":"clr_60"}');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','6!','','report_id','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_entry_id','Entry ID','8!','','entry_id','Equals','text','','','');

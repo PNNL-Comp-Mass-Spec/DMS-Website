@@ -36,6 +36,7 @@ INSERT INTO list_report_hotlinks VALUES(6,'service_type_id','invoke_entity','val
 INSERT INTO list_report_hotlinks VALUES(7,'report_id','invoke_entity','value','service_center_use_report/report/@/-/-','');
 INSERT INTO list_report_hotlinks VALUES(8,'+report_id','color_label','report_state_id','','{"1":"clr_30", "2":"clr_30", "3":"clr_80", "4":"clr_120"}');
 INSERT INTO list_report_hotlinks VALUES(9,'report_state_id','no_display','value','','');
+INSERT INTO list_report_hotlinks VALUES(10,'dataset_svc_center_state','color_label','value','','{"Need to refund to service center":"violet_background", "Refunded to service center":"violet_background"}');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_report_id','Report ID','6!','','report_id','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_id','Dataset ID','8!','','dataset_id','Equals','text','','','');
