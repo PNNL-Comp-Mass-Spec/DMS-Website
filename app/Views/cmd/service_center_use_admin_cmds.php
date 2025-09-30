@@ -47,6 +47,21 @@ by looking for <input id='textToFind' title="Text to find"/> and replacing with 
 for all or selected service use entries. If text to find is not specified, the replacement text will be appended to the existing comments.
 </div>
 
+<hr>
+<div>
+<!-- "serviceCenterRefund" will be passed to the @mode parameter of procedure update_service_use_entries -->
+<input class="button lst_cmd_btn" type="button" value="Refund"
+       onClick='lcmd.service_center_use_admin.op("serviceCenterRefund", "true")' />
+Refund selected datasets to service center (only valid for service use entries with datasets that have report state "Submitted to service center")
+</div>
+
+<div>
+<!-- "serviceCenterRefund" will be passed to the @mode parameter of procedure update_service_use_entries -->
+<input class="button lst_cmd_btn" type="button" value="Cancel Refund"
+       onClick='lcmd.service_center_use_admin.op("serviceCenterRefund", "false")' />
+Cancel refund of selected datasets (only valid for service use entries with datasets that have report state "Need to refund to service center")
+</div>
+
 </form>
 </div>
 

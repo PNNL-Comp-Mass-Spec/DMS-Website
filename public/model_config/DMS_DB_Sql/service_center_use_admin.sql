@@ -6,7 +6,7 @@ INSERT INTO general_params VALUES('list_report_data_sort_col','entry_id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
 INSERT INTO general_params VALUES('list_report_data_cols','entry_id AS Sel, dataset_id, instrument, charge_code, service_type_id, service_type, transaction_date, transaction_units, is_held, comment, dataset_rating, report_id, report_state_id, dataset_svc_center_state');
 INSERT INTO general_params VALUES('list_report_cmds','service_center_use_admin_cmds');
-INSERT INTO general_params VALUES('list_report_cmds_url','service_center_use_admin_cmds/operation');
+INSERT INTO general_params VALUES('list_report_cmds_url','service_center_use_admin/operation');
 INSERT INTO general_params VALUES('operations_sproc','update_service_use_entries');
 INSERT INTO general_params VALUES('update_comment_sproc','update_service_use_comment');
 INSERT INTO general_params VALUES('update_wp_sproc','update_service_use_wp');

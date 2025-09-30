@@ -228,7 +228,7 @@ var lcmd = {
         op: function(mode, value) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if (list=='') {
+            if (list == '') {
                 alert('You must select requested runs.');
                 return;
             }
@@ -255,6 +255,7 @@ var lcmd = {
             p.param = (value)?$('#' + value).val():'';
             p.id = list;
 
+            // alert('Post to URL "' + url + '", p.command=' + p.command + ', p.param=' + p.param + ', p.id=' + p.id);
             dmsOps.submitOperation(url, p);
         }
     },
@@ -265,17 +266,21 @@ var lcmd = {
         op: function(mode, value) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
-            if (list=='') {
+
+            if (list == '') {
                 alert('You must select service use entries.');
                 return;
             }
+
             if (list.length > 128000) {
                 // Procedure update_service_use_entries has argument @entryidlist text
                 // We can thus push in more than 8000 characters; the 128000 limit is an arbitrary limit
                 alert('You have selected more items than the system can handle at one time. Please select fewer items and try again.');
                 return;
             }
+
             if (!confirm("Are you sure that you want to update the database?")) return;
+
             // URL will point to the operations_sproc value defined in service_center_use_admin.db: update_service_use_entries
             // See: https://dmsdev2.pnl.gov/config_db/edit_table/service_center_use_admin.db/general_params
             var url = dmsjs.pageContext.ops_url;
@@ -284,14 +289,27 @@ var lcmd = {
             // This is auto-mapped to the @mode parameter of the procedure
             p.command = mode;
 
+            var paramValue = '';
+            
+            if (mode == 'serviceCenterRefund') {
+                // The parameter value should be 'true' or 'false'
+                paramValue = value;
+            } else {
+                // The parameter value comes from the chooser specified by the value argument (when mode is 'datasetRating', the chooser name is 'dataset_rating_chooser')
+                paramValue = (value) ? $('#' + value).val() : '';
+            }
+
             // The following two form fields are defined in the sproc_args table for page family https://dmsdev2.pnl.gov/config_db/edit_table/service_center_use_admin.db/sproc_arg
             //   param maps to the @newValue parameter
             //   id    maps to the @entryIDList parameter
             // Since "id" is lowercase in "p.id", the field name must also be lowercase
 
-            p.param = (value)?$('#' + value).val():'';
+            p.param = paramValue;
             p.id = list;
 
+            // alert('Post to URL "' + url + '", p.command=' + p.command + ', p.param=' + p.param + ', p.id=' + p.id);
+
+            // dmsOps.submitOperation is defined in dmsOps.js
             dmsOps.submitOperation(url, p);
         }
     },

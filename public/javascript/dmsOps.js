@@ -1,5 +1,5 @@
 //------------------------------------------
-// global and general-purpose functions and objects
+// Global and general-purpose functions and objects
 //------------------------------------------
 
 var dmsOps = {
@@ -176,6 +176,9 @@ var dmsOps = {
         var ctl = $('#' + dmsjs.pageContext.cntrlContainerId);
         var container = $('#' + dmsjs.pageContext.responseContainerId);
         container.spin('small');
+
+        // alert('Post to URL "' + url + '", p.command=' + p.command + ', p.param=' + p.param + ', p.id=' + p.id);
+            
         $.post(url, p, function (data) {
                 container.spin(false);
                 if(data.indexOf('Update failed') > -1) {
