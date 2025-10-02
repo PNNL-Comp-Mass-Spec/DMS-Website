@@ -269,8 +269,14 @@ class Q_model extends Model {
             } else {
                 $exceptions = array('MatchesText', 'MTx', 'MatchesTextOrBlank', 'MTxOB');
                 if (!$sql_any && !in_array($p->cmp, $exceptions)) {
-                    // Quote underscores in the absence of '%' or regex/glob wildcards
-                    $p->val = str_replace('_', '[_]', $p->val);
+                    // Surround underscores with square brackets (in the absence of '%' or regex/glob wildcards)
+                    // However, leave \_ and [_] as-is
+
+                    // echo "p->val (before): " . $p->val . '<br>';
+
+                    $p->val = preg_replace("/([^\\[])_/i", '$1[_]', $p->val);
+
+                    // echo "p->val (after): " . $p->val . '<br>';
                 }
             }
         }
