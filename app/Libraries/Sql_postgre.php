@@ -175,8 +175,9 @@ class Sql_postgre extends Sql_base {
 
         switch ($cmp) {
             case "wildcards":
-                // Escape underscore and parentheses
-                $val = str_replace('_', '\_', $val);
+                // Escape parentheses
+                // Note that the convert_wildcards method in Q_model.php surrounds underscores with square brackets, if necessary
+                // Also, the build_query_sql method (in this file) changes [_] to \_
                 $val = str_replace('(', '\(', $val);
                 $val = str_replace(')', '\)', $val);
                 $val = str_replace('*', '%', $val);
@@ -187,11 +188,12 @@ class Sql_postgre extends Sql_base {
             case "ContainsText":
             case "ContainsTextTPO":
             case "CTx":
-                // Escape underscore and parentheses
-                $val = str_replace('_', '\_', $val);
+                // Escape parentheses
                 $val = str_replace('(', '\(', $val);
                 $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
+
+                // echo 'val: ' . $val . '<br>';
 
                 if ($cmp == "ContainsTextTPO") {
                     // Leverage the text pattern ops index on the given column
@@ -207,8 +209,7 @@ class Sql_postgre extends Sql_base {
 
             case "DoesNotContainText":
             case "DNCTx":
-                // Escape underscore and parentheses
-                $val = str_replace('_', '\_', $val);
+                // Escape parentheses
                 $val = str_replace('(', '\(', $val);
                 $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : '%' . $val . '%';
@@ -228,8 +229,8 @@ class Sql_postgre extends Sql_base {
             case "StartsWithText":
             case "StartsWithTextTPO":
             case "SWTx":
-                // Escape underscore and parentheses
-                $val = str_replace('_', '\_', $val);
+                // Escape parentheses
+                // Note that the convert_wildcards method in Q_model.php surrounds underscores with square brackets, if necessary
                 $val = str_replace('(', '\(', $val);
                 $val = str_replace(')', '\)', $val);
                 $val = (substr($val, 0, 1) == '`') ? substr($val, 1) . '%' : $val . '%';
