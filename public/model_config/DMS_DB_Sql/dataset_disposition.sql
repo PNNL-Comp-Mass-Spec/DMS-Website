@@ -13,6 +13,8 @@ INSERT INTO list_report_primary_filter VALUES(3,'pf_lc_cart','LC Cart','32','','
 INSERT INTO list_report_primary_filter VALUES(4,'pf_oper','Oper.','24','','operator','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_batch','Batch','12','','batch','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_state','State','32','','state','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_acq_time_start','Acq Time Start','12','','acq_time_start','LaterThan','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_created','Created','12','','created','LaterThan','text','64','','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_instrument','picker.replace','instrumentNameAdminPickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_lc_cart','picker.replace','lcCartPickList','','',',');
