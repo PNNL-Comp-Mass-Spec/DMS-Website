@@ -66,7 +66,7 @@ INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','20!','
 INSERT INTO list_report_primary_filter VALUES(6,'pf_request_name_code','Code','10!','','request_name_code','StartsWithText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_instrument_group','Inst. Group','32','','inst_group','ContainsTextTPO','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(9,'pf_work_package','Work Pkg','32','','work_package','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(9,'pf_work_package','Work Pkg','12','','work_package','StartsWithText','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_comment','Comment','20','','comment','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(11,'pf_queue_state','Queue State','20','','queue_state','StartsWithText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(12,'pf_experiment','Experiment','30!','','experiment','ContainsTextTPO','text','128','','');
