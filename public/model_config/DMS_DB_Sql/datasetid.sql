@@ -85,7 +85,7 @@ INSERT INTO detail_report_hotlinks VALUES(41,'separation_type','detail-report','
 INSERT INTO detail_report_hotlinks VALUES(42,'wellplate','detail-report','wellplate','wellplate/show','valueCol','dl_wellplate','');
 INSERT INTO detail_report_hotlinks VALUES(43,'service_center_use_type_id','detail-report','service_center_use_type_id','service_center_use_type/report/','labelCol','dl_service_center_use_type','');
 INSERT INTO detail_report_hotlinks VALUES(44,'service_center_report_state','detail-report','id','service_center_use/report/-/-/@/-','labelCol','dl_service_center_use','');
-INSERT INTO detail_report_hotlinks VALUES(45,'+service_center_report_state','detail-report','','dataset_svc_center_report_state/report/-/-','valueCol','dl_dataset_svc_center_report_state','');
+INSERT INTO detail_report_hotlinks VALUES(45,'+service_center_report_state','detail-report','id','service_center_use_admin/report/-/@/-','valueCol','dl_service_center_use_admin','');
 INSERT INTO detail_report_hotlinks VALUES(46,'rating','detail-report','','dataset_rating/report/-/-/-','labelCol','dl_dataset_rating','');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
