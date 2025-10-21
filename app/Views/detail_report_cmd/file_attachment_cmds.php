@@ -17,7 +17,7 @@
 
 <script type='text/javascript'>
 dmsjs.pageContext.autoUpload = false;
-dmsjs.pageContext.fileUploadMaxSizeMB = 10;
+dmsjs.pageContext.fileUploadMaxSizeMB = 200;
 </script>
 
 <form id="upload_form" action="<?= site_url('file_attachment/upload') ?>" method="post" enctype="multipart/form-data" target="upload_target" class="box no-js">
