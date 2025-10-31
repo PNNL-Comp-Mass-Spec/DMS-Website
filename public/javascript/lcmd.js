@@ -262,8 +262,9 @@ var lcmd = {
     service_center_use_admin: {
         // mode is the update mode, to be passed to the operations procedure, update_service_use_entries
         // value is the new value
+        // comment is optional text to append to the dataset comment when the mode is 'datasetRating'
         // Valid modes are 'datasetRating' and 'serviceCenterRefund'
-        op: function(mode, value) {
+        op: function(mode, value, comment) {
             // dmsChooser.getCkbxList is in dmsChooser.js
             var list = dmsChooser.getCkbxList('ckbx');
 
@@ -290,11 +291,14 @@ var lcmd = {
             p.command = mode;
 
             var paramValue = '';
-            
+            var commentText = '';
+
             if (mode == 'serviceCenterRefund') {
                 // The parameter value should be 'true' or 'false'
                 paramValue = value;
             } else {
+                commentText = (comment) ? comment : '';
+
                 // The parameter value comes from the chooser specified by the value argument (when mode is 'datasetRating', the chooser name is 'dataset_rating_chooser')
                 paramValue = (value) ? $('#' + value).val() : '';
             }
@@ -306,8 +310,9 @@ var lcmd = {
 
             p.param = paramValue;
             p.id = list;
+            p.comment = commentText;
 
-            // alert('Post to URL "' + url + '", p.command=' + p.command + ', p.param=' + p.param + ', p.id=' + p.id);
+            // alert('Post to URL "' + url + '", p.command=' + p.command + ', p.param=' + p.param + ', p.id=' + p.id + ', p.comment=' + p.comment);
 
             // dmsOps.submitOperation is defined in dmsOps.js
             dmsOps.submitOperation(url, p);

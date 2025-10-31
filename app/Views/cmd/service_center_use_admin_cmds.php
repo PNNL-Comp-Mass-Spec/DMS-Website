@@ -15,9 +15,10 @@
 <!-- "datasetRating" will be passed to the @mode parameter of procedure update_service_use_entries -->
 <!-- The value selected in the chooser will be sent to the @newValue parameter -->
 <input class="button lst_cmd_btn" type="button" value="Update"
-       onClick='lcmd.service_center_use_admin.op("datasetRating", "dataset_rating_chooser")' />
+       onClick='lcmd.service_center_use_admin.op("datasetRating", "dataset_rating_chooser", $("#datasetRatingComment").val())' />
 Update the dataset rating for the selected service use entries
-<span><?= $choosers->get_chooser('dataset_rating', 'datasetRatingPickList')?></span>
+<span><?= $choosers->get_chooser('dataset_rating', 'datasetRatingPickList')?>
+Text to append to the dataset comment: <input id='datasetRatingComment' title="Text to append to the comment"/></span>
 </div>
 
 <hr>

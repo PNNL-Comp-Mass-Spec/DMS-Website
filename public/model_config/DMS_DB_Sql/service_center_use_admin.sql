@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_service_center_use_admin_report');
 INSERT INTO general_params VALUES('list_report_data_sort_col','entry_id');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO general_params VALUES('list_report_data_cols','entry_id AS Sel, dataset_id, instrument, charge_code, service_type_id, service_type, transaction_date, transaction_units, is_held, comment, dataset_rating, report_id, report_state_id, dataset_svc_center_state');
+INSERT INTO general_params VALUES('list_report_data_cols','entry_id AS Sel, dataset_id, instrument, charge_code, service_type_id, service_type, transaction_date, transaction_units, is_held, comment, dataset_rating, report_id, report_state_id, dataset_svc_center_state, dataset_comment');
 INSERT INTO general_params VALUES('list_report_cmds','service_center_use_admin_cmds');
 INSERT INTO general_params VALUES('list_report_cmds_url','service_center_use_admin/operation');
 INSERT INTO general_params VALUES('operations_sproc','update_service_use_entries');
@@ -24,8 +24,9 @@ INSERT INTO sproc_args VALUES(10,'<local>','callingUser','varchar','input','128'
 INSERT INTO sproc_args VALUES(11,'<local>','mode','varchar','input','32','update_service_use_entries');
 INSERT INTO sproc_args VALUES(12,'param','newValue','varchar','input','512','update_service_use_entries');
 INSERT INTO sproc_args VALUES(13,'id','entryIDList','varchar','input','2147483647','update_service_use_entries');
-INSERT INTO sproc_args VALUES(14,'<local>','message','varchar','output','512','update_service_use_entries');
-INSERT INTO sproc_args VALUES(15,'<local>','callingUser','varchar','input','128','update_service_use_entries');
+INSERT INTO sproc_args VALUES(14,'comment','datasetComment','varchar','intput','2000','update_service_use_entries');
+INSERT INTO sproc_args VALUES(15,'<local>','message','varchar','output','512','update_service_use_entries');
+INSERT INTO sproc_args VALUES(16,'<local>','callingUser','varchar','input','128','update_service_use_entries');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','value','','');
 INSERT INTO list_report_hotlinks VALUES(2,'dataset_id','invoke_entity','value','datasetid/show','');
@@ -44,5 +45,6 @@ INSERT INTO list_report_primary_filter VALUES(3,'pf_instrument','Instrument','20
 INSERT INTO list_report_primary_filter VALUES(4,'pf_charge_code','Charge Code','','','charge_code','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_service_type_id','Service Type ID','6!','','service_type_id','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_service_type','Service Type','20!','','service_type','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_comment','Comment','40!','','comment','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_svc_center_comment','Svc Center Comment','40!','','comment','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_dataset_comment','Dataset Comment','40!','','dataset_comment','ContainsText','text','','','');
 COMMIT;
