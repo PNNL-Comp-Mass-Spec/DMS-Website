@@ -15,8 +15,8 @@ INSERT INTO sproc_args VALUES(4,'<local>','mode','varchar','input','12','update_
 INSERT INTO sproc_args VALUES(5,'<local>','message','varchar','output','512','update_instrument_group_allowed_dataset_type');
 INSERT INTO sproc_args VALUES(6,'<local>','callingUser','varchar','input','128','update_instrument_group_allowed_dataset_type');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument_group','Instrument Group','20','','instrument_group','MatchesText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_type','Dataset Type','20','','dataset_type','ContainsText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument_group','Instrument Group','20!','','instrument_group','MatchesText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_type','Dataset Type','30!','','dataset_type','ContainsText','text','50','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_type_description','Type Description','20','','type_description','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_usage_for_this_group','Usage For This Group','20','','usage_for_this_group','ContainsText','text','1024','','');
 COMMIT;

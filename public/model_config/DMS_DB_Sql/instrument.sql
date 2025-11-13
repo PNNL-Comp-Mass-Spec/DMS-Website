@@ -46,7 +46,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_name','Name','15!','','name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','32','','description','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_class','Class','32','','class','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_group','Group','32','','group','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_group','Group','20!','','group','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_status','Status','32','','status','StartsWithText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_ops_role','Ops Role','32','','ops_role','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_assigned_storage','Assigned Storage','32','','assigned_storage','ContainsText','text','128','','');

@@ -26,8 +26,8 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_state','State','10','','state','StartsWithText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','10','','id','MatchesText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_users','Users','10','','users','ContainsText','text','32','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_title','Title','50!','','title','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_proposalType','Type','10','','proposal_type','ContainsText','text','32','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_title','Title','60!','','title','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_proposalType','Type','20!','','proposal_type','ContainsText','text','32','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(2,'id','invoke_entity','value','eus_proposals/show/','');
 INSERT INTO list_report_hotlinks VALUES(3,'users','invoke_entity','id','eus_proposal_users/report','');
