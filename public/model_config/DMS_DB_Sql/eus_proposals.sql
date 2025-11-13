@@ -36,6 +36,7 @@ INSERT INTO list_report_hotlinks VALUES(5,'start_date','format_date','value','15
 INSERT INTO list_report_hotlinks VALUES(6,'end_date','format_date','value','15','{"Format":"Y-m-d"}');
 INSERT INTO list_report_hotlinks VALUES(7,'state','color_label','value','','{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}');
 INSERT INTO list_report_hotlinks VALUES(8,'superseded_by','invoke_entity','value','eus_proposals/show/','');
+INSERT INTO list_report_hotlinks VALUES(9,'proposal_type','invoke_entity','value','eus_proposal_type/report/~@/-','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','EUSPropID','varchar','input','10','add_update_eus_proposals');
 INSERT INTO sproc_args VALUES(2,'state','EUSPropStateID','int','input','','add_update_eus_proposals');
@@ -50,4 +51,5 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO detail_report_hotlinks VALUES(1,'eus_users','detail-report','id','eus_proposal_users/report','labelCol','dl_EUS_users',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'superseded_by','detail-report','superseded_by','eus_proposals/show/','valueCol','dl_superseded_by','');
 INSERT INTO detail_report_hotlinks VALUES(3,'title','detail-report','title','eus_proposals/report/-/-/-/StartsWith__@','labelCol','dl_title','');
+INSERT INTO detail_report_hotlinks VALUES(4,'proposal_type_name','detail-report','proposal_type_name','eus_proposal_type/report/~@/-','labelCol','dl_proposal_type_name','');
 COMMIT;

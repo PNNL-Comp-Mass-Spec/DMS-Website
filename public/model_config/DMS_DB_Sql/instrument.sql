@@ -84,14 +84,14 @@ INSERT INTO sproc_args VALUES(22,'auto_sp_archive_share_path_root','autoSPArchiv
 INSERT INTO sproc_args VALUES(23,'<local>','mode','varchar','input','12','add_update_instrument');
 INSERT INTO sproc_args VALUES(24,'<local>','message','varchar','output','512','add_update_instrument');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
-INSERT INTO detail_report_hotlinks VALUES(1,'allowed_dataset_types','detail-report','instrument_group','instrument_allowed_dataset_type/report','labelCol','dl_instrument',NULL);
+INSERT INTO detail_report_hotlinks VALUES(1,'allowed_dataset_types','detail-report','instrument_group','instrument_allowed_dataset_type/report/~@','labelCol','dl_instrument','');
 INSERT INTO detail_report_hotlinks VALUES(2,'name','detail-report','name','helper_inst_source/view/','valueCol','dl_name_inst_source','');
 INSERT INTO detail_report_hotlinks VALUES(3,'instrument_group','detail-report','instrument_group','instrument_group/show/','labelCol','dl_instrument_group',NULL);
-INSERT INTO detail_report_hotlinks VALUES(4,'assigned_archive_path','detail-report','name','archive_path/report','labelCol','dl_archive_path',NULL);
-INSERT INTO detail_report_hotlinks VALUES(5,'assigned_storage','detail-report','name','storage/report/-/~','valueCol','dl_assigned_storage','');
+INSERT INTO detail_report_hotlinks VALUES(4,'assigned_archive_path','detail-report','name','archive_path/report/~@','labelCol','dl_archive_path','');
+INSERT INTO detail_report_hotlinks VALUES(5,'assigned_storage','detail-report','name','storage/report/-/~@','valueCol','dl_assigned_storage','');
 INSERT INTO detail_report_hotlinks VALUES(6,'archive_share_path','href-folder','archive_share_path','','labelCol','dl_archive_share_path',NULL);
 INSERT INTO detail_report_hotlinks VALUES(7,'class','detail-report','class','instrument_class/show/','labelCol','dl_instrument_class','');
-INSERT INTO detail_report_hotlinks VALUES(8,'+name','detail-report','name','instrument_config_history/report','labelCol','dl_name_config_history',NULL);
+INSERT INTO detail_report_hotlinks VALUES(8,'+name','detail-report','name','instrument_config_history/report/~@','labelCol','dl_name_config_history','');
 INSERT INTO detail_report_hotlinks VALUES(9,'allocation_tag','detail-report','instrument_group','instrument_group/show/','labelCol','dl_allocation_tag','');
 INSERT INTO detail_report_hotlinks VALUES(10,'id','detail-report','id','instrumentid/show/','labelCol','dl_instrumentid','');
 INSERT INTO detail_report_hotlinks VALUES(11,'storage_path_id','detail-report','storage_path_id','storage/show/','valueCol','dl_storage_path_id','');

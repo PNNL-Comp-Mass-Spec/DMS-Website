@@ -121,6 +121,8 @@ INSERT INTO detail_report_hotlinks VALUES(24,'queued_instrument','detail-report'
 INSERT INTO detail_report_hotlinks VALUES(25,'cart_config','detail-report','cart_config','cart_config/report/~@/-','valueCol','dl_cart_config','');
 INSERT INTO detail_report_hotlinks VALUES(26,'cart','detail-report','cart','lc_cart/report/~@/-','valueCol','dl_cart','');
 INSERT INTO detail_report_hotlinks VALUES(27,'service_center_use_type_id','detail-report','service_center_use_type_id','service_center_use_type/report/','labelCol','dl_service_center_use_type','');
+INSERT INTO detail_report_hotlinks VALUES(28,'eus_usage_type','detail-report','eus_usage_type','eus_usage_type/report/-/~@/-','valueCol','dl_eus_usage_type','');
+INSERT INTO detail_report_hotlinks VALUES(29,'eus_proposal_type','detail-report','eus_proposal_type','eus_proposal_type/report/~@/-','valueCol','dl_eus_proposal_type','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'request_name','requestName','varchar','input','128','add_update_requested_run');
 INSERT INTO sproc_args VALUES(2,'experiment','experimentName','varchar','input','64','add_update_requested_run');
