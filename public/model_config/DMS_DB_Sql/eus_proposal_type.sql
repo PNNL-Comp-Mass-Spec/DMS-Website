@@ -1,0 +1,13 @@
+﻿PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE general_params ( "name" text, "value" text );
+INSERT INTO general_params VALUES('base_table','t_eus_proposal_type');
+INSERT INTO general_params VALUES('list_report_data_table','v_eus_proposal_type_list_report');
+INSERT INTO general_params VALUES('list_report_data_sort_col','proposal_type');
+INSERT INTO general_params VALUES('list_report_data_sort_dir','ASC');
+CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
+INSERT INTO list_report_hotlinks VALUES(1,'proposal_type','invoke_entity','value','eus_proposals/report/-/-/-/-/~','');
+CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
+INSERT INTO list_report_primary_filter VALUES(1,'pf_proposal_type','Proposal Type','20!','','proposal_type','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_abbreviation','Abbreviation','20!','','abbreviation','ContainsText','text','','','');
+COMMIT;
