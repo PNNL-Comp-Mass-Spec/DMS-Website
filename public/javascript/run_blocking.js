@@ -1,4 +1,4 @@
-var runBlocking = {
+var runBlocking = runBlocking || {
     setRandom: function(rlist) {
         $.each(rlist, function(idx, obj){
             obj.rnd = Math.random();

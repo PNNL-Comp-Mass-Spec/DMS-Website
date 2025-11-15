@@ -2,7 +2,7 @@
 // Chooser and list report selection objects and functions
 //------------------------------------------
 
-var dmsChooser = {
+var dmsChooser = dmsChooser || {
 
     /**
      * object that chooser code uses to remember

@@ -1,4 +1,4 @@
-var runBlockingGridUtil = {
+var runBlockingGridUtil = runBlockingGridUtil || {
     runOrderFieldName: 'run_order',
     blockNumberFieldName: 'block',
     grid: null,

@@ -1,7 +1,7 @@
 //------------------------------------------
 //These functions are used by detail report page
 //------------------------------------------
-var detRep = {
+var detRep = detRep || {
     /**
      * Perform detail report command (via AJAX)
      *

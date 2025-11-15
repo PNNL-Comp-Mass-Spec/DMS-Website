@@ -5,7 +5,7 @@
 // After updating this file, increment the version ID defined in app\Views\resource_links\entry.php
 // This is required to force browsers to update the cached version of this file
 
-var entry = {
+var entry = entry || {
 
     /**
      * Adjust enabled fields

@@ -1,4 +1,4 @@
-var parRep = {
+var parRep = parRep || {
     // update the column and sorting filters
     filter_update_action: {
         run:function(){

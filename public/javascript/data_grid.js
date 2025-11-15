@@ -1,7 +1,7 @@
 /*
  * utility functions shared by all grid instances
  */
-var gridUtil = {
+var gridUtil = gridUtil || {
     markChange: function(dataRow, field) {
         if(!dataRow.mod_axe) dataRow.mod_axe = {};
         dataRow.mod_axe[field] = dataRow[field];
@@ -328,7 +328,7 @@ var gridUtil = {
  * general grid header behaviors that are meant
  * to extend a specific header object
  */
-var gridHeaderUtil = {
+var gridHeaderUtil = gridHeaderUtil || {
     baseMenuItems: [
         { title: "Sort Ascending", command: "sort-asc" },
         { title: "Sort Descending", command: "sort-desc" }
@@ -378,7 +378,7 @@ var gridHeaderUtil = {
  * certain properties and functions must or can be overridden by subsequent
  * extension by a configuration object
  */
-var mainGrid = {
+var mainGrid = mainGrid || {
     // the following properties MUST be overridden
     getLoadParameters: null,
     getSaveParameters: null,
@@ -580,7 +580,7 @@ var mainGrid = {
 /*
  * these behaviors are tied to the shared "delimited text import/export" panel
  */
-var gridImportExport = {
+var gridImportExport = gridImportExport || {
     preImportAction: null,
     postImportAction: null,
     preExportAction: null,
@@ -653,7 +653,7 @@ var gridImportExport = {
     }
 } // gridImportExport
 
-var commonGridControls = {
+var commonGridControls = commonGridControls || {
     myMainGrid: null,
     addColCtlEnabled: false,
     beforeAddCol: null,
@@ -705,7 +705,7 @@ var commonGridControls = {
     }
 } // commonGridControls
 
-var contextMenuManager = {
+var contextMenuManager = contextMenuManager || {
     menuId: 'contextMenu',
     menuObj: null,
     myMainGrid: null,
@@ -787,7 +787,7 @@ var contextMenuManager = {
 
 
 
-var cellLinkFormatterFactory = {
+var cellLinkFormatterFactory = cellLinkFormatterFactory || {
     specs: null,
     init: function(specs) {
         var obj = $.extend({}, this);
@@ -823,7 +823,7 @@ var cellLinkFormatterFactory = {
     }
 } // cellLinkFormatterFactory
 
-var sourceListUtil = {
+var sourceListUtil = sourceListUtil || {
     setup: function() {
         // wire up click handlers to filter buttons
         // that have appropriate spec

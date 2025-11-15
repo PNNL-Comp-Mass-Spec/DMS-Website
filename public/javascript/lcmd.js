@@ -1,6 +1,6 @@
 // Specialized code for specific list report cmd pages
 // To force the reload of this file, update the version in app\Views\resource_links\lcmd.php
-var lcmd = {
+var lcmd = lcmd || {
     analysis_job_processor_group_association: {
         op: function(mode) {
             var list = null;

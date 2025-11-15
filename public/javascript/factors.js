@@ -6,7 +6,7 @@
 //   requested_run_factors          as defined in app/Views/cmd/requested_run_factors_cmds.php
 //   service_center_use_admin       as defined in app/Views/cmd/service_center_use_admin_cmds.php
 
-var factorsjs = {
+var factorsjs = factorsjs || {
     getBlockingXMLFromList: function(flist) {
         var mapPropertiesToAttributes = [{p:'id', a:'i'}, {p:'factor', a:'t'}, {p:'value', a:'v'}];
         // dmsInput.getXmlElementsFromObjectArray is defined in dmsInput.js
@@ -101,7 +101,7 @@ var factorsjs = {
 };
 
 // These functions are used by the requested_run_factors, requested_run_admin, and service_center_use_admin list reports
-var tau = {
+var tau = tau || {
     requested_run_factors: {
         setItemTypeField: function() {
             var $s = '';

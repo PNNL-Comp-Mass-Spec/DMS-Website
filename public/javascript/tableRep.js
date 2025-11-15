@@ -2,7 +2,7 @@
 // Functions used by list and param reports, for displaying tables of data and data paging
 //------------------------------------------
 
-var tableRep = {
+var tableRep = tableRep || {
 
     /**
      * Document export: repurpose entry form

@@ -13,7 +13,7 @@ $(document).ready(function () {
     $(document.body).on("click", navBar.hide_exposed_menus);
 });
 
-var navBar = {
+var navBar = navBar || {
     /**
      * Show a menu
      * @param {type} menu_id Menu ID to expose
@@ -65,7 +65,7 @@ var navBar = {
 // global navigation and menu-related functions
 //------------------------------------------
 
-var dmsNav = {
+var dmsNav = dmsNav || {
 
     /**
      * Event handlers for global search panel

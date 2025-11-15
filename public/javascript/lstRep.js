@@ -1,4 +1,4 @@
-var lstRep = {
+var lstRep = lstRep || {
     // load the filter panel according to the given layout mode
     updateMyFilter: function($mode) {
         dmsOps.updateContainer('report_filter/' + $mode, 'filter_form', 'search_filter_container', lstRep.filter_observers_action);

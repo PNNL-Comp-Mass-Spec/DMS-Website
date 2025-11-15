@@ -1,6 +1,6 @@
-var Freezer = {};
+var Freezer = Freezer || {};
 
-Freezer.Model = {
+Freezer.Model = Freezer.Model || {
     myTreeElement: '',
     create: function(elementName) {
         var me = $.extend({}, Freezer.Model);

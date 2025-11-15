@@ -2,7 +2,7 @@
 // Global and general-purpose functions and objects
 //------------------------------------------
 
-var dmsOps = {
+var dmsOps = dmsOps || {
 
     /**
      * General AJAX post that fills the given container

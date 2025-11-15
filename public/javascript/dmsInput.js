@@ -2,7 +2,7 @@
 // Input parsing and formatting functions
 //------------------------------------------
 
-var dmsInput = {
+var dmsInput = dmsInput || {
 
     //------------------------------------------
     // parsing stuff

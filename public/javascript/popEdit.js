@@ -3,7 +3,7 @@
 *******************************************************************/
 
 // popEdit is used by the run_op_logs page family
-var popEdit = {
+var popEdit = popEdit || {
     update: function(url, value, dataRow, fields) {
         var myForm;
         var formSpecs = {
@@ -21,7 +21,7 @@ var popEdit = {
     }
 }
 
-var popEditForm = {
+var popEditForm = popEditForm || {
     // fields title id_fld
     // onSave, onCancel, onClose
     showForm: function() {

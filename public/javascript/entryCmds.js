@@ -1,7 +1,7 @@
 // After updating this file, increment the version ID defined in app\Views\resource_links\entryCmds.php
 // This is required to force browsers to update the cached version of this file
 
-var entryCmds = {
+var entryCmds = entryCmds || {
 
     analysis_job_request_psm: {
         createRequest: function() {

@@ -77,7 +77,7 @@ $("#el").spin(false); // Kills the spinner.
 // Global and general-purpose functions and objects
 //------------------------------------------
 
-var dmsjs = {
+var dmsjs = dmsjs || {
 
     dlgPopupInfo: '',
 

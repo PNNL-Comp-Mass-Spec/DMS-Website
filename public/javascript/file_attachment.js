@@ -1,4 +1,4 @@
-var fileAttachment = {
+var fileAttachment = fileAttachment || {
      report_upload_results: function(msg) {
         $('#result_display').spin(false);
         $('#result_display').html(msg);

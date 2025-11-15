@@ -2,7 +2,7 @@
 // File upload functions
 //------------------------------------------
 
-var dmsUpload = {
+var dmsUpload = dmsUpload || {
 
     // called by javascript that is returned by upload operation
     // into iframe and which is run immediately

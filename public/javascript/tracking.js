@@ -1,4 +1,4 @@
-var tracking = {
+var tracking = tracking || {
     instrument_usage_report: {
         parseUploadText: function(text_fld) {
             parsed_data = {};

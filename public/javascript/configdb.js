@@ -2,7 +2,7 @@
 // functions for working with the config DBs
 //------------------------------------------
 
-var configdb = {
+var configdb = configdb || {
 
     //------------------------------------------
     // misc functions and objects

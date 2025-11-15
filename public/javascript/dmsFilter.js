@@ -2,7 +2,7 @@
 // Functions for working with data filters (generally on list report pages)
 //------------------------------------------
 
-var dmsFilter = {
+var dmsFilter = dmsFilter || {
 
     clearSelector: function(name) {
         $('#' + name + ' option').each(function(idx, opt) {

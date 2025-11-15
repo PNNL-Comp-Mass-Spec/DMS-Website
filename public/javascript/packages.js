@@ -1,4 +1,4 @@
-var packages = {
+var packages = packages || {
     callChooserSetType: function(item_type, chooserPage, delimiter, xref){
         $('#itemTypeSelector').val(item_type);
         var page = dmsjs.pageContext.site_url + chooserPage;
