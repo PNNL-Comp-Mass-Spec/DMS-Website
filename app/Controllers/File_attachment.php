@@ -215,34 +215,65 @@ class File_attachment extends DmsBase {
                 }
             }
 
+            $id = $this->request->getPost("entity_id");
+            $type = $this->request->getPost("entity_type");
+            $description = $this->request->getPost("description");
+
             $timestamp = microtime(true);
-            $config['upload_path'] = ROOTPATH.'/attachment_uploads/'.$this->request->getPost("entity_id")."/{$timestamp}/";
-            $config['allowed_types'] = '*';
-            $config['max_width']  = '3000';
-            $config['max_height']  = '3000';
-            $config['overwrite'] = true;
-            $config['remove_spaces'] = true;
-            $config['encrypt_name'] = true;
-            $config['max_size'] = 204800;
-            mkdir($config['upload_path'],0777,true);
+            $base_path = ROOTPATH."/attachment_uploads/{$id}/{$timestamp}";
+            $upload_path = "{$base_path}/";
 
-            $upload = new \App\Libraries\Upload($config);
+            $validationRule = [
+                'userfile' => [
+                    'label' => 'File attachment',
+                    'rules' => [
+                        'uploaded[userfile]',
+                        'max_size[userfile,204800]',
+                    ],
+                ],
+            ];
 
-            // Upload the file from the user's computer to this server
-            // Store below ROOTPATH/attachment_uploads
-            if ( ! $upload->do_upload()) {
-                $resultMsg = $upload->display_errors();
-            } else {
-                $data = $upload->data();
-                $orig_name = $data["orig_name"];
-                $name = $data["file_name"];
-                $size = $data["file_size"];                     // Size in Kilobytes
-                $type = $this->request->getPost("entity_type");
-                $id = $this->request->getPost("entity_id");
-                $description = $this->request->getPost("description");
+            $userfile = $this->request->getFile("userfile");
+            $size = 0;
+            // Get size before the file is moved/renamed to avoid errors
+            // If $userfile is null, the upload failed; one reason can be exceeding the max upload size in php.ini
+            if (! is_null($userfile)) {
+                $size = $userfile->getSizeByBinaryUnit(\CodeIgniter\Files\FileSizeUnit::KB);   // Size in Kilobytes
+            }
+
+            $uploadError = false;
+            if (! $this->validateData([], $validationRule)) {
+                $errors = $this->validator->getErrors();
+                $resultMsg = '';
+                foreach ($errors as $error) {
+                    $resultMsg .= '<p>'.esc($error).'</p>';
+                }
+                $uploadError = true;
+            } else if (! $userfile->hasMoved()) {
+                mkdir($upload_path,0777,true);
+
+                // Upload the file from the user's computer to this server
+                // Store below ROOTPATH/attachment_uploads
+                // Store using a random name here
+                if (! $userfile->move($upload_path, $userfile->getRandomName(), true)) {
+                    $resultMsg = '<p>Error moving file from temporary upload location</p>';
+                    $uploadError = true;
+                }
+            }
+
+            if (is_null($userfile)) {
+                $uploadError = true;
+                // If $userfile is null, the upload failed; one reason can be exceeding the max upload size in php.ini
+                $resultMsg .= '<p>File might be too big</p>';
+            }
+
+            // Copy the file to the long-term storage location(s)
+            if (! $uploadError) {
+                $orig_name = $userfile->getClientName();
+                $name = $userfile->getName();
                 $entity_folder_path = $this->get_path($type, $id);
 
-                $src_path = "{$config['upload_path']}{$name}";
+                $src_path = "{$upload_path}{$name}";
 
                 $copy_local_state = $this->copy_file($src_path, $this->local_root_path, $entity_folder_path, $orig_name, true);
                 $copy_remote_state = true;
@@ -255,7 +286,7 @@ class File_attachment extends DmsBase {
                     // Delete the local file
                     unlink($src_path);
 
-                    rmdir(ROOTPATH."/attachment_uploads/{$id}/{$timestamp}");
+                    rmdir($base_path);
                 }
 
                 if (stripos($orig_name, 'testfile') === 0) {
