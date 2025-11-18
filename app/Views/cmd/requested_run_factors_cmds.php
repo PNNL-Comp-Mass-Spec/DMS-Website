@@ -3,8 +3,8 @@
 <form name="DBG" action="">
 
 <div>
-<?php # tau.requested_run_factors.saveChangesToDatabase is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Update" onClick='tau.requested_run_factors.saveChangesToDatabase()' id="btn_save" title="Update" /> Save changes to selected requested runs (with checkmarks)
+<?php # lcmdExtras.requested_run_factors.saveChangesToDatabase is defined in lcmdExtras.js ?>
+<input class='button lst_cmd_btn' type="button" value="Update" onClick='lcmdExtras.requested_run_factors.saveChangesToDatabase()' id="btn_save" title="Update" /> Save changes to selected requested runs (with checkmarks)
 </div>
 
 <p>Note: Factors are associated with Requested Run entries. Editing changes are local and must be explicitly saved to the database. <span style='text-decoration:underline;'>Unsaved changes will be lost if you search or sort.</span></p>
@@ -14,13 +14,13 @@
 <div id="factor_section" style="display:none;">
 <div>
 <?php # factorsjs.applyFactorToDatabase is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='factorsjs.applyFactorToDatabase(tau.requested_run_factors.updateDatabaseFromList)' title="" />
+<input class='button lst_cmd_btn' type="button" value="Apply Factor" onClick='factorsjs.applyFactorToDatabase(lcmdExtras.requested_run_factors.updateDatabaseFromList)' title="" />
 Apply factor <input id='apply_factor_name' value='' size='18'></input>
 with value <input id='apply_factor_value' value='' size='18'></input>
 to selected items.
 </div>
 <div>
-<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='factorsjs.removeFactorFromDatabase(tau.requested_run_factors.updateDatabaseFromList)' title="" />
+<input class='button lst_cmd_btn' type="button" value="Remove Factor" onClick='factorsjs.removeFactorFromDatabase(lcmdExtras.requested_run_factors.updateDatabaseFromList)' title="" />
 Remove factor <input id='remove_factor_name' value='' size='18'></input>
 from selected items.
 </div>
@@ -30,8 +30,8 @@ from selected items.
 <?= general_visibility_control('Upload commands', 'upload_section') ?>
 <div id="upload_section" style="display:none;">
 <div>
-<?php # tau.requested_run_factors.load_delimited_text is defined in factors.js ?>
-<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='tau.requested_run_factors.load_delimited_text()' title="Test" /> Update database using a tab delimited list
+<?php # lcmdExtras.requested_run_factors.load_delimited_text is defined in lcmdExtras.js ?>
+<input class='button lst_cmd_btn' type="button" value="Update from list" onClick='lcmdExtras.requested_run_factors.load_delimited_text()' title="Test" /> Update database using a tab delimited list
 </div>
 <div>
 <p>Delimited text input:</p>
@@ -45,3 +45,6 @@ from selected items.
 
 <?php // Import factors.js ?>
 <?php echo view('resource_links/factors') ?>
+
+<?php // Import lcmdExtras.js ?>
+<?php echo view('resource_links/lcmdExtras') ?>

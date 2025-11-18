@@ -24,12 +24,12 @@ Text to append to the dataset comment: <input id='datasetRatingComment' title="T
 <hr>
 <div>
 <!--
-    tau.service_center_use_admin.changeWPN is defined in factors.js
+    lcmdExtras.service_center_use_admin.changeWPN is defined in lcmdExtras.js
     It calls procedure update_service_use_wp, as defined in https://dms2.pnl.gov/config_db/show_db/service_center_use_admin.db
     It does this via a POST to service_center_use_admin/call/update_wp_sproc
 -->
 <input class='button lst_cmd_btn' type="button" value="Change WPN"
-       onClick='tau.service_center_use_admin.changeWPN($("#oldWPN").val(), $("#newWPN").val())'
+       onClick='lcmdExtras.service_center_use_admin.changeWPN($("#oldWPN").val(), $("#newWPN").val())'
        title="Change WPN from old to new for selected service use entries" />
 from existing <input id='oldWPN' title="Current work package"/> to <input id='newWPN' title="New work package"/>
 for all or selected service use entries
@@ -37,12 +37,12 @@ for all or selected service use entries
 
 <div>
 <!--
-    tau.service_center_use_admin.updateComment is defined in factors.js
+    lcmdExtras.service_center_use_admin.updateComment is defined in lcmdExtras.js
     It calls procedure update_service_use_comment, as defined in https://dms2.pnl.gov/config_db/show_db/service_center_use_admin.db
     It does this via a POST to service_center_use_admin/call/update_comment_sproc
 -->
 <input class='button lst_cmd_btn' type="button" value="Update comments"
-       onClick='tau.service_center_use_admin.updateComment($("#textToFind").val(), $("#replacementText").val())'
+       onClick='lcmdExtras.service_center_use_admin.updateComment($("#textToFind").val(), $("#replacementText").val())'
        title="Update comments for selected service use entries" />
 by looking for <input id='textToFind' title="Text to find"/> and replacing with <input id='replacementText' title="Replacement text"/>
 for all or selected service use entries. If text to find is not specified, the replacement text will be appended to the existing comments.
@@ -66,5 +66,5 @@ Cancel refund of selected datasets (only valid for service use entries with data
 </form>
 </div>
 
-<?php // Import factors.js ?>
-<?php echo view('resource_links/factors') ?>
+<?php // Import lcmdExtras.js ?>
+<?php echo view('resource_links/lcmdExtras') ?>

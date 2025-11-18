@@ -558,7 +558,7 @@ var lcmd = lcmd || {
 $(document).ready(function () {
     $('.sel_chooser').select2();
     if (dmsjs.pageContext.my_tag == 'requested_run_factors') {
-        dmsChooser.currentChooser.callBack = tau.requested_run_factors.setItemTypeField;
+        dmsChooser.currentChooser.callBack = lcmdExtras.requested_run_factors.setItemTypeField;
     }
 });
 
