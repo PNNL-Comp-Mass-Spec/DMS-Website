@@ -48,16 +48,18 @@ INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','
 INSERT INTO list_report_primary_filter VALUES(3,'pf_class','Class','32','','class','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_group','Group','20!','','group','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_status','Status','32','','status','StartsWithText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_ops_role','Ops Role','32','','ops_role','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_assigned_storage','Assigned Storage','32','','assigned_storage','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(8,'pf_assigned_source','Assigned Source','32','','assigned_source','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(9,'pf_service_center','Service Center Eligible','10!','','service_center','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_id','ID','','','id','Equals','text','32','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_ops_role','Ops Role','32','','ops_role','ContainsText','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(9,'pf_assigned_storage','Assigned Storage','32','','assigned_storage','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(10,'pf_assigned_source','Assigned Source','32','','assigned_source','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(11,'pf_service_center','Service Center Eligible','10!','','service_center','ContainsText','text','64','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','name','instrument/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'allowed_dataset_types','min_col_width','value','60','');
 INSERT INTO list_report_hotlinks VALUES(3,'group','invoke_entity','value','instrument_group/show/','');
 INSERT INTO list_report_hotlinks VALUES(4,'class','invoke_entity','value','instrument_class/show/','');
 INSERT INTO list_report_hotlinks VALUES(5,'name','invoke_entity','value','helper_inst_source/view/','');
+INSERT INTO list_report_hotlinks VALUES(6,'eus_instrument_id','invoke_entity','value','eus_instruments/report/','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'id','instrumentID','int','input','','add_update_instrument');
 INSERT INTO sproc_args VALUES(2,'instrument_name','instrumentName','varchar','input','64','add_update_instrument');
@@ -96,4 +98,5 @@ INSERT INTO detail_report_hotlinks VALUES(9,'allocation_tag','detail-report','in
 INSERT INTO detail_report_hotlinks VALUES(10,'id','detail-report','id','instrumentid/show/','labelCol','dl_instrumentid','');
 INSERT INTO detail_report_hotlinks VALUES(11,'storage_path_id','detail-report','storage_path_id','storage/show/','valueCol','dl_storage_path_id','');
 INSERT INTO detail_report_hotlinks VALUES(12,'source_path_id','detail-report','source_path_id','storage/show/','valueCol','dl_source_path_id','');
+INSERT INTO detail_report_hotlinks VALUES(13,'eus_instrument_id','detail-report','eus_instrument_id','eus_instruments/report/','valueCol','dl_eus_instrument_id','');
 COMMIT;
