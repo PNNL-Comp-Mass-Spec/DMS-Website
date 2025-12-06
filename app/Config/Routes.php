@@ -65,8 +65,16 @@ $routes->getAlias('dataset_tracking', 'Tracking_dataset');
 
 $routes->getAlias('datasets', 'Dataset');
 
+$routes->getAlias('dataset_type', 'Helper_dataset_type_ckbx');
+$routes->getAlias('dataset_types', 'Helper_dataset_type_ckbx');
+$routes->getAlias('dataset_type_name', 'Helper_dataset_type_ckbx');
+
 $routes->getAlias('disposition', 'Dataset_disposition');
 $routes->getAlias('disposition_lite', 'Dataset_disposition_lite');
+
+$routes->getAlias('emsl_instrument', 'Eus_instruments');
+$routes->getAlias('emsl_instruments', 'Eus_instruments');
+$routes->getAlias('eus_instrument', 'Eus_instruments');
 
 $routes->getAlias('eus_user', 'Eus_users');
 
