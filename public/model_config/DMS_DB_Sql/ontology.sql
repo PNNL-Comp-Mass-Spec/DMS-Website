@@ -15,7 +15,9 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_ontology','Ontology','20','','ontology','StartsWithText','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_identifier','Identifier','20','','identifier','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_term_name','Term','30!','','term_name','ContainsTextTPO','text','255','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_term_pk','Term_PK','20','','term_pk','StartsWithText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_is_leaf','Is Leaf','20','','is_leaf','Equals','text','5','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_is_obsolete','Is Obsolete','20','','is_obsolete','Equals','text','5','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_term_pk','Term_PK','20','','term_pk','StartsWithText','text','128','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'term_pk','detail-report','term_pk','ontology_cv/report/-/-/-/~@','labelCol','','');
 INSERT INTO detail_report_hotlinks VALUES(2,'+term_pk','detail-report','term_pk','ontology/report/-/-/-/~@','valueCol','','');
