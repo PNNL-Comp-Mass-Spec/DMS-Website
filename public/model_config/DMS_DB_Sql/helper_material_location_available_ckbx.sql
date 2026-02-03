@@ -9,10 +9,10 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'sel','CHECKBOX','location','','');
 INSERT INTO list_report_hotlinks VALUES(2,'location','update_opener','location','','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_location','Location','15!','','location','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_freezer','Freezer','12!','','freezer','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(3,'pf_shelf','Shelf','6','','shelf','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_rack','Rack','6','','rack','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_row','Row','6','','row','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_col','Col','6','','col','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_location','Location','25!','','location','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_freezer','Freezer','25!','','freezer','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(3,'pf_shelf','Shelf','3!','','shelf','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_rack','Rack','3!','','rack','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_row','Row','3!','','row','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_col','Col','3!','','col','ContainsText','text','80','','');
 COMMIT;

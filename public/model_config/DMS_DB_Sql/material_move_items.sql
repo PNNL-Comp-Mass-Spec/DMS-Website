@@ -13,7 +13,7 @@ INSERT INTO general_params VALUES('operations_sproc','update_material_items');
 INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_container','Container','6','','container','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','15!','','location','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','25!','','location','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_item','Item','6','','item','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_item_type','Item Type','6','','item_type','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_item_id','Item ID','6','','id','Equals','text','24','','');

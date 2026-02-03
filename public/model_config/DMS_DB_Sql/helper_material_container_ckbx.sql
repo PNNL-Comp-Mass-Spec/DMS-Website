@@ -16,5 +16,5 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_container','Container','10',
 INSERT INTO list_report_primary_filter VALUES(2,'pf_type','Type','10','','type','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_status','Status','10','','status','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_comment','Comment','10','','comment','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_location','Location','15!','','location','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_location','Location','25!','','location','ContainsText','text','128','','');
 COMMIT;

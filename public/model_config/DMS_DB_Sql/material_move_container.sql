@@ -10,7 +10,7 @@ INSERT INTO general_params VALUES('alternate_title_report','Move Containers');
 INSERT INTO general_params VALUES('alternate_title_export','Containers');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_container','Container','10','','container','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','15!','','location','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_location','Location','25!','','location','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_type','Type','4','','type','ContainsText','text','10','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_comment','Comment','15!','','comment','ContainsText','text','128','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
