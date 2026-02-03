@@ -4,7 +4,7 @@ CREATE TABLE general_params ( "name" text, "value" text );
 INSERT INTO general_params VALUES('list_report_data_table','v_requested_run_admin_report');
 INSERT INTO general_params VALUES('list_report_data_sort_col','request');
 INSERT INTO general_params VALUES('list_report_data_sort_dir','DESC');
-INSERT INTO general_params VALUES('list_report_data_cols','request AS Sel, name, campaign, inst_group, type, separation_group, origin, request, status, requester, wpn, wp_state, days_in_queue, queue_state, queued_instrument, queue_date, priority, batch, block, run_order, experiment, dataset, instrument, dataset_comment, request_name_code, days_in_queue_bin, wp_activation_state');
+INSERT INTO general_params VALUES('list_report_data_cols','request AS Sel, name, campaign, inst_group, type, separation_group, origin, request, status, requester, wpn, wp_state, days_in_queue, queue_state, queued_instrument, queue_date, priority, batch, block, run_order, experiment, dataset, instrument, acq_time_start, dataset_comment, request_name_code, days_in_queue_bin, wp_activation_state');
 INSERT INTO general_params VALUES('list_report_cmds','requested_run_admin_cmds');
 INSERT INTO general_params VALUES('list_report_cmds_url','requested_run_admin/operation');
 INSERT INTO general_params VALUES('operations_sproc','update_requested_run_assignments');
@@ -20,7 +20,8 @@ INSERT INTO list_report_primary_filter VALUES(8,'pf_dataset','Dataset','40!','',
 INSERT INTO list_report_primary_filter VALUES(9,'pf_queue_state','Queue State','20','','queue_state','StartsWithText','text','32','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_queued_instrument','Queued Instrument','20','','queued_instrument','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(11,'pf_instrument_group','Instrument Group','20','','inst_group','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(12,'pf_request_name_code','Code','20!','','request_name_code','StartsWithText','text','50','','');
+INSERT INTO list_report_primary_filter VALUES(12,'pf_acq_time_start','Acq Time Start','','','acq_time_start','LaterThan','text','64','','');
+INSERT INTO list_report_primary_filter VALUES(13,'pf_request_name_code','Code','20!','','request_name_code','StartsWithText','text','50','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'request','invoke_entity','value','requested_run/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'campaign','invoke_entity','value','campaign/show','');
