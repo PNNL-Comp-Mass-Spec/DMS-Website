@@ -11,6 +11,7 @@ class Label_formatter {
      * These are used to capitalize column names shown on list reports and detail reports
      */
     private const LABEL_MAP = array(
+        "acq_length_minutes"            => "Acq Length (minutes)",
         "contact_usually_pnnl_staff"    => "Contact (usually PNNL Staff)",
         "cpus_available"                => "CPUs Available",
         "data_package_ids"              => "Data Package IDs",
