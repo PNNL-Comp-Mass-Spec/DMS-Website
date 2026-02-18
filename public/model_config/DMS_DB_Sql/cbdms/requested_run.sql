@@ -107,7 +107,7 @@ INSERT INTO detail_report_hotlinks VALUES(13,'requester','detail-report','userna
 INSERT INTO detail_report_hotlinks VALUES(14,'separation_group','detail-report','separation_group','separation_group/show','labelCol','dl_separation_group','');
 INSERT INTO detail_report_hotlinks VALUES(15,'staging_location','detail-report','staging_location','material_location/report/~@','valueCol','dl_staging_location','');
 INSERT INTO detail_report_hotlinks VALUES(16,'comment','markup','comment','','valueCol','dl_comment','');
-INSERT INTO detail_report_hotlinks VALUES(17,'eus_proposal_state','color_label','eus_proposal_state','','valueCol','dl_eus_proposal_state',replace(replace('{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}\r\n','\r',char(13)),'\n',char(10)));
+INSERT INTO detail_report_hotlinks VALUES(17,'eus_proposal_state','color_label','eus_proposal_state','','valueCol','dl_eus_proposal_state',unistr('{"Active":"clr_30", "Permanently Active":"clr_60", "Closed":"clr_90", "Inactive":"clr_90"}\u000d\u000a'));
 INSERT INTO detail_report_hotlinks VALUES(18,'queue_state','detail-report','campaign','requested_run_admin/report/-/-/-/-/~@/-/-/-','labelCol','dl_requested_run_admin','');
 INSERT INTO detail_report_hotlinks VALUES(19,'days_in_queue','detail-report','instrument_group','run_planning/report/~@/-/-/-/-/-/-/-','labelCol','dl_run_planning','');
 INSERT INTO detail_report_hotlinks VALUES(20,'column_name','detail-report','column_name','lc_column/show','valueCol','dl_column_name','');
