@@ -15,8 +15,9 @@ INSERT INTO list_report_primary_filter VALUES(3,'pf_state','State','6!','','stat
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument','Instrument','32','','instrument','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_experiment','Experiment','32','','experiment','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_campaign','Campaign','32','','campaign','ContainsText','text','64','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','created','MostRecentWeeks','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_most_recent_weeks','Most Recent Weeks','3!','','date_sort_key','MostRecentWeeks','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_created_after','Created After','8','','created','LaterThan','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_mz_min','Minimum m/z','8','','mz','GreaterThan','text','20','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_mz_max','Maximum m/z','8','','mz','LessThan','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(11,'pf_acq_start','Acq Start','8','','acq_start','LaterThan','text','20','','');
 COMMIT;

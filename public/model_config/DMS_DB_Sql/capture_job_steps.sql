@@ -15,6 +15,7 @@ INSERT INTO list_report_primary_filter VALUES(4,'pf_step_state','Step_State','6'
 INSERT INTO list_report_primary_filter VALUES(5,'pf_step','Step','6','','step','Equals','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_processor','Processor','6','','processor','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_dataset','Dataset','25!','','dataset','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_instrument','Instrument','20!','','instrument','ContainsText','text','80','','');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'job','invoke_entity','value','capture_jobs/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'tool','invoke_entity','value','capture_step_tools/show','');
