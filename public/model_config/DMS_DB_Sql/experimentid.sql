@@ -88,7 +88,7 @@ INSERT INTO form_fields VALUES(4,'researcher_username','Researcher','text','40',
 INSERT INTO form_fields VALUES(5,'organism_name','Organism Name','text','40','80','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(6,'reason','Reason for Experiment','area','','','4','50','','trim|required|max_length[500]');
 INSERT INTO form_fields VALUES(7,'tissue','Plant/Animal Tissue','text','50','128','','','','trim|max_length[128]');
-INSERT INTO form_fields VALUES(8,'biomaterial_list','Biomaterial (Cell Culture)	','area','','','2','40','','trim|max_length[2048]');
+INSERT INTO form_fields VALUES(8,'biomaterial_list','Biomaterial (Cell Culture)','area','','','2','40','','trim|max_length[2048]');
 INSERT INTO form_fields VALUES(9,'reference_compound_list','Reference Compounds','area','','','3','60','','trim|max_length[2048]');
 INSERT INTO form_fields VALUES(10,'sample_concentration','Smpl. Concentration','text','40','80','','','','trim|required|max_length[32]');
 INSERT INTO form_fields VALUES(11,'enzyme_name','Digestion Enzyme','text','40','50','','','Trypsin','trim|required|max_length[50]');

@@ -35,7 +35,7 @@ CREATE TABLE form_field_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type"
 INSERT INTO form_field_choosers VALUES(1,'start_date','picker.prevDate','','','',',','Start Date');
 INSERT INTO form_field_choosers VALUES(2,'end_date','picker.prevDate','','','',',','End Date');
 INSERT INTO form_field_choosers VALUES(3,'include_instrument','picker.replace','yesNoAsOneZeroPickList','','',',','');
-INSERT INTO form_field_choosers VALUES(4,'campaign_name_filter','list-report.helper','	','helper_campaign/report/Active/','campaign_name_filter',',','');
+INSERT INTO form_field_choosers VALUES(4,'campaign_name_filter','list-report.helper','','helper_campaign/report/Active/','campaign_name_filter',',','');
 INSERT INTO form_field_choosers VALUES(5,'campaign_name_exclude','list-report.helper','','helper_campaign/report/Active/','campaign_name_filter',',','');
 INSERT INTO form_field_choosers VALUES(6,'exclude_qcand_blank_without_wp','picker.replace','yesNoAsOneZeroPickList','','',',','');
 INSERT INTO form_field_choosers VALUES(7,'exclude_all_qcand_blank','picker.replace','yesNoAsOneZeroPickList','','',',','');
