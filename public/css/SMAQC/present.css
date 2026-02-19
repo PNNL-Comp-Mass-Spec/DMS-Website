@@ -1,0 +1,125 @@
+/* Presentation Stylesheet */ 
+
+
+
+body, td {
+font: normal 13px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif;
+}
+
+fsizeone {
+font-family:"Lucida Grande","Lucida Sans Unicode","Arial","san-serif";
+ font-size:30px;
+ font-weight:bold;
+}
+
+fsizetwo {
+font-family:"Lucida Grande","Lucida Sans Unicode","Arial","san-serif";
+ font-size:14px;
+}
+
+chcolor {
+font-weight:normal;
+color: #262A2D;
+font-family:"Lucida Grande","Lucida Sans Unicode","Arial","san-serif";
+}
+hyp {
+ font-family:"Lucida Grande","Lucida Sans Unicode","Arial","san-serif";
+}
+
+a:hover
+{ 
+background-color: transparent  !important;
+border-bottom: 0px !important;
+}
+a:link
+{ 
+background-color: transparent  !important;
+border-bottom: 0px !important;
+}
+a:visited
+{ 
+background-color: transparent  !important;
+border-bottom: 0px !important;
+}
+
+:link, :visited {
+text-decoration: none;
+color: #B00;
+}
+
+.bye { display:none; }
+
+#left-menu ul, li
+{
+  margin: 0px;
+  padding: 0px;
+  left: 0;
+  list-style-type: none;
+}
+
+#left-menu button, .dropdownbutton
+{
+  width: 100%;
+}
+
+#left-menu .menuitems li
+{
+  text-align: center;
+  padding: 0;
+}
+
+#left-menu select,input,option
+{
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#left-menu form
+{
+
+}
+
+button.selected
+{
+  color: #B00;
+}
+
+.statusTableContainer
+{
+	width:300px;
+}
+
+.statustable
+{
+	width:270px;
+}
+.statustable td, th
+{
+	text-align: center;
+}
+
+div.center
+{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#main-page .category *
+{
+  padding: 0;
+  margin: 0;
+}
+
+#main-page .categorytitle:hover
+{
+  color:gray;
+  cursor: pointer;
+}
+
+#main-page .category table
+{
+  padding: 0px;
+  margin: 0px 0px 0px 20px;
+}

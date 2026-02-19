@@ -1,0 +1,44 @@
+
+/* Layout Stylesheet */ 
+
+body{
+ margin: 0;
+ padding:0;
+ background: #b6bcbf;
+ color: #333333;
+ }
+	 
+#top-menu{
+ padding: 0px 0px 0px 20px;
+ height:50px;
+ background:white;
+ color:#333333;
+ border:solid #000000;
+ border-width:2px 2px 2px 2px;
+ margin:20px 20px 0px 210px;
+ width:300px
+
+ }
+
+#left-menu{
+ position: fixed;
+ left: 20px;
+ width: 170px;
+ border: solid #000000;
+ border-width:2px 2px 2px 2px;
+ background: #ffffff;
+ color: #333333;
+ margin: 0px 0px 0px 0px ;
+ padding: 0px 0px 0px 0px;
+ }
+
+#main-page{
+ margin: 10px 20px 20px 210px;
+ border: 0px solid #000000;
+ border-width:2px 2px 2px 2px;
+ background: #ffffff;
+ color: #333333;
+ padding: 20px;
+ position: relative;
+}
+
