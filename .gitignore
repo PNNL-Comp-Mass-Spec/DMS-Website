@@ -37,15 +37,6 @@ $RECYCLE.BIN/
 .Trash-*
 
 #-------------------------
-# Environment Files
-#-------------------------
-# These should never be under version control,
-# as it poses a security risk.
-.env
-.vagrant
-Vagrantfile
-
-#-------------------------
 # Temporary Files
 #-------------------------
 writable/cache/*
