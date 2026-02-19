@@ -1,9 +1,0 @@
-NOTE: Tested as the 'apache' user
-From the site base directory (which should contain composer.phar, 'vendor' directory, and phpstan.neon), run the following command:
-
-./vendor/bin/phpstan analyse app --memory-limit 256M > phperrors.txt
-
-(Piping to a file for when there are many issues)
---memory-limit is specified because apparently loading the CodeIgniter libraries into memory for this analysis can exceed the default memory limit
-
-Also, if wanting to update the phpstan-baseline file, add argument '--generate-baseline'
