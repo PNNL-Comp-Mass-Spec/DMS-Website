@@ -176,7 +176,6 @@ INSERT INTO menu_def VALUES(83,'Sample Prep Report Active','link','sample_prep_r
 INSERT INTO menu_def VALUES(84,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Nieto','Nieto');
 INSERT INTO menu_def VALUES(85,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Paurus','Paurus');
 INSERT INTO menu_def VALUES(86,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Olson','Olson');
-INSERT INTO menu_def VALUES(87,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Prozapas','Prozapas');
 INSERT INTO menu_def VALUES(88,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Schepmoes','Schepmoes');
 INSERT INTO menu_def VALUES(91,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Tate','Tate');
 INSERT INTO menu_def VALUES(92,'Sample Prep Report Active','link','sample_prep_request_active/report/-/-/-/-/-/Trejo','Trejo');
