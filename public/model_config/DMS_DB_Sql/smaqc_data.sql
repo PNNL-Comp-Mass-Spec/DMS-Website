@@ -10,7 +10,7 @@ INSERT INTO general_params VALUES('detail_report_data_id_type','integer');
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'instrument','literal_link','value','https://prismsupport.pnl.gov/smaqc/index.php/smaqc/instrument/','');
 INSERT INTO list_report_hotlinks VALUES(2,'dataset','invoke_entity','value','dataset/show/','');
-INSERT INTO list_report_hotlinks VALUES(3,'dataset_id','invoke_entity','value','smaqc/show/','');
+INSERT INTO list_report_hotlinks VALUES(3,'dataset_id','invoke_entity','value','smaqc_data/show/','');
 INSERT INTO list_report_hotlinks VALUES(4,'amts_10pct_fdr','column_tooltip','value','Number of LC-MS features','');
 INSERT INTO list_report_hotlinks VALUES(5,'c_1a','column_tooltip','value','Fraction of peptides identified more than 4 minutes earlier than the chromatographic peak apex','{"Decimals":"3"}');
 INSERT INTO list_report_hotlinks VALUES(6,'c_1b','column_tooltip','value','Fraction of peptides identified more than 4 minutes later than the chromatographic peak apex','{"Decimals":"3"}');
