@@ -7,7 +7,7 @@
 ?>
 <div id="left-menu">
   <ul>
-    <li><button class="button" onClick="location.href='<?= site_url() ?>'">Home</button></li>
+    <li><button class="button" onClick="location.href='<?= site_url('smaqc/') ?>'">Home</button></li>
   </ul>
 </div>
 

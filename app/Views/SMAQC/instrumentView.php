@@ -85,7 +85,7 @@
 ?>
 <div id="left-menu">
   <ul class="menuitems">
-    <li><button class="button" onClick="location.href='<?= site_url() ?>'">Home</button></li>
+    <li><button class="button" onClick="location.href='<?= site_url('smaqc/') ?>'">Home</button></li>
     <li><strong>Category Shortcuts</strong>
         <ul>
         <?php foreach(array_unique($metricCategories) as $category): ?>

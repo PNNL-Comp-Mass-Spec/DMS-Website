@@ -167,7 +167,7 @@ class Smaqc extends BaseController
         // make sure user supplied an instrument name, redirect to home page if not
         if($URI_array["instrument"] === false)
         {
-            return redirect()->to(site_url());
+            return redirect()->to(site_url('smaqc/'));
         }
 
         //TODO: check for valid instrument name (is it in the DB?)
@@ -292,7 +292,7 @@ class Smaqc extends BaseController
         // make sure user supplied a metric name, redirect to home page if not
         if(empty($URI_array["metric"]))
         {
-            return redirect()->to(site_url());
+            return redirect()->to(site_url('smaqc/'));
         }
 
         //TODO: check for valid metric name (is it in the DB?)
@@ -300,7 +300,7 @@ class Smaqc extends BaseController
         // make sure user supplied an instrument name, redirect to home page if not
         if(empty($URI_array["inst"]))
         {
-            return redirect()->to(site_url());
+            return redirect()->to(site_url('smaqc/'));
         }
 
         //TODO: check for valid instrument name (is it in the DB?)
@@ -437,7 +437,7 @@ class Smaqc extends BaseController
         // make sure user supplied an instrument name, redirect to home page if not
         if(empty($URI_array["inst"]))
         {
-            return redirect()->to(site_url("#InstNotDefined"));
+            return redirect()->to(site_url("smaqc/#InstNotDefined"));
         }
 
         // set default from and to dates if need be
