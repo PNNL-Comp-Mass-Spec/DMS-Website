@@ -142,8 +142,8 @@ class Smaqc extends BaseController
     public function instrument()
     {
         // Display list of QC metric names and descriptions
-        // Example URL:      http://prismsupport.pnl.gov/smaqc/index.php/smaqc/instrument/VOrbiETD04
-        // auto-expanded to  http://prismsupport.pnl.gov/smaqc/index.php/smaqc/instrument/VOrbiETD04/window/45/unit/datasets
+        // Example URL:      https://dms2.pnl.gov/smaqc/instrument/VOrbiETD04                           (prior to February 2026, http://prismsupport.pnl.gov/smaqc/index.php/smaqc/instrument/VOrbiETD04)
+        // auto-expanded to  https://dms2.pnl.gov/smaqc/instrument/VOrbiETD04/window/45/unit/datasets
 
         // Required URL parameters:
         // instrument: the name of the instrument
@@ -262,8 +262,8 @@ class Smaqc extends BaseController
     public function metric()
     {
         // Plot the given metric vs. time
-        // Example URL:      http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/C_1A/inst/VOrbiETD04
-        // auto-expanded to  http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/C_1A/inst/VOrbiETD04/from/08-02-2015/to/12-02-2015/window/45/unit/datasets
+        // Example URL:      https://dms2.pnl.gov/smaqc/metric/C_1A/inst/VOrbiETD04                     (prior to February 2026, http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/C_1A/inst/VOrbiETD04)
+        // auto-expanded to  https://dms2.pnl.gov/smaqc/metric/C_1A/inst/VOrbiETD04/from/10-19-2025/to/02-19-2026/window/45/unit/datasets
 
         // Required URL parameters:
         // metric: the name of the metric
@@ -410,8 +410,8 @@ class Smaqc extends BaseController
     public function qcart()
     {
         // Plot the QC-ART value vs. time, including custom threshold lines
-        // Example URL:      http://prismsupport.pnl.gov/smaqc/index.php/smaqc/qcart/inst/VOrbi05
-        // auto-expanded to  http://prismsupport.pnl.gov/smaqc/index.php/smaqc/qcart/inst/VOrbi05/from/08-02-2015/to/12-02-2015/window/45/unit/datasets
+        // Example URL:      https://dms2.pnl.gov/smaqc/metric/qcart/inst/VOrbi05                       (prior to February 2026, http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/qcart/inst/VOrbi05 )
+        // auto-expanded to  https://dms2.pnl.gov/smaqc/metric/qcart/inst/VOrbi05/from/10-19-2025/to/02-19-2026/window/45/unit/datasets
 
         // Required URL parameters:
         // instrument: the name of the instrument
