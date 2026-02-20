@@ -457,7 +457,7 @@ class Smaqc extends BaseController
         // redirect if default values are to be used
         if($needRedirect)
         {
-            return redirect()->to(site_url('smaqc/qcart/' . $this->assoc_to_uri($URI_array)));
+            return redirect()->to(site_url('smaqc/metric/qcart/' . $this->assoc_to_uri($URI_array)));
         }
 
         // Note that metricPlot.js is looking for a title of "QC-ART" to select the correct plot format for this data
