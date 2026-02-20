@@ -123,7 +123,7 @@
       <td><?=preg_replace('/:[0-9][0-9][0-9]/', '', $row->acq_time_start)?></td>
       <td align="center"><?=format_metric($row->$metric)?></td>
       <td><?=$row->dataset_rating?></td>
-      <td><a href="http://dms2.pnl.gov/dataset/show/<?=$row->dataset?>" target="_Dataset"><?=$row->dataset?></a></td>
+      <td><a href="<?=site_url(['dataset','show',$row->dataset])?>" target="_Dataset"><?=$row->dataset?></a></td>
     </tr>
 <?php endforeach; ?>
   </table>
