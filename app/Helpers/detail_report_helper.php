@@ -443,6 +443,13 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
             $str .= implode($delim . ' ', $links);
             break;
 
+        case "relative_link":
+            // Relative URL, specified by $text, to append to the site URL
+            // The link text is the target URL
+            $url = site_url($text);
+            $str .= "<a href='$url' target='External$colIndex'>$url</a>";
+            break;
+
         case "item_list":
             // $f is a vertical bar separated list
             // Create a one-row table using the items in the list
