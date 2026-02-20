@@ -14,7 +14,7 @@
             </tr>
         <?php foreach($instrumentlist as $row): ?>
             <tr>
-                <td style="text-align: left;"><a href="<?= site_url(join('/', array("smaqc", "instrument", $row))) ?>"><?=$row?></a></td>
+                <td style="text-align: left;"><a href="<?= site_url(join('/', array('smaqc', 'instrument', $row))) ?>"><?=$row?></a></td>
             </tr>
         <?php endforeach; ?>
 

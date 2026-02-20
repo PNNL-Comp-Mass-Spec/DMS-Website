@@ -71,32 +71,32 @@
     });
 
     $("#updatesettings").on("click", function() {
-        var newurl = '<?=site_url("smaqc/qcart")?>';
+        var newurl = '<?=site_url('smaqc/qcart')?>';
 
-        newurl = newurl + "/inst/" + $("#instrumentlist").val();
+        newurl = newurl + '/inst/' + $("#instrumentlist").val();
 
         if($("#from").length)
         {
-            newurl = newurl + "/from/" + $("#from").val();
+            newurl = newurl + '/from/' + $("#from").val();
         }
 
         if($("#to").length)
         {
-            newurl = newurl + "/to/" + $("#to").val();
+            newurl = newurl + '/to/' + $("#to").val();
         }
 
         if($("#filterDS").length)
         {
             var txt = $("#filterDS").val();
             if(txt != "")
-                newurl = newurl + "/filterDS/" + $("#filterDS").val();
+                newurl = newurl + '/filterDS/' + $("#filterDS").val();
         }
 
         if($("#ignoreDS").length)
         {
             var txt = $("#ignoreDS").val();
             if(txt != "")
-                newurl = newurl + "/ignoreDS/" + $("#ignoreDS").val();
+                newurl = newurl + '/ignoreDS/' + $("#ignoreDS").val();
         }
 
         document.location.href = newurl;

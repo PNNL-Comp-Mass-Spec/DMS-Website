@@ -33,17 +33,17 @@
 
         if($filterDS != false)
         {
-            $URI_elements[] = "filterDS";
+            $URI_elements[] = 'filterDS';
             $URI_elements[] = $filterDS;
         }
 
         if($ignoreDS != false)
         {
-            $URI_elements[] = "ignoreDS";
+            $URI_elements[] = 'ignoreDS';
             $URI_elements[] = $ignoreDS;
         }
 
-        return site_url(join("/", $URI_elements));
+        return site_url(join('/', $URI_elements));
     }
 
     function link_to_metric_dash($metricname, $instrument, $filterDS = false, $ignoreDS = false)
@@ -60,17 +60,17 @@
 
         if($filterDS != false)
         {
-            $URI_elements[] = "filterDS";
+            $URI_elements[] = 'filterDS';
             $URI_elements[] = $filterDS;
         }
 
         if($ignoreDS != false)
         {
-            $URI_elements[] = "ignoreDS";
+            $URI_elements[] = 'ignoreDS';
             $URI_elements[] = $ignoreDS;
         }
 
-        return site_url(join("/", $URI_elements));
+        return site_url(join('/', $URI_elements));
     }
 
 ?>

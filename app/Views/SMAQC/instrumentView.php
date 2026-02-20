@@ -79,7 +79,7 @@
             $URI_elements[] = $ignoreDS;
         }
 
-        return site_url(join("/", $URI_elements));
+        return site_url(join('/', $URI_elements));
     }
 
 ?>
