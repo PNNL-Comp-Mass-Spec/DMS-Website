@@ -320,9 +320,9 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
     }
 
     if (array_key_exists("WhichArg", $colSpec)) {
-        $wa = $colSpec["WhichArg"];
+        $whichArg = $colSpec["WhichArg"];
     } else {
-        $wa = "";
+        $whichArg = "";
     }
     $type = $colSpec['LinkType'];
     $target = $colSpec['Target'];
@@ -630,7 +630,7 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
             break;
 
         case "glossary_entry":
-            $url = make_detail_report_url($target, $wa, $options);
+            $url = make_detail_report_url($target, $whichArg, $options);
 
             if (!empty($options) && array_key_exists('Label', $options)) {
                 $linkTitle = "title='" . $options['Label'] . "'";
