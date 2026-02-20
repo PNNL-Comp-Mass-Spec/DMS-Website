@@ -118,7 +118,7 @@ INSERT INTO detail_report_hotlinks VALUES(22,'predefines_triggered','detail-repo
 INSERT INTO detail_report_hotlinks VALUES(23,'+predefines_triggered','detail-report','id','predefined_analysis_scheduling_queue/report/-/@','valueCol','dl_predefined_jobs','');
 INSERT INTO detail_report_hotlinks VALUES(24,'state','detail-report','dataset','capture_job_steps/report/-/-/-/-/-/-/~','labelCol','dl_capture_job_steps','');
 INSERT INTO detail_report_hotlinks VALUES(25,'qc_metric_stats','detail-report','instrument','smaqc_data/report/-/~','labelCol','dl_smaqc_list_report','');
-INSERT INTO detail_report_hotlinks VALUES(26,'+qc_metric_stats','literal_link','qc_metric_stats','','valueCol','dl_smaqc_data','');
+INSERT INTO detail_report_hotlinks VALUES(26,'+qc_metric_stats','relative_link','qc_metric_stats','','valueCol','dl_smaqc_data','');
 INSERT INTO detail_report_hotlinks VALUES(27,'qc_2d','masked_link','qc_2d','','valueCol','dl_qc_2d_link','{"Label":"2D plot of deisotoped data"}');
 INSERT INTO detail_report_hotlinks VALUES(28,'organism','detail-report','organism','organism/report/~','labelCol','dl_organism','');
 INSERT INTO detail_report_hotlinks VALUES(29,'eus_proposal','detail-report','eus_proposal','eus_proposals/show','labelCol','dl_eus_proposal','');

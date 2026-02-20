@@ -123,7 +123,7 @@ CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "Li
 INSERT INTO detail_report_hotlinks VALUES(1,'smaqc_job','detail-report','smaqc_job','analysis_job/show','labelCol','job',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'dataset','detail-report','dataset','dataset/show','labelCol','dataset',NULL);
 INSERT INTO detail_report_hotlinks VALUES(5,'dataset_folder_path','href-folder','dataset_folder_path','','labelCol','dataset_folder_path',NULL);
-INSERT INTO detail_report_hotlinks VALUES(6,'qc_metric_stats','literal_link','qc_metric_stats','','valueCol','smaqc_data',NULL);
+INSERT INTO detail_report_hotlinks VALUES(6,'qc_metric_stats','relative_link','qc_metric_stats','','valueCol','smaqc_data','');
 INSERT INTO detail_report_hotlinks VALUES(13,'xic_wide_frac','glossary_entry','xic_wide_frac','smaqc_metrics/show/','labelCol','smaqc_xic_widefrac','{"Label":"Fraction of precursor ions accounting for the top half of all peak width"}');
 INSERT INTO detail_report_hotlinks VALUES(14,'xic_fwhm_q1','glossary_entry','xic_fwhm_q1','smaqc_metrics/show/','labelCol','smaqc_xic_fwhm_q1','{"Label":"25%ile of peak widths for the wide XICs"}');
 INSERT INTO detail_report_hotlinks VALUES(15,'amts_10pct_fdr','glossary_entry','amts_10pct_fdr','smaqc_metrics/show/','labelCol','smaqc_AMTs_10pct_FDR','{"Label":"Number of LC-MS features"}');
