@@ -61,6 +61,9 @@ $(document).ready(function() {
         }
     };
 
+    // Default data series: used for Standard and QC-ART
+    var series = [ plotDataSeries, averageSeries, stdDevUpperSeries, stdDevLowerSeries ];
+
     var poorDataSeries = {
         // Settings.plotDataPoor (QCDM value out-of-range)
         name: 'Bad QCDM Score',
@@ -75,6 +78,11 @@ $(document).ready(function() {
         }
     };
 
+    if (Settings.plotDataPoor.length > 0 && Settings.plotDataPoor[0].length > 0)
+    {
+        series.push(poorDataSeries);
+    }
+
     var badDataSeries = {
         // Settings.plotDataBad (dataset not released)
         name: 'Bad Dataset',
@@ -88,6 +96,11 @@ $(document).ready(function() {
             }
         }
     };
+
+    if (Settings.plotDataBad.length > 0 && Settings.plotDataBad[0].length > 0)
+    {
+        series.push(badDataSeries);
+    }
 
     if (isQCART)
     {
@@ -136,9 +149,6 @@ $(document).ready(function() {
         //poorDataSeries.label = 'Bad QC-ART Score';
         poorDataSeries.name = 'Bad QC-ART Score';
     }
-
-    // Default data series: used for Standard and QC-ART
-    var series = [ plotDataSeries, averageSeries, stdDevUpperSeries, stdDevLowerSeries, poorDataSeries, badDataSeries ];
 
     if (isQCDM)
     {
