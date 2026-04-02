@@ -523,6 +523,8 @@ INSERT INTO menu_def VALUES(507,'Data Analysis Requests Active','link','data_ana
 INSERT INTO menu_def VALUES(508,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Nakayasu/-/-/-/-','Nakayasu');
 INSERT INTO menu_def VALUES(509,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Purvine/-/-/-/-','Purvine');
 INSERT INTO menu_def VALUES(510,'Data Analysis Requests Active','link','data_analysis_request_active/report/-/-/-/-/-/-/-/StartsWith__Tolic/-/-/-/-','Tolic');
+INSERT INTO menu_def VALUES(511,'Dataset Special Reports','link','dataset_nom_stats/report/','NOM Stats');
+INSERT INTO menu_def VALUES(512,'Dataset Special Reports','link','smaqc_data/report/','SMAQC Metrics');
 CREATE TABLE nav_def (
     "id" INTEGER PRIMARY KEY,
     "owner_menu" TEXT,
