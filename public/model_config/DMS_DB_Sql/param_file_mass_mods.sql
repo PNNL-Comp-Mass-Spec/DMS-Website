@@ -21,4 +21,5 @@ INSERT INTO list_report_hotlinks VALUES(3,'param_file_id','invoke_entity','value
 INSERT INTO list_report_hotlinks VALUES(4,'mod_id','invoke_entity','value','param_file_mass_mods/report/-/@','');
 INSERT INTO list_report_hotlinks VALUES(5,'param_file_description','min_col_width','value','90','');
 INSERT INTO list_report_hotlinks VALUES(6,'residue_desc','invoke_entity','value','residue/report/-/~@/-/-','');
+INSERT INTO list_report_hotlinks VALUES(7,'unimod_id','invoke_entity','value','unimod/show','');
 COMMIT;

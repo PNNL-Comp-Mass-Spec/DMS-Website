@@ -13,4 +13,5 @@ INSERT INTO list_report_primary_filter VALUES(6,'pf_original_source_name','Sourc
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'mass_correction_id','invoke_entity','value','param_file_mass_mods/report/-/','');
 INSERT INTO list_report_hotlinks VALUES(2,'original_source_name','invoke_entity','value','unimod/report/~','');
+INSERT INTO list_report_hotlinks VALUES(3,'unimod_id','invoke_entity','value','unimod/show','');
 COMMIT;
