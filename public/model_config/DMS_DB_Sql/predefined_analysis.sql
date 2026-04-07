@@ -37,7 +37,7 @@ INSERT INTO form_fields VALUES(21,'labelling_incl_criteria','Experiment Labellin
 INSERT INTO form_fields VALUES(22,'labelling_excl_criteria','Experiment Labelling Exclusion Criteria','text','60','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(23,'separation_type_criteria','Separation Type Criteria','text','60','64','','','','trim|max_length[64]');
 INSERT INTO form_fields VALUES(24,'analysis_tool_name','Analysis Tool','text','60','64','','','','trim|required|max_length[64]');
-INSERT INTO form_fields VALUES(25,'param_file_name','Param File','area','','','2','60','','trim|required|max_length[255]');
+INSERT INTO form_fields VALUES(25,'param_file_name','Param File','area','','','2','90','','trim|required|max_length[255]');
 INSERT INTO form_fields VALUES(26,'settings_file_name','Settings File','area','','','2','60','','trim|required|max_length[255]');
 INSERT INTO form_fields VALUES(27,'organism_name','Organism','text','60','128','','','','trim|required|max_length[128]');
 INSERT INTO form_fields VALUES(28,'organism_db_name','Organism DB File','text','60','128','','','na','trim|required|max_length[128]');
