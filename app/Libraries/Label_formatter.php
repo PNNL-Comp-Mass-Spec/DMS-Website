@@ -202,6 +202,7 @@ class Label_formatter {
         "mz"     => "m/z",
         "ncbi"   => "NCBI",
         "nom"    => "NOM",
+        "pdm"    => "PDM",
         "pi"     => "PI",
         "pm"     => "PM",
         "pnnl"   => "PNNL",
