@@ -8,10 +8,10 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'dataset','invoke_entity','value','dataset/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'job','invoke_entity','value','analysis_job/show','');
 INSERT INTO list_report_hotlinks VALUES(4,'qc_link','masked_link','value','','{"Label":"QC_Link"}');
-INSERT INTO list_report_hotlinks VALUES(5,'xic_fwhm_q3','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/xic_fwhm_q3/filterds/qc/inst/','');
-INSERT INTO list_report_hotlinks VALUES(6,'mass_error_ppm','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/masserrorppm/filterds/qc/inst/','{"Decimals":"3"}');
-INSERT INTO list_report_hotlinks VALUES(9,'unique_peptides','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/p_2c/filterds/qc/inst/','');
-INSERT INTO list_report_hotlinks VALUES(10,'phospho_pep','literal_link','instrument','http://prismsupport.pnl.gov/smaqc/index.php/smaqc/metric/phos_2c/filterds/sty/inst/','');
+INSERT INTO list_report_hotlinks VALUES(5,'xic_fwhm_q3','literal_link','instrument','https://dms2.pnl.gov/smaqc/metric/xic_fwhm_q3/filterds/qc/inst/','');
+INSERT INTO list_report_hotlinks VALUES(6,'mass_error_ppm','literal_link','instrument','https://dms2.pnl.gov/smaqc/metric/mass_error_ppm/filterds/qc/inst/','{"Decimals":"3"}');
+INSERT INTO list_report_hotlinks VALUES(9,'unique_peptides','literal_link','instrument','https://dms2.pnl.gov/smaqc/metric/p_2c/filterds/qc/inst/','');
+INSERT INTO list_report_hotlinks VALUES(10,'phospho_pep','literal_link','instrument','https://dms2.pnl.gov/smaqc/metric/phos_2c/filterds/sty/inst/','');
 INSERT INTO list_report_hotlinks VALUES(11,'dataset_id','invoke_entity','value','smaqc_data/show/','');
 INSERT INTO list_report_hotlinks VALUES(12,'+unique_peptides','column_tooltip','value','Number of tryptic peptides; unique peptide count','');
 INSERT INTO list_report_hotlinks VALUES(13,'+xic_fwhm_q3','column_tooltip','value','75%ile of peak widths for the wide XICs','');
