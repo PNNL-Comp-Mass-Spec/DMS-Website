@@ -141,14 +141,14 @@
             <?php foreach(get_keys_by_value($metricCategories, $category) as $metricname):
                 $shortDescription = $metricShortDescription[$metricname];
                 if (strlen(trim($shortDescription)) == 0)
-                    $shortDescription = '';
+                    $description = $metricname;
                 else
-                    $shortDescription = ' (' . $shortDescription . ')';
+                    $description = $shortDescription;
 
             ?>
             <tr>
                 <td>
-                    <h3><a href="<?=link_to_metric_dash($metricname, $instrument, $windowsize, $unit)?>"><?=$metricname . $shortDescription?></a></h3>
+                    <h3><a href="<?=link_to_metric_dash($metricname, $instrument, $windowsize, $unit)?>"><?=$shortDescription?></a></h3>
                 </td>
                 <td>
                     <?=$metricDescriptions[$metricname]?>
