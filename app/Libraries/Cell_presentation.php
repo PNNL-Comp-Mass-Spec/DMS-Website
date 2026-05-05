@@ -550,17 +550,20 @@ class Cell_presentation {
             case "invoke_entity":
                 // Look for conditions on link
                 // Supported condition is GreaterOrEqual
-                $noLink = $this->evaulate_conditional($colSpec, $value);
+                $noLink = $this->evaluate_conditional($colSpec, $value);
                 if ($noLink) {
                     // The value is too small; do not link to it
                     $str .= "<td>$value</td>";
                 } else {
                     // Place target substitution marker
                     // (and preserve special primary filter characters)
+
                     if (strpos($target, '@') === false) {
                         $sep = (substr($target, -1) == '~') ? '' : '/';
                         $target .= $sep . '@';
                     }
+
+                    // Replace at signs in the URL with $target
                     $url = reduce_double_slashes(site_url(str_replace('@', $ref, $target)));
 
                     $str .= "<td$colorStyle><a href='$url' $tool_tip>$value</a></td>";
@@ -818,7 +821,7 @@ class Cell_presentation {
     }
 
     /**
-     * Look "GreaterOrEqual" in the options section of this colSpec
+     * Look for "GreaterOrEqual" in the options section of this colSpec
      * If found, compare $value to the specified value,
      * returning true if $value is lest than the value defined in the options
      * Otherwise, return false
@@ -826,7 +829,7 @@ class Cell_presentation {
      * @param mixed $value
      * @return bool
      */
-    function evaulate_conditional(array $colSpec, $value): bool {
+    function evaluate_conditional(array $colSpec, $value): bool {
         $noLink = false;
         if (array_key_exists('Options', $colSpec)) {
             $test = getOptionValue($colSpec, 'GreaterOrEqual');
@@ -835,7 +838,7 @@ class Cell_presentation {
                     $noLink = true;
                 }
             }
-            // More conditionals here when needed
+            // Add more conditionals here if needed
         }
         return $noLink;
     }
