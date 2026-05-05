@@ -46,7 +46,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','','','id','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_evaluation_order','Evaluation Order','','','evaluation_order','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_class_criteria','Class','','','instrument_class','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset_criteria','Dataset','','','dataset','ContainsText','text','','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset_criteria','Dataset','45!','','dataset','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_tool_criteria','Tool','','','analysis_tool','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_enabled','Enabled','','','enabled','Equals','text','','','');
 COMMIT;

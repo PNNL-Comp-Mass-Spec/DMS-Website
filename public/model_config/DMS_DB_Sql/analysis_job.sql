@@ -48,7 +48,7 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(1,'pf_job','Job','8!','','job','Equals','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_state','State','','','state','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_tool','Tool','15!','','tool','ContainsTextTPO','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','50!','','dataset','ContainsTextTPO','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(4,'pf_dataset','Dataset','60!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(5,'pf_campaign','Campaign','32!','','campaign','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(6,'pf_param_file','Param File','40!','','param_file','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(7,'pf_protein_collection_list','Protein Collection List','40!','','protein_collection_list','ContainsTextTPO','text','128','','');

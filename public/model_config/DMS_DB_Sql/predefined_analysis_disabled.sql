@@ -11,9 +11,9 @@ INSERT INTO list_report_primary_filter VALUES(1,'pf_instrument_class','Instrumen
 INSERT INTO list_report_primary_filter VALUES(2,'pf_analysis_tool','Analysis Tool','6','','analysis_tool','ContainsText','text','','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_campaign_criteria','Campaign','20!','','campaign_crit','ContainsText','text','64','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_instrument_criteria','Instrument','6','','instrument_crit','ContainsText','text','','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_param_file','Param File','45!','','param_file','ContainsText','text','256','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_experiment_criteria','Experiment','25!','','experiment_crit','ContainsText','text','128','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_dataset_criteria','Dataset','20!','','dataset_crit','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_param_file','Param File','60!','','param_file','ContainsText','text','256','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_experiment_criteria','Experiment','30!','','experiment_crit','ContainsText','text','128','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_dataset_criteria','Dataset','45!','','dataset_crit','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(8,'pf_level','Level','2!','','level','Equals','text','','','');
 INSERT INTO list_report_primary_filter VALUES(9,'pf_sequence_start','Seq Start','3!','','seq','GreaterThanOrEqualTo','text','','','');
 INSERT INTO list_report_primary_filter VALUES(10,'pf_sequence_end','Seq End','3!','','seq','LessThanOrEqualTo','text','','','');
