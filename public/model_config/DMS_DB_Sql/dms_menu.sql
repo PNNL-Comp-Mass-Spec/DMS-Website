@@ -333,7 +333,7 @@ INSERT INTO menu_def VALUES(287,'Service Center','link','service_center_use/repo
 INSERT INTO menu_def VALUES(288,'Service Center','link','service_center_use_admin/report/-','Service Center Use Admin');
 INSERT INTO menu_def VALUES(289,'Service Center','link','service_center_use_export/report/-','Service Center Use Export');
 INSERT INTO menu_def VALUES(290,'Service Center','link','service_center_use_type/report/-','Service Center Use Types');
-INSERT INTO menu_def VALUES(291,'Service Center','link','service_center_cost_rate/report/-','Service Center Cost Rates');
+INSERT INTO menu_def VALUES(291,'Service Center','link','service_center_cost_rate/report/102','Service Center Cost Rates');
 INSERT INTO menu_def VALUES(293,'','submenu','Admin','Admin');
 INSERT INTO menu_def VALUES(294,'Admin','submenu','Activity Reports','Activity Reports');
 INSERT INTO menu_def VALUES(298,'Activity Reports','link','production_instrument_stats/param','Prod. Inst. Stats.');
