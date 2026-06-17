@@ -115,10 +115,10 @@ class Label_formatter {
         "unique_proteins_fdr_filtered"  => "Unique Proteins (FDR-filtered)",
         "fdr_threshold_pct"             => "FDR Threshold (%)",
         // V_Dataset_NOM_Stats views
-        "weighted_hc"     => "Weighted AI mod",
-        "weighted_nosc"   => "Weighted OC",
-        "weighted_oc"     => "Weighted NOSC",
-        "weighted_aimod"  => "Weighted HC",
+        "weighted_hc"                   => "Weighted HC",
+        "weighted_nosc"                 => "Weighted NOSC",
+        "weighted_oc"                   => "Weighted OC",
+        "weighted_aimod"                => "Weighted AI mod",
         // For production_instrument_stats page:
         "study_specific_datasets_per_day"     => "Study Specific Datasets per day",
         "emsl_funded_study_specific_datasets" => "EMSL-Funded Study Specific Datasets",
