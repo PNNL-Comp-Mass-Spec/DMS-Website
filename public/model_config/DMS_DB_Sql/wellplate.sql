@@ -15,8 +15,8 @@ INSERT INTO form_fields VALUES(1,'wellplate','Wellplate Name','text','50','64','
 INSERT INTO form_fields VALUES(2,'description','Description','area','','','4','70','','trim|max_length[512]');
 INSERT INTO form_fields VALUES(3,'well_count','Well Count','text','50','20','','','96','trim|Numeric');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
-INSERT INTO list_report_primary_filter VALUES(1,'pf_wellplate','Wellplate Name','12','','wellplate_name','ContainsText','text','80','','');
-INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','24','','description','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(1,'pf_wellplate','Wellplate Name','25!','','wellplate_name','ContainsText','text','80','','');
+INSERT INTO list_report_primary_filter VALUES(2,'pf_description','Description','25!','','description','ContainsText','text','80','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_wellcount','Well Count','12','','well_count','Equals','text','10','','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'wellplate','wellplateName','varchar','output','64','add_update_wellplate');
