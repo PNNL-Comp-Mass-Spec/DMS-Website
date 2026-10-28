@@ -87,7 +87,7 @@ INSERT INTO detail_report_hotlinks VALUES(43,'service_center_use_type_id','detai
 INSERT INTO detail_report_hotlinks VALUES(44,'service_center_report_state','detail-report','id','service_center_use/report/-/-/@/-','labelCol','dl_service_center_use','');
 INSERT INTO detail_report_hotlinks VALUES(45,'+service_center_report_state','detail-report','id','service_center_use_admin/report/-/@/-','valueCol','dl_service_center_use_admin','');
 INSERT INTO detail_report_hotlinks VALUES(46,'rating','detail-report','','dataset_rating/report/-/-/-','labelCol','dl_dataset_rating','');
-INSERT INTO detail_report_hotlinks VALUES(47,'comment','detail-report','id','dataset_acq_log_messages/report/-/@/-','labelCol','dl_dataset_comment','');
+INSERT INTO detail_report_hotlinks VALUES(47,'comment','detail-report','id','dataset_acq_log_messages/report/-/@/-','valueCol','dl_dataset_comment','{"ShowLinkIfValueContains":"Acquisition log message"}');
 CREATE TABLE primary_filter_choosers ( id INTEGER PRIMARY KEY,  "field" text, "type" text, "PickListName" text, "Target" text, "XRef" text, "Delimiter" text );
 INSERT INTO primary_filter_choosers VALUES(1,'pf_state','picker.replace','datasetStatePickList','','',',');
 INSERT INTO primary_filter_choosers VALUES(2,'pf_instrument','picker.replace','instrumentNameAdminPickList','','',',');
