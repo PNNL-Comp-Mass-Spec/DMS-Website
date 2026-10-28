@@ -18,6 +18,7 @@ INSERT INTO list_report_hotlinks VALUES(9,'scan_count','export_align','value',''
 INSERT INTO list_report_hotlinks VALUES(10,'file_size_mb','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(11,'request','export_align','value','','{"Align":"Center"}');
 INSERT INTO list_report_hotlinks VALUES(12,'work_package','export_align','value','','{"Align":"Center"}');
+INSERT INTO list_report_hotlinks VALUES(13,'message','min_col_width','value','80','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','60!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_id','ID','','','id','Equals','text','24','','');
