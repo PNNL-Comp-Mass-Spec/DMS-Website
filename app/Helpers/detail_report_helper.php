@@ -110,6 +110,8 @@ function make_detail_table_data_rows(array $columns, array $fields, array $hotli
             $val = '';
         }
 
+        $currentRowFieldValue = $val;
+
         if (!is_null($fieldValue) && in_array($fieldName, $datetimeColumns)) {
             // Convert original date string to date object
             // then convert that to the desired display format.
@@ -160,13 +162,13 @@ function make_detail_table_data_rows(array $columns, array $fields, array $hotli
             if ($hotlink_spec['Placement'] == 'labelCol') {
                 // Place the hotlink on the field label
                 // Display the display-formatted field name
-                $label_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $fieldName, $labelFormatted, $val);
+                $label_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $fieldName, $labelFormatted, $val, $currentRowFieldValue);
             } else {
                 // Assume 'valueCol'
                 // Place the hotlink on the field value
                 // Display the value as-is
                 $val = $url_updater->fix_link($val);
-                $val_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $val, $val);
+                $val_display = make_detail_report_hotlink($url_updater, $hotlink_spec, $link_id, $colIndex, $val, $val, $currentRowFieldValue);
             }
         }
 
@@ -290,16 +292,17 @@ function get_fieldspec_with_link_type(array $hotlinks, string $linkTypeName) {
  * @param \App\Libraries\URL_updater $url_updater URL_updater instances
  * @param array  $colSpec  Key/value pairs from detail_report_hotlinks in the Model Config DB
  *                         LinkType, WhichArg, Target, Placement, id, and Options
- * @param string $link_id   Data value for field specified by WhichArg
- * @param int    $colIndex  Form field index (0-based)
- * @param string $text      Form field text
- * @param string $display   Form field displayed text
- * @param string $val     Data value for this form field from the database.
- *                        If Name and WhichArg are the same, $link_id and $val will be the same
- *                        For hotlinks that have 'valueCol' for the hotlink placement, $val will be an empty string
+ * @param string $link_id  Data value for field specified by WhichArg
+ * @param int    $colIndex Form field index (0-based)
+ * @param string $text     Form field text
+ * @param string $display  Form field displayed text
+ * @param string $val      Data value for this form field from the database
+ *                         If Name and WhichArg are the same, $link_id and $val will be the same
+ *                         For hotlinks that have 'valueCol' for the hotlink placement, $val will be an empty string
+ * @param string $currentRowFieldValue  Field value for the current row; useful since $val will have a ield value for a different row if WhichArg is different field than the current one
  * @return string
  */
-function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, array $colSpec, string $link_id, $colIndex, string $text, string $display, string $val = ''): string {
+function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, array $colSpec, string $link_id, $colIndex, string $text, string $display, string $val = '', string $currentRowFieldValue = ''): string {
 
     // Include several helper methods
 
@@ -332,19 +335,43 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
     switch ($type) {
         case "detail-report":
             // Link to another DMS page, including both list reports and detail reports
-            if (is_array($options) && !empty($options) && array_key_exists('HideLinkIfValueMatch', $options)) {
-                $hideLinkMatchText = $options['HideLinkIfValueMatch'];
-                if (empty($val) && $link_id === $hideLinkMatchText ||
-                        !empty($val) && $val === $hideLinkMatchText) {
-                    $str = $display;
-                    break;
-                }
-            }
+            if (is_array($options) && !empty($options)) {
+                if (array_key_exists('HideLinkIfValueMatch', $options)) {
 
-            if (!empty($options) && array_key_exists('MaskLink', $options)) {
-                $maskLinkText = $options['MaskLink'];
-                if (!empty($maskLinkText)) {
-                    $display = $maskLinkText;
+                    // Do not show the link if the specified text matches the entire field
+                    $hideLinkMatchText = $options['HideLinkIfValueMatch'];
+
+                    if (empty($val) && $link_id === $hideLinkMatchText ||       // $link_id is the data value for the field specified by WhichArg
+                        !empty($val) && $val === $hideLinkMatchText) {          // $val is the data value for this form field from the database
+                        $str = $display;
+                        break;
+                    }
+                }
+
+                if (array_key_exists('ShowLinkIfValueContains', $options)) {
+
+                    // Only show the link if the specified text is present
+                    $showLinkMatchText = $options['ShowLinkIfValueContains'];
+
+                    // Uncomment to debug
+                    // echo "Option ShowLinkIfValueContains is defined; show link if '" . $showLinkMatchText . "' is in '" . $link_id . "' or '" . $val . "' or '" . str_contains($currentRowFieldValue, $showLinkMatchText) . "'<br>";
+
+                    if (str_contains($currentRowFieldValue, $showLinkMatchText) ||
+                        empty($val) && str_contains($link_id, $showLinkMatchText) ||
+                        !empty($val) && str_contains($val, $showLinkMatchText)) {
+                        // The text is present; show the link
+                    } else {
+                        // The text is not present; do not show the link
+                        $str = $display;
+                        break;
+                    }
+                }
+
+                if (array_key_exists('MaskLink', $options)) {
+                    $maskLinkText = $options['MaskLink'];
+                    if (!empty($maskLinkText)) {
+                        $display = $maskLinkText;
+                    }
                 }
             }
 
