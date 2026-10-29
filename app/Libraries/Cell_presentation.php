@@ -991,15 +991,61 @@ class Cell_presentation {
 
         if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
             $colSpec = $this->hotlinks[strtolower($columnName)];
+
             if ($colSpec["LinkType"] == 'min_col_width' ||
-                    $colSpec["LinkType"] == 'format_date' ||
-                    $colSpec["LinkType"] == 'markup') {
-                if (is_numeric($colSpec["Target"])) {
-                    $min_width = $colSpec["Target"];
-                    $len = strlen($columnName);
-                    if ($min_width > 0 && $len < $min_width) {
-                        $padding = str_repeat("&nbsp;", $min_width - $len);
-                    }
+                $colSpec["LinkType"] == 'format_date' ||
+                $colSpec["LinkType"] == 'markup') {
+
+                $targetValue = $colSpec["Target"];
+            } else {
+                $minColWidthSpec = $this->get_colspec_with_link_type($columnName, "min_col_width");
+
+                if (!$minColWidthSpec) {
+                    return $padding;
+                }
+
+                /*
+                 * Uncomment to debug
+
+                $is_associative = !array_is_list($minColWidthSpec);
+
+                echo "Function get_colspec_with_link_type() found 'min_col_width' colspec for column '" . $columnName . "'<br>";
+                echo "&nbsp;&nbsp;Data type of variable '\$minColWidthSpec': " . gettype($minColWidthSpec) . " (is_associative=" . $is_associative . ")<br>";
+                echo "&nbsp;&nbsp;is_array('\$minColWidthSpec)': " . is_array($minColWidthSpec) . "<br>";
+                echo "<br>";
+
+                echo "Number of items in '\$minColWidthSpec)': "    . count($minColWidthSpec) . "<br>";
+                echo "<br>";
+
+                echo "Array \$minColWidthSpec: <br>";
+                print_r($minColWidthSpec);
+                echo "<br>";
+                echo "<br>";
+
+                $keys = array_keys($minColWidthSpec);
+                echo "Array keys: <br>";
+                print_r($keys);
+                echo "<br>";
+                echo "<br>";
+
+                echo "Array values:<br>";
+
+                $i = -1;
+                foreach ($minColWidthSpec as $item) {
+                    $i++;
+                    echo "&nbsp;&nbsp;" . $keys[$i] . ": " . $item . "<br>";
+                }
+
+                */
+
+                $targetValue = $minColWidthSpec['Target'];
+            }
+
+            if (is_numeric($targetValue)) {
+                $min_width = $targetValue;
+                $len = strlen($columnName);
+                if ($min_width > 0 && $len < $min_width) {
+                    $padding = str_repeat("&nbsp;", $min_width - $len);
                 }
             }
         }
