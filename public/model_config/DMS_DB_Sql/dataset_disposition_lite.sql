@@ -26,6 +26,8 @@ INSERT INTO list_report_hotlinks VALUES(2,'dataset','invoke_entity','value','dat
 INSERT INTO list_report_hotlinks VALUES(3,'state','color_label','','','{"Capture Failed":"bad_clr"}');
 INSERT INTO list_report_hotlinks VALUES(6,'instrument','invoke_entity','value','instrument_operation_history/report','');
 INSERT INTO list_report_hotlinks VALUES(8,'smaqc','masked_link','value','','{"Label":"Metrics"}');
+INSERT INTO list_report_hotlinks VALUES(9,'comment','invoke_entity','id','dataset_acq_log_messages/report/-/@/-','{"ShowLinkIfValueContains":"Acquisition log message"}');
+INSERT INTO list_report_hotlinks VALUES(10,'+comment','min_col_width','','60','');
 CREATE TABLE sproc_args ( id INTEGER PRIMARY KEY, "field" text, "name" text, "type" text, "dir" text, "size" text, "procedure" text);
 INSERT INTO sproc_args VALUES(1,'datasetIDList','datasetIDList','varchar','input','6000','update_dataset_dispositions');
 INSERT INTO sproc_args VALUES(2,'rating','rating','varchar','input','64','update_dataset_dispositions');

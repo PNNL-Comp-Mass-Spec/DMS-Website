@@ -8,6 +8,8 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'dataset_id','invoke_entity','value','datasetid/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'qc_link','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(3,'dataset','literal_link','qc_link','','');
+INSERT INTO list_report_hotlinks VALUES(4,'comment','invoke_entity','dataset_id','dataset_acq_log_messages/report/-/@/-','{"ShowLinkIfValueContains":"Acquisition log message"}');
+INSERT INTO list_report_hotlinks VALUES(5,'+comment','min_col_width','','60','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_dataset','Dataset','60!','','dataset','ContainsTextTPO','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset_id','Dataset ID','8!','','dataset_id','Equals','text','24','','');

@@ -15,6 +15,8 @@ INSERT INTO list_report_primary_filter VALUES(5,'pf_dataset_id','Dataset ID','10
 CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Options" text );
 INSERT INTO list_report_hotlinks VALUES(1,'dataset','invoke_entity','dataset','dataset_info/show','');
 INSERT INTO list_report_hotlinks VALUES(2,'comment','min_col_width','value','60','');
+INSERT INTO list_report_hotlinks VALUES(3,'comment','invoke_entity','id','dataset_acq_log_messages/report/-/@/-','{"ShowLinkIfValueContains":"Acquisition log message"}');
+INSERT INTO list_report_hotlinks VALUES(4,'+comment','min_col_width','','60','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'dataset','detail-report','dataset','dataset/show','labelCol','dl_dataset','');
 INSERT INTO detail_report_hotlinks VALUES(2,'instrument','detail-report','instrument','instrument/show/','labelCol','dl_instrument_name','');
@@ -25,4 +27,5 @@ INSERT INTO detail_report_hotlinks VALUES(6,'archive_folder_path','href-folder',
 INSERT INTO detail_report_hotlinks VALUES(8,'tic_max_ms','detail-report','dataset','dataset_info/report/~','labelCol','dl_dataset_info_list_report','');
 INSERT INTO detail_report_hotlinks VALUES(9,'qc_link','literal_link','qc_link','','valueCol','dl_qc_link','');
 INSERT INTO detail_report_hotlinks VALUES(10,'data_folder_link','literal_link','data_folder_link','','valueCol','dl_data_folder',NULL);
+INSERT INTO detail_report_hotlinks VALUES(11,'comment','detail-report','id','dataset_acq_log_messages/report/-/@/-','valueCol','dl_dataset_comment','{"ShowLinkIfValueContains":"Acquisition log message"}');
 COMMIT;

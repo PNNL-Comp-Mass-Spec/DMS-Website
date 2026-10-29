@@ -57,6 +57,7 @@ class Cell_presentation {
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_export");
             $colSpec2 = $this->get_colspec_with_link_type($columnName, "no_display");
+
             if (!$colSpec && !$colSpec2) {
                 $formatted = $this->label_formatter->format($columnName);
                 $colSpec = $this->get_colspec_with_link_type($formatted, "no_export");
@@ -73,7 +74,7 @@ class Cell_presentation {
     }
 
     /**
-     * Look for a hotlink of the given type; return it if found or null if not found
+     * Look for a hotlink colspec of the given type; return it if found or null if not found
      * Matches both $columnName and hotlinks named with one or more plus signs followed by $columnName
      * @param string $columnName
      * @param string $linkTypeName
@@ -140,6 +141,7 @@ class Cell_presentation {
             // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "export_align");
+
             if (!$colSpec) {
                 $formatted = $this->label_formatter->format($columnName);
                 $colSpec = $this->get_colspec_with_link_type($formatted, "export_align");
@@ -205,6 +207,7 @@ class Cell_presentation {
                     // Look for an entry in $this->hotlinks that matches either this column name,
                     // or this column name preceded by a plus sign, and is of type "color_label"
                     $colSpec2 = $this->get_colspec_with_link_type($columnName, "color_label");
+
                     if (!$colSpec2) {
                         $colSpec2 = $this->get_colspec_with_link_type($formatted, "color_label");
                     }
@@ -221,6 +224,7 @@ class Cell_presentation {
                 // Look for an entry in $this->hotlinks that matches either this column name,
                 // or this column name preceded by a plus sign, and is of type "copy_color_from"
                 $colSpec3 = $this->get_colspec_with_link_type($columnName, "copy_color_from");
+
                 if (!$colSpec3) {
                     $colSpec3 = $this->get_colspec_with_link_type($formatted, "copy_color_from");
                 }
@@ -456,6 +460,7 @@ class Cell_presentation {
             // Look for an entry in $this->hotlinks that matches either this column name,
             // or this column name preceded by one or more plus signs
             $colSpec = $this->get_colspec_with_link_type($columnName, "no_display");
+
             if (!$colSpec) {
                 $colSpec = $this->get_colspec_with_link_type($formatted, "no_display");
             }
@@ -499,8 +504,8 @@ class Cell_presentation {
 
     /**
      * Render a hotlink as HTML, as specified by $colSpec["LinkType"]
-     * @param string|int  $value     String or number
-     * @param array  $row       Array of row data
+     * @param string|int  $value  Field value (string or number)
+     * @param array  $row         Array of row data
      * @param array  $colSpec
      * @param int    $colIndex    Column index
      * @param string $colorStyle  Color style (preceded by a space), or an empty string
@@ -551,10 +556,22 @@ class Cell_presentation {
                 // Look for conditions on link
                 // Supported condition is GreaterOrEqual
                 $noLink = $this->evaluate_conditional($colSpec, $value);
+
                 if ($noLink) {
                     // The value is too small; do not link to it
                     $str .= "<td>$value</td>";
                 } else {
+                    if (array_key_exists('Options', $colSpec)) {
+                        // Only show the link if the specified text is present
+                        $showLinkMatchText = getOptionValue($colSpec, 'ShowLinkIfValueContains', '');
+
+                        if (!empty($showLinkMatchText) && !str_contains($value, $showLinkMatchText)) {
+                            // The text is not present; do not show the link
+                            $str .= "<td$colorStyle>$value</td>";
+                            break;
+                        }
+                    }
+
                     // Place target substitution marker
                     // (and preserve special primary filter characters)
 
@@ -691,10 +708,12 @@ class Cell_presentation {
 
             case "row_to_url":
                 $s = "";
+
                 foreach ($row as $f => $v) {
                     $s .= ($s) ? ', ' : '';
                     $s .= "\"$f\": \"$v\"";
                 }
+
                 $url = reduce_double_slashes(site_url("$target"));
                 // Javascript automatically converts the JSON-formatted string to an object because it's not separately surrounded by quotes
                 $str .= "<td><a href='javascript:void(0)' onclick='dmsOps.submitDynamicForm(\"$url\", { $s })'>$value</a></td>";
@@ -703,17 +722,20 @@ class Cell_presentation {
             case "row_to_json":
                 $fsp = "";
                 $rowAction = 'localRowAction';
+
                 if (array_key_exists('Options', $colSpec)) {
                     $rowAction = getOptionValue($colSpec, 'rowAction', $rowAction);
                     if (array_key_exists('fields', $colSpec['Options'])) {
                         $fsp = ', "' . $colSpec['Options']['fields'] . '"';
                     }
                 }
+
                 foreach (array_keys($row) as $k) {
                     if ($row[$k] == null) {
                         $row[$k] = '';
                     }
                 }
+
                 $s = json_encode($row);
                 $url = reduce_double_slashes(site_url("$target"));
                 $str .= "<td><a href='javascript:void(0)' onclick='$rowAction(\"$url\", \"$ref\", $s $fsp)'>$value</a></td>";
@@ -966,6 +988,7 @@ class Cell_presentation {
      */
     private function get_cell_padding(string $columnName): string {
         $padding = '';
+
         if (array_key_exists(strtolower($columnName), $this->hotlinks)) {
             $colSpec = $this->hotlinks[strtolower($columnName)];
             if ($colSpec["LinkType"] == 'min_col_width' ||

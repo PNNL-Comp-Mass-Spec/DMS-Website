@@ -18,7 +18,6 @@ CREATE TABLE list_report_hotlinks ( id INTEGER PRIMARY KEY,  "name" text, "LinkT
 INSERT INTO list_report_hotlinks VALUES(1,'id','invoke_entity','value','datasetid/show/','');
 INSERT INTO list_report_hotlinks VALUES(2,'rating','color_label','','','{"Unreviewed":"warning_clr","Not Released":"bad_clr","Data Files Missing":"bad_clr","No Data (Blank\/Bad)":"bad_clr"}');
 INSERT INTO list_report_hotlinks VALUES(3,'qc_link','masked_link','value','','{"Label":"QC_Link"}');
-INSERT INTO list_report_hotlinks VALUES(4,'comment','min_col_width','value','60','');
 INSERT INTO list_report_hotlinks VALUES(5,'experiment','invoke_entity','value','experiment/show/','');
 INSERT INTO list_report_hotlinks VALUES(6,'proposal','invoke_entity','value','eus_proposals/show','');
 INSERT INTO list_report_hotlinks VALUES(7,'+id','export_align','value','','{"Align":"Center"}');
@@ -30,6 +29,8 @@ INSERT INTO list_report_hotlinks VALUES(12,'work_package','export_align','value'
 INSERT INTO list_report_hotlinks VALUES(13,'date_sort_key','no_display','value','','');
 INSERT INTO list_report_hotlinks VALUES(14,'svc_center_use_type','invoke_entity','value','service_center_use_type/report/','');
 INSERT INTO list_report_hotlinks VALUES(15,'svc_center_report_state','invoke_entity','id','service_center_use_admin/report/-/','');
+INSERT INTO list_report_hotlinks VALUES(16,'comment','invoke_entity','id','dataset_acq_log_messages/report/-/@/-','{"ShowLinkIfValueContains":"Acquisition log message"}');
+INSERT INTO list_report_hotlinks VALUES(17,'+comment','min_col_width','','60','');
 CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, "label" text, "size" text, "value" text, "col" text, "cmp" text, "type" text, "maxlength" text, "rows" text, "cols" text );
 INSERT INTO list_report_primary_filter VALUES(1,'pf_id','ID','','','id','Equals','text','24','','');
 INSERT INTO list_report_primary_filter VALUES(2,'pf_dataset','Dataset','60!','','dataset','ContainsTextTPO','text','128','','');
