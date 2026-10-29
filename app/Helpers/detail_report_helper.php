@@ -336,18 +336,6 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
         case "detail-report":
             // Link to another DMS page, including both list reports and detail reports
             if (is_array($options) && !empty($options)) {
-                if (array_key_exists('HideLinkIfValueMatch', $options)) {
-
-                    // Do not show the link if the specified text matches the entire field
-                    $hideLinkMatchText = $options['HideLinkIfValueMatch'];
-
-                    if (empty($val) && $link_id === $hideLinkMatchText ||       // $link_id is the data value for the field specified by WhichArg
-                        !empty($val) && $val === $hideLinkMatchText) {          // $val is the data value for this form field from the database
-                        $str = $display;
-                        break;
-                    }
-                }
-
                 if (array_key_exists('ShowLinkIfValueContains', $options)) {
 
                     // Only show the link if the specified text is present
@@ -362,6 +350,18 @@ function make_detail_report_hotlink(\App\Libraries\URL_updater $url_updater, arr
                         // The text is present; show the link
                     } else {
                         // The text is not present; do not show the link
+                        $str = $display;
+                        break;
+                    }
+                }
+
+                if (array_key_exists('HideLinkIfValueMatch', $options)) {
+
+                    // Do not show the link if the specified text matches the entire field
+                    $hideLinkMatchText = $options['HideLinkIfValueMatch'];
+
+                    if (empty($val) && $link_id === $hideLinkMatchText ||       // $link_id is the data value for the field specified by WhichArg
+                        !empty($val) && $val === $hideLinkMatchText) {          // $val is the data value for this form field from the database
                         $str = $display;
                         break;
                     }
