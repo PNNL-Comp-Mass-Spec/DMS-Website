@@ -10,9 +10,10 @@ CREATE TABLE list_report_primary_filter ( id INTEGER PRIMARY KEY,  "name" text, 
 INSERT INTO list_report_primary_filter VALUES(2,'pf_name','Name','25!','','name','ContainsText','text','512','','');
 INSERT INTO list_report_primary_filter VALUES(3,'pf_DMS_Name','DMS Name','20','','dms_name','ContainsText','text','128','','');
 INSERT INTO list_report_primary_filter VALUES(4,'pf_full_name','Full Name','25!','','full_name','ContainsText','text','1020','','');
-INSERT INTO list_report_primary_filter VALUES(5,'pf_monomass_min','Min Mass','20','','mono_mass','GreaterThanOrEqualTo','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(6,'pf_monomass_max','Max Mass','20','','mono_mass','LessThanOrEqualTo','text','20','','');
-INSERT INTO list_report_primary_filter VALUES(7,'pf_composition','Composition','40','','composition','ContainsText','text','512','','');
+INSERT INTO list_report_primary_filter VALUES(5,'pf_id','ID','3!','','id','Equals','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(6,'pf_monomass_min','Min Mass','20','','mono_mass','GreaterThanOrEqualTo','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(7,'pf_monomass_max','Max Mass','20','','mono_mass','LessThanOrEqualTo','text','20','','');
+INSERT INTO list_report_primary_filter VALUES(8,'pf_composition','Composition','40','','composition','ContainsText','text','512','','');
 CREATE TABLE detail_report_hotlinks ( idx INTEGER PRIMARY KEY,  "name" text, "LinkType" text, "WhichArg" text, "Target" text, "Placement" text, "id" text , options text);
 INSERT INTO detail_report_hotlinks VALUES(1,'name','detail-report','name','unimod/report/','valueCol','dl_Name',NULL);
 INSERT INTO detail_report_hotlinks VALUES(2,'monoisotopic_mass','detail-report','monoisotopic_mass','unimod/report/-/-/-/@/@','valueCol','dl_monomass','');
