@@ -100,7 +100,13 @@ class Sql_postgre extends Sql_base {
                 $sql .= "SELECT " . $display_cols;
                 $sql .= $baseSql;
                 $orderBy = $this->make_order_by($query_parts->sorting_items);
-                $sql .= ($orderBy) ? " ORDER By $orderBy" : "";
+
+                if (trim($orderBy ?? '') !== '') {
+                    $sql .= " ORDER BY " . $orderBy . ";";
+                } else {
+                    $sql .= " ORDER BY 1 DESC;";
+                }
+
                 break;
             case "filtered_and_paged":
                 // Make ordering expression from sorting params
@@ -123,8 +129,14 @@ class Sql_postgre extends Sql_base {
                 // https://stackoverflow.com/questions/3125571/offset-vs-row-number
                 $sql .= "SELECT " . $display_cols;
                 $sql .= $baseSql;
-                $sql .= " ORDER BY " . $orderBy;
-                $sql .= " OFFSET " . ($first_row - 1) . " LIMIT " . $limit;
+
+                if (trim($orderBy ?? '') !== '') {
+                    $sql .= " ORDER BY " . $orderBy;
+                } else {
+                    $sql .= " ORDER BY 1 DESC";
+                }
+
+                $sql .= " OFFSET " . ($first_row - 1) . " LIMIT " . $limit . ";";
 
                 break;
         }

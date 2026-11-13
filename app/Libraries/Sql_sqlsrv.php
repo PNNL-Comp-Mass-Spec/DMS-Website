@@ -86,7 +86,11 @@ class Sql_sqlsrv extends Sql_base {
                 $sql .= "SELECT " . $display_cols;
                 $sql .= $baseSql;
                 $orderBy = $this->make_order_by($query_parts->sorting_items);
-                $sql .= ($orderBy) ? " ORDER By $orderBy" : "";
+
+                if (trim($orderBy ?? '') !== '') {
+                    $sql .= " ORDER BY $orderBy";
+                }
+
                 break;
             case "filtered_and_paged":
                 // Make ordering expression from sorting params
