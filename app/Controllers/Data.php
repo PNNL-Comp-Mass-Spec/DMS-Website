@@ -48,7 +48,9 @@ class Data extends BaseController {
 
         $input_parms = $general_query->get_query_values_from_url();
         $general_query->setup_query($input_parms);
-        $general_query->output_result($input_parms->output_format);
+        
+        $config_source = $input_parms->config_source;        
+        $general_query->output_result($input_parms->output_format, $config_source);
     }
 
     // --------------------------------------------------------------------

@@ -215,11 +215,15 @@ class General_query {
      * Output a result in the specified format
      * @param string $output_format
      */
-    function output_result(string $output_format) {
+    function output_result(string $output_format, string $config_source='') {
         $model = $this->controller->data_model;
 
         $pageTitle = $this->config_source;
-
+        
+        if (trim($pageTitle ?? '') === '') {
+            $pageTitle = $config_source;
+        }
+        
         switch (strtolower($output_format)) {
             case 'dump':
                 helper('test');
@@ -345,15 +349,21 @@ class General_query {
 
         echo "<data>\n";
 
+        if (trim($table ?? '') === '') {
+            $table = 'content';
+        }
         // Field data
         foreach ($result as $row) {
-            $line = '';
-            $line .= "<$table>";
+            $line = '';            
+            $line .= "<$table>\n";
+            
             foreach ($row as $name => $value) {
                 $parsedValue = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
                 $line .= "<$name>" . $parsedValue . "</$name>";
             }
-            $line .= "</$table>";
+            
+            $line .= "\n</$table>";
+            
             echo trim($line) . "\n";
         }
 
