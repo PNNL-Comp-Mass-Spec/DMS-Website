@@ -300,7 +300,7 @@ class List_report {
 
         switch ($what_info) {
             case "sql":
-                echo $this->controller->data_model->get_sql("filtered_and_sorted") . ';';
+                echo $this->controller->data_model->get_sql("filtered_and_sorted");
                 break;
             case "url":
                 $filters = $this->set_up_list_query();
